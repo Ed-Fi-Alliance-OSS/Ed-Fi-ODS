@@ -84,6 +84,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                        }
                        },
 
+                       // 404 with Use-Snapshot header
+                       {
+                           "NotFoundUseSnapshot", new Response
+                                       {
+                                           description = "The resource could not be found. If Use-Snapshot header is set to true, this response can indicate the snapshot may have been removed."
+                                       }
+                       },
+
                        // 409
                        {
                            "Conflict", new Response

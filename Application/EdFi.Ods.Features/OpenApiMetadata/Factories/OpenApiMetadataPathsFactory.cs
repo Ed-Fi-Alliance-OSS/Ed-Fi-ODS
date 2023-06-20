@@ -218,13 +218,20 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
             if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
             {
-                responses.Add(
-                    "410",
+                if (responses.ContainsKey("404"))
+                {
+                    responses["404"].@ref = OpenApiMetadataDocumentHelper.GetResponseReference("NotFoundUseSnapshot");
+                }
+                else
+                {
+                    responses.Add(
+                    "404",
                     new Response
                     {
                         description =
-                            "Gone.  An attempt to connect to the database for the configured snapshot, enabled by the Use-Snapshot header, was unsuccessful (indicating the snapshot may have been removed)."
+                            "Not Found. An attempt to connect to the database snapshot, enabled by the Use-Snapshot header, was unsuccessful (indicating the snapshot may have been removed)."
                     });
+                }
             }
 
             return responses;
@@ -418,13 +425,20 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
             if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
             {
-                responses.Add(
-                    "410",
+                if (responses.ContainsKey("404"))
+                {
+                    responses["404"].@ref = OpenApiMetadataDocumentHelper.GetResponseReference("NotFoundUseSnapshot");
+                }
+                else
+                {
+                    responses.Add(
+                    "404",
                     new Response
                     {
                         description =
-                            "Gone.  An attempt to connect to the database for the configured snapshot, enabled by the Use-Snapshot header, was unsuccessful (indicating the snapshot may have been removed)."
+                            "Not Found.  An attempt to connect to the database snapshot, enabled by the Use-Snapshot header, was unsuccessful (indicating the snapshot may have been removed)."
                     });
+                }
 
                 parameters.Add(new Parameter {
                     name = "Use-Snapshot",
@@ -473,13 +487,20 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
             if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
             {
-                responses.Add(
-                    "410",
+                if (responses.ContainsKey("404"))
+                {
+                    responses["404"].@ref = OpenApiMetadataDocumentHelper.GetResponseReference("NotFoundUseSnapshot");
+                }
+                else
+                {
+                    responses.Add(
+                    "404",
                     new Response
                     {
                         description =
-                            "Gone.  An attempt to connect to the database for the configured snapshot, enabled by the Use-Snapshot header, was unsuccessful (indicating the snapshot may have been removed)."
+                            "Not Found.  An attempt to connect to the database snapshot, enabled by the Use-Snapshot header, was unsuccessful (indicating the snapshot may have been removed)."
                     });
+                }
 
                 parameters.Add(new Parameter
                 {
