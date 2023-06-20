@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
@@ -24,7 +24,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Names
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/homograph/names")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/homograph/names")]
     public partial class NamesController : DataManagementControllerBase<
         Api.Common.Models.Resources.Name.Homograph.Name,
         Entities.Common.Homograph.IName,
@@ -56,7 +56,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Parents
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/homograph/parents")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/homograph/parents")]
     public partial class ParentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Parent.Homograph.Parent,
         Entities.Common.Homograph.IParent,
@@ -88,7 +88,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Schools
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/homograph/schools")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/homograph/schools")]
     public partial class SchoolsController : DataManagementControllerBase<
         Api.Common.Models.Resources.School.Homograph.School,
         Entities.Common.Homograph.ISchool,
@@ -120,7 +120,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.SchoolYearTypes
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/homograph/schoolYearTypes")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/homograph/schoolYearTypes")]
     public partial class SchoolYearTypesController : DataManagementControllerBase<
         Api.Common.Models.Resources.SchoolYearType.Homograph.SchoolYearType,
         Entities.Common.Homograph.ISchoolYearType,
@@ -151,7 +151,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Staffs
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/homograph/staffs")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/homograph/staffs")]
     public partial class StaffsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Staff.Homograph.Staff,
         Entities.Common.Homograph.IStaff,
@@ -183,7 +183,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Students
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/homograph/students")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/homograph/students")]
     public partial class StudentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Student.Homograph.Student,
         Entities.Common.Homograph.IStudent,
@@ -216,7 +216,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.StudentSchoolAssociations
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/homograph/studentSchoolAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/homograph/studentSchoolAssociations")]
     public partial class StudentSchoolAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentSchoolAssociation.Homograph.StudentSchoolAssociation,
         Entities.Common.Homograph.IStudentSchoolAssociation,
