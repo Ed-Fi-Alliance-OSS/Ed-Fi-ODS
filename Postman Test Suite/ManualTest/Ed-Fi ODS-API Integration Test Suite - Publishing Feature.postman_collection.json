@@ -499,8 +499,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 410 Gone\", () => {\r",
-							"    pm.expect(pm.response.code).to.equal(410);\r",
+							"pm.test(\"Status code is 404 Gone\", () => {\r",
+							"    pm.expect(pm.response.code).to.equal(404);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Should return message indicating that the snapshot is not available.\", () => {\r",
