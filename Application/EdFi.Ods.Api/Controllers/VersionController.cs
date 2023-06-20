@@ -76,16 +76,21 @@ namespace EdFi.Ods.Api.Controllers
 
                 if (!string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
                 {
-                    string odsContextRoutePath = _apiSettings.GetOdsContextRoutePath();
+                    string odsContextUriTemplatePath = _apiSettings.GetOdsContextRoutePath();
+                    string[] odsContextRouteKeys = _apiSettings.GetOdsContextRouteTemplateKeys();
 
-                    if (HttpContext.Request.RouteValues.TryGetValue(odsContextRoutePath, out object odsContextRoute))
+                    // Perform URI template replacements from route values, if available on current request
+                    foreach (string odsContextRouteKey in odsContextRouteKeys)
                     {
-                        rootUrl = $"{rootUrl}/{odsContextRoute}";
+                        if (HttpContext.Request.RouteValues.TryGetValue(odsContextRouteKey, out object odsContextRouteValue))
+                        {
+                            odsContextUriTemplatePath = odsContextUriTemplatePath.Replace(
+                                $"{{{odsContextRouteKey}}}",
+                                (string) odsContextRouteValue);
+                        }
                     }
-                    else
-                    {
-                        rootUrl = $"{rootUrl}/{{{odsContextRoutePath}}}";
-                    }
+
+                    rootUrl = $"{rootUrl}/{odsContextUriTemplatePath}";
                 }
                 
                 if (_apiSettings.IsFeatureEnabled(ApiFeature.AggregateDependencies.GetConfigKeyName()))

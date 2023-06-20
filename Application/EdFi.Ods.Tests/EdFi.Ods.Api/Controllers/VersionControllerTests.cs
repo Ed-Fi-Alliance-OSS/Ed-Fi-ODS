@@ -49,7 +49,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             A.CallTo(() => _domainModelProvider.GetDomainModel()).Returns(domainModel);
 
-            // Initialize API with all features enabled
+            // ApiSettings - Initialize API with all features enabled
             _apiSettings = new ApiSettings
             {
                 Features = new List<Feature>()
@@ -104,7 +104,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             };
 
             // Controller needs a controller context 
-            var controllerContext = new ControllerContext { HttpContext = httpContext };
+            var controllerContext = new ControllerContext
+            {
+                HttpContext = httpContext
+            };
 
             _controller = new VersionController(_domainModelProvider, _apiVersionProvider, _apiSettings)
             {
@@ -112,16 +115,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             };
         }
 
+        // Test cases are combination of single/multi tenant, with/without ODS context, and ODS context with one or more segments/keys
         [TestCase(false, null, null, null, null)]
-        [TestCase(false, "{schoolYearFromRoute}", null, null, "{schoolYearFromRoute}/")]
-        [TestCase(false, "{schoolYearFromRoute}", null, "2023", "2023/")]
+        [TestCase(false, "{schoolYearFromRoute:range(2000,2099)}", null, null, "{schoolYearFromRoute}/")]
+        [TestCase(false, "{schoolYearFromRoute:range(2000,2099)}", null, new [] {"2023"}, "2023/")]
+        [TestCase(false, "{schoolYearFromRoute}/{ssn:regex(^(\\d{{3}}-)?\\d{{2}}-\\d{{4}}$)}", null, null, "{schoolYearFromRoute}/{ssn}/")]
+        [TestCase(false, "{schoolYearFromRoute}/{ssn:regex(^(\\d{{3}}-)?\\d{{2}}-\\d{{4}}$)}", null, new[] {"2023", null}, "2023/{ssn}/")]
+        [TestCase(false, "{schoolYearFromRoute}/{ssn:regex(^(\\d{{3}}-)?\\d{{2}}-\\d{{4}}$)}", null, new[] {"2023", "TheSSN"}, "2023/TheSSN/")]
         [TestCase(true, null, null, null, "{tenantIdentifier}/")]
         [TestCase(true, null, "Tenant1", null, "Tenant1/")]
         [TestCase(true, "{schoolYearFromRoute}", "Tenant1", null, "Tenant1/{schoolYearFromRoute}/")]
-        [TestCase(true, "{schoolYearFromRoute}", "Tenant1", "2023", "Tenant1/2023/")]
+        [TestCase(true, "{schoolYearFromRoute}", "Tenant1", new [] {"2023"}, "Tenant1/2023/")]
+        [TestCase(true, "{schoolYearFromRoute}/{somethingElse}", "Tenant1", new[] {"2023", "TheThing"}, "Tenant1/2023/TheThing/")]
+        [TestCase(true, "{schoolYearFromRoute}/{ssn:regex(^(\\d{{3}}-)?\\d{{2}}-\\d{{4}}$)}", "Tenant1", null, "Tenant1/{schoolYearFromRoute}/{ssn}/")]
+        [TestCase(true, "{schoolYearFromRoute}/{ssn:regex(^(\\d{{3}}-)?\\d{{2}}-\\d{{4}}$)}", "Tenant1", new[] {"2023", null}, "Tenant1/2023/{ssn}/")]
+        [TestCase(true, "{schoolYearFromRoute}/{ssn:regex(^(\\d{{3}}-)?\\d{{2}}-\\d{{4}}$)}", "Tenant1", new[] {"2023", "TheSSN"}, "Tenant1/2023/TheSSN/")]
         public void Get_WithProvidedMultTenancyAndOdsRouteContextSettings_ShouldBuildRoutesWithCorrectRootPathSegments(
             bool isMultiTenant, string odsContextRouteTemplate, 
-            string tenantIdentifierRouteValue, string odsContextRouteValue, 
+            string tenantIdentifierRouteValue, string[] suppliedOdsContextRouteValues, 
             string expectedPathRootSegment)
         {
             // Arrange
@@ -143,9 +154,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 SetRouteValue("tenantIdentifier", tenantIdentifierRouteValue); 
             }
 
-            if (!string.IsNullOrEmpty(odsContextRouteValue))
+            if (suppliedOdsContextRouteValues is { Length: > 0 })
             {
-                SetRouteValue(_apiSettings.GetOdsContextRoutePath(), odsContextRouteValue); 
+                // See https://learn.microsoft.com/en-us/aspnet/core/fundamentals/routing?view=aspnetcore-7.0#route-constraints
+                var templateRouteKeys = OdsContextRouteTemplateHelpers.GetRouteTemplateKeys(_apiSettings.OdsContextRouteTemplate);
+
+                // Set the supplied route values
+                for (int i = 0; i < templateRouteKeys.Length; i++)
+                {
+                    var routeKey = templateRouteKeys[i];
+
+                    // Only apply the route value if a positional value is provided, and is not null 
+                    if (suppliedOdsContextRouteValues.Length > i && suppliedOdsContextRouteValues[i] != null)
+                    {
+                        SetRouteValue(routeKey, suppliedOdsContextRouteValues[i]); 
+                    }
+                }
             }
 
             var expectedContent = new VersionController.VersionResponse(
