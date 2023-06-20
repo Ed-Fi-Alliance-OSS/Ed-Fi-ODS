@@ -67,7 +67,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
                     .As<IFilterMetadata>()
                     .SingleInstance();
 
-                builder.RegisterType<SnapshotGoneExceptionTranslator>()
+                builder.RegisterType<SnapshotNotFoundExceptionTranslator>()
                     .As<IExceptionTranslator>()
                     .SingleInstance();
             }
