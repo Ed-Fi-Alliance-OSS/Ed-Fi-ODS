@@ -59,7 +59,7 @@ namespace EdFi.Ods.Features.ChangeQueries.ExceptionHandling
                 webServiceError = new RESTError
                 {
                     Code = (int)HttpStatusCode.NotFound,
-                    Type = HttpStatusCode.Gone.ToString().NormalizeCompositeTermForDisplay(),
+                    Type = HttpStatusCode.NotFound.ToString().NormalizeCompositeTermForDisplay(),
                     Message = "Snapshot not found."
                 };
 
