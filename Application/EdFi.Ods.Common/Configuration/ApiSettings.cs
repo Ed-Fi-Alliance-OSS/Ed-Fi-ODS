@@ -6,14 +6,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.Common.Configuration
 {
     public class ApiSettings
     {
         private readonly Lazy<DatabaseEngine> _databaseEngine;
+        private string _odsContextRoutePath;
+        private string[] _odsContextRouteTemplateKeys;
 
         public ApiSettings()
         {
@@ -60,7 +64,23 @@ namespace EdFi.Ods.Common.Configuration
 
         public DatabaseEngine GetDatabaseEngine() => _databaseEngine.Value;
 
-        public string GetOdsContextRoutePath() => OdsContextRouteTemplate.TrimPrefix("{").TrimSuffix("}").Split(":")[0];
+        /// <summary>
+        /// Gets the raw path from the route template, removing any ASP.NET route constraints defined in the configured route template defined in <see cref="OdsContextRouteTemplate"/>.
+        /// </summary>
+        /// <returns>The path that can be presented to API clients in a manner consistent with URI templates.</returns>
+        public string GetOdsContextRoutePath()
+        {
+            return _odsContextRoutePath ??= new(OdsContextRouteTemplateHelpers.GetOdsContextPathChars(OdsContextRouteTemplate).ToArray());
+        }
+
+        /// <summary>
+        /// Gets the array of route key names defined in the configured route template defined in <see cref="OdsContextRouteTemplate"/>.
+        /// </summary>
+        /// <returns>An array of keys for extracting values from the route values associated with an API request.</returns>
+        public string[] GetOdsContextRouteTemplateKeys()
+        {
+            return _odsContextRouteTemplateKeys ??= OdsContextRouteTemplateHelpers.GetRouteTemplateKeys(OdsContextRouteTemplate);
+        }
 
         public bool IsFeatureEnabled(string featureName)
             => Features.SingleOrDefault(x => x.Name.EqualsIgnoreCase(featureName) && x.IsEnabled) != null;
