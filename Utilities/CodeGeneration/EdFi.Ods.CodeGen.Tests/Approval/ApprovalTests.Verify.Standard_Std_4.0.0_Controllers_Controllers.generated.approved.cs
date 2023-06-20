@@ -24,7 +24,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AbsenceEventCategoryDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/absenceEventCategoryDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/absenceEventCategoryDescriptors")]
     public partial class AbsenceEventCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AbsenceEventCategoryDescriptor.EdFi.AbsenceEventCategoryDescriptor,
         Entities.Common.EdFi.IAbsenceEventCategoryDescriptor,
@@ -54,7 +54,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicHonorCategoryDescriptors.EdF
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/academicHonorCategoryDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/academicHonorCategoryDescriptors")]
     public partial class AcademicHonorCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AcademicHonorCategoryDescriptor.EdFi.AcademicHonorCategoryDescriptor,
         Entities.Common.EdFi.IAcademicHonorCategoryDescriptor,
@@ -84,7 +84,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicSubjectDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/academicSubjectDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/academicSubjectDescriptors")]
     public partial class AcademicSubjectDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AcademicSubjectDescriptor.EdFi.AcademicSubjectDescriptor,
         Entities.Common.EdFi.IAcademicSubjectDescriptor,
@@ -114,7 +114,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/academicWeeks")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/academicWeeks")]
     public partial class AcademicWeeksController : DataManagementControllerBase<
         Api.Common.Models.Resources.AcademicWeek.EdFi.AcademicWeek,
         Entities.Common.EdFi.IAcademicWeek,
@@ -149,7 +149,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AccommodationDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/accommodationDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/accommodationDescriptors")]
     public partial class AccommodationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AccommodationDescriptor.EdFi.AccommodationDescriptor,
         Entities.Common.EdFi.IAccommodationDescriptor,
@@ -179,7 +179,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountabilityRatings.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/accountabilityRatings")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/accountabilityRatings")]
     public partial class AccountabilityRatingsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AccountabilityRating.EdFi.AccountabilityRating,
         Entities.Common.EdFi.IAccountabilityRating,
@@ -216,7 +216,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/accountTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/accountTypeDescriptors")]
     public partial class AccountTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AccountTypeDescriptor.EdFi.AccountTypeDescriptor,
         Entities.Common.EdFi.IAccountTypeDescriptor,
@@ -246,7 +246,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AchievementCategoryDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/achievementCategoryDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/achievementCategoryDescriptors")]
     public partial class AchievementCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AchievementCategoryDescriptor.EdFi.AchievementCategoryDescriptor,
         Entities.Common.EdFi.IAchievementCategoryDescriptor,
@@ -276,7 +276,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AdditionalCreditTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/additionalCreditTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/additionalCreditTypeDescriptors")]
     public partial class AdditionalCreditTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AdditionalCreditTypeDescriptor.EdFi.AdditionalCreditTypeDescriptor,
         Entities.Common.EdFi.IAdditionalCreditTypeDescriptor,
@@ -306,7 +306,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AddressTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/addressTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/addressTypeDescriptors")]
     public partial class AddressTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AddressTypeDescriptor.EdFi.AddressTypeDescriptor,
         Entities.Common.EdFi.IAddressTypeDescriptor,
@@ -336,7 +336,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrationEnvironmentDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/administrationEnvironmentDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/administrationEnvironmentDescriptors")]
     public partial class AdministrationEnvironmentDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AdministrationEnvironmentDescriptor.EdFi.AdministrationEnvironmentDescriptor,
         Entities.Common.EdFi.IAdministrationEnvironmentDescriptor,
@@ -366,7 +366,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrativeFundingControlDescript
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/administrativeFundingControlDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/administrativeFundingControlDescriptors")]
     public partial class AdministrativeFundingControlDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AdministrativeFundingControlDescriptor.EdFi.AdministrativeFundingControlDescriptor,
         Entities.Common.EdFi.IAdministrativeFundingControlDescriptor,
@@ -396,7 +396,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AncestryEthnicOriginDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/ancestryEthnicOriginDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/ancestryEthnicOriginDescriptors")]
     public partial class AncestryEthnicOriginDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AncestryEthnicOriginDescriptor.EdFi.AncestryEthnicOriginDescriptor,
         Entities.Common.EdFi.IAncestryEthnicOriginDescriptor,
@@ -426,7 +426,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assessments")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assessments")]
     public partial class AssessmentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Assessment.EdFi.Assessment,
         Entities.Common.EdFi.IAssessment,
@@ -468,7 +468,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentCategoryDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assessmentCategoryDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assessmentCategoryDescriptors")]
     public partial class AssessmentCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentCategoryDescriptor.EdFi.AssessmentCategoryDescriptor,
         Entities.Common.EdFi.IAssessmentCategoryDescriptor,
@@ -498,7 +498,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentIdentificationSystemDescri
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assessmentIdentificationSystemDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assessmentIdentificationSystemDescriptors")]
     public partial class AssessmentIdentificationSystemDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentIdentificationSystemDescriptor.EdFi.AssessmentIdentificationSystemDescriptor,
         Entities.Common.EdFi.IAssessmentIdentificationSystemDescriptor,
@@ -528,7 +528,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItems.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assessmentItems")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assessmentItems")]
     public partial class AssessmentItemsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentItem.EdFi.AssessmentItem,
         Entities.Common.EdFi.IAssessmentItem,
@@ -567,7 +567,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemCategoryDescriptors.Ed
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assessmentItemCategoryDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assessmentItemCategoryDescriptors")]
     public partial class AssessmentItemCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentItemCategoryDescriptor.EdFi.AssessmentItemCategoryDescriptor,
         Entities.Common.EdFi.IAssessmentItemCategoryDescriptor,
@@ -597,7 +597,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemResultDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assessmentItemResultDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assessmentItemResultDescriptors")]
     public partial class AssessmentItemResultDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentItemResultDescriptor.EdFi.AssessmentItemResultDescriptor,
         Entities.Common.EdFi.IAssessmentItemResultDescriptor,
@@ -627,7 +627,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentPeriodDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assessmentPeriodDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assessmentPeriodDescriptors")]
     public partial class AssessmentPeriodDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentPeriodDescriptor.EdFi.AssessmentPeriodDescriptor,
         Entities.Common.EdFi.IAssessmentPeriodDescriptor,
@@ -657,7 +657,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentReportingMethodDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assessmentReportingMethodDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assessmentReportingMethodDescriptors")]
     public partial class AssessmentReportingMethodDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentReportingMethodDescriptor.EdFi.AssessmentReportingMethodDescriptor,
         Entities.Common.EdFi.IAssessmentReportingMethodDescriptor,
@@ -687,7 +687,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentScoreRangeLearningStandard
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assessmentScoreRangeLearningStandards")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assessmentScoreRangeLearningStandards")]
     public partial class AssessmentScoreRangeLearningStandardsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentScoreRangeLearningStandard.EdFi.AssessmentScoreRangeLearningStandard,
         Entities.Common.EdFi.IAssessmentScoreRangeLearningStandard,
@@ -724,7 +724,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssignmentLateStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assignmentLateStatusDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/assignmentLateStatusDescriptors")]
     public partial class AssignmentLateStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssignmentLateStatusDescriptor.EdFi.AssignmentLateStatusDescriptor,
         Entities.Common.EdFi.IAssignmentLateStatusDescriptor,
@@ -754,7 +754,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AttemptStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/attemptStatusDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/attemptStatusDescriptors")]
     public partial class AttemptStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AttemptStatusDescriptor.EdFi.AttemptStatusDescriptor,
         Entities.Common.EdFi.IAttemptStatusDescriptor,
@@ -784,7 +784,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AttendanceEventCategoryDescriptors.E
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/attendanceEventCategoryDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/attendanceEventCategoryDescriptors")]
     public partial class AttendanceEventCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AttendanceEventCategoryDescriptor.EdFi.AttendanceEventCategoryDescriptor,
         Entities.Common.EdFi.IAttendanceEventCategoryDescriptor,
@@ -814,7 +814,7 @@ namespace EdFi.Ods.Api.Services.Controllers.BalanceSheetDimensions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/balanceSheetDimensions")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/balanceSheetDimensions")]
     public partial class BalanceSheetDimensionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.BalanceSheetDimension.EdFi.BalanceSheetDimension,
         Entities.Common.EdFi.IBalanceSheetDimension,
@@ -847,7 +847,7 @@ namespace EdFi.Ods.Api.Services.Controllers.BarrierToInternetAccessInResidenceDe
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/barrierToInternetAccessInResidenceDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/barrierToInternetAccessInResidenceDescriptors")]
     public partial class BarrierToInternetAccessInResidenceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.BarrierToInternetAccessInResidenceDescriptor.EdFi.BarrierToInternetAccessInResidenceDescriptor,
         Entities.Common.EdFi.IBarrierToInternetAccessInResidenceDescriptor,
@@ -877,7 +877,7 @@ namespace EdFi.Ods.Api.Services.Controllers.BehaviorDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/behaviorDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/behaviorDescriptors")]
     public partial class BehaviorDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.BehaviorDescriptor.EdFi.BehaviorDescriptor,
         Entities.Common.EdFi.IBehaviorDescriptor,
@@ -907,7 +907,7 @@ namespace EdFi.Ods.Api.Services.Controllers.BellSchedules.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/bellSchedules")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/bellSchedules")]
     public partial class BellSchedulesController : DataManagementControllerBase<
         Api.Common.Models.Resources.BellSchedule.EdFi.BellSchedule,
         Entities.Common.EdFi.IBellSchedule,
@@ -943,7 +943,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Calendars.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/calendars")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/calendars")]
     public partial class CalendarsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Calendar.EdFi.Calendar,
         Entities.Common.EdFi.ICalendar,
@@ -977,7 +977,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarDates.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/calendarDates")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/calendarDates")]
     public partial class CalendarDatesController : DataManagementControllerBase<
         Api.Common.Models.Resources.CalendarDate.EdFi.CalendarDate,
         Entities.Common.EdFi.ICalendarDate,
@@ -1011,7 +1011,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarEventDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/calendarEventDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/calendarEventDescriptors")]
     public partial class CalendarEventDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CalendarEventDescriptor.EdFi.CalendarEventDescriptor,
         Entities.Common.EdFi.ICalendarEventDescriptor,
@@ -1041,7 +1041,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/calendarTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/calendarTypeDescriptors")]
     public partial class CalendarTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CalendarTypeDescriptor.EdFi.CalendarTypeDescriptor,
         Entities.Common.EdFi.ICalendarTypeDescriptor,
@@ -1071,7 +1071,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CareerPathwayDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/careerPathwayDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/careerPathwayDescriptors")]
     public partial class CareerPathwayDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CareerPathwayDescriptor.EdFi.CareerPathwayDescriptor,
         Entities.Common.EdFi.ICareerPathwayDescriptor,
@@ -1101,7 +1101,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterApprovalAgencyTypeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/charterApprovalAgencyTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/charterApprovalAgencyTypeDescriptors")]
     public partial class CharterApprovalAgencyTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CharterApprovalAgencyTypeDescriptor.EdFi.CharterApprovalAgencyTypeDescriptor,
         Entities.Common.EdFi.ICharterApprovalAgencyTypeDescriptor,
@@ -1131,7 +1131,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/charterStatusDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/charterStatusDescriptors")]
     public partial class CharterStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CharterStatusDescriptor.EdFi.CharterStatusDescriptor,
         Entities.Common.EdFi.ICharterStatusDescriptor,
@@ -1161,7 +1161,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ChartOfAccounts.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/chartOfAccounts")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/chartOfAccounts")]
     public partial class ChartOfAccountsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ChartOfAccount.EdFi.ChartOfAccount,
         Entities.Common.EdFi.IChartOfAccount,
@@ -1204,7 +1204,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CitizenshipStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/citizenshipStatusDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/citizenshipStatusDescriptors")]
     public partial class CitizenshipStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CitizenshipStatusDescriptor.EdFi.CitizenshipStatusDescriptor,
         Entities.Common.EdFi.ICitizenshipStatusDescriptor,
@@ -1234,7 +1234,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ClassPeriods.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/classPeriods")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/classPeriods")]
     public partial class ClassPeriodsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ClassPeriod.EdFi.ClassPeriod,
         Entities.Common.EdFi.IClassPeriod,
@@ -1267,7 +1267,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ClassroomPositionDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/classroomPositionDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/classroomPositionDescriptors")]
     public partial class ClassroomPositionDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ClassroomPositionDescriptor.EdFi.ClassroomPositionDescriptor,
         Entities.Common.EdFi.IClassroomPositionDescriptor,
@@ -1297,7 +1297,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Cohorts.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/cohorts")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/cohorts")]
     public partial class CohortsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Cohort.EdFi.Cohort,
         Entities.Common.EdFi.ICohort,
@@ -1333,7 +1333,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortScopeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/cohortScopeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/cohortScopeDescriptors")]
     public partial class CohortScopeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CohortScopeDescriptor.EdFi.CohortScopeDescriptor,
         Entities.Common.EdFi.ICohortScopeDescriptor,
@@ -1363,7 +1363,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/cohortTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/cohortTypeDescriptors")]
     public partial class CohortTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CohortTypeDescriptor.EdFi.CohortTypeDescriptor,
         Entities.Common.EdFi.ICohortTypeDescriptor,
@@ -1393,7 +1393,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortYearTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/cohortYearTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/cohortYearTypeDescriptors")]
     public partial class CohortYearTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CohortYearTypeDescriptor.EdFi.CohortYearTypeDescriptor,
         Entities.Common.EdFi.ICohortYearTypeDescriptor,
@@ -1423,7 +1423,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityOrganizations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/communityOrganizations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/communityOrganizations")]
     public partial class CommunityOrganizationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CommunityOrganization.EdFi.CommunityOrganization,
         Entities.Common.EdFi.ICommunityOrganization,
@@ -1453,7 +1453,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviders.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/communityProviders")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/communityProviders")]
     public partial class CommunityProvidersController : DataManagementControllerBase<
         Api.Common.Models.Resources.CommunityProvider.EdFi.CommunityProvider,
         Entities.Common.EdFi.ICommunityProvider,
@@ -1489,7 +1489,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviderLicenses.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/communityProviderLicenses")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/communityProviderLicenses")]
     public partial class CommunityProviderLicensesController : DataManagementControllerBase<
         Api.Common.Models.Resources.CommunityProviderLicense.EdFi.CommunityProviderLicense,
         Entities.Common.EdFi.ICommunityProviderLicense,
@@ -1530,7 +1530,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyLevelDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/competencyLevelDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/competencyLevelDescriptors")]
     public partial class CompetencyLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CompetencyLevelDescriptor.EdFi.CompetencyLevelDescriptor,
         Entities.Common.EdFi.ICompetencyLevelDescriptor,
@@ -1560,7 +1560,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyObjectives.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/competencyObjectives")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/competencyObjectives")]
     public partial class CompetencyObjectivesController : DataManagementControllerBase<
         Api.Common.Models.Resources.CompetencyObjective.EdFi.CompetencyObjective,
         Entities.Common.EdFi.ICompetencyObjective,
@@ -1596,7 +1596,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ContactTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/contactTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/contactTypeDescriptors")]
     public partial class ContactTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ContactTypeDescriptor.EdFi.ContactTypeDescriptor,
         Entities.Common.EdFi.IContactTypeDescriptor,
@@ -1626,7 +1626,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ContentClassDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/contentClassDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/contentClassDescriptors")]
     public partial class ContentClassDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ContentClassDescriptor.EdFi.ContentClassDescriptor,
         Entities.Common.EdFi.IContentClassDescriptor,
@@ -1656,7 +1656,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ContinuationOfServicesReasonDescript
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/continuationOfServicesReasonDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/continuationOfServicesReasonDescriptors")]
     public partial class ContinuationOfServicesReasonDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ContinuationOfServicesReasonDescriptor.EdFi.ContinuationOfServicesReasonDescriptor,
         Entities.Common.EdFi.IContinuationOfServicesReasonDescriptor,
@@ -1686,7 +1686,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CostRateDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/costRateDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/costRateDescriptors")]
     public partial class CostRateDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CostRateDescriptor.EdFi.CostRateDescriptor,
         Entities.Common.EdFi.ICostRateDescriptor,
@@ -1716,7 +1716,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CountryDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/countryDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/countryDescriptors")]
     public partial class CountryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CountryDescriptor.EdFi.CountryDescriptor,
         Entities.Common.EdFi.ICountryDescriptor,
@@ -1746,7 +1746,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Courses.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/courses")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/courses")]
     public partial class CoursesController : DataManagementControllerBase<
         Api.Common.Models.Resources.Course.EdFi.Course,
         Entities.Common.EdFi.ICourse,
@@ -1795,7 +1795,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseAttemptResultDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/courseAttemptResultDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/courseAttemptResultDescriptors")]
     public partial class CourseAttemptResultDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseAttemptResultDescriptor.EdFi.CourseAttemptResultDescriptor,
         Entities.Common.EdFi.ICourseAttemptResultDescriptor,
@@ -1825,7 +1825,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseDefinedByDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/courseDefinedByDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/courseDefinedByDescriptors")]
     public partial class CourseDefinedByDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseDefinedByDescriptor.EdFi.CourseDefinedByDescriptor,
         Entities.Common.EdFi.ICourseDefinedByDescriptor,
@@ -1855,7 +1855,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseGPAApplicabilityDescriptors.Ed
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/courseGPAApplicabilityDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/courseGPAApplicabilityDescriptors")]
     public partial class CourseGPAApplicabilityDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseGPAApplicabilityDescriptor.EdFi.CourseGPAApplicabilityDescriptor,
         Entities.Common.EdFi.ICourseGPAApplicabilityDescriptor,
@@ -1885,7 +1885,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseIdentificationSystemDescriptor
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/courseIdentificationSystemDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/courseIdentificationSystemDescriptors")]
     public partial class CourseIdentificationSystemDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseIdentificationSystemDescriptor.EdFi.CourseIdentificationSystemDescriptor,
         Entities.Common.EdFi.ICourseIdentificationSystemDescriptor,
@@ -1915,7 +1915,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseLevelCharacteristicDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/courseLevelCharacteristicDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/courseLevelCharacteristicDescriptors")]
     public partial class CourseLevelCharacteristicDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseLevelCharacteristicDescriptor.EdFi.CourseLevelCharacteristicDescriptor,
         Entities.Common.EdFi.ICourseLevelCharacteristicDescriptor,
@@ -1945,7 +1945,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseOfferings.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/courseOfferings")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/courseOfferings")]
     public partial class CourseOfferingsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseOffering.EdFi.CourseOffering,
         Entities.Common.EdFi.ICourseOffering,
@@ -1983,7 +1983,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseRepeatCodeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/courseRepeatCodeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/courseRepeatCodeDescriptors")]
     public partial class CourseRepeatCodeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseRepeatCodeDescriptor.EdFi.CourseRepeatCodeDescriptor,
         Entities.Common.EdFi.ICourseRepeatCodeDescriptor,
@@ -2013,7 +2013,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseTranscripts.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/courseTranscripts")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/courseTranscripts")]
     public partial class CourseTranscriptsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseTranscript.EdFi.CourseTranscript,
         Entities.Common.EdFi.ICourseTranscript,
@@ -2068,7 +2068,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Credentials.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/credentials")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/credentials")]
     public partial class CredentialsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Credential.EdFi.Credential,
         Entities.Common.EdFi.ICredential,
@@ -2108,7 +2108,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialFieldDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/credentialFieldDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/credentialFieldDescriptors")]
     public partial class CredentialFieldDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CredentialFieldDescriptor.EdFi.CredentialFieldDescriptor,
         Entities.Common.EdFi.ICredentialFieldDescriptor,
@@ -2138,7 +2138,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/credentialTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/credentialTypeDescriptors")]
     public partial class CredentialTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CredentialTypeDescriptor.EdFi.CredentialTypeDescriptor,
         Entities.Common.EdFi.ICredentialTypeDescriptor,
@@ -2168,7 +2168,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditCategoryDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/creditCategoryDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/creditCategoryDescriptors")]
     public partial class CreditCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CreditCategoryDescriptor.EdFi.CreditCategoryDescriptor,
         Entities.Common.EdFi.ICreditCategoryDescriptor,
@@ -2198,7 +2198,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/creditTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/creditTypeDescriptors")]
     public partial class CreditTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CreditTypeDescriptor.EdFi.CreditTypeDescriptor,
         Entities.Common.EdFi.ICreditTypeDescriptor,
@@ -2228,7 +2228,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CTEProgramServiceDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/cteProgramServiceDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/cteProgramServiceDescriptors")]
     public partial class CTEProgramServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CTEProgramServiceDescriptor.EdFi.CTEProgramServiceDescriptor,
         Entities.Common.EdFi.ICTEProgramServiceDescriptor,
@@ -2258,7 +2258,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CurriculumUsedDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/curriculumUsedDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/curriculumUsedDescriptors")]
     public partial class CurriculumUsedDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CurriculumUsedDescriptor.EdFi.CurriculumUsedDescriptor,
         Entities.Common.EdFi.ICurriculumUsedDescriptor,
@@ -2288,7 +2288,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DeliveryMethodDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/deliveryMethodDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/deliveryMethodDescriptors")]
     public partial class DeliveryMethodDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DeliveryMethodDescriptor.EdFi.DeliveryMethodDescriptor,
         Entities.Common.EdFi.IDeliveryMethodDescriptor,
@@ -2318,7 +2318,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DescriptorMappings.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/descriptorMappings")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/descriptorMappings")]
     public partial class DescriptorMappingsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DescriptorMapping.EdFi.DescriptorMapping,
         Entities.Common.EdFi.IDescriptorMapping,
@@ -2352,7 +2352,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DiagnosisDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/diagnosisDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/diagnosisDescriptors")]
     public partial class DiagnosisDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DiagnosisDescriptor.EdFi.DiagnosisDescriptor,
         Entities.Common.EdFi.IDiagnosisDescriptor,
@@ -2382,7 +2382,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaLevelDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/diplomaLevelDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/diplomaLevelDescriptors")]
     public partial class DiplomaLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DiplomaLevelDescriptor.EdFi.DiplomaLevelDescriptor,
         Entities.Common.EdFi.IDiplomaLevelDescriptor,
@@ -2412,7 +2412,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/diplomaTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/diplomaTypeDescriptors")]
     public partial class DiplomaTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DiplomaTypeDescriptor.EdFi.DiplomaTypeDescriptor,
         Entities.Common.EdFi.IDiplomaTypeDescriptor,
@@ -2442,7 +2442,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/disabilityDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/disabilityDescriptors")]
     public partial class DisabilityDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisabilityDescriptor.EdFi.DisabilityDescriptor,
         Entities.Common.EdFi.IDisabilityDescriptor,
@@ -2472,7 +2472,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDesignationDescriptors.EdF
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/disabilityDesignationDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/disabilityDesignationDescriptors")]
     public partial class DisabilityDesignationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisabilityDesignationDescriptor.EdFi.DisabilityDesignationDescriptor,
         Entities.Common.EdFi.IDisabilityDesignationDescriptor,
@@ -2502,7 +2502,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDeterminationSourceTypeDes
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/disabilityDeterminationSourceTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/disabilityDeterminationSourceTypeDescriptors")]
     public partial class DisabilityDeterminationSourceTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisabilityDeterminationSourceTypeDescriptor.EdFi.DisabilityDeterminationSourceTypeDescriptor,
         Entities.Common.EdFi.IDisabilityDeterminationSourceTypeDescriptor,
@@ -2532,7 +2532,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/disciplineActions")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/disciplineActions")]
     public partial class DisciplineActionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisciplineAction.EdFi.DisciplineAction,
         Entities.Common.EdFi.IDisciplineAction,
@@ -2573,7 +2573,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActionLengthDifferenceReas
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/disciplineActionLengthDifferenceReasonDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/disciplineActionLengthDifferenceReasonDescriptors")]
     public partial class DisciplineActionLengthDifferenceReasonDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisciplineActionLengthDifferenceReasonDescriptor.EdFi.DisciplineActionLengthDifferenceReasonDescriptor,
         Entities.Common.EdFi.IDisciplineActionLengthDifferenceReasonDescriptor,
@@ -2603,7 +2603,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/disciplineDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/disciplineDescriptors")]
     public partial class DisciplineDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisciplineDescriptor.EdFi.DisciplineDescriptor,
         Entities.Common.EdFi.IDisciplineDescriptor,
@@ -2633,7 +2633,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/disciplineIncidents")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/disciplineIncidents")]
     public partial class DisciplineIncidentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisciplineIncident.EdFi.DisciplineIncident,
         Entities.Common.EdFi.IDisciplineIncident,
@@ -2675,7 +2675,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidentParticipationCodeD
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/disciplineIncidentParticipationCodeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/disciplineIncidentParticipationCodeDescriptors")]
     public partial class DisciplineIncidentParticipationCodeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisciplineIncidentParticipationCodeDescriptor.EdFi.DisciplineIncidentParticipationCodeDescriptor,
         Entities.Common.EdFi.IDisciplineIncidentParticipationCodeDescriptor,
@@ -2705,7 +2705,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationalEnvironmentDescriptors.Ed
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationalEnvironmentDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationalEnvironmentDescriptors")]
     public partial class EducationalEnvironmentDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationalEnvironmentDescriptor.EdFi.EducationalEnvironmentDescriptor,
         Entities.Common.EdFi.IEducationalEnvironmentDescriptor,
@@ -2735,7 +2735,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationContents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationContents")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationContents")]
     public partial class EducationContentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationContent.EdFi.EducationContent,
         Entities.Common.EdFi.IEducationContent,
@@ -2782,7 +2782,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationAssociationType
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationOrganizationAssociationTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationOrganizationAssociationTypeDescriptors")]
     public partial class EducationOrganizationAssociationTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationOrganizationAssociationTypeDescriptor.EdFi.EducationOrganizationAssociationTypeDescriptor,
         Entities.Common.EdFi.IEducationOrganizationAssociationTypeDescriptor,
@@ -2812,7 +2812,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationCategoryDescrip
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationOrganizationCategoryDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationOrganizationCategoryDescriptors")]
     public partial class EducationOrganizationCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationOrganizationCategoryDescriptor.EdFi.EducationOrganizationCategoryDescriptor,
         Entities.Common.EdFi.IEducationOrganizationCategoryDescriptor,
@@ -2842,7 +2842,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationIdentificationS
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationOrganizationIdentificationSystemDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationOrganizationIdentificationSystemDescriptors")]
     public partial class EducationOrganizationIdentificationSystemDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationOrganizationIdentificationSystemDescriptor.EdFi.EducationOrganizationIdentificationSystemDescriptor,
         Entities.Common.EdFi.IEducationOrganizationIdentificationSystemDescriptor,
@@ -2872,7 +2872,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationInterventionPre
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationOrganizationInterventionPrescriptionAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationOrganizationInterventionPrescriptionAssociations")]
     public partial class EducationOrganizationInterventionPrescriptionAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationOrganizationInterventionPrescriptionAssociation.EdFi.EducationOrganizationInterventionPrescriptionAssociation,
         Entities.Common.EdFi.IEducationOrganizationInterventionPrescriptionAssociation,
@@ -2907,7 +2907,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworks.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationOrganizationNetworks")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationOrganizationNetworks")]
     public partial class EducationOrganizationNetworksController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationOrganizationNetwork.EdFi.EducationOrganizationNetwork,
         Entities.Common.EdFi.IEducationOrganizationNetwork,
@@ -2938,7 +2938,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworkAssociat
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationOrganizationNetworkAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationOrganizationNetworkAssociations")]
     public partial class EducationOrganizationNetworkAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationOrganizationNetworkAssociation.EdFi.EducationOrganizationNetworkAssociation,
         Entities.Common.EdFi.IEducationOrganizationNetworkAssociation,
@@ -2972,7 +2972,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationPeerAssociation
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationOrganizationPeerAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationOrganizationPeerAssociations")]
     public partial class EducationOrganizationPeerAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationOrganizationPeerAssociation.EdFi.EducationOrganizationPeerAssociation,
         Entities.Common.EdFi.IEducationOrganizationPeerAssociation,
@@ -3004,7 +3004,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationPlanDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationPlanDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationPlanDescriptors")]
     public partial class EducationPlanDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationPlanDescriptor.EdFi.EducationPlanDescriptor,
         Entities.Common.EdFi.IEducationPlanDescriptor,
@@ -3034,7 +3034,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationServiceCenters.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationServiceCenters")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/educationServiceCenters")]
     public partial class EducationServiceCentersController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationServiceCenter.EdFi.EducationServiceCenter,
         Entities.Common.EdFi.IEducationServiceCenter,
@@ -3065,7 +3065,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ElectronicMailTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/electronicMailTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/electronicMailTypeDescriptors")]
     public partial class ElectronicMailTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ElectronicMailTypeDescriptor.EdFi.ElectronicMailTypeDescriptor,
         Entities.Common.EdFi.IElectronicMailTypeDescriptor,
@@ -3095,7 +3095,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EmploymentStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/employmentStatusDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/employmentStatusDescriptors")]
     public partial class EmploymentStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EmploymentStatusDescriptor.EdFi.EmploymentStatusDescriptor,
         Entities.Common.EdFi.IEmploymentStatusDescriptor,
@@ -3125,7 +3125,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryGradeLevelReasonDescriptors.EdF
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/entryGradeLevelReasonDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/entryGradeLevelReasonDescriptors")]
     public partial class EntryGradeLevelReasonDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EntryGradeLevelReasonDescriptor.EdFi.EntryGradeLevelReasonDescriptor,
         Entities.Common.EdFi.IEntryGradeLevelReasonDescriptor,
@@ -3155,7 +3155,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/entryTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/entryTypeDescriptors")]
     public partial class EntryTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EntryTypeDescriptor.EdFi.EntryTypeDescriptor,
         Entities.Common.EdFi.IEntryTypeDescriptor,
@@ -3185,7 +3185,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EventCircumstanceDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/eventCircumstanceDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/eventCircumstanceDescriptors")]
     public partial class EventCircumstanceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EventCircumstanceDescriptor.EdFi.EventCircumstanceDescriptor,
         Entities.Common.EdFi.IEventCircumstanceDescriptor,
@@ -3215,7 +3215,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ExitWithdrawTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/exitWithdrawTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/exitWithdrawTypeDescriptors")]
     public partial class ExitWithdrawTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ExitWithdrawTypeDescriptor.EdFi.ExitWithdrawTypeDescriptor,
         Entities.Common.EdFi.IExitWithdrawTypeDescriptor,
@@ -3245,7 +3245,7 @@ namespace EdFi.Ods.Api.Services.Controllers.FeederSchoolAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/feederSchoolAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/feederSchoolAssociations")]
     public partial class FeederSchoolAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.FeederSchoolAssociation.EdFi.FeederSchoolAssociation,
         Entities.Common.EdFi.IFeederSchoolAssociation,
@@ -3280,7 +3280,7 @@ namespace EdFi.Ods.Api.Services.Controllers.FinancialCollectionDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/financialCollectionDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/financialCollectionDescriptors")]
     public partial class FinancialCollectionDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.FinancialCollectionDescriptor.EdFi.FinancialCollectionDescriptor,
         Entities.Common.EdFi.IFinancialCollectionDescriptor,
@@ -3310,7 +3310,7 @@ namespace EdFi.Ods.Api.Services.Controllers.FunctionDimensions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/functionDimensions")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/functionDimensions")]
     public partial class FunctionDimensionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.FunctionDimension.EdFi.FunctionDimension,
         Entities.Common.EdFi.IFunctionDimension,
@@ -3343,7 +3343,7 @@ namespace EdFi.Ods.Api.Services.Controllers.FundDimensions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/fundDimensions")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/fundDimensions")]
     public partial class FundDimensionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.FundDimension.EdFi.FundDimension,
         Entities.Common.EdFi.IFundDimension,
@@ -3376,7 +3376,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Grades.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/grades")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/grades")]
     public partial class GradesController : DataManagementControllerBase<
         Api.Common.Models.Resources.Grade.EdFi.Grade,
         Entities.Common.EdFi.IGrade,
@@ -3423,7 +3423,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntries.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/gradebookEntries")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/gradebookEntries")]
     public partial class GradebookEntriesController : DataManagementControllerBase<
         Api.Common.Models.Resources.GradebookEntry.EdFi.GradebookEntry,
         Entities.Common.EdFi.IGradebookEntry,
@@ -3470,7 +3470,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntryTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/gradebookEntryTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/gradebookEntryTypeDescriptors")]
     public partial class GradebookEntryTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GradebookEntryTypeDescriptor.EdFi.GradebookEntryTypeDescriptor,
         Entities.Common.EdFi.IGradebookEntryTypeDescriptor,
@@ -3500,7 +3500,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeLevelDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/gradeLevelDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/gradeLevelDescriptors")]
     public partial class GradeLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GradeLevelDescriptor.EdFi.GradeLevelDescriptor,
         Entities.Common.EdFi.IGradeLevelDescriptor,
@@ -3530,7 +3530,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradePointAverageTypeDescriptors.EdF
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/gradePointAverageTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/gradePointAverageTypeDescriptors")]
     public partial class GradePointAverageTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GradePointAverageTypeDescriptor.EdFi.GradePointAverageTypeDescriptor,
         Entities.Common.EdFi.IGradePointAverageTypeDescriptor,
@@ -3560,7 +3560,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/gradeTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/gradeTypeDescriptors")]
     public partial class GradeTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GradeTypeDescriptor.EdFi.GradeTypeDescriptor,
         Entities.Common.EdFi.IGradeTypeDescriptor,
@@ -3590,7 +3590,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriods.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/gradingPeriods")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/gradingPeriods")]
     public partial class GradingPeriodsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GradingPeriod.EdFi.GradingPeriod,
         Entities.Common.EdFi.IGradingPeriod,
@@ -3627,7 +3627,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriodDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/gradingPeriodDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/gradingPeriodDescriptors")]
     public partial class GradingPeriodDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GradingPeriodDescriptor.EdFi.GradingPeriodDescriptor,
         Entities.Common.EdFi.IGradingPeriodDescriptor,
@@ -3657,7 +3657,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlans.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/graduationPlans")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/graduationPlans")]
     public partial class GraduationPlansController : DataManagementControllerBase<
         Api.Common.Models.Resources.GraduationPlan.EdFi.GraduationPlan,
         Entities.Common.EdFi.IGraduationPlan,
@@ -3694,7 +3694,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlanTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/graduationPlanTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/graduationPlanTypeDescriptors")]
     public partial class GraduationPlanTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GraduationPlanTypeDescriptor.EdFi.GraduationPlanTypeDescriptor,
         Entities.Common.EdFi.IGraduationPlanTypeDescriptor,
@@ -3724,7 +3724,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GunFreeSchoolsActReportingStatusDesc
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/gunFreeSchoolsActReportingStatusDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/gunFreeSchoolsActReportingStatusDescriptors")]
     public partial class GunFreeSchoolsActReportingStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GunFreeSchoolsActReportingStatusDescriptor.EdFi.GunFreeSchoolsActReportingStatusDescriptor,
         Entities.Common.EdFi.IGunFreeSchoolsActReportingStatusDescriptor,
@@ -3754,7 +3754,7 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessPrimaryNighttimeResidenceDes
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/homelessPrimaryNighttimeResidenceDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/homelessPrimaryNighttimeResidenceDescriptors")]
     public partial class HomelessPrimaryNighttimeResidenceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.HomelessPrimaryNighttimeResidenceDescriptor.EdFi.HomelessPrimaryNighttimeResidenceDescriptor,
         Entities.Common.EdFi.IHomelessPrimaryNighttimeResidenceDescriptor,
@@ -3784,7 +3784,7 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessProgramServiceDescriptors.Ed
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/homelessProgramServiceDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/homelessProgramServiceDescriptors")]
     public partial class HomelessProgramServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.HomelessProgramServiceDescriptor.EdFi.HomelessProgramServiceDescriptor,
         Entities.Common.EdFi.IHomelessProgramServiceDescriptor,
@@ -3814,7 +3814,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IdentificationDocumentUseDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/identificationDocumentUseDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/identificationDocumentUseDescriptors")]
     public partial class IdentificationDocumentUseDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.IdentificationDocumentUseDescriptor.EdFi.IdentificationDocumentUseDescriptor,
         Entities.Common.EdFi.IIdentificationDocumentUseDescriptor,
@@ -3844,7 +3844,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IncidentLocationDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/incidentLocationDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/incidentLocationDescriptors")]
     public partial class IncidentLocationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.IncidentLocationDescriptor.EdFi.IncidentLocationDescriptor,
         Entities.Common.EdFi.IIncidentLocationDescriptor,
@@ -3874,7 +3874,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/indicatorDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/indicatorDescriptors")]
     public partial class IndicatorDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.IndicatorDescriptor.EdFi.IndicatorDescriptor,
         Entities.Common.EdFi.IIndicatorDescriptor,
@@ -3904,7 +3904,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorGroupDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/indicatorGroupDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/indicatorGroupDescriptors")]
     public partial class IndicatorGroupDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.IndicatorGroupDescriptor.EdFi.IndicatorGroupDescriptor,
         Entities.Common.EdFi.IIndicatorGroupDescriptor,
@@ -3934,7 +3934,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorLevelDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/indicatorLevelDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/indicatorLevelDescriptors")]
     public partial class IndicatorLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.IndicatorLevelDescriptor.EdFi.IndicatorLevelDescriptor,
         Entities.Common.EdFi.IIndicatorLevelDescriptor,
@@ -3964,7 +3964,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InstitutionTelephoneNumberTypeDescri
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/institutionTelephoneNumberTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/institutionTelephoneNumberTypeDescriptors")]
     public partial class InstitutionTelephoneNumberTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InstitutionTelephoneNumberTypeDescriptor.EdFi.InstitutionTelephoneNumberTypeDescriptor,
         Entities.Common.EdFi.IInstitutionTelephoneNumberTypeDescriptor,
@@ -3994,7 +3994,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InteractivityStyleDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/interactivityStyleDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/interactivityStyleDescriptors")]
     public partial class InteractivityStyleDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InteractivityStyleDescriptor.EdFi.InteractivityStyleDescriptor,
         Entities.Common.EdFi.IInteractivityStyleDescriptor,
@@ -4024,7 +4024,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InternetAccessDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/internetAccessDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/internetAccessDescriptors")]
     public partial class InternetAccessDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InternetAccessDescriptor.EdFi.InternetAccessDescriptor,
         Entities.Common.EdFi.IInternetAccessDescriptor,
@@ -4054,7 +4054,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InternetAccessTypeInResidenceDescrip
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/internetAccessTypeInResidenceDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/internetAccessTypeInResidenceDescriptors")]
     public partial class InternetAccessTypeInResidenceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InternetAccessTypeInResidenceDescriptor.EdFi.InternetAccessTypeInResidenceDescriptor,
         Entities.Common.EdFi.IInternetAccessTypeInResidenceDescriptor,
@@ -4084,7 +4084,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InternetPerformanceInResidenceDescri
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/internetPerformanceInResidenceDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/internetPerformanceInResidenceDescriptors")]
     public partial class InternetPerformanceInResidenceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InternetPerformanceInResidenceDescriptor.EdFi.InternetPerformanceInResidenceDescriptor,
         Entities.Common.EdFi.IInternetPerformanceInResidenceDescriptor,
@@ -4114,7 +4114,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Interventions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/interventions")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/interventions")]
     public partial class InterventionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Intervention.EdFi.Intervention,
         Entities.Common.EdFi.IIntervention,
@@ -4153,7 +4153,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionClassDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/interventionClassDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/interventionClassDescriptors")]
     public partial class InterventionClassDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InterventionClassDescriptor.EdFi.InterventionClassDescriptor,
         Entities.Common.EdFi.IInterventionClassDescriptor,
@@ -4183,7 +4183,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionEffectivenessRatingDescr
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/interventionEffectivenessRatingDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/interventionEffectivenessRatingDescriptors")]
     public partial class InterventionEffectivenessRatingDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InterventionEffectivenessRatingDescriptor.EdFi.InterventionEffectivenessRatingDescriptor,
         Entities.Common.EdFi.IInterventionEffectivenessRatingDescriptor,
@@ -4213,7 +4213,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionPrescriptions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/interventionPrescriptions")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/interventionPrescriptions")]
     public partial class InterventionPrescriptionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InterventionPrescription.EdFi.InterventionPrescription,
         Entities.Common.EdFi.IInterventionPrescription,
@@ -4250,7 +4250,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionStudies.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/interventionStudies")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/interventionStudies")]
     public partial class InterventionStudiesController : DataManagementControllerBase<
         Api.Common.Models.Resources.InterventionStudy.EdFi.InterventionStudy,
         Entities.Common.EdFi.IInterventionStudy,
@@ -4287,7 +4287,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/languageDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/languageDescriptors")]
     public partial class LanguageDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LanguageDescriptor.EdFi.LanguageDescriptor,
         Entities.Common.EdFi.ILanguageDescriptor,
@@ -4317,7 +4317,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageInstructionProgramServiceDes
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/languageInstructionProgramServiceDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/languageInstructionProgramServiceDescriptors")]
     public partial class LanguageInstructionProgramServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LanguageInstructionProgramServiceDescriptor.EdFi.LanguageInstructionProgramServiceDescriptor,
         Entities.Common.EdFi.ILanguageInstructionProgramServiceDescriptor,
@@ -4347,7 +4347,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageUseDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/languageUseDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/languageUseDescriptors")]
     public partial class LanguageUseDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LanguageUseDescriptor.EdFi.LanguageUseDescriptor,
         Entities.Common.EdFi.ILanguageUseDescriptor,
@@ -4377,7 +4377,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningObjectives.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/learningObjectives")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/learningObjectives")]
     public partial class LearningObjectivesController : DataManagementControllerBase<
         Api.Common.Models.Resources.LearningObjective.EdFi.LearningObjective,
         Entities.Common.EdFi.ILearningObjective,
@@ -4415,7 +4415,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandards.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/learningStandards")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/learningStandards")]
     public partial class LearningStandardsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LearningStandard.EdFi.LearningStandard,
         Entities.Common.EdFi.ILearningStandard,
@@ -4455,7 +4455,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardCategoryDescriptors.
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/learningStandardCategoryDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/learningStandardCategoryDescriptors")]
     public partial class LearningStandardCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LearningStandardCategoryDescriptor.EdFi.LearningStandardCategoryDescriptor,
         Entities.Common.EdFi.ILearningStandardCategoryDescriptor,
@@ -4485,7 +4485,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceAssociati
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/learningStandardEquivalenceAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/learningStandardEquivalenceAssociations")]
     public partial class LearningStandardEquivalenceAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LearningStandardEquivalenceAssociation.EdFi.LearningStandardEquivalenceAssociation,
         Entities.Common.EdFi.ILearningStandardEquivalenceAssociation,
@@ -4521,7 +4521,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceStrengthD
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/learningStandardEquivalenceStrengthDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/learningStandardEquivalenceStrengthDescriptors")]
     public partial class LearningStandardEquivalenceStrengthDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LearningStandardEquivalenceStrengthDescriptor.EdFi.LearningStandardEquivalenceStrengthDescriptor,
         Entities.Common.EdFi.ILearningStandardEquivalenceStrengthDescriptor,
@@ -4551,7 +4551,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardScopeDescriptors.EdF
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/learningStandardScopeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/learningStandardScopeDescriptors")]
     public partial class LearningStandardScopeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LearningStandardScopeDescriptor.EdFi.LearningStandardScopeDescriptor,
         Entities.Common.EdFi.ILearningStandardScopeDescriptor,
@@ -4581,7 +4581,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LevelOfEducationDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/levelOfEducationDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/levelOfEducationDescriptors")]
     public partial class LevelOfEducationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LevelOfEducationDescriptor.EdFi.LevelOfEducationDescriptor,
         Entities.Common.EdFi.ILevelOfEducationDescriptor,
@@ -4611,7 +4611,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/licenseStatusDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/licenseStatusDescriptors")]
     public partial class LicenseStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LicenseStatusDescriptor.EdFi.LicenseStatusDescriptor,
         Entities.Common.EdFi.ILicenseStatusDescriptor,
@@ -4641,7 +4641,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/licenseTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/licenseTypeDescriptors")]
     public partial class LicenseTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LicenseTypeDescriptor.EdFi.LicenseTypeDescriptor,
         Entities.Common.EdFi.ILicenseTypeDescriptor,
@@ -4671,7 +4671,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LimitedEnglishProficiencyDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/limitedEnglishProficiencyDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/limitedEnglishProficiencyDescriptors")]
     public partial class LimitedEnglishProficiencyDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LimitedEnglishProficiencyDescriptor.EdFi.LimitedEnglishProficiencyDescriptor,
         Entities.Common.EdFi.ILimitedEnglishProficiencyDescriptor,
@@ -4701,7 +4701,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalAccounts.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/localAccounts")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/localAccounts")]
     public partial class LocalAccountsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LocalAccount.EdFi.LocalAccount,
         Entities.Common.EdFi.ILocalAccount,
@@ -4737,7 +4737,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalActuals.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/localActuals")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/localActuals")]
     public partial class LocalActualsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LocalActual.EdFi.LocalActual,
         Entities.Common.EdFi.ILocalActual,
@@ -4773,7 +4773,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalBudgets.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/localBudgets")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/localBudgets")]
     public partial class LocalBudgetsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LocalBudget.EdFi.LocalBudget,
         Entities.Common.EdFi.ILocalBudget,
@@ -4809,7 +4809,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalContractedStaffs.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/localContractedStaffs")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/localContractedStaffs")]
     public partial class LocalContractedStaffsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LocalContractedStaff.EdFi.LocalContractedStaff,
         Entities.Common.EdFi.ILocalContractedStaff,
@@ -4846,7 +4846,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocaleDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/localeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/localeDescriptors")]
     public partial class LocaleDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LocaleDescriptor.EdFi.LocaleDescriptor,
         Entities.Common.EdFi.ILocaleDescriptor,
@@ -4876,7 +4876,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/localEducationAgencies")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/localEducationAgencies")]
     public partial class LocalEducationAgenciesController : DataManagementControllerBase<
         Api.Common.Models.Resources.LocalEducationAgency.EdFi.LocalEducationAgency,
         Entities.Common.EdFi.ILocalEducationAgency,
@@ -4911,7 +4911,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencyCategoryDescript
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/localEducationAgencyCategoryDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/localEducationAgencyCategoryDescriptors")]
     public partial class LocalEducationAgencyCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LocalEducationAgencyCategoryDescriptor.EdFi.LocalEducationAgencyCategoryDescriptor,
         Entities.Common.EdFi.ILocalEducationAgencyCategoryDescriptor,
@@ -4941,7 +4941,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEncumbrances.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/localEncumbrances")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/localEncumbrances")]
     public partial class LocalEncumbrancesController : DataManagementControllerBase<
         Api.Common.Models.Resources.LocalEncumbrance.EdFi.LocalEncumbrance,
         Entities.Common.EdFi.ILocalEncumbrance,
@@ -4977,7 +4977,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalPayrolls.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/localPayrolls")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/localPayrolls")]
     public partial class LocalPayrollsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LocalPayroll.EdFi.LocalPayroll,
         Entities.Common.EdFi.ILocalPayroll,
@@ -5014,7 +5014,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Locations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/locations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/locations")]
     public partial class LocationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Location.EdFi.Location,
         Entities.Common.EdFi.ILocation,
@@ -5048,7 +5048,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MagnetSpecialProgramEmphasisSchoolDe
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/magnetSpecialProgramEmphasisSchoolDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/magnetSpecialProgramEmphasisSchoolDescriptors")]
     public partial class MagnetSpecialProgramEmphasisSchoolDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.MagnetSpecialProgramEmphasisSchoolDescriptor.EdFi.MagnetSpecialProgramEmphasisSchoolDescriptor,
         Entities.Common.EdFi.IMagnetSpecialProgramEmphasisSchoolDescriptor,
@@ -5078,7 +5078,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MediumOfInstructionDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/mediumOfInstructionDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/mediumOfInstructionDescriptors")]
     public partial class MediumOfInstructionDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.MediumOfInstructionDescriptor.EdFi.MediumOfInstructionDescriptor,
         Entities.Common.EdFi.IMediumOfInstructionDescriptor,
@@ -5108,7 +5108,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MethodCreditEarnedDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/methodCreditEarnedDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/methodCreditEarnedDescriptors")]
     public partial class MethodCreditEarnedDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.MethodCreditEarnedDescriptor.EdFi.MethodCreditEarnedDescriptor,
         Entities.Common.EdFi.IMethodCreditEarnedDescriptor,
@@ -5138,7 +5138,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MigrantEducationProgramServiceDescri
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/migrantEducationProgramServiceDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/migrantEducationProgramServiceDescriptors")]
     public partial class MigrantEducationProgramServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.MigrantEducationProgramServiceDescriptor.EdFi.MigrantEducationProgramServiceDescriptor,
         Entities.Common.EdFi.IMigrantEducationProgramServiceDescriptor,
@@ -5168,7 +5168,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ModelEntityDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/modelEntityDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/modelEntityDescriptors")]
     public partial class ModelEntityDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ModelEntityDescriptor.EdFi.ModelEntityDescriptor,
         Entities.Common.EdFi.IModelEntityDescriptor,
@@ -5198,7 +5198,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MonitoredDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/monitoredDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/monitoredDescriptors")]
     public partial class MonitoredDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.MonitoredDescriptor.EdFi.MonitoredDescriptor,
         Entities.Common.EdFi.IMonitoredDescriptor,
@@ -5228,7 +5228,7 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramDescript
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/neglectedOrDelinquentProgramDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/neglectedOrDelinquentProgramDescriptors")]
     public partial class NeglectedOrDelinquentProgramDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.NeglectedOrDelinquentProgramDescriptor.EdFi.NeglectedOrDelinquentProgramDescriptor,
         Entities.Common.EdFi.INeglectedOrDelinquentProgramDescriptor,
@@ -5258,7 +5258,7 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramServiceD
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/neglectedOrDelinquentProgramServiceDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/neglectedOrDelinquentProgramServiceDescriptors")]
     public partial class NeglectedOrDelinquentProgramServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.NeglectedOrDelinquentProgramServiceDescriptor.EdFi.NeglectedOrDelinquentProgramServiceDescriptor,
         Entities.Common.EdFi.INeglectedOrDelinquentProgramServiceDescriptor,
@@ -5288,7 +5288,7 @@ namespace EdFi.Ods.Api.Services.Controllers.NetworkPurposeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/networkPurposeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/networkPurposeDescriptors")]
     public partial class NetworkPurposeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.NetworkPurposeDescriptor.EdFi.NetworkPurposeDescriptor,
         Entities.Common.EdFi.INetworkPurposeDescriptor,
@@ -5318,7 +5318,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ObjectDimensions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/objectDimensions")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/objectDimensions")]
     public partial class ObjectDimensionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ObjectDimension.EdFi.ObjectDimension,
         Entities.Common.EdFi.IObjectDimension,
@@ -5351,7 +5351,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ObjectiveAssessments.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/objectiveAssessments")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/objectiveAssessments")]
     public partial class ObjectiveAssessmentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ObjectiveAssessment.EdFi.ObjectiveAssessment,
         Entities.Common.EdFi.IObjectiveAssessment,
@@ -5390,7 +5390,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OldEthnicityDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/oldEthnicityDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/oldEthnicityDescriptors")]
     public partial class OldEthnicityDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.OldEthnicityDescriptor.EdFi.OldEthnicityDescriptor,
         Entities.Common.EdFi.IOldEthnicityDescriptor,
@@ -5420,7 +5420,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OpenStaffPositions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/openStaffPositions")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/openStaffPositions")]
     public partial class OpenStaffPositionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.OpenStaffPosition.EdFi.OpenStaffPosition,
         Entities.Common.EdFi.IOpenStaffPosition,
@@ -5459,7 +5459,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OperationalStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/operationalStatusDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/operationalStatusDescriptors")]
     public partial class OperationalStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.OperationalStatusDescriptor.EdFi.OperationalStatusDescriptor,
         Entities.Common.EdFi.IOperationalStatusDescriptor,
@@ -5489,7 +5489,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OperationalUnitDimensions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/operationalUnitDimensions")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/operationalUnitDimensions")]
     public partial class OperationalUnitDimensionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.OperationalUnitDimension.EdFi.OperationalUnitDimension,
         Entities.Common.EdFi.IOperationalUnitDimension,
@@ -5522,7 +5522,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OrganizationDepartments.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/organizationDepartments")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/organizationDepartments")]
     public partial class OrganizationDepartmentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.OrganizationDepartment.EdFi.OrganizationDepartment,
         Entities.Common.EdFi.IOrganizationDepartment,
@@ -5554,7 +5554,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OtherNameTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/otherNameTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/otherNameTypeDescriptors")]
     public partial class OtherNameTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.OtherNameTypeDescriptor.EdFi.OtherNameTypeDescriptor,
         Entities.Common.EdFi.IOtherNameTypeDescriptor,
@@ -5584,7 +5584,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Parents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/parents")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/parents")]
     public partial class ParentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Parent.EdFi.Parent,
         Entities.Common.EdFi.IParent,
@@ -5626,7 +5626,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/participationDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/participationDescriptors")]
     public partial class ParticipationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ParticipationDescriptor.EdFi.ParticipationDescriptor,
         Entities.Common.EdFi.IParticipationDescriptor,
@@ -5656,7 +5656,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/participationStatusDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/participationStatusDescriptors")]
     public partial class ParticipationStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ParticipationStatusDescriptor.EdFi.ParticipationStatusDescriptor,
         Entities.Common.EdFi.IParticipationStatusDescriptor,
@@ -5686,7 +5686,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceBaseConversionDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/performanceBaseConversionDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/performanceBaseConversionDescriptors")]
     public partial class PerformanceBaseConversionDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PerformanceBaseConversionDescriptor.EdFi.PerformanceBaseConversionDescriptor,
         Entities.Common.EdFi.IPerformanceBaseConversionDescriptor,
@@ -5716,7 +5716,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceLevelDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/performanceLevelDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/performanceLevelDescriptors")]
     public partial class PerformanceLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PerformanceLevelDescriptor.EdFi.PerformanceLevelDescriptor,
         Entities.Common.EdFi.IPerformanceLevelDescriptor,
@@ -5746,7 +5746,7 @@ namespace EdFi.Ods.Api.Services.Controllers.People.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/people")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/people")]
     public partial class PeopleController : DataManagementControllerBase<
         Api.Common.Models.Resources.Person.EdFi.Person,
         Entities.Common.EdFi.IPerson,
@@ -5778,7 +5778,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PersonalInformationVerificationDescr
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/personalInformationVerificationDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/personalInformationVerificationDescriptors")]
     public partial class PersonalInformationVerificationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PersonalInformationVerificationDescriptor.EdFi.PersonalInformationVerificationDescriptor,
         Entities.Common.EdFi.IPersonalInformationVerificationDescriptor,
@@ -5808,7 +5808,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PlatformTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/platformTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/platformTypeDescriptors")]
     public partial class PlatformTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PlatformTypeDescriptor.EdFi.PlatformTypeDescriptor,
         Entities.Common.EdFi.IPlatformTypeDescriptor,
@@ -5838,7 +5838,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PopulationServedDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/populationServedDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/populationServedDescriptors")]
     public partial class PopulationServedDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PopulationServedDescriptor.EdFi.PopulationServedDescriptor,
         Entities.Common.EdFi.IPopulationServedDescriptor,
@@ -5868,7 +5868,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostingResultDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/postingResultDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/postingResultDescriptors")]
     public partial class PostingResultDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PostingResultDescriptor.EdFi.PostingResultDescriptor,
         Entities.Common.EdFi.IPostingResultDescriptor,
@@ -5898,7 +5898,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEvents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/postSecondaryEvents")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/postSecondaryEvents")]
     public partial class PostSecondaryEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PostSecondaryEvent.EdFi.PostSecondaryEvent,
         Entities.Common.EdFi.IPostSecondaryEvent,
@@ -5932,7 +5932,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEventCategoryDescriptor
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/postSecondaryEventCategoryDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/postSecondaryEventCategoryDescriptors")]
     public partial class PostSecondaryEventCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PostSecondaryEventCategoryDescriptor.EdFi.PostSecondaryEventCategoryDescriptor,
         Entities.Common.EdFi.IPostSecondaryEventCategoryDescriptor,
@@ -5962,7 +5962,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/postSecondaryInstitutions")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/postSecondaryInstitutions")]
     public partial class PostSecondaryInstitutionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PostSecondaryInstitution.EdFi.PostSecondaryInstitution,
         Entities.Common.EdFi.IPostSecondaryInstitution,
@@ -5994,7 +5994,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutionLevelDescrip
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/postSecondaryInstitutionLevelDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/postSecondaryInstitutionLevelDescriptors")]
     public partial class PostSecondaryInstitutionLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PostSecondaryInstitutionLevelDescriptor.EdFi.PostSecondaryInstitutionLevelDescriptor,
         Entities.Common.EdFi.IPostSecondaryInstitutionLevelDescriptor,
@@ -6024,7 +6024,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PrimaryLearningDeviceAccessDescripto
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/primaryLearningDeviceAccessDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/primaryLearningDeviceAccessDescriptors")]
     public partial class PrimaryLearningDeviceAccessDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PrimaryLearningDeviceAccessDescriptor.EdFi.PrimaryLearningDeviceAccessDescriptor,
         Entities.Common.EdFi.IPrimaryLearningDeviceAccessDescriptor,
@@ -6054,7 +6054,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PrimaryLearningDeviceAwayFromSchoolD
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/primaryLearningDeviceAwayFromSchoolDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/primaryLearningDeviceAwayFromSchoolDescriptors")]
     public partial class PrimaryLearningDeviceAwayFromSchoolDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PrimaryLearningDeviceAwayFromSchoolDescriptor.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptor,
         Entities.Common.EdFi.IPrimaryLearningDeviceAwayFromSchoolDescriptor,
@@ -6084,7 +6084,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PrimaryLearningDeviceProviderDescrip
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/primaryLearningDeviceProviderDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/primaryLearningDeviceProviderDescriptors")]
     public partial class PrimaryLearningDeviceProviderDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PrimaryLearningDeviceProviderDescriptor.EdFi.PrimaryLearningDeviceProviderDescriptor,
         Entities.Common.EdFi.IPrimaryLearningDeviceProviderDescriptor,
@@ -6114,7 +6114,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProficiencyDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/proficiencyDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/proficiencyDescriptors")]
     public partial class ProficiencyDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProficiencyDescriptor.EdFi.ProficiencyDescriptor,
         Entities.Common.EdFi.IProficiencyDescriptor,
@@ -6144,7 +6144,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Programs.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/programs")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/programs")]
     public partial class ProgramsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Program.EdFi.Program,
         Entities.Common.EdFi.IProgram,
@@ -6178,7 +6178,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramAssignmentDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/programAssignmentDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/programAssignmentDescriptors")]
     public partial class ProgramAssignmentDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProgramAssignmentDescriptor.EdFi.ProgramAssignmentDescriptor,
         Entities.Common.EdFi.IProgramAssignmentDescriptor,
@@ -6208,7 +6208,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramCharacteristicDescriptors.EdF
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/programCharacteristicDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/programCharacteristicDescriptors")]
     public partial class ProgramCharacteristicDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProgramCharacteristicDescriptor.EdFi.ProgramCharacteristicDescriptor,
         Entities.Common.EdFi.IProgramCharacteristicDescriptor,
@@ -6238,7 +6238,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramDimensions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/programDimensions")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/programDimensions")]
     public partial class ProgramDimensionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProgramDimension.EdFi.ProgramDimension,
         Entities.Common.EdFi.IProgramDimension,
@@ -6271,7 +6271,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramSponsorDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/programSponsorDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/programSponsorDescriptors")]
     public partial class ProgramSponsorDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProgramSponsorDescriptor.EdFi.ProgramSponsorDescriptor,
         Entities.Common.EdFi.IProgramSponsorDescriptor,
@@ -6301,7 +6301,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/programTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/programTypeDescriptors")]
     public partial class ProgramTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProgramTypeDescriptor.EdFi.ProgramTypeDescriptor,
         Entities.Common.EdFi.IProgramTypeDescriptor,
@@ -6331,7 +6331,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/progressDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/progressDescriptors")]
     public partial class ProgressDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProgressDescriptor.EdFi.ProgressDescriptor,
         Entities.Common.EdFi.IProgressDescriptor,
@@ -6361,7 +6361,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressLevelDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/progressLevelDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/progressLevelDescriptors")]
     public partial class ProgressLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProgressLevelDescriptor.EdFi.ProgressLevelDescriptor,
         Entities.Common.EdFi.IProgressLevelDescriptor,
@@ -6391,7 +6391,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProjectDimensions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/projectDimensions")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/projectDimensions")]
     public partial class ProjectDimensionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProjectDimension.EdFi.ProjectDimension,
         Entities.Common.EdFi.IProjectDimension,
@@ -6424,7 +6424,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderCategoryDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/providerCategoryDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/providerCategoryDescriptors")]
     public partial class ProviderCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProviderCategoryDescriptor.EdFi.ProviderCategoryDescriptor,
         Entities.Common.EdFi.IProviderCategoryDescriptor,
@@ -6454,7 +6454,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderProfitabilityDescriptors.EdF
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/providerProfitabilityDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/providerProfitabilityDescriptors")]
     public partial class ProviderProfitabilityDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProviderProfitabilityDescriptor.EdFi.ProviderProfitabilityDescriptor,
         Entities.Common.EdFi.IProviderProfitabilityDescriptor,
@@ -6484,7 +6484,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/providerStatusDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/providerStatusDescriptors")]
     public partial class ProviderStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProviderStatusDescriptor.EdFi.ProviderStatusDescriptor,
         Entities.Common.EdFi.IProviderStatusDescriptor,
@@ -6514,7 +6514,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PublicationStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/publicationStatusDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/publicationStatusDescriptors")]
     public partial class PublicationStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PublicationStatusDescriptor.EdFi.PublicationStatusDescriptor,
         Entities.Common.EdFi.IPublicationStatusDescriptor,
@@ -6544,7 +6544,7 @@ namespace EdFi.Ods.Api.Services.Controllers.QuestionFormDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/questionFormDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/questionFormDescriptors")]
     public partial class QuestionFormDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.QuestionFormDescriptor.EdFi.QuestionFormDescriptor,
         Entities.Common.EdFi.IQuestionFormDescriptor,
@@ -6574,7 +6574,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RaceDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/raceDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/raceDescriptors")]
     public partial class RaceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RaceDescriptor.EdFi.RaceDescriptor,
         Entities.Common.EdFi.IRaceDescriptor,
@@ -6604,7 +6604,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonExitedDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/reasonExitedDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/reasonExitedDescriptors")]
     public partial class ReasonExitedDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ReasonExitedDescriptor.EdFi.ReasonExitedDescriptor,
         Entities.Common.EdFi.IReasonExitedDescriptor,
@@ -6634,7 +6634,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonNotTestedDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/reasonNotTestedDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/reasonNotTestedDescriptors")]
     public partial class ReasonNotTestedDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ReasonNotTestedDescriptor.EdFi.ReasonNotTestedDescriptor,
         Entities.Common.EdFi.IReasonNotTestedDescriptor,
@@ -6664,7 +6664,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RecognitionTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/recognitionTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/recognitionTypeDescriptors")]
     public partial class RecognitionTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RecognitionTypeDescriptor.EdFi.RecognitionTypeDescriptor,
         Entities.Common.EdFi.IRecognitionTypeDescriptor,
@@ -6694,7 +6694,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RelationDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/relationDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/relationDescriptors")]
     public partial class RelationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RelationDescriptor.EdFi.RelationDescriptor,
         Entities.Common.EdFi.IRelationDescriptor,
@@ -6724,7 +6724,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RepeatIdentifierDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/repeatIdentifierDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/repeatIdentifierDescriptors")]
     public partial class RepeatIdentifierDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RepeatIdentifierDescriptor.EdFi.RepeatIdentifierDescriptor,
         Entities.Common.EdFi.IRepeatIdentifierDescriptor,
@@ -6754,7 +6754,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ReportCards.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/reportCards")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/reportCards")]
     public partial class ReportCardsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ReportCard.EdFi.ReportCard,
         Entities.Common.EdFi.IReportCard,
@@ -6795,7 +6795,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ReporterDescriptionDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/reporterDescriptionDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/reporterDescriptionDescriptors")]
     public partial class ReporterDescriptionDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ReporterDescriptionDescriptor.EdFi.ReporterDescriptionDescriptor,
         Entities.Common.EdFi.IReporterDescriptionDescriptor,
@@ -6825,7 +6825,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ReportingTagDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/reportingTagDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/reportingTagDescriptors")]
     public partial class ReportingTagDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ReportingTagDescriptor.EdFi.ReportingTagDescriptor,
         Entities.Common.EdFi.IReportingTagDescriptor,
@@ -6855,7 +6855,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ResidencyStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/residencyStatusDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/residencyStatusDescriptors")]
     public partial class ResidencyStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ResidencyStatusDescriptor.EdFi.ResidencyStatusDescriptor,
         Entities.Common.EdFi.IResidencyStatusDescriptor,
@@ -6885,7 +6885,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponseIndicatorDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/responseIndicatorDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/responseIndicatorDescriptors")]
     public partial class ResponseIndicatorDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ResponseIndicatorDescriptor.EdFi.ResponseIndicatorDescriptor,
         Entities.Common.EdFi.IResponseIndicatorDescriptor,
@@ -6915,7 +6915,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponsibilityDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/responsibilityDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/responsibilityDescriptors")]
     public partial class ResponsibilityDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ResponsibilityDescriptor.EdFi.ResponsibilityDescriptor,
         Entities.Common.EdFi.IResponsibilityDescriptor,
@@ -6945,7 +6945,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEvents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/restraintEvents")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/restraintEvents")]
     public partial class RestraintEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RestraintEvent.EdFi.RestraintEvent,
         Entities.Common.EdFi.IRestraintEvent,
@@ -6980,7 +6980,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEventReasonDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/restraintEventReasonDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/restraintEventReasonDescriptors")]
     public partial class RestraintEventReasonDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RestraintEventReasonDescriptor.EdFi.RestraintEventReasonDescriptor,
         Entities.Common.EdFi.IRestraintEventReasonDescriptor,
@@ -7010,7 +7010,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ResultDatatypeTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/resultDatatypeTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/resultDatatypeTypeDescriptors")]
     public partial class ResultDatatypeTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ResultDatatypeTypeDescriptor.EdFi.ResultDatatypeTypeDescriptor,
         Entities.Common.EdFi.IResultDatatypeTypeDescriptor,
@@ -7040,7 +7040,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RetestIndicatorDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/retestIndicatorDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/retestIndicatorDescriptors")]
     public partial class RetestIndicatorDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RetestIndicatorDescriptor.EdFi.RetestIndicatorDescriptor,
         Entities.Common.EdFi.IRetestIndicatorDescriptor,
@@ -7070,7 +7070,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/schools")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/schools")]
     public partial class SchoolsController : DataManagementControllerBase<
         Api.Common.Models.Resources.School.EdFi.School,
         Entities.Common.EdFi.ISchool,
@@ -7109,7 +7109,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolCategoryDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/schoolCategoryDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/schoolCategoryDescriptors")]
     public partial class SchoolCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SchoolCategoryDescriptor.EdFi.SchoolCategoryDescriptor,
         Entities.Common.EdFi.ISchoolCategoryDescriptor,
@@ -7139,7 +7139,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolChoiceImplementStatusDescripto
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/schoolChoiceImplementStatusDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/schoolChoiceImplementStatusDescriptors")]
     public partial class SchoolChoiceImplementStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SchoolChoiceImplementStatusDescriptor.EdFi.SchoolChoiceImplementStatusDescriptor,
         Entities.Common.EdFi.ISchoolChoiceImplementStatusDescriptor,
@@ -7169,7 +7169,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolFoodServiceProgramServiceDescr
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/schoolFoodServiceProgramServiceDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/schoolFoodServiceProgramServiceDescriptors")]
     public partial class SchoolFoodServiceProgramServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SchoolFoodServiceProgramServiceDescriptor.EdFi.SchoolFoodServiceProgramServiceDescriptor,
         Entities.Common.EdFi.ISchoolFoodServiceProgramServiceDescriptor,
@@ -7199,7 +7199,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/schoolTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/schoolTypeDescriptors")]
     public partial class SchoolTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SchoolTypeDescriptor.EdFi.SchoolTypeDescriptor,
         Entities.Common.EdFi.ISchoolTypeDescriptor,
@@ -7229,7 +7229,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolYearTypes.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/schoolYearTypes")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/schoolYearTypes")]
     public partial class SchoolYearTypesController : DataManagementControllerBase<
         Api.Common.Models.Resources.SchoolYearType.EdFi.SchoolYearType,
         Entities.Common.EdFi.ISchoolYearType,
@@ -7262,7 +7262,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sections.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/sections")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/sections")]
     public partial class SectionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Section.EdFi.Section,
         Entities.Common.EdFi.ISection,
@@ -7309,7 +7309,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionAttendanceTakenEvents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/sectionAttendanceTakenEvents")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/sectionAttendanceTakenEvents")]
     public partial class SectionAttendanceTakenEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SectionAttendanceTakenEvent.EdFi.SectionAttendanceTakenEvent,
         Entities.Common.EdFi.ISectionAttendanceTakenEvent,
@@ -7348,7 +7348,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionCharacteristicDescriptors.EdF
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/sectionCharacteristicDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/sectionCharacteristicDescriptors")]
     public partial class SectionCharacteristicDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SectionCharacteristicDescriptor.EdFi.SectionCharacteristicDescriptor,
         Entities.Common.EdFi.ISectionCharacteristicDescriptor,
@@ -7378,7 +7378,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/separationDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/separationDescriptors")]
     public partial class SeparationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SeparationDescriptor.EdFi.SeparationDescriptor,
         Entities.Common.EdFi.ISeparationDescriptor,
@@ -7408,7 +7408,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationReasonDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/separationReasonDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/separationReasonDescriptors")]
     public partial class SeparationReasonDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SeparationReasonDescriptor.EdFi.SeparationReasonDescriptor,
         Entities.Common.EdFi.ISeparationReasonDescriptor,
@@ -7438,7 +7438,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ServiceDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/serviceDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/serviceDescriptors")]
     public partial class ServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ServiceDescriptor.EdFi.ServiceDescriptor,
         Entities.Common.EdFi.IServiceDescriptor,
@@ -7468,7 +7468,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sessions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/sessions")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/sessions")]
     public partial class SessionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Session.EdFi.Session,
         Entities.Common.EdFi.ISession,
@@ -7505,7 +7505,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SexDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/sexDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/sexDescriptors")]
     public partial class SexDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SexDescriptor.EdFi.SexDescriptor,
         Entities.Common.EdFi.ISexDescriptor,
@@ -7535,7 +7535,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SourceDimensions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/sourceDimensions")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/sourceDimensions")]
     public partial class SourceDimensionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SourceDimension.EdFi.SourceDimension,
         Entities.Common.EdFi.ISourceDimension,
@@ -7568,7 +7568,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SourceSystemDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/sourceSystemDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/sourceSystemDescriptors")]
     public partial class SourceSystemDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SourceSystemDescriptor.EdFi.SourceSystemDescriptor,
         Entities.Common.EdFi.ISourceSystemDescriptor,
@@ -7598,7 +7598,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationProgramServiceDescri
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/specialEducationProgramServiceDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/specialEducationProgramServiceDescriptors")]
     public partial class SpecialEducationProgramServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SpecialEducationProgramServiceDescriptor.EdFi.SpecialEducationProgramServiceDescriptor,
         Entities.Common.EdFi.ISpecialEducationProgramServiceDescriptor,
@@ -7628,7 +7628,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationSettingDescriptors.E
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/specialEducationSettingDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/specialEducationSettingDescriptors")]
     public partial class SpecialEducationSettingDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SpecialEducationSettingDescriptor.EdFi.SpecialEducationSettingDescriptor,
         Entities.Common.EdFi.ISpecialEducationSettingDescriptor,
@@ -7658,7 +7658,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffs")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffs")]
     public partial class StaffsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Staff.EdFi.Staff,
         Entities.Common.EdFi.IStaff,
@@ -7707,7 +7707,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffAbsenceEvents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffAbsenceEvents")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffAbsenceEvents")]
     public partial class StaffAbsenceEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffAbsenceEvent.EdFi.StaffAbsenceEvent,
         Entities.Common.EdFi.IStaffAbsenceEvent,
@@ -7742,7 +7742,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffClassificationDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffClassificationDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffClassificationDescriptors")]
     public partial class StaffClassificationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffClassificationDescriptor.EdFi.StaffClassificationDescriptor,
         Entities.Common.EdFi.IStaffClassificationDescriptor,
@@ -7772,7 +7772,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffCohortAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffCohortAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffCohortAssociations")]
     public partial class StaffCohortAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffCohortAssociation.EdFi.StaffCohortAssociation,
         Entities.Common.EdFi.IStaffCohortAssociation,
@@ -7808,7 +7808,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffDisciplineIncidentAssociations.
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffDisciplineIncidentAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffDisciplineIncidentAssociations")]
     public partial class StaffDisciplineIncidentAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffDisciplineIncidentAssociation.EdFi.StaffDisciplineIncidentAssociation,
         Entities.Common.EdFi.IStaffDisciplineIncidentAssociation,
@@ -7841,7 +7841,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationAssignment
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffEducationOrganizationAssignmentAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffEducationOrganizationAssignmentAssociations")]
     public partial class StaffEducationOrganizationAssignmentAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffEducationOrganizationAssignmentAssociation.EdFi.StaffEducationOrganizationAssignmentAssociation,
         Entities.Common.EdFi.IStaffEducationOrganizationAssignmentAssociation,
@@ -7884,7 +7884,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationContactAss
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffEducationOrganizationContactAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffEducationOrganizationContactAssociations")]
     public partial class StaffEducationOrganizationContactAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffEducationOrganizationContactAssociation.EdFi.StaffEducationOrganizationContactAssociation,
         Entities.Common.EdFi.IStaffEducationOrganizationContactAssociation,
@@ -7919,7 +7919,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationEmployment
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffEducationOrganizationEmploymentAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffEducationOrganizationEmploymentAssociations")]
     public partial class StaffEducationOrganizationEmploymentAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffEducationOrganizationEmploymentAssociation.EdFi.StaffEducationOrganizationEmploymentAssociation,
         Entities.Common.EdFi.IStaffEducationOrganizationEmploymentAssociation,
@@ -7962,7 +7962,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffIdentificationSystemDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffIdentificationSystemDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffIdentificationSystemDescriptors")]
     public partial class StaffIdentificationSystemDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffIdentificationSystemDescriptor.EdFi.StaffIdentificationSystemDescriptor,
         Entities.Common.EdFi.IStaffIdentificationSystemDescriptor,
@@ -7992,7 +7992,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaves.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffLeaves")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffLeaves")]
     public partial class StaffLeavesController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffLeave.EdFi.StaffLeave,
         Entities.Common.EdFi.IStaffLeave,
@@ -8028,7 +8028,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaveEventCategoryDescriptors.E
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffLeaveEventCategoryDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffLeaveEventCategoryDescriptors")]
     public partial class StaffLeaveEventCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffLeaveEventCategoryDescriptor.EdFi.StaffLeaveEventCategoryDescriptor,
         Entities.Common.EdFi.IStaffLeaveEventCategoryDescriptor,
@@ -8058,7 +8058,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffProgramAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffProgramAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffProgramAssociations")]
     public partial class StaffProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffProgramAssociation.EdFi.StaffProgramAssociation,
         Entities.Common.EdFi.IStaffProgramAssociation,
@@ -8095,7 +8095,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSchoolAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffSchoolAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffSchoolAssociations")]
     public partial class StaffSchoolAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffSchoolAssociation.EdFi.StaffSchoolAssociation,
         Entities.Common.EdFi.IStaffSchoolAssociation,
@@ -8130,7 +8130,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSectionAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffSectionAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/staffSectionAssociations")]
     public partial class StaffSectionAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffSectionAssociation.EdFi.StaffSectionAssociation,
         Entities.Common.EdFi.IStaffSectionAssociation,
@@ -8172,7 +8172,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StateAbbreviationDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/stateAbbreviationDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/stateAbbreviationDescriptors")]
     public partial class StateAbbreviationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StateAbbreviationDescriptor.EdFi.StateAbbreviationDescriptor,
         Entities.Common.EdFi.IStateAbbreviationDescriptor,
@@ -8202,7 +8202,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StateEducationAgencies.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/stateEducationAgencies")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/stateEducationAgencies")]
     public partial class StateEducationAgenciesController : DataManagementControllerBase<
         Api.Common.Models.Resources.StateEducationAgency.EdFi.StateEducationAgency,
         Entities.Common.EdFi.IStateEducationAgency,
@@ -8232,7 +8232,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/students")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/students")]
     public partial class StudentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Student.EdFi.Student,
         Entities.Common.EdFi.IStudent,
@@ -8280,7 +8280,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAcademicRecords.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentAcademicRecords")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentAcademicRecords")]
     public partial class StudentAcademicRecordsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentAcademicRecord.EdFi.StudentAcademicRecord,
         Entities.Common.EdFi.IStudentAcademicRecord,
@@ -8332,7 +8332,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentAssessments")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentAssessments")]
     public partial class StudentAssessmentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentAssessment.EdFi.StudentAssessment,
         Entities.Common.EdFi.IStudentAssessment,
@@ -8381,7 +8381,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessmentEducationOrganizati
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentAssessmentEducationOrganizationAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentAssessmentEducationOrganizationAssociations")]
     public partial class StudentAssessmentEducationOrganizationAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentAssessmentEducationOrganizationAssociation.EdFi.StudentAssessmentEducationOrganizationAssociation,
         Entities.Common.EdFi.IStudentAssessmentEducationOrganizationAssociation,
@@ -8418,7 +8418,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCharacteristicDescriptors.EdF
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentCharacteristicDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentCharacteristicDescriptors")]
     public partial class StudentCharacteristicDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentCharacteristicDescriptor.EdFi.StudentCharacteristicDescriptor,
         Entities.Common.EdFi.IStudentCharacteristicDescriptor,
@@ -8448,7 +8448,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCohortAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentCohortAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentCohortAssociations")]
     public partial class StudentCohortAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentCohortAssociation.EdFi.StudentCohortAssociation,
         Entities.Common.EdFi.IStudentCohortAssociation,
@@ -8483,7 +8483,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCompetencyObjectives.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentCompetencyObjectives")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentCompetencyObjectives")]
     public partial class StudentCompetencyObjectivesController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentCompetencyObjective.EdFi.StudentCompetencyObjective,
         Entities.Common.EdFi.IStudentCompetencyObjective,
@@ -8523,7 +8523,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCTEProgramAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentCTEProgramAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentCTEProgramAssociations")]
     public partial class StudentCTEProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi.StudentCTEProgramAssociation,
         Entities.Common.EdFi.IStudentCTEProgramAssociation,
@@ -8561,7 +8561,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentAssociation
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentDisciplineIncidentAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentDisciplineIncidentAssociations")]
     public partial class StudentDisciplineIncidentAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentDisciplineIncidentAssociation.EdFi.StudentDisciplineIncidentAssociation,
         Entities.Common.EdFi.IStudentDisciplineIncidentAssociation,
@@ -8595,7 +8595,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentBehaviorAss
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentDisciplineIncidentBehaviorAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentDisciplineIncidentBehaviorAssociations")]
     public partial class StudentDisciplineIncidentBehaviorAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentDisciplineIncidentBehaviorAssociation.EdFi.StudentDisciplineIncidentBehaviorAssociation,
         Entities.Common.EdFi.IStudentDisciplineIncidentBehaviorAssociation,
@@ -8630,7 +8630,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentNonOffender
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentDisciplineIncidentNonOffenderAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentDisciplineIncidentNonOffenderAssociations")]
     public partial class StudentDisciplineIncidentNonOffenderAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentDisciplineIncidentNonOffenderAssociation.EdFi.StudentDisciplineIncidentNonOffenderAssociation,
         Entities.Common.EdFi.IStudentDisciplineIncidentNonOffenderAssociation,
@@ -8663,7 +8663,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentEducationOrganizationAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentEducationOrganizationAssociations")]
     public partial class StudentEducationOrganizationAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentEducationOrganizationAssociation.EdFi.StudentEducationOrganizationAssociation,
         Entities.Common.EdFi.IStudentEducationOrganizationAssociation,
@@ -8708,7 +8708,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationResponsi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentEducationOrganizationResponsibilityAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentEducationOrganizationResponsibilityAssociations")]
     public partial class StudentEducationOrganizationResponsibilityAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentEducationOrganizationResponsibilityAssociation.EdFi.StudentEducationOrganizationResponsibilityAssociation,
         Entities.Common.EdFi.IStudentEducationOrganizationResponsibilityAssociation,
@@ -8743,7 +8743,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentGradebookEntries.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentGradebookEntries")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentGradebookEntries")]
     public partial class StudentGradebookEntriesController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentGradebookEntry.EdFi.StudentGradebookEntry,
         Entities.Common.EdFi.IStudentGradebookEntry,
@@ -8785,7 +8785,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentHomelessProgramAssociations.E
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentHomelessProgramAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentHomelessProgramAssociations")]
     public partial class StudentHomelessProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentHomelessProgramAssociation.EdFi.StudentHomelessProgramAssociation,
         Entities.Common.EdFi.IStudentHomelessProgramAssociation,
@@ -8823,7 +8823,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentIdentificationSystemDescripto
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentIdentificationSystemDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentIdentificationSystemDescriptors")]
     public partial class StudentIdentificationSystemDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentIdentificationSystemDescriptor.EdFi.StudentIdentificationSystemDescriptor,
         Entities.Common.EdFi.IStudentIdentificationSystemDescriptor,
@@ -8853,7 +8853,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentInterventionAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentInterventionAssociations")]
     public partial class StudentInterventionAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentInterventionAssociation.EdFi.StudentInterventionAssociation,
         Entities.Common.EdFi.IStudentInterventionAssociation,
@@ -8890,7 +8890,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAttendanceEvents.
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentInterventionAttendanceEvents")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentInterventionAttendanceEvents")]
     public partial class StudentInterventionAttendanceEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentInterventionAttendanceEvent.EdFi.StudentInterventionAttendanceEvent,
         Entities.Common.EdFi.IStudentInterventionAttendanceEvent,
@@ -8929,7 +8929,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLanguageInstructionProgramAss
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentLanguageInstructionProgramAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentLanguageInstructionProgramAssociations")]
     public partial class StudentLanguageInstructionProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentLanguageInstructionProgramAssociation.EdFi.StudentLanguageInstructionProgramAssociation,
         Entities.Common.EdFi.IStudentLanguageInstructionProgramAssociation,
@@ -8966,7 +8966,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLearningObjectives.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentLearningObjectives")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentLearningObjectives")]
     public partial class StudentLearningObjectivesController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentLearningObjective.EdFi.StudentLearningObjective,
         Entities.Common.EdFi.IStudentLearningObjective,
@@ -9005,7 +9005,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentMigrantEducationProgramAssoci
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentMigrantEducationProgramAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentMigrantEducationProgramAssociations")]
     public partial class StudentMigrantEducationProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentMigrantEducationProgramAssociation.EdFi.StudentMigrantEducationProgramAssociation,
         Entities.Common.EdFi.IStudentMigrantEducationProgramAssociation,
@@ -9049,7 +9049,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentNeglectedOrDelinquentProgramA
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentNeglectedOrDelinquentProgramAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentNeglectedOrDelinquentProgramAssociations")]
     public partial class StudentNeglectedOrDelinquentProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentNeglectedOrDelinquentProgramAssociation.EdFi.StudentNeglectedOrDelinquentProgramAssociation,
         Entities.Common.EdFi.IStudentNeglectedOrDelinquentProgramAssociation,
@@ -9087,7 +9087,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParentAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentParentAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentParentAssociations")]
     public partial class StudentParentAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentParentAssociation.EdFi.StudentParentAssociation,
         Entities.Common.EdFi.IStudentParentAssociation,
@@ -9126,7 +9126,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParticipationCodeDescriptors.
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentParticipationCodeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentParticipationCodeDescriptors")]
     public partial class StudentParticipationCodeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentParticipationCodeDescriptor.EdFi.StudentParticipationCodeDescriptor,
         Entities.Common.EdFi.IStudentParticipationCodeDescriptor,
@@ -9156,7 +9156,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentProgramAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentProgramAssociations")]
     public partial class StudentProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentProgramAssociation.EdFi.StudentProgramAssociation,
         Entities.Common.EdFi.IStudentProgramAssociation,
@@ -9191,7 +9191,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAttendanceEvents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentProgramAttendanceEvents")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentProgramAttendanceEvents")]
     public partial class StudentProgramAttendanceEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentProgramAttendanceEvent.EdFi.StudentProgramAttendanceEvent,
         Entities.Common.EdFi.IStudentProgramAttendanceEvent,
@@ -9232,7 +9232,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentSchoolAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentSchoolAssociations")]
     public partial class StudentSchoolAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.StudentSchoolAssociation,
         Entities.Common.EdFi.IStudentSchoolAssociation,
@@ -9283,7 +9283,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAttendanceEvents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentSchoolAttendanceEvents")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentSchoolAttendanceEvents")]
     public partial class StudentSchoolAttendanceEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentSchoolAttendanceEvent.EdFi.StudentSchoolAttendanceEvent,
         Entities.Common.EdFi.IStudentSchoolAttendanceEvent,
@@ -9325,7 +9325,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolFoodServiceProgramAssoc
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentSchoolFoodServiceProgramAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentSchoolFoodServiceProgramAssociations")]
     public partial class StudentSchoolFoodServiceProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentSchoolFoodServiceProgramAssociation.EdFi.StudentSchoolFoodServiceProgramAssociation,
         Entities.Common.EdFi.IStudentSchoolFoodServiceProgramAssociation,
@@ -9361,7 +9361,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentSectionAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentSectionAssociations")]
     public partial class StudentSectionAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentSectionAssociation.EdFi.StudentSectionAssociation,
         Entities.Common.EdFi.IStudentSectionAssociation,
@@ -9403,7 +9403,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAttendanceEvents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentSectionAttendanceEvents")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentSectionAttendanceEvents")]
     public partial class StudentSectionAttendanceEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentSectionAttendanceEvent.EdFi.StudentSectionAttendanceEvent,
         Entities.Common.EdFi.IStudentSectionAttendanceEvent,
@@ -9447,7 +9447,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentSpecialEducationProgramAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentSpecialEducationProgramAssociations")]
     public partial class StudentSpecialEducationProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation,
         Entities.Common.EdFi.IStudentSpecialEducationProgramAssociation,
@@ -9492,7 +9492,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentTitleIPartAProgramAssociation
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentTitleIPartAProgramAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentTitleIPartAProgramAssociations")]
     public partial class StudentTitleIPartAProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentTitleIPartAProgramAssociation.EdFi.StudentTitleIPartAProgramAssociation,
         Entities.Common.EdFi.IStudentTitleIPartAProgramAssociation,
@@ -9528,7 +9528,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SubmissionStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/submissionStatusDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/submissionStatusDescriptors")]
     public partial class SubmissionStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SubmissionStatusDescriptor.EdFi.SubmissionStatusDescriptor,
         Entities.Common.EdFi.ISubmissionStatusDescriptor,
@@ -9558,7 +9558,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Surveys.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveys")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveys")]
     public partial class SurveysController : DataManagementControllerBase<
         Api.Common.Models.Resources.Survey.EdFi.Survey,
         Entities.Common.EdFi.ISurvey,
@@ -9597,7 +9597,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyCategoryDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveyCategoryDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveyCategoryDescriptors")]
     public partial class SurveyCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyCategoryDescriptor.EdFi.SurveyCategoryDescriptor,
         Entities.Common.EdFi.ISurveyCategoryDescriptor,
@@ -9627,7 +9627,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyCourseAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveyCourseAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveyCourseAssociations")]
     public partial class SurveyCourseAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyCourseAssociation.EdFi.SurveyCourseAssociation,
         Entities.Common.EdFi.ISurveyCourseAssociation,
@@ -9661,7 +9661,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyLevelDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveyLevelDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveyLevelDescriptors")]
     public partial class SurveyLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyLevelDescriptor.EdFi.SurveyLevelDescriptor,
         Entities.Common.EdFi.ISurveyLevelDescriptor,
@@ -9691,7 +9691,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyProgramAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveyProgramAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveyProgramAssociations")]
     public partial class SurveyProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyProgramAssociation.EdFi.SurveyProgramAssociation,
         Entities.Common.EdFi.ISurveyProgramAssociation,
@@ -9726,7 +9726,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveyQuestions")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveyQuestions")]
     public partial class SurveyQuestionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyQuestion.EdFi.SurveyQuestion,
         Entities.Common.EdFi.ISurveyQuestion,
@@ -9762,7 +9762,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestionResponses.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveyQuestionResponses")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveyQuestionResponses")]
     public partial class SurveyQuestionResponsesController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyQuestionResponse.EdFi.SurveyQuestionResponse,
         Entities.Common.EdFi.ISurveyQuestionResponse,
@@ -9798,7 +9798,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponses.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveyResponses")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveyResponses")]
     public partial class SurveyResponsesController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyResponse.EdFi.SurveyResponse,
         Entities.Common.EdFi.ISurveyResponse,
@@ -9839,7 +9839,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseEducationOrganizationT
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveyResponseEducationOrganizationTargetAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveyResponseEducationOrganizationTargetAssociations")]
     public partial class SurveyResponseEducationOrganizationTargetAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyResponseEducationOrganizationTargetAssociation.EdFi.SurveyResponseEducationOrganizationTargetAssociation,
         Entities.Common.EdFi.ISurveyResponseEducationOrganizationTargetAssociation,
@@ -9873,7 +9873,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseStaffTargetAssociation
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveyResponseStaffTargetAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveyResponseStaffTargetAssociations")]
     public partial class SurveyResponseStaffTargetAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyResponseStaffTargetAssociation.EdFi.SurveyResponseStaffTargetAssociation,
         Entities.Common.EdFi.ISurveyResponseStaffTargetAssociation,
@@ -9907,7 +9907,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySections.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveySections")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveySections")]
     public partial class SurveySectionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveySection.EdFi.SurveySection,
         Entities.Common.EdFi.ISurveySection,
@@ -9940,7 +9940,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveySectionAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveySectionAssociations")]
     public partial class SurveySectionAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveySectionAssociation.EdFi.SurveySectionAssociation,
         Entities.Common.EdFi.ISurveySectionAssociation,
@@ -9977,7 +9977,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponses.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveySectionResponses")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveySectionResponses")]
     public partial class SurveySectionResponsesController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveySectionResponse.EdFi.SurveySectionResponse,
         Entities.Common.EdFi.ISurveySectionResponse,
@@ -10012,7 +10012,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseEducationOrgani
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveySectionResponseEducationOrganizationTargetAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveySectionResponseEducationOrganizationTargetAssociations")]
     public partial class SurveySectionResponseEducationOrganizationTargetAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveySectionResponseEducationOrganizationTargetAssociation.EdFi.SurveySectionResponseEducationOrganizationTargetAssociation,
         Entities.Common.EdFi.ISurveySectionResponseEducationOrganizationTargetAssociation,
@@ -10047,7 +10047,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseStaffTargetAsso
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveySectionResponseStaffTargetAssociations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/surveySectionResponseStaffTargetAssociations")]
     public partial class SurveySectionResponseStaffTargetAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveySectionResponseStaffTargetAssociation.EdFi.SurveySectionResponseStaffTargetAssociation,
         Entities.Common.EdFi.ISurveySectionResponseStaffTargetAssociation,
@@ -10082,7 +10082,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialBasisDescriptors.E
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/teachingCredentialBasisDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/teachingCredentialBasisDescriptors")]
     public partial class TeachingCredentialBasisDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TeachingCredentialBasisDescriptor.EdFi.TeachingCredentialBasisDescriptor,
         Entities.Common.EdFi.ITeachingCredentialBasisDescriptor,
@@ -10112,7 +10112,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/teachingCredentialDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/teachingCredentialDescriptors")]
     public partial class TeachingCredentialDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TeachingCredentialDescriptor.EdFi.TeachingCredentialDescriptor,
         Entities.Common.EdFi.ITeachingCredentialDescriptor,
@@ -10142,7 +10142,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TechnicalSkillsAssessmentDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/technicalSkillsAssessmentDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/technicalSkillsAssessmentDescriptors")]
     public partial class TechnicalSkillsAssessmentDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TechnicalSkillsAssessmentDescriptor.EdFi.TechnicalSkillsAssessmentDescriptor,
         Entities.Common.EdFi.ITechnicalSkillsAssessmentDescriptor,
@@ -10172,7 +10172,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TelephoneNumberTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/telephoneNumberTypeDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/telephoneNumberTypeDescriptors")]
     public partial class TelephoneNumberTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TelephoneNumberTypeDescriptor.EdFi.TelephoneNumberTypeDescriptor,
         Entities.Common.EdFi.ITelephoneNumberTypeDescriptor,
@@ -10202,7 +10202,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TermDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/termDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/termDescriptors")]
     public partial class TermDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TermDescriptor.EdFi.TermDescriptor,
         Entities.Common.EdFi.ITermDescriptor,
@@ -10232,7 +10232,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAParticipantDescriptors.Ed
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/titleIPartAParticipantDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/titleIPartAParticipantDescriptors")]
     public partial class TitleIPartAParticipantDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TitleIPartAParticipantDescriptor.EdFi.TitleIPartAParticipantDescriptor,
         Entities.Common.EdFi.ITitleIPartAParticipantDescriptor,
@@ -10262,7 +10262,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAProgramServiceDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/titleIPartAProgramServiceDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/titleIPartAProgramServiceDescriptors")]
     public partial class TitleIPartAProgramServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TitleIPartAProgramServiceDescriptor.EdFi.TitleIPartAProgramServiceDescriptor,
         Entities.Common.EdFi.ITitleIPartAProgramServiceDescriptor,
@@ -10292,7 +10292,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartASchoolDesignationDescript
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/titleIPartASchoolDesignationDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/titleIPartASchoolDesignationDescriptors")]
     public partial class TitleIPartASchoolDesignationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TitleIPartASchoolDesignationDescriptor.EdFi.TitleIPartASchoolDesignationDescriptor,
         Entities.Common.EdFi.ITitleIPartASchoolDesignationDescriptor,
@@ -10322,7 +10322,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TribalAffiliationDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/tribalAffiliationDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/tribalAffiliationDescriptors")]
     public partial class TribalAffiliationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TribalAffiliationDescriptor.EdFi.TribalAffiliationDescriptor,
         Entities.Common.EdFi.ITribalAffiliationDescriptor,
@@ -10352,7 +10352,7 @@ namespace EdFi.Ods.Api.Services.Controllers.VisaDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/visaDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/visaDescriptors")]
     public partial class VisaDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.VisaDescriptor.EdFi.VisaDescriptor,
         Entities.Common.EdFi.IVisaDescriptor,
@@ -10382,7 +10382,7 @@ namespace EdFi.Ods.Api.Services.Controllers.WeaponDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/weaponDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/weaponDescriptors")]
     public partial class WeaponDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.WeaponDescriptor.EdFi.WeaponDescriptor,
         Entities.Common.EdFi.IWeaponDescriptor,
