@@ -1,9 +1,10 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common;
@@ -11,7 +12,6 @@ using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Specifications;
 using NHibernate;
@@ -32,6 +32,9 @@ namespace EdFi.Ods.Api.IdentityValueMappers
         private readonly IPersonTypesProvider _personTypesProvider;
         private readonly Func<IStatelessSession> _openStatelessSession;
 
+        private readonly ConcurrentDictionary<string, (string entityName, string usiName, string uniqueIdName)>
+            _artifactNamesByPersonType = new();
+
         public UniqueIdToUsiValueMapper(
             Func<IStatelessSession> openStatelessSession,
             IContextStorage contextStorage,
@@ -48,7 +51,7 @@ namespace EdFi.Ods.Api.IdentityValueMappers
         {
             Preconditions.ThrowIfNull(personType, nameof(personType));
 
-            return GetPersonIdentifiersValueMap(personType, personType + "UniqueId", uniqueId)
+            return GetPersonIdentifiersValueMap(personType, uniqueId)
                       .FirstOrDefault() ?? new PersonIdentifiersValueMap();
         }
 
@@ -56,14 +59,11 @@ namespace EdFi.Ods.Api.IdentityValueMappers
         {
             Preconditions.ThrowIfNull(personType, nameof(personType));
 
-            return GetPersonIdentifiersValueMap(personType, personType + "USI", usi)
+            return GetPersonIdentifiersValueMap(personType, usi)
                       .FirstOrDefault() ?? new PersonIdentifiersValueMap();
         }
 
-        private IEnumerable<PersonIdentifiersValueMap> GetPersonIdentifiersValueMap(
-            string personType,
-            string searchField,
-            object searchValue)
+        private IEnumerable<PersonIdentifiersValueMap> GetPersonIdentifiersValueMap(string personType, object searchValue)
         {
             // Validate Person type
             if (!_personEntitySpecification.IsPersonEntity(personType))
@@ -80,21 +80,31 @@ namespace EdFi.Ods.Api.IdentityValueMappers
 
                 using var session = _openStatelessSession();
 
-                string aggregateNamespace = Namespaces.Entities.NHibernate.GetAggregateNamespace(
-                    personType, EdFiConventions.ProperCaseName);
+                var (entityName, usiName, uniqueIdName) = _artifactNamesByPersonType.GetOrAdd(personType,
+                    pt =>
+                    {
+                        string aggregateNamespace = Namespaces.Entities.NHibernate.GetAggregateNamespace(pt, EdFiConventions.ProperCaseName);
 
-                string entityName = $"{aggregateNamespace}.{personType}";
-
+                        return ($"{aggregateNamespace}.{pt}", $"{pt}USI", $"{pt}UniqueId");
+                    });
+                
                 var criteria = session.CreateCriteria(entityName)
                     .SetProjection(
                         Projections.ProjectionList()
-                            .Add(Projections.Alias(Projections.Property($"{personType}USI"), "Usi"))
-                            .Add(Projections.Alias(Projections.Property($"{personType}UniqueId"), "UniqueId"))
+                            .Add(Projections.Alias(Projections.Property(usiName), "Usi"))
+                            .Add(Projections.Alias(Projections.Property(uniqueIdName), "UniqueId"))
                     );
 
-                if (searchField != null)
+                if (searchValue != null)
                 {
-                    criteria.Add(Expression.Eq($"{searchField}", searchValue));
+                    if (searchValue is string)
+                    {
+                        criteria.Add(Expression.Eq(uniqueIdName, searchValue));    
+                    }
+                    else
+                    {
+                        criteria.Add(Expression.Eq(usiName, searchValue));    
+                    }
                 }
 
                 criteria.SetResultTransformer(Transformers.AliasToBean<PersonIdentifiersValueMap>());
