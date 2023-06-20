@@ -22,7 +22,6 @@ using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
-using EdFi.Ods.Common.Utils.Extensions;
 using log4net;
 using NHibernate;
 using NHibernate.Exceptions;
@@ -681,6 +680,13 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             }
             catch (GenericADOException ex)
             {
+                // Added this validation to avoid hiding a DatabseConnectionException
+                if (ex.InnerException is DatabaseConnectionException)
+                {
+                    _logger.Error("Query execution failed. Connection to the database", ex);
+                    throw ex.InnerException;
+                }
+
                 _logger.Error("Query execution failed (likely due to invalid parameter values). ", ex);
                 throw new ArgumentException("Query execution failed (likely due to invalid parameter values).");
             }
@@ -973,13 +979,13 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
                 // NOTE: Initially the following guard condition was added to prevent the presence of the
                 // CreatedByOwnershipTokenId parameter from breaking composite requests.
-                
+
                 // Don't process parameter values that aren't present in the query
                 if (!query.NamedParameters.Contains(parameterName))
                 {
                     continue;
                 }
-                
+
                 if (parameterName.EndsWith("_Id"))
                 {
                     // Parameter is a GUID resource Id
