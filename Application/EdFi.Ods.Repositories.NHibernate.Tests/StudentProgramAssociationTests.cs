@@ -231,6 +231,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                     TitleIPartAParticipantDescriptor = KnownDescriptors.TitleIPartAParticipant.LocalNeglectedProgram
                 };
 
+                /*
                 // Add a service to the base class
                 var titleIService = new StudentTitleIPartAProgramAssociationService
                 {
@@ -242,6 +243,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 };
 
                 studentTitleIPartA.StudentTitleIPartAProgramAssociationServices.Add(titleIService);
+                */
 
                 var studentTitleIPartAProgramAssociationUpsertResult = _studentTitleIPartAProgramAssociationRepo.UpsertAsync(
                         studentTitleIPartA, false, CancellationToken.None)
