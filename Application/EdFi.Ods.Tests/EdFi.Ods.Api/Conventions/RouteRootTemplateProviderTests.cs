@@ -90,7 +90,7 @@ public class RouteRootTemplateProviderTests
         var result = _odsRouteRootTemplateProvider.GetOdsRouteRootTemplate();
 
         // Assert
-        result.ShouldBe($"{RouteConstants.TenantIdentifierRoutePrefix}{{ods-context-template?}}/");
+        result.ShouldBe($"{RouteConstants.TenantIdentifierRoutePrefix}{{ods-context-template}}/");
     }
 
     [Test]
@@ -114,7 +114,7 @@ public class RouteRootTemplateProviderTests
         var result = _odsRouteRootTemplateProvider.GetOdsRouteRootTemplate();
 
         // Assert
-        result.ShouldBe($"{{ods-context-template?}}/");
+        result.ShouldBe($"{{ods-context-template}}/");
     }
 
     [TestCase("")]
