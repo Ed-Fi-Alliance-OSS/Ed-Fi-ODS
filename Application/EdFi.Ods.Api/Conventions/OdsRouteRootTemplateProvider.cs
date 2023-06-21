@@ -26,7 +26,7 @@ public class OdsRouteRootTemplateProvider : IOdsRouteRootTemplateProvider
     /// <inheritdoc cref="IOdsRouteRootTemplateProvider.GetOdsRouteRootTemplate" />
     public string GetOdsRouteRootTemplate()
     {
-        string odsContextRouteTemplate = EnsureOdsContextRouteTemplateIsOptional(_apiSettings.OdsContextRouteTemplate);
+        string odsContextRouteTemplate = _apiSettings.OdsContextRouteTemplate;
 
         if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.Value))
         {
@@ -40,20 +40,5 @@ public class OdsRouteRootTemplateProvider : IOdsRouteRootTemplateProvider
         }
 
         return null;
-
-        string EnsureOdsContextRouteTemplateIsOptional(string odsContextRouteTemplate)
-        {
-            if(string.IsNullOrEmpty(odsContextRouteTemplate))
-            {
-                return odsContextRouteTemplate;
-            }
-
-            if (odsContextRouteTemplate.EndsWith("?}"))
-            {
-                return odsContextRouteTemplate;
-            }
-
-            return odsContextRouteTemplate.ReplaceSuffix("}", "?}");
-        }
     }
 }

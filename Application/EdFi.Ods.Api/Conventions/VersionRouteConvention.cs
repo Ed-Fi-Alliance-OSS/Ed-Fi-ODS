@@ -31,7 +31,7 @@ public class VersionRouteConvention : IApplicationModelConvention
 
         if (controller != null)
         {
-            // the composite controller has only one selector and if more are added this should break
+            // The controller has only one selector at this point, and if more are added this should break
             var selector = controller.Selectors.Single();
 
             // If multi-tenant feature enabled, add a new selector
