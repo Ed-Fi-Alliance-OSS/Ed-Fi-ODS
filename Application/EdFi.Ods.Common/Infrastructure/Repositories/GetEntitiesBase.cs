@@ -137,7 +137,6 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         applyParameters(childQuery);
                         childQuery.Future<TEntity>();
                     }
-                    }
                 }
 
                 return await futureEnumerable.GetEnumerableAsync(cancellationToken);
