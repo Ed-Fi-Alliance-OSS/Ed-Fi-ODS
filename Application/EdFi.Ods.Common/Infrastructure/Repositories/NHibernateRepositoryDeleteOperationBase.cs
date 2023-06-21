@@ -27,7 +27,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         private readonly IETagProvider _eTagProvider;
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
         private readonly ConcurrentDictionary<FullName, DbCommand> _deleteCommandByEntityFullName = new();
-        private readonly ConcurrentDictionary<(FullName, string), Func<TEntity, object>> _propertyGetterByPropertyName = new();
+        private readonly ConcurrentDictionary<(FullName entityFullName, string propertyName), Func<TEntity, object>>
+            _propertyGetterByPropertyName = new();
 
         protected NHibernateRepositoryDeleteOperationBase(
             ISessionFactory sessionFactory,
