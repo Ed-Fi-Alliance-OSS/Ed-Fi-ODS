@@ -6,8 +6,6 @@
 name: CodeQL Security Scan Schedule 
 
 on:
-  pull_request:
-   branches: [main, 'ODS-*']
   schedule:
     - cron: '0 0 * * *'
 env:
