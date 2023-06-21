@@ -345,9 +345,9 @@
 
       <Composite name="StudentLinkedCollectionWithCollection">
         <BaseResource name="Student">
-          <LinkedCollection name="StudentEducationOrganizationAssociations">
-            <Collection name="StudentEducationOrganizationAssociationProgramParticipations">
-              <Property name="BeginDate" />
+          <LinkedCollection name="StudentInterventionAssociations">
+            <Collection name="StudentInterventionAssociationInterventionEffectivenesses">
+              <Property name="ImprovementIndex" />
             </Collection>
           </LinkedCollection>
         </BaseResource>
