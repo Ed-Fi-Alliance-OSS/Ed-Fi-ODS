@@ -4,14 +4,13 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Attributes;
-using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Models;
@@ -39,18 +38,18 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         private readonly Lazy<string> _mainHqlStatementBaseForReads;
         private readonly Lazy<string> _mainHqlStatementBaseForWrites;
 
+        // Holds pre-built HQL queries to avoid string allocations for each execution 
+        private static readonly ConcurrentDictionary<(bool isReadRequest, string whereClause, string orderByClause), string> _hqlByScenario = new ();
+        private static readonly ConcurrentDictionary<(bool isReadRequest, int childIndex, string whereClause), string> _childHqlByScenario = new();
+
         // Authorization is optional configuration -- container will initialize this property if registered
         public IAuthorizationContextProvider AuthorizationContextProvider { get; set; }
 
         // Static members, not shared between concrete generic types
         private static readonly string _aggregateRootEntityTypeName = typeof(TEntity).FullName;
 
-        private static readonly string[] _queryAliases =
-        {
-            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w",
-            "x", "y", "z", "aa", "bb", "cc", "dd", "ee", "ff", "gg", "hh", "ii", "jj", "kk", "ll", "mm", "nn", "oo", "pp",
-            "qq", "rr", "ss", "tt", "uu", "vv", "ww", "xx", "yy", "zz"
-        };
+        // ReSharper disable once StaticMemberInGenericType
+        private static readonly string[] _queryAliases;
 
         protected GetEntitiesBase(
             ISessionFactory sessionFactory, 
@@ -60,7 +59,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         {
             _domainModelProvider = domainModelProvider;
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
-            _aggregate = new Lazy<Aggregate>(GetAggregate);
+            _aggregate = new Lazy<Aggregate>(() => dataManagementResourceContextProvider.Get().Resource.Entity.Aggregate);
 
             _aggregateHqlStatementsForReads = new Lazy<List<string>>(
                 () => CreateAggregateHqlStatements(includeReferenceData: true), true);
@@ -70,6 +69,15 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
             _mainHqlStatementBaseForReads = new Lazy<string>(() => GetMainHqlStatement(includeReferenceData: true), true);
             _mainHqlStatementBaseForWrites = new Lazy<string>(() => GetMainHqlStatement(includeReferenceData: false), true);
+        }
+
+        static GetEntitiesBase()
+        {
+            _queryAliases = new[] {
+                "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w",
+                "x", "y", "z", "aa", "bb", "cc", "dd", "ee", "ff", "gg", "hh", "ii", "jj", "kk", "ll", "mm", "nn", "oo", "pp",
+                "qq", "rr", "ss", "tt", "uu", "vv", "ww", "xx", "yy", "zz"
+            };
         }
 
         private string GetMainHqlStatement(bool includeReferenceData)
@@ -103,8 +111,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
             bool isReadRequest = (httpMethod == HttpMethods.Get);
             bool isShallow = (httpMethod == HttpMethods.Delete);
-            
-            string mainHql = BuildMainHql();
+
+            string mainHql = GetMainHql();
 
             using (new SessionScope(SessionFactory))
             {
@@ -119,9 +127,13 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         ? _aggregateHqlStatementsForReads.Value
                         : _aggregateHqlStatementsForWrites.Value;
 
-                    foreach (string hql in aggregateStatements)
+                    int childIndex = 0;
+                    
+                    foreach (string childBaseHql in aggregateStatements)
                     {
-                        var childQuery = Session.CreateQuery(string.Concat(hql, whereClause));
+                        string childHql = GetChildHql(childIndex++, childBaseHql);
+                        
+                        var childQuery = Session.CreateQuery(childHql);
                         applyParameters(childQuery);
                         childQuery.Future<TEntity>();
                     }
@@ -130,18 +142,31 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 return await futureEnumerable.GetEnumerableAsync(cancellationToken);
             }
 
-            string BuildMainHql()
+            string GetMainHql()
             {
-                string mainHqlBase = isReadRequest
-                    ? _mainHqlStatementBaseForReads.Value
-                    : _mainHqlStatementBaseForWrites.Value;
+                return _hqlByScenario.GetOrAdd(
+                    (isReadRequest, whereClause, orderByClause),
+                    static (key, args) =>
+                    {
+                        string mainHqlBase = key.isReadRequest
+                            ? args._mainHqlStatementBaseForReads.Value
+                            : args._mainHqlStatementBaseForWrites.Value;
 
-                if (string.IsNullOrEmpty(orderByClause))
-                {
-                    return $"{mainHqlBase} {whereClause}";
-                }
+                        return string.IsNullOrEmpty(key.orderByClause)
+                            ? $"{mainHqlBase} {key.whereClause}"
+                            : $"{mainHqlBase} {key.whereClause} {key.orderByClause}";
+                    },
+                    (_mainHqlStatementBaseForReads, _mainHqlStatementBaseForWrites));
+            }
 
-                return $"{mainHqlBase} {whereClause} {orderByClause}";
+            string GetChildHql(int childIndex, string childBaseHql)
+            {
+                string childHql = _childHqlByScenario.GetOrAdd(
+                    (isReadRequest, childIndex, whereClause),
+                    static (key, arg) => $"{arg}{key.whereClause}",
+                    childBaseHql);
+
+                return childHql;
             }
         }
 
