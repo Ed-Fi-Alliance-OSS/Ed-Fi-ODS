@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.Api.Caching
 {
@@ -78,16 +79,7 @@ namespace EdFi.Ods.Api.Caching
             _personEntitySpecification = personEntitySpecification;
             _personTypesProvider = personTypesProvider;
             _synchronousInitialization = synchronousInitialization;
-
-            // Ensure that the string comparer is using case-insensitive matching, or re-create it.
-            if (Equals(cacheSuppression.Comparer, StringComparer.OrdinalIgnoreCase))
-            {
-                _cacheSuppression = cacheSuppression;
-            }
-            else
-            {
-                _cacheSuppression = new Dictionary<string, bool>(cacheSuppression, StringComparer.OrdinalIgnoreCase);
-            }
+            _cacheSuppression = cacheSuppression;
 
             if (slidingExpiration < TimeSpan.Zero)
             {

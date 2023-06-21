@@ -5,6 +5,9 @@
 
 namespace EdFi.Ods.Common.Specifications;
 
+/// <summary>
+/// Defines a method for obtaining the names of the person type entities in the model.
+/// </summary>
 public interface IPersonTypesProvider
 {
     /// <summary>

@@ -82,5 +82,12 @@ public interface IPersonEntitySpecification
     /// <returns><b>true</b> if the person type could be determined; otherwise <b>false</b>.</returns>
     bool TryGetUSIPersonTypeAndRoleName(string propertyName, out string personType, out string roleName);
 
+    /// <summary>
+    /// Indicates whether the supplied resource class and resource property individually match the conventions necessary for
+    /// the property to be a UniqueId property, and the resource class to be associated with a person entity.
+    /// </summary>
+    /// <param name="resourceClass">The resource class to be evaluated.</param>
+    /// <param name="property">The resource property to be evaluated.</param>
+    /// <returns><b>true</b> if both input parameter match their respective conventions; otherwise <b>false</b>.</returns>
     bool IsDefiningUniqueId(ResourceClassBase resourceClass, ResourceProperty property);
 }

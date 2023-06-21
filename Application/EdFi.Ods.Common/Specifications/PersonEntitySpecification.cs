@@ -54,7 +54,8 @@ namespace EdFi.Ods.Common.Specifications
 
             return false;
         }
-        
+
+        /// <inheritdoc cref="IPersonEntitySpecification.GetUniqueIdPersonType" />
         public string GetUniqueIdPersonType(string propertyName)
         {
             string personType = _personTypesProvider.PersonTypes.FirstOrDefault(
@@ -82,6 +83,7 @@ namespace EdFi.Ods.Common.Specifications
             return personType != null;
         }
 
+        /// <inheritdoc cref="IPersonEntitySpecification.GetUSIPersonType" />
         public string GetUSIPersonType(string propertyName)
         {
             string personType = _personTypesProvider.PersonTypes.FirstOrDefault(
@@ -101,6 +103,7 @@ namespace EdFi.Ods.Common.Specifications
             return personType;
         }
 
+        /// <inheritdoc cref="IPersonEntitySpecification.TryGetUSIPersonType" />
         public bool TryGetUSIPersonType(string propertyName, out string personType)
         {
             personType = GetUSIPersonType(propertyName);
@@ -108,6 +111,7 @@ namespace EdFi.Ods.Common.Specifications
             return personType != null;
         }
 
+        /// <inheritdoc cref="IPersonEntitySpecification.TryGetUSIPersonTypeAndRoleName" />
         public bool TryGetUSIPersonTypeAndRoleName(string propertyName, out string personType, out string roleName)
         {
             roleName = null;
@@ -130,6 +134,7 @@ namespace EdFi.Ods.Common.Specifications
             return true;
         }
 
+        /// <inheritdoc cref="IPersonEntitySpecification.IsDefiningUniqueId" />
         public bool IsDefiningUniqueId(ResourceClassBase resourceClass, ResourceProperty property)
         {
             return UniqueIdConventions.IsUniqueId(property.PropertyName)

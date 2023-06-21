@@ -225,7 +225,7 @@ namespace EdFi.Ods.Common.Models.Resource
                     306,
                     isNullable: property.PropertyType.IsNullable);
             }
-            
+
             var propertyType = IsUsiWithTransformedResourcePropertyName(property)
                 ? GetBasePersonUniqueIdPropertyType(property)
                 : property.PropertyType;
