@@ -47,9 +47,7 @@ namespace EdFi.Admin.DataAccess.Contexts
         public IDbSet<Profile> Profiles { get; set; }
 
         public IDbSet<OdsInstance> OdsInstances { get; set; }
-
-        public IDbSet<OdsInstanceComponent> OdsInstanceComponents { get; set; }
-
+        
         //TODO:  This should really be removed from being directly on the context.  Application should own
         //TODO:  these instances, and deleting an application should delete the associated LEA's
         public IDbSet<ApplicationEducationOrganization> ApplicationEducationOrganizations { get; set; }
