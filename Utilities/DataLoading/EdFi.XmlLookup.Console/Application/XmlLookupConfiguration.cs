@@ -20,6 +20,8 @@ namespace EdFi.XmlLookup.Console.Application
 
         public string ApiUrl { get; set; }
 
+        public string RootUrl { get; set; }
+
         public string OAuthKey { get; set; }
 
         public string OAuthSecret { get; set; }
@@ -142,13 +144,12 @@ namespace EdFi.XmlLookup.Console.Application
                 Retries = configuration.GetValue("Concurrency:MaxRetries", 3),
                 OAuthKey = configuration.GetValue<string>("OdsApi:Key"),
                 OAuthSecret = configuration.GetValue<string>("OdsApi:Secret"),
-                SchoolYear = configuration.GetValue<int?>("OdsApi:SchoolYear"),
-                InstanceId = configuration.GetValue<string>("OdsApi:Instanceid"),
                 TaskCapacity = configuration.GetValue("Concurrency:TaskCapacity", 50),
                 WorkingFolder = configuration.GetValue("Folders:Working", currentDirectory),
                 XsdFolder = configuration.GetValue("Folders:Xsd", currentDirectory),
                 MaxSimultaneousRequests = configuration.GetValue("Concurrency:MaxSimultaneousApiRequests", 500),
                 ApiUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:ApiUrl")),
+                RootUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:ApiUrl")),
                 MetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:MetadataUrl")),
                 XsdMetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:XsdMetadataUrl")),
                 OAuthUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:OAuthUrl"))
@@ -161,7 +162,7 @@ namespace EdFi.XmlLookup.Console.Application
                     return null;
                 }
 				
-                    return url;
+                return url;
             }
         }
     }

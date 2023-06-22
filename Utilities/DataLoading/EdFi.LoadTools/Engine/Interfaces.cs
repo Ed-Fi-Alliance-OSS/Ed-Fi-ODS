@@ -25,6 +25,8 @@ namespace EdFi.LoadTools.Engine
         string Profile { get; }
 
         int Retries { get; }
+
+        string RootUrl { get; }
     }
 
     public interface IApiMetadataConfiguration

@@ -21,6 +21,8 @@ namespace EdFi.SmokeTest.Console.Application
     {
         public string ApiUrl { get; set; }
 
+        public string RootUrl { get; set; }
+
         public string OAuthKey { get; set; }
 
         public string OAuthSecret { get; set; }
@@ -122,6 +124,7 @@ namespace EdFi.SmokeTest.Console.Application
             return new SmokeTestsConfiguration
             {
                 ApiUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:ApiUrl")),
+                RootUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:Url")),
                 MetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:MetadataUrl")),
                 XsdMetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:XsdMetadataUrl")),
                 DependenciesUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:DependenciesUrl")),
@@ -143,7 +146,7 @@ namespace EdFi.SmokeTest.Console.Application
                     return null;
                 }
 
-                    return url;
+                return url;
             }
         }
     }

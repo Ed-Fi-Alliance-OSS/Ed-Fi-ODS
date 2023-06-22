@@ -13,7 +13,7 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
         IDataConfiguration, IOAuthTokenConfiguration, IApiMetadataConfiguration, IXsdConfiguration,
         IInterchangeOrderConfiguration
     {
-        
+        public string RootUrl { get; set; }
 
         public string ApiUrl { get; set; }
 
@@ -151,6 +151,7 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                 InterchangeOrderFolder = configuration.GetValue("Folders:Interchange", currentDirectory),
                 MaxSimultaneousRequests = configuration.GetValue("Concurrency:MaxSimultaneousApiRequests", 500),
                 ApiUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:ApiUrl")),
+                RootUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:Url")),
                 MetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:MetadataUrl")),
                 DependenciesUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:DependenciesUrl")),
                 OauthUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:OAuthUrl")),
@@ -165,7 +166,7 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                     return null;
                 }
 
-                    return url;
+                return url;
             }
         }
     }
