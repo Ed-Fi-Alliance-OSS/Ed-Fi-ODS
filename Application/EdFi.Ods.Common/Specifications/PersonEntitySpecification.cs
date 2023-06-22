@@ -61,7 +61,7 @@ namespace EdFi.Ods.Common.Specifications
             string personType = _personTypesProvider.PersonTypes.FirstOrDefault(
                 pt =>
                 {
-                    int personTypePos = propertyName.IndexOf(pt, StringComparison.Ordinal);
+                    int personTypePos = propertyName.IndexOf(pt, StringComparison.OrdinalIgnoreCase);
 
                     if (personTypePos < 0 || personTypePos + pt.Length > propertyName.Length)
                     {
@@ -89,7 +89,7 @@ namespace EdFi.Ods.Common.Specifications
             string personType = _personTypesProvider.PersonTypes.FirstOrDefault(
                 pt =>
                 {
-                    int personTypePos = propertyName.IndexOf(pt, StringComparison.Ordinal);
+                    int personTypePos = propertyName.IndexOf(pt, StringComparison.OrdinalIgnoreCase);
 
                     if (personTypePos < 0 || personTypePos + pt.Length > propertyName.Length)
                     {
