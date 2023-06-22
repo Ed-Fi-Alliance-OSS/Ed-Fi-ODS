@@ -4,8 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.IO;
-using System.Text.RegularExpressions;
-using EdFi.Common.Configuration;
 using EdFi.LoadTools.Engine;
 using Microsoft.Extensions.Configuration;
 
@@ -44,10 +42,6 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
         public int MaxSimultaneousRequests { get; set; }
 
         public int Retries { get; set; }
-
-        public int? SchoolYear { get; set; }
-
-        public string InstanceId { get; set; }
 
         public int ConnectionLimit { get; set; }
 
@@ -151,8 +145,6 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                 IncludeStats = configuration.GetValue<bool>("IncludeStats"),
                 OAuthKey = configuration.GetValue<string>("OdsApi:Key"),
                 OAuthSecret = configuration.GetValue<string>("OdsApi:Secret"),
-                SchoolYear = configuration.GetValue<int?>("OdsApi:SchoolYear"),
-                InstanceId = configuration.GetValue<string>("OdsApi:Instanceid"),
                 TaskCapacity = configuration.GetValue("Concurrency:TaskCapacity", 50),
                 WorkingFolder = workingFolder,
                 XsdFolder = xsdFolder,

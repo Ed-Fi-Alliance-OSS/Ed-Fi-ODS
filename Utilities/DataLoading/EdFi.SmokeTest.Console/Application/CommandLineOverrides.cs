@@ -42,12 +42,6 @@ namespace EdFi.SmokeTest.Console.Application
             HelpText = "The test set to run (i.e. NonDestructiveApi, NonDestructiveSdk, DestructiveSdk)")]
         public string TestSet { get; set; }
 
-        [Option('y', "year", Required = false, HelpText = "The target school year for the web API (i.e. 2016)")]
-        public int? SchoolYear { get; set; }
-
-        [Option('i', "instance-id", Required = false, HelpText = "ODS Instance id (e.g. District Id)")]
-        public string InstanceId { get; set; }
-
         [Option('z', "xsdmetadataurl", Required = false, HelpText = "The XSD metadata url (i.e. http://server/metadata)")]
         public string XsdMetadataUrl { get; set; }
 
@@ -64,8 +58,6 @@ namespace EdFi.SmokeTest.Console.Application
                 {"-o", "OdsApi:OAuthUrl"},
                 {"-s", "OdsApi:Secret"},
                 {"-t", "TestSet"},
-                {"-y", "OdsApi:SchoolYear"},
-                {"-i", "OdsApi:InstanceId"},
                 {"--apiurl", "OdsApi:ApiUrl"},
                 {"--key", "OdsApi:Key"},
                 {"--library", "SdkLibraryPath"},
@@ -75,9 +67,7 @@ namespace EdFi.SmokeTest.Console.Application
                 {"--oauthurl", "OdsApi:OAuthUrl"},
                 {"--secret", "OdsApi:Secret"},
                 {"--testset", "TestSet"},
-                {"--year", "OdsApi:SchoolYear"},
-                {"--instance-id", "OdsApi:InstanceId"},
-                {"--baseurl", "OdsApi:Url"},
+                {"--baseurl", "OdsApi:Url"}
             };
     }
 }

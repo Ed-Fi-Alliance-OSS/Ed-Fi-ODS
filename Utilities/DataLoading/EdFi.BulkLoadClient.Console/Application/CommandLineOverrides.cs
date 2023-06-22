@@ -17,12 +17,6 @@ namespace EdFi.BulkLoadClient.Console.Application
         [Option('a', "apiurl", Required = false, HelpText = "(deprecated) The web API url (i.e. http://server/)")]
         public string ApiUrl { get; set; }
 
-        [Option('y', "year", Required = false, HelpText = "The target school year for the web API (i.e. 2016)")]
-        public int? SchoolYear { get; set; }
-
-        [Option('i', "instance-id", Required = false, HelpText = "ODS Instance id (e.g. District Id)")]
-        public string InstanceId { get; set; }
-
         [Option('r', "retries", Required = false, HelpText = "The number of times to retry submitting a resource")]
         public int? MaxRetries { get; set; }
 
@@ -84,8 +78,6 @@ namespace EdFi.BulkLoadClient.Console.Application
             {
                 {"-b", "OdsApi:Url"},
                 {"-a", "OdsApi:ApiUrl"},
-                {"-y", "OdsApi:SchoolYear"},
-                {"-i", "OdsApi:InstanceId"},
                 {"-r", "Concurrency:MaxRetries"},
                 {"-d", "Folders:Data"},
                 {"-k", "OdsApi:Key"},
@@ -102,7 +94,6 @@ namespace EdFi.BulkLoadClient.Console.Application
                 {"-g", "OdsApi:DependenciesUrl"},
                 {"-e", "OdsApi:Extension"},
                 {"--apiurl", "OdsApi:ApiUrl"},
-                {"--year", "OdsApi:SchoolYear"},
                 {"--retries", "Concurrency:MaxRetries"},
                 {"--data", "Folders:Data"},
                 {"--key", "OdsApi:Key"},
@@ -118,8 +109,7 @@ namespace EdFi.BulkLoadClient.Console.Application
                 {"--maxrequests", "Concurrency:MaxSimultaneousApiRequests"},
                 {"--dependenciesurl", "OdsApi:DependenciesUrl"},
                 {"--baseurl", "OdsApi:Url"},
-                {"--extension", "OdsApi:Extension"},
-                {"--instance-id", "OdsApi:InstanceId"},
+                {"--extension", "OdsApi:Extension"}
             };
     }
 }

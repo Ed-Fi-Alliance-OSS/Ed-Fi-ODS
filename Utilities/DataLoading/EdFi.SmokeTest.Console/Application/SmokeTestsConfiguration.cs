@@ -27,10 +27,6 @@ namespace EdFi.SmokeTest.Console.Application
 
         public string OAuthUrl { get; set; }
 
-        public int? SchoolYear { get; set; }
-
-        public string InstanceId { get; set; }
-
         public string MetadataUrl { get; set; }
 
         public string XsdMetadataUrl { get; set; }
@@ -50,11 +46,6 @@ namespace EdFi.SmokeTest.Console.Application
         public int Retries { get; set; }
 
         public int MaxSimultaneousRequests { get; set; }
-
-        int? IApiConfiguration.SchoolYear
-        {
-            get => SchoolYear;
-        }
 
         string IApiConfiguration.Url
         {
@@ -137,8 +128,6 @@ namespace EdFi.SmokeTest.Console.Application
                 OAuthUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:OAuthUrl")),
                 OAuthKey = configuration.GetValue<string>("OdsApi:Key"),
                 OAuthSecret = configuration.GetValue<string>("OdsApi:Secret"),
-                SchoolYear = configuration.GetValue<int?>("OdsApi:SchoolYear"),
-                InstanceId = configuration.GetValue<string>("OdsApi:Instanceid"),
                 NamespacePrefix = configuration.GetValue<string>("NamespacePrefix"),
                 EducationOrganizationIdOverrides =
                     configuration.GetSection("EducationOrganizationIdOverrides").Get<IReadOnlyDictionary<string, int>>(),

@@ -65,10 +65,6 @@ namespace EdFi.XmlLookup.Console.Application
 
         public int MaxSimultaneousRequests { get; set; }
 
-        public int? SchoolYear { get; set; }
-
-        public string InstanceId { get; set; }
-
         public string Profile { get; set; }
 
         string IApiConfiguration.Url

@@ -22,8 +22,6 @@ namespace EdFi.LoadTools.Engine
     {
         string Url { get; }
 
-        int? SchoolYear { get; }
-
         string Profile { get; }
 
         int Retries { get; }

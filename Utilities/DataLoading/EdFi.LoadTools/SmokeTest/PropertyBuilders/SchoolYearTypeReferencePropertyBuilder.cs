@@ -34,7 +34,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
                 .GetProperties()
                 .Single(x => x.Name == "SchoolYear");
 
-            schoolYear.SetValue(target,  _config.SchoolYear ?? DateTime.Today.Year);
+            schoolYear.SetValue(target,  DateTime.Today.Year);
 
             propertyInfo.SetValue(obj, target);
             return true;

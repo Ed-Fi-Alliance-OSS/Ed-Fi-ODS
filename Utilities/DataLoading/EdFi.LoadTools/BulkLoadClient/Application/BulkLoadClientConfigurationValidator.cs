@@ -6,7 +6,6 @@
 using System;
 using System.IO;
 using System.Text;
-using EdFi.Common.Configuration;
 
 namespace EdFi.LoadTools.BulkLoadClient.Application
 {
