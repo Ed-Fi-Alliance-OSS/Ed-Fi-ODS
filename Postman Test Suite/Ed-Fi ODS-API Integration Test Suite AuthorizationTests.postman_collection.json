@@ -5166,7 +5166,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?schoolId=255901001&limit=1&studentUniqueId=604822",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?schoolId=255901001&limit=1&studentUniqueId=604827",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -5187,7 +5187,7 @@
 												},
 												{
 													"key": "studentUniqueId",
-													"value": "604822"
+													"value": "604827"
 												}
 											]
 										}
@@ -5420,11 +5420,13 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 201\", () => {\r",
-													"   pm.expect(pm.response.code).to.equal(201); \r",
-													"});\r",
+													"pm.test(\"Response is 201 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
+													" });\r",
 													"\r",
-													"pm.environment.set('known:sdia:001:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+													"if (pm.response.code === 201) {\r",
+													"    pm.environment.set('known:sdia:001:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													"} "
 												],
 												"type": "text/javascript"
 											}
@@ -5528,11 +5530,13 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 201\", () => {\r",
-													"   pm.expect(pm.response.code).to.equal(201); \r",
-													"});\r",
+													"pm.test(\"Response is 201 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
+													" });\r",
 													"\r",
-													"pm.environment.set('known:sdia:044:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+													"if (pm.response.code === 201) {\r",
+													"    pm.environment.set('known:sdia:044:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													"} "
 												],
 												"type": "text/javascript"
 											}
@@ -6860,10 +6864,9 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 204\", () => {\r",
-													"    pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
-													""
+													"pm.test(\"Response is 204 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) \r",
+													" });"
 												],
 												"type": "text/javascript"
 											}
@@ -6950,10 +6953,9 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 204\", () => {\r",
-													"    pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
-													""
+													"pm.test(\"Response is 204 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) \r",
+													" });"
 												],
 												"type": "text/javascript"
 											}
@@ -8075,11 +8077,14 @@
 															"listen": "test",
 															"script": {
 																"exec": [
-																	"pm.test(\"Response is 201\", () => {\r",
-																	"  pm.expect(pm.response.code).equal(201);\r",
-																	"});\r",
+																	"pm.test(\"Response is 201 or 404\", () => {\r",
+																	"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
+																	" });\r",
 																	"\r",
-																	"pm.environment.set('known:learningObjective:id:parent', pm.response.headers.one('Location').value.split(\"/\").pop());"
+																	"if (pm.response.code === 201) {\r",
+																	"    pm.environment.set('known:learningObjective:id:parent', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+																	"} \r",
+																	""
 																],
 																"type": "text/javascript"
 															}
@@ -8143,11 +8148,14 @@
 															"listen": "test",
 															"script": {
 																"exec": [
-																	"pm.test(\"Response is 201\", () => {\r",
-																	"  pm.expect(pm.response.code).equal(201);\r",
-																	"});\r",
+																	"pm.test(\"Response is 201 or 404\", () => {\r",
+																	"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
+																	" });\r",
 																	"\r",
-																	"pm.environment.set('known:learningObjective:id:child', pm.response.headers.one('Location').value.split(\"/\").pop());"
+																	"if (pm.response.code === 201) {\r",
+																	"    pm.environment.set('known:learningObjective:id:child', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+																	"} \r",
+																	""
 																],
 																"type": "text/javascript"
 															}

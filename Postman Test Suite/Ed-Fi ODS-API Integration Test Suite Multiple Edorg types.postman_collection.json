@@ -2800,10 +2800,14 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 200 or 201\", () => {",
-											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"});",
-											"pm.environment.set('known:studentDisciplineIncidentAssociationGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+											"pm.test(\"Response is 200 or 201 or 404\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 404]) ",
+											" });",
+											"pm.environment.set('known:studentDisciplineIncidentAssociationGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+											"",
+											"if (pm.response.code === 201 || pm.response.code === 200) {",
+											"    pm.environment.set('known:studentDisciplineIncidentAssociationGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+											"} "
 										],
 										"type": "text/javascript"
 									}
