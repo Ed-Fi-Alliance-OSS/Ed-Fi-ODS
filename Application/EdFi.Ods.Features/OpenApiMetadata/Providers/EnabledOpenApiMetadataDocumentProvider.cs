@@ -48,7 +48,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             _multitenancyEnabled = apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName());
             _schemaNameMaps = new Lazy<IReadOnlyList<SchemaNameMap>>(schemaNameMapProvider.GetSchemaNameMaps);
             _routeRootTemplateProvider = routeRootTemplateProvider;
-            _odsContextRoutePath = apiSettings.GetOdsContextRoutePath();
+            _odsContextRoutePath = apiSettings.GetOdsContextRoutePath() ?? "";
         }
 
         public bool TryGetSwaggerDocument(HttpRequest request, out string document)
