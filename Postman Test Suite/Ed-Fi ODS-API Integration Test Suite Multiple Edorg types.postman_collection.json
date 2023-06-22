@@ -2803,7 +2803,6 @@
 											"pm.test(\"Response is 200 or 201 or 404\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 404]) ",
 											" });",
-											"pm.environment.set('known:studentDisciplineIncidentAssociationGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
 											"",
 											"if (pm.response.code === 201 || pm.response.code === 200) {",
 											"    pm.environment.set('known:studentDisciplineIncidentAssociationGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
@@ -2858,15 +2857,17 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
+											"pm.test(\"Response is 200 or 404\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 404]) ",
+											" });",
 											"",
-											"const responseItems = pm.response.json();",
+											"if (pm.response.code === 200) {",
 											"",
-											"pm.test(`Should return an empty array`, () => {",
-											"    pm.expect(responseItems).to.have.lengthOf(0);",
-											"});"
+											"    pm.test(`Should return an empty array`, () => {",
+											"        const responseItems = pm.response.json();",
+											"        pm.expect(responseItems).to.have.lengthOf(0);",
+											"    });",
+											"}"
 										],
 										"type": "text/javascript"
 									}

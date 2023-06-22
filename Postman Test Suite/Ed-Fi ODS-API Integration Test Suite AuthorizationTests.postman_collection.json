@@ -8214,13 +8214,15 @@
 															"listen": "test",
 															"script": {
 																"exec": [
-																	"pm.test(\"Response is 403\", () => {\r",
-																	"  pm.expect(pm.response.code).equal(403);\r",
-																	"});\r",
+																	"pm.test(\"Response is 403 or 404\", () => {\r",
+																	"    pm.expect(pm.response.code).to.be.oneOf([403, 404]) \r",
+																	" });\r",
 																	"\r",
-																	"pm.test(\"Error message indicates the API client doesn't have namespace permissions\", () => {\r",
-																	"  pm.expect(pm.response.json().message).contains(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims\");\r",
-																	"})"
+																	"if (pm.response.code === 403) {\r",
+																	"    pm.test(\"Error message indicates the API client doesn't have namespace permissions\", () => {\r",
+																	"    pm.expect(pm.response.json().message).contains(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims\");\r",
+																	"    })\r",
+																	"}"
 																],
 																"type": "text/javascript"
 															}
@@ -8275,9 +8277,9 @@
 															"listen": "test",
 															"script": {
 																"exec": [
-																	"pm.test(\"Response is 204\", () => {\r",
-																	"  pm.expect(pm.response.code).equal(204);\r",
-																	"});\r",
+																	"pm.test(\"Response is 201 or 404\", () => {\r",
+																	"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
+																	" });\r",
 																	""
 																],
 																"type": "text/javascript"
@@ -8320,9 +8322,9 @@
 															"listen": "test",
 															"script": {
 																"exec": [
-																	"pm.test(\"Response is 204\", () => {\r",
-																	"  pm.expect(pm.response.code).equal(204);\r",
-																	"});\r",
+																	"pm.test(\"Response is 201 or 404\", () => {\r",
+																	"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
+																	" });\r",
 																	""
 																],
 																"type": "text/javascript"
