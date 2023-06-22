@@ -61,8 +61,6 @@ namespace EdFi.XmlLookup.Console.Application
             get => !string.IsNullOrEmpty(MetadataUrl);
         }
 
-        public ApiMode ApiMode { get; set; }
-
         public int Retries { get; set; }
 
         public int MaxSimultaneousRequests { get; set; }
@@ -139,8 +137,6 @@ namespace EdFi.XmlLookup.Console.Application
         {
             string currentDirectory = Directory.GetCurrentDirectory();
 
-            ApiMode.TryParse(configuration.GetValue<string>("OdsApi:ApiMode"), out ApiMode apiMode);
-
             return new XmlLookupConfiguration
             {
                 DataFolder = configuration.GetValue("Folders:Data", currentDirectory),
@@ -159,8 +155,7 @@ namespace EdFi.XmlLookup.Console.Application
                 ApiUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:ApiUrl")),
                 MetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:MetadataUrl")),
                 XsdMetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:XsdMetadataUrl")),
-                OAuthUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:OAuthUrl")),
-                ApiMode = apiMode
+                OAuthUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:OAuthUrl"))
             };
 
             string ResolvedUrl(string url)
@@ -170,24 +165,6 @@ namespace EdFi.XmlLookup.Console.Application
                     return null;
                 }
 				
-                if (apiMode == ApiMode.YearSpecific)
-                {
-                    // https://regex101.com/r/KywmUK/1
-                    return Regex.Replace(
-                        url,
-                        @"\/(?<year>\b\d{4}\b)", $"/{configuration.GetValue<string>("OdsApi:SchoolYear")}", RegexOptions.None
-                    );
-                }
-                else if (apiMode == ApiMode.InstanceYearSpecific)
-                {
-                    url = Regex.Replace(
-                        url,
-                        @"\/(?<year>\b\d{4}\b)", $"/{configuration.GetValue<string>("OdsApi:SchoolYear")}", RegexOptions.None
-                    );
-
-                    return url.Replace("{instance}", configuration.GetValue<string>("OdsApi:InstanceId"));
-                }
-                else
                     return url;
             }
         }

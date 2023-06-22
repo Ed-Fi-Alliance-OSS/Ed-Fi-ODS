@@ -15,7 +15,7 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
         IDataConfiguration, IOAuthTokenConfiguration, IApiMetadataConfiguration, IXsdConfiguration,
         IInterchangeOrderConfiguration
     {
-        public ApiMode ApiMode { get; private set; }
+        
 
         public string ApiUrl { get; set; }
 
@@ -132,8 +132,6 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
         {
             string currentDirectory = Directory.GetCurrentDirectory();
 
-            ApiMode.TryParse(configuration.GetValue<string>("OdsApi:ApiMode"), out ApiMode apiMode);
-
             string workingFolder = string.IsNullOrEmpty(configuration.GetValue<string>("Folders:Working"))
                 ? currentDirectory
                 : Path.GetFullPath(configuration.GetValue<string>("Folders:Working"));
@@ -165,8 +163,7 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                 DependenciesUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:DependenciesUrl")),
                 OauthUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:OAuthUrl")),
                 XsdMetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:XsdMetadataUrl")),
-                Extension = configuration.GetValue<string>("OdsApi:Extension"),
-                ApiMode =  apiMode
+                Extension = configuration.GetValue<string>("OdsApi:Extension")
             };
 
             string ResolvedUrl(string url)
@@ -176,24 +173,6 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                     return null;
                 }
 
-                if (apiMode == ApiMode.YearSpecific)
-                {
-                    // https://regex101.com/r/KywmUK/1
-                    return Regex.Replace(
-                        url, 
-                        @"\/(?<year>\b\d{4}\b)", $"/{configuration.GetValue<string>("OdsApi:SchoolYear")}", RegexOptions.None
-                    );
-                }
-                else if (apiMode == ApiMode.InstanceYearSpecific)
-                {
-                    url = Regex.Replace(
-                        url,
-                        @"\/(?<year>\b\d{4}\b)", $"/{configuration.GetValue<string>("OdsApi:SchoolYear")}", RegexOptions.None
-                    );
-
-                    return url.Replace("{instance}", configuration.GetValue<string>("OdsApi:InstanceId"));
-                }
-                else
                     return url;
             }
         }

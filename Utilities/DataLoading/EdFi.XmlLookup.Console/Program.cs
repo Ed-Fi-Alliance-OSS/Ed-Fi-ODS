@@ -140,8 +140,6 @@ namespace EdFi.XmlLookup.Console
                     .GetApiVersionInformationAsync()
                     .ConfigureAwait(false);
 
-                configuration["OdsApi:ApiMode"] = odsVersionInformation.ApiMode;
-
                 if (string.IsNullOrWhiteSpace(configuration.GetValue<string>("OdsApi:DependenciesUrl"))
                     && odsVersionInformation.Urls.TryGetValue("dependencies", out string dependencies))
                 {
