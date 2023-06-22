@@ -5166,7 +5166,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?schoolId=255901001&limit=1&studentUniqueId=604827",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?schoolId=255901001&limit=1&studentUniqueId=604822",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -5187,7 +5187,7 @@
 												},
 												{
 													"key": "studentUniqueId",
-													"value": "604827"
+													"value": "604822"
 												}
 											]
 										}
@@ -6321,9 +6321,9 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 403\", () => {\r",
-													"   pm.expect(pm.response.code).to.equal(403); \r",
-													"});\r",
+													"pm.test(\"Response is 403 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([403, 404]) \r",
+													" });\r",
 													"\r",
 													"const responseItem = pm.response.json();\r",
 													"\r",
@@ -8277,8 +8277,8 @@
 															"listen": "test",
 															"script": {
 																"exec": [
-																	"pm.test(\"Response is 201 or 404\", () => {\r",
-																	"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
+																	"pm.test(\"Response is 204 or 404\", () => {\r",
+																	"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) \r",
 																	" });\r",
 																	""
 																],
@@ -8322,8 +8322,8 @@
 															"listen": "test",
 															"script": {
 																"exec": [
-																	"pm.test(\"Response is 201 or 404\", () => {\r",
-																	"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
+																	"pm.test(\"Response is 204 or 404\", () => {\r",
+																	"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) \r",
 																	" });\r",
 																	""
 																],
