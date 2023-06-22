@@ -3,25 +3,31 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-DROP TRIGGER IF EXISTS [samplestudenttransportation].[samplestudenttransportation_StudentTransportation_TR_DeleteTracking]
-GO
-
-CREATE TRIGGER [samplestudenttransportation].[samplestudenttransportation_StudentTransportation_TR_DeleteTracking] ON [samplestudenttransportation].[StudentTransportation] AFTER DELETE AS
+DO $$
 BEGIN
-    IF @@rowcount = 0 
-        RETURN
+CREATE OR REPLACE FUNCTION tracked_changes_samplestudenttransportation.studenttransportation_deleted()
+    RETURNS trigger AS
+$BODY$
+DECLARE
+    dj0 edfi.student%ROWTYPE;
+BEGIN
+    SELECT INTO dj0 * FROM edfi.student j0 WHERE studentusi = old.studentusi;
 
-    SET NOCOUNT ON
+    INSERT INTO tracked_changes_samplestudenttransportation.studenttransportation(
+        oldambusnumber, oldpmbusnumber, oldschoolid, oldstudentusi, oldstudentuniqueid,
+        id, discriminator, changeversion)
+    VALUES (
+        OLD.ambusnumber, OLD.pmbusnumber, OLD.schoolid, OLD.studentusi, dj0.studentuniqueid, 
+        OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
 
-    INSERT INTO [tracked_changes_samplestudenttransportation].[StudentTransportation](OldAMBusNumber, OldPMBusNumber, OldSchoolId, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
-    SELECT d.AMBusNumber, d.PMBusNumber, d.SchoolId, d.StudentUSI, j0.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-        INNER JOIN edfi.Student j0
-            ON d.StudentUSI = j0.StudentUSI
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'samplestudenttransportation' AND event_object_table = 'studenttransportation') THEN
+CREATE TRIGGER TrackDeletes AFTER DELETE ON samplestudenttransportation.studenttransportation 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_samplestudenttransportation.studenttransportation_deleted();
+END IF;
+
 END
-GO
-
-ALTER TABLE [samplestudenttransportation].[StudentTransportation] ENABLE TRIGGER [samplestudenttransportation_StudentTransportation_TR_DeleteTracking]
-GO
-
-
+$$;

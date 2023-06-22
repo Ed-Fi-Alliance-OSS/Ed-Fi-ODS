@@ -274,7 +274,7 @@
           </xs:element>
           <xs:element name="Sex" type="SexDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>A person's gender.</xs:documentation>
+              <xs:documentation>A person's birth sex.</xs:documentation>
               <xs:appinfo>
                 <ann:Descriptor>SexDescriptor</ann:Descriptor>
               </xs:appinfo>
@@ -649,19 +649,6 @@
               <xs:documentation>An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race, as last reported to the education organization. The term, "Spanish origin," can be used in addition to "Hispanic or Latino."</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="OldEthnicity" type="OldEthnicityDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Previous definition of ethnicity combining Hispanic/Latino and race:
-                      1 - American Indian or Alaskan Native
-                      2 - Asian or Pacific Islander
-                      3 - Black, not of Hispanic origin
-                      4 - Hispanic
-                      5 - White, not of Hispanic origin.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>OldEthnicityDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
           <xs:element name="Race" type="RaceDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation>The general racial category which most clearly reflects the individual's recognition of his or her community or with which the individual most identifies as last reported to the education organization. The data model allows for multiple entries so that each individual can specify all appropriate races.</xs:documentation>
@@ -694,11 +681,6 @@
           <xs:element name="Disability" type="Disability" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation>The disability condition(s) that best describes an individual's impairment, as determined by evaluation(s) conducted by the education organization.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ProgramParticipation" type="ProgramParticipation" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>Key programs the student is participating in or receives services from.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="CohortYear" type="CohortYear" minOccurs="0" maxOccurs="unbounded">

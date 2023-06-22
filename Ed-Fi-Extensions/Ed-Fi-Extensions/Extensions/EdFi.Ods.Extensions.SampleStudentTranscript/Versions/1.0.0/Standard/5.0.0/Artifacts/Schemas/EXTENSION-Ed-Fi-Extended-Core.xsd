@@ -96,21 +96,6 @@
               <xs:documentation>The total number of credits a student has earned plus the total number of credits the student has attempted but not earned from distinct courses. This includes credits attempted and earned from all schools the student has been enrolled.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="CumulativeGradePointsEarned" type="GPA" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The cumulative number of grade points an individual earns by successfully completing courses or examinations during his or her enrollment in the current school as well as those transferred from schools in which the individual had been previously enrolled.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="CumulativeGradePointAverage" type="GPA" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>A measure of average performance in all courses taken by an individual during his or her school career as determined for record-keeping purposes. This is obtained by dividing the total grade points received by the total number of credits attempted. This usually includes grade points received and credits attempted in his or her current school as well as those transferred from schools in which the individual was previously enrolled.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="GradeValueQualifier" type="GradeValueQualifier" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The scale of equivalents, if applicable, for grades awarded as indicators of performance in schoolwork. For example, numerical equivalents for letter grades used in determining a student's grade point average (A=4, B=3, C=2, D=1 in a four-point system) or letter equivalents for percentage grades (90-100%=A, 80-90%=B, etc.).</xs:documentation>
-            </xs:annotation>
-          </xs:element>
           <xs:element name="AcademicHonor" type="AcademicHonor" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation>Academic distinctions earned by or awarded to the student.</xs:documentation>
@@ -134,16 +119,6 @@
           <xs:element name="SessionAttemptedCredits" type="Credits" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The number of credits an individual attempted to earn in this session.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="SessionGradePointsEarned" type="GPA" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The number of grade points an individual earned for this session.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="SessionGradePointAverage" type="GPA" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The grade point average for an individual computed as the grade points earned during the session divided by the number of credits attempted.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="GradePointAverage" type="GradePointAverage" minOccurs="0" maxOccurs="unbounded">

@@ -3,5 +3,6 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-ALTER TABLE samplestudenttransportation.StudentTransportation ADD CreatedByOwnershipTokenId SMALLINT NULL;
-
+IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = N'tracked_deletes_samplestudenttransportation')
+EXEC sys.sp_executesql N'CREATE SCHEMA [tracked_deletes_samplestudenttransportation]'
+GO

@@ -3,26 +3,33 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = N'tracked_changes_samplestudenttransportation')
-EXEC sys.sp_executesql N'CREATE SCHEMA [tracked_changes_samplestudenttransportation]'
-GO
+DO $$
+BEGIN
 
-IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_samplestudenttransportation].[StudentTransportation]'))
-CREATE TABLE [tracked_changes_samplestudenttransportation].[StudentTransportation]
+IF NOT EXISTS (SELECT 1 FROM information_schema.schemata WHERE schema_name = 'tracked_changes_samplestudenttransportation') THEN
+CREATE SCHEMA tracked_changes_samplestudenttransportation;
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_samplestudenttransportation' AND table_name = 'studenttransportation') THEN
+CREATE TABLE tracked_changes_samplestudenttransportation.studenttransportation
 (
-       OldAMBusNumber [NVARCHAR](6) NOT NULL,
-       OldPMBusNumber [NVARCHAR](6) NOT NULL,
-       OldSchoolId [INT] NOT NULL,
-       OldStudentUSI [INT] NOT NULL,
-       OldStudentUniqueId [NVARCHAR](32) NOT NULL,
-       NewAMBusNumber [NVARCHAR](6) NULL,
-       NewPMBusNumber [NVARCHAR](6) NULL,
-       NewSchoolId [INT] NULL,
-       NewStudentUSI [INT] NULL,
-       NewStudentUniqueId [NVARCHAR](32) NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       Discriminator [NVARCHAR](128) NULL,
-       CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
-       CONSTRAINT PK_StudentTransportation PRIMARY KEY CLUSTERED (ChangeVersion)
-)
+       oldambusnumber VARCHAR(6) NOT NULL,
+       oldpmbusnumber VARCHAR(6) NOT NULL,
+       oldschoolid INT NOT NULL,
+       oldstudentusi INT NOT NULL,
+       oldstudentuniqueid VARCHAR(32) NOT NULL,
+       newambusnumber VARCHAR(6) NULL,
+       newpmbusnumber VARCHAR(6) NULL,
+       newschoolid INT NULL,
+       newstudentusi INT NULL,
+       newstudentuniqueid VARCHAR(32) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT studenttransportation_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+END
+$$;

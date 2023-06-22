@@ -30,6 +30,8 @@ CREATE TABLE [tpdm].[Candidate] (
     [LastSurname] [NVARCHAR](75) NOT NULL,
     [GenerationCodeSuffix] [NVARCHAR](10) NULL,
     [MaidenName] [NVARCHAR](75) NULL,
+    [PreferredFirstName] [NVARCHAR](75) NULL,
+    [PreferredLastSurname] [NVARCHAR](75) NULL,
     [SexDescriptorId] [INT] NOT NULL,
     [BirthDate] [DATE] NOT NULL,
     [BirthCity] [NVARCHAR](30) NULL,

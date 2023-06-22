@@ -3,19 +3,17 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-ALTER TABLE [samplestudenttransportation].[StudentTransportation] WITH CHECK ADD CONSTRAINT [FK_StudentTransportation_School] FOREIGN KEY ([SchoolId])
-REFERENCES [edfi].[School] ([SchoolId])
-GO
+ALTER TABLE samplestudenttransportation.StudentTransportation ADD CONSTRAINT FK_68afad_School FOREIGN KEY (SchoolId)
+REFERENCES edfi.School (SchoolId)
+;
 
-CREATE NONCLUSTERED INDEX [FK_StudentTransportation_School]
-ON [samplestudenttransportation].[StudentTransportation] ([SchoolId] ASC)
-GO
+CREATE INDEX FK_68afad_School
+ON samplestudenttransportation.StudentTransportation (SchoolId ASC);
 
-ALTER TABLE [samplestudenttransportation].[StudentTransportation] WITH CHECK ADD CONSTRAINT [FK_StudentTransportation_Student] FOREIGN KEY ([StudentUSI])
-REFERENCES [edfi].[Student] ([StudentUSI])
-GO
+ALTER TABLE samplestudenttransportation.StudentTransportation ADD CONSTRAINT FK_68afad_Student FOREIGN KEY (StudentUSI)
+REFERENCES edfi.Student (StudentUSI)
+;
 
-CREATE NONCLUSTERED INDEX [FK_StudentTransportation_Student]
-ON [samplestudenttransportation].[StudentTransportation] ([StudentUSI] ASC)
-GO
+CREATE INDEX FK_68afad_Student
+ON samplestudenttransportation.StudentTransportation (StudentUSI ASC);
 

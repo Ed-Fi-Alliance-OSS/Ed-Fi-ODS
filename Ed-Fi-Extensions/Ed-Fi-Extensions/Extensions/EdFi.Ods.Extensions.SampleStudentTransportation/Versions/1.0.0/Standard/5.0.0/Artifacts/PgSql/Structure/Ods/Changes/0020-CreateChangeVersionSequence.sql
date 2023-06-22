@@ -3,8 +3,13 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-IF NOT EXISTS (SELECT * FROM sys.sequences WHERE object_id = OBJECT_ID(N'[changes].[ChangeVersionSequence]'))
+CREATE SEQUENCE IF NOT EXISTS changes.ChangeVersionSequence START WITH 1;
+
+CREATE OR REPLACE FUNCTION changes.updateChangeVersion()
+    RETURNS trigger AS
+$BODY$
 BEGIN
-CREATE SEQUENCE [changes].[ChangeVersionSequence] START WITH 1
-END
-GO
+    new.ChangeVersion := nextval('changes.ChangeVersionSequence');
+    RETURN new;
+END;
+$BODY$ LANGUAGE plpgsql;

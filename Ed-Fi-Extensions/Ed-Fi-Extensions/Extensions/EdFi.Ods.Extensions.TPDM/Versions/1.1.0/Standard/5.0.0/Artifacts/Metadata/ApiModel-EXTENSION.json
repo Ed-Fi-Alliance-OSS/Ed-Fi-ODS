@@ -919,6 +919,42 @@
             "sqlServer": "PersonalTitlePrefix",
             "postgreSql": "PersonalTitlePrefix"
           }
+        },
+        {
+          "propertyName": "PreferredFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The first name the individual prefers, if different from their legal first name",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PreferredFirstName",
+            "postgreSql": "PreferredFirstName"
+          }
+        },
+        {
+          "propertyName": "PreferredLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The last name the individual prefers, if different from their legal last name",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PreferredLastSurname",
+            "postgreSql": "PreferredLastSurname"
+          }
         }
       ],
       "identifiers": [
@@ -6542,7 +6578,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "A person's gender at birth.",
+          "description": "A person's sex at birth.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {

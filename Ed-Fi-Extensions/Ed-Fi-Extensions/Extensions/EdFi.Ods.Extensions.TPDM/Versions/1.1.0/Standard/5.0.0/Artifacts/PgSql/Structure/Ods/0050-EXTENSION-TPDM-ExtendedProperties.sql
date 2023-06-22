@@ -20,6 +20,8 @@ COMMENT ON COLUMN tpdm.Candidate.MiddleName IS 'A secondary name given to an ind
 COMMENT ON COLUMN tpdm.Candidate.LastSurname IS 'The name borne in common by members of a family.';
 COMMENT ON COLUMN tpdm.Candidate.GenerationCodeSuffix IS 'An appendage, if any, used to denote an individual''s generation in his family (e.g., Jr., Sr., III).';
 COMMENT ON COLUMN tpdm.Candidate.MaidenName IS 'The individual''s maiden name.';
+COMMENT ON COLUMN tpdm.Candidate.PreferredFirstName IS 'The first name the individual prefers, if different from their legal first name';
+COMMENT ON COLUMN tpdm.Candidate.PreferredLastSurname IS 'The last name the individual prefers, if different from their legal last name';
 COMMENT ON COLUMN tpdm.Candidate.SexDescriptorId IS 'The sex of the candidate.';
 COMMENT ON COLUMN tpdm.Candidate.BirthDate IS 'The month, day, and year on which an individual was born.';
 COMMENT ON COLUMN tpdm.Candidate.BirthCity IS 'The city the student was born in.';
@@ -28,7 +30,7 @@ COMMENT ON COLUMN tpdm.Candidate.BirthInternationalProvince IS 'For students bor
 COMMENT ON COLUMN tpdm.Candidate.BirthCountryDescriptorId IS 'The country in which an individual is born. It is strongly recommended that entries use only ISO 3166 2-letter country codes.';
 COMMENT ON COLUMN tpdm.Candidate.DateEnteredUS IS 'For students born outside of the U.S., the date the student entered the U.S.';
 COMMENT ON COLUMN tpdm.Candidate.MultipleBirthStatus IS 'Indicator of whether the student was born with other siblings (i.e., twins, triplets, etc.)';
-COMMENT ON COLUMN tpdm.Candidate.BirthSexDescriptorId IS 'A person''s gender at birth.';
+COMMENT ON COLUMN tpdm.Candidate.BirthSexDescriptorId IS 'A person''s sex at birth.';
 COMMENT ON COLUMN tpdm.Candidate.HispanicLatinoEthnicity IS 'An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race. The term, "Spanish origin," can be used in addition to "Hispanic or Latino."';
 COMMENT ON COLUMN tpdm.Candidate.EconomicDisadvantaged IS 'An indication of inadequate financial condition of an individual''s family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy.';
 COMMENT ON COLUMN tpdm.Candidate.LimitedEnglishProficiencyDescriptorId IS 'An indication that the student has been identified as limited English proficient by the Language Proficiency Assessment Committee (LPAC), or English proficient.';
