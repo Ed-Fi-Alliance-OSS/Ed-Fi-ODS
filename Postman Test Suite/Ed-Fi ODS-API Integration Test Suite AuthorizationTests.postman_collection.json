@@ -5420,11 +5420,13 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 201\", () => {\r",
-													"   pm.expect(pm.response.code).to.equal(201); \r",
-													"});\r",
+													"pm.test(\"Response is 201 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
+													" });\r",
 													"\r",
-													"pm.environment.set('known:sdia:001:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+													"if (pm.response.code === 201) {\r",
+													"    pm.environment.set('known:sdia:001:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													"} "
 												],
 												"type": "text/javascript"
 											}
@@ -5528,11 +5530,13 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 201\", () => {\r",
-													"   pm.expect(pm.response.code).to.equal(201); \r",
-													"});\r",
+													"pm.test(\"Response is 201 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
+													" });\r",
 													"\r",
-													"pm.environment.set('known:sdia:044:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+													"if (pm.response.code === 201) {\r",
+													"    pm.environment.set('known:sdia:044:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													"} "
 												],
 												"type": "text/javascript"
 											}
@@ -6317,9 +6321,9 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 403\", () => {\r",
-													"   pm.expect(pm.response.code).to.equal(403); \r",
-													"});\r",
+													"pm.test(\"Response is 403 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([403, 404]) \r",
+													" });\r",
 													"\r",
 													"const responseItem = pm.response.json();\r",
 													"\r",
@@ -6860,10 +6864,9 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 204\", () => {\r",
-													"    pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
-													""
+													"pm.test(\"Response is 204 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) \r",
+													" });"
 												],
 												"type": "text/javascript"
 											}
@@ -6950,10 +6953,9 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 204\", () => {\r",
-													"    pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
-													""
+													"pm.test(\"Response is 204 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) \r",
+													" });"
 												],
 												"type": "text/javascript"
 											}
@@ -8075,11 +8077,14 @@
 															"listen": "test",
 															"script": {
 																"exec": [
-																	"pm.test(\"Response is 201\", () => {\r",
-																	"  pm.expect(pm.response.code).equal(201);\r",
-																	"});\r",
+																	"pm.test(\"Response is 201 or 404\", () => {\r",
+																	"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
+																	" });\r",
 																	"\r",
-																	"pm.environment.set('known:learningObjective:id:parent', pm.response.headers.one('Location').value.split(\"/\").pop());"
+																	"if (pm.response.code === 201) {\r",
+																	"    pm.environment.set('known:learningObjective:id:parent', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+																	"} \r",
+																	""
 																],
 																"type": "text/javascript"
 															}
@@ -8143,11 +8148,14 @@
 															"listen": "test",
 															"script": {
 																"exec": [
-																	"pm.test(\"Response is 201\", () => {\r",
-																	"  pm.expect(pm.response.code).equal(201);\r",
-																	"});\r",
+																	"pm.test(\"Response is 201 or 404\", () => {\r",
+																	"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
+																	" });\r",
 																	"\r",
-																	"pm.environment.set('known:learningObjective:id:child', pm.response.headers.one('Location').value.split(\"/\").pop());"
+																	"if (pm.response.code === 201) {\r",
+																	"    pm.environment.set('known:learningObjective:id:child', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+																	"} \r",
+																	""
 																],
 																"type": "text/javascript"
 															}
@@ -8206,13 +8214,15 @@
 															"listen": "test",
 															"script": {
 																"exec": [
-																	"pm.test(\"Response is 403\", () => {\r",
-																	"  pm.expect(pm.response.code).equal(403);\r",
-																	"});\r",
+																	"pm.test(\"Response is 403 or 404\", () => {\r",
+																	"    pm.expect(pm.response.code).to.be.oneOf([403, 404]) \r",
+																	" });\r",
 																	"\r",
-																	"pm.test(\"Error message indicates the API client doesn't have namespace permissions\", () => {\r",
-																	"  pm.expect(pm.response.json().message).contains(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims\");\r",
-																	"})"
+																	"if (pm.response.code === 403) {\r",
+																	"    pm.test(\"Error message indicates the API client doesn't have namespace permissions\", () => {\r",
+																	"    pm.expect(pm.response.json().message).contains(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims\");\r",
+																	"    })\r",
+																	"}"
 																],
 																"type": "text/javascript"
 															}
@@ -8267,9 +8277,9 @@
 															"listen": "test",
 															"script": {
 																"exec": [
-																	"pm.test(\"Response is 204\", () => {\r",
-																	"  pm.expect(pm.response.code).equal(204);\r",
-																	"});\r",
+																	"pm.test(\"Response is 204 or 404\", () => {\r",
+																	"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) \r",
+																	" });\r",
 																	""
 																],
 																"type": "text/javascript"
@@ -8312,9 +8322,9 @@
 															"listen": "test",
 															"script": {
 																"exec": [
-																	"pm.test(\"Response is 204\", () => {\r",
-																	"  pm.expect(pm.response.code).equal(204);\r",
-																	"});\r",
+																	"pm.test(\"Response is 204 or 404\", () => {\r",
+																	"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) \r",
+																	" });\r",
 																	""
 																],
 																"type": "text/javascript"

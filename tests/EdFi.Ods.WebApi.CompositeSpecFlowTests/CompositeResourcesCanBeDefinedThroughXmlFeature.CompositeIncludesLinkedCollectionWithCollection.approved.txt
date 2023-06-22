@@ -31,13 +31,22 @@ select
 	comp_aaa.StudentUSI As __BaseEntityId__,
 	comp_aaa.StudentUSI as PK1a_StudentUSI,
 	comp_aab.EducationOrganizationId as PK2a_EducationOrganizationId,
-	comp_aac.ProgramTypeDescriptorId as PK3a_ProgramTypeDescriptorId,
-	comp_aac.BeginDate as beginDate
+	comp_aac.AddressTypeDescriptorId as PK3a_AddressTypeDescriptorId,
+	comp_aac.City as PK3a_City,
+	comp_aac.PostalCode as PK3a_PostalCode,
+	comp_aac.StateAbbreviationDescriptorId as PK3a_StateAbbreviationDescriptorId,
+	comp_aac.StreetNumberName as PK3a_StreetNumberName,
+	comp_aac.City as city,
+	comp_aac.PostalCode as postalCode
 from 
 	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
 	join comp_aaa.StudentEducationOrganizationAssociations comp_aab
-	join comp_aab.StudentEducationOrganizationAssociationProgramParticipations comp_aac
+	join comp_aab.StudentEducationOrganizationAssociationAddresses comp_aac
 where comp_aaa.StudentUSI IN (:BaseEntityId)
 order by comp_aaa.StudentUSI,
 	comp_aab.EducationOrganizationId,
-	comp_aac.ProgramTypeDescriptorId
+	comp_aac.AddressTypeDescriptorId,
+	comp_aac.City,
+	comp_aac.PostalCode,
+	comp_aac.StateAbbreviationDescriptorId,
+	comp_aac.StreetNumberName

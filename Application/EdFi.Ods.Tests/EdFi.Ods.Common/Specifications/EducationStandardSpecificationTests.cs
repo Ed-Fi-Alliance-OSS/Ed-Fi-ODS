@@ -8,7 +8,7 @@ using NHibernateEntities = EdFi.Ods.Entities.NHibernate;
 using ModelResources = EdFi.Ods.Api.Common.Models.Resources;
 using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Entities.NHibernate.CredentialAggregate.EdFi;
-using EdFi.Ods.Entities.NHibernate.LearningObjectiveAggregate.EdFi;
+//using EdFi.Ods.Entities.NHibernate.LearningObjectiveAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.LearningStandardAggregate.EdFi;
 using EdFi.TestFixture;
 using NUnit.Framework;
@@ -48,6 +48,7 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 );
             }
 
+            /*
             [Assert]
             public void Should_return_true_for_learningObjective_entity()
             {
@@ -73,6 +74,7 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                             nameof(Api.Common.Models.Resources.LearningObjective.EdFi.LearningObjective)), Is.True)
                 );
             }
+            */
 
             //Credential
             [Assert]

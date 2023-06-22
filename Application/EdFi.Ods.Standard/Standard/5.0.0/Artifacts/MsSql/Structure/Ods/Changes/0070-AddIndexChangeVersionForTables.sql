@@ -232,12 +232,6 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.LearningObjective') AND name = N'UX_LearningObjective_ChangeVersion')
-    CREATE INDEX [UX_LearningObjective_ChangeVersion] ON [edfi].[LearningObjective] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.LearningStandard') AND name = N'UX_LearningStandard_ChangeVersion')
     CREATE INDEX [UX_LearningStandard_ChangeVersion] ON [edfi].[LearningStandard] ([ChangeVersion] ASC)
     GO
@@ -496,12 +490,6 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentDisciplineIncidentAssociation') AND name = N'UX_StudentDisciplineIncidentAssociation_ChangeVersion')
-    CREATE INDEX [UX_StudentDisciplineIncidentAssociation_ChangeVersion] ON [edfi].[StudentDisciplineIncidentAssociation] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentDisciplineIncidentBehaviorAssociation') AND name = N'UX_StudentDisciplineIncidentBehaviorAssociation_ChangeVersion')
     CREATE INDEX [UX_StudentDisciplineIncidentBehaviorAssociation_ChangeVersion] ON [edfi].[StudentDisciplineIncidentBehaviorAssociation] ([ChangeVersion] ASC)
     GO
@@ -544,12 +532,6 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentLearningObjective') AND name = N'UX_StudentLearningObjective_ChangeVersion')
-    CREATE INDEX [UX_StudentLearningObjective_ChangeVersion] ON [edfi].[StudentLearningObjective] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentParentAssociation') AND name = N'UX_StudentParentAssociation_ChangeVersion')
     CREATE INDEX [UX_StudentParentAssociation_ChangeVersion] ON [edfi].[StudentParentAssociation] ([ChangeVersion] ASC)
     GO
@@ -582,6 +564,12 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentSectionAttendanceEvent') AND name = N'UX_StudentSectionAttendanceEvent_ChangeVersion')
     CREATE INDEX [UX_StudentSectionAttendanceEvent_ChangeVersion] ON [edfi].[StudentSectionAttendanceEvent] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentSpecialEducationProgramEligibilityAssociation') AND name = N'UX_StudentSpecialEducationProgramEligibilityAssociation_ChangeVersion')
+    CREATE INDEX [UX_StudentSpecialEducationProgramEligibilityAssociation_ChangeVersion] ON [edfi].[StudentSpecialEducationProgramEligibilityAssociation] ([ChangeVersion] ASC)
     GO
 COMMIT
 

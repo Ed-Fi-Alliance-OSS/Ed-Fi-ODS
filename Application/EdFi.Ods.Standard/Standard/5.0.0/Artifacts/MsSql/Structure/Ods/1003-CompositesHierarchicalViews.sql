@@ -7,47 +7,6 @@ IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[edfi].[Learnin
 	DROP VIEW edfi.LearningObjectiveH;
 GO
 
-CREATE VIEW edfi.LearningObjectiveH AS
-WITH LearningObjectiveH_CTE
-AS (
-  SELECT [LearningObjectiveId]
-      ,[Namespace]
-      ,[Objective]
-      ,[Description]
-      ,[Nomenclature]
-      ,[SuccessCriteria]
-      ,[ParentLearningObjectiveId]
-      ,[ParentNamespace]
-      ,[CreateDate]
-      ,[LastModifiedDate]
-      ,[Id]
-      -- ,[AggregateHashValue]
-  FROM edfi.LearningObjective
-  WHERE ParentLearningObjectiveId IS NULL
-        AND ParentNamespace IS NULL
-  UNION ALL
-  SELECT [t1].[LearningObjectiveId]
-      ,[t1].[Namespace]
-      ,[t1].[Objective]
-      ,[t1].[Description]
-      ,[t1].[Nomenclature]
-      ,[t1].[SuccessCriteria]
-      ,[t1].[ParentLearningObjectiveId]
-      ,[t1].[ParentNamespace]
-      ,[t1].[CreateDate]
-      ,[t1].[LastModifiedDate]
-      ,[t1].[Id]
-      -- ,[t1].[AggregateHashValue]
-  FROM edfi.LearningObjective t1
-  INNER JOIN LearningObjectiveH_CTE
-    ON t1.ParentLearningObjectiveId = LearningObjectiveH_CTE.LearningObjectiveId
-        AND t1.ParentNamespace = LearningObjectiveH_CTE.Namespace
-    WHERE [t1].ParentLearningObjectiveId IS NOT NULL
-        AND [t1].ParentNamespace IS NOT NULL)
-
-SELECT * FROM LearningObjectiveH_CTE
-GO
-
 IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[edfi].[LearningStandardH]'))
 	DROP VIEW edfi.LearningStandardH;
 GO

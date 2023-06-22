@@ -344,13 +344,14 @@
       </Composite>
 
       <Composite name="StudentLinkedCollectionWithCollection">
-        <BaseResource name="Student">
-          <LinkedCollection name="StudentEducationOrganizationAssociations">
-            <Collection name="StudentEducationOrganizationAssociationProgramParticipations">
-              <Property name="BeginDate" />
-            </Collection>
-          </LinkedCollection>
-        </BaseResource>
+	<BaseResource name="Student">
+	  <LinkedCollection name="StudentEducationOrganizationAssociations">
+	     <Collection name="StudentEducationOrganizationAssociationAddresses">
+		<Property name="City" />
+		<Property name="PostalCode" />
+	     </Collection>
+	  </LinkedCollection>
+	</BaseResource>
       </Composite>
       <Composite name="ResourceLinkedCollectionWithCollection">
         <BaseResource name="Assessment">
