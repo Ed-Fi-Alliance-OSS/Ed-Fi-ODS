@@ -54,8 +54,8 @@ namespace EdFi.Ods.Api.Caching
         /// <param name="edFiOdsInstanceIdentificationProvider">Identifies the ODS instance for the current call.</param>
         /// <param name="uniqueIdToUsiValueMapper">A component that maps between USI and UniqueId values.</param>
         /// <param name="personIdentifiersProvider">A component that retrieves all Person identifiers.</param>
-        /// <param name="personEntitySpecification"></param>
-        /// <param name="personTypesProvider"></param>
+        /// <param name="personEntitySpecification">A component that obtains the entity names of the known person types, and identifying whether various input arguments are referring to a person type or person identifier.</param>
+        /// <param name="personTypesProvider">A component that obtains the names of the person type entities in the model.</param>
         /// <param name="slidingExpiration">Indicates how long the cache values will remain in memory after being used before all the cached values are removed.</param>
         /// <param name="absoluteExpirationPeriod">Indicates the maximum time that the cache values will remain in memory before being refreshed.</param>
         /// <param name="synchronousInitialization">Indicates whether the cache should wait until all the Person identifiers are loaded before responding, or if using the value mappers initially to avoid an initial delay is preferable.</param>
