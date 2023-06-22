@@ -6,13 +6,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
-using EdFi.Ods.Common.Context;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -104,10 +102,36 @@ namespace EdFi.Ods.Features.XsdMetadata
 
         private string GetMetadataAbsoluteUrl(string schemaFile, string uriSegment)
         {
-            string basicPath = Request.RootUrl(_apiSettings.GetReverseProxySettings()) 
-                                + "/metadata/xsd";
+            string rootUrl = Request.RootUrl(_apiSettings.GetReverseProxySettings());
 
-            return $"{basicPath}/{uriSegment}/{schemaFile}";
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
+            {
+                if (HttpContext.Request.RouteValues.TryGetValue("tenantIdentifier", out object tenantIdentifier))
+                {
+                    rootUrl = $"{rootUrl}/{tenantIdentifier}";
+                }
+            }
+
+            if (!string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
+            {
+                string odsContextUriTemplatePath = _apiSettings.GetOdsContextRoutePath();
+                string[] odsContextRouteKeys = _apiSettings.GetOdsContextRouteTemplateKeys();
+
+                // Perform URI template replacements from route values, if available on current request
+                foreach (string odsContextRouteKey in odsContextRouteKeys)
+                {
+                    if (HttpContext.Request.RouteValues.TryGetValue(odsContextRouteKey, out object odsContextRouteValue))
+                    {
+                        odsContextUriTemplatePath = odsContextUriTemplatePath.Replace(
+                            $"{{{odsContextRouteKey}}}",
+                            (string)odsContextRouteValue);
+                    }
+                }
+
+                rootUrl = $"{rootUrl}/{odsContextUriTemplatePath}";
+            }
+
+            return $"{rootUrl}/metadata/xsd/{uriSegment}/{schemaFile}";
         }
     }
 }
