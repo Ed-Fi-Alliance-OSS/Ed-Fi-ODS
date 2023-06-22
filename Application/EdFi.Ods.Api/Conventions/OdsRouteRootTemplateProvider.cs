@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Common.Extensions;
-using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
@@ -12,7 +11,7 @@ using EdFi.Ods.Common.Constants;
 namespace EdFi.Ods.Api.Conventions;
 
 /// <summary>
-/// Obtains the root route template prefix for controllers using the specified <see cref="RouteContextType" />.
+/// Obtains the root route template prefix for controllers using ODS-based routes.
 /// </summary>
 public class OdsRouteRootTemplateProvider : IOdsRouteRootTemplateProvider
 {
