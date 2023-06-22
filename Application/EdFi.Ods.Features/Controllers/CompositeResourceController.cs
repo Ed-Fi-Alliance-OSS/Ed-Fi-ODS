@@ -31,7 +31,7 @@ namespace EdFi.Ods.Features.Controllers
     [Authorize]
     [Produces("application/json")]
     [ApiController]
-    [RouteRootContext(RouteContextType.Ods)]
+    [ApplyOdsRouteRootTemplate]
     [Route("composites/")]
     public class CompositeResourceController : ControllerBase
     {

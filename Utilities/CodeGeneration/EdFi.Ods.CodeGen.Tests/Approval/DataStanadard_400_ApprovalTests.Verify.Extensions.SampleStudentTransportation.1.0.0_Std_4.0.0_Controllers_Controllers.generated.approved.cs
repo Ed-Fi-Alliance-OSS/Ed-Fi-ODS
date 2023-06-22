@@ -24,7 +24,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTransportation.StudentT
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/sample-student-transportation/studentTransportations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/sample-student-transportation/studentTransportations")]
     public partial class StudentTransportationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentTransportation.SampleStudentTransportation.StudentTransportation,
         Entities.Common.SampleStudentTransportation.IStudentTransportation,

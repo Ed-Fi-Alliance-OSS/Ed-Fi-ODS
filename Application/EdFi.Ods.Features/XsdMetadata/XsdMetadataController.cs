@@ -21,7 +21,7 @@ namespace EdFi.Ods.Features.XsdMetadata
     [ApiController]
     [Produces("application/json")]
     [AllowAnonymous]
-    [RouteRootContext(RouteContextType.Tenant)]
+    [ApplyOdsRouteRootTemplate]
     [Route("metadata/xsd")]
     public class XsdMetadataController : ControllerBase
     {

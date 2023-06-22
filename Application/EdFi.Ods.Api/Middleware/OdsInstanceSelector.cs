@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Configuration;
@@ -49,20 +50,19 @@ public class OdsInstanceSelector : IOdsInstanceSelector
             return await _odsInstanceConfigurationProvider.GetByIdAsync(apiKeyContext.OdsInstanceIds[0]);
         }
 
-        foreach (int odsInstanceId in apiKeyContext.OdsInstanceIds)
-        {
-            var odsInstanceConfiguration = await _odsInstanceConfigurationProvider.GetByIdAsync(odsInstanceId);
+        var firstMatchingOdsInstanceConfiguration = apiKeyContext.OdsInstanceIds
+            .Select(id =>  _odsInstanceConfigurationProvider.GetByIdAsync(id).ConfigureAwait(false).GetAwaiter().GetResult())
+            .Where(config => config != null)
+            .FirstOrDefault(config => 
+                config.ContextValueByKey.All(contextValue => 
+                    routeValues.TryGetValue(contextValue.Key, out var routeValue)
+                        && contextValue.Value.EqualsIgnoreCase(routeValue.ToString())));
 
-            foreach (var contextValue in odsInstanceConfiguration.ContextValueByKey)
-            {
-                if (routeValues.TryGetValue(contextValue.Key, out var routeValue) &&
-                    contextValue.Value.EqualsIgnoreCase(routeValue.ToString()))
-                {
-                    return odsInstanceConfiguration;
-                }
-            }
+        if (firstMatchingOdsInstanceConfiguration == null)
+        {
+            throw new NotFoundException("No ODS instance matching the available route values was found.");
         }
 
-        throw new NotFoundException("No ODS instance matching route value found.");
+        return firstMatchingOdsInstanceConfiguration;
     }
 }

@@ -28,7 +28,7 @@ namespace {{ControllersNamespace}}
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{{RouteTemplate}}")]
+    [ApplyOdsRouteRootTemplate, Route($"{{RouteTemplate}}")]
     public partial class {{ControllerClass}} : DataManagementControllerBase<
         {{ResourceModel}},
         {{EntityInterface}},

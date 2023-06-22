@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
@@ -24,7 +24,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTranscript.InstitutionC
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/sample-student-transcript/institutionControlDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/sample-student-transcript/institutionControlDescriptors")]
     public partial class InstitutionControlDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InstitutionControlDescriptor.SampleStudentTranscript.InstitutionControlDescriptor,
         Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptor,
@@ -54,7 +54,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTranscript.InstitutionL
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/sample-student-transcript/institutionLevelDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/sample-student-transcript/institutionLevelDescriptors")]
     public partial class InstitutionLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InstitutionLevelDescriptor.SampleStudentTranscript.InstitutionLevelDescriptor,
         Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptor,
@@ -84,7 +84,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTranscript.PostSecondar
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/sample-student-transcript/postSecondaryOrganizations")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/sample-student-transcript/postSecondaryOrganizations")]
     public partial class PostSecondaryOrganizationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PostSecondaryOrganization.SampleStudentTranscript.PostSecondaryOrganization,
         Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization,
@@ -118,7 +118,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTranscript.SpecialEduca
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/sample-student-transcript/specialEducationGraduationStatusDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/sample-student-transcript/specialEducationGraduationStatusDescriptors")]
     public partial class SpecialEducationGraduationStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SpecialEducationGraduationStatusDescriptor.SampleStudentTranscript.SpecialEducationGraduationStatusDescriptor,
         Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptor,
@@ -148,7 +148,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTranscript.SubmissionCe
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/sample-student-transcript/submissionCertificationDescriptors")]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/sample-student-transcript/submissionCertificationDescriptors")]
     public partial class SubmissionCertificationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SubmissionCertificationDescriptor.SampleStudentTranscript.SubmissionCertificationDescriptor,
         Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptor,

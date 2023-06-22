@@ -26,7 +26,7 @@ namespace EdFi.Ods.Features.Controllers
     [Authorize]
     [Produces("application/json")]
     [ApiController]
-    [RouteRootContext(RouteContextType.Tenant)]
+    [ApplyOdsRouteRootTemplate]
     [Route("oauth/token_info")]
     public class TokenInfoController : ControllerBase
     {

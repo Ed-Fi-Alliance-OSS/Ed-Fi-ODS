@@ -31,7 +31,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
     [Authorize]
     [ApiController]
     [Produces("application/json")]
-    [RouteRootContext(RouteContextType.Ods)]
+    [ApplyOdsRouteRootTemplate]
     [Route($"{RouteConstants.DataManagementRoutePrefix}/{{schema}}/{{resource}}/keyChanges")]
     public class KeyChangesController : ControllerBase
     {
