@@ -9,6 +9,8 @@ using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Standard;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
@@ -23,6 +25,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
         private IAssembliesProvider _assembliesProvider;
         private XsdMetadataFileMiddleware _sut;
         private IXsdFileInformationProvider _xsdFileInformationProvider;
+        private ApiSettings _apiSettings;
 
         [SetUp]
         public void SetUp()
@@ -45,7 +48,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
             A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment("notfound"))
                 .Returns(default);
 
-            _sut = new XsdMetadataFileMiddleware(_xsdFileInformationProvider, _assembliesProvider);
+            _apiSettings = new ApiSettings();
+
+            _sut = new XsdMetadataFileMiddleware(_xsdFileInformationProvider, _assembliesProvider, _apiSettings);
         }
 
         [Test]
@@ -81,6 +86,71 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
             var httpContext = new DefaultHttpContext();
             httpContext.Request.Method = HttpMethods.Get;
             httpContext.Request.Path = new PathString("/metadata/xsd/ed-fi/Ed-Fi-Core.xsd");
+
+            await _sut.InvokeAsync(httpContext, context => Task.CompletedTask);
+
+            A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment("ed-fi")).MustHaveHappened();
+
+            A.CallTo(() => _assembliesProvider.Get("EdFi.Ods.Standard")).MustHaveHappened();
+
+            // because the context here is a default http context, we will not get the content in the body as we would expect.
+            // so we will just check the status and the content type
+            httpContext.Response.StatusCode.ShouldBe(StatusCodes.Status200OK);
+            httpContext.Response.ContentType.ShouldBe("application/xml");
+        }
+
+        [Test]
+        public async Task Should_create_a_schema_file_for_a_matching_route_for_core_with_multitenancy_enabled()
+        {
+            var httpContext = new DefaultHttpContext();
+            httpContext.Request.Method = HttpMethods.Get;
+            httpContext.Request.Path = new PathString("/tenant1/metadata/xsd/ed-fi/Ed-Fi-Core.xsd");
+            
+            _apiSettings.Features.Add(new() { Name = ApiFeature.MultiTenancy.GetConfigKeyName(), IsEnabled = true });
+            
+            await _sut.InvokeAsync(httpContext, context => Task.CompletedTask);
+
+            A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment("ed-fi")).MustHaveHappened();
+
+            A.CallTo(() => _assembliesProvider.Get("EdFi.Ods.Standard")).MustHaveHappened();
+
+            // because the context here is a default http context, we will not get the content in the body as we would expect.
+            // so we will just check the status and the content type
+            httpContext.Response.StatusCode.ShouldBe(StatusCodes.Status200OK);
+            httpContext.Response.ContentType.ShouldBe("application/xml");
+        }
+
+        [Test]
+        public async Task Should_create_a_schema_file_for_a_matching_route_for_core_with_odsContextRoute_enabled()
+        {
+            var httpContext = new DefaultHttpContext();
+            httpContext.Request.Method = HttpMethods.Get;
+            httpContext.Request.Path = new PathString("/2023/metadata/xsd/ed-fi/Ed-Fi-Core.xsd");
+
+            _apiSettings.Features.Add(new() { Name = ApiFeature.MultiTenancy.GetConfigKeyName(), IsEnabled = false });
+            _apiSettings.OdsContextRouteTemplate = "{schoolYear:range(2000,2099)}";
+
+            await _sut.InvokeAsync(httpContext, context => Task.CompletedTask);
+
+            A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment("ed-fi")).MustHaveHappened();
+
+            A.CallTo(() => _assembliesProvider.Get("EdFi.Ods.Standard")).MustHaveHappened();
+
+            // because the context here is a default http context, we will not get the content in the body as we would expect.
+            // so we will just check the status and the content type
+            httpContext.Response.StatusCode.ShouldBe(StatusCodes.Status200OK);
+            httpContext.Response.ContentType.ShouldBe("application/xml");
+        }
+
+        [Test]
+        public async Task Should_create_a_schema_file_for_a_matching_route_for_core_with_multitenancy_and_odsContextRoute_enabled()
+        {
+            var httpContext = new DefaultHttpContext();
+            httpContext.Request.Method = HttpMethods.Get;
+            httpContext.Request.Path = new PathString("/tenant1/2023/metadata/xsd/ed-fi/Ed-Fi-Core.xsd");
+
+            _apiSettings.Features.Add(new() { Name = ApiFeature.MultiTenancy.GetConfigKeyName(), IsEnabled = true });
+            _apiSettings.OdsContextRouteTemplate = "{schoolYear:range(2000,2099)}";
 
             await _sut.InvokeAsync(httpContext, context => Task.CompletedTask);
 
