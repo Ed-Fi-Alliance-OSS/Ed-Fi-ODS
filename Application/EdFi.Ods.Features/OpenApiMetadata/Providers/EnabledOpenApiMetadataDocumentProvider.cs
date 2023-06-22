@@ -28,7 +28,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
         private readonly ILog _logger = LogManager.GetLogger(typeof(EnabledOpenApiMetadataDocumentProvider));
 
         private readonly IOpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
-        private readonly IRouteRootTemplateProvider _routeRootTemplateProvider;
+        private readonly IOdsRouteRootTemplateProvider _routeRootTemplateProvider;
         private readonly IList<IOpenApiMetadataRouteInformation> _routeInformations;
         private readonly ReverseProxySettings _reverseProxySettings;
         private readonly Lazy<IReadOnlyList<SchemaNameMap>> _schemaNameMaps;
@@ -40,7 +40,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             IList<IOpenApiMetadataRouteInformation> routeInformations,
             ISchemaNameMapProvider schemaNameMapProvider,
             ApiSettings apiSettings,
-            IRouteRootTemplateProvider routeRootTemplateProvider)
+            IOdsRouteRootTemplateProvider routeRootTemplateProvider)
         {
             _openApiMetadataCacheProvider = openApiMetadataCacheProvider;
             _routeInformations = routeInformations;
@@ -107,7 +107,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                     .Template;
 
                 if (_multitenancyEnabled || !string.IsNullOrEmpty(_odsContextRoutePath))
-                    routeTemplate = _routeRootTemplateProvider.GetRouteRootTemplate(RouteContextType.Ods) + routeTemplate;
+                    routeTemplate = _routeRootTemplateProvider.GetOdsRouteRootTemplate() + routeTemplate;
 
                 if (matcher.TryMatch(routeTemplate, path, out RouteValueDictionary values))
                 {
