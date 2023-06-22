@@ -174,6 +174,12 @@ namespace EdFi.Ods.Common.Models.Domain
         /// <returns><b>true</b> if the type has a discriminator; otherwise <b>false</b>.</returns>
         public static bool HasDiscriminator(this Entity entity)
         {
+            // If there's no entity supplied, clearly it doesn't have a discriminator.
+            if (entity == null)
+            {
+                return false;
+            }
+
             // Non-aggregate root entities do not have discriminators (they cannot be derived)
             if (!entity.IsAggregateRoot)
                 return false;
