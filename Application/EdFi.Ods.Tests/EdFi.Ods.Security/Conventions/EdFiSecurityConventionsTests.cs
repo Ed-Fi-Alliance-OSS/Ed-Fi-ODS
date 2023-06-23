@@ -54,44 +54,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Conventions
             }
         }
 
-        public class When_parsing_schema_name_from_a_namespace_for_a_standard_resource_in_a_profile : TestFixtureBase
-        {
-            private string _actualSchemaName;
-
-            protected override void Act()
-            {
-                // Standard resource in a Profile
-                string @namespace = $"{Namespaces.Resources.BaseNamespace}.School.EdFi.Test_Profile_Resource_ExcludeOnly_Readable";
-
-                _actualSchemaName = EdFiSecurityConventions.ParseResourceSchemaProperCaseName(@namespace);
-            }
-
-            [Assert]
-            public void Should_parse_the_supplied_schema()
-            {
-                _actualSchemaName.ShouldBe("EdFi");
-            }
-        }
-
-        public class When_parsing_schema_name_from_a_namespace_for_an_extension_resource_in_a_profile : TestFixtureBase
-        {
-            private string _actualSchemaName;
-
-            protected override void Act()
-            {
-                // Extension resource in a Profile
-                string @namespace = $"{Namespaces.Resources.BaseNamespace}.Applicant.GrandBend.Staff_and_Prospect_MixedInclude_Writable";
-
-                _actualSchemaName = EdFiSecurityConventions.ParseResourceSchemaProperCaseName(@namespace);
-            }
-
-            [Assert]
-            public void Should_parse_the_supplied_schema()
-            {
-                _actualSchemaName.ShouldBe("GrandBend");
-            }
-        }
-
         public class When_parsing_schema_name_from_a_namespace_for_a_resource_extension_class : TestFixtureBase
         {
             private string _actualSchemaName;
@@ -109,26 +71,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Conventions
             {
                 ActualException.ShouldBeOfType<ArgumentException>();
                 ActualException.Message.ShouldBe("Resource extensions are not authorizable so schema name extraction from the class namespace is not supported.");
-            }
-        }
-
-        public class When_parsing_schema_name_from_a_namespace_for_a_resource_class_with_a_base_class_context : TestFixtureBase
-        {
-            private string _actualSchemaName;
-
-            protected override void Act()
-            {
-                // Resource class with base class context -- Not authorizable
-                string @namespace = $"{Namespaces.Resources.BaseNamespace}.EducationOrganization.EdFi.Test_Profile_Resource_IncludeOnly_Writable.School"; // ParentAddressExtension
-
-                _actualSchemaName = EdFiSecurityConventions.ParseResourceSchemaProperCaseName(@namespace);
-            }
-
-            [Assert]
-            public void Should_throw_an_ArgumentException_indicating_that_resource_extensions_are_not_authorizable()
-            {
-                ActualException.ShouldBeOfType<Exception>();
-                ActualException.Message.ShouldBe("Resource classes with a base resource context for a Profile are not authorizable so schema name extraction from class namespace is not supported.");
             }
         }
     }

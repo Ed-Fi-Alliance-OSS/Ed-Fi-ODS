@@ -51,8 +51,13 @@ namespace EdFi.Ods.Api.IdentityValueMappers
         {
             Preconditions.ThrowIfNull(personType, nameof(personType));
 
+            if (uniqueId == null)
+            {
+                return PersonIdentifiersValueMap.Default;
+            }
+
             return GetPersonIdentifiersValueMap(personType, uniqueId)
-                      .FirstOrDefault() ?? new PersonIdentifiersValueMap();
+                      .FirstOrDefault() ?? PersonIdentifiersValueMap.Default;
         }
 
         public PersonIdentifiersValueMap GetUniqueId(string personType, int usi)
@@ -60,7 +65,7 @@ namespace EdFi.Ods.Api.IdentityValueMappers
             Preconditions.ThrowIfNull(personType, nameof(personType));
 
             return GetPersonIdentifiersValueMap(personType, usi)
-                      .FirstOrDefault() ?? new PersonIdentifiersValueMap();
+                      .FirstOrDefault() ?? PersonIdentifiersValueMap.Default;
         }
 
         private IEnumerable<PersonIdentifiersValueMap> GetPersonIdentifiersValueMap(string personType, object searchValue)
