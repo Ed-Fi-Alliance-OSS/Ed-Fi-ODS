@@ -20,6 +20,8 @@ namespace EdFi.XmlLookup.Console.Application
 
         public string ApiUrl { get; set; }
 
+        public string RootUrl { get; set; }
+
         public string OAuthKey { get; set; }
 
         public string OAuthSecret { get; set; }
@@ -61,15 +63,9 @@ namespace EdFi.XmlLookup.Console.Application
             get => !string.IsNullOrEmpty(MetadataUrl);
         }
 
-        public ApiMode ApiMode { get; set; }
-
         public int Retries { get; set; }
 
         public int MaxSimultaneousRequests { get; set; }
-
-        public int? SchoolYear { get; set; }
-
-        public string InstanceId { get; set; }
 
         public string Profile { get; set; }
 
@@ -139,8 +135,6 @@ namespace EdFi.XmlLookup.Console.Application
         {
             string currentDirectory = Directory.GetCurrentDirectory();
 
-            ApiMode.TryParse(configuration.GetValue<string>("OdsApi:ApiMode"), out ApiMode apiMode);
-
             return new XmlLookupConfiguration
             {
                 DataFolder = configuration.GetValue("Folders:Data", currentDirectory),
@@ -150,17 +144,15 @@ namespace EdFi.XmlLookup.Console.Application
                 Retries = configuration.GetValue("Concurrency:MaxRetries", 3),
                 OAuthKey = configuration.GetValue<string>("OdsApi:Key"),
                 OAuthSecret = configuration.GetValue<string>("OdsApi:Secret"),
-                SchoolYear = configuration.GetValue<int?>("OdsApi:SchoolYear"),
-                InstanceId = configuration.GetValue<string>("OdsApi:Instanceid"),
                 TaskCapacity = configuration.GetValue("Concurrency:TaskCapacity", 50),
                 WorkingFolder = configuration.GetValue("Folders:Working", currentDirectory),
                 XsdFolder = configuration.GetValue("Folders:Xsd", currentDirectory),
                 MaxSimultaneousRequests = configuration.GetValue("Concurrency:MaxSimultaneousApiRequests", 500),
                 ApiUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:ApiUrl")),
+                RootUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:ApiUrl")),
                 MetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:MetadataUrl")),
                 XsdMetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:XsdMetadataUrl")),
-                OAuthUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:OAuthUrl")),
-                ApiMode = apiMode
+                OAuthUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:OAuthUrl"))
             };
 
             string ResolvedUrl(string url)
@@ -170,25 +162,7 @@ namespace EdFi.XmlLookup.Console.Application
                     return null;
                 }
 				
-                if (apiMode == ApiMode.YearSpecific)
-                {
-                    // https://regex101.com/r/KywmUK/1
-                    return Regex.Replace(
-                        url,
-                        @"\/(?<year>\b\d{4}\b)", $"/{configuration.GetValue<string>("OdsApi:SchoolYear")}", RegexOptions.None
-                    );
-                }
-                else if (apiMode == ApiMode.InstanceYearSpecific)
-                {
-                    url = Regex.Replace(
-                        url,
-                        @"\/(?<year>\b\d{4}\b)", $"/{configuration.GetValue<string>("OdsApi:SchoolYear")}", RegexOptions.None
-                    );
-
-                    return url.Replace("{instance}", configuration.GetValue<string>("OdsApi:InstanceId"));
-                }
-                else
-                    return url;
+                return url;
             }
         }
     }

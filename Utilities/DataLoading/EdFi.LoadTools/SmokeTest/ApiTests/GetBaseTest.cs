@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using EdFi.Common.Extensions;
 using EdFi.Common.Inflection;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Common;
@@ -131,7 +132,7 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
 
             var client = new HttpClient
                          {
-                             Timeout = new TimeSpan(0, 0, 5, 0), BaseAddress = new Uri(Configuration.Url)
+                             Timeout = new TimeSpan(0, 0, 5, 0), BaseAddress = new Uri(Configuration.RootUrl)
                          };
 
             client.DefaultRequestHeaders.Accept.Clear();
@@ -158,7 +159,9 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
 
             path = OnGetPath(path);
 
-            var uri = new Uri(new Uri(Configuration.Url), path);
+            var uri = new Uri(
+                new Uri(Configuration.RootUrl.EnsureSuffixApplied("/")), 
+                path.TrimPrefix("/"));
             return uri;
         }
 

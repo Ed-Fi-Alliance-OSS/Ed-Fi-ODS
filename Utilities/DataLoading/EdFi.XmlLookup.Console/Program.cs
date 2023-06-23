@@ -140,8 +140,6 @@ namespace EdFi.XmlLookup.Console
                     .GetApiVersionInformationAsync()
                     .ConfigureAwait(false);
 
-                configuration["OdsApi:ApiMode"] = odsVersionInformation.ApiMode;
-
                 if (string.IsNullOrWhiteSpace(configuration.GetValue<string>("OdsApi:DependenciesUrl"))
                     && odsVersionInformation.Urls.TryGetValue("dependencies", out string dependencies))
                 {
@@ -179,7 +177,6 @@ namespace EdFi.XmlLookup.Console
         private static void LogConfiguration(XmlLookupConfiguration xmlLookupConfiguration)
         {
             Log.Info($"Api Url:        {xmlLookupConfiguration.ApiUrl}");
-            Log.Info($"School Year:    {xmlLookupConfiguration.SchoolYear}");
             Log.Info($"Oauth Key:      {xmlLookupConfiguration.OAuthKey}");
             Log.Info($"Metadata Url:   {xmlLookupConfiguration.MetadataUrl}");
             Log.Info($"Data Folder:    {xmlLookupConfiguration.DataFolder}");

@@ -17,12 +17,6 @@ namespace EdFi.XmlLookup.Console.Application
         [Option('a', "apiurl", Required = false, HelpText = "(deprecated) The web API url (i.e. http://server/)")]
         public string ApiUrl { get; set; }
 
-        [Option('y', "year", Required = false, HelpText = "The target school year for the web API (i.e. 2016)")]
-        public int? SchoolYear { get; set; }
-
-        [Option('i', "instance-id", Required = false, HelpText = "ODS Instance id (e.g. District Id)")]
-        public string InstanceId { get; set; }
-
         [Option('d', "data", Required = false, HelpText = "Path to folder containing the data files to be submitted")]
         public string DataFolder { get; set; }
 
@@ -58,8 +52,6 @@ namespace EdFi.XmlLookup.Console.Application
             {
                 {"-b", "OdsApi:Url"},
                 {"-a", "OdsApi:ApiUrl"},
-                {"-y", "OdsApi:SchoolYear"},
-                {"-i", "OdsApi:InstanceId"},
                 {"-d", "Folders:Data"},
                 {"-k", "OdsApi:Key"},
                 {"-f", "ForceMetadata"},
@@ -71,7 +63,6 @@ namespace EdFi.XmlLookup.Console.Application
                 {"-w", "Folders:Working"},
                 {"-x", "Folders:Xsd"},
                 {"--apiurl", "OdsApi:ApiUrl"},
-                {"--year", "OdsApi:SchoolYear"},
                 {"--data", "Folders:Data"},
                 {"--key", "OdsApi:Key"},
                 {"--secret", "OdsApi:Secret"},
@@ -82,8 +73,7 @@ namespace EdFi.XmlLookup.Console.Application
                 {"--working", "Folders:Working"},
                 {"--xsd", "Folders:Xds"},
                 {"--force", "ForceMetadata"},
-                {"--baseurl", "OdsApi:Url"},
-                {"--instance-id", "OdsApi:InstanceId"},
+                {"--baseurl", "OdsApi:Url"}
             };
     }
 }

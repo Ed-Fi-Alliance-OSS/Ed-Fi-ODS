@@ -4,8 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.IO;
-using System.Text.RegularExpressions;
-using EdFi.Common.Configuration;
 using EdFi.LoadTools.Engine;
 using Microsoft.Extensions.Configuration;
 
@@ -15,7 +13,7 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
         IDataConfiguration, IOAuthTokenConfiguration, IApiMetadataConfiguration, IXsdConfiguration,
         IInterchangeOrderConfiguration
     {
-        public ApiMode ApiMode { get; private set; }
+        public string RootUrl { get; set; }
 
         public string ApiUrl { get; set; }
 
@@ -44,10 +42,6 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
         public int MaxSimultaneousRequests { get; set; }
 
         public int Retries { get; set; }
-
-        public int? SchoolYear { get; set; }
-
-        public string InstanceId { get; set; }
 
         public int ConnectionLimit { get; set; }
 
@@ -132,8 +126,6 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
         {
             string currentDirectory = Directory.GetCurrentDirectory();
 
-            ApiMode.TryParse(configuration.GetValue<string>("OdsApi:ApiMode"), out ApiMode apiMode);
-
             string workingFolder = string.IsNullOrEmpty(configuration.GetValue<string>("Folders:Working"))
                 ? currentDirectory
                 : Path.GetFullPath(configuration.GetValue<string>("Folders:Working"));
@@ -153,20 +145,18 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                 IncludeStats = configuration.GetValue<bool>("IncludeStats"),
                 OAuthKey = configuration.GetValue<string>("OdsApi:Key"),
                 OAuthSecret = configuration.GetValue<string>("OdsApi:Secret"),
-                SchoolYear = configuration.GetValue<int?>("OdsApi:SchoolYear"),
-                InstanceId = configuration.GetValue<string>("OdsApi:Instanceid"),
                 TaskCapacity = configuration.GetValue("Concurrency:TaskCapacity", 50),
                 WorkingFolder = workingFolder,
                 XsdFolder = xsdFolder,
                 InterchangeOrderFolder = configuration.GetValue("Folders:Interchange", currentDirectory),
                 MaxSimultaneousRequests = configuration.GetValue("Concurrency:MaxSimultaneousApiRequests", 500),
                 ApiUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:ApiUrl")),
+                RootUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:Url")),
                 MetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:MetadataUrl")),
                 DependenciesUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:DependenciesUrl")),
                 OauthUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:OAuthUrl")),
                 XsdMetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:XsdMetadataUrl")),
-                Extension = configuration.GetValue<string>("OdsApi:Extension"),
-                ApiMode =  apiMode
+                Extension = configuration.GetValue<string>("OdsApi:Extension")
             };
 
             string ResolvedUrl(string url)
@@ -176,25 +166,7 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                     return null;
                 }
 
-                if (apiMode == ApiMode.YearSpecific)
-                {
-                    // https://regex101.com/r/KywmUK/1
-                    return Regex.Replace(
-                        url, 
-                        @"\/(?<year>\b\d{4}\b)", $"/{configuration.GetValue<string>("OdsApi:SchoolYear")}", RegexOptions.None
-                    );
-                }
-                else if (apiMode == ApiMode.InstanceYearSpecific)
-                {
-                    url = Regex.Replace(
-                        url,
-                        @"\/(?<year>\b\d{4}\b)", $"/{configuration.GetValue<string>("OdsApi:SchoolYear")}", RegexOptions.None
-                    );
-
-                    return url.Replace("{instance}", configuration.GetValue<string>("OdsApi:InstanceId"));
-                }
-                else
-                    return url;
+                return url;
             }
         }
     }

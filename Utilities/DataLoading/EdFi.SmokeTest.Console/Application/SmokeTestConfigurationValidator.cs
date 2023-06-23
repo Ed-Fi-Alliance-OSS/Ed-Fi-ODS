@@ -75,16 +75,6 @@ namespace EdFi.SmokeTest.Console.Application
             var isValid = ValidApiUrl && ValidOAuthUrl && ValidMetadataUrl && ValidXsdMetadataUrl && ValidSdkLibraryPath &&
                           ValidNamespacePrefix && ValidEducationOrganizationIdOverrides && ValidUnifiedProperties;
 
-            if (_configuration.ApiMode == ApiMode.YearSpecific)
-            {
-                isValid = isValid && _configuration.SchoolYear.HasValue;
-            }
-
-            if (_configuration.ApiMode == ApiMode.InstanceYearSpecific)
-            {
-                isValid = isValid && _configuration.SchoolYear.HasValue && !string.IsNullOrEmpty(_configuration.InstanceId);
-            }
-
             if (!isValid)
             {
                 ErrorText = CreateErrorText();
@@ -135,21 +125,6 @@ namespace EdFi.SmokeTest.Console.Application
             if (!ValidUnifiedProperties)
             {
                 sb.AppendLine("UnifiedProperties is required");
-            }
-
-            if (_configuration.ApiMode == ApiMode.YearSpecific && !_configuration.SchoolYear.HasValue)
-            {
-                sb.AppendLine($"School year is required for '{_configuration.ApiMode.DisplayName}' Mode");
-            }
-
-            if (_configuration.ApiMode == ApiMode.InstanceYearSpecific && !_configuration.SchoolYear.HasValue)
-            {
-                sb.AppendLine($"School year is required for '{_configuration.ApiMode.DisplayName}' Mode");
-            }
-
-            if (_configuration.ApiMode == ApiMode.InstanceYearSpecific && string.IsNullOrEmpty(_configuration.InstanceId))
-            {
-                sb.AppendLine($"Instance Id is required for '{_configuration.ApiMode.DisplayName}' Mode");
             }
 
             return sb.ToString();

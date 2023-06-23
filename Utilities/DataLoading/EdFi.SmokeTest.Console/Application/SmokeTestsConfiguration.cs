@@ -19,19 +19,15 @@ namespace EdFi.SmokeTest.Console.Application
     public class SmokeTestsConfiguration : IApiConfiguration, IApiMetadataConfiguration, IOAuthTokenConfiguration,
         IOAuthSessionToken, ISdkLibraryConfiguration, IDestructiveTestConfiguration
     {
-        public ApiMode ApiMode { get; set; }
-
         public string ApiUrl { get; set; }
+
+        public string RootUrl { get; set; }
 
         public string OAuthKey { get; set; }
 
         public string OAuthSecret { get; set; }
 
         public string OAuthUrl { get; set; }
-
-        public int? SchoolYear { get; set; }
-
-        public string InstanceId { get; set; }
 
         public string MetadataUrl { get; set; }
 
@@ -52,11 +48,6 @@ namespace EdFi.SmokeTest.Console.Application
         public int Retries { get; set; }
 
         public int MaxSimultaneousRequests { get; set; }
-
-        int? IApiConfiguration.SchoolYear
-        {
-            get => SchoolYear;
-        }
 
         string IApiConfiguration.Url
         {
@@ -130,26 +121,22 @@ namespace EdFi.SmokeTest.Console.Application
                 throw new ArgumentException($"Unknown TestSet '{configuration.GetValue<string>("TestSet")}'");
             }
 
-            ApiMode.TryParse(configuration.GetValue<string>("OdsApi:ApiMode"), out ApiMode apiMode);
-
             return new SmokeTestsConfiguration
             {
                 ApiUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:ApiUrl")),
+                RootUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:Url")),
                 MetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:MetadataUrl")),
                 XsdMetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:XsdMetadataUrl")),
                 DependenciesUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:DependenciesUrl")),
                 OAuthUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:OAuthUrl")),
                 OAuthKey = configuration.GetValue<string>("OdsApi:Key"),
                 OAuthSecret = configuration.GetValue<string>("OdsApi:Secret"),
-                SchoolYear = configuration.GetValue<int?>("OdsApi:SchoolYear"),
-                InstanceId = configuration.GetValue<string>("OdsApi:Instanceid"),
                 NamespacePrefix = configuration.GetValue<string>("NamespacePrefix"),
                 EducationOrganizationIdOverrides =
                     configuration.GetSection("EducationOrganizationIdOverrides").Get<IReadOnlyDictionary<string, int>>(),
                 UnifiedProperties = configuration.GetSection("UnifiedProperties").Get<IEnumerable<string>>(),
                 SdkLibraryPath = configuration.GetValue<string>("SdkLibraryPath"),
-                TestSet = testSet,
-                ApiMode = apiMode
+                TestSet = testSet
             };
 
             string ResolvedUrl(string url)
@@ -159,25 +146,7 @@ namespace EdFi.SmokeTest.Console.Application
                     return null;
                 }
 
-                if (apiMode == ApiMode.YearSpecific)
-                {
-                    // https://regex101.com/r/KywmUK/1
-                    return Regex.Replace(
-                        url,
-                        @"\/(?<year>\b\d{4}\b)", $"/{configuration.GetValue<string>("OdsApi:SchoolYear")}", RegexOptions.None
-                    );
-                }
-                else if (apiMode == ApiMode.InstanceYearSpecific)
-                {
-                    url = Regex.Replace(
-                        url,
-                        @"\/(?<year>\b\d{4}\b)", $"/{configuration.GetValue<string>("OdsApi:SchoolYear")}", RegexOptions.None
-                    );
-
-                    return url.Replace("{instance}", configuration.GetValue<string>("OdsApi:InstanceId"));
-                }
-                else
-                    return url;
+                return url;
             }
         }
     }

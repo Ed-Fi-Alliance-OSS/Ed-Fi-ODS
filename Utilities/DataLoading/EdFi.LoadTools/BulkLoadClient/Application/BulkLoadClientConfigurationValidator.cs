@@ -6,7 +6,6 @@
 using System;
 using System.IO;
 using System.Text;
-using EdFi.Common.Configuration;
 
 namespace EdFi.LoadTools.BulkLoadClient.Application
 {
@@ -37,16 +36,6 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                 && Uri.IsWellFormedUriString(_configuration.MetadataUrl, UriKind.Absolute)
                 && Uri.IsWellFormedUriString(_configuration.XsdMetadataUrl, UriKind.Absolute)
                 && Uri.IsWellFormedUriString(_configuration.OauthUrl, UriKind.Absolute);
-
-            if (_configuration.ApiMode == ApiMode.YearSpecific)
-            {
-                result = result && _configuration.SchoolYear.HasValue;
-            }
-
-            if (_configuration.ApiMode == ApiMode.InstanceYearSpecific)
-            {
-                result = result && _configuration.SchoolYear.HasValue && !string.IsNullOrEmpty(_configuration.InstanceId);
-            }
 
             if (!result)
             {
@@ -102,21 +91,6 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
             if (string.IsNullOrEmpty(_configuration.WorkingFolder) || !Directory.Exists(_configuration.WorkingFolder))
             {
                 sb.AppendLine($"Option 'w:working' parse error. '{_configuration.WorkingFolder}' is not a directory.");
-            }
-
-            if (_configuration.ApiMode == ApiMode.YearSpecific && !_configuration.SchoolYear.HasValue)
-            {
-                sb.AppendLine($"School year is required for '{_configuration.ApiMode.DisplayName}' Mode");
-            }
-
-            if (_configuration.ApiMode == ApiMode.InstanceYearSpecific && !_configuration.SchoolYear.HasValue)
-            {
-                sb.AppendLine($"School year is required for '{_configuration.ApiMode.DisplayName}' Mode");
-            }
-
-            if (_configuration.ApiMode == ApiMode.InstanceYearSpecific && string.IsNullOrEmpty(_configuration.InstanceId))
-            {
-                sb.AppendLine($"Instance Id is required for '{_configuration.ApiMode.DisplayName}' Mode");
             }
 
             return sb.ToString();

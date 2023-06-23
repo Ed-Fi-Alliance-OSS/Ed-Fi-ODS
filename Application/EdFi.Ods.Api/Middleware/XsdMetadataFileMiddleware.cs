@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.FileProviders;
@@ -21,13 +23,16 @@ namespace EdFi.Ods.Api.Middleware
         private readonly ConcurrentDictionary<string, EmbeddedFileProvider> _embeddedFileProviderByAssemblyName =
             new(StringComparer.InvariantCultureIgnoreCase);
         private readonly IXsdFileInformationProvider _xsdFileInformationProvider;
+        private readonly ApiSettings _apiSettings;
 
         public XsdMetadataFileMiddleware(
             IXsdFileInformationProvider xsdFileInformationProvider,
-            IAssembliesProvider assembliesProvider)
+            IAssembliesProvider assembliesProvider,
+            ApiSettings apiSettings)
         {
             _xsdFileInformationProvider = xsdFileInformationProvider;
             _assembliesProvider = assembliesProvider;
+            _apiSettings = apiSettings;
         }
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
@@ -73,9 +78,19 @@ namespace EdFi.Ods.Api.Middleware
 
             string CreateRouteTemplate()
             {
-                string template = $"metadata/";
+                string template = string.Empty;
 
-                return template + "xsd/{schema}/{file}.xsd";
+                if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
+                {
+                    template = "{tenantIdentifier}";
+                }
+
+                if (!string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
+                {
+                    template += $"/{_apiSettings.GetOdsContextRoutePath()}";
+                }
+
+                return $"{template}/metadata/xsd/{{schema}}/{{file}}.xsd";
             }
         }
     }

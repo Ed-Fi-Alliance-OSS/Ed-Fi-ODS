@@ -17,8 +17,6 @@ namespace EdFi.LoadTools
 
         public string Build { get; set; }
 
-        public string ApiMode { get; set; }
-
         public List<Dictionary<string,string>> DataModels { get; set; }
 
         public Dictionary<string,string> Urls { get; set; }
