@@ -65,19 +65,19 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                 return false;
             }
 
-            document = GetMetadataForContent(openApiContent, request, openApiMetadataRequest.OdsContextValue, openApiMetadataRequest.InstanceIdFromRoute, openApiMetadataRequest.TenantIdentifierFromRoute);
+            document = GetMetadataForContent(openApiContent, request, openApiMetadataRequest.SchoolYear, openApiMetadataRequest.InstanceId, openApiMetadataRequest.TenantIdentifierFromRoute);
 
             return true;
         }
 
-        private string GetMetadataForContent(OpenApiContent content, HttpRequest request, string odsContextValueFromRoute, string instanceIdFromRoute, string tenantIdentifierFromRoute)
+        private string GetMetadataForContent(OpenApiContent content, HttpRequest request, string schoolYear, string instanceId, string tenantIdentifier)
         {
 
-            var odsContextValue = string.IsNullOrEmpty(odsContextValueFromRoute) ? string.Empty : $"{odsContextValueFromRoute}/";
-            var instanceId = string.IsNullOrEmpty(instanceIdFromRoute) ? string.Empty : $"{instanceIdFromRoute}/";
-            var tenantIdentifier = string.IsNullOrEmpty(tenantIdentifierFromRoute) ? string.Empty : $"{tenantIdentifierFromRoute}/";
+            var schoolYearRouteValue = string.IsNullOrEmpty(schoolYear) ? string.Empty : $"{schoolYear}/";
+            var instanceIdRouteValue = string.IsNullOrEmpty(instanceId) ? string.Empty : $"{instanceId}/";
+            var tenantIdentifierRouteValue = string.IsNullOrEmpty(tenantIdentifier) ? string.Empty : $"{tenantIdentifier}/";
 
-            string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + tenantIdentifier + odsContextValue + content.BasePath.EnsureSuffixApplied("/") + instanceId;
+            string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + tenantIdentifierRouteValue + schoolYearRouteValue + content.BasePath.EnsureSuffixApplied("/") + instanceIdRouteValue;
  
             return content.Metadata
                 .Replace("%HOST%", Host())
@@ -87,7 +87,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 
             string TokenUrl() {
                 var rootUrl = request.RootUrl(this._reverseProxySettings);
-                return $"{rootUrl}/" + tenantIdentifier + $"{instanceId}oauth/token";
+                return $"{rootUrl}/" + tenantIdentifierRouteValue + schoolYearRouteValue + $"{instanceId}oauth/token";
             }
 
             string Host() => $"{request.Host(this._reverseProxySettings)}:{request.Port(this._reverseProxySettings)}";
@@ -129,9 +129,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                         }
                     }
 
-                    if (values.ContainsKey(_odsContextRoutePath))
+                    if (values.ContainsKey("schoolYear"))
                     {
-                        openApiMetadataRequest.OdsContextValue = values[_odsContextRoutePath]
+                        openApiMetadataRequest.SchoolYear = values["schoolYear"]
                             .ToString();
                     }
 
@@ -142,7 +142,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 
                         if (!string.IsNullOrEmpty(instanceId))
                         {
-                            openApiMetadataRequest.InstanceIdFromRoute = instanceId;
+                            openApiMetadataRequest.InstanceId = instanceId;
                         }
                     }
 
