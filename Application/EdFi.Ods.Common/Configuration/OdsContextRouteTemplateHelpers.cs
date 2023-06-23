@@ -37,7 +37,7 @@ public static class OdsContextRouteTemplateHelpers
         int i = 0;
         int keyConstraintDepth = 0;
 
-        while (i < odsContextRouteTemplate.Length)
+        while (i < odsContextRouteTemplate?.Length)
         {
             var pathChar = odsContextRouteTemplate[i];
 
