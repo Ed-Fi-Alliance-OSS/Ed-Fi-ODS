@@ -60,8 +60,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 _idValueMapper = Stub<IUniqueIdToIdValueMapper>();
                 _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
+                
                 _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() => _personEntitySpecification.IsPersonEntity(A<string>.Ignored)).Returns(true);
+                
                 _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
 
                 _suppliedUsiValueMap = new PersonIdentifiersValueMap
                 {
@@ -201,8 +205,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 _idValueMapper = Stub<IUniqueIdToIdValueMapper>();
                 _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
+
                 _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() => _personEntitySpecification.IsPersonEntity(A<string>.Ignored)).Returns(true);
+                
                 _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
 
                 // usi value mapper
                 _suppliedUsiValueMap = new PersonIdentifiersValueMap
@@ -367,8 +375,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 _idValueMapper = Stub<IUniqueIdToIdValueMapper>();
                 _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
+
                 _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() => _personEntitySpecification.IsPersonEntity(A<string>.Ignored)).Returns(true);
+                
                 _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
 
                 // usi value mapper
                 _suppliedUsiValueMap = new PersonIdentifiersValueMap
@@ -531,7 +543,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 _edFiOdsInstanceIdentificationProvider = Stub<IEdFiOdsInstanceIdentificationProvider>();
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
                 _personEntitySpecification = Stub<IPersonEntitySpecification>();
+
+                A.CallTo(() => _personEntitySpecification.IsPersonEntity(A<string>.Ignored)).Returns(true);
+                
                 _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
 
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
                     .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) Array.Empty<PersonIdentifiersValueMap>()));
@@ -606,8 +622,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             {
                 _edFiOdsInstanceIdentificationProvider = Stub<IEdFiOdsInstanceIdentificationProvider>();
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
+
                 _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() => _personEntitySpecification.IsPersonEntity(A<string>.Ignored)).Returns(true);
+                
                 _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
 
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
                     .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) Array.Empty<PersonIdentifiersValueMap>()));
@@ -689,8 +709,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             {
                 _edfiOdsInstanceIdentificationProvider = Stub<IEdFiOdsInstanceIdentificationProvider>();
                 _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
+
                 _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() => _personEntitySpecification.IsPersonEntity(A<string>.Ignored)).Returns(true);
+                
                 _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
 
                 _suppliedUsiValueMap = new PersonIdentifiersValueMap
                 {
@@ -793,13 +817,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             {
                 _edfiOdsInstanceIdentificationProvider = Stub<IEdFiOdsInstanceIdentificationProvider>();
                 _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
-                _personEntitySpecification = Stub<IPersonEntitySpecification>();
+
                 _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
+
+                _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() =>_personEntitySpecification.IsPersonEntity(A<string>.That.Matches(pt => _validPersonTypes.Contains(pt))))
+                    .Returns(true);
 
                 _suppliedUsiValueMap = new PersonIdentifiersValueMap
                 {
-                    UniqueId = Guid.NewGuid()
-                        .ToString(),
+                    UniqueId = Guid.NewGuid().ToString(),
                     Usi = 10,
                     Id = Guid.NewGuid() // Id is also provided by the USI value mapper
                 };
@@ -835,6 +863,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         {
                             { "Student", false },
                             { "Staff", false },
+                            { "Parent", false },
                             { "Contact", false }
                         });
 
@@ -908,8 +937,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             {
                 _edFiOdsInstanceIdentificationProvider = new FakeEdFiOdsInstanceIdentificationProvider();
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
+
                 _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() => _personEntitySpecification.IsPersonEntity(A<string>.Ignored)).Returns(true);
+                
                 _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
 
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
                     .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) Array.Empty<PersonIdentifiersValueMap>()));
@@ -1009,8 +1042,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 _edFiOdsInstanceIdentificationProvider = new FakeEdFiOdsInstanceIdentificationProvider();
 
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
+                
                 _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() => _personEntitySpecification.IsPersonEntity(A<string>.Ignored)).Returns(true);
+                
                 _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
 
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>.That.IsEqualTo(Staff)))
                     .Returns(
@@ -1117,8 +1154,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             {
                 _edFiOdsInstanceIdentificationProvider = new FakeEdFiOdsInstanceIdentificationProvider();
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
+
                 _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() => _personEntitySpecification.IsPersonEntity(A<string>.Ignored)).Returns(true);
+                
                 _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
 
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
                     .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) Array.Empty<PersonIdentifiersValueMap>()));
@@ -1247,7 +1288,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
 
                 _idValueMapper = Stub<IUniqueIdToIdValueMapper>();
 
-                A.CallTo(() => _idValueMapper.GetUniqueId(A<string>.That.IsEqualTo(Staff), A<Guid>.That.IsEqualTo(_suppliedId)))
+                A.CallTo(() => _idValueMapper.GetUniqueId(Staff, _suppliedId))
                     .Returns(
                         new PersonIdentifiersValueMap
                         {
@@ -1273,27 +1314,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
 
             protected override void Act()
             {
+                // Invoke cache twice
                 _actualFirstValue = _idCache.GetUniqueId(Staff, _suppliedId);
-
-                // Based on Rhino expectation, this will fail if value mapper is called twice by the cache
-                try
-                {
-                    _actualSecondValue = _idCache.GetUniqueId(Staff, _suppliedId);
-                }
-                catch (Exception ex)
-                {
-                    _actualExceptionOnSecondRequestForValue = ex;
-                }
+                _actualSecondValue = _idCache.GetUniqueId(Staff, _suppliedId);
             }
 
             [Test]
             public void Should_not_call_value_mapper_a_second_time_for_same_value()
             {
-                _actualExceptionOnSecondRequestForValue.ShouldBeNull();
+                A.CallTo(() => _idValueMapper.GetUniqueId(Staff, _suppliedId))
+                    .MustHaveHappenedOnceExactly();
             }
 
             [Test]
-            public void Should_return_uniqueId_value()
+            public void Should_return_uniqueId_value_from_both_cache_calls()
             {
                 _actualFirstValue.ShouldBe("ABC123");
                 _actualSecondValue.ShouldBe("ABC123");
@@ -1339,20 +1373,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             protected override void Arrange()
             {
                 _edFiOdsInstanceIdentificationProvider = Stub<IEdFiOdsInstanceIdentificationProvider>();
-                _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
-                _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                
                 _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
 
+                _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
                     .Returns(Task.FromResult(Enumerable.Empty<PersonIdentifiersValueMap>()));
 
                 _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
-
                 A.CallTo(() => _usiValueMapper.GetUsi(PersonType, "ABC123"))
                     .Returns(new PersonIdentifiersValueMap() { UniqueId = "ABC123", Usi = 100});
 
                 A.CallTo(() => _usiValueMapper.GetUniqueId(PersonType, 200))
                     .Returns(new PersonIdentifiersValueMap() { UniqueId = "CDE234", Usi = 200});
+
+                _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() =>_personEntitySpecification.IsPersonEntity(A<string>.That.Matches(pt => _validPersonTypes.Contains(pt))))
+                    .Returns(true);
 
                 _memoryCache = new MemoryCache(new MemoryCacheOptions());
                 _memoryCacheProvider = new MemoryCacheProvider(_memoryCache);
@@ -1369,9 +1407,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                     synchronousInitialization: false,
                     cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
                     {
-                        { "Student", false },
-                        { "Staff", false },
-                        { "Contact", false }
+                        { "Student", PersonType == "Student" },
+                        { "Staff", PersonType == "Staff" },
+                        { "Parent", PersonType == "Parent" },
+                        { "Contact", PersonType == "Contact" }
                     });
             }
 
@@ -1405,5 +1444,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(PersonType)).MustNotHaveHappened();
             }
         }
+        
+        private static readonly string[] _validPersonTypes = {
+            "Student",
+            "Staff",
+            "Parent",
+            "Contact"
+        };
     }
 }

@@ -9,9 +9,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Features.UniqueIdIntegration.Validation;
 using EdFi.Ods.Tests._Extensions;
 using EdFi.TestFixture;
+using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Test.Common;
@@ -47,119 +49,114 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 : base(id, uniqueId) { }
         }
 
+        [TestFixture]
         public class When_validating_a_person_entity_that_has_both_the_UniqueId_and_Id_assigned
-            : ScenarioFor<EnsureUniqueIdAlreadyExistsEntityValidator>
         {
-            private ICollection<ValidationResult> _actualResults;
-
-            /// <summary>
-            /// Executes the code to be exercised for the scenario.
-            /// </summary>
-            protected override void Act()
+            [Test]
+            public void Should_not_generate_any_validation_errors()
             {
+                // Arrange
+                var personEntitySpecification = A.Fake<IPersonEntitySpecification>();
+                A.CallTo(() => personEntitySpecification.IsPersonEntity(A<Type>.Ignored)).Returns(true);
+
+                // Act
                 var person = new Student(Guid.NewGuid(), "ABCD");
-                _actualResults = SystemUnderTest.ValidateObject(person);
-            }
+                var validator = new EnsureUniqueIdAlreadyExistsEntityValidator(personEntitySpecification);
+                var actualResults = validator.ValidateObject(person);
 
-            [Assert]
-            public void Should_not_generate_any_validation_errors()
-            {
-                _actualResults.ShouldBeEmpty();
+                // Assert                
+                actualResults.ShouldBeEmpty();
             }
         }
 
+        [TestFixture]
         public class When_validating_a_person_entity_that_has_just_the_UniqueId_assigned
-            : ScenarioFor<EnsureUniqueIdAlreadyExistsEntityValidator>
         {
-            private ICollection<ValidationResult> _actualResults;
-
-            /// <summary>
-            /// Executes the code to be exercised for the scenario.
-            /// </summary>
-            protected override void Act()
+            [Test]
+            public void ValidateObject_generate_a_validation_error_about_the_UniqueId_value_not_being_resolved()
             {
+                // Arrange
+                var personEntitySpecification = A.Fake<IPersonEntitySpecification>();
+                A.CallTo(() => personEntitySpecification.IsPersonEntity(A<Type>.Ignored)).Returns(true);
+
+                // Act
                 var person = new Student(default(Guid), "ABCD");
-                _actualResults = SystemUnderTest.ValidateObject(person);
-            }
+                var validator = new EnsureUniqueIdAlreadyExistsEntityValidator(personEntitySpecification);
+                var actualResults = validator.ValidateObject(person);
 
-            [Assert]
-            public void Should_generate_a_validation_error_about_the_UniqueId_value_not_being_resolved()
-            {
-                _actualResults.ShouldNotBeEmpty();
-
-                _actualResults.Single()
-                    .ErrorMessage.ShouldContain("was not resolved");
+                // Assert
+                actualResults.ShouldNotBeEmpty();
+                actualResults.Single().ErrorMessage.ShouldContain("was not resolved");
             }
         }
 
+        [TestFixture]
         public class When_validating_a_entity_that_is_not_a_Person_entity
-            : ScenarioFor<EnsureUniqueIdAlreadyExistsEntityValidator>
         {
-            private ICollection<ValidationResult> _actualResults;
-
-            /// <summary>
-            /// Executes the code to be exercised for the scenario.
-            /// </summary>
-            protected override void Act()
-            {
-                var person = new NotAPerson(default(Guid), "ABCD");
-                _actualResults = SystemUnderTest.ValidateObject(person);
-            }
-
-            [Assert]
+            [Test]
             public void Should_not_generate_any_validation_errors()
             {
-                _actualResults.ShouldBeEmpty();
+                // Arrange
+                var personEntitySpecification = A.Fake<IPersonEntitySpecification>();
+                A.CallTo(() => personEntitySpecification.IsPersonEntity(A<Type>.Ignored)).Returns(false);
+
+                // Act
+                var person = new NotAPerson(default(Guid), "ABCD");
+                var validator = new EnsureUniqueIdAlreadyExistsEntityValidator(personEntitySpecification);
+                var actualResults = validator.ValidateObject(person);
+
+                // Assert
+                actualResults.ShouldBeEmpty();
             }
         }
 
+        [TestFixture]
         public class When_validating_a_entity_that_looks_like_a_Person_entity_but_does_not_implement_the_Id_interface
-            : ScenarioFor<EnsureUniqueIdAlreadyExistsEntityValidator>
         {
             private class Student : IIdentifiablePerson
             {
                 public string UniqueId { get; private set; }
             }
 
-            /// <summary>
-            /// Executes the code to be exercised for the scenario.
-            /// </summary>
-            protected override void Act()
+            [Test]
+            public void ValidateObject_throws_NotImplementedException_indicating_the_interface_was_not_implemented()
             {
-                var person = new Student();
-                SystemUnderTest.ValidateObject(person);
-            }
+                // Arrange
+                var personEntitySpecification = A.Fake<IPersonEntitySpecification>();
+                A.CallTo(() => personEntitySpecification.IsPersonEntity(A<Type>.Ignored)).Returns(true);
 
-            [Assert]
-            public void Should_throw_a_NotImplementedException_indicating_the_interface_was_not_implemented()
-            {
-                ActualException.ShouldBeExceptionType<NotImplementedException>();
-                ActualException.Message.ShouldContain("did not implement");
+                // Act
+                var person = new Student();
+                var validator = new EnsureUniqueIdAlreadyExistsEntityValidator(personEntitySpecification);
+                
+                // Assert
+                Should.Throw<NotImplementedException>(() => validator.ValidateObject(person))
+                    .Message.ShouldContain("did not implement");
             }
         }
 
+        [TestFixture]
         public class When_validating_a_entity_that_looks_like_a_Person_entity_but_does_not_implement_the_UniqueId_interface
-            : ScenarioFor<EnsureUniqueIdAlreadyExistsEntityValidator>
         {
             private class Student : IHasIdentifier
             {
                 public Guid Id { get; set; }
             }
 
-            /// <summary>
-            /// Executes the code to be exercised for the scenario.
-            /// </summary>
-            protected override void Act()
-            {
-                var person = new Student();
-                SystemUnderTest.ValidateObject(person);
-            }
-
-            [Assert]
+            [Test]
             public void Should_throw_a_NotImplementedException_indicating_the_interface_was_not_implemented()
             {
-                ActualException.ShouldBeExceptionType<NotImplementedException>();
-                ActualException.Message.ShouldContain("did not implement");
+                // Arrange
+                var personEntitySpecification = A.Fake<IPersonEntitySpecification>();
+                A.CallTo(() => personEntitySpecification.IsPersonEntity(A<Type>.Ignored)).Returns(true);
+
+                // Act
+                var person = new Student();
+                var validator = new EnsureUniqueIdAlreadyExistsEntityValidator(personEntitySpecification);
+
+                // Assert
+                Should.Throw<NotImplementedException>(() => validator.ValidateObject(person))
+                    .Message.ShouldContain("did not implement");
             }
         }
     }
