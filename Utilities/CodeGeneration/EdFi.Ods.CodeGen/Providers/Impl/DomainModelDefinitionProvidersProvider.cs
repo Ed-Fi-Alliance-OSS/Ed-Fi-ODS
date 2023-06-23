@@ -145,7 +145,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                     return directory.GetDirectories("", SearchOption.AllDirectories);
                 }
 
-                return new DirectoryInfo[0];
+                return Array.Empty<DirectoryInfo>();
             }
 
             FileInfo GetMetadataFileInfo(DirectoryInfo modelProject)

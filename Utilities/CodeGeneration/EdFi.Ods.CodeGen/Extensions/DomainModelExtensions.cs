@@ -9,6 +9,7 @@ using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
 using EdFi.Common.Extensions;
+using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
@@ -75,16 +76,6 @@ namespace EdFi.Ods.CodeGen.Extensions
         public static bool IsAggregateRoot(this ResourceClassBase resource)
         {
             return resource.Entity?.IsAggregateRoot == true;
-        }
-
-        /// <summary>
-        ///     Check if resource is a lookup entity.
-        /// </summary>
-        /// <param name="resource"></param>
-        /// <returns></returns>
-        public static bool IsLookup(this ResourceClassBase resource)
-        {
-            return resource.Entity?.IsLookup == true;
         }
 
         /// <summary>
@@ -190,7 +181,7 @@ namespace EdFi.Ods.CodeGen.Extensions
         /// <returns></returns>
         public static bool IsPersonOrUsi(this ResourceProperty property)
         {
-            return property.Parent.Entity?.IsPersonEntity() == true || UniqueIdSpecification.IsUSI(property.PropertyName);
+            return property.Parent.Entity?.IsPersonEntity() == true || UniqueIdConventions.IsUSI(property.PropertyName);
         }
 
         /// <summary>
@@ -201,8 +192,8 @@ namespace EdFi.Ods.CodeGen.Extensions
         public static bool IsDefiningUniqueIdOrUsi(this ResourceProperty property)
         {
             return property.Parent.Entity?.IsPersonEntity() == true
-                   && (UniqueIdSpecification.IsUniqueId(property.PropertyName)
-                       || UniqueIdSpecification.IsUSI(property.PropertyName));
+                   && (UniqueIdConventions.IsUniqueId(property.PropertyName)
+                       || UniqueIdConventions.IsUSI(property.PropertyName));
         }
 
         /// <summary>
@@ -231,7 +222,7 @@ namespace EdFi.Ods.CodeGen.Extensions
         {
             if (resource.Entity == null)
             {
-                return new ResourceProperty[0];
+                return Array.Empty<ResourceProperty>();
             }
 
             // a backreference is required when we have a property that is associated to multiple entities.
@@ -334,6 +325,21 @@ namespace EdFi.Ods.CodeGen.Extensions
             return resource.IsAggregateRoot() && !resource.IsDescriptorEntity();
         }
 
+        private static IPersonEntitySpecification _personEntitySpecification;
+
+        private static IPersonEntitySpecification PersonEntitySpecification(DomainModel domainModel)
+        {
+            if (_personEntitySpecification == null)
+            {
+                _personEntitySpecification = 
+                    new PersonEntitySpecification(
+                        new PersonTypesProvider(
+                            new SuppliedDomainModelProvider(domainModel)));
+            }
+
+            return _personEntitySpecification;
+        }
+        
         /// <summary>
         /// Converts surrogate id property names to their publicly visible counterparts.
         /// </summary>
@@ -346,9 +352,10 @@ namespace EdFi.Ods.CodeGen.Extensions
                 return entityProperty.PropertyName.TrimSuffix("Id");
             }
 
-            if (UniqueIdSpecification.IsCoreUSI(entityProperty.PropertyName))
+            if (UniqueIdConventions.IsUSI(entityProperty.PropertyName)
+                && PersonEntitySpecification(entityProperty.Entity.DomainModel).GetUSIPersonType(entityProperty.PropertyName) != null)
             {
-                return UniqueIdSpecification.GetUniqueIdPropertyName(entityProperty.PropertyName);
+                return UniqueIdConventions.GetUniqueIdPropertyName(entityProperty.PropertyName);
             }
 
             return entityProperty.PropertyName;
@@ -387,7 +394,7 @@ namespace EdFi.Ods.CodeGen.Extensions
         /// <returns></returns>
         public static string ConvertToUniqueId(this string usiPropertyName)
         {
-            if (!UniqueIdSpecification.IsUSI(usiPropertyName))
+            if (!UniqueIdConventions.IsUSI(usiPropertyName))
             {
                 throw new ArgumentException(
                     string.Format(
@@ -395,7 +402,7 @@ namespace EdFi.Ods.CodeGen.Extensions
                         usiPropertyName));
             }
 
-            return UniqueIdSpecification.GetUniqueIdPropertyName(usiPropertyName);
+            return UniqueIdConventions.GetUniqueIdPropertyName(usiPropertyName);
         }
 
         /// <summary>
@@ -515,9 +522,9 @@ namespace EdFi.Ods.CodeGen.Extensions
         /// <returns></returns>
         public static string RemoveUniqueIdOrUsiFromPropertyName(this ResourceProperty property)
         {
-            return UniqueIdSpecification.IsUniqueId(property.PropertyName)
-                ? UniqueIdSpecification.RemoveUniqueIdSuffix(property.PropertyName)
-                : UniqueIdSpecification.RemoveUsiSuffix(property.PropertyName);
+            return UniqueIdConventions.IsUniqueId(property.PropertyName)
+                ? UniqueIdConventions.RemoveUniqueIdSuffix(property.PropertyName)
+                : UniqueIdConventions.RemoveUsiSuffix(property.PropertyName);
         }
 
         /// <summary>
@@ -614,7 +621,7 @@ namespace EdFi.Ods.CodeGen.Extensions
         {
             if (!entityExtension.IsEntityExtension)
             {
-                return new AssociationView[0];
+                return Array.Empty<AssociationView>();
             }
 
             return entityExtension.EdFiStandardEntity.NavigableChildren
@@ -631,7 +638,7 @@ namespace EdFi.Ods.CodeGen.Extensions
         {
             if (!entityExtension.IsEntityExtension)
             {
-                return new AssociationView[0];
+                return Array.Empty<AssociationView>();
             }
 
             return entityExtension.EdFiStandardEntity.NavigableOneToOnes

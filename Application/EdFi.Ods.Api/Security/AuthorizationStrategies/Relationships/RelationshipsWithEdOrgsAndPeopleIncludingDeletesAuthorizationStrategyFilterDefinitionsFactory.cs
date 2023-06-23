@@ -9,6 +9,7 @@ using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security;
+using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 
@@ -18,8 +19,13 @@ public class RelationshipsWithEdOrgsAndPeopleIncludingDeletesAuthorizationStrate
     public RelationshipsWithEdOrgsAndPeopleIncludingDeletesAuthorizationStrategyFilterDefinitionsFactory(
         IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider,
         IApiKeyContextProvider apiKeyContextProvider,
-        IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
-        : base(educationOrganizationIdNamesProvider, apiKeyContextProvider, viewBasedSingleItemAuthorizationQuerySupport) { }
+        IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
+        IPersonTypesProvider personTypesProvider)
+        : base(
+            educationOrganizationIdNamesProvider,
+            apiKeyContextProvider,
+            viewBasedSingleItemAuthorizationQuerySupport,
+            personTypesProvider) { }
 
     public override IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
     {

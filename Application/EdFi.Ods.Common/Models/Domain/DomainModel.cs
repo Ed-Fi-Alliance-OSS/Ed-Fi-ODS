@@ -156,16 +156,16 @@ namespace EdFi.Ods.Common.Models.Domain
 
         internal void AddDomainModelDefinitions(DomainModelDefinitions domainModelDefinitions)
         {
-            (domainModelDefinitions.AggregateDefinitions ?? new AggregateDefinition[0])
+            (domainModelDefinitions.AggregateDefinitions ?? Array.Empty<AggregateDefinition>())
                .ForEach(AddAggregate);
 
-            (domainModelDefinitions.EntityDefinitions ?? new EntityDefinition[0])
+            (domainModelDefinitions.EntityDefinitions ?? Array.Empty<EntityDefinition>())
                .ForEach(AddEntity);
 
-            (domainModelDefinitions.AssociationDefinitions ?? new AssociationDefinition[0])
+            (domainModelDefinitions.AssociationDefinitions ?? Array.Empty<AssociationDefinition>())
                .ForEach(AddAssociation);
 
-            (domainModelDefinitions.AggregateExtensionDefinitions ?? new AggregateExtensionDefinition[0])
+            (domainModelDefinitions.AggregateExtensionDefinitions ?? Array.Empty<AggregateExtensionDefinition>())
                .ForEach(AddAggregateExtension);
 
             AddSchema(domainModelDefinitions.SchemaDefinition ?? new SchemaDefinition());

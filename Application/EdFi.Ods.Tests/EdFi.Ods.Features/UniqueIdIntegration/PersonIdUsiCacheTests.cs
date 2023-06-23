@@ -13,6 +13,7 @@ using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.IdentityValueMappers;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Providers;
+using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Features.UniqueIdIntegration.Caching;
 using EdFi.TestFixture;
 using FakeItEasy;
@@ -50,6 +51,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToIdCache _idCache;
             private PersonUniqueIdToUsiCache _usiCache;
+            private IPersonEntitySpecification _personEntitySpecification;
+            private IPersonTypesProvider _personTypesProvider;
 
             protected override void Arrange()
             {
@@ -57,6 +60,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 _idValueMapper = Stub<IUniqueIdToIdValueMapper>();
                 _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
+                
+                _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() => _personEntitySpecification.IsPersonEntity(A<string>.Ignored)).Returns(true);
+                
+                _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
 
                 _suppliedUsiValueMap = new PersonIdentifiersValueMap
                 {
@@ -114,12 +123,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _edfiOdsInstanceIdentificationProvider,
                         _usiValueMapper,
                         _personIdentifiersProvider,
+                        _personEntitySpecification,
+                        _personTypesProvider,
                         TimeSpan.Zero,
                         TimeSpan.Zero,
                         synchronousInitialization: true,
-                        suppressStudentCache: false,
-                        suppressStaffCache: false,
-                        suppressParentCache: false);
+                        cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                        {
+                            { "Student", false },
+                            { "Staff", false },
+                            { "Contact", false }
+                        });
 
                     PersonUniqueIdToUsiCache.GetCache = () => _usiCache;
                 }
@@ -182,6 +196,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToIdCache _idCache;
             private PersonUniqueIdToUsiCache _usiCache;
+            private IPersonEntitySpecification _personEntitySpecification;
+            private IPersonTypesProvider _personTypesProvider;
 
             protected override void Arrange()
             {
@@ -189,6 +205,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 _idValueMapper = Stub<IUniqueIdToIdValueMapper>();
                 _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
+
+                _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() => _personEntitySpecification.IsPersonEntity(A<string>.Ignored)).Returns(true);
+                
+                _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
 
                 // usi value mapper
                 _suppliedUsiValueMap = new PersonIdentifiersValueMap
@@ -243,12 +265,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                     _edfiOdsInstanceIdentificationProvider,
                     _usiValueMapper,
                     _personIdentifiersProvider,
+                    _personEntitySpecification,
+                    _personTypesProvider,
                     TimeSpan.Zero,
                     TimeSpan.Zero,
                     synchronousInitialization: true,
-                    suppressStudentCache: false,
-                    suppressStaffCache: false,
-                    suppressParentCache: false);
+                    cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                    {
+                        { "Student", false },
+                        { "Staff", false },
+                        { "Contact", false }
+                    });
             }
 
             protected override void Act()
@@ -339,6 +366,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToIdCache _idCache;
             private PersonUniqueIdToUsiCache _usiCache;
+            private IPersonEntitySpecification _personEntitySpecification;
+            private IPersonTypesProvider _personTypesProvider;
 
             protected override void Arrange()
             {
@@ -346,6 +375,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 _idValueMapper = Stub<IUniqueIdToIdValueMapper>();
                 _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
+
+                _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() => _personEntitySpecification.IsPersonEntity(A<string>.Ignored)).Returns(true);
+                
+                _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
 
                 // usi value mapper
                 _suppliedUsiValueMap = new PersonIdentifiersValueMap
@@ -401,12 +436,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _memoryCacheProvider, _edfiOdsInstanceIdentificationProvider, _idValueMapper);
 
                     _usiCache = new PersonUniqueIdToUsiCache(
-                        _memoryCacheProvider, _edfiOdsInstanceIdentificationProvider, _usiValueMapper, _personIdentifiersProvider,
-                        TimeSpan.Zero, TimeSpan.Zero,
+                        _memoryCacheProvider,
+                        _edfiOdsInstanceIdentificationProvider,
+                        _usiValueMapper,
+                        _personIdentifiersProvider,
+                        _personEntitySpecification,
+                        _personTypesProvider,
+                        TimeSpan.Zero,
+                        TimeSpan.Zero,
                         synchronousInitialization: false,
-                        suppressStudentCache: false,
-                        suppressStaffCache: false,
-                        suppressParentCache: false);
+                        cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                        {
+                            { "Student", false },
+                            { "Staff", false },
+                            { "Contact", false }
+                        });
                 }
             }
 
@@ -491,14 +535,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private IPersonIdentifiersProvider _personIdentifiersProvider;
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToUsiCache _usiCache;
+            private IPersonEntitySpecification _personEntitySpecification;
+            private IPersonTypesProvider _personTypesProvider;
 
             protected override void Arrange()
             {
                 _edFiOdsInstanceIdentificationProvider = Stub<IEdFiOdsInstanceIdentificationProvider>();
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
+                _personEntitySpecification = Stub<IPersonEntitySpecification>();
+
+                A.CallTo(() => _personEntitySpecification.IsPersonEntity(A<string>.Ignored)).Returns(true);
+                
+                _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
 
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
-                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) new PersonIdentifiersValueMap[0]));
+                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) Array.Empty<PersonIdentifiersValueMap>()));
 
                 _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
 
@@ -515,12 +567,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 _memoryCacheProvider = new MemoryCacheProvider(memoryCache);
 
                 _usiCache = new PersonUniqueIdToUsiCache(
-                    _memoryCacheProvider, _edFiOdsInstanceIdentificationProvider, _usiValueMapper, _personIdentifiersProvider,
-                    TimeSpan.Zero, TimeSpan.Zero,
+                    _memoryCacheProvider,
+                    _edFiOdsInstanceIdentificationProvider,
+                    _usiValueMapper,
+                    _personIdentifiersProvider,
+                    _personEntitySpecification,
+                    _personTypesProvider,
+                    TimeSpan.Zero,
+                    TimeSpan.Zero,
                     synchronousInitialization: true,
-                    suppressStudentCache: false,
-                    suppressStaffCache: false,
-                    suppressParentCache: false);
+                    cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                    {
+                        { "Student", false },
+                        { "Staff", false },
+                        { "Contact", false }
+                    });
             }
 
             protected override void Act()
@@ -554,14 +615,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private IPersonIdentifiersProvider _personIdentifiersProvider;
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToUsiCache _usiCache;
+            private IPersonEntitySpecification _personEntitySpecification;
+            private IPersonTypesProvider _personTypesProvider;
 
             protected override void Arrange()
             {
                 _edFiOdsInstanceIdentificationProvider = Stub<IEdFiOdsInstanceIdentificationProvider>();
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
 
+                _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() => _personEntitySpecification.IsPersonEntity(A<string>.Ignored)).Returns(true);
+                
+                _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
+
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
-                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) new PersonIdentifiersValueMap[0]));
+                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) Array.Empty<PersonIdentifiersValueMap>()));
 
                 _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
 
@@ -583,12 +652,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                     _memoryCacheProvider = new MemoryCacheProvider(memoryCache);
 
                     _usiCache = new PersonUniqueIdToUsiCache(
-                        _memoryCacheProvider, _edFiOdsInstanceIdentificationProvider, _usiValueMapper, _personIdentifiersProvider,
-                        TimeSpan.Zero, TimeSpan.Zero,
+                        _memoryCacheProvider,
+                        _edFiOdsInstanceIdentificationProvider,
+                        _usiValueMapper,
+                        _personIdentifiersProvider,
+                        _personEntitySpecification,
+                        _personTypesProvider,
+                        TimeSpan.Zero,
+                        TimeSpan.Zero,
                         synchronousInitialization: true,
-                        suppressStudentCache: false,
-                        suppressStaffCache: false,
-                        suppressParentCache: false);
+                        cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                        {
+                            { "Student", false },
+                            { "Staff", false },
+                            { "Contact", false }
+                        });
                 }
             }
 
@@ -624,11 +702,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private IPersonIdentifiersProvider _personIdentifiersProvider;
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToUsiCache _usiCache;
+            private IPersonEntitySpecification _personEntitySpecification;
+            private IPersonTypesProvider _personTypesProvider;
 
             protected override void Arrange()
             {
                 _edfiOdsInstanceIdentificationProvider = Stub<IEdFiOdsInstanceIdentificationProvider>();
                 _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
+
+                _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() => _personEntitySpecification.IsPersonEntity(A<string>.Ignored)).Returns(true);
+                
+                _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
 
                 _suppliedUsiValueMap = new PersonIdentifiersValueMap
                 {
@@ -644,7 +730,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
 
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
-                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) new PersonIdentifiersValueMap[0]));
+                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) Array.Empty<PersonIdentifiersValueMap>()));
 
                 SetupCaching();
 
@@ -660,12 +746,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _edfiOdsInstanceIdentificationProvider,
                         _usiValueMapper,
                         _personIdentifiersProvider,
+                        _personEntitySpecification,
+                        _personTypesProvider,
                         TimeSpan.Zero,
                         TimeSpan.Zero,
                         synchronousInitialization: true,
-                        suppressStudentCache: false,
-                        suppressStaffCache: false,
-                        suppressParentCache: false);
+                        cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                        {
+                            { "Student", false },
+                            { "Staff", false },
+                            { "Contact", false }
+                        });
 
                     PersonUniqueIdToUsiCache.GetCache = () => _usiCache;
                 }
@@ -719,16 +810,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private IPersonIdentifiersProvider _personIdentifiersProvider;
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToUsiCache _usiCache;
+            private IPersonEntitySpecification _personEntitySpecification;
+            private IPersonTypesProvider _personTypesProvider;
 
             protected override void Arrange()
             {
                 _edfiOdsInstanceIdentificationProvider = Stub<IEdFiOdsInstanceIdentificationProvider>();
                 _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
 
+                _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
+
+                _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() =>_personEntitySpecification.IsPersonEntity(A<string>.That.Matches(pt => _validPersonTypes.Contains(pt))))
+                    .Returns(true);
+
                 _suppliedUsiValueMap = new PersonIdentifiersValueMap
                 {
-                    UniqueId = Guid.NewGuid()
-                        .ToString(),
+                    UniqueId = Guid.NewGuid().ToString(),
                     Usi = 10,
                     Id = Guid.NewGuid() // Id is also provided by the USI value mapper
                 };
@@ -739,7 +838,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
 
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
-                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) new PersonIdentifiersValueMap[0]));
+                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) Array.Empty<PersonIdentifiersValueMap>()));
 
                 SetupCaching();
 
@@ -755,12 +854,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _edfiOdsInstanceIdentificationProvider,
                         _usiValueMapper,
                         _personIdentifiersProvider,
+                        _personEntitySpecification,
+                        _personTypesProvider,
                         TimeSpan.Zero,
                         TimeSpan.Zero,
                         synchronousInitialization: true,
-                        suppressStudentCache: false,
-                        suppressStaffCache: false,
-                        suppressParentCache: false);
+                        cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                        {
+                            { "Student", false },
+                            { "Staff", false },
+                            { "Parent", false },
+                            { "Contact", false }
+                        });
 
                     PersonUniqueIdToUsiCache.GetCache = () => _usiCache;
                 }
@@ -825,14 +930,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private IPersonIdentifiersProvider _personIdentifiersProvider;
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToUsiCache _usiCache;
+            private IPersonEntitySpecification _personEntitySpecification;
+            private IPersonTypesProvider _personTypesProvider;
 
             protected override void Arrange()
             {
                 _edFiOdsInstanceIdentificationProvider = new FakeEdFiOdsInstanceIdentificationProvider();
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
 
+                _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() => _personEntitySpecification.IsPersonEntity(A<string>.Ignored)).Returns(true);
+                
+                _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
+
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
-                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) new PersonIdentifiersValueMap[0]));
+                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) Array.Empty<PersonIdentifiersValueMap>()));
 
                 // USI value mapper gets call twice during Act step, with first value on ODS instance 1, and second on ODS instance 2
                 _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
@@ -867,12 +980,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _edFiOdsInstanceIdentificationProvider,
                         _usiValueMapper,
                         _personIdentifiersProvider,
+                        _personEntitySpecification,
+                        _personTypesProvider,
                         TimeSpan.Zero,
                         TimeSpan.Zero,
                         synchronousInitialization: true,
-                        suppressStudentCache: false,
-                        suppressStaffCache: false,
-                        suppressParentCache: false);
+                        cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                        {
+                            { "Student", false },
+                            { "Staff", false },
+                            { "Contact", false }
+                        });
                 }
             }
 
@@ -916,12 +1034,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private IPersonIdentifiersProvider _personIdentifiersProvider;
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToUsiCache _usiCache;
+            private IPersonEntitySpecification _personEntitySpecification;
+            private IPersonTypesProvider _personTypesProvider;
 
             protected override void Arrange()
             {
                 _edFiOdsInstanceIdentificationProvider = new FakeEdFiOdsInstanceIdentificationProvider();
 
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
+                
+                _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() => _personEntitySpecification.IsPersonEntity(A<string>.Ignored)).Returns(true);
+                
+                _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
 
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>.That.IsEqualTo(Staff)))
                     .Returns(
@@ -968,12 +1094,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _edFiOdsInstanceIdentificationProvider,
                         _usiValueMapper,
                         _personIdentifiersProvider,
+                        _personEntitySpecification,
+                        _personTypesProvider,
                         TimeSpan.Zero,
                         TimeSpan.Zero,
                         synchronousInitialization: true,
-                        suppressStudentCache: false,
-                        suppressStaffCache: false,
-                        suppressParentCache: false);
+                        cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                        {
+                            { "Student", false },
+                            { "Staff", false },
+                            { "Contact", false }
+                        });
                 }
             }
 
@@ -1016,14 +1147,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToIdCache _idCache;
             private PersonUniqueIdToUsiCache _usiCache;
+            private IPersonEntitySpecification _personEntitySpecification;
+            private IPersonTypesProvider _personTypesProvider;
 
             protected override void Arrange()
             {
                 _edFiOdsInstanceIdentificationProvider = new FakeEdFiOdsInstanceIdentificationProvider();
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
 
+                _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() => _personEntitySpecification.IsPersonEntity(A<string>.Ignored)).Returns(true);
+                
+                _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
+
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
-                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) new PersonIdentifiersValueMap[0]));
+                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) Array.Empty<PersonIdentifiersValueMap>()));
 
                 _suppliedIdForUniqueIdABC123 = Guid.NewGuid();
 
@@ -1075,12 +1214,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _edFiOdsInstanceIdentificationProvider,
                         _usiValueMapper,
                         _personIdentifiersProvider,
+                        _personEntitySpecification,
+                        _personTypesProvider,
                         TimeSpan.Zero,
                         TimeSpan.Zero,
                         synchronousInitialization: true,
-                        suppressStudentCache: false,
-                        suppressStaffCache: false,
-                        suppressParentCache: false);
+                        cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                        {
+                            { "Student", false },
+                            { "Staff", false },
+                            { "Contact", false }
+                        });
                 }
             }
 
@@ -1144,7 +1288,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
 
                 _idValueMapper = Stub<IUniqueIdToIdValueMapper>();
 
-                A.CallTo(() => _idValueMapper.GetUniqueId(A<string>.That.IsEqualTo(Staff), A<Guid>.That.IsEqualTo(_suppliedId)))
+                A.CallTo(() => _idValueMapper.GetUniqueId(Staff, _suppliedId))
                     .Returns(
                         new PersonIdentifiersValueMap
                         {
@@ -1170,27 +1314,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
 
             protected override void Act()
             {
+                // Invoke cache twice
                 _actualFirstValue = _idCache.GetUniqueId(Staff, _suppliedId);
-
-                // Based on Rhino expectation, this will fail if value mapper is called twice by the cache
-                try
-                {
-                    _actualSecondValue = _idCache.GetUniqueId(Staff, _suppliedId);
-                }
-                catch (Exception ex)
-                {
-                    _actualExceptionOnSecondRequestForValue = ex;
-                }
+                _actualSecondValue = _idCache.GetUniqueId(Staff, _suppliedId);
             }
 
             [Test]
             public void Should_not_call_value_mapper_a_second_time_for_same_value()
             {
-                _actualExceptionOnSecondRequestForValue.ShouldBeNull();
+                A.CallTo(() => _idValueMapper.GetUniqueId(Staff, _suppliedId))
+                    .MustHaveHappenedOnceExactly();
             }
 
             [Test]
-            public void Should_return_uniqueId_value()
+            public void Should_return_uniqueId_value_from_both_cache_calls()
             {
                 _actualFirstValue.ShouldBe("ABC123");
                 _actualSecondValue.ShouldBe("ABC123");
@@ -1228,35 +1365,53 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToUsiCache _usiCache;
             private MemoryCache _memoryCache;
+            private IPersonEntitySpecification _personEntitySpecification;
+            private IPersonTypesProvider _personTypesProvider;
 
             protected abstract string PersonType { get; }
             
             protected override void Arrange()
             {
                 _edFiOdsInstanceIdentificationProvider = Stub<IEdFiOdsInstanceIdentificationProvider>();
-                _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
+                
+                _personTypesProvider = Stub<IPersonTypesProvider>();
+                A.CallTo(() => _personTypesProvider.PersonTypes).Returns(_validPersonTypes);
 
+                _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
                     .Returns(Task.FromResult(Enumerable.Empty<PersonIdentifiersValueMap>()));
 
                 _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
-
                 A.CallTo(() => _usiValueMapper.GetUsi(PersonType, "ABC123"))
                     .Returns(new PersonIdentifiersValueMap() { UniqueId = "ABC123", Usi = 100});
 
                 A.CallTo(() => _usiValueMapper.GetUniqueId(PersonType, 200))
                     .Returns(new PersonIdentifiersValueMap() { UniqueId = "CDE234", Usi = 200});
 
+                _personEntitySpecification = Stub<IPersonEntitySpecification>();
+                A.CallTo(() =>_personEntitySpecification.IsPersonEntity(A<string>.That.Matches(pt => _validPersonTypes.Contains(pt))))
+                    .Returns(true);
+
                 _memoryCache = new MemoryCache(new MemoryCacheOptions());
                 _memoryCacheProvider = new MemoryCacheProvider(_memoryCache);
 
                 _usiCache = new PersonUniqueIdToUsiCache(
-                    _memoryCacheProvider, _edFiOdsInstanceIdentificationProvider, _usiValueMapper, _personIdentifiersProvider,
-                    TimeSpan.Zero, TimeSpan.Zero,
+                    _memoryCacheProvider,
+                    _edFiOdsInstanceIdentificationProvider,
+                    _usiValueMapper,
+                    _personIdentifiersProvider,
+                    _personEntitySpecification,
+                    _personTypesProvider,
+                    TimeSpan.Zero,
+                    TimeSpan.Zero,
                     synchronousInitialization: false,
-                    suppressStudentCache: PersonType == "Student",
-                    suppressStaffCache: PersonType == "Staff",
-                    suppressParentCache: PersonType == "Parent");
+                    cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                    {
+                        { "Student", PersonType == "Student" },
+                        { "Staff", PersonType == "Staff" },
+                        { "Parent", PersonType == "Parent" },
+                        { "Contact", PersonType == "Contact" }
+                    });
             }
 
             protected override void Act()
@@ -1289,5 +1444,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(PersonType)).MustNotHaveHappened();
             }
         }
+        
+        private static readonly string[] _validPersonTypes = {
+            "Student",
+            "Staff",
+            "Parent",
+            "Contact"
+        };
     }
 }

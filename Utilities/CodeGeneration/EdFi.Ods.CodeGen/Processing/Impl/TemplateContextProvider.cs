@@ -12,6 +12,7 @@ using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.CodeGen.Providers;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 
@@ -64,9 +65,13 @@ namespace EdFi.Ods.CodeGen.Processing.Impl
         private IDomainModelProvider CreateDomainModelProvider(AssemblyData assemblyData)
         {
             // Always include EdFi, and only include the extension definition provider if we are generating in an extension schema context
-            return new DomainModelProvider(
+            var domainModelProvider = new DomainModelProvider(
                 GetDomainModelDefinitionProviders(assemblyData.SchemaName),
                 Array.Empty<IDomainModelDefinitionsTransformer>());
+            
+            GeneratedArtifactStaticDependencies.Resolvers.Set(() => domainModelProvider);
+
+            return domainModelProvider;
         }
 
         private List<IDomainModelDefinitionsProvider> GetDomainModelDefinitionProviders(string schemaName)

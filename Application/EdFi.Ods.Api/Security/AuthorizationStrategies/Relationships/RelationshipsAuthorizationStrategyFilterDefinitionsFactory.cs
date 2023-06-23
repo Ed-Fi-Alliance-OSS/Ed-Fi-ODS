@@ -27,15 +27,18 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         private readonly IEducationOrganizationIdNamesProvider _educationOrganizationIdNamesProvider;
         private readonly IApiKeyContextProvider _apiKeyContextProvider;
         private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
+        private readonly IPersonTypesProvider _personTypesProvider;
 
         public RelationshipsAuthorizationStrategyFilterDefinitionsFactory(
             IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider,
             IApiKeyContextProvider apiKeyContextProvider,
-            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
+            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
+            IPersonTypesProvider personTypesProvider)
         {
             _educationOrganizationIdNamesProvider = educationOrganizationIdNamesProvider;
             _apiKeyContextProvider = apiKeyContextProvider;
             _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
+            _personTypesProvider = personTypesProvider;
         }
         
         public virtual IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
@@ -49,7 +52,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             string authorizationPathModifier = null,
             Func<string, bool> shouldIncludePersonType = null)
         {
-            string[] personUsiNames = PersonEntitySpecification.ValidPersonTypes
+            string[] personUsiNames = _personTypesProvider.PersonTypes
                 .Where(usiName => shouldIncludePersonType == null || shouldIncludePersonType(usiName))
                 // Sort the person types to ensure a determinate alias generation during filter definition
                 .OrderBy(p => p)

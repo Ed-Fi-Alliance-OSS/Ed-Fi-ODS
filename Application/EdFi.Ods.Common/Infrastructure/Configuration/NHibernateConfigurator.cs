@@ -189,7 +189,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
                     var hbmSubclasses = _extensionDerivedEntityByEntityName[entityName].Select(x => (object) x).ToArray();
 
-                    classMapping.Items1 = (classMapping.Items1 ?? new object[0]).Concat(hbmSubclasses).ToArray();
+                    classMapping.Items1 = (classMapping.Items1 ?? Array.Empty<object>()).Concat(hbmSubclasses).ToArray();
                 }
             }
 
@@ -209,7 +209,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                         .Select(x => (object) x)
                         .ToArray();
 
-                    classMapping.Items1 = (classMapping.Items1 ?? new object[0]).Concat(hbmJoinedSubclasses)
+                    classMapping.Items1 = (classMapping.Items1 ?? Array.Empty<object>()).Concat(hbmJoinedSubclasses)
                         .ToArray();
                 }
             }

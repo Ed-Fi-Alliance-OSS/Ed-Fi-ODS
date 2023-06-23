@@ -11,6 +11,7 @@ using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Common.Models.Domain
 {
@@ -157,12 +158,28 @@ namespace EdFi.Ods.Common.Models.Domain
             => entity.BaseEntity?.FullName.Equals(EdFiConventions.EducationOrganizationFullName) ?? false;
 
         /// <summary>
+        /// Indicates whether the supplied entity is a person type entity.
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns><b>true</b> if the type has is a person type entity; otherwise <b>false</b>.</returns>
+        public static bool IsPersonEntity(this Entity entity)
+        {
+            return entity.DomainModel.GetPersonEntities().Contains(entity, ModelComparers.Entity);
+        }
+
+        /// <summary>
         /// Indicates whether the supplied <see cref="Entity"/> has a discriminator.
         /// </summary>
         /// <param name="entity">The <see cref="Entity"/> that is being inspected.</param>
         /// <returns><b>true</b> if the type has a discriminator; otherwise <b>false</b>.</returns>
         public static bool HasDiscriminator(this Entity entity)
         {
+            // If there's no entity supplied, clearly it doesn't have a discriminator.
+            if (entity == null)
+            {
+                return false;
+            }
+
             // Non-aggregate root entities do not have discriminators (they cannot be derived)
             if (!entity.IsAggregateRoot)
                 return false;
@@ -293,7 +310,7 @@ namespace EdFi.Ods.Common.Models.Domain
                 if (alternateIdentifier == null)
                 {
                     // No alternate identifier defined, return an empty array
-                    return new EntityProperty[0];
+                    return Array.Empty<EntityProperty>();
                 }
 
                 return alternateIdentifier.Properties;

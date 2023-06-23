@@ -52,6 +52,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
 using Module = Autofac.Module;
 using EdFi.Ods.Common.Container;
+using EdFi.Ods.Common.Specifications;
 using log4net;
 
 namespace EdFi.Ods.Api.Container.Modules
@@ -315,6 +316,14 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<OdsDatabaseAccessIntentProvider>()
                 .As<IOdsDatabaseAccessIntentProvider>()
+                .SingleInstance();
+
+            builder.RegisterType<PersonEntitySpecification>()
+                .As<IPersonEntitySpecification>()
+                .SingleInstance();
+
+            builder.RegisterType<PersonTypesProvider>()
+                .As<IPersonTypesProvider>()
                 .SingleInstance();
 
             builder.RegisterType<CachingInterceptor>()

@@ -19,7 +19,7 @@ namespace EdFi.Ods.Common.Validation
     /// </summary>
     public class FluentValidationObjectValidator : IObjectValidator, IExplicitObjectValidator
     {
-        private static readonly ICollection<ValidationResult> EmptyValidationResults = new ValidationResult[0];
+        private static readonly ICollection<ValidationResult> EmptyValidationResults = Array.Empty<ValidationResult>();
         private readonly IValidator[] _validators;
 
         private readonly ConcurrentDictionary<Type, IEnumerable<IValidator>> _validatorsByType

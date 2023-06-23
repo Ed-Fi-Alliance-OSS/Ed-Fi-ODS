@@ -14,14 +14,21 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         : RelationshipsAuthorizationStrategyBase<TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
     {
-        public RelationshipsWithPeopleOnlyAuthorizationStrategy(IDomainModelProvider domainModelProvider)
-            : base(domainModelProvider) { }
+        private readonly IPersonEntitySpecification _personEntitySpecification;
+
+        public RelationshipsWithPeopleOnlyAuthorizationStrategy(
+            IDomainModelProvider domainModelProvider,
+            IPersonEntitySpecification personEntitySpecification)
+            : base(domainModelProvider)
+        {
+            _personEntitySpecification = personEntitySpecification;
+        }
 
         protected override SubjectEndpoint[] GetAuthorizationSubjectEndpoints(
             IEnumerable<(string name, object value)> authorizationContextTuples)
         {
             return authorizationContextTuples
-                .Where(nv => PersonEntitySpecification.IsPersonIdentifier(nv.name))
+                .Where(nv => _personEntitySpecification.IsPersonIdentifier(nv.name))
                 .Select(nv => new SubjectEndpoint(nv))
                 .ToArray();
         }

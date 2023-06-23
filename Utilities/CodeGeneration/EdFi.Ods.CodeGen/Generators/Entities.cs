@@ -9,9 +9,9 @@ using System.Data;
 using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Extensions;
+using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Specifications;
 
@@ -23,6 +23,8 @@ namespace EdFi.Ods.CodeGen.Generators
 
         private Func<Entity, bool> _shouldRenderEntityForSchema;
 
+        private IPersonEntitySpecification _personEntitySpecification;
+
         protected override void Configure()
         {
             _shouldRenderEntityForSchema = TemplateContext.ShouldRenderEntity;
@@ -32,6 +34,11 @@ namespace EdFi.Ods.CodeGen.Generators
         {
             var domainModel = TemplateContext.DomainModelProvider.GetDomainModel();
 
+            _personEntitySpecification = 
+                new PersonEntitySpecification(
+                    new PersonTypesProvider(
+                        new SuppliedDomainModelProvider(domainModel)));
+            
             var orderedAggregates =
                 domainModel.Aggregates
                            .Where(
@@ -243,7 +250,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                                      p => new
                                                           {
                                                               entity.IsAbstract, DisplayName =
-                                                                  !entity.IsAbstract && UniqueIdSpecification.IsUSI(p.PropertyName)
+                                                                  !entity.IsAbstract && UniqueIdConventions.IsUSI(p.PropertyName)
                                                                       ? p.PropertyName.ConvertToUniqueId()
                                                                       : _notRendered,
                                                               NeedsOverride = entity.IsDerived && !p.IsInheritedIdentifyingRenamed,
@@ -253,14 +260,14 @@ namespace EdFi.Ods.CodeGen.Generators
                                                               IsRequiredWithNonDefault = !p.PropertyType.IsNullable
                                                                                          && !p.IsServerAssigned
                                                                                          && !CSharpDefaultHasDomainMeaning(p),
-                                                              ValidationReferenceName = UniqueIdSpecification.IsUSI(p.PropertyName)
-                                                                  ? UniqueIdSpecification.GetUSIPersonType(p.PropertyName)
+                                                              ValidationReferenceName = UniqueIdConventions.IsUSI(p.PropertyName)
+                                                                  ? _personEntitySpecification.GetUSIPersonType(p.PropertyName)
                                                                   : _notRendered,
                                                               IsDateTime = IsDateTimeProperty(p), IsString = p.PropertyType.ToCSharp() == "string",
                                                               NoWhitespaceEnforced = p.PropertyType.ToCSharp() == "string", p.PropertyType.MaxLength,
                                                               p.PropertyType.MinLength,
                                                               IsStandardProperty = !(p.IsDescriptorUsage
-                                                                                     || UniqueIdSpecification.IsUSI(p.PropertyName)
+                                                                                     || UniqueIdConventions.IsUSI(p.PropertyName)
                                                                                      || IsUniqueIdPropertyOnPersonEntity(entity, p)
                                                                                      || IsNonDerivedDateProperty(entity, p)
                                                                                      || IsDateTimeProperty(p)
@@ -320,7 +327,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                                   RangeAttribute = p.ToRangeAttributeCSharp(),
                                                   IsStandardProperty =
                                                       !(p.IsDescriptorUsage
-                                                        || UniqueIdSpecification.IsUSI(p.PropertyName)
+                                                        || UniqueIdConventions.IsUSI(p.PropertyName)
                                                         || IsUniqueIdPropertyOnPersonEntity(entity, p)
                                                         || IsNonDerivedDateProperty(entity, p)
                                                         || IsDateTimeProperty(p)
@@ -573,7 +580,7 @@ namespace EdFi.Ods.CodeGen.Generators
                 : null;
         }
 
-        private static object GetPropertyAccessors(Entity entity, EntityProperty p)
+        private object GetPropertyAccessors(Entity entity, EntityProperty p)
         {
             return new
                    {
@@ -588,12 +595,12 @@ namespace EdFi.Ods.CodeGen.Generators
                                  NeedsOverride = entity.IsDerived && p.IsIdentifying && !p.IsInheritedIdentifyingRenamed
                              }
                            : _notRendered,
-                       UsiProperty = UniqueIdSpecification.IsUSI(p.PropertyName)
+                       UsiProperty = UniqueIdConventions.IsUSI(p.PropertyName)
                            ? new
                              {
                                  CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true),
                                  UsiFieldName = "_" + p.PropertyName.ToCamelCase(), p.PropertyType.IsNullable,
-                                 PersonType = UniqueIdSpecification.GetUSIPersonType(p.PropertyName),
+                                 PersonType = _personEntitySpecification.GetUSIPersonType(p.PropertyName),
                                  UniqueIdPropertyName = p.PropertyName.ReplaceSuffix("USI", "UniqueId"), UniqueIdFieldName =
                                      "_" + p.PropertyName.ReplaceSuffix("USI", "UniqueId")
                                             .ToCamelCase(),
@@ -607,7 +614,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                  UsiPropertyName = p.PropertyName.ReplaceSuffix("UniqueId", "USI"), UsiFieldName =
                                      "_" + p.PropertyName.ReplaceSuffix("UniqueId", "USI")
                                             .ToCamelCase(),
-                                 PersonType = UniqueIdSpecification.GetUniqueIdPersonType(p.PropertyName)
+                                 PersonType = _personEntitySpecification.GetUniqueIdPersonType(p.PropertyName)
                              }
                            : _notRendered,
                        DateOnlyProperty = IsNonDerivedDateProperty(entity, p)
@@ -695,10 +702,10 @@ namespace EdFi.Ods.CodeGen.Generators
             return p.PropertyType.DbType == DbType.DateTime2;
         }
 
-        private static bool IsUniqueIdPropertyOnPersonEntity(Entity entity, EntityProperty p)
+        private bool IsUniqueIdPropertyOnPersonEntity(Entity entity, EntityProperty p)
         {
-            return UniqueIdSpecification.IsUniqueId(p.PropertyName)
-                   && entity.Name == UniqueIdSpecification.GetUniqueIdPersonType(p.PropertyName);
+            return UniqueIdConventions.IsUniqueId(p.PropertyName)
+                   && entity.Name == _personEntitySpecification.GetUniqueIdPersonType(p.PropertyName);
         }
 
         private static string GetBasePropertyName(Entity entity, EntityProperty property)

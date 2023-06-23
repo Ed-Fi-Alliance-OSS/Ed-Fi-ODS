@@ -51,17 +51,17 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                  .Select(segment => segment.ToCamelCase()));
 
         public static string PropertyType(ResourceProperty resourceProperty) => resourceProperty.IsDescriptorUsage
-                                                                                || UniqueIdSpecification.IsUniqueId(resourceProperty.JsonPropertyName)
+                                                                                || UniqueIdConventions.IsUniqueId(resourceProperty.JsonPropertyName)
             ? "string"
             : resourceProperty.PropertyType.ToOpenApiType();
 
-        public static string PropertyFormat(ResourceProperty resourceProperty) => UniqueIdSpecification.IsUniqueId(resourceProperty.JsonPropertyName)
+        public static string PropertyFormat(ResourceProperty resourceProperty) => UniqueIdConventions.IsUniqueId(resourceProperty.JsonPropertyName)
             ? null
             : resourceProperty.PropertyType.ToOpenApiFormat();
 
         public static string PropertyDescription(ResourceProperty resourceProperty)
-            => UniqueIdSpecification.IsUniqueId(resourceProperty.JsonPropertyName)
-                ? $"A unique alphanumeric code assigned to a {UniqueIdSpecification.RemoveUniqueIdSuffix(resourceProperty.JsonPropertyName.ScrubForOpenApi()).ToLower()}."
+            => UniqueIdConventions.IsUniqueId(resourceProperty.JsonPropertyName)
+                ? $"A unique alphanumeric code assigned to a {UniqueIdConventions.RemoveUniqueIdSuffix(resourceProperty.JsonPropertyName.ScrubForOpenApi()).ToLower()}."
                 : resourceProperty.Description
                                   .ScrubForOpenApi();
 
@@ -109,7 +109,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
         public static int? GetMaxLength(ResourceProperty resourceProperty)
         {
-            if (UniqueIdSpecification.IsUniqueId(resourceProperty.JsonPropertyName))
+            if (UniqueIdConventions.IsUniqueId(resourceProperty.JsonPropertyName))
             {
                 return 32;
             }

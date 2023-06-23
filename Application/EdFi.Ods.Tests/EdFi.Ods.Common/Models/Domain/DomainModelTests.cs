@@ -45,14 +45,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                 _entityDefinition1 = new EntityDefinition(
                     "schema",
                     "Aggregate",
-                    new EntityPropertyDefinition[0],
-                    new EntityIdentifierDefinition[0]);
+                    Array.Empty<EntityPropertyDefinition>(),
+                    Array.Empty<EntityIdentifierDefinition>());
 
                 _entityDefinition2 = new EntityDefinition(
                     "schema",
                     "AChild",
-                    new EntityPropertyDefinition[0],
-                    new EntityIdentifierDefinition[0]);
+                    Array.Empty<EntityPropertyDefinition>(),
+                    Array.Empty<EntityIdentifierDefinition>());
 
                 _entityDefinition3 = new EntityDefinition(
                     "schema",
@@ -63,8 +63,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                 _entityDefinition4 = new EntityDefinition(
                     "schema",
                     "TargetEntity",
-                    new EntityPropertyDefinition[0],
-                    new EntityIdentifierDefinition[0]);
+                    Array.Empty<EntityPropertyDefinition>(),
+                    Array.Empty<EntityIdentifierDefinition>());
 
                 _schemaDefinition = new SchemaDefinition("Logical Schema", "schema");
 
@@ -113,7 +113,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         {
                             _domainModelDefinitionsProvider
                         },
-                        new IDomainModelDefinitionsTransformer[0]);
+                        Array.Empty<IDomainModelDefinitionsTransformer>());
 
                 _domainModel = domainModelProvider.GetDomainModel();
             }
@@ -253,7 +253,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         {
                             _extensionDefinitionsProvider, new EdFiDomainModelDefinitionsProvider()
                         },
-                        new IDomainModelDefinitionsTransformer[0]);
+                        Array.Empty<IDomainModelDefinitionsTransformer>());
             }
 
             protected override void Act()

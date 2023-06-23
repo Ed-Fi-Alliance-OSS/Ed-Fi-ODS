@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Data;
 using EdFi.Ods.Common.Models;
@@ -60,7 +61,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
             {
                 new AggregateDefinition(
                     new FullName("UndefinedSchema", "Entity1"),
-                    new FullName[0])
+                    Array.Empty<FullName>())
             };
 
             // schema names do not match the names on the AggregateDefinition

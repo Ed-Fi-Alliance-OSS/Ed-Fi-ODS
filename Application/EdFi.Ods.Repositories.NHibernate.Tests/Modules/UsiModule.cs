@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using Autofac;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.IdentityValueMappers;
@@ -18,13 +19,19 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
             builder.RegisterType<UniqueIdToUsiValueMapper>().As<IUniqueIdToUsiValueMapper>().PreserveExistingDefaults()
                 .SingleInstance();
 
+            var cacheSuppression = new Dictionary<string, bool>()
+            {
+                { "Student", false },
+                { "Staff", false },
+                { "Parent", false },
+                { "Contact", false },
+            };
+            
             builder.RegisterType<PersonUniqueIdToUsiCache>()
                 .WithParameter(new NamedParameter("synchronousInitialization", false))
                 .WithParameter(new NamedParameter("slidingExpiration", TimeSpan.FromSeconds(14400)))
                 .WithParameter(new NamedParameter("absoluteExpirationPeriod", TimeSpan.FromSeconds(86400)))
-                .WithParameter(new NamedParameter("suppressStudentCache", false))
-                .WithParameter(new NamedParameter("suppressStaffCache", false))
-                .WithParameter(new NamedParameter("suppressParentCache", false))
+                .WithParameter(new NamedParameter("cacheSuppression", cacheSuppression))
                 .As<IPersonUniqueIdToUsiCache>().SingleInstance();
         }
     }

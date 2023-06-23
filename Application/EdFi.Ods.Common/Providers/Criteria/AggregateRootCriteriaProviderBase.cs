@@ -6,8 +6,6 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using EdFi.Common;
-using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Repositories;
@@ -25,30 +23,20 @@ namespace EdFi.Ods.Common.Providers.Criteria
     /// <typeparam name="TEntity">The <see cref="System.Type" /> of the entity being queried.</typeparam>
     public abstract class AggregateRootCriteriaProviderBase<TEntity> : NHibernateRepositoryOperationBase
     {
-        // NOTE: Embedded convention - Known person roles
-        private static readonly string[] _uniqueIdProperties =
-        {
-            "StudentUniqueId",
-            "StaffUniqueId",
-            "ParentUniqueId"
-        };
-
-        private static readonly string[] _propertiesToIgnore =
-        {
-            "Offset",
-            "Limit",
-            "TotalCount",
-            "Q",
-            "SortBy",
-            "SortDirection"
-        };
-
         private readonly IDescriptorResolver _descriptorResolver;
+        private readonly IPersonEntitySpecification _personEntitySpecification;
+        private readonly IPersonTypesProvider _personTypesProvider;
 
-        protected AggregateRootCriteriaProviderBase(ISessionFactory sessionFactory, IDescriptorResolver descriptorResolver)
+        protected AggregateRootCriteriaProviderBase(
+            ISessionFactory sessionFactory,
+            IDescriptorResolver descriptorResolver,
+            IPersonEntitySpecification personEntitySpecification,
+            IPersonTypesProvider personTypesProvider)
             : base(sessionFactory)
         {
             _descriptorResolver = descriptorResolver ?? throw new ArgumentNullException(nameof(descriptorResolver));
+            _personEntitySpecification = personEntitySpecification;
+            _personTypesProvider = personTypesProvider;
         }
 
         protected void ProcessSpecification(ICriteria queryCriteria, TEntity specification)
@@ -129,7 +117,7 @@ namespace EdFi.Ods.Common.Providers.Criteria
         private bool ShouldIncludeInQueryCriteria(PropertyDescriptor property, object value, TEntity entity)
         {
             // Null values and underscore-prefixed properties are ignored for specification purposes
-            if (value == null || property.Name.StartsWith("_") || "|Url|".Contains((string) property.Name))
+            if (value == null || property.Name.StartsWith("_") || "|Url|".Contains((string)property.Name))
             {
                 // TODO: Come up with better way to exclude non-data properties
                 return false;
@@ -140,15 +128,16 @@ namespace EdFi.Ods.Common.Providers.Criteria
             // Only use value types (or strings), and non-default values (i.e. ignore 0's)
             var result = (valueType.IsValueType || valueType == typeof(string))
                 && (!value.Equals(valueType.GetDefaultValue())
-                    || UniqueIdSpecification.IsUSI(property.Name)
-                    && GetPropertyValue(entity, UniqueIdSpecification.GetUniqueIdPropertyName(property.Name)) != null);
+                    || (UniqueIdConventions.IsUSI(property.Name)
+                        && GetPropertyValue(entity, UniqueIdConventions.GetUniqueIdPropertyName(property.Name)) != null));
 
             // Don't include properties that are explicitly to be ignored
-            result = result && !_propertiesToIgnore.Contains(property.Name);
+            result = result && !AggregateRootCriteriaProviderHelpers.PropertiesToIgnore.Contains(property.Name);
 
             // Don't include UniqueId properties when they appear on a Person entity
             result = result
-                && (!_uniqueIdProperties.Contains(property.Name) || PersonEntitySpecification.IsPersonEntity(entity.GetType()));
+                && (!AggregateRootCriteriaProviderHelpers.GetUniqueIdProperties(_personTypesProvider).Contains(property.Name)
+                    || _personEntitySpecification.IsPersonEntity(entity.GetType()));
 
             return result;
         }

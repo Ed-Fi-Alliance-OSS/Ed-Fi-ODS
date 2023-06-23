@@ -6,7 +6,7 @@
 using System;
 using System.Linq;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Specifications;
 
@@ -14,9 +14,16 @@ namespace EdFi.Ods.CodeGen.Generators
 {
     public class ResourceClaimMetadata : GeneratorBase
     {
+        private IPersonEntitySpecification _personEntitySpecification;
+
         protected override object Build()
         {
             var domainModel = TemplateContext.DomainModelProvider.GetDomainModel();
+
+            _personEntitySpecification = 
+                new PersonEntitySpecification(
+                    new PersonTypesProvider(
+                        new SuppliedDomainModelProvider(domainModel)));
 
             var orderedAggregates = domainModel
                 .Entities
@@ -56,7 +63,7 @@ namespace EdFi.Ods.CodeGen.Generators
                 return "educationOrganizations";
             }
 
-            if (PersonEntitySpecification.IsPersonEntity(resourceName))
+            if (_personEntitySpecification.IsPersonEntity(resourceName))
             {
                 return "people";
             }

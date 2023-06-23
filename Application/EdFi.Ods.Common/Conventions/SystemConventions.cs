@@ -33,7 +33,7 @@ namespace EdFi.Ods.Common.Conventions
         // Note this is different than alphabetical in a few edge cases, which is why this is required.
         public static IEnumerable<EntityProperty> GetOrderedAssociationTargetColumns(this AssociationView associationView)
         {
-            return RecursivelyGetOrderedAssociationTargetColumns(associationView, new AssociationView[0])
+            return RecursivelyGetOrderedAssociationTargetColumns(associationView, Array.Empty<AssociationView>())
                .Select(p => p);
 
             IEnumerable<EntityProperty> RecursivelyGetOrderedAssociationTargetColumns(

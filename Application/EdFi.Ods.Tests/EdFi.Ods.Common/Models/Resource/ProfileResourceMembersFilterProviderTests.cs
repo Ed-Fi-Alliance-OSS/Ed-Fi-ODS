@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
@@ -417,7 +418,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             };
 
             DomainModelProvider ddm = new DomainModelProvider(providerList,
-                new IDomainModelDefinitionsTransformer[0]);
+                Array.Empty<IDomainModelDefinitionsTransformer>());
 
             var domainModel = ddm.GetDomainModel();
 

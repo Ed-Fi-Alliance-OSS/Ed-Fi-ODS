@@ -6,13 +6,11 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi;
-using EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi;
-using EdFi.Ods.Api.Common.Models.Resources.Student.EdFi;
+using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Features.UniqueIdIntegration.Validation;
-using EdFi.TestFixture;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
@@ -24,356 +22,75 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
     public class UniqueIdNotChangeEntityValidatorTests
     {
         [TestFixture]
-        public class When_validating_student_resource_with_changed_unique_id : TestFixtureBase
+        public class When_validating_identifiable_person_object_with_changed_unique_id
         {
             [Test]
             public void Should_return_validation_error()
             {
+                // Arrange
                 const string uniqueId = "ABC123";
 
-                var student = new Student
+                var suppliedPerson = new TestPersonType()
                 {
                     Id = Guid.NewGuid(),
-                    StudentUniqueId = uniqueId + "XYZ"
+                    TheUniqueId = uniqueId + "XYZ"
                 };
 
-                var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
+                var personUniqueIdToIdCache = A.Fake<IPersonUniqueIdToIdCache>();
+                A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._)).Returns(uniqueId);
 
-                A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
-                    .Returns(uniqueId);
+                var personEntitySpecification = A.Fake<IPersonEntitySpecification>();
+                A.CallTo(() => personEntitySpecification.IsPersonEntity(A<Type>.Ignored)).Returns(true);
 
-                var result = validator.ValidateObject(student);
+                // Act
+                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache, personEntitySpecification);
+                var result = validator.ValidateObject(suppliedPerson);
 
-                result.IsValid()
-                    .ShouldBeFalse();
-
+                // Assert
+                result.IsValid().ShouldBeFalse();
                 result.Count.ShouldBe(1);
-
-                result.First()
-                    .ErrorMessage.ShouldBe("A person's UniqueId cannot be modified.");
+                result.First().ErrorMessage.ShouldBe("A person's UniqueId cannot be modified.");
             }
         }
 
         [TestFixture]
-        public class When_validating_staff_resource_with_changed_unique_id : TestFixtureBase
-        {
-            [Test]
-            public void Should_return_validation_error()
-            {
-                const string uniqueId = "ABC123";
-
-                var student = new Staff
-                {
-                    Id = Guid.NewGuid(),
-                    StaffUniqueId = uniqueId + "XYZ"
-                };
-
-                var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
-
-                A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
-                    .Returns(uniqueId);
-
-                var result = validator.ValidateObject(student);
-
-                result.IsValid()
-                    .ShouldBeFalse();
-
-                result.Count.ShouldBe(1);
-
-                result.First()
-                    .ErrorMessage.ShouldBe("A person's UniqueId cannot be modified.");
-            }
-        }
-
-        [TestFixture]
-        public class When_validating_parent_resource_with_changed_unique_id : TestFixtureBase
-        {
-            [Test]
-            public void Should_return_validation_error()
-            {
-                const string uniqueId = "ABC123";
-
-                var student = new Parent
-                {
-                    Id = Guid.NewGuid(),
-                    ParentUniqueId = uniqueId + "XYZ"
-                };
-
-                var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
-
-                A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
-                    .Returns(uniqueId);
-
-                var result = validator.ValidateObject(student);
-
-                result.IsValid()
-                    .ShouldBeFalse();
-
-                result.Count.ShouldBe(1);
-
-                result.First()
-                    .ErrorMessage.ShouldBe("A person's UniqueId cannot be modified.");
-            }
-        }
-
-        [TestFixture]
-        public class When_validating_student_entity_with_changed_unique_id : TestFixtureBase
-        {
-            [Test]
-            public void Should_return_validation_error()
-            {
-                const string uniqueId = "ABC123";
-
-                var student = new global::EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi.Student
-                {
-                    Id = Guid.NewGuid(),
-                    StudentUniqueId = uniqueId + "XYZ"
-                };
-
-                var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
-
-                A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
-                    .Returns(uniqueId);
-
-                var result = validator.ValidateObject(student);
-
-                result.IsValid()
-                    .ShouldBeFalse();
-
-                result.Count.ShouldBe(1);
-
-                result.First()
-                    .ErrorMessage.ShouldBe("A person's UniqueId cannot be modified.");
-            }
-        }
-
-        [TestFixture]
-        public class When_validating_staff_entity_with_changed_unique_id : TestFixtureBase
-        {
-            [Test]
-            public void Should_return_validation_error()
-            {
-                const string uniqueId = "ABC123";
-
-                var student = new global::EdFi.Ods.Entities.NHibernate.StaffAggregate.EdFi.Staff
-                {
-                    Id = Guid.NewGuid(),
-                    StaffUniqueId = uniqueId + "XYZ"
-                };
-
-                var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
-
-                A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
-                    .Returns(uniqueId);
-
-                var result = validator.ValidateObject(student);
-
-                result.IsValid()
-                    .ShouldBeFalse();
-
-                result.Count.ShouldBe(1);
-
-                result.First()
-                    .ErrorMessage.ShouldBe("A person's UniqueId cannot be modified.");
-            }
-        }
-
-        [TestFixture]
-        public class When_validating_parent_entity_with_changed_unique_id : TestFixtureBase
-        {
-            [Test]
-            public void Should_return_validation_error()
-            {
-                const string uniqueId = "ABC123";
-
-                var student = new global::EdFi.Ods.Entities.NHibernate.ParentAggregate.EdFi.Parent
-                {
-                    Id = Guid.NewGuid(),
-                    ParentUniqueId = uniqueId + "XYZ"
-                };
-
-                var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
-
-                A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
-                    .Returns(uniqueId);
-
-                var result = validator.ValidateObject(student);
-
-                result.IsValid()
-                    .ShouldBeFalse();
-
-                result.Count.ShouldBe(1);
-
-                result.First()
-                    .ErrorMessage.ShouldBe("A person's UniqueId cannot be modified.");
-            }
-        }
-
-        [TestFixture]
-        public class When_validating_student_resource_with_unchanged_unique_id : TestFixtureBase
+        public class When_validating_identifiable_person_object_with_unchanged_unique_id
         {
             [Test]
             public void Should_pass_validation()
             {
+                // Arrange
                 const string uniqueId = "ABC123";
 
-                var student = new Student
+                var suppliedPerson = new TestPersonType()
                 {
                     Id = Guid.NewGuid(),
-                    StudentUniqueId = uniqueId
+                    TheUniqueId = uniqueId
                 };
 
-                var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
+                var personUniqueIdToIdCache = A.Fake<IPersonUniqueIdToIdCache>();
+                A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._)).Returns(uniqueId);
 
-                A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
-                    .Returns(uniqueId);
+                var personEntitySpecification = A.Fake<IPersonEntitySpecification>();
+                A.CallTo(() => personEntitySpecification.IsPersonEntity(A<Type>.Ignored)).Returns(true);
 
-                var result = validator.ValidateObject(student);
+                // Act
+                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache, personEntitySpecification);
+                var result = validator.ValidateObject(suppliedPerson);
 
-                result.IsValid()
-                    .ShouldBeTrue();
+                result.IsValid().ShouldBeTrue();
             }
         }
 
-        [TestFixture]
-        public class When_validating_staff_resource_with_unchanged_unique_id : TestFixtureBase
+        private class TestPersonType : IHasIdentifier, IIdentifiablePerson
         {
-            [Test]
-            public void Should_pass_validation()
+            public string TheUniqueId { get; set; }
+
+            public Guid Id { get; set; }
+
+            string IIdentifiablePerson.UniqueId
             {
-                const string uniqueId = "ABC123";
-
-                var student = new Staff
-                {
-                    Id = Guid.NewGuid(),
-                    StaffUniqueId = uniqueId
-                };
-
-                var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
-
-                A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
-                    .Returns(uniqueId);
-
-                var result = validator.ValidateObject(student);
-
-                result.IsValid()
-                    .ShouldBeTrue();
-            }
-        }
-
-        [TestFixture]
-        public class When_validating_parent_resource_with_unchanged_unique_id : TestFixtureBase
-        {
-            [Test]
-            public void Should_pass_validation()
-            {
-                const string uniqueId = "ABC123";
-
-                var student = new Parent
-                {
-                    Id = Guid.NewGuid(),
-                    ParentUniqueId = uniqueId
-                };
-
-                var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
-
-                A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
-                    .Returns(uniqueId);
-
-                var result = validator.ValidateObject(student);
-
-                result.IsValid()
-                    .ShouldBeTrue();
-            }
-        }
-
-        [TestFixture]
-        public class When_validating_student_entity_with_unchanged_unique_id : TestFixtureBase
-        {
-            [Test]
-            public void Should_pass_validation()
-            {
-                const string uniqueId = "ABC123";
-
-                var student = new global::EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi.Student
-                {
-                    Id = Guid.NewGuid(),
-                    StudentUniqueId = uniqueId
-                };
-
-                var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
-
-                A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
-                    .Returns(uniqueId);
-
-                var result = validator.ValidateObject(student);
-
-                result.IsValid()
-                    .ShouldBeTrue();
-            }
-        }
-
-        [TestFixture]
-        public class When_validating_staff_entity_with_unchanged_unique_id : TestFixtureBase
-        {
-            [Test]
-            public void Should_pass_validation()
-            {
-                const string uniqueId = "ABC123";
-
-                var student = new global::EdFi.Ods.Entities.NHibernate.StaffAggregate.EdFi.Staff
-                {
-                    Id = Guid.NewGuid(),
-                    StaffUniqueId = uniqueId
-                };
-
-                var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
-
-                A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
-                    .Returns(uniqueId);
-
-                var result = validator.ValidateObject(student);
-
-                result.IsValid()
-                    .ShouldBeTrue();
-            }
-        }
-
-        [TestFixture]
-        public class When_validating_parent_entity_with_unchanged_unique_id : TestFixtureBase
-        {
-            [Test]
-            public void Should_pass_validation()
-            {
-                const string uniqueId = "ABC123";
-
-                var student = new global::EdFi.Ods.Entities.NHibernate.ParentAggregate.EdFi.Parent
-                {
-                    Id = Guid.NewGuid(),
-                    ParentUniqueId = uniqueId
-                };
-
-                var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
-
-                A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
-                    .Returns(uniqueId);
-
-                var result = validator.ValidateObject(student);
-
-                result.IsValid()
-                    .ShouldBeTrue();
+                get => TheUniqueId;
             }
         }
     }

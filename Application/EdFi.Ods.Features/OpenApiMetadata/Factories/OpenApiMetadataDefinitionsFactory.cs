@@ -140,7 +140,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     p => new
                     {
                         IsRequired = p.IsIdentifying || !p.PropertyType.IsNullable,
-                        Key = UniqueIdSpecification.GetUniqueIdPropertyName(p.JsonPropertyName).ToCamelCase(),
+                        Key = UniqueIdConventions.GetUniqueIdPropertyName(p.JsonPropertyName).ToCamelCase(),
                         Schema = OpenApiMetadataDocumentHelper.CreatePropertySchema(p)
                     }).Concat(
                     resourceChildItem.References.Select(
@@ -389,7 +389,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private Schema GetEdFiExtensionBridgeReferenceSchema(ResourceClassBase resource, IOpenApiMetadataResourceContext resourceContext)
         {
             //Handle entity extension bridge.
-            if (resource.IsEdFiStandardResource && resource.Entity?.IsLookup != true)
+            if (resource.IsEdFiStandardResource && resource.Entity?.IsDescriptorEntity != true)
             {
                 return _definitionsFactoryEdFiExtensionBridgeStrategy.GetEdFiEntityExtensionBridgeSchema(
                     resource, resourceContext);

@@ -620,7 +620,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                     false,
                     false));
 
-            domainModelBuilder.AddAggregate(new AggregateDefinition(new FullName("schema", "RootOne"), new FullName[0]));
+            domainModelBuilder.AddAggregate(new AggregateDefinition(new FullName("schema", "RootOne"), Array.Empty<FullName>()));
 
             domainModelBuilder.AddAggregate(
                 new AggregateDefinition(
@@ -632,9 +632,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                         new FullName("schema", "RootTwoEmbeddedObject")
                     }));
 
-            domainModelBuilder.AddAggregate(new AggregateDefinition(new FullName("schema", "RootThree"), new FullName[0]));
-            domainModelBuilder.AddAggregate(new AggregateDefinition(new FullName("schema", "RootFour"), new FullName[0]));
-            domainModelBuilder.AddAggregate(new AggregateDefinition(new FullName("schema", "RootFive"), new FullName[0]));
+            domainModelBuilder.AddAggregate(new AggregateDefinition(new FullName("schema", "RootThree"), Array.Empty<FullName>()));
+            domainModelBuilder.AddAggregate(new AggregateDefinition(new FullName("schema", "RootFour"), Array.Empty<FullName>()));
+            domainModelBuilder.AddAggregate(new AggregateDefinition(new FullName("schema", "RootFive"), Array.Empty<FullName>()));
 
             domainModelBuilder.AddSchema(new SchemaDefinition("schema", "schema"));
 
@@ -704,15 +704,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                         new SchemaDefinition("schema1", "schema1"),
                         new[]
                         {
-                            new AggregateDefinition(new FullName("schema1", "Entity1"), new FullName[0])
+                            new AggregateDefinition(new FullName("schema1", "Entity1"), Array.Empty<FullName>())
                         },
                         new[]
                         {
                             new EntityDefinition(
                                 "schema1",
                                 "Entity1",
-                                new EntityPropertyDefinition[0],
-                                new EntityIdentifierDefinition[0])
+                                Array.Empty<EntityPropertyDefinition>(),
+                                Array.Empty<EntityIdentifierDefinition>())
                         },
                         new AssociationDefinition[]
                             { },
@@ -724,7 +724,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 {
                     definitionsProvider
                 },
-                new IDomainModelDefinitionsTransformer[0]);
+                Array.Empty<IDomainModelDefinitionsTransformer>());
 
             _resourceModelProvider = new ResourceModelProvider(_domainModelProvider);
         }
@@ -784,7 +784,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                         new SchemaDefinition(_edfiLogicalName, _edfiSchema),
                         new[]
                         {
-                            new AggregateDefinition(new FullName(_edfiSchema, "Entity1"), new FullName[0])
+                            new AggregateDefinition(new FullName(_edfiSchema, "Entity1"), Array.Empty<FullName>())
                         },
                         new[]
                         {
@@ -800,7 +800,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                                         true,
                                         true)
                                 },
-                                new EntityIdentifierDefinition[0])
+                                Array.Empty<EntityIdentifierDefinition>())
                         },
                         new AssociationDefinition[]
                             { },
@@ -824,7 +824,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                                 {
                                     new EntityPropertyDefinition("Name", new PropertyType(DbType.Int32), null, true)
                                 },
-                                new EntityIdentifierDefinition[0])
+                                Array.Empty<EntityIdentifierDefinition>())
                         },
                         new[]
                         {
@@ -835,9 +835,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                                         .ToString()),
                                 Cardinality.OneToOne,
                                 new FullName(_edfiSchema, "Entity1"),
-                                new EntityPropertyDefinition[0],
+                                Array.Empty<EntityPropertyDefinition>(),
                                 new FullName("schemaX", "Extension1Entity1"),
-                                new EntityPropertyDefinition[0],
+                                Array.Empty<EntityPropertyDefinition>(),
                                 true,
                                 true)
                         },
@@ -856,7 +856,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 {
                     definitionsProvider, extensionDefinitionsProvider
                 },
-                new IDomainModelDefinitionsTransformer[0]);
+                Array.Empty<IDomainModelDefinitionsTransformer>());
 
             _resourceModelProvider = new ResourceModelProvider(_domainModelProvider);
         }
@@ -966,15 +966,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                         new SchemaDefinition(_edfiLogicalName, _edfiSchema),
                         new[]
                         {
-                            new AggregateDefinition(new FullName(_edfiSchema, "Entity1"), new FullName[0])
+                            new AggregateDefinition(new FullName(_edfiSchema, "Entity1"), Array.Empty<FullName>())
                         },
                         new[]
                         {
                             new EntityDefinition(
                                 _edfiSchema,
                                 "Entity1",
-                                new EntityPropertyDefinition[0],
-                                new EntityIdentifierDefinition[0])
+                                Array.Empty<EntityPropertyDefinition>(),
+                                Array.Empty<EntityIdentifierDefinition>())
                         },
                         new AssociationDefinition[]
                             { },
@@ -986,8 +986,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 .Returns(
                     new DomainModelDefinitions(
                         new SchemaDefinition("schemaX", "schemaX"),
-                        new AggregateDefinition[0]
-                            { },
+                        Array.Empty<AggregateDefinition>(),
                         new[]
                         {
                             new EntityDefinition(
@@ -997,7 +996,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                                 {
                                     new EntityPropertyDefinition("Name", new PropertyType(DbType.Int32), null, true)
                                 },
-                                new EntityIdentifierDefinition[0])
+                                Array.Empty<EntityIdentifierDefinition>())
                         },
                         new[]
                         {
@@ -1008,9 +1007,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                                         .ToString()),
                                 Cardinality.OneToZeroOrMore,
                                 new FullName(_edfiSchema, "Entity1"),
-                                new EntityPropertyDefinition[0],
+                                Array.Empty<EntityPropertyDefinition>(),
                                 new FullName("schemaX", "Extension1Entity1"),
-                                new EntityPropertyDefinition[0],
+                                Array.Empty<EntityPropertyDefinition>(),
                                 true,
                                 true)
                         },
@@ -1029,7 +1028,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 {
                     definitionsProvider, extensionDefinitionsProvider
                 },
-                new IDomainModelDefinitionsTransformer[0]);
+                Array.Empty<IDomainModelDefinitionsTransformer>());
 
             _resourceModelProvider = new ResourceModelProvider(_domainModelProvider);
         }
@@ -1157,15 +1156,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                         new SchemaDefinition(_edfiLogicalName, _edfiSchema),
                         new[]
                         {
-                            new AggregateDefinition(new FullName(_edfiSchema, "Entity1"), new FullName[0])
+                            new AggregateDefinition(new FullName(_edfiSchema, "Entity1"), Array.Empty<FullName>())
                         },
                         new[]
                         {
                             new EntityDefinition(
                                 _edfiSchema,
                                 "Entity1",
-                                new EntityPropertyDefinition[0],
-                                new EntityIdentifierDefinition[0])
+                                Array.Empty<EntityPropertyDefinition>(),
+                                Array.Empty<EntityIdentifierDefinition>())
                         },
                         new AssociationDefinition[]
                             { },
@@ -1177,20 +1176,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 .Returns(
                     new DomainModelDefinitions(
                         new SchemaDefinition("schemaX", "schemaX"),
-                        new AggregateDefinition[0]
-                            { },
+                        Array.Empty<AggregateDefinition>(),
                         new[]
                         {
                             new EntityDefinition(
                                 "schemaX",
                                 "ExtensionEntity1",
-                                new EntityPropertyDefinition[0],
-                                new EntityIdentifierDefinition[0]),
+                                Array.Empty<EntityPropertyDefinition>(),
+                                Array.Empty<EntityIdentifierDefinition>()),
                             new EntityDefinition(
                                 "schemaX",
                                 "ExtensionEmbeddedObject1",
-                                new EntityPropertyDefinition[0],
-                                new EntityIdentifierDefinition[0])
+                                Array.Empty<EntityPropertyDefinition>(),
+                                Array.Empty<EntityIdentifierDefinition>())
                         },
                         new[]
                         {
@@ -1201,9 +1199,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                                         .ToString()),
                                 Cardinality.OneToZeroOrMore,
                                 new FullName(_edfiSchema, "Entity1"),
-                                new EntityPropertyDefinition[0],
+                                Array.Empty<EntityPropertyDefinition>(),
                                 new FullName("schemaX", "ExtensionEntity1"),
-                                new EntityPropertyDefinition[0],
+                                Array.Empty<EntityPropertyDefinition>(),
                                 true,
                                 true),
                             new AssociationDefinition(
@@ -1213,9 +1211,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                                         .ToString()),
                                 Cardinality.OneToOne,
                                 new FullName(_edfiSchema, "Entity1"),
-                                new EntityPropertyDefinition[0],
+                                Array.Empty<EntityPropertyDefinition>(),
                                 new FullName("schemaX", "ExtensionEmbeddedObject1"),
-                                new EntityPropertyDefinition[0],
+                                Array.Empty<EntityPropertyDefinition>(),
                                 true,
                                 true)
                         },
@@ -1235,7 +1233,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 {
                     definitionsProvider, extensionDefinitionsProvider
                 },
-                new IDomainModelDefinitionsTransformer[0]);
+                Array.Empty<IDomainModelDefinitionsTransformer>());
 
             _resourceModelProvider = new ResourceModelProvider(_domainModelProvider);
         }
@@ -1364,15 +1362,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                         new SchemaDefinition(_edfiLogicalName, _edfiSchema),
                         new[]
                         {
-                            new AggregateDefinition(new FullName(_edfiSchema, "Entity1"), new FullName[0])
+                            new AggregateDefinition(new FullName(_edfiSchema, "Entity1"), Array.Empty<FullName>())
                         },
                         new[]
                         {
                             new EntityDefinition(
                                 _edfiSchema,
                                 "Entity1",
-                                new EntityPropertyDefinition[0],
-                                new EntityIdentifierDefinition[0])
+                                Array.Empty<EntityPropertyDefinition>(),
+                                Array.Empty<EntityIdentifierDefinition>())
                         },
                         new AssociationDefinition[]
                             { },
@@ -1384,8 +1382,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 .Returns(
                     new DomainModelDefinitions(
                         new SchemaDefinition("schemaX", "schemaX"),
-                        new AggregateDefinition[0]
-                            { },
+                        Array.Empty<AggregateDefinition>(),
                         new[]
                         {
                             new EntityDefinition(
@@ -1402,17 +1399,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                                         PropertyName = "Property2", PropertyType = new PropertyType(DbType.String)
                                     }
                                 },
-                                new EntityIdentifierDefinition[0]),
+                                Array.Empty<EntityIdentifierDefinition>()),
                             new EntityDefinition(
                                 "schemaX",
                                 "ExtensionEntity1",
-                                new EntityPropertyDefinition[0],
-                                new EntityIdentifierDefinition[0]),
+                                Array.Empty<EntityPropertyDefinition>(),
+                                Array.Empty<EntityIdentifierDefinition>()),
                             new EntityDefinition(
                                 "schemaX",
                                 "ExtensionEmbeddedObject1",
-                                new EntityPropertyDefinition[0],
-                                new EntityIdentifierDefinition[0])
+                                Array.Empty<EntityPropertyDefinition>(),
+                                Array.Empty<EntityIdentifierDefinition>())
                         },
                         new[]
                         {
@@ -1423,9 +1420,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                                         .ToString()),
                                 Cardinality.OneToOneExtension,
                                 new FullName(_edfiSchema, "Entity1"),
-                                new EntityPropertyDefinition[0],
+                                Array.Empty<EntityPropertyDefinition>(),
                                 new FullName("schemaX", "Entity1Extension"),
-                                new EntityPropertyDefinition[0],
+                                Array.Empty<EntityPropertyDefinition>(),
                                 true,
                                 true),
                             new AssociationDefinition(
@@ -1435,9 +1432,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                                         .ToString()),
                                 Cardinality.OneToZeroOrMore,
                                 new FullName(_edfiSchema, "Entity1"),
-                                new EntityPropertyDefinition[0],
+                                Array.Empty<EntityPropertyDefinition>(),
                                 new FullName("schemaX", "ExtensionEntity1"),
-                                new EntityPropertyDefinition[0],
+                                Array.Empty<EntityPropertyDefinition>(),
                                 true,
                                 true),
                             new AssociationDefinition(
@@ -1447,9 +1444,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                                         .ToString()),
                                 Cardinality.OneToOne,
                                 new FullName(_edfiSchema, "Entity1"),
-                                new EntityPropertyDefinition[0],
+                                Array.Empty<EntityPropertyDefinition>(),
                                 new FullName("schemaX", "ExtensionEmbeddedObject1"),
-                                new EntityPropertyDefinition[0],
+                                Array.Empty<EntityPropertyDefinition>(),
                                 true,
                                 true)
                         },
@@ -1469,7 +1466,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 {
                     definitionsProvider, extensionDefinitionsProvider
                 },
-                new IDomainModelDefinitionsTransformer[0]);
+                Array.Empty<IDomainModelDefinitionsTransformer>());
 
             _resourceModelProvider = new ResourceModelProvider(_domainModelProvider);
         }

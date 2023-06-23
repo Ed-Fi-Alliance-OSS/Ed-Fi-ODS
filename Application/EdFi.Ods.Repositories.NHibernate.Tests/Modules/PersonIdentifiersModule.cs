@@ -5,6 +5,7 @@
 
 using Autofac;
 using EdFi.Ods.Api.IdentityValueMappers;
+using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
 {
@@ -12,7 +13,17 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<PersonIdentifiersProvider>().As<IPersonIdentifiersProvider>();
+            builder.RegisterType<PersonIdentifiersProvider>()
+                .As<IPersonIdentifiersProvider>()
+                .SingleInstance();
+            
+            builder.RegisterType<PersonEntitySpecification>()
+                .As<IPersonEntitySpecification>()
+                .SingleInstance();
+
+            builder.RegisterType<FakePersonTypesProvider>()
+                .As<IPersonTypesProvider>()
+                .SingleInstance();
         }
     }
 }

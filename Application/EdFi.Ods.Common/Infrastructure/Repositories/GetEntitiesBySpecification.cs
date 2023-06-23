@@ -80,7 +80,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 // Short circuit any work if no items requested, and no count to perform. 
                 if (!ItemsRequested() && !CountRequested())
                 {
-                    return new SpecificationResult { Ids = new Guid[0] };
+                    return new SpecificationResult { Ids = Array.Empty<Guid>() };
                 }
 
                 var queryBatch = Session.CreateQueryBatch();

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Xml.Linq;
@@ -48,7 +49,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Models
                             isPrimary: true)
                     }));
 
-            domainModelBuilder.AddAggregate(new AggregateDefinition(new FullName("schema1", "TestEntity1"), new FullName[0]));
+            domainModelBuilder.AddAggregate(new AggregateDefinition(new FullName("schema1", "TestEntity1"), Array.Empty<FullName>()));
 
             domainModelBuilder.AddEntity(
                 new EntityDefinition(
@@ -71,7 +72,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Models
                             isPrimary: true)
                     }));
 
-            domainModelBuilder.AddAggregate(new AggregateDefinition(new FullName("schema1", "TestEntity2"), new FullName[0]));
+            domainModelBuilder.AddAggregate(new AggregateDefinition(new FullName("schema1", "TestEntity2"), Array.Empty<FullName>()));
 
             domainModelBuilder.AddEntity(
                 new EntityDefinition(
@@ -94,7 +95,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Models
                             isPrimary: true)
                     }));
 
-            domainModelBuilder.AddAggregate(new AggregateDefinition(new FullName("schema1", "TestEntity3"), new FullName[0]));
+            domainModelBuilder.AddAggregate(new AggregateDefinition(new FullName("schema1", "TestEntity3"), Array.Empty<FullName>()));
 
             domainModelBuilder.AddSchema(new SchemaDefinition("schema1", "schema1"));
 
