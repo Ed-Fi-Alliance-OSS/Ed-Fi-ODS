@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Security.Claims;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
@@ -23,7 +22,6 @@ using NUnit.Framework;
 using Shouldly;
 using Test.Common;
 
-/*
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
     using context_data_provider = IRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>;
@@ -83,16 +81,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
     [TestFixture]
     public class Feature_Authorizing_a_request
     {
-        // private static Claim Given_a_claim_for_an_arbitrary_resource_for_EducationOrganization_identifiers(params int[] educationOrganizationIds)
-        // {
-        //     return JsonClaimHelper.CreateClaim("xyz", new EdFiResourceClaimValue("read", new List<int>(educationOrganizationIds)));
-        // }
-
         private static EdFiAuthorizationContext Given_an_authorization_context_with_entity_data(ApiClientContext apiClientContext, object entity)
         {
             return new EdFiAuthorizationContext(
                 apiClientContext,
-                new ClaimsPrincipal(),
                 new Resource("Ignored"),
                 new[] { "resource" },
                 "action",
@@ -121,10 +113,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 Supplied(Given_an_authorization_context_with_entity_data(
                     ApiClientContextHelper.GetApiClientContextWithEdOrgIds(Supplied<int>("LocalEducationAgencyId")),
                     Supplied("entity")));
-
-                Supplied(
-                    Given_a_claim_for_an_arbitrary_resource_for_EducationOrganization_identifiers(
-                        Supplied<int>("LocalEducationAgencyId")));
             }
 
             protected override void Act()
@@ -162,11 +150,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                         Supplied<int>("LocalEducationAgencyId"),
                         Supplied<int>("SchoolId")),
                     Supplied("entity")));
-
-                Supplied(
-                    Given_a_claim_for_an_arbitrary_resource_for_EducationOrganization_identifiers(
-                        Supplied<int>("LocalEducationAgencyId"),
-                        Supplied<int>("SchoolId")));
             }
 
             protected override void Act()
@@ -237,9 +220,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 Given<context_data_provider_factory>()
                     .that_always_returns(Given<context_data_provider>());
 
-                Supplied(
-                    Given_a_claim_for_an_arbitrary_resource_for_EducationOrganization_identifiers(
-                        Supplied<int>("LocalEducationAgencyId")));
+                Supplied(Array.Empty<EdFiResourceClaim>());
 
                 var domainModel = CreateValidDomainModel().Build();
                 Given<IDomainModelProvider>().that_always_returns(domainModel);
@@ -248,7 +229,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             protected override void Act()
             {
                 SystemUnderTest.GetAuthorizationStrategyFiltering(
-                    new[] { Supplied<EdFiResourceClaim>() },
+                    Supplied<EdFiResourceClaim[]>(),
                     Supplied<EdFiAuthorizationContext>());
             }
 
@@ -347,10 +328,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 
                 Given<context_data_provider_factory>()
                     .that_always_returns(Given<context_data_provider>());
-
-                Supplied(
-                    Given_a_claim_for_an_arbitrary_resource_for_EducationOrganization_identifiers(
-                        Supplied<int>("LocalEducationAgencyId")));
             }
 
             protected override void Act()
@@ -362,4 +339,3 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
         }
     }
 }
-*/

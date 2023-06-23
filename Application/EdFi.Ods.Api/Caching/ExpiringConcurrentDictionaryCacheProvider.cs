@@ -129,12 +129,12 @@ namespace EdFi.Ods.Api.Caching
             if (_logger.IsDebugEnabled)
             {
                 _logger.Debug($"{nameof(ExpiringConcurrentDictionaryCacheProvider<TKey>)} cache '{_description}' expired ({_cacheDictionary.Count} entries cleared after {_hits} hits and {_misses} misses).");
+
+                Interlocked.Exchange(ref _hits, 0); 
+                Interlocked.Exchange(ref _misses, 0);
             }
 
-            Interlocked.Exchange(ref _hits, 0); 
-            Interlocked.Exchange(ref _misses, 0); 
             _cacheDictionary.Clear();
-
             _expirationCallback?.Invoke();
         }
     }

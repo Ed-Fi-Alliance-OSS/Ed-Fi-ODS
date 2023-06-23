@@ -14,15 +14,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
 {
     public class OwnershipBasedAuthorizationStrategy : IAuthorizationStrategy
     {
-        private readonly IApiClientContextProvider _apiClientContextProvider;
-        
         private const string AuthorizationStrategyName = "OwnershipBased";
 
-        public OwnershipBasedAuthorizationStrategy(IApiClientContextProvider apiClientContextProvider)
-        {
-            _apiClientContextProvider = apiClientContextProvider;
-        }
-        
         /// <summary>
         /// Get authorization filtering context for a multiple-item request.
         /// </summary>

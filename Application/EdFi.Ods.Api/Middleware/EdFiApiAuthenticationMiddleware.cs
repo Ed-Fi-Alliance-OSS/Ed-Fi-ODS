@@ -71,9 +71,9 @@ namespace EdFi.Ods.Api.Middleware
                     // NOTE: For our use case we set the api key context into the call context storage. The rest of this code
                     // is the default implementation and may need to be update on version updates.
                     // see https://github.com/dotnet/aspnetcore/blob/v3.1.9/src/Security/Authentication/Core/src/AuthenticationMiddleware.cs
-                    var apiClientContext = (ApiClientContext)result.Ticket.Properties.Parameters["ApiClientContext"];
+                    var apiClientContext = (ApiClientContext) result.Ticket.Properties.Parameters[nameof(ApiClientContext)];
                     _apiClientContextProvider.SetApiClientContext(apiClientContext);
-                    LogicalThreadContext.Properties["ApiClientId"] = apiClientContext.ApiClientId;
+                    LogicalThreadContext.Properties[nameof(apiClientContext.ApiClientId)] = apiClientContext.ApiClientId;
                 }
             }
 

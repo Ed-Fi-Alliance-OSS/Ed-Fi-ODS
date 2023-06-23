@@ -70,7 +70,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
                 if (!strategyTypeName.EndsWith(AuthorizationStrategyNameSuffix))
                 {
                     throw new ArgumentException(
-                        $"The authorization strategy '{strategyTypeName}' does not follow proper naming conventions, ending with 'AuthorizationStrategy'.");
+                        $"The authorization strategy '{strategyTypeName}' does not follow proper naming conventions, ending with '{AuthorizationStrategyNameSuffix}'.");
                 }
 
                 string strategyName = strategyTypeName.TrimSuffix(AuthorizationStrategyNameSuffix);
@@ -168,7 +168,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
                         if (!_authorizationStrategyByName.ContainsKey(strategyName))
                         {
                             throw new Exception(
-                                $"Could not find authorization implementation for strategy '{strategyName}' based on naming convention of '{{strategyName}}AuthorizationStrategy'.");
+                                $"Could not find authorization implementation for strategy '{strategyName}' based on naming convention of '{{strategyName}}{AuthorizationStrategyNameSuffix}'.");
                         }
 
                         return _authorizationStrategyByName[strategyName];
@@ -190,7 +190,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
         // Get the names of the resource claims that could be used for authorization
         var authorizingResourceClaimNames = resourceClaimAuthorizationMetadata
             .Select(x => x.ClaimName)
-            .ToArray();
+            .ToList();
 
         // Intersect the potentially authorizing resource claims against the principal's claims
         var claimCheckResponse = GetRelevantClaimSetClaims(authorizingResourceClaimNames);
@@ -229,7 +229,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
                     .Select(
                         requestedResourceClaimUri => _resourceAuthorizationMetadataProvider
                             .GetResourceClaimAuthorizationMetadata(requestedResourceClaimUri, requestAction)
-                            .ToArray())
+                            .ToList())
                     .FirstOrDefault(x => x.Any());
 
             // Return the authorization metadata located, or an empty array.
@@ -246,7 +246,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
                     cn => cn, 
                     pc => pc.ClaimName, 
                     (cn, pc) => pc)
-                .ToArray();
+                .ToList();
 
             // 1) First check: Lets make sure the claim set at least has a claim that applies for this resource.
             if (!claimSetClaimsToEvaluate.Any())
@@ -266,7 +266,7 @@ Assign a different claim set which includes one of the following claims to acces
             // 2) Second check: Of the claims that apply for this resource do we have any that match the action requested or a higher action?
             var claimsWithMatchingActions = claimSetClaimsToEvaluate
                 .Where(rc => IsRequestedActionSatisfiedByClaimActions(rc.ClaimValue.Actions.Select(y => y.Name)))
-                .ToArray();
+                .ToList();
 
             if (!claimsWithMatchingActions.Any())
             {

@@ -44,6 +44,9 @@ namespace EdFi.Ods.Api.IdentityValueMappers
         /// </remarks>
         public string UniqueId { get; init; }
 
+        /// <summary>
+        /// Returns a shared default instance of an uninitialized <see cref="PersonIdentifiersValueMap"/>.
+        /// </summary>
         public static readonly PersonIdentifiersValueMap Default = new();
     }
 }

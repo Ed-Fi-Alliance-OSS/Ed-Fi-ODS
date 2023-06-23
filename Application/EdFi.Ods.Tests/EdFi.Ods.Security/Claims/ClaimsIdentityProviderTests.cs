@@ -167,20 +167,4 @@ public class ClaimsIdentityProviderTests
             }
         };
     }
-    //
-    // private static IReadOnlyList<ResourceClaimAction> CreateDummyResourceClaimsActions()
-    // {
-    //     return new List<ResourceClaimAction>
-    //     {
-    //         new ResourceClaimAction(
-    //             new ResourceClaim("http://ed-fi.org/ods/identity/claims/services/claim1"),
-    //             new ResourceAction("action1", null, null)),
-    //         new ResourceClaimAction(
-    //             new ResourceClaim("http://ed-fi.org/ods/identity/claims/services/claim1"),
-    //             new ResourceAction("action2", null, null)),
-    //         new ResourceClaimAction(
-    //             new ResourceClaim("http://ed-fi.org/ods/identity/claims/services/claim2"),
-    //             new ResourceAction("action1", null, null)),
-    //     };
-    // }
 }

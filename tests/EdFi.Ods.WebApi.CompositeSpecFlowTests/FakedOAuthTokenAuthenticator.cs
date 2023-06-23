@@ -57,7 +57,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 var parameters = new Dictionary<string, object>()
                 {
                     {
-                        "ApiClientContext", _apiClientContext.Value
+                        nameof(ApiClientContext), _apiClientContext.Value
                     }
                 };
 
