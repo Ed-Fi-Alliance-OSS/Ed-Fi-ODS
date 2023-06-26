@@ -7,8 +7,6 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using EdFi.Ods.CodeGen.Extensions;
 using EdFi.Ods.CodeGen.Modules;
-using EdFi.Ods.CodeGen.Providers;
-using EdFi.Ods.CodeGen.Providers.Impl;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EdFi.Ods.CodeGen.Tests.IntegrationTests._Helpers

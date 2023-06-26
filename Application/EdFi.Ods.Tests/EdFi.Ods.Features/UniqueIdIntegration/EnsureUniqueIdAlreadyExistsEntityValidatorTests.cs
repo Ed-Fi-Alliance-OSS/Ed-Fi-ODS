@@ -4,19 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Features.UniqueIdIntegration.Validation;
-using EdFi.Ods.Tests._Extensions;
-using EdFi.TestFixture;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
-using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
 {

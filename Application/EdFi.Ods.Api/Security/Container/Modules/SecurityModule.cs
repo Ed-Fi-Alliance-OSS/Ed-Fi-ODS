@@ -17,7 +17,6 @@ using EdFi.Ods.Api.Security.AuthorizationStrategies;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Api.Security.Utilities;
-using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace EdFi.Ods.Api.Security.Container.Modules
 {

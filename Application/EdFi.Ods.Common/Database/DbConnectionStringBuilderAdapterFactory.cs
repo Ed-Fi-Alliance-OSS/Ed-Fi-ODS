@@ -6,7 +6,6 @@
 using System;
 using EdFi.Common.Configuration;
 using EdFi.Common.Database;
-using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Common.Database
 {

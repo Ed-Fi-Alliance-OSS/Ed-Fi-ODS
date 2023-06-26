@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using log4net;
 using QuickGraph;
-using QuickGraph.Algorithms;
 
 namespace EdFi.Ods.Common.Models.Graphs
 {

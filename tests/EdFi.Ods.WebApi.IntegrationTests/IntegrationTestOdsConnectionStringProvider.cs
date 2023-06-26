@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Ods.Common.Database;
-using EdFi.Ods.WebApi.IntegrationTests.Sandbox;
 
 namespace EdFi.Ods.WebApi.IntegrationTests
 {

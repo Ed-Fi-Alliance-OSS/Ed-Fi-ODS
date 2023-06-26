@@ -5,7 +5,6 @@
 
 using System.Linq;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Composites.Test;
 using NUnit.Framework;
 using Shouldly;

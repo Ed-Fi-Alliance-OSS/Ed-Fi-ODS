@@ -6,7 +6,6 @@
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.IdentityValueMappers;
 using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Specifications;
 using log4net;
@@ -17,7 +16,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.Api.Caching
 {

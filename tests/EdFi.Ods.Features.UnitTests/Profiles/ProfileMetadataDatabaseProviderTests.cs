@@ -7,13 +7,10 @@ using System.Data.Entity;
 using System.Xml.Linq;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
-using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Features.Profiles;
 using EdFi.TestFixture;
 using FakeItEasy;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using Shouldly;
 

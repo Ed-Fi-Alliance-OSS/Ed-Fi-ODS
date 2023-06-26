@@ -3,33 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading;
-using System.Threading.Tasks;
-using EdFi.Common.Extensions;
-using EdFi.Ods.Common;
-using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Security.Authorization;
-using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Api.Security.Authorization;
-using EdFi.Ods.Api.Security.AuthorizationStrategies.NoFurtherAuthorization;
-using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
-using EdFi.Security.DataAccess.Repositories;
-using EdFi.Ods.Tests._Extensions;
-using EdFi.TestFixture;
-using FakeItEasy;
-using NUnit.Framework;
-using QuickGraph;
-using Shouldly;
-using Test.Common;
-using Test.Common._Stubs;
-using Action = EdFi.Security.DataAccess.Models.Action;
-
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 {
     // TODO: ODS-5356 - Update these tests

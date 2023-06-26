@@ -9,7 +9,6 @@ using EdFi.Ods.Entities.NHibernate.SexDescriptorAggregate.EdFi;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Shouldly;
-using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Validation
 {

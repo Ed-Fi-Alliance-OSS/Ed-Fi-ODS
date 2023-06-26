@@ -11,7 +11,6 @@ using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Extensions;
 using FluentValidation;
 
 namespace EdFi.Ods.Api.IdentityValueMappers

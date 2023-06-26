@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common;
-using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Configuration;

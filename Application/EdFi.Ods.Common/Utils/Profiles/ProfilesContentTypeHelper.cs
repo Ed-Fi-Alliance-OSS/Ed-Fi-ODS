@@ -3,11 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Collections.Concurrent;
-using System.Text.RegularExpressions;
-using EdFi.Common.Inflection;
-using Microsoft.Extensions.Primitives;
 
 namespace EdFi.Ods.Common.Utils.Profiles
 {

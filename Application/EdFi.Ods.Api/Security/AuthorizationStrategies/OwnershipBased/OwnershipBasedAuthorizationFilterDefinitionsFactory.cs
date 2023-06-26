@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Api.Security.AuthorizationStrategies.NHibernateConfiguration;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
@@ -14,7 +13,6 @@ using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Common.Specifications;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.SqlCommand;

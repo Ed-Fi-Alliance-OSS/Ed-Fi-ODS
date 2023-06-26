@@ -6,7 +6,6 @@
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
-using NHibernate.Driver;
 
 namespace EdFi.Ods.Common.Infrastructure.PostgreSql
 {

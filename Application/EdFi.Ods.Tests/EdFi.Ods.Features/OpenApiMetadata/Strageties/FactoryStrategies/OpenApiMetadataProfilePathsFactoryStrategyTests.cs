@@ -10,7 +10,6 @@ using System.Xml.Linq;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;

@@ -11,7 +11,6 @@ using EdFi.Common;
 using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.CodeGen.Models.Application;
 using EdFi.Ods.CodeGen.Providers;
-using EdFi.Ods.Common;
 using log4net;
 
 namespace EdFi.Ods.CodeGen.Processing.Impl

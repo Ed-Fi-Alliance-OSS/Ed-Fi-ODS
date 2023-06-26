@@ -5,10 +5,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;

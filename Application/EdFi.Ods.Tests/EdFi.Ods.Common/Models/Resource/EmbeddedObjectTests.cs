@@ -8,7 +8,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Linq;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Metadata.Composites;
 using EdFi.Ods.Common.Metadata.StreamProviders.Composites;
 using EdFi.Ods.Common.Models.Domain;

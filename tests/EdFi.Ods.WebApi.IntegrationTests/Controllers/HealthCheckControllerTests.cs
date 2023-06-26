@@ -5,7 +5,6 @@
 
 using System.Net;
 using System.Threading.Tasks;
-using ApprovalTests;
 using ApprovalTests.Reporters;
 using ApprovalTests.Reporters.TestFrameworks;
 using NUnit.Framework;

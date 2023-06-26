@@ -4,14 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Data.SqlClient;
 using Dapper;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Database.Querying.Dialects;
-using Newtonsoft.Json;
-using Npgsql;
 using NUnit.Framework;
 using Shouldly;
 

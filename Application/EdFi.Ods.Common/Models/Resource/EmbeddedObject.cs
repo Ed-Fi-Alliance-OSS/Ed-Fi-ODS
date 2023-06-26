@@ -5,7 +5,6 @@
 
 using System.Linq;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 
 namespace EdFi.Ods.Common.Models.Resource

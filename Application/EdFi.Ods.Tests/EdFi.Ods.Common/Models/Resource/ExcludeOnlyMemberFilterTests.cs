@@ -7,7 +7,6 @@ using EdFi.Ods.Common.Models.Resource;
 using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.TestFixture;
-using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 {

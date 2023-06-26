@@ -12,7 +12,6 @@ using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
-using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Providers;
 using NHibernate;
 using NHibernate.Cfg;

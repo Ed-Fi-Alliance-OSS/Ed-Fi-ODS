@@ -6,7 +6,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Common.Context;

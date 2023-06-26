@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Metadata.Composites;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Features.Composites;

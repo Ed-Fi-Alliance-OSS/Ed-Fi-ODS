@@ -8,7 +8,6 @@ using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
 using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;

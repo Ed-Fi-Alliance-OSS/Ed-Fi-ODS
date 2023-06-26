@@ -5,7 +5,6 @@
 
 using EdFi.Admin.DataAccess.Models;
 using EdFi.TestFixture;
-using Microsoft.Extensions.Configuration;
 using NCrunch.Framework;
 using NUnit.Framework;
 using Shouldly;

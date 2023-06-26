@@ -11,9 +11,7 @@ using System.Text.RegularExpressions;
 using EdFi.Common.Extensions;
 using EdFi.Common.Inflection;
 using EdFi.Common.Utils.Extensions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Common.Utils.Extensions;
 
 namespace EdFi.Ods.Common.Models.Domain
 {

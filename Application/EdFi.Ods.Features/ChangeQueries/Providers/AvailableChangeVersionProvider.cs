@@ -7,9 +7,6 @@ using System.Data.Common;
 using System.Threading.Tasks;
 using Dapper;
 using EdFi.Ods.Common.Database;
-using EdFi.Ods.Common.Infrastructure;
-using NHibernate;
-using NHibernate.Transform;
 
 namespace EdFi.Ods.Features.ChangeQueries.Providers
 {

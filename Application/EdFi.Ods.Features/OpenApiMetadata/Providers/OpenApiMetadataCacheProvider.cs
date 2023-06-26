@@ -20,7 +20,6 @@ using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
-using EdFi.Ods.Features.Profiles;
 using log4net;
 using MediatR;
 using OpenApiMetadataSections = EdFi.Ods.Api.Constants.OpenApiMetadataSections;

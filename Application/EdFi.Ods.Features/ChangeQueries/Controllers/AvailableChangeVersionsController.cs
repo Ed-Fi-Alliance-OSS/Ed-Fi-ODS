@@ -3,8 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Net.Http.Json;
-using System.Net.Mime;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Common.Configuration;
@@ -12,9 +10,7 @@ using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Features.ChangeQueries.Providers;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace EdFi.Ods.Features.ChangeQueries.Controllers
 {

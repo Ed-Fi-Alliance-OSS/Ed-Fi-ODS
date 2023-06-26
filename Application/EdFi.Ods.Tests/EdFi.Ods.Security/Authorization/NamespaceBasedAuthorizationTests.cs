@@ -19,7 +19,6 @@ using EdFi.Ods.Tests._Helpers;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
-using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 {

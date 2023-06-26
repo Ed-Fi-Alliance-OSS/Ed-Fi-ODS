@@ -15,8 +15,6 @@ using EdFi.Ods.CodeGen.Models.Templates;
 using EdFi.Ods.CodeGen.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
-using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
 
 namespace EdFi.Ods.CodeGen.Generators

@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Exceptions;
 using log4net;
 using Microsoft.Extensions.Caching.Distributed;

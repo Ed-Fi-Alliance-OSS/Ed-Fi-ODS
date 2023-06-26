@@ -10,7 +10,6 @@ using System.Xml.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Common.Inflection;
 using EdFi.Ods.Api.Database.NamingConventions;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata.Composites;

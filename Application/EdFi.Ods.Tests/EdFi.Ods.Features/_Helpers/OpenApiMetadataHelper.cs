@@ -4,8 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using EdFi.Ods.Api.Common.Models;
-using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Features.IdentityManagement;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
