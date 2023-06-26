@@ -31,7 +31,6 @@ namespace EdFi.Ods.Features.Controllers
     [AllowAnonymous]
     [ApplyOdsRouteRootTemplate]
     [Route("metadata")]
-    [Route("{tenantId}/metadata")]
     public class OpenApiMetadataController : ControllerBase
     {
         private readonly bool _isEnabled;
