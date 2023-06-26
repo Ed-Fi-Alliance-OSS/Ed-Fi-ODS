@@ -4,11 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Security.Claims;
 using EdFi.Common;
-using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Common.Security.Claims

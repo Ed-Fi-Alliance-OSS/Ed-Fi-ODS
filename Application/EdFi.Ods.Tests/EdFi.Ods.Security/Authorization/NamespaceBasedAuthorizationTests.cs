@@ -4,9 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database.NamingConventions;
