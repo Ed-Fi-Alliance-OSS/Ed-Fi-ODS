@@ -3,97 +3,77 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using EdFi.Common.Utils.Extensions;
+using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Common.Utils.Extensions;
+using EdFi.Security.DataAccess.Models;
 using EdFi.Security.DataAccess.Repositories;
 
 namespace EdFi.Ods.Api.Security.Claims
 {
     public class ClaimsIdentityProvider : IClaimsIdentityProvider
     {
-        private readonly IApiKeyContextProvider _apiKeyContextProvider;
+        private readonly IApiClientContextProvider _apiClientContextProvider;
         private readonly ISecurityRepository _securityRepository;
 
-        public ClaimsIdentityProvider(IApiKeyContextProvider apiKeyContextProvider, ISecurityRepository securityRepository)
+        private const string ServicesClaimNamePrefix = "http://ed-fi.org/ods/identity/claims/services/";
+
+        public ClaimsIdentityProvider(IApiClientContextProvider apiClientContextProvider, ISecurityRepository securityRepository)
         {
-            _apiKeyContextProvider = apiKeyContextProvider;
+            _apiClientContextProvider = apiClientContextProvider;
             _securityRepository = securityRepository;
         }
 
         public ClaimsIdentity GetClaimsIdentity()
         {
             // Get the Education Organization Ids for the current context
-            var apiKeyContext = _apiKeyContextProvider.GetApiKeyContext();
+            var apiClientContext = _apiClientContextProvider.GetApiClientContext();
 
-            if (apiKeyContext == null || apiKeyContext == ApiKeyContext.Empty)
+            if (apiClientContext == null || apiClientContext == ApiClientContext.Empty)
             {
                 throw new EdFiSecurityException("No API key information was available for authorization.");
             }
 
-            return GetClaimsIdentity(
-                apiKeyContext.EducationOrganizationIds,
-                apiKeyContext.ClaimSetName,
-                apiKeyContext.NamespacePrefixes,
-                apiKeyContext.Profiles,
-                apiKeyContext.OwnershipTokenIds);
+            return GetClaimsIdentity(apiClientContext.ClaimSetName);
         }
 
-        public ClaimsIdentity GetClaimsIdentity(
-            IEnumerable<int> educationOrganizationIds,
-            string claimSetName,
-            IList<string> namespacePrefixes,
-            IList<string> assignedProfileNames,
-            IList<short> ownershipTokenIds)
+        // Clear pre-built claims from memory every 30 minutes (but if underlying security metadata changes more frequently, new claims will be built and used instead)
+        private readonly ExpiringConcurrentDictionaryCacheProvider<IList<ClaimSetResourceClaimAction>> _claimsByResourceClaimActions
+            = new("Claim Set Resource Claims", TimeSpan.FromMinutes(30));
+
+        public ClaimsIdentity GetClaimsIdentity(string claimSetName)
         {
-            var nonEmptyNamespacePrefixes = namespacePrefixes.Where(np => !string.IsNullOrWhiteSpace(np)).ToList();
+            var resourceClaimsActions = _securityRepository.GetClaimsForClaimSet(claimSetName);
 
-            var resourceClaims = _securityRepository.GetClaimsForClaimSet(claimSetName);
+            if (!_claimsByResourceClaimActions.TryGetCachedObject(resourceClaimsActions, out object value))
+            {
+                // Group the resource claims by name to combine actions (and by claim set name if multiple claim sets are supported in the future)
+                var servicesResourceClaimsByClaimName = resourceClaimsActions
+                    .Where(rc => rc.ResourceClaim.ClaimName.StartsWith(ServicesClaimNamePrefix))
+                    .GroupBy(c => c.ResourceClaim.ClaimName);
 
-            // Group the resource claims by name to combine actions (and by claim set name if multiple claim sets are supported in the future)
-            var resourceClaimsByClaimName = resourceClaims.GroupBy(c => c.ResourceClaim.ClaimName);
+                // Create a list of service claims to be issued.
+                var serviceClaims = servicesResourceClaimsByClaimName.Select(
+                        g => new EdFiResourceClaim(g.Key,
+                            new EdFiResourceClaimValue
+                            {
+                                Actions = g
+                                    .Select(x => new ResourceAction(x.Action.ActionUri))
+                                    .ToArray()
+                            }))
+                    .Select(x => new Claim(x.ClaimName, string.Join(",", x.ClaimValue.Actions.Select(a => a.Name))))
+                    .ToList();
+                
+                _claimsByResourceClaimActions.SetCachedObject(resourceClaimsActions, serviceClaims);
 
-            // Create a list of resource claims to be issued.
-            var claims = resourceClaimsByClaimName.Select(
-                    g => new
-                    {
-                        ClaimName = g.Key,
-                        ClaimValue = new EdFiResourceClaimValue
-                        {
-                            Actions = g.Select(
-                                    x => new ResourceAction(
-                                        x.Action.ActionUri,
-                                        x.AuthorizationStrategyOverrides
-                                            ?.Select(y => y.AuthorizationStrategy.AuthorizationStrategyName)
-                                            .ToArray(),
-                                        x.ValidationRuleSetNameOverride))
-                                .ToArray(),
-                            EducationOrganizationIds = educationOrganizationIds.ToList()
-                        }
-                    })
-                .Select(x => JsonClaimHelper.CreateClaim(x.ClaimName, x.ClaimValue))
-                .ToList();
+                return new ClaimsIdentity(serviceClaims, EdFiAuthenticationTypes.OAuth);
+            }
 
-            // NamespacePrefixes
-            nonEmptyNamespacePrefixes.ForEach(
-                namespacePrefix => claims.Add(new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, namespacePrefix)));
-
-            // Add Assigned Profile names
-            assignedProfileNames.ForEach(profileName => claims.Add(new Claim(EdFiOdsApiClaimTypes.Profile, profileName)));
-
-            // Add the claim set name
-            claims.Add(new Claim(EdFiOdsApiClaimTypes.ClaimSetName, claimSetName));
-
-            // Add list of OwnershipTokenIds
-            claims.AddRange(
-                ownershipTokenIds.Select(ownershipToken 
-                    => new Claim(EdFiOdsApiClaimTypes.OwnershipTokenId, ownershipToken.ToString())));
-
-            return new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth);
+            return new ClaimsIdentity(value as IEnumerable<Claim>, EdFiAuthenticationTypes.OAuth);
         }
     }
 }

@@ -8,11 +8,11 @@ using EdFi.Ods.Common.Security;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 
-public static class ApiKeyContextHelper
+public static class ApiClientContextHelper
 {
-    public static ApiKeyContext GetApiKeyContextWithEdOrgIds(params int[] educationOrganizationIds)
+    public static ApiClientContext GetApiClientContextWithEdOrgIds(params int[] educationOrganizationIds)
     {
-        return new ApiKeyContext("key", "theClaimSet", educationOrganizationIds, 
+        return new ApiClientContext("key", "theClaimSet", educationOrganizationIds, 
             Array.Empty<string>(),
             Array.Empty<string>(), 
             string.Empty,

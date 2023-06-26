@@ -59,7 +59,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         /// <param name="authorizationContext">The authorization context.</param>
         /// <returns>The list of filters to be applied to the query for authorization.</returns>
         public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
-            IEnumerable<Claim> relevantClaims,
+            EdFiResourceClaim[] relevantClaims,
             EdFiAuthorizationContext authorizationContext)
         {
             EnsurePropertyDependenciesInitialized();
@@ -97,7 +97,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         return new AuthorizationFilterContext
                         {
                             FilterName = filterName,
-                            ClaimEndpointValues = authorizationContext.ApiKeyContext.EducationOrganizationIds.Cast<object>().ToArray(),
+                            ClaimEndpointValues = authorizationContext.ApiClientContext.EducationOrganizationIds.Cast<object>().ToArray(),
                             SubjectEndpointName = subjectEndpoint.Name,
                             SubjectEndpointValue = subjectEndpoint.Value,
                             ClaimParameterName = RelationshipAuthorizationConventions.ClaimsParameterName,

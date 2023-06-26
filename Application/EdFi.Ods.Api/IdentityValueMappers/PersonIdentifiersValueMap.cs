@@ -16,7 +16,7 @@ namespace EdFi.Ods.Api.IdentityValueMappers
         /// An ODS-specific surrogate identifier for a specific representation of
         /// a person (e.g. Staff, Student or Parent).
         /// </summary>
-        public int Usi { get; set; }
+        public int Usi { get; init; }
 
         /// <summary>
         /// The resource identifier for the person.
@@ -29,7 +29,7 @@ namespace EdFi.Ods.Api.IdentityValueMappers
         /// a person or just a specific representation of a person (as a Staff,
         /// Student or Parent).
         /// </remarks>
-        public Guid Id { get; set; }
+        public Guid Id { get; init; }
 
         /// <summary>
         /// The character-based unique identifier for the person.
@@ -42,6 +42,11 @@ namespace EdFi.Ods.Api.IdentityValueMappers
         /// a person or just a specific representation of a person (as a Staff,
         /// Student or Parent).
         /// </remarks>
-        public string UniqueId { get; set; }
+        public string UniqueId { get; init; }
+
+        /// <summary>
+        /// Returns a shared default instance of an uninitialized <see cref="PersonIdentifiersValueMap"/>.
+        /// </summary>
+        public static readonly PersonIdentifiersValueMap Default = new();
     }
 }

@@ -36,7 +36,7 @@ WHERE	accessibleTuples.SourceEducationOrganizationId IN ({0});";
             _sessionFactory = sessionFactory;
         }
 
-        public async Task<TokenInfo> GetTokenInfoAsync(ApiKeyContext apiContext)
+        public async Task<TokenInfo> GetTokenInfoAsync(ApiClientContext apiContext)
         {
             using (var session = _sessionFactory.OpenStatelessSession())
             {

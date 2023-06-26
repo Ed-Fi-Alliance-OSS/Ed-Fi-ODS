@@ -21,13 +21,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
     [TestFixture]
     public class TokenInfoProviderTests
     {
-        private ApiKeyContext CreateApiContext()
+        private ApiClientContext CreateApiContext()
         {
             var educationOrganizationIds = new[] {1234};
 
             var namespacePrefixes = new[] {"uri://ed-fi.org"};
 
-            return new ApiKeyContext(
+            return new ApiClientContext(
                 Guid.NewGuid().ToString("n"), "Claim Set", educationOrganizationIds, namespacePrefixes, new List<string>(),
                 "descriptor", null, null, null, 0);
         }

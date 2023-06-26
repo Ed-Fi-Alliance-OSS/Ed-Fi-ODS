@@ -23,7 +23,7 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// <param name="authorizationContext">The authorization context.</param>
         /// <returns>The list of filters to be applied to the query for authorization.</returns>
         AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
-            IEnumerable<Claim> relevantClaims,
+            EdFiResourceClaim[] relevantClaims,
             EdFiAuthorizationContext authorizationContext);
     }
 }

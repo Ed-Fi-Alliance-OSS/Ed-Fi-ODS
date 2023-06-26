@@ -35,14 +35,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 //Arrange
                 var filterDefinitionsFactory = new NamespaceBasedAuthorizationFilterDefinitionsFactory(A.Fake<IDatabaseNamingConvention>());
 
-                var claims = new List<Claim>
+                var namespacePrefixes = new[]
                 {
-                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
-                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
+                    @"uri://ed-fi.org/",
+                    @"uri://ed-fi-2.org/"
                 };
-
-                ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
-
                 var resource = new Resource("Ignored");
                 string resourceUri = @"http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor";
                 string action = @"http://ed-fi.org/ods/actions/manage";
@@ -56,7 +53,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 var filterDefinition = filterDefinitionsFactory.CreateAuthorizationFilterDefinitions().Single();
 
                 var result = filterDefinition.AuthorizeInstance(
-                    new EdFiAuthorizationContext(new ApiKeyContext(), principal, resource, new[] { resourceUri }, action, data),
+                    new EdFiAuthorizationContext(
+                        CreateApiClientContext(namespacePrefixes),
+                        resource,
+                        new[] { resourceUri },
+                        action,
+                        data),
                     new AuthorizationFilterContext());
             
                 //Assert
@@ -70,13 +72,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 //Arrange
                 var filterDefinitionsFactory = new NamespaceBasedAuthorizationFilterDefinitionsFactory(A.Fake<IDatabaseNamingConvention>());
 
-                var claims = new List<Claim>
+                var namespacePrefixes = new[]
                 {
-                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
-                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
+                    @"uri://ed-fi.org/",
+                    @"uri://ed-fi-2.org/"
                 };
-
-                ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
 
                 var resource = new Resource("Ignored");
                 string resourceUri = @"http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor";
@@ -91,7 +91,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 var filterDefinition = filterDefinitionsFactory.CreateAuthorizationFilterDefinitions().Single();
 
                 var result = filterDefinition.AuthorizeInstance(
-                    new EdFiAuthorizationContext(new ApiKeyContext(), principal, resource, new[] { resourceUri }, action, data),
+                    new EdFiAuthorizationContext(
+                        CreateApiClientContext(namespacePrefixes),
+                        resource,
+                        new[] { resourceUri },
+                        action,
+                        data),
                     new AuthorizationFilterContext());
 
                 //Assert
@@ -111,13 +116,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 
                 var strategy = new NamespaceBasedAuthorizationStrategy();
 
-                var claims = new List<Claim>
-                {
-                    new(EdFiOdsApiClaimTypes.NamespacePrefix, string.Empty),
-                    new(EdFiOdsApiClaimTypes.NamespacePrefix, string.Empty)
-                };
-
-                ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
+                var namespacePrefixes = new[] { "", "" };
 
                 string resourceUri = @"http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor";
                 string action = @"http://ed-fi.org/ods/actions/manage";
@@ -130,8 +129,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 //Act
                 var exception = Assert.Throws<EdFiSecurityException>(
                     () => strategy.GetAuthorizationStrategyFiltering(
-                        new List<Claim>(),
-                        new EdFiAuthorizationContext(new ApiKeyContext(), principal, resource, new[] { resourceUri }, action, data)));
+                        Array.Empty<EdFiResourceClaim>(),
+                        new EdFiAuthorizationContext(
+                            CreateApiClientContext(namespacePrefixes),
+                            resource,
+                            new[] { resourceUri },
+                            action,
+                            data)));
 
                 //Assert
                 exception.Message.ShouldBe(
@@ -149,13 +153,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 var strategy = new NamespaceBasedAuthorizationStrategy();
 
-                var claims = new List<Claim>
+                var namespacePrefixes = new[]
                 {
-                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
-                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
+                    @"uri://ed-fi.org/",
+                    @"uri://ed-fi-2.org/"
                 };
-
-                ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
 
                 string resourceUri = @"http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor";
                 string action = @"http://ed-fi.org/ods/actions/manage";
@@ -167,8 +169,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 //Act
                 strategy.GetAuthorizationStrategyFiltering(
-                    new List<Claim>(),
-                    new EdFiAuthorizationContext(new ApiKeyContext(), principal, resource, new[] { resourceUri }, action, data));
+                    Array.Empty<EdFiResourceClaim>(),
+                    new EdFiAuthorizationContext(
+                        CreateApiClientContext(namespacePrefixes),
+                        resource,
+                        new[] { resourceUri },
+                        action,
+                        data));
 
                 //Assert
                 // No exception
@@ -184,13 +191,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 var strategy = new NamespaceBasedAuthorizationStrategy();
 
-                var claims = new List<Claim>
+                var namespacePrefixes = new[]
                 {
-                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
-                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
+                    @"uri://ed-fi.org/",
+                    @"uri://ed-fi-2.org/"
                 };
-
-                ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
 
                 string resourceUri = @"http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor";
                 string action = @"http://ed-fi.org/ods/actions/manage";
@@ -202,8 +207,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 //Act
                 strategy.GetAuthorizationStrategyFiltering(
-                    new List<Claim>(),
-                    new EdFiAuthorizationContext(new ApiKeyContext(), principal, resource, new[] { resourceUri }, action, data));
+                    Array.Empty<EdFiResourceClaim>(),
+                    new EdFiAuthorizationContext(
+                        CreateApiClientContext(namespacePrefixes),
+                        resource,
+                        new[] { resourceUri },
+                        action,
+                        data));
 
                 //Assert
             }
@@ -220,13 +230,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 var strategy = new NamespaceBasedAuthorizationStrategy();
 
-                var claims = new List<Claim>
+                var namespacePrefixes = new[]
                 {
-                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
-                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
+                    @"uri://ed-fi.org/",
+                    @"uri://ed-fi-2.org/"
                 };
-
-                ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
 
                 string resourceUri = @"http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor";
                 string action = @"http://ed-fi.org/ods/actions/manage";
@@ -237,11 +245,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 };
 
                 //Act
-                Should.Throw<Exception>(() => 
-                        strategy.GetAuthorizationStrategyFiltering(
-                            new List<Claim>(),
-                            new EdFiAuthorizationContext(new ApiKeyContext(), principal, resource, new[] { resourceUri }, action, data)))
-                    .MessageShouldContain("There is no Namespace-based property in the 'edfi.TestResource' resource to use for Namespace-based authorization.");
+                Should.Throw<Exception>(
+                        () => strategy.GetAuthorizationStrategyFiltering(
+                            Array.Empty<EdFiResourceClaim>(),
+                            new EdFiAuthorizationContext(
+                                CreateApiClientContext(namespacePrefixes),
+                                resource,
+                                new[] { resourceUri },
+                                action,
+                                data)))
+                    .MessageShouldContain(
+                        "There is no Namespace-based property in the 'edfi.TestResource' resource to use for Namespace-based authorization.");
 
                 //Assert
             }
@@ -254,9 +268,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 var strategy = new NamespaceBasedAuthorizationStrategy();
 
-                var claims = new List<Claim>();
-                ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
-
                 string resourceUri = @"http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor";
                 string action = @"http://ed-fi.org/ods/actions/manage";
 
@@ -267,9 +278,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 //Act
 
-                var exception = Assert.Throws<EdFiSecurityException>(() => strategy.GetAuthorizationStrategyFiltering(
-                    new List<Claim>(),
-                    new EdFiAuthorizationContext(new ApiKeyContext(), principal, resource, new[] { resourceUri }, action, data)));
+                var exception = Assert.Throws<EdFiSecurityException>(
+                    () => strategy.GetAuthorizationStrategyFiltering(
+                        Array.Empty<EdFiResourceClaim>(),
+                        new EdFiAuthorizationContext(
+                            new ApiClientContext(),
+                            resource,
+                            new[] { resourceUri },
+                            action,
+                            data)));
 
                 // Assert
                 exception.Message.ShouldBe(
@@ -277,5 +294,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                     + EdFiOdsApiClaimTypes.NamespacePrefix + "') or the claim values were all empty.");
             }
         }
+        
+        private static ApiClientContext CreateApiClientContext(string[] namespacePrefixes) => new(
+            null, 
+            null,
+            null,
+            namespacePrefixes, 
+            null,
+            null,
+            null,
+            null,
+            null,
+            0);
     }
 }

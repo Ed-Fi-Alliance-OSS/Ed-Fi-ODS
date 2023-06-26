@@ -29,5 +29,10 @@ namespace EdFi.Ods.Common.Security
         /// An ownership token assigned to the Ed-Fi ODS API client.
         /// </summary>
         public const string OwnershipTokenId = @"http://ed-fi.org/claims/ownershipTokenId";
+
+        /// <summary>
+        /// The prefix for the claim types related to Ed-Fi ODS API service endpoints (as opposed to data management resources).
+        /// </summary>
+        public const string ServicesPrefix = @"http://ed-fi.org/ods/identity/claims/services/";
     }
 }

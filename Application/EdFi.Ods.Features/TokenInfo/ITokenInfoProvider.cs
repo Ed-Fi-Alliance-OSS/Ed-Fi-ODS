@@ -10,6 +10,6 @@ namespace EdFi.Ods.Features.TokenInfo
 {
     public interface ITokenInfoProvider
     {
-        Task<TokenInfo> GetTokenInfoAsync(ApiKeyContext apiContext);
+        Task<TokenInfo> GetTokenInfoAsync(ApiClientContext apiContext);
     }
 }

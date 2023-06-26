@@ -85,10 +85,10 @@ namespace EdFi.Ods.Features.UnitTests
 
             var mockOpenApiMetadataResourceContext = A.Fake<IOpenApiMetadataResourceContext>();
 
-            A.CallTo(mockOpenApiMetadataResourceContext).Where(a => a.Method.Name.Equals("get_ContextualResource"))
-              .WithReturnType<Resource?>()
+            A.CallTo(mockOpenApiMetadataResourceContext)
+                .Where(a => a.Method.Name.Equals("get_ContextualResource"))
+                .WithReturnType<Resource?>()
               .Returns(null);
-
 
             A.CallTo(mockOpenApiMetadataResourceContext).Where(a => a.Method.Name.Equals("get_OperationNamingContext"))
                .WithReturnType<string>()

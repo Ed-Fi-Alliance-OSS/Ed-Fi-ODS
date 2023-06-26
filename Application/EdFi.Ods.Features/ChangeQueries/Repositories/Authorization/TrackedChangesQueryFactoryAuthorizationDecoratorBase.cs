@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
-using System.Security.Claims;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
@@ -25,7 +24,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 {
     public class TrackedChangesQueryFactoryAuthorizationDecoratorBase
     {
-        private readonly IApiKeyContextProvider _apiKeyContextProvider;
+        private readonly IApiClientContextProvider _apiClientContextProvider;
         private readonly IAuthorizationBasisMetadataSelector _authorizationBasisMetadataSelector;
 
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
@@ -35,7 +34,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 
         protected TrackedChangesQueryFactoryAuthorizationDecoratorBase(
             IAuthorizationContextProvider authorizationContextProvider,
-            IApiKeyContextProvider apiKeyContextProvider,
+            IApiClientContextProvider apiClientContextProvider,
             IDomainModelProvider domainModelProvider,
             IDomainModelEnhancer domainModelEnhancer,
             IAuthorizationFilteringProvider authorizationFilteringProvider,
@@ -44,7 +43,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
             IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
         {
             _authorizationContextProvider = authorizationContextProvider;
-            _apiKeyContextProvider = apiKeyContextProvider;
+            _apiClientContextProvider = apiClientContextProvider;
             _authorizationFilteringProvider = authorizationFilteringProvider;
             _authorizationBasisMetadataSelector = authorizationBasisMetadataSelector;
             _authorizationFilterDefinitionProvider = authorizationFilterDefinitionProvider;
@@ -66,16 +65,22 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
             // Make sure Authorization context is present before proceeding
             _authorizationContextProvider.VerifyAuthorizationContextExists();
 
+            var apiClientContext = _apiClientContextProvider.GetApiClientContext();
+
+            string[] resourceClaimUris = _authorizationContextProvider.GetResourceUris();
+            string requestActionUri = _authorizationContextProvider.GetAction();
+
             var authorizationContext = new EdFiAuthorizationContext(
-                _apiKeyContextProvider.GetApiKeyContext(),
-                ClaimsPrincipal.Current,
+                apiClientContext,
                 _dataManagementResourceContextProvider.Get().Resource,
-                _authorizationContextProvider.GetResourceUris(),
-                _authorizationContextProvider.GetAction(),
+                resourceClaimUris,
+                requestActionUri,
                 entityType);
 
-            var authorizationBasisMetadata =
-                _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(authorizationContext);
+            var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
+                apiClientContext.ClaimSetName,
+                resourceClaimUris,
+                requestActionUri);
 
             var authorizationFiltering =
                 _authorizationFilteringProvider.GetAuthorizationFiltering(authorizationContext, authorizationBasisMetadata);

@@ -6,6 +6,7 @@
 using System;
 using System.Linq;
 using Autofac;
+using Autofac.Extras.DynamicProxy;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
@@ -38,11 +39,13 @@ namespace EdFi.Ods.Api.Security.Container.Modules
 
             builder.RegisterType<AuthorizationBasisMetadataSelector>()
                 .As<IAuthorizationBasisMetadataSelector>()
+                .EnableInterfaceInterceptors()
                 .SingleInstance();
 
             builder.RegisterType<ResourceAuthorizationMetadataProvider>()
                 .As<IResourceAuthorizationMetadataProvider>()
-                .InstancePerLifetimeScope();
+                .EnableInterfaceInterceptors()
+                .SingleInstance();
 
             var assembly = typeof(Marker_EdFi_Ods_Api).Assembly;
 
@@ -83,6 +86,11 @@ namespace EdFi.Ods.Api.Security.Container.Modules
 
             builder.RegisterType<ClaimsIdentityProvider>()
                 .As<IClaimsIdentityProvider>()
+                .SingleInstance();
+
+            builder.RegisterType<ClaimSetClaimsProvider>()
+                .As<IClaimSetClaimsProvider>()
+                .EnableInterfaceInterceptors()
                 .SingleInstance();
 
             builder.RegisterType<ResourceClaimUriProvider>()

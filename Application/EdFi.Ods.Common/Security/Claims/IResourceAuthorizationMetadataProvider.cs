@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using Autofac.Extras.DynamicProxy;
 
 namespace EdFi.Ods.Common.Security.Claims
 {
@@ -11,6 +12,7 @@ namespace EdFi.Ods.Common.Security.Claims
     /// Defines a method for obtaining a list of claims (and the corresponding authorization strategies) 
     /// that can be use to authorize a resourceUri.
     /// </summary>
+    [Intercept("cache-security")]
     public interface IResourceAuthorizationMetadataProvider
     {
         /// <summary>

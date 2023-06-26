@@ -24,7 +24,7 @@ namespace EdFi.Ods.Api.Filters;
 
 public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
 {
-    private readonly IApiKeyContextProvider _apiKeyContextProvider;
+    private readonly IApiClientContextProvider _apiClientContextProvider;
     private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
     private readonly IContextProvider<ProfileContentTypeContext> _profileContentTypeContextProvider;
     private readonly IProfileResourceModelProvider _profileResourceModelProvider;
@@ -32,13 +32,13 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
     private readonly bool _isEnabled;
 
     public EnforceAssignedProfileUsageFilter(
-        IApiKeyContextProvider apiKeyContextProvider,
+        IApiClientContextProvider apiClientContextProvider,
         IProfileResourceModelProvider profileResourceModelProvider,
         IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
         IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
         ApiSettings apiSettings)
     {
-        _apiKeyContextProvider = apiKeyContextProvider;
+        _apiClientContextProvider = apiClientContextProvider;
         _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
         _profileContentTypeContextProvider = profileContentTypeContextProvider;
         _profileResourceModelProvider = profileResourceModelProvider;
@@ -56,10 +56,10 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
             return;
         }
 
-        var apiKeyContext = _apiKeyContextProvider.GetApiKeyContext();
+        var apiClientContext = _apiClientContextProvider.GetApiClientContext();
 
         // No authorized client? Skip additional processing here now.
-        if (apiKeyContext == null)
+        if (apiClientContext == null)
         {
             await next();
 
@@ -67,7 +67,7 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
         }
 
         // No profiles assigned? Skip additional processing here now.
-        if (!apiKeyContext.Profiles.Any())
+        if (!apiClientContext.Profiles.Any())
         {
             await next();
 
@@ -90,7 +90,7 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
         
         var resourceFullName = dataManagementResourceContext.Resource.FullName;
 
-        var assignedProfilesForRequest = apiKeyContext.Profiles.Where(
+        var assignedProfilesForRequest = apiClientContext.Profiles.Where(
                 p => _profileResourceModelProvider.GetProfileResourceModel(p)
                         .ResourceByName.TryGetValue(resourceFullName, out var contentTypes)
                     && (relevantContentTypeUsage == ContentTypeUsage.Readable

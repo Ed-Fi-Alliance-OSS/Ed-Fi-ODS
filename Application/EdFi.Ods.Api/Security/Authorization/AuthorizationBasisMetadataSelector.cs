@@ -6,9 +6,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
@@ -22,9 +21,12 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
     private readonly ILog _logger = LogManager.GetLogger(typeof(AuthorizationBasisMetadataSelector));
         
     private readonly IResourceAuthorizationMetadataProvider _resourceAuthorizationMetadataProvider;
+    private readonly IClaimSetClaimsProvider _claimSetClaimsProvider;
     private readonly Dictionary<string, IAuthorizationStrategy> _authorizationStrategyByName;
 
     private readonly Lazy<Dictionary<string, int>> _bitValuesByAction;
+
+    private const string AuthorizationStrategyNameSuffix = "AuthorizationStrategy";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AuthorizationBasisMetadataSelector"/> class.
@@ -32,13 +34,16 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
     /// <param name="resourceAuthorizationMetadataProvider">The component that will be used to supply the claims/strategies that can be used to authorize the resource.</param>
     /// <param name="securityRepository"></param>
     /// <param name="authorizationStrategies"></param>
+    /// <param name="claimSetClaimsProvider"></param>
     public AuthorizationBasisMetadataSelector(
         IResourceAuthorizationMetadataProvider resourceAuthorizationMetadataProvider,
         ISecurityRepository securityRepository,
-        IAuthorizationStrategy[] authorizationStrategies)
+        IAuthorizationStrategy[] authorizationStrategies,
+        IClaimSetClaimsProvider claimSetClaimsProvider)
     {
         _resourceAuthorizationMetadataProvider = resourceAuthorizationMetadataProvider;
-            
+        _claimSetClaimsProvider = claimSetClaimsProvider;
+
         // Lazy initialization
         _bitValuesByAction = new Lazy<Dictionary<string, int>>(
             () => new Dictionary<string, int>
@@ -50,31 +55,25 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
                 { securityRepository.GetActionByName("ReadChanges").ActionUri, 0x16 },
             });
             
-        _authorizationStrategyByName = CreateAuthorizationStrategyByNameDictionary(authorizationStrategies);
-            
-        Dictionary<string, IAuthorizationStrategy> CreateAuthorizationStrategyByNameDictionary(
-            IAuthorizationStrategy[] authorizationStrategies)
+        _authorizationStrategyByName = CreateAuthorizationStrategyByNameDictionary();
+
+        Dictionary<string, IAuthorizationStrategy> CreateAuthorizationStrategyByNameDictionary()
         {
-            var strategyByName = new Dictionary<string, IAuthorizationStrategy>(
-                StringComparer.InvariantCultureIgnoreCase);
+            var strategyByName = new Dictionary<string, IAuthorizationStrategy>(StringComparer.OrdinalIgnoreCase);
 
             foreach (var strategy in authorizationStrategies)
             {
                 string strategyTypeName = GetStrategyTypeName(strategy);
 
-                const string authorizationStrategyNameSuffix = "AuthorizationStrategy";
-
                 // TODO: Embedded convention
                 // Enforce naming conventions on authorization strategies
-                if (!strategyTypeName.EndsWith(authorizationStrategyNameSuffix))
+                if (!strategyTypeName.EndsWith(AuthorizationStrategyNameSuffix))
                 {
                     throw new ArgumentException(
-                        string.Format(
-                            "The authorization strategy '{0}' does not follow proper naming conventions, ending with 'AuthorizationStrategy'.",
-                            strategyTypeName));
+                        $"The authorization strategy '{strategyTypeName}' does not follow proper naming conventions, ending with '{AuthorizationStrategyNameSuffix}'.");
                 }
 
-                string strategyName = strategyTypeName.TrimSuffix(authorizationStrategyNameSuffix);
+                string strategyName = strategyTypeName.TrimSuffix(AuthorizationStrategyNameSuffix);
                 strategyByName.Add(strategyName, strategy);
             }
 
@@ -85,7 +84,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
         {
             string rawTypeName = strategy.GetType().Name;
 
-            int genericMarkerPos = rawTypeName.IndexOf("`");
+            int genericMarkerPos = rawTypeName.IndexOf('`');
 
             string strategyTypeName = genericMarkerPos < 0
                 ? rawTypeName
@@ -96,24 +95,26 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
     }
         
     /// <inheritdoc cref="IAuthorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata" />
-    public AuthorizationBasisMetadata SelectAuthorizationBasisMetadata(EdFiAuthorizationContext authorizationContext)
+    public AuthorizationBasisMetadata SelectAuthorizationBasisMetadata(
+        string claimSetName,
+        IList<string> requestResourceClaimUris,
+        string requestAction)
     {
-        var claimCheckResponse = PerformClaimCheck(authorizationContext);
+        var claimCheckResponse = PerformClaimCheck(claimSetName, requestResourceClaimUris, requestAction);
             
         if (!claimCheckResponse.Success)
         {
             throw new EdFiSecurityException(claimCheckResponse.SecurityExceptionMessage);
         }
 
-        var relevantPrincipalClaims = claimCheckResponse.RelevantClaims;
+        var relevantClaimSetClaims = claimCheckResponse.RelevantClaims;
 
         // Only use the caller's first matching going up the hierarchy
-        var relevantPrincipalClaim = relevantPrincipalClaims.First();
+        var relevantClaimSetClaim = relevantClaimSetClaims.First();
 
         // Look for an authorization strategy override on the caller's claims (flow the overrides down, even if they aren't the first claim encountered going up the hierarchy)
-        var authorizationStrategyOverrideNames = relevantPrincipalClaims
-            .Select(rpc => rpc.ToEdFiResourceClaimValue()
-                .GetAuthorizationStrategyNameOverrides(claimCheckResponse.RequestedAction))
+        var authorizationStrategyOverrideNames = relevantClaimSetClaims
+            .Select(rpc => rpc.ClaimValue.GetAuthorizationStrategyNameOverrides(claimCheckResponse.RequestedAction))
             .FirstOrDefault(x => x != null);
 
         var metadataAuthorizationStrategyNames =
@@ -123,9 +124,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
                 .FirstOrDefault();
 
         // Use the claim's override, if present
-        var authorizationStrategyNames =
-            authorizationStrategyOverrideNames
-            ?? metadataAuthorizationStrategyNames;
+        var authorizationStrategyNames = authorizationStrategyOverrideNames ?? metadataAuthorizationStrategyNames;
 
         // No authorization strategies were defined for this request
         if (authorizationStrategyNames == null || !authorizationStrategyNames.Any())
@@ -135,37 +134,32 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
                     "No authorization strategies were defined for the requested action '{0}' against resource URIs ['{1}'] matched by the caller's claim '{2}'.",
                     claimCheckResponse.RequestedAction,
                     string.Join("', '", claimCheckResponse.RequestedResourceUris),
-                    relevantPrincipalClaim.Type));
+                    relevantClaimSetClaim.ClaimName));
         }
 
-        _logger.DebugFormat(
-            "Authorization strategy '{0}' selected for request against resource '{1}'.",
-            string.Join("', '", authorizationStrategyNames),
-            authorizationContext.ResourceClaims.First()
-                .Value);
+        if (_logger.IsDebugEnabled)
+        {
+            _logger.Debug(
+                $"Authorization strategy '{string.Join("', '", authorizationStrategyNames)}' selected for request against resource '{requestResourceClaimUris.First()}'.");
+        }
 
         // Look for an authorization validation rule set name override on the caller's claims (flow the overrides down, even if they aren't the first claim encountered going up the hierarchy)
-        string ruleSetNameOverride =
-            (from rpc in relevantPrincipalClaims
-                select rpc.ToEdFiResourceClaimValue()
-                    .GetAuthorizationValidationRuleSetNameOverride(claimCheckResponse.RequestedAction))
+        string ruleSetNameOverride = relevantClaimSetClaims
+            .Select(rpc => rpc.ClaimValue.GetAuthorizationValidationRuleSetNameOverride(claimCheckResponse.RequestedAction))
             .FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
 
         var metadataRuleSetName =
-            (from rcas in claimCheckResponse.AuthorizationMetadata
-                select rcas.ValidationRuleSetName)
+            claimCheckResponse.AuthorizationMetadata.Select(rcas => rcas.ValidationRuleSetName)
             .FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
 
-        string ruleSetName =
-            ruleSetNameOverride
-            ?? metadataRuleSetName;
+        string ruleSetName = ruleSetNameOverride ?? metadataRuleSetName;
 
         // Set outbound authorization details
         return new AuthorizationBasisMetadata(
             GetAuthorizationStrategies(authorizationStrategyNames),
-            relevantPrincipalClaim,
+            relevantClaimSetClaim,
             ruleSetName);
-            
+
         IReadOnlyList<IAuthorizationStrategy> GetAuthorizationStrategies(IReadOnlyList<string> strategyNames)
         {
             return strategyNames.Select(
@@ -174,9 +168,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
                         if (!_authorizationStrategyByName.ContainsKey(strategyName))
                         {
                             throw new Exception(
-                                string.Format(
-                                    "Could not find authorization implementation for strategy '{0}' based on naming convention of '{{strategyName}}AuthorizationStrategy'.",
-                                    strategyName));
+                                $"Could not find authorization implementation for strategy '{strategyName}' based on naming convention of '{{strategyName}}{AuthorizationStrategyNameSuffix}'.");
                         }
 
                         return _authorizationStrategyByName[strategyName];
@@ -185,21 +177,15 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
         }
     }
         
-    private ClaimCheckResponse PerformClaimCheck(EdFiAuthorizationContext authorizationContext)
+    private ClaimCheckResponse PerformClaimCheck(string claimSetName, IList<string> resourceClaimUris, string requestAction)
     {
+        var claimSetClaims = _claimSetClaimsProvider.GetClaims(claimSetName);
+        
         // Validate the context
-        ValidateAuthorizationContext(authorizationContext);
-
-        // Extract individual values
-        string[] requestedResourceClaimUris = authorizationContext.ResourceClaims.Select(x => x.Value).ToArray();
-
-        string requestedAction = authorizationContext.Action.Single().Value;
-
-        // NOTE: GKM - Review all use of the ClaimsPrincipal, and consider eliminating it for CallContext
-        var principal = authorizationContext.Principal;
+        ValidateAuthorizationContext();
 
         // Obtain the resource claim/authorization strategy pairs that could be used for authorizing this particular request
-        var resourceClaimAuthorizationMetadata = GetResourceClaimAuthorizationMetadatas(requestedResourceClaimUris, requestedAction);
+        var resourceClaimAuthorizationMetadata = GetResourceClaimAuthorizationMetadatas();
 
         // Get the names of the resource claims that could be used for authorization
         var authorizingResourceClaimNames = resourceClaimAuthorizationMetadata
@@ -207,140 +193,108 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
             .ToList();
 
         // Intersect the potentially authorizing resource claims against the principal's claims
-        var claimCheckResponse = GetRelevantPrincipalClaims(authorizingResourceClaimNames, requestedAction, principal);
+        var claimCheckResponse = GetRelevantClaimSetClaims(authorizingResourceClaimNames);
 
         if (claimCheckResponse.Success)
         {
-            claimCheckResponse.RequestedAction = requestedAction;
-            claimCheckResponse.RequestedResourceUris = requestedResourceClaimUris;
+            claimCheckResponse.RequestedAction = requestAction;
+            claimCheckResponse.RequestedResourceUris = resourceClaimUris;
             claimCheckResponse.AuthorizationMetadata = resourceClaimAuthorizationMetadata;
         }
 
         return claimCheckResponse;
             
-        void ValidateAuthorizationContext(EdFiAuthorizationContext authorizationContext)
+        void ValidateAuthorizationContext()
         {
-            if (authorizationContext == null)
-            {
-                throw new ArgumentNullException("authorizationContext");
-            }
-
-            if (authorizationContext.ResourceClaims == null || authorizationContext.ResourceClaims.All(r => string.IsNullOrWhiteSpace(r.Value)))
+            if (resourceClaimUris == null || resourceClaimUris.All(string.IsNullOrWhiteSpace))
             {
                 throw new AuthorizationContextException("Authorization can only be performed if a resource is specified.");
             }
 
-            if (authorizationContext.ResourceClaims.Count > 2)
+            if (resourceClaimUris.Count > 2)
             {
-                throw new AuthorizationContextException($"Unexpected number of Resource URIs found in the authorization context. Expected up to 2, but found {authorizationContext.ResourceClaims.Count}.");
+                throw new AuthorizationContextException($"Unexpected number of Resource URIs found in the authorization context. Expected up to 2, but found {resourceClaimUris.Count}.");
             }
 
-            if (authorizationContext.Action == null || authorizationContext.Action.All(a => string.IsNullOrWhiteSpace(a.Value)))
+            if (requestAction == null)
             {
                 throw new AuthorizationContextException("Authorization can only be performed if an action is specified.");
             }
-
-            if (authorizationContext.Action.Count > 1)
-            {
-                throw new AuthorizationContextException("Authorization can only be performed on requests with a single action.");
-            }
         }
 
-        List<ResourceClaimAuthorizationMetadata> GetResourceClaimAuthorizationMetadatas(
-            string[] requestedResourceClaimUris,
-            string requestedAction)
+        IList<ResourceClaimAuthorizationMetadata> GetResourceClaimAuthorizationMetadatas()
         {
-            // Processing the URIs in order of priority, return the first one found with associated
-            // authorization metadata
-            var resourceClaimAuthorizationMetadata =
-                requestedResourceClaimUris
+            // Processing the URIs in order of priority, return the first one found with associated authorization metadata
+            IList<ResourceClaimAuthorizationMetadata> metadatas = resourceClaimUris
                     .Select(
                         requestedResourceClaimUri => _resourceAuthorizationMetadataProvider
-                            .GetResourceClaimAuthorizationMetadata(requestedResourceClaimUri, requestedAction)
+                            .GetResourceClaimAuthorizationMetadata(requestedResourceClaimUri, requestAction)
                             .ToList())
                     .FirstOrDefault(x => x.Any());
 
-            // Return the authorization metadata located, or an empty list.
-            return resourceClaimAuthorizationMetadata
-                ?? new List<ResourceClaimAuthorizationMetadata>();
+            // Return the authorization metadata located, or an empty array.
+            return metadatas ?? Array.Empty<ResourceClaimAuthorizationMetadata>();
         }
 
-        ClaimCheckResponse GetRelevantPrincipalClaims(
-            IList<string> authorizingClaimNames,
-            string requestedAction,
-            ClaimsPrincipal principal)
+        ClaimCheckResponse GetRelevantClaimSetClaims(IList<string> authorizingClaimNames)
         {
             var response = new ClaimCheckResponse();
 
             // Find matching claims, while preserving the ordering of the incoming claim names
-            var principalClaimsToEvaluate = (from cn in authorizingClaimNames
-                join pc in principal.Claims on cn equals pc.Type
-                select pc).ToList();
+            var claimSetClaimsToEvaluate = authorizingClaimNames
+                .Join(claimSetClaims, 
+                    cn => cn, 
+                    pc => pc.ClaimName, 
+                    (cn, pc) => pc)
+                .ToList();
 
-            // 1) First check: Lets make sure the principal at least has a claim that applies for this resource.
-            if (!principalClaimsToEvaluate.Any())
+            // 1) First check: Lets make sure the claim set at least has a claim that applies for this resource.
+            if (!claimSetClaimsToEvaluate.Any())
             {
                 response.Success = false;
 
-                var apiClientResourceClaims = principal.Claims.Select(c => c.Type)
-                    .Where(x => x.StartsWith(EdFiConventions.EdFiOdsResourceClaimBaseUri));
-
-                string apiClientClaimSetName =
-                    principal.Claims.SingleOrDefault(c => c.Type == EdFiOdsApiClaimTypes.ClaimSetName)?.Value;
+                // var apiClientResourceClaims = claimSetClaims.Select(c => c.ClaimName)
+                //     .Where(x => x.StartsWith(EdFiConventions.EdFiOdsResourceClaimBaseUri));
 
                 response.SecurityExceptionMessage =
-                    $@"Access to the resource could not be authorized. The API client has been assigned the '{apiClientClaimSetName}' claim set.
-Assign a different claim set which includes one of the following claims to access this resource:
-    {string.Join(Environment.NewLine + "    ", authorizingClaimNames)}";
+                    $@"Access to the resource could not be authorized. The API client has been assigned the '{claimSetName}' claim set.
+Assign a different claim set which includes one of the following claims to access this resource: {string.Join(", ", authorizingClaimNames)}";
 
                 return response;
             }
 
             // 2) Second check: Of the claims that apply for this resource do we have any that match the action requested or a higher action?
-            var edfiClaimValuesToEvaluate = principalClaimsToEvaluate.Select(
-                x => new
-                {
-                    Claim = x,
-                    EdFiResourceClaimValue = x.ToEdFiResourceClaimValue()
-                });
-
-            var claimsWithMatchingActions = edfiClaimValuesToEvaluate.Where(
-                    x => IsRequestedActionSatisfiedByClaimActions(
-                        requestedAction,
-                        x.EdFiResourceClaimValue.Actions.Select(y => y.Name)))
+            var claimsWithMatchingActions = claimSetClaimsToEvaluate
+                .Where(rc => IsRequestedActionSatisfiedByClaimActions(rc.ClaimValue.Actions.Select(y => y.Name)))
                 .ToList();
 
             if (!claimsWithMatchingActions.Any())
             {
                 response.Success = false;
 
-                response.SecurityExceptionMessage = string.Format(
-                    "Access to the resource could not be authorized for the requested action '{0}'.",
-                    requestedAction);
+                response.SecurityExceptionMessage =
+                    $"Access to the resource could not be authorized for the requested action '{requestAction}'.";
 
                 return response;
             }
 
             response.Success = true;
-
-            response.RelevantClaims = claimsWithMatchingActions.Select(x => x.Claim).ToList();
+            response.RelevantClaims = claimsWithMatchingActions;
 
             return response;
         }
 
-        bool IsRequestedActionSatisfiedByClaimActions(string requestedAction, IEnumerable<string> principalClaimActions)
+        bool IsRequestedActionSatisfiedByClaimActions(IEnumerable<string> resourceClaimActionNames)
         {
-            int requestedActionValue = GetBitValuesByAction(requestedAction);
+            int requestActionBitValue = GetBitValuesByAction(requestAction);
 
             // Determine if any of the claim actions can satisfy the requested action
-            return principalClaimActions.Any(x => (requestedActionValue & GetBitValuesByAction(x)) != 0);
+            return resourceClaimActionNames.Any(x => (requestActionBitValue & GetBitValuesByAction(x)) != 0);
         }
 
         int GetBitValuesByAction(string action)
         {
-            int result;
-
-            if (_bitValuesByAction.Value.TryGetValue(action, out result))
+            if (_bitValuesByAction.Value.TryGetValue(action, out int result))
             {
                 return result;
             }
@@ -348,20 +302,19 @@ Assign a different claim set which includes one of the following claims to acces
             // Should never happen
             throw new NotSupportedException("The requested action is not a supported action.  Authorization cannot be performed.");
         }
-
     }
 
     private class ClaimCheckResponse
     {
         public bool Success { get; set; }
 
-        public List<Claim> RelevantClaims { get; set; }
+        public IList<EdFiResourceClaim> RelevantClaims { get; set; }
 
         public string RequestedAction { get; set; }
 
-        public string[] RequestedResourceUris { get; set; }
+        public IList<string> RequestedResourceUris { get; set; }
 
-        public List<ResourceClaimAuthorizationMetadata> AuthorizationMetadata { get; set; }
+        public IList<ResourceClaimAuthorizationMetadata> AuthorizationMetadata { get; set; }
 
         public string SecurityExceptionMessage { get; set; }
     }

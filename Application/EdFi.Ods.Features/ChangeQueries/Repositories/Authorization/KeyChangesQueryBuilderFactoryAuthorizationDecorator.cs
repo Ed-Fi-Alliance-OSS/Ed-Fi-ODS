@@ -25,7 +25,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
         public KeyChangesQueryBuilderFactoryAuthorizationDecorator(
             IKeyChangesQueryBuilderFactory next,
             IAuthorizationContextProvider authorizationContextProvider,
-            IApiKeyContextProvider apiKeyContextProvider,
+            IApiClientContextProvider apiClientContextProvider,
             IDomainModelProvider domainModelProvider,
             IDomainModelEnhancer domainModelEnhancer,
             IAuthorizationFilteringProvider authorizationFilteringProvider,
@@ -34,7 +34,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
             IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
             : base(
                 authorizationContextProvider,
-                apiKeyContextProvider,
+                apiClientContextProvider,
                 domainModelProvider,
                 domainModelEnhancer,
                 authorizationFilteringProvider,

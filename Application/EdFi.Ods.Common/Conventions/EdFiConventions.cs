@@ -221,7 +221,7 @@ namespace EdFi.Ods.Common.Conventions
         /// <summary>
         /// Gets the base URI used to represent a resource claim in the Ed-Fi security database.
         /// </summary>
-        public static string EdFiOdsResourceClaimBaseUri => "http://ed-fi.org/ods/identity/claims";
+        public const string EdFiOdsResourceClaimBaseUri = "http://ed-fi.org/ods/identity/claims";
 
         /// <summary>
         /// Gets the full name of the Ed-Fi EducationOrganization entity. 

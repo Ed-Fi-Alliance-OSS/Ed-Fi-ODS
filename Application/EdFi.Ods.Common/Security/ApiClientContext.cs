@@ -9,19 +9,26 @@ using System.Collections.Generic;
 namespace EdFi.Ods.Common.Security
 {
     /// <summary>
-    /// Contains contextual information about the current API caller.
+    /// Contains contextual information about the current authenticated API client.
     /// </summary>
-    public class ApiKeyContext
+    public class ApiClientContext
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:ApiKeyContext"/> class as default constructor.
+        /// Initializes a new instance of the <see cref="ApiClientContext"/> class as default constructor.
         /// </summary>
-        public ApiKeyContext() { }
+        public ApiClientContext()
+        {
+            EducationOrganizationIds = Array.Empty<int>();
+            NamespacePrefixes = Array.Empty<string>();
+            Profiles = Array.Empty<string>();
+            OwnershipTokenIds = Array.Empty<short>();
+            OdsInstanceIds = Array.Empty<int>();
+        }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:ApiKeyContext"/> class.
+        /// Initializes a new instance of the <see cref="ApiClientContext"/> class.
         /// </summary>
-        public ApiKeyContext(
+        public ApiClientContext(
             string apiKey,
             string claimSetName,
             IList<int> educationOrganizationIds,
@@ -36,9 +43,9 @@ namespace EdFi.Ods.Common.Security
             ApiKey = apiKey;
             ClaimSetName = claimSetName;
             EducationOrganizationIds = educationOrganizationIds ?? Array.Empty<int>();
-            NamespacePrefixes = namespacePrefixes;
+            NamespacePrefixes = namespacePrefixes ?? Array.Empty<string>();
             StudentIdentificationSystemDescriptor = studentIdentificationSystemDescriptor;
-            Profiles = profiles ?? new List<string>();
+            Profiles = profiles ?? Array.Empty<string>();
             CreatorOwnershipTokenId = creatorOwnershipTokenId;
             OwnershipTokenIds = ownershipTokenIds ?? Array.Empty<short>();
             OdsInstanceIds = odsInstanceIds ?? Array.Empty<int>();
@@ -66,8 +73,8 @@ namespace EdFi.Ods.Common.Security
         public int ApiClientId { get; }
 
         /// <summary>
-        /// Returns an empty, uninitialized <see cref="ApiKeyContext"/> instance.
+        /// Returns an empty, uninitialized <see cref="ApiClientContext"/> instance.
         /// </summary>
-        public static ApiKeyContext Empty { get; } = new();
+        public static readonly ApiClientContext Empty = new();
     }
 }

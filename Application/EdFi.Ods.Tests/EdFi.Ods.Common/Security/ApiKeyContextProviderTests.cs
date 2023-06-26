@@ -14,7 +14,7 @@ using Test.Common;
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public class ApiKeyContextProviderTests
+    public class ApiClientContextProviderTests
     {
         public class When_setting_and_getting_the_ApiKey_context_values_individually : TestFixtureBase
         {
@@ -51,13 +51,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
 
             private readonly int _suppliedApiClientId = 7;
 
-            private readonly ApiKeyContext _suppliedApiKeyContext = ApiKeyContext.Empty;
+            private readonly ApiClientContext _suppliedApiClientContext = ApiClientContext.Empty;
 
             private string _actualApiKey;
             private string _actualClaimsetName;
             private IEnumerable<int> _actualEducationOrganizationIds;
             private IEnumerable<string> _actualNamespacePrefixes;
-            private ApiKeyContext _actualApiKeyContext;
+            private ApiClientContext _actualApiClientContext;
             private IEnumerable<string> _actualProfiles;
             private string _actualStudentIdentificationSystemDescriptor;
             private HashtableContextStorage _contextStorage;
@@ -70,10 +70,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             {
                 _contextStorage = new HashtableContextStorage();
 
-                var settingProvider = new ApiKeyContextProvider(_contextStorage);
+                var settingProvider = new ApiClientContextProvider(_contextStorage);
 
-                settingProvider.SetApiKeyContext(
-                    new ApiKeyContext(
+                settingProvider.SetApiClientContext(
+                    new ApiClientContext(
                         SuppliedApiKey,
                         SuppliedClaimsetName,
                         _suppliedEducationOrganizationIds,
@@ -85,37 +85,37 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                         _suppliedOdsInstanceIds,
                         _suppliedApiClientId));
 
-                var gettingProvider = new ApiKeyContextProvider(_contextStorage);
+                var gettingProvider = new ApiClientContextProvider(_contextStorage);
 
-                _actualApiKey = gettingProvider.GetApiKeyContext()
+                _actualApiKey = gettingProvider.GetApiClientContext()
                     .ApiKey;
 
-                _actualClaimsetName = gettingProvider.GetApiKeyContext()
+                _actualClaimsetName = gettingProvider.GetApiClientContext()
                     .ClaimSetName;
 
-                _actualEducationOrganizationIds = gettingProvider.GetApiKeyContext()
+                _actualEducationOrganizationIds = gettingProvider.GetApiClientContext()
                     .EducationOrganizationIds;
 
-                _actualNamespacePrefixes = gettingProvider.GetApiKeyContext()
+                _actualNamespacePrefixes = gettingProvider.GetApiClientContext()
                     .NamespacePrefixes;
 
-                _actualProfiles = gettingProvider.GetApiKeyContext()
+                _actualProfiles = gettingProvider.GetApiClientContext()
                     .Profiles;
 
                 _actualStudentIdentificationSystemDescriptor =
-                    gettingProvider.GetApiKeyContext().StudentIdentificationSystemDescriptor;
+                    gettingProvider.GetApiClientContext().StudentIdentificationSystemDescriptor;
 
-                _actualCreatorOwnershipTokenId = gettingProvider.GetApiKeyContext().CreatorOwnershipTokenId;
+                _actualCreatorOwnershipTokenId = gettingProvider.GetApiClientContext().CreatorOwnershipTokenId;
 
-                _actualOwnershipTokenIds = gettingProvider.GetApiKeyContext().OwnershipTokenIds;
+                _actualOwnershipTokenIds = gettingProvider.GetApiClientContext().OwnershipTokenIds;
 
-                _actualOdsInstanceIds = gettingProvider.GetApiKeyContext().OdsInstanceIds;
+                _actualOdsInstanceIds = gettingProvider.GetApiClientContext().OdsInstanceIds;
 
-                _actualApiClientId = gettingProvider.GetApiKeyContext().ApiClientId;
+                _actualApiClientId = gettingProvider.GetApiClientContext().ApiClientId;
 
-                settingProvider.SetApiKeyContext(_suppliedApiKeyContext);
+                settingProvider.SetApiClientContext(_suppliedApiClientContext);
 
-                _actualApiKeyContext = gettingProvider.GetApiKeyContext();
+                _actualApiClientContext = gettingProvider.GetApiClientContext();
             }
 
             [Assert]
@@ -145,7 +145,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             [Assert]
             public virtual void Should_return_the_supplied_context_DTO()
             {
-                _actualApiKeyContext.ShouldBeSameAs(_suppliedApiKeyContext);
+                _actualApiClientContext.ShouldBeSameAs(_suppliedApiClientContext);
             }
 
             [Assert]

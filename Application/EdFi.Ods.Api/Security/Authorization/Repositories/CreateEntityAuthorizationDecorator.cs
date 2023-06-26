@@ -41,7 +41,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="explicitObjectValidators"></param>
         /// <param name="authorizationBasisMetadataSelector"></param>
         /// <param name="sessionFactory"></param>
-        /// <param name="apiKeyContextProvider"></param>
+        /// <param name="apiClientContextProvider"></param>
         /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
         /// <param name="dataManagementResourceContextProvider"></param>
         public CreateEntityAuthorizationDecorator(
@@ -53,7 +53,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             IExplicitObjectValidator[] explicitObjectValidators,
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
             ISessionFactory sessionFactory,
-            IApiKeyContextProvider apiKeyContextProvider,
+            IApiClientContextProvider apiClientContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
             IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
             : base(
@@ -64,7 +64,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 authorizationBasisMetadataSelector,
                 securityRepository,
                 sessionFactory,
-                apiKeyContextProvider,
+                apiClientContextProvider,
                 viewBasedSingleItemAuthorizationQuerySupport,
                 dataManagementResourceContextProvider)
         {

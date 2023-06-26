@@ -32,7 +32,7 @@ namespace EdFi.Ods.Features.TokenInfo
         [JsonProperty("assigned_profiles")]
         public IReadOnlyList<string> AssignedProfiles { get; private set; }
 
-        public static TokenInfo Create(ApiKeyContext apiKeyContext,
+        public static TokenInfo Create(ApiClientContext apiClientContext,
             IList<TokenInfoEducationOrganizationData> tokenInfoData)
         {
             var dataGroupedByEdOrgId = tokenInfoData
@@ -71,10 +71,10 @@ namespace EdFi.Ods.Features.TokenInfo
             return new TokenInfo
             {
                 Active = true,
-                ApiKey = apiKeyContext.ApiKey,
-                NamespacePrefixes = apiKeyContext.NamespacePrefixes.ToArray(),
-                AssignedProfiles = apiKeyContext.Profiles.ToArray(),
-                StudentIdentificationSystem = apiKeyContext.StudentIdentificationSystemDescriptor,
+                ApiKey = apiClientContext.ApiKey,
+                NamespacePrefixes = apiClientContext.NamespacePrefixes.ToArray(),
+                AssignedProfiles = apiClientContext.Profiles.ToArray(),
+                StudentIdentificationSystem = apiClientContext.StudentIdentificationSystemDescriptor,
                 EducationOrganizations = tokenInfoEducationOrganizations.ToArray()
             };
         }

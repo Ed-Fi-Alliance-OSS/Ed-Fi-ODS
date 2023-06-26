@@ -102,7 +102,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
             private EdFiAuthorizationContext _actualAuthorizationContext;
             private HqlBuilderContext _hqlBuilderContext;
             private CompositeDefinitionProcessorContext _processorContext;
-            private ClaimsPrincipal _expectedClaimsPrincipal;
 
             /// <summary>
             /// Prepares the state of the scenario (creating stubs, test data, etc.).
@@ -145,7 +144,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                     .Returns(new[] {Supplied<string>("ResourceUriValue")});
 
                 var claimsIdentityProvider = new ClaimsIdentityProvider(
-                    new ApiKeyContextProvider(new CallContextStorage()),
+                    new ApiClientContextProvider(new CallContextStorage()),
                     new StubSecurityRepository());
 
                 var apiClientDetails = new ApiClientDetails
@@ -157,17 +156,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                     EducationOrganizationIds = new[] { 123, 234 },
                     OwnershipTokenIds = new List<short> { 1 }
                 };
-
-                var claimsIdentity = claimsIdentityProvider.GetClaimsIdentity(
-                    apiClientDetails.EducationOrganizationIds,
-                    apiClientDetails.ClaimSetName,
-                    apiClientDetails.NamespacePrefixes,
-                    apiClientDetails.Profiles.ToList(),
-                    apiClientDetails.OwnershipTokenIds.ToList());
-
-                _expectedClaimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-
-                ClaimsPrincipal.ClaimsPrincipalSelector = () => _expectedClaimsPrincipal;
 
                 Resource resource = CreateStudentResource();
 
@@ -234,18 +222,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
 
             [Assert]
             public void
-                Should_attempt_to_authorize_the_request_with_the_authorization_context_referencing_the_current_claims_principal()
-            {
-                Assert.That(_actualAuthorizationContext.Principal, Is.SameAs(_expectedClaimsPrincipal));
-            }
-
-            [Assert]
-            public void
                 Should_attempt_to_authorize_the_request_with_the_authorization_context_with_the_corresponding_resource_URI()
             {
                 Assert.That(
-                    _actualAuthorizationContext.ResourceClaims.Single()
-                        .Value,
+                    _actualAuthorizationContext.ResourceClaimUris.Single(),
                     Is.EqualTo(Supplied<string>("ResourceUriValue")));
             }
 
@@ -253,8 +233,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
             public void Should_attempt_to_authorize_the_request_with_the_authorization_context_with_the_Read_action_URI()
             {
                 Assert.That(
-                    _actualAuthorizationContext.Action.Single()
-                        .Value,
+                    _actualAuthorizationContext.Action,
                     Is.EqualTo("http://ed-fi.org/odsapi/actions/read"));
             }
 
@@ -273,8 +252,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
 
         public class When_authorizing_a_request_that_fails_authorization : ScenarioFor<HqlBuilderAuthorizationDecorator>
         {
-            // private bool? _actualInclusionResult;
-
             /// <summary>
             /// Prepares the state of the scenario (creating stubs, test data, etc.).
             /// </summary>
