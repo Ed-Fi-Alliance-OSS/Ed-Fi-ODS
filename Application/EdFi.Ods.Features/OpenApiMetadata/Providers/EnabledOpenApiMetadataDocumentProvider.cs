@@ -7,13 +7,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Attributes;
+using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using log4net;
 using Microsoft.AspNetCore.Http;
@@ -26,22 +28,27 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
         private readonly ILog _logger = LogManager.GetLogger(typeof(EnabledOpenApiMetadataDocumentProvider));
 
         private readonly IOpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
+        private readonly IOdsRouteRootTemplateProvider _routeRootTemplateProvider;
         private readonly IList<IOpenApiMetadataRouteInformation> _routeInformations;
         private readonly ReverseProxySettings _reverseProxySettings;
         private readonly Lazy<IReadOnlyList<SchemaNameMap>> _schemaNameMaps;
+        private readonly bool _multitenancyEnabled;
+        private readonly string _odsContextRoutePath;
 
         public EnabledOpenApiMetadataDocumentProvider(
             IOpenApiMetadataCacheProvider openApiMetadataCacheProvider,
             IList<IOpenApiMetadataRouteInformation> routeInformations,
             ISchemaNameMapProvider schemaNameMapProvider,
-            ApiSettings apiSettings)
+            ApiSettings apiSettings,
+            IOdsRouteRootTemplateProvider routeRootTemplateProvider)
         {
             _openApiMetadataCacheProvider = openApiMetadataCacheProvider;
             _routeInformations = routeInformations;
             this._reverseProxySettings = apiSettings.GetReverseProxySettings();
-
+            _multitenancyEnabled = apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName());
             _schemaNameMaps = new Lazy<IReadOnlyList<SchemaNameMap>>(schemaNameMapProvider.GetSchemaNameMaps);
-
+            _routeRootTemplateProvider = routeRootTemplateProvider;
+            _odsContextRoutePath = apiSettings.GetOdsContextRoutePath() ?? string.Empty;
         }
 
         public bool TryGetSwaggerDocument(HttpRequest request, out string document)
@@ -58,20 +65,19 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                 return false;
             }
 
-            document = GetMetadataForContent(openApiContent, request, openApiMetadataRequest.SchoolYearFromRoute, openApiMetadataRequest.InstanceIdFromRoute);
+            document = GetMetadataForContent(openApiContent, request, openApiMetadataRequest.SchoolYear, openApiMetadataRequest.InstanceId, openApiMetadataRequest.TenantIdentifierFromRoute);
 
             return true;
         }
 
-        private string GetMetadataForContent(OpenApiContent content, HttpRequest request, int? schoolYearFromRoute, string instanceIdFromRoute)
+        private string GetMetadataForContent(OpenApiContent content, HttpRequest request, string schoolYear, string instanceId, string tenantIdentifier)
         {
-            var year = schoolYearFromRoute.HasValue
-                ? schoolYearFromRoute.Value.ToString()
-                : string.Empty;
 
-            var instanceId = string.IsNullOrEmpty(instanceIdFromRoute) ? string.Empty : $"{instanceIdFromRoute}/";
+            var schoolYearRouteValue = string.IsNullOrEmpty(schoolYear) ? string.Empty : $"{schoolYear}/";
+            var instanceIdRouteValue = string.IsNullOrEmpty(instanceId) ? string.Empty : $"{instanceId}/";
+            var tenantIdentifierRouteValue = string.IsNullOrEmpty(tenantIdentifier) ? string.Empty : $"{tenantIdentifier}/";
 
-            string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + content.BasePath.EnsureSuffixApplied("/") + instanceId + year;
+            string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + tenantIdentifierRouteValue + schoolYearRouteValue + content.BasePath.EnsureSuffixApplied("/") + instanceIdRouteValue;
  
             return content.Metadata
                 .Replace("%HOST%", Host())
@@ -81,7 +87,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 
             string TokenUrl() {
                 var rootUrl = request.RootUrl(this._reverseProxySettings);
-                return $"{rootUrl}/{instanceId}oauth/token";
+                return $"{rootUrl}/" + tenantIdentifierRouteValue + schoolYearRouteValue + $"{instanceId}oauth/token";
             }
 
             string Host() => $"{request.Host(this._reverseProxySettings)}:{request.Port(this._reverseProxySettings)}";
@@ -99,6 +105,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             {
                 string routeTemplate = routeInformation.GetRouteInformation()
                     .Template;
+
+                if (_multitenancyEnabled || !string.IsNullOrEmpty(_odsContextRoutePath))
+                    routeTemplate = _routeRootTemplateProvider.GetOdsRouteRootTemplate() + routeTemplate;
 
                 if (matcher.TryMatch(routeTemplate, path, out RouteValueDictionary values))
                 {
@@ -120,15 +129,10 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                         }
                     }
 
-                    if (values.ContainsKey("schoolYearFromRoute"))
+                    if (values.ContainsKey("schoolYear"))
                     {
-                        string schoolYear = values["schoolYearFromRoute"]
+                        openApiMetadataRequest.SchoolYear = values["schoolYear"]
                             .ToString();
-
-                        if (int.TryParse(schoolYear, out int schoolYearFromRoute))
-                        {
-                            openApiMetadataRequest.SchoolYearFromRoute = schoolYearFromRoute;
-                        }
                     }
 
                     if (values.ContainsKey("instanceIdFromRoute"))
@@ -138,7 +142,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 
                         if (!string.IsNullOrEmpty(instanceId))
                         {
-                            openApiMetadataRequest.InstanceIdFromRoute = instanceId;
+                            openApiMetadataRequest.InstanceId = instanceId;
                         }
                     }
 
@@ -163,6 +167,12 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                     if (values.ContainsKey("other"))
                     {
                         openApiMetadataRequest.OtherName = values["other"]
+                            .ToString();
+                    }
+
+                    if(values.ContainsKey("tenantIdentifier"))
+                    {
+                        openApiMetadataRequest.TenantIdentifierFromRoute = values["tenantIdentifier"]                            
                             .ToString();
                     }
                 }

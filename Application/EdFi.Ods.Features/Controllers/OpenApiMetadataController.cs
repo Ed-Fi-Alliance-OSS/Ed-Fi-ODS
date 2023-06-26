@@ -6,7 +6,6 @@
 using System;
 using System.Linq;
 using System.Net;
-using System.Net.Http.Json;
 using EdFi.Common.Extensions;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Attributes;
@@ -36,7 +35,6 @@ namespace EdFi.Ods.Features.Controllers
     {
         private readonly bool _isEnabled;
         private readonly ILog _logger = LogManager.GetLogger(typeof(OpenApiMetadataController));
-
         private readonly IOpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
         private readonly ReverseProxySettings _reverseProxySettings;
 
@@ -96,7 +94,7 @@ namespace EdFi.Ods.Features.Controllers
                 var url =
                     new Uri(
                         new Uri(rootUrl.EnsureSuffixApplied("/")),
-                        GetMetadataUrlSegmentForCacheItem(apiContent, request.SchoolYearFromRoute, request.InstanceIdFromRoute));
+                        GetMetadataUrlSegmentForCacheItem(apiContent));
 
                 return new OpenApiMetadataSectionDetails
                 {
@@ -110,7 +108,7 @@ namespace EdFi.Ods.Features.Controllers
                 };
             }
 
-            string GetMetadataUrlSegmentForCacheItem(OpenApiContent apiContent, int? schoolYear, string instanceId)
+            string GetMetadataUrlSegmentForCacheItem(OpenApiContent apiContent)
             {
                 // 'Other' sections (Identity) do not live under 'ods' as other metadata endpoints do.
                 // eg identity/v1/2017/swagger.json,
@@ -118,7 +116,7 @@ namespace EdFi.Ods.Features.Controllers
                 // SDKgen All
                 // eg data/v3/2017/swagger.json,
                 // eg data/v3/swagger.json,
-                var basePath = GetBasePath(apiContent, schoolYear, instanceId);
+                var basePath = GetBasePath(apiContent);
 
                 // Profiles and composites endpoints have an extra url segment (profiles or composites).
                 // eg data/v3/2017/profiles/assessment/swagger.json
@@ -132,21 +130,9 @@ namespace EdFi.Ods.Features.Controllers
                 return $"{basePath}/{relativeSectionUri}{OpenApiMetadataDocumentHelper.Json}".ToLowerInvariant();
             }
 
-            string GetBasePath(OpenApiContent apiContent, int? schoolYear, string instanceId)
+            string GetBasePath(OpenApiContent apiContent)
             {
-                string basePath = $"{apiContent.BasePath}";
-
-                if (!string.IsNullOrEmpty(instanceId))
-                {
-                    basePath += $"/{instanceId}";
-                }
-
-                if (schoolYear.HasValue)
-                {
-                    basePath += $"/{schoolYear.Value}";
-                }
-
-                return basePath;
+                return $"{apiContent.BasePath}";
             }
 
             bool IsFeatureEnabled()

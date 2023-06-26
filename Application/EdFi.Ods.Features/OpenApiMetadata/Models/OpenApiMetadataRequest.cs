@@ -18,9 +18,11 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Models
 
         public string CompositeCategoryName { get; set; }
 
-        public int? SchoolYearFromRoute { get; set; }
+        public string SchoolYear { get; set; }
 
-        public string InstanceIdFromRoute { get; set; }
+        public string InstanceId { get; set; }
+
+        public string TenantIdentifierFromRoute { get; set; }
 
         public string OtherName { get; set; }
 

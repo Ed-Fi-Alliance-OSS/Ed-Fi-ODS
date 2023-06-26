@@ -88,8 +88,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             {
                 var request = new OpenApiMetadataSectionRequest
                 {
-                    Sdk = true,
-                    SchoolYearFromRoute = 2020
+                    Sdk = true
                 };
 
                 var response = (OkObjectResult)_controller.Get(request);
@@ -101,7 +100,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 Assert.AreEqual("Identity", openapisectionlist[0].Name);
                 Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("localhost"));
                 Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("metadata"));
-                Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("2020"));
                 Assert.AreEqual("Other", openapisectionlist[0].Prefix);
             }
         }
@@ -181,8 +179,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             {
                 var request = new OpenApiMetadataSectionRequest
                 {
-                    Sdk = true,
-                    SchoolYearFromRoute = 2020
+                    Sdk = true
                 };
 
                 var response = (OkObjectResult)_controller.Get(request);
@@ -195,7 +192,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("localhost"));
                 Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("https"));
                 Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("metadata"));
-                Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("2020"));
                 Assert.AreEqual("Other", openapisectionlist[0].Prefix);
             }
         }
@@ -268,7 +264,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 var request = new OpenApiMetadataSectionRequest
                 {
                     Sdk = true,
-                    SchoolYearFromRoute = 2020
                 };
 
                 var response = (OkObjectResult)_controller.Get(request);
@@ -280,7 +275,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 Assert.AreEqual("Identity", openapisectionlist[0].Name);
                 Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("localhost"));
                 Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("metadata"));
-                Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("2020"));
             }
         }
     }

@@ -8,9 +8,5 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Models
     public class OpenApiMetadataSectionRequest
     {
         public bool Sdk { get; set; }
-
-        public int? SchoolYearFromRoute { get; set; }
-
-        public string InstanceIdFromRoute { get; set; }
     }
 }
