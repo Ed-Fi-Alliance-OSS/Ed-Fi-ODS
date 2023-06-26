@@ -5,7 +5,6 @@
 
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
-using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;

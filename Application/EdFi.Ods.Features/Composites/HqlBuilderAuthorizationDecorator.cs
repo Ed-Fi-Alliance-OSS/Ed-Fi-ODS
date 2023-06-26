@@ -7,7 +7,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Text;
 using EdFi.Common;
 using EdFi.Ods.Common;
@@ -20,7 +19,6 @@ using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.Composites.Infrastructure;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
-using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using log4net;
 

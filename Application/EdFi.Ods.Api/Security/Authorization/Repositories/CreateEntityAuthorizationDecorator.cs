@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
-using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Repositories;
