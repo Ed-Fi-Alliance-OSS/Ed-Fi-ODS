@@ -14,5 +14,4 @@ CREATE OR REPLACE VIEW auth.EducationOrganizationIdToStudentUSIThroughResponsibi
     SELECT	edOrgs.SourceEducationOrganizationId, OldStudentUSI as StudentUSI
     FROM	auth.EducationOrganizationIdToEducationOrganizationId edOrgs
             INNER JOIN tracked_changes_edfi.StudentEducationOrganizationResponsibilityAssociation seora_tc
-                ON edOrgs.TargetEducationOrganizationId = seora_tc.OldEducationOrganizationId
-GO
+                ON edOrgs.TargetEducationOrganizationId = seora_tc.OldEducationOrganizationId;
