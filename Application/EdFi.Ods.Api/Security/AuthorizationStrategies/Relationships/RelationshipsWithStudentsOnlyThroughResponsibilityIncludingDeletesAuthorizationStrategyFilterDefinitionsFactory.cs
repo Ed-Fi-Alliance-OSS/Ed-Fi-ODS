@@ -14,10 +14,10 @@ using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 
-public class RelationshipsWithEdOrgsAndPeopleIncludingDeletesAuthorizationStrategyFilterDefinitionsFactory
+public class RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletesAuthorizationStrategyFilterDefinitionsFactory
     : RelationshipsAuthorizationStrategyFilterDefinitionsFactory
 {
-    public RelationshipsWithEdOrgsAndPeopleIncludingDeletesAuthorizationStrategyFilterDefinitionsFactory(
+    public RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletesAuthorizationStrategyFilterDefinitionsFactory(
         IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider,
         IApiClientContextProvider apiClientContextProvider,
         IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
@@ -32,6 +32,9 @@ public class RelationshipsWithEdOrgsAndPeopleIncludingDeletesAuthorizationStrate
 
     public override IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
     {
-        return CreateAllEducationOrganizationToPersonFilters(authorizationPathModifier: "IncludingDeletes").ToArray();
+        return CreateAllEducationOrganizationToPersonFilters(
+                shouldIncludePersonType: pt => pt == WellKnownPersonTypes.Student,
+                authorizationPathModifier: "ThroughResponsibilityIncludingDeletes")
+            .ToArray();
     }
 }

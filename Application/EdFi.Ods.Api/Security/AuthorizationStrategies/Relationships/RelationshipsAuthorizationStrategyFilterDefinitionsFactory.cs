@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Resource;
@@ -28,17 +29,20 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         private readonly IApiClientContextProvider _apiClientContextProvider;
         private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
         private readonly IPersonTypesProvider _personTypesProvider;
+        private readonly IDatabaseNamingConvention _databaseNamingConvention;
 
         public RelationshipsAuthorizationStrategyFilterDefinitionsFactory(
             IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider,
             IApiClientContextProvider apiClientContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IPersonTypesProvider personTypesProvider)
+            IPersonTypesProvider personTypesProvider,
+            IDatabaseNamingConvention databaseNamingConvention)
         {
             _educationOrganizationIdNamesProvider = educationOrganizationIdNamesProvider;
             _apiClientContextProvider = apiClientContextProvider;
             _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
             _personTypesProvider = personTypesProvider;
+            _databaseNamingConvention = databaseNamingConvention;
         }
         
         public virtual IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
@@ -62,7 +66,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             return personUsiNames.Select(usiName => 
                 new ViewBasedAuthorizationFilterDefinition(
                     $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{usiName}{authorizationPathModifier}",
-                    $"EducationOrganizationIdTo{usiName}{authorizationPathModifier}",
+                    _databaseNamingConvention.IdentifierName($"EducationOrganizationIdTo{usiName}{authorizationPathModifier}"),
                     EducationOrganizationAuthorizationViewConstants.SourceColumnName,
                     usiName,
                     ApplyTrackedChangesAuthorizationCriteria,
@@ -143,7 +147,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         {
             if (filterDefinition is not ViewBasedAuthorizationFilterDefinition viewBasedFilterDefinition)
             {
-                 throw new Exception($"Expected a view-based filter definition of type '{typeof(ViewBasedAuthorizationFilterDefinition)}'.");
+                 throw new Exception($"Expected a view-based filter definition of type '{nameof(ViewBasedAuthorizationFilterDefinition)}'.");
             }
 
             string viewName = viewBasedFilterDefinition.ViewName;
