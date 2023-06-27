@@ -34,7 +34,7 @@ public class RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletesA
     {
         return CreateAllEducationOrganizationToPersonFilters(
                 shouldIncludePersonType: pt => pt == WellKnownPersonTypes.Student,
-                authorizationPathModifier: "ThroughResponsibilityIncludingDeletes")
+                authorizationPathModifier: "ThroughDeletedResponsibility")
             .ToArray();
     }
 }

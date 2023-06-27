@@ -29,7 +29,7 @@ public class RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletesA
     {
         return authorizationContextTuples
             .Where(nv => _personEntitySpecification.IsPersonIdentifier(nv.name, WellKnownPersonTypes.Student))
-            .Select(nv => new SubjectEndpoint(nv, "ThroughResponsibilityIncludingDeletes"))
+            .Select(nv => new SubjectEndpoint(nv, "ThroughDeletedResponsibility"))
             .ToArray();
     }
 }
