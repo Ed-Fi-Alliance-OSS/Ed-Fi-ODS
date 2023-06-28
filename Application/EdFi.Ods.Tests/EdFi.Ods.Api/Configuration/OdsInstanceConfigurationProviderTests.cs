@@ -69,6 +69,25 @@ public class OdsInstanceConfigurationProviderTests
         A.CallTo(() => _overridesApplicator.ApplyOverrides(A<OdsInstanceConfiguration>.Ignored)).MustHaveHappenedOnceExactly();
     }
 
+    [Test]
+    public async Task GetByIdAsync_WithInvalidDerivativeType_ReturnsEmptyConnectionStringsByDerivativeType()
+    {
+        // Arrange
+        int odsInstanceId = 123;
+        var rawDataRows = GetRawDataRowsWithInvalidDerivativeType();
+
+        A.CallTo(() => _dataRowDataProvider.GetByIdAsync(odsInstanceId)).Returns(Task.FromResult(rawDataRows));
+
+        A.CallTo(() => _hashIdGenerator.GenerateHashId(odsInstanceId)).Returns(456UL);
+
+        // Act
+        var result = await _configurationProvider.GetByIdAsync(odsInstanceId);
+
+        // Assert
+        result.ShouldNotBeNull();
+        result.ConnectionStringByDerivativeType.ShouldBeEmpty();
+    }
+
     private static RawOdsInstanceConfigurationDataRow[] GetRawDataRows()
     {
         return new[]
@@ -108,6 +127,40 @@ public class OdsInstanceConfigurationProviderTests
                 ContextValue = "ContextValue2",
                 DerivativeType = DerivativeType.ReadReplica.DisplayName,
                 ConnectionStringByDerivativeType = "ReadReplicaConnectionString"
+            }
+        };
+    }
+
+    private static RawOdsInstanceConfigurationDataRow[] GetRawDataRowsWithInvalidDerivativeType()
+    {
+        return new[]
+        {
+            new RawOdsInstanceConfigurationDataRow
+            {
+                OdsInstanceId = 123,
+                ConnectionString = "TestConnectionString",
+                ContextKey = "ContextKey1",
+                ContextValue = "ContextValue1",
+                DerivativeType = string.Empty,
+                ConnectionStringByDerivativeType = "SnapshotConnectionString"
+            },
+            new RawOdsInstanceConfigurationDataRow
+            {
+                OdsInstanceId = 123,
+                ConnectionString = "TestConnectionString",
+                ContextKey = "ContextKey1",
+                ContextValue = "ContextValue1",
+                DerivativeType = "ReadRepIica",
+                ConnectionStringByDerivativeType = "ReadReplicaConnectionString"
+            },
+            new RawOdsInstanceConfigurationDataRow
+            {
+                OdsInstanceId = 123,
+                ConnectionString = "TestConnectionString",
+                ContextKey = "ContextKey2",
+                ContextValue = "ContextValue2",
+                DerivativeType = "Sapshot",
+                ConnectionStringByDerivativeType = "SnapshotConnectionString"
             }
         };
     }
