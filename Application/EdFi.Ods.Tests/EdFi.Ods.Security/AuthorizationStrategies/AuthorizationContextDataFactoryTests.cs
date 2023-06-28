@@ -64,11 +64,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies
             {
                 public string Name { get; set; }
 
-                public int SchoolId { get; set; }
+                public long SchoolId { get; set; }
 
-                public int FirstEducationOrganizationId { get; set; }
+                public long FirstEducationOrganizationId { get; set; }
 
-                public int SecondEducationOrganizationId { get; set; }
+                public long SecondEducationOrganizationId { get; set; }
             }
         }
 
@@ -123,11 +123,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies
             {
                 public string Name { get; set; }
 
-                public int SchoolId { get; set; }
+                public long SchoolId { get; set; }
 
-                public int UnmappedEducationOrganizationId { get; set; }
+                public long UnmappedEducationOrganizationId { get; set; }
 
-                public int MappedEducationOrganizationId { get; set; }
+                public long MappedEducationOrganizationId { get; set; }
             }
         }
 
@@ -168,11 +168,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies
             {
                 public string Name { get; set; }
 
-                public int SchoolId { get; set; }
+                public long SchoolId { get; set; }
 
-                public int UnmappedEducationOrganizationId { get; set; }
+                public long UnmappedEducationOrganizationId { get; set; }
 
-                public int MappedEducationOrganizationId { get; set; }
+                public long MappedEducationOrganizationId { get; set; }
             }
         }
     }

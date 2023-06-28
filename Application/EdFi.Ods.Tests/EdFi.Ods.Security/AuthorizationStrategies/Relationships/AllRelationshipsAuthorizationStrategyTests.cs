@@ -111,7 +111,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 Supplied("entity", new object());
 
                 Supplied(Given_an_authorization_context_with_entity_data(
-                    ApiClientContextHelper.GetApiClientContextWithEdOrgIds(Supplied<int>("LocalEducationAgencyId")),
+                    ApiClientContextHelper.GetApiClientContextWithEdOrgIds(Supplied<long>("LocalEducationAgencyId")),
                     Supplied("entity")));
             }
 
@@ -140,15 +140,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 Given<context_data_provider_factory>()
                     .that_always_returns(Given<context_data_provider>());
 
-                Supplied("LocalEducationAgencyId", 999);
-                Supplied("SchoolId", 888);
+                Supplied("LocalEducationAgencyId", 999L);
+                Supplied("SchoolId", 888L);
 
                 Supplied("entity", new object());
 
                 Supplied(Given_an_authorization_context_with_entity_data(
                     ApiClientContextHelper.GetApiClientContextWithEdOrgIds(
-                        Supplied<int>("LocalEducationAgencyId"),
-                        Supplied<int>("SchoolId")),
+                        Supplied<long>("LocalEducationAgencyId"),
+                        Supplied<long>("SchoolId")),
                     Supplied("entity")));
             }
 
@@ -175,13 +175,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             [Schema("TestSchema")]
             private class TestEntity
             {
-                public TestEntity(int localEducationAgencyId, int staffUSI)
+                public TestEntity(long localEducationAgencyId, int staffUSI)
                 {
                     LocalEducationAgencyId = localEducationAgencyId;
                     StaffUSI = staffUSI;
                 }
 
-                public int LocalEducationAgencyId { get; }
+                public long LocalEducationAgencyId { get; }
 
                 public int StaffUSI { get; }
             }
@@ -191,13 +191,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 Supplied(
                     "entity",
                     new TestEntity(
-                        Supplied("LocalEducationAgencyId", 999),
+                        Supplied("LocalEducationAgencyId", 999L),
                         Supplied("StaffUSI", 123)));
 
                 Supplied(
                     new RelationshipsAuthorizationContextData
                     {
-                        LocalEducationAgencyId = Supplied<int>("LocalEducationAgencyId"),
+                        LocalEducationAgencyId = Supplied<long>("LocalEducationAgencyId"),
                         StaffUSI = Supplied<int>("StaffUSI")
                     });
 
@@ -214,7 +214,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 Supplied(Given_an_authorization_context_with_entity_data(
                     ApiClientContextHelper.GetApiClientContextWithEdOrgIds(
-                        Supplied<int>("LocalEducationAgencyId")),
+                        Supplied<long>("LocalEducationAgencyId")),
                     Supplied("entity")));
                 
                 Given<context_data_provider_factory>()
@@ -248,7 +248,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                         "TestEntity",
                         new[]
                         {
-                            new EntityPropertyDefinition("LocalEducationAgencyId", new PropertyType(DbType.Int32)),
+                            new EntityPropertyDefinition("LocalEducationAgencyId", new PropertyType(DbType.Int64)),
                             new EntityPropertyDefinition("StaffUSI", new PropertyType(DbType.Int32))
                         },
                         Array.Empty<EntityIdentifierDefinition>())
@@ -289,12 +289,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
         {
             private class TestEntity
             {
-                public TestEntity(int localEducationAgencyId)
+                public TestEntity(long localEducationAgencyId)
                 {
                     LocalEducationAgencyId = localEducationAgencyId;
                 }
 
-                public int LocalEducationAgencyId { get; }
+                public long LocalEducationAgencyId { get; }
             }
 
             protected override void Arrange()
@@ -302,12 +302,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 Supplied(
                     "entity",
                     new TestEntity(
-                        Supplied("LocalEducationAgencyId", 999)));
+                        Supplied("LocalEducationAgencyId", 999L)));
 
                 Supplied(
                     new RelationshipsAuthorizationContextData
                     {
-                        LocalEducationAgencyId = Supplied<int>("LocalEducationAgencyId")
+                        LocalEducationAgencyId = Supplied<long>("LocalEducationAgencyId")
                     });
 
                 Given<context_data_provider>()
@@ -323,7 +323,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 Supplied(Given_an_authorization_context_with_entity_data(
                     ApiClientContextHelper.GetApiClientContextWithEdOrgIds(
-                        Supplied<int>("LocalEducationAgencyId")),
+                        Supplied<long>("LocalEducationAgencyId")),
                     Supplied("entity")));
                 
                 Given<context_data_provider_factory>()

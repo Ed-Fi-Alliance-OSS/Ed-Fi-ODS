@@ -68,7 +68,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
                                 ApiClientDetails = new ApiClientDetails()
                                 {
                                     ApiKey = ClientId,
-                                    EducationOrganizationIds = new List<int>() { 997, 998, 999 }
+                                    EducationOrganizationIds = new long[] { 997, 998, 999 }
                                 }
                             }));
             }

@@ -39,7 +39,7 @@ namespace EdFi.Ods.Standard.Security.Authorization.Overrides
         /// </summary>
         public string[] GetAuthorizationContextPropertyNames()
         {
-            var properties = new string[]
+            var properties = new[]
                  {
                     // "OrganizationDepartmentId",
                     "ParentEducationOrganizationId",

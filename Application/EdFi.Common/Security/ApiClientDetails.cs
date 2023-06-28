@@ -18,7 +18,7 @@ namespace EdFi.Common.Security
         /// </summary>
         public ApiClientDetails()
         {
-            EducationOrganizationIds = new List<int>();
+            EducationOrganizationIds = new List<long>();
             NamespacePrefixes = new List<string>();
             Profiles = new List<string>();
             OwnershipTokenIds = new List<short>();
@@ -47,7 +47,7 @@ namespace EdFi.Common.Security
             string secret,
             bool? secretIsHashed,
             string claimSetName,
-            IList<int> educationOrganizationIds,
+            IList<long> educationOrganizationIds,
             IList<string> namespacePrefixes,
             IList<string> profiles,
             bool isSandboxClient,
@@ -109,7 +109,7 @@ namespace EdFi.Common.Security
         /// <summary>
         /// Gets or sets the list of Education Organization Ids associated with the API key.
         /// </summary>
-        public IList<int> EducationOrganizationIds { get; set; }
+        public IList<long> EducationOrganizationIds { get; set; }
 
         /// <summary>
         /// Gets or sets the Claim Set name associated with the application for the client.

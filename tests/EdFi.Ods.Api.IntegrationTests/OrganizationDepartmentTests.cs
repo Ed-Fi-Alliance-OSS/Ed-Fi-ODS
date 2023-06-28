@@ -161,7 +161,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddOrganizationDepartment(88901002, parentEducationOrganizationId: 8901002)
                 .Execute();
 
-            var expectedTuplesAfterCreation = new []
+            var expectedTuplesAfterCreation = new (long, long) []
             {
                 (901, 901),
                 (8901, 8901),
@@ -203,7 +203,7 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             var afterMovedDown = EducationOrganizationHelper.GetExistingTuples(Connection);
 
-            var expectedTuplesAfterMovedDown = new[]
+            var expectedTuplesAfterMovedDown = new (long, long)[]
             {
                 (901, 901),
                 (8901, 8901),

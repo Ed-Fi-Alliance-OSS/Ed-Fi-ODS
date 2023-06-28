@@ -23,7 +23,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
     {
         private ApiClientContext CreateApiContext()
         {
-            var educationOrganizationIds = new[] {1234};
+            var educationOrganizationIds = new[] { 1234L };
 
             var namespacePrefixes = new[] {"uri://ed-fi.org"};
 

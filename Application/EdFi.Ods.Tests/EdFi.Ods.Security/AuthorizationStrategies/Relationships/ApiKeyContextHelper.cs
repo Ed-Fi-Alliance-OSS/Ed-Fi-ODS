@@ -10,7 +10,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
 public static class ApiClientContextHelper
 {
-    public static ApiClientContext GetApiClientContextWithEdOrgIds(params int[] educationOrganizationIds)
+    public static ApiClientContext GetApiClientContextWithEdOrgIds(params long[] educationOrganizationIds)
     {
         return new ApiClientContext("key", "theClaimSet", educationOrganizationIds, 
             Array.Empty<string>(),

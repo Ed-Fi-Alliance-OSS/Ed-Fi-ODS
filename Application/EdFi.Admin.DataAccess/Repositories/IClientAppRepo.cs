@@ -52,7 +52,7 @@ namespace EdFi.Admin.DataAccess.Repositories
 
         ApiClient CreateApiClient(int userId, string name, string key, string secret);
 
-        void AddEdOrgIdsToApiClient(int userId, int apiClientId, IList<int> edOrgIds, int applicationId);
+        void AddEdOrgIdsToApiClient(int userId, int apiClientId, IList<long> edOrgIds, int applicationId);
 
         void Reset();
 

@@ -235,7 +235,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Resources
             [Assert]
             public void Reference_should_return_the_non_default_values()
             {
-                _model.SessionReference.SchoolId.ShouldBe(123);
+                ((long) _model.SessionReference.SchoolId).ShouldBe(123L);
                 _model.SessionReference.SessionName.ShouldBe("ABC");
                 ((int) _model.SessionReference.SchoolYear).ShouldBe(2013);
             }

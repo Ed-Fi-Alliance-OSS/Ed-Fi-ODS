@@ -12,7 +12,7 @@ namespace EdFi.Ods.Api.IntegrationTests
 {
     public static class EducationOrganizationHelper
     {
-        public static List<(int, int)> GetExistingTuples(IDbConnection connection)
+        public static List<(long, long)> GetExistingTuples(IDbConnection connection)
         {
             var sql = @"
                 SELECT SourceEducationOrganizationId, TargetEducationOrganizationId
@@ -23,22 +23,22 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             using var reader = command.ExecuteReader();
 
-            var actualTuples = new List<(int, int)>();
+            var actualTuples = new List<(long, long)>();
             while (reader.Read())
             {
-                actualTuples.Add((reader.GetInt32(0), reader.GetInt32(1)));
+                actualTuples.Add((reader.GetInt64(0), reader.GetInt64(1)));
             }
 
             return actualTuples;
         }
 
-        public static void ShouldContainTuples(IDbConnection connection, params (int, int)[] expectedTuples)
+        public static void ShouldContainTuples(IDbConnection connection, params (long, long)[] expectedTuples)
         {
             var actualTuples = GetExistingTuples(connection);
             expectedTuples.ShouldBeSubsetOf(actualTuples);
         }
 
-        public static void ShouldNotContainTuples(IDbConnection connection, params (int, int)[] expectedTuples)
+        public static void ShouldNotContainTuples(IDbConnection connection, params (long, long)[] expectedTuples)
         {
             var actualTuples = GetExistingTuples(connection);
             expectedTuples.ShouldAllBe(item => !actualTuples.Contains(item));

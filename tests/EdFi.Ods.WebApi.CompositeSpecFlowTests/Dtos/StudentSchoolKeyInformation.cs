@@ -13,7 +13,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests.Dtos
 
         public string StudentUniqueId { get; set; }
 
-        public int SchoolId { get; set; }
+        public long SchoolId { get; set; }
 
         public DateTime EntryDate { get; set; }
     }

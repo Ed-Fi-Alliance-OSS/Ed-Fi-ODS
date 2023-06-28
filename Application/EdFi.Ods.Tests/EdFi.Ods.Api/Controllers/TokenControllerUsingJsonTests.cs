@@ -65,7 +65,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 new ApiClientAuthenticator.AuthenticationResult
                                 {
                                     IsAuthenticated = true,
-                                    ApiClientDetails = new ApiClientDetails { ApiKey = "clientId", EducationOrganizationIds = new List<int>() { 997, 998, 999 }, ApiClientId = _suppliedClient.ApiClientId}
+                                    ApiClientDetails = new ApiClientDetails { ApiKey = "clientId", EducationOrganizationIds = new long[] { 997, 998, 999 }, ApiClientId = _suppliedClient.ApiClientId}
                                 }));
 
                     _controller = ControllerHelper.CreateTokenController( _apiClientAuthenticator, _accessTokenFactory);
@@ -153,7 +153,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                         ApiClientId = 1
                     };
 
-                    var ApplicationEducationOrganizations = new List<int>() { 997, 998, 999 };
+                    var ApplicationEducationOrganizations = new long[] { 997, 998, 999 };
 
                     _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
 
@@ -263,7 +263,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                         ApiClientId = 1
                     };
 
-                    var ApplicationEducationOrganizations = new List<int>() { 997, 998, 999 };
+                    var ApplicationEducationOrganizations = new long[] { 997, 998, 999 };
                     // Scope the request to something not in list above
                     _requestedScope = "1000";
 
@@ -414,7 +414,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                         ApiClientId = 1
                     };
 
-                    var ApplicationEducationOrganizations = new List<int>() { 997, 998, 999 };
+                    var ApplicationEducationOrganizations = new long[] { 997, 998, 999 };
 
                     // Scope the request to something not in list above
                     _requestedScope = "9a9";
@@ -502,7 +502,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     _suppliedAccessToken = Guid.NewGuid();
                     _suppliedTTL = TimeSpan.FromMinutes(30);
 
-                    var ApplicationEducationOrganizations = new List<int>() { 997, 998, 999 };
+                    var ApplicationEducationOrganizations = new long[] { 997, 998, 999 };
 
                     _accessTokenFactory = Stub<IAccessTokenFactory>();
 

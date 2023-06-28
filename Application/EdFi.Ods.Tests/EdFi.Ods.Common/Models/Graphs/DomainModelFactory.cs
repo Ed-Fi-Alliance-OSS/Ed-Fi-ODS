@@ -160,7 +160,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Graphs
                     "EducationOrganization",
                     new[]
                     {
-                        new EntityPropertyDefinition("EducationOrganizationId", new PropertyType(DbType.Int32), null, true),
+                        new EntityPropertyDefinition("EducationOrganizationId", new PropertyType(DbType.Int64), null, true),
                         new EntityPropertyDefinition("NameOfInstitution", new PropertyType(DbType.String), null, false)
                     },
                     new[]
@@ -293,10 +293,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Graphs
                     new[]
                     {
                         new EntityPropertyDefinition("StudentUSI", new PropertyType(DbType.Int32), null, true),
-                        new EntityPropertyDefinition("EducationOrganizationId", new PropertyType(DbType.Int32), null, true),
+                        new EntityPropertyDefinition("EducationOrganizationId", new PropertyType(DbType.Int64), null, true),
                         new EntityPropertyDefinition("ProgramTypeId", new PropertyType(DbType.Int32), null, true),
                         new EntityPropertyDefinition("ProgramName", new PropertyType(DbType.String), null, true),
-                        new EntityPropertyDefinition("ProgramEducationOrganizationId", new PropertyType(DbType.Int32), null, true),
+                        new EntityPropertyDefinition("ProgramEducationOrganizationId", new PropertyType(DbType.Int64), null, true),
                         new EntityPropertyDefinition("BeginDate", new PropertyType(DbType.DateTime), null, true),
                         new EntityPropertyDefinition("EndDate", new PropertyType(DbType.DateTime), null, false)
                     },
@@ -398,12 +398,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Graphs
                     new FullName("schema1", "EducationOrganization"),
                     new[]
                     {
-                        new EntityPropertyDefinition("EducationOrganizationId", new PropertyType(DbType.Int32), null, true)
+                        new EntityPropertyDefinition("EducationOrganizationId", new PropertyType(DbType.Int64), null, true)
                     },
                     new FullName("schema1", "EducationOrganizationAddress"),
                     new[]
                     {
-                        new EntityPropertyDefinition("EducationOrganizationId", new PropertyType(DbType.Int32), null, true)
+                        new EntityPropertyDefinition("EducationOrganizationId", new PropertyType(DbType.Int64), null, true)
                     },
                     true,
                     true));
@@ -418,12 +418,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Graphs
                     new FullName("schema1", "EducationOrganization"),
                     new[]
                     {
-                        new EntityPropertyDefinition("EducationOrganizationId", new PropertyType(DbType.Int32), null, true)
+                        new EntityPropertyDefinition("EducationOrganizationId", new PropertyType(DbType.Int64), null, true)
                     },
                     new FullName("schema1", "School"),
                     new[]
                     {
-                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int32), null, true)
+                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int64), null, true)
                     },
                     true,
                     true));
@@ -438,12 +438,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Graphs
                     new FullName("schema1", "School"),
                     new[]
                     {
-                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int32), null, true)
+                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int64), null, true)
                     },
                     new FullName("schema1", "SchoolCategory"),
                     new[]
                     {
-                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int32), null, true)
+                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int64), null, true)
                     },
                     true,
                     true));
@@ -459,12 +459,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Graphs
                     new FullName("schema1", "School"),
                     new[]
                     {
-                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int32), null, true)
+                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int64), null, true)
                     },
                     new FullName("schema1", "School"),
                     new[]
                     {
-                        new EntityPropertyDefinition("ParentSchoolId", new PropertyType(DbType.Int32), null, false)
+                        new EntityPropertyDefinition("ParentSchoolId", new PropertyType(DbType.Int64), null, false)
                     },
                     true,
                     true));
@@ -519,12 +519,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Graphs
                     new FullName("schema1", "School"),
                     new[]
                     {
-                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int32), null, true)
+                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int64), null, true)
                     },
                     new FullName("schema1", "StudentSchoolAssociation"),
                     new[]
                     {
-                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int32), null, true)
+                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int64), null, true)
                     },
                     true,
                     true));
@@ -540,20 +540,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Graphs
                     new[]
                     {
                         new EntityPropertyDefinition("StudentUSI", new PropertyType(DbType.Int32), null, true),
-                        new EntityPropertyDefinition("EducationOrganizationId", new PropertyType(DbType.Int32), null, true),
+                        new EntityPropertyDefinition("EducationOrganizationId", new PropertyType(DbType.Int64), null, true),
                         new EntityPropertyDefinition("ProgramTypeId", new PropertyType(DbType.Int32), null, true),
                         new EntityPropertyDefinition("ProgramName", new PropertyType(DbType.String), null, true),
-                        new EntityPropertyDefinition("ProgramEducationOrganizationId", new PropertyType(DbType.Int32), null, true),
+                        new EntityPropertyDefinition("ProgramEducationOrganizationId", new PropertyType(DbType.Int64), null, true),
                         new EntityPropertyDefinition("BeginDate", new PropertyType(DbType.DateTime), null, true),
                     },
                     new FullName("schema1", "StudentCTEProgramAssociation"),
                     new[]
                     {
                         new EntityPropertyDefinition("StudentUSI", new PropertyType(DbType.Int32), null, true),
-                        new EntityPropertyDefinition("EducationOrganizationId", new PropertyType(DbType.Int32), null, true),
+                        new EntityPropertyDefinition("EducationOrganizationId", new PropertyType(DbType.Int64), null, true),
                         new EntityPropertyDefinition("ProgramTypeId", new PropertyType(DbType.Int32), null, true),
                         new EntityPropertyDefinition("ProgramName", new PropertyType(DbType.String), null, true),
-                        new EntityPropertyDefinition("ProgramEducationOrganizationId", new PropertyType(DbType.Int32), null, true),
+                        new EntityPropertyDefinition("ProgramEducationOrganizationId", new PropertyType(DbType.Int64), null, true),
                         new EntityPropertyDefinition("BeginDate", new PropertyType(DbType.DateTime), null, true),
                     },
                     true,

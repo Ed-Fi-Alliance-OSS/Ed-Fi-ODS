@@ -95,7 +95,7 @@ namespace EdFi.Ods.Api.Security.Authentication
 
             return apiClientDetails;
 
-            IEnumerable<int> GetEducationOrganizationIds()
+            IEnumerable<long> GetEducationOrganizationIds()
             {
                 return apiClientRawDataRows
                     .Where(x => x.EducationOrganizationId.HasValue)

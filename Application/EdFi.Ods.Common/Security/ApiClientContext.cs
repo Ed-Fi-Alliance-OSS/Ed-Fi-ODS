@@ -18,7 +18,7 @@ namespace EdFi.Ods.Common.Security
         /// </summary>
         public ApiClientContext()
         {
-            EducationOrganizationIds = Array.Empty<int>();
+            EducationOrganizationIds = Array.Empty<long>();
             NamespacePrefixes = Array.Empty<string>();
             Profiles = Array.Empty<string>();
             OwnershipTokenIds = Array.Empty<short>();
@@ -31,7 +31,7 @@ namespace EdFi.Ods.Common.Security
         public ApiClientContext(
             string apiKey,
             string claimSetName,
-            IList<int> educationOrganizationIds,
+            IList<long> educationOrganizationIds,
             IList<string> namespacePrefixes,
             IList<string> profiles,
             string studentIdentificationSystemDescriptor,
@@ -42,7 +42,7 @@ namespace EdFi.Ods.Common.Security
         {
             ApiKey = apiKey;
             ClaimSetName = claimSetName;
-            EducationOrganizationIds = educationOrganizationIds ?? Array.Empty<int>();
+            EducationOrganizationIds = educationOrganizationIds ?? Array.Empty<long>();
             NamespacePrefixes = namespacePrefixes ?? Array.Empty<string>();
             StudentIdentificationSystemDescriptor = studentIdentificationSystemDescriptor;
             Profiles = profiles ?? Array.Empty<string>();
@@ -62,7 +62,7 @@ namespace EdFi.Ods.Common.Security
 
         public string ClaimSetName { get; }
 
-        public IList<int> EducationOrganizationIds { get; }
+        public IList<long> EducationOrganizationIds { get; }
 
         public IList<string> NamespacePrefixes { get; }
 

@@ -17,7 +17,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddLocalEducationAgency(99990000)
                 .Execute();
 
-            var expectedTuples = new[] {(99990000, 99990000)};
+            var expectedTuples = new[] {(99990000L, 99990000L)};
 
             EducationOrganizationHelper.ShouldContainTuples(Connection, expectedTuples);
 
@@ -37,7 +37,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddLocalEducationAgency(99990002)
                 .Execute();
 
-            var expectedTuples = new[]
+            var expectedTuples = new (long, long)[]
             {
                 (99990000, 99990000),
                 (99990001, 99990001),

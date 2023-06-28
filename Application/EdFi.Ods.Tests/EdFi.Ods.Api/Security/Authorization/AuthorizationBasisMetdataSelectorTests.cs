@@ -96,7 +96,7 @@ public class AuthorizationBasisMetadataSelectorTests
 
         _suppliedApiClientContext = new ApiClientContext("API_KEY",
             SuppliedClaimSetName,
-            Array.Empty<int>(),
+            Array.Empty<long>(),
             Array.Empty<string>(),
             Array.Empty<string>(),
             null,

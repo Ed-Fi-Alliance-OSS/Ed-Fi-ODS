@@ -351,7 +351,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
 
-                var ApplicationEducationOrganizations = new List<int>() { 997, 998, 999 };
+                var ApplicationEducationOrganizations = new long[] { 997, 998, 999 };
+                
                 // Scope the request to the first associated EdOrg
                 _requestedScope = ApplicationEducationOrganizations
                     .First()
@@ -478,7 +479,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                             new ApiClientAuthenticator.AuthenticationResult
                             {
                                 IsAuthenticated = true,
-                                ApiClientDetails = new ApiClientDetails { ApiKey = "clientId" ,EducationOrganizationIds = new List<int>() {997,998,999 },
+                                ApiClientDetails = new ApiClientDetails { ApiKey = "clientId" ,EducationOrganizationIds = new long[] {997, 998, 999 },
                                 ApiClientId = _suppliedClient.ApiClientId
                                 }
                             }));

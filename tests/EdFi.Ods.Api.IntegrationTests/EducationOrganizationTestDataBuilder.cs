@@ -63,7 +63,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         }
 
 
-        public EducationOrganizationTestDataBuilder AddStaffEducationOrganizationEmploymentAssociation(int schoolId, int staffUSI, DateTime? entryDate = null)
+        public EducationOrganizationTestDataBuilder AddStaffEducationOrganizationEmploymentAssociation(long schoolId, int staffUSI, DateTime? entryDate = null)
         {
 
             if (!entryDate.HasValue)
@@ -87,7 +87,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder AddStaffEducationOrganizationAssignmentAssociation(int schoolId, int staffUSI, DateTime? entryDate = null)
+        public EducationOrganizationTestDataBuilder AddStaffEducationOrganizationAssignmentAssociation(long schoolId, int staffUSI, DateTime? entryDate = null)
         {
 
             if (!entryDate.HasValue)
@@ -128,7 +128,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        protected EducationOrganizationTestDataBuilder AddEducationOrganization(int educationOrganizationId, string educationOrganizationType)
+        protected EducationOrganizationTestDataBuilder AddEducationOrganization(long educationOrganizationId, string educationOrganizationType)
         {
             _sql.AppendLine(
                 $@"INSERT INTO edfi.EducationOrganization (
@@ -144,14 +144,14 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder DeleteEducationOrganization(int educationOrganizationId)
+        public EducationOrganizationTestDataBuilder DeleteEducationOrganization(long educationOrganizationId)
         {
             _sql.AppendLine($"DELETE FROM edfi.EducationOrganization WHERE EducationOrganizationId = {educationOrganizationId};");
 
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder AddStateEducationAgency(int stateEducationAgencyId)
+        public EducationOrganizationTestDataBuilder AddStateEducationAgency(long stateEducationAgencyId)
         {
             // Nameof usage is intentional here, by creating a dependency on generated entities
             // this ensures compilation errors if the organization subtype is removed
@@ -167,7 +167,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder AddEducationServiceCenter(int educationServiceCenterId, int? stateEducationAgencyId = null)
+        public EducationOrganizationTestDataBuilder AddEducationServiceCenter(long educationServiceCenterId, long? stateEducationAgencyId = null)
         {
             AddEducationOrganization(educationServiceCenterId, nameof(EducationServiceCenter));
 
@@ -183,7 +183,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder AddLocalEducationAgency(int localEducationAgencyId, int? stateEducationAgencyId = null, int? educationServiceCenterId = null, int? parentLocalEducationAgencyId = null)
+        public EducationOrganizationTestDataBuilder AddLocalEducationAgency(long localEducationAgencyId, long? stateEducationAgencyId = null, long? educationServiceCenterId = null, long? parentLocalEducationAgencyId = null)
         {
             AddEducationOrganization(localEducationAgencyId, nameof(LocalEducationAgency));
 
@@ -205,7 +205,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder UpdateLocalEducationAgency(int localEducationAgencyId, int? stateEducationAgencyId = null, int? educationServiceCenterId = null, int? parentLocalEducationAgencyId = null)
+        public EducationOrganizationTestDataBuilder UpdateLocalEducationAgency(long localEducationAgencyId, long? stateEducationAgencyId = null, long? educationServiceCenterId = null, long? parentLocalEducationAgencyId = null)
         {
             _sql.AppendLine(
                 $@"UPDATE edfi.LocalEducationAgency SET
@@ -218,7 +218,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder AddSchool(int schoolId, int? localEducationAgencyId = null)
+        public EducationOrganizationTestDataBuilder AddSchool(long schoolId, long? localEducationAgencyId = null)
         {
             AddEducationOrganization(schoolId, nameof(School));
 
@@ -252,7 +252,7 @@ namespace EdFi.Ods.Api.IntegrationTests
            return this;
         }
 
-        public EducationOrganizationTestDataBuilder AddStudentSchoolAssociation(int schoolId, int studentUSI, DateTime? entryDate = null)
+        public EducationOrganizationTestDataBuilder AddStudentSchoolAssociation(long schoolId, int studentUSI, DateTime? entryDate = null)
         {
             if (!entryDate.HasValue)
             {
@@ -275,7 +275,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder AddStudentEducationOrganizationResponsibilityAssociation(int schoolId, int studentUSI, DateTime? entryDate = null)
+        public EducationOrganizationTestDataBuilder AddStudentEducationOrganizationResponsibilityAssociation(long schoolId, int studentUSI, DateTime? entryDate = null)
         {
             if (!entryDate.HasValue)
             {
@@ -298,7 +298,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder UpdateSchool(int schoolId, int? localEducationAgencyId = null)
+        public EducationOrganizationTestDataBuilder UpdateSchool(long schoolId, long? localEducationAgencyId = null)
         {
             _sql.AppendLine(
                 $@"UPDATE edfi.School SET
@@ -309,7 +309,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder AddOrganizationDepartment(int organizationDepartmentId, int? parentEducationOrganizationId = null)
+        public EducationOrganizationTestDataBuilder AddOrganizationDepartment(long organizationDepartmentId, long? parentEducationOrganizationId = null)
         {
             AddEducationOrganization(organizationDepartmentId, nameof(OrganizationDepartment));
 
@@ -325,7 +325,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder UpdateOrganizationDepartment(int organizationDepartmentId, int? parentEducationOrganizationId = null)
+        public EducationOrganizationTestDataBuilder UpdateOrganizationDepartment(long organizationDepartmentId, long? parentEducationOrganizationId = null)
         {
             _sql.AppendLine(
                 $@"UPDATE edfi.OrganizationDepartment SET
@@ -336,7 +336,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder AddCommunityOrganization(int communityOrganizationId)
+        public EducationOrganizationTestDataBuilder AddCommunityOrganization(long communityOrganizationId)
         {
             AddEducationOrganization(communityOrganizationId, nameof(CommunityOrganization));
 
@@ -350,7 +350,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder AddCommunityProvider(int communityProviderId, int? communityOrganizationId = null)
+        public EducationOrganizationTestDataBuilder AddCommunityProvider(long communityProviderId, long? communityOrganizationId = null)
         {
             AddEducationOrganization(communityProviderId, nameof(CommunityProvider));
 
@@ -370,7 +370,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
         
-        public EducationOrganizationTestDataBuilder UpdateCommunityProvider(int communityProviderId, int? communityOrganizationId = null)
+        public EducationOrganizationTestDataBuilder UpdateCommunityProvider(long communityProviderId, long? communityOrganizationId = null)
         {
             _sql.AppendLine(
                 $@"UPDATE edfi.CommunityProvider SET
