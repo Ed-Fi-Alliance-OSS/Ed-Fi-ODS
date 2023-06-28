@@ -3,16 +3,16 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-DROP VIEW IF EXISTS auth.ParentUSIToSchoolId;
+DROP VIEW IF EXISTS auth.ContactUSIToSchoolId;
 
-CREATE VIEW auth.ParentUSIToSchoolId
+CREATE VIEW auth.ContactUSIToSchoolId
 AS
-    -- School to Parent USI
+    -- School to Contact USI
     SELECT ssa.SchoolId
-        ,spa.ParentUSI
+        ,spa.ContactUSI
         ,COUNT(*) AS Count
     FROM edfi.StudentSchoolAssociation ssa
-            INNER JOIN edfi.StudentParentAssociation spa ON
+            INNER JOIN edfi.StudentContactAssociation spa ON
             ssa.StudentUSI = spa.StudentUSI
-    GROUP BY spa.ParentUSI
-        ,SchoolId;
+    GROUP BY spa.ContactUSI
+        ,Contact;

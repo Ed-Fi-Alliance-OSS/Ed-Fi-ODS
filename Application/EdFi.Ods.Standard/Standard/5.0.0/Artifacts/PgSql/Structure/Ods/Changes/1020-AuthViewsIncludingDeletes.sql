@@ -41,35 +41,35 @@ CREATE VIEW auth.EducationOrganizationIdToStaffUSIIncludingDeletes(SourceEducati
 
 ALTER TABLE auth.EducationOrganizationIdToStaffUSIIncludingDeletes OWNER TO postgres;
 
-DROP VIEW IF EXISTS auth.EducationOrganizationIdToParentUSIIncludingDeletes;
+DROP VIEW IF EXISTS auth.EducationOrganizationIdToContactUSIIncludingDeletes;
 
-CREATE VIEW auth.EducationOrganizationIdToParentUSIIncludingDeletes(SourceEducationOrganizationId, ParentUSI) AS
-    -- Intact StudentSchoolAssociation and intact StudentParentAssociation
-    SELECT	SourceEducationOrganizationId, ParentUSI
-    FROM	auth.EducationOrganizationIdToParentUSI
+CREATE VIEW auth.EducationOrganizationIdToContactUSIIncludingDeletes(SourceEducationOrganizationId, ContactUSI) AS
+    -- Intact StudentSchoolAssociation and intact StudentContactAssociation
+    SELECT	SourceEducationOrganizationId, ContactUSI
+    FROM	auth.EducationOrganizationIdToContactUSI
 
     UNION
 
-    -- Intact StudentSchoolAssociation and deleted StudentParentAssociation
-    SELECT edOrgs.SourceEducationOrganizationId, spa_tc.OldParentUSI as ParentUSI
+    -- Intact StudentSchoolAssociation and deleted StudentContactAssociation
+    SELECT edOrgs.SourceEducationOrganizationId, spa_tc.OldContactUSI as ContactUSI
     FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
         JOIN edfi.StudentSchoolAssociation ssa ON edOrgs.TargetEducationOrganizationId = ssa.SchoolId
-        JOIN tracked_changes_edfi.StudentParentAssociation spa_tc ON ssa.StudentUSI = spa_tc.OldStudentUSI
+        JOIN tracked_changes_edfi.StudentContactAssociation spa_tc ON ssa.StudentUSI = spa_tc.OldStudentUSI
 
     UNION
 
-    -- Deleted StudentSchoolAssociation and intact StudentParentAssociation
-    SELECT	edOrgs.SourceEducationOrganizationId, spa.ParentUSI
+    -- Deleted StudentSchoolAssociation and intact StudentContactAssociation
+    SELECT	edOrgs.SourceEducationOrganizationId, spa.ContactUSI
     FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
         JOIN tracked_changes_edfi.StudentSchoolAssociation ssa_tc ON edOrgs.TargetEducationOrganizationId = ssa_tc.OldSchoolId
-        JOIN edfi.StudentParentAssociation spa ON ssa_tc.OldStudentUSI = spa.StudentUSI
+        JOIN edfi.StudentContactAssociation spa ON ssa_tc.OldStudentUSI = spa.StudentUSI
 
     UNION
 
-    -- Deleted StudentSchoolAssociation and StudentParentAssociation
-    SELECT	edOrgs.SourceEducationOrganizationId, spa_tc.OldParentUSI as ParentUSI
+    -- Deleted StudentSchoolAssociation and StudentContactAssociation
+    SELECT	edOrgs.SourceEducationOrganizationId, spa_tc.OldContactUSI as ContactUSI
     FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
         JOIN tracked_changes_edfi.StudentSchoolAssociation ssa_tc ON edOrgs.TargetEducationOrganizationId = ssa_tc.OldSchoolId
-        JOIN tracked_changes_edfi.StudentParentAssociation spa_tc ON ssa_tc.OldStudentUSI = spa_tc.OldStudentUSI;
+        JOIN tracked_changes_edfi.StudentContactAssociation spa_tc ON ssa_tc.OldStudentUSI = spa_tc.OldStudentUSI;
 
-ALTER TABLE auth.EducationOrganizationIdToParentUSIIncludingDeletes OWNER TO postgres;
+ALTER TABLE auth.EducationOrganizationIdToContactUSIIncludingDeletes OWNER TO postgres;

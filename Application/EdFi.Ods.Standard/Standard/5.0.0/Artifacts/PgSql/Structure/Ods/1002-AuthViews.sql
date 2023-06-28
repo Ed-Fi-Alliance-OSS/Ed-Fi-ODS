@@ -296,20 +296,20 @@ FROM edfi.LocalEducationAgency lea
          INNER JOIN edfi.EducationOrganization edorg ON
         edorg.EducationOrganizationId = lea.LocalEducationAgencyId;
 
-CREATE VIEW auth.LocalEducationAgencyIdToParentUSI
+CREATE VIEW auth.LocalEducationAgencyIdToContactUSI
 AS
--- LEA to Parent USI
+-- LEA to Contact USI
 SELECT sch.LocalEducationAgencyId
-     ,spa.ParentUSI
+     ,spa.ContactUSI
      ,COUNT(*) AS Count
 FROM edfi.School sch
          INNER JOIN edfi.StudentSchoolAssociation ssa ON
         sch.SchoolId = ssa.SchoolId
          INNER JOIN edfi.Student s ON
         ssa.StudentUSI = s.StudentUSI
-         INNER JOIN edfi.StudentParentAssociation spa ON
+         INNER JOIN edfi.StudentContactAssociation spa ON
         ssa.StudentUSI = spa.StudentUSI
-GROUP BY spa.ParentUSI
+GROUP BY spa.ContactUSI
        ,LocalEducationAgencyId;
 
 CREATE VIEW auth.LocalEducationAgencyIdToSchoolId
@@ -335,28 +335,28 @@ AS
              INNER JOIN edfi.StudentEducationOrganizationResponsibilityAssociation seoa_sch ON
             sch.SchoolId = seoa_sch.EducationOrganizationId;
 
-CREATE VIEW auth.ParentUSIToSchoolId
+CREATE VIEW auth.ContactUSIToSchoolId
 AS
--- School to Parent USI
+-- School to Contact USI
 SELECT ssa.SchoolId
-     ,spa.ParentUSI
+     ,spa.ContactUSI
      ,COUNT(*) AS Count
 FROM edfi.StudentSchoolAssociation ssa
          INNER JOIN edfi.Student s ON
         ssa.StudentUSI = s.StudentUSI
-         INNER JOIN edfi.StudentParentAssociation spa ON
+         INNER JOIN edfi.StudentContactAssociation spa ON
         ssa.StudentUSI = spa.StudentUSI
-GROUP BY spa.ParentUSI
+GROUP BY spa.ContactUSI
        ,SchoolId;
 
-CREATE VIEW auth.ParentUSIToStudentUSI
+CREATE VIEW auth.ContactUSIToStudentUSI
 AS
 SELECT spa.StudentUSI
-     ,spa.ParentUSI
+     ,spa.ContactUSI
      ,COUNT(*) AS Count
-FROM edfi.StudentParentAssociation spa
+FROM edfi.StudentContactAssociation spa
 GROUP BY spa.StudentUSI
-     ,spa.ParentUSI;
+     ,spa.ContactUSI;
 
 CREATE VIEW auth.School
 AS
