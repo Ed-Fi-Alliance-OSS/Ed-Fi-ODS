@@ -11,7 +11,6 @@ using EdFi.Ods.Api.Common.Models.Resources.Assessment.EdFi;
 using EdFi.Ods.Api.Common.Models.Resources.AssessmentItem.EdFi;
 using EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi;
 using EdFi.Ods.Api.Common.Models.Resources.ObjectiveAssessment.EdFi;
-using EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi;
 using EdFi.Ods.Api.Common.Models.Resources.Program.EdFi;
 using EdFi.Ods.Api.Common.Models.Resources.School.EdFi;
 using EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi;
@@ -133,23 +132,6 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Helpers
                 AssessmentIdentifier = assessmentIdentifier,
                 Namespace = assessmentNamespace
             };
-        }
-
-        public static string CreateParent(string uniqueId, string lastName = null, string firstName = null)
-        {
-            var ticks = DateTime.Now.Ticks;
-
-            var parent = new Parent
-            {
-                ParentUniqueId = uniqueId,
-                FirstName = firstName ?? string.Format("F{0}", ticks),
-                LastSurname = lastName ?? string.Format("L{0}", ticks),
-                SexDescriptor = ticks % 2 == 0
-                    ? KnownDescriptors.Sex.Male
-                    : KnownDescriptors.Sex.Female
-            };
-
-            return JsonConvert.SerializeObject(parent);
         }
 
         public static string CreateProgram(int educationOrganizationId)
