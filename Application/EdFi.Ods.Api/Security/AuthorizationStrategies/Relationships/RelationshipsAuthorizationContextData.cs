@@ -28,6 +28,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             public const string StaffUSI = "StaffUSI";
             public const string StudentUSI = "StudentUSI";
             public const string ParentUSI = "ParentUSI";
+            public const string ContactUSI = "ContactUSI";
         }
 
         // Education Organizations
@@ -57,6 +58,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         public int? StudentUSI { get; set; }
 
         public int? ParentUSI { get; set; }
+
+        public int? ContactUSI { get; set; }
 
         public IEnumerable<(string propertyName, object value)> GetAuthorizationContextTuples(
             (string roleNamed, string nonRoleNamed)[] authorizationContextPropertyNames)
@@ -139,6 +142,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
                 case PropertyNames.ParentUSI:
                     yield return (authorizationContextPropertyName, ParentUSI);
+
+                    break;
+
+                case PropertyNames.ContactUSI:
+                    yield return (authorizationContextPropertyName, ContactUSI);
 
                     break;
 
