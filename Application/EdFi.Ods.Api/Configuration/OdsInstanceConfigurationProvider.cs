@@ -6,7 +6,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Configuration;
+using log4net;
 
 namespace EdFi.Ods.Api.Configuration;
 
@@ -15,6 +17,8 @@ namespace EdFi.Ods.Api.Configuration;
 /// </summary>
 public class OdsInstanceConfigurationProvider : IOdsInstanceConfigurationProvider
 {
+    private readonly ILog _logger = LogManager.GetLogger(typeof(OdsInstanceConfigurationProvider));
+
     private readonly IEdFiAdminRawOdsInstanceConfigurationDataProvider _edFiAdminRawOdsInstanceConfigurationDataProvider;
     private readonly IOdsInstanceHashIdGenerator _odsInstanceHashIdGenerator;
     private readonly IConnectionStringOverridesApplicator _connectionStringOverridesApplicator;
@@ -73,8 +77,15 @@ public class OdsInstanceConfigurationProvider : IOdsInstanceConfigurationProvide
 
             IDictionary<DerivativeType, string> GetConnectionStringsByDerivativeType()
             {
-                return rawDataRows
-                    .Where(x => !string.IsNullOrEmpty(x.DerivativeType))
+                var misconfiguredDerivativeTypeRows = rawDataRows.Where(x =>
+                    string.IsNullOrEmpty(x.DerivativeType) ||
+                    !DerivativeType.TryParse(x.DerivativeType, out _));
+
+                misconfiguredDerivativeTypeRows.ForEach(misconfiguredDerivativeType =>
+                    _logger.Error($"DerivativeType enumeration does not contains '{misconfiguredDerivativeType.DerivativeType}' value.")
+                );
+
+                return rawDataRows.Except(misconfiguredDerivativeTypeRows)
                     .Select(x => new KeyValuePair<DerivativeType, string>(DerivativeType.Parse(x.DerivativeType), x.ConnectionStringByDerivativeType))
                     .DistinctBy(x => x.Key)
                     .ToDictionary(x => x.Key, x => x.Value);
