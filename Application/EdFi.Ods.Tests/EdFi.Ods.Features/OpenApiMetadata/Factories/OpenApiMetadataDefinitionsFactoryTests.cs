@@ -228,6 +228,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 const string SchoolIdPropertyName = "schoolId";
                 Assert.That(properties.Keys, Has.Member(SchoolIdPropertyName));
                 Assert.That(properties[SchoolIdPropertyName].type, Is.EqualTo("integer"));
+                Assert.That(properties[SchoolIdPropertyName].format, Is.EqualTo("int64"));
             }
         }
 
