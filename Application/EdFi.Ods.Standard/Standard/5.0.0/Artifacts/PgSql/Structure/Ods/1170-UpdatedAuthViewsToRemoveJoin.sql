@@ -15,4 +15,4 @@ AS
             INNER JOIN edfi.StudentContactAssociation spa ON
             ssa.StudentUSI = spa.StudentUSI
     GROUP BY spa.ContactUSI
-        ,Contact;
+        ,SchoolId;
