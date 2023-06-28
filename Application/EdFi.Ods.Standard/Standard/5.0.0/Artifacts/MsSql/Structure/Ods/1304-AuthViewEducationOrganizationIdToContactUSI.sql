@@ -3,19 +3,14 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-CREATE OR ALTER VIEW auth.EducationOrganizationIdToParentUSI 
+CREATE OR ALTER VIEW auth.EducationOrganizationIdToContactUSI 
     WITH SCHEMABINDING AS
-    SELECT  edOrgs.SourceEducationOrganizationId, spa.ParentUSI, COUNT_BIG(*) AS Ignored
+    SELECT  edOrgs.SourceEducationOrganizationId, spa.ContactUSI
     FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
             INNER JOIN edfi.StudentSchoolAssociation ssa 
                 ON edOrgs.TargetEducationOrganizationId = ssa.SchoolId
-            INNER JOIN edfi.StudentParentAssociation spa 
+            INNER JOIN edfi.StudentContactAssociation spa 
                 ON ssa.StudentUSI = spa.StudentUSI
-    GROUP BY edOrgs.SourceEducationOrganizationId, spa.ParentUSI
+    GROUP BY edOrgs.SourceEducationOrganizationId, spa.ContactUSI
     
-GO
-
-CREATE UNIQUE CLUSTERED INDEX UX_EducationOrganizationIdToParentUSI 
-	ON auth.EducationOrganizationIdToParentUSI (SourceEducationOrganizationId, ParentUSI);
-
 GO

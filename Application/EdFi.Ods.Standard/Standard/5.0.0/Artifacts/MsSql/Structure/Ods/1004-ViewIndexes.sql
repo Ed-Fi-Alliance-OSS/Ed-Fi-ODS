@@ -92,8 +92,8 @@ CREATE UNIQUE CLUSTERED INDEX [UCIX_LocalEducationAgency] ON [auth].[LocalEducat
             ) ON [PRIMARY];
 GO
 
-CREATE UNIQUE CLUSTERED INDEX [UCIX_LocalEducationAgencyIdToParentUSI] ON [auth].[LocalEducationAgencyIdToParentUSI] (
-    [ParentUSI] ASC
+CREATE UNIQUE CLUSTERED INDEX [UCIX_LocalEducationAgencyIdToContactUSI] ON [auth].[LocalEducationAgencyIdToContactUSI] (
+    [ContactUSI] ASC
     ,[LocalEducationAgencyId] ASC
     )
     WITH (
@@ -109,9 +109,9 @@ CREATE UNIQUE CLUSTERED INDEX [UCIX_LocalEducationAgencyIdToParentUSI] ON [auth]
             ) ON [PRIMARY];
 GO
 
-CREATE UNIQUE CLUSTERED INDEX [UCIX_ParentUSIToStudentUSI] ON [auth].[ParentUSIToStudentUSI] (
+CREATE UNIQUE CLUSTERED INDEX [UCIX_ContactUSIToStudentUSI] ON [auth].[ContactUSIToStudentUSI] (
     [StudentUSI] ASC
-    ,[ParentUSI] ASC
+    ,[ContactUSI] ASC
     )
     WITH (
             PAD_INDEX = OFF
@@ -126,8 +126,8 @@ CREATE UNIQUE CLUSTERED INDEX [UCIX_ParentUSIToStudentUSI] ON [auth].[ParentUSIT
 GO
 GO
 
-CREATE UNIQUE CLUSTERED INDEX [UCIX_ParentUSIToSchoolId] ON [auth].[ParentUSIToSchoolId] (
-    [ParentUSI] ASC
+CREATE UNIQUE CLUSTERED INDEX [UCIX_ContactUSIToSchoolId] ON [auth].[ContactUSIToSchoolId] (
+    [ContactUSI] ASC
     ,[SchoolId] ASC
     )
     WITH (
@@ -174,8 +174,8 @@ CREATE NONCLUSTERED INDEX [IX_LocalEducationAgency_LocalEducationAgencyId] ON [a
             ) ON [PRIMARY];
 GO
 
-CREATE NONCLUSTERED INDEX [IX_ParentUSIToStudentUSI] ON [auth].[ParentUSIToStudentUSI] (
-    [ParentUSI] ASC
+CREATE NONCLUSTERED INDEX [IX_ContactUSIToStudentUSI] ON [auth].[ContactUSIToStudentUSI] (
+    [ContactUSI] ASC
     ,[StudentUSI] ASC
     )
     WITH (

@@ -36,12 +36,12 @@ DROP INDEX [UCIX_EducationOrganizationToStaffUSI_Employment]
 
 
 GO
-PRINT N'Dropping [auth].[LocalEducationAgencyIdToParentUSI].[UCIX_LocalEducationAgencyIdToParentUSI]...';
+PRINT N'Dropping [auth].[LocalEducationAgencyIdToContactUSI].[UCIX_LocalEducationAgencyIdToContactUSI]...';
 
 
 GO
-DROP INDEX [UCIX_LocalEducationAgencyIdToParentUSI]
-    ON [auth].[LocalEducationAgencyIdToParentUSI];
+DROP INDEX [UCIX_LocalEducationAgencyIdToContactUSI]
+    ON [auth].[LocalEducationAgencyIdToContactUSI];
 
 
 GO
@@ -54,21 +54,21 @@ DROP INDEX [UCIX_LocalEducationAgencyToStudentUSI]
 
 
 GO
-PRINT N'Dropping [auth].[ParentUSIToSchoolId].[UCIX_ParentUSIToSchoolId]...';
+PRINT N'Dropping [auth].[ContactUSIToSchoolId].[UCIX_ContactUSIToSchoolId]...';
 
 
 GO
-DROP INDEX [UCIX_ParentUSIToSchoolId]
-    ON [auth].[ParentUSIToSchoolId];
+DROP INDEX [UCIX_ContactUSIToSchoolId]
+    ON [auth].[ContactUSIToSchoolId];
 
 
 GO
-PRINT N'Dropping [auth].[ParentUSIToStudentUSI].[IX_ParentUSIToStudentUSI]...';
+PRINT N'Dropping [auth].[ContactUSIToStudentUSI].[IX_ContactUSIToStudentUSI]...';
 
 
 GO
-DROP INDEX [IX_ParentUSIToStudentUSI]
-    ON [auth].[ParentUSIToStudentUSI];
+DROP INDEX [IX_ContactUSIToStudentUSI]
+    ON [auth].[ContactUSIToStudentUSI];
 
 
 GO
@@ -81,12 +81,12 @@ DROP INDEX [UCIX_SchoolIdToStudentUSI]
 
 
 GO
-PRINT N'Dropping [auth].[ParentUSIToStudentUSI].[UCIX_ParentUSIToStudentUSI]...';
+PRINT N'Dropping [auth].[ContactUSIToStudentUSI].[UCIX_ContactUSIToStudentUSI]...';
 
 
 GO
-DROP INDEX [UCIX_ParentUSIToStudentUSI]
-    ON [auth].[ParentUSIToStudentUSI];
+DROP INDEX [UCIX_ContactUSIToStudentUSI]
+    ON [auth].[ContactUSIToStudentUSI];
 
 
 GO
@@ -192,33 +192,33 @@ CREATE UNIQUE CLUSTERED INDEX [UCIX_EducationOrganizationToStaffUSI_Employment]
 
 
 GO
-PRINT N'Altering [auth].[LocalEducationAgencyIdToParentUSI]...';
+PRINT N'Altering [auth].[LocalEducationAgencyIdToContactUSI]...';
 
 
 GO
-ALTER VIEW auth.LocalEducationAgencyIdToParentUSI
+ALTER VIEW auth.LocalEducationAgencyIdToContactUSI
     WITH SCHEMABINDING
 AS
--- LEA to Parent USI
+-- LEA to Contact USI
 SELECT sch.LocalEducationAgencyId
-     ,spa.ParentUSI
+     ,spa.ContactUSI
      ,COUNT_BIG(*) AS Count
 FROM edfi.School sch
          INNER JOIN edfi.StudentSchoolAssociation ssa ON
         sch.SchoolId = ssa.SchoolId
          INNER JOIN edfi.Student s ON
         ssa.StudentUSI = s.StudentUSI
-         INNER JOIN edfi.StudentParentAssociation spa ON
+         INNER JOIN edfi.StudentContactAssociation spa ON
         ssa.StudentUSI = spa.StudentUSI
-GROUP BY spa.ParentUSI
+GROUP BY spa.ContactUSI
        ,LocalEducationAgencyId;
 GO
-PRINT N'Creating [auth].[LocalEducationAgencyIdToParentUSI].[UCIX_LocalEducationAgencyIdToParentUSI]...';
+PRINT N'Creating [auth].[LocalEducationAgencyIdToContactUSI].[UCIX_LocalEducationAgencyIdToContactUSI]...';
 
 
 GO
-CREATE UNIQUE CLUSTERED INDEX [UCIX_LocalEducationAgencyIdToParentUSI]
-    ON [auth].[LocalEducationAgencyIdToParentUSI]([ParentUSI] ASC, [LocalEducationAgencyId] ASC);
+CREATE UNIQUE CLUSTERED INDEX [UCIX_LocalEducationAgencyIdToContactUSI]
+    ON [auth].[LocalEducationAgencyIdToContactUSI]([ContactUSI] ASC, [LocalEducationAgencyId] ASC);
 
 
 GO
@@ -267,63 +267,63 @@ AS
              INNER JOIN edfi.StudentEducationOrganizationAssociation seoa_sch ON
             sch.SchoolId = seoa_sch.EducationOrganizationId;
 GO
-PRINT N'Altering [auth].[ParentUSIToSchoolId]...';
+PRINT N'Altering [auth].[ContactUSIToSchoolId]...';
 
 
 GO
-ALTER VIEW auth.ParentUSIToSchoolId
+ALTER VIEW auth.ContactUSIToSchoolId
     WITH SCHEMABINDING
 AS
--- School to Parent USI
+-- School to Contact USI
 SELECT ssa.SchoolId
-     ,spa.ParentUSI
+     ,spa.ContactUSI
      ,COUNT_BIG(*) AS Count
 FROM edfi.StudentSchoolAssociation ssa
          INNER JOIN edfi.Student s ON
         ssa.StudentUSI = s.StudentUSI
-         INNER JOIN edfi.StudentParentAssociation spa ON
+         INNER JOIN edfi.StudentContactAssociation spa ON
         ssa.StudentUSI = spa.StudentUSI
-GROUP BY spa.ParentUSI
+GROUP BY spa.ContactUSI
        ,SchoolId;
 GO
-PRINT N'Creating [auth].[ParentUSIToSchoolId].[UCIX_ParentUSIToSchoolId]...';
+PRINT N'Creating [auth].[ContactUSIToSchoolId].[UCIX_ContactUSIToSchoolId]...';
 
 
 GO
-CREATE UNIQUE CLUSTERED INDEX [UCIX_ParentUSIToSchoolId]
-    ON [auth].[ParentUSIToSchoolId]([ParentUSI] ASC, [SchoolId] ASC);
+CREATE UNIQUE CLUSTERED INDEX [UCIX_ContactUSIToSchoolId]
+    ON [auth].[ContactUSIToSchoolId]([ContactUSI] ASC, [SchoolId] ASC);
 
 
 GO
-PRINT N'Altering [auth].[ParentUSIToStudentUSI]...';
+PRINT N'Altering [auth].[ContactUSIToStudentUSI]...';
 
 
 GO
-ALTER VIEW auth.ParentUSIToStudentUSI
+ALTER VIEW auth.ContactUSIToStudentUSI
     WITH SCHEMABINDING
 AS
 SELECT spa.StudentUSI
-     ,spa.ParentUSI
+     ,spa.ContactUSI
      ,COUNT_BIG(*) AS Count
-FROM edfi.StudentParentAssociation spa
+FROM edfi.StudentContactAssociation spa
 GROUP BY spa.StudentUSI
-     ,spa.ParentUSI;
+     ,spa.ContactUSI;
 GO
-PRINT N'Creating [auth].[ParentUSIToStudentUSI].[UCIX_ParentUSIToStudentUSI]...';
-
-
-GO
-CREATE UNIQUE CLUSTERED INDEX [UCIX_ParentUSIToStudentUSI]
-    ON [auth].[ParentUSIToStudentUSI]([StudentUSI] ASC, [ParentUSI] ASC);
+PRINT N'Creating [auth].[ContactUSIToStudentUSI].[UCIX_ContactUSIToStudentUSI]...';
 
 
 GO
-PRINT N'Creating [auth].[ParentUSIToStudentUSI].[IX_ParentUSIToStudentUSI]...';
+CREATE UNIQUE CLUSTERED INDEX [UCIX_ContactUSIToStudentUSI]
+    ON [auth].[ContactUSIToStudentUSI]([StudentUSI] ASC, [ContactUSI] ASC);
 
 
 GO
-CREATE NONCLUSTERED INDEX [IX_ParentUSIToStudentUSI]
-    ON [auth].[ParentUSIToStudentUSI]([ParentUSI] ASC, [StudentUSI] ASC);
+PRINT N'Creating [auth].[ContactUSIToStudentUSI].[IX_ContactUSIToStudentUSI]...';
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_ContactUSIToStudentUSI]
+    ON [auth].[ContactUSIToStudentUSI]([ContactUSI] ASC, [StudentUSI] ASC);
 
 
 GO
