@@ -795,6 +795,207 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'One or more statements that describes the criteria used by teachers and students to check for attainment of a competency objective. This criteria gives clear indications as to the degree to which learning is moving through the Zone or Proximal Development toward independent achievement of the competency objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CompetencyObjective', @level2type=N'COLUMN', @level2name=N'SuccessCriteria'
 GO
 
+-- Extended Properties [edfi].[Contact] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This entity represents a contact of a student, such as a parent, guardian or caretaker.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Contact'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Contact', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A prefix used to denote the title, degree, position, or seniority of the individual.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Contact', @level2type=N'COLUMN', @level2name=N'PersonalTitlePrefix'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Contact', @level2type=N'COLUMN', @level2name=N'FirstName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A secondary name given to an individual at birth, baptism, or during another naming ceremony.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Contact', @level2type=N'COLUMN', @level2name=N'MiddleName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name borne in common by members of a family.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Contact', @level2type=N'COLUMN', @level2name=N'LastSurname'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An appendage, if any, used to denote an individual''s generation in his family (e.g., Jr., Sr., III).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Contact', @level2type=N'COLUMN', @level2name=N'GenerationCodeSuffix'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The individual''s maiden name.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Contact', @level2type=N'COLUMN', @level2name=N'MaidenName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The first name the individual prefers, if different from their legal first name', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Contact', @level2type=N'COLUMN', @level2name=N'PreferredFirstName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The last name the individual prefers, if different from their legal last name', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Contact', @level2type=N'COLUMN', @level2name=N'PreferredLastSurname'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A person''s birth sex.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Contact', @level2type=N'COLUMN', @level2name=N'SexDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The login ID for the user; used for security access control interface.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Contact', @level2type=N'COLUMN', @level2name=N'LoginId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Contact', @level2type=N'COLUMN', @level2name=N'PersonId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Contact', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The extent of formal instruction an individual has received (e.g., the highest grade in school completed or its equivalent or the highest degree received).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Contact', @level2type=N'COLUMN', @level2name=N'HighestCompletedLevelOfEducationDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Contact', @level2type=N'COLUMN', @level2name=N'ContactUniqueId'
+GO
+
+-- Extended Properties [edfi].[ContactAddress] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Contact''s address, if different from the student address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddress'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddress', @level2type=N'COLUMN', @level2name=N'AddressTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the city in which an address is located.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddress', @level2type=N'COLUMN', @level2name=N'City'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddress', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The five or nine digit zip code or overseas postal code portion of an address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddress', @level2type=N'COLUMN', @level2name=N'PostalCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The abbreviation for the state (within the United States) or outlying area in which an address is located.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddress', @level2type=N'COLUMN', @level2name=N'StateAbbreviationDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The street number and street name or post office box number of an address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddress', @level2type=N'COLUMN', @level2name=N'StreetNumberName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The apartment, room, or suite number of an address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddress', @level2type=N'COLUMN', @level2name=N'ApartmentRoomSuiteNumber'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of the building on the site, if more than one building shares the same address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddress', @level2type=N'COLUMN', @level2name=N'BuildingSiteNumber'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the county, parish, borough, or comparable unit (within a state) in
+                      ''which an address is located.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddress', @level2type=N'COLUMN', @level2name=N'NameOfCounty'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Federal Information Processing Standards (FIPS) numeric code for the county issued by the National Institute of Standards and Technology (NIST). Counties are considered to be the "first-order subdivisions" of each State and statistically equivalent entity, regardless of their local designations (county, parish, borough, etc.) Counties in different States will have the same code. A unique county number is created when combined with the 2-digit FIPS State Code.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddress', @level2type=N'COLUMN', @level2name=N'CountyFIPSCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The geographic latitude of the physical address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddress', @level2type=N'COLUMN', @level2name=N'Latitude'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The geographic longitude of the physical address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddress', @level2type=N'COLUMN', @level2name=N'Longitude'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the address should not be published.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddress', @level2type=N'COLUMN', @level2name=N'DoNotPublishIndicator'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The congressional district in which an address is located.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddress', @level2type=N'COLUMN', @level2name=N'CongressionalDistrict'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A general geographic indicator that categorizes U.S. territory (e.g., City, Suburban).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddress', @level2type=N'COLUMN', @level2name=N'LocaleDescriptorId'
+GO
+
+-- Extended Properties [edfi].[ContactAddressPeriod] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The time periods for which the address is valid. For physical addresses, the periods in which the person lived at that address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddressPeriod'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddressPeriod', @level2type=N'COLUMN', @level2name=N'AddressTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year for the start of the period.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddressPeriod', @level2type=N'COLUMN', @level2name=N'BeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the city in which an address is located.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddressPeriod', @level2type=N'COLUMN', @level2name=N'City'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddressPeriod', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The five or nine digit zip code or overseas postal code portion of an address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddressPeriod', @level2type=N'COLUMN', @level2name=N'PostalCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The abbreviation for the state (within the United States) or outlying area in which an address is located.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddressPeriod', @level2type=N'COLUMN', @level2name=N'StateAbbreviationDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The street number and street name or post office box number of an address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddressPeriod', @level2type=N'COLUMN', @level2name=N'StreetNumberName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year for the end of the period.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddressPeriod', @level2type=N'COLUMN', @level2name=N'EndDate'
+GO
+
+-- Extended Properties [edfi].[ContactElectronicMail] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The numbers, letters, and symbols used to identify an electronic mail (e-mail) user within the network to which the individual or organization belongs.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactElectronicMail'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactElectronicMail', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The electronic mail (e-mail) address listed for an individual or organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactElectronicMail', @level2type=N'COLUMN', @level2name=N'ElectronicMailAddress'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of email listed for an individual or organization. For example: Home/Personal, Work, etc.)', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactElectronicMail', @level2type=N'COLUMN', @level2name=N'ElectronicMailTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the electronic mail address should be used as the principal electronic mail address for an individual or organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactElectronicMail', @level2type=N'COLUMN', @level2name=N'PrimaryEmailAddressIndicator'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the electronic email address should not be published.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactElectronicMail', @level2type=N'COLUMN', @level2name=N'DoNotPublishIndicator'
+GO
+
+-- Extended Properties [edfi].[ContactInternationalAddress] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The set of elements that describes an international address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactInternationalAddress'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of address listed for an individual or organization. For example:  Physical Address, Mailing Address, Home Address, etc.)', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactInternationalAddress', @level2type=N'COLUMN', @level2name=N'AddressTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactInternationalAddress', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The first line of the address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactInternationalAddress', @level2type=N'COLUMN', @level2name=N'AddressLine1'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The second line of the address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactInternationalAddress', @level2type=N'COLUMN', @level2name=N'AddressLine2'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The third line of the address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactInternationalAddress', @level2type=N'COLUMN', @level2name=N'AddressLine3'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fourth line of the address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactInternationalAddress', @level2type=N'COLUMN', @level2name=N'AddressLine4'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the country. It is strongly recommended that entries use only ISO 3166 2-letter country codes.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactInternationalAddress', @level2type=N'COLUMN', @level2name=N'CountryDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The geographic latitude of the physical address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactInternationalAddress', @level2type=N'COLUMN', @level2name=N'Latitude'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The geographic longitude of the physical address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactInternationalAddress', @level2type=N'COLUMN', @level2name=N'Longitude'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The first date the address is valid. For physical addresses, the date the individual moved to that address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactInternationalAddress', @level2type=N'COLUMN', @level2name=N'BeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The last date the address is valid. For physical addresses, the date the individual moved from that address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactInternationalAddress', @level2type=N'COLUMN', @level2name=N'EndDate'
+GO
+
+-- Extended Properties [edfi].[ContactLanguage] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The language(s) the individual uses to communicate. It is strongly recommended that entries use only ISO 639-2 language codes.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactLanguage'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactLanguage', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A specification of which written or spoken communication is being used.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactLanguage', @level2type=N'COLUMN', @level2name=N'LanguageDescriptorId'
+GO
+
+-- Extended Properties [edfi].[ContactLanguageUse] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A description of how the language is used (e.g. Home Language, Native Language, Spoken Language).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactLanguageUse'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactLanguageUse', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A specification of which written or spoken communication is being used.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactLanguageUse', @level2type=N'COLUMN', @level2name=N'LanguageDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A description of how the language is used (e.g. Home Language, Native Language, Spoken Language).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactLanguageUse', @level2type=N'COLUMN', @level2name=N'LanguageUseDescriptorId'
+GO
+
+-- Extended Properties [edfi].[ContactOtherName] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Other names (e.g., alias, nickname, previous legal name) associated with a person.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactOtherName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactOtherName', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The types of alternate names for an individual.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactOtherName', @level2type=N'COLUMN', @level2name=N'OtherNameTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A prefix used to denote the title, degree, position, or seniority of the individual.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactOtherName', @level2type=N'COLUMN', @level2name=N'PersonalTitlePrefix'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactOtherName', @level2type=N'COLUMN', @level2name=N'FirstName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A secondary name given to an individual at birth, baptism, or during another naming ceremony.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactOtherName', @level2type=N'COLUMN', @level2name=N'MiddleName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name borne in common by members of a family.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactOtherName', @level2type=N'COLUMN', @level2name=N'LastSurname'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An appendage, if any, used to denote an individual''s generation in his family (e.g., Jr., Sr., III).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactOtherName', @level2type=N'COLUMN', @level2name=N'GenerationCodeSuffix'
+GO
+
+-- Extended Properties [edfi].[ContactPersonalIdentificationDocument] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The documents presented as evident to verify one''s personal identity; for example: drivers license, passport, birth certificate, etc.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactPersonalIdentificationDocument'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The primary function of the document used for establishing identity.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'IdentificationDocumentUseDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The category of the document relative to its purpose.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'PersonalInformationVerificationDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title of the document given by the issuer.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'DocumentTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The day when the document  expires, if null then never expires.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'DocumentExpirationDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier on the issuer''s identification system.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'IssuerDocumentIdentificationCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Name of the entity or institution that issued the document.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'IssuerName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Country of origin of the document. It is strongly recommended that entries use only ISO 3166 2-letter country codes.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'IssuerCountryDescriptorId'
+GO
+
+-- Extended Properties [edfi].[ContactTelephone] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The 10-digit telephone number, including the area code, for the person.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactTelephone'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactTelephone', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The telephone number including the area code, and extension, if applicable.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactTelephone', @level2type=N'COLUMN', @level2name=N'TelephoneNumber'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of communication number listed for an individual or organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactTelephone', @level2type=N'COLUMN', @level2name=N'TelephoneNumberTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The order of priority assigned to telephone numbers to define which number to attempt first, second, etc.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactTelephone', @level2type=N'COLUMN', @level2name=N'OrderOfPriority'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactTelephone', @level2type=N'COLUMN', @level2name=N'TextMessageCapabilityIndicator'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the telephone number should not be published.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactTelephone', @level2type=N'COLUMN', @level2name=N'DoNotPublishIndicator'
+GO
+
 -- Extended Properties [edfi].[ContactTypeDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the set of contact types.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactTypeDescriptor'
 GO
@@ -3340,207 +3541,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'OtherNameTypeDescriptor', @level2type=N'COLUMN', @level2name=N'OtherNameTypeDescriptorId'
 GO
 
--- Extended Properties [edfi].[Parent] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This entity represents a parent or guardian of a student, such as mother, father, or caretaker.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A prefix used to denote the title, degree, position, or seniority of the individual.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent', @level2type=N'COLUMN', @level2name=N'PersonalTitlePrefix'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent', @level2type=N'COLUMN', @level2name=N'FirstName'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A secondary name given to an individual at birth, baptism, or during another naming ceremony.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent', @level2type=N'COLUMN', @level2name=N'MiddleName'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name borne in common by members of a family.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent', @level2type=N'COLUMN', @level2name=N'LastSurname'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An appendage, if any, used to denote an individual''s generation in his family (e.g., Jr., Sr., III).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent', @level2type=N'COLUMN', @level2name=N'GenerationCodeSuffix'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The individual''s maiden name.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent', @level2type=N'COLUMN', @level2name=N'MaidenName'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The first name the individual prefers, if different from their legal first name', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent', @level2type=N'COLUMN', @level2name=N'PreferredFirstName'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The last name the individual prefers, if different from their legal last name', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent', @level2type=N'COLUMN', @level2name=N'PreferredLastSurname'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A person''s birth sex.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent', @level2type=N'COLUMN', @level2name=N'SexDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The login ID for the user; used for security access control interface.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent', @level2type=N'COLUMN', @level2name=N'LoginId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent', @level2type=N'COLUMN', @level2name=N'PersonId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The extent of formal instruction an individual has received (e.g., the highest grade in school completed or its equivalent or the highest degree received).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent', @level2type=N'COLUMN', @level2name=N'HighestCompletedLevelOfEducationDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent', @level2type=N'COLUMN', @level2name=N'ParentUniqueId'
-GO
-
--- Extended Properties [edfi].[ParentAddress] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Parent''s address, if different from the student address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddress'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddress', @level2type=N'COLUMN', @level2name=N'AddressTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the city in which an address is located.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddress', @level2type=N'COLUMN', @level2name=N'City'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddress', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The five or nine digit zip code or overseas postal code portion of an address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddress', @level2type=N'COLUMN', @level2name=N'PostalCode'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The abbreviation for the state (within the United States) or outlying area in which an address is located.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddress', @level2type=N'COLUMN', @level2name=N'StateAbbreviationDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The street number and street name or post office box number of an address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddress', @level2type=N'COLUMN', @level2name=N'StreetNumberName'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The apartment, room, or suite number of an address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddress', @level2type=N'COLUMN', @level2name=N'ApartmentRoomSuiteNumber'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of the building on the site, if more than one building shares the same address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddress', @level2type=N'COLUMN', @level2name=N'BuildingSiteNumber'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the county, parish, borough, or comparable unit (within a state) in
-                      ''which an address is located.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddress', @level2type=N'COLUMN', @level2name=N'NameOfCounty'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Federal Information Processing Standards (FIPS) numeric code for the county issued by the National Institute of Standards and Technology (NIST). Counties are considered to be the "first-order subdivisions" of each State and statistically equivalent entity, regardless of their local designations (county, parish, borough, etc.) Counties in different States will have the same code. A unique county number is created when combined with the 2-digit FIPS State Code.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddress', @level2type=N'COLUMN', @level2name=N'CountyFIPSCode'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The geographic latitude of the physical address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddress', @level2type=N'COLUMN', @level2name=N'Latitude'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The geographic longitude of the physical address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddress', @level2type=N'COLUMN', @level2name=N'Longitude'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the address should not be published.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddress', @level2type=N'COLUMN', @level2name=N'DoNotPublishIndicator'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The congressional district in which an address is located.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddress', @level2type=N'COLUMN', @level2name=N'CongressionalDistrict'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A general geographic indicator that categorizes U.S. territory (e.g., City, Suburban).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddress', @level2type=N'COLUMN', @level2name=N'LocaleDescriptorId'
-GO
-
--- Extended Properties [edfi].[ParentAddressPeriod] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The time periods for which the address is valid. For physical addresses, the periods in which the person lived at that address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddressPeriod'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddressPeriod', @level2type=N'COLUMN', @level2name=N'AddressTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year for the start of the period.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddressPeriod', @level2type=N'COLUMN', @level2name=N'BeginDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the city in which an address is located.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddressPeriod', @level2type=N'COLUMN', @level2name=N'City'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddressPeriod', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The five or nine digit zip code or overseas postal code portion of an address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddressPeriod', @level2type=N'COLUMN', @level2name=N'PostalCode'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The abbreviation for the state (within the United States) or outlying area in which an address is located.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddressPeriod', @level2type=N'COLUMN', @level2name=N'StateAbbreviationDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The street number and street name or post office box number of an address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddressPeriod', @level2type=N'COLUMN', @level2name=N'StreetNumberName'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year for the end of the period.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentAddressPeriod', @level2type=N'COLUMN', @level2name=N'EndDate'
-GO
-
--- Extended Properties [edfi].[ParentElectronicMail] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The numbers, letters, and symbols used to identify an electronic mail (e-mail) user within the network to which the individual or organization belongs.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentElectronicMail'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The electronic mail (e-mail) address listed for an individual or organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentElectronicMail', @level2type=N'COLUMN', @level2name=N'ElectronicMailAddress'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of email listed for an individual or organization. For example: Home/Personal, Work, etc.)', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentElectronicMail', @level2type=N'COLUMN', @level2name=N'ElectronicMailTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentElectronicMail', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the electronic mail address should be used as the principal electronic mail address for an individual or organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentElectronicMail', @level2type=N'COLUMN', @level2name=N'PrimaryEmailAddressIndicator'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the electronic email address should not be published.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentElectronicMail', @level2type=N'COLUMN', @level2name=N'DoNotPublishIndicator'
-GO
-
--- Extended Properties [edfi].[ParentInternationalAddress] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The set of elements that describes an international address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentInternationalAddress'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of address listed for an individual or organization. For example:  Physical Address, Mailing Address, Home Address, etc.)', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentInternationalAddress', @level2type=N'COLUMN', @level2name=N'AddressTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentInternationalAddress', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The first line of the address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentInternationalAddress', @level2type=N'COLUMN', @level2name=N'AddressLine1'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The second line of the address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentInternationalAddress', @level2type=N'COLUMN', @level2name=N'AddressLine2'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The third line of the address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentInternationalAddress', @level2type=N'COLUMN', @level2name=N'AddressLine3'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fourth line of the address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentInternationalAddress', @level2type=N'COLUMN', @level2name=N'AddressLine4'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the country. It is strongly recommended that entries use only ISO 3166 2-letter country codes.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentInternationalAddress', @level2type=N'COLUMN', @level2name=N'CountryDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The geographic latitude of the physical address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentInternationalAddress', @level2type=N'COLUMN', @level2name=N'Latitude'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The geographic longitude of the physical address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentInternationalAddress', @level2type=N'COLUMN', @level2name=N'Longitude'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The first date the address is valid. For physical addresses, the date the individual moved to that address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentInternationalAddress', @level2type=N'COLUMN', @level2name=N'BeginDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The last date the address is valid. For physical addresses, the date the individual moved from that address.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentInternationalAddress', @level2type=N'COLUMN', @level2name=N'EndDate'
-GO
-
--- Extended Properties [edfi].[ParentLanguage] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The language(s) the individual uses to communicate. It is strongly recommended that entries use only ISO 639-2 language codes.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentLanguage'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A specification of which written or spoken communication is being used.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentLanguage', @level2type=N'COLUMN', @level2name=N'LanguageDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentLanguage', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-
--- Extended Properties [edfi].[ParentLanguageUse] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A description of how the language is used (e.g. Home Language, Native Language, Spoken Language).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentLanguageUse'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A specification of which written or spoken communication is being used.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentLanguageUse', @level2type=N'COLUMN', @level2name=N'LanguageDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A description of how the language is used (e.g. Home Language, Native Language, Spoken Language).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentLanguageUse', @level2type=N'COLUMN', @level2name=N'LanguageUseDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentLanguageUse', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-
--- Extended Properties [edfi].[ParentOtherName] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Other names (e.g., alias, nickname, previous legal name) associated with a person.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentOtherName'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The types of alternate names for an individual.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentOtherName', @level2type=N'COLUMN', @level2name=N'OtherNameTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentOtherName', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A prefix used to denote the title, degree, position, or seniority of the individual.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentOtherName', @level2type=N'COLUMN', @level2name=N'PersonalTitlePrefix'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentOtherName', @level2type=N'COLUMN', @level2name=N'FirstName'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A secondary name given to an individual at birth, baptism, or during another naming ceremony.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentOtherName', @level2type=N'COLUMN', @level2name=N'MiddleName'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name borne in common by members of a family.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentOtherName', @level2type=N'COLUMN', @level2name=N'LastSurname'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An appendage, if any, used to denote an individual''s generation in his family (e.g., Jr., Sr., III).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentOtherName', @level2type=N'COLUMN', @level2name=N'GenerationCodeSuffix'
-GO
-
--- Extended Properties [edfi].[ParentPersonalIdentificationDocument] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The documents presented as evident to verify one''s personal identity; for example: drivers license, passport, birth certificate, etc.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentPersonalIdentificationDocument'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The primary function of the document used for establishing identity.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'IdentificationDocumentUseDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The category of the document relative to its purpose.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'PersonalInformationVerificationDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title of the document given by the issuer.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'DocumentTitle'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The day when the document  expires, if null then never expires.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'DocumentExpirationDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier on the issuer''s identification system.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'IssuerDocumentIdentificationCode'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Name of the entity or institution that issued the document.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'IssuerName'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Country of origin of the document. It is strongly recommended that entries use only ISO 3166 2-letter country codes.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'IssuerCountryDescriptorId'
-GO
-
--- Extended Properties [edfi].[ParentTelephone] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The 10-digit telephone number, including the area code, for the person.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentTelephone'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentTelephone', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The telephone number including the area code, and extension, if applicable.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentTelephone', @level2type=N'COLUMN', @level2name=N'TelephoneNumber'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of communication number listed for an individual or organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentTelephone', @level2type=N'COLUMN', @level2name=N'TelephoneNumberTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The order of priority assigned to telephone numbers to define which number to attempt first, second, etc.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentTelephone', @level2type=N'COLUMN', @level2name=N'OrderOfPriority'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentTelephone', @level2type=N'COLUMN', @level2name=N'TextMessageCapabilityIndicator'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the telephone number should not be published.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParentTelephone', @level2type=N'COLUMN', @level2name=N'DoNotPublishIndicator'
-GO
-
 -- Extended Properties [edfi].[ParticipationDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines participation in a yearly English language assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParticipationDescriptor'
 GO
@@ -5651,6 +5651,28 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveStudentSectionAssociation', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
 
+-- Extended Properties [edfi].[StudentContactAssociation] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This association relates students to their parents, guardians, or caretakers.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentContactAssociation'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentContactAssociation', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentContactAssociation', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The nature of an individual''s relationship to a student, primarily used to capture family relationships.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentContactAssociation', @level2type=N'COLUMN', @level2name=N'RelationDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicator of whether the person is a primary contact for the student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentContactAssociation', @level2type=N'COLUMN', @level2name=N'PrimaryContactStatus'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicator of whether the student lives with the associated contact.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentContactAssociation', @level2type=N'COLUMN', @level2name=N'LivesWith'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicator of whether the person is a designated emergency contact for the student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentContactAssociation', @level2type=N'COLUMN', @level2name=N'EmergencyContactStatus'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The numeric order of the preferred sequence or priority of contact.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentContactAssociation', @level2type=N'COLUMN', @level2name=N'ContactPriority'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Restrictions for student and/or teacher contact with the individual (e.g., the student may not be picked up by the individual).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentContactAssociation', @level2type=N'COLUMN', @level2name=N'ContactRestrictions'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicator of whether the person is a legal guardian for the student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentContactAssociation', @level2type=N'COLUMN', @level2name=N'LegalGuardian'
+GO
+
 -- Extended Properties [edfi].[StudentCTEProgramAssociation] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This association represents the career and technical education (CTE) program that a student participates in. The association is an extension of the StudentProgramAssociation particular for CTE programs.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCTEProgramAssociation'
 GO
@@ -6436,28 +6458,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An appendage, if any, used to denote an individual''s generation in his family (e.g., Jr., Sr., III).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentOtherName', @level2type=N'COLUMN', @level2name=N'GenerationCodeSuffix'
 GO
 
--- Extended Properties [edfi].[StudentParentAssociation] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This association relates students to their parents, guardians, or caretakers.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentParentAssociation'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentParentAssociation', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentParentAssociation', @level2type=N'COLUMN', @level2name=N'StudentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The nature of an individual''s relationship to a student, primarily used to capture family relationships.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentParentAssociation', @level2type=N'COLUMN', @level2name=N'RelationDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicator of whether the person is a primary parental contact for the student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentParentAssociation', @level2type=N'COLUMN', @level2name=N'PrimaryContactStatus'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicator of whether the student lives with the associated parent.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentParentAssociation', @level2type=N'COLUMN', @level2name=N'LivesWith'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicator of whether the person is a designated emergency contact for the student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentParentAssociation', @level2type=N'COLUMN', @level2name=N'EmergencyContactStatus'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The numeric order of the preferred sequence or priority of contact.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentParentAssociation', @level2type=N'COLUMN', @level2name=N'ContactPriority'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Restrictions for student and/or teacher contact with the individual (e.g., the student may not be picked up by the individual).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentParentAssociation', @level2type=N'COLUMN', @level2name=N'ContactRestrictions'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicator of whether the person is a legal guardian for the student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentParentAssociation', @level2type=N'COLUMN', @level2name=N'LegalGuardian'
-GO
-
 -- Extended Properties [edfi].[StudentParticipationCodeDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The role or type of participation of a student in a discipline incident; for example: Victim, Perpetrator, Witness, Reporter.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentParticipationCodeDescriptor'
 GO
@@ -7233,7 +7233,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Location of th
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SurveyResponse', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SurveyResponse', @level2type=N'COLUMN', @level2name=N'ParentUSI'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SurveyResponse', @level2type=N'COLUMN', @level2name=N'ContactUSI'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SurveyResponse', @level2type=N'COLUMN', @level2name=N'StaffUSI'
 GO

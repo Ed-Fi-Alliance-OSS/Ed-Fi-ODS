@@ -1134,6 +1134,229 @@ GO
 ALTER TABLE [edfi].[CompetencyObjective] ADD CONSTRAINT [CompetencyObjective_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
+-- Table [edfi].[Contact] --
+CREATE TABLE [edfi].[Contact] (
+    [ContactUSI] [INT] IDENTITY(1,1) NOT NULL,
+    [PersonalTitlePrefix] [NVARCHAR](30) NULL,
+    [FirstName] [NVARCHAR](75) NOT NULL,
+    [MiddleName] [NVARCHAR](75) NULL,
+    [LastSurname] [NVARCHAR](75) NOT NULL,
+    [GenerationCodeSuffix] [NVARCHAR](10) NULL,
+    [MaidenName] [NVARCHAR](75) NULL,
+    [PreferredFirstName] [NVARCHAR](75) NULL,
+    [PreferredLastSurname] [NVARCHAR](75) NULL,
+    [SexDescriptorId] [INT] NULL,
+    [LoginId] [NVARCHAR](60) NULL,
+    [PersonId] [NVARCHAR](32) NULL,
+    [SourceSystemDescriptorId] [INT] NULL,
+    [HighestCompletedLevelOfEducationDescriptorId] [INT] NULL,
+    [ContactUniqueId] [NVARCHAR](32) NOT NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [Contact_PK] PRIMARY KEY CLUSTERED (
+        [ContactUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [Contact_UI_ContactUniqueId] ON [edfi].[Contact] (
+    [ContactUniqueId] ASC
+) INCLUDE (ContactUSI) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[Contact] ADD CONSTRAINT [Contact_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[Contact] ADD CONSTRAINT [Contact_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[Contact] ADD CONSTRAINT [Contact_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[ContactAddress] --
+CREATE TABLE [edfi].[ContactAddress] (
+    [AddressTypeDescriptorId] [INT] NOT NULL,
+    [City] [NVARCHAR](30) NOT NULL,
+    [ContactUSI] [INT] NOT NULL,
+    [PostalCode] [NVARCHAR](17) NOT NULL,
+    [StateAbbreviationDescriptorId] [INT] NOT NULL,
+    [StreetNumberName] [NVARCHAR](150) NOT NULL,
+    [ApartmentRoomSuiteNumber] [NVARCHAR](50) NULL,
+    [BuildingSiteNumber] [NVARCHAR](20) NULL,
+    [NameOfCounty] [NVARCHAR](30) NULL,
+    [CountyFIPSCode] [NVARCHAR](5) NULL,
+    [Latitude] [NVARCHAR](20) NULL,
+    [Longitude] [NVARCHAR](20) NULL,
+    [DoNotPublishIndicator] [BIT] NULL,
+    [CongressionalDistrict] [NVARCHAR](30) NULL,
+    [LocaleDescriptorId] [INT] NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [ContactAddress_PK] PRIMARY KEY CLUSTERED (
+        [AddressTypeDescriptorId] ASC,
+        [City] ASC,
+        [ContactUSI] ASC,
+        [PostalCode] ASC,
+        [StateAbbreviationDescriptorId] ASC,
+        [StreetNumberName] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ContactAddress] ADD CONSTRAINT [ContactAddress_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[ContactAddressPeriod] --
+CREATE TABLE [edfi].[ContactAddressPeriod] (
+    [AddressTypeDescriptorId] [INT] NOT NULL,
+    [BeginDate] [DATE] NOT NULL,
+    [City] [NVARCHAR](30) NOT NULL,
+    [ContactUSI] [INT] NOT NULL,
+    [PostalCode] [NVARCHAR](17) NOT NULL,
+    [StateAbbreviationDescriptorId] [INT] NOT NULL,
+    [StreetNumberName] [NVARCHAR](150) NOT NULL,
+    [EndDate] [DATE] NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [ContactAddressPeriod_PK] PRIMARY KEY CLUSTERED (
+        [AddressTypeDescriptorId] ASC,
+        [BeginDate] ASC,
+        [City] ASC,
+        [ContactUSI] ASC,
+        [PostalCode] ASC,
+        [StateAbbreviationDescriptorId] ASC,
+        [StreetNumberName] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ContactAddressPeriod] ADD CONSTRAINT [ContactAddressPeriod_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[ContactElectronicMail] --
+CREATE TABLE [edfi].[ContactElectronicMail] (
+    [ContactUSI] [INT] NOT NULL,
+    [ElectronicMailAddress] [NVARCHAR](128) NOT NULL,
+    [ElectronicMailTypeDescriptorId] [INT] NOT NULL,
+    [PrimaryEmailAddressIndicator] [BIT] NULL,
+    [DoNotPublishIndicator] [BIT] NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [ContactElectronicMail_PK] PRIMARY KEY CLUSTERED (
+        [ContactUSI] ASC,
+        [ElectronicMailAddress] ASC,
+        [ElectronicMailTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ContactElectronicMail] ADD CONSTRAINT [ContactElectronicMail_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[ContactInternationalAddress] --
+CREATE TABLE [edfi].[ContactInternationalAddress] (
+    [AddressTypeDescriptorId] [INT] NOT NULL,
+    [ContactUSI] [INT] NOT NULL,
+    [AddressLine1] [NVARCHAR](150) NOT NULL,
+    [AddressLine2] [NVARCHAR](150) NULL,
+    [AddressLine3] [NVARCHAR](150) NULL,
+    [AddressLine4] [NVARCHAR](150) NULL,
+    [CountryDescriptorId] [INT] NOT NULL,
+    [Latitude] [NVARCHAR](20) NULL,
+    [Longitude] [NVARCHAR](20) NULL,
+    [BeginDate] [DATE] NULL,
+    [EndDate] [DATE] NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [ContactInternationalAddress_PK] PRIMARY KEY CLUSTERED (
+        [AddressTypeDescriptorId] ASC,
+        [ContactUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ContactInternationalAddress] ADD CONSTRAINT [ContactInternationalAddress_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[ContactLanguage] --
+CREATE TABLE [edfi].[ContactLanguage] (
+    [ContactUSI] [INT] NOT NULL,
+    [LanguageDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [ContactLanguage_PK] PRIMARY KEY CLUSTERED (
+        [ContactUSI] ASC,
+        [LanguageDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ContactLanguage] ADD CONSTRAINT [ContactLanguage_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[ContactLanguageUse] --
+CREATE TABLE [edfi].[ContactLanguageUse] (
+    [ContactUSI] [INT] NOT NULL,
+    [LanguageDescriptorId] [INT] NOT NULL,
+    [LanguageUseDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [ContactLanguageUse_PK] PRIMARY KEY CLUSTERED (
+        [ContactUSI] ASC,
+        [LanguageDescriptorId] ASC,
+        [LanguageUseDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ContactLanguageUse] ADD CONSTRAINT [ContactLanguageUse_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[ContactOtherName] --
+CREATE TABLE [edfi].[ContactOtherName] (
+    [ContactUSI] [INT] NOT NULL,
+    [OtherNameTypeDescriptorId] [INT] NOT NULL,
+    [PersonalTitlePrefix] [NVARCHAR](30) NULL,
+    [FirstName] [NVARCHAR](75) NOT NULL,
+    [MiddleName] [NVARCHAR](75) NULL,
+    [LastSurname] [NVARCHAR](75) NOT NULL,
+    [GenerationCodeSuffix] [NVARCHAR](10) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [ContactOtherName_PK] PRIMARY KEY CLUSTERED (
+        [ContactUSI] ASC,
+        [OtherNameTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ContactOtherName] ADD CONSTRAINT [ContactOtherName_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[ContactPersonalIdentificationDocument] --
+CREATE TABLE [edfi].[ContactPersonalIdentificationDocument] (
+    [ContactUSI] [INT] NOT NULL,
+    [IdentificationDocumentUseDescriptorId] [INT] NOT NULL,
+    [PersonalInformationVerificationDescriptorId] [INT] NOT NULL,
+    [DocumentTitle] [NVARCHAR](60) NULL,
+    [DocumentExpirationDate] [DATE] NULL,
+    [IssuerDocumentIdentificationCode] [NVARCHAR](60) NULL,
+    [IssuerName] [NVARCHAR](150) NULL,
+    [IssuerCountryDescriptorId] [INT] NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [ContactPersonalIdentificationDocument_PK] PRIMARY KEY CLUSTERED (
+        [ContactUSI] ASC,
+        [IdentificationDocumentUseDescriptorId] ASC,
+        [PersonalInformationVerificationDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ContactPersonalIdentificationDocument] ADD CONSTRAINT [ContactPersonalIdentificationDocument_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[ContactTelephone] --
+CREATE TABLE [edfi].[ContactTelephone] (
+    [ContactUSI] [INT] NOT NULL,
+    [TelephoneNumber] [NVARCHAR](24) NOT NULL,
+    [TelephoneNumberTypeDescriptorId] [INT] NOT NULL,
+    [OrderOfPriority] [INT] NULL,
+    [TextMessageCapabilityIndicator] [BIT] NULL,
+    [DoNotPublishIndicator] [BIT] NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [ContactTelephone_PK] PRIMARY KEY CLUSTERED (
+        [ContactUSI] ASC,
+        [TelephoneNumber] ASC,
+        [TelephoneNumberTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ContactTelephone] ADD CONSTRAINT [ContactTelephone_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
 -- Table [edfi].[ContactTypeDescriptor] --
 CREATE TABLE [edfi].[ContactTypeDescriptor] (
     [ContactTypeDescriptorId] [INT] NOT NULL,
@@ -4699,229 +4922,6 @@ CREATE TABLE [edfi].[OtherNameTypeDescriptor] (
 ) ON [PRIMARY]
 GO
 
--- Table [edfi].[Parent] --
-CREATE TABLE [edfi].[Parent] (
-    [ParentUSI] [INT] IDENTITY(1,1) NOT NULL,
-    [PersonalTitlePrefix] [NVARCHAR](30) NULL,
-    [FirstName] [NVARCHAR](75) NOT NULL,
-    [MiddleName] [NVARCHAR](75) NULL,
-    [LastSurname] [NVARCHAR](75) NOT NULL,
-    [GenerationCodeSuffix] [NVARCHAR](10) NULL,
-    [MaidenName] [NVARCHAR](75) NULL,
-    [PreferredFirstName] [NVARCHAR](75) NULL,
-    [PreferredLastSurname] [NVARCHAR](75) NULL,
-    [SexDescriptorId] [INT] NULL,
-    [LoginId] [NVARCHAR](60) NULL,
-    [PersonId] [NVARCHAR](32) NULL,
-    [SourceSystemDescriptorId] [INT] NULL,
-    [HighestCompletedLevelOfEducationDescriptorId] [INT] NULL,
-    [ParentUniqueId] [NVARCHAR](32) NOT NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [Parent_PK] PRIMARY KEY CLUSTERED (
-        [ParentUSI] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-CREATE UNIQUE NONCLUSTERED INDEX [Parent_UI_ParentUniqueId] ON [edfi].[Parent] (
-    [ParentUniqueId] ASC
-) INCLUDE (ParentUSI) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[Parent] ADD CONSTRAINT [Parent_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [edfi].[Parent] ADD CONSTRAINT [Parent_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [edfi].[Parent] ADD CONSTRAINT [Parent_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [edfi].[ParentAddress] --
-CREATE TABLE [edfi].[ParentAddress] (
-    [AddressTypeDescriptorId] [INT] NOT NULL,
-    [City] [NVARCHAR](30) NOT NULL,
-    [ParentUSI] [INT] NOT NULL,
-    [PostalCode] [NVARCHAR](17) NOT NULL,
-    [StateAbbreviationDescriptorId] [INT] NOT NULL,
-    [StreetNumberName] [NVARCHAR](150) NOT NULL,
-    [ApartmentRoomSuiteNumber] [NVARCHAR](50) NULL,
-    [BuildingSiteNumber] [NVARCHAR](20) NULL,
-    [NameOfCounty] [NVARCHAR](30) NULL,
-    [CountyFIPSCode] [NVARCHAR](5) NULL,
-    [Latitude] [NVARCHAR](20) NULL,
-    [Longitude] [NVARCHAR](20) NULL,
-    [DoNotPublishIndicator] [BIT] NULL,
-    [CongressionalDistrict] [NVARCHAR](30) NULL,
-    [LocaleDescriptorId] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [ParentAddress_PK] PRIMARY KEY CLUSTERED (
-        [AddressTypeDescriptorId] ASC,
-        [City] ASC,
-        [ParentUSI] ASC,
-        [PostalCode] ASC,
-        [StateAbbreviationDescriptorId] ASC,
-        [StreetNumberName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[ParentAddress] ADD CONSTRAINT [ParentAddress_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [edfi].[ParentAddressPeriod] --
-CREATE TABLE [edfi].[ParentAddressPeriod] (
-    [AddressTypeDescriptorId] [INT] NOT NULL,
-    [BeginDate] [DATE] NOT NULL,
-    [City] [NVARCHAR](30) NOT NULL,
-    [ParentUSI] [INT] NOT NULL,
-    [PostalCode] [NVARCHAR](17) NOT NULL,
-    [StateAbbreviationDescriptorId] [INT] NOT NULL,
-    [StreetNumberName] [NVARCHAR](150) NOT NULL,
-    [EndDate] [DATE] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [ParentAddressPeriod_PK] PRIMARY KEY CLUSTERED (
-        [AddressTypeDescriptorId] ASC,
-        [BeginDate] ASC,
-        [City] ASC,
-        [ParentUSI] ASC,
-        [PostalCode] ASC,
-        [StateAbbreviationDescriptorId] ASC,
-        [StreetNumberName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[ParentAddressPeriod] ADD CONSTRAINT [ParentAddressPeriod_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [edfi].[ParentElectronicMail] --
-CREATE TABLE [edfi].[ParentElectronicMail] (
-    [ElectronicMailAddress] [NVARCHAR](128) NOT NULL,
-    [ElectronicMailTypeDescriptorId] [INT] NOT NULL,
-    [ParentUSI] [INT] NOT NULL,
-    [PrimaryEmailAddressIndicator] [BIT] NULL,
-    [DoNotPublishIndicator] [BIT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [ParentElectronicMail_PK] PRIMARY KEY CLUSTERED (
-        [ElectronicMailAddress] ASC,
-        [ElectronicMailTypeDescriptorId] ASC,
-        [ParentUSI] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[ParentElectronicMail] ADD CONSTRAINT [ParentElectronicMail_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [edfi].[ParentInternationalAddress] --
-CREATE TABLE [edfi].[ParentInternationalAddress] (
-    [AddressTypeDescriptorId] [INT] NOT NULL,
-    [ParentUSI] [INT] NOT NULL,
-    [AddressLine1] [NVARCHAR](150) NOT NULL,
-    [AddressLine2] [NVARCHAR](150) NULL,
-    [AddressLine3] [NVARCHAR](150) NULL,
-    [AddressLine4] [NVARCHAR](150) NULL,
-    [CountryDescriptorId] [INT] NOT NULL,
-    [Latitude] [NVARCHAR](20) NULL,
-    [Longitude] [NVARCHAR](20) NULL,
-    [BeginDate] [DATE] NULL,
-    [EndDate] [DATE] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [ParentInternationalAddress_PK] PRIMARY KEY CLUSTERED (
-        [AddressTypeDescriptorId] ASC,
-        [ParentUSI] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[ParentInternationalAddress] ADD CONSTRAINT [ParentInternationalAddress_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [edfi].[ParentLanguage] --
-CREATE TABLE [edfi].[ParentLanguage] (
-    [LanguageDescriptorId] [INT] NOT NULL,
-    [ParentUSI] [INT] NOT NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [ParentLanguage_PK] PRIMARY KEY CLUSTERED (
-        [LanguageDescriptorId] ASC,
-        [ParentUSI] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[ParentLanguage] ADD CONSTRAINT [ParentLanguage_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [edfi].[ParentLanguageUse] --
-CREATE TABLE [edfi].[ParentLanguageUse] (
-    [LanguageDescriptorId] [INT] NOT NULL,
-    [LanguageUseDescriptorId] [INT] NOT NULL,
-    [ParentUSI] [INT] NOT NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [ParentLanguageUse_PK] PRIMARY KEY CLUSTERED (
-        [LanguageDescriptorId] ASC,
-        [LanguageUseDescriptorId] ASC,
-        [ParentUSI] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[ParentLanguageUse] ADD CONSTRAINT [ParentLanguageUse_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [edfi].[ParentOtherName] --
-CREATE TABLE [edfi].[ParentOtherName] (
-    [OtherNameTypeDescriptorId] [INT] NOT NULL,
-    [ParentUSI] [INT] NOT NULL,
-    [PersonalTitlePrefix] [NVARCHAR](30) NULL,
-    [FirstName] [NVARCHAR](75) NOT NULL,
-    [MiddleName] [NVARCHAR](75) NULL,
-    [LastSurname] [NVARCHAR](75) NOT NULL,
-    [GenerationCodeSuffix] [NVARCHAR](10) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [ParentOtherName_PK] PRIMARY KEY CLUSTERED (
-        [OtherNameTypeDescriptorId] ASC,
-        [ParentUSI] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[ParentOtherName] ADD CONSTRAINT [ParentOtherName_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [edfi].[ParentPersonalIdentificationDocument] --
-CREATE TABLE [edfi].[ParentPersonalIdentificationDocument] (
-    [IdentificationDocumentUseDescriptorId] [INT] NOT NULL,
-    [ParentUSI] [INT] NOT NULL,
-    [PersonalInformationVerificationDescriptorId] [INT] NOT NULL,
-    [DocumentTitle] [NVARCHAR](60) NULL,
-    [DocumentExpirationDate] [DATE] NULL,
-    [IssuerDocumentIdentificationCode] [NVARCHAR](60) NULL,
-    [IssuerName] [NVARCHAR](150) NULL,
-    [IssuerCountryDescriptorId] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [ParentPersonalIdentificationDocument_PK] PRIMARY KEY CLUSTERED (
-        [IdentificationDocumentUseDescriptorId] ASC,
-        [ParentUSI] ASC,
-        [PersonalInformationVerificationDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[ParentPersonalIdentificationDocument] ADD CONSTRAINT [ParentPersonalIdentificationDocument_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [edfi].[ParentTelephone] --
-CREATE TABLE [edfi].[ParentTelephone] (
-    [ParentUSI] [INT] NOT NULL,
-    [TelephoneNumber] [NVARCHAR](24) NOT NULL,
-    [TelephoneNumberTypeDescriptorId] [INT] NOT NULL,
-    [OrderOfPriority] [INT] NULL,
-    [TextMessageCapabilityIndicator] [BIT] NULL,
-    [DoNotPublishIndicator] [BIT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [ParentTelephone_PK] PRIMARY KEY CLUSTERED (
-        [ParentUSI] ASC,
-        [TelephoneNumber] ASC,
-        [TelephoneNumberTypeDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[ParentTelephone] ADD CONSTRAINT [ParentTelephone_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
 -- Table [edfi].[ParticipationDescriptor] --
 CREATE TABLE [edfi].[ParticipationDescriptor] (
     [ParticipationDescriptorId] [INT] NOT NULL,
@@ -7684,6 +7684,34 @@ GO
 ALTER TABLE [edfi].[StudentCompetencyObjectiveStudentSectionAssociation] ADD CONSTRAINT [StudentCompetencyObjectiveStudentSectionAssociation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [edfi].[StudentContactAssociation] --
+CREATE TABLE [edfi].[StudentContactAssociation] (
+    [ContactUSI] [INT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [RelationDescriptorId] [INT] NULL,
+    [PrimaryContactStatus] [BIT] NULL,
+    [LivesWith] [BIT] NULL,
+    [EmergencyContactStatus] [BIT] NULL,
+    [ContactPriority] [INT] NULL,
+    [ContactRestrictions] [NVARCHAR](250) NULL,
+    [LegalGuardian] [BIT] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [StudentContactAssociation_PK] PRIMARY KEY CLUSTERED (
+        [ContactUSI] ASC,
+        [StudentUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentContactAssociation] ADD CONSTRAINT [StudentContactAssociation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[StudentContactAssociation] ADD CONSTRAINT [StudentContactAssociation_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[StudentContactAssociation] ADD CONSTRAINT [StudentContactAssociation_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
 -- Table [edfi].[StudentCTEProgramAssociation] --
 CREATE TABLE [edfi].[StudentCTEProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
@@ -8629,34 +8657,6 @@ GO
 ALTER TABLE [edfi].[StudentOtherName] ADD CONSTRAINT [StudentOtherName_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
--- Table [edfi].[StudentParentAssociation] --
-CREATE TABLE [edfi].[StudentParentAssociation] (
-    [ParentUSI] [INT] NOT NULL,
-    [StudentUSI] [INT] NOT NULL,
-    [RelationDescriptorId] [INT] NULL,
-    [PrimaryContactStatus] [BIT] NULL,
-    [LivesWith] [BIT] NULL,
-    [EmergencyContactStatus] [BIT] NULL,
-    [ContactPriority] [INT] NULL,
-    [ContactRestrictions] [NVARCHAR](250) NULL,
-    [LegalGuardian] [BIT] NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [StudentParentAssociation_PK] PRIMARY KEY CLUSTERED (
-        [ParentUSI] ASC,
-        [StudentUSI] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[StudentParentAssociation] ADD CONSTRAINT [StudentParentAssociation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [edfi].[StudentParentAssociation] ADD CONSTRAINT [StudentParentAssociation_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [edfi].[StudentParentAssociation] ADD CONSTRAINT [StudentParentAssociation_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
 -- Table [edfi].[StudentParticipationCodeDescriptor] --
 CREATE TABLE [edfi].[StudentParticipationCodeDescriptor] (
     [StudentParticipationCodeDescriptorId] [INT] NOT NULL,
@@ -9560,7 +9560,7 @@ CREATE TABLE [edfi].[SurveyResponse] (
     [FullName] [NVARCHAR](80) NULL,
     [Location] [NVARCHAR](75) NULL,
     [StudentUSI] [INT] NULL,
-    [ParentUSI] [INT] NULL,
+    [ContactUSI] [INT] NULL,
     [StaffUSI] [INT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
