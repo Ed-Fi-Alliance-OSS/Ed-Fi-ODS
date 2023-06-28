@@ -43,19 +43,5 @@ namespace EdFi.Ods.Api.IntegrationTests
             var actualTuples = GetExistingTuples(connection);
             expectedTuples.ShouldAllBe(item => !actualTuples.Contains(item));
         }
-
-        public static bool QueryEducationOrganizationIdToToEducationOrganizationId(IDbConnection connection, (int, int) sourceTargetTuple)
-        {
-            (int source, int target) = sourceTargetTuple;
-
-            var sql = @$"
-                SELECT COUNT(*)
-                FROM auth.EducationOrganizationIdToEducationOrganizationId
-                WHERE SourceEducationOrganizationId = {source} AND TargetEducationOrganizationId = {target};";
-
-            using var command = connection.CreateCommand();
-            command.CommandText = sql;
-            return 1 == Convert.ToInt32(command.ExecuteScalar());
-        }
     }
 }
