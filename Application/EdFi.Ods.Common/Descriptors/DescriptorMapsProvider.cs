@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Concurrent;
-using EdFi.Ods.Common.Database;
 
 namespace EdFi.Ods.Common.Descriptors;
 

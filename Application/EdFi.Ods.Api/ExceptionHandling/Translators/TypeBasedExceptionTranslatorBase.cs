@@ -9,7 +9,6 @@ using System.Net;
 using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Models;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators

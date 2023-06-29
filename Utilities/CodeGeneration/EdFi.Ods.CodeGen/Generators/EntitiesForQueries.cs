@@ -9,7 +9,6 @@ using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Extensions;
 using EdFi.Ods.Common.Conventions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 
 namespace EdFi.Ods.CodeGen.Generators

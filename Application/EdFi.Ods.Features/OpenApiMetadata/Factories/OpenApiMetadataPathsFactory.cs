@@ -12,7 +12,6 @@ using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Utils.Profiles;
 using EdFi.Ods.Features.ChangeQueries;
-using EdFi.Ods.Features.ChangeQueries.SnapshotContext;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;

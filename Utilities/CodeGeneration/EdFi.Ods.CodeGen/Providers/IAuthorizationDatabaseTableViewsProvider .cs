@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
-using DatabaseSchemaReader.DataSchema;
 using EdFi.Ods.CodeGen.Models;
 
 namespace EdFi.Ods.CodeGen.Providers {

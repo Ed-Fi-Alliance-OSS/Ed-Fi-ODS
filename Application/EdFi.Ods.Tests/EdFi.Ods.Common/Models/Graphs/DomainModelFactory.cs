@@ -6,13 +6,8 @@
 using System;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
-using EdFi.Ods.Common.Models.Graphs;
-using EdFi.TestFixture;
-using NUnit.Framework;
-using QuickGraph;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Graphs
 {

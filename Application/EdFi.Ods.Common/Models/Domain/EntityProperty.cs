@@ -7,10 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.Common.Models.Domain
 {

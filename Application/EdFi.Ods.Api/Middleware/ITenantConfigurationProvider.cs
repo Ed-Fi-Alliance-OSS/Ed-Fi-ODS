@@ -4,8 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
-using Autofac.Extras.DynamicProxy;
-using Castle.DynamicProxy;
 
 namespace EdFi.Ods.Api.Middleware;
 

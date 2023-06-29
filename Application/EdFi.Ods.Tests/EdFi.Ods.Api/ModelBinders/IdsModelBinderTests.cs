@@ -11,7 +11,6 @@ using Shouldly;
 using System.Threading.Tasks;
 using FakeItEasy;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using EdFi.Ods.Api.Common.Models.Requests.Students.EdFi;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.WebApi

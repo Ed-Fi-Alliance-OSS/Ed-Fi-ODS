@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Ods.CodeGen.Models;
-using EdFi.Ods.Common;
 
 namespace EdFi.Ods.CodeGen.Providers
 {

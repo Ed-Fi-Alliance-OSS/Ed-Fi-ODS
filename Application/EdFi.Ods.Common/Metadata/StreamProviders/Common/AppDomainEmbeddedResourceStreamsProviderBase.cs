@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using EdFi.Ods.Common.Metadata.StreamProviders.Profiles;
 using log4net;
 
 namespace EdFi.Ods.Common.Metadata.StreamProviders.Common;

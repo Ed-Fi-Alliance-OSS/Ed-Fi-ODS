@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Security.Claims;
@@ -12,11 +11,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Common.Security;
-using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Common.Context;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;

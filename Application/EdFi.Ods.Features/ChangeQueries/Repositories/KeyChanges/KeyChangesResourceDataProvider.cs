@@ -9,8 +9,6 @@ using System.Threading.Tasks;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Database.NamingConventions;
-using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Features.ChangeQueries.Resources;

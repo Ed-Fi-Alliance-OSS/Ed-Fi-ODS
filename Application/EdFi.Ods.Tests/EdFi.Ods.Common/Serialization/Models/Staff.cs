@@ -8,7 +8,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using EdFi.Ods.Api.Common.Models;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Tests.EdFi.Ods.Common.Serialization;

@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading;
 using Autofac;
 using EdFi.Ods.CodeGen.Models.Application;

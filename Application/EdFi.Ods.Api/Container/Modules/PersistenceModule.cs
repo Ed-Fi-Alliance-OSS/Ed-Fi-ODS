@@ -25,7 +25,6 @@ using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Security.DataAccess.Providers;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
 using NHibernate;
 using IInterceptor = Castle.DynamicProxy.IInterceptor;
 

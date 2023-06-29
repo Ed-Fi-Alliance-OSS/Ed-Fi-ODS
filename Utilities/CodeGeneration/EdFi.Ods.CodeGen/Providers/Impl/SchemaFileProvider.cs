@@ -5,7 +5,6 @@
 
 using System.IO;
 using EdFi.Common;
-using EdFi.Ods.Common;
 using log4net;
 
 namespace EdFi.Ods.CodeGen.Providers.Impl

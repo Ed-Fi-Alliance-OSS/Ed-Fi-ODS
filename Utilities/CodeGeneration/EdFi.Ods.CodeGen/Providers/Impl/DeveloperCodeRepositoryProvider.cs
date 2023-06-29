@@ -8,7 +8,6 @@ using System.IO;
 using System.Reflection;
 using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Helpers;
-using EdFi.Ods.Common.Extensions;
 using log4net;
 
 namespace EdFi.Ods.CodeGen.Providers.Impl

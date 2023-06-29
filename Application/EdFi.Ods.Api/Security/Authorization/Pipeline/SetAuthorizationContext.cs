@@ -6,11 +6,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Common;
-using EdFi.Ods.Common;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Security.DataAccess.Models;
 using EdFi.Security.DataAccess.Repositories;
 
 namespace EdFi.Ods.Api.Security.Authorization.Pipeline

@@ -4,9 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using NHibernate.Engine.Query;
 
 namespace EdFi.Ods.Common.Infrastructure.Filtering;
 

@@ -14,7 +14,6 @@ using Microsoft.Extensions.Caching.Distributed;
 using System;
 using Castle.DynamicProxy;
 using EdFi.Common.Security;
-using EdFi.Ods.Common.Descriptors;
 
 namespace EdFi.Ods.Features.ExternalCache
 {

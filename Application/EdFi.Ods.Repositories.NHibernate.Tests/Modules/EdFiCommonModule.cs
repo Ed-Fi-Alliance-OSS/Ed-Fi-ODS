@@ -4,13 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.IO;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using EdFi.Common.Configuration;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules

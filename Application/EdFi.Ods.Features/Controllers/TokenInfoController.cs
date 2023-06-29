@@ -4,9 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Linq;
 using System.Threading.Tasks;
-using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.ExceptionHandling;

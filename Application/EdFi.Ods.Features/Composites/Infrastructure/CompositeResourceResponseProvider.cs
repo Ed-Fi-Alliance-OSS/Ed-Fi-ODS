@@ -8,7 +8,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Security.Claims;
 using System.Text;
 using System.Xml.Linq;
 using EdFi.Common.Extensions;

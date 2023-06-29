@@ -4,13 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
-using EdFi.Common.Configuration;
-using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
-using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 

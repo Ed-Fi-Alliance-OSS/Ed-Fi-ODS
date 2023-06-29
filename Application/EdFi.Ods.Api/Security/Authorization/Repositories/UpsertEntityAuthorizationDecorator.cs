@@ -6,7 +6,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Repositories;
 
 namespace EdFi.Ods.Api.Security.Authorization.Repositories

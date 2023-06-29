@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using NHibernate;

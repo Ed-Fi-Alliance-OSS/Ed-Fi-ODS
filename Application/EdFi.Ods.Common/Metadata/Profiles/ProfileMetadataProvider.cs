@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using Autofac.Extras.DynamicProxy;
 using log4net;
 
 namespace EdFi.Ods.Common.Metadata.Profiles

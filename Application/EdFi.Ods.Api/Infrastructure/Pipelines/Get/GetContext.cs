@@ -5,7 +5,6 @@
 
 using System;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Infrastructure.Pipelines;
 
 namespace EdFi.Ods.Api.Infrastructure.Pipelines.Get
 {

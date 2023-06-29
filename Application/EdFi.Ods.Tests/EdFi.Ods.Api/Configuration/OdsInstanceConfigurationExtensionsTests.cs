@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Configuration.Sections;
-using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 

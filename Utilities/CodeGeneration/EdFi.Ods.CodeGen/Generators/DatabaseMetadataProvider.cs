@@ -6,7 +6,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.CodeGen.Models.Templates;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Models.Domain;
 

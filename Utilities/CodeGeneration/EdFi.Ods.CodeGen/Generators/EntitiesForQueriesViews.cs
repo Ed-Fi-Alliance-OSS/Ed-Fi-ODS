@@ -3,9 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Linq;
-using DatabaseSchemaReader.DataSchema;
 using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Database.DatabaseSchema;
@@ -13,7 +11,6 @@ using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.CodeGen.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
-using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.CodeGen.Generators
 {

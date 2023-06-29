@@ -4,10 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Models;
@@ -18,7 +16,6 @@ using EdFi.Ods.Entities.NHibernate.AssessmentPeriodDescriptorAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.CountryDescriptorAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.DescriptorAggregate.EdFi;
 using FakeItEasy;
-using Microsoft.Data.SqlClient.Server;
 using NUnit.Framework;
 using Shouldly;
 

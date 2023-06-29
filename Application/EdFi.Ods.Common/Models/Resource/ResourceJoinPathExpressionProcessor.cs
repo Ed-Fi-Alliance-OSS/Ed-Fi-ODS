@@ -5,7 +5,6 @@
 
 using System;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.Common.Models.Resource
 {

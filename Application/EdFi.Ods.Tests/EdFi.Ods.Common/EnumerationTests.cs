@@ -6,7 +6,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Common;
-using EdFi.Ods.Common;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Shouldly;

@@ -8,7 +8,6 @@ using System.Collections;
 using System.Linq;
 using System.Reflection;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 
 namespace EdFi.Ods.Common.Conventions
