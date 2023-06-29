@@ -139,7 +139,14 @@ jobs:
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
         Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-populated-template.psm1"
-        Initialize-PopulatedTemplate -samplePath './Ed-Fi-Standard/' -noExtensions -standardVersion ${{ matrix.StandardVersion }}
+        try
+        {
+            Initialize-PopulatedTemplate -samplePath './Ed-Fi-Standard/' -noExtensions -standardVersion ${{ matrix.StandardVersion }}
+        }
+        catch
+        {
+            throw
+        }
       shell: powershell
     - name: pack
       working-directory: ./Ed-Fi-ODS/
