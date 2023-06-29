@@ -7,7 +7,7 @@ using Autofac;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.ExternalCache;
 using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Caching.Redis;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 
 namespace EdFi.Ods.Features.Redis
 {
@@ -25,14 +25,8 @@ namespace EdFi.Ods.Features.Redis
                 return;
             }
 
-            var configurationOptions = new StackExchange.Redis.ConfigurationOptions();
-            
-            foreach(var hostAndPort in ApiSettings.Caching.Redis.Configuration.Split(","))
-            {
-                configurationOptions.EndPoints.Add(hostAndPort.Trim());
-            }
-            
-            configurationOptions.Password = ApiSettings.Caching.Redis.Password;
+            var configurationOptions = StackExchange.Redis.ConfigurationOptions.Parse(
+                ApiSettings.Caching.Redis.Configuration);
 
             builder.Register<IDistributedCache>((c, d) => new RedisCache(new RedisCacheOptions()
             {
