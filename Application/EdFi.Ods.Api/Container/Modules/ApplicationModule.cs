@@ -13,6 +13,7 @@ using Castle.DynamicProxy;
 using EdFi.Admin.DataAccess.Security;
 using EdFi.Common.Configuration;
 using EdFi.Common.Security;
+using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Conventions;
@@ -31,6 +32,7 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Configuration.Sections;
+using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Database;
@@ -42,8 +44,10 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Security;
+using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Common.Validation;
 using FluentValidation;
+using log4net;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -51,9 +55,6 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
 using Module = Autofac.Module;
-using EdFi.Ods.Common.Container;
-using EdFi.Ods.Common.Specifications;
-using log4net;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
@@ -193,6 +194,10 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<ApiClientDetailsProvider>()
                 .As<IApiClientDetailsProvider>()
                 .EnableInterfaceInterceptors()
+                .SingleInstance();
+
+            builder.RegisterType<ApiClientDetailsCacheKeyProvider>()
+                .As<IApiClientDetailsCacheKeyProvider>()
                 .SingleInstance();
 
             builder.RegisterType<CachingInterceptor>()
