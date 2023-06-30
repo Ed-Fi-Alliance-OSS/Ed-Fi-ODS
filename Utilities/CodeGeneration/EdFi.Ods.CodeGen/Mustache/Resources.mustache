@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Adapters;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Validation;
 {{#SchemaNamespaces}}
 using {{Namespace}};
@@ -268,7 +269,7 @@ namespace {{ResourceClassesNamespace}}
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}} : {{NamespacePrefix}}I{{EntityName}}{{DerivedName}}{{#IsAggregateRoot}}, IHasETag, IDateVersionedEntity{{/IsAggregateRoot}}
+    public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}} : {{NamespacePrefix}}I{{EntityName}}{{DerivedName}}{{#IsAggregateRoot}}, IHasETag, IDateVersionedEntity{{/IsAggregateRoot}}{{#HasRequiredMembersWithMeaningfulDefaultValues}}, IHasRequiredMembersWithMeaningfulDefaultValues{{/HasRequiredMembersWithMeaningfulDefaultValues}}
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -994,6 +995,24 @@ namespace {{ResourceClassesNamespace}}
         {{/NullLookup}}
         {{/Properties}}
         {{/NonIdentifiers}}
+        {{#HasRequiredMembersWithMeaningfulDefaultValues}}
+        
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+        {{#NonIdentifiers}}
+        {{#Properties}}
+        {{#Property}}        
+        {{#PropertyDefaultHasDomainMeaning}}
+            if (!_{{PropertyFieldName}}ExplicitlyAssigned)
+            {
+                yield return "{{CSharpSafePropertyName}}";
+            }
+        {{/PropertyDefaultHasDomainMeaning}}
+        {{/Property}}
+        {{/Properties}}
+        {{/NonIdentifiers}}
+        }
+        {{/HasRequiredMembersWithMeaningfulDefaultValues}}
         // -------------------------------------------------------------
 
         // =============================================================

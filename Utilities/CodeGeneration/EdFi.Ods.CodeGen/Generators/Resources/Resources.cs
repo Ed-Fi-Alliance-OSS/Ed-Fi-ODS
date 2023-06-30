@@ -364,7 +364,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             var collections = _resourceCollectionRenderer.Collections(resourceClass);
 
-            return new
+            var x = new
             {
                 ShouldRenderClass = true,
                 ResourceReference = resourceClass.IsAggregateReference()
@@ -436,8 +436,11 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 HasDiscriminator = resourceClass.Entity.HasDiscriminator(),
 
                 // Foreign Key Discriminators should not have any profile applied to this, as this data is required for links
-                ResourceReferences = CreateResourceReferences(resourceClass)
+                ResourceReferences = CreateResourceReferences(resourceClass),
+                HasRequiredMembersWithMeaningfulDefaultValues = _resourcePropertyRenderer.HasRequiredMembersWithMeaningfulDefaultValues(resourceClass)
             };
+
+            return x;
         }
 
         private static IEnumerable<object> CreateResourceReferences(ResourceClassBase resourceClass)
