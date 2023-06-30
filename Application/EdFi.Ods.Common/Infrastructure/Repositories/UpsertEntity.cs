@@ -58,6 +58,15 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     {
                         throw new NotFoundException("Resource to update was not found.");
                     }
+                    
+                    // If the resource does not support cascading key value updates but the key
+                    // values supplied by API client do not match those of the persisted entity
+                    if (persistedEntity != null 
+                        && (persistedEntity is not IHasCascadableKeyValues) 
+                        && persistedEntity.HasSameObjectSignatureAs(entity) == false)
+                    {
+                        throw new BadRequestException("Key values for this resource cannot be changed.");
+                    }
                 }
                 else
                 {
