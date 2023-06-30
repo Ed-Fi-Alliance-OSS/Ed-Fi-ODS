@@ -58,15 +58,6 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     {
                         throw new NotFoundException("Resource to update was not found.");
                     }
-                    
-                    // If the resource does not support cascading key value updates but the key
-                    // values supplied by API client do not match those of the persisted entity
-                    if (persistedEntity != null 
-                        && (persistedEntity is not IHasCascadableKeyValues) 
-                        && persistedEntity.HasSameObjectSignatureAs(entity) == false)
-                    {
-                        throw new BadRequestException("Key values for this resource cannot be changed.");
-                    }
                 }
                 else
                 {
@@ -93,6 +84,24 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         }
                     }
 
+                    // If the resource does not support cascading key value updates but the key
+                    // values supplied by API client do not match those of the persisted entity
+                    // if (persistedEntity is not IHasCascadableKeyValues && persistedEntity.HasSameObjectSignatureAs(entity) == false)
+                    // {
+                    //     throw new BadRequestException("Key values for this resource cannot be changed.");
+                    // }
+                    
+                    var cascadableEntity = persistedEntity as IHasCascadableKeyValues;
+
+                    if (cascadableEntity == null && persistedEntity is IHasPrimaryKeyValues persistedEntityWithPrimaryKeys
+                                                 && entity is IHasPrimaryKeyValues entityWithKeyValues)
+                    {
+                        if (!persistedEntityWithPrimaryKeys.Equals(entityWithKeyValues))
+                        {
+                            throw new BadRequestException("Key values for this resource cannot be updated.");
+                        }
+                    }
+                    
                     // Synchronize using strongly-typed generated code
                     isModified = entity.Synchronize(persistedEntity);
 
