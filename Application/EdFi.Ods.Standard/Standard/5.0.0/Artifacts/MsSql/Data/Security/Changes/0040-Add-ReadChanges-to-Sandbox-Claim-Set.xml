@@ -257,7 +257,7 @@
             </Action>
           </DefaultAuthorization>
         </Claim>
-        <Claim claimId="272" name="http://ed-fi.org/ods/identity/claims/studentParentAssociation">
+        <Claim claimId="272" name="http://ed-fi.org/ods/identity/claims/studentContactAssociation">
           <DefaultAuthorization>
             <Action name="Create">
               <AuthorizationStrategies>
