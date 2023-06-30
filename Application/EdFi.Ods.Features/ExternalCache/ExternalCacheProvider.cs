@@ -3,16 +3,16 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Exceptions;
-using log4net;
-using Microsoft.Extensions.Caching.Distributed;
-using Newtonsoft.Json;
 using System;
 using System.Globalization;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Authentication;
+using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Common.Descriptors;
+using EdFi.Ods.Common.Exceptions;
+using log4net;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 
 namespace EdFi.Ods.Features.ExternalCache
 {
@@ -169,7 +169,8 @@ namespace EdFi.Ods.Features.ExternalCache
 
             try
             {
-                return JsonConvert.DeserializeObject(@string, _defaultSerializerSettings);
+                // JsonConvert.DeserializeObject without a Type, returns a JObject, that will fail to be casted to a DescriptorMaps object
+                return JsonConvert.DeserializeObject<DescriptorMaps>(@string, _defaultSerializerSettings);
             }
             catch (JsonException e)
             {
