@@ -1,5 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+  <PropertyGroup>
+	 <StandardVersion Condition="'$(StandardVersion)' == '' ">5.0.0</StandardVersion>
+  </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Api.IntegrationTests</AssemblyName>
@@ -39,6 +41,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>appsettings.json</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+		<Compile Remove="**\*.cs" />
+  </ItemGroup>	
+  <ItemGroup Condition=" '$(StandardVersion)' == '5.0.0' ">
+	 <Compile Include="**\*.cs" Exclude="EducationOrganizationIdToParentUsiAuthViewTests.cs"/> 
+  </ItemGroup>
+  <ItemGroup Condition=" '$(StandardVersion)' == '4.0.0' ">
+	  <Compile Include="**\*.cs" Exclude="EducationOrganizationIdToContactUsiAuthViewTests.cs" />
   </ItemGroup>
 
 </Project>

@@ -397,11 +397,36 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
+        public EducationOrganizationTestDataBuilder AddContact(string newGuidId)
+        {
+            _sql.AppendLine(
+                $@"INSERT INTO edfi.Contact (
+                    FirstName,
+                    LastSurname,
+                    ContactUniqueId)
+                VALUES(
+                    '{newGuidId}',
+                    '{newGuidId}',
+                    '{newGuidId}');"
+            );
+
+            return this;
+        }
+
         public EducationOrganizationTestDataBuilder AddStudentParentAssociation(int parentUSI, int studentUSI)
         {
             _sql.AppendLine(
                  $@"INSERT INTO edfi.StudentParentAssociation (ParentUSI,StudentUSI)
                 VALUES ({parentUSI}, {studentUSI});");
+
+            return this;
+        }
+
+        public EducationOrganizationTestDataBuilder AddStudentContactAssociation(int contactUSI, int studentUSI)
+        {
+            _sql.AppendLine(
+                 $@"INSERT INTO edfi.StudentContactAssociation (ContactUSI,StudentUSI)
+                VALUES ({contactUSI}, {studentUSI});");
 
             return this;
         }

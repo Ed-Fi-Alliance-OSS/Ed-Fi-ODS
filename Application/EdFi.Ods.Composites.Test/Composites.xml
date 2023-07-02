@@ -179,10 +179,10 @@
       </Composite>
 
       <Composite name="ResourceWithCollectionWithCollection">
-        <BaseResource name="Parent">
-          <Collection name="ParentAddresses">
-            <Collection name="ParentAddressPeriods">
-              <Property name="BeginDate" />
+        <BaseResource name="StudentAssessment">
+          <Collection name="StudentAssessmentStudentObjectiveAssessments">
+            <Collection name="StudentAssessmentStudentObjectiveAssessmentScoreResults">
+              <Property name="Result" />
             </Collection>
           </Collection>
         </BaseResource>
