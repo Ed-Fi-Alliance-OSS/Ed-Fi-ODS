@@ -17,9 +17,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Validation
 {
     [TestFixture]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public class NoUnSuppliedRequiredMembersWithMeaningfulDefaultsAttributeTests
+    public class NoUnsuppliedRequiredMembersWithMeaningfulDefaultsAttributeTests
     {
-        [NoUnSuppliedRequiredMembersWithMeaningfulDefaults]
+        [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
         private class TestResourceClassWithMembersWithMeaningfulDefaultValues: IHasRequiredMembersWithMeaningfulDefaultValues
         {
             public int NonMeaningfulDefaultValue {get; set; }

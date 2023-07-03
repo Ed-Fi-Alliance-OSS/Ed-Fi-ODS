@@ -270,7 +270,7 @@ namespace {{ResourceClassesNamespace}}
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
     {{#HasRequiredMembersWithMeaningfulDefaultValues}}
-    [NoUnSuppliedRequiredMembersWithMeaningfulDefaults]
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     {{/HasRequiredMembersWithMeaningfulDefaultValues}}
     public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}} : {{NamespacePrefix}}I{{EntityName}}{{DerivedName}}{{#IsAggregateRoot}}, IHasETag, IDateVersionedEntity{{/IsAggregateRoot}}{{#HasRequiredMembersWithMeaningfulDefaultValues}}, IHasRequiredMembersWithMeaningfulDefaultValues{{/HasRequiredMembersWithMeaningfulDefaultValues}}
     {
@@ -963,7 +963,7 @@ namespace {{ResourceClassesNamespace}}
             }
         }
         {{/PropertyDefaultHasDomainMeaning}}
-        
+
         {{^PropertyDefaultHasDomainMeaning}}
         /// <summary>
         /// {{{Description}}}

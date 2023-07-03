@@ -9,14 +9,13 @@ using System.Linq;
 
 namespace EdFi.Ods.Common.Attributes
 {
-    public class NoUnSuppliedRequiredMembersWithMeaningfulDefaultsAttribute : ValidationAttribute
+    public class NoUnsuppliedRequiredMembersWithMeaningfulDefaultsAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             if (value is IHasRequiredMembersWithMeaningfulDefaultValues resource)
             {
                 if(resource.GetUnassignedMemberNames().Any())
-
                 {
                     return new ValidationResult("Required value not explicitly assigned.", resource.GetUnassignedMemberNames());
                 }
