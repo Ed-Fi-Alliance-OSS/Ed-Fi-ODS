@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Adapters;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.Ods.Entities.Common.SampleStudentTranscript;
@@ -652,7 +653,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PostSecondaryOrganization : Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization, IHasETag, IDateVersionedEntity
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class PostSecondaryOrganization : Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -748,13 +750,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        
+        private bool _acceptanceIndicatorExplicitlyAssigned = false;
+        private bool _acceptanceIndicator;
 
         /// <summary>
         /// An indication of acceptance.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="acceptanceIndicator")]
-        public bool AcceptanceIndicator { get; set; }
+        public bool AcceptanceIndicator 
+        { 
+            get => _acceptanceIndicator;
+            set 
+            { 
+                _acceptanceIndicator = value;
+                _acceptanceIndicatorExplicitlyAssigned = true; 
+            }
+        }
+
 
         /// <summary>
         /// The type of control of the institution (i.e., public or private).
@@ -769,6 +783,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         // NOT in a reference, IS a lookup column 
         [DataMember(Name="institutionLevelDescriptor")]
         public string InstitutionLevelDescriptor { get; set; }
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_acceptanceIndicatorExplicitlyAssigned)
+            {
+                yield return "AcceptanceIndicator";
+            }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
