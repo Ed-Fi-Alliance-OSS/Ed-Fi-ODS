@@ -7,9 +7,13 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
+using EdFi.Ods.Common.Utils.Extensions;
+using NHibernate.Persister.Entity;
 using NHibernate;
+using NHibernate.Id;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
 {
@@ -35,7 +39,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             _updateEntity = updateEntity;
         }
 
-        public async Task<UpsertEntityResult<TEntity>> UpsertAsync(TEntity entity, bool enforceOptimisticLock, CancellationToken cancellationToken)
+        public async Task<UpsertEntityResult<TEntity>> UpsertAsync(TEntity entity, bool enforceOptimisticLock,
+            CancellationToken cancellationToken)
         {
             using (new SessionScope(SessionFactory))
             {
@@ -86,22 +91,24 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                     // If the resource does not support cascading key value updates but the key
                     // values supplied by API client do not match those of the persisted entity
-                    // if (persistedEntity is not IHasCascadableKeyValues && persistedEntity.HasSameObjectSignatureAs(entity) == false)
-                    // {
-                    //     throw new BadRequestException("Key values for this resource cannot be changed.");
-                    // }
-                    
-                    var cascadableEntity = persistedEntity as IHasCascadableKeyValues;
-
-                    if (cascadableEntity == null && persistedEntity is IHasPrimaryKeyValues persistedEntityWithPrimaryKeys
-                                                 && entity is IHasPrimaryKeyValues entityWithKeyValues)
+                    if (persistedEntity is IHasPrimaryKeyValues persistedEntityWithPrimaryKeys and not IHasCascadableKeyValues 
+                        && entity is IHasPrimaryKeyValues entityWithPrimaryKeys)
                     {
-                        if (!persistedEntityWithPrimaryKeys.Equals(entityWithKeyValues))
+                        var persistedEntityPrimaryKeys = (persistedEntity as IHasPrimaryKeyValues)?.GetPrimaryKeyValues();
+                        var entityPrimaryKeys = entityWithPrimaryKeys.GetPrimaryKeyValues();
+
+                        foreach (var keyValue in persistedEntityPrimaryKeys.Keys)
                         {
-                            throw new BadRequestException("Key values for this resource cannot be updated.");
+                            // Check if any of the key values in the update request are different than those of the existing entity, but
+                            // exclude keys where the value is the type default since they were likely not included in the client's API request 
+                            if (!persistedEntityPrimaryKeys[keyValue]!.Equals(entityPrimaryKeys?[keyValue])
+                                && !entityPrimaryKeys![keyValue].IsDefault(entityPrimaryKeys[keyValue]?.GetType()))
+                            {
+                                throw new BadRequestException("Key values for this resource cannot be updated.");
+                            }
                         }
                     }
-                    
+
                     // Synchronize using strongly-typed generated code
                     isModified = entity.Synchronize(persistedEntity);
 
