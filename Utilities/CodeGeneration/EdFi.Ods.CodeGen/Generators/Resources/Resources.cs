@@ -364,7 +364,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             var collections = _resourceCollectionRenderer.Collections(resourceClass);
 
-            var x = new
+            return new
             {
                 ShouldRenderClass = true,
                 ResourceReference = resourceClass.IsAggregateReference()
@@ -439,8 +439,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 ResourceReferences = CreateResourceReferences(resourceClass),
                 HasRequiredMembersWithMeaningfulDefaultValues = _resourcePropertyRenderer.HasRequiredMembersWithMeaningfulDefaultValues(resourceClass)
             };
-
-            return x;
         }
 
         private static IEnumerable<object> CreateResourceReferences(ResourceClassBase resourceClass)

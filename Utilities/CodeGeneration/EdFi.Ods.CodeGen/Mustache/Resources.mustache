@@ -269,6 +269,9 @@ namespace {{ResourceClassesNamespace}}
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    {{#HasRequiredMembersWithMeaningfulDefaultValues}}
+    [NoUnSuppliedRequiredMembersWithMeaningfulDefaults]
+    {{/HasRequiredMembersWithMeaningfulDefaultValues}}
     public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}} : {{NamespacePrefix}}I{{EntityName}}{{DerivedName}}{{#IsAggregateRoot}}, IHasETag, IDateVersionedEntity{{/IsAggregateRoot}}{{#HasRequiredMembersWithMeaningfulDefaultValues}}, IHasRequiredMembersWithMeaningfulDefaultValues{{/HasRequiredMembersWithMeaningfulDefaultValues}}
     {
 #pragma warning disable 414
@@ -996,7 +999,7 @@ namespace {{ResourceClassesNamespace}}
         {{/Properties}}
         {{/NonIdentifiers}}
         {{#HasRequiredMembersWithMeaningfulDefaultValues}}
-        
+
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
         {{#NonIdentifiers}}
