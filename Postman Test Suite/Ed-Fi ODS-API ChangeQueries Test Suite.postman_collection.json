@@ -4194,7 +4194,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n   \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"courseDefinedByDescriptor\": \"{{supplied:{{scenarioId}}:courseDefinedByDescriptor}}\",\r\n  \"courseDescription\": \"{{supplied:{{scenarioId}}:courseDescription}}\",\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\",\r\n  \"courseCode\": \"{{supplied:{{scenarioId}}:courseCode}}\",\r\n  \"NumberOfParts\":\"{{supplied:{{scenarioId}}:NumberOfParts}}\"\r\n}"
+									"raw": "{\r\n   \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"courseDefinedByDescriptor\": \"{{supplied:{{scenarioId}}:courseDefinedByDescriptor}}\",\r\n  \"courseDescription\": \"{{supplied:{{scenarioId}}:courseDescription}}\",\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\",\r\n  \"NumberOfParts\":\"{{supplied:{{scenarioId}}:NumberOfParts}}\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:{{scenarioId}}:courseGuid}}",
