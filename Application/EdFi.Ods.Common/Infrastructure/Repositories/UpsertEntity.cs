@@ -39,8 +39,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             _updateEntity = updateEntity;
         }
 
-        public async Task<UpsertEntityResult<TEntity>> UpsertAsync(TEntity entity, bool enforceOptimisticLock,
-            CancellationToken cancellationToken)
+        public async Task<UpsertEntityResult<TEntity>> UpsertAsync(TEntity entity, bool enforceOptimisticLock, CancellationToken cancellationToken)
         {
             using (new SessionScope(SessionFactory))
             {
