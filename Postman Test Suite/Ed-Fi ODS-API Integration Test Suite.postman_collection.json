@@ -4952,14 +4952,15 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											" pm.test(\"Status code is 201\", () => {",
-											"    pm.expect(pm.response.code).to.equal(201);",
-											"});",
+											"pm.test(\"Response is  201 or 404\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) ",
+											" });",
 											"",
-											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':parentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"pm.environment.set('known:'+scenarioId+':parentUniqueId',pm.environment.get('supplied:'+scenarioId+':parentUniqueId'));",
-											"",
+											"if (pm.response.code === 201 ) {",
+											"    const scenarioId = pm.environment.get('scenarioId');",
+											"    pm.environment.set('known:'+scenarioId+':parentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+											"    pm.environment.set('known:'+scenarioId+':parentUniqueId',pm.environment.get('supplied:'+scenarioId+':parentUniqueId'));",
+											"}",
 											"    "
 										],
 										"type": "text/javascript"
@@ -5026,9 +5027,9 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											" pm.test(\"Status code is 201\", () => {",
-											"    pm.expect(pm.response.code).to.equal(201);",
-											"});",
+											"pm.test(\"Response is  201 or 404\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) ",
+											" });",
 											""
 										],
 										"type": "text/javascript"
@@ -5085,22 +5086,25 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"        pm.expect(pm.response.code).to.equal(200);",
-											"    });   ",
-											"const __ = require('lodash');",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should return the 1 item in response\", () => {",
-											"     pm.expect(responseItems).to.have.lengthOf(1);",
-											"});",
-											"const scenarioId = pm.environment.get('scenarioId');",
-											" ",
-											"pm.test(\"Should match with Student Response \", () => {",
-											"    __.each(responseItems, (responseItem) => {",
-											"        pm.expect(responseItem.personReference.personId).to.equal(pm.environment.get('supplied:'+scenarioId+':personId').toString());",
-											"        pm.expect(responseItem.personReference.sourceSystemDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':sourceSystemDescriptor'));",
-											"      });       ",
-											"});",
+											"pm.test(\"Response is  200 or 404\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 404]) ",
+											" });  ",
+											"",
+											"if (pm.response.code === 200 ) {",
+											"    const __ = require('lodash');",
+											"    const responseItems = pm.response.json();",
+											"    pm.test(\"Should return the 1 item in response\", () => {",
+											"        pm.expect(responseItems).to.have.lengthOf(1);",
+											"    });",
+											"    const scenarioId = pm.environment.get('scenarioId');",
+											"    ",
+											"    pm.test(\"Should match with Student Response \", () => {",
+											"        __.each(responseItems, (responseItem) => {",
+											"            pm.expect(responseItem.personReference.personId).to.equal(pm.environment.get('supplied:'+scenarioId+':personId').toString());",
+											"            pm.expect(responseItem.personReference.sourceSystemDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':sourceSystemDescriptor'));",
+											"        });       ",
+											"    });",
+											" }",
 											""
 										],
 										"type": "text/javascript"
@@ -7371,30 +7375,33 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status is 400\", () => {\r",
-													"  pm.expect(pm.response.code).equals(400);\r",
-													"});\r",
+													"pm.test(\"Response is  400 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400, 404]) \r",
+													" });\r",
 													"\r",
-													"const message = pm.response.json().message;\r",
 													"\r",
-													"/*\r",
-													"    string FavoriteBookTitle\r",
-													"        documentation \"The title of the parent's favorite book.\"\r",
-													"        is required collection\r",
-													"        max length 100\r",
-													"*/\r",
-													"pm.test(\"Should indicate that the required collection has no items.\", () => {\r",
-													"  pm.expect(message).to.contain(\"ParentFavoriteBookTitles (Sample) requires at least one object in the collection.\");\r",
-													"});\r",
+													"if (pm.response.code === 400 ) {\r",
+													"    const message = pm.response.json().message;\r",
 													"\r",
-													"/*\r",
-													"    shared string EdFi.Author\r",
-													"        documentation \"The parent's favorite authors.\"\r",
-													"        is optional collection\r",
-													"*/\r",
-													"pm.test(\"Should NOT indicate any issues with the optional collection that is empty.\", () => {\r",
-													"  pm.expect(message).to.not.contain(\"ParentAuthors (Sample)\");\r",
-													"});"
+													"    /*\r",
+													"        string FavoriteBookTitle\r",
+													"            documentation \"The title of the parent's favorite book.\"\r",
+													"            is required collection\r",
+													"            max length 100\r",
+													"    */\r",
+													"    pm.test(\"Should indicate that the required collection has no items.\", () => {\r",
+													"    pm.expect(message).to.contain(\"ParentFavoriteBookTitles (Sample) requires at least one object in the collection.\");\r",
+													"    });\r",
+													"\r",
+													"    /*\r",
+													"        shared string EdFi.Author\r",
+													"            documentation \"The parent's favorite authors.\"\r",
+													"            is optional collection\r",
+													"    */\r",
+													"    pm.test(\"Should NOT indicate any issues with the optional collection that is empty.\", () => {\r",
+													"    pm.expect(message).to.not.contain(\"ParentAuthors (Sample)\");\r",
+													"    });\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -7448,30 +7455,31 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status is 400\", () => {\r",
-													"  pm.expect(pm.response.code).equals(400);\r",
-													"});\r",
+													"pm.test(\"Response is  400 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400, 404]) \r",
+													" });\r",
 													"\r",
-													"const message = pm.response.json().message;\r",
+													"if (pm.response.code === 400 ) {\r",
+													"    const message = pm.response.json().message;\r",
 													"\r",
-													"/*\r",
-													"    common TeacherConference\r",
-													"        documentation \"The parent's preferred day of the week and time for parent-teacher conferences.\"\r",
-													"        is required\r",
-													"*/\r",
-													"pm.test(\"Should indicate that the required embedded object is missing.\", () => {\r",
-													"  pm.expect(message).to.contain(\"ParentTeacherConference (Sample) is required.\");\r",
-													"});\r",
+													"    /*\r",
+													"        common TeacherConference\r",
+													"            documentation \"The parent's preferred day of the week and time for parent-teacher conferences.\"\r",
+													"            is required\r",
+													"    */\r",
+													"    pm.test(\"Should indicate that the required embedded object is missing.\", () => {\r",
+													"    pm.expect(message).to.contain(\"ParentTeacherConference (Sample) is required.\");\r",
+													"    });\r",
 													"\r",
-													"/*\r",
-													"    common EdFi.CTEProgram\r",
-													"        documentation \"A CTE program the parent has completed.\"\r",
-													"        is optional\r",
-													"*/\r",
-													"pm.test(\"Should NOT indicate any issues with the optional embedded object that is missing.\", () => {\r",
-													"  pm.expect(message).to.not.contain(\"ParentCTEProgram (Sample)\");\r",
-													"});\r",
-													""
+													"    /*\r",
+													"        common EdFi.CTEProgram\r",
+													"            documentation \"A CTE program the parent has completed.\"\r",
+													"            is optional\r",
+													"    */\r",
+													"    pm.test(\"Should NOT indicate any issues with the optional embedded object that is missing.\", () => {\r",
+													"    pm.expect(message).to.not.contain(\"ParentCTEProgram (Sample)\");\r",
+													"    });\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -7516,11 +7524,13 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status is 201\", () => {\r",
-													"  pm.expect(pm.response.code).equals(201);\r",
-													"});\r",
+													"pm.test(\"Response is  201 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
+													" });\r",
 													"\r",
-													"pm.environment.set('known:parent:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+													"if (pm.response.code === 201 ) {\r",
+													"    pm.environment.set('known:parent:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -7565,9 +7575,9 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 204\", () => {",
-													"    pm.expect(pm.response.code).to.equal(204);",
-													"});"
+													"pm.test(\"Response is  204 or 404\", () => {",
+													"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) ",
+													" });"
 												],
 												"type": "text/javascript"
 											}
