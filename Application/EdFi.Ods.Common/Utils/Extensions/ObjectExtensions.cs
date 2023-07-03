@@ -11,7 +11,7 @@ namespace EdFi.Ods.Common.Utils.Extensions
     {
         public static bool IsDefault(this object value, Type type)
         {
-            var defaultValue = type.DefaultValue();
+            var defaultValue = type?.DefaultValue();
 
             if (value == null)
             {
