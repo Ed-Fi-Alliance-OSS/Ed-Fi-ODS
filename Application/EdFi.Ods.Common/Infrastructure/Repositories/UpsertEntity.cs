@@ -90,15 +90,12 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     if (persistedEntity is IHasPrimaryKeyValues persistedEntityWithPrimaryKeys and not IHasCascadableKeyValues 
                         && entity is IHasPrimaryKeyValues entityWithPrimaryKeys)
                     {
-                        var persistedEntityPrimaryKeys = (persistedEntity as IHasPrimaryKeyValues)?.GetPrimaryKeyValues();
+                        var persistedEntityPrimaryKeys = persistedEntityWithPrimaryKeys.GetPrimaryKeyValues();
                         var entityPrimaryKeys = entityWithPrimaryKeys.GetPrimaryKeyValues();
 
-                        foreach (var keyValue in persistedEntityPrimaryKeys.Keys)
+                        foreach (object keyValue in persistedEntityPrimaryKeys.Keys)
                         {
-                            // Check if any of the key values in the update request are different than those of the existing entity, but
-                            // exclude keys where the value is the type default since they were likely not included in the client's API request 
-                            if (!persistedEntityPrimaryKeys[keyValue]!.Equals(entityPrimaryKeys?[keyValue])
-                                && !entityPrimaryKeys![keyValue].IsDefault(entityPrimaryKeys[keyValue]?.GetType()))
+                            if (!persistedEntityPrimaryKeys[keyValue]!.Equals(entityPrimaryKeys[keyValue]) && !entityPrimaryKeys[keyValue].IsDefault(entityPrimaryKeys[keyValue]?.GetType()))
                             {
                                 throw new BadRequestException("Key values for this resource cannot be updated.");
                             }
