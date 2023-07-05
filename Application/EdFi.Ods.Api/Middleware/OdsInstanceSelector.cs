@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Configuration;
+using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security;
@@ -21,13 +22,16 @@ public class OdsInstanceSelector : IOdsInstanceSelector
 {
     private readonly IApiClientContextProvider _apiClientContextProvider;
     private readonly IOdsInstanceConfigurationProvider _odsInstanceConfigurationProvider;
+    private readonly IOdsRouteRootTemplateProvider _odsRoutesRootTemplateProvider;
 
     public OdsInstanceSelector(
         IApiClientContextProvider apiClientContextProvider,
-        IOdsInstanceConfigurationProvider odsInstanceConfigurationProvider)
+        IOdsInstanceConfigurationProvider odsInstanceConfigurationProvider, 
+        IOdsRouteRootTemplateProvider odsRoutesRootTemplateProvider)
     {
         _apiClientContextProvider = apiClientContextProvider;
         _odsInstanceConfigurationProvider = odsInstanceConfigurationProvider;
+        _odsRoutesRootTemplateProvider = odsRoutesRootTemplateProvider;
     }
 
     /// <inheritdoc cref="IOdsInstanceSelector.GetOdsInstanceAsync" />
@@ -45,7 +49,7 @@ public class OdsInstanceSelector : IOdsInstanceSelector
             throw new ApiSecurityConfigurationException("The API client has not been associated with an ODS instance.");
         }
 
-        if (apiClientContext.OdsInstanceIds.Count == 1)
+        if (apiClientContext.OdsInstanceIds.Count == 1 && !_odsRoutesRootTemplateProvider.HasOdsContextRouteTemplate)
         {
             return await _odsInstanceConfigurationProvider.GetByIdAsync(apiClientContext.OdsInstanceIds[0]);
         }

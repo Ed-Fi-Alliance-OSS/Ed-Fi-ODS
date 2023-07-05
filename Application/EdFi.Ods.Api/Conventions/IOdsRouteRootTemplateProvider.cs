@@ -11,6 +11,11 @@ namespace EdFi.Ods.Api.Conventions;
 public interface IOdsRouteRootTemplateProvider
 {
     /// <summary>
+    /// Gets a value indicating whether the route route has an ODS context route template.
+    /// </summary>
+    bool HasOdsContextRouteTemplate { get; }
+
+    /// <summary>
     /// Gets the root route template prefix to be applied to controllers.
     /// </summary>
     /// <returns>The root template prefix to be applied to the route, if applicable; otherwise <b>null</b>.</returns>

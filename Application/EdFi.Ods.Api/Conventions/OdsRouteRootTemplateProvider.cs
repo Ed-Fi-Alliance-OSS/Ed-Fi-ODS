@@ -22,6 +22,12 @@ public class OdsRouteRootTemplateProvider : IOdsRouteRootTemplateProvider
         _apiSettings = apiSettings;
     }
 
+    /// <inheritdoc cref="IOdsRouteRootTemplateProvider.HasOdsContextRouteTemplate" />
+    public bool HasOdsContextRouteTemplate
+    {
+        get => !string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate);
+    }
+
     /// <inheritdoc cref="IOdsRouteRootTemplateProvider.GetOdsRouteRootTemplate" />
     public string GetOdsRouteRootTemplate()
     {
@@ -33,7 +39,7 @@ public class OdsRouteRootTemplateProvider : IOdsRouteRootTemplateProvider
                 .EnsureSuffixApplied("/");
         }
 
-        if (!string.IsNullOrEmpty(odsContextRouteTemplate))
+        if (!HasOdsContextRouteTemplate)
         {
             return odsContextRouteTemplate.EnsureSuffixApplied("/");
         }

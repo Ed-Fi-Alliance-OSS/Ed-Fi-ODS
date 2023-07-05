@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Configuration;
+using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security;
@@ -21,6 +22,7 @@ namespace EdFi.Ods.Api.Middleware.Tests
     {
         private IApiClientContextProvider _apiClientContextProvider;
         private IOdsInstanceConfigurationProvider _odsInstanceConfigurationProvider;
+        private IOdsRouteRootTemplateProvider _odsRouteRootTemplateProvider;
         private OdsInstanceSelector _odsInstanceSelector;
         private Dictionary<string, object> _routeValueDictionary;
 
@@ -29,7 +31,8 @@ namespace EdFi.Ods.Api.Middleware.Tests
         {
             _apiClientContextProvider = A.Fake<IApiClientContextProvider>();
             _odsInstanceConfigurationProvider = A.Fake<IOdsInstanceConfigurationProvider>();
-            _odsInstanceSelector = new OdsInstanceSelector(_apiClientContextProvider, _odsInstanceConfigurationProvider);
+            _odsRouteRootTemplateProvider = A.Fake<IOdsRouteRootTemplateProvider>();
+            _odsInstanceSelector = new OdsInstanceSelector(_apiClientContextProvider, _odsInstanceConfigurationProvider, _odsRouteRootTemplateProvider);
             _routeValueDictionary = new Dictionary<string, object>();
         }
 
