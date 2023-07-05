@@ -6,7 +6,7 @@
 using System;
 using NUnit.Framework;
 
-namespace EdFi.Ods.Api.IntegrationTests
+namespace EdFi.Ods.Api.IntegrationTests.Parent
 {
     [TestFixture]
     public class EducationOrganizationIdToParentUsiAuthViewTests : DatabaseTestFixtureBase

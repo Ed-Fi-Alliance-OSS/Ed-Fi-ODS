@@ -6,7 +6,7 @@
 using System;
 using NUnit.Framework;
 
-namespace EdFi.Ods.Api.IntegrationTests
+namespace EdFi.Ods.Api.IntegrationTests.Contact
 {
     [TestFixture]
     public class EducationOrganizationIdToContactUsiAuthViewTests : DatabaseTestFixtureBase
@@ -79,7 +79,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStudentContactAssociation(contactUsi, studentUsi)
                 .Execute();
 
-            var expectedTuples = new[] {(9902, contactUsi)};
+            var expectedTuples = new[] { (9902, contactUsi) };
 
             AuthorizationViewHelper.ShouldNotContainTuples(Connection, PersonType.Contact, expectedTuples);
         }
@@ -127,7 +127,7 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             var contactUsi = AuthorizationViewHelper.GetContactUsi(Connection, contactUniqueId);
 
-            var expectedTuples = new[] {(9899, contactUsi)};
+            var expectedTuples = new[] { (9899, contactUsi) };
 
             AuthorizationViewHelper.ShouldNotContainTuples(
                 Connection, PersonType.Contact, expectedTuples);

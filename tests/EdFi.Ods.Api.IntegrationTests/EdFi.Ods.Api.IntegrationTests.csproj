@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
 	 <StandardVersion Condition="'$(StandardVersion)' == '' ">5.0.0</StandardVersion>
   </PropertyGroup>
@@ -46,10 +46,9 @@
 		<Compile Remove="**\*.cs" />
   </ItemGroup>	
   <ItemGroup Condition=" '$(StandardVersion)' == '5.0.0' ">
-	 <Compile Include="**\*.cs" Exclude="EducationOrganizationIdToParentUsiAuthViewTests.cs"/> 
+	 <Compile Include="**\*.cs" Exclude="**\Parent\*.*" /> 
   </ItemGroup>
   <ItemGroup Condition=" '$(StandardVersion)' == '4.0.0' ">
-	  <Compile Include="**\*.cs" Exclude="EducationOrganizationIdToContactUsiAuthViewTests.cs" />
+	  <Compile Include="**\*.cs" Exclude="**\Contact\*.*" />
   </ItemGroup>
-
 </Project>
