@@ -2009,7 +2009,7 @@
 								"{{known:academicWeeksReferenceIdforSchool}}"
 							]
 						},
-						"description": "This api Put method attempts to update the weekIdentifier property of a specific academicWeek. The the weekIdentifier property is part of academicWeek's natural key.\n\nThis test method will throw invalid error invalid request error 400 because academicWeeks does not support cascading key updates"
+						"description": "This api Put method attempts to update the weekIdentifier property of a specific academicWeek. The weekIdentifier property is part of academicWeek's natural key.\n\nThis test method will throw invalid error invalid request error 400 because academicWeeks does not support cascading key updates."
 					},
 					"response": []
 				},
