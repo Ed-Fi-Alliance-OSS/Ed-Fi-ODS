@@ -1946,6 +1946,74 @@
 					"response": []
 				},
 				{
+					"name": "Invalid Key Update",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const __ = require('lodash');",
+									"pm.environment.set(\"known:id\",pm.environment.get(\"known:academicWeeksReferenceIdforSchool\"));",
+									"pm.environment.set(\"known:totalInstructionalDays\",__.random(9));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {",
+									"    pm.expect(pm.response.code).to.equal(400);",
+									"});",
+									"",
+									"pm.test(\"Should return message indicating key value cannot be updated\", () => {",
+									"      const responseItem = pm.response.json();",
+									"     pm.expect(responseItem.message).to.include(\"Key values for this resource cannot be updated.\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}{{$randomInt}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n \"beginDate\":\"{{known:beginDate}}\",\r\n  \"endDate\":\"{{known:endDate}}\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks/{{known:academicWeeksReferenceIdforSchool}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks",
+								"{{known:academicWeeksReferenceIdforSchool}}"
+							]
+						},
+						"description": "This api Put method updates academicWeeks for given school .\nThis test method will throw BeginDate & EndDate invalid error when invalid BeginDate & EndDate  is  passed in Request."
+					},
+					"response": []
+				},
+				{
 					"name": "Put on  EndDate & TotalInstructionalDays",
 					"event": [
 						{
