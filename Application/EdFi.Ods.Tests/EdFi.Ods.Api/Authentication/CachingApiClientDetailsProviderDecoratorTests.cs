@@ -6,7 +6,6 @@
 using System;
 using System.Threading.Tasks;
 using EdFi.Common.Security;
-using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Features.ExternalCache;
 using FakeItEasy;

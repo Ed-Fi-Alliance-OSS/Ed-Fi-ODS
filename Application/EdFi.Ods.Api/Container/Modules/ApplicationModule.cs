@@ -13,7 +13,6 @@ using Castle.DynamicProxy;
 using EdFi.Admin.DataAccess.Security;
 using EdFi.Common.Configuration;
 using EdFi.Common.Security;
-using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Conventions;
@@ -194,10 +193,6 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<ApiClientDetailsProvider>()
                 .As<IApiClientDetailsProvider>()
                 .EnableInterfaceInterceptors()
-                .SingleInstance();
-
-            builder.RegisterType<ApiClientDetailsCacheKeyProvider>()
-                .As<IApiClientDetailsCacheKeyProvider>()
                 .SingleInstance();
 
             builder.RegisterType<CachingInterceptor>()

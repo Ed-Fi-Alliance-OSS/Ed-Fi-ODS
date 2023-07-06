@@ -6,7 +6,6 @@
 using System;
 using System.Globalization;
 using EdFi.Common.Security;
-using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Exceptions;
