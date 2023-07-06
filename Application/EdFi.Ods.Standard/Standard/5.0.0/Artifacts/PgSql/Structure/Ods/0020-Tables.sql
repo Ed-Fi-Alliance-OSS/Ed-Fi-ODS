@@ -23,7 +23,7 @@ CREATE TABLE edfi.AcademicSubjectDescriptor (
 
 -- Table edfi.AcademicWeek --
 CREATE TABLE edfi.AcademicWeek (
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     WeekIdentifier VARCHAR(80) NOT NULL,
     BeginDate DATE NOT NULL,
     EndDate DATE NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE edfi.AccommodationDescriptor (
 
 -- Table edfi.AccountabilityRating --
 CREATE TABLE edfi.AccountabilityRating (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     RatingTitle VARCHAR(60) NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     Rating VARCHAR(35) NOT NULL,
@@ -117,7 +117,7 @@ CREATE TABLE edfi.Assessment (
     MaxRawScore DECIMAL(15, 5) NULL,
     Nomenclature VARCHAR(100) NULL,
     AssessmentFamily VARCHAR(60) NULL,
-    EducationOrganizationId INT NULL,
+    EducationOrganizationId BIGINT NULL,
     AdaptiveAssessment BOOLEAN NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -165,7 +165,7 @@ CREATE TABLE edfi.AssessmentContentStandard (
     PublicationDate DATE NULL,
     PublicationYear SMALLINT NULL,
     PublicationStatusDescriptorId INT NULL,
-    MandatingEducationOrganizationId INT NULL,
+    MandatingEducationOrganizationId BIGINT NULL,
     BeginDate DATE NULL,
     EndDate DATE NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -314,7 +314,7 @@ ALTER TABLE edfi.AssessmentPlatformType ALTER COLUMN CreateDate SET DEFAULT curr
 -- Table edfi.AssessmentProgram --
 CREATE TABLE edfi.AssessmentProgram (
     AssessmentIdentifier VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     Namespace VARCHAR(255) NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
@@ -377,7 +377,7 @@ CREATE TABLE edfi.AssessmentSection (
     AssessmentIdentifier VARCHAR(60) NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
     Namespace VARCHAR(255) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
@@ -444,7 +444,7 @@ CREATE TABLE edfi.BehaviorDescriptor (
 -- Table edfi.BellSchedule --
 CREATE TABLE edfi.BellSchedule (
     BellScheduleName VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     AlternateDayName VARCHAR(20) NULL,
     StartTime TIME NULL,
     EndTime TIME NULL,
@@ -463,7 +463,7 @@ ALTER TABLE edfi.BellSchedule ALTER COLUMN LastModifiedDate SET DEFAULT current_
 CREATE TABLE edfi.BellScheduleClassPeriod (
     BellScheduleName VARCHAR(60) NOT NULL,
     ClassPeriodName VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT BellScheduleClassPeriod_PK PRIMARY KEY (BellScheduleName, ClassPeriodName, SchoolId)
 );
@@ -473,7 +473,7 @@ ALTER TABLE edfi.BellScheduleClassPeriod ALTER COLUMN CreateDate SET DEFAULT cur
 CREATE TABLE edfi.BellScheduleDate (
     BellScheduleName VARCHAR(60) NOT NULL,
     Date DATE NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT BellScheduleDate_PK PRIMARY KEY (BellScheduleName, Date, SchoolId)
 );
@@ -483,7 +483,7 @@ ALTER TABLE edfi.BellScheduleDate ALTER COLUMN CreateDate SET DEFAULT current_ti
 CREATE TABLE edfi.BellScheduleGradeLevel (
     BellScheduleName VARCHAR(60) NOT NULL,
     GradeLevelDescriptorId INT NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT BellScheduleGradeLevel_PK PRIMARY KEY (BellScheduleName, GradeLevelDescriptorId, SchoolId)
 );
@@ -492,7 +492,7 @@ ALTER TABLE edfi.BellScheduleGradeLevel ALTER COLUMN CreateDate SET DEFAULT curr
 -- Table edfi.Calendar --
 CREATE TABLE edfi.Calendar (
     CalendarCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     CalendarTypeDescriptorId INT NOT NULL,
     Discriminator VARCHAR(128) NULL,
@@ -509,7 +509,7 @@ ALTER TABLE edfi.Calendar ALTER COLUMN LastModifiedDate SET DEFAULT current_time
 CREATE TABLE edfi.CalendarDate (
     CalendarCode VARCHAR(60) NOT NULL,
     Date DATE NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -526,7 +526,7 @@ CREATE TABLE edfi.CalendarDateCalendarEvent (
     CalendarCode VARCHAR(60) NOT NULL,
     CalendarEventDescriptorId INT NOT NULL,
     Date DATE NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CalendarDateCalendarEvent_PK PRIMARY KEY (CalendarCode, CalendarEventDescriptorId, Date, SchoolId, SchoolYear)
@@ -543,7 +543,7 @@ CREATE TABLE edfi.CalendarEventDescriptor (
 CREATE TABLE edfi.CalendarGradeLevel (
     CalendarCode VARCHAR(60) NOT NULL,
     GradeLevelDescriptorId INT NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CalendarGradeLevel_PK PRIMARY KEY (CalendarCode, GradeLevelDescriptorId, SchoolId, SchoolYear)
@@ -577,7 +577,7 @@ CREATE TABLE edfi.CharterStatusDescriptor (
 -- Table edfi.ChartOfAccount --
 CREATE TABLE edfi.ChartOfAccount (
     AccountIdentifier VARCHAR(50) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     FiscalYear INT NOT NULL,
     AccountTypeDescriptorId INT NOT NULL,
     AccountName VARCHAR(100) NULL,
@@ -602,7 +602,7 @@ ALTER TABLE edfi.ChartOfAccount ALTER COLUMN LastModifiedDate SET DEFAULT curren
 -- Table edfi.ChartOfAccountReportingTag --
 CREATE TABLE edfi.ChartOfAccountReportingTag (
     AccountIdentifier VARCHAR(50) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     FiscalYear INT NOT NULL,
     ReportingTagDescriptorId INT NOT NULL,
     TagValue VARCHAR(100) NULL,
@@ -620,7 +620,7 @@ CREATE TABLE edfi.CitizenshipStatusDescriptor (
 -- Table edfi.ClassPeriod --
 CREATE TABLE edfi.ClassPeriod (
     ClassPeriodName VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     OfficialAttendancePeriod BOOLEAN NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -636,7 +636,7 @@ ALTER TABLE edfi.ClassPeriod ALTER COLUMN LastModifiedDate SET DEFAULT current_t
 CREATE TABLE edfi.ClassPeriodMeetingTime (
     ClassPeriodName VARCHAR(60) NOT NULL,
     EndTime TIME NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     StartTime TIME NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT ClassPeriodMeetingTime_PK PRIMARY KEY (ClassPeriodName, EndTime, SchoolId, StartTime)
@@ -652,7 +652,7 @@ CREATE TABLE edfi.ClassroomPositionDescriptor (
 -- Table edfi.Cohort --
 CREATE TABLE edfi.Cohort (
     CohortIdentifier VARCHAR(36) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     CohortDescription VARCHAR(1024) NULL,
     CohortTypeDescriptorId INT NOT NULL,
     CohortScopeDescriptorId INT NULL,
@@ -670,8 +670,8 @@ ALTER TABLE edfi.Cohort ALTER COLUMN LastModifiedDate SET DEFAULT current_timest
 -- Table edfi.CohortProgram --
 CREATE TABLE edfi.CohortProgram (
     CohortIdentifier VARCHAR(36) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -699,14 +699,14 @@ CREATE TABLE edfi.CohortYearTypeDescriptor (
 
 -- Table edfi.CommunityOrganization --
 CREATE TABLE edfi.CommunityOrganization (
-    CommunityOrganizationId INT NOT NULL,
+    CommunityOrganizationId BIGINT NOT NULL,
     CONSTRAINT CommunityOrganization_PK PRIMARY KEY (CommunityOrganizationId)
 );
 
 -- Table edfi.CommunityProvider --
 CREATE TABLE edfi.CommunityProvider (
-    CommunityProviderId INT NOT NULL,
-    CommunityOrganizationId INT NULL,
+    CommunityProviderId BIGINT NOT NULL,
+    CommunityOrganizationId BIGINT NULL,
     ProviderProfitabilityDescriptorId INT NULL,
     ProviderStatusDescriptorId INT NOT NULL,
     ProviderCategoryDescriptorId INT NOT NULL,
@@ -717,7 +717,7 @@ CREATE TABLE edfi.CommunityProvider (
 
 -- Table edfi.CommunityProviderLicense --
 CREATE TABLE edfi.CommunityProviderLicense (
-    CommunityProviderId INT NOT NULL,
+    CommunityProviderId BIGINT NOT NULL,
     LicenseIdentifier VARCHAR(36) NOT NULL,
     LicensingOrganization VARCHAR(75) NOT NULL,
     LicenseEffectiveDate DATE NOT NULL,
@@ -746,7 +746,7 @@ CREATE TABLE edfi.CompetencyLevelDescriptor (
 
 -- Table edfi.CompetencyObjective --
 CREATE TABLE edfi.CompetencyObjective (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     Objective VARCHAR(60) NOT NULL,
     ObjectiveGradeLevelDescriptorId INT NOT NULL,
     CompetencyObjectiveId VARCHAR(60) NULL,
@@ -951,7 +951,7 @@ CREATE TABLE edfi.CountryDescriptor (
 -- Table edfi.Course --
 CREATE TABLE edfi.Course (
     CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     CourseTitle VARCHAR(60) NOT NULL,
     NumberOfParts INT NOT NULL,
     AcademicSubjectDescriptorId INT NULL,
@@ -989,7 +989,7 @@ CREATE TABLE edfi.CourseAttemptResultDescriptor (
 CREATE TABLE edfi.CourseCompetencyLevel (
     CompetencyLevelDescriptorId INT NOT NULL,
     CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CourseCompetencyLevel_PK PRIMARY KEY (CompetencyLevelDescriptorId, CourseCode, EducationOrganizationId)
 );
@@ -1011,7 +1011,7 @@ CREATE TABLE edfi.CourseGPAApplicabilityDescriptor (
 CREATE TABLE edfi.CourseIdentificationCode (
     CourseCode VARCHAR(60) NOT NULL,
     CourseIdentificationSystemDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     IdentificationCode VARCHAR(60) NOT NULL,
     AssigningOrganizationIdentificationCode VARCHAR(60) NULL,
     CourseCatalogURL VARCHAR(255) NULL,
@@ -1029,7 +1029,7 @@ CREATE TABLE edfi.CourseIdentificationSystemDescriptor (
 -- Table edfi.CourseLearningStandard --
 CREATE TABLE edfi.CourseLearningStandard (
     CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     LearningStandardId VARCHAR(60) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CourseLearningStandard_PK PRIMARY KEY (CourseCode, EducationOrganizationId, LearningStandardId)
@@ -1040,7 +1040,7 @@ ALTER TABLE edfi.CourseLearningStandard ALTER COLUMN CreateDate SET DEFAULT curr
 CREATE TABLE edfi.CourseLevelCharacteristic (
     CourseCode VARCHAR(60) NOT NULL,
     CourseLevelCharacteristicDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CourseLevelCharacteristic_PK PRIMARY KEY (CourseCode, CourseLevelCharacteristicDescriptorId, EducationOrganizationId)
 );
@@ -1055,7 +1055,7 @@ CREATE TABLE edfi.CourseLevelCharacteristicDescriptor (
 -- Table edfi.CourseOfferedGradeLevel --
 CREATE TABLE edfi.CourseOfferedGradeLevel (
     CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GradeLevelDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CourseOfferedGradeLevel_PK PRIMARY KEY (CourseCode, EducationOrganizationId, GradeLevelDescriptorId)
@@ -1065,13 +1065,13 @@ ALTER TABLE edfi.CourseOfferedGradeLevel ALTER COLUMN CreateDate SET DEFAULT cur
 -- Table edfi.CourseOffering --
 CREATE TABLE edfi.CourseOffering (
     LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
     LocalCourseTitle VARCHAR(60) NULL,
     InstructionalTimePlanned INT NULL,
     CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
@@ -1086,7 +1086,7 @@ ALTER TABLE edfi.CourseOffering ALTER COLUMN LastModifiedDate SET DEFAULT curren
 CREATE TABLE edfi.CourseOfferingCourseLevelCharacteristic (
     CourseLevelCharacteristicDescriptorId INT NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -1098,7 +1098,7 @@ ALTER TABLE edfi.CourseOfferingCourseLevelCharacteristic ALTER COLUMN CreateDate
 CREATE TABLE edfi.CourseOfferingCurriculumUsed (
     CurriculumUsedDescriptorId INT NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -1110,7 +1110,7 @@ ALTER TABLE edfi.CourseOfferingCurriculumUsed ALTER COLUMN CreateDate SET DEFAUL
 CREATE TABLE edfi.CourseOfferingOfferedGradeLevel (
     GradeLevelDescriptorId INT NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -1128,8 +1128,8 @@ CREATE TABLE edfi.CourseRepeatCodeDescriptor (
 CREATE TABLE edfi.CourseTranscript (
     CourseAttemptResultDescriptorId INT NOT NULL,
     CourseCode VARCHAR(60) NOT NULL,
-    CourseEducationOrganizationId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    CourseEducationOrganizationId BIGINT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
     TermDescriptorId INT NOT NULL,
@@ -1146,7 +1146,7 @@ CREATE TABLE edfi.CourseTranscript (
     CourseRepeatCodeDescriptorId INT NULL,
     CourseTitle VARCHAR(60) NULL,
     AlternativeCourseTitle VARCHAR(60) NULL,
-    ExternalEducationOrganizationId INT NULL,
+    ExternalEducationOrganizationId BIGINT NULL,
     ExternalEducationOrganizationNameOfInstitution VARCHAR(75) NULL,
     AssigningOrganizationIdentificationCode VARCHAR(60) NULL,
     CourseCatalogURL VARCHAR(255) NULL,
@@ -1165,8 +1165,8 @@ CREATE TABLE edfi.CourseTranscriptAcademicSubject (
     AcademicSubjectDescriptorId INT NOT NULL,
     CourseAttemptResultDescriptorId INT NOT NULL,
     CourseCode VARCHAR(60) NOT NULL,
-    CourseEducationOrganizationId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    CourseEducationOrganizationId BIGINT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
     TermDescriptorId INT NOT NULL,
@@ -1179,9 +1179,9 @@ ALTER TABLE edfi.CourseTranscriptAcademicSubject ALTER COLUMN CreateDate SET DEF
 CREATE TABLE edfi.CourseTranscriptAlternativeCourseIdentificationCode (
     CourseAttemptResultDescriptorId INT NOT NULL,
     CourseCode VARCHAR(60) NOT NULL,
-    CourseEducationOrganizationId INT NOT NULL,
+    CourseEducationOrganizationId BIGINT NOT NULL,
     CourseIdentificationSystemDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
     TermDescriptorId INT NOT NULL,
@@ -1197,9 +1197,9 @@ ALTER TABLE edfi.CourseTranscriptAlternativeCourseIdentificationCode ALTER COLUM
 CREATE TABLE edfi.CourseTranscriptCreditCategory (
     CourseAttemptResultDescriptorId INT NOT NULL,
     CourseCode VARCHAR(60) NOT NULL,
-    CourseEducationOrganizationId INT NOT NULL,
+    CourseEducationOrganizationId BIGINT NOT NULL,
     CreditCategoryDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
     TermDescriptorId INT NOT NULL,
@@ -1213,8 +1213,8 @@ CREATE TABLE edfi.CourseTranscriptEarnedAdditionalCredits (
     AdditionalCreditTypeDescriptorId INT NOT NULL,
     CourseAttemptResultDescriptorId INT NOT NULL,
     CourseCode VARCHAR(60) NOT NULL,
-    CourseEducationOrganizationId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    CourseEducationOrganizationId BIGINT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
     TermDescriptorId INT NOT NULL,
@@ -1229,8 +1229,8 @@ CREATE TABLE edfi.CourseTranscriptPartialCourseTranscriptAwards (
     AwardDate DATE NOT NULL,
     CourseAttemptResultDescriptorId INT NOT NULL,
     CourseCode VARCHAR(60) NOT NULL,
-    CourseEducationOrganizationId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    CourseEducationOrganizationId BIGINT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
     TermDescriptorId INT NOT NULL,
@@ -1433,8 +1433,8 @@ CREATE TABLE edfi.DisciplineAction (
     ActualDisciplineActionLength DECIMAL(5, 2) NULL,
     DisciplineActionLengthDifferenceReasonDescriptorId INT NULL,
     RelatedToZeroTolerancePolicy BOOLEAN NULL,
-    ResponsibilitySchoolId INT NOT NULL,
-    AssignmentSchoolId INT NULL,
+    ResponsibilitySchoolId BIGINT NOT NULL,
+    AssignmentSchoolId BIGINT NULL,
     IEPPlacementMeetingIndicator BOOLEAN NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -1480,7 +1480,7 @@ CREATE TABLE edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation (
     DisciplineActionIdentifier VARCHAR(36) NOT NULL,
     DisciplineDate DATE NOT NULL,
     IncidentIdentifier VARCHAR(36) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT DisciplineActionStudentDisciplineIncidentBehaviorAssociation_PK PRIMARY KEY (BehaviorDescriptorId, DisciplineActionIdentifier, DisciplineDate, IncidentIdentifier, SchoolId, StudentUSI)
@@ -1496,7 +1496,7 @@ CREATE TABLE edfi.DisciplineDescriptor (
 -- Table edfi.DisciplineIncident --
 CREATE TABLE edfi.DisciplineIncident (
     IncidentIdentifier VARCHAR(36) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     IncidentDate DATE NOT NULL,
     IncidentTime TIME NULL,
     IncidentLocationDescriptorId INT NULL,
@@ -1520,7 +1520,7 @@ ALTER TABLE edfi.DisciplineIncident ALTER COLUMN LastModifiedDate SET DEFAULT cu
 CREATE TABLE edfi.DisciplineIncidentBehavior (
     BehaviorDescriptorId INT NOT NULL,
     IncidentIdentifier VARCHAR(36) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     BehaviorDetailedDescription VARCHAR(1024) NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT DisciplineIncidentBehavior_PK PRIMARY KEY (BehaviorDescriptorId, IncidentIdentifier, SchoolId)
@@ -1533,7 +1533,7 @@ CREATE TABLE edfi.DisciplineIncidentExternalParticipant (
     FirstName VARCHAR(75) NOT NULL,
     IncidentIdentifier VARCHAR(36) NOT NULL,
     LastSurname VARCHAR(75) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT DisciplineIncidentExternalParticipant_PK PRIMARY KEY (DisciplineIncidentParticipationCodeDescriptorId, FirstName, IncidentIdentifier, LastSurname, SchoolId)
 );
@@ -1548,7 +1548,7 @@ CREATE TABLE edfi.DisciplineIncidentParticipationCodeDescriptor (
 -- Table edfi.DisciplineIncidentWeapon --
 CREATE TABLE edfi.DisciplineIncidentWeapon (
     IncidentIdentifier VARCHAR(36) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     WeaponDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT DisciplineIncidentWeapon_PK PRIMARY KEY (IncidentIdentifier, SchoolId, WeaponDescriptorId)
@@ -1655,7 +1655,7 @@ ALTER TABLE edfi.EducationContentLanguage ALTER COLUMN CreateDate SET DEFAULT cu
 
 -- Table edfi.EducationOrganization --
 CREATE TABLE edfi.EducationOrganization (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     NameOfInstitution VARCHAR(75) NOT NULL,
     ShortNameOfInstitution VARCHAR(75) NULL,
     WebSite VARCHAR(255) NULL,
@@ -1674,7 +1674,7 @@ ALTER TABLE edfi.EducationOrganization ALTER COLUMN LastModifiedDate SET DEFAULT
 CREATE TABLE edfi.EducationOrganizationAddress (
     AddressTypeDescriptorId INT NOT NULL,
     City VARCHAR(30) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     PostalCode VARCHAR(17) NOT NULL,
     StateAbbreviationDescriptorId INT NOT NULL,
     StreetNumberName VARCHAR(150) NOT NULL,
@@ -1697,7 +1697,7 @@ CREATE TABLE edfi.EducationOrganizationAddressPeriod (
     AddressTypeDescriptorId INT NOT NULL,
     BeginDate DATE NOT NULL,
     City VARCHAR(30) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     PostalCode VARCHAR(17) NOT NULL,
     StateAbbreviationDescriptorId INT NOT NULL,
     StreetNumberName VARCHAR(150) NOT NULL,
@@ -1716,7 +1716,7 @@ CREATE TABLE edfi.EducationOrganizationAssociationTypeDescriptor (
 -- Table edfi.EducationOrganizationCategory --
 CREATE TABLE edfi.EducationOrganizationCategory (
     EducationOrganizationCategoryDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT EducationOrganizationCategory_PK PRIMARY KEY (EducationOrganizationCategoryDescriptorId, EducationOrganizationId)
 );
@@ -1730,7 +1730,7 @@ CREATE TABLE edfi.EducationOrganizationCategoryDescriptor (
 
 -- Table edfi.EducationOrganizationIdentificationCode --
 CREATE TABLE edfi.EducationOrganizationIdentificationCode (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     EducationOrganizationIdentificationSystemDescriptorId INT NOT NULL,
     IdentificationCode VARCHAR(60) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -1746,7 +1746,7 @@ CREATE TABLE edfi.EducationOrganizationIdentificationSystemDescriptor (
 
 -- Table edfi.EducationOrganizationIndicator --
 CREATE TABLE edfi.EducationOrganizationIndicator (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     IndicatorDescriptorId INT NOT NULL,
     DesignatedBy VARCHAR(60) NULL,
     IndicatorValue VARCHAR(60) NULL,
@@ -1760,7 +1760,7 @@ ALTER TABLE edfi.EducationOrganizationIndicator ALTER COLUMN CreateDate SET DEFA
 -- Table edfi.EducationOrganizationIndicatorPeriod --
 CREATE TABLE edfi.EducationOrganizationIndicatorPeriod (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     IndicatorDescriptorId INT NOT NULL,
     EndDate DATE NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -1770,7 +1770,7 @@ ALTER TABLE edfi.EducationOrganizationIndicatorPeriod ALTER COLUMN CreateDate SE
 
 -- Table edfi.EducationOrganizationInstitutionTelephone --
 CREATE TABLE edfi.EducationOrganizationInstitutionTelephone (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InstitutionTelephoneNumberTypeDescriptorId INT NOT NULL,
     TelephoneNumber VARCHAR(24) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -1781,7 +1781,7 @@ ALTER TABLE edfi.EducationOrganizationInstitutionTelephone ALTER COLUMN CreateDa
 -- Table edfi.EducationOrganizationInternationalAddress --
 CREATE TABLE edfi.EducationOrganizationInternationalAddress (
     AddressTypeDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     AddressLine1 VARCHAR(150) NOT NULL,
     AddressLine2 VARCHAR(150) NULL,
     AddressLine3 VARCHAR(150) NULL,
@@ -1798,8 +1798,8 @@ ALTER TABLE edfi.EducationOrganizationInternationalAddress ALTER COLUMN CreateDa
 
 -- Table edfi.EducationOrganizationInterventionPrescriptionAssociation --
 CREATE TABLE edfi.EducationOrganizationInterventionPrescriptionAssociation (
-    EducationOrganizationId INT NOT NULL,
-    InterventionPrescriptionEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    InterventionPrescriptionEducationOrganizationId BIGINT NOT NULL,
     InterventionPrescriptionIdentificationCode VARCHAR(60) NOT NULL,
     BeginDate DATE NULL,
     EndDate DATE NULL,
@@ -1815,15 +1815,15 @@ ALTER TABLE edfi.EducationOrganizationInterventionPrescriptionAssociation ALTER 
 
 -- Table edfi.EducationOrganizationNetwork --
 CREATE TABLE edfi.EducationOrganizationNetwork (
-    EducationOrganizationNetworkId INT NOT NULL,
+    EducationOrganizationNetworkId BIGINT NOT NULL,
     NetworkPurposeDescriptorId INT NOT NULL,
     CONSTRAINT EducationOrganizationNetwork_PK PRIMARY KEY (EducationOrganizationNetworkId)
 );
 
 -- Table edfi.EducationOrganizationNetworkAssociation --
 CREATE TABLE edfi.EducationOrganizationNetworkAssociation (
-    EducationOrganizationNetworkId INT NOT NULL,
-    MemberEducationOrganizationId INT NOT NULL,
+    EducationOrganizationNetworkId BIGINT NOT NULL,
+    MemberEducationOrganizationId BIGINT NOT NULL,
     BeginDate DATE NULL,
     EndDate DATE NULL,
     Discriminator VARCHAR(128) NULL,
@@ -1838,8 +1838,8 @@ ALTER TABLE edfi.EducationOrganizationNetworkAssociation ALTER COLUMN LastModifi
 
 -- Table edfi.EducationOrganizationPeerAssociation --
 CREATE TABLE edfi.EducationOrganizationPeerAssociation (
-    EducationOrganizationId INT NOT NULL,
-    PeerEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    PeerEducationOrganizationId BIGINT NOT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
@@ -1858,8 +1858,8 @@ CREATE TABLE edfi.EducationPlanDescriptor (
 
 -- Table edfi.EducationServiceCenter --
 CREATE TABLE edfi.EducationServiceCenter (
-    EducationServiceCenterId INT NOT NULL,
-    StateEducationAgencyId INT NULL,
+    EducationServiceCenterId BIGINT NOT NULL,
+    StateEducationAgencyId BIGINT NULL,
     CONSTRAINT EducationServiceCenter_PK PRIMARY KEY (EducationServiceCenterId)
 );
 
@@ -1926,8 +1926,8 @@ CREATE TABLE edfi.ExitWithdrawTypeDescriptor (
 -- Table edfi.FeederSchoolAssociation --
 CREATE TABLE edfi.FeederSchoolAssociation (
     BeginDate DATE NOT NULL,
-    FeederSchoolId INT NOT NULL,
-    SchoolId INT NOT NULL,
+    FeederSchoolId BIGINT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     EndDate DATE NULL,
     FeederRelationshipDescription VARCHAR(1024) NULL,
     Discriminator VARCHAR(128) NULL,
@@ -1999,8 +1999,8 @@ ALTER TABLE edfi.FundDimensionReportingTag ALTER COLUMN CreateDate SET DEFAULT c
 -- Table edfi.GeneralStudentProgramAssociation --
 CREATE TABLE edfi.GeneralStudentProgramAssociation (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -2020,9 +2020,9 @@ ALTER TABLE edfi.GeneralStudentProgramAssociation ALTER COLUMN LastModifiedDate 
 -- Table edfi.GeneralStudentProgramAssociationProgramParticipationStatus --
 CREATE TABLE edfi.GeneralStudentProgramAssociationProgramParticipationStatus (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     ParticipationStatusDescriptorId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StatusBeginDate DATE NOT NULL,
@@ -2042,7 +2042,7 @@ CREATE TABLE edfi.Grade (
     GradingPeriodSchoolYear SMALLINT NOT NULL,
     GradingPeriodSequence INT NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
@@ -2072,7 +2072,7 @@ CREATE TABLE edfi.GradebookEntry (
     SectionIdentifier VARCHAR(255) NULL,
     LocalCourseCode VARCHAR(60) NULL,
     SessionName VARCHAR(60) NULL,
-    SchoolId INT NULL,
+    SchoolId BIGINT NULL,
     DateAssigned DATE NOT NULL,
     Title VARCHAR(100) NOT NULL,
     Description VARCHAR(1024) NULL,
@@ -2118,7 +2118,7 @@ CREATE TABLE edfi.GradeLearningStandardGrade (
     GradingPeriodSequence INT NOT NULL,
     LearningStandardId VARCHAR(60) NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
@@ -2154,7 +2154,7 @@ CREATE TABLE edfi.GradeTypeDescriptor (
 CREATE TABLE edfi.GradingPeriod (
     GradingPeriodDescriptorId INT NOT NULL,
     PeriodSequence INT NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     BeginDate DATE NOT NULL,
     EndDate DATE NOT NULL,
@@ -2177,7 +2177,7 @@ CREATE TABLE edfi.GradingPeriodDescriptor (
 
 -- Table edfi.GraduationPlan --
 CREATE TABLE edfi.GraduationPlan (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GraduationPlanTypeDescriptorId INT NOT NULL,
     GraduationSchoolYear SMALLINT NOT NULL,
     IndividualPlan BOOLEAN NULL,
@@ -2197,7 +2197,7 @@ ALTER TABLE edfi.GraduationPlan ALTER COLUMN LastModifiedDate SET DEFAULT curren
 -- Table edfi.GraduationPlanCreditsByCourse --
 CREATE TABLE edfi.GraduationPlanCreditsByCourse (
     CourseSetName VARCHAR(120) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GraduationPlanTypeDescriptorId INT NOT NULL,
     GraduationSchoolYear SMALLINT NOT NULL,
     Credits DECIMAL(9, 3) NOT NULL,
@@ -2212,9 +2212,9 @@ ALTER TABLE edfi.GraduationPlanCreditsByCourse ALTER COLUMN CreateDate SET DEFAU
 -- Table edfi.GraduationPlanCreditsByCourseCourse --
 CREATE TABLE edfi.GraduationPlanCreditsByCourseCourse (
     CourseCode VARCHAR(60) NOT NULL,
-    CourseEducationOrganizationId INT NOT NULL,
+    CourseEducationOrganizationId BIGINT NOT NULL,
     CourseSetName VARCHAR(120) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GraduationPlanTypeDescriptorId INT NOT NULL,
     GraduationSchoolYear SMALLINT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2225,7 +2225,7 @@ ALTER TABLE edfi.GraduationPlanCreditsByCourseCourse ALTER COLUMN CreateDate SET
 -- Table edfi.GraduationPlanCreditsByCreditCategory --
 CREATE TABLE edfi.GraduationPlanCreditsByCreditCategory (
     CreditCategoryDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GraduationPlanTypeDescriptorId INT NOT NULL,
     GraduationSchoolYear SMALLINT NOT NULL,
     Credits DECIMAL(9, 3) NOT NULL,
@@ -2239,7 +2239,7 @@ ALTER TABLE edfi.GraduationPlanCreditsByCreditCategory ALTER COLUMN CreateDate S
 -- Table edfi.GraduationPlanCreditsBySubject --
 CREATE TABLE edfi.GraduationPlanCreditsBySubject (
     AcademicSubjectDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GraduationPlanTypeDescriptorId INT NOT NULL,
     GraduationSchoolYear SMALLINT NOT NULL,
     Credits DECIMAL(9, 3) NOT NULL,
@@ -2253,7 +2253,7 @@ ALTER TABLE edfi.GraduationPlanCreditsBySubject ALTER COLUMN CreateDate SET DEFA
 -- Table edfi.GraduationPlanRequiredAssessment --
 CREATE TABLE edfi.GraduationPlanRequiredAssessment (
     AssessmentIdentifier VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GraduationPlanTypeDescriptorId INT NOT NULL,
     GraduationSchoolYear SMALLINT NOT NULL,
     Namespace VARCHAR(255) NOT NULL,
@@ -2265,7 +2265,7 @@ ALTER TABLE edfi.GraduationPlanRequiredAssessment ALTER COLUMN CreateDate SET DE
 -- Table edfi.GraduationPlanRequiredAssessmentPerformanceLevel --
 CREATE TABLE edfi.GraduationPlanRequiredAssessmentPerformanceLevel (
     AssessmentIdentifier VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GraduationPlanTypeDescriptorId INT NOT NULL,
     GraduationSchoolYear SMALLINT NOT NULL,
     Namespace VARCHAR(255) NOT NULL,
@@ -2284,7 +2284,7 @@ ALTER TABLE edfi.GraduationPlanRequiredAssessmentPerformanceLevel ALTER COLUMN C
 CREATE TABLE edfi.GraduationPlanRequiredAssessmentScore (
     AssessmentIdentifier VARCHAR(60) NOT NULL,
     AssessmentReportingMethodDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GraduationPlanTypeDescriptorId INT NOT NULL,
     GraduationSchoolYear SMALLINT NOT NULL,
     Namespace VARCHAR(255) NOT NULL,
@@ -2388,7 +2388,7 @@ CREATE TABLE edfi.InternetPerformanceInResidenceDescriptor (
 
 -- Table edfi.Intervention --
 CREATE TABLE edfi.Intervention (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionIdentificationCode VARCHAR(60) NOT NULL,
     InterventionClassDescriptorId INT NOT NULL,
     DeliveryMethodDescriptorId INT NOT NULL,
@@ -2409,7 +2409,7 @@ ALTER TABLE edfi.Intervention ALTER COLUMN LastModifiedDate SET DEFAULT current_
 
 -- Table edfi.InterventionAppropriateGradeLevel --
 CREATE TABLE edfi.InterventionAppropriateGradeLevel (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GradeLevelDescriptorId INT NOT NULL,
     InterventionIdentificationCode VARCHAR(60) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2419,7 +2419,7 @@ ALTER TABLE edfi.InterventionAppropriateGradeLevel ALTER COLUMN CreateDate SET D
 
 -- Table edfi.InterventionAppropriateSex --
 CREATE TABLE edfi.InterventionAppropriateSex (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionIdentificationCode VARCHAR(60) NOT NULL,
     SexDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2436,7 +2436,7 @@ CREATE TABLE edfi.InterventionClassDescriptor (
 -- Table edfi.InterventionDiagnosis --
 CREATE TABLE edfi.InterventionDiagnosis (
     DiagnosisDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionIdentificationCode VARCHAR(60) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT InterventionDiagnosis_PK PRIMARY KEY (DiagnosisDescriptorId, EducationOrganizationId, InterventionIdentificationCode)
@@ -2446,7 +2446,7 @@ ALTER TABLE edfi.InterventionDiagnosis ALTER COLUMN CreateDate SET DEFAULT curre
 -- Table edfi.InterventionEducationContent --
 CREATE TABLE edfi.InterventionEducationContent (
     ContentIdentifier VARCHAR(225) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionIdentificationCode VARCHAR(60) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT InterventionEducationContent_PK PRIMARY KEY (ContentIdentifier, EducationOrganizationId, InterventionIdentificationCode)
@@ -2461,9 +2461,9 @@ CREATE TABLE edfi.InterventionEffectivenessRatingDescriptor (
 
 -- Table edfi.InterventionInterventionPrescription --
 CREATE TABLE edfi.InterventionInterventionPrescription (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionIdentificationCode VARCHAR(60) NOT NULL,
-    InterventionPrescriptionEducationOrganizationId INT NOT NULL,
+    InterventionPrescriptionEducationOrganizationId BIGINT NOT NULL,
     InterventionPrescriptionIdentificationCode VARCHAR(60) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT InterventionInterventionPrescription_PK PRIMARY KEY (EducationOrganizationId, InterventionIdentificationCode, InterventionPrescriptionEducationOrganizationId, InterventionPrescriptionIdentificationCode)
@@ -2472,7 +2472,7 @@ ALTER TABLE edfi.InterventionInterventionPrescription ALTER COLUMN CreateDate SE
 
 -- Table edfi.InterventionLearningResourceMetadataURI --
 CREATE TABLE edfi.InterventionLearningResourceMetadataURI (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionIdentificationCode VARCHAR(60) NOT NULL,
     LearningResourceMetadataURI VARCHAR(255) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2482,7 +2482,7 @@ ALTER TABLE edfi.InterventionLearningResourceMetadataURI ALTER COLUMN CreateDate
 
 -- Table edfi.InterventionMeetingTime --
 CREATE TABLE edfi.InterventionMeetingTime (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     EndTime TIME NOT NULL,
     InterventionIdentificationCode VARCHAR(60) NOT NULL,
     StartTime TIME NOT NULL,
@@ -2493,7 +2493,7 @@ ALTER TABLE edfi.InterventionMeetingTime ALTER COLUMN CreateDate SET DEFAULT cur
 
 -- Table edfi.InterventionPopulationServed --
 CREATE TABLE edfi.InterventionPopulationServed (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionIdentificationCode VARCHAR(60) NOT NULL,
     PopulationServedDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2503,7 +2503,7 @@ ALTER TABLE edfi.InterventionPopulationServed ALTER COLUMN CreateDate SET DEFAUL
 
 -- Table edfi.InterventionPrescription --
 CREATE TABLE edfi.InterventionPrescription (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionPrescriptionIdentificationCode VARCHAR(60) NOT NULL,
     InterventionClassDescriptorId INT NOT NULL,
     DeliveryMethodDescriptorId INT NOT NULL,
@@ -2522,7 +2522,7 @@ ALTER TABLE edfi.InterventionPrescription ALTER COLUMN LastModifiedDate SET DEFA
 
 -- Table edfi.InterventionPrescriptionAppropriateGradeLevel --
 CREATE TABLE edfi.InterventionPrescriptionAppropriateGradeLevel (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GradeLevelDescriptorId INT NOT NULL,
     InterventionPrescriptionIdentificationCode VARCHAR(60) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2532,7 +2532,7 @@ ALTER TABLE edfi.InterventionPrescriptionAppropriateGradeLevel ALTER COLUMN Crea
 
 -- Table edfi.InterventionPrescriptionAppropriateSex --
 CREATE TABLE edfi.InterventionPrescriptionAppropriateSex (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionPrescriptionIdentificationCode VARCHAR(60) NOT NULL,
     SexDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2543,7 +2543,7 @@ ALTER TABLE edfi.InterventionPrescriptionAppropriateSex ALTER COLUMN CreateDate 
 -- Table edfi.InterventionPrescriptionDiagnosis --
 CREATE TABLE edfi.InterventionPrescriptionDiagnosis (
     DiagnosisDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionPrescriptionIdentificationCode VARCHAR(60) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT InterventionPrescriptionDiagnosis_PK PRIMARY KEY (DiagnosisDescriptorId, EducationOrganizationId, InterventionPrescriptionIdentificationCode)
@@ -2553,7 +2553,7 @@ ALTER TABLE edfi.InterventionPrescriptionDiagnosis ALTER COLUMN CreateDate SET D
 -- Table edfi.InterventionPrescriptionEducationContent --
 CREATE TABLE edfi.InterventionPrescriptionEducationContent (
     ContentIdentifier VARCHAR(225) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionPrescriptionIdentificationCode VARCHAR(60) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT InterventionPrescriptionEducationContent_PK PRIMARY KEY (ContentIdentifier, EducationOrganizationId, InterventionPrescriptionIdentificationCode)
@@ -2562,7 +2562,7 @@ ALTER TABLE edfi.InterventionPrescriptionEducationContent ALTER COLUMN CreateDat
 
 -- Table edfi.InterventionPrescriptionLearningResourceMetadataURI --
 CREATE TABLE edfi.InterventionPrescriptionLearningResourceMetadataURI (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionPrescriptionIdentificationCode VARCHAR(60) NOT NULL,
     LearningResourceMetadataURI VARCHAR(255) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2572,7 +2572,7 @@ ALTER TABLE edfi.InterventionPrescriptionLearningResourceMetadataURI ALTER COLUM
 
 -- Table edfi.InterventionPrescriptionPopulationServed --
 CREATE TABLE edfi.InterventionPrescriptionPopulationServed (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionPrescriptionIdentificationCode VARCHAR(60) NOT NULL,
     PopulationServedDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2582,7 +2582,7 @@ ALTER TABLE edfi.InterventionPrescriptionPopulationServed ALTER COLUMN CreateDat
 
 -- Table edfi.InterventionPrescriptionURI --
 CREATE TABLE edfi.InterventionPrescriptionURI (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionPrescriptionIdentificationCode VARCHAR(60) NOT NULL,
     URI VARCHAR(255) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2592,7 +2592,7 @@ ALTER TABLE edfi.InterventionPrescriptionURI ALTER COLUMN CreateDate SET DEFAULT
 
 -- Table edfi.InterventionStaff --
 CREATE TABLE edfi.InterventionStaff (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionIdentificationCode VARCHAR(60) NOT NULL,
     StaffUSI INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2602,9 +2602,9 @@ ALTER TABLE edfi.InterventionStaff ALTER COLUMN CreateDate SET DEFAULT current_t
 
 -- Table edfi.InterventionStudy --
 CREATE TABLE edfi.InterventionStudy (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionStudyIdentificationCode VARCHAR(60) NOT NULL,
-    InterventionPrescriptionEducationOrganizationId INT NOT NULL,
+    InterventionPrescriptionEducationOrganizationId BIGINT NOT NULL,
     InterventionPrescriptionIdentificationCode VARCHAR(60) NOT NULL,
     Participants INT NOT NULL,
     DeliveryMethodDescriptorId INT NOT NULL,
@@ -2621,7 +2621,7 @@ ALTER TABLE edfi.InterventionStudy ALTER COLUMN LastModifiedDate SET DEFAULT cur
 
 -- Table edfi.InterventionStudyAppropriateGradeLevel --
 CREATE TABLE edfi.InterventionStudyAppropriateGradeLevel (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GradeLevelDescriptorId INT NOT NULL,
     InterventionStudyIdentificationCode VARCHAR(60) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2631,7 +2631,7 @@ ALTER TABLE edfi.InterventionStudyAppropriateGradeLevel ALTER COLUMN CreateDate 
 
 -- Table edfi.InterventionStudyAppropriateSex --
 CREATE TABLE edfi.InterventionStudyAppropriateSex (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionStudyIdentificationCode VARCHAR(60) NOT NULL,
     SexDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2642,7 +2642,7 @@ ALTER TABLE edfi.InterventionStudyAppropriateSex ALTER COLUMN CreateDate SET DEF
 -- Table edfi.InterventionStudyEducationContent --
 CREATE TABLE edfi.InterventionStudyEducationContent (
     ContentIdentifier VARCHAR(225) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionStudyIdentificationCode VARCHAR(60) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT InterventionStudyEducationContent_PK PRIMARY KEY (ContentIdentifier, EducationOrganizationId, InterventionStudyIdentificationCode)
@@ -2652,7 +2652,7 @@ ALTER TABLE edfi.InterventionStudyEducationContent ALTER COLUMN CreateDate SET D
 -- Table edfi.InterventionStudyInterventionEffectiveness --
 CREATE TABLE edfi.InterventionStudyInterventionEffectiveness (
     DiagnosisDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GradeLevelDescriptorId INT NOT NULL,
     InterventionStudyIdentificationCode VARCHAR(60) NOT NULL,
     PopulationServedDescriptorId INT NOT NULL,
@@ -2665,7 +2665,7 @@ ALTER TABLE edfi.InterventionStudyInterventionEffectiveness ALTER COLUMN CreateD
 
 -- Table edfi.InterventionStudyLearningResourceMetadataURI --
 CREATE TABLE edfi.InterventionStudyLearningResourceMetadataURI (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionStudyIdentificationCode VARCHAR(60) NOT NULL,
     LearningResourceMetadataURI VARCHAR(255) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2675,7 +2675,7 @@ ALTER TABLE edfi.InterventionStudyLearningResourceMetadataURI ALTER COLUMN Creat
 
 -- Table edfi.InterventionStudyPopulationServed --
 CREATE TABLE edfi.InterventionStudyPopulationServed (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionStudyIdentificationCode VARCHAR(60) NOT NULL,
     PopulationServedDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2685,7 +2685,7 @@ ALTER TABLE edfi.InterventionStudyPopulationServed ALTER COLUMN CreateDate SET D
 
 -- Table edfi.InterventionStudyStateAbbreviation --
 CREATE TABLE edfi.InterventionStudyStateAbbreviation (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionStudyIdentificationCode VARCHAR(60) NOT NULL,
     StateAbbreviationDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2695,7 +2695,7 @@ ALTER TABLE edfi.InterventionStudyStateAbbreviation ALTER COLUMN CreateDate SET 
 
 -- Table edfi.InterventionStudyURI --
 CREATE TABLE edfi.InterventionStudyURI (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionStudyIdentificationCode VARCHAR(60) NOT NULL,
     URI VARCHAR(255) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2705,7 +2705,7 @@ ALTER TABLE edfi.InterventionStudyURI ALTER COLUMN CreateDate SET DEFAULT curren
 
 -- Table edfi.InterventionURI --
 CREATE TABLE edfi.InterventionURI (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionIdentificationCode VARCHAR(60) NOT NULL,
     URI VARCHAR(255) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2777,7 +2777,7 @@ CREATE TABLE edfi.LearningStandardContentStandard (
     PublicationDate DATE NULL,
     PublicationYear SMALLINT NULL,
     PublicationStatusDescriptorId INT NULL,
-    MandatingEducationOrganizationId INT NULL,
+    MandatingEducationOrganizationId BIGINT NULL,
     BeginDate DATE NULL,
     EndDate DATE NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2870,11 +2870,11 @@ CREATE TABLE edfi.LimitedEnglishProficiencyDescriptor (
 -- Table edfi.LocalAccount --
 CREATE TABLE edfi.LocalAccount (
     AccountIdentifier VARCHAR(50) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     FiscalYear INT NOT NULL,
     AccountName VARCHAR(100) NULL,
     ChartOfAccountIdentifier VARCHAR(50) NOT NULL,
-    ChartOfAccountEducationOrganizationId INT NOT NULL,
+    ChartOfAccountEducationOrganizationId BIGINT NOT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
@@ -2888,7 +2888,7 @@ ALTER TABLE edfi.LocalAccount ALTER COLUMN LastModifiedDate SET DEFAULT current_
 -- Table edfi.LocalAccountReportingTag --
 CREATE TABLE edfi.LocalAccountReportingTag (
     AccountIdentifier VARCHAR(50) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     FiscalYear INT NOT NULL,
     ReportingTagDescriptorId INT NOT NULL,
     TagValue VARCHAR(100) NULL,
@@ -2901,7 +2901,7 @@ ALTER TABLE edfi.LocalAccountReportingTag ALTER COLUMN CreateDate SET DEFAULT cu
 CREATE TABLE edfi.LocalActual (
     AccountIdentifier VARCHAR(50) NOT NULL,
     AsOfDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     FiscalYear INT NOT NULL,
     Amount MONEY NOT NULL,
     FinancialCollectionDescriptorId INT NULL,
@@ -2919,7 +2919,7 @@ ALTER TABLE edfi.LocalActual ALTER COLUMN LastModifiedDate SET DEFAULT current_t
 CREATE TABLE edfi.LocalBudget (
     AccountIdentifier VARCHAR(50) NOT NULL,
     AsOfDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     FiscalYear INT NOT NULL,
     Amount MONEY NOT NULL,
     FinancialCollectionDescriptorId INT NULL,
@@ -2937,7 +2937,7 @@ ALTER TABLE edfi.LocalBudget ALTER COLUMN LastModifiedDate SET DEFAULT current_t
 CREATE TABLE edfi.LocalContractedStaff (
     AccountIdentifier VARCHAR(50) NOT NULL,
     AsOfDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     FiscalYear INT NOT NULL,
     StaffUSI INT NOT NULL,
     Amount MONEY NOT NULL,
@@ -2960,18 +2960,18 @@ CREATE TABLE edfi.LocaleDescriptor (
 
 -- Table edfi.LocalEducationAgency --
 CREATE TABLE edfi.LocalEducationAgency (
-    LocalEducationAgencyId INT NOT NULL,
+    LocalEducationAgencyId BIGINT NOT NULL,
     LocalEducationAgencyCategoryDescriptorId INT NOT NULL,
     CharterStatusDescriptorId INT NULL,
-    ParentLocalEducationAgencyId INT NULL,
-    EducationServiceCenterId INT NULL,
-    StateEducationAgencyId INT NULL,
+    ParentLocalEducationAgencyId BIGINT NULL,
+    EducationServiceCenterId BIGINT NULL,
+    StateEducationAgencyId BIGINT NULL,
     CONSTRAINT LocalEducationAgency_PK PRIMARY KEY (LocalEducationAgencyId)
 );
 
 -- Table edfi.LocalEducationAgencyAccountability --
 CREATE TABLE edfi.LocalEducationAgencyAccountability (
-    LocalEducationAgencyId INT NOT NULL,
+    LocalEducationAgencyId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     GunFreeSchoolsActReportingStatusDescriptorId INT NULL,
     SchoolChoiceImplementStatusDescriptorId INT NULL,
@@ -2989,7 +2989,7 @@ CREATE TABLE edfi.LocalEducationAgencyCategoryDescriptor (
 -- Table edfi.LocalEducationAgencyFederalFunds --
 CREATE TABLE edfi.LocalEducationAgencyFederalFunds (
     FiscalYear INT NOT NULL,
-    LocalEducationAgencyId INT NOT NULL,
+    LocalEducationAgencyId BIGINT NOT NULL,
     InnovativeDollarsSpent MONEY NULL,
     InnovativeDollarsSpentStrategicPriorities MONEY NULL,
     InnovativeProgramsFundsReceived MONEY NULL,
@@ -3007,7 +3007,7 @@ ALTER TABLE edfi.LocalEducationAgencyFederalFunds ALTER COLUMN CreateDate SET DE
 CREATE TABLE edfi.LocalEncumbrance (
     AccountIdentifier VARCHAR(50) NOT NULL,
     AsOfDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     FiscalYear INT NOT NULL,
     Amount MONEY NOT NULL,
     FinancialCollectionDescriptorId INT NULL,
@@ -3025,7 +3025,7 @@ ALTER TABLE edfi.LocalEncumbrance ALTER COLUMN LastModifiedDate SET DEFAULT curr
 CREATE TABLE edfi.LocalPayroll (
     AccountIdentifier VARCHAR(50) NOT NULL,
     AsOfDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     FiscalYear INT NOT NULL,
     StaffUSI INT NOT NULL,
     Amount MONEY NOT NULL,
@@ -3043,7 +3043,7 @@ ALTER TABLE edfi.LocalPayroll ALTER COLUMN LastModifiedDate SET DEFAULT current_
 -- Table edfi.Location --
 CREATE TABLE edfi.Location (
     ClassroomIdentificationCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     MaximumNumberOfSeats INT NULL,
     OptimalNumberOfSeats INT NULL,
     Discriminator VARCHAR(128) NULL,
@@ -3210,7 +3210,7 @@ ALTER TABLE edfi.ObjectiveAssessmentScore ALTER COLUMN CreateDate SET DEFAULT cu
 
 -- Table edfi.OpenStaffPosition --
 CREATE TABLE edfi.OpenStaffPosition (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     RequisitionNumber VARCHAR(20) NOT NULL,
     EmploymentStatusDescriptorId INT NOT NULL,
     StaffClassificationDescriptorId INT NOT NULL,
@@ -3232,7 +3232,7 @@ ALTER TABLE edfi.OpenStaffPosition ALTER COLUMN LastModifiedDate SET DEFAULT cur
 -- Table edfi.OpenStaffPositionAcademicSubject --
 CREATE TABLE edfi.OpenStaffPositionAcademicSubject (
     AcademicSubjectDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     RequisitionNumber VARCHAR(20) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT OpenStaffPositionAcademicSubject_PK PRIMARY KEY (AcademicSubjectDescriptorId, EducationOrganizationId, RequisitionNumber)
@@ -3241,7 +3241,7 @@ ALTER TABLE edfi.OpenStaffPositionAcademicSubject ALTER COLUMN CreateDate SET DE
 
 -- Table edfi.OpenStaffPositionInstructionalGradeLevel --
 CREATE TABLE edfi.OpenStaffPositionInstructionalGradeLevel (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GradeLevelDescriptorId INT NOT NULL,
     RequisitionNumber VARCHAR(20) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -3282,9 +3282,9 @@ ALTER TABLE edfi.OperationalUnitDimensionReportingTag ALTER COLUMN CreateDate SE
 
 -- Table edfi.OrganizationDepartment --
 CREATE TABLE edfi.OrganizationDepartment (
-    OrganizationDepartmentId INT NOT NULL,
+    OrganizationDepartmentId BIGINT NOT NULL,
     AcademicSubjectDescriptorId INT NULL,
-    ParentEducationOrganizationId INT NULL,
+    ParentEducationOrganizationId BIGINT NULL,
     CONSTRAINT OrganizationDepartment_PK PRIMARY KEY (OrganizationDepartmentId)
 );
 
@@ -3361,7 +3361,7 @@ CREATE TABLE edfi.PostSecondaryEvent (
     EventDate DATE NOT NULL,
     PostSecondaryEventCategoryDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
-    PostSecondaryInstitutionId INT NULL,
+    PostSecondaryInstitutionId BIGINT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
@@ -3380,7 +3380,7 @@ CREATE TABLE edfi.PostSecondaryEventCategoryDescriptor (
 
 -- Table edfi.PostSecondaryInstitution --
 CREATE TABLE edfi.PostSecondaryInstitution (
-    PostSecondaryInstitutionId INT NOT NULL,
+    PostSecondaryInstitutionId BIGINT NOT NULL,
     PostSecondaryInstitutionLevelDescriptorId INT NULL,
     AdministrativeFundingControlDescriptorId INT NULL,
     CONSTRAINT PostSecondaryInstitution_PK PRIMARY KEY (PostSecondaryInstitutionId)
@@ -3395,7 +3395,7 @@ CREATE TABLE edfi.PostSecondaryInstitutionLevelDescriptor (
 -- Table edfi.PostSecondaryInstitutionMediumOfInstruction --
 CREATE TABLE edfi.PostSecondaryInstitutionMediumOfInstruction (
     MediumOfInstructionDescriptorId INT NOT NULL,
-    PostSecondaryInstitutionId INT NOT NULL,
+    PostSecondaryInstitutionId BIGINT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT PostSecondaryInstitutionMediumOfInstruction_PK PRIMARY KEY (MediumOfInstructionDescriptorId, PostSecondaryInstitutionId)
 );
@@ -3427,7 +3427,7 @@ CREATE TABLE edfi.ProficiencyDescriptor (
 
 -- Table edfi.Program --
 CREATE TABLE edfi.Program (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     ProgramId VARCHAR(20) NULL,
@@ -3449,7 +3449,7 @@ CREATE TABLE edfi.ProgramAssignmentDescriptor (
 
 -- Table edfi.ProgramCharacteristic --
 CREATE TABLE edfi.ProgramCharacteristic (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     ProgramCharacteristicDescriptorId INT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
@@ -3491,7 +3491,7 @@ ALTER TABLE edfi.ProgramDimensionReportingTag ALTER COLUMN CreateDate SET DEFAUL
 
 -- Table edfi.ProgramLearningStandard --
 CREATE TABLE edfi.ProgramLearningStandard (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     LearningStandardId VARCHAR(60) NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
@@ -3502,7 +3502,7 @@ ALTER TABLE edfi.ProgramLearningStandard ALTER COLUMN CreateDate SET DEFAULT cur
 
 -- Table edfi.ProgramSponsor --
 CREATE TABLE edfi.ProgramSponsor (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramSponsorDescriptorId INT NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
@@ -3628,9 +3628,9 @@ CREATE TABLE edfi.RepeatIdentifierDescriptor (
 
 -- Table edfi.ReportCard --
 CREATE TABLE edfi.ReportCard (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GradingPeriodDescriptorId INT NOT NULL,
-    GradingPeriodSchoolId INT NOT NULL,
+    GradingPeriodSchoolId BIGINT NOT NULL,
     GradingPeriodSchoolYear SMALLINT NOT NULL,
     GradingPeriodSequence INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -3650,14 +3650,14 @@ ALTER TABLE edfi.ReportCard ALTER COLUMN LastModifiedDate SET DEFAULT current_ti
 -- Table edfi.ReportCardGrade --
 CREATE TABLE edfi.ReportCardGrade (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GradeTypeDescriptorId INT NOT NULL,
     GradingPeriodDescriptorId INT NOT NULL,
-    GradingPeriodSchoolId INT NOT NULL,
+    GradingPeriodSchoolId BIGINT NOT NULL,
     GradingPeriodSchoolYear SMALLINT NOT NULL,
     GradingPeriodSequence INT NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
@@ -3669,10 +3669,10 @@ ALTER TABLE edfi.ReportCardGrade ALTER COLUMN CreateDate SET DEFAULT current_tim
 
 -- Table edfi.ReportCardGradePointAverage --
 CREATE TABLE edfi.ReportCardGradePointAverage (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GradePointAverageTypeDescriptorId INT NOT NULL,
     GradingPeriodDescriptorId INT NOT NULL,
-    GradingPeriodSchoolId INT NOT NULL,
+    GradingPeriodSchoolId BIGINT NOT NULL,
     GradingPeriodSchoolYear SMALLINT NOT NULL,
     GradingPeriodSequence INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -3686,13 +3686,13 @@ ALTER TABLE edfi.ReportCardGradePointAverage ALTER COLUMN CreateDate SET DEFAULT
 
 -- Table edfi.ReportCardStudentCompetencyObjective --
 CREATE TABLE edfi.ReportCardStudentCompetencyObjective (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GradingPeriodDescriptorId INT NOT NULL,
-    GradingPeriodSchoolId INT NOT NULL,
+    GradingPeriodSchoolId BIGINT NOT NULL,
     GradingPeriodSchoolYear SMALLINT NOT NULL,
     GradingPeriodSequence INT NOT NULL,
     Objective VARCHAR(60) NOT NULL,
-    ObjectiveEducationOrganizationId INT NOT NULL,
+    ObjectiveEducationOrganizationId BIGINT NOT NULL,
     ObjectiveGradeLevelDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -3733,7 +3733,7 @@ CREATE TABLE edfi.ResponsibilityDescriptor (
 -- Table edfi.RestraintEvent --
 CREATE TABLE edfi.RestraintEvent (
     RestraintEventIdentifier VARCHAR(36) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     EventDate DATE NOT NULL,
     EducationalEnvironmentDescriptorId INT NULL,
@@ -3749,11 +3749,11 @@ ALTER TABLE edfi.RestraintEvent ALTER COLUMN LastModifiedDate SET DEFAULT curren
 
 -- Table edfi.RestraintEventProgram --
 CREATE TABLE edfi.RestraintEventProgram (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     RestraintEventIdentifier VARCHAR(36) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT RestraintEventProgram_PK PRIMARY KEY (EducationOrganizationId, ProgramName, ProgramTypeDescriptorId, RestraintEventIdentifier, SchoolId, StudentUSI)
@@ -3764,7 +3764,7 @@ ALTER TABLE edfi.RestraintEventProgram ALTER COLUMN CreateDate SET DEFAULT curre
 CREATE TABLE edfi.RestraintEventReason (
     RestraintEventIdentifier VARCHAR(36) NOT NULL,
     RestraintEventReasonDescriptorId INT NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT RestraintEventReason_PK PRIMARY KEY (RestraintEventIdentifier, RestraintEventReasonDescriptorId, SchoolId, StudentUSI)
@@ -3791,14 +3791,14 @@ CREATE TABLE edfi.RetestIndicatorDescriptor (
 
 -- Table edfi.School --
 CREATE TABLE edfi.School (
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolTypeDescriptorId INT NULL,
     CharterStatusDescriptorId INT NULL,
     TitleIPartASchoolDesignationDescriptorId INT NULL,
     MagnetSpecialProgramEmphasisSchoolDescriptorId INT NULL,
     AdministrativeFundingControlDescriptorId INT NULL,
     InternetAccessDescriptorId INT NULL,
-    LocalEducationAgencyId INT NULL,
+    LocalEducationAgencyId BIGINT NULL,
     CharterApprovalAgencyTypeDescriptorId INT NULL,
     CharterApprovalSchoolYear SMALLINT NULL,
     CONSTRAINT School_PK PRIMARY KEY (SchoolId)
@@ -3807,7 +3807,7 @@ CREATE TABLE edfi.School (
 -- Table edfi.SchoolCategory --
 CREATE TABLE edfi.SchoolCategory (
     SchoolCategoryDescriptorId INT NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT SchoolCategory_PK PRIMARY KEY (SchoolCategoryDescriptorId, SchoolId)
 );
@@ -3840,7 +3840,7 @@ CREATE TABLE edfi.SchoolFoodServiceProgramServiceDescriptor (
 -- Table edfi.SchoolGradeLevel --
 CREATE TABLE edfi.SchoolGradeLevel (
     GradeLevelDescriptorId INT NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT SchoolGradeLevel_PK PRIMARY KEY (GradeLevelDescriptorId, SchoolId)
 );
@@ -3869,7 +3869,7 @@ ALTER TABLE edfi.SchoolYearType ALTER COLUMN LastModifiedDate SET DEFAULT curren
 -- Table edfi.Section --
 CREATE TABLE edfi.Section (
     LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
@@ -3881,7 +3881,7 @@ CREATE TABLE edfi.Section (
     AvailableCreditTypeDescriptorId INT NULL,
     AvailableCreditConversion DECIMAL(9, 2) NULL,
     InstructionLanguageDescriptorId INT NULL,
-    LocationSchoolId INT NULL,
+    LocationSchoolId BIGINT NULL,
     LocationClassroomIdentificationCode VARCHAR(60) NULL,
     OfficialAttendancePeriod BOOLEAN NULL,
     SectionName VARCHAR(100) NULL,
@@ -3900,7 +3900,7 @@ CREATE TABLE edfi.SectionAttendanceTakenEvent (
     CalendarCode VARCHAR(60) NOT NULL,
     Date DATE NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
@@ -3919,7 +3919,7 @@ ALTER TABLE edfi.SectionAttendanceTakenEvent ALTER COLUMN LastModifiedDate SET D
 -- Table edfi.SectionCharacteristic --
 CREATE TABLE edfi.SectionCharacteristic (
     LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionCharacteristicDescriptorId INT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
@@ -3939,7 +3939,7 @@ CREATE TABLE edfi.SectionCharacteristicDescriptor (
 CREATE TABLE edfi.SectionClassPeriod (
     ClassPeriodName VARCHAR(60) NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
@@ -3952,7 +3952,7 @@ ALTER TABLE edfi.SectionClassPeriod ALTER COLUMN CreateDate SET DEFAULT current_
 CREATE TABLE edfi.SectionCourseLevelCharacteristic (
     CourseLevelCharacteristicDescriptorId INT NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
@@ -3965,7 +3965,7 @@ ALTER TABLE edfi.SectionCourseLevelCharacteristic ALTER COLUMN CreateDate SET DE
 CREATE TABLE edfi.SectionOfferedGradeLevel (
     GradeLevelDescriptorId INT NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
@@ -3976,11 +3976,11 @@ ALTER TABLE edfi.SectionOfferedGradeLevel ALTER COLUMN CreateDate SET DEFAULT cu
 
 -- Table edfi.SectionProgram --
 CREATE TABLE edfi.SectionProgram (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
@@ -4009,7 +4009,7 @@ CREATE TABLE edfi.ServiceDescriptor (
 
 -- Table edfi.Session --
 CREATE TABLE edfi.Session (
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
     BeginDate DATE NOT NULL,
@@ -4028,7 +4028,7 @@ ALTER TABLE edfi.Session ALTER COLUMN LastModifiedDate SET DEFAULT current_times
 
 -- Table edfi.SessionAcademicWeek --
 CREATE TABLE edfi.SessionAcademicWeek (
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
     WeekIdentifier VARCHAR(80) NOT NULL,
@@ -4041,7 +4041,7 @@ ALTER TABLE edfi.SessionAcademicWeek ALTER COLUMN CreateDate SET DEFAULT current
 CREATE TABLE edfi.SessionGradingPeriod (
     GradingPeriodDescriptorId INT NOT NULL,
     PeriodSequence INT NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -4205,7 +4205,7 @@ CREATE TABLE edfi.StaffClassificationDescriptor (
 CREATE TABLE edfi.StaffCohortAssociation (
     BeginDate DATE NOT NULL,
     CohortIdentifier VARCHAR(36) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     StaffUSI INT NOT NULL,
     EndDate DATE NULL,
     StudentRecordAccess BOOLEAN NULL,
@@ -4232,7 +4232,7 @@ ALTER TABLE edfi.StaffCredential ALTER COLUMN CreateDate SET DEFAULT current_tim
 -- Table edfi.StaffDisciplineIncidentAssociation --
 CREATE TABLE edfi.StaffDisciplineIncidentAssociation (
     IncidentIdentifier VARCHAR(36) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     StaffUSI INT NOT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -4248,7 +4248,7 @@ ALTER TABLE edfi.StaffDisciplineIncidentAssociation ALTER COLUMN LastModifiedDat
 CREATE TABLE edfi.StaffDisciplineIncidentAssociationDisciplineIncidentPart_7fa4be (
     DisciplineIncidentParticipationCodeDescriptorId INT NOT NULL,
     IncidentIdentifier VARCHAR(36) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     StaffUSI INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StaffDisciplineIncidentAssociationDisciplineIncide_7fa4be_PK PRIMARY KEY (DisciplineIncidentParticipationCodeDescriptorId, IncidentIdentifier, SchoolId, StaffUSI)
@@ -4258,13 +4258,13 @@ ALTER TABLE edfi.StaffDisciplineIncidentAssociationDisciplineIncidentPart_7fa4be
 -- Table edfi.StaffEducationOrganizationAssignmentAssociation --
 CREATE TABLE edfi.StaffEducationOrganizationAssignmentAssociation (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     StaffClassificationDescriptorId INT NOT NULL,
     StaffUSI INT NOT NULL,
     PositionTitle VARCHAR(100) NULL,
     EndDate DATE NULL,
     OrderOfAssignment INT NULL,
-    EmploymentEducationOrganizationId INT NULL,
+    EmploymentEducationOrganizationId BIGINT NULL,
     EmploymentStatusDescriptorId INT NULL,
     EmploymentHireDate DATE NULL,
     CredentialIdentifier VARCHAR(60) NULL,
@@ -4283,7 +4283,7 @@ ALTER TABLE edfi.StaffEducationOrganizationAssignmentAssociation ALTER COLUMN La
 -- Table edfi.StaffEducationOrganizationContactAssociation --
 CREATE TABLE edfi.StaffEducationOrganizationContactAssociation (
     ContactTitle VARCHAR(75) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     StaffUSI INT NOT NULL,
     ContactTypeDescriptorId INT NULL,
     ElectronicMailAddress VARCHAR(128) NOT NULL,
@@ -4300,7 +4300,7 @@ ALTER TABLE edfi.StaffEducationOrganizationContactAssociation ALTER COLUMN LastM
 -- Table edfi.StaffEducationOrganizationContactAssociationAddress --
 CREATE TABLE edfi.StaffEducationOrganizationContactAssociationAddress (
     ContactTitle VARCHAR(75) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     StaffUSI INT NOT NULL,
     StreetNumberName VARCHAR(150) NOT NULL,
     ApartmentRoomSuiteNumber VARCHAR(50) NULL,
@@ -4325,7 +4325,7 @@ ALTER TABLE edfi.StaffEducationOrganizationContactAssociationAddress ALTER COLUM
 CREATE TABLE edfi.StaffEducationOrganizationContactAssociationAddressPeriod (
     BeginDate DATE NOT NULL,
     ContactTitle VARCHAR(75) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     StaffUSI INT NOT NULL,
     EndDate DATE NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -4336,7 +4336,7 @@ ALTER TABLE edfi.StaffEducationOrganizationContactAssociationAddressPeriod ALTER
 -- Table edfi.StaffEducationOrganizationContactAssociationTelephone --
 CREATE TABLE edfi.StaffEducationOrganizationContactAssociationTelephone (
     ContactTitle VARCHAR(75) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     StaffUSI INT NOT NULL,
     TelephoneNumber VARCHAR(24) NOT NULL,
     TelephoneNumberTypeDescriptorId INT NOT NULL,
@@ -4350,7 +4350,7 @@ ALTER TABLE edfi.StaffEducationOrganizationContactAssociationTelephone ALTER COL
 
 -- Table edfi.StaffEducationOrganizationEmploymentAssociation --
 CREATE TABLE edfi.StaffEducationOrganizationEmploymentAssociation (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     EmploymentStatusDescriptorId INT NOT NULL,
     HireDate DATE NOT NULL,
     StaffUSI INT NOT NULL,
@@ -4510,7 +4510,7 @@ ALTER TABLE edfi.StaffPersonalIdentificationDocument ALTER COLUMN CreateDate SET
 -- Table edfi.StaffProgramAssociation --
 CREATE TABLE edfi.StaffProgramAssociation (
     BeginDate DATE NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StaffUSI INT NOT NULL,
@@ -4559,7 +4559,7 @@ ALTER TABLE edfi.StaffRecognition ALTER COLUMN CreateDate SET DEFAULT current_ti
 -- Table edfi.StaffSchoolAssociation --
 CREATE TABLE edfi.StaffSchoolAssociation (
     ProgramAssignmentDescriptorId INT NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     StaffUSI INT NOT NULL,
     CalendarCode VARCHAR(60) NULL,
     SchoolYear SMALLINT NULL,
@@ -4577,7 +4577,7 @@ ALTER TABLE edfi.StaffSchoolAssociation ALTER COLUMN LastModifiedDate SET DEFAUL
 CREATE TABLE edfi.StaffSchoolAssociationAcademicSubject (
     AcademicSubjectDescriptorId INT NOT NULL,
     ProgramAssignmentDescriptorId INT NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     StaffUSI INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StaffSchoolAssociationAcademicSubject_PK PRIMARY KEY (AcademicSubjectDescriptorId, ProgramAssignmentDescriptorId, SchoolId, StaffUSI)
@@ -4588,7 +4588,7 @@ ALTER TABLE edfi.StaffSchoolAssociationAcademicSubject ALTER COLUMN CreateDate S
 CREATE TABLE edfi.StaffSchoolAssociationGradeLevel (
     GradeLevelDescriptorId INT NOT NULL,
     ProgramAssignmentDescriptorId INT NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     StaffUSI INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StaffSchoolAssociationGradeLevel_PK PRIMARY KEY (GradeLevelDescriptorId, ProgramAssignmentDescriptorId, SchoolId, StaffUSI)
@@ -4598,7 +4598,7 @@ ALTER TABLE edfi.StaffSchoolAssociationGradeLevel ALTER COLUMN CreateDate SET DE
 -- Table edfi.StaffSectionAssociation --
 CREATE TABLE edfi.StaffSectionAssociation (
     LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
@@ -4658,14 +4658,14 @@ CREATE TABLE edfi.StateAbbreviationDescriptor (
 
 -- Table edfi.StateEducationAgency --
 CREATE TABLE edfi.StateEducationAgency (
-    StateEducationAgencyId INT NOT NULL,
+    StateEducationAgencyId BIGINT NOT NULL,
     CONSTRAINT StateEducationAgency_PK PRIMARY KEY (StateEducationAgencyId)
 );
 
 -- Table edfi.StateEducationAgencyAccountability --
 CREATE TABLE edfi.StateEducationAgencyAccountability (
     SchoolYear SMALLINT NOT NULL,
-    StateEducationAgencyId INT NOT NULL,
+    StateEducationAgencyId BIGINT NOT NULL,
     CTEGraduationRateInclusion BOOLEAN NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StateEducationAgencyAccountability_PK PRIMARY KEY (SchoolYear, StateEducationAgencyId)
@@ -4675,7 +4675,7 @@ ALTER TABLE edfi.StateEducationAgencyAccountability ALTER COLUMN CreateDate SET 
 -- Table edfi.StateEducationAgencyFederalFunds --
 CREATE TABLE edfi.StateEducationAgencyFederalFunds (
     FiscalYear INT NOT NULL,
-    StateEducationAgencyId INT NOT NULL,
+    StateEducationAgencyId BIGINT NOT NULL,
     FederalProgramsFundingAllocation MONEY NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StateEducationAgencyFederalFunds_PK PRIMARY KEY (FiscalYear, StateEducationAgencyId)
@@ -4718,7 +4718,7 @@ ALTER TABLE edfi.Student ALTER COLUMN LastModifiedDate SET DEFAULT current_times
 
 -- Table edfi.StudentAcademicRecord --
 CREATE TABLE edfi.StudentAcademicRecord (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
     TermDescriptorId INT NOT NULL,
@@ -4748,7 +4748,7 @@ ALTER TABLE edfi.StudentAcademicRecord ALTER COLUMN LastModifiedDate SET DEFAULT
 -- Table edfi.StudentAcademicRecordAcademicHonor --
 CREATE TABLE edfi.StudentAcademicRecordAcademicHonor (
     AcademicHonorCategoryDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     HonorDescription VARCHAR(80) NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -4771,7 +4771,7 @@ ALTER TABLE edfi.StudentAcademicRecordAcademicHonor ALTER COLUMN CreateDate SET 
 
 -- Table edfi.StudentAcademicRecordClassRanking --
 CREATE TABLE edfi.StudentAcademicRecordClassRanking (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
     TermDescriptorId INT NOT NULL,
@@ -4788,7 +4788,7 @@ ALTER TABLE edfi.StudentAcademicRecordClassRanking ALTER COLUMN CreateDate SET D
 CREATE TABLE edfi.StudentAcademicRecordDiploma (
     DiplomaAwardDate DATE NOT NULL,
     DiplomaTypeDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
     TermDescriptorId INT NOT NULL,
@@ -4812,7 +4812,7 @@ ALTER TABLE edfi.StudentAcademicRecordDiploma ALTER COLUMN CreateDate SET DEFAUL
 
 -- Table edfi.StudentAcademicRecordGradePointAverage --
 CREATE TABLE edfi.StudentAcademicRecordGradePointAverage (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GradePointAverageTypeDescriptorId INT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -4827,7 +4827,7 @@ ALTER TABLE edfi.StudentAcademicRecordGradePointAverage ALTER COLUMN CreateDate 
 
 -- Table edfi.StudentAcademicRecordRecognition --
 CREATE TABLE edfi.StudentAcademicRecordRecognition (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     RecognitionTypeDescriptorId INT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -4851,9 +4851,9 @@ ALTER TABLE edfi.StudentAcademicRecordRecognition ALTER COLUMN CreateDate SET DE
 
 -- Table edfi.StudentAcademicRecordReportCard --
 CREATE TABLE edfi.StudentAcademicRecordReportCard (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GradingPeriodDescriptorId INT NOT NULL,
-    GradingPeriodSchoolId INT NOT NULL,
+    GradingPeriodSchoolId BIGINT NOT NULL,
     GradingPeriodSchoolYear SMALLINT NOT NULL,
     GradingPeriodSequence INT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
@@ -4883,7 +4883,7 @@ CREATE TABLE edfi.StudentAssessment (
     SchoolYear SMALLINT NULL,
     PlatformTypeDescriptorId INT NULL,
     AssessedMinutes INT NULL,
-    ReportedSchoolId INT NULL,
+    ReportedSchoolId BIGINT NULL,
     ReportedSchoolIdentifier VARCHAR(60) NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -4911,7 +4911,7 @@ ALTER TABLE edfi.StudentAssessmentAccommodation ALTER COLUMN CreateDate SET DEFA
 CREATE TABLE edfi.StudentAssessmentEducationOrganizationAssociation (
     AssessmentIdentifier VARCHAR(60) NOT NULL,
     EducationOrganizationAssociationTypeDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     Namespace VARCHAR(255) NOT NULL,
     StudentAssessmentIdentifier VARCHAR(60) NOT NULL,
     StudentUSI INT NOT NULL,
@@ -5042,7 +5042,7 @@ CREATE TABLE edfi.StudentCharacteristicDescriptor (
 CREATE TABLE edfi.StudentCohortAssociation (
     BeginDate DATE NOT NULL,
     CohortIdentifier VARCHAR(36) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     EndDate DATE NULL,
     Discriminator VARCHAR(128) NULL,
@@ -5059,9 +5059,9 @@ ALTER TABLE edfi.StudentCohortAssociation ALTER COLUMN LastModifiedDate SET DEFA
 CREATE TABLE edfi.StudentCohortAssociationSection (
     BeginDate DATE NOT NULL,
     CohortIdentifier VARCHAR(36) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
@@ -5074,11 +5074,11 @@ ALTER TABLE edfi.StudentCohortAssociationSection ALTER COLUMN CreateDate SET DEF
 -- Table edfi.StudentCompetencyObjective --
 CREATE TABLE edfi.StudentCompetencyObjective (
     GradingPeriodDescriptorId INT NOT NULL,
-    GradingPeriodSchoolId INT NOT NULL,
+    GradingPeriodSchoolId BIGINT NOT NULL,
     GradingPeriodSchoolYear SMALLINT NOT NULL,
     GradingPeriodSequence INT NOT NULL,
     Objective VARCHAR(60) NOT NULL,
-    ObjectiveEducationOrganizationId INT NOT NULL,
+    ObjectiveEducationOrganizationId BIGINT NOT NULL,
     ObjectiveGradeLevelDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
     CompetencyLevelDescriptorId INT NOT NULL,
@@ -5096,15 +5096,15 @@ ALTER TABLE edfi.StudentCompetencyObjective ALTER COLUMN LastModifiedDate SET DE
 -- Table edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation --
 CREATE TABLE edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GradingPeriodDescriptorId INT NOT NULL,
-    GradingPeriodSchoolId INT NOT NULL,
+    GradingPeriodSchoolId BIGINT NOT NULL,
     GradingPeriodSchoolYear SMALLINT NOT NULL,
     GradingPeriodSequence INT NOT NULL,
     Objective VARCHAR(60) NOT NULL,
-    ObjectiveEducationOrganizationId INT NOT NULL,
+    ObjectiveEducationOrganizationId BIGINT NOT NULL,
     ObjectiveGradeLevelDescriptorId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -5117,14 +5117,14 @@ ALTER TABLE edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation ALTE
 CREATE TABLE edfi.StudentCompetencyObjectiveStudentSectionAssociation (
     BeginDate DATE NOT NULL,
     GradingPeriodDescriptorId INT NOT NULL,
-    GradingPeriodSchoolId INT NOT NULL,
+    GradingPeriodSchoolId BIGINT NOT NULL,
     GradingPeriodSchoolYear SMALLINT NOT NULL,
     GradingPeriodSequence INT NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
     Objective VARCHAR(60) NOT NULL,
-    ObjectiveEducationOrganizationId INT NOT NULL,
+    ObjectiveEducationOrganizationId BIGINT NOT NULL,
     ObjectiveGradeLevelDescriptorId INT NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
@@ -5158,8 +5158,8 @@ ALTER TABLE edfi.StudentContactAssociation ALTER COLUMN LastModifiedDate SET DEF
 -- Table edfi.StudentCTEProgramAssociation --
 CREATE TABLE edfi.StudentCTEProgramAssociation (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -5173,8 +5173,8 @@ CREATE TABLE edfi.StudentCTEProgramAssociation (
 CREATE TABLE edfi.StudentCTEProgramAssociationCTEProgramService (
     BeginDate DATE NOT NULL,
     CTEProgramServiceDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -5191,7 +5191,7 @@ ALTER TABLE edfi.StudentCTEProgramAssociationCTEProgramService ALTER COLUMN Crea
 CREATE TABLE edfi.StudentDisciplineIncidentBehaviorAssociation (
     BehaviorDescriptorId INT NOT NULL,
     IncidentIdentifier VARCHAR(36) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     BehaviorDetailedDescription VARCHAR(1024) NULL,
     Discriminator VARCHAR(128) NULL,
@@ -5209,7 +5209,7 @@ CREATE TABLE edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a2
     BehaviorDescriptorId INT NOT NULL,
     DisciplineIncidentParticipationCodeDescriptorId INT NOT NULL,
     IncidentIdentifier VARCHAR(36) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentDisciplineIncidentBehaviorAssociationDiscip_ae6a21_PK PRIMARY KEY (BehaviorDescriptorId, DisciplineIncidentParticipationCodeDescriptorId, IncidentIdentifier, SchoolId, StudentUSI)
@@ -5219,7 +5219,7 @@ ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21
 -- Table edfi.StudentDisciplineIncidentNonOffenderAssociation --
 CREATE TABLE edfi.StudentDisciplineIncidentNonOffenderAssociation (
     IncidentIdentifier VARCHAR(36) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -5235,7 +5235,7 @@ ALTER TABLE edfi.StudentDisciplineIncidentNonOffenderAssociation ALTER COLUMN La
 CREATE TABLE edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a (
     DisciplineIncidentParticipationCodeDescriptorId INT NOT NULL,
     IncidentIdentifier VARCHAR(36) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentDisciplineIncidentNonOffenderAssociationDis_4c979a_PK PRIMARY KEY (DisciplineIncidentParticipationCodeDescriptorId, IncidentIdentifier, SchoolId, StudentUSI)
@@ -5244,7 +5244,7 @@ ALTER TABLE edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a
 
 -- Table edfi.StudentEducationOrganizationAssociation --
 CREATE TABLE edfi.StudentEducationOrganizationAssociation (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     SexDescriptorId INT NOT NULL,
     ProfileThumbnail VARCHAR(255) NULL,
@@ -5272,7 +5272,7 @@ ALTER TABLE edfi.StudentEducationOrganizationAssociation ALTER COLUMN LastModifi
 CREATE TABLE edfi.StudentEducationOrganizationAssociationAddress (
     AddressTypeDescriptorId INT NOT NULL,
     City VARCHAR(30) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     PostalCode VARCHAR(17) NOT NULL,
     StateAbbreviationDescriptorId INT NOT NULL,
     StreetNumberName VARCHAR(150) NOT NULL,
@@ -5296,7 +5296,7 @@ CREATE TABLE edfi.StudentEducationOrganizationAssociationAddressPeriod (
     AddressTypeDescriptorId INT NOT NULL,
     BeginDate DATE NOT NULL,
     City VARCHAR(30) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     PostalCode VARCHAR(17) NOT NULL,
     StateAbbreviationDescriptorId INT NOT NULL,
     StreetNumberName VARCHAR(150) NOT NULL,
@@ -5310,7 +5310,7 @@ ALTER TABLE edfi.StudentEducationOrganizationAssociationAddressPeriod ALTER COLU
 -- Table edfi.StudentEducationOrganizationAssociationAncestryEthnicOrigin --
 CREATE TABLE edfi.StudentEducationOrganizationAssociationAncestryEthnicOrigin (
     AncestryEthnicOriginDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentEducationOrganizationAssociationAncestryEthnicOrigin_PK PRIMARY KEY (AncestryEthnicOriginDescriptorId, EducationOrganizationId, StudentUSI)
@@ -5320,7 +5320,7 @@ ALTER TABLE edfi.StudentEducationOrganizationAssociationAncestryEthnicOrigin ALT
 -- Table edfi.StudentEducationOrganizationAssociationCohortYear --
 CREATE TABLE edfi.StudentEducationOrganizationAssociationCohortYear (
     CohortYearTypeDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
     TermDescriptorId INT NULL,
@@ -5332,7 +5332,7 @@ ALTER TABLE edfi.StudentEducationOrganizationAssociationCohortYear ALTER COLUMN 
 -- Table edfi.StudentEducationOrganizationAssociationDisability --
 CREATE TABLE edfi.StudentEducationOrganizationAssociationDisability (
     DisabilityDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     DisabilityDiagnosis VARCHAR(80) NULL,
     OrderOfDisability INT NULL,
@@ -5346,7 +5346,7 @@ ALTER TABLE edfi.StudentEducationOrganizationAssociationDisability ALTER COLUMN 
 CREATE TABLE edfi.StudentEducationOrganizationAssociationDisabilityDesignation (
     DisabilityDescriptorId INT NOT NULL,
     DisabilityDesignationDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentEducationOrganizationAssociationDisabilityDesignation_PK PRIMARY KEY (DisabilityDescriptorId, DisabilityDesignationDescriptorId, EducationOrganizationId, StudentUSI)
@@ -5355,7 +5355,7 @@ ALTER TABLE edfi.StudentEducationOrganizationAssociationDisabilityDesignation AL
 
 -- Table edfi.StudentEducationOrganizationAssociationElectronicMail --
 CREATE TABLE edfi.StudentEducationOrganizationAssociationElectronicMail (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     ElectronicMailAddress VARCHAR(128) NOT NULL,
     ElectronicMailTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -5369,7 +5369,7 @@ ALTER TABLE edfi.StudentEducationOrganizationAssociationElectronicMail ALTER COL
 -- Table edfi.StudentEducationOrganizationAssociationInternationalAddress --
 CREATE TABLE edfi.StudentEducationOrganizationAssociationInternationalAddress (
     AddressTypeDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     AddressLine1 VARCHAR(150) NOT NULL,
     AddressLine2 VARCHAR(150) NULL,
@@ -5387,7 +5387,7 @@ ALTER TABLE edfi.StudentEducationOrganizationAssociationInternationalAddress ALT
 
 -- Table edfi.StudentEducationOrganizationAssociationLanguage --
 CREATE TABLE edfi.StudentEducationOrganizationAssociationLanguage (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     LanguageDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -5397,7 +5397,7 @@ ALTER TABLE edfi.StudentEducationOrganizationAssociationLanguage ALTER COLUMN Cr
 
 -- Table edfi.StudentEducationOrganizationAssociationLanguageUse --
 CREATE TABLE edfi.StudentEducationOrganizationAssociationLanguageUse (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     LanguageDescriptorId INT NOT NULL,
     LanguageUseDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -5408,7 +5408,7 @@ ALTER TABLE edfi.StudentEducationOrganizationAssociationLanguageUse ALTER COLUMN
 
 -- Table edfi.StudentEducationOrganizationAssociationRace --
 CREATE TABLE edfi.StudentEducationOrganizationAssociationRace (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     RaceDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -5419,7 +5419,7 @@ ALTER TABLE edfi.StudentEducationOrganizationAssociationRace ALTER COLUMN Create
 -- Table edfi.StudentEducationOrganizationAssociationStudentCharacteri_a18fcf --
 CREATE TABLE edfi.StudentEducationOrganizationAssociationStudentCharacteri_a18fcf (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     StudentCharacteristicDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
     EndDate DATE NULL,
@@ -5430,7 +5430,7 @@ ALTER TABLE edfi.StudentEducationOrganizationAssociationStudentCharacteri_a18fcf
 
 -- Table edfi.StudentEducationOrganizationAssociationStudentCharacteristic --
 CREATE TABLE edfi.StudentEducationOrganizationAssociationStudentCharacteristic (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     StudentCharacteristicDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
     DesignatedBy VARCHAR(60) NULL,
@@ -5442,7 +5442,7 @@ ALTER TABLE edfi.StudentEducationOrganizationAssociationStudentCharacteristic AL
 -- Table edfi.StudentEducationOrganizationAssociationStudentIdentifica_c15030 --
 CREATE TABLE edfi.StudentEducationOrganizationAssociationStudentIdentifica_c15030 (
     AssigningOrganizationIdentificationCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     StudentIdentificationSystemDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
     IdentificationCode VARCHAR(60) NOT NULL,
@@ -5453,7 +5453,7 @@ ALTER TABLE edfi.StudentEducationOrganizationAssociationStudentIdentifica_c15030
 
 -- Table edfi.StudentEducationOrganizationAssociationStudentIndicator --
 CREATE TABLE edfi.StudentEducationOrganizationAssociationStudentIndicator (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     IndicatorName VARCHAR(200) NOT NULL,
     StudentUSI INT NOT NULL,
     IndicatorGroup VARCHAR(200) NULL,
@@ -5467,7 +5467,7 @@ ALTER TABLE edfi.StudentEducationOrganizationAssociationStudentIndicator ALTER C
 -- Table edfi.StudentEducationOrganizationAssociationStudentIndicatorPeriod --
 CREATE TABLE edfi.StudentEducationOrganizationAssociationStudentIndicatorPeriod (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     IndicatorName VARCHAR(200) NOT NULL,
     StudentUSI INT NOT NULL,
     EndDate DATE NULL,
@@ -5478,7 +5478,7 @@ ALTER TABLE edfi.StudentEducationOrganizationAssociationStudentIndicatorPeriod A
 
 -- Table edfi.StudentEducationOrganizationAssociationTelephone --
 CREATE TABLE edfi.StudentEducationOrganizationAssociationTelephone (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     TelephoneNumber VARCHAR(24) NOT NULL,
     TelephoneNumberTypeDescriptorId INT NOT NULL,
@@ -5492,7 +5492,7 @@ ALTER TABLE edfi.StudentEducationOrganizationAssociationTelephone ALTER COLUMN C
 
 -- Table edfi.StudentEducationOrganizationAssociationTribalAffiliation --
 CREATE TABLE edfi.StudentEducationOrganizationAssociationTribalAffiliation (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     TribalAffiliationDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -5503,7 +5503,7 @@ ALTER TABLE edfi.StudentEducationOrganizationAssociationTribalAffiliation ALTER 
 -- Table edfi.StudentEducationOrganizationResponsibilityAssociation --
 CREATE TABLE edfi.StudentEducationOrganizationResponsibilityAssociation (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     ResponsibilityDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
     EndDate DATE NULL,
@@ -5544,8 +5544,8 @@ ALTER TABLE edfi.StudentGradebookEntry ALTER COLUMN LastModifiedDate SET DEFAULT
 -- Table edfi.StudentHomelessProgramAssociation --
 CREATE TABLE edfi.StudentHomelessProgramAssociation (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -5558,9 +5558,9 @@ CREATE TABLE edfi.StudentHomelessProgramAssociation (
 -- Table edfi.StudentHomelessProgramAssociationHomelessProgramService --
 CREATE TABLE edfi.StudentHomelessProgramAssociationHomelessProgramService (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     HomelessProgramServiceDescriptorId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -5595,11 +5595,11 @@ CREATE TABLE edfi.StudentIdentificationSystemDescriptor (
 
 -- Table edfi.StudentInterventionAssociation --
 CREATE TABLE edfi.StudentInterventionAssociation (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     InterventionIdentificationCode VARCHAR(60) NOT NULL,
     StudentUSI INT NOT NULL,
     CohortIdentifier VARCHAR(36) NULL,
-    CohortEducationOrganizationId INT NULL,
+    CohortEducationOrganizationId BIGINT NULL,
     DiagnosticStatement VARCHAR(1024) NULL,
     Dosage INT NULL,
     Discriminator VARCHAR(128) NULL,
@@ -5615,7 +5615,7 @@ ALTER TABLE edfi.StudentInterventionAssociation ALTER COLUMN LastModifiedDate SE
 -- Table edfi.StudentInterventionAssociationInterventionEffectiveness --
 CREATE TABLE edfi.StudentInterventionAssociationInterventionEffectiveness (
     DiagnosisDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GradeLevelDescriptorId INT NOT NULL,
     InterventionIdentificationCode VARCHAR(60) NOT NULL,
     PopulationServedDescriptorId INT NOT NULL,
@@ -5630,7 +5630,7 @@ ALTER TABLE edfi.StudentInterventionAssociationInterventionEffectiveness ALTER C
 -- Table edfi.StudentInterventionAttendanceEvent --
 CREATE TABLE edfi.StudentInterventionAttendanceEvent (
     AttendanceEventCategoryDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     EventDate DATE NOT NULL,
     InterventionIdentificationCode VARCHAR(60) NOT NULL,
     StudentUSI INT NOT NULL,
@@ -5651,8 +5651,8 @@ ALTER TABLE edfi.StudentInterventionAttendanceEvent ALTER COLUMN LastModifiedDat
 -- Table edfi.StudentLanguageInstructionProgramAssociation --
 CREATE TABLE edfi.StudentLanguageInstructionProgramAssociation (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -5664,8 +5664,8 @@ CREATE TABLE edfi.StudentLanguageInstructionProgramAssociation (
 -- Table edfi.StudentLanguageInstructionProgramAssociationEnglishLangu_1ac620 --
 CREATE TABLE edfi.StudentLanguageInstructionProgramAssociationEnglishLangu_1ac620 (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
@@ -5682,9 +5682,9 @@ ALTER TABLE edfi.StudentLanguageInstructionProgramAssociationEnglishLangu_1ac620
 -- Table edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07 --
 CREATE TABLE edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07 (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     LanguageInstructionProgramServiceDescriptorId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -5699,8 +5699,8 @@ ALTER TABLE edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07
 -- Table edfi.StudentMigrantEducationProgramAssociation --
 CREATE TABLE edfi.StudentMigrantEducationProgramAssociation (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -5719,9 +5719,9 @@ CREATE TABLE edfi.StudentMigrantEducationProgramAssociation (
 -- Table edfi.StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7 --
 CREATE TABLE edfi.StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7 (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     MigrantEducationProgramServiceDescriptorId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -5736,8 +5736,8 @@ ALTER TABLE edfi.StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7
 -- Table edfi.StudentNeglectedOrDelinquentProgramAssociation --
 CREATE TABLE edfi.StudentNeglectedOrDelinquentProgramAssociation (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -5750,9 +5750,9 @@ CREATE TABLE edfi.StudentNeglectedOrDelinquentProgramAssociation (
 -- Table edfi.StudentNeglectedOrDelinquentProgramAssociationNeglectedO_520251 --
 CREATE TABLE edfi.StudentNeglectedOrDelinquentProgramAssociationNeglectedO_520251 (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     NeglectedOrDelinquentProgramServiceDescriptorId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -5802,8 +5802,8 @@ ALTER TABLE edfi.StudentPersonalIdentificationDocument ALTER COLUMN CreateDate S
 -- Table edfi.StudentProgramAssociation --
 CREATE TABLE edfi.StudentProgramAssociation (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -5813,8 +5813,8 @@ CREATE TABLE edfi.StudentProgramAssociation (
 -- Table edfi.StudentProgramAssociationService --
 CREATE TABLE edfi.StudentProgramAssociationService (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     ServiceDescriptorId INT NOT NULL,
@@ -5830,9 +5830,9 @@ ALTER TABLE edfi.StudentProgramAssociationService ALTER COLUMN CreateDate SET DE
 -- Table edfi.StudentProgramAttendanceEvent --
 CREATE TABLE edfi.StudentProgramAttendanceEvent (
     AttendanceEventCategoryDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     EventDate DATE NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -5853,7 +5853,7 @@ ALTER TABLE edfi.StudentProgramAttendanceEvent ALTER COLUMN LastModifiedDate SET
 -- Table edfi.StudentSchoolAssociation --
 CREATE TABLE edfi.StudentSchoolAssociation (
     EntryDate DATE NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     PrimarySchool BOOLEAN NULL,
     EntryGradeLevelDescriptorId INT NOT NULL,
@@ -5866,14 +5866,14 @@ CREATE TABLE edfi.StudentSchoolAssociation (
     ExitWithdrawTypeDescriptorId INT NULL,
     ResidencyStatusDescriptorId INT NULL,
     GraduationPlanTypeDescriptorId INT NULL,
-    EducationOrganizationId INT NULL,
+    EducationOrganizationId BIGINT NULL,
     GraduationSchoolYear SMALLINT NULL,
     EmployedWhileEnrolled BOOLEAN NULL,
     CalendarCode VARCHAR(60) NULL,
     SchoolYear SMALLINT NULL,
     FullTimeEquivalency DECIMAL(5, 4) NULL,
     TermCompletionIndicator BOOLEAN NULL,
-    NextYearSchoolId INT NULL,
+    NextYearSchoolId BIGINT NULL,
     NextYearGradeLevelDescriptorId INT NULL,
     SchoolChoice BOOLEAN NULL,
     SchoolChoiceBasisDescriptorId INT NULL,
@@ -5890,11 +5890,11 @@ ALTER TABLE edfi.StudentSchoolAssociation ALTER COLUMN LastModifiedDate SET DEFA
 
 -- Table edfi.StudentSchoolAssociationAlternativeGraduationPlan --
 CREATE TABLE edfi.StudentSchoolAssociationAlternativeGraduationPlan (
-    AlternativeEducationOrganizationId INT NOT NULL,
+    AlternativeEducationOrganizationId BIGINT NOT NULL,
     AlternativeGraduationPlanTypeDescriptorId INT NOT NULL,
     AlternativeGraduationSchoolYear SMALLINT NOT NULL,
     EntryDate DATE NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentSchoolAssociationAlternativeGraduationPlan_PK PRIMARY KEY (AlternativeEducationOrganizationId, AlternativeGraduationPlanTypeDescriptorId, AlternativeGraduationSchoolYear, EntryDate, SchoolId, StudentUSI)
@@ -5905,7 +5905,7 @@ ALTER TABLE edfi.StudentSchoolAssociationAlternativeGraduationPlan ALTER COLUMN 
 CREATE TABLE edfi.StudentSchoolAssociationEducationPlan (
     EducationPlanDescriptorId INT NOT NULL,
     EntryDate DATE NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentSchoolAssociationEducationPlan_PK PRIMARY KEY (EducationPlanDescriptorId, EntryDate, SchoolId, StudentUSI)
@@ -5916,7 +5916,7 @@ ALTER TABLE edfi.StudentSchoolAssociationEducationPlan ALTER COLUMN CreateDate S
 CREATE TABLE edfi.StudentSchoolAttendanceEvent (
     AttendanceEventCategoryDescriptorId INT NOT NULL,
     EventDate DATE NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
     StudentUSI INT NOT NULL,
@@ -5939,8 +5939,8 @@ ALTER TABLE edfi.StudentSchoolAttendanceEvent ALTER COLUMN LastModifiedDate SET 
 -- Table edfi.StudentSchoolFoodServiceProgramAssociation --
 CREATE TABLE edfi.StudentSchoolFoodServiceProgramAssociation (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -5951,8 +5951,8 @@ CREATE TABLE edfi.StudentSchoolFoodServiceProgramAssociation (
 -- Table edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb --
 CREATE TABLE edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     SchoolFoodServiceProgramServiceDescriptorId INT NOT NULL,
@@ -5969,7 +5969,7 @@ ALTER TABLE edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb
 CREATE TABLE edfi.StudentSectionAssociation (
     BeginDate DATE NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
@@ -5994,7 +5994,7 @@ CREATE TABLE edfi.StudentSectionAttendanceEvent (
     AttendanceEventCategoryDescriptorId INT NOT NULL,
     EventDate DATE NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
@@ -6021,7 +6021,7 @@ CREATE TABLE edfi.StudentSectionAttendanceEventClassPeriod (
     ClassPeriodName VARCHAR(60) NOT NULL,
     EventDate DATE NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
@@ -6034,8 +6034,8 @@ ALTER TABLE edfi.StudentSectionAttendanceEventClassPeriod ALTER COLUMN CreateDat
 -- Table edfi.StudentSpecialEducationProgramAssociation --
 CREATE TABLE edfi.StudentSpecialEducationProgramAssociation (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -6056,8 +6056,8 @@ CREATE TABLE edfi.StudentSpecialEducationProgramAssociation (
 CREATE TABLE edfi.StudentSpecialEducationProgramAssociationDisability (
     BeginDate DATE NOT NULL,
     DisabilityDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -6074,8 +6074,8 @@ CREATE TABLE edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation
     BeginDate DATE NOT NULL,
     DisabilityDescriptorId INT NOT NULL,
     DisabilityDesignationDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -6087,8 +6087,8 @@ ALTER TABLE edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation 
 -- Table edfi.StudentSpecialEducationProgramAssociationServiceProvider --
 CREATE TABLE edfi.StudentSpecialEducationProgramAssociationServiceProvider (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StaffUSI INT NOT NULL,
@@ -6102,8 +6102,8 @@ ALTER TABLE edfi.StudentSpecialEducationProgramAssociationServiceProvider ALTER 
 -- Table edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9 --
 CREATE TABLE edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9 (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     SpecialEducationProgramServiceDescriptorId INT NOT NULL,
@@ -6119,8 +6119,8 @@ ALTER TABLE edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9
 -- Table edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_bcba5c --
 CREATE TABLE edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_bcba5c (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     SpecialEducationProgramServiceDescriptorId INT NOT NULL,
@@ -6135,7 +6135,7 @@ ALTER TABLE edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_bcba5c
 -- Table edfi.StudentSpecialEducationProgramEligibilityAssociation --
 CREATE TABLE edfi.StudentSpecialEducationProgramEligibilityAssociation (
     ConsentToEvaluationReceivedDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -6166,8 +6166,8 @@ ALTER TABLE edfi.StudentSpecialEducationProgramEligibilityAssociation ALTER COLU
 -- Table edfi.StudentTitleIPartAProgramAssociation --
 CREATE TABLE edfi.StudentTitleIPartAProgramAssociation (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -6178,8 +6178,8 @@ CREATE TABLE edfi.StudentTitleIPartAProgramAssociation (
 -- Table edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramService --
 CREATE TABLE edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramService (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -6211,11 +6211,11 @@ CREATE TABLE edfi.SubmissionStatusDescriptor (
 CREATE TABLE edfi.Survey (
     Namespace VARCHAR(255) NOT NULL,
     SurveyIdentifier VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NULL,
+    EducationOrganizationId BIGINT NULL,
     SurveyTitle VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NULL,
     SchoolYear SMALLINT NOT NULL,
-    SchoolId INT NULL,
+    SchoolId BIGINT NULL,
     SurveyCategoryDescriptorId INT NULL,
     NumberAdministered INT NULL,
     Discriminator VARCHAR(128) NULL,
@@ -6237,7 +6237,7 @@ CREATE TABLE edfi.SurveyCategoryDescriptor (
 -- Table edfi.SurveyCourseAssociation --
 CREATE TABLE edfi.SurveyCourseAssociation (
     CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     Namespace VARCHAR(255) NOT NULL,
     SurveyIdentifier VARCHAR(60) NOT NULL,
     Discriminator VARCHAR(128) NULL,
@@ -6258,7 +6258,7 @@ CREATE TABLE edfi.SurveyLevelDescriptor (
 
 -- Table edfi.SurveyProgramAssociation --
 CREATE TABLE edfi.SurveyProgramAssociation (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     Namespace VARCHAR(255) NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
@@ -6391,7 +6391,7 @@ ALTER TABLE edfi.SurveyResponse ALTER COLUMN LastModifiedDate SET DEFAULT curren
 
 -- Table edfi.SurveyResponseEducationOrganizationTargetAssociation --
 CREATE TABLE edfi.SurveyResponseEducationOrganizationTargetAssociation (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     Namespace VARCHAR(255) NOT NULL,
     SurveyIdentifier VARCHAR(60) NOT NULL,
     SurveyResponseIdentifier VARCHAR(60) NOT NULL,
@@ -6451,7 +6451,7 @@ ALTER TABLE edfi.SurveySection ALTER COLUMN LastModifiedDate SET DEFAULT current
 CREATE TABLE edfi.SurveySectionAssociation (
     LocalCourseCode VARCHAR(60) NOT NULL,
     Namespace VARCHAR(255) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
@@ -6485,7 +6485,7 @@ ALTER TABLE edfi.SurveySectionResponse ALTER COLUMN LastModifiedDate SET DEFAULT
 
 -- Table edfi.SurveySectionResponseEducationOrganizationTargetAssociation --
 CREATE TABLE edfi.SurveySectionResponseEducationOrganizationTargetAssociation (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     Namespace VARCHAR(255) NOT NULL,
     SurveyIdentifier VARCHAR(60) NOT NULL,
     SurveyResponseIdentifier VARCHAR(60) NOT NULL,
