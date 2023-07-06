@@ -64,6 +64,7 @@ namespace EdFi.Ods.Features.ExternalCache
                     //   - ApiClientDetailsDistributeCacheDeserializationHandler
                     //   - GuidDistributeCacheDeserializationHandler
                     //   - IntDistributeCacheDeserializationHandler
+                    //   - DescriptorMapsDistributeCacheDeserializationHandler
                     //
                     // A similar approach is recommended for serialization, though implementations are only needed for int/guid.
                     if (keyAsString.StartsWith(PersonUniqueIdToUsiCache.CacheKeyPrefix))
@@ -86,7 +87,8 @@ namespace EdFi.Ods.Features.ExternalCache
                     }
                     else
                     {
-                        // Simple cache like descriptors can be deserialized without explicit type names
+                        // Simple cache like Guid and Int32 can be deserialized without explicit type names
+                        // For descriptors, the DescriptorMaps type will be used
                         value = Deserialize(cachedValue);
                     }
 
