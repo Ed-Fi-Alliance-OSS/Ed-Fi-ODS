@@ -23,6 +23,7 @@ namespace EdFi.Ods.Api.Middleware.Tests
         private IApiClientContextProvider _apiClientContextProvider;
         private IOdsInstanceConfigurationProvider _odsInstanceConfigurationProvider;
         private IOdsRouteRootTemplateProvider _odsRouteRootTemplateProvider;
+        private ApiSettings _apiSettings;
         private OdsInstanceSelector _odsInstanceSelector;
         private Dictionary<string, object> _routeValueDictionary;
 
@@ -32,7 +33,8 @@ namespace EdFi.Ods.Api.Middleware.Tests
             _apiClientContextProvider = A.Fake<IApiClientContextProvider>();
             _odsInstanceConfigurationProvider = A.Fake<IOdsInstanceConfigurationProvider>();
             _odsRouteRootTemplateProvider = A.Fake<IOdsRouteRootTemplateProvider>();
-            _odsInstanceSelector = new OdsInstanceSelector(_apiClientContextProvider, _odsInstanceConfigurationProvider, _odsRouteRootTemplateProvider);
+            _apiSettings = new ApiSettings();
+            _odsInstanceSelector = new OdsInstanceSelector(_apiClientContextProvider, _odsInstanceConfigurationProvider, _apiSettings);
             _routeValueDictionary = new Dictionary<string, object>();
         }
 
@@ -129,93 +131,6 @@ namespace EdFi.Ods.Api.Middleware.Tests
             result.ShouldBe(odsInstanceConfiguration_2);
         }
 
-        [Test]
-        public async Task GetOdsInstanceAsync_ReturnsOdsInstanceConfiguration_WhenApiClientContextHasOneOdsInstanceId_AndOneMatchingAllContextValues()
-        {
-            // Arrange
-            var odsInstanceIds = new[] { 1 };
-
-            var apiClientContext = CreateApiClientContext(odsInstanceIds);
-
-            var odsInstanceConfiguration_1 = new OdsInstanceConfiguration(
-                1,
-                1UL,
-                "TheConnectionString",
-                new Dictionary<string, string> { { "schoolYear", "2022" } },
-                new Dictionary<DerivativeType, string>());
-
-            A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(apiClientContext);
-            A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(1)).Returns(odsInstanceConfiguration_1);
-            _odsRouteRootTemplateProvider = A.Fake<IOdsRouteRootTemplateProvider>();
-            A.CallTo(() => _odsRouteRootTemplateProvider.GetOdsRouteRootTemplate()).Returns("{tenantIdentifier:regex(^[[A-Za-z0-9-]]+$)?}/{schoolYear:range(2000,2099)}/");
-
-            _odsInstanceSelector = new OdsInstanceSelector(_apiClientContextProvider, _odsInstanceConfigurationProvider, _odsRouteRootTemplateProvider);
-
-            _routeValueDictionary.Add("schoolYear", "2022");
-
-            // Act
-            var result = await _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary);
-
-            // Assert
-            result.ShouldBe(odsInstanceConfiguration_1);
-        }
-
-        [Test]
-        public async Task GetOdsInstanceAsync_ReturnsOdsInstanceConfiguration_WhenApiClientContextHasOneOdsInstanceId_AndNoContextValues()
-        {
-            // Arrange
-            var odsInstanceIds = new[] { 1 };
-
-            var apiClientContext = CreateApiClientContext(odsInstanceIds);
-
-            var odsInstanceConfiguration_1 = new OdsInstanceConfiguration(
-                1,
-                1UL,
-                "TheConnectionString",
-                new Dictionary<string, string>(),
-                new Dictionary<DerivativeType, string>());
-
-            A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(apiClientContext);
-            A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(1)).Returns(odsInstanceConfiguration_1);
-            _odsRouteRootTemplateProvider = A.Fake<IOdsRouteRootTemplateProvider>();
-            A.CallTo(() => _odsRouteRootTemplateProvider.GetOdsRouteRootTemplate()).Returns("{tenantIdentifier:regex(^[[A-Za-z0-9-]]+$)?}/");
-
-            _odsInstanceSelector = new OdsInstanceSelector(_apiClientContextProvider, _odsInstanceConfigurationProvider, _odsRouteRootTemplateProvider);
-
-            // Act
-            var result = await _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary);
-
-            // Assert
-            result.ShouldBe(odsInstanceConfiguration_1);
-        }
-
-        [Test]
-        public async Task GetOdsInstanceAsync_ReturnsNotFoundException_WhenApiClientContextHasOneOdsInstanceId_AndNoneMatchingAllContextValues()
-        {
-            // Arrange
-            var odsInstanceIds = new[] { 1 };
-
-            var apiClientContext = CreateApiClientContext(odsInstanceIds);
-
-            var odsInstanceConfiguration_1 = new OdsInstanceConfiguration(
-                1,
-                1UL,
-                "TheConnectionString",
-                new Dictionary<string, string> { { "schoolYear", "2022" } },
-                new Dictionary<DerivativeType, string>());
-
-            A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(apiClientContext);
-            A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(1)).Returns(odsInstanceConfiguration_1);
-            A.CallTo(() => _odsRouteRootTemplateProvider.GetOdsRouteRootTemplate()).Returns("{tenantIdentifier:regex(^[[A-Za-z0-9-]]+$)?}/{schoolYear:range(2000,2099)}/");
-
-            _odsInstanceSelector = new OdsInstanceSelector(_apiClientContextProvider, _odsInstanceConfigurationProvider, _odsRouteRootTemplateProvider);
-
-            _routeValueDictionary.Add("schoolYear", "2023");
-
-            // Act & Assert
-            Assert.ThrowsAsync<NotFoundException>(async () => await _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary));
-        }
-
         [TestCase("2022", "NoMatch")]
         [TestCase("2024", "Abc")]
         public async Task GetOdsInstanceAsync_ReturnsNotFoundException_WhenApiClientContextHasMultipleOdsInstanceIds_AndNoneMatchingAllContextValues(
@@ -254,6 +169,33 @@ namespace EdFi.Ods.Api.Middleware.Tests
 
             _routeValueDictionary.Add("schoolYear", schoolYearRouteValue);
             _routeValueDictionary.Add("secondKey", secondKeyRouteValue);
+
+            // Act & Assert
+            Assert.ThrowsAsync<NotFoundException>(async () => await _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary));
+        }
+
+        [Test]
+        public async Task GetOdsInstanceAsync_ReturnsNotFoundException_WhenApiClientContextHasOneOdsInstanceId_AndNoneMatchingAllContextValues()
+        {
+            // Arrange
+            var odsInstanceId = 1;
+
+            var apiClientContext = CreateApiClientContext(odsInstanceId);
+
+            var odsInstanceConfiguration = new OdsInstanceConfiguration(
+                1,
+                1UL,
+                "TheConnectionString",
+                new Dictionary<string, string> { { "schoolYear", "2022" } },
+                new Dictionary<DerivativeType, string>());
+
+            A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(apiClientContext);
+            A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(1)).Returns(odsInstanceConfiguration);
+
+            _apiSettings.OdsContextRouteTemplate = "{schoolYear:range(2000,2099)}";
+            _odsInstanceSelector = new OdsInstanceSelector(_apiClientContextProvider, _odsInstanceConfigurationProvider, _apiSettings);
+
+            _routeValueDictionary.Add("schoolYear", "2023");
 
             // Act & Assert
             Assert.ThrowsAsync<NotFoundException>(async () => await _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary));
