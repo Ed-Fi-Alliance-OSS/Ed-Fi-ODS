@@ -1,7 +1,7 @@
 [
   {
     "SchemaOwner": "auth",
-    "Name": "EducationOrganizationIdToParentUSI",
+    "Name": "EducationOrganizationIdToContactUSI",
     "Columns": [
       {
         "Name": "SourceEducationOrganizationId",
@@ -13,7 +13,7 @@
         "Nullable": false
       },
       {
-        "Name": "ParentUSI",
+        "Name": "ContactUSI",
         "DbDataType": "int",
         "IsPrimaryKey": false,
         "Length": null,
@@ -34,7 +34,7 @@
   },
   {
     "SchemaOwner": "auth",
-    "Name": "EducationOrganizationIdToParentUSIIncludingDeletes",
+    "Name": "EducationOrganizationIdToContactUSIIncludingDeletes",
     "Columns": [
       {
         "Name": "SourceEducationOrganizationId",
@@ -46,7 +46,7 @@
         "Nullable": false
       },
       {
-        "Name": "ParentUSI",
+        "Name": "ContactUSI",
         "DbDataType": "int",
         "IsPrimaryKey": false,
         "Length": null,

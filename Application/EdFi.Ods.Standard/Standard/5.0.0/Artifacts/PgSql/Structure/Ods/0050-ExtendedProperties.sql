@@ -474,6 +474,117 @@ COMMENT ON COLUMN edfi.CompetencyObjective.CompetencyObjectiveId IS 'The Identif
 COMMENT ON COLUMN edfi.CompetencyObjective.Description IS 'The description of the student competency objective.';
 COMMENT ON COLUMN edfi.CompetencyObjective.SuccessCriteria IS 'One or more statements that describes the criteria used by teachers and students to check for attainment of a competency objective. This criteria gives clear indications as to the degree to which learning is moving through the Zone or Proximal Development toward independent achievement of the competency objective.';
 
+-- Extended Properties [edfi].[Contact] --
+COMMENT ON TABLE edfi.Contact IS 'This entity represents a contact of a student, such as a parent, guardian or caretaker.';
+COMMENT ON COLUMN edfi.Contact.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN edfi.Contact.PersonalTitlePrefix IS 'A prefix used to denote the title, degree, position, or seniority of the individual.';
+COMMENT ON COLUMN edfi.Contact.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
+COMMENT ON COLUMN edfi.Contact.MiddleName IS 'A secondary name given to an individual at birth, baptism, or during another naming ceremony.';
+COMMENT ON COLUMN edfi.Contact.LastSurname IS 'The name borne in common by members of a family.';
+COMMENT ON COLUMN edfi.Contact.GenerationCodeSuffix IS 'An appendage, if any, used to denote an individual''s generation in his family (e.g., Jr., Sr., III).';
+COMMENT ON COLUMN edfi.Contact.MaidenName IS 'The individual''s maiden name.';
+COMMENT ON COLUMN edfi.Contact.PreferredFirstName IS 'The first name the individual prefers, if different from their legal first name';
+COMMENT ON COLUMN edfi.Contact.PreferredLastSurname IS 'The last name the individual prefers, if different from their legal last name';
+COMMENT ON COLUMN edfi.Contact.SexDescriptorId IS 'A person''s birth sex.';
+COMMENT ON COLUMN edfi.Contact.LoginId IS 'The login ID for the user; used for security access control interface.';
+COMMENT ON COLUMN edfi.Contact.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN edfi.Contact.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
+COMMENT ON COLUMN edfi.Contact.HighestCompletedLevelOfEducationDescriptorId IS 'The extent of formal instruction an individual has received (e.g., the highest grade in school completed or its equivalent or the highest degree received).';
+COMMENT ON COLUMN edfi.Contact.ContactUniqueId IS 'A unique alphanumeric code assigned to a contact.';
+
+-- Extended Properties [edfi].[ContactAddress] --
+COMMENT ON TABLE edfi.ContactAddress IS 'Contact''s address, if different from the student address.';
+COMMENT ON COLUMN edfi.ContactAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.ContactAddress.City IS 'The name of the city in which an address is located.';
+COMMENT ON COLUMN edfi.ContactAddress.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN edfi.ContactAddress.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
+COMMENT ON COLUMN edfi.ContactAddress.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
+COMMENT ON COLUMN edfi.ContactAddress.StreetNumberName IS 'The street number and street name or post office box number of an address.';
+COMMENT ON COLUMN edfi.ContactAddress.ApartmentRoomSuiteNumber IS 'The apartment, room, or suite number of an address.';
+COMMENT ON COLUMN edfi.ContactAddress.BuildingSiteNumber IS 'The number of the building on the site, if more than one building shares the same address.';
+COMMENT ON COLUMN edfi.ContactAddress.NameOfCounty IS 'The name of the county, parish, borough, or comparable unit (within a state) in
+                      ''which an address is located.';
+COMMENT ON COLUMN edfi.ContactAddress.CountyFIPSCode IS 'The Federal Information Processing Standards (FIPS) numeric code for the county issued by the National Institute of Standards and Technology (NIST). Counties are considered to be the "first-order subdivisions" of each State and statistically equivalent entity, regardless of their local designations (county, parish, borough, etc.) Counties in different States will have the same code. A unique county number is created when combined with the 2-digit FIPS State Code.';
+COMMENT ON COLUMN edfi.ContactAddress.Latitude IS 'The geographic latitude of the physical address.';
+COMMENT ON COLUMN edfi.ContactAddress.Longitude IS 'The geographic longitude of the physical address.';
+COMMENT ON COLUMN edfi.ContactAddress.DoNotPublishIndicator IS 'An indication that the address should not be published.';
+COMMENT ON COLUMN edfi.ContactAddress.CongressionalDistrict IS 'The congressional district in which an address is located.';
+COMMENT ON COLUMN edfi.ContactAddress.LocaleDescriptorId IS 'A general geographic indicator that categorizes U.S. territory (e.g., City, Suburban).';
+
+-- Extended Properties [edfi].[ContactAddressPeriod] --
+COMMENT ON TABLE edfi.ContactAddressPeriod IS 'The time periods for which the address is valid. For physical addresses, the periods in which the person lived at that address.';
+COMMENT ON COLUMN edfi.ContactAddressPeriod.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.ContactAddressPeriod.BeginDate IS 'The month, day, and year for the start of the period.';
+COMMENT ON COLUMN edfi.ContactAddressPeriod.City IS 'The name of the city in which an address is located.';
+COMMENT ON COLUMN edfi.ContactAddressPeriod.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN edfi.ContactAddressPeriod.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
+COMMENT ON COLUMN edfi.ContactAddressPeriod.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
+COMMENT ON COLUMN edfi.ContactAddressPeriod.StreetNumberName IS 'The street number and street name or post office box number of an address.';
+COMMENT ON COLUMN edfi.ContactAddressPeriod.EndDate IS 'The month, day, and year for the end of the period.';
+
+-- Extended Properties [edfi].[ContactElectronicMail] --
+COMMENT ON TABLE edfi.ContactElectronicMail IS 'The numbers, letters, and symbols used to identify an electronic mail (e-mail) user within the network to which the individual or organization belongs.';
+COMMENT ON COLUMN edfi.ContactElectronicMail.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN edfi.ContactElectronicMail.ElectronicMailAddress IS 'The electronic mail (e-mail) address listed for an individual or organization.';
+COMMENT ON COLUMN edfi.ContactElectronicMail.ElectronicMailTypeDescriptorId IS 'The type of email listed for an individual or organization. For example: Home/Personal, Work, etc.)';
+COMMENT ON COLUMN edfi.ContactElectronicMail.PrimaryEmailAddressIndicator IS 'An indication that the electronic mail address should be used as the principal electronic mail address for an individual or organization.';
+COMMENT ON COLUMN edfi.ContactElectronicMail.DoNotPublishIndicator IS 'An indication that the electronic email address should not be published.';
+
+-- Extended Properties [edfi].[ContactInternationalAddress] --
+COMMENT ON TABLE edfi.ContactInternationalAddress IS 'The set of elements that describes an international address.';
+COMMENT ON COLUMN edfi.ContactInternationalAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN edfi.ContactInternationalAddress.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN edfi.ContactInternationalAddress.AddressLine1 IS 'The first line of the address.';
+COMMENT ON COLUMN edfi.ContactInternationalAddress.AddressLine2 IS 'The second line of the address.';
+COMMENT ON COLUMN edfi.ContactInternationalAddress.AddressLine3 IS 'The third line of the address.';
+COMMENT ON COLUMN edfi.ContactInternationalAddress.AddressLine4 IS 'The fourth line of the address.';
+COMMENT ON COLUMN edfi.ContactInternationalAddress.CountryDescriptorId IS 'The name of the country. It is strongly recommended that entries use only ISO 3166 2-letter country codes.';
+COMMENT ON COLUMN edfi.ContactInternationalAddress.Latitude IS 'The geographic latitude of the physical address.';
+COMMENT ON COLUMN edfi.ContactInternationalAddress.Longitude IS 'The geographic longitude of the physical address.';
+COMMENT ON COLUMN edfi.ContactInternationalAddress.BeginDate IS 'The first date the address is valid. For physical addresses, the date the individual moved to that address.';
+COMMENT ON COLUMN edfi.ContactInternationalAddress.EndDate IS 'The last date the address is valid. For physical addresses, the date the individual moved from that address.';
+
+-- Extended Properties [edfi].[ContactLanguage] --
+COMMENT ON TABLE edfi.ContactLanguage IS 'The language(s) the individual uses to communicate. It is strongly recommended that entries use only ISO 639-2 language codes.';
+COMMENT ON COLUMN edfi.ContactLanguage.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN edfi.ContactLanguage.LanguageDescriptorId IS 'A specification of which written or spoken communication is being used.';
+
+-- Extended Properties [edfi].[ContactLanguageUse] --
+COMMENT ON TABLE edfi.ContactLanguageUse IS 'A description of how the language is used (e.g. Home Language, Native Language, Spoken Language).';
+COMMENT ON COLUMN edfi.ContactLanguageUse.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN edfi.ContactLanguageUse.LanguageDescriptorId IS 'A specification of which written or spoken communication is being used.';
+COMMENT ON COLUMN edfi.ContactLanguageUse.LanguageUseDescriptorId IS 'A description of how the language is used (e.g. Home Language, Native Language, Spoken Language).';
+
+-- Extended Properties [edfi].[ContactOtherName] --
+COMMENT ON TABLE edfi.ContactOtherName IS 'Other names (e.g., alias, nickname, previous legal name) associated with a person.';
+COMMENT ON COLUMN edfi.ContactOtherName.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN edfi.ContactOtherName.OtherNameTypeDescriptorId IS 'The types of alternate names for an individual.';
+COMMENT ON COLUMN edfi.ContactOtherName.PersonalTitlePrefix IS 'A prefix used to denote the title, degree, position, or seniority of the individual.';
+COMMENT ON COLUMN edfi.ContactOtherName.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
+COMMENT ON COLUMN edfi.ContactOtherName.MiddleName IS 'A secondary name given to an individual at birth, baptism, or during another naming ceremony.';
+COMMENT ON COLUMN edfi.ContactOtherName.LastSurname IS 'The name borne in common by members of a family.';
+COMMENT ON COLUMN edfi.ContactOtherName.GenerationCodeSuffix IS 'An appendage, if any, used to denote an individual''s generation in his family (e.g., Jr., Sr., III).';
+
+-- Extended Properties [edfi].[ContactPersonalIdentificationDocument] --
+COMMENT ON TABLE edfi.ContactPersonalIdentificationDocument IS 'The documents presented as evident to verify one''s personal identity; for example: drivers license, passport, birth certificate, etc.';
+COMMENT ON COLUMN edfi.ContactPersonalIdentificationDocument.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN edfi.ContactPersonalIdentificationDocument.IdentificationDocumentUseDescriptorId IS 'The primary function of the document used for establishing identity.';
+COMMENT ON COLUMN edfi.ContactPersonalIdentificationDocument.PersonalInformationVerificationDescriptorId IS 'The category of the document relative to its purpose.';
+COMMENT ON COLUMN edfi.ContactPersonalIdentificationDocument.DocumentTitle IS 'The title of the document given by the issuer.';
+COMMENT ON COLUMN edfi.ContactPersonalIdentificationDocument.DocumentExpirationDate IS 'The day when the document  expires, if null then never expires.';
+COMMENT ON COLUMN edfi.ContactPersonalIdentificationDocument.IssuerDocumentIdentificationCode IS 'The unique identifier on the issuer''s identification system.';
+COMMENT ON COLUMN edfi.ContactPersonalIdentificationDocument.IssuerName IS 'Name of the entity or institution that issued the document.';
+COMMENT ON COLUMN edfi.ContactPersonalIdentificationDocument.IssuerCountryDescriptorId IS 'Country of origin of the document. It is strongly recommended that entries use only ISO 3166 2-letter country codes.';
+
+-- Extended Properties [edfi].[ContactTelephone] --
+COMMENT ON TABLE edfi.ContactTelephone IS 'The 10-digit telephone number, including the area code, for the person.';
+COMMENT ON COLUMN edfi.ContactTelephone.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN edfi.ContactTelephone.TelephoneNumber IS 'The telephone number including the area code, and extension, if applicable.';
+COMMENT ON COLUMN edfi.ContactTelephone.TelephoneNumberTypeDescriptorId IS 'The type of communication number listed for an individual or organization.';
+COMMENT ON COLUMN edfi.ContactTelephone.OrderOfPriority IS 'The order of priority assigned to telephone numbers to define which number to attempt first, second, etc.';
+COMMENT ON COLUMN edfi.ContactTelephone.TextMessageCapabilityIndicator IS 'An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.';
+COMMENT ON COLUMN edfi.ContactTelephone.DoNotPublishIndicator IS 'An indication that the telephone number should not be published.';
+
 -- Extended Properties [edfi].[ContactTypeDescriptor] --
 COMMENT ON TABLE edfi.ContactTypeDescriptor IS 'This descriptor defines the set of contact types.';
 COMMENT ON COLUMN edfi.ContactTypeDescriptor.ContactTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -1967,117 +2078,6 @@ COMMENT ON COLUMN edfi.OrganizationDepartment.ParentEducationOrganizationId IS '
 COMMENT ON TABLE edfi.OtherNameTypeDescriptor IS 'The types of alternate names for a person.';
 COMMENT ON COLUMN edfi.OtherNameTypeDescriptor.OtherNameTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
--- Extended Properties [edfi].[Parent] --
-COMMENT ON TABLE edfi.Parent IS 'This entity represents a parent or guardian of a student, such as mother, father, or caretaker.';
-COMMENT ON COLUMN edfi.Parent.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN edfi.Parent.PersonalTitlePrefix IS 'A prefix used to denote the title, degree, position, or seniority of the individual.';
-COMMENT ON COLUMN edfi.Parent.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
-COMMENT ON COLUMN edfi.Parent.MiddleName IS 'A secondary name given to an individual at birth, baptism, or during another naming ceremony.';
-COMMENT ON COLUMN edfi.Parent.LastSurname IS 'The name borne in common by members of a family.';
-COMMENT ON COLUMN edfi.Parent.GenerationCodeSuffix IS 'An appendage, if any, used to denote an individual''s generation in his family (e.g., Jr., Sr., III).';
-COMMENT ON COLUMN edfi.Parent.MaidenName IS 'The individual''s maiden name.';
-COMMENT ON COLUMN edfi.Parent.PreferredFirstName IS 'The first name the individual prefers, if different from their legal first name';
-COMMENT ON COLUMN edfi.Parent.PreferredLastSurname IS 'The last name the individual prefers, if different from their legal last name';
-COMMENT ON COLUMN edfi.Parent.SexDescriptorId IS 'A person''s birth sex.';
-COMMENT ON COLUMN edfi.Parent.LoginId IS 'The login ID for the user; used for security access control interface.';
-COMMENT ON COLUMN edfi.Parent.PersonId IS 'A unique alphanumeric code assigned to a person.';
-COMMENT ON COLUMN edfi.Parent.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
-COMMENT ON COLUMN edfi.Parent.HighestCompletedLevelOfEducationDescriptorId IS 'The extent of formal instruction an individual has received (e.g., the highest grade in school completed or its equivalent or the highest degree received).';
-COMMENT ON COLUMN edfi.Parent.ParentUniqueId IS 'A unique alphanumeric code assigned to a parent.';
-
--- Extended Properties [edfi].[ParentAddress] --
-COMMENT ON TABLE edfi.ParentAddress IS 'Parent''s address, if different from the student address.';
-COMMENT ON COLUMN edfi.ParentAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
-COMMENT ON COLUMN edfi.ParentAddress.City IS 'The name of the city in which an address is located.';
-COMMENT ON COLUMN edfi.ParentAddress.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN edfi.ParentAddress.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
-COMMENT ON COLUMN edfi.ParentAddress.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
-COMMENT ON COLUMN edfi.ParentAddress.StreetNumberName IS 'The street number and street name or post office box number of an address.';
-COMMENT ON COLUMN edfi.ParentAddress.ApartmentRoomSuiteNumber IS 'The apartment, room, or suite number of an address.';
-COMMENT ON COLUMN edfi.ParentAddress.BuildingSiteNumber IS 'The number of the building on the site, if more than one building shares the same address.';
-COMMENT ON COLUMN edfi.ParentAddress.NameOfCounty IS 'The name of the county, parish, borough, or comparable unit (within a state) in
-                      ''which an address is located.';
-COMMENT ON COLUMN edfi.ParentAddress.CountyFIPSCode IS 'The Federal Information Processing Standards (FIPS) numeric code for the county issued by the National Institute of Standards and Technology (NIST). Counties are considered to be the "first-order subdivisions" of each State and statistically equivalent entity, regardless of their local designations (county, parish, borough, etc.) Counties in different States will have the same code. A unique county number is created when combined with the 2-digit FIPS State Code.';
-COMMENT ON COLUMN edfi.ParentAddress.Latitude IS 'The geographic latitude of the physical address.';
-COMMENT ON COLUMN edfi.ParentAddress.Longitude IS 'The geographic longitude of the physical address.';
-COMMENT ON COLUMN edfi.ParentAddress.DoNotPublishIndicator IS 'An indication that the address should not be published.';
-COMMENT ON COLUMN edfi.ParentAddress.CongressionalDistrict IS 'The congressional district in which an address is located.';
-COMMENT ON COLUMN edfi.ParentAddress.LocaleDescriptorId IS 'A general geographic indicator that categorizes U.S. territory (e.g., City, Suburban).';
-
--- Extended Properties [edfi].[ParentAddressPeriod] --
-COMMENT ON TABLE edfi.ParentAddressPeriod IS 'The time periods for which the address is valid. For physical addresses, the periods in which the person lived at that address.';
-COMMENT ON COLUMN edfi.ParentAddressPeriod.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
-COMMENT ON COLUMN edfi.ParentAddressPeriod.BeginDate IS 'The month, day, and year for the start of the period.';
-COMMENT ON COLUMN edfi.ParentAddressPeriod.City IS 'The name of the city in which an address is located.';
-COMMENT ON COLUMN edfi.ParentAddressPeriod.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN edfi.ParentAddressPeriod.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
-COMMENT ON COLUMN edfi.ParentAddressPeriod.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
-COMMENT ON COLUMN edfi.ParentAddressPeriod.StreetNumberName IS 'The street number and street name or post office box number of an address.';
-COMMENT ON COLUMN edfi.ParentAddressPeriod.EndDate IS 'The month, day, and year for the end of the period.';
-
--- Extended Properties [edfi].[ParentElectronicMail] --
-COMMENT ON TABLE edfi.ParentElectronicMail IS 'The numbers, letters, and symbols used to identify an electronic mail (e-mail) user within the network to which the individual or organization belongs.';
-COMMENT ON COLUMN edfi.ParentElectronicMail.ElectronicMailAddress IS 'The electronic mail (e-mail) address listed for an individual or organization.';
-COMMENT ON COLUMN edfi.ParentElectronicMail.ElectronicMailTypeDescriptorId IS 'The type of email listed for an individual or organization. For example: Home/Personal, Work, etc.)';
-COMMENT ON COLUMN edfi.ParentElectronicMail.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN edfi.ParentElectronicMail.PrimaryEmailAddressIndicator IS 'An indication that the electronic mail address should be used as the principal electronic mail address for an individual or organization.';
-COMMENT ON COLUMN edfi.ParentElectronicMail.DoNotPublishIndicator IS 'An indication that the electronic email address should not be published.';
-
--- Extended Properties [edfi].[ParentInternationalAddress] --
-COMMENT ON TABLE edfi.ParentInternationalAddress IS 'The set of elements that describes an international address.';
-COMMENT ON COLUMN edfi.ParentInternationalAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization. For example:  Physical Address, Mailing Address, Home Address, etc.)';
-COMMENT ON COLUMN edfi.ParentInternationalAddress.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN edfi.ParentInternationalAddress.AddressLine1 IS 'The first line of the address.';
-COMMENT ON COLUMN edfi.ParentInternationalAddress.AddressLine2 IS 'The second line of the address.';
-COMMENT ON COLUMN edfi.ParentInternationalAddress.AddressLine3 IS 'The third line of the address.';
-COMMENT ON COLUMN edfi.ParentInternationalAddress.AddressLine4 IS 'The fourth line of the address.';
-COMMENT ON COLUMN edfi.ParentInternationalAddress.CountryDescriptorId IS 'The name of the country. It is strongly recommended that entries use only ISO 3166 2-letter country codes.';
-COMMENT ON COLUMN edfi.ParentInternationalAddress.Latitude IS 'The geographic latitude of the physical address.';
-COMMENT ON COLUMN edfi.ParentInternationalAddress.Longitude IS 'The geographic longitude of the physical address.';
-COMMENT ON COLUMN edfi.ParentInternationalAddress.BeginDate IS 'The first date the address is valid. For physical addresses, the date the individual moved to that address.';
-COMMENT ON COLUMN edfi.ParentInternationalAddress.EndDate IS 'The last date the address is valid. For physical addresses, the date the individual moved from that address.';
-
--- Extended Properties [edfi].[ParentLanguage] --
-COMMENT ON TABLE edfi.ParentLanguage IS 'The language(s) the individual uses to communicate. It is strongly recommended that entries use only ISO 639-2 language codes.';
-COMMENT ON COLUMN edfi.ParentLanguage.LanguageDescriptorId IS 'A specification of which written or spoken communication is being used.';
-COMMENT ON COLUMN edfi.ParentLanguage.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-
--- Extended Properties [edfi].[ParentLanguageUse] --
-COMMENT ON TABLE edfi.ParentLanguageUse IS 'A description of how the language is used (e.g. Home Language, Native Language, Spoken Language).';
-COMMENT ON COLUMN edfi.ParentLanguageUse.LanguageDescriptorId IS 'A specification of which written or spoken communication is being used.';
-COMMENT ON COLUMN edfi.ParentLanguageUse.LanguageUseDescriptorId IS 'A description of how the language is used (e.g. Home Language, Native Language, Spoken Language).';
-COMMENT ON COLUMN edfi.ParentLanguageUse.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-
--- Extended Properties [edfi].[ParentOtherName] --
-COMMENT ON TABLE edfi.ParentOtherName IS 'Other names (e.g., alias, nickname, previous legal name) associated with a person.';
-COMMENT ON COLUMN edfi.ParentOtherName.OtherNameTypeDescriptorId IS 'The types of alternate names for an individual.';
-COMMENT ON COLUMN edfi.ParentOtherName.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN edfi.ParentOtherName.PersonalTitlePrefix IS 'A prefix used to denote the title, degree, position, or seniority of the individual.';
-COMMENT ON COLUMN edfi.ParentOtherName.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
-COMMENT ON COLUMN edfi.ParentOtherName.MiddleName IS 'A secondary name given to an individual at birth, baptism, or during another naming ceremony.';
-COMMENT ON COLUMN edfi.ParentOtherName.LastSurname IS 'The name borne in common by members of a family.';
-COMMENT ON COLUMN edfi.ParentOtherName.GenerationCodeSuffix IS 'An appendage, if any, used to denote an individual''s generation in his family (e.g., Jr., Sr., III).';
-
--- Extended Properties [edfi].[ParentPersonalIdentificationDocument] --
-COMMENT ON TABLE edfi.ParentPersonalIdentificationDocument IS 'The documents presented as evident to verify one''s personal identity; for example: drivers license, passport, birth certificate, etc.';
-COMMENT ON COLUMN edfi.ParentPersonalIdentificationDocument.IdentificationDocumentUseDescriptorId IS 'The primary function of the document used for establishing identity.';
-COMMENT ON COLUMN edfi.ParentPersonalIdentificationDocument.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN edfi.ParentPersonalIdentificationDocument.PersonalInformationVerificationDescriptorId IS 'The category of the document relative to its purpose.';
-COMMENT ON COLUMN edfi.ParentPersonalIdentificationDocument.DocumentTitle IS 'The title of the document given by the issuer.';
-COMMENT ON COLUMN edfi.ParentPersonalIdentificationDocument.DocumentExpirationDate IS 'The day when the document  expires, if null then never expires.';
-COMMENT ON COLUMN edfi.ParentPersonalIdentificationDocument.IssuerDocumentIdentificationCode IS 'The unique identifier on the issuer''s identification system.';
-COMMENT ON COLUMN edfi.ParentPersonalIdentificationDocument.IssuerName IS 'Name of the entity or institution that issued the document.';
-COMMENT ON COLUMN edfi.ParentPersonalIdentificationDocument.IssuerCountryDescriptorId IS 'Country of origin of the document. It is strongly recommended that entries use only ISO 3166 2-letter country codes.';
-
--- Extended Properties [edfi].[ParentTelephone] --
-COMMENT ON TABLE edfi.ParentTelephone IS 'The 10-digit telephone number, including the area code, for the person.';
-COMMENT ON COLUMN edfi.ParentTelephone.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN edfi.ParentTelephone.TelephoneNumber IS 'The telephone number including the area code, and extension, if applicable.';
-COMMENT ON COLUMN edfi.ParentTelephone.TelephoneNumberTypeDescriptorId IS 'The type of communication number listed for an individual or organization.';
-COMMENT ON COLUMN edfi.ParentTelephone.OrderOfPriority IS 'The order of priority assigned to telephone numbers to define which number to attempt first, second, etc.';
-COMMENT ON COLUMN edfi.ParentTelephone.TextMessageCapabilityIndicator IS 'An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.';
-COMMENT ON COLUMN edfi.ParentTelephone.DoNotPublishIndicator IS 'An indication that the telephone number should not be published.';
-
 -- Extended Properties [edfi].[ParticipationDescriptor] --
 COMMENT ON TABLE edfi.ParticipationDescriptor IS 'This descriptor defines participation in a yearly English language assessment.';
 COMMENT ON COLUMN edfi.ParticipationDescriptor.ParticipationDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -3286,6 +3286,18 @@ COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.Secti
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.SessionName IS 'The identifier for the calendar for the academic session.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
+-- Extended Properties [edfi].[StudentContactAssociation] --
+COMMENT ON TABLE edfi.StudentContactAssociation IS 'This association relates students to their parents, guardians, or caretakers.';
+COMMENT ON COLUMN edfi.StudentContactAssociation.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN edfi.StudentContactAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentContactAssociation.RelationDescriptorId IS 'The nature of an individual''s relationship to a student, primarily used to capture family relationships.';
+COMMENT ON COLUMN edfi.StudentContactAssociation.PrimaryContactStatus IS 'Indicator of whether the person is a primary contact for the student.';
+COMMENT ON COLUMN edfi.StudentContactAssociation.LivesWith IS 'Indicator of whether the student lives with the associated contact.';
+COMMENT ON COLUMN edfi.StudentContactAssociation.EmergencyContactStatus IS 'Indicator of whether the person is a designated emergency contact for the student.';
+COMMENT ON COLUMN edfi.StudentContactAssociation.ContactPriority IS 'The numeric order of the preferred sequence or priority of contact.';
+COMMENT ON COLUMN edfi.StudentContactAssociation.ContactRestrictions IS 'Restrictions for student and/or teacher contact with the individual (e.g., the student may not be picked up by the individual).';
+COMMENT ON COLUMN edfi.StudentContactAssociation.LegalGuardian IS 'Indicator of whether the person is a legal guardian for the student.';
+
 -- Extended Properties [edfi].[StudentCTEProgramAssociation] --
 COMMENT ON TABLE edfi.StudentCTEProgramAssociation IS 'This association represents the career and technical education (CTE) program that a student participates in. The association is an extension of the StudentProgramAssociation particular for CTE programs.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
@@ -3723,18 +3735,6 @@ COMMENT ON COLUMN edfi.StudentOtherName.MiddleName IS 'A secondary name given to
 COMMENT ON COLUMN edfi.StudentOtherName.LastSurname IS 'The name borne in common by members of a family.';
 COMMENT ON COLUMN edfi.StudentOtherName.GenerationCodeSuffix IS 'An appendage, if any, used to denote an individual''s generation in his family (e.g., Jr., Sr., III).';
 
--- Extended Properties [edfi].[StudentParentAssociation] --
-COMMENT ON TABLE edfi.StudentParentAssociation IS 'This association relates students to their parents, guardians, or caretakers.';
-COMMENT ON COLUMN edfi.StudentParentAssociation.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN edfi.StudentParentAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentParentAssociation.RelationDescriptorId IS 'The nature of an individual''s relationship to a student, primarily used to capture family relationships.';
-COMMENT ON COLUMN edfi.StudentParentAssociation.PrimaryContactStatus IS 'Indicator of whether the person is a primary parental contact for the student.';
-COMMENT ON COLUMN edfi.StudentParentAssociation.LivesWith IS 'Indicator of whether the student lives with the associated parent.';
-COMMENT ON COLUMN edfi.StudentParentAssociation.EmergencyContactStatus IS 'Indicator of whether the person is a designated emergency contact for the student.';
-COMMENT ON COLUMN edfi.StudentParentAssociation.ContactPriority IS 'The numeric order of the preferred sequence or priority of contact.';
-COMMENT ON COLUMN edfi.StudentParentAssociation.ContactRestrictions IS 'Restrictions for student and/or teacher contact with the individual (e.g., the student may not be picked up by the individual).';
-COMMENT ON COLUMN edfi.StudentParentAssociation.LegalGuardian IS 'Indicator of whether the person is a legal guardian for the student.';
-
 -- Extended Properties [edfi].[StudentParticipationCodeDescriptor] --
 COMMENT ON TABLE edfi.StudentParticipationCodeDescriptor IS 'The role or type of participation of a student in a discipline incident; for example: Victim, Perpetrator, Witness, Reporter.';
 COMMENT ON COLUMN edfi.StudentParticipationCodeDescriptor.StudentParticipationCodeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -4167,7 +4167,7 @@ COMMENT ON COLUMN edfi.SurveyResponse.ElectronicMailAddress IS 'Email address of
 COMMENT ON COLUMN edfi.SurveyResponse.FullName IS 'Full name of the respondent.';
 COMMENT ON COLUMN edfi.SurveyResponse.Location IS 'Location of the respondent, often a city, district, or school.';
 COMMENT ON COLUMN edfi.SurveyResponse.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.SurveyResponse.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
+COMMENT ON COLUMN edfi.SurveyResponse.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
 COMMENT ON COLUMN edfi.SurveyResponse.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 
 -- Extended Properties [edfi].[SurveyResponseEducationOrganizationTargetAssociation] --

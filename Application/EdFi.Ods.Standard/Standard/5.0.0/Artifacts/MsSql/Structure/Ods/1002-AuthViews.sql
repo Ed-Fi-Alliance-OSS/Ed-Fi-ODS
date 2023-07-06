@@ -316,21 +316,21 @@ FROM edfi.LocalEducationAgency lea
         edorg.EducationOrganizationId = lea.LocalEducationAgencyId;
 GO
 
-CREATE VIEW auth.LocalEducationAgencyIdToParentUSI
+CREATE VIEW auth.LocalEducationAgencyIdToContactUSI
     WITH SCHEMABINDING
 AS
--- LEA to Parent USI
+-- LEA to Contact USI
 SELECT sch.LocalEducationAgencyId
-     ,spa.ParentUSI
+     ,spa.ContactUSI
      ,COUNT_BIG(*) AS Count
 FROM edfi.School sch
          INNER JOIN edfi.StudentSchoolAssociation ssa ON
         sch.SchoolId = ssa.SchoolId
          INNER JOIN edfi.Student s ON
         ssa.StudentUSI = s.StudentUSI
-         INNER JOIN edfi.StudentParentAssociation spa ON
+         INNER JOIN edfi.StudentContactAssociation spa ON
         ssa.StudentUSI = spa.StudentUSI
-GROUP BY spa.ParentUSI
+GROUP BY spa.ContactUSI
        ,LocalEducationAgencyId;
 GO
 
@@ -359,31 +359,31 @@ AS
             sch.SchoolId = seoa_sch.EducationOrganizationId;
 GO
 
-CREATE VIEW auth.ParentUSIToSchoolId
+CREATE VIEW auth.ContactUSIToSchoolId
     WITH SCHEMABINDING
 AS
--- School to Parent USI
+-- School to Contact USI
 SELECT ssa.SchoolId
-     ,spa.ParentUSI
+     ,spa.ContactUSI
      ,COUNT_BIG(*) AS Count
 FROM edfi.StudentSchoolAssociation ssa
          INNER JOIN edfi.Student s ON
         ssa.StudentUSI = s.StudentUSI
-         INNER JOIN edfi.StudentParentAssociation spa ON
+         INNER JOIN edfi.StudentContactAssociation spa ON
         ssa.StudentUSI = spa.StudentUSI
-GROUP BY spa.ParentUSI
+GROUP BY spa.ContactUSI
        ,SchoolId;
 GO
 
-CREATE VIEW auth.ParentUSIToStudentUSI
+CREATE VIEW auth.ContactUSIToStudentUSI
     WITH SCHEMABINDING
 AS
 SELECT spa.StudentUSI
-     ,spa.ParentUSI
+     ,spa.ContactUSI
      ,COUNT_BIG(*) AS Count
-FROM edfi.StudentParentAssociation spa
+FROM edfi.StudentContactAssociation spa
 GROUP BY spa.StudentUSI
-     ,spa.ParentUSI;
+     ,spa.ContactUSI;
 GO
 
 CREATE VIEW auth.School

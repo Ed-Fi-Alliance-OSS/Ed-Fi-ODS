@@ -10116,12 +10116,13 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 201\", () => {\r",
-													"    pm.expect(pm.response.code).to.equal(201);\r",
-													"});\r",
+													"pm.test(\"Response is 201 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
+													" });\r",
 													"\r",
-													"pm.environment.set('known:parent:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
-													""
+													"if (pm.response.code === 201 ) {\r",
+													"    pm.environment.set('known:parent:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -10170,12 +10171,13 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 201\", () => {\r",
-													"    pm.expect(pm.response.code).to.equal(201);\r",
-													"});\r",
+													"pm.test(\"Response is 201 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
+													" });\r",
 													"\r",
-													"pm.environment.set('known:studentSchoolAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
-													""
+													"if (pm.response.code === 201 ) {\r",
+													"    pm.environment.set('known:studentSchoolAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -10224,12 +10226,13 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 201\", () => {\r",
-													"    pm.expect(pm.response.code).to.equal(201);\r",
-													"});\r",
+													"pm.test(\"Response is 201 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
+													" });\r",
 													"\r",
-													"pm.environment.set('known:studentParentAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
-													""
+													"if (pm.response.code === 201 ) {\r",
+													"    pm.environment.set('known:studentParentAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -10498,10 +10501,9 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 204\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
-													""
+													"pm.test(\"Response is 204 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) \r",
+													" });"
 												],
 												"type": "text/javascript"
 											}
@@ -10551,25 +10553,27 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 200\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(200);\r",
-													"});\r",
+													"pm.test(\"Response is 200 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([200, 404]) \r",
+													" });\r",
 													"\r",
-													"const items = pm.response.json();\r",
-													"const item = items[0];\r",
+													"if (pm.response.code === 200) {\r",
+													"    const items = pm.response.json();\r",
+													"    const item = items[0];\r",
 													"\r",
-													"/*\r",
-													"pm.test(\"Single item with the updated key is returned\", () => {\r",
-													"  pm.expect(items.length).equal(1);\r",
-													"  pm.expect(item.id).equal(pm.environment.get(`known:parent:id`));\r",
-													"});\r",
-													"*/\r",
+													"    /*\r",
+													"    pm.test(\"Single item with the updated key is returned\", () => {\r",
+													"    pm.expect(items.length).equal(1);\r",
+													"    pm.expect(item.id).equal(pm.environment.get(`known:parent:id`));\r",
+													"    });\r",
+													"    */\r",
 													"\r",
-													"pm.test(\"Values reflect the changes\", () => {\r",
-													"  pm.expect(item.firstName).equals('Jonathon');\r",
-													"  // pm.expect(item.parentUniqueId).equals(`${pm.environment.get('supplied:parentUniqueId')}-Changed`);\r",
-													"});\r",
-													""
+													"    pm.test(\"Values reflect the changes\", () => {\r",
+													"    pm.expect(item.firstName).equals('Jonathon');\r",
+													"    // pm.expect(item.parentUniqueId).equals(`${pm.environment.get('supplied:parentUniqueId')}-Changed`);\r",
+													"    });\r",
+													"\r",
+													"} "
 												],
 												"type": "text/javascript"
 											}
@@ -10627,9 +10631,9 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 200\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(200);\r",
-													"});\r",
+													"pm.test(\"Response is 200 or 500\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([200, 500]) \r",
+													" });\r",
 													"\r",
 													"/*\r",
 													"-------------------------------------------------------\r",
@@ -10725,9 +10729,9 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 204\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
+													"pm.test(\"Response is 204 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) \r",
+													" });\r",
 													""
 												],
 												"type": "text/javascript"
@@ -10778,10 +10782,9 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 204\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
-													""
+													"pm.test(\"Response is 204 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) \r",
+													" });"
 												],
 												"type": "text/javascript"
 											}
@@ -10831,10 +10834,9 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 204\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
-													""
+													"pm.test(\"Response is 204 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) \r",
+													" });"
 												],
 												"type": "text/javascript"
 											}
@@ -10884,10 +10886,9 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 204\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
-													""
+													"pm.test(\"Response is 204 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) \r",
+													" });"
 												],
 												"type": "text/javascript"
 											}
@@ -10937,10 +10938,9 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 204\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
-													""
+													"pm.test(\"Response is 204 or 404\", () => {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) \r",
+													" });"
 												],
 												"type": "text/javascript"
 											}

@@ -59,8 +59,8 @@ IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.SchoolIdTo
     DROP VIEW auth.SchoolIdToStudentUSI;
 GO
 
-IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.ParentUSIToStudentUSI'))
-    DROP VIEW auth.ParentUSIToStudentUSI;
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.ContactUSIToStudentUSI'))
+    DROP VIEW auth.ContactUSIToStudentUSI;
 GO
 
 IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.SchoolIdToStudentUSIThroughEdOrgAssociation'))
@@ -75,12 +75,12 @@ IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.SchoolIdTo
     DROP VIEW auth.SchoolIdToStaffUSI;
 GO
 
-IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.LocalEducationAgencyIdToParentUSI'))
-    DROP VIEW auth.LocalEducationAgencyIdToParentUSI;
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.LocalEducationAgencyIdToContactUSI'))
+    DROP VIEW auth.LocalEducationAgencyIdToContactUSI;
 GO
 
-IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.ParentUSIToSchoolId'))
-    DROP VIEW auth.ParentUSIToSchoolId;
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.ContactUSIToSchoolId'))
+    DROP VIEW auth.ContactUSIToSchoolId;
 GO
 
 IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationOrganizationIdToLocalEducationAgencyId'))
@@ -131,8 +131,8 @@ IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.StudentUSI
     DROP VIEW auth.StudentUSIToEducationOrganizationId;
 GO 
 
-IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.ParentUSIToEducationOrganizationId'))
-    DROP VIEW auth.ParentUSIToEducationOrganizationId;
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.ContactUSIToEducationOrganizationId'))
+    DROP VIEW auth.ContactUSIToEducationOrganizationId;
 GO 
 
 IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.StaffUSIToEducationOrganizationId'))

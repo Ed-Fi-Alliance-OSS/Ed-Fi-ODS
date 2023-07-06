@@ -762,6 +762,162 @@ ALTER TABLE edfi.CompetencyObjective ALTER COLUMN CreateDate SET DEFAULT current
 ALTER TABLE edfi.CompetencyObjective ALTER COLUMN Id SET DEFAULT gen_random_uuid();
 ALTER TABLE edfi.CompetencyObjective ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
+-- Table edfi.Contact --
+CREATE TABLE edfi.Contact (
+    ContactUSI SERIAL NOT NULL,
+    PersonalTitlePrefix VARCHAR(30) NULL,
+    FirstName VARCHAR(75) NOT NULL,
+    MiddleName VARCHAR(75) NULL,
+    LastSurname VARCHAR(75) NOT NULL,
+    GenerationCodeSuffix VARCHAR(10) NULL,
+    MaidenName VARCHAR(75) NULL,
+    PreferredFirstName VARCHAR(75) NULL,
+    PreferredLastSurname VARCHAR(75) NULL,
+    SexDescriptorId INT NULL,
+    LoginId VARCHAR(60) NULL,
+    PersonId VARCHAR(32) NULL,
+    SourceSystemDescriptorId INT NULL,
+    HighestCompletedLevelOfEducationDescriptorId INT NULL,
+    ContactUniqueId VARCHAR(32) NOT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT Contact_PK PRIMARY KEY (ContactUSI)
+);
+CREATE UNIQUE INDEX Contact_UI_ContactUniqueId ON edfi.Contact (ContactUniqueId) INCLUDE (ContactUSI);
+ALTER TABLE edfi.Contact ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.Contact ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.Contact ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.ContactAddress --
+CREATE TABLE edfi.ContactAddress (
+    AddressTypeDescriptorId INT NOT NULL,
+    City VARCHAR(30) NOT NULL,
+    ContactUSI INT NOT NULL,
+    PostalCode VARCHAR(17) NOT NULL,
+    StateAbbreviationDescriptorId INT NOT NULL,
+    StreetNumberName VARCHAR(150) NOT NULL,
+    ApartmentRoomSuiteNumber VARCHAR(50) NULL,
+    BuildingSiteNumber VARCHAR(20) NULL,
+    NameOfCounty VARCHAR(30) NULL,
+    CountyFIPSCode VARCHAR(5) NULL,
+    Latitude VARCHAR(20) NULL,
+    Longitude VARCHAR(20) NULL,
+    DoNotPublishIndicator BOOLEAN NULL,
+    CongressionalDistrict VARCHAR(30) NULL,
+    LocaleDescriptorId INT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT ContactAddress_PK PRIMARY KEY (AddressTypeDescriptorId, City, ContactUSI, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+);
+ALTER TABLE edfi.ContactAddress ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.ContactAddressPeriod --
+CREATE TABLE edfi.ContactAddressPeriod (
+    AddressTypeDescriptorId INT NOT NULL,
+    BeginDate DATE NOT NULL,
+    City VARCHAR(30) NOT NULL,
+    ContactUSI INT NOT NULL,
+    PostalCode VARCHAR(17) NOT NULL,
+    StateAbbreviationDescriptorId INT NOT NULL,
+    StreetNumberName VARCHAR(150) NOT NULL,
+    EndDate DATE NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT ContactAddressPeriod_PK PRIMARY KEY (AddressTypeDescriptorId, BeginDate, City, ContactUSI, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+);
+ALTER TABLE edfi.ContactAddressPeriod ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.ContactElectronicMail --
+CREATE TABLE edfi.ContactElectronicMail (
+    ContactUSI INT NOT NULL,
+    ElectronicMailAddress VARCHAR(128) NOT NULL,
+    ElectronicMailTypeDescriptorId INT NOT NULL,
+    PrimaryEmailAddressIndicator BOOLEAN NULL,
+    DoNotPublishIndicator BOOLEAN NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT ContactElectronicMail_PK PRIMARY KEY (ContactUSI, ElectronicMailAddress, ElectronicMailTypeDescriptorId)
+);
+ALTER TABLE edfi.ContactElectronicMail ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.ContactInternationalAddress --
+CREATE TABLE edfi.ContactInternationalAddress (
+    AddressTypeDescriptorId INT NOT NULL,
+    ContactUSI INT NOT NULL,
+    AddressLine1 VARCHAR(150) NOT NULL,
+    AddressLine2 VARCHAR(150) NULL,
+    AddressLine3 VARCHAR(150) NULL,
+    AddressLine4 VARCHAR(150) NULL,
+    CountryDescriptorId INT NOT NULL,
+    Latitude VARCHAR(20) NULL,
+    Longitude VARCHAR(20) NULL,
+    BeginDate DATE NULL,
+    EndDate DATE NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT ContactInternationalAddress_PK PRIMARY KEY (AddressTypeDescriptorId, ContactUSI)
+);
+ALTER TABLE edfi.ContactInternationalAddress ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.ContactLanguage --
+CREATE TABLE edfi.ContactLanguage (
+    ContactUSI INT NOT NULL,
+    LanguageDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT ContactLanguage_PK PRIMARY KEY (ContactUSI, LanguageDescriptorId)
+);
+ALTER TABLE edfi.ContactLanguage ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.ContactLanguageUse --
+CREATE TABLE edfi.ContactLanguageUse (
+    ContactUSI INT NOT NULL,
+    LanguageDescriptorId INT NOT NULL,
+    LanguageUseDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT ContactLanguageUse_PK PRIMARY KEY (ContactUSI, LanguageDescriptorId, LanguageUseDescriptorId)
+);
+ALTER TABLE edfi.ContactLanguageUse ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.ContactOtherName --
+CREATE TABLE edfi.ContactOtherName (
+    ContactUSI INT NOT NULL,
+    OtherNameTypeDescriptorId INT NOT NULL,
+    PersonalTitlePrefix VARCHAR(30) NULL,
+    FirstName VARCHAR(75) NOT NULL,
+    MiddleName VARCHAR(75) NULL,
+    LastSurname VARCHAR(75) NOT NULL,
+    GenerationCodeSuffix VARCHAR(10) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT ContactOtherName_PK PRIMARY KEY (ContactUSI, OtherNameTypeDescriptorId)
+);
+ALTER TABLE edfi.ContactOtherName ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.ContactPersonalIdentificationDocument --
+CREATE TABLE edfi.ContactPersonalIdentificationDocument (
+    ContactUSI INT NOT NULL,
+    IdentificationDocumentUseDescriptorId INT NOT NULL,
+    PersonalInformationVerificationDescriptorId INT NOT NULL,
+    DocumentTitle VARCHAR(60) NULL,
+    DocumentExpirationDate DATE NULL,
+    IssuerDocumentIdentificationCode VARCHAR(60) NULL,
+    IssuerName VARCHAR(150) NULL,
+    IssuerCountryDescriptorId INT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT ContactPersonalIdentificationDocument_PK PRIMARY KEY (ContactUSI, IdentificationDocumentUseDescriptorId, PersonalInformationVerificationDescriptorId)
+);
+ALTER TABLE edfi.ContactPersonalIdentificationDocument ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.ContactTelephone --
+CREATE TABLE edfi.ContactTelephone (
+    ContactUSI INT NOT NULL,
+    TelephoneNumber VARCHAR(24) NOT NULL,
+    TelephoneNumberTypeDescriptorId INT NOT NULL,
+    OrderOfPriority INT NULL,
+    TextMessageCapabilityIndicator BOOLEAN NULL,
+    DoNotPublishIndicator BOOLEAN NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT ContactTelephone_PK PRIMARY KEY (ContactUSI, TelephoneNumber, TelephoneNumberTypeDescriptorId)
+);
+ALTER TABLE edfi.ContactTelephone ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
 -- Table edfi.ContactTypeDescriptor --
 CREATE TABLE edfi.ContactTypeDescriptor (
     ContactTypeDescriptorId INT NOT NULL,
@@ -3138,162 +3294,6 @@ CREATE TABLE edfi.OtherNameTypeDescriptor (
     CONSTRAINT OtherNameTypeDescriptor_PK PRIMARY KEY (OtherNameTypeDescriptorId)
 );
 
--- Table edfi.Parent --
-CREATE TABLE edfi.Parent (
-    ParentUSI SERIAL NOT NULL,
-    PersonalTitlePrefix VARCHAR(30) NULL,
-    FirstName VARCHAR(75) NOT NULL,
-    MiddleName VARCHAR(75) NULL,
-    LastSurname VARCHAR(75) NOT NULL,
-    GenerationCodeSuffix VARCHAR(10) NULL,
-    MaidenName VARCHAR(75) NULL,
-    PreferredFirstName VARCHAR(75) NULL,
-    PreferredLastSurname VARCHAR(75) NULL,
-    SexDescriptorId INT NULL,
-    LoginId VARCHAR(60) NULL,
-    PersonId VARCHAR(32) NULL,
-    SourceSystemDescriptorId INT NULL,
-    HighestCompletedLevelOfEducationDescriptorId INT NULL,
-    ParentUniqueId VARCHAR(32) NOT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT Parent_PK PRIMARY KEY (ParentUSI)
-);
-CREATE UNIQUE INDEX Parent_UI_ParentUniqueId ON edfi.Parent (ParentUniqueId) INCLUDE (ParentUSI);
-ALTER TABLE edfi.Parent ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE edfi.Parent ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE edfi.Parent ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table edfi.ParentAddress --
-CREATE TABLE edfi.ParentAddress (
-    AddressTypeDescriptorId INT NOT NULL,
-    City VARCHAR(30) NOT NULL,
-    ParentUSI INT NOT NULL,
-    PostalCode VARCHAR(17) NOT NULL,
-    StateAbbreviationDescriptorId INT NOT NULL,
-    StreetNumberName VARCHAR(150) NOT NULL,
-    ApartmentRoomSuiteNumber VARCHAR(50) NULL,
-    BuildingSiteNumber VARCHAR(20) NULL,
-    NameOfCounty VARCHAR(30) NULL,
-    CountyFIPSCode VARCHAR(5) NULL,
-    Latitude VARCHAR(20) NULL,
-    Longitude VARCHAR(20) NULL,
-    DoNotPublishIndicator BOOLEAN NULL,
-    CongressionalDistrict VARCHAR(30) NULL,
-    LocaleDescriptorId INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT ParentAddress_PK PRIMARY KEY (AddressTypeDescriptorId, City, ParentUSI, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
-);
-ALTER TABLE edfi.ParentAddress ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table edfi.ParentAddressPeriod --
-CREATE TABLE edfi.ParentAddressPeriod (
-    AddressTypeDescriptorId INT NOT NULL,
-    BeginDate DATE NOT NULL,
-    City VARCHAR(30) NOT NULL,
-    ParentUSI INT NOT NULL,
-    PostalCode VARCHAR(17) NOT NULL,
-    StateAbbreviationDescriptorId INT NOT NULL,
-    StreetNumberName VARCHAR(150) NOT NULL,
-    EndDate DATE NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT ParentAddressPeriod_PK PRIMARY KEY (AddressTypeDescriptorId, BeginDate, City, ParentUSI, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
-);
-ALTER TABLE edfi.ParentAddressPeriod ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table edfi.ParentElectronicMail --
-CREATE TABLE edfi.ParentElectronicMail (
-    ElectronicMailAddress VARCHAR(128) NOT NULL,
-    ElectronicMailTypeDescriptorId INT NOT NULL,
-    ParentUSI INT NOT NULL,
-    PrimaryEmailAddressIndicator BOOLEAN NULL,
-    DoNotPublishIndicator BOOLEAN NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT ParentElectronicMail_PK PRIMARY KEY (ElectronicMailAddress, ElectronicMailTypeDescriptorId, ParentUSI)
-);
-ALTER TABLE edfi.ParentElectronicMail ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table edfi.ParentInternationalAddress --
-CREATE TABLE edfi.ParentInternationalAddress (
-    AddressTypeDescriptorId INT NOT NULL,
-    ParentUSI INT NOT NULL,
-    AddressLine1 VARCHAR(150) NOT NULL,
-    AddressLine2 VARCHAR(150) NULL,
-    AddressLine3 VARCHAR(150) NULL,
-    AddressLine4 VARCHAR(150) NULL,
-    CountryDescriptorId INT NOT NULL,
-    Latitude VARCHAR(20) NULL,
-    Longitude VARCHAR(20) NULL,
-    BeginDate DATE NULL,
-    EndDate DATE NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT ParentInternationalAddress_PK PRIMARY KEY (AddressTypeDescriptorId, ParentUSI)
-);
-ALTER TABLE edfi.ParentInternationalAddress ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table edfi.ParentLanguage --
-CREATE TABLE edfi.ParentLanguage (
-    LanguageDescriptorId INT NOT NULL,
-    ParentUSI INT NOT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT ParentLanguage_PK PRIMARY KEY (LanguageDescriptorId, ParentUSI)
-);
-ALTER TABLE edfi.ParentLanguage ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table edfi.ParentLanguageUse --
-CREATE TABLE edfi.ParentLanguageUse (
-    LanguageDescriptorId INT NOT NULL,
-    LanguageUseDescriptorId INT NOT NULL,
-    ParentUSI INT NOT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT ParentLanguageUse_PK PRIMARY KEY (LanguageDescriptorId, LanguageUseDescriptorId, ParentUSI)
-);
-ALTER TABLE edfi.ParentLanguageUse ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table edfi.ParentOtherName --
-CREATE TABLE edfi.ParentOtherName (
-    OtherNameTypeDescriptorId INT NOT NULL,
-    ParentUSI INT NOT NULL,
-    PersonalTitlePrefix VARCHAR(30) NULL,
-    FirstName VARCHAR(75) NOT NULL,
-    MiddleName VARCHAR(75) NULL,
-    LastSurname VARCHAR(75) NOT NULL,
-    GenerationCodeSuffix VARCHAR(10) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT ParentOtherName_PK PRIMARY KEY (OtherNameTypeDescriptorId, ParentUSI)
-);
-ALTER TABLE edfi.ParentOtherName ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table edfi.ParentPersonalIdentificationDocument --
-CREATE TABLE edfi.ParentPersonalIdentificationDocument (
-    IdentificationDocumentUseDescriptorId INT NOT NULL,
-    ParentUSI INT NOT NULL,
-    PersonalInformationVerificationDescriptorId INT NOT NULL,
-    DocumentTitle VARCHAR(60) NULL,
-    DocumentExpirationDate DATE NULL,
-    IssuerDocumentIdentificationCode VARCHAR(60) NULL,
-    IssuerName VARCHAR(150) NULL,
-    IssuerCountryDescriptorId INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT ParentPersonalIdentificationDocument_PK PRIMARY KEY (IdentificationDocumentUseDescriptorId, ParentUSI, PersonalInformationVerificationDescriptorId)
-);
-ALTER TABLE edfi.ParentPersonalIdentificationDocument ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table edfi.ParentTelephone --
-CREATE TABLE edfi.ParentTelephone (
-    ParentUSI INT NOT NULL,
-    TelephoneNumber VARCHAR(24) NOT NULL,
-    TelephoneNumberTypeDescriptorId INT NOT NULL,
-    OrderOfPriority INT NULL,
-    TextMessageCapabilityIndicator BOOLEAN NULL,
-    DoNotPublishIndicator BOOLEAN NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT ParentTelephone_PK PRIMARY KEY (ParentUSI, TelephoneNumber, TelephoneNumberTypeDescriptorId)
-);
-ALTER TABLE edfi.ParentTelephone ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
 -- Table edfi.ParticipationDescriptor --
 CREATE TABLE edfi.ParticipationDescriptor (
     ParticipationDescriptorId INT NOT NULL,
@@ -5134,6 +5134,27 @@ CREATE TABLE edfi.StudentCompetencyObjectiveStudentSectionAssociation (
 );
 ALTER TABLE edfi.StudentCompetencyObjectiveStudentSectionAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table edfi.StudentContactAssociation --
+CREATE TABLE edfi.StudentContactAssociation (
+    ContactUSI INT NOT NULL,
+    StudentUSI INT NOT NULL,
+    RelationDescriptorId INT NULL,
+    PrimaryContactStatus BOOLEAN NULL,
+    LivesWith BOOLEAN NULL,
+    EmergencyContactStatus BOOLEAN NULL,
+    ContactPriority INT NULL,
+    ContactRestrictions VARCHAR(250) NULL,
+    LegalGuardian BOOLEAN NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT StudentContactAssociation_PK PRIMARY KEY (ContactUSI, StudentUSI)
+);
+ALTER TABLE edfi.StudentContactAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.StudentContactAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.StudentContactAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
 -- Table edfi.StudentCTEProgramAssociation --
 CREATE TABLE edfi.StudentCTEProgramAssociation (
     BeginDate DATE NOT NULL,
@@ -5757,27 +5778,6 @@ CREATE TABLE edfi.StudentOtherName (
 );
 ALTER TABLE edfi.StudentOtherName ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
--- Table edfi.StudentParentAssociation --
-CREATE TABLE edfi.StudentParentAssociation (
-    ParentUSI INT NOT NULL,
-    StudentUSI INT NOT NULL,
-    RelationDescriptorId INT NULL,
-    PrimaryContactStatus BOOLEAN NULL,
-    LivesWith BOOLEAN NULL,
-    EmergencyContactStatus BOOLEAN NULL,
-    ContactPriority INT NULL,
-    ContactRestrictions VARCHAR(250) NULL,
-    LegalGuardian BOOLEAN NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT StudentParentAssociation_PK PRIMARY KEY (ParentUSI, StudentUSI)
-);
-ALTER TABLE edfi.StudentParentAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE edfi.StudentParentAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE edfi.StudentParentAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
 -- Table edfi.StudentParticipationCodeDescriptor --
 CREATE TABLE edfi.StudentParticipationCodeDescriptor (
     StudentParticipationCodeDescriptorId INT NOT NULL,
@@ -6377,7 +6377,7 @@ CREATE TABLE edfi.SurveyResponse (
     FullName VARCHAR(80) NULL,
     Location VARCHAR(75) NULL,
     StudentUSI INT NULL,
-    ParentUSI INT NULL,
+    ContactUSI INT NULL,
     StaffUSI INT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,

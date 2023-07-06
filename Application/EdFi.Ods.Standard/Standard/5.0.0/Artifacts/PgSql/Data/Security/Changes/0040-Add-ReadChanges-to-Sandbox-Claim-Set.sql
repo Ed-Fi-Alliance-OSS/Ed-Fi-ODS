@@ -1569,9 +1569,9 @@ BEGIN
     VALUES (resource_claim_action_id, authorization_strategy_id);
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/studentParentAssociation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/studentContactAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/studentParentAssociation';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/studentContactAssociation';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1584,7 +1584,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('studentParentAssociation', 'studentParentAssociation', 'http://ed-fi.org/ods/identity/claims/studentParentAssociation', parent_resource_claim_id, application_id)
+        VALUES ('studentContactAssociation', 'studentContactAssociation', 'http://ed-fi.org/ods/identity/claims/studentContactAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE

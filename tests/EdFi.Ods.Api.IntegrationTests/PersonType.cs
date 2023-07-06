@@ -9,6 +9,7 @@ namespace EdFi.Ods.Api.IntegrationTests
     {
         Student,
         Parent,
-        Staff
+        Staff,
+        Contact
     }
 }

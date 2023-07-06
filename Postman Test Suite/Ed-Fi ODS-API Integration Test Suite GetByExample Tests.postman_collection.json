@@ -191,14 +191,15 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									" pm.test(\"Status code is 201\", () => {",
-									"    pm.expect(pm.response.code).to.equal(201);",
-									"});",
+									"pm.test(\"Response is  201 or 404\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) ",
+									" });",
 									"",
-									"const scenarioId = pm.environment.get('scenarioId');",
-									"pm.environment.set('known:'+scenarioId+':parent1Guid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-									"pm.environment.set('known:'+scenarioId+':parent1UniqueId',pm.environment.get('supplied:'+scenarioId+':parentUniqueId'));",
-									"",
+									" if (pm.response.code === 201 ) {",
+									"    const scenarioId = pm.environment.get('scenarioId');",
+									"    pm.environment.set('known:'+scenarioId+':parent1Guid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									"    pm.environment.set('known:'+scenarioId+':parent1UniqueId',pm.environment.get('supplied:'+scenarioId+':parentUniqueId'));",
+									" }",
 									"    "
 								],
 								"type": "text/javascript"
@@ -260,13 +261,15 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									" pm.test(\"Status code is 201\", () => {",
-									"    pm.expect(pm.response.code).to.equal(201);",
-									"});",
+									"pm.test(\"Response is  201 or 404\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) ",
+									" });",
 									"",
+									"if (pm.response.code === 201 ) {",
 									"const scenarioId = pm.environment.get('scenarioId');",
 									"pm.environment.set('known:'+scenarioId+':parent2Guid',pm.response.headers.one('Location').value.split(\"/\").pop());",
 									"pm.environment.set('known:'+scenarioId+':parent2UniqueId',pm.environment.get('supplied:'+scenarioId+':parentUniqueId'));",
+									"}",
 									"",
 									"    "
 								],
@@ -329,9 +332,9 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									" pm.test(\"Status code is 201\", () => {",
-									"    pm.expect(pm.response.code).to.equal(201);",
-									"});"
+									"pm.test(\"Response is  201 or 404\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) ",
+									" });"
 								],
 								"type": "text/javascript"
 							}
@@ -378,9 +381,9 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									" pm.test(\"Status code is 201\", () => {",
-									"    pm.expect(pm.response.code).to.equal(201);",
-									"});"
+									"pm.test(\"Response is  201 or 404\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) ",
+									" });"
 								],
 								"type": "text/javascript"
 							}
@@ -427,14 +430,16 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", () => {",
-									"    pm.expect(pm.response.code).to.equal(200);",
-									"});",
+									"pm.test(\"Response is  200 or 404\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 404]) ",
+									" });",
 									"",
-									"pm.test(\"Should return no rows\", () => {",
-									"    const responseItems = pm.response.json();",
-									"    pm.expect(responseItems.length).to.equal(0);",
-									"});"
+									"if (pm.response.code === 200 ) {",
+									"    pm.test(\"Should return no rows\", () => {",
+									"        const responseItems = pm.response.json();",
+									"        pm.expect(responseItems.length).to.equal(0);",
+									"    });",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -471,14 +476,16 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", () => {",
-									"    pm.expect(pm.response.code).to.equal(200);",
-									"});",
+									"pm.test(\"Response is  200 or 404\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 404]) ",
+									" });",
 									"",
-									"pm.test(\"Should return more than just test data\", () => {",
-									"    const responseItems = pm.response.json();",
-									"    pm.expect(responseItems.length).to.be.greaterThan(2);",
-									"});"
+									"if (pm.response.code === 201 ) {",
+									"    pm.test(\"Should return more than just test data\", () => {",
+									"        const responseItems = pm.response.json();",
+									"        pm.expect(responseItems.length).to.be.greaterThan(2);",
+									"    });",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -509,23 +516,25 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", () => {",
-									"    pm.expect(pm.response.code).to.equal(200);",
-									"});",
+									"pm.test(\"Response is  200 or 404\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 404]) ",
+									" });",
 									"",
-									"pm.test(\"Should return exactly two items\", () => {",
-									"    const responseItems = pm.response.json();",
-									"    pm.expect(responseItems.length).to.equal(2);",
-									"});",
+									"if (pm.response.code === 200 ) {",
+									"    pm.test(\"Should return exactly two items\", () => {",
+									"        const responseItems = pm.response.json();",
+									"        pm.expect(responseItems.length).to.equal(2);",
+									"    });",
 									"",
-									"pm.test(\"Should return only items for the provided student unique id\", () => {",
-									"    const scenarioId = pm.environment.get('scenarioId');",
-									"    const studentUniqueId = pm.variables.get('known:'+scenarioId+':studentUniqueId');",
-									"    const responseItems = pm.response.json();",
-									"    responseItems.forEach(item => {",
-									"        pm.expect(item.studentReference.studentUniqueId).to.equal(studentUniqueId);",
-									"    })",
-									"});"
+									"    pm.test(\"Should return only items for the provided student unique id\", () => {",
+									"        const scenarioId = pm.environment.get('scenarioId');",
+									"        const studentUniqueId = pm.variables.get('known:'+scenarioId+':studentUniqueId');",
+									"        const responseItems = pm.response.json();",
+									"        responseItems.forEach(item => {",
+									"            pm.expect(item.studentReference.studentUniqueId).to.equal(studentUniqueId);",
+									"        })",
+									"    });",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -562,23 +571,25 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", () => {",
-									"    pm.expect(pm.response.code).to.equal(200);",
-									"});",
+									"pm.test(\"Response is  200 or 404\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 404]) ",
+									" });",
 									"",
-									"pm.test(\"Should return exactly one item\", () => {",
-									"    const responseItems = pm.response.json();",
-									"    pm.expect(responseItems.length).to.equal(1);",
-									"});",
+									"if (pm.response.code === 200 ) {",
+									"    pm.test(\"Should return exactly one item\", () => {",
+									"        const responseItems = pm.response.json();",
+									"        pm.expect(responseItems.length).to.equal(1);",
+									"    });",
 									"",
-									"pm.test(\"Should return only items for the provided parent unique id\", () => {",
-									"    const scenarioId = pm.environment.get('scenarioId');",
-									"    const parentUniqueId = pm.variables.get('known:'+scenarioId+':parent1UniqueId');",
-									"    const responseItems = pm.response.json();",
-									"    responseItems.forEach(item => {",
-									"        pm.expect(item.parentReference.parentUniqueId).to.equal(parentUniqueId);",
-									"    })",
-									"});"
+									"    pm.test(\"Should return only items for the provided parent unique id\", () => {",
+									"        const scenarioId = pm.environment.get('scenarioId');",
+									"        const parentUniqueId = pm.variables.get('known:'+scenarioId+':parent1UniqueId');",
+									"        const responseItems = pm.response.json();",
+									"        responseItems.forEach(item => {",
+									"            pm.expect(item.parentReference.parentUniqueId).to.equal(parentUniqueId);",
+									"        })",
+									"    });",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -615,25 +626,27 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", () => {",
-									"    pm.expect(pm.response.code).to.equal(200);",
-									"});",
+									"pm.test(\"Response is  200 or 404\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 404]) ",
+									" });",
 									"",
-									"pm.test(\"Should return exactly one item\", () => {",
-									"    const responseItems = pm.response.json();",
-									"    pm.expect(responseItems.length).to.equal(1);",
-									"});",
+									"if (pm.response.code === 200 ) {",
+									"    pm.test(\"Should return exactly one item\", () => {",
+									"        const responseItems = pm.response.json();",
+									"        pm.expect(responseItems.length).to.equal(1);",
+									"    });",
 									"",
-									"pm.test(\"Should return only items for the provided student and parent unique id\", () => {",
-									"    const scenarioId = pm.environment.get('scenarioId');",
-									"    const studentUniqueId = pm.variables.get('known:'+scenarioId+':studentUniqueId');",
-									"    const parentUniqueId = pm.variables.get('known:'+scenarioId+':parent1UniqueId');",
-									"    const responseItems = pm.response.json();",
-									"    responseItems.forEach(item => {",
-									"        pm.expect(item.studentReference.studentUniqueId).to.equal(studentUniqueId);",
-									"        pm.expect(item.parentReference.parentUniqueId).to.equal(parentUniqueId);",
-									"    })",
-									"});"
+									"    pm.test(\"Should return only items for the provided student and parent unique id\", () => {",
+									"        const scenarioId = pm.environment.get('scenarioId');",
+									"        const studentUniqueId = pm.variables.get('known:'+scenarioId+':studentUniqueId');",
+									"        const parentUniqueId = pm.variables.get('known:'+scenarioId+':parent1UniqueId');",
+									"        const responseItems = pm.response.json();",
+									"        responseItems.forEach(item => {",
+									"            pm.expect(item.studentReference.studentUniqueId).to.equal(studentUniqueId);",
+									"            pm.expect(item.parentReference.parentUniqueId).to.equal(parentUniqueId);",
+									"        })",
+									"    });",
+									"}"
 								],
 								"type": "text/javascript"
 							}

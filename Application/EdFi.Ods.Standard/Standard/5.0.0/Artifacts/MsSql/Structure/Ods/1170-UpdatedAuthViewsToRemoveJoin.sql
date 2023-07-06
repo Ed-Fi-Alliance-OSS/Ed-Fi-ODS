@@ -3,19 +3,19 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-PRINT N'Altering [auth].[ParentUSIToSchoolId]...';
+PRINT N'Altering [auth].[ContactUSIToSchoolId]...';
 GO
 
-ALTER VIEW [auth].[ParentUSIToSchoolId]
+ALTER VIEW [auth].[ContactUSIToSchoolId]
     WITH SCHEMABINDING
 AS
-    -- School to Parent USI
+    -- School to Contact USI
     SELECT ssa.SchoolId
-        ,spa.ParentUSI
+        ,spa.ContactUSI
         ,COUNT_BIG(*) AS Count
     FROM edfi.StudentSchoolAssociation ssa
-            INNER JOIN edfi.StudentParentAssociation spa ON
+            INNER JOIN edfi.StudentContactAssociation spa ON
             ssa.StudentUSI = spa.StudentUSI
-    GROUP BY spa.ParentUSI
+    GROUP BY spa.ContactUSI
         ,SchoolId;
 GO

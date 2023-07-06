@@ -811,6 +811,190 @@ REFERENCES edfi.GradeLevelDescriptor (GradeLevelDescriptorId)
 CREATE INDEX FK_5e9932_GradeLevelDescriptor
 ON edfi.CompetencyObjective (ObjectiveGradeLevelDescriptorId ASC);
 
+ALTER TABLE edfi.Contact ADD CONSTRAINT FK_2b5c3d_LevelOfEducationDescriptor FOREIGN KEY (HighestCompletedLevelOfEducationDescriptorId)
+REFERENCES edfi.LevelOfEducationDescriptor (LevelOfEducationDescriptorId)
+;
+
+CREATE INDEX FK_2b5c3d_LevelOfEducationDescriptor
+ON edfi.Contact (HighestCompletedLevelOfEducationDescriptorId ASC);
+
+ALTER TABLE edfi.Contact ADD CONSTRAINT FK_2b5c3d_Person FOREIGN KEY (PersonId, SourceSystemDescriptorId)
+REFERENCES edfi.Person (PersonId, SourceSystemDescriptorId)
+;
+
+CREATE INDEX FK_2b5c3d_Person
+ON edfi.Contact (PersonId ASC, SourceSystemDescriptorId ASC);
+
+ALTER TABLE edfi.Contact ADD CONSTRAINT FK_2b5c3d_SexDescriptor FOREIGN KEY (SexDescriptorId)
+REFERENCES edfi.SexDescriptor (SexDescriptorId)
+;
+
+CREATE INDEX FK_2b5c3d_SexDescriptor
+ON edfi.Contact (SexDescriptorId ASC);
+
+ALTER TABLE edfi.ContactAddress ADD CONSTRAINT FK_720058_AddressTypeDescriptor FOREIGN KEY (AddressTypeDescriptorId)
+REFERENCES edfi.AddressTypeDescriptor (AddressTypeDescriptorId)
+;
+
+CREATE INDEX FK_720058_AddressTypeDescriptor
+ON edfi.ContactAddress (AddressTypeDescriptorId ASC);
+
+ALTER TABLE edfi.ContactAddress ADD CONSTRAINT FK_720058_Contact FOREIGN KEY (ContactUSI)
+REFERENCES edfi.Contact (ContactUSI)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_720058_Contact
+ON edfi.ContactAddress (ContactUSI ASC);
+
+ALTER TABLE edfi.ContactAddress ADD CONSTRAINT FK_720058_LocaleDescriptor FOREIGN KEY (LocaleDescriptorId)
+REFERENCES edfi.LocaleDescriptor (LocaleDescriptorId)
+;
+
+CREATE INDEX FK_720058_LocaleDescriptor
+ON edfi.ContactAddress (LocaleDescriptorId ASC);
+
+ALTER TABLE edfi.ContactAddress ADD CONSTRAINT FK_720058_StateAbbreviationDescriptor FOREIGN KEY (StateAbbreviationDescriptorId)
+REFERENCES edfi.StateAbbreviationDescriptor (StateAbbreviationDescriptorId)
+;
+
+CREATE INDEX FK_720058_StateAbbreviationDescriptor
+ON edfi.ContactAddress (StateAbbreviationDescriptorId ASC);
+
+ALTER TABLE edfi.ContactAddressPeriod ADD CONSTRAINT FK_6b884f_ContactAddress FOREIGN KEY (AddressTypeDescriptorId, City, ContactUSI, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+REFERENCES edfi.ContactAddress (AddressTypeDescriptorId, City, ContactUSI, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_6b884f_ContactAddress
+ON edfi.ContactAddressPeriod (AddressTypeDescriptorId ASC, City ASC, ContactUSI ASC, PostalCode ASC, StateAbbreviationDescriptorId ASC, StreetNumberName ASC);
+
+ALTER TABLE edfi.ContactElectronicMail ADD CONSTRAINT FK_4007e0_Contact FOREIGN KEY (ContactUSI)
+REFERENCES edfi.Contact (ContactUSI)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_4007e0_Contact
+ON edfi.ContactElectronicMail (ContactUSI ASC);
+
+ALTER TABLE edfi.ContactElectronicMail ADD CONSTRAINT FK_4007e0_ElectronicMailTypeDescriptor FOREIGN KEY (ElectronicMailTypeDescriptorId)
+REFERENCES edfi.ElectronicMailTypeDescriptor (ElectronicMailTypeDescriptorId)
+;
+
+CREATE INDEX FK_4007e0_ElectronicMailTypeDescriptor
+ON edfi.ContactElectronicMail (ElectronicMailTypeDescriptorId ASC);
+
+ALTER TABLE edfi.ContactInternationalAddress ADD CONSTRAINT FK_358692_AddressTypeDescriptor FOREIGN KEY (AddressTypeDescriptorId)
+REFERENCES edfi.AddressTypeDescriptor (AddressTypeDescriptorId)
+;
+
+CREATE INDEX FK_358692_AddressTypeDescriptor
+ON edfi.ContactInternationalAddress (AddressTypeDescriptorId ASC);
+
+ALTER TABLE edfi.ContactInternationalAddress ADD CONSTRAINT FK_358692_Contact FOREIGN KEY (ContactUSI)
+REFERENCES edfi.Contact (ContactUSI)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_358692_Contact
+ON edfi.ContactInternationalAddress (ContactUSI ASC);
+
+ALTER TABLE edfi.ContactInternationalAddress ADD CONSTRAINT FK_358692_CountryDescriptor FOREIGN KEY (CountryDescriptorId)
+REFERENCES edfi.CountryDescriptor (CountryDescriptorId)
+;
+
+CREATE INDEX FK_358692_CountryDescriptor
+ON edfi.ContactInternationalAddress (CountryDescriptorId ASC);
+
+ALTER TABLE edfi.ContactLanguage ADD CONSTRAINT FK_42109f_Contact FOREIGN KEY (ContactUSI)
+REFERENCES edfi.Contact (ContactUSI)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_42109f_Contact
+ON edfi.ContactLanguage (ContactUSI ASC);
+
+ALTER TABLE edfi.ContactLanguage ADD CONSTRAINT FK_42109f_LanguageDescriptor FOREIGN KEY (LanguageDescriptorId)
+REFERENCES edfi.LanguageDescriptor (LanguageDescriptorId)
+;
+
+CREATE INDEX FK_42109f_LanguageDescriptor
+ON edfi.ContactLanguage (LanguageDescriptorId ASC);
+
+ALTER TABLE edfi.ContactLanguageUse ADD CONSTRAINT FK_050c1b_ContactLanguage FOREIGN KEY (ContactUSI, LanguageDescriptorId)
+REFERENCES edfi.ContactLanguage (ContactUSI, LanguageDescriptorId)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_050c1b_ContactLanguage
+ON edfi.ContactLanguageUse (ContactUSI ASC, LanguageDescriptorId ASC);
+
+ALTER TABLE edfi.ContactLanguageUse ADD CONSTRAINT FK_050c1b_LanguageUseDescriptor FOREIGN KEY (LanguageUseDescriptorId)
+REFERENCES edfi.LanguageUseDescriptor (LanguageUseDescriptorId)
+;
+
+CREATE INDEX FK_050c1b_LanguageUseDescriptor
+ON edfi.ContactLanguageUse (LanguageUseDescriptorId ASC);
+
+ALTER TABLE edfi.ContactOtherName ADD CONSTRAINT FK_91b095_Contact FOREIGN KEY (ContactUSI)
+REFERENCES edfi.Contact (ContactUSI)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_91b095_Contact
+ON edfi.ContactOtherName (ContactUSI ASC);
+
+ALTER TABLE edfi.ContactOtherName ADD CONSTRAINT FK_91b095_OtherNameTypeDescriptor FOREIGN KEY (OtherNameTypeDescriptorId)
+REFERENCES edfi.OtherNameTypeDescriptor (OtherNameTypeDescriptorId)
+;
+
+CREATE INDEX FK_91b095_OtherNameTypeDescriptor
+ON edfi.ContactOtherName (OtherNameTypeDescriptorId ASC);
+
+ALTER TABLE edfi.ContactPersonalIdentificationDocument ADD CONSTRAINT FK_277c31_Contact FOREIGN KEY (ContactUSI)
+REFERENCES edfi.Contact (ContactUSI)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_277c31_Contact
+ON edfi.ContactPersonalIdentificationDocument (ContactUSI ASC);
+
+ALTER TABLE edfi.ContactPersonalIdentificationDocument ADD CONSTRAINT FK_277c31_CountryDescriptor FOREIGN KEY (IssuerCountryDescriptorId)
+REFERENCES edfi.CountryDescriptor (CountryDescriptorId)
+;
+
+CREATE INDEX FK_277c31_CountryDescriptor
+ON edfi.ContactPersonalIdentificationDocument (IssuerCountryDescriptorId ASC);
+
+ALTER TABLE edfi.ContactPersonalIdentificationDocument ADD CONSTRAINT FK_277c31_IdentificationDocumentUseDescriptor FOREIGN KEY (IdentificationDocumentUseDescriptorId)
+REFERENCES edfi.IdentificationDocumentUseDescriptor (IdentificationDocumentUseDescriptorId)
+;
+
+CREATE INDEX FK_277c31_IdentificationDocumentUseDescriptor
+ON edfi.ContactPersonalIdentificationDocument (IdentificationDocumentUseDescriptorId ASC);
+
+ALTER TABLE edfi.ContactPersonalIdentificationDocument ADD CONSTRAINT FK_277c31_PersonalInformationVerificationDescriptor FOREIGN KEY (PersonalInformationVerificationDescriptorId)
+REFERENCES edfi.PersonalInformationVerificationDescriptor (PersonalInformationVerificationDescriptorId)
+;
+
+CREATE INDEX FK_277c31_PersonalInformationVerificationDescriptor
+ON edfi.ContactPersonalIdentificationDocument (PersonalInformationVerificationDescriptorId ASC);
+
+ALTER TABLE edfi.ContactTelephone ADD CONSTRAINT FK_225a51_Contact FOREIGN KEY (ContactUSI)
+REFERENCES edfi.Contact (ContactUSI)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_225a51_Contact
+ON edfi.ContactTelephone (ContactUSI ASC);
+
+ALTER TABLE edfi.ContactTelephone ADD CONSTRAINT FK_225a51_TelephoneNumberTypeDescriptor FOREIGN KEY (TelephoneNumberTypeDescriptorId)
+REFERENCES edfi.TelephoneNumberTypeDescriptor (TelephoneNumberTypeDescriptorId)
+;
+
+CREATE INDEX FK_225a51_TelephoneNumberTypeDescriptor
+ON edfi.ContactTelephone (TelephoneNumberTypeDescriptorId ASC);
+
 ALTER TABLE edfi.ContactTypeDescriptor ADD CONSTRAINT FK_47719b_Descriptor FOREIGN KEY (ContactTypeDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
@@ -3443,190 +3627,6 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE edfi.Parent ADD CONSTRAINT FK_5f7953_LevelOfEducationDescriptor FOREIGN KEY (HighestCompletedLevelOfEducationDescriptorId)
-REFERENCES edfi.LevelOfEducationDescriptor (LevelOfEducationDescriptorId)
-;
-
-CREATE INDEX FK_5f7953_LevelOfEducationDescriptor
-ON edfi.Parent (HighestCompletedLevelOfEducationDescriptorId ASC);
-
-ALTER TABLE edfi.Parent ADD CONSTRAINT FK_5f7953_Person FOREIGN KEY (PersonId, SourceSystemDescriptorId)
-REFERENCES edfi.Person (PersonId, SourceSystemDescriptorId)
-;
-
-CREATE INDEX FK_5f7953_Person
-ON edfi.Parent (PersonId ASC, SourceSystemDescriptorId ASC);
-
-ALTER TABLE edfi.Parent ADD CONSTRAINT FK_5f7953_SexDescriptor FOREIGN KEY (SexDescriptorId)
-REFERENCES edfi.SexDescriptor (SexDescriptorId)
-;
-
-CREATE INDEX FK_5f7953_SexDescriptor
-ON edfi.Parent (SexDescriptorId ASC);
-
-ALTER TABLE edfi.ParentAddress ADD CONSTRAINT FK_cc3333_AddressTypeDescriptor FOREIGN KEY (AddressTypeDescriptorId)
-REFERENCES edfi.AddressTypeDescriptor (AddressTypeDescriptorId)
-;
-
-CREATE INDEX FK_cc3333_AddressTypeDescriptor
-ON edfi.ParentAddress (AddressTypeDescriptorId ASC);
-
-ALTER TABLE edfi.ParentAddress ADD CONSTRAINT FK_cc3333_LocaleDescriptor FOREIGN KEY (LocaleDescriptorId)
-REFERENCES edfi.LocaleDescriptor (LocaleDescriptorId)
-;
-
-CREATE INDEX FK_cc3333_LocaleDescriptor
-ON edfi.ParentAddress (LocaleDescriptorId ASC);
-
-ALTER TABLE edfi.ParentAddress ADD CONSTRAINT FK_cc3333_Parent FOREIGN KEY (ParentUSI)
-REFERENCES edfi.Parent (ParentUSI)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_cc3333_Parent
-ON edfi.ParentAddress (ParentUSI ASC);
-
-ALTER TABLE edfi.ParentAddress ADD CONSTRAINT FK_cc3333_StateAbbreviationDescriptor FOREIGN KEY (StateAbbreviationDescriptorId)
-REFERENCES edfi.StateAbbreviationDescriptor (StateAbbreviationDescriptorId)
-;
-
-CREATE INDEX FK_cc3333_StateAbbreviationDescriptor
-ON edfi.ParentAddress (StateAbbreviationDescriptorId ASC);
-
-ALTER TABLE edfi.ParentAddressPeriod ADD CONSTRAINT FK_123e27_ParentAddress FOREIGN KEY (AddressTypeDescriptorId, City, ParentUSI, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
-REFERENCES edfi.ParentAddress (AddressTypeDescriptorId, City, ParentUSI, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_123e27_ParentAddress
-ON edfi.ParentAddressPeriod (AddressTypeDescriptorId ASC, City ASC, ParentUSI ASC, PostalCode ASC, StateAbbreviationDescriptorId ASC, StreetNumberName ASC);
-
-ALTER TABLE edfi.ParentElectronicMail ADD CONSTRAINT FK_85798e_ElectronicMailTypeDescriptor FOREIGN KEY (ElectronicMailTypeDescriptorId)
-REFERENCES edfi.ElectronicMailTypeDescriptor (ElectronicMailTypeDescriptorId)
-;
-
-CREATE INDEX FK_85798e_ElectronicMailTypeDescriptor
-ON edfi.ParentElectronicMail (ElectronicMailTypeDescriptorId ASC);
-
-ALTER TABLE edfi.ParentElectronicMail ADD CONSTRAINT FK_85798e_Parent FOREIGN KEY (ParentUSI)
-REFERENCES edfi.Parent (ParentUSI)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_85798e_Parent
-ON edfi.ParentElectronicMail (ParentUSI ASC);
-
-ALTER TABLE edfi.ParentInternationalAddress ADD CONSTRAINT FK_8d650e_AddressTypeDescriptor FOREIGN KEY (AddressTypeDescriptorId)
-REFERENCES edfi.AddressTypeDescriptor (AddressTypeDescriptorId)
-;
-
-CREATE INDEX FK_8d650e_AddressTypeDescriptor
-ON edfi.ParentInternationalAddress (AddressTypeDescriptorId ASC);
-
-ALTER TABLE edfi.ParentInternationalAddress ADD CONSTRAINT FK_8d650e_CountryDescriptor FOREIGN KEY (CountryDescriptorId)
-REFERENCES edfi.CountryDescriptor (CountryDescriptorId)
-;
-
-CREATE INDEX FK_8d650e_CountryDescriptor
-ON edfi.ParentInternationalAddress (CountryDescriptorId ASC);
-
-ALTER TABLE edfi.ParentInternationalAddress ADD CONSTRAINT FK_8d650e_Parent FOREIGN KEY (ParentUSI)
-REFERENCES edfi.Parent (ParentUSI)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_8d650e_Parent
-ON edfi.ParentInternationalAddress (ParentUSI ASC);
-
-ALTER TABLE edfi.ParentLanguage ADD CONSTRAINT FK_34f9df_LanguageDescriptor FOREIGN KEY (LanguageDescriptorId)
-REFERENCES edfi.LanguageDescriptor (LanguageDescriptorId)
-;
-
-CREATE INDEX FK_34f9df_LanguageDescriptor
-ON edfi.ParentLanguage (LanguageDescriptorId ASC);
-
-ALTER TABLE edfi.ParentLanguage ADD CONSTRAINT FK_34f9df_Parent FOREIGN KEY (ParentUSI)
-REFERENCES edfi.Parent (ParentUSI)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_34f9df_Parent
-ON edfi.ParentLanguage (ParentUSI ASC);
-
-ALTER TABLE edfi.ParentLanguageUse ADD CONSTRAINT FK_f67c61_LanguageUseDescriptor FOREIGN KEY (LanguageUseDescriptorId)
-REFERENCES edfi.LanguageUseDescriptor (LanguageUseDescriptorId)
-;
-
-CREATE INDEX FK_f67c61_LanguageUseDescriptor
-ON edfi.ParentLanguageUse (LanguageUseDescriptorId ASC);
-
-ALTER TABLE edfi.ParentLanguageUse ADD CONSTRAINT FK_f67c61_ParentLanguage FOREIGN KEY (LanguageDescriptorId, ParentUSI)
-REFERENCES edfi.ParentLanguage (LanguageDescriptorId, ParentUSI)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_f67c61_ParentLanguage
-ON edfi.ParentLanguageUse (LanguageDescriptorId ASC, ParentUSI ASC);
-
-ALTER TABLE edfi.ParentOtherName ADD CONSTRAINT FK_0e0a11_OtherNameTypeDescriptor FOREIGN KEY (OtherNameTypeDescriptorId)
-REFERENCES edfi.OtherNameTypeDescriptor (OtherNameTypeDescriptorId)
-;
-
-CREATE INDEX FK_0e0a11_OtherNameTypeDescriptor
-ON edfi.ParentOtherName (OtherNameTypeDescriptorId ASC);
-
-ALTER TABLE edfi.ParentOtherName ADD CONSTRAINT FK_0e0a11_Parent FOREIGN KEY (ParentUSI)
-REFERENCES edfi.Parent (ParentUSI)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_0e0a11_Parent
-ON edfi.ParentOtherName (ParentUSI ASC);
-
-ALTER TABLE edfi.ParentPersonalIdentificationDocument ADD CONSTRAINT FK_b772b6_CountryDescriptor FOREIGN KEY (IssuerCountryDescriptorId)
-REFERENCES edfi.CountryDescriptor (CountryDescriptorId)
-;
-
-CREATE INDEX FK_b772b6_CountryDescriptor
-ON edfi.ParentPersonalIdentificationDocument (IssuerCountryDescriptorId ASC);
-
-ALTER TABLE edfi.ParentPersonalIdentificationDocument ADD CONSTRAINT FK_b772b6_IdentificationDocumentUseDescriptor FOREIGN KEY (IdentificationDocumentUseDescriptorId)
-REFERENCES edfi.IdentificationDocumentUseDescriptor (IdentificationDocumentUseDescriptorId)
-;
-
-CREATE INDEX FK_b772b6_IdentificationDocumentUseDescriptor
-ON edfi.ParentPersonalIdentificationDocument (IdentificationDocumentUseDescriptorId ASC);
-
-ALTER TABLE edfi.ParentPersonalIdentificationDocument ADD CONSTRAINT FK_b772b6_Parent FOREIGN KEY (ParentUSI)
-REFERENCES edfi.Parent (ParentUSI)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_b772b6_Parent
-ON edfi.ParentPersonalIdentificationDocument (ParentUSI ASC);
-
-ALTER TABLE edfi.ParentPersonalIdentificationDocument ADD CONSTRAINT FK_b772b6_PersonalInformationVerificationDescriptor FOREIGN KEY (PersonalInformationVerificationDescriptorId)
-REFERENCES edfi.PersonalInformationVerificationDescriptor (PersonalInformationVerificationDescriptorId)
-;
-
-CREATE INDEX FK_b772b6_PersonalInformationVerificationDescriptor
-ON edfi.ParentPersonalIdentificationDocument (PersonalInformationVerificationDescriptorId ASC);
-
-ALTER TABLE edfi.ParentTelephone ADD CONSTRAINT FK_453ba8_Parent FOREIGN KEY (ParentUSI)
-REFERENCES edfi.Parent (ParentUSI)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_453ba8_Parent
-ON edfi.ParentTelephone (ParentUSI ASC);
-
-ALTER TABLE edfi.ParentTelephone ADD CONSTRAINT FK_453ba8_TelephoneNumberTypeDescriptor FOREIGN KEY (TelephoneNumberTypeDescriptorId)
-REFERENCES edfi.TelephoneNumberTypeDescriptor (TelephoneNumberTypeDescriptorId)
-;
-
-CREATE INDEX FK_453ba8_TelephoneNumberTypeDescriptor
-ON edfi.ParentTelephone (TelephoneNumberTypeDescriptorId ASC);
-
 ALTER TABLE edfi.ParticipationDescriptor ADD CONSTRAINT FK_e94f88_Descriptor FOREIGN KEY (ParticipationDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
@@ -5739,6 +5739,27 @@ ON UPDATE CASCADE
 CREATE INDEX FK_ee68ed_StudentSectionAssociation
 ON edfi.StudentCompetencyObjectiveStudentSectionAssociation (BeginDate ASC, LocalCourseCode ASC, SchoolId ASC, SchoolYear ASC, SectionIdentifier ASC, SessionName ASC, StudentUSI ASC);
 
+ALTER TABLE edfi.StudentContactAssociation ADD CONSTRAINT FK_e2733e_Contact FOREIGN KEY (ContactUSI)
+REFERENCES edfi.Contact (ContactUSI)
+;
+
+CREATE INDEX FK_e2733e_Contact
+ON edfi.StudentContactAssociation (ContactUSI ASC);
+
+ALTER TABLE edfi.StudentContactAssociation ADD CONSTRAINT FK_e2733e_RelationDescriptor FOREIGN KEY (RelationDescriptorId)
+REFERENCES edfi.RelationDescriptor (RelationDescriptorId)
+;
+
+CREATE INDEX FK_e2733e_RelationDescriptor
+ON edfi.StudentContactAssociation (RelationDescriptorId ASC);
+
+ALTER TABLE edfi.StudentContactAssociation ADD CONSTRAINT FK_e2733e_Student FOREIGN KEY (StudentUSI)
+REFERENCES edfi.Student (StudentUSI)
+;
+
+CREATE INDEX FK_e2733e_Student
+ON edfi.StudentContactAssociation (StudentUSI ASC);
+
 ALTER TABLE edfi.StudentCTEProgramAssociation ADD CONSTRAINT FK_000ac5_GeneralStudentProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 REFERENCES edfi.GeneralStudentProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ON DELETE CASCADE
@@ -6534,27 +6555,6 @@ ON DELETE CASCADE
 CREATE INDEX FK_ae53d1_Student
 ON edfi.StudentOtherName (StudentUSI ASC);
 
-ALTER TABLE edfi.StudentParentAssociation ADD CONSTRAINT FK_bf9d92_Parent FOREIGN KEY (ParentUSI)
-REFERENCES edfi.Parent (ParentUSI)
-;
-
-CREATE INDEX FK_bf9d92_Parent
-ON edfi.StudentParentAssociation (ParentUSI ASC);
-
-ALTER TABLE edfi.StudentParentAssociation ADD CONSTRAINT FK_bf9d92_RelationDescriptor FOREIGN KEY (RelationDescriptorId)
-REFERENCES edfi.RelationDescriptor (RelationDescriptorId)
-;
-
-CREATE INDEX FK_bf9d92_RelationDescriptor
-ON edfi.StudentParentAssociation (RelationDescriptorId ASC);
-
-ALTER TABLE edfi.StudentParentAssociation ADD CONSTRAINT FK_bf9d92_Student FOREIGN KEY (StudentUSI)
-REFERENCES edfi.Student (StudentUSI)
-;
-
-CREATE INDEX FK_bf9d92_Student
-ON edfi.StudentParentAssociation (StudentUSI ASC);
-
 ALTER TABLE edfi.StudentParticipationCodeDescriptor ADD CONSTRAINT FK_aa25ae_Descriptor FOREIGN KEY (StudentParticipationCodeDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
@@ -7236,12 +7236,12 @@ ON DELETE CASCADE
 CREATE INDEX FK_d047f5_SurveyQuestionResponse
 ON edfi.SurveyQuestionResponseValue (Namespace ASC, QuestionCode ASC, SurveyIdentifier ASC, SurveyResponseIdentifier ASC);
 
-ALTER TABLE edfi.SurveyResponse ADD CONSTRAINT FK_8d6383_Parent FOREIGN KEY (ParentUSI)
-REFERENCES edfi.Parent (ParentUSI)
+ALTER TABLE edfi.SurveyResponse ADD CONSTRAINT FK_8d6383_Contact FOREIGN KEY (ContactUSI)
+REFERENCES edfi.Contact (ContactUSI)
 ;
 
-CREATE INDEX FK_8d6383_Parent
-ON edfi.SurveyResponse (ParentUSI ASC);
+CREATE INDEX FK_8d6383_Contact
+ON edfi.SurveyResponse (ContactUSI ASC);
 
 ALTER TABLE edfi.SurveyResponse ADD CONSTRAINT FK_8d6383_Staff FOREIGN KEY (StaffUSI)
 REFERENCES edfi.Staff (StaffUSI)

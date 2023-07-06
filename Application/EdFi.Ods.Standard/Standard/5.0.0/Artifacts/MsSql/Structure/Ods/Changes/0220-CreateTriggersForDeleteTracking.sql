@@ -978,6 +978,26 @@ ALTER TABLE [edfi].[CompetencyObjective] ENABLE TRIGGER [edfi_CompetencyObjectiv
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_Contact_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_Contact_TR_DeleteTracking] ON [edfi].[Contact] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Contact](OldContactUSI, OldContactUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.ContactUSI, d.ContactUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [edfi].[Contact] ENABLE TRIGGER [edfi_Contact_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_ContactTypeDescriptor_TR_DeleteTracking]
 GO
 
@@ -3574,26 +3594,6 @@ ALTER TABLE [edfi].[OtherNameTypeDescriptor] ENABLE TRIGGER [edfi_OtherNameTypeD
 GO
 
 
-DROP TRIGGER IF EXISTS [edfi].[edfi_Parent_TR_DeleteTracking]
-GO
-
-CREATE TRIGGER [edfi].[edfi_Parent_TR_DeleteTracking] ON [edfi].[Parent] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_changes_edfi].[Parent](OldParentUSI, OldParentUniqueId, Id, Discriminator, ChangeVersion)
-    SELECT d.ParentUSI, d.ParentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [edfi].[Parent] ENABLE TRIGGER [edfi_Parent_TR_DeleteTracking]
-GO
-
-
 DROP TRIGGER IF EXISTS [edfi].[edfi_ParticipationDescriptor_TR_DeleteTracking]
 GO
 
@@ -5435,6 +5435,30 @@ ALTER TABLE [edfi].[StudentCompetencyObjective] ENABLE TRIGGER [edfi_StudentComp
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_StudentContactAssociation_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StudentContactAssociation_TR_DeleteTracking] ON [edfi].[StudentContactAssociation] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[StudentContactAssociation](OldContactUSI, OldContactUniqueId, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.ContactUSI, j0.ContactUniqueId, d.StudentUSI, j1.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Contact j0
+            ON d.ContactUSI = j0.ContactUSI
+        INNER JOIN edfi.Student j1
+            ON d.StudentUSI = j1.StudentUSI
+END
+GO
+
+ALTER TABLE [edfi].[StudentContactAssociation] ENABLE TRIGGER [edfi_StudentContactAssociation_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentDisciplineIncidentBehaviorAssociation_TR_DeleteTracking]
 GO
 
@@ -5613,30 +5637,6 @@ END
 GO
 
 ALTER TABLE [edfi].[StudentInterventionAttendanceEvent] ENABLE TRIGGER [edfi_StudentInterventionAttendanceEvent_TR_DeleteTracking]
-GO
-
-
-DROP TRIGGER IF EXISTS [edfi].[edfi_StudentParentAssociation_TR_DeleteTracking]
-GO
-
-CREATE TRIGGER [edfi].[edfi_StudentParentAssociation_TR_DeleteTracking] ON [edfi].[StudentParentAssociation] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_changes_edfi].[StudentParentAssociation](OldParentUSI, OldParentUniqueId, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
-    SELECT d.ParentUSI, j0.ParentUniqueId, d.StudentUSI, j1.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-        INNER JOIN edfi.Parent j0
-            ON d.ParentUSI = j0.ParentUSI
-        INNER JOIN edfi.Student j1
-            ON d.StudentUSI = j1.StudentUSI
-END
-GO
-
-ALTER TABLE [edfi].[StudentParentAssociation] ENABLE TRIGGER [edfi_StudentParentAssociation_TR_DeleteTracking]
 GO
 
 
