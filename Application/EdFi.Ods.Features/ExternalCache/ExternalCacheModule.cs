@@ -3,18 +3,16 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using Autofac;
 using Autofac.Core;
-using EdFi.Ods.Api.Authentication;
+using Castle.DynamicProxy;
+using EdFi.Common.Security;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using Microsoft.Extensions.Caching.Distributed;
-using System;
-using Castle.DynamicProxy;
-using EdFi.Common.Security;
-using EdFi.Ods.Common.Descriptors;
 
 namespace EdFi.Ods.Features.ExternalCache
 {
@@ -30,7 +28,7 @@ namespace EdFi.Ods.Features.ExternalCache
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             RegisterDistributedCache(builder);
-            
+
             RegisterProvider(builder);
 
             if (ApiSettings.Caching.ApiClientDetails.UseExternalCache)
@@ -50,7 +48,7 @@ namespace EdFi.Ods.Features.ExternalCache
         }
 
         public abstract string ExternalCacheProvider { get; }
-        
+
         public bool IsProviderSelected(string externalCacheProvider)
         {
             return ExternalCacheProvider == externalCacheProvider;
@@ -76,6 +74,10 @@ namespace EdFi.Ods.Features.ExternalCache
 
         public void OverrideApiClientDetailsCache(ContainerBuilder builder)
         {
+            builder.RegisterType<ApiClientDetailsCacheKeyProvider>()
+                .As<IApiClientDetailsCacheKeyProvider>()
+                .SingleInstance();
+
             builder.RegisterDecorator<IApiClientDetailsProvider>(
                 (context, parameters, instance) => GetCachingApiClientDetailsProviderDecorator(context, instance));
         }
@@ -100,7 +102,7 @@ namespace EdFi.Ods.Features.ExternalCache
                     {
                         int absoluteExpirationSeconds = ApiSettings.Caching.Descriptors.AbsoluteExpirationSeconds;
 
-                        return (ICacheProvider<ulong>) new ExternalCacheProvider<ulong>(
+                        return (ICacheProvider<ulong>)new ExternalCacheProvider<ulong>(
                             ctx.Resolve<IDistributedCache>(),
                             TimeSpan.Zero,
                             TimeSpan.FromSeconds(absoluteExpirationSeconds));

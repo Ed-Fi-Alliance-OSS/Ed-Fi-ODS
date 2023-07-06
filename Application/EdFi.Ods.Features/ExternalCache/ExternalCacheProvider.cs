@@ -3,19 +3,24 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Globalization;
+using EdFi.Common.Security;
 using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Exceptions;
 using log4net;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
-using System;
-using System.Globalization;
-using EdFi.Common.Security;
-using EdFi.Ods.Api.Authentication;
 
 namespace EdFi.Ods.Features.ExternalCache
 {
+    /// <summary>
+    /// Implements a cache provider for use with external caches that only supports serialization/deserialization of values of
+    /// the following types: <see cref="PersonUniqueIdToUsiCache.IdentityValueMaps" />, <see cref="ApiClientDetails" />,
+    /// <see cref="Guid" />, <see cref="Int32" />, and <see cref="DescriptorMaps" />.
+    /// </summary>
+    /// <typeparam name="TKey">The type to be used as the key for entries stored in the cache from the perspective of the API.</typeparam>
     public class ExternalCacheProvider<TKey> : IExternalCacheProvider<TKey>
     {
         private const string GuidPrefix = "(Guid)";
@@ -65,6 +70,7 @@ namespace EdFi.Ods.Features.ExternalCache
                     //   - ApiClientDetailsDistributeCacheDeserializationHandler
                     //   - GuidDistributeCacheDeserializationHandler
                     //   - IntDistributeCacheDeserializationHandler
+                    //   - DescriptorMapsDistributeCacheDeserializationHandler
                     //
                     // A similar approach is recommended for serialization, though implementations are only needed for int/guid.
                     if (keyAsString.StartsWith(PersonUniqueIdToUsiCache.CacheKeyPrefix))
@@ -87,7 +93,8 @@ namespace EdFi.Ods.Features.ExternalCache
                     }
                     else
                     {
-                        // Simple cache like descriptors can be deserialized without explicit type names
+                        // Simple cache like Guid and Int32 can be deserialized without explicit type names
+                        // For descriptors, the DescriptorMaps type will be used
                         value = Deserialize(cachedValue);
                     }
 
@@ -169,7 +176,8 @@ namespace EdFi.Ods.Features.ExternalCache
 
             try
             {
-                return JsonConvert.DeserializeObject(@string, _defaultSerializerSettings);
+                // JsonConvert.DeserializeObject without a Type, returns a JObject, that will fail to be casted to a DescriptorMaps object
+                return JsonConvert.DeserializeObject<DescriptorMaps>(@string, _defaultSerializerSettings);
             }
             catch (JsonException e)
             {

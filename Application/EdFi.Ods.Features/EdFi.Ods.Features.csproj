@@ -17,7 +17,7 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.19" />
     <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="6.0.13" />
   </ItemGroup>
   <ItemGroup>
