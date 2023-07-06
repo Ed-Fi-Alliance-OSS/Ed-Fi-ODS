@@ -3,11 +3,13 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Configuration;
+using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Exceptions;
@@ -22,7 +24,7 @@ public class OdsInstanceSelector : IOdsInstanceSelector
 {
     private readonly IApiClientContextProvider _apiClientContextProvider;
     private readonly IOdsInstanceConfigurationProvider _odsInstanceConfigurationProvider;
-    private readonly IOdsRouteRootTemplateProvider _odsRoutesRootTemplateProvider;
+    private readonly Lazy<bool> _hasOdsContextRouteTemplate;
 
     public OdsInstanceSelector(
         IApiClientContextProvider apiClientContextProvider,
@@ -31,7 +33,10 @@ public class OdsInstanceSelector : IOdsInstanceSelector
     {
         _apiClientContextProvider = apiClientContextProvider;
         _odsInstanceConfigurationProvider = odsInstanceConfigurationProvider;
-        _odsRoutesRootTemplateProvider = odsRoutesRootTemplateProvider;
+        
+        _hasOdsContextRouteTemplate = new Lazy<bool>(() => 
+            !string.IsNullOrEmpty(odsRoutesRootTemplateProvider.GetOdsRouteRootTemplate().Replace(RouteConstants.TenantIdentifierRoutePrefix, string.Empty))
+        );
     }
 
     /// <inheritdoc cref="IOdsInstanceSelector.GetOdsInstanceAsync" />
@@ -49,7 +54,7 @@ public class OdsInstanceSelector : IOdsInstanceSelector
             throw new ApiSecurityConfigurationException("The API client has not been associated with an ODS instance.");
         }
 
-        if (apiClientContext.OdsInstanceIds.Count == 1 && !_odsRoutesRootTemplateProvider.HasOdsContextRouteTemplate)
+        if (apiClientContext.OdsInstanceIds.Count == 1 && !_hasOdsContextRouteTemplate.Value)
         {
             return await _odsInstanceConfigurationProvider.GetByIdAsync(apiClientContext.OdsInstanceIds[0]);
         }
