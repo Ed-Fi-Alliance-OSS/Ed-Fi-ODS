@@ -66,6 +66,97 @@ COMMENT ON COLUMN sample.BusRouteTelephone.OrderOfPriority IS 'The order of prio
 COMMENT ON COLUMN sample.BusRouteTelephone.TextMessageCapabilityIndicator IS 'An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.';
 COMMENT ON COLUMN sample.BusRouteTelephone.DoNotPublishIndicator IS 'An indication that the telephone number should not be published.';
 
+-- Extended Properties [sample].[ContactAddressExtension] --
+COMMENT ON TABLE sample.ContactAddressExtension IS 'Additional details on the contact''s address.';
+COMMENT ON COLUMN sample.ContactAddressExtension.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN sample.ContactAddressExtension.City IS 'The name of the city in which an address is located.';
+COMMENT ON COLUMN sample.ContactAddressExtension.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN sample.ContactAddressExtension.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
+COMMENT ON COLUMN sample.ContactAddressExtension.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
+COMMENT ON COLUMN sample.ContactAddressExtension.StreetNumberName IS 'The street number and street name or post office box number of an address.';
+COMMENT ON COLUMN sample.ContactAddressExtension.Complex IS 'The apartment or housing complex name.';
+COMMENT ON COLUMN sample.ContactAddressExtension.OnBusRoute IS 'An indicator if the address is on a bus route.';
+
+-- Extended Properties [sample].[ContactAddressSchoolDistrict] --
+COMMENT ON TABLE sample.ContactAddressSchoolDistrict IS 'The school district in which the address is located.';
+COMMENT ON COLUMN sample.ContactAddressSchoolDistrict.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN sample.ContactAddressSchoolDistrict.City IS 'The name of the city in which an address is located.';
+COMMENT ON COLUMN sample.ContactAddressSchoolDistrict.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN sample.ContactAddressSchoolDistrict.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
+COMMENT ON COLUMN sample.ContactAddressSchoolDistrict.SchoolDistrict IS 'The school district in which the address is located.';
+COMMENT ON COLUMN sample.ContactAddressSchoolDistrict.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
+COMMENT ON COLUMN sample.ContactAddressSchoolDistrict.StreetNumberName IS 'The street number and street name or post office box number of an address.';
+
+-- Extended Properties [sample].[ContactAddressTerm] --
+COMMENT ON TABLE sample.ContactAddressTerm IS 'Terms applicable to this address.';
+COMMENT ON COLUMN sample.ContactAddressTerm.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
+COMMENT ON COLUMN sample.ContactAddressTerm.City IS 'The name of the city in which an address is located.';
+COMMENT ON COLUMN sample.ContactAddressTerm.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN sample.ContactAddressTerm.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
+COMMENT ON COLUMN sample.ContactAddressTerm.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
+COMMENT ON COLUMN sample.ContactAddressTerm.StreetNumberName IS 'The street number and street name or post office box number of an address.';
+COMMENT ON COLUMN sample.ContactAddressTerm.TermDescriptorId IS 'Terms applicable to this address.';
+
+-- Extended Properties [sample].[ContactAuthor] --
+COMMENT ON TABLE sample.ContactAuthor IS 'The contact''s favorite authors.';
+COMMENT ON COLUMN sample.ContactAuthor.Author IS 'The contact''s favorite authors.';
+COMMENT ON COLUMN sample.ContactAuthor.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+
+-- Extended Properties [sample].[ContactCeilingHeight] --
+COMMENT ON TABLE sample.ContactCeilingHeight IS 'The height of the ceiling in the rooms of the contact''s home.';
+COMMENT ON COLUMN sample.ContactCeilingHeight.CeilingHeight IS 'The height of the ceiling in the rooms of the contact''s home.';
+COMMENT ON COLUMN sample.ContactCeilingHeight.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+
+-- Extended Properties [sample].[ContactCTEProgram] --
+COMMENT ON TABLE sample.ContactCTEProgram IS 'A CTE program the contact has completed.';
+COMMENT ON COLUMN sample.ContactCTEProgram.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN sample.ContactCTEProgram.CareerPathwayDescriptorId IS 'A sequence of courses within an area of interest that is a student''s educational road map to a chosen career.';
+COMMENT ON COLUMN sample.ContactCTEProgram.CIPCode IS 'Number and description of the CIP code associated with the student''s CTE program.';
+COMMENT ON COLUMN sample.ContactCTEProgram.PrimaryCTEProgramIndicator IS 'A boolean indicator of whether this CTE program is the student''s primary CTE program.';
+COMMENT ON COLUMN sample.ContactCTEProgram.CTEProgramCompletionIndicator IS 'A boolean indicator of whether the student has completed the CTE program.';
+
+-- Extended Properties [sample].[ContactEducationContent] --
+COMMENT ON TABLE sample.ContactEducationContent IS 'Education content to which the contact has been referred.';
+COMMENT ON COLUMN sample.ContactEducationContent.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN sample.ContactEducationContent.ContentIdentifier IS 'A unique identifier for the education content.';
+
+-- Extended Properties [sample].[ContactExtension] --
+COMMENT ON TABLE sample.ContactExtension IS '';
+COMMENT ON COLUMN sample.ContactExtension.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN sample.ContactExtension.IsSportsFan IS 'An indication as to whether the contact is a sports fan.';
+COMMENT ON COLUMN sample.ContactExtension.CoffeeSpend IS 'How much the contact spends on coffee in a week.';
+COMMENT ON COLUMN sample.ContactExtension.GraduationDate IS 'The date the contact graduated high school.';
+COMMENT ON COLUMN sample.ContactExtension.AverageCarLineWait IS 'The time spent per day waiting in the car line.';
+COMMENT ON COLUMN sample.ContactExtension.LuckyNumber IS 'The contact''s lucky number.';
+COMMENT ON COLUMN sample.ContactExtension.RainCertainty IS 'The percent likelihood that it will rain when the contact volunteers to chaperone a field trip.';
+COMMENT ON COLUMN sample.ContactExtension.PreferredWakeUpTime IS 'The time the contact would prefer to wake up in the morning.';
+COMMENT ON COLUMN sample.ContactExtension.BecameParent IS 'The year in which the contact first became a contact.';
+COMMENT ON COLUMN sample.ContactExtension.GPA IS 'The contact''s high school GPA.';
+COMMENT ON COLUMN sample.ContactExtension.Duration IS 'The amount of time the contact spends reading to his/her children at bedtime.';
+COMMENT ON COLUMN sample.ContactExtension.CredentialFieldDescriptorId IS 'The field in which the contact holds a credential.';
+
+-- Extended Properties [sample].[ContactFavoriteBookTitle] --
+COMMENT ON TABLE sample.ContactFavoriteBookTitle IS 'The title of the contact''s favorite book.';
+COMMENT ON COLUMN sample.ContactFavoriteBookTitle.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN sample.ContactFavoriteBookTitle.FavoriteBookTitle IS 'The title of the contact''s favorite book.';
+
+-- Extended Properties [sample].[ContactStudentProgramAssociation] --
+COMMENT ON TABLE sample.ContactStudentProgramAssociation IS 'Programs the contact''s child or children are enrolled in for which the contact provides volunteer services.';
+COMMENT ON COLUMN sample.ContactStudentProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN sample.ContactStudentProgramAssociation.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN sample.ContactStudentProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN sample.ContactStudentProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN sample.ContactStudentProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN sample.ContactStudentProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
+COMMENT ON COLUMN sample.ContactStudentProgramAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+
+-- Extended Properties [sample].[ContactTeacherConference] --
+COMMENT ON TABLE sample.ContactTeacherConference IS 'The contact''s preferred day of the week and time for contact-teacher conferences.';
+COMMENT ON COLUMN sample.ContactTeacherConference.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN sample.ContactTeacherConference.DayOfWeek IS 'The day of the week the parent prefers to meet for parent-teacher conferences.';
+COMMENT ON COLUMN sample.ContactTeacherConference.StartTime IS 'The start time the parent prefers to meet for parent-teacher conferences.';
+COMMENT ON COLUMN sample.ContactTeacherConference.EndTime IS 'The end time the parent prefers to meet for parent-teacher conferences.';
+
 -- Extended Properties [sample].[FavoriteBookCategoryDescriptor] --
 COMMENT ON TABLE sample.FavoriteBookCategoryDescriptor IS 'The category of an individual''s favorite book.';
 COMMENT ON COLUMN sample.FavoriteBookCategoryDescriptor.FavoriteBookCategoryDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -73,97 +164,6 @@ COMMENT ON COLUMN sample.FavoriteBookCategoryDescriptor.FavoriteBookCategoryDesc
 -- Extended Properties [sample].[MembershipTypeDescriptor] --
 COMMENT ON TABLE sample.MembershipTypeDescriptor IS 'Membership Type identifies whether a school has primary responsibility for managing a specific student''s curriculum or not.';
 COMMENT ON COLUMN sample.MembershipTypeDescriptor.MembershipTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
--- Extended Properties [sample].[ParentAddressExtension] --
-COMMENT ON TABLE sample.ParentAddressExtension IS 'Additional details on the parent''s address.';
-COMMENT ON COLUMN sample.ParentAddressExtension.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
-COMMENT ON COLUMN sample.ParentAddressExtension.City IS 'The name of the city in which an address is located.';
-COMMENT ON COLUMN sample.ParentAddressExtension.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN sample.ParentAddressExtension.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
-COMMENT ON COLUMN sample.ParentAddressExtension.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
-COMMENT ON COLUMN sample.ParentAddressExtension.StreetNumberName IS 'The street number and street name or post office box number of an address.';
-COMMENT ON COLUMN sample.ParentAddressExtension.Complex IS 'The apartment or housing complex name.';
-COMMENT ON COLUMN sample.ParentAddressExtension.OnBusRoute IS 'An indicator if the address is on a bus route.';
-
--- Extended Properties [sample].[ParentAddressSchoolDistrict] --
-COMMENT ON TABLE sample.ParentAddressSchoolDistrict IS 'The school district in which the address is located.';
-COMMENT ON COLUMN sample.ParentAddressSchoolDistrict.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
-COMMENT ON COLUMN sample.ParentAddressSchoolDistrict.City IS 'The name of the city in which an address is located.';
-COMMENT ON COLUMN sample.ParentAddressSchoolDistrict.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN sample.ParentAddressSchoolDistrict.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
-COMMENT ON COLUMN sample.ParentAddressSchoolDistrict.SchoolDistrict IS 'The school district in which the address is located.';
-COMMENT ON COLUMN sample.ParentAddressSchoolDistrict.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
-COMMENT ON COLUMN sample.ParentAddressSchoolDistrict.StreetNumberName IS 'The street number and street name or post office box number of an address.';
-
--- Extended Properties [sample].[ParentAddressTerm] --
-COMMENT ON TABLE sample.ParentAddressTerm IS 'Terms applicable to this address.';
-COMMENT ON COLUMN sample.ParentAddressTerm.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
-COMMENT ON COLUMN sample.ParentAddressTerm.City IS 'The name of the city in which an address is located.';
-COMMENT ON COLUMN sample.ParentAddressTerm.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN sample.ParentAddressTerm.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
-COMMENT ON COLUMN sample.ParentAddressTerm.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
-COMMENT ON COLUMN sample.ParentAddressTerm.StreetNumberName IS 'The street number and street name or post office box number of an address.';
-COMMENT ON COLUMN sample.ParentAddressTerm.TermDescriptorId IS 'Terms applicable to this address.';
-
--- Extended Properties [sample].[ParentAuthor] --
-COMMENT ON TABLE sample.ParentAuthor IS 'The parent''s favorite authors.';
-COMMENT ON COLUMN sample.ParentAuthor.Author IS 'The parent''s favorite authors.';
-COMMENT ON COLUMN sample.ParentAuthor.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-
--- Extended Properties [sample].[ParentCeilingHeight] --
-COMMENT ON TABLE sample.ParentCeilingHeight IS 'The height of the ceiling in the rooms of the parent''s home.';
-COMMENT ON COLUMN sample.ParentCeilingHeight.CeilingHeight IS 'The height of the ceiling in the rooms of the parent''s home.';
-COMMENT ON COLUMN sample.ParentCeilingHeight.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-
--- Extended Properties [sample].[ParentCTEProgram] --
-COMMENT ON TABLE sample.ParentCTEProgram IS 'A CTE program the parent has completed.';
-COMMENT ON COLUMN sample.ParentCTEProgram.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN sample.ParentCTEProgram.CareerPathwayDescriptorId IS 'A sequence of courses within an area of interest that is a student''s educational road map to a chosen career.';
-COMMENT ON COLUMN sample.ParentCTEProgram.CIPCode IS 'Number and description of the CIP code associated with the student''s CTE program.';
-COMMENT ON COLUMN sample.ParentCTEProgram.PrimaryCTEProgramIndicator IS 'A boolean indicator of whether this CTE program is the student''s primary CTE program.';
-COMMENT ON COLUMN sample.ParentCTEProgram.CTEProgramCompletionIndicator IS 'A boolean indicator of whether the student has completed the CTE program.';
-
--- Extended Properties [sample].[ParentEducationContent] --
-COMMENT ON TABLE sample.ParentEducationContent IS 'Education content to which the parent has been referred.';
-COMMENT ON COLUMN sample.ParentEducationContent.ContentIdentifier IS 'A unique identifier for the education content.';
-COMMENT ON COLUMN sample.ParentEducationContent.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-
--- Extended Properties [sample].[ParentExtension] --
-COMMENT ON TABLE sample.ParentExtension IS '';
-COMMENT ON COLUMN sample.ParentExtension.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN sample.ParentExtension.IsSportsFan IS 'An indication as to whether the parent is a sports fan.';
-COMMENT ON COLUMN sample.ParentExtension.CoffeeSpend IS 'How much the parent spends on coffee in a week.';
-COMMENT ON COLUMN sample.ParentExtension.GraduationDate IS 'The date the parent graduated high school.';
-COMMENT ON COLUMN sample.ParentExtension.AverageCarLineWait IS 'The time spent per day waiting in the car line.';
-COMMENT ON COLUMN sample.ParentExtension.LuckyNumber IS 'The parent''s lucky number.';
-COMMENT ON COLUMN sample.ParentExtension.RainCertainty IS 'The percent likelihood that it will rain when the parent volunteers to chaperone a field trip.';
-COMMENT ON COLUMN sample.ParentExtension.PreferredWakeUpTime IS 'The time the parent would prefer to wake up in the morning.';
-COMMENT ON COLUMN sample.ParentExtension.BecameParent IS 'The year in which the parent first became a parent.';
-COMMENT ON COLUMN sample.ParentExtension.GPA IS 'The parent''s high school GPA.';
-COMMENT ON COLUMN sample.ParentExtension.Duration IS 'The amount of time the parent spends reading to his/her children at bedtime.';
-COMMENT ON COLUMN sample.ParentExtension.CredentialFieldDescriptorId IS 'The field in which the parent holds a credential.';
-
--- Extended Properties [sample].[ParentFavoriteBookTitle] --
-COMMENT ON TABLE sample.ParentFavoriteBookTitle IS 'The title of the parent''s favorite book.';
-COMMENT ON COLUMN sample.ParentFavoriteBookTitle.FavoriteBookTitle IS 'The title of the parent''s favorite book.';
-COMMENT ON COLUMN sample.ParentFavoriteBookTitle.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-
--- Extended Properties [sample].[ParentStudentProgramAssociation] --
-COMMENT ON TABLE sample.ParentStudentProgramAssociation IS 'Programs the parent''s child or children are enrolled in for which the parent provides volunteer services.';
-COMMENT ON COLUMN sample.ParentStudentProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
-COMMENT ON COLUMN sample.ParentStudentProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.ParentStudentProgramAssociation.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN sample.ParentStudentProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.ParentStudentProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
-COMMENT ON COLUMN sample.ParentStudentProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
-COMMENT ON COLUMN sample.ParentStudentProgramAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-
--- Extended Properties [sample].[ParentTeacherConference] --
-COMMENT ON TABLE sample.ParentTeacherConference IS 'The parent''s preferred day of the week and time for parent-teacher conferences.';
-COMMENT ON COLUMN sample.ParentTeacherConference.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN sample.ParentTeacherConference.DayOfWeek IS 'The day of the week the parent prefers to meet for parent-teacher conferences.';
-COMMENT ON COLUMN sample.ParentTeacherConference.StartTime IS 'The start time the parent prefers to meet for parent-teacher conferences.';
-COMMENT ON COLUMN sample.ParentTeacherConference.EndTime IS 'The end time the parent prefers to meet for parent-teacher conferences.';
 
 -- Extended Properties [sample].[SchoolCTEProgram] --
 COMMENT ON TABLE sample.SchoolCTEProgram IS 'A CTE program the school is known for.';
@@ -269,6 +269,67 @@ COMMENT ON COLUMN sample.StudentArtProgramAssociationStyle.ProgramName IS 'The f
 COMMENT ON COLUMN sample.StudentArtProgramAssociationStyle.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationStyle.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationStyle.Style IS 'The art style(s) exhibited by the student in the program.';
+
+-- Extended Properties [sample].[StudentContactAssociationDiscipline] --
+COMMENT ON TABLE sample.StudentContactAssociationDiscipline IS 'The type of action used to discipline the student preferred by the contact.';
+COMMENT ON COLUMN sample.StudentContactAssociationDiscipline.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN sample.StudentContactAssociationDiscipline.DisciplineDescriptorId IS 'The type of action used to discipline the student preferred by the contact.';
+COMMENT ON COLUMN sample.StudentContactAssociationDiscipline.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+
+-- Extended Properties [sample].[StudentContactAssociationExtension] --
+COMMENT ON TABLE sample.StudentContactAssociationExtension IS '';
+COMMENT ON COLUMN sample.StudentContactAssociationExtension.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN sample.StudentContactAssociationExtension.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN sample.StudentContactAssociationExtension.PriorContactRestrictions IS 'Previous restrictions for student and/or teacher contact with the individual (e.g., the student may not be picked up by the individual).';
+COMMENT ON COLUMN sample.StudentContactAssociationExtension.BedtimeReader IS 'An indication as to whether the contact regularly reads to the student before bed.';
+COMMENT ON COLUMN sample.StudentContactAssociationExtension.BookBudget IS 'The contact''s estimated monthly budget dedicated to books for the student.';
+COMMENT ON COLUMN sample.StudentContactAssociationExtension.ReadGreenEggsAndHamDate IS 'Date on which the contact first read the student Green Eggs and Ham by Dr. Seuss.';
+COMMENT ON COLUMN sample.StudentContactAssociationExtension.ReadingTimeSpent IS 'The amount of time the contact spends reading to the student each day.';
+COMMENT ON COLUMN sample.StudentContactAssociationExtension.BooksBorrowed IS 'The total number of books the contact has borrowed on behalf of the student to date.';
+COMMENT ON COLUMN sample.StudentContactAssociationExtension.BedtimeReadingRate IS 'The average number of pages the contact reads with the student each day.';
+COMMENT ON COLUMN sample.StudentContactAssociationExtension.LibraryTime IS 'The student''s regularly scheduled library time during the school day.';
+COMMENT ON COLUMN sample.StudentContactAssociationExtension.LibraryVisits IS 'Total number of visits a student is allowed to the library in a single school day.';
+COMMENT ON COLUMN sample.StudentContactAssociationExtension.StudentRead IS 'The year in which the student''s reading habits are being recorded.';
+COMMENT ON COLUMN sample.StudentContactAssociationExtension.LibraryDuration IS 'The actual or estimated number of clock minutes for a given library visit.';
+COMMENT ON COLUMN sample.StudentContactAssociationExtension.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN sample.StudentContactAssociationExtension.InterventionStudyIdentificationCode IS 'A unique number or alphanumeric code assigned to an intervention study.';
+
+-- Extended Properties [sample].[StudentContactAssociationFavoriteBookTitle] --
+COMMENT ON TABLE sample.StudentContactAssociationFavoriteBookTitle IS 'The title of the student''s favorite book.';
+COMMENT ON COLUMN sample.StudentContactAssociationFavoriteBookTitle.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN sample.StudentContactAssociationFavoriteBookTitle.FavoriteBookTitle IS 'The title of the student''s favorite book.';
+COMMENT ON COLUMN sample.StudentContactAssociationFavoriteBookTitle.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+
+-- Extended Properties [sample].[StudentContactAssociationHoursPerWeek] --
+COMMENT ON TABLE sample.StudentContactAssociationHoursPerWeek IS 'Total number of hours per week a student and contact dedicates to reading.';
+COMMENT ON COLUMN sample.StudentContactAssociationHoursPerWeek.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN sample.StudentContactAssociationHoursPerWeek.HoursPerWeek IS 'Total number of hours per week a student and contact dedicates to reading.';
+COMMENT ON COLUMN sample.StudentContactAssociationHoursPerWeek.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+
+-- Extended Properties [sample].[StudentContactAssociationPagesRead] --
+COMMENT ON TABLE sample.StudentContactAssociationPagesRead IS 'Total number of pages the contact has read the student.';
+COMMENT ON COLUMN sample.StudentContactAssociationPagesRead.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN sample.StudentContactAssociationPagesRead.PagesRead IS 'Total number of pages the contact has read the student.';
+COMMENT ON COLUMN sample.StudentContactAssociationPagesRead.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+
+-- Extended Properties [sample].[StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d] --
+COMMENT ON TABLE sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d IS 'A reference to the staff member and education organization assigned to help track the student''s reading abilities with the contact''s involvement.';
+COMMENT ON COLUMN sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d.EmploymentStatusDescriptorId IS 'Reflects the type of employment or contract.';
+COMMENT ON COLUMN sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d.HireDate IS 'The month, day, and year on which an individual was hired for a position.';
+COMMENT ON COLUMN sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
+COMMENT ON COLUMN sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+
+-- Extended Properties [sample].[StudentContactAssociationTelephone] --
+COMMENT ON TABLE sample.StudentContactAssociationTelephone IS 'The preferred telephone number for contact if the person is listed as an emergency contact for the student.';
+COMMENT ON COLUMN sample.StudentContactAssociationTelephone.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN sample.StudentContactAssociationTelephone.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN sample.StudentContactAssociationTelephone.TelephoneNumber IS 'The telephone number including the area code, and extension, if applicable.';
+COMMENT ON COLUMN sample.StudentContactAssociationTelephone.TelephoneNumberTypeDescriptorId IS 'The type of communication number listed for an individual or organization.';
+COMMENT ON COLUMN sample.StudentContactAssociationTelephone.OrderOfPriority IS 'The order of priority assigned to telephone numbers to define which number to attempt first, second, etc.';
+COMMENT ON COLUMN sample.StudentContactAssociationTelephone.TextMessageCapabilityIndicator IS 'An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.';
+COMMENT ON COLUMN sample.StudentContactAssociationTelephone.DoNotPublishIndicator IS 'An indication that the telephone number should not be published.';
 
 -- Extended Properties [sample].[StudentCTEProgramAssociationExtension] --
 COMMENT ON TABLE sample.StudentCTEProgramAssociationExtension IS '';
@@ -404,13 +465,13 @@ COMMENT ON COLUMN sample.StudentGraduationPlanAssociationIndustryCredential.Grad
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationIndustryCredential.IndustryCredential IS 'Industry-recognized credentials the student will have earned at graduation.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationIndustryCredential.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
--- Extended Properties [sample].[StudentGraduationPlanAssociationStudentParentAssociation] --
-COMMENT ON TABLE sample.StudentGraduationPlanAssociationStudentParentAssociation IS 'Parent responsible for graduation plan.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationStudentParentAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationStudentParentAssociation.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationStudentParentAssociation.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationStudentParentAssociation.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationStudentParentAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+-- Extended Properties [sample].[StudentGraduationPlanAssociationStudentContactAssociation] --
+COMMENT ON TABLE sample.StudentGraduationPlanAssociationStudentContactAssociation IS 'Contact responsible for graduation plan.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationStudentContactAssociation.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationStudentContactAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationStudentContactAssociation.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationStudentContactAssociation.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationStudentContactAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [sample].[StudentGraduationPlanAssociationYearsAttended] --
 COMMENT ON TABLE sample.StudentGraduationPlanAssociationYearsAttended IS 'The number of years the student will have attended high school by the time of graduation.';
@@ -419,67 +480,6 @@ COMMENT ON COLUMN sample.StudentGraduationPlanAssociationYearsAttended.Graduatio
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationYearsAttended.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationYearsAttended.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationYearsAttended.YearsAttended IS 'The number of years the student will have attended high school by the time of graduation.';
-
--- Extended Properties [sample].[StudentParentAssociationDiscipline] --
-COMMENT ON TABLE sample.StudentParentAssociationDiscipline IS 'The type of action used to discipline the student preferred by the parent.';
-COMMENT ON COLUMN sample.StudentParentAssociationDiscipline.DisciplineDescriptorId IS 'The type of action used to discipline the student preferred by the parent.';
-COMMENT ON COLUMN sample.StudentParentAssociationDiscipline.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN sample.StudentParentAssociationDiscipline.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-
--- Extended Properties [sample].[StudentParentAssociationExtension] --
-COMMENT ON TABLE sample.StudentParentAssociationExtension IS '';
-COMMENT ON COLUMN sample.StudentParentAssociationExtension.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN sample.StudentParentAssociationExtension.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN sample.StudentParentAssociationExtension.PriorContactRestrictions IS 'Previous restrictions for student and/or teacher contact with the individual (e.g., the student may not be picked up by the individual).';
-COMMENT ON COLUMN sample.StudentParentAssociationExtension.BedtimeReader IS 'An indication as to whether the parent regularly reads to the student before bed.';
-COMMENT ON COLUMN sample.StudentParentAssociationExtension.BookBudget IS 'The parent''s estimated monthly budget dedicated to books for the student.';
-COMMENT ON COLUMN sample.StudentParentAssociationExtension.ReadGreenEggsAndHamDate IS 'Date on which the parent first read the student Green Eggs and Ham by Dr. Seuss.';
-COMMENT ON COLUMN sample.StudentParentAssociationExtension.ReadingTimeSpent IS 'The amount of time the parent spends reading to the student each day.';
-COMMENT ON COLUMN sample.StudentParentAssociationExtension.BooksBorrowed IS 'The total number of books the parent has borrowed on behalf of the student to date.';
-COMMENT ON COLUMN sample.StudentParentAssociationExtension.BedtimeReadingRate IS 'The average number of pages the parent reads with the student each day.';
-COMMENT ON COLUMN sample.StudentParentAssociationExtension.LibraryTime IS 'The student''s regularly scheduled library time during the school day.';
-COMMENT ON COLUMN sample.StudentParentAssociationExtension.LibraryVisits IS 'Total number of visits a student is allowed to the library in a single school day.';
-COMMENT ON COLUMN sample.StudentParentAssociationExtension.StudentRead IS 'The year in which the student''s reading habits are being recorded.';
-COMMENT ON COLUMN sample.StudentParentAssociationExtension.LibraryDuration IS 'The actual or estimated number of clock minutes for a given library visit.';
-COMMENT ON COLUMN sample.StudentParentAssociationExtension.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentParentAssociationExtension.InterventionStudyIdentificationCode IS 'A unique number or alphanumeric code assigned to an intervention study.';
-
--- Extended Properties [sample].[StudentParentAssociationFavoriteBookTitle] --
-COMMENT ON TABLE sample.StudentParentAssociationFavoriteBookTitle IS 'The title of the student''s favorite book.';
-COMMENT ON COLUMN sample.StudentParentAssociationFavoriteBookTitle.FavoriteBookTitle IS 'The title of the student''s favorite book.';
-COMMENT ON COLUMN sample.StudentParentAssociationFavoriteBookTitle.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN sample.StudentParentAssociationFavoriteBookTitle.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-
--- Extended Properties [sample].[StudentParentAssociationHoursPerWeek] --
-COMMENT ON TABLE sample.StudentParentAssociationHoursPerWeek IS 'Total number of hours per week a student and parent dedicates to reading.';
-COMMENT ON COLUMN sample.StudentParentAssociationHoursPerWeek.HoursPerWeek IS 'Total number of hours per week a student and parent dedicates to reading.';
-COMMENT ON COLUMN sample.StudentParentAssociationHoursPerWeek.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN sample.StudentParentAssociationHoursPerWeek.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-
--- Extended Properties [sample].[StudentParentAssociationPagesRead] --
-COMMENT ON TABLE sample.StudentParentAssociationPagesRead IS 'Total number of pages the parent has read the student.';
-COMMENT ON COLUMN sample.StudentParentAssociationPagesRead.PagesRead IS 'Total number of pages the parent has read the student.';
-COMMENT ON COLUMN sample.StudentParentAssociationPagesRead.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN sample.StudentParentAssociationPagesRead.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-
--- Extended Properties [sample].[StudentParentAssociationStaffEducationOrganizationEmploy_c4af0c] --
-COMMENT ON TABLE sample.StudentParentAssociationStaffEducationOrganizationEmploy_c4af0c IS 'A reference to the staff member and education organization assigned to help track the student''s reading abilities with the parent''s involvement.';
-COMMENT ON COLUMN sample.StudentParentAssociationStaffEducationOrganizationEmploy_c4af0c.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentParentAssociationStaffEducationOrganizationEmploy_c4af0c.EmploymentStatusDescriptorId IS 'Reflects the type of employment or contract.';
-COMMENT ON COLUMN sample.StudentParentAssociationStaffEducationOrganizationEmploy_c4af0c.HireDate IS 'The month, day, and year on which an individual was hired for a position.';
-COMMENT ON COLUMN sample.StudentParentAssociationStaffEducationOrganizationEmploy_c4af0c.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN sample.StudentParentAssociationStaffEducationOrganizationEmploy_c4af0c.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN sample.StudentParentAssociationStaffEducationOrganizationEmploy_c4af0c.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-
--- Extended Properties [sample].[StudentParentAssociationTelephone] --
-COMMENT ON TABLE sample.StudentParentAssociationTelephone IS 'The preferred telephone number for contact if the person is listed as an emergency contact for the student.';
-COMMENT ON COLUMN sample.StudentParentAssociationTelephone.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN sample.StudentParentAssociationTelephone.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN sample.StudentParentAssociationTelephone.TelephoneNumber IS 'The telephone number including the area code, and extension, if applicable.';
-COMMENT ON COLUMN sample.StudentParentAssociationTelephone.TelephoneNumberTypeDescriptorId IS 'The type of communication number listed for an individual or organization.';
-COMMENT ON COLUMN sample.StudentParentAssociationTelephone.OrderOfPriority IS 'The order of priority assigned to telephone numbers to define which number to attempt first, second, etc.';
-COMMENT ON COLUMN sample.StudentParentAssociationTelephone.TextMessageCapabilityIndicator IS 'An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.';
-COMMENT ON COLUMN sample.StudentParentAssociationTelephone.DoNotPublishIndicator IS 'An indication that the telephone number should not be published.';
 
 -- Extended Properties [sample].[StudentPet] --
 COMMENT ON TABLE sample.StudentPet IS 'Details about pets in the student''s household.';

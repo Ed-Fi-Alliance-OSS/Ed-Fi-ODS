@@ -113,6 +113,166 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the telephone number should not be published.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteTelephone', @level2type=N'COLUMN', @level2name=N'DoNotPublishIndicator'
 GO
 
+-- Extended Properties [sample].[ContactAddressExtension] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Additional details on the contact''s address.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressExtension'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressExtension', @level2type=N'COLUMN', @level2name=N'AddressTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the city in which an address is located.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressExtension', @level2type=N'COLUMN', @level2name=N'City'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressExtension', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The five or nine digit zip code or overseas postal code portion of an address.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressExtension', @level2type=N'COLUMN', @level2name=N'PostalCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The abbreviation for the state (within the United States) or outlying area in which an address is located.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressExtension', @level2type=N'COLUMN', @level2name=N'StateAbbreviationDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The street number and street name or post office box number of an address.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressExtension', @level2type=N'COLUMN', @level2name=N'StreetNumberName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The apartment or housing complex name.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressExtension', @level2type=N'COLUMN', @level2name=N'Complex'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indicator if the address is on a bus route.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressExtension', @level2type=N'COLUMN', @level2name=N'OnBusRoute'
+GO
+
+-- Extended Properties [sample].[ContactAddressSchoolDistrict] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school district in which the address is located.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressSchoolDistrict'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressSchoolDistrict', @level2type=N'COLUMN', @level2name=N'AddressTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the city in which an address is located.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressSchoolDistrict', @level2type=N'COLUMN', @level2name=N'City'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressSchoolDistrict', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The five or nine digit zip code or overseas postal code portion of an address.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressSchoolDistrict', @level2type=N'COLUMN', @level2name=N'PostalCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school district in which the address is located.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressSchoolDistrict', @level2type=N'COLUMN', @level2name=N'SchoolDistrict'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The abbreviation for the state (within the United States) or outlying area in which an address is located.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressSchoolDistrict', @level2type=N'COLUMN', @level2name=N'StateAbbreviationDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The street number and street name or post office box number of an address.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressSchoolDistrict', @level2type=N'COLUMN', @level2name=N'StreetNumberName'
+GO
+
+-- Extended Properties [sample].[ContactAddressTerm] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Terms applicable to this address.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressTerm'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressTerm', @level2type=N'COLUMN', @level2name=N'AddressTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the city in which an address is located.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressTerm', @level2type=N'COLUMN', @level2name=N'City'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressTerm', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The five or nine digit zip code or overseas postal code portion of an address.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressTerm', @level2type=N'COLUMN', @level2name=N'PostalCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The abbreviation for the state (within the United States) or outlying area in which an address is located.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressTerm', @level2type=N'COLUMN', @level2name=N'StateAbbreviationDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The street number and street name or post office box number of an address.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressTerm', @level2type=N'COLUMN', @level2name=N'StreetNumberName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Terms applicable to this address.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAddressTerm', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
+GO
+
+-- Extended Properties [sample].[ContactAuthor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The contact''s favorite authors.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAuthor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The contact''s favorite authors.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAuthor', @level2type=N'COLUMN', @level2name=N'Author'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactAuthor', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+
+-- Extended Properties [sample].[ContactCeilingHeight] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The height of the ceiling in the rooms of the contact''s home.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactCeilingHeight'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The height of the ceiling in the rooms of the contact''s home.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactCeilingHeight', @level2type=N'COLUMN', @level2name=N'CeilingHeight'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactCeilingHeight', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+
+-- Extended Properties [sample].[ContactCTEProgram] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A CTE program the contact has completed.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactCTEProgram'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactCTEProgram', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A sequence of courses within an area of interest that is a student''s educational road map to a chosen career.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactCTEProgram', @level2type=N'COLUMN', @level2name=N'CareerPathwayDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Number and description of the CIP code associated with the student''s CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactCTEProgram', @level2type=N'COLUMN', @level2name=N'CIPCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A boolean indicator of whether this CTE program is the student''s primary CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactCTEProgram', @level2type=N'COLUMN', @level2name=N'PrimaryCTEProgramIndicator'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A boolean indicator of whether the student has completed the CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactCTEProgram', @level2type=N'COLUMN', @level2name=N'CTEProgramCompletionIndicator'
+GO
+
+-- Extended Properties [sample].[ContactEducationContent] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Education content to which the contact has been referred.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactEducationContent'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactEducationContent', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier for the education content.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactEducationContent', @level2type=N'COLUMN', @level2name=N'ContentIdentifier'
+GO
+
+-- Extended Properties [sample].[ContactExtension] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactExtension'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactExtension', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication as to whether the contact is a sports fan.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactExtension', @level2type=N'COLUMN', @level2name=N'IsSportsFan'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'How much the contact spends on coffee in a week.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactExtension', @level2type=N'COLUMN', @level2name=N'CoffeeSpend'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date the contact graduated high school.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactExtension', @level2type=N'COLUMN', @level2name=N'GraduationDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The time spent per day waiting in the car line.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactExtension', @level2type=N'COLUMN', @level2name=N'AverageCarLineWait'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The contact''s lucky number.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactExtension', @level2type=N'COLUMN', @level2name=N'LuckyNumber'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percent likelihood that it will rain when the contact volunteers to chaperone a field trip.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactExtension', @level2type=N'COLUMN', @level2name=N'RainCertainty'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The time the contact would prefer to wake up in the morning.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactExtension', @level2type=N'COLUMN', @level2name=N'PreferredWakeUpTime'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The year in which the contact first became a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactExtension', @level2type=N'COLUMN', @level2name=N'BecameParent'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The contact''s high school GPA.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactExtension', @level2type=N'COLUMN', @level2name=N'GPA'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The amount of time the contact spends reading to his/her children at bedtime.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactExtension', @level2type=N'COLUMN', @level2name=N'Duration'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The field in which the contact holds a credential.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactExtension', @level2type=N'COLUMN', @level2name=N'CredentialFieldDescriptorId'
+GO
+
+-- Extended Properties [sample].[ContactFavoriteBookTitle] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title of the contact''s favorite book.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactFavoriteBookTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactFavoriteBookTitle', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title of the contact''s favorite book.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactFavoriteBookTitle', @level2type=N'COLUMN', @level2name=N'FavoriteBookTitle'
+GO
+
+-- Extended Properties [sample].[ContactStudentProgramAssociation] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Programs the contact''s child or children are enrolled in for which the contact provides volunteer services.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactStudentProgramAssociation'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'BeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'ProgramEducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'ProgramName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'ProgramTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+
+-- Extended Properties [sample].[ContactTeacherConference] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The contact''s preferred day of the week and time for contact-teacher conferences.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactTeacherConference'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactTeacherConference', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The day of the week the parent prefers to meet for parent-teacher conferences.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactTeacherConference', @level2type=N'COLUMN', @level2name=N'DayOfWeek'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The start time the parent prefers to meet for parent-teacher conferences.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactTeacherConference', @level2type=N'COLUMN', @level2name=N'StartTime'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The end time the parent prefers to meet for parent-teacher conferences.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ContactTeacherConference', @level2type=N'COLUMN', @level2name=N'EndTime'
+GO
+
 -- Extended Properties [sample].[FavoriteBookCategoryDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The category of an individual''s favorite book.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'FavoriteBookCategoryDescriptor'
 GO
@@ -123,166 +283,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Membership Type identifies whether a school has primary responsibility for managing a specific student''s curriculum or not.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'MembershipTypeDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'MembershipTypeDescriptor', @level2type=N'COLUMN', @level2name=N'MembershipTypeDescriptorId'
-GO
-
--- Extended Properties [sample].[ParentAddressExtension] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Additional details on the parent''s address.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressExtension'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressExtension', @level2type=N'COLUMN', @level2name=N'AddressTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the city in which an address is located.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressExtension', @level2type=N'COLUMN', @level2name=N'City'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressExtension', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The five or nine digit zip code or overseas postal code portion of an address.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressExtension', @level2type=N'COLUMN', @level2name=N'PostalCode'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The abbreviation for the state (within the United States) or outlying area in which an address is located.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressExtension', @level2type=N'COLUMN', @level2name=N'StateAbbreviationDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The street number and street name or post office box number of an address.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressExtension', @level2type=N'COLUMN', @level2name=N'StreetNumberName'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The apartment or housing complex name.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressExtension', @level2type=N'COLUMN', @level2name=N'Complex'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indicator if the address is on a bus route.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressExtension', @level2type=N'COLUMN', @level2name=N'OnBusRoute'
-GO
-
--- Extended Properties [sample].[ParentAddressSchoolDistrict] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school district in which the address is located.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressSchoolDistrict'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressSchoolDistrict', @level2type=N'COLUMN', @level2name=N'AddressTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the city in which an address is located.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressSchoolDistrict', @level2type=N'COLUMN', @level2name=N'City'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressSchoolDistrict', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The five or nine digit zip code or overseas postal code portion of an address.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressSchoolDistrict', @level2type=N'COLUMN', @level2name=N'PostalCode'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school district in which the address is located.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressSchoolDistrict', @level2type=N'COLUMN', @level2name=N'SchoolDistrict'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The abbreviation for the state (within the United States) or outlying area in which an address is located.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressSchoolDistrict', @level2type=N'COLUMN', @level2name=N'StateAbbreviationDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The street number and street name or post office box number of an address.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressSchoolDistrict', @level2type=N'COLUMN', @level2name=N'StreetNumberName'
-GO
-
--- Extended Properties [sample].[ParentAddressTerm] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Terms applicable to this address.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressTerm'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressTerm', @level2type=N'COLUMN', @level2name=N'AddressTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the city in which an address is located.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressTerm', @level2type=N'COLUMN', @level2name=N'City'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressTerm', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The five or nine digit zip code or overseas postal code portion of an address.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressTerm', @level2type=N'COLUMN', @level2name=N'PostalCode'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The abbreviation for the state (within the United States) or outlying area in which an address is located.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressTerm', @level2type=N'COLUMN', @level2name=N'StateAbbreviationDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The street number and street name or post office box number of an address.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressTerm', @level2type=N'COLUMN', @level2name=N'StreetNumberName'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Terms applicable to this address.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAddressTerm', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
-GO
-
--- Extended Properties [sample].[ParentAuthor] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The parent''s favorite authors.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAuthor'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The parent''s favorite authors.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAuthor', @level2type=N'COLUMN', @level2name=N'Author'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentAuthor', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-
--- Extended Properties [sample].[ParentCeilingHeight] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The height of the ceiling in the rooms of the parent''s home.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCeilingHeight'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The height of the ceiling in the rooms of the parent''s home.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCeilingHeight', @level2type=N'COLUMN', @level2name=N'CeilingHeight'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCeilingHeight', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-
--- Extended Properties [sample].[ParentCTEProgram] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A CTE program the parent has completed.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCTEProgram'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCTEProgram', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A sequence of courses within an area of interest that is a student''s educational road map to a chosen career.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCTEProgram', @level2type=N'COLUMN', @level2name=N'CareerPathwayDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Number and description of the CIP code associated with the student''s CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCTEProgram', @level2type=N'COLUMN', @level2name=N'CIPCode'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A boolean indicator of whether this CTE program is the student''s primary CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCTEProgram', @level2type=N'COLUMN', @level2name=N'PrimaryCTEProgramIndicator'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A boolean indicator of whether the student has completed the CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCTEProgram', @level2type=N'COLUMN', @level2name=N'CTEProgramCompletionIndicator'
-GO
-
--- Extended Properties [sample].[ParentEducationContent] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Education content to which the parent has been referred.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentEducationContent'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier for the education content.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentEducationContent', @level2type=N'COLUMN', @level2name=N'ContentIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentEducationContent', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-
--- Extended Properties [sample].[ParentExtension] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentExtension'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentExtension', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication as to whether the parent is a sports fan.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentExtension', @level2type=N'COLUMN', @level2name=N'IsSportsFan'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'How much the parent spends on coffee in a week.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentExtension', @level2type=N'COLUMN', @level2name=N'CoffeeSpend'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date the parent graduated high school.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentExtension', @level2type=N'COLUMN', @level2name=N'GraduationDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The time spent per day waiting in the car line.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentExtension', @level2type=N'COLUMN', @level2name=N'AverageCarLineWait'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The parent''s lucky number.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentExtension', @level2type=N'COLUMN', @level2name=N'LuckyNumber'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percent likelihood that it will rain when the parent volunteers to chaperone a field trip.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentExtension', @level2type=N'COLUMN', @level2name=N'RainCertainty'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The time the parent would prefer to wake up in the morning.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentExtension', @level2type=N'COLUMN', @level2name=N'PreferredWakeUpTime'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The year in which the parent first became a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentExtension', @level2type=N'COLUMN', @level2name=N'BecameParent'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The parent''s high school GPA.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentExtension', @level2type=N'COLUMN', @level2name=N'GPA'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The amount of time the parent spends reading to his/her children at bedtime.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentExtension', @level2type=N'COLUMN', @level2name=N'Duration'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The field in which the parent holds a credential.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentExtension', @level2type=N'COLUMN', @level2name=N'CredentialFieldDescriptorId'
-GO
-
--- Extended Properties [sample].[ParentFavoriteBookTitle] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title of the parent''s favorite book.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentFavoriteBookTitle'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title of the parent''s favorite book.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentFavoriteBookTitle', @level2type=N'COLUMN', @level2name=N'FavoriteBookTitle'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentFavoriteBookTitle', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-
--- Extended Properties [sample].[ParentStudentProgramAssociation] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Programs the parent''s child or children are enrolled in for which the parent provides volunteer services.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentStudentProgramAssociation'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'BeginDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'ProgramEducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'ProgramName'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'ProgramTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'StudentUSI'
-GO
-
--- Extended Properties [sample].[ParentTeacherConference] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The parent''s preferred day of the week and time for parent-teacher conferences.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentTeacherConference'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentTeacherConference', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The day of the week the parent prefers to meet for parent-teacher conferences.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentTeacherConference', @level2type=N'COLUMN', @level2name=N'DayOfWeek'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The start time the parent prefers to meet for parent-teacher conferences.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentTeacherConference', @level2type=N'COLUMN', @level2name=N'StartTime'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The end time the parent prefers to meet for parent-teacher conferences.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentTeacherConference', @level2type=N'COLUMN', @level2name=N'EndTime'
 GO
 
 -- Extended Properties [sample].[SchoolCTEProgram] --
@@ -469,6 +469,114 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentArtProgramAssociationStyle', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The art style(s) exhibited by the student in the program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentArtProgramAssociationStyle', @level2type=N'COLUMN', @level2name=N'Style'
+GO
+
+-- Extended Properties [sample].[StudentContactAssociationDiscipline] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of action used to discipline the student preferred by the contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationDiscipline'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationDiscipline', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of action used to discipline the student preferred by the contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationDiscipline', @level2type=N'COLUMN', @level2name=N'DisciplineDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationDiscipline', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+
+-- Extended Properties [sample].[StudentContactAssociationExtension] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationExtension'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationExtension', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationExtension', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Previous restrictions for student and/or teacher contact with the individual (e.g., the student may not be picked up by the individual).', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationExtension', @level2type=N'COLUMN', @level2name=N'PriorContactRestrictions'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication as to whether the contact regularly reads to the student before bed.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationExtension', @level2type=N'COLUMN', @level2name=N'BedtimeReader'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The contact''s estimated monthly budget dedicated to books for the student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationExtension', @level2type=N'COLUMN', @level2name=N'BookBudget'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Date on which the contact first read the student Green Eggs and Ham by Dr. Seuss.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationExtension', @level2type=N'COLUMN', @level2name=N'ReadGreenEggsAndHamDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The amount of time the contact spends reading to the student each day.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationExtension', @level2type=N'COLUMN', @level2name=N'ReadingTimeSpent'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The total number of books the contact has borrowed on behalf of the student to date.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationExtension', @level2type=N'COLUMN', @level2name=N'BooksBorrowed'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The average number of pages the contact reads with the student each day.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationExtension', @level2type=N'COLUMN', @level2name=N'BedtimeReadingRate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The student''s regularly scheduled library time during the school day.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationExtension', @level2type=N'COLUMN', @level2name=N'LibraryTime'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Total number of visits a student is allowed to the library in a single school day.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationExtension', @level2type=N'COLUMN', @level2name=N'LibraryVisits'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The year in which the student''s reading habits are being recorded.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationExtension', @level2type=N'COLUMN', @level2name=N'StudentRead'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The actual or estimated number of clock minutes for a given library visit.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationExtension', @level2type=N'COLUMN', @level2name=N'LibraryDuration'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationExtension', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique number or alphanumeric code assigned to an intervention study.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationExtension', @level2type=N'COLUMN', @level2name=N'InterventionStudyIdentificationCode'
+GO
+
+-- Extended Properties [sample].[StudentContactAssociationFavoriteBookTitle] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title of the student''s favorite book.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationFavoriteBookTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationFavoriteBookTitle', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title of the student''s favorite book.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationFavoriteBookTitle', @level2type=N'COLUMN', @level2name=N'FavoriteBookTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationFavoriteBookTitle', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+
+-- Extended Properties [sample].[StudentContactAssociationHoursPerWeek] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Total number of hours per week a student and contact dedicates to reading.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationHoursPerWeek'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationHoursPerWeek', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Total number of hours per week a student and contact dedicates to reading.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationHoursPerWeek', @level2type=N'COLUMN', @level2name=N'HoursPerWeek'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationHoursPerWeek', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+
+-- Extended Properties [sample].[StudentContactAssociationPagesRead] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Total number of pages the contact has read the student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationPagesRead'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationPagesRead', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Total number of pages the contact has read the student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationPagesRead', @level2type=N'COLUMN', @level2name=N'PagesRead'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationPagesRead', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+
+-- Extended Properties [sample].[StudentContactAssociationStaffEducationOrganizationEmploymentAssociation] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A reference to the staff member and education organization assigned to help track the student''s reading abilities with the contact''s involvement.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationStaffEducationOrganizationEmploymentAssociation'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationStaffEducationOrganizationEmploymentAssociation', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationStaffEducationOrganizationEmploymentAssociation', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Reflects the type of employment or contract.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationStaffEducationOrganizationEmploymentAssociation', @level2type=N'COLUMN', @level2name=N'EmploymentStatusDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which an individual was hired for a position.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationStaffEducationOrganizationEmploymentAssociation', @level2type=N'COLUMN', @level2name=N'HireDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationStaffEducationOrganizationEmploymentAssociation', @level2type=N'COLUMN', @level2name=N'StaffUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationStaffEducationOrganizationEmploymentAssociation', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+
+-- Extended Properties [sample].[StudentContactAssociationTelephone] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The preferred telephone number for contact if the person is listed as an emergency contact for the student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationTelephone'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationTelephone', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationTelephone', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The telephone number including the area code, and extension, if applicable.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationTelephone', @level2type=N'COLUMN', @level2name=N'TelephoneNumber'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of communication number listed for an individual or organization.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationTelephone', @level2type=N'COLUMN', @level2name=N'TelephoneNumberTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The order of priority assigned to telephone numbers to define which number to attempt first, second, etc.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationTelephone', @level2type=N'COLUMN', @level2name=N'OrderOfPriority'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationTelephone', @level2type=N'COLUMN', @level2name=N'TextMessageCapabilityIndicator'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the telephone number should not be published.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentContactAssociationTelephone', @level2type=N'COLUMN', @level2name=N'DoNotPublishIndicator'
 GO
 
 -- Extended Properties [sample].[StudentCTEProgramAssociationExtension] --
@@ -711,18 +819,18 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationIndustryCredential', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
 
--- Extended Properties [sample].[StudentGraduationPlanAssociationStudentParentAssociation] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Parent responsible for graduation plan.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationStudentParentAssociation'
+-- Extended Properties [sample].[StudentGraduationPlanAssociationStudentContactAssociation] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Contact responsible for graduation plan.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationStudentContactAssociation'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationStudentParentAssociation', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationStudentContactAssociation', @level2type=N'COLUMN', @level2name=N'ContactUSI'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of academic plan the student is following for graduation.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationStudentParentAssociation', @level2type=N'COLUMN', @level2name=N'GraduationPlanTypeDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationStudentContactAssociation', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school year the student is expected to graduate.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationStudentParentAssociation', @level2type=N'COLUMN', @level2name=N'GraduationSchoolYear'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of academic plan the student is following for graduation.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationStudentContactAssociation', @level2type=N'COLUMN', @level2name=N'GraduationPlanTypeDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationStudentParentAssociation', @level2type=N'COLUMN', @level2name=N'ParentUSI'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school year the student is expected to graduate.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationStudentContactAssociation', @level2type=N'COLUMN', @level2name=N'GraduationSchoolYear'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationStudentParentAssociation', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationStudentContactAssociation', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
 
 -- Extended Properties [sample].[StudentGraduationPlanAssociationYearsAttended] --
@@ -737,114 +845,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationYearsAttended', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of years the student will have attended high school by the time of graduation.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationYearsAttended', @level2type=N'COLUMN', @level2name=N'YearsAttended'
-GO
-
--- Extended Properties [sample].[StudentParentAssociationDiscipline] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of action used to discipline the student preferred by the parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationDiscipline'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of action used to discipline the student preferred by the parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationDiscipline', @level2type=N'COLUMN', @level2name=N'DisciplineDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationDiscipline', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationDiscipline', @level2type=N'COLUMN', @level2name=N'StudentUSI'
-GO
-
--- Extended Properties [sample].[StudentParentAssociationExtension] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationExtension'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationExtension', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationExtension', @level2type=N'COLUMN', @level2name=N'StudentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Previous restrictions for student and/or teacher contact with the individual (e.g., the student may not be picked up by the individual).', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationExtension', @level2type=N'COLUMN', @level2name=N'PriorContactRestrictions'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication as to whether the parent regularly reads to the student before bed.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationExtension', @level2type=N'COLUMN', @level2name=N'BedtimeReader'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The parent''s estimated monthly budget dedicated to books for the student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationExtension', @level2type=N'COLUMN', @level2name=N'BookBudget'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Date on which the parent first read the student Green Eggs and Ham by Dr. Seuss.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationExtension', @level2type=N'COLUMN', @level2name=N'ReadGreenEggsAndHamDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The amount of time the parent spends reading to the student each day.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationExtension', @level2type=N'COLUMN', @level2name=N'ReadingTimeSpent'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The total number of books the parent has borrowed on behalf of the student to date.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationExtension', @level2type=N'COLUMN', @level2name=N'BooksBorrowed'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The average number of pages the parent reads with the student each day.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationExtension', @level2type=N'COLUMN', @level2name=N'BedtimeReadingRate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The student''s regularly scheduled library time during the school day.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationExtension', @level2type=N'COLUMN', @level2name=N'LibraryTime'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Total number of visits a student is allowed to the library in a single school day.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationExtension', @level2type=N'COLUMN', @level2name=N'LibraryVisits'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The year in which the student''s reading habits are being recorded.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationExtension', @level2type=N'COLUMN', @level2name=N'StudentRead'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The actual or estimated number of clock minutes for a given library visit.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationExtension', @level2type=N'COLUMN', @level2name=N'LibraryDuration'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationExtension', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique number or alphanumeric code assigned to an intervention study.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationExtension', @level2type=N'COLUMN', @level2name=N'InterventionStudyIdentificationCode'
-GO
-
--- Extended Properties [sample].[StudentParentAssociationFavoriteBookTitle] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title of the student''s favorite book.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationFavoriteBookTitle'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title of the student''s favorite book.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationFavoriteBookTitle', @level2type=N'COLUMN', @level2name=N'FavoriteBookTitle'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationFavoriteBookTitle', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationFavoriteBookTitle', @level2type=N'COLUMN', @level2name=N'StudentUSI'
-GO
-
--- Extended Properties [sample].[StudentParentAssociationHoursPerWeek] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Total number of hours per week a student and parent dedicates to reading.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationHoursPerWeek'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Total number of hours per week a student and parent dedicates to reading.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationHoursPerWeek', @level2type=N'COLUMN', @level2name=N'HoursPerWeek'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationHoursPerWeek', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationHoursPerWeek', @level2type=N'COLUMN', @level2name=N'StudentUSI'
-GO
-
--- Extended Properties [sample].[StudentParentAssociationPagesRead] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Total number of pages the parent has read the student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationPagesRead'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Total number of pages the parent has read the student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationPagesRead', @level2type=N'COLUMN', @level2name=N'PagesRead'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationPagesRead', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationPagesRead', @level2type=N'COLUMN', @level2name=N'StudentUSI'
-GO
-
--- Extended Properties [sample].[StudentParentAssociationStaffEducationOrganizationEmploymentAssociation] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A reference to the staff member and education organization assigned to help track the student''s reading abilities with the parent''s involvement.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationStaffEducationOrganizationEmploymentAssociation'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationStaffEducationOrganizationEmploymentAssociation', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Reflects the type of employment or contract.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationStaffEducationOrganizationEmploymentAssociation', @level2type=N'COLUMN', @level2name=N'EmploymentStatusDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which an individual was hired for a position.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationStaffEducationOrganizationEmploymentAssociation', @level2type=N'COLUMN', @level2name=N'HireDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationStaffEducationOrganizationEmploymentAssociation', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationStaffEducationOrganizationEmploymentAssociation', @level2type=N'COLUMN', @level2name=N'StaffUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationStaffEducationOrganizationEmploymentAssociation', @level2type=N'COLUMN', @level2name=N'StudentUSI'
-GO
-
--- Extended Properties [sample].[StudentParentAssociationTelephone] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The preferred telephone number for contact if the person is listed as an emergency contact for the student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationTelephone'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationTelephone', @level2type=N'COLUMN', @level2name=N'ParentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationTelephone', @level2type=N'COLUMN', @level2name=N'StudentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The telephone number including the area code, and extension, if applicable.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationTelephone', @level2type=N'COLUMN', @level2name=N'TelephoneNumber'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of communication number listed for an individual or organization.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationTelephone', @level2type=N'COLUMN', @level2name=N'TelephoneNumberTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The order of priority assigned to telephone numbers to define which number to attempt first, second, etc.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationTelephone', @level2type=N'COLUMN', @level2name=N'OrderOfPriority'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationTelephone', @level2type=N'COLUMN', @level2name=N'TextMessageCapabilityIndicator'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the telephone number should not be published.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentParentAssociationTelephone', @level2type=N'COLUMN', @level2name=N'DoNotPublishIndicator'
 GO
 
 -- Extended Properties [sample].[StudentPet] --

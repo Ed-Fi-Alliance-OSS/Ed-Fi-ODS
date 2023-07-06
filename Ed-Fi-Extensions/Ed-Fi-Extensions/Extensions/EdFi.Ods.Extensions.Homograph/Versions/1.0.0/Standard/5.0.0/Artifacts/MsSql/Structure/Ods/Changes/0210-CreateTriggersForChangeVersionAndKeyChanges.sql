@@ -3,6 +3,19 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
+DROP TRIGGER IF EXISTS [homograph].[homograph_Contact_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [homograph].[homograph_Contact_TR_UpdateChangeVersion] ON [homograph].[Contact] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [homograph].[Contact]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [homograph].[Contact] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 DROP TRIGGER IF EXISTS [homograph].[homograph_Name_TR_UpdateChangeVersion]
 GO
 
@@ -12,19 +25,6 @@ BEGIN
     UPDATE [homograph].[Name]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [homograph].[Name] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-DROP TRIGGER IF EXISTS [homograph].[homograph_Parent_TR_UpdateChangeVersion]
-GO
-
-CREATE TRIGGER [homograph].[homograph_Parent_TR_UpdateChangeVersion] ON [homograph].[Parent] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [homograph].[Parent]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [homograph].[Parent] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO

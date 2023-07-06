@@ -10,32 +10,32 @@
     {
       "aggregateRootEntityName": {
         "schema": "homograph",
-        "name": "Name"
+        "name": "Contact"
       },
       "aggregateEntityNames": [
         {
           "schema": "homograph",
-          "name": "Name"
+          "name": "Contact"
+        },
+        {
+          "schema": "homograph",
+          "name": "ContactAddress"
+        },
+        {
+          "schema": "homograph",
+          "name": "ContactStudentSchoolAssociation"
         }
       ]
     },
     {
       "aggregateRootEntityName": {
         "schema": "homograph",
-        "name": "Parent"
+        "name": "Name"
       },
       "aggregateEntityNames": [
         {
           "schema": "homograph",
-          "name": "Parent"
-        },
-        {
-          "schema": "homograph",
-          "name": "ParentAddress"
-        },
-        {
-          "schema": "homograph",
-          "name": "ParentStudentSchoolAssociation"
+          "name": "Name"
         }
       ]
     },
@@ -118,6 +118,206 @@
   ],
   "aggregateExtensionDefinitions": [],
   "entityDefinitions": [
+    {
+      "schema": "homograph",
+      "name": "Contact",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "Contact_PK",
+          "identifyingPropertyNames": [
+            "ContactFirstName",
+            "ContactLastSurname"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "Contact_PK",
+            "postgreSql": "Contact_PK"
+          }
+        },
+        {
+          "identifierName": "UX_Contact_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_Contact_Id",
+            "postgreSql": "UX_2b5c3d_Id"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "This entity represents an individual for whom instruction, services, and/or care are provided in an early childhood, elementary, or secondary educational program under the jurisdiction of a school, education agency or other institution or program. A student is a person who has been enrolled in a school or other educational institution.",
+      "tableNames": {
+        "sqlServer": "Contact",
+        "postgreSql": "Contact"
+      }
+    },
+    {
+      "schema": "homograph",
+      "name": "ContactAddress",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "City",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 2,
+            "maxLength": 30,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the city in which an address is located.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "City",
+            "postgreSql": "City"
+          }
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "ContactAddress_PK",
+          "identifyingPropertyNames": [
+            "City",
+            "ContactFirstName",
+            "ContactLastSurname"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "ContactAddress_PK",
+            "postgreSql": "ContactAddress_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The set of elements that describes an address, including the street address, city, state, and ZIP code.",
+      "tableNames": {
+        "sqlServer": "ContactAddress",
+        "postgreSql": "ContactAddress"
+      }
+    },
+    {
+      "schema": "homograph",
+      "name": "ContactStudentSchoolAssociation",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "ContactStudentSchoolAssociation_PK",
+          "identifyingPropertyNames": [
+            "ContactFirstName",
+            "ContactLastSurname",
+            "SchoolName",
+            "StudentFirstName",
+            "StudentLastSurname"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "ContactStudentSchoolAssociation_PK",
+            "postgreSql": "ContactStudentSchoolAssociation_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The students association with the contact.",
+      "tableNames": {
+        "sqlServer": "ContactStudentSchoolAssociation",
+        "postgreSql": "ContactStudentSchoolAssociation"
+      }
+    },
     {
       "schema": "homograph",
       "name": "Name",
@@ -242,206 +442,6 @@
       "tableNames": {
         "sqlServer": "Name",
         "postgreSql": "Name"
-      }
-    },
-    {
-      "schema": "homograph",
-      "name": "Parent",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        },
-        {
-          "propertyName": "Id",
-          "propertyType": {
-            "dbType": "Guid",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "Id",
-            "postgreSql": "Id"
-          }
-        },
-        {
-          "propertyName": "LastModifiedDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LastModifiedDate",
-            "postgreSql": "LastModifiedDate"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "Parent_PK",
-          "identifyingPropertyNames": [
-            "ParentFirstName",
-            "ParentLastSurname"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "Parent_PK",
-            "postgreSql": "Parent_PK"
-          }
-        },
-        {
-          "identifierName": "UX_Parent_Id",
-          "identifyingPropertyNames": [
-            "Id"
-          ],
-          "isPrimary": false,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "UX_Parent_Id",
-            "postgreSql": "UX_5f7953_Id"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "This entity represents an individual for whom instruction, services, and/or care are provided in an early childhood, elementary, or secondary educational program under the jurisdiction of a school, education agency or other institution or program. A student is a person who has been enrolled in a school or other educational institution.",
-      "tableNames": {
-        "sqlServer": "Parent",
-        "postgreSql": "Parent"
-      }
-    },
-    {
-      "schema": "homograph",
-      "name": "ParentAddress",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "City",
-          "propertyType": {
-            "dbType": "String",
-            "minLength": 2,
-            "maxLength": 30,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name of the city in which an address is located.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "City",
-            "postgreSql": "City"
-          }
-        },
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "ParentAddress_PK",
-          "identifyingPropertyNames": [
-            "City",
-            "ParentFirstName",
-            "ParentLastSurname"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "ParentAddress_PK",
-            "postgreSql": "ParentAddress_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The set of elements that describes an address, including the street address, city, state, and ZIP code.",
-      "tableNames": {
-        "sqlServer": "ParentAddress",
-        "postgreSql": "ParentAddress"
-      }
-    },
-    {
-      "schema": "homograph",
-      "name": "ParentStudentSchoolAssociation",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "ParentStudentSchoolAssociation_PK",
-          "identifyingPropertyNames": [
-            "ParentFirstName",
-            "ParentLastSurname",
-            "SchoolName",
-            "StudentFirstName",
-            "StudentLastSurname"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "ParentStudentSchoolAssociation_PK",
-            "postgreSql": "ParentStudentSchoolAssociation_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The students association with the parent.",
-      "tableNames": {
-        "sqlServer": "ParentStudentSchoolAssociation",
-        "postgreSql": "ParentStudentSchoolAssociation"
       }
     },
     {
@@ -1168,7 +1168,7 @@
     {
       "fullName": {
         "schema": "homograph",
-        "name": "FK_Parent_Name"
+        "name": "FK_Contact_Name"
       },
       "cardinality": "OneToOne",
       "primaryEntityFullName": {
@@ -1215,11 +1215,11 @@
       ],
       "secondaryEntityFullName": {
         "schema": "homograph",
-        "name": "Parent"
+        "name": "Contact"
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "ParentFirstName",
+          "propertyName": "ContactFirstName",
           "propertyType": {
             "dbType": "String",
             "minLength": 1,
@@ -1232,12 +1232,12 @@
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentFirstName",
-            "postgreSql": "ParentFirstName"
+            "sqlServer": "ContactFirstName",
+            "postgreSql": "ContactFirstName"
           }
         },
         {
-          "propertyName": "ParentLastSurname",
+          "propertyName": "ContactLastSurname",
           "propertyType": {
             "dbType": "String",
             "minLength": 1,
@@ -1250,32 +1250,32 @@
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentLastSurname",
-            "postgreSql": "ParentLastSurname"
+            "sqlServer": "ContactLastSurname",
+            "postgreSql": "ContactLastSurname"
           }
         }
       ],
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_Parent_Name",
-        "postgreSql": "FK_5f7953_Name"
+        "sqlServer": "FK_Contact_Name",
+        "postgreSql": "FK_2b5c3d_Name"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "homograph",
-        "name": "FK_ParentAddress_Parent"
+        "name": "FK_ContactAddress_Contact"
       },
       "cardinality": "OneToOneOrMore",
       "primaryEntityFullName": {
         "schema": "homograph",
-        "name": "Parent"
+        "name": "Contact"
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "ParentFirstName",
+          "propertyName": "ContactFirstName",
           "propertyType": {
             "dbType": "String",
             "minLength": 1,
@@ -1288,12 +1288,12 @@
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentFirstName",
-            "postgreSql": "ParentFirstName"
+            "sqlServer": "ContactFirstName",
+            "postgreSql": "ContactFirstName"
           }
         },
         {
-          "propertyName": "ParentLastSurname",
+          "propertyName": "ContactLastSurname",
           "propertyType": {
             "dbType": "String",
             "minLength": 1,
@@ -1306,18 +1306,18 @@
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentLastSurname",
-            "postgreSql": "ParentLastSurname"
+            "sqlServer": "ContactLastSurname",
+            "postgreSql": "ContactLastSurname"
           }
         }
       ],
       "secondaryEntityFullName": {
         "schema": "homograph",
-        "name": "ParentAddress"
+        "name": "ContactAddress"
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "ParentFirstName",
+          "propertyName": "ContactFirstName",
           "propertyType": {
             "dbType": "String",
             "minLength": 1,
@@ -1330,12 +1330,12 @@
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentFirstName",
-            "postgreSql": "ParentFirstName"
+            "sqlServer": "ContactFirstName",
+            "postgreSql": "ContactFirstName"
           }
         },
         {
-          "propertyName": "ParentLastSurname",
+          "propertyName": "ContactLastSurname",
           "propertyType": {
             "dbType": "String",
             "minLength": 1,
@@ -1348,32 +1348,32 @@
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentLastSurname",
-            "postgreSql": "ParentLastSurname"
+            "sqlServer": "ContactLastSurname",
+            "postgreSql": "ContactLastSurname"
           }
         }
       ],
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ParentAddress_Parent",
-        "postgreSql": "FK_cc3333_Parent"
+        "sqlServer": "FK_ContactAddress_Contact",
+        "postgreSql": "FK_720058_Contact"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "homograph",
-        "name": "FK_ParentStudentSchoolAssociation_Parent"
+        "name": "FK_ContactStudentSchoolAssociation_Contact"
       },
       "cardinality": "OneToOneOrMore",
       "primaryEntityFullName": {
         "schema": "homograph",
-        "name": "Parent"
+        "name": "Contact"
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "ParentFirstName",
+          "propertyName": "ContactFirstName",
           "propertyType": {
             "dbType": "String",
             "minLength": 1,
@@ -1386,12 +1386,12 @@
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentFirstName",
-            "postgreSql": "ParentFirstName"
+            "sqlServer": "ContactFirstName",
+            "postgreSql": "ContactFirstName"
           }
         },
         {
-          "propertyName": "ParentLastSurname",
+          "propertyName": "ContactLastSurname",
           "propertyType": {
             "dbType": "String",
             "minLength": 1,
@@ -1404,18 +1404,18 @@
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentLastSurname",
-            "postgreSql": "ParentLastSurname"
+            "sqlServer": "ContactLastSurname",
+            "postgreSql": "ContactLastSurname"
           }
         }
       ],
       "secondaryEntityFullName": {
         "schema": "homograph",
-        "name": "ParentStudentSchoolAssociation"
+        "name": "ContactStudentSchoolAssociation"
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "ParentFirstName",
+          "propertyName": "ContactFirstName",
           "propertyType": {
             "dbType": "String",
             "minLength": 1,
@@ -1428,12 +1428,12 @@
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentFirstName",
-            "postgreSql": "ParentFirstName"
+            "sqlServer": "ContactFirstName",
+            "postgreSql": "ContactFirstName"
           }
         },
         {
-          "propertyName": "ParentLastSurname",
+          "propertyName": "ContactLastSurname",
           "propertyType": {
             "dbType": "String",
             "minLength": 1,
@@ -1446,23 +1446,23 @@
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentLastSurname",
-            "postgreSql": "ParentLastSurname"
+            "sqlServer": "ContactLastSurname",
+            "postgreSql": "ContactLastSurname"
           }
         }
       ],
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ParentStudentSchoolAssociation_Parent",
-        "postgreSql": "FK_23ef78_Parent"
+        "sqlServer": "FK_ContactStudentSchoolAssociation_Contact",
+        "postgreSql": "FK_bf6531_Contact"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "homograph",
-        "name": "FK_ParentStudentSchoolAssociation_StudentSchoolAssociation"
+        "name": "FK_ContactStudentSchoolAssociation_StudentSchoolAssociation"
       },
       "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
@@ -1527,7 +1527,7 @@
       ],
       "secondaryEntityFullName": {
         "schema": "homograph",
-        "name": "ParentStudentSchoolAssociation"
+        "name": "ContactStudentSchoolAssociation"
       },
       "secondaryEntityProperties": [
         {
@@ -1588,8 +1588,8 @@
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ParentStudentSchoolAssociation_StudentSchoolAssociation",
-        "postgreSql": "FK_23ef78_StudentSchoolAssociation"
+        "sqlServer": "FK_ContactStudentSchoolAssociation_StudentSchoolAssociation",
+        "postgreSql": "FK_bf6531_StudentSchoolAssociation"
       },
       "potentiallyLogical": false
     },

@@ -36,7 +36,7 @@ VALUES
 INSERT INTO [dbo].[ResourceClaims]
     ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES
-    ('parent', 'parent', 'http://ed-fi.org/ods/identity/claims/homograph/parent', @educationOrganizationsResourceClaimId, @applicationId)
+    ('contact', 'contact', 'http://ed-fi.org/ods/identity/claims/homograph/contact', @educationOrganizationsResourceClaimId, @applicationId)
 
 INSERT INTO [dbo].[ResourceClaims]
     ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])

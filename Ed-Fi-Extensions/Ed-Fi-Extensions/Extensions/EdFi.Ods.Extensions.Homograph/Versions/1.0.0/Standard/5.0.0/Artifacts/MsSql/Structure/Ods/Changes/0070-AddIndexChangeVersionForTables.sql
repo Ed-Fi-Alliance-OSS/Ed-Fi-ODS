@@ -4,14 +4,14 @@
 -- See the LICENSE and NOTICES files in the project root for more information.
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'homograph.Name') AND name = N'UX_Name_ChangeVersion')
-    CREATE INDEX [UX_Name_ChangeVersion] ON [homograph].[Name] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'homograph.Contact') AND name = N'UX_Contact_ChangeVersion')
+    CREATE INDEX [UX_Contact_ChangeVersion] ON [homograph].[Contact] ([ChangeVersion] ASC)
     GO
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'homograph.Parent') AND name = N'UX_Parent_ChangeVersion')
-    CREATE INDEX [UX_Parent_ChangeVersion] ON [homograph].[Parent] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'homograph.Name') AND name = N'UX_Name_ChangeVersion')
+    CREATE INDEX [UX_Name_ChangeVersion] ON [homograph].[Name] ([ChangeVersion] ASC)
     GO
 COMMIT
 

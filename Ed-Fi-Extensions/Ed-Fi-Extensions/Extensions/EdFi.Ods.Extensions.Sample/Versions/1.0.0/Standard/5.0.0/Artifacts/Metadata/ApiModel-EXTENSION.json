@@ -151,7 +151,7 @@
         },
         {
           "schema": "sample",
-          "name": "StudentGraduationPlanAssociationStudentParentAssociation"
+          "name": "StudentGraduationPlanAssociationStudentContactAssociation"
         },
         {
           "schema": "sample",
@@ -164,44 +164,44 @@
     {
       "aggregateRootEntityName": {
         "schema": "edfi",
-        "name": "Parent"
+        "name": "Contact"
       },
       "extensionEntityNames": [
         {
           "schema": "sample",
-          "name": "ParentAddressSchoolDistrict"
+          "name": "ContactAddressSchoolDistrict"
         },
         {
           "schema": "sample",
-          "name": "ParentAddressTerm"
+          "name": "ContactAddressTerm"
         },
         {
           "schema": "sample",
-          "name": "ParentAuthor"
+          "name": "ContactAuthor"
         },
         {
           "schema": "sample",
-          "name": "ParentCeilingHeight"
+          "name": "ContactCeilingHeight"
         },
         {
           "schema": "sample",
-          "name": "ParentCTEProgram"
+          "name": "ContactCTEProgram"
         },
         {
           "schema": "sample",
-          "name": "ParentEducationContent"
+          "name": "ContactEducationContent"
         },
         {
           "schema": "sample",
-          "name": "ParentFavoriteBookTitle"
+          "name": "ContactFavoriteBookTitle"
         },
         {
           "schema": "sample",
-          "name": "ParentStudentProgramAssociation"
+          "name": "ContactStudentProgramAssociation"
         },
         {
           "schema": "sample",
-          "name": "ParentTeacherConference"
+          "name": "ContactTeacherConference"
         }
       ]
     },
@@ -268,6 +268,38 @@
     {
       "aggregateRootEntityName": {
         "schema": "edfi",
+        "name": "StudentContactAssociation"
+      },
+      "extensionEntityNames": [
+        {
+          "schema": "sample",
+          "name": "StudentContactAssociationDiscipline"
+        },
+        {
+          "schema": "sample",
+          "name": "StudentContactAssociationFavoriteBookTitle"
+        },
+        {
+          "schema": "sample",
+          "name": "StudentContactAssociationHoursPerWeek"
+        },
+        {
+          "schema": "sample",
+          "name": "StudentContactAssociationPagesRead"
+        },
+        {
+          "schema": "sample",
+          "name": "StudentContactAssociationStaffEducationOrganizationEmploymentAssociation"
+        },
+        {
+          "schema": "sample",
+          "name": "StudentContactAssociationTelephone"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "edfi",
         "name": "StudentEducationOrganizationAssociation"
       },
       "extensionEntityNames": [
@@ -282,38 +314,6 @@
         {
           "schema": "sample",
           "name": "StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed"
-        }
-      ]
-    },
-    {
-      "aggregateRootEntityName": {
-        "schema": "edfi",
-        "name": "StudentParentAssociation"
-      },
-      "extensionEntityNames": [
-        {
-          "schema": "sample",
-          "name": "StudentParentAssociationDiscipline"
-        },
-        {
-          "schema": "sample",
-          "name": "StudentParentAssociationFavoriteBookTitle"
-        },
-        {
-          "schema": "sample",
-          "name": "StudentParentAssociationHoursPerWeek"
-        },
-        {
-          "schema": "sample",
-          "name": "StudentParentAssociationPagesRead"
-        },
-        {
-          "schema": "sample",
-          "name": "StudentParentAssociationStaffEducationOrganizationEmploymentAssociation"
-        },
-        {
-          "schema": "sample",
-          "name": "StudentParentAssociationTelephone"
         }
       ]
     },
@@ -1132,57 +1132,7 @@
     },
     {
       "schema": "sample",
-      "name": "FavoriteBookCategoryDescriptor",
-      "locallyDefinedProperties": [],
-      "identifiers": [
-        {
-          "identifierName": "FavoriteBookCategoryDescriptor_PK",
-          "identifyingPropertyNames": [
-            "FavoriteBookCategoryDescriptorId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "FavoriteBookCategoryDescriptor_PK",
-            "postgreSql": "FavoriteBookCategoryDescriptor_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The category of an individual's favorite book.",
-      "tableNames": {
-        "sqlServer": "FavoriteBookCategoryDescriptor",
-        "postgreSql": "FavoriteBookCategoryDescriptor"
-      }
-    },
-    {
-      "schema": "sample",
-      "name": "MembershipTypeDescriptor",
-      "locallyDefinedProperties": [],
-      "identifiers": [
-        {
-          "identifierName": "MembershipTypeDescriptor_PK",
-          "identifyingPropertyNames": [
-            "MembershipTypeDescriptorId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "MembershipTypeDescriptor_PK",
-            "postgreSql": "MembershipTypeDescriptor_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "Membership Type identifies whether a school has primary responsibility for managing a specific student's curriculum or not.",
-      "tableNames": {
-        "sqlServer": "MembershipTypeDescriptor",
-        "postgreSql": "MembershipTypeDescriptor"
-      }
-    },
-    {
-      "schema": "sample",
-      "name": "ParentAddressExtension",
+      "name": "ContactAddressExtension",
       "locallyDefinedProperties": [
         {
           "propertyName": "Complex",
@@ -1240,11 +1190,11 @@
       ],
       "identifiers": [
         {
-          "identifierName": "ParentAddressExtension_PK",
+          "identifierName": "ContactAddressExtension_PK",
           "identifyingPropertyNames": [
             "AddressTypeDescriptorId",
             "City",
-            "ParentUSI",
+            "ContactUSI",
             "PostalCode",
             "StateAbbreviationDescriptorId",
             "StreetNumberName"
@@ -1252,21 +1202,21 @@
           "isPrimary": true,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "ParentAddressExtension_PK",
-            "postgreSql": "ParentAddressExtension_PK"
+            "sqlServer": "ContactAddressExtension_PK",
+            "postgreSql": "ContactAddressExtension_PK"
           }
         }
       ],
       "isAbstract": false,
-      "description": "Additional details on the parent's address.",
+      "description": "Additional details on the contact's address.",
       "tableNames": {
-        "sqlServer": "ParentAddressExtension",
-        "postgreSql": "ParentAddressExtension"
+        "sqlServer": "ContactAddressExtension",
+        "postgreSql": "ContactAddressExtension"
       }
     },
     {
       "schema": "sample",
-      "name": "ParentAddressSchoolDistrict",
+      "name": "ContactAddressSchoolDistrict",
       "locallyDefinedProperties": [
         {
           "propertyName": "CreateDate",
@@ -1306,11 +1256,11 @@
       ],
       "identifiers": [
         {
-          "identifierName": "ParentAddressSchoolDistrict_PK",
+          "identifierName": "ContactAddressSchoolDistrict_PK",
           "identifyingPropertyNames": [
             "AddressTypeDescriptorId",
             "City",
-            "ParentUSI",
+            "ContactUSI",
             "PostalCode",
             "SchoolDistrict",
             "StateAbbreviationDescriptorId",
@@ -1319,21 +1269,21 @@
           "isPrimary": true,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "ParentAddressSchoolDistrict_PK",
-            "postgreSql": "ParentAddressSchoolDistrict_PK"
+            "sqlServer": "ContactAddressSchoolDistrict_PK",
+            "postgreSql": "ContactAddressSchoolDistrict_PK"
           }
         }
       ],
       "isAbstract": false,
       "description": "The school district in which the address is located.",
       "tableNames": {
-        "sqlServer": "ParentAddressSchoolDistrict",
-        "postgreSql": "ParentAddressSchoolDistrict"
+        "sqlServer": "ContactAddressSchoolDistrict",
+        "postgreSql": "ContactAddressSchoolDistrict"
       }
     },
     {
       "schema": "sample",
-      "name": "ParentAddressTerm",
+      "name": "ContactAddressTerm",
       "locallyDefinedProperties": [
         {
           "propertyName": "CreateDate",
@@ -1355,11 +1305,11 @@
       ],
       "identifiers": [
         {
-          "identifierName": "ParentAddressTerm_PK",
+          "identifierName": "ContactAddressTerm_PK",
           "identifyingPropertyNames": [
             "AddressTypeDescriptorId",
             "City",
-            "ParentUSI",
+            "ContactUSI",
             "PostalCode",
             "StateAbbreviationDescriptorId",
             "StreetNumberName",
@@ -1368,21 +1318,21 @@
           "isPrimary": true,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "ParentAddressTerm_PK",
-            "postgreSql": "ParentAddressTerm_PK"
+            "sqlServer": "ContactAddressTerm_PK",
+            "postgreSql": "ContactAddressTerm_PK"
           }
         }
       ],
       "isAbstract": false,
       "description": "Terms applicable to this address.",
       "tableNames": {
-        "sqlServer": "ParentAddressTerm",
-        "postgreSql": "ParentAddressTerm"
+        "sqlServer": "ContactAddressTerm",
+        "postgreSql": "ContactAddressTerm"
       }
     },
     {
       "schema": "sample",
-      "name": "ParentAuthor",
+      "name": "ContactAuthor",
       "locallyDefinedProperties": [
         {
           "propertyName": "Author",
@@ -1394,7 +1344,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The parent's favorite authors.",
+          "description": "The contact's favorite authors.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -1422,29 +1372,29 @@
       ],
       "identifiers": [
         {
-          "identifierName": "ParentAuthor_PK",
+          "identifierName": "ContactAuthor_PK",
           "identifyingPropertyNames": [
             "Author",
-            "ParentUSI"
+            "ContactUSI"
           ],
           "isPrimary": true,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "ParentAuthor_PK",
-            "postgreSql": "ParentAuthor_PK"
+            "sqlServer": "ContactAuthor_PK",
+            "postgreSql": "ContactAuthor_PK"
           }
         }
       ],
       "isAbstract": false,
-      "description": "The parent's favorite authors.",
+      "description": "The contact's favorite authors.",
       "tableNames": {
-        "sqlServer": "ParentAuthor",
-        "postgreSql": "ParentAuthor"
+        "sqlServer": "ContactAuthor",
+        "postgreSql": "ContactAuthor"
       }
     },
     {
       "schema": "sample",
-      "name": "ParentCeilingHeight",
+      "name": "ContactCeilingHeight",
       "locallyDefinedProperties": [
         {
           "propertyName": "CeilingHeight",
@@ -1455,7 +1405,7 @@
             "scale": 1,
             "isNullable": false
           },
-          "description": "The height of the ceiling in the rooms of the parent's home.",
+          "description": "The height of the ceiling in the rooms of the contact's home.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -1483,29 +1433,29 @@
       ],
       "identifiers": [
         {
-          "identifierName": "ParentCeilingHeight_PK",
+          "identifierName": "ContactCeilingHeight_PK",
           "identifyingPropertyNames": [
             "CeilingHeight",
-            "ParentUSI"
+            "ContactUSI"
           ],
           "isPrimary": true,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "ParentCeilingHeight_PK",
-            "postgreSql": "ParentCeilingHeight_PK"
+            "sqlServer": "ContactCeilingHeight_PK",
+            "postgreSql": "ContactCeilingHeight_PK"
           }
         }
       ],
       "isAbstract": false,
-      "description": "The height of the ceiling in the rooms of the parent's home.",
+      "description": "The height of the ceiling in the rooms of the contact's home.",
       "tableNames": {
-        "sqlServer": "ParentCeilingHeight",
-        "postgreSql": "ParentCeilingHeight"
+        "sqlServer": "ContactCeilingHeight",
+        "postgreSql": "ContactCeilingHeight"
       }
     },
     {
       "schema": "sample",
-      "name": "ParentCTEProgram",
+      "name": "ContactCTEProgram",
       "locallyDefinedProperties": [
         {
           "propertyName": "CIPCode",
@@ -1581,28 +1531,28 @@
       ],
       "identifiers": [
         {
-          "identifierName": "ParentCTEProgram_PK",
+          "identifierName": "ContactCTEProgram_PK",
           "identifyingPropertyNames": [
-            "ParentUSI"
+            "ContactUSI"
           ],
           "isPrimary": true,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "ParentCTEProgram_PK",
-            "postgreSql": "ParentCTEProgram_PK"
+            "sqlServer": "ContactCTEProgram_PK",
+            "postgreSql": "ContactCTEProgram_PK"
           }
         }
       ],
       "isAbstract": false,
-      "description": "A CTE program the parent has completed.",
+      "description": "A CTE program the contact has completed.",
       "tableNames": {
-        "sqlServer": "ParentCTEProgram",
-        "postgreSql": "ParentCTEProgram"
+        "sqlServer": "ContactCTEProgram",
+        "postgreSql": "ContactCTEProgram"
       }
     },
     {
       "schema": "sample",
-      "name": "ParentEducationContent",
+      "name": "ContactEducationContent",
       "locallyDefinedProperties": [
         {
           "propertyName": "CreateDate",
@@ -1624,29 +1574,29 @@
       ],
       "identifiers": [
         {
-          "identifierName": "ParentEducationContent_PK",
+          "identifierName": "ContactEducationContent_PK",
           "identifyingPropertyNames": [
-            "ContentIdentifier",
-            "ParentUSI"
+            "ContactUSI",
+            "ContentIdentifier"
           ],
           "isPrimary": true,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "ParentEducationContent_PK",
-            "postgreSql": "ParentEducationContent_PK"
+            "sqlServer": "ContactEducationContent_PK",
+            "postgreSql": "ContactEducationContent_PK"
           }
         }
       ],
       "isAbstract": false,
-      "description": "Education content to which the parent has been referred.",
+      "description": "Education content to which the contact has been referred.",
       "tableNames": {
-        "sqlServer": "ParentEducationContent",
-        "postgreSql": "ParentEducationContent"
+        "sqlServer": "ContactEducationContent",
+        "postgreSql": "ContactEducationContent"
       }
     },
     {
       "schema": "sample",
-      "name": "ParentExtension",
+      "name": "ContactExtension",
       "locallyDefinedProperties": [
         {
           "propertyName": "AverageCarLineWait",
@@ -1676,7 +1626,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The year in which the parent first became a parent.",
+          "description": "The year in which the contact first became a contact.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -1694,7 +1644,7 @@
             "scale": 4,
             "isNullable": true
           },
-          "description": "How much the parent spends on coffee in a week.",
+          "description": "How much the contact spends on coffee in a week.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -1729,7 +1679,7 @@
             "isNullable": true,
             "minValue": 1
           },
-          "description": "The amount of time the parent spends reading to his/her children at bedtime.",
+          "description": "The amount of time the contact spends reading to his/her children at bedtime.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -1747,7 +1697,7 @@
             "isNullable": true,
             "minValue": 0
           },
-          "description": "The parent's high school GPA.",
+          "description": "The contact's high school GPA.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -1765,7 +1715,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The date the parent graduated high school.",
+          "description": "The date the contact graduated high school.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -1783,7 +1733,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "An indication as to whether the parent is a sports fan.",
+          "description": "An indication as to whether the contact is a sports fan.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -1800,7 +1750,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The parent's lucky number.",
+          "description": "The contact's lucky number.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -1818,7 +1768,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The time the parent would prefer to wake up in the morning.",
+          "description": "The time the contact would prefer to wake up in the morning.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -1836,7 +1786,7 @@
             "scale": 4,
             "isNullable": true
           },
-          "description": "The percent likelihood that it will rain when the parent volunteers to chaperone a field trip.",
+          "description": "The percent likelihood that it will rain when the contact volunteers to chaperone a field trip.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -1847,28 +1797,28 @@
       ],
       "identifiers": [
         {
-          "identifierName": "ParentExtension_PK",
+          "identifierName": "ContactExtension_PK",
           "identifyingPropertyNames": [
-            "ParentUSI"
+            "ContactUSI"
           ],
           "isPrimary": true,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "ParentExtension_PK",
-            "postgreSql": "ParentExtension_PK"
+            "sqlServer": "ContactExtension_PK",
+            "postgreSql": "ContactExtension_PK"
           }
         }
       ],
       "isAbstract": false,
       "description": "",
       "tableNames": {
-        "sqlServer": "ParentExtension",
-        "postgreSql": "ParentExtension"
+        "sqlServer": "ContactExtension",
+        "postgreSql": "ContactExtension"
       }
     },
     {
       "schema": "sample",
-      "name": "ParentFavoriteBookTitle",
+      "name": "ContactFavoriteBookTitle",
       "locallyDefinedProperties": [
         {
           "propertyName": "CreateDate",
@@ -1897,7 +1847,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The title of the parent's favorite book.",
+          "description": "The title of the contact's favorite book.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -1908,29 +1858,29 @@
       ],
       "identifiers": [
         {
-          "identifierName": "ParentFavoriteBookTitle_PK",
+          "identifierName": "ContactFavoriteBookTitle_PK",
           "identifyingPropertyNames": [
-            "FavoriteBookTitle",
-            "ParentUSI"
+            "ContactUSI",
+            "FavoriteBookTitle"
           ],
           "isPrimary": true,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "ParentFavoriteBookTitle_PK",
-            "postgreSql": "ParentFavoriteBookTitle_PK"
+            "sqlServer": "ContactFavoriteBookTitle_PK",
+            "postgreSql": "ContactFavoriteBookTitle_PK"
           }
         }
       ],
       "isAbstract": false,
-      "description": "The title of the parent's favorite book.",
+      "description": "The title of the contact's favorite book.",
       "tableNames": {
-        "sqlServer": "ParentFavoriteBookTitle",
-        "postgreSql": "ParentFavoriteBookTitle"
+        "sqlServer": "ContactFavoriteBookTitle",
+        "postgreSql": "ContactFavoriteBookTitle"
       }
     },
     {
       "schema": "sample",
-      "name": "ParentStudentProgramAssociation",
+      "name": "ContactStudentProgramAssociation",
       "locallyDefinedProperties": [
         {
           "propertyName": "CreateDate",
@@ -1952,11 +1902,11 @@
       ],
       "identifiers": [
         {
-          "identifierName": "ParentStudentProgramAssociation_PK",
+          "identifierName": "ContactStudentProgramAssociation_PK",
           "identifyingPropertyNames": [
             "BeginDate",
+            "ContactUSI",
             "EducationOrganizationId",
-            "ParentUSI",
             "ProgramEducationOrganizationId",
             "ProgramName",
             "ProgramTypeDescriptorId",
@@ -1965,21 +1915,21 @@
           "isPrimary": true,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "ParentStudentProgramAssociation_PK",
-            "postgreSql": "ParentStudentProgramAssociation_PK"
+            "sqlServer": "ContactStudentProgramAssociation_PK",
+            "postgreSql": "ContactStudentProgramAssociation_PK"
           }
         }
       ],
       "isAbstract": false,
-      "description": "Programs the parent's child or children are enrolled in for which the parent provides volunteer services.",
+      "description": "Programs the contact's child or children are enrolled in for which the contact provides volunteer services.",
       "tableNames": {
-        "sqlServer": "ParentStudentProgramAssociation",
-        "postgreSql": "ParentStudentProgramAssociation"
+        "sqlServer": "ContactStudentProgramAssociation",
+        "postgreSql": "ContactStudentProgramAssociation"
       }
     },
     {
       "schema": "sample",
-      "name": "ParentTeacherConference",
+      "name": "ContactTeacherConference",
       "locallyDefinedProperties": [
         {
           "propertyName": "CreateDate",
@@ -2055,23 +2005,73 @@
       ],
       "identifiers": [
         {
-          "identifierName": "ParentTeacherConference_PK",
+          "identifierName": "ContactTeacherConference_PK",
           "identifyingPropertyNames": [
-            "ParentUSI"
+            "ContactUSI"
           ],
           "isPrimary": true,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "ParentTeacherConference_PK",
-            "postgreSql": "ParentTeacherConference_PK"
+            "sqlServer": "ContactTeacherConference_PK",
+            "postgreSql": "ContactTeacherConference_PK"
           }
         }
       ],
       "isAbstract": false,
-      "description": "The parent's preferred day of the week and time for parent-teacher conferences.",
+      "description": "The contact's preferred day of the week and time for contact-teacher conferences.",
       "tableNames": {
-        "sqlServer": "ParentTeacherConference",
-        "postgreSql": "ParentTeacherConference"
+        "sqlServer": "ContactTeacherConference",
+        "postgreSql": "ContactTeacherConference"
+      }
+    },
+    {
+      "schema": "sample",
+      "name": "FavoriteBookCategoryDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "FavoriteBookCategoryDescriptor_PK",
+          "identifyingPropertyNames": [
+            "FavoriteBookCategoryDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "FavoriteBookCategoryDescriptor_PK",
+            "postgreSql": "FavoriteBookCategoryDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The category of an individual's favorite book.",
+      "tableNames": {
+        "sqlServer": "FavoriteBookCategoryDescriptor",
+        "postgreSql": "FavoriteBookCategoryDescriptor"
+      }
+    },
+    {
+      "schema": "sample",
+      "name": "MembershipTypeDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "MembershipTypeDescriptor_PK",
+          "identifyingPropertyNames": [
+            "MembershipTypeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "MembershipTypeDescriptor_PK",
+            "postgreSql": "MembershipTypeDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "Membership Type identifies whether a school has primary responsibility for managing a specific student's curriculum or not.",
+      "tableNames": {
+        "sqlServer": "MembershipTypeDescriptor",
+        "postgreSql": "MembershipTypeDescriptor"
       }
     },
     {
@@ -3106,6 +3106,642 @@
       "tableNames": {
         "sqlServer": "StudentArtProgramAssociationStyle",
         "postgreSql": "StudentArtProgramAssociationStyle"
+      }
+    },
+    {
+      "schema": "sample",
+      "name": "StudentContactAssociationDiscipline",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentContactAssociationDiscipline_PK",
+          "identifyingPropertyNames": [
+            "ContactUSI",
+            "DisciplineDescriptorId",
+            "StudentUSI"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentContactAssociationDiscipline_PK",
+            "postgreSql": "StudentContactAssociationDiscipline_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The type of action used to discipline the student preferred by the contact.",
+      "tableNames": {
+        "sqlServer": "StudentContactAssociationDiscipline",
+        "postgreSql": "StudentContactAssociationDiscipline"
+      }
+    },
+    {
+      "schema": "sample",
+      "name": "StudentContactAssociationExtension",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "BedtimeReader",
+          "propertyType": {
+            "dbType": "Boolean",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "An indication as to whether the contact regularly reads to the student before bed.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BedtimeReader",
+            "postgreSql": "BedtimeReader"
+          }
+        },
+        {
+          "propertyName": "BedtimeReadingRate",
+          "propertyType": {
+            "dbType": "Decimal",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 4,
+            "isNullable": true
+          },
+          "description": "The average number of pages the contact reads with the student each day.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BedtimeReadingRate",
+            "postgreSql": "BedtimeReadingRate"
+          }
+        },
+        {
+          "propertyName": "BookBudget",
+          "propertyType": {
+            "dbType": "Currency",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 19,
+            "scale": 4,
+            "isNullable": true
+          },
+          "description": "The contact's estimated monthly budget dedicated to books for the student.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BookBudget",
+            "postgreSql": "BookBudget"
+          }
+        },
+        {
+          "propertyName": "BooksBorrowed",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The total number of books the contact has borrowed on behalf of the student to date.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BooksBorrowed",
+            "postgreSql": "BooksBorrowed"
+          }
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "LibraryDuration",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true,
+            "minValue": 1
+          },
+          "description": "The actual or estimated number of clock minutes for a given library visit.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LibraryDuration",
+            "postgreSql": "LibraryDuration"
+          }
+        },
+        {
+          "propertyName": "LibraryTime",
+          "propertyType": {
+            "dbType": "Time",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The student's regularly scheduled library time during the school day.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LibraryTime",
+            "postgreSql": "LibraryTime"
+          }
+        },
+        {
+          "propertyName": "LibraryVisits",
+          "propertyType": {
+            "dbType": "Int16",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Total number of visits a student is allowed to the library in a single school day.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LibraryVisits",
+            "postgreSql": "LibraryVisits"
+          }
+        },
+        {
+          "propertyName": "PriorContactRestrictions",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 250,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Previous restrictions for student and/or teacher contact with the individual (e.g., the student may not be picked up by the individual).",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PriorContactRestrictions",
+            "postgreSql": "PriorContactRestrictions"
+          }
+        },
+        {
+          "propertyName": "ReadGreenEggsAndHamDate",
+          "propertyType": {
+            "dbType": "Date",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Date on which the contact first read the student Green Eggs and Ham by Dr. Seuss.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ReadGreenEggsAndHamDate",
+            "postgreSql": "ReadGreenEggsAndHamDate"
+          }
+        },
+        {
+          "propertyName": "ReadingTimeSpent",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 30,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The amount of time the contact spends reading to the student each day.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ReadingTimeSpent",
+            "postgreSql": "ReadingTimeSpent"
+          }
+        },
+        {
+          "propertyName": "StudentRead",
+          "propertyType": {
+            "dbType": "Int16",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The year in which the student's reading habits are being recorded.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentRead",
+            "postgreSql": "StudentRead"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentContactAssociationExtension_PK",
+          "identifyingPropertyNames": [
+            "ContactUSI",
+            "StudentUSI"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentContactAssociationExtension_PK",
+            "postgreSql": "StudentContactAssociationExtension_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "",
+      "tableNames": {
+        "sqlServer": "StudentContactAssociationExtension",
+        "postgreSql": "StudentContactAssociationExtension"
+      }
+    },
+    {
+      "schema": "sample",
+      "name": "StudentContactAssociationFavoriteBookTitle",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "FavoriteBookTitle",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 100,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The title of the student's favorite book.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "FavoriteBookTitle",
+            "postgreSql": "FavoriteBookTitle"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentContactAssociationFavoriteBookTitle_PK",
+          "identifyingPropertyNames": [
+            "ContactUSI",
+            "FavoriteBookTitle",
+            "StudentUSI"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentContactAssociationFavoriteBookTitle_PK",
+            "postgreSql": "StudentContactAssociationFavoriteBookTitle_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The title of the student's favorite book.",
+      "tableNames": {
+        "sqlServer": "StudentContactAssociationFavoriteBookTitle",
+        "postgreSql": "StudentContactAssociationFavoriteBookTitle"
+      }
+    },
+    {
+      "schema": "sample",
+      "name": "StudentContactAssociationHoursPerWeek",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "HoursPerWeek",
+          "propertyType": {
+            "dbType": "Decimal",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 2,
+            "isNullable": false
+          },
+          "description": "Total number of hours per week a student and contact dedicates to reading.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "HoursPerWeek",
+            "postgreSql": "HoursPerWeek"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentContactAssociationHoursPerWeek_PK",
+          "identifyingPropertyNames": [
+            "ContactUSI",
+            "HoursPerWeek",
+            "StudentUSI"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentContactAssociationHoursPerWeek_PK",
+            "postgreSql": "StudentContactAssociationHoursPerWeek_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "Total number of hours per week a student and contact dedicates to reading.",
+      "tableNames": {
+        "sqlServer": "StudentContactAssociationHoursPerWeek",
+        "postgreSql": "StudentContactAssociationHoursPerWeek"
+      }
+    },
+    {
+      "schema": "sample",
+      "name": "StudentContactAssociationPagesRead",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "PagesRead",
+          "propertyType": {
+            "dbType": "Decimal",
+            "maxLength": 0,
+            "precision": 18,
+            "scale": 2,
+            "isNullable": false
+          },
+          "description": "Total number of pages the contact has read the student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PagesRead",
+            "postgreSql": "PagesRead"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentContactAssociationPagesRead_PK",
+          "identifyingPropertyNames": [
+            "ContactUSI",
+            "PagesRead",
+            "StudentUSI"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentContactAssociationPagesRead_PK",
+            "postgreSql": "StudentContactAssociationPagesRead_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "Total number of pages the contact has read the student.",
+      "tableNames": {
+        "sqlServer": "StudentContactAssociationPagesRead",
+        "postgreSql": "StudentContactAssociationPagesRead"
+      }
+    },
+    {
+      "schema": "sample",
+      "name": "StudentContactAssociationStaffEducationOrganizationEmploymentAssociation",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentContactAssociationStaffEducationOrganizationEmploymentAssociation_PK",
+          "identifyingPropertyNames": [
+            "ContactUSI",
+            "EducationOrganizationId",
+            "EmploymentStatusDescriptorId",
+            "HireDate",
+            "StaffUSI",
+            "StudentUSI"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentContactAssociationStaffEducationOrganizationEmploymentAssociation_PK",
+            "postgreSql": "StudentContactAssociationStaffEducationOrganizatio_a92b1d_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "A reference to the staff member and education organization assigned to help track the student's reading abilities with the contact's involvement.",
+      "tableNames": {
+        "sqlServer": "StudentContactAssociationStaffEducationOrganizationEmploymentAssociation",
+        "postgreSql": "StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d"
+      }
+    },
+    {
+      "schema": "sample",
+      "name": "StudentContactAssociationTelephone",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "DoNotPublishIndicator",
+          "propertyType": {
+            "dbType": "Boolean",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "An indication that the telephone number should not be published.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "DoNotPublishIndicator",
+            "postgreSql": "DoNotPublishIndicator"
+          }
+        },
+        {
+          "propertyName": "OrderOfPriority",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true,
+            "minValue": 1
+          },
+          "description": "The order of priority assigned to telephone numbers to define which number to attempt first, second, etc.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "OrderOfPriority",
+            "postgreSql": "OrderOfPriority"
+          }
+        },
+        {
+          "propertyName": "TelephoneNumber",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 24,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The telephone number including the area code, and extension, if applicable.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TelephoneNumber",
+            "postgreSql": "TelephoneNumber"
+          }
+        },
+        {
+          "propertyName": "TextMessageCapabilityIndicator",
+          "propertyType": {
+            "dbType": "Boolean",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TextMessageCapabilityIndicator",
+            "postgreSql": "TextMessageCapabilityIndicator"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentContactAssociationTelephone_PK",
+          "identifyingPropertyNames": [
+            "ContactUSI",
+            "StudentUSI"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentContactAssociationTelephone_PK",
+            "postgreSql": "StudentContactAssociationTelephone_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The preferred telephone number for contact if the person is listed as an emergency contact for the student.",
+      "tableNames": {
+        "sqlServer": "StudentContactAssociationTelephone",
+        "postgreSql": "StudentContactAssociationTelephone"
       }
     },
     {
@@ -4263,7 +4899,7 @@
     },
     {
       "schema": "sample",
-      "name": "StudentGraduationPlanAssociationStudentParentAssociation",
+      "name": "StudentGraduationPlanAssociationStudentContactAssociation",
       "locallyDefinedProperties": [
         {
           "propertyName": "CreateDate",
@@ -4285,27 +4921,27 @@
       ],
       "identifiers": [
         {
-          "identifierName": "StudentGraduationPlanAssociationStudentParentAssociation_PK",
+          "identifierName": "StudentGraduationPlanAssociationStudentContactAssociation_PK",
           "identifyingPropertyNames": [
+            "ContactUSI",
             "EducationOrganizationId",
             "GraduationPlanTypeDescriptorId",
             "GraduationSchoolYear",
-            "ParentUSI",
             "StudentUSI"
           ],
           "isPrimary": true,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "StudentGraduationPlanAssociationStudentParentAssociation_PK",
-            "postgreSql": "StudentGraduationPlanAssociationStudentParentAssociation_PK"
+            "sqlServer": "StudentGraduationPlanAssociationStudentContactAssociation_PK",
+            "postgreSql": "StudentGraduationPlanAssociationStudentContactAssociation_PK"
           }
         }
       ],
       "isAbstract": false,
-      "description": "Parent responsible for graduation plan.",
+      "description": "Contact responsible for graduation plan.",
       "tableNames": {
-        "sqlServer": "StudentGraduationPlanAssociationStudentParentAssociation",
-        "postgreSql": "StudentGraduationPlanAssociationStudentParentAssociation"
+        "sqlServer": "StudentGraduationPlanAssociationStudentContactAssociation",
+        "postgreSql": "StudentGraduationPlanAssociationStudentContactAssociation"
       }
     },
     {
@@ -4371,642 +5007,6 @@
       "tableNames": {
         "sqlServer": "StudentGraduationPlanAssociationYearsAttended",
         "postgreSql": "StudentGraduationPlanAssociationYearsAttended"
-      }
-    },
-    {
-      "schema": "sample",
-      "name": "StudentParentAssociationDiscipline",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "StudentParentAssociationDiscipline_PK",
-          "identifyingPropertyNames": [
-            "DisciplineDescriptorId",
-            "ParentUSI",
-            "StudentUSI"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "StudentParentAssociationDiscipline_PK",
-            "postgreSql": "StudentParentAssociationDiscipline_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The type of action used to discipline the student preferred by the parent.",
-      "tableNames": {
-        "sqlServer": "StudentParentAssociationDiscipline",
-        "postgreSql": "StudentParentAssociationDiscipline"
-      }
-    },
-    {
-      "schema": "sample",
-      "name": "StudentParentAssociationExtension",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "BedtimeReader",
-          "propertyType": {
-            "dbType": "Boolean",
-            "minLength": 0,
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "An indication as to whether the parent regularly reads to the student before bed.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "BedtimeReader",
-            "postgreSql": "BedtimeReader"
-          }
-        },
-        {
-          "propertyName": "BedtimeReadingRate",
-          "propertyType": {
-            "dbType": "Decimal",
-            "minLength": 0,
-            "maxLength": 0,
-            "precision": 5,
-            "scale": 4,
-            "isNullable": true
-          },
-          "description": "The average number of pages the parent reads with the student each day.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "BedtimeReadingRate",
-            "postgreSql": "BedtimeReadingRate"
-          }
-        },
-        {
-          "propertyName": "BookBudget",
-          "propertyType": {
-            "dbType": "Currency",
-            "minLength": 0,
-            "maxLength": 0,
-            "precision": 19,
-            "scale": 4,
-            "isNullable": true
-          },
-          "description": "The parent's estimated monthly budget dedicated to books for the student.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "BookBudget",
-            "postgreSql": "BookBudget"
-          }
-        },
-        {
-          "propertyName": "BooksBorrowed",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The total number of books the parent has borrowed on behalf of the student to date.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "BooksBorrowed",
-            "postgreSql": "BooksBorrowed"
-          }
-        },
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        },
-        {
-          "propertyName": "LibraryDuration",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true,
-            "minValue": 1
-          },
-          "description": "The actual or estimated number of clock minutes for a given library visit.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LibraryDuration",
-            "postgreSql": "LibraryDuration"
-          }
-        },
-        {
-          "propertyName": "LibraryTime",
-          "propertyType": {
-            "dbType": "Time",
-            "minLength": 0,
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The student's regularly scheduled library time during the school day.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LibraryTime",
-            "postgreSql": "LibraryTime"
-          }
-        },
-        {
-          "propertyName": "LibraryVisits",
-          "propertyType": {
-            "dbType": "Int16",
-            "maxLength": 0,
-            "precision": 5,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "Total number of visits a student is allowed to the library in a single school day.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LibraryVisits",
-            "postgreSql": "LibraryVisits"
-          }
-        },
-        {
-          "propertyName": "PriorContactRestrictions",
-          "propertyType": {
-            "dbType": "String",
-            "minLength": 1,
-            "maxLength": 250,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "Previous restrictions for student and/or teacher contact with the individual (e.g., the student may not be picked up by the individual).",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "PriorContactRestrictions",
-            "postgreSql": "PriorContactRestrictions"
-          }
-        },
-        {
-          "propertyName": "ReadGreenEggsAndHamDate",
-          "propertyType": {
-            "dbType": "Date",
-            "minLength": 0,
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "Date on which the parent first read the student Green Eggs and Ham by Dr. Seuss.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ReadGreenEggsAndHamDate",
-            "postgreSql": "ReadGreenEggsAndHamDate"
-          }
-        },
-        {
-          "propertyName": "ReadingTimeSpent",
-          "propertyType": {
-            "dbType": "String",
-            "minLength": 0,
-            "maxLength": 30,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The amount of time the parent spends reading to the student each day.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ReadingTimeSpent",
-            "postgreSql": "ReadingTimeSpent"
-          }
-        },
-        {
-          "propertyName": "StudentRead",
-          "propertyType": {
-            "dbType": "Int16",
-            "minLength": 0,
-            "maxLength": 0,
-            "precision": 5,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The year in which the student's reading habits are being recorded.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentRead",
-            "postgreSql": "StudentRead"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "StudentParentAssociationExtension_PK",
-          "identifyingPropertyNames": [
-            "ParentUSI",
-            "StudentUSI"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "StudentParentAssociationExtension_PK",
-            "postgreSql": "StudentParentAssociationExtension_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "",
-      "tableNames": {
-        "sqlServer": "StudentParentAssociationExtension",
-        "postgreSql": "StudentParentAssociationExtension"
-      }
-    },
-    {
-      "schema": "sample",
-      "name": "StudentParentAssociationFavoriteBookTitle",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        },
-        {
-          "propertyName": "FavoriteBookTitle",
-          "propertyType": {
-            "dbType": "String",
-            "minLength": 0,
-            "maxLength": 100,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The title of the student's favorite book.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "FavoriteBookTitle",
-            "postgreSql": "FavoriteBookTitle"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "StudentParentAssociationFavoriteBookTitle_PK",
-          "identifyingPropertyNames": [
-            "FavoriteBookTitle",
-            "ParentUSI",
-            "StudentUSI"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "StudentParentAssociationFavoriteBookTitle_PK",
-            "postgreSql": "StudentParentAssociationFavoriteBookTitle_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The title of the student's favorite book.",
-      "tableNames": {
-        "sqlServer": "StudentParentAssociationFavoriteBookTitle",
-        "postgreSql": "StudentParentAssociationFavoriteBookTitle"
-      }
-    },
-    {
-      "schema": "sample",
-      "name": "StudentParentAssociationHoursPerWeek",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        },
-        {
-          "propertyName": "HoursPerWeek",
-          "propertyType": {
-            "dbType": "Decimal",
-            "maxLength": 0,
-            "precision": 5,
-            "scale": 2,
-            "isNullable": false
-          },
-          "description": "Total number of hours per week a student and parent dedicates to reading.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "HoursPerWeek",
-            "postgreSql": "HoursPerWeek"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "StudentParentAssociationHoursPerWeek_PK",
-          "identifyingPropertyNames": [
-            "HoursPerWeek",
-            "ParentUSI",
-            "StudentUSI"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "StudentParentAssociationHoursPerWeek_PK",
-            "postgreSql": "StudentParentAssociationHoursPerWeek_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "Total number of hours per week a student and parent dedicates to reading.",
-      "tableNames": {
-        "sqlServer": "StudentParentAssociationHoursPerWeek",
-        "postgreSql": "StudentParentAssociationHoursPerWeek"
-      }
-    },
-    {
-      "schema": "sample",
-      "name": "StudentParentAssociationPagesRead",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        },
-        {
-          "propertyName": "PagesRead",
-          "propertyType": {
-            "dbType": "Decimal",
-            "maxLength": 0,
-            "precision": 18,
-            "scale": 2,
-            "isNullable": false
-          },
-          "description": "Total number of pages the parent has read the student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "PagesRead",
-            "postgreSql": "PagesRead"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "StudentParentAssociationPagesRead_PK",
-          "identifyingPropertyNames": [
-            "PagesRead",
-            "ParentUSI",
-            "StudentUSI"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "StudentParentAssociationPagesRead_PK",
-            "postgreSql": "StudentParentAssociationPagesRead_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "Total number of pages the parent has read the student.",
-      "tableNames": {
-        "sqlServer": "StudentParentAssociationPagesRead",
-        "postgreSql": "StudentParentAssociationPagesRead"
-      }
-    },
-    {
-      "schema": "sample",
-      "name": "StudentParentAssociationStaffEducationOrganizationEmploymentAssociation",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "StudentParentAssociationStaffEducationOrganizationEmploymentAssociation_PK",
-          "identifyingPropertyNames": [
-            "EducationOrganizationId",
-            "EmploymentStatusDescriptorId",
-            "HireDate",
-            "ParentUSI",
-            "StaffUSI",
-            "StudentUSI"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "StudentParentAssociationStaffEducationOrganizationEmploymentAssociation_PK",
-            "postgreSql": "StudentParentAssociationStaffEducationOrganization_c4af0c_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "A reference to the staff member and education organization assigned to help track the student's reading abilities with the parent's involvement.",
-      "tableNames": {
-        "sqlServer": "StudentParentAssociationStaffEducationOrganizationEmploymentAssociation",
-        "postgreSql": "StudentParentAssociationStaffEducationOrganizationEmploy_c4af0c"
-      }
-    },
-    {
-      "schema": "sample",
-      "name": "StudentParentAssociationTelephone",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        },
-        {
-          "propertyName": "DoNotPublishIndicator",
-          "propertyType": {
-            "dbType": "Boolean",
-            "minLength": 0,
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "An indication that the telephone number should not be published.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "DoNotPublishIndicator",
-            "postgreSql": "DoNotPublishIndicator"
-          }
-        },
-        {
-          "propertyName": "OrderOfPriority",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true,
-            "minValue": 1
-          },
-          "description": "The order of priority assigned to telephone numbers to define which number to attempt first, second, etc.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "OrderOfPriority",
-            "postgreSql": "OrderOfPriority"
-          }
-        },
-        {
-          "propertyName": "TelephoneNumber",
-          "propertyType": {
-            "dbType": "String",
-            "minLength": 1,
-            "maxLength": 24,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The telephone number including the area code, and extension, if applicable.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TelephoneNumber",
-            "postgreSql": "TelephoneNumber"
-          }
-        },
-        {
-          "propertyName": "TextMessageCapabilityIndicator",
-          "propertyType": {
-            "dbType": "Boolean",
-            "minLength": 0,
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TextMessageCapabilityIndicator",
-            "postgreSql": "TextMessageCapabilityIndicator"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "StudentParentAssociationTelephone_PK",
-          "identifyingPropertyNames": [
-            "ParentUSI",
-            "StudentUSI"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "StudentParentAssociationTelephone_PK",
-            "postgreSql": "StudentParentAssociationTelephone_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The preferred telephone number for contact if the person is listed as an emergency contact for the student.",
-      "tableNames": {
-        "sqlServer": "StudentParentAssociationTelephone",
-        "postgreSql": "StudentParentAssociationTelephone"
       }
     },
     {
@@ -6264,132 +6264,12 @@
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_FavoriteBookCategoryDescriptor_Descriptor"
-      },
-      "cardinality": "OneToOneInheritance",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "Descriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "DescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "DescriptorId",
-            "postgreSql": "DescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "sample",
-        "name": "FavoriteBookCategoryDescriptor"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "FavoriteBookCategoryDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "FavoriteBookCategoryDescriptorId",
-            "postgreSql": "FavoriteBookCategoryDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_FavoriteBookCategoryDescriptor_Descriptor",
-        "postgreSql": "FK_42666e_Descriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "sample",
-        "name": "FK_MembershipTypeDescriptor_Descriptor"
-      },
-      "cardinality": "OneToOneInheritance",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "Descriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "DescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "DescriptorId",
-            "postgreSql": "DescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "sample",
-        "name": "MembershipTypeDescriptor"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "MembershipTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "MembershipTypeDescriptorId",
-            "postgreSql": "MembershipTypeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_MembershipTypeDescriptor_Descriptor",
-        "postgreSql": "FK_2cdcc2_Descriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "sample",
-        "name": "FK_ParentAddressExtension_ParentAddress"
+        "name": "FK_ContactAddressExtension_ContactAddress"
       },
       "cardinality": "OneToOneExtension",
       "primaryEntityFullName": {
         "schema": "edfi",
-        "name": "ParentAddress"
+        "name": "ContactAddress"
       },
       "primaryEntityProperties": [
         {
@@ -6428,7 +6308,7 @@
           }
         },
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -6436,12 +6316,12 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         },
         {
@@ -6500,7 +6380,7 @@
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "ParentAddressExtension"
+        "name": "ContactAddressExtension"
       },
       "secondaryEntityProperties": [
         {
@@ -6539,7 +6419,7 @@
           }
         },
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -6547,12 +6427,12 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         },
         {
@@ -6612,20 +6492,20 @@
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ParentAddressExtension_ParentAddress",
-        "postgreSql": "FK_6737b9_ParentAddress"
+        "sqlServer": "FK_ContactAddressExtension_ContactAddress",
+        "postgreSql": "FK_f38b55_ContactAddress"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_ParentAddressSchoolDistrict_ParentAddress"
+        "name": "FK_ContactAddressSchoolDistrict_ContactAddress"
       },
       "cardinality": "OneToOneOrMore",
       "primaryEntityFullName": {
         "schema": "edfi",
-        "name": "ParentAddress"
+        "name": "ContactAddress"
       },
       "primaryEntityProperties": [
         {
@@ -6664,7 +6544,7 @@
           }
         },
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -6672,12 +6552,12 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         },
         {
@@ -6736,7 +6616,7 @@
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "ParentAddressSchoolDistrict"
+        "name": "ContactAddressSchoolDistrict"
       },
       "secondaryEntityProperties": [
         {
@@ -6775,7 +6655,7 @@
           }
         },
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -6783,12 +6663,12 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         },
         {
@@ -6848,20 +6728,20 @@
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ParentAddressSchoolDistrict_ParentAddress",
-        "postgreSql": "FK_11ca24_ParentAddress"
+        "sqlServer": "FK_ContactAddressSchoolDistrict_ContactAddress",
+        "postgreSql": "FK_3ee07d_ContactAddress"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_ParentAddressTerm_ParentAddress"
+        "name": "FK_ContactAddressTerm_ContactAddress"
       },
       "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
         "schema": "edfi",
-        "name": "ParentAddress"
+        "name": "ContactAddress"
       },
       "primaryEntityProperties": [
         {
@@ -6900,7 +6780,7 @@
           }
         },
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -6908,12 +6788,12 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         },
         {
@@ -6972,7 +6852,7 @@
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "ParentAddressTerm"
+        "name": "ContactAddressTerm"
       },
       "secondaryEntityProperties": [
         {
@@ -7011,7 +6891,7 @@
           }
         },
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -7019,12 +6899,12 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         },
         {
@@ -7084,15 +6964,15 @@
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ParentAddressTerm_ParentAddress",
-        "postgreSql": "FK_f63230_ParentAddress"
+        "sqlServer": "FK_ContactAddressTerm_ContactAddress",
+        "postgreSql": "FK_c974f1_ContactAddress"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_ParentAddressTerm_TermDescriptor"
+        "name": "FK_ContactAddressTerm_TermDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
@@ -7120,7 +7000,7 @@
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "ParentAddressTerm"
+        "name": "ContactAddressTerm"
       },
       "secondaryEntityProperties": [
         {
@@ -7144,24 +7024,24 @@
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ParentAddressTerm_TermDescriptor",
-        "postgreSql": "FK_f63230_TermDescriptor"
+        "sqlServer": "FK_ContactAddressTerm_TermDescriptor",
+        "postgreSql": "FK_c974f1_TermDescriptor"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_ParentAuthor_Parent"
+        "name": "FK_ContactAuthor_Contact"
       },
       "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
         "schema": "edfi",
-        "name": "Parent"
+        "name": "Contact"
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -7169,22 +7049,22 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
           "isServerAssigned": true,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         }
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "ParentAuthor"
+        "name": "ContactAuthor"
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -7192,36 +7072,36 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         }
       ],
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ParentAuthor_Parent",
-        "postgreSql": "FK_1a4f1a_Parent"
+        "sqlServer": "FK_ContactAuthor_Contact",
+        "postgreSql": "FK_5f4d9a_Contact"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_ParentCeilingHeight_Parent"
+        "name": "FK_ContactCeilingHeight_Contact"
       },
       "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
         "schema": "edfi",
-        "name": "Parent"
+        "name": "Contact"
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -7229,22 +7109,22 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
           "isServerAssigned": true,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         }
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "ParentCeilingHeight"
+        "name": "ContactCeilingHeight"
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -7252,27 +7132,27 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         }
       ],
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ParentCeilingHeight_Parent",
-        "postgreSql": "FK_a2d993_Parent"
+        "sqlServer": "FK_ContactCeilingHeight_Contact",
+        "postgreSql": "FK_3236f2_Contact"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_ParentCTEProgram_CareerPathwayDescriptor"
+        "name": "FK_ContactCTEProgram_CareerPathwayDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
@@ -7300,7 +7180,7 @@
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "ParentCTEProgram"
+        "name": "ContactCTEProgram"
       },
       "secondaryEntityProperties": [
         {
@@ -7324,24 +7204,24 @@
       "isIdentifying": false,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ParentCTEProgram_CareerPathwayDescriptor",
-        "postgreSql": "FK_98fa6d_CareerPathwayDescriptor"
+        "sqlServer": "FK_ContactCTEProgram_CareerPathwayDescriptor",
+        "postgreSql": "FK_17ab0b_CareerPathwayDescriptor"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_ParentCTEProgram_Parent"
+        "name": "FK_ContactCTEProgram_Contact"
       },
       "cardinality": "OneToZeroOrOne",
       "primaryEntityFullName": {
         "schema": "edfi",
-        "name": "Parent"
+        "name": "Contact"
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -7349,22 +7229,22 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
           "isServerAssigned": true,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         }
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "ParentCTEProgram"
+        "name": "ContactCTEProgram"
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -7372,27 +7252,87 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         }
       ],
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ParentCTEProgram_Parent",
-        "postgreSql": "FK_98fa6d_Parent"
+        "sqlServer": "FK_ContactCTEProgram_Contact",
+        "postgreSql": "FK_17ab0b_Contact"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_ParentEducationContent_EducationContent"
+        "name": "FK_ContactEducationContent_Contact"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Contact"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "ContactEducationContent"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_ContactEducationContent_Contact",
+        "postgreSql": "FK_c25b99_Contact"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_ContactEducationContent_EducationContent"
       },
       "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
@@ -7421,7 +7361,7 @@
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "ParentEducationContent"
+        "name": "ContactEducationContent"
       },
       "secondaryEntityProperties": [
         {
@@ -7446,24 +7386,24 @@
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ParentEducationContent_EducationContent",
-        "postgreSql": "FK_542a1f_EducationContent"
+        "sqlServer": "FK_ContactEducationContent_EducationContent",
+        "postgreSql": "FK_c25b99_EducationContent"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_ParentEducationContent_Parent"
+        "name": "FK_ContactExtension_Contact"
       },
-      "cardinality": "OneToZeroOrMore",
+      "cardinality": "OneToOneExtension",
       "primaryEntityFullName": {
         "schema": "edfi",
-        "name": "Parent"
+        "name": "Contact"
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -7471,22 +7411,22 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
           "isServerAssigned": true,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         }
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "ParentEducationContent"
+        "name": "ContactExtension"
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -7494,27 +7434,26 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
-          "isServerAssigned": false,
+          "isServerAssigned": true,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         }
       ],
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ParentEducationContent_Parent",
-        "postgreSql": "FK_542a1f_Parent"
-      },
-      "potentiallyLogical": false
+        "sqlServer": "FK_ContactExtension_Contact",
+        "postgreSql": "FK_9fdf40_Contact"
+      }
     },
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_ParentExtension_CredentialFieldDescriptor"
+        "name": "FK_ContactExtension_CredentialFieldDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
@@ -7542,7 +7481,7 @@
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "ParentExtension"
+        "name": "ContactExtension"
       },
       "secondaryEntityProperties": [
         {
@@ -7554,7 +7493,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The field in which the parent holds a credential.",
+          "description": "The field in which the contact holds a credential.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -7566,83 +7505,24 @@
       "isIdentifying": false,
       "isRequired": false,
       "constraintNames": {
-        "sqlServer": "FK_ParentExtension_CredentialFieldDescriptor",
-        "postgreSql": "FK_32099d_CredentialFieldDescriptor"
+        "sqlServer": "FK_ContactExtension_CredentialFieldDescriptor",
+        "postgreSql": "FK_9fdf40_CredentialFieldDescriptor"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_ParentExtension_Parent"
-      },
-      "cardinality": "OneToOneExtension",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "Parent"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "sample",
-        "name": "ParentExtension"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_ParentExtension_Parent",
-        "postgreSql": "FK_32099d_Parent"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "sample",
-        "name": "FK_ParentFavoriteBookTitle_Parent"
+        "name": "FK_ContactFavoriteBookTitle_Contact"
       },
       "cardinality": "OneToOneOrMore",
       "primaryEntityFullName": {
         "schema": "edfi",
-        "name": "Parent"
+        "name": "Contact"
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -7650,22 +7530,22 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
           "isServerAssigned": true,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         }
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "ParentFavoriteBookTitle"
+        "name": "ContactFavoriteBookTitle"
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -7673,36 +7553,36 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         }
       ],
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ParentFavoriteBookTitle_Parent",
-        "postgreSql": "FK_4157e1_Parent"
+        "sqlServer": "FK_ContactFavoriteBookTitle_Contact",
+        "postgreSql": "FK_1be879_Contact"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_ParentStudentProgramAssociation_Parent"
+        "name": "FK_ContactStudentProgramAssociation_Contact"
       },
       "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
         "schema": "edfi",
-        "name": "Parent"
+        "name": "Contact"
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -7710,22 +7590,22 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
           "isServerAssigned": true,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         }
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "ParentStudentProgramAssociation"
+        "name": "ContactStudentProgramAssociation"
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -7733,27 +7613,27 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         }
       ],
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ParentStudentProgramAssociation_Parent",
-        "postgreSql": "FK_7e8704_Parent"
+        "sqlServer": "FK_ContactStudentProgramAssociation_Contact",
+        "postgreSql": "FK_2c63b6_Contact"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_ParentStudentProgramAssociation_StudentProgramAssociation"
+        "name": "FK_ContactStudentProgramAssociation_StudentProgramAssociation"
       },
       "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
@@ -7868,7 +7748,7 @@
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "ParentStudentProgramAssociation"
+        "name": "ContactStudentProgramAssociation"
       },
       "secondaryEntityProperties": [
         {
@@ -7979,24 +7859,24 @@
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ParentStudentProgramAssociation_StudentProgramAssociation",
-        "postgreSql": "FK_7e8704_StudentProgramAssociation"
+        "sqlServer": "FK_ContactStudentProgramAssociation_StudentProgramAssociation",
+        "postgreSql": "FK_2c63b6_StudentProgramAssociation"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_ParentTeacherConference_Parent"
+        "name": "FK_ContactTeacherConference_Contact"
       },
       "cardinality": "OneToOne",
       "primaryEntityFullName": {
         "schema": "edfi",
-        "name": "Parent"
+        "name": "Contact"
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -8004,22 +7884,22 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
           "isServerAssigned": true,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         }
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "ParentTeacherConference"
+        "name": "ContactTeacherConference"
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "ParentUSI",
+          "propertyName": "ContactUSI",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -8027,20 +7907,140 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique alphanumeric code assigned to a parent.",
+          "description": "A unique alphanumeric code assigned to a contact.",
           "isIdentifying": true,
           "isServerAssigned": true,
           "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
           }
         }
       ],
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ParentTeacherConference_Parent",
-        "postgreSql": "FK_bdba2a_Parent"
+        "sqlServer": "FK_ContactTeacherConference_Contact",
+        "postgreSql": "FK_ad1f57_Contact"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_FavoriteBookCategoryDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "FavoriteBookCategoryDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "FavoriteBookCategoryDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "FavoriteBookCategoryDescriptorId",
+            "postgreSql": "FavoriteBookCategoryDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_FavoriteBookCategoryDescriptor_Descriptor",
+        "postgreSql": "FK_42666e_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_MembershipTypeDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "MembershipTypeDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "MembershipTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "MembershipTypeDescriptorId",
+            "postgreSql": "MembershipTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_MembershipTypeDescriptor_Descriptor",
+        "postgreSql": "FK_2cdcc2_Descriptor"
       },
       "potentiallyLogical": false
     },
@@ -9870,6 +9870,1043 @@
       "constraintNames": {
         "sqlServer": "FK_StudentArtProgramAssociationStyle_StudentArtProgramAssociation",
         "postgreSql": "FK_258568_StudentArtProgramAssociation"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentContactAssociationDiscipline_DisciplineDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "DisciplineDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DisciplineDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "DisciplineDescriptorId",
+            "postgreSql": "DisciplineDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentContactAssociationDiscipline"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "DisciplineDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of action used to discipline the student preferred by the contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "DisciplineDescriptorId",
+            "postgreSql": "DisciplineDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentContactAssociationDiscipline_DisciplineDescriptor",
+        "postgreSql": "FK_3f8f4a_DisciplineDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentContactAssociationDiscipline_StudentContactAssociation"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentContactAssociation"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentContactAssociationDiscipline"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentContactAssociationDiscipline_StudentContactAssociation",
+        "postgreSql": "FK_3f8f4a_StudentContactAssociation"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentContactAssociationExtension_InterventionStudy"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "InterventionStudy"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "InterventionStudyIdentificationCode",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique number or alphanumeric code assigned to an intervention study.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "InterventionStudyIdentificationCode",
+            "postgreSql": "InterventionStudyIdentificationCode"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentContactAssociationExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "InterventionStudyIdentificationCode",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "A unique number or alphanumeric code assigned to an intervention study.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "InterventionStudyIdentificationCode",
+            "postgreSql": "InterventionStudyIdentificationCode"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_StudentContactAssociationExtension_InterventionStudy",
+        "postgreSql": "FK_c098c4_InterventionStudy"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentContactAssociationExtension_StudentContactAssociation"
+      },
+      "cardinality": "OneToOneExtension",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentContactAssociation"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentContactAssociationExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentContactAssociationExtension_StudentContactAssociation",
+        "postgreSql": "FK_c098c4_StudentContactAssociation"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentContactAssociationFavoriteBookTitle_StudentContactAssociation"
+      },
+      "cardinality": "OneToOneOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentContactAssociation"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentContactAssociationFavoriteBookTitle"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentContactAssociationFavoriteBookTitle_StudentContactAssociation",
+        "postgreSql": "FK_a3668c_StudentContactAssociation"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentContactAssociationHoursPerWeek_StudentContactAssociation"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentContactAssociation"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentContactAssociationHoursPerWeek"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentContactAssociationHoursPerWeek_StudentContactAssociation",
+        "postgreSql": "FK_c59fbb_StudentContactAssociation"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentContactAssociationPagesRead_StudentContactAssociation"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentContactAssociation"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentContactAssociationPagesRead"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentContactAssociationPagesRead_StudentContactAssociation",
+        "postgreSql": "FK_1a5c05_StudentContactAssociation"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentContactAssociationStaffEducationOrganizationEmploymentAssociation_StaffEducationOrganizationEmploymentAssociation"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StaffEducationOrganizationEmploymentAssociation"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "EmploymentStatusDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Reflects the type of employment or contract.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EmploymentStatusDescriptorId",
+            "postgreSql": "EmploymentStatusDescriptorId"
+          }
+        },
+        {
+          "propertyName": "HireDate",
+          "propertyType": {
+            "dbType": "Date",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The month, day, and year on which an individual was hired for a position.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "HireDate",
+            "postgreSql": "HireDate"
+          }
+        },
+        {
+          "propertyName": "StaffUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a staff.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffUSI",
+            "postgreSql": "StaffUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentContactAssociationStaffEducationOrganizationEmploymentAssociation"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "EmploymentStatusDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Reflects the type of employment or contract.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EmploymentStatusDescriptorId",
+            "postgreSql": "EmploymentStatusDescriptorId"
+          }
+        },
+        {
+          "propertyName": "HireDate",
+          "propertyType": {
+            "dbType": "Date",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The month, day, and year on which an individual was hired for a position.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "HireDate",
+            "postgreSql": "HireDate"
+          }
+        },
+        {
+          "propertyName": "StaffUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a staff.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffUSI",
+            "postgreSql": "StaffUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentContactAssociationStaffEducationOrganizationEmploymentAssociation_StaffEducationOrganizationEmploymentAssociation",
+        "postgreSql": "FK_a92b1d_StaffEducationOrganizationEmploymentAssociation"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentContactAssociationStaffEducationOrganizationEmploymentAssociation_StudentContactAssociation"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentContactAssociation"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentContactAssociationStaffEducationOrganizationEmploymentAssociation"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentContactAssociationStaffEducationOrganizationEmploymentAssociation_StudentContactAssociation",
+        "postgreSql": "FK_a92b1d_StudentContactAssociation"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentContactAssociationTelephone_StudentContactAssociation"
+      },
+      "cardinality": "OneToZeroOrOne",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentContactAssociation"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentContactAssociationTelephone"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentContactAssociationTelephone_StudentContactAssociation",
+        "postgreSql": "FK_264afd_StudentContactAssociation"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentContactAssociationTelephone_TelephoneNumberTypeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "TelephoneNumberTypeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "TelephoneNumberTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TelephoneNumberTypeDescriptorId",
+            "postgreSql": "TelephoneNumberTypeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentContactAssociationTelephone"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "TelephoneNumberTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of communication number listed for an individual or organization.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TelephoneNumberTypeDescriptorId",
+            "postgreSql": "TelephoneNumberTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentContactAssociationTelephone_TelephoneNumberTypeDescriptor",
+        "postgreSql": "FK_264afd_TelephoneNumberTypeDescriptor"
       },
       "potentiallyLogical": false
     },
@@ -12721,7 +13758,101 @@
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_StudentGraduationPlanAssociationStudentParentAssociation_StudentGraduationPlanAssociation"
+        "name": "FK_StudentGraduationPlanAssociationStudentContactAssociation_StudentContactAssociation"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentContactAssociation"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentGraduationPlanAssociationStudentContactAssociation"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentGraduationPlanAssociationStudentContactAssociation_StudentContactAssociation",
+        "postgreSql": "FK_1475b9_StudentContactAssociation"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentGraduationPlanAssociationStudentContactAssociation_StudentGraduationPlanAssociation"
       },
       "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
@@ -12800,7 +13931,7 @@
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "StudentGraduationPlanAssociationStudentParentAssociation"
+        "name": "StudentGraduationPlanAssociationStudentContactAssociation"
       },
       "secondaryEntityProperties": [
         {
@@ -12875,102 +14006,8 @@
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_StudentGraduationPlanAssociationStudentParentAssociation_StudentGraduationPlanAssociation",
-        "postgreSql": "FK_b25b8d_StudentGraduationPlanAssociation"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "sample",
-        "name": "FK_StudentGraduationPlanAssociationStudentParentAssociation_StudentParentAssociation"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "StudentParentAssociation"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "sample",
-        "name": "StudentGraduationPlanAssociationStudentParentAssociation"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StudentGraduationPlanAssociationStudentParentAssociation_StudentParentAssociation",
-        "postgreSql": "FK_b25b8d_StudentParentAssociation"
+        "sqlServer": "FK_StudentGraduationPlanAssociationStudentContactAssociation_StudentGraduationPlanAssociation",
+        "postgreSql": "FK_1475b9_StudentGraduationPlanAssociation"
       },
       "potentiallyLogical": false
     },
@@ -13133,1043 +14170,6 @@
       "constraintNames": {
         "sqlServer": "FK_StudentGraduationPlanAssociationYearsAttended_StudentGraduationPlanAssociation",
         "postgreSql": "FK_0cf4e1_StudentGraduationPlanAssociation"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "sample",
-        "name": "FK_StudentParentAssociationDiscipline_DisciplineDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "DisciplineDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "DisciplineDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "DisciplineDescriptorId",
-            "postgreSql": "DisciplineDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "sample",
-        "name": "StudentParentAssociationDiscipline"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "DisciplineDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The type of action used to discipline the student preferred by the parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "DisciplineDescriptorId",
-            "postgreSql": "DisciplineDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StudentParentAssociationDiscipline_DisciplineDescriptor",
-        "postgreSql": "FK_99264f_DisciplineDescriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "sample",
-        "name": "FK_StudentParentAssociationDiscipline_StudentParentAssociation"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "StudentParentAssociation"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "sample",
-        "name": "StudentParentAssociationDiscipline"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StudentParentAssociationDiscipline_StudentParentAssociation",
-        "postgreSql": "FK_99264f_StudentParentAssociation"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "sample",
-        "name": "FK_StudentParentAssociationExtension_InterventionStudy"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "InterventionStudy"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "InterventionStudyIdentificationCode",
-          "propertyType": {
-            "dbType": "String",
-            "minLength": 1,
-            "maxLength": 60,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique number or alphanumeric code assigned to an intervention study.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "InterventionStudyIdentificationCode",
-            "postgreSql": "InterventionStudyIdentificationCode"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "sample",
-        "name": "StudentParentAssociationExtension"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "InterventionStudyIdentificationCode",
-          "propertyType": {
-            "dbType": "String",
-            "minLength": 1,
-            "maxLength": 60,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "A unique number or alphanumeric code assigned to an intervention study.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "InterventionStudyIdentificationCode",
-            "postgreSql": "InterventionStudyIdentificationCode"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_StudentParentAssociationExtension_InterventionStudy",
-        "postgreSql": "FK_676aa0_InterventionStudy"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "sample",
-        "name": "FK_StudentParentAssociationExtension_StudentParentAssociation"
-      },
-      "cardinality": "OneToOneExtension",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "StudentParentAssociation"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "sample",
-        "name": "StudentParentAssociationExtension"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StudentParentAssociationExtension_StudentParentAssociation",
-        "postgreSql": "FK_676aa0_StudentParentAssociation"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "sample",
-        "name": "FK_StudentParentAssociationFavoriteBookTitle_StudentParentAssociation"
-      },
-      "cardinality": "OneToOneOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "StudentParentAssociation"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "sample",
-        "name": "StudentParentAssociationFavoriteBookTitle"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StudentParentAssociationFavoriteBookTitle_StudentParentAssociation",
-        "postgreSql": "FK_ff02b3_StudentParentAssociation"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "sample",
-        "name": "FK_StudentParentAssociationHoursPerWeek_StudentParentAssociation"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "StudentParentAssociation"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "sample",
-        "name": "StudentParentAssociationHoursPerWeek"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StudentParentAssociationHoursPerWeek_StudentParentAssociation",
-        "postgreSql": "FK_fd1358_StudentParentAssociation"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "sample",
-        "name": "FK_StudentParentAssociationPagesRead_StudentParentAssociation"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "StudentParentAssociation"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "sample",
-        "name": "StudentParentAssociationPagesRead"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StudentParentAssociationPagesRead_StudentParentAssociation",
-        "postgreSql": "FK_9f4924_StudentParentAssociation"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "sample",
-        "name": "FK_StudentParentAssociationStaffEducationOrganizationEmploymentAssociation_StaffEducationOrganizationEmploymentAssociation"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "StaffEducationOrganizationEmploymentAssociation"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "EmploymentStatusDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Reflects the type of employment or contract.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EmploymentStatusDescriptorId",
-            "postgreSql": "EmploymentStatusDescriptorId"
-          }
-        },
-        {
-          "propertyName": "HireDate",
-          "propertyType": {
-            "dbType": "Date",
-            "minLength": 0,
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The month, day, and year on which an individual was hired for a position.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "HireDate",
-            "postgreSql": "HireDate"
-          }
-        },
-        {
-          "propertyName": "StaffUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a staff.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StaffUSI",
-            "postgreSql": "StaffUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "sample",
-        "name": "StudentParentAssociationStaffEducationOrganizationEmploymentAssociation"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "EmploymentStatusDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Reflects the type of employment or contract.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EmploymentStatusDescriptorId",
-            "postgreSql": "EmploymentStatusDescriptorId"
-          }
-        },
-        {
-          "propertyName": "HireDate",
-          "propertyType": {
-            "dbType": "Date",
-            "minLength": 0,
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The month, day, and year on which an individual was hired for a position.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "HireDate",
-            "postgreSql": "HireDate"
-          }
-        },
-        {
-          "propertyName": "StaffUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a staff.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StaffUSI",
-            "postgreSql": "StaffUSI"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StudentParentAssociationStaffEducationOrganizationEmploymentAssociation_StaffEducationOrganizationEmploymentAssociation",
-        "postgreSql": "FK_c4af0c_StaffEducationOrganizationEmploymentAssociation"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "sample",
-        "name": "FK_StudentParentAssociationStaffEducationOrganizationEmploymentAssociation_StudentParentAssociation"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "StudentParentAssociation"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "sample",
-        "name": "StudentParentAssociationStaffEducationOrganizationEmploymentAssociation"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StudentParentAssociationStaffEducationOrganizationEmploymentAssociation_StudentParentAssociation",
-        "postgreSql": "FK_c4af0c_StudentParentAssociation"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "sample",
-        "name": "FK_StudentParentAssociationTelephone_StudentParentAssociation"
-      },
-      "cardinality": "OneToZeroOrOne",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "StudentParentAssociation"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "sample",
-        "name": "StudentParentAssociationTelephone"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StudentParentAssociationTelephone_StudentParentAssociation",
-        "postgreSql": "FK_dbd162_StudentParentAssociation"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "sample",
-        "name": "FK_StudentParentAssociationTelephone_TelephoneNumberTypeDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "TelephoneNumberTypeDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "TelephoneNumberTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TelephoneNumberTypeDescriptorId",
-            "postgreSql": "TelephoneNumberTypeDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "sample",
-        "name": "StudentParentAssociationTelephone"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "TelephoneNumberTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The type of communication number listed for an individual or organization.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TelephoneNumberTypeDescriptorId",
-            "postgreSql": "TelephoneNumberTypeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StudentParentAssociationTelephone_TelephoneNumberTypeDescriptor",
-        "postgreSql": "FK_dbd162_TelephoneNumberTypeDescriptor"
       },
       "potentiallyLogical": false
     },

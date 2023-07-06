@@ -18,15 +18,15 @@ SELECT @staff207219Usi = StaffUSI
     FROM edfi.Staff
     WHERE StaffUniqueId = '207219'
 
-DECLARE @parent777777Usi INT;
-SELECT @parent777777Usi = ParentUSI
-    FROM edfi.Parent
-    WHERE ParentUniqueId = '777777'
+DECLARE @contact777777Usi INT;
+SELECT @contact777777Usi = ContactUSI
+    FROM edfi.Contact
+    WHERE ContactUniqueId = '777777'
 
-DECLARE @parent778025Usi INT;
-SELECT @parent778025Usi = ParentUSI
-    FROM edfi.Parent
-    WHERE ParentUniqueId = '778025'
+DECLARE @contact778025Usi INT;
+SELECT @contact778025Usi = ContactUSI
+    FROM edfi.Contact
+    WHERE ContactUniqueId = '778025'
 
 DECLARE @student604854Usi INT;
 SELECT @student604854Usi = StudentUSI
@@ -211,8 +211,8 @@ WHERE NOT EXISTS
     FROM sample.StaffExtension se
     WHERE StaffUSI = se.StaffUsi)
 
-INSERT INTO sample.ParentExtension
-    (ParentUSI
+INSERT INTO sample.ContactExtension
+    (ContactUSI
     , IsSportsFan
     , CoffeeSpend
     , GraduationDate
@@ -224,7 +224,7 @@ INSERT INTO sample.ParentExtension
     , GPA
     , Duration)
 SELECT
-    ParentUSI
+    ContactUSI
     , 0
     , NULL
     , NULL
@@ -235,24 +235,24 @@ SELECT
     , NULL
     , NULL
     , NULL
-FROM edfi.Parent
+FROM edfi.Contact
 WHERE NOT EXISTS
-    (SELECT ParentUSI
-    FROM sample.ParentExtension pe
-    WHERE ParentUSI = pe.ParentUSI)
+    (SELECT ContactUSI
+    FROM sample.ContactExtension pe
+    WHERE ContactUSI = pe.ContactUSI)
 
-INSERT INTO sample.ParentFavoriteBookTitle
-    (ParentUSI
+INSERT INTO sample.ContactFavoriteBookTitle
+    (ContactUSI
     , FavoriteBookTitle)
 SELECT
-    ParentUSI
+    ContactUSI
     , 'Green Eggs and Ham'
-FROM edfi.Parent
+FROM edfi.Contact
 
-INSERT INTO sample.ParentAddressExtension
+INSERT INTO sample.ContactAddressExtension
     (AddressTypeDescriptorId
     , City
-    , ParentUSI
+    , ContactUSI
     , PostalCode
     , StateAbbreviationDescriptorId
     , StreetNumberName
@@ -260,25 +260,25 @@ INSERT INTO sample.ParentAddressExtension
 SELECT
     AddressTypeDescriptorId
     , City
-    , ParentUSI
+    , ContactUSI
     , PostalCode
     , StateAbbreviationDescriptorId
     , StreetNumberName
     , 0
-FROM edfi.ParentAddress
+FROM edfi.ContactAddress
 WHERE NOT EXISTS
-    (SELECT ParentUSI
-    FROM sample.ParentAddressExtension pae
+    (SELECT ContactUSI
+    FROM sample.ContactAddressExtension pae
     WHERE AddressTypeDescriptorId = pae.AddressTypeDescriptorId
     AND City = pae.City
-    AND ParentUSI = pae.ParentUSI
+    AND ContactUSI = pae.ContactUSI
     AND PostalCode = pae.PostalCode
     AND StateAbbreviationDescriptorId = pae.StateAbbreviationDescriptorId)
 
-INSERT INTO sample.ParentAddressSchoolDistrict
+INSERT INTO sample.ContactAddressSchoolDistrict
     (AddressTypeDescriptorId
     , City
-    , ParentUSI
+    , ContactUSI
     , PostalCode
     , SchoolDistrict
     , StateAbbreviationDescriptorId
@@ -286,27 +286,27 @@ INSERT INTO sample.ParentAddressSchoolDistrict
 SELECT
     AddressTypeDescriptorId
     , City
-    , ParentUSI
+    , ContactUSI
     , PostalCode
     , 'Original School District'
     , StateAbbreviationDescriptorId
     , StreetNumberName
-FROM sample.ParentAddressExtension
+FROM sample.ContactAddressExtension
 
-INSERT INTO sample.ParentTeacherConference
-    (ParentUSI
+INSERT INTO sample.ContactTeacherConference
+    (ContactUSI
     , [DayOfWeek]
     , StartTime
     , EndTime)
 SELECT
-    ParentUSI
+    ContactUSI
     ,'Monday'
     , '12:00:00'
     , '12:00:00'
-FROM sample.ParentExtension
+FROM sample.ContactExtension
 
-INSERT INTO sample.StudentParentAssociationExtension
-    (ParentUSI
+INSERT INTO sample.StudentContactAssociationExtension
+    (ContactUSI
     , StudentUSI
     , BedtimeReader
     , PriorContactRestrictions
@@ -322,7 +322,7 @@ INSERT INTO sample.StudentParentAssociationExtension
     , EducationOrganizationId
     , InterventionStudyIdentificationCode)
 SELECT
-    ParentUSI
+    ContactUSI
     , StudentUSI
     , 0
     , NULL
@@ -337,24 +337,24 @@ SELECT
     , NULL
     , NULL
     , NULL
-FROM edfi.StudentParentAssociation
+FROM edfi.StudentContactAssociation
 WHERE NOT EXISTS
     (SELECT
-        ParentUSI
+        ContactUSI
         , StudentUSI
-    FROM sample.StudentParentAssociationExtension spa
-    WHERE ParentUSI = spa.ParentUSI
+    FROM sample.StudentContactAssociationExtension spa
+    WHERE ContactUSI = spa.ContactUSI
     AND StudentUSI = spa.StudentUSI)
 
-INSERT INTO sample.StudentParentAssociationFavoriteBookTitle
-    (ParentUSI
+INSERT INTO sample.StudentContactAssociationFavoriteBookTitle
+    (ContactUSI
     , StudentUSI
     , FavoriteBookTitle)
 SELECT
-    ParentUSI
+    ContactUSI
     , StudentUSI
     , 'Green Eggs and Ham'
-FROM edfi.StudentParentAssociation
+FROM edfi.StudentContactAssociation
 
 INSERT INTO sample.StudentSchoolAssociationExtension
     (EntryDate
@@ -550,8 +550,8 @@ INSERT INTO sample.SchoolDirectlyOwnedBus
     , DirectlyOwnedBusId)
 VALUES (@grandBendElementarySchoolId, '602')
 
---- Add extension data for a particular Parent
-UPDATE sample.ParentExtension
+--- Add extension data for a particular Contact
+UPDATE sample.ContactExtension
 SET IsSportsFan = 1
     , CoffeeSpend = 15.50
     , GraduationDate = '1976-04-30'
@@ -562,54 +562,54 @@ SET IsSportsFan = 1
     , BecameParent = 1983
     , GPA = 3.5
     , Duration = 25
-WHERE ParentUSI = @parent777777Usi
+WHERE ContactUSI = @contact777777Usi
 
-UPDATE sample.ParentTeacherConference
+UPDATE sample.ContactTeacherConference
 SET [DayOfWeek] = 'Thursday',
     EndTime = '13:00:00'
-WHERE ParentUSI = @parent777777Usi
+WHERE ContactUSI = @contact777777Usi
 
-INSERT INTO edfi.ParentAddress
+INSERT INTO edfi.ContactAddress
     (AddressTypeDescriptorId
-    , ParentUSI
+    , ContactUSI
     , StreetNumberName
     , City
     , StateAbbreviationDescriptorId
     , PostalCode)
-VALUES (@addressTypeDescriptorId, @parent777777Usi, '123 ABC Street', 'Springfield', @stateAbbreviationDescriptorId, '1111111')
+VALUES (@addressTypeDescriptorId, @contact777777Usi, '123 ABC Street', 'Springfield', @stateAbbreviationDescriptorId, '1111111')
 
-INSERT INTO sample.ParentAuthor
+INSERT INTO sample.ContactAuthor
     (Author
-    , ParentUSI)
-VALUES ('SampleAuthor', @parent777777Usi)
+    , ContactUSI)
+VALUES ('SampleAuthor', @contact777777Usi)
 
-INSERT INTO sample.ParentCeilingHeight
+INSERT INTO sample.ContactCeilingHeight
     (CeilingHeight
-    , ParentUSI)
-VALUES (10.2, @parent777777Usi)
+    , ContactUSI)
+VALUES (10.2, @contact777777Usi)
 
-INSERT INTO sample.ParentCTEProgram
-    (ParentUSI
+INSERT INTO sample.ContactCTEProgram
+    (ContactUSI
     , CareerPathwayDescriptorId
     , CIPCode
     , PrimaryCTEProgramIndicator
     , CTEProgramCompletionIndicator)
-VALUES (@parent777777Usi, @careerPathwayDescriptorId, '13.0301', 0, 1)
+VALUES (@contact777777Usi, @careerPathwayDescriptorId, '13.0301', 0, 1)
 
-INSERT INTO sample.ParentEducationContent
+INSERT INTO sample.ContactEducationContent
     (ContentIdentifier
-    , ParentUSI)
-VALUES (@educationContentIdentifier, @parent777777Usi)
+    , ContactUSI)
+VALUES (@educationContentIdentifier, @contact777777Usi)
 
-INSERT INTO sample.ParentStudentProgramAssociation
+INSERT INTO sample.ContactStudentProgramAssociation
     (BeginDate
     , EducationOrganizationId
-    , ParentUSI
+    , ContactUSI
     , ProgramEducationOrganizationId
     , ProgramName
     , ProgramTypeDescriptorId
     , StudentUSI)
-VALUES (@student604854SPABeginDate, @student604854SPAEducationOrganizationId, @parent777777Usi, @student604854SPAProgramEducationOrganizationId, @student604854SPAProgramName, @student604854SPAProgramTypeDescriptorId, @student604854Usi)
+VALUES (@student604854SPABeginDate, @student604854SPAEducationOrganizationId, @contact777777Usi, @student604854SPAProgramEducationOrganizationId, @student604854SPAProgramName, @student604854SPAProgramTypeDescriptorId, @student604854Usi)
 
 --- Add extension data for a particular Staff member
 UPDATE sample.StaffExtension
@@ -767,13 +767,13 @@ INSERT INTO sample.StudentGraduationPlanAssociationAcademicSubject
     , AcademicSubjectDescriptorId)
 VALUES (@graduationPlanEducationOrganizationId, @graduationPlanTypeDescriptorId, @graduationPlanGraduationSchoolYear, @student604854Usi, @academicSubjectDescriptorId)
 
-INSERT INTO sample.StudentGraduationPlanAssociationStudentParentAssociation
+INSERT INTO sample.StudentGraduationPlanAssociationStudentContactAssociation
     (EducationOrganizationId
     , GraduationPlanTypeDescriptorId
     , GraduationSchoolYear
     , StudentUSI
-    , ParentUSI)
-VALUES (@graduationPlanEducationOrganizationId, @graduationPlanTypeDescriptorId, @graduationPlanGraduationSchoolYear, @student604854Usi, @parent778025Usi)
+    , ContactUSI)
+VALUES (@graduationPlanEducationOrganizationId, @graduationPlanTypeDescriptorId, @graduationPlanGraduationSchoolYear, @student604854Usi, @contact778025Usi)
 
 INSERT INTO sample.StudentGraduationPlanAssociationCareerPathwayCode
     (EducationOrganizationId
@@ -826,8 +826,8 @@ INSERT INTO sample.StudentGraduationPlanAssociationYearsAttended
     , YearsAttended)
 VALUES (@graduationPlanEducationOrganizationId, @graduationPlanTypeDescriptorId, @graduationPlanGraduationSchoolYear, @student604854Usi, 2017)
 
---- Add extension data for a particular StudentParentAssociation
-UPDATE sample.StudentParentAssociationExtension
+--- Add extension data for a particular StudentContactAssociation
+UPDATE sample.StudentContactAssociationExtension
 SET PriorContactRestrictions = 'No Pickup'
     , BedtimeReader = 1
     , BookBudget = 25.00
@@ -840,44 +840,44 @@ SET PriorContactRestrictions = 'No Pickup'
     , StudentRead = 2018
     , LibraryDuration = 45
     , EducationOrganizationId = 255901
-WHERE ParentUSI = @parent777777Usi AND StudentUSI = @student605614Usi
+WHERE ContactUSI = @contact777777Usi AND StudentUSI = @student605614Usi
 
-INSERT INTO sample.StudentParentAssociationDiscipline
-    (ParentUSI
+INSERT INTO sample.StudentContactAssociationDiscipline
+    (ContactUSI
     , StudentUSI
     , DisciplineDescriptorId)
-VALUES (@parent777777Usi, @student605614Usi, @disciplineDescriptorId)
+VALUES (@contact777777Usi, @student605614Usi, @disciplineDescriptorId)
 
-INSERT INTO sample.StudentParentAssociationHoursPerWeek
-    (ParentUSI
+INSERT INTO sample.StudentContactAssociationHoursPerWeek
+    (ContactUSI
     , StudentUSI
     , HoursPerWeek)
-VALUES (@parent777777Usi, @student605614Usi, 14.5)
+VALUES (@contact777777Usi, @student605614Usi, 14.5)
 
-INSERT INTO sample.StudentParentAssociationPagesRead
-    (ParentUSI
+INSERT INTO sample.StudentContactAssociationPagesRead
+    (ContactUSI
     , StudentUSI
     , PagesRead)
-VALUES (@parent777777Usi, @student605614Usi, 567.8)
+VALUES (@contact777777Usi, @student605614Usi, 567.8)
 
-INSERT INTO sample.StudentParentAssociationStaffEducationOrganizationEmploymentAssociation
-    (ParentUSI
+INSERT INTO sample.StudentContactAssociationStaffEducationOrganizationEmploymentAssociation
+    (ContactUSI
     , StudentUSI
     , EducationOrganizationId
     , EmploymentStatusDescriptorId
     , HireDate
     , StaffUSI)
-VALUES (@parent777777Usi, @student605614Usi, @staff207219EmploymentEducationOrganizationId, @staff207219EmploymentStatusDescriptorId, @staff207219EmploymentHireDate, @staff207219EmploymentStaffUSI)
+VALUES (@contact777777Usi, @student605614Usi, @staff207219EmploymentEducationOrganizationId, @staff207219EmploymentStatusDescriptorId, @staff207219EmploymentHireDate, @staff207219EmploymentStaffUSI)
 
-INSERT INTO sample.StudentParentAssociationTelephone
-    (ParentUSI
+INSERT INTO sample.StudentContactAssociationTelephone
+    (ContactUSI
     , StudentUSI
     , TelephoneNumber
     , TelephoneNumberTypeDescriptorId
     , OrderOfPriority
     , TextMessageCapabilityIndicator
     , DoNotPublishIndicator)
-VALUES (@parent777777Usi, @student605614Usi, '123-555-4567', @telephoneNumberTypeDescriptor, 1, 1, 0)
+VALUES (@contact777777Usi, @student605614Usi, '123-555-4567', @telephoneNumberTypeDescriptor, 1, 1, 0)
 
 --- Add extension data to a particular StudentSchoolAssociation
 UPDATE sample.StudentSchoolAssociationExtension

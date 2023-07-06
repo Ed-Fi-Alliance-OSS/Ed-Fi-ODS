@@ -3,29 +3,29 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
+-- Extended Properties [homograph].[Contact] --
+COMMENT ON TABLE homograph.Contact IS 'This entity represents an individual for whom instruction, services, and/or care are provided in an early childhood, elementary, or secondary educational program under the jurisdiction of a school, education agency or other institution or program. A student is a person who has been enrolled in a school or other educational institution.';
+COMMENT ON COLUMN homograph.Contact.ContactFirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
+COMMENT ON COLUMN homograph.Contact.ContactLastSurname IS 'The name borne in common by members of a family.';
+
+-- Extended Properties [homograph].[ContactAddress] --
+COMMENT ON TABLE homograph.ContactAddress IS 'The set of elements that describes an address, including the street address, city, state, and ZIP code.';
+COMMENT ON COLUMN homograph.ContactAddress.City IS 'The name of the city in which an address is located.';
+COMMENT ON COLUMN homograph.ContactAddress.ContactFirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
+COMMENT ON COLUMN homograph.ContactAddress.ContactLastSurname IS 'The name borne in common by members of a family.';
+
+-- Extended Properties [homograph].[ContactStudentSchoolAssociation] --
+COMMENT ON TABLE homograph.ContactStudentSchoolAssociation IS 'The students association with the contact.';
+COMMENT ON COLUMN homograph.ContactStudentSchoolAssociation.ContactFirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
+COMMENT ON COLUMN homograph.ContactStudentSchoolAssociation.ContactLastSurname IS 'The name borne in common by members of a family.';
+COMMENT ON COLUMN homograph.ContactStudentSchoolAssociation.SchoolName IS 'The name of the school.';
+COMMENT ON COLUMN homograph.ContactStudentSchoolAssociation.StudentFirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
+COMMENT ON COLUMN homograph.ContactStudentSchoolAssociation.StudentLastSurname IS 'The name borne in common by members of a family.';
+
 -- Extended Properties [homograph].[Name] --
 COMMENT ON TABLE homograph.Name IS 'The set of elements that comprise a person''s legal name.';
 COMMENT ON COLUMN homograph.Name.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
 COMMENT ON COLUMN homograph.Name.LastSurname IS 'The name borne in common by members of a family.';
-
--- Extended Properties [homograph].[Parent] --
-COMMENT ON TABLE homograph.Parent IS 'This entity represents an individual for whom instruction, services, and/or care are provided in an early childhood, elementary, or secondary educational program under the jurisdiction of a school, education agency or other institution or program. A student is a person who has been enrolled in a school or other educational institution.';
-COMMENT ON COLUMN homograph.Parent.ParentFirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
-COMMENT ON COLUMN homograph.Parent.ParentLastSurname IS 'The name borne in common by members of a family.';
-
--- Extended Properties [homograph].[ParentAddress] --
-COMMENT ON TABLE homograph.ParentAddress IS 'The set of elements that describes an address, including the street address, city, state, and ZIP code.';
-COMMENT ON COLUMN homograph.ParentAddress.City IS 'The name of the city in which an address is located.';
-COMMENT ON COLUMN homograph.ParentAddress.ParentFirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
-COMMENT ON COLUMN homograph.ParentAddress.ParentLastSurname IS 'The name borne in common by members of a family.';
-
--- Extended Properties [homograph].[ParentStudentSchoolAssociation] --
-COMMENT ON TABLE homograph.ParentStudentSchoolAssociation IS 'The students association with the parent.';
-COMMENT ON COLUMN homograph.ParentStudentSchoolAssociation.ParentFirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
-COMMENT ON COLUMN homograph.ParentStudentSchoolAssociation.ParentLastSurname IS 'The name borne in common by members of a family.';
-COMMENT ON COLUMN homograph.ParentStudentSchoolAssociation.SchoolName IS 'The name of the school.';
-COMMENT ON COLUMN homograph.ParentStudentSchoolAssociation.StudentFirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
-COMMENT ON COLUMN homograph.ParentStudentSchoolAssociation.StudentLastSurname IS 'The name borne in common by members of a family.';
 
 -- Extended Properties [homograph].[School] --
 COMMENT ON TABLE homograph.School IS 'This entity represents an educational organization that includes staff and students who participate in classes and educational activity groups.';

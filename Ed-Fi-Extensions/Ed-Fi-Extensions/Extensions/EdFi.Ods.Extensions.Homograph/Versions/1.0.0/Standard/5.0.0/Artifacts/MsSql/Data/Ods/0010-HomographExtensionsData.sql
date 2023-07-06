@@ -18,8 +18,8 @@ IF (@grandBendElementarySchoolId IS NULL OR @student604854Usi IS NULL) RETURN
 
 DECLARE @staffFirstName NVARCHAR(225) = 'StaffFirstName';
 DECLARE @staffLastSurname NVARCHAR(225) = 'StaffLastSurname';
-DECLARE @parentFirstName NVARCHAR(225) = 'ParentFirstName';
-DECLARE @parentLastSurname NVARCHAR(225) = 'ParentLastSurname';
+DECLARE @contactFirstName NVARCHAR(225) = 'ContactFirstName';
+DECLARE @contactLastSurname NVARCHAR(225) = 'ContactLastSurname';
 DECLARE @studentFirstName NVARCHAR(225) = 'StudentFirstName';
 DECLARE @studentLastSurname NVARCHAR(225) = 'StudentLastSurname';
 DECLARE @cityName NVARCHAR(225) = 'CityName';
@@ -30,7 +30,7 @@ INSERT INTO homograph.Name
     (FirstName, LastSurname)
 VALUES
     (@staffFirstName, @staffLastSurname),
-    (@parentFirstName, @parentLastSurname),
+    (@contactFirstName, @contactLastSurname),
     (@studentFirstName, @studentLastSurname)
 
 INSERT INTO homograph.SchoolYearType
@@ -78,17 +78,17 @@ INSERT INTO homograph.StaffStudentSchoolAssociation
 VALUES
     (@staffFirstName, @staffLastSurname, @schoolName, @studentFirstName, @studentLastSurname)
 
-INSERT INTO homograph.Parent
-    (ParentFirstName, ParentLastSurname)
+INSERT INTO homograph.Contact
+    (ContactFirstName, ContactLastSurname)
 VALUES
-    (@parentFirstName, @parentLastSurname)
+    (@contactFirstName, @contactLastSurname)
 
-INSERT INTO homograph.ParentAddress
-    (ParentFirstName, ParentLastSurname, City)
+INSERT INTO homograph.ContactAddress
+    (ContactFirstName, ContactLastSurname, City)
 VALUES
-    (@parentFirstName, @parentLastSurname, @cityName)
+    (@contactFirstName, @contactLastSurname, @cityName)
 
-INSERT INTO homograph.ParentStudentSchoolAssociation
-    (ParentFirstName, ParentLastSurname, SchoolName, StudentFirstName, StudentLastSurname)
+INSERT INTO homograph.ContactStudentSchoolAssociation
+    (ContactFirstName, ContactLastSurname, SchoolName, StudentFirstName, StudentLastSurname)
 VALUES
-    (@parentFirstName, @parentLastSurname, @schoolName, @studentFirstName, @studentLastSurname)
+    (@contactFirstName, @contactLastSurname, @schoolName, @studentFirstName, @studentLastSurname)

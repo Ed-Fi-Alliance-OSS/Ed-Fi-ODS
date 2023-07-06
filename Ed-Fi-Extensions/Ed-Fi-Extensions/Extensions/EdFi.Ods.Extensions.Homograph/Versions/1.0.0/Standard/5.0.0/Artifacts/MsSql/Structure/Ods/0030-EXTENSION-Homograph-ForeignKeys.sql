@@ -3,35 +3,35 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-ALTER TABLE [homograph].[Parent] WITH CHECK ADD CONSTRAINT [FK_Parent_Name] FOREIGN KEY ([ParentFirstName], [ParentLastSurname])
+ALTER TABLE [homograph].[Contact] WITH CHECK ADD CONSTRAINT [FK_Contact_Name] FOREIGN KEY ([ContactFirstName], [ContactLastSurname])
 REFERENCES [homograph].[Name] ([FirstName], [LastSurname])
 GO
 
-ALTER TABLE [homograph].[ParentAddress] WITH CHECK ADD CONSTRAINT [FK_ParentAddress_Parent] FOREIGN KEY ([ParentFirstName], [ParentLastSurname])
-REFERENCES [homograph].[Parent] ([ParentFirstName], [ParentLastSurname])
+ALTER TABLE [homograph].[ContactAddress] WITH CHECK ADD CONSTRAINT [FK_ContactAddress_Contact] FOREIGN KEY ([ContactFirstName], [ContactLastSurname])
+REFERENCES [homograph].[Contact] ([ContactFirstName], [ContactLastSurname])
 ON DELETE CASCADE
 GO
 
-CREATE NONCLUSTERED INDEX [FK_ParentAddress_Parent]
-ON [homograph].[ParentAddress] ([ParentFirstName] ASC, [ParentLastSurname] ASC)
+CREATE NONCLUSTERED INDEX [FK_ContactAddress_Contact]
+ON [homograph].[ContactAddress] ([ContactFirstName] ASC, [ContactLastSurname] ASC)
 GO
 
-ALTER TABLE [homograph].[ParentStudentSchoolAssociation] WITH CHECK ADD CONSTRAINT [FK_ParentStudentSchoolAssociation_Parent] FOREIGN KEY ([ParentFirstName], [ParentLastSurname])
-REFERENCES [homograph].[Parent] ([ParentFirstName], [ParentLastSurname])
+ALTER TABLE [homograph].[ContactStudentSchoolAssociation] WITH CHECK ADD CONSTRAINT [FK_ContactStudentSchoolAssociation_Contact] FOREIGN KEY ([ContactFirstName], [ContactLastSurname])
+REFERENCES [homograph].[Contact] ([ContactFirstName], [ContactLastSurname])
 ON DELETE CASCADE
 GO
 
-CREATE NONCLUSTERED INDEX [FK_ParentStudentSchoolAssociation_Parent]
-ON [homograph].[ParentStudentSchoolAssociation] ([ParentFirstName] ASC, [ParentLastSurname] ASC)
+CREATE NONCLUSTERED INDEX [FK_ContactStudentSchoolAssociation_Contact]
+ON [homograph].[ContactStudentSchoolAssociation] ([ContactFirstName] ASC, [ContactLastSurname] ASC)
 GO
 
-ALTER TABLE [homograph].[ParentStudentSchoolAssociation] WITH CHECK ADD CONSTRAINT [FK_ParentStudentSchoolAssociation_StudentSchoolAssociation] FOREIGN KEY ([SchoolName], [StudentFirstName], [StudentLastSurname])
+ALTER TABLE [homograph].[ContactStudentSchoolAssociation] WITH CHECK ADD CONSTRAINT [FK_ContactStudentSchoolAssociation_StudentSchoolAssociation] FOREIGN KEY ([SchoolName], [StudentFirstName], [StudentLastSurname])
 REFERENCES [homograph].[StudentSchoolAssociation] ([SchoolName], [StudentFirstName], [StudentLastSurname])
 ON UPDATE CASCADE
 GO
 
-CREATE NONCLUSTERED INDEX [FK_ParentStudentSchoolAssociation_StudentSchoolAssociation]
-ON [homograph].[ParentStudentSchoolAssociation] ([SchoolName] ASC, [StudentFirstName] ASC, [StudentLastSurname] ASC)
+CREATE NONCLUSTERED INDEX [FK_ContactStudentSchoolAssociation_StudentSchoolAssociation]
+ON [homograph].[ContactStudentSchoolAssociation] ([SchoolName] ASC, [StudentFirstName] ASC, [StudentLastSurname] ASC)
 GO
 
 ALTER TABLE [homograph].[School] WITH CHECK ADD CONSTRAINT [FK_School_SchoolYearType] FOREIGN KEY ([SchoolYear])

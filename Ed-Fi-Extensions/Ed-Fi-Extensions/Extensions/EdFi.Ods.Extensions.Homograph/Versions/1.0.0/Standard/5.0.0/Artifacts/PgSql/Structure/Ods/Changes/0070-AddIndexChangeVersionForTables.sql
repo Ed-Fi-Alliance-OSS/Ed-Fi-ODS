@@ -3,9 +3,9 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-CREATE INDEX IF NOT EXISTS UX_dcd1d5_ChangeVersion ON homograph.Name(ChangeVersion);
+CREATE INDEX IF NOT EXISTS UX_2b5c3d_ChangeVersion ON homograph.Contact(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_5f7953_ChangeVersion ON homograph.Parent(ChangeVersion);
+CREATE INDEX IF NOT EXISTS UX_dcd1d5_ChangeVersion ON homograph.Name(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_6cd2e3_ChangeVersion ON homograph.School(ChangeVersion);
 

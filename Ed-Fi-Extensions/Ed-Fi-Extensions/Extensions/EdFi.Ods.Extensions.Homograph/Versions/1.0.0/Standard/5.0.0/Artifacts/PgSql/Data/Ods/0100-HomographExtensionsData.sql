@@ -3,8 +3,8 @@ declare grandBendElementarySchoolId int;
 declare student604854Usi int;
 declare staffFirstName varchar(225) = 'StaffFirstName';
 declare staffLastSurname varchar(225) = 'StaffLastSurname';
-declare parentFirstName varchar(225) = 'ParentFirstName';
-declare parentLastSurname varchar(225) = 'ParentLastSurname';
+declare contactFirstName varchar(225) = 'ContactFirstName';
+declare contactLastSurname varchar(225) = 'ContactLastSurname';
 declare studentFirstName varchar(225) = 'StudentFirstName';
 declare studentLastSurname varchar(225) = 'StudentLastSurname';
 declare cityName varchar(225) = 'CityName';
@@ -29,7 +29,7 @@ INSERT INTO homograph.Name
     (FirstName, LastSurname)
 VALUES
     (staffFirstName, staffLastSurname),
-    (parentFirstName, parentLastSurname),
+    (contactFirstName, contactLastSurname),
     (studentFirstName, studentLastSurname);
 
 INSERT INTO homograph.SchoolYearType
@@ -77,20 +77,20 @@ INSERT INTO homograph.StaffStudentSchoolAssociation
 VALUES
     (staffFirstName, staffLastSurname, schoolName, studentFirstName, studentLastSurname);
 
-INSERT INTO homograph.Parent
-    (ParentFirstName, ParentLastSurname)
+INSERT INTO homograph.Contact
+    (ContactFirstName, ContactLastSurname)
 VALUES
-    (parentFirstName, parentLastSurname);
+    (contactFirstName, contactLastSurname);
 
-INSERT INTO homograph.ParentAddress
-    (ParentFirstName, ParentLastSurname, City)
+INSERT INTO homograph.ContactAddress
+    (ContactFirstName, ContactLastSurname, City)
 VALUES
-    (parentFirstName, parentLastSurname, cityName);
+    (contactFirstName, contactLastSurname, cityName);
 
-INSERT INTO homograph.ParentStudentSchoolAssociation
-    (ParentFirstName, ParentLastSurname, SchoolName, StudentFirstName, StudentLastSurname)
+INSERT INTO homograph.ContactStudentSchoolAssociation
+    (ContactFirstName, ContactLastSurname, SchoolName, StudentFirstName, StudentLastSurname)
 VALUES
-    (parentFirstName, parentLastSurname, schoolName, studentFirstName, studentLastSurname);
+    (contactFirstName, contactLastSurname, schoolName, studentFirstName, studentLastSurname);
 
 
 end $$

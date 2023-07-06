@@ -6,14 +6,14 @@
 -- For performance reasons on existing data sets, all existing records will start with ChangeVersion of 0.
 DO $$
 BEGIN
+IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='homograph' AND table_name='contact' AND column_name='changeversion') THEN
+ALTER TABLE homograph.Contact ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL;
+ALTER TABLE homograph.Contact ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
+END IF;
+
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='homograph' AND table_name='name' AND column_name='changeversion') THEN
 ALTER TABLE homograph.Name ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL;
 ALTER TABLE homograph.Name ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
-END IF;
-
-IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='homograph' AND table_name='parent' AND column_name='changeversion') THEN
-ALTER TABLE homograph.Parent ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL;
-ALTER TABLE homograph.Parent ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
 END IF;
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='homograph' AND table_name='school' AND column_name='changeversion') THEN

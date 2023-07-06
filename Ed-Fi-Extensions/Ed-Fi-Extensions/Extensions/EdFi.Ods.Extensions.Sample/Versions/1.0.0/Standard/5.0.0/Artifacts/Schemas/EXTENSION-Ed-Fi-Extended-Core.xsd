@@ -138,7 +138,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-ParentExtension">
+  <xs:complexType name="EXTENSION-ContactExtension">
     <xs:annotation>
       <xs:documentation></xs:documentation>
       <xs:appinfo>
@@ -146,26 +146,26 @@
       </xs:appinfo>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="EXTENSION-ParentRestriction">
+      <xs:extension base="EXTENSION-ContactRestriction">
         <xs:sequence>
           <xs:element name="IsSportsFan" type="xs:boolean">
             <xs:annotation>
-              <xs:documentation>An indication as to whether the parent is a sports fan.</xs:documentation>
+              <xs:documentation>An indication as to whether the contact is a sports fan.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="CoffeeSpend" type="Currency" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>How much the parent spends on coffee in a week.</xs:documentation>
+              <xs:documentation>How much the contact spends on coffee in a week.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="GraduationDate" type="xs:date" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The date the parent graduated high school.</xs:documentation>
+              <xs:documentation>The date the contact graduated high school.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="CeilingHeight" type="EXTENSION-CeilingHeight" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation>The height of the ceiling in the rooms of the parent's home.</xs:documentation>
+              <xs:documentation>The height of the ceiling in the rooms of the contact's home.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="AverageCarLineWait" type="TimeInterval" minOccurs="0">
@@ -175,52 +175,52 @@
           </xs:element>
           <xs:element name="LuckyNumber" type="xs:int" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The parent's lucky number.</xs:documentation>
+              <xs:documentation>The contact's lucky number.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="RainCertainty" type="Percent" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The percent likelihood that it will rain when the parent volunteers to chaperone a field trip.</xs:documentation>
+              <xs:documentation>The percent likelihood that it will rain when the contact volunteers to chaperone a field trip.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="FavoriteBookTitle" type="EXTENSION-FavoriteBookTitle" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation>The title of the parent's favorite book.</xs:documentation>
+              <xs:documentation>The title of the contact's favorite book.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="PreferredWakeUpTime" type="xs:time" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The time the parent would prefer to wake up in the morning.</xs:documentation>
+              <xs:documentation>The time the contact would prefer to wake up in the morning.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="BecameParent" type="xs:gYear" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The year in which the parent first became a parent.</xs:documentation>
+              <xs:documentation>The year in which the contact first became a contact.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="GPA" type="GPA" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The parent's high school GPA.</xs:documentation>
+              <xs:documentation>The contact's high school GPA.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="Duration" type="Duration" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The amount of time the parent spends reading to his/her children at bedtime.</xs:documentation>
+              <xs:documentation>The amount of time the contact spends reading to his/her children at bedtime.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="Author" type="Author" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation>The parent's favorite authors.</xs:documentation>
+              <xs:documentation>The contact's favorite authors.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="CTEProgram" type="CTEProgram" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>A CTE program the parent has completed.</xs:documentation>
+              <xs:documentation>A CTE program the contact has completed.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="CredentialField" type="CredentialFieldDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The field in which the parent holds a credential.</xs:documentation>
+              <xs:documentation>The field in which the contact holds a credential.</xs:documentation>
               <xs:appinfo>
                 <ann:Descriptor>CredentialFieldDescriptor</ann:Descriptor>
               </xs:appinfo>
@@ -228,38 +228,38 @@
           </xs:element>
           <xs:element name="EducationContentReference" type="EducationContentReferenceType" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation>Education content to which the parent has been referred.</xs:documentation>
+              <xs:documentation>Education content to which the contact has been referred.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="StudentProgramAssociationReference" type="StudentProgramAssociationReferenceType" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation>Programs the parent's child or children are enrolled in for which the parent provides volunteer services.</xs:documentation>
+              <xs:documentation>Programs the contact's child or children are enrolled in for which the contact provides volunteer services.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="Address" type="EXTENSION-AddressExtension" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation>Additional details on the parent's address.</xs:documentation>
+              <xs:documentation>Additional details on the contact's address.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="TeacherConference" type="EXTENSION-TeacherConference">
             <xs:annotation>
-              <xs:documentation>The parent's preferred day of the week and time for parent-teacher conferences.</xs:documentation>
+              <xs:documentation>The contact's preferred day of the week and time for contact-teacher conferences.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-ParentRestriction">
+  <xs:complexType name="EXTENSION-ContactRestriction">
     <xs:annotation>
-      <xs:documentation>Restriction to Parent for replacement of common type with common type extension</xs:documentation>
+      <xs:documentation>Restriction to Contact for replacement of common type with common type extension</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:restriction base="Parent">
+      <xs:restriction base="Contact">
         <xs:sequence>
-          <xs:element name="ParentUniqueId" type="UniqueId">
+          <xs:element name="ContactUniqueId" type="UniqueId">
             <xs:annotation>
-              <xs:documentation>A unique alphanumeric code assigned to a parent.</xs:documentation>
+              <xs:documentation>A unique alphanumeric code assigned to a contact.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="Name" type="Name">
@@ -307,7 +307,7 @@
           </xs:element>
           <xs:element name="PersonReference" type="PersonReferenceType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>Relates the parent to a generic person.</xs:documentation>
+              <xs:documentation>Relates the contact to a generic person.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="HighestCompletedLevelOfEducation" type="LevelOfEducationDescriptorReferenceType" minOccurs="0">
@@ -539,6 +539,113 @@
           <xs:element name="MasteredMediums" type="Percent" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Percentage of the mediums taught in the program which the student mastered.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentContactAssociationExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Association</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="StudentContactAssociation">
+        <xs:sequence>
+          <xs:element name="PriorContactRestrictions" type="ContactRestrictions" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Previous restrictions for student and/or teacher contact with the individual (e.g., the student may not be picked up by the individual).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BedtimeReader" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>An indication as to whether the contact regularly reads to the student before bed.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BookBudget" type="Currency" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The contact's estimated monthly budget dedicated to books for the student.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ReadGreenEggsAndHamDate" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Date on which the contact first read the student Green Eggs and Ham by Dr. Seuss.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PagesRead" type="EXTENSION-PagesRead" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Total number of pages the contact has read the student.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ReadingTimeSpent" type="TimeInterval" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The amount of time the contact spends reading to the student each day.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BooksBorrowed" type="xs:int" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The total number of books the contact has borrowed on behalf of the student to date.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BedtimeReadingRate" type="Percent" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The average number of pages the contact reads with the student each day.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FavoriteBookTitle" type="EXTENSION-FavoriteBookTitle" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The title of the student's favorite book.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="LibraryTime" type="xs:time" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The student's regularly scheduled library time during the school day.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="LibraryVisits" type="xs:short" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Total number of visits a student is allowed to the library in a single school day.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="StudentRead" type="xs:gYear" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The year in which the student's reading habits are being recorded.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="HoursPerWeek" type="HoursPerWeek" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Total number of hours per week a student and contact dedicates to reading.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="LibraryDuration" type="Duration" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The actual or estimated number of clock minutes for a given library visit.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Telephone" type="Telephone" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The preferred telephone number for contact if the person is listed as an emergency contact for the student.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Discipline" type="DisciplineDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The type of action used to discipline the student preferred by the contact.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>DisciplineDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="InterventionStudyReference" type="InterventionStudyReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A reference to the intervention study used to track the student's reading ability based on varying levels of contact involvement.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="StaffEducationOrganizationEmploymentAssociationReference" type="StaffEducationOrganizationEmploymentAssociationReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>A reference to the staff member and education organization assigned to help track the student's reading abilities with the contact's involvement.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -866,116 +973,9 @@
               <xs:documentation>The student's mentor.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="StudentParentAssociationReference" type="StudentParentAssociationReferenceType" minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="StudentContactAssociationReference" type="StudentContactAssociationReferenceType" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation>Parent responsible for graduation plan.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-StudentParentAssociationExtension">
-    <xs:annotation>
-      <xs:documentation></xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Association</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="StudentParentAssociation">
-        <xs:sequence>
-          <xs:element name="PriorContactRestrictions" type="ContactRestrictions" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Previous restrictions for student and/or teacher contact with the individual (e.g., the student may not be picked up by the individual).</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="BedtimeReader" type="xs:boolean">
-            <xs:annotation>
-              <xs:documentation>An indication as to whether the parent regularly reads to the student before bed.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="BookBudget" type="Currency" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The parent's estimated monthly budget dedicated to books for the student.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ReadGreenEggsAndHamDate" type="xs:date" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Date on which the parent first read the student Green Eggs and Ham by Dr. Seuss.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="PagesRead" type="EXTENSION-PagesRead" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>Total number of pages the parent has read the student.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ReadingTimeSpent" type="TimeInterval" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The amount of time the parent spends reading to the student each day.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="BooksBorrowed" type="xs:int" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The total number of books the parent has borrowed on behalf of the student to date.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="BedtimeReadingRate" type="Percent" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The average number of pages the parent reads with the student each day.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="FavoriteBookTitle" type="EXTENSION-FavoriteBookTitle" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The title of the student's favorite book.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="LibraryTime" type="xs:time" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The student's regularly scheduled library time during the school day.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="LibraryVisits" type="xs:short" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Total number of visits a student is allowed to the library in a single school day.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="StudentRead" type="xs:gYear" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The year in which the student's reading habits are being recorded.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="HoursPerWeek" type="HoursPerWeek" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>Total number of hours per week a student and parent dedicates to reading.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="LibraryDuration" type="Duration" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The actual or estimated number of clock minutes for a given library visit.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="Telephone" type="Telephone" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The preferred telephone number for contact if the person is listed as an emergency contact for the student.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="Discipline" type="DisciplineDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The type of action used to discipline the student preferred by the parent.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>DisciplineDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="InterventionStudyReference" type="InterventionStudyReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>A reference to the intervention study used to track the student's reading ability based on varying levels of parent involvement.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="StaffEducationOrganizationEmploymentAssociationReference" type="StaffEducationOrganizationEmploymentAssociationReferenceType" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>A reference to the staff member and education organization assigned to help track the student's reading abilities with the parent's involvement.</xs:documentation>
+              <xs:documentation>Contact responsible for graduation plan.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -1617,7 +1617,7 @@
   </xs:simpleType>
   <xs:simpleType name="EXTENSION-FavoriteBookTitle">
     <xs:annotation>
-      <xs:documentation>The title of the parent's favorite book.</xs:documentation>
+      <xs:documentation>The title of the contact's favorite book.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Simple</ann:TypeGroup>
       </xs:appinfo>
@@ -1714,7 +1714,7 @@
   </xs:simpleType>
   <xs:simpleType name="EXTENSION-CeilingHeight">
     <xs:annotation>
-      <xs:documentation>The height of the ceiling in the rooms of the parent's home.</xs:documentation>
+      <xs:documentation>The height of the ceiling in the rooms of the contact's home.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Simple</ann:TypeGroup>
       </xs:appinfo>
@@ -1750,7 +1750,7 @@
   </xs:simpleType>
   <xs:simpleType name="EXTENSION-PagesRead">
     <xs:annotation>
-      <xs:documentation>Total number of pages the parent has read the student.</xs:documentation>
+      <xs:documentation>Total number of pages the contact has read the student.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Simple</ann:TypeGroup>
       </xs:appinfo>

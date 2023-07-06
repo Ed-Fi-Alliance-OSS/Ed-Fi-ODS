@@ -3,33 +3,33 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-ALTER TABLE homograph.Parent ADD CONSTRAINT FK_5f7953_Name FOREIGN KEY (ParentFirstName, ParentLastSurname)
+ALTER TABLE homograph.Contact ADD CONSTRAINT FK_2b5c3d_Name FOREIGN KEY (ContactFirstName, ContactLastSurname)
 REFERENCES homograph.Name (FirstName, LastSurname)
 ;
 
-ALTER TABLE homograph.ParentAddress ADD CONSTRAINT FK_cc3333_Parent FOREIGN KEY (ParentFirstName, ParentLastSurname)
-REFERENCES homograph.Parent (ParentFirstName, ParentLastSurname)
+ALTER TABLE homograph.ContactAddress ADD CONSTRAINT FK_720058_Contact FOREIGN KEY (ContactFirstName, ContactLastSurname)
+REFERENCES homograph.Contact (ContactFirstName, ContactLastSurname)
 ON DELETE CASCADE
 ;
 
-CREATE INDEX FK_cc3333_Parent
-ON homograph.ParentAddress (ParentFirstName ASC, ParentLastSurname ASC);
+CREATE INDEX FK_720058_Contact
+ON homograph.ContactAddress (ContactFirstName ASC, ContactLastSurname ASC);
 
-ALTER TABLE homograph.ParentStudentSchoolAssociation ADD CONSTRAINT FK_23ef78_Parent FOREIGN KEY (ParentFirstName, ParentLastSurname)
-REFERENCES homograph.Parent (ParentFirstName, ParentLastSurname)
+ALTER TABLE homograph.ContactStudentSchoolAssociation ADD CONSTRAINT FK_bf6531_Contact FOREIGN KEY (ContactFirstName, ContactLastSurname)
+REFERENCES homograph.Contact (ContactFirstName, ContactLastSurname)
 ON DELETE CASCADE
 ;
 
-CREATE INDEX FK_23ef78_Parent
-ON homograph.ParentStudentSchoolAssociation (ParentFirstName ASC, ParentLastSurname ASC);
+CREATE INDEX FK_bf6531_Contact
+ON homograph.ContactStudentSchoolAssociation (ContactFirstName ASC, ContactLastSurname ASC);
 
-ALTER TABLE homograph.ParentStudentSchoolAssociation ADD CONSTRAINT FK_23ef78_StudentSchoolAssociation FOREIGN KEY (SchoolName, StudentFirstName, StudentLastSurname)
+ALTER TABLE homograph.ContactStudentSchoolAssociation ADD CONSTRAINT FK_bf6531_StudentSchoolAssociation FOREIGN KEY (SchoolName, StudentFirstName, StudentLastSurname)
 REFERENCES homograph.StudentSchoolAssociation (SchoolName, StudentFirstName, StudentLastSurname)
 ON UPDATE CASCADE
 ;
 
-CREATE INDEX FK_23ef78_StudentSchoolAssociation
-ON homograph.ParentStudentSchoolAssociation (SchoolName ASC, StudentFirstName ASC, StudentLastSurname ASC);
+CREATE INDEX FK_bf6531_StudentSchoolAssociation
+ON homograph.ContactStudentSchoolAssociation (SchoolName ASC, StudentFirstName ASC, StudentLastSurname ASC);
 
 ALTER TABLE homograph.School ADD CONSTRAINT FK_6cd2e3_SchoolYearType FOREIGN KEY (SchoolYear)
 REFERENCES homograph.SchoolYearType (SchoolYear)

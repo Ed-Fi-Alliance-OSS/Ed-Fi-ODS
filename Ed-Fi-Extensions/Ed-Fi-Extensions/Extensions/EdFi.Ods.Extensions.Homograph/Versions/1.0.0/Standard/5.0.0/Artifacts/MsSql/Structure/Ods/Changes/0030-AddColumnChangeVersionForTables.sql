@@ -5,19 +5,19 @@
 
 
 -- For performance reasons on existing data sets, all existing records will start with ChangeVersion of 0.
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[homograph].[Contact]') AND name = 'ChangeVersion')
+BEGIN
+ALTER TABLE [homograph].[Contact] ADD [ChangeVersion] [BIGINT] CONSTRAINT Contact_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [homograph].[Contact] DROP CONSTRAINT Contact_DF_ChangeVersion;
+ALTER TABLE [homograph].[Contact] ADD CONSTRAINT Contact_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+END
+
+
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[homograph].[Name]') AND name = 'ChangeVersion')
 BEGIN
 ALTER TABLE [homograph].[Name] ADD [ChangeVersion] [BIGINT] CONSTRAINT Name_DF_ChangeVersion DEFAULT (0) NOT NULL;
 ALTER TABLE [homograph].[Name] DROP CONSTRAINT Name_DF_ChangeVersion;
 ALTER TABLE [homograph].[Name] ADD CONSTRAINT Name_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
-END
-
-
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[homograph].[Parent]') AND name = 'ChangeVersion')
-BEGIN
-ALTER TABLE [homograph].[Parent] ADD [ChangeVersion] [BIGINT] CONSTRAINT Parent_DF_ChangeVersion DEFAULT (0) NOT NULL;
-ALTER TABLE [homograph].[Parent] DROP CONSTRAINT Parent_DF_ChangeVersion;
-ALTER TABLE [homograph].[Parent] ADD CONSTRAINT Parent_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
 END
 
 

@@ -34,7 +34,7 @@ VALUES
 INSERT INTO dbo.ResourceClaims
     (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 VALUES
-    ('parent', 'parent', 'http://ed-fi.org/ods/identity/claims/homograph/parent', educationOrganizationsResourceClaimId, appId);
+    ('contact', 'contact', 'http://ed-fi.org/ods/identity/claims/homograph/contact', educationOrganizationsResourceClaimId, appId);
 	
 INSERT INTO dbo.ResourceClaims
     (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
