@@ -69,7 +69,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
         }
 
         protected string BuildRandomString(PropertyInfo propertyInfo)
-        {           
+        {
             var parameter = _metadataLookup.GetMetadata(propertyInfo);
             var length = Math.Max(parameter.minLength.HasValue ? parameter.minLength.Value: 0, _defaultStringLength);
             length = Math.Min(parameter.maxLength.HasValue ? parameter.maxLength.Value : _defaultStringLength, length);
@@ -89,15 +89,27 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 
             return parameter.required.HasValue && parameter.required.Value;
         }
+
         protected int BuildRandomNumber(PropertyInfo propertyInfo)
         {
             var parameter = _metadataLookup.GetMetadata(propertyInfo);
-            if (parameter.minimum.HasValue || parameter.maximum.HasValue)
+            
+            if (parameter.minimum.HasValue && parameter.maximum.HasValue)
             {
-                return Random.Next(parameter.minimum.HasValue ? (int)parameter.minimum.Value : 0, parameter.maximum.HasValue ? (int)parameter.maximum.Value : Int32.MaxValue);
+                return Random.Next((int)parameter.minimum.Value, (int)parameter.maximum.Value);
+            }
+            else if (parameter.minimum.HasValue)
+            {
+                return (int)parameter.minimum.Value;
+            }
+            else if(parameter.maximum.HasValue)
+            {
+                return (int)parameter.maximum.Value;
             }
             else
-                return _counter++; 
+            {
+                return _counter++;
+            }
         }
     }
 }
