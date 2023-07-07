@@ -14,7 +14,7 @@ END
 
 GO
 
-CREATE  VIEW [dbo].[ApiClientIdentityRawDetails] AS
+CREATE  VIEW dbo.ApiClientIdentityRawDetails AS
     SELECT
         ac.[Key]
         ,ac.[UseSandbox]
@@ -28,8 +28,8 @@ CREATE  VIEW [dbo].[ApiClientIdentityRawDetails] AS
         ,ac.ApiClientId
         ,ac.Secret
         ,ac.SecretIsHashed
-    FROM ApiClients ac
-    INNER JOIN Applications app ON
+    FROM dbo.ApiClients ac
+    INNER JOIN dbo.Applications app ON
         app.[ApplicationID] = ac.[Application_ApplicationID]
     LEFT OUTER JOIN Vendors v ON
         v.[VendorId] = app.[Vendor_VendorId]
