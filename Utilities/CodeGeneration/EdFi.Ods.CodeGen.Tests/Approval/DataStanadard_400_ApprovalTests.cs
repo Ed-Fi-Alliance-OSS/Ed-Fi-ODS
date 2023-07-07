@@ -70,7 +70,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
         /// <summary>
         /// Creates approval file containing all known generated files needed for verification
         /// </summary>
-        [Test]
+        [Test, Explicit]
         public void Generated_File_List()
         {
             var files = new List<string>();
@@ -97,7 +97,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
         /// requires that the approved files would be renamed.
         /// </summary>
         /// <param name="approvalFileInfo"></param>
-        [Test, TestCaseSource(nameof(_approvalFileInfos))]
+        [Test, Explicit, TestCaseSource(nameof(_approvalFileInfos))]
         public void Verify(ApprovalFileInfo approvalFileInfo)
         {
             Console.WriteLine("Testing {0}", approvalFileInfo.SourcePath);

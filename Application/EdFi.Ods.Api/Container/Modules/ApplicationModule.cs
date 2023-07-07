@@ -286,7 +286,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<DatabaseEngineSpecificStringComparerProvider>()
-                .As(typeof(IDatabaseEngineSpecificEqualityComparerProvider<string>))
+                .As<IDatabaseEngineSpecificEqualityComparerProvider<string>>()
                 .SingleInstance();
             
             builder.RegisterType<Mediator>()

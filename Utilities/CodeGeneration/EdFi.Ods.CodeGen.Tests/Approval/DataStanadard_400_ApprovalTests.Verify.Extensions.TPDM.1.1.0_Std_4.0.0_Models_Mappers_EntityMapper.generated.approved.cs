@@ -7,6 +7,7 @@ using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
@@ -29,12 +30,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AccreditationStatusDescriptorAggregat
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_AccreditationStatusDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.AccreditationStatusDescriptorId != target.AccreditationStatusDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.AccreditationStatusDescriptorId != source.AccreditationStatusDescriptorId))
             {
-                source.AccreditationStatusDescriptorId = target.AccreditationStatusDescriptorId;
+                // Disallow PK column updates on AccreditationStatusDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -97,8 +100,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AccreditationStatusDescriptorAggregat
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IAccreditationStatusDescriptor source, IAccreditationStatusDescriptor target, Action<IAccreditationStatusDescriptor, IAccreditationStatusDescriptor> onMapped)
         {
@@ -190,12 +191,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AidTypeDescriptorAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_AidTypeDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.AidTypeDescriptorId != target.AidTypeDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.AidTypeDescriptorId != source.AidTypeDescriptorId))
             {
-                source.AidTypeDescriptorId = target.AidTypeDescriptorId;
+                // Disallow PK column updates on AidTypeDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -258,8 +261,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AidTypeDescriptorAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IAidTypeDescriptor source, IAidTypeDescriptor target, Action<IAidTypeDescriptor, IAidTypeDescriptor> onMapped)
         {
@@ -351,12 +352,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_Candidate);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.CandidateIdentifier != target.CandidateIdentifier)
+            // Detect primary key changes
+            if (
+                 (target.CandidateIdentifier != source.CandidateIdentifier))
             {
-                source.CandidateIdentifier = target.CandidateIdentifier;
+                // Disallow PK column updates on Candidate
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy non-PK properties
 
@@ -630,8 +633,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             return isModified;
         }
 
-
-
         public static void MapTo(this ICandidate source, ICandidate target, Action<ICandidate, ICandidate> onMapped)
         {
             // Get the mapping contract for determining what values to map through to target
@@ -812,28 +813,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                 .GetMappingContract(_fullName_tpdm_CandidateAddress);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.AddressTypeDescriptor != target.AddressTypeDescriptor)
-            {
-                source.AddressTypeDescriptor = target.AddressTypeDescriptor;
-            }
-            if (source.City != target.City)
-            {
-                source.City = target.City;
-            }
-            if (source.PostalCode != target.PostalCode)
-            {
-                source.PostalCode = target.PostalCode;
-            }
-            if (source.StateAbbreviationDescriptor != target.StateAbbreviationDescriptor)
-            {
-                source.StateAbbreviationDescriptor = target.StateAbbreviationDescriptor;
-            }
-            if (source.StreetNumberName != target.StreetNumberName)
-            {
-                source.StreetNumberName = target.StreetNumberName;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsApartmentRoomSuiteNumberSupported != false)
@@ -916,8 +895,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ICandidateAddress source, ICandidateAddress target, Action<ICandidateAddress, ICandidateAddress> onMapped)
         {
@@ -1013,12 +990,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                 .GetMappingContract(_fullName_tpdm_CandidateAddressPeriod);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.BeginDate != target.BeginDate)
-            {
-                source.BeginDate = target.BeginDate;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsEndDateSupported != false)
@@ -1033,8 +1004,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ICandidateAddressPeriod source, ICandidateAddressPeriod target, Action<ICandidateAddressPeriod, ICandidateAddressPeriod> onMapped)
         {
@@ -1097,12 +1066,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                 .GetMappingContract(_fullName_tpdm_CandidateDisability);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.DisabilityDescriptor != target.DisabilityDescriptor)
-            {
-                source.DisabilityDescriptor = target.DisabilityDescriptor;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsDisabilityDeterminationSourceTypeDescriptorSupported != false)
@@ -1143,8 +1106,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ICandidateDisability source, ICandidateDisability target, Action<ICandidateDisability, ICandidateDisability> onMapped)
         {
@@ -1218,12 +1179,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                 .GetMappingContract(_fullName_tpdm_CandidateDisabilityDesignation);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.DisabilityDesignationDescriptor != target.DisabilityDesignationDescriptor)
-            {
-                source.DisabilityDesignationDescriptor = target.DisabilityDesignationDescriptor;
-            }
-
             // Copy non-PK properties
 
 
@@ -1231,8 +1186,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ICandidateDisabilityDesignation source, ICandidateDisabilityDesignation target, Action<ICandidateDisabilityDesignation, ICandidateDisabilityDesignation> onMapped)
         {
@@ -1292,16 +1245,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                 .GetMappingContract(_fullName_tpdm_CandidateElectronicMail);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.ElectronicMailAddress != target.ElectronicMailAddress)
-            {
-                source.ElectronicMailAddress = target.ElectronicMailAddress;
-            }
-            if (source.ElectronicMailTypeDescriptor != target.ElectronicMailTypeDescriptor)
-            {
-                source.ElectronicMailTypeDescriptor = target.ElectronicMailTypeDescriptor;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsDoNotPublishIndicatorSupported != false)
@@ -1323,8 +1266,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ICandidateElectronicMail source, ICandidateElectronicMail target, Action<ICandidateElectronicMail, ICandidateElectronicMail> onMapped)
         {
@@ -1391,12 +1332,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                 .GetMappingContract(_fullName_tpdm_CandidateLanguage);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.LanguageDescriptor != target.LanguageDescriptor)
-            {
-                source.LanguageDescriptor = target.LanguageDescriptor;
-            }
-
             // Copy non-PK properties
 
 
@@ -1416,8 +1351,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ICandidateLanguage source, ICandidateLanguage target, Action<ICandidateLanguage, ICandidateLanguage> onMapped)
         {
@@ -1482,12 +1415,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                 .GetMappingContract(_fullName_tpdm_CandidateLanguageUse);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.LanguageUseDescriptor != target.LanguageUseDescriptor)
-            {
-                source.LanguageUseDescriptor = target.LanguageUseDescriptor;
-            }
-
             // Copy non-PK properties
 
 
@@ -1495,8 +1422,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ICandidateLanguageUse source, ICandidateLanguageUse target, Action<ICandidateLanguageUse, ICandidateLanguageUse> onMapped)
         {
@@ -1556,12 +1481,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                 .GetMappingContract(_fullName_tpdm_CandidateOtherName);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.OtherNameTypeDescriptor != target.OtherNameTypeDescriptor)
-            {
-                source.OtherNameTypeDescriptor = target.OtherNameTypeDescriptor;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsFirstNameSupported != false)
@@ -1604,8 +1523,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ICandidateOtherName source, ICandidateOtherName target, Action<ICandidateOtherName, ICandidateOtherName> onMapped)
         {
@@ -1680,16 +1597,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                 .GetMappingContract(_fullName_tpdm_CandidatePersonalIdentificationDocument);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.IdentificationDocumentUseDescriptor != target.IdentificationDocumentUseDescriptor)
-            {
-                source.IdentificationDocumentUseDescriptor = target.IdentificationDocumentUseDescriptor;
-            }
-            if (source.PersonalInformationVerificationDescriptor != target.PersonalInformationVerificationDescriptor)
-            {
-                source.PersonalInformationVerificationDescriptor = target.PersonalInformationVerificationDescriptor;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsDocumentExpirationDateSupported != false)
@@ -1732,8 +1639,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ICandidatePersonalIdentificationDocument source, ICandidatePersonalIdentificationDocument target, Action<ICandidatePersonalIdentificationDocument, ICandidatePersonalIdentificationDocument> onMapped)
         {
@@ -1809,12 +1714,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                 .GetMappingContract(_fullName_tpdm_CandidateRace);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.RaceDescriptor != target.RaceDescriptor)
-            {
-                source.RaceDescriptor = target.RaceDescriptor;
-            }
-
             // Copy non-PK properties
 
 
@@ -1822,8 +1721,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ICandidateRace source, ICandidateRace target, Action<ICandidateRace, ICandidateRace> onMapped)
         {
@@ -1883,16 +1780,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                 .GetMappingContract(_fullName_tpdm_CandidateTelephone);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.TelephoneNumber != target.TelephoneNumber)
-            {
-                source.TelephoneNumber = target.TelephoneNumber;
-            }
-            if (source.TelephoneNumberTypeDescriptor != target.TelephoneNumberTypeDescriptor)
-            {
-                source.TelephoneNumberTypeDescriptor = target.TelephoneNumberTypeDescriptor;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsDoNotPublishIndicatorSupported != false)
@@ -1921,8 +1808,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ICandidateTelephone source, ICandidateTelephone target, Action<ICandidateTelephone, ICandidateTelephone> onMapped)
         {
@@ -1996,28 +1881,18 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CandidateEducatorPreparationProgramAssociation);
             
+            // Detect primary key changes
+            if (
+                 (target.BeginDate != source.BeginDate)
+                || (target.CandidateIdentifier != source.CandidateIdentifier)
+                || (target.EducationOrganizationId != source.EducationOrganizationId)
+                || (target.ProgramName != source.ProgramName)
+                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor))
+            {
+                // Disallow PK column updates on CandidateEducatorPreparationProgramAssociation
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.BeginDate != target.BeginDate)
-            {
-                source.BeginDate = target.BeginDate;
-            }
-            if (source.CandidateIdentifier != target.CandidateIdentifier)
-            {
-                source.CandidateIdentifier = target.CandidateIdentifier;
-            }
-            if (source.EducationOrganizationId != target.EducationOrganizationId)
-            {
-                source.EducationOrganizationId = target.EducationOrganizationId;
-            }
-            if (source.ProgramName != target.ProgramName)
-            {
-                source.ProgramName = target.ProgramName;
-            }
-            if (source.ProgramTypeDescriptor != target.ProgramTypeDescriptor)
-            {
-                source.ProgramTypeDescriptor = target.ProgramTypeDescriptor;
-            }
 
             // Copy non-PK properties
 
@@ -2071,8 +1946,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ICandidateEducatorPreparationProgramAssociation source, ICandidateEducatorPreparationProgramAssociation target, Action<ICandidateEducatorPreparationProgramAssociation, ICandidateEducatorPreparationProgramAssociation> onMapped)
         {
@@ -2167,16 +2040,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
                 .GetMappingContract(_fullName_tpdm_CandidateEducatorPreparationProgramAssociationCohortYear);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.CohortYearTypeDescriptor != target.CohortYearTypeDescriptor)
-            {
-                source.CohortYearTypeDescriptor = target.CohortYearTypeDescriptor;
-            }
-            if (source.SchoolYear != target.SchoolYear)
-            {
-                source.SchoolYear = target.SchoolYear;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsTermDescriptorSupported != false)
@@ -2191,8 +2054,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ICandidateEducatorPreparationProgramAssociationCohortYear source, ICandidateEducatorPreparationProgramAssociationCohortYear target, Action<ICandidateEducatorPreparationProgramAssociationCohortYear, ICandidateEducatorPreparationProgramAssociationCohortYear> onMapped)
         {
@@ -2262,12 +2123,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
                 .GetMappingContract(_fullName_tpdm_CandidateEducatorPreparationProgramAssociationDegreeSpecialization);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.MajorSpecialization != target.MajorSpecialization)
-            {
-                source.MajorSpecialization = target.MajorSpecialization;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsEndDateSupported != false)
@@ -2289,8 +2144,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ICandidateEducatorPreparationProgramAssociationDegreeSpecialization source, ICandidateEducatorPreparationProgramAssociationDegreeSpecialization target, Action<ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, ICandidateEducatorPreparationProgramAssociationDegreeSpecialization> onMapped)
         {
@@ -2360,12 +2213,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CertificationRouteDescriptorAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CertificationRouteDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.CertificationRouteDescriptorId != target.CertificationRouteDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.CertificationRouteDescriptorId != source.CertificationRouteDescriptorId))
             {
-                source.CertificationRouteDescriptorId = target.CertificationRouteDescriptorId;
+                // Disallow PK column updates on CertificationRouteDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -2428,8 +2283,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CertificationRouteDescriptorAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ICertificationRouteDescriptor source, ICertificationRouteDescriptor target, Action<ICertificationRouteDescriptor, ICertificationRouteDescriptor> onMapped)
         {
@@ -2521,12 +2374,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CoteachingStyleObservedDescriptorAggr
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CoteachingStyleObservedDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.CoteachingStyleObservedDescriptorId != target.CoteachingStyleObservedDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.CoteachingStyleObservedDescriptorId != source.CoteachingStyleObservedDescriptorId))
             {
-                source.CoteachingStyleObservedDescriptorId = target.CoteachingStyleObservedDescriptorId;
+                // Disallow PK column updates on CoteachingStyleObservedDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -2589,8 +2444,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CoteachingStyleObservedDescriptorAggr
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ICoteachingStyleObservedDescriptor source, ICoteachingStyleObservedDescriptor target, Action<ICoteachingStyleObservedDescriptor, ICoteachingStyleObservedDescriptor> onMapped)
         {
@@ -2683,8 +2536,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
                 .GetMappingContract(_fullName_tpdm_CredentialExtension);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsBoardCertificationIndicatorSupported != false)
@@ -2763,8 +2614,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ICredentialExtension source, ICredentialExtension target, Action<ICredentialExtension, ICredentialExtension> onMapped)
         {
@@ -2859,24 +2708,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
                 .GetMappingContract(_fullName_tpdm_CredentialStudentAcademicRecord);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EducationOrganizationId != target.EducationOrganizationId)
-            {
-                source.EducationOrganizationId = target.EducationOrganizationId;
-            }
-            if (source.SchoolYear != target.SchoolYear)
-            {
-                source.SchoolYear = target.SchoolYear;
-            }
-            if (source.StudentUniqueId != target.StudentUniqueId)
-            {
-                source.StudentUniqueId = target.StudentUniqueId;
-            }
-            if (source.TermDescriptor != target.TermDescriptor)
-            {
-                source.TermDescriptor = target.TermDescriptor;
-            }
-
             // Copy non-PK properties
 
 
@@ -2884,8 +2715,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ICredentialStudentAcademicRecord source, ICredentialStudentAcademicRecord target, Action<ICredentialStudentAcademicRecord, ICredentialStudentAcademicRecord> onMapped)
         {
@@ -2959,12 +2788,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialStatusDescriptorAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CredentialStatusDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.CredentialStatusDescriptorId != target.CredentialStatusDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.CredentialStatusDescriptorId != source.CredentialStatusDescriptorId))
             {
-                source.CredentialStatusDescriptorId = target.CredentialStatusDescriptorId;
+                // Disallow PK column updates on CredentialStatusDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -3027,8 +2858,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialStatusDescriptorAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ICredentialStatusDescriptor source, ICredentialStatusDescriptor target, Action<ICredentialStatusDescriptor, ICredentialStatusDescriptor> onMapped)
         {
@@ -3120,20 +2949,16 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EducatorPreparationProgram);
             
+            // Detect primary key changes
+            if (
+                 (target.EducationOrganizationId != source.EducationOrganizationId)
+                || (target.ProgramName != source.ProgramName)
+                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor))
+            {
+                // Disallow PK column updates on EducatorPreparationProgram
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EducationOrganizationId != target.EducationOrganizationId)
-            {
-                source.EducationOrganizationId = target.EducationOrganizationId;
-            }
-            if (source.ProgramName != target.ProgramName)
-            {
-                source.ProgramName = target.ProgramName;
-            }
-            if (source.ProgramTypeDescriptor != target.ProgramTypeDescriptor)
-            {
-                source.ProgramTypeDescriptor = target.ProgramTypeDescriptor;
-            }
 
             // Copy non-PK properties
 
@@ -3168,8 +2993,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEducatorPreparationProgram source, IEducatorPreparationProgram target, Action<IEducatorPreparationProgram, IEducatorPreparationProgram> onMapped)
         {
@@ -3252,12 +3075,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
                 .GetMappingContract(_fullName_tpdm_EducatorPreparationProgramGradeLevel);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.GradeLevelDescriptor != target.GradeLevelDescriptor)
-            {
-                source.GradeLevelDescriptor = target.GradeLevelDescriptor;
-            }
-
             // Copy non-PK properties
 
 
@@ -3265,8 +3082,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEducatorPreparationProgramGradeLevel source, IEducatorPreparationProgramGradeLevel target, Action<IEducatorPreparationProgramGradeLevel, IEducatorPreparationProgramGradeLevel> onMapped)
         {
@@ -3330,12 +3145,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorRoleDescriptorAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EducatorRoleDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EducatorRoleDescriptorId != target.EducatorRoleDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.EducatorRoleDescriptorId != source.EducatorRoleDescriptorId))
             {
-                source.EducatorRoleDescriptorId = target.EducatorRoleDescriptorId;
+                // Disallow PK column updates on EducatorRoleDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -3398,8 +3215,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorRoleDescriptorAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEducatorRoleDescriptor source, IEducatorRoleDescriptor target, Action<IEducatorRoleDescriptor, IEducatorRoleDescriptor> onMapped)
         {
@@ -3491,12 +3306,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EnglishLanguageExamDescriptorAggregat
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EnglishLanguageExamDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EnglishLanguageExamDescriptorId != target.EnglishLanguageExamDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.EnglishLanguageExamDescriptorId != source.EnglishLanguageExamDescriptorId))
             {
-                source.EnglishLanguageExamDescriptorId = target.EnglishLanguageExamDescriptorId;
+                // Disallow PK column updates on EnglishLanguageExamDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -3559,8 +3376,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EnglishLanguageExamDescriptorAggregat
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEnglishLanguageExamDescriptor source, IEnglishLanguageExamDescriptor target, Action<IEnglishLanguageExamDescriptor, IEnglishLanguageExamDescriptor> onMapped)
         {
@@ -3652,12 +3467,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EPPProgramPathwayDescriptorAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EPPProgramPathwayDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EPPProgramPathwayDescriptorId != target.EPPProgramPathwayDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.EPPProgramPathwayDescriptorId != source.EPPProgramPathwayDescriptorId))
             {
-                source.EPPProgramPathwayDescriptorId = target.EPPProgramPathwayDescriptorId;
+                // Disallow PK column updates on EPPProgramPathwayDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -3720,8 +3537,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EPPProgramPathwayDescriptorAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEPPProgramPathwayDescriptor source, IEPPProgramPathwayDescriptor target, Action<IEPPProgramPathwayDescriptor, IEPPProgramPathwayDescriptor> onMapped)
         {
@@ -3813,36 +3628,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_Evaluation);
             
+            // Detect primary key changes
+            if (
+                 (target.EducationOrganizationId != source.EducationOrganizationId)
+                || (target.EvaluationPeriodDescriptor != source.EvaluationPeriodDescriptor)
+                || (target.EvaluationTitle != source.EvaluationTitle)
+                || (target.PerformanceEvaluationTitle != source.PerformanceEvaluationTitle)
+                || (target.PerformanceEvaluationTypeDescriptor != source.PerformanceEvaluationTypeDescriptor)
+                || (target.SchoolYear != source.SchoolYear)
+                || (target.TermDescriptor != source.TermDescriptor))
+            {
+                // Disallow PK column updates on Evaluation
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EducationOrganizationId != target.EducationOrganizationId)
-            {
-                source.EducationOrganizationId = target.EducationOrganizationId;
-            }
-            if (source.EvaluationPeriodDescriptor != target.EvaluationPeriodDescriptor)
-            {
-                source.EvaluationPeriodDescriptor = target.EvaluationPeriodDescriptor;
-            }
-            if (source.EvaluationTitle != target.EvaluationTitle)
-            {
-                source.EvaluationTitle = target.EvaluationTitle;
-            }
-            if (source.PerformanceEvaluationTitle != target.PerformanceEvaluationTitle)
-            {
-                source.PerformanceEvaluationTitle = target.PerformanceEvaluationTitle;
-            }
-            if (source.PerformanceEvaluationTypeDescriptor != target.PerformanceEvaluationTypeDescriptor)
-            {
-                source.PerformanceEvaluationTypeDescriptor = target.PerformanceEvaluationTypeDescriptor;
-            }
-            if (source.SchoolYear != target.SchoolYear)
-            {
-                source.SchoolYear = target.SchoolYear;
-            }
-            if (source.TermDescriptor != target.TermDescriptor)
-            {
-                source.TermDescriptor = target.TermDescriptor;
-            }
 
             // Copy non-PK properties
 
@@ -3898,8 +3697,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEvaluation source, IEvaluation target, Action<IEvaluation, IEvaluation> onMapped)
         {
@@ -3995,12 +3792,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
                 .GetMappingContract(_fullName_tpdm_EvaluationRatingLevel);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EvaluationRatingLevelDescriptor != target.EvaluationRatingLevelDescriptor)
-            {
-                source.EvaluationRatingLevelDescriptor = target.EvaluationRatingLevelDescriptor;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsMaxRatingSupported != false)
@@ -4022,8 +3813,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEvaluationRatingLevel source, IEvaluationRatingLevel target, Action<IEvaluationRatingLevel, IEvaluationRatingLevel> onMapped)
         {
@@ -4093,44 +3882,22 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationElement);
             
+            // Detect primary key changes
+            if (
+                 (target.EducationOrganizationId != source.EducationOrganizationId)
+                || (target.EvaluationElementTitle != source.EvaluationElementTitle)
+                || (target.EvaluationObjectiveTitle != source.EvaluationObjectiveTitle)
+                || (target.EvaluationPeriodDescriptor != source.EvaluationPeriodDescriptor)
+                || (target.EvaluationTitle != source.EvaluationTitle)
+                || (target.PerformanceEvaluationTitle != source.PerformanceEvaluationTitle)
+                || (target.PerformanceEvaluationTypeDescriptor != source.PerformanceEvaluationTypeDescriptor)
+                || (target.SchoolYear != source.SchoolYear)
+                || (target.TermDescriptor != source.TermDescriptor))
+            {
+                // Disallow PK column updates on EvaluationElement
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EducationOrganizationId != target.EducationOrganizationId)
-            {
-                source.EducationOrganizationId = target.EducationOrganizationId;
-            }
-            if (source.EvaluationElementTitle != target.EvaluationElementTitle)
-            {
-                source.EvaluationElementTitle = target.EvaluationElementTitle;
-            }
-            if (source.EvaluationObjectiveTitle != target.EvaluationObjectiveTitle)
-            {
-                source.EvaluationObjectiveTitle = target.EvaluationObjectiveTitle;
-            }
-            if (source.EvaluationPeriodDescriptor != target.EvaluationPeriodDescriptor)
-            {
-                source.EvaluationPeriodDescriptor = target.EvaluationPeriodDescriptor;
-            }
-            if (source.EvaluationTitle != target.EvaluationTitle)
-            {
-                source.EvaluationTitle = target.EvaluationTitle;
-            }
-            if (source.PerformanceEvaluationTitle != target.PerformanceEvaluationTitle)
-            {
-                source.PerformanceEvaluationTitle = target.PerformanceEvaluationTitle;
-            }
-            if (source.PerformanceEvaluationTypeDescriptor != target.PerformanceEvaluationTypeDescriptor)
-            {
-                source.PerformanceEvaluationTypeDescriptor = target.PerformanceEvaluationTypeDescriptor;
-            }
-            if (source.SchoolYear != target.SchoolYear)
-            {
-                source.SchoolYear = target.SchoolYear;
-            }
-            if (source.TermDescriptor != target.TermDescriptor)
-            {
-                source.TermDescriptor = target.TermDescriptor;
-            }
 
             // Copy non-PK properties
 
@@ -4179,8 +3946,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEvaluationElement source, IEvaluationElement target, Action<IEvaluationElement, IEvaluationElement> onMapped)
         {
@@ -4275,12 +4040,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
                 .GetMappingContract(_fullName_tpdm_EvaluationElementRatingLevel);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EvaluationRatingLevelDescriptor != target.EvaluationRatingLevelDescriptor)
-            {
-                source.EvaluationRatingLevelDescriptor = target.EvaluationRatingLevelDescriptor;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsMaxRatingSupported != false)
@@ -4302,8 +4061,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEvaluationElementRatingLevel source, IEvaluationElementRatingLevel target, Action<IEvaluationElementRatingLevel, IEvaluationElementRatingLevel> onMapped)
         {
@@ -4373,56 +4130,25 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationElementRating);
             
+            // Detect primary key changes
+            if (
+                 (target.EducationOrganizationId != source.EducationOrganizationId)
+                || (target.EvaluationDate != source.EvaluationDate)
+                || (target.EvaluationElementTitle != source.EvaluationElementTitle)
+                || (target.EvaluationObjectiveTitle != source.EvaluationObjectiveTitle)
+                || (target.EvaluationPeriodDescriptor != source.EvaluationPeriodDescriptor)
+                || (target.EvaluationTitle != source.EvaluationTitle)
+                || (target.PerformanceEvaluationTitle != source.PerformanceEvaluationTitle)
+                || (target.PerformanceEvaluationTypeDescriptor != source.PerformanceEvaluationTypeDescriptor)
+                || (target.PersonId != source.PersonId)
+                || (target.SchoolYear != source.SchoolYear)
+                || (target.SourceSystemDescriptor != source.SourceSystemDescriptor)
+                || (target.TermDescriptor != source.TermDescriptor))
+            {
+                // Disallow PK column updates on EvaluationElementRating
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EducationOrganizationId != target.EducationOrganizationId)
-            {
-                source.EducationOrganizationId = target.EducationOrganizationId;
-            }
-            if (source.EvaluationDate != target.EvaluationDate)
-            {
-                source.EvaluationDate = target.EvaluationDate;
-            }
-            if (source.EvaluationElementTitle != target.EvaluationElementTitle)
-            {
-                source.EvaluationElementTitle = target.EvaluationElementTitle;
-            }
-            if (source.EvaluationObjectiveTitle != target.EvaluationObjectiveTitle)
-            {
-                source.EvaluationObjectiveTitle = target.EvaluationObjectiveTitle;
-            }
-            if (source.EvaluationPeriodDescriptor != target.EvaluationPeriodDescriptor)
-            {
-                source.EvaluationPeriodDescriptor = target.EvaluationPeriodDescriptor;
-            }
-            if (source.EvaluationTitle != target.EvaluationTitle)
-            {
-                source.EvaluationTitle = target.EvaluationTitle;
-            }
-            if (source.PerformanceEvaluationTitle != target.PerformanceEvaluationTitle)
-            {
-                source.PerformanceEvaluationTitle = target.PerformanceEvaluationTitle;
-            }
-            if (source.PerformanceEvaluationTypeDescriptor != target.PerformanceEvaluationTypeDescriptor)
-            {
-                source.PerformanceEvaluationTypeDescriptor = target.PerformanceEvaluationTypeDescriptor;
-            }
-            if (source.PersonId != target.PersonId)
-            {
-                source.PersonId = target.PersonId;
-            }
-            if (source.SchoolYear != target.SchoolYear)
-            {
-                source.SchoolYear = target.SchoolYear;
-            }
-            if (source.SourceSystemDescriptor != target.SourceSystemDescriptor)
-            {
-                source.SourceSystemDescriptor = target.SourceSystemDescriptor;
-            }
-            if (source.TermDescriptor != target.TermDescriptor)
-            {
-                source.TermDescriptor = target.TermDescriptor;
-            }
 
             // Copy non-PK properties
 
@@ -4478,8 +4204,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEvaluationElementRating source, IEvaluationElementRating target, Action<IEvaluationElementRating, IEvaluationElementRating> onMapped)
         {
@@ -4582,16 +4306,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
                 .GetMappingContract(_fullName_tpdm_EvaluationElementRatingResult);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.Rating != target.Rating)
-            {
-                source.Rating = target.Rating;
-            }
-            if (source.RatingResultTitle != target.RatingResultTitle)
-            {
-                source.RatingResultTitle = target.RatingResultTitle;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsResultDatatypeTypeDescriptorSupported != false)
@@ -4606,8 +4320,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEvaluationElementRatingResult source, IEvaluationElementRatingResult target, Action<IEvaluationElementRatingResult, IEvaluationElementRatingResult> onMapped)
         {
@@ -4675,12 +4387,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingLevelDescripto
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationElementRatingLevelDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EvaluationElementRatingLevelDescriptorId != target.EvaluationElementRatingLevelDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.EvaluationElementRatingLevelDescriptorId != source.EvaluationElementRatingLevelDescriptorId))
             {
-                source.EvaluationElementRatingLevelDescriptorId = target.EvaluationElementRatingLevelDescriptorId;
+                // Disallow PK column updates on EvaluationElementRatingLevelDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -4743,8 +4457,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingLevelDescripto
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEvaluationElementRatingLevelDescriptor source, IEvaluationElementRatingLevelDescriptor target, Action<IEvaluationElementRatingLevelDescriptor, IEvaluationElementRatingLevelDescriptor> onMapped)
         {
@@ -4836,40 +4548,21 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationObjective);
             
+            // Detect primary key changes
+            if (
+                 (target.EducationOrganizationId != source.EducationOrganizationId)
+                || (target.EvaluationObjectiveTitle != source.EvaluationObjectiveTitle)
+                || (target.EvaluationPeriodDescriptor != source.EvaluationPeriodDescriptor)
+                || (target.EvaluationTitle != source.EvaluationTitle)
+                || (target.PerformanceEvaluationTitle != source.PerformanceEvaluationTitle)
+                || (target.PerformanceEvaluationTypeDescriptor != source.PerformanceEvaluationTypeDescriptor)
+                || (target.SchoolYear != source.SchoolYear)
+                || (target.TermDescriptor != source.TermDescriptor))
+            {
+                // Disallow PK column updates on EvaluationObjective
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EducationOrganizationId != target.EducationOrganizationId)
-            {
-                source.EducationOrganizationId = target.EducationOrganizationId;
-            }
-            if (source.EvaluationObjectiveTitle != target.EvaluationObjectiveTitle)
-            {
-                source.EvaluationObjectiveTitle = target.EvaluationObjectiveTitle;
-            }
-            if (source.EvaluationPeriodDescriptor != target.EvaluationPeriodDescriptor)
-            {
-                source.EvaluationPeriodDescriptor = target.EvaluationPeriodDescriptor;
-            }
-            if (source.EvaluationTitle != target.EvaluationTitle)
-            {
-                source.EvaluationTitle = target.EvaluationTitle;
-            }
-            if (source.PerformanceEvaluationTitle != target.PerformanceEvaluationTitle)
-            {
-                source.PerformanceEvaluationTitle = target.PerformanceEvaluationTitle;
-            }
-            if (source.PerformanceEvaluationTypeDescriptor != target.PerformanceEvaluationTypeDescriptor)
-            {
-                source.PerformanceEvaluationTypeDescriptor = target.PerformanceEvaluationTypeDescriptor;
-            }
-            if (source.SchoolYear != target.SchoolYear)
-            {
-                source.SchoolYear = target.SchoolYear;
-            }
-            if (source.TermDescriptor != target.TermDescriptor)
-            {
-                source.TermDescriptor = target.TermDescriptor;
-            }
 
             // Copy non-PK properties
 
@@ -4925,8 +4618,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEvaluationObjective source, IEvaluationObjective target, Action<IEvaluationObjective, IEvaluationObjective> onMapped)
         {
@@ -5023,12 +4714,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
                 .GetMappingContract(_fullName_tpdm_EvaluationObjectiveRatingLevel);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EvaluationRatingLevelDescriptor != target.EvaluationRatingLevelDescriptor)
-            {
-                source.EvaluationRatingLevelDescriptor = target.EvaluationRatingLevelDescriptor;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsMaxRatingSupported != false)
@@ -5050,8 +4735,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEvaluationObjectiveRatingLevel source, IEvaluationObjectiveRatingLevel target, Action<IEvaluationObjectiveRatingLevel, IEvaluationObjectiveRatingLevel> onMapped)
         {
@@ -5121,52 +4804,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationObjectiveRating);
             
+            // Detect primary key changes
+            if (
+                 (target.EducationOrganizationId != source.EducationOrganizationId)
+                || (target.EvaluationDate != source.EvaluationDate)
+                || (target.EvaluationObjectiveTitle != source.EvaluationObjectiveTitle)
+                || (target.EvaluationPeriodDescriptor != source.EvaluationPeriodDescriptor)
+                || (target.EvaluationTitle != source.EvaluationTitle)
+                || (target.PerformanceEvaluationTitle != source.PerformanceEvaluationTitle)
+                || (target.PerformanceEvaluationTypeDescriptor != source.PerformanceEvaluationTypeDescriptor)
+                || (target.PersonId != source.PersonId)
+                || (target.SchoolYear != source.SchoolYear)
+                || (target.SourceSystemDescriptor != source.SourceSystemDescriptor)
+                || (target.TermDescriptor != source.TermDescriptor))
+            {
+                // Disallow PK column updates on EvaluationObjectiveRating
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EducationOrganizationId != target.EducationOrganizationId)
-            {
-                source.EducationOrganizationId = target.EducationOrganizationId;
-            }
-            if (source.EvaluationDate != target.EvaluationDate)
-            {
-                source.EvaluationDate = target.EvaluationDate;
-            }
-            if (source.EvaluationObjectiveTitle != target.EvaluationObjectiveTitle)
-            {
-                source.EvaluationObjectiveTitle = target.EvaluationObjectiveTitle;
-            }
-            if (source.EvaluationPeriodDescriptor != target.EvaluationPeriodDescriptor)
-            {
-                source.EvaluationPeriodDescriptor = target.EvaluationPeriodDescriptor;
-            }
-            if (source.EvaluationTitle != target.EvaluationTitle)
-            {
-                source.EvaluationTitle = target.EvaluationTitle;
-            }
-            if (source.PerformanceEvaluationTitle != target.PerformanceEvaluationTitle)
-            {
-                source.PerformanceEvaluationTitle = target.PerformanceEvaluationTitle;
-            }
-            if (source.PerformanceEvaluationTypeDescriptor != target.PerformanceEvaluationTypeDescriptor)
-            {
-                source.PerformanceEvaluationTypeDescriptor = target.PerformanceEvaluationTypeDescriptor;
-            }
-            if (source.PersonId != target.PersonId)
-            {
-                source.PersonId = target.PersonId;
-            }
-            if (source.SchoolYear != target.SchoolYear)
-            {
-                source.SchoolYear = target.SchoolYear;
-            }
-            if (source.SourceSystemDescriptor != target.SourceSystemDescriptor)
-            {
-                source.SourceSystemDescriptor = target.SourceSystemDescriptor;
-            }
-            if (source.TermDescriptor != target.TermDescriptor)
-            {
-                source.TermDescriptor = target.TermDescriptor;
-            }
 
             // Copy non-PK properties
 
@@ -5201,8 +4856,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEvaluationObjectiveRating source, IEvaluationObjectiveRating target, Action<IEvaluationObjectiveRating, IEvaluationObjectiveRating> onMapped)
         {
@@ -5295,16 +4948,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
                 .GetMappingContract(_fullName_tpdm_EvaluationObjectiveRatingResult);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.Rating != target.Rating)
-            {
-                source.Rating = target.Rating;
-            }
-            if (source.RatingResultTitle != target.RatingResultTitle)
-            {
-                source.RatingResultTitle = target.RatingResultTitle;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsResultDatatypeTypeDescriptorSupported != false)
@@ -5319,8 +4962,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEvaluationObjectiveRatingResult source, IEvaluationObjectiveRatingResult target, Action<IEvaluationObjectiveRatingResult, IEvaluationObjectiveRatingResult> onMapped)
         {
@@ -5388,12 +5029,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationPeriodDescriptorAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationPeriodDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EvaluationPeriodDescriptorId != target.EvaluationPeriodDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.EvaluationPeriodDescriptorId != source.EvaluationPeriodDescriptorId))
             {
-                source.EvaluationPeriodDescriptorId = target.EvaluationPeriodDescriptorId;
+                // Disallow PK column updates on EvaluationPeriodDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -5456,8 +5099,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationPeriodDescriptorAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEvaluationPeriodDescriptor source, IEvaluationPeriodDescriptor target, Action<IEvaluationPeriodDescriptor, IEvaluationPeriodDescriptor> onMapped)
         {
@@ -5549,48 +5190,23 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationRating);
             
+            // Detect primary key changes
+            if (
+                 (target.EducationOrganizationId != source.EducationOrganizationId)
+                || (target.EvaluationDate != source.EvaluationDate)
+                || (target.EvaluationPeriodDescriptor != source.EvaluationPeriodDescriptor)
+                || (target.EvaluationTitle != source.EvaluationTitle)
+                || (target.PerformanceEvaluationTitle != source.PerformanceEvaluationTitle)
+                || (target.PerformanceEvaluationTypeDescriptor != source.PerformanceEvaluationTypeDescriptor)
+                || (target.PersonId != source.PersonId)
+                || (target.SchoolYear != source.SchoolYear)
+                || (target.SourceSystemDescriptor != source.SourceSystemDescriptor)
+                || (target.TermDescriptor != source.TermDescriptor))
+            {
+                // Disallow PK column updates on EvaluationRating
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EducationOrganizationId != target.EducationOrganizationId)
-            {
-                source.EducationOrganizationId = target.EducationOrganizationId;
-            }
-            if (source.EvaluationDate != target.EvaluationDate)
-            {
-                source.EvaluationDate = target.EvaluationDate;
-            }
-            if (source.EvaluationPeriodDescriptor != target.EvaluationPeriodDescriptor)
-            {
-                source.EvaluationPeriodDescriptor = target.EvaluationPeriodDescriptor;
-            }
-            if (source.EvaluationTitle != target.EvaluationTitle)
-            {
-                source.EvaluationTitle = target.EvaluationTitle;
-            }
-            if (source.PerformanceEvaluationTitle != target.PerformanceEvaluationTitle)
-            {
-                source.PerformanceEvaluationTitle = target.PerformanceEvaluationTitle;
-            }
-            if (source.PerformanceEvaluationTypeDescriptor != target.PerformanceEvaluationTypeDescriptor)
-            {
-                source.PerformanceEvaluationTypeDescriptor = target.PerformanceEvaluationTypeDescriptor;
-            }
-            if (source.PersonId != target.PersonId)
-            {
-                source.PersonId = target.PersonId;
-            }
-            if (source.SchoolYear != target.SchoolYear)
-            {
-                source.SchoolYear = target.SchoolYear;
-            }
-            if (source.SourceSystemDescriptor != target.SourceSystemDescriptor)
-            {
-                source.SourceSystemDescriptor = target.SourceSystemDescriptor;
-            }
-            if (source.TermDescriptor != target.TermDescriptor)
-            {
-                source.TermDescriptor = target.TermDescriptor;
-            }
 
             // Copy non-PK properties
 
@@ -5665,8 +5281,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEvaluationRating source, IEvaluationRating target, Action<IEvaluationRating, IEvaluationRating> onMapped)
         {
@@ -5777,16 +5391,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
                 .GetMappingContract(_fullName_tpdm_EvaluationRatingResult);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.Rating != target.Rating)
-            {
-                source.Rating = target.Rating;
-            }
-            if (source.RatingResultTitle != target.RatingResultTitle)
-            {
-                source.RatingResultTitle = target.RatingResultTitle;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsResultDatatypeTypeDescriptorSupported != false)
@@ -5801,8 +5405,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEvaluationRatingResult source, IEvaluationRatingResult target, Action<IEvaluationRatingResult, IEvaluationRatingResult> onMapped)
         {
@@ -5866,16 +5468,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
                 .GetMappingContract(_fullName_tpdm_EvaluationRatingReviewer);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.FirstName != target.FirstName)
-            {
-                source.FirstName = target.FirstName;
-            }
-            if (source.LastSurname != target.LastSurname)
-            {
-                source.LastSurname = target.LastSurname;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsReviewerPersonIdSupported != false)
@@ -5925,8 +5517,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEvaluationRatingReviewer source, IEvaluationRatingReviewer target, Action<IEvaluationRatingReviewer, IEvaluationRatingReviewer> onMapped)
         {
@@ -6024,8 +5614,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
                 .GetMappingContract(_fullName_tpdm_EvaluationRatingReviewerReceivedTraining);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsInterRaterReliabilityScoreSupported != false)
@@ -6047,8 +5635,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEvaluationRatingReviewerReceivedTraining source, IEvaluationRatingReviewerReceivedTraining target, Action<IEvaluationRatingReviewerReceivedTraining, IEvaluationRatingReviewerReceivedTraining> onMapped)
         {
@@ -6117,12 +5703,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingLevelDescriptorAggreg
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationRatingLevelDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EvaluationRatingLevelDescriptorId != target.EvaluationRatingLevelDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.EvaluationRatingLevelDescriptorId != source.EvaluationRatingLevelDescriptorId))
             {
-                source.EvaluationRatingLevelDescriptorId = target.EvaluationRatingLevelDescriptorId;
+                // Disallow PK column updates on EvaluationRatingLevelDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -6185,8 +5773,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingLevelDescriptorAggreg
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEvaluationRatingLevelDescriptor source, IEvaluationRatingLevelDescriptor target, Action<IEvaluationRatingLevelDescriptor, IEvaluationRatingLevelDescriptor> onMapped)
         {
@@ -6278,12 +5864,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingStatusDescriptorAggre
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationRatingStatusDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EvaluationRatingStatusDescriptorId != target.EvaluationRatingStatusDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.EvaluationRatingStatusDescriptorId != source.EvaluationRatingStatusDescriptorId))
             {
-                source.EvaluationRatingStatusDescriptorId = target.EvaluationRatingStatusDescriptorId;
+                // Disallow PK column updates on EvaluationRatingStatusDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -6346,8 +5934,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingStatusDescriptorAggre
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEvaluationRatingStatusDescriptor source, IEvaluationRatingStatusDescriptor target, Action<IEvaluationRatingStatusDescriptor, IEvaluationRatingStatusDescriptor> onMapped)
         {
@@ -6439,12 +6025,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationTypeDescriptorAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationTypeDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EvaluationTypeDescriptorId != target.EvaluationTypeDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.EvaluationTypeDescriptorId != source.EvaluationTypeDescriptorId))
             {
-                source.EvaluationTypeDescriptorId = target.EvaluationTypeDescriptorId;
+                // Disallow PK column updates on EvaluationTypeDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -6507,8 +6095,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationTypeDescriptorAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IEvaluationTypeDescriptor source, IEvaluationTypeDescriptor target, Action<IEvaluationTypeDescriptor, IEvaluationTypeDescriptor> onMapped)
         {
@@ -6600,20 +6186,16 @@ namespace EdFi.Ods.Entities.Common.TPDM //.FinancialAidAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_FinancialAid);
             
+            // Detect primary key changes
+            if (
+                 (target.AidTypeDescriptor != source.AidTypeDescriptor)
+                || (target.BeginDate != source.BeginDate)
+                || (target.StudentUniqueId != source.StudentUniqueId))
+            {
+                // Disallow PK column updates on FinancialAid
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.AidTypeDescriptor != target.AidTypeDescriptor)
-            {
-                source.AidTypeDescriptor = target.AidTypeDescriptor;
-            }
-            if (source.BeginDate != target.BeginDate)
-            {
-                source.BeginDate = target.BeginDate;
-            }
-            if (source.StudentUniqueId != target.StudentUniqueId)
-            {
-                source.StudentUniqueId = target.StudentUniqueId;
-            }
 
             // Copy non-PK properties
 
@@ -6650,8 +6232,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.FinancialAidAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IFinancialAid source, IFinancialAid target, Action<IFinancialAid, IFinancialAid> onMapped)
         {
@@ -6739,12 +6319,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.GenderDescriptorAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_GenderDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.GenderDescriptorId != target.GenderDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.GenderDescriptorId != source.GenderDescriptorId))
             {
-                source.GenderDescriptorId = target.GenderDescriptorId;
+                // Disallow PK column updates on GenderDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -6807,8 +6389,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.GenderDescriptorAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IGenderDescriptor source, IGenderDescriptor target, Action<IGenderDescriptor, IGenderDescriptor> onMapped)
         {
@@ -6900,12 +6480,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.ObjectiveRatingLevelDescriptorAggrega
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_ObjectiveRatingLevelDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.ObjectiveRatingLevelDescriptorId != target.ObjectiveRatingLevelDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.ObjectiveRatingLevelDescriptorId != source.ObjectiveRatingLevelDescriptorId))
             {
-                source.ObjectiveRatingLevelDescriptorId = target.ObjectiveRatingLevelDescriptorId;
+                // Disallow PK column updates on ObjectiveRatingLevelDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -6968,8 +6550,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.ObjectiveRatingLevelDescriptorAggrega
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IObjectiveRatingLevelDescriptor source, IObjectiveRatingLevelDescriptor target, Action<IObjectiveRatingLevelDescriptor, IObjectiveRatingLevelDescriptor> onMapped)
         {
@@ -7061,32 +6641,19 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluation);
             
+            // Detect primary key changes
+            if (
+                 (target.EducationOrganizationId != source.EducationOrganizationId)
+                || (target.EvaluationPeriodDescriptor != source.EvaluationPeriodDescriptor)
+                || (target.PerformanceEvaluationTitle != source.PerformanceEvaluationTitle)
+                || (target.PerformanceEvaluationTypeDescriptor != source.PerformanceEvaluationTypeDescriptor)
+                || (target.SchoolYear != source.SchoolYear)
+                || (target.TermDescriptor != source.TermDescriptor))
+            {
+                // Disallow PK column updates on PerformanceEvaluation
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EducationOrganizationId != target.EducationOrganizationId)
-            {
-                source.EducationOrganizationId = target.EducationOrganizationId;
-            }
-            if (source.EvaluationPeriodDescriptor != target.EvaluationPeriodDescriptor)
-            {
-                source.EvaluationPeriodDescriptor = target.EvaluationPeriodDescriptor;
-            }
-            if (source.PerformanceEvaluationTitle != target.PerformanceEvaluationTitle)
-            {
-                source.PerformanceEvaluationTitle = target.PerformanceEvaluationTitle;
-            }
-            if (source.PerformanceEvaluationTypeDescriptor != target.PerformanceEvaluationTypeDescriptor)
-            {
-                source.PerformanceEvaluationTypeDescriptor = target.PerformanceEvaluationTypeDescriptor;
-            }
-            if (source.SchoolYear != target.SchoolYear)
-            {
-                source.SchoolYear = target.SchoolYear;
-            }
-            if (source.TermDescriptor != target.TermDescriptor)
-            {
-                source.TermDescriptor = target.TermDescriptor;
-            }
 
             // Copy non-PK properties
 
@@ -7133,8 +6700,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IPerformanceEvaluation source, IPerformanceEvaluation target, Action<IPerformanceEvaluation, IPerformanceEvaluation> onMapped)
         {
@@ -7226,12 +6791,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluationGradeLevel);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.GradeLevelDescriptor != target.GradeLevelDescriptor)
-            {
-                source.GradeLevelDescriptor = target.GradeLevelDescriptor;
-            }
-
             // Copy non-PK properties
 
 
@@ -7239,8 +6798,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IPerformanceEvaluationGradeLevel source, IPerformanceEvaluationGradeLevel target, Action<IPerformanceEvaluationGradeLevel, IPerformanceEvaluationGradeLevel> onMapped)
         {
@@ -7300,12 +6857,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingLevel);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EvaluationRatingLevelDescriptor != target.EvaluationRatingLevelDescriptor)
-            {
-                source.EvaluationRatingLevelDescriptor = target.EvaluationRatingLevelDescriptor;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsMaxRatingSupported != false)
@@ -7327,8 +6878,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IPerformanceEvaluationRatingLevel source, IPerformanceEvaluationRatingLevel target, Action<IPerformanceEvaluationRatingLevel, IPerformanceEvaluationRatingLevel> onMapped)
         {
@@ -7398,40 +6947,21 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRating);
             
+            // Detect primary key changes
+            if (
+                 (target.EducationOrganizationId != source.EducationOrganizationId)
+                || (target.EvaluationPeriodDescriptor != source.EvaluationPeriodDescriptor)
+                || (target.PerformanceEvaluationTitle != source.PerformanceEvaluationTitle)
+                || (target.PerformanceEvaluationTypeDescriptor != source.PerformanceEvaluationTypeDescriptor)
+                || (target.PersonId != source.PersonId)
+                || (target.SchoolYear != source.SchoolYear)
+                || (target.SourceSystemDescriptor != source.SourceSystemDescriptor)
+                || (target.TermDescriptor != source.TermDescriptor))
+            {
+                // Disallow PK column updates on PerformanceEvaluationRating
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EducationOrganizationId != target.EducationOrganizationId)
-            {
-                source.EducationOrganizationId = target.EducationOrganizationId;
-            }
-            if (source.EvaluationPeriodDescriptor != target.EvaluationPeriodDescriptor)
-            {
-                source.EvaluationPeriodDescriptor = target.EvaluationPeriodDescriptor;
-            }
-            if (source.PerformanceEvaluationTitle != target.PerformanceEvaluationTitle)
-            {
-                source.PerformanceEvaluationTitle = target.PerformanceEvaluationTitle;
-            }
-            if (source.PerformanceEvaluationTypeDescriptor != target.PerformanceEvaluationTypeDescriptor)
-            {
-                source.PerformanceEvaluationTypeDescriptor = target.PerformanceEvaluationTypeDescriptor;
-            }
-            if (source.PersonId != target.PersonId)
-            {
-                source.PersonId = target.PersonId;
-            }
-            if (source.SchoolYear != target.SchoolYear)
-            {
-                source.SchoolYear = target.SchoolYear;
-            }
-            if (source.SourceSystemDescriptor != target.SourceSystemDescriptor)
-            {
-                source.SourceSystemDescriptor = target.SourceSystemDescriptor;
-            }
-            if (source.TermDescriptor != target.TermDescriptor)
-            {
-                source.TermDescriptor = target.TermDescriptor;
-            }
 
             // Copy non-PK properties
 
@@ -7520,8 +7050,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IPerformanceEvaluationRating source, IPerformanceEvaluationRating target, Action<IPerformanceEvaluationRating, IPerformanceEvaluationRating> onMapped)
         {
@@ -7634,16 +7162,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingResult);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.Rating != target.Rating)
-            {
-                source.Rating = target.Rating;
-            }
-            if (source.RatingResultTitle != target.RatingResultTitle)
-            {
-                source.RatingResultTitle = target.RatingResultTitle;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsResultDatatypeTypeDescriptorSupported != false)
@@ -7658,8 +7176,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IPerformanceEvaluationRatingResult source, IPerformanceEvaluationRatingResult target, Action<IPerformanceEvaluationRatingResult, IPerformanceEvaluationRatingResult> onMapped)
         {
@@ -7723,16 +7239,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingReviewer);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.FirstName != target.FirstName)
-            {
-                source.FirstName = target.FirstName;
-            }
-            if (source.LastSurname != target.LastSurname)
-            {
-                source.LastSurname = target.LastSurname;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsReviewerPersonIdSupported != false)
@@ -7782,8 +7288,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IPerformanceEvaluationRatingReviewer source, IPerformanceEvaluationRatingReviewer target, Action<IPerformanceEvaluationRatingReviewer, IPerformanceEvaluationRatingReviewer> onMapped)
         {
@@ -7881,8 +7385,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingReviewerReceivedTraining);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsInterRaterReliabilityScoreSupported != false)
@@ -7904,8 +7406,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IPerformanceEvaluationRatingReviewerReceivedTraining source, IPerformanceEvaluationRatingReviewerReceivedTraining target, Action<IPerformanceEvaluationRatingReviewerReceivedTraining, IPerformanceEvaluationRatingReviewerReceivedTraining> onMapped)
         {
@@ -7974,12 +7474,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingLevelDescr
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingLevelDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.PerformanceEvaluationRatingLevelDescriptorId != target.PerformanceEvaluationRatingLevelDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.PerformanceEvaluationRatingLevelDescriptorId != source.PerformanceEvaluationRatingLevelDescriptorId))
             {
-                source.PerformanceEvaluationRatingLevelDescriptorId = target.PerformanceEvaluationRatingLevelDescriptorId;
+                // Disallow PK column updates on PerformanceEvaluationRatingLevelDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -8042,8 +7544,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingLevelDescr
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IPerformanceEvaluationRatingLevelDescriptor source, IPerformanceEvaluationRatingLevelDescriptor target, Action<IPerformanceEvaluationRatingLevelDescriptor, IPerformanceEvaluationRatingLevelDescriptor> onMapped)
         {
@@ -8135,12 +7635,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationTypeDescriptorAg
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluationTypeDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.PerformanceEvaluationTypeDescriptorId != target.PerformanceEvaluationTypeDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.PerformanceEvaluationTypeDescriptorId != source.PerformanceEvaluationTypeDescriptorId))
             {
-                source.PerformanceEvaluationTypeDescriptorId = target.PerformanceEvaluationTypeDescriptorId;
+                // Disallow PK column updates on PerformanceEvaluationTypeDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -8203,8 +7705,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationTypeDescriptorAg
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IPerformanceEvaluationTypeDescriptor source, IPerformanceEvaluationTypeDescriptor target, Action<IPerformanceEvaluationTypeDescriptor, IPerformanceEvaluationTypeDescriptor> onMapped)
         {
@@ -8296,48 +7796,23 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricDimensionAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_RubricDimension);
             
+            // Detect primary key changes
+            if (
+                 (target.EducationOrganizationId != source.EducationOrganizationId)
+                || (target.EvaluationElementTitle != source.EvaluationElementTitle)
+                || (target.EvaluationObjectiveTitle != source.EvaluationObjectiveTitle)
+                || (target.EvaluationPeriodDescriptor != source.EvaluationPeriodDescriptor)
+                || (target.EvaluationTitle != source.EvaluationTitle)
+                || (target.PerformanceEvaluationTitle != source.PerformanceEvaluationTitle)
+                || (target.PerformanceEvaluationTypeDescriptor != source.PerformanceEvaluationTypeDescriptor)
+                || (target.RubricRating != source.RubricRating)
+                || (target.SchoolYear != source.SchoolYear)
+                || (target.TermDescriptor != source.TermDescriptor))
+            {
+                // Disallow PK column updates on RubricDimension
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EducationOrganizationId != target.EducationOrganizationId)
-            {
-                source.EducationOrganizationId = target.EducationOrganizationId;
-            }
-            if (source.EvaluationElementTitle != target.EvaluationElementTitle)
-            {
-                source.EvaluationElementTitle = target.EvaluationElementTitle;
-            }
-            if (source.EvaluationObjectiveTitle != target.EvaluationObjectiveTitle)
-            {
-                source.EvaluationObjectiveTitle = target.EvaluationObjectiveTitle;
-            }
-            if (source.EvaluationPeriodDescriptor != target.EvaluationPeriodDescriptor)
-            {
-                source.EvaluationPeriodDescriptor = target.EvaluationPeriodDescriptor;
-            }
-            if (source.EvaluationTitle != target.EvaluationTitle)
-            {
-                source.EvaluationTitle = target.EvaluationTitle;
-            }
-            if (source.PerformanceEvaluationTitle != target.PerformanceEvaluationTitle)
-            {
-                source.PerformanceEvaluationTitle = target.PerformanceEvaluationTitle;
-            }
-            if (source.PerformanceEvaluationTypeDescriptor != target.PerformanceEvaluationTypeDescriptor)
-            {
-                source.PerformanceEvaluationTypeDescriptor = target.PerformanceEvaluationTypeDescriptor;
-            }
-            if (source.RubricRating != target.RubricRating)
-            {
-                source.RubricRating = target.RubricRating;
-            }
-            if (source.SchoolYear != target.SchoolYear)
-            {
-                source.SchoolYear = target.SchoolYear;
-            }
-            if (source.TermDescriptor != target.TermDescriptor)
-            {
-                source.TermDescriptor = target.TermDescriptor;
-            }
 
             // Copy non-PK properties
 
@@ -8367,8 +7842,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricDimensionAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IRubricDimension source, IRubricDimension target, Action<IRubricDimension, IRubricDimension> onMapped)
         {
@@ -8460,12 +7933,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricRatingLevelDescriptorAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_RubricRatingLevelDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.RubricRatingLevelDescriptorId != target.RubricRatingLevelDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.RubricRatingLevelDescriptorId != source.RubricRatingLevelDescriptorId))
             {
-                source.RubricRatingLevelDescriptorId = target.RubricRatingLevelDescriptorId;
+                // Disallow PK column updates on RubricRatingLevelDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -8528,8 +8003,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricRatingLevelDescriptorAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IRubricRatingLevelDescriptor source, IRubricRatingLevelDescriptor target, Action<IRubricRatingLevelDescriptor, IRubricRatingLevelDescriptor> onMapped)
         {
@@ -8622,8 +8095,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SchoolAggregate
                 .GetMappingContract(_fullName_tpdm_SchoolExtension);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsPostSecondaryInstitutionIdSupported != false)
@@ -8638,8 +8109,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SchoolAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ISchoolExtension source, ISchoolExtension target, Action<ISchoolExtension, ISchoolExtension> onMapped)
         {
@@ -8712,8 +8181,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponseAggregate
                 .GetMappingContract(_fullName_tpdm_SurveyResponseExtension);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsPersonIdSupported != false)
@@ -8735,8 +8202,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponseAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ISurveyResponseExtension source, ISurveyResponseExtension target, Action<ISurveyResponseExtension, ISurveyResponseExtension> onMapped)
         {
@@ -8812,28 +8277,18 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponsePersonTargetAssociation
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_SurveyResponsePersonTargetAssociation);
             
+            // Detect primary key changes
+            if (
+                 (target.Namespace != source.Namespace)
+                || (target.PersonId != source.PersonId)
+                || (target.SourceSystemDescriptor != source.SourceSystemDescriptor)
+                || (target.SurveyIdentifier != source.SurveyIdentifier)
+                || (target.SurveyResponseIdentifier != source.SurveyResponseIdentifier))
+            {
+                // Disallow PK column updates on SurveyResponsePersonTargetAssociation
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.Namespace != target.Namespace)
-            {
-                source.Namespace = target.Namespace;
-            }
-            if (source.PersonId != target.PersonId)
-            {
-                source.PersonId = target.PersonId;
-            }
-            if (source.SourceSystemDescriptor != target.SourceSystemDescriptor)
-            {
-                source.SourceSystemDescriptor = target.SourceSystemDescriptor;
-            }
-            if (source.SurveyIdentifier != target.SurveyIdentifier)
-            {
-                source.SurveyIdentifier = target.SurveyIdentifier;
-            }
-            if (source.SurveyResponseIdentifier != target.SurveyResponseIdentifier)
-            {
-                source.SurveyResponseIdentifier = target.SurveyResponseIdentifier;
-            }
 
             // Copy non-PK properties
 
@@ -8842,8 +8297,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponsePersonTargetAssociation
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ISurveyResponsePersonTargetAssociation source, ISurveyResponsePersonTargetAssociation target, Action<ISurveyResponsePersonTargetAssociation, ISurveyResponsePersonTargetAssociation> onMapped)
         {
@@ -8923,32 +8376,19 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveySectionResponsePersonTargetAsso
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_SurveySectionResponsePersonTargetAssociation);
             
+            // Detect primary key changes
+            if (
+                 (target.Namespace != source.Namespace)
+                || (target.PersonId != source.PersonId)
+                || (target.SourceSystemDescriptor != source.SourceSystemDescriptor)
+                || (target.SurveyIdentifier != source.SurveyIdentifier)
+                || (target.SurveyResponseIdentifier != source.SurveyResponseIdentifier)
+                || (target.SurveySectionTitle != source.SurveySectionTitle))
+            {
+                // Disallow PK column updates on SurveySectionResponsePersonTargetAssociation
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.Namespace != target.Namespace)
-            {
-                source.Namespace = target.Namespace;
-            }
-            if (source.PersonId != target.PersonId)
-            {
-                source.PersonId = target.PersonId;
-            }
-            if (source.SourceSystemDescriptor != target.SourceSystemDescriptor)
-            {
-                source.SourceSystemDescriptor = target.SourceSystemDescriptor;
-            }
-            if (source.SurveyIdentifier != target.SurveyIdentifier)
-            {
-                source.SurveyIdentifier = target.SurveyIdentifier;
-            }
-            if (source.SurveyResponseIdentifier != target.SurveyResponseIdentifier)
-            {
-                source.SurveyResponseIdentifier = target.SurveyResponseIdentifier;
-            }
-            if (source.SurveySectionTitle != target.SurveySectionTitle)
-            {
-                source.SurveySectionTitle = target.SurveySectionTitle;
-            }
 
             // Copy non-PK properties
 
@@ -8957,8 +8397,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveySectionResponsePersonTargetAsso
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ISurveySectionResponsePersonTargetAssociation source, ISurveySectionResponsePersonTargetAssociation target, Action<ISurveySectionResponsePersonTargetAssociation, ISurveySectionResponsePersonTargetAssociation> onMapped)
         {

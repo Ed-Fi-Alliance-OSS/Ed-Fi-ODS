@@ -7,6 +7,7 @@ using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
@@ -29,12 +30,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.ArtMediumDescriptorAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_ArtMediumDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.ArtMediumDescriptorId != target.ArtMediumDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.ArtMediumDescriptorId != source.ArtMediumDescriptorId))
             {
-                source.ArtMediumDescriptorId = target.ArtMediumDescriptorId;
+                // Disallow PK column updates on ArtMediumDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -97,8 +100,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ArtMediumDescriptorAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IArtMediumDescriptor source, IArtMediumDescriptor target, Action<IArtMediumDescriptor, IArtMediumDescriptor> onMapped)
         {
@@ -190,12 +191,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_Bus);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.BusId != target.BusId)
+            // Detect primary key changes
+            if (
+                 (target.BusId != source.BusId))
             {
-                source.BusId = target.BusId;
+                // Disallow PK column updates on Bus
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy non-PK properties
 
@@ -204,8 +207,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IBus source, IBus target, Action<IBus, IBus> onMapped)
         {
@@ -272,16 +273,15 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_BusRoute);
             
+            // Detect primary key changes
+            if (
+                 (target.BusId != source.BusId)
+                || (target.BusRouteNumber != source.BusRouteNumber))
+            {
+                // Disallow PK column updates on BusRoute
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.BusId != target.BusId)
-            {
-                source.BusId = target.BusId;
-            }
-            if (source.BusRouteNumber != target.BusRouteNumber)
-            {
-                source.BusRouteNumber = target.BusRouteNumber;
-            }
 
             // Copy non-PK properties
 
@@ -449,8 +449,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
             return isModified;
         }
 
-
-
         public static void MapTo(this IBusRoute source, IBusRoute target, Action<IBusRoute, IBusRoute> onMapped)
         {
             // Get the mapping contract for determining what values to map through to target
@@ -587,12 +585,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                 .GetMappingContract(_fullName_sample_BusRouteBusYear);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.BusYear != target.BusYear)
-            {
-                source.BusYear = target.BusYear;
-            }
-
             // Copy non-PK properties
 
 
@@ -600,8 +592,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IBusRouteBusYear source, IBusRouteBusYear target, Action<IBusRouteBusYear, IBusRouteBusYear> onMapped)
         {
@@ -661,20 +651,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                 .GetMappingContract(_fullName_sample_BusRouteProgram);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EducationOrganizationId != target.EducationOrganizationId)
-            {
-                source.EducationOrganizationId = target.EducationOrganizationId;
-            }
-            if (source.ProgramName != target.ProgramName)
-            {
-                source.ProgramName = target.ProgramName;
-            }
-            if (source.ProgramTypeDescriptor != target.ProgramTypeDescriptor)
-            {
-                source.ProgramTypeDescriptor = target.ProgramTypeDescriptor;
-            }
-
             // Copy non-PK properties
 
 
@@ -682,8 +658,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IBusRouteProgram source, IBusRouteProgram target, Action<IBusRouteProgram, IBusRouteProgram> onMapped)
         {
@@ -752,12 +726,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                 .GetMappingContract(_fullName_sample_BusRouteServiceAreaPostalCode);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.ServiceAreaPostalCode != target.ServiceAreaPostalCode)
-            {
-                source.ServiceAreaPostalCode = target.ServiceAreaPostalCode;
-            }
-
             // Copy non-PK properties
 
 
@@ -765,8 +733,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IBusRouteServiceAreaPostalCode source, IBusRouteServiceAreaPostalCode target, Action<IBusRouteServiceAreaPostalCode, IBusRouteServiceAreaPostalCode> onMapped)
         {
@@ -826,12 +792,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                 .GetMappingContract(_fullName_sample_BusRouteStartTime);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.StartTime != target.StartTime)
-            {
-                source.StartTime = target.StartTime;
-            }
-
             // Copy non-PK properties
 
 
@@ -839,8 +799,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IBusRouteStartTime source, IBusRouteStartTime target, Action<IBusRouteStartTime, IBusRouteStartTime> onMapped)
         {
@@ -900,16 +858,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                 .GetMappingContract(_fullName_sample_BusRouteTelephone);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.TelephoneNumber != target.TelephoneNumber)
-            {
-                source.TelephoneNumber = target.TelephoneNumber;
-            }
-            if (source.TelephoneNumberTypeDescriptor != target.TelephoneNumberTypeDescriptor)
-            {
-                source.TelephoneNumberTypeDescriptor = target.TelephoneNumberTypeDescriptor;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsDoNotPublishIndicatorSupported != false)
@@ -938,8 +886,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IBusRouteTelephone source, IBusRouteTelephone target, Action<IBusRouteTelephone, IBusRouteTelephone> onMapped)
         {
@@ -1013,12 +959,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.FavoriteBookCategoryDescriptorAggre
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_FavoriteBookCategoryDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.FavoriteBookCategoryDescriptorId != target.FavoriteBookCategoryDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.FavoriteBookCategoryDescriptorId != source.FavoriteBookCategoryDescriptorId))
             {
-                source.FavoriteBookCategoryDescriptorId = target.FavoriteBookCategoryDescriptorId;
+                // Disallow PK column updates on FavoriteBookCategoryDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -1081,8 +1029,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.FavoriteBookCategoryDescriptorAggre
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IFavoriteBookCategoryDescriptor source, IFavoriteBookCategoryDescriptor target, Action<IFavoriteBookCategoryDescriptor, IFavoriteBookCategoryDescriptor> onMapped)
         {
@@ -1174,12 +1120,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.MembershipTypeDescriptorAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_MembershipTypeDescriptor);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.MembershipTypeDescriptorId != target.MembershipTypeDescriptorId)
+            // Detect primary key changes
+            if (
+                 (target.MembershipTypeDescriptorId != source.MembershipTypeDescriptorId))
             {
-                source.MembershipTypeDescriptorId = target.MembershipTypeDescriptorId;
+                // Disallow PK column updates on MembershipTypeDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy inherited non-PK properties
 
@@ -1242,8 +1190,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.MembershipTypeDescriptorAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IMembershipTypeDescriptor source, IMembershipTypeDescriptor target, Action<IMembershipTypeDescriptor, IMembershipTypeDescriptor> onMapped)
         {
@@ -1336,8 +1282,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                 .GetMappingContract(_fullName_sample_ParentAddressExtension);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsComplexSupported != false)
@@ -1389,8 +1333,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IParentAddressExtension source, IParentAddressExtension target, Action<IParentAddressExtension, IParentAddressExtension> onMapped)
         {
@@ -1465,12 +1407,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                 .GetMappingContract(_fullName_sample_ParentAddressSchoolDistrict);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.SchoolDistrict != target.SchoolDistrict)
-            {
-                source.SchoolDistrict = target.SchoolDistrict;
-            }
-
             // Copy non-PK properties
 
 
@@ -1478,8 +1414,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IParentAddressSchoolDistrict source, IParentAddressSchoolDistrict target, Action<IParentAddressSchoolDistrict, IParentAddressSchoolDistrict> onMapped)
         {
@@ -1539,12 +1473,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                 .GetMappingContract(_fullName_sample_ParentAddressTerm);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.TermDescriptor != target.TermDescriptor)
-            {
-                source.TermDescriptor = target.TermDescriptor;
-            }
-
             // Copy non-PK properties
 
 
@@ -1552,8 +1480,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IParentAddressTerm source, IParentAddressTerm target, Action<IParentAddressTerm, IParentAddressTerm> onMapped)
         {
@@ -1613,12 +1539,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                 .GetMappingContract(_fullName_sample_ParentAuthor);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.Author != target.Author)
-            {
-                source.Author = target.Author;
-            }
-
             // Copy non-PK properties
 
 
@@ -1626,8 +1546,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IParentAuthor source, IParentAuthor target, Action<IParentAuthor, IParentAuthor> onMapped)
         {
@@ -1687,12 +1605,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                 .GetMappingContract(_fullName_sample_ParentCeilingHeight);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.CeilingHeight != target.CeilingHeight)
-            {
-                source.CeilingHeight = target.CeilingHeight;
-            }
-
             // Copy non-PK properties
 
 
@@ -1700,8 +1612,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IParentCeilingHeight source, IParentCeilingHeight target, Action<IParentCeilingHeight, IParentCeilingHeight> onMapped)
         {
@@ -1761,8 +1671,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                 .GetMappingContract(_fullName_sample_ParentCTEProgram);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsCareerPathwayDescriptorSupported != false)
@@ -1798,8 +1706,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IParentCTEProgram source, IParentCTEProgram target, Action<IParentCTEProgram, IParentCTEProgram> onMapped)
         {
@@ -1870,12 +1776,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                 .GetMappingContract(_fullName_sample_ParentEducationContent);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.ContentIdentifier != target.ContentIdentifier)
-            {
-                source.ContentIdentifier = target.ContentIdentifier;
-            }
-
             // Copy non-PK properties
 
 
@@ -1883,8 +1783,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IParentEducationContent source, IParentEducationContent target, Action<IParentEducationContent, IParentEducationContent> onMapped)
         {
@@ -1950,8 +1848,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_ParentExtension);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
@@ -2164,8 +2060,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             return isModified;
         }
 
-
-
         public static void MapTo(this IParentExtension source, IParentExtension target, Action<IParentExtension, IParentExtension> onMapped)
         {
             // Get the mapping contract for determining what values to map through to target
@@ -2328,12 +2222,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                 .GetMappingContract(_fullName_sample_ParentFavoriteBookTitle);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.FavoriteBookTitle != target.FavoriteBookTitle)
-            {
-                source.FavoriteBookTitle = target.FavoriteBookTitle;
-            }
-
             // Copy non-PK properties
 
 
@@ -2341,8 +2229,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IParentFavoriteBookTitle source, IParentFavoriteBookTitle target, Action<IParentFavoriteBookTitle, IParentFavoriteBookTitle> onMapped)
         {
@@ -2402,32 +2288,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                 .GetMappingContract(_fullName_sample_ParentStudentProgramAssociation);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.BeginDate != target.BeginDate)
-            {
-                source.BeginDate = target.BeginDate;
-            }
-            if (source.EducationOrganizationId != target.EducationOrganizationId)
-            {
-                source.EducationOrganizationId = target.EducationOrganizationId;
-            }
-            if (source.ProgramEducationOrganizationId != target.ProgramEducationOrganizationId)
-            {
-                source.ProgramEducationOrganizationId = target.ProgramEducationOrganizationId;
-            }
-            if (source.ProgramName != target.ProgramName)
-            {
-                source.ProgramName = target.ProgramName;
-            }
-            if (source.ProgramTypeDescriptor != target.ProgramTypeDescriptor)
-            {
-                source.ProgramTypeDescriptor = target.ProgramTypeDescriptor;
-            }
-            if (source.StudentUniqueId != target.StudentUniqueId)
-            {
-                source.StudentUniqueId = target.StudentUniqueId;
-            }
-
             // Copy non-PK properties
 
 
@@ -2435,8 +2295,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IParentStudentProgramAssociation source, IParentStudentProgramAssociation target, Action<IParentStudentProgramAssociation, IParentStudentProgramAssociation> onMapped)
         {
@@ -2507,8 +2365,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                 .GetMappingContract(_fullName_sample_ParentTeacherConference);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsDayOfWeekSupported != false)
@@ -2537,8 +2393,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IParentTeacherConference source, IParentTeacherConference target, Action<IParentTeacherConference, IParentTeacherConference> onMapped)
         {
@@ -2611,8 +2465,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                 .GetMappingContract(_fullName_sample_SchoolCTEProgram);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsCareerPathwayDescriptorSupported != false)
@@ -2648,8 +2500,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ISchoolCTEProgram source, ISchoolCTEProgram target, Action<ISchoolCTEProgram, ISchoolCTEProgram> onMapped)
         {
@@ -2720,12 +2570,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                 .GetMappingContract(_fullName_sample_SchoolDirectlyOwnedBus);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.DirectlyOwnedBusId != target.DirectlyOwnedBusId)
-            {
-                source.DirectlyOwnedBusId = target.DirectlyOwnedBusId;
-            }
-
             // Copy non-PK properties
 
 
@@ -2733,8 +2577,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ISchoolDirectlyOwnedBus source, ISchoolDirectlyOwnedBus target, Action<ISchoolDirectlyOwnedBus, ISchoolDirectlyOwnedBus> onMapped)
         {
@@ -2801,8 +2643,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                 .GetMappingContract(_fullName_sample_SchoolExtension);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsIsExemplarySupported != false)
@@ -2860,8 +2700,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ISchoolExtension source, ISchoolExtension target, Action<ISchoolExtension, ISchoolExtension> onMapped)
         {
@@ -2957,8 +2795,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
                 .GetMappingContract(_fullName_sample_StaffExtension);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsFirstPetOwnedDateSupported != false)
@@ -3016,8 +2852,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStaffExtension source, IStaffExtension target, Action<IStaffExtension, IStaffExtension> onMapped)
         {
@@ -3108,12 +2942,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
                 .GetMappingContract(_fullName_sample_StaffPet);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.PetName != target.PetName)
-            {
-                source.PetName = target.PetName;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsIsFixedSupported != false)
@@ -3128,8 +2956,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStaffPet source, IStaffPet target, Action<IStaffPet, IStaffPet> onMapped)
         {
@@ -3192,8 +3018,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
                 .GetMappingContract(_fullName_sample_StaffPetPreference);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsMaximumWeightSupported != false)
@@ -3215,8 +3039,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStaffPetPreference source, IStaffPetPreference target, Action<IStaffPetPreference, IStaffPetPreference> onMapped)
         {
@@ -3286,16 +3108,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                 .GetMappingContract(_fullName_sample_StudentAquaticPet);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.MimimumTankVolume != target.MimimumTankVolume)
-            {
-                source.MimimumTankVolume = target.MimimumTankVolume;
-            }
-            if (source.PetName != target.PetName)
-            {
-                source.PetName = target.PetName;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsIsFixedSupported != false)
@@ -3310,8 +3122,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentAquaticPet source, IStudentAquaticPet target, Action<IStudentAquaticPet, IStudentAquaticPet> onMapped)
         {
@@ -3374,8 +3184,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentExtension);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
@@ -3457,8 +3265,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentExtension source, IStudentExtension target, Action<IStudentExtension, IStudentExtension> onMapped)
         {
@@ -3556,12 +3362,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                 .GetMappingContract(_fullName_sample_StudentFavoriteBook);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.FavoriteBookCategoryDescriptor != target.FavoriteBookCategoryDescriptor)
-            {
-                source.FavoriteBookCategoryDescriptor = target.FavoriteBookCategoryDescriptor;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsBookTitleSupported != false)
@@ -3588,8 +3388,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentFavoriteBook source, IStudentFavoriteBook target, Action<IStudentFavoriteBook, IStudentFavoriteBook> onMapped)
         {
@@ -3657,12 +3455,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                 .GetMappingContract(_fullName_sample_StudentFavoriteBookArtMedium);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.ArtMediumDescriptor != target.ArtMediumDescriptor)
-            {
-                source.ArtMediumDescriptor = target.ArtMediumDescriptor;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsArtPiecesSupported != false)
@@ -3677,8 +3469,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentFavoriteBookArtMedium source, IStudentFavoriteBookArtMedium target, Action<IStudentFavoriteBookArtMedium, IStudentFavoriteBookArtMedium> onMapped)
         {
@@ -3741,12 +3531,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                 .GetMappingContract(_fullName_sample_StudentPet);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.PetName != target.PetName)
-            {
-                source.PetName = target.PetName;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsIsFixedSupported != false)
@@ -3761,8 +3545,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentPet source, IStudentPet target, Action<IStudentPet, IStudentPet> onMapped)
         {
@@ -3825,8 +3607,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                 .GetMappingContract(_fullName_sample_StudentPetPreference);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsMaximumWeightSupported != false)
@@ -3848,8 +3628,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentPetPreference source, IStudentPetPreference target, Action<IStudentPetPreference, IStudentPetPreference> onMapped)
         {
@@ -3918,32 +3696,19 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentArtProgramAssociation);
             
+            // Detect primary key changes
+            if (
+                 (target.BeginDate != source.BeginDate)
+                || (target.EducationOrganizationId != source.EducationOrganizationId)
+                || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
+                || (target.ProgramName != source.ProgramName)
+                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
+                || (target.StudentUniqueId != source.StudentUniqueId))
+            {
+                // Disallow PK column updates on StudentArtProgramAssociation
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.BeginDate != target.BeginDate)
-            {
-                source.BeginDate = target.BeginDate;
-            }
-            if (source.EducationOrganizationId != target.EducationOrganizationId)
-            {
-                source.EducationOrganizationId = target.EducationOrganizationId;
-            }
-            if (source.ProgramEducationOrganizationId != target.ProgramEducationOrganizationId)
-            {
-                source.ProgramEducationOrganizationId = target.ProgramEducationOrganizationId;
-            }
-            if (source.ProgramName != target.ProgramName)
-            {
-                source.ProgramName = target.ProgramName;
-            }
-            if (source.ProgramTypeDescriptor != target.ProgramTypeDescriptor)
-            {
-                source.ProgramTypeDescriptor = target.ProgramTypeDescriptor;
-            }
-            if (source.StudentUniqueId != target.StudentUniqueId)
-            {
-                source.StudentUniqueId = target.StudentUniqueId;
-            }
 
             // Copy inherited non-PK properties
 
@@ -4141,8 +3906,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             return isModified;
         }
 
-
-
         public static void MapDerivedTo(this IStudentArtProgramAssociation source, IStudentArtProgramAssociation target, Action<IStudentArtProgramAssociation, IStudentArtProgramAssociation> onMapped)
         {
             // Get the mapping contract for determining what values to map through to target
@@ -4315,12 +4078,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                 .GetMappingContract(_fullName_sample_StudentArtProgramAssociationArtMedium);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.ArtMediumDescriptor != target.ArtMediumDescriptor)
-            {
-                source.ArtMediumDescriptor = target.ArtMediumDescriptor;
-            }
-
             // Copy non-PK properties
 
 
@@ -4328,8 +4085,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentArtProgramAssociationArtMedium source, IStudentArtProgramAssociationArtMedium target, Action<IStudentArtProgramAssociationArtMedium, IStudentArtProgramAssociationArtMedium> onMapped)
         {
@@ -4389,12 +4144,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                 .GetMappingContract(_fullName_sample_StudentArtProgramAssociationPortfolioYears);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.PortfolioYears != target.PortfolioYears)
-            {
-                source.PortfolioYears = target.PortfolioYears;
-            }
-
             // Copy non-PK properties
 
 
@@ -4402,8 +4151,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentArtProgramAssociationPortfolioYears source, IStudentArtProgramAssociationPortfolioYears target, Action<IStudentArtProgramAssociationPortfolioYears, IStudentArtProgramAssociationPortfolioYears> onMapped)
         {
@@ -4463,12 +4210,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                 .GetMappingContract(_fullName_sample_StudentArtProgramAssociationService);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.ServiceDescriptor != target.ServiceDescriptor)
-            {
-                source.ServiceDescriptor = target.ServiceDescriptor;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsPrimaryIndicatorSupported != false)
@@ -4497,8 +4238,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentArtProgramAssociationService source, IStudentArtProgramAssociationService target, Action<IStudentArtProgramAssociationService, IStudentArtProgramAssociationService> onMapped)
         {
@@ -4567,12 +4306,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                 .GetMappingContract(_fullName_sample_StudentArtProgramAssociationStyle);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.Style != target.Style)
-            {
-                source.Style = target.Style;
-            }
-
             // Copy non-PK properties
 
 
@@ -4580,8 +4313,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentArtProgramAssociationStyle source, IStudentArtProgramAssociationStyle target, Action<IStudentArtProgramAssociationStyle, IStudentArtProgramAssociationStyle> onMapped)
         {
@@ -4646,8 +4377,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentCTEProgramAssociationAggrega
                 .GetMappingContract(_fullName_sample_StudentCTEProgramAssociationExtension);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsAnalysisCompletedSupported != false)
@@ -4669,8 +4398,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentCTEProgramAssociationAggrega
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentCTEProgramAssociationExtension source, IStudentCTEProgramAssociationExtension target, Action<IStudentCTEProgramAssociationExtension, IStudentCTEProgramAssociationExtension> onMapped)
         {
@@ -4740,8 +4467,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
                 .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationAddressExtension);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsComplexSupported != false)
@@ -4793,8 +4518,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentEducationOrganizationAssociationAddressExtension source, IStudentEducationOrganizationAssociationAddressExtension target, Action<IStudentEducationOrganizationAssociationAddressExtension, IStudentEducationOrganizationAssociationAddressExtension> onMapped)
         {
@@ -4869,12 +4592,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
                 .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationAddressSchoolDistrict);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.SchoolDistrict != target.SchoolDistrict)
-            {
-                source.SchoolDistrict = target.SchoolDistrict;
-            }
-
             // Copy non-PK properties
 
 
@@ -4882,8 +4599,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentEducationOrganizationAssociationAddressSchoolDistrict source, IStudentEducationOrganizationAssociationAddressSchoolDistrict target, Action<IStudentEducationOrganizationAssociationAddressSchoolDistrict, IStudentEducationOrganizationAssociationAddressSchoolDistrict> onMapped)
         {
@@ -4943,12 +4658,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
                 .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationAddressTerm);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.TermDescriptor != target.TermDescriptor)
-            {
-                source.TermDescriptor = target.TermDescriptor;
-            }
-
             // Copy non-PK properties
 
 
@@ -4956,8 +4665,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentEducationOrganizationAssociationAddressTerm source, IStudentEducationOrganizationAssociationAddressTerm target, Action<IStudentEducationOrganizationAssociationAddressTerm, IStudentEducationOrganizationAssociationAddressTerm> onMapped)
         {
@@ -5017,8 +4724,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
                 .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationStudentCharacteristicExtension);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
 
@@ -5041,8 +4746,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentEducationOrganizationAssociationStudentCharacteristicExtension source, IStudentEducationOrganizationAssociationStudentCharacteristicExtension target, Action<IStudentEducationOrganizationAssociationStudentCharacteristicExtension, IStudentEducationOrganizationAssociationStudentCharacteristicExtension> onMapped)
         {
@@ -5106,12 +4809,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
                 .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.BeginDate != target.BeginDate)
-            {
-                source.BeginDate = target.BeginDate;
-            }
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsEndDateSupported != false)
@@ -5133,8 +4830,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed source, IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed target, Action<IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed, IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed> onMapped)
         {
@@ -5204,24 +4899,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociation);
             
+            // Detect primary key changes
+            if (
+                 (target.EducationOrganizationId != source.EducationOrganizationId)
+                || (target.GraduationPlanTypeDescriptor != source.GraduationPlanTypeDescriptor)
+                || (target.GraduationSchoolYear != source.GraduationSchoolYear)
+                || (target.StudentUniqueId != source.StudentUniqueId))
+            {
+                // Disallow PK column updates on StudentGraduationPlanAssociation
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EducationOrganizationId != target.EducationOrganizationId)
-            {
-                source.EducationOrganizationId = target.EducationOrganizationId;
-            }
-            if (source.GraduationPlanTypeDescriptor != target.GraduationPlanTypeDescriptor)
-            {
-                source.GraduationPlanTypeDescriptor = target.GraduationPlanTypeDescriptor;
-            }
-            if (source.GraduationSchoolYear != target.GraduationSchoolYear)
-            {
-                source.GraduationSchoolYear = target.GraduationSchoolYear;
-            }
-            if (source.StudentUniqueId != target.StudentUniqueId)
-            {
-                source.StudentUniqueId = target.StudentUniqueId;
-            }
 
             // Copy non-PK properties
 
@@ -5406,8 +5094,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             return isModified;
         }
 
-
-
         public static void MapTo(this IStudentGraduationPlanAssociation source, IStudentGraduationPlanAssociation target, Action<IStudentGraduationPlanAssociation, IStudentGraduationPlanAssociation> onMapped)
         {
             // Get the mapping contract for determining what values to map through to target
@@ -5569,12 +5255,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                 .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationAcademicSubject);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.AcademicSubjectDescriptor != target.AcademicSubjectDescriptor)
-            {
-                source.AcademicSubjectDescriptor = target.AcademicSubjectDescriptor;
-            }
-
             // Copy non-PK properties
 
 
@@ -5582,8 +5262,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentGraduationPlanAssociationAcademicSubject source, IStudentGraduationPlanAssociationAcademicSubject target, Action<IStudentGraduationPlanAssociationAcademicSubject, IStudentGraduationPlanAssociationAcademicSubject> onMapped)
         {
@@ -5643,12 +5321,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                 .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationCareerPathwayCode);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.CareerPathwayCode != target.CareerPathwayCode)
-            {
-                source.CareerPathwayCode = target.CareerPathwayCode;
-            }
-
             // Copy non-PK properties
 
 
@@ -5656,8 +5328,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentGraduationPlanAssociationCareerPathwayCode source, IStudentGraduationPlanAssociationCareerPathwayCode target, Action<IStudentGraduationPlanAssociationCareerPathwayCode, IStudentGraduationPlanAssociationCareerPathwayCode> onMapped)
         {
@@ -5717,8 +5387,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                 .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationCTEProgram);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsCareerPathwayDescriptorSupported != false)
@@ -5754,8 +5422,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentGraduationPlanAssociationCTEProgram source, IStudentGraduationPlanAssociationCTEProgram target, Action<IStudentGraduationPlanAssociationCTEProgram, IStudentGraduationPlanAssociationCTEProgram> onMapped)
         {
@@ -5826,12 +5492,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                 .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationDescription);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.Description != target.Description)
-            {
-                source.Description = target.Description;
-            }
-
             // Copy non-PK properties
 
 
@@ -5839,8 +5499,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentGraduationPlanAssociationDescription source, IStudentGraduationPlanAssociationDescription target, Action<IStudentGraduationPlanAssociationDescription, IStudentGraduationPlanAssociationDescription> onMapped)
         {
@@ -5900,12 +5558,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                 .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationDesignatedBy);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.DesignatedBy != target.DesignatedBy)
-            {
-                source.DesignatedBy = target.DesignatedBy;
-            }
-
             // Copy non-PK properties
 
 
@@ -5913,8 +5565,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentGraduationPlanAssociationDesignatedBy source, IStudentGraduationPlanAssociationDesignatedBy target, Action<IStudentGraduationPlanAssociationDesignatedBy, IStudentGraduationPlanAssociationDesignatedBy> onMapped)
         {
@@ -5974,12 +5624,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                 .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationIndustryCredential);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.IndustryCredential != target.IndustryCredential)
-            {
-                source.IndustryCredential = target.IndustryCredential;
-            }
-
             // Copy non-PK properties
 
 
@@ -5987,8 +5631,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentGraduationPlanAssociationIndustryCredential source, IStudentGraduationPlanAssociationIndustryCredential target, Action<IStudentGraduationPlanAssociationIndustryCredential, IStudentGraduationPlanAssociationIndustryCredential> onMapped)
         {
@@ -6048,12 +5690,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                 .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationStudentParentAssociation);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.ParentUniqueId != target.ParentUniqueId)
-            {
-                source.ParentUniqueId = target.ParentUniqueId;
-            }
-
             // Copy non-PK properties
 
 
@@ -6061,8 +5697,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentGraduationPlanAssociationStudentParentAssociation source, IStudentGraduationPlanAssociationStudentParentAssociation target, Action<IStudentGraduationPlanAssociationStudentParentAssociation, IStudentGraduationPlanAssociationStudentParentAssociation> onMapped)
         {
@@ -6129,12 +5763,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                 .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationYearsAttended);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.YearsAttended != target.YearsAttended)
-            {
-                source.YearsAttended = target.YearsAttended;
-            }
-
             // Copy non-PK properties
 
 
@@ -6142,8 +5770,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentGraduationPlanAssociationYearsAttended source, IStudentGraduationPlanAssociationYearsAttended target, Action<IStudentGraduationPlanAssociationYearsAttended, IStudentGraduationPlanAssociationYearsAttended> onMapped)
         {
@@ -6208,12 +5834,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                 .GetMappingContract(_fullName_sample_StudentParentAssociationDiscipline);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.DisciplineDescriptor != target.DisciplineDescriptor)
-            {
-                source.DisciplineDescriptor = target.DisciplineDescriptor;
-            }
-
             // Copy non-PK properties
 
 
@@ -6221,8 +5841,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentParentAssociationDiscipline source, IStudentParentAssociationDiscipline target, Action<IStudentParentAssociationDiscipline, IStudentParentAssociationDiscipline> onMapped)
         {
@@ -6281,8 +5899,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentParentAssociationExtension);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
@@ -6486,8 +6102,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             return isModified;
         }
 
-
-
         public static void MapTo(this IStudentParentAssociationExtension source, IStudentParentAssociationExtension target, Action<IStudentParentAssociationExtension, IStudentParentAssociationExtension> onMapped)
         {
             // Get the mapping contract for determining what values to map through to target
@@ -6640,12 +6254,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                 .GetMappingContract(_fullName_sample_StudentParentAssociationFavoriteBookTitle);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.FavoriteBookTitle != target.FavoriteBookTitle)
-            {
-                source.FavoriteBookTitle = target.FavoriteBookTitle;
-            }
-
             // Copy non-PK properties
 
 
@@ -6653,8 +6261,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentParentAssociationFavoriteBookTitle source, IStudentParentAssociationFavoriteBookTitle target, Action<IStudentParentAssociationFavoriteBookTitle, IStudentParentAssociationFavoriteBookTitle> onMapped)
         {
@@ -6714,12 +6320,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                 .GetMappingContract(_fullName_sample_StudentParentAssociationHoursPerWeek);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.HoursPerWeek != target.HoursPerWeek)
-            {
-                source.HoursPerWeek = target.HoursPerWeek;
-            }
-
             // Copy non-PK properties
 
 
@@ -6727,8 +6327,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentParentAssociationHoursPerWeek source, IStudentParentAssociationHoursPerWeek target, Action<IStudentParentAssociationHoursPerWeek, IStudentParentAssociationHoursPerWeek> onMapped)
         {
@@ -6788,12 +6386,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                 .GetMappingContract(_fullName_sample_StudentParentAssociationPagesRead);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.PagesRead != target.PagesRead)
-            {
-                source.PagesRead = target.PagesRead;
-            }
-
             // Copy non-PK properties
 
 
@@ -6801,8 +6393,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentParentAssociationPagesRead source, IStudentParentAssociationPagesRead target, Action<IStudentParentAssociationPagesRead, IStudentParentAssociationPagesRead> onMapped)
         {
@@ -6862,24 +6452,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                 .GetMappingContract(_fullName_sample_StudentParentAssociationStaffEducationOrganizationEmploymentAssociation);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.EducationOrganizationId != target.EducationOrganizationId)
-            {
-                source.EducationOrganizationId = target.EducationOrganizationId;
-            }
-            if (source.EmploymentStatusDescriptor != target.EmploymentStatusDescriptor)
-            {
-                source.EmploymentStatusDescriptor = target.EmploymentStatusDescriptor;
-            }
-            if (source.HireDate != target.HireDate)
-            {
-                source.HireDate = target.HireDate;
-            }
-            if (source.StaffUniqueId != target.StaffUniqueId)
-            {
-                source.StaffUniqueId = target.StaffUniqueId;
-            }
-
             // Copy non-PK properties
 
 
@@ -6887,8 +6459,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation source, IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation target, Action<IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation, IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation> onMapped)
         {
@@ -6958,8 +6528,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                 .GetMappingContract(_fullName_sample_StudentParentAssociationTelephone);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsDoNotPublishIndicatorSupported != false)
@@ -7002,8 +6570,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentParentAssociationTelephone source, IStudentParentAssociationTelephone target, Action<IStudentParentAssociationTelephone, IStudentParentAssociationTelephone> onMapped)
         {
@@ -7082,8 +6648,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSchoolAssociationAggregate
                 .GetMappingContract(_fullName_sample_StudentSchoolAssociationExtension);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsMembershipTypeDescriptorSupported != false)
@@ -7098,8 +6662,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSchoolAssociationAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentSchoolAssociationExtension source, IStudentSchoolAssociationExtension target, Action<IStudentSchoolAssociationExtension, IStudentSchoolAssociationExtension> onMapped)
         {
@@ -7166,8 +6728,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
                 .GetMappingContract(_fullName_sample_StudentSectionAssociationExtension);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
 
@@ -7190,8 +6750,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentSectionAssociationExtension source, IStudentSectionAssociationExtension target, Action<IStudentSectionAssociationExtension, IStudentSectionAssociationExtension> onMapped)
         {
@@ -7255,28 +6813,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
                 .GetMappingContract(_fullName_sample_StudentSectionAssociationRelatedGeneralStudentProgramAssociation);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.RelatedBeginDate != target.RelatedBeginDate)
-            {
-                source.RelatedBeginDate = target.RelatedBeginDate;
-            }
-            if (source.RelatedEducationOrganizationId != target.RelatedEducationOrganizationId)
-            {
-                source.RelatedEducationOrganizationId = target.RelatedEducationOrganizationId;
-            }
-            if (source.RelatedProgramEducationOrganizationId != target.RelatedProgramEducationOrganizationId)
-            {
-                source.RelatedProgramEducationOrganizationId = target.RelatedProgramEducationOrganizationId;
-            }
-            if (source.RelatedProgramName != target.RelatedProgramName)
-            {
-                source.RelatedProgramName = target.RelatedProgramName;
-            }
-            if (source.RelatedProgramTypeDescriptor != target.RelatedProgramTypeDescriptor)
-            {
-                source.RelatedProgramTypeDescriptor = target.RelatedProgramTypeDescriptor;
-            }
-
             // Copy non-PK properties
 
 
@@ -7284,8 +6820,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentSectionAssociationRelatedGeneralStudentProgramAssociation source, IStudentSectionAssociationRelatedGeneralStudentProgramAssociation target, Action<IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, IStudentSectionAssociationRelatedGeneralStudentProgramAssociation> onMapped)
         {

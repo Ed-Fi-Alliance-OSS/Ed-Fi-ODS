@@ -132,6 +132,26 @@ namespace EdFi.Ods.Common.Models.Domain
         }
 
         /// <summary>
+        /// Indicates whether the supplies property type is represented by a string.
+        /// </summary>
+        /// <param name="propertyType">The property type to be evaluated.</param>
+        /// <returns><b>true</b> if the property represents a string; otherwise <b>false</b>.</returns>
+        public static bool IsString(this PropertyType propertyType)
+        {
+            switch (propertyType.DbType)
+            {
+                case DbType.AnsiString: // varchar
+                case DbType.String: // char, nvarchar, ntext, text
+                case DbType.AnsiStringFixedLength: // char
+                case DbType.StringFixedLength: // nchar
+                    return true;
+                
+                default:
+                    return false;
+            }
+        }
+        
+        /// <summary>
         /// Determines if the CSharp type is a nullable type.
         /// </summary>
         /// <param name="propertyType"></param>
