@@ -85,23 +85,6 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         }
                     }
 
-                    // If the resource does not support cascading key value updates but the key
-                    // values supplied by API client do not match those of the persisted entity
-                    if (persistedEntity is IHasPrimaryKeyValues persistedEntityWithPrimaryKeys and not IHasCascadableKeyValues 
-                        && entity is IHasPrimaryKeyValues entityWithPrimaryKeys)
-                    {
-                        var persistedEntityPrimaryKeys = persistedEntityWithPrimaryKeys.GetPrimaryKeyValues();
-                        var entityPrimaryKeys = entityWithPrimaryKeys.GetPrimaryKeyValues();
-
-                        foreach (object keyValue in persistedEntityPrimaryKeys.Keys)
-                        {
-                            if (!persistedEntityPrimaryKeys[keyValue]!.Equals(entityPrimaryKeys[keyValue]) && !entityPrimaryKeys[keyValue].IsDefault(entityPrimaryKeys[keyValue]?.GetType()))
-                            {
-                                throw new BadRequestException("Key values for this resource cannot be updated.");
-                            }
-                        }
-                    }
-
                     // Synchronize using strongly-typed generated code
                     isModified = entity.Synchronize(persistedEntity);
 
