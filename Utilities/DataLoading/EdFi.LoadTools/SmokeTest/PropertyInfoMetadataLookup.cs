@@ -54,7 +54,7 @@ namespace EdFi.LoadTools.SmokeTest
 
             }
 
-            var required = resource?.required.FirstOrDefault(
+            var required = resource?.required?.FirstOrDefault(
                 p => p.Equals(
                     Regex.Replace(propInfo.Name, @"_", string.Empty),
                     StringComparison.InvariantCultureIgnoreCase));
