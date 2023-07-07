@@ -90,7 +90,7 @@ namespace EdFi.Ods.CodeGen.Generators
                 BaseClassName = resourceClass.Entity?.BaseEntity?.Name,
                 AllowPrimaryKeyUpdates = resourceClass.Entity?.Identifier.IsUpdatable,
                 AnnotatedLocalPrimaryKeyList = AnnotateLocalIdentifyingPropertyKeys(resourceClass.Entity),
-                AnnotatedLocalPrimaryKeyHasStrings = resourceClass.Entity.ContextualIdentifyingProperties.Any(p => p.PropertyType.IsString()),
+                AnnotatedLocalPrimaryKeyHasStrings = resourceClass.Entity?.ContextualIdentifyingProperties.Any(p => p.PropertyType.IsString()),
                 BackSynchedPrimaryKeyList =
                     resourceClass.IdentifyingProperties
                         .Where(
