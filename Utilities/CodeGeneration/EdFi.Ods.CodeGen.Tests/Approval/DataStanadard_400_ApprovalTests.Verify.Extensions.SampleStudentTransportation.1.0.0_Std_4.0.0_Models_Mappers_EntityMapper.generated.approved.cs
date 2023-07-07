@@ -7,6 +7,7 @@ using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
@@ -29,24 +30,17 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTransportation //.StudentTranspo
                 .MappingContractProvider
                 .GetMappingContract(_fullName_samplestudenttransportation_StudentTransportation);
             
+            // Detect primary key changes
+            if (
+                 (target.AMBusNumber != source.AMBusNumber)
+                || (target.PMBusNumber != source.PMBusNumber)
+                || (target.SchoolId != source.SchoolId)
+                || (target.StudentUniqueId != source.StudentUniqueId))
+            {
+                // Disallow PK column updates on StudentTransportation
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.AMBusNumber != target.AMBusNumber)
-            {
-                source.AMBusNumber = target.AMBusNumber;
-            }
-            if (source.PMBusNumber != target.PMBusNumber)
-            {
-                source.PMBusNumber = target.PMBusNumber;
-            }
-            if (source.SchoolId != target.SchoolId)
-            {
-                source.SchoolId = target.SchoolId;
-            }
-            if (source.StudentUniqueId != target.StudentUniqueId)
-            {
-                source.StudentUniqueId = target.StudentUniqueId;
-            }
 
             // Copy non-PK properties
 
@@ -62,8 +56,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTransportation //.StudentTranspo
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentTransportation source, IStudentTransportation target, Action<IStudentTransportation, IStudentTransportation> onMapped)
         {

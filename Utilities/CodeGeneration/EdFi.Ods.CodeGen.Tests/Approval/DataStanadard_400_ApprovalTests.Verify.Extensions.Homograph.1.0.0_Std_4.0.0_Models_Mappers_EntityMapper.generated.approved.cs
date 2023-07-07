@@ -7,6 +7,7 @@ using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
@@ -29,16 +30,15 @@ namespace EdFi.Ods.Entities.Common.Homograph //.NameAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_Name);
             
+            // Detect primary key changes
+            if (
+                 (target.FirstName != source.FirstName)
+                || (target.LastSurname != source.LastSurname))
+            {
+                // Disallow PK column updates on Name
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.FirstName != target.FirstName)
-            {
-                source.FirstName = target.FirstName;
-            }
-            if (source.LastSurname != target.LastSurname)
-            {
-                source.LastSurname = target.LastSurname;
-            }
 
             // Copy non-PK properties
 
@@ -47,8 +47,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.NameAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IName source, IName target, Action<IName, IName> onMapped)
         {
@@ -116,16 +114,15 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_Parent);
             
+            // Detect primary key changes
+            if (
+                 (target.ParentFirstName != source.ParentFirstName)
+                || (target.ParentLastSurname != source.ParentLastSurname))
+            {
+                // Disallow PK column updates on Parent
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.ParentFirstName != target.ParentFirstName)
-            {
-                source.ParentFirstName = target.ParentFirstName;
-            }
-            if (source.ParentLastSurname != target.ParentLastSurname)
-            {
-                source.ParentLastSurname = target.ParentLastSurname;
-            }
 
             // Copy non-PK properties
 
@@ -158,8 +155,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IParent source, IParent target, Action<IParent, IParent> onMapped)
         {
@@ -240,12 +235,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
                 .GetMappingContract(_fullName_homograph_ParentAddress);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.City != target.City)
-            {
-                source.City = target.City;
-            }
-
             // Copy non-PK properties
 
 
@@ -253,8 +242,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IParentAddress source, IParentAddress target, Action<IParentAddress, IParentAddress> onMapped)
         {
@@ -314,20 +301,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
                 .GetMappingContract(_fullName_homograph_ParentStudentSchoolAssociation);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.SchoolName != target.SchoolName)
-            {
-                source.SchoolName = target.SchoolName;
-            }
-            if (source.StudentFirstName != target.StudentFirstName)
-            {
-                source.StudentFirstName = target.StudentFirstName;
-            }
-            if (source.StudentLastSurname != target.StudentLastSurname)
-            {
-                source.StudentLastSurname = target.StudentLastSurname;
-            }
-
             // Copy non-PK properties
 
 
@@ -335,8 +308,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IParentStudentSchoolAssociation source, IParentStudentSchoolAssociation target, Action<IParentStudentSchoolAssociation, IParentStudentSchoolAssociation> onMapped)
         {
@@ -409,12 +380,14 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_School);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.SchoolName != target.SchoolName)
+            // Detect primary key changes
+            if (
+                 (target.SchoolName != source.SchoolName))
             {
-                source.SchoolName = target.SchoolName;
+                // Disallow PK column updates on School
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy non-PK properties
 
@@ -458,8 +431,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ISchool source, ISchool target, Action<ISchool, ISchool> onMapped)
         {
@@ -556,8 +527,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
                 .GetMappingContract(_fullName_homograph_SchoolAddress);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-
             // Copy non-PK properties
 
             if ((mappingContract?.IsCitySupported != false)
@@ -572,8 +541,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ISchoolAddress source, ISchoolAddress target, Action<ISchoolAddress, ISchoolAddress> onMapped)
         {
@@ -639,12 +606,14 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolYearTypeAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_SchoolYearType);
             
-
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.SchoolYear != target.SchoolYear)
+            // Detect primary key changes
+            if (
+                 (target.SchoolYear != source.SchoolYear))
             {
-                source.SchoolYear = target.SchoolYear;
+                // Disallow PK column updates on SchoolYearType
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
             }
+
 
             // Copy non-PK properties
 
@@ -653,8 +622,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolYearTypeAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this ISchoolYearType source, ISchoolYearType target, Action<ISchoolYearType, ISchoolYearType> onMapped)
         {
@@ -721,16 +688,15 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_Staff);
             
+            // Detect primary key changes
+            if (
+                 (target.StaffFirstName != source.StaffFirstName)
+                || (target.StaffLastSurname != source.StaffLastSurname))
+            {
+                // Disallow PK column updates on Staff
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.StaffFirstName != target.StaffFirstName)
-            {
-                source.StaffFirstName = target.StaffFirstName;
-            }
-            if (source.StaffLastSurname != target.StaffLastSurname)
-            {
-                source.StaffLastSurname = target.StaffLastSurname;
-            }
 
             // Copy non-PK properties
 
@@ -763,8 +729,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStaff source, IStaff target, Action<IStaff, IStaff> onMapped)
         {
@@ -845,12 +809,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
                 .GetMappingContract(_fullName_homograph_StaffAddress);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.City != target.City)
-            {
-                source.City = target.City;
-            }
-
             // Copy non-PK properties
 
 
@@ -858,8 +816,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStaffAddress source, IStaffAddress target, Action<IStaffAddress, IStaffAddress> onMapped)
         {
@@ -919,20 +875,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
                 .GetMappingContract(_fullName_homograph_StaffStudentSchoolAssociation);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.SchoolName != target.SchoolName)
-            {
-                source.SchoolName = target.SchoolName;
-            }
-            if (source.StudentFirstName != target.StudentFirstName)
-            {
-                source.StudentFirstName = target.StudentFirstName;
-            }
-            if (source.StudentLastSurname != target.StudentLastSurname)
-            {
-                source.StudentLastSurname = target.StudentLastSurname;
-            }
-
             // Copy non-PK properties
 
 
@@ -940,8 +882,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStaffStudentSchoolAssociation source, IStaffStudentSchoolAssociation target, Action<IStaffStudentSchoolAssociation, IStaffStudentSchoolAssociation> onMapped)
         {
@@ -1014,16 +954,15 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_Student);
             
+            // Detect primary key changes
+            if (
+                 (target.StudentFirstName != source.StudentFirstName)
+                || (target.StudentLastSurname != source.StudentLastSurname))
+            {
+                // Disallow PK column updates on Student
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.StudentFirstName != target.StudentFirstName)
-            {
-                source.StudentFirstName = target.StudentFirstName;
-            }
-            if (source.StudentLastSurname != target.StudentLastSurname)
-            {
-                source.StudentLastSurname = target.StudentLastSurname;
-            }
 
             // Copy non-PK properties
 
@@ -1051,8 +990,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudent source, IStudent target, Action<IStudent, IStudent> onMapped)
         {
@@ -1133,12 +1070,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
                 .GetMappingContract(_fullName_homograph_StudentAddress);
             
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.City != target.City)
-            {
-                source.City = target.City;
-            }
-
             // Copy non-PK properties
 
 
@@ -1146,8 +1077,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentAddress source, IStudentAddress target, Action<IStudentAddress, IStudentAddress> onMapped)
         {
@@ -1211,13 +1140,13 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentSchoolAssociationAggregat
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_StudentSchoolAssociation);
             
-
-            // Allow PK column updates on StudentSchoolAssociation
+            // Detect primary key changes
             if (
                  (target.SchoolName != source.SchoolName)
                 || (target.StudentFirstName != source.StudentFirstName)
                 || (target.StudentLastSurname != source.StudentLastSurname))
             {
+                // Allow PK column updates on StudentSchoolAssociation
                 isModified = true;
 
                 var sourceWithPrimaryKeyValues = (source as IHasPrimaryKeyValues);
@@ -1229,21 +1158,22 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentSchoolAssociationAggregat
                     if (targetWithNewKeyValues != null)
                         targetWithNewKeyValues.NewKeyValues = sourceWithPrimaryKeyValues.GetPrimaryKeyValues();
                 }
+
+                // Copy the persistent entity's PK values to the transient source entity (we'll handle key updates later)
+                if (source.SchoolName != target.SchoolName)
+                {
+                    source.SchoolName = target.SchoolName;
+                }
+                if (source.StudentFirstName != target.StudentFirstName)
+                {
+                    source.StudentFirstName = target.StudentFirstName;
+                }
+                if (source.StudentLastSurname != target.StudentLastSurname)
+                {
+                    source.StudentLastSurname = target.StudentLastSurname;
+                }
             }
 
-            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
-            if (source.SchoolName != target.SchoolName)
-            {
-                source.SchoolName = target.SchoolName;
-            }
-            if (source.StudentFirstName != target.StudentFirstName)
-            {
-                source.StudentFirstName = target.StudentFirstName;
-            }
-            if (source.StudentLastSurname != target.StudentLastSurname)
-            {
-                source.StudentLastSurname = target.StudentLastSurname;
-            }
 
             // Copy non-PK properties
 
@@ -1252,8 +1182,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentSchoolAssociationAggregat
 
             return isModified;
         }
-
-
 
         public static void MapTo(this IStudentSchoolAssociation source, IStudentSchoolAssociation target, Action<IStudentSchoolAssociation, IStudentSchoolAssociation> onMapped)
         {
