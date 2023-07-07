@@ -21,13 +21,16 @@ public class OdsInstanceSelector : IOdsInstanceSelector
 {
     private readonly IApiClientContextProvider _apiClientContextProvider;
     private readonly IOdsInstanceConfigurationProvider _odsInstanceConfigurationProvider;
+    private readonly bool _hasOdsContextRouteTemplate;
 
     public OdsInstanceSelector(
         IApiClientContextProvider apiClientContextProvider,
-        IOdsInstanceConfigurationProvider odsInstanceConfigurationProvider)
+        IOdsInstanceConfigurationProvider odsInstanceConfigurationProvider, 
+        ApiSettings apiSettings)
     {
         _apiClientContextProvider = apiClientContextProvider;
         _odsInstanceConfigurationProvider = odsInstanceConfigurationProvider;
+        _hasOdsContextRouteTemplate = !string.IsNullOrEmpty(apiSettings.OdsContextRouteTemplate);
     }
 
     /// <inheritdoc cref="IOdsInstanceSelector.GetOdsInstanceAsync" />
@@ -45,7 +48,7 @@ public class OdsInstanceSelector : IOdsInstanceSelector
             throw new ApiSecurityConfigurationException("The API client has not been associated with an ODS instance.");
         }
 
-        if (apiClientContext.OdsInstanceIds.Count == 1)
+        if (apiClientContext.OdsInstanceIds.Count == 1 && !_hasOdsContextRouteTemplate)
         {
             return await _odsInstanceConfigurationProvider.GetByIdAsync(apiClientContext.OdsInstanceIds[0]);
         }
