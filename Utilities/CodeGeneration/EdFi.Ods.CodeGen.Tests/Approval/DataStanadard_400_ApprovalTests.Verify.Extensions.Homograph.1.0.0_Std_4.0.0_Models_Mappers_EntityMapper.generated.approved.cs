@@ -29,11 +29,13 @@ namespace EdFi.Ods.Entities.Common.Homograph //.NameAggregate
             var mappingContract = (NameMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_Name);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.FirstName != source.FirstName)
-                || (target.LastSurname != source.LastSurname))
+                 (!keyStringComparer.Equals(target.FirstName, source.FirstName))
+                || (!keyStringComparer.Equals(target.LastSurname, source.LastSurname)))
             {
                 // Disallow PK column updates on Name
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -113,11 +115,13 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
             var mappingContract = (ParentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_Parent);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.ParentFirstName != source.ParentFirstName)
-                || (target.ParentLastSurname != source.ParentLastSurname))
+                 (!keyStringComparer.Equals(target.ParentFirstName, source.ParentFirstName))
+                || (!keyStringComparer.Equals(target.ParentLastSurname, source.ParentLastSurname)))
             {
                 // Disallow PK column updates on Parent
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -233,7 +237,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
             var mappingContract = (ParentAddressMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_ParentAddress);
-            
+
 
             // Copy non-PK properties
 
@@ -299,7 +303,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
             var mappingContract = (ParentStudentSchoolAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_ParentStudentSchoolAssociation);
-            
+
 
             // Copy non-PK properties
 
@@ -379,10 +383,12 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
             var mappingContract = (SchoolMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_School);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.SchoolName != source.SchoolName))
+                 (!keyStringComparer.Equals(target.SchoolName, source.SchoolName)))
             {
                 // Disallow PK column updates on School
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -525,7 +531,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
             var mappingContract = (SchoolAddressMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_SchoolAddress);
-            
+
 
             // Copy non-PK properties
 
@@ -605,10 +611,12 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolYearTypeAggregate
             var mappingContract = (SchoolYearTypeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_SchoolYearType);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.SchoolYear != source.SchoolYear))
+                 (!keyStringComparer.Equals(target.SchoolYear, source.SchoolYear)))
             {
                 // Disallow PK column updates on SchoolYearType
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -687,11 +695,13 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
             var mappingContract = (StaffMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_Staff);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.StaffFirstName != source.StaffFirstName)
-                || (target.StaffLastSurname != source.StaffLastSurname))
+                 (!keyStringComparer.Equals(target.StaffFirstName, source.StaffFirstName))
+                || (!keyStringComparer.Equals(target.StaffLastSurname, source.StaffLastSurname)))
             {
                 // Disallow PK column updates on Staff
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -807,7 +817,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
             var mappingContract = (StaffAddressMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_StaffAddress);
-            
+
 
             // Copy non-PK properties
 
@@ -873,7 +883,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
             var mappingContract = (StaffStudentSchoolAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_StaffStudentSchoolAssociation);
-            
+
 
             // Copy non-PK properties
 
@@ -953,11 +963,13 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
             var mappingContract = (StudentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_Student);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.StudentFirstName != source.StudentFirstName)
-                || (target.StudentLastSurname != source.StudentLastSurname))
+                 (!keyStringComparer.Equals(target.StudentFirstName, source.StudentFirstName))
+                || (!keyStringComparer.Equals(target.StudentLastSurname, source.StudentLastSurname)))
             {
                 // Disallow PK column updates on Student
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -1068,7 +1080,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
             var mappingContract = (StudentAddressMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_StudentAddress);
-            
+
 
             // Copy non-PK properties
 
@@ -1139,12 +1151,14 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentSchoolAssociationAggregat
             var mappingContract = (StudentSchoolAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_StudentSchoolAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.SchoolName != source.SchoolName)
-                || (target.StudentFirstName != source.StudentFirstName)
-                || (target.StudentLastSurname != source.StudentLastSurname))
+                 (!keyStringComparer.Equals(target.SchoolName, source.SchoolName))
+                || (!keyStringComparer.Equals(target.StudentFirstName, source.StudentFirstName))
+                || (!keyStringComparer.Equals(target.StudentLastSurname, source.StudentLastSurname)))
             {
                 // Allow PK column updates on StudentSchoolAssociation
                 isModified = true;

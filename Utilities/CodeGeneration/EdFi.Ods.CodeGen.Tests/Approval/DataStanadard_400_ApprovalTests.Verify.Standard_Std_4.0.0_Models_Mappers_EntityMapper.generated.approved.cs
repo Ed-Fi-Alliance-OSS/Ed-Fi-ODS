@@ -29,7 +29,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AbsenceEventCategoryDescriptorAggrega
             var mappingContract = (AbsenceEventCategoryDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AbsenceEventCategoryDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AbsenceEventCategoryDescriptorId != source.AbsenceEventCategoryDescriptorId))
@@ -190,7 +190,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AcademicHonorCategoryDescriptorAggreg
             var mappingContract = (AcademicHonorCategoryDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AcademicHonorCategoryDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AcademicHonorCategoryDescriptorId != source.AcademicHonorCategoryDescriptorId))
@@ -351,7 +351,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AcademicSubjectDescriptorAggregate
             var mappingContract = (AcademicSubjectDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AcademicSubjectDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AcademicSubjectDescriptorId != source.AcademicSubjectDescriptorId))
@@ -512,11 +512,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AcademicWeekAggregate
             var mappingContract = (AcademicWeekMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AcademicWeek);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.SchoolId != source.SchoolId)
-                || (target.WeekIdentifier != source.WeekIdentifier))
+                || (!keyStringComparer.Equals(target.WeekIdentifier, source.WeekIdentifier)))
             {
                 // Disallow PK column updates on AcademicWeek
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -636,7 +638,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AccommodationDescriptorAggregate
             var mappingContract = (AccommodationDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AccommodationDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AccommodationDescriptorId != source.AccommodationDescriptorId))
@@ -797,11 +799,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AccountabilityRatingAggregate
             var mappingContract = (AccountabilityRatingMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AccountabilityRating);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.RatingTitle != source.RatingTitle)
+                || (!keyStringComparer.Equals(target.RatingTitle, source.RatingTitle))
                 || (target.SchoolYear != source.SchoolYear))
             {
                 // Disallow PK column updates on AccountabilityRating
@@ -935,7 +939,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AccountTypeDescriptorAggregate
             var mappingContract = (AccountTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AccountTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AccountTypeDescriptorId != source.AccountTypeDescriptorId))
@@ -1096,7 +1100,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AchievementCategoryDescriptorAggregat
             var mappingContract = (AchievementCategoryDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AchievementCategoryDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AchievementCategoryDescriptorId != source.AchievementCategoryDescriptorId))
@@ -1257,7 +1261,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AdditionalCreditTypeDescriptorAggrega
             var mappingContract = (AdditionalCreditTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AdditionalCreditTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AdditionalCreditTypeDescriptorId != source.AdditionalCreditTypeDescriptorId))
@@ -1418,7 +1422,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AddressTypeDescriptorAggregate
             var mappingContract = (AddressTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AddressTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AddressTypeDescriptorId != source.AddressTypeDescriptorId))
@@ -1579,7 +1583,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AdministrationEnvironmentDescriptorAg
             var mappingContract = (AdministrationEnvironmentDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AdministrationEnvironmentDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AdministrationEnvironmentDescriptorId != source.AdministrationEnvironmentDescriptorId))
@@ -1740,7 +1744,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AdministrativeFundingControlDescripto
             var mappingContract = (AdministrativeFundingControlDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AdministrativeFundingControlDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AdministrativeFundingControlDescriptorId != source.AdministrativeFundingControlDescriptorId))
@@ -1901,7 +1905,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AncestryEthnicOriginDescriptorAggrega
             var mappingContract = (AncestryEthnicOriginDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AncestryEthnicOriginDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AncestryEthnicOriginDescriptorId != source.AncestryEthnicOriginDescriptorId))
@@ -2062,11 +2066,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentAggregate
             var mappingContract = (AssessmentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_Assessment);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.AssessmentIdentifier != source.AssessmentIdentifier)
-                || (target.Namespace != source.Namespace))
+                 (!keyStringComparer.Equals(target.AssessmentIdentifier, source.AssessmentIdentifier))
+                || (!keyStringComparer.Equals(target.Namespace, source.Namespace)))
             {
                 // Disallow PK column updates on Assessment
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -2474,7 +2480,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentAggregate
             var mappingContract = (AssessmentAcademicSubjectMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentAcademicSubject);
-            
+
 
             // Copy non-PK properties
 
@@ -2544,7 +2550,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentAggregate
             var mappingContract = (AssessmentAssessedGradeLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentAssessedGradeLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -2614,7 +2620,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentAggregate
             var mappingContract = (AssessmentContentStandardMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentContentStandard);
-            
+
 
             // Copy non-PK properties
 
@@ -2797,7 +2803,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentAggregate
             var mappingContract = (AssessmentContentStandardAuthorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentContentStandardAuthor);
-            
+
 
             // Copy non-PK properties
 
@@ -2867,7 +2873,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentAggregate
             var mappingContract = (AssessmentIdentificationCodeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentIdentificationCode);
-            
+
 
             // Copy non-PK properties
 
@@ -2957,7 +2963,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentAggregate
             var mappingContract = (AssessmentLanguageMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentLanguage);
-            
+
 
             // Copy non-PK properties
 
@@ -3027,7 +3033,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentAggregate
             var mappingContract = (AssessmentPerformanceLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentPerformanceLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -3138,7 +3144,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentAggregate
             var mappingContract = (AssessmentPeriodMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentPeriod);
-            
+
 
             // Copy non-PK properties
 
@@ -3228,7 +3234,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentAggregate
             var mappingContract = (AssessmentPlatformTypeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentPlatformType);
-            
+
 
             // Copy non-PK properties
 
@@ -3298,7 +3304,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentAggregate
             var mappingContract = (AssessmentProgramMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentProgram);
-            
+
 
             // Copy non-PK properties
 
@@ -3377,7 +3383,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentAggregate
             var mappingContract = (AssessmentScoreMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentScore);
-            
+
 
             // Copy non-PK properties
 
@@ -3477,7 +3483,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentAggregate
             var mappingContract = (AssessmentSectionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentSection);
-            
+
 
             // Copy non-PK properties
 
@@ -3563,7 +3569,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentCategoryDescriptorAggregate
             var mappingContract = (AssessmentCategoryDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentCategoryDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AssessmentCategoryDescriptorId != source.AssessmentCategoryDescriptorId))
@@ -3724,7 +3730,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentIdentificationSystemDescrip
             var mappingContract = (AssessmentIdentificationSystemDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentIdentificationSystemDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AssessmentIdentificationSystemDescriptorId != source.AssessmentIdentificationSystemDescriptorId))
@@ -3885,12 +3891,14 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentItemAggregate
             var mappingContract = (AssessmentItemMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentItem);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.AssessmentIdentifier != source.AssessmentIdentifier)
-                || (target.IdentificationCode != source.IdentificationCode)
-                || (target.Namespace != source.Namespace))
+                 (!keyStringComparer.Equals(target.AssessmentIdentifier, source.AssessmentIdentifier))
+                || (!keyStringComparer.Equals(target.IdentificationCode, source.IdentificationCode))
+                || (!keyStringComparer.Equals(target.Namespace, source.Namespace)))
             {
                 // Disallow PK column updates on AssessmentItem
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -4071,7 +4079,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentItemAggregate
             var mappingContract = (AssessmentItemLearningStandardMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentItemLearningStandard);
-            
+
 
             // Copy non-PK properties
 
@@ -4148,7 +4156,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentItemAggregate
             var mappingContract = (AssessmentItemPossibleResponseMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentItemPossibleResponse);
-            
+
 
             // Copy non-PK properties
 
@@ -4243,7 +4251,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentItemCategoryDescriptorAggre
             var mappingContract = (AssessmentItemCategoryDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentItemCategoryDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AssessmentItemCategoryDescriptorId != source.AssessmentItemCategoryDescriptorId))
@@ -4404,7 +4412,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentItemResultDescriptorAggrega
             var mappingContract = (AssessmentItemResultDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentItemResultDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AssessmentItemResultDescriptorId != source.AssessmentItemResultDescriptorId))
@@ -4565,7 +4573,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentPeriodDescriptorAggregate
             var mappingContract = (AssessmentPeriodDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentPeriodDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AssessmentPeriodDescriptorId != source.AssessmentPeriodDescriptorId))
@@ -4726,7 +4734,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentReportingMethodDescriptorAg
             var mappingContract = (AssessmentReportingMethodDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentReportingMethodDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AssessmentReportingMethodDescriptorId != source.AssessmentReportingMethodDescriptorId))
@@ -4887,12 +4895,14 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentScoreRangeLearningStandardA
             var mappingContract = (AssessmentScoreRangeLearningStandardMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentScoreRangeLearningStandard);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.AssessmentIdentifier != source.AssessmentIdentifier)
-                || (target.Namespace != source.Namespace)
-                || (target.ScoreRangeId != source.ScoreRangeId))
+                 (!keyStringComparer.Equals(target.AssessmentIdentifier, source.AssessmentIdentifier))
+                || (!keyStringComparer.Equals(target.Namespace, source.Namespace))
+                || (!keyStringComparer.Equals(target.ScoreRangeId, source.ScoreRangeId)))
             {
                 // Disallow PK column updates on AssessmentScoreRangeLearningStandard
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -5038,7 +5048,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentScoreRangeLearningStandardA
             var mappingContract = (AssessmentScoreRangeLearningStandardLearningStandardMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssessmentScoreRangeLearningStandardLearningStandard);
-            
+
 
             // Copy non-PK properties
 
@@ -5120,7 +5130,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssignmentLateStatusDescriptorAggrega
             var mappingContract = (AssignmentLateStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AssignmentLateStatusDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AssignmentLateStatusDescriptorId != source.AssignmentLateStatusDescriptorId))
@@ -5281,7 +5291,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AttemptStatusDescriptorAggregate
             var mappingContract = (AttemptStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AttemptStatusDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AttemptStatusDescriptorId != source.AttemptStatusDescriptorId))
@@ -5442,7 +5452,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AttendanceEventCategoryDescriptorAggr
             var mappingContract = (AttendanceEventCategoryDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_AttendanceEventCategoryDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AttendanceEventCategoryDescriptorId != source.AttendanceEventCategoryDescriptorId))
@@ -5603,10 +5613,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.BalanceSheetDimensionAggregate
             var mappingContract = (BalanceSheetDimensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_BalanceSheetDimension);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.Code != source.Code)
+                 (!keyStringComparer.Equals(target.Code, source.Code))
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on BalanceSheetDimension
@@ -5713,7 +5725,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.BalanceSheetDimensionAggregate
             var mappingContract = (BalanceSheetDimensionReportingTagMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_BalanceSheetDimensionReportingTag);
-            
+
 
             // Copy non-PK properties
 
@@ -5788,7 +5800,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.BarrierToInternetAccessInResidenceDes
             var mappingContract = (BarrierToInternetAccessInResidenceDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_BarrierToInternetAccessInResidenceDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.BarrierToInternetAccessInResidenceDescriptorId != source.BarrierToInternetAccessInResidenceDescriptorId))
@@ -5949,7 +5961,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.BehaviorDescriptorAggregate
             var mappingContract = (BehaviorDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_BehaviorDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.BehaviorDescriptorId != source.BehaviorDescriptorId))
@@ -6110,10 +6122,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.BellScheduleAggregate
             var mappingContract = (BellScheduleMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_BellSchedule);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.BellScheduleName != source.BellScheduleName)
+                 (!keyStringComparer.Equals(target.BellScheduleName, source.BellScheduleName))
                 || (target.SchoolId != source.SchoolId))
             {
                 // Disallow PK column updates on BellSchedule
@@ -6290,7 +6304,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.BellScheduleAggregate
             var mappingContract = (BellScheduleClassPeriodMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_BellScheduleClassPeriod);
-            
+
 
             // Copy non-PK properties
 
@@ -6367,7 +6381,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.BellScheduleAggregate
             var mappingContract = (BellScheduleDateMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_BellScheduleDate);
-            
+
 
             // Copy non-PK properties
 
@@ -6437,7 +6451,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.BellScheduleAggregate
             var mappingContract = (BellScheduleGradeLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_BellScheduleGradeLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -6512,10 +6526,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CalendarAggregate
             var mappingContract = (CalendarMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_Calendar);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.CalendarCode != source.CalendarCode)
+                 (!keyStringComparer.Equals(target.CalendarCode, source.CalendarCode))
                 || (target.SchoolId != source.SchoolId)
                 || (target.SchoolYear != source.SchoolYear))
             {
@@ -6631,7 +6647,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CalendarAggregate
             var mappingContract = (CalendarGradeLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CalendarGradeLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -6706,10 +6722,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CalendarDateAggregate
             var mappingContract = (CalendarDateMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CalendarDate);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.CalendarCode != source.CalendarCode)
+                 (!keyStringComparer.Equals(target.CalendarCode, source.CalendarCode))
                 || (target.Date != source.Date)
                 || (target.SchoolId != source.SchoolId)
                 || (target.SchoolYear != source.SchoolYear))
@@ -6817,7 +6835,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CalendarDateAggregate
             var mappingContract = (CalendarDateCalendarEventMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CalendarDateCalendarEvent);
-            
+
 
             // Copy non-PK properties
 
@@ -6892,7 +6910,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CalendarEventDescriptorAggregate
             var mappingContract = (CalendarEventDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CalendarEventDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CalendarEventDescriptorId != source.CalendarEventDescriptorId))
@@ -7053,7 +7071,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CalendarTypeDescriptorAggregate
             var mappingContract = (CalendarTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CalendarTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CalendarTypeDescriptorId != source.CalendarTypeDescriptorId))
@@ -7214,7 +7232,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CareerPathwayDescriptorAggregate
             var mappingContract = (CareerPathwayDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CareerPathwayDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CareerPathwayDescriptorId != source.CareerPathwayDescriptorId))
@@ -7375,7 +7393,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CharterApprovalAgencyTypeDescriptorAg
             var mappingContract = (CharterApprovalAgencyTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CharterApprovalAgencyTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CharterApprovalAgencyTypeDescriptorId != source.CharterApprovalAgencyTypeDescriptorId))
@@ -7536,7 +7554,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CharterStatusDescriptorAggregate
             var mappingContract = (CharterStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CharterStatusDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CharterStatusDescriptorId != source.CharterStatusDescriptorId))
@@ -7697,10 +7715,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ChartOfAccountAggregate
             var mappingContract = (ChartOfAccountMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ChartOfAccount);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.AccountIdentifier != source.AccountIdentifier)
+                 (!keyStringComparer.Equals(target.AccountIdentifier, source.AccountIdentifier))
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.FiscalYear != source.FiscalYear))
             {
@@ -7922,7 +7942,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ChartOfAccountAggregate
             var mappingContract = (ChartOfAccountReportingTagMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ChartOfAccountReportingTag);
-            
+
 
             // Copy non-PK properties
 
@@ -8007,7 +8027,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CitizenshipStatusDescriptorAggregate
             var mappingContract = (CitizenshipStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CitizenshipStatusDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CitizenshipStatusDescriptorId != source.CitizenshipStatusDescriptorId))
@@ -8168,10 +8188,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ClassPeriodAggregate
             var mappingContract = (ClassPeriodMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ClassPeriod);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.ClassPeriodName != source.ClassPeriodName)
+                 (!keyStringComparer.Equals(target.ClassPeriodName, source.ClassPeriodName))
                 || (target.SchoolId != source.SchoolId))
             {
                 // Allow PK column updates on ClassPeriod
@@ -8304,7 +8326,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ClassPeriodAggregate
             var mappingContract = (ClassPeriodMeetingTimeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ClassPeriodMeetingTime);
-            
+
 
             // Copy non-PK properties
 
@@ -8380,7 +8402,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ClassroomPositionDescriptorAggregate
             var mappingContract = (ClassroomPositionDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ClassroomPositionDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ClassroomPositionDescriptorId != source.ClassroomPositionDescriptorId))
@@ -8541,10 +8563,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CohortAggregate
             var mappingContract = (CohortMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_Cohort);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.CohortIdentifier != source.CohortIdentifier)
+                 (!keyStringComparer.Equals(target.CohortIdentifier, source.CohortIdentifier))
                 || (target.EducationOrganizationId != source.EducationOrganizationId))
             {
                 // Disallow PK column updates on Cohort
@@ -8688,7 +8712,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CohortAggregate
             var mappingContract = (CohortProgramMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CohortProgram);
-            
+
 
             // Copy non-PK properties
 
@@ -8772,7 +8796,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CohortScopeDescriptorAggregate
             var mappingContract = (CohortScopeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CohortScopeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CohortScopeDescriptorId != source.CohortScopeDescriptorId))
@@ -8933,7 +8957,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CohortTypeDescriptorAggregate
             var mappingContract = (CohortTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CohortTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CohortTypeDescriptorId != source.CohortTypeDescriptorId))
@@ -9094,7 +9118,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CohortYearTypeDescriptorAggregate
             var mappingContract = (CohortYearTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CohortYearTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CohortYearTypeDescriptorId != source.CohortYearTypeDescriptorId))
@@ -9255,7 +9279,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CommunityOrganizationAggregate
             var mappingContract = (CommunityOrganizationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CommunityOrganization);
-            
+
             // Detect primary key changes
             if (
                  (target.CommunityOrganizationId != source.CommunityOrganizationId))
@@ -9474,7 +9498,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CommunityProviderAggregate
             var mappingContract = (CommunityProviderMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CommunityProvider);
-            
+
             // Detect primary key changes
             if (
                  (target.CommunityProviderId != source.CommunityProviderId))
@@ -9759,12 +9783,14 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CommunityProviderLicenseAggregate
             var mappingContract = (CommunityProviderLicenseMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CommunityProviderLicense);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.CommunityProviderId != source.CommunityProviderId)
-                || (target.LicenseIdentifier != source.LicenseIdentifier)
-                || (target.LicensingOrganization != source.LicensingOrganization))
+                || (!keyStringComparer.Equals(target.LicenseIdentifier, source.LicenseIdentifier))
+                || (!keyStringComparer.Equals(target.LicensingOrganization, source.LicensingOrganization)))
             {
                 // Disallow PK column updates on CommunityProviderLicense
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -9935,7 +9961,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CompetencyLevelDescriptorAggregate
             var mappingContract = (CompetencyLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CompetencyLevelDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CompetencyLevelDescriptorId != source.CompetencyLevelDescriptorId))
@@ -10096,11 +10122,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CompetencyObjectiveAggregate
             var mappingContract = (CompetencyObjectiveMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CompetencyObjective);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.Objective != source.Objective)
+                || (!keyStringComparer.Equals(target.Objective, source.Objective))
                 || (target.ObjectiveGradeLevelDescriptor != source.ObjectiveGradeLevelDescriptor))
             {
                 // Disallow PK column updates on CompetencyObjective
@@ -10223,7 +10251,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ContactTypeDescriptorAggregate
             var mappingContract = (ContactTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ContactTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ContactTypeDescriptorId != source.ContactTypeDescriptorId))
@@ -10384,7 +10412,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ContentClassDescriptorAggregate
             var mappingContract = (ContentClassDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ContentClassDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ContentClassDescriptorId != source.ContentClassDescriptorId))
@@ -10545,7 +10573,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ContinuationOfServicesReasonDescripto
             var mappingContract = (ContinuationOfServicesReasonDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ContinuationOfServicesReasonDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ContinuationOfServicesReasonDescriptorId != source.ContinuationOfServicesReasonDescriptorId))
@@ -10706,7 +10734,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CostRateDescriptorAggregate
             var mappingContract = (CostRateDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CostRateDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CostRateDescriptorId != source.CostRateDescriptorId))
@@ -10867,7 +10895,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CountryDescriptorAggregate
             var mappingContract = (CountryDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CountryDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CountryDescriptorId != source.CountryDescriptorId))
@@ -11028,10 +11056,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseAggregate
             var mappingContract = (CourseMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_Course);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.CourseCode != source.CourseCode)
+                 (!keyStringComparer.Equals(target.CourseCode, source.CourseCode))
                 || (target.EducationOrganizationId != source.EducationOrganizationId))
             {
                 // Disallow PK column updates on Course
@@ -11390,7 +11420,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseAggregate
             var mappingContract = (CourseCompetencyLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseCompetencyLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -11460,7 +11490,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseAggregate
             var mappingContract = (CourseIdentificationCodeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseIdentificationCode);
-            
+
 
             // Copy non-PK properties
 
@@ -11560,7 +11590,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseAggregate
             var mappingContract = (CourseLearningObjectiveMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseLearningObjective);
-            
+
 
             // Copy non-PK properties
 
@@ -11638,7 +11668,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseAggregate
             var mappingContract = (CourseLearningStandardMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseLearningStandard);
-            
+
 
             // Copy non-PK properties
 
@@ -11715,7 +11745,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseAggregate
             var mappingContract = (CourseLevelCharacteristicMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseLevelCharacteristic);
-            
+
 
             // Copy non-PK properties
 
@@ -11785,7 +11815,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseAggregate
             var mappingContract = (CourseOfferedGradeLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseOfferedGradeLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -11860,7 +11890,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseAttemptResultDescriptorAggregat
             var mappingContract = (CourseAttemptResultDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseAttemptResultDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CourseAttemptResultDescriptorId != source.CourseAttemptResultDescriptorId))
@@ -12021,7 +12051,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseDefinedByDescriptorAggregate
             var mappingContract = (CourseDefinedByDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseDefinedByDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CourseDefinedByDescriptorId != source.CourseDefinedByDescriptorId))
@@ -12182,7 +12212,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseGPAApplicabilityDescriptorAggre
             var mappingContract = (CourseGPAApplicabilityDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseGPAApplicabilityDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CourseGPAApplicabilityDescriptorId != source.CourseGPAApplicabilityDescriptorId))
@@ -12343,7 +12373,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseIdentificationSystemDescriptorA
             var mappingContract = (CourseIdentificationSystemDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseIdentificationSystemDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CourseIdentificationSystemDescriptorId != source.CourseIdentificationSystemDescriptorId))
@@ -12504,7 +12534,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseLevelCharacteristicDescriptorAg
             var mappingContract = (CourseLevelCharacteristicDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseLevelCharacteristicDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CourseLevelCharacteristicDescriptorId != source.CourseLevelCharacteristicDescriptorId))
@@ -12665,13 +12695,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseOfferingAggregate
             var mappingContract = (CourseOfferingMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseOffering);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.LocalCourseCode != source.LocalCourseCode)
+                 (!keyStringComparer.Equals(target.LocalCourseCode, source.LocalCourseCode))
                 || (target.SchoolId != source.SchoolId)
                 || (target.SchoolYear != source.SchoolYear)
-                || (target.SessionName != source.SessionName))
+                || (!keyStringComparer.Equals(target.SessionName, source.SessionName)))
             {
                 // Disallow PK column updates on CourseOffering
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -12853,7 +12885,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseOfferingAggregate
             var mappingContract = (CourseOfferingCourseLevelCharacteristicMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseOfferingCourseLevelCharacteristic);
-            
+
 
             // Copy non-PK properties
 
@@ -12923,7 +12955,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseOfferingAggregate
             var mappingContract = (CourseOfferingCurriculumUsedMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseOfferingCurriculumUsed);
-            
+
 
             // Copy non-PK properties
 
@@ -12993,7 +13025,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseOfferingAggregate
             var mappingContract = (CourseOfferingOfferedGradeLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseOfferingOfferedGradeLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -13068,7 +13100,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseRepeatCodeDescriptorAggregate
             var mappingContract = (CourseRepeatCodeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseRepeatCodeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CourseRepeatCodeDescriptorId != source.CourseRepeatCodeDescriptorId))
@@ -13229,11 +13261,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseTranscriptAggregate
             var mappingContract = (CourseTranscriptMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseTranscript);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.CourseAttemptResultDescriptor != source.CourseAttemptResultDescriptor)
-                || (target.CourseCode != source.CourseCode)
+                || (!keyStringComparer.Equals(target.CourseCode, source.CourseCode))
                 || (target.CourseEducationOrganizationId != source.CourseEducationOrganizationId)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.SchoolYear != source.SchoolYear)
@@ -13598,7 +13632,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseTranscriptAggregate
             var mappingContract = (CourseTranscriptAcademicSubjectMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseTranscriptAcademicSubject);
-            
+
 
             // Copy non-PK properties
 
@@ -13668,7 +13702,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseTranscriptAggregate
             var mappingContract = (CourseTranscriptAlternativeCourseIdentificationCodeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseTranscriptAlternativeCourseIdentificationCode);
-            
+
 
             // Copy non-PK properties
 
@@ -13768,7 +13802,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseTranscriptAggregate
             var mappingContract = (CourseTranscriptCreditCategoryMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseTranscriptCreditCategory);
-            
+
 
             // Copy non-PK properties
 
@@ -13838,7 +13872,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseTranscriptAggregate
             var mappingContract = (CourseTranscriptEarnedAdditionalCreditsMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseTranscriptEarnedAdditionalCredits);
-            
+
 
             // Copy non-PK properties
 
@@ -13918,7 +13952,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseTranscriptAggregate
             var mappingContract = (CourseTranscriptPartialCourseTranscriptAwardsMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CourseTranscriptPartialCourseTranscriptAwards);
-            
+
 
             // Copy non-PK properties
 
@@ -14033,10 +14067,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CredentialAggregate
             var mappingContract = (CredentialMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_Credential);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.CredentialIdentifier != source.CredentialIdentifier)
+                 (!keyStringComparer.Equals(target.CredentialIdentifier, source.CredentialIdentifier))
                 || (target.StateOfIssueStateAbbreviationDescriptor != source.StateOfIssueStateAbbreviationDescriptor))
             {
                 // Disallow PK column updates on Credential
@@ -14247,7 +14283,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CredentialAggregate
             var mappingContract = (CredentialAcademicSubjectMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CredentialAcademicSubject);
-            
+
 
             // Copy non-PK properties
 
@@ -14317,7 +14353,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CredentialAggregate
             var mappingContract = (CredentialEndorsementMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CredentialEndorsement);
-            
+
 
             // Copy non-PK properties
 
@@ -14387,7 +14423,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CredentialAggregate
             var mappingContract = (CredentialGradeLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CredentialGradeLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -14462,7 +14498,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CredentialFieldDescriptorAggregate
             var mappingContract = (CredentialFieldDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CredentialFieldDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CredentialFieldDescriptorId != source.CredentialFieldDescriptorId))
@@ -14623,7 +14659,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CredentialTypeDescriptorAggregate
             var mappingContract = (CredentialTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CredentialTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CredentialTypeDescriptorId != source.CredentialTypeDescriptorId))
@@ -14784,7 +14820,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CreditCategoryDescriptorAggregate
             var mappingContract = (CreditCategoryDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CreditCategoryDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CreditCategoryDescriptorId != source.CreditCategoryDescriptorId))
@@ -14945,7 +14981,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CreditTypeDescriptorAggregate
             var mappingContract = (CreditTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CreditTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CreditTypeDescriptorId != source.CreditTypeDescriptorId))
@@ -15106,7 +15142,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CTEProgramServiceDescriptorAggregate
             var mappingContract = (CTEProgramServiceDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CTEProgramServiceDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CTEProgramServiceDescriptorId != source.CTEProgramServiceDescriptorId))
@@ -15267,7 +15303,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CurriculumUsedDescriptorAggregate
             var mappingContract = (CurriculumUsedDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_CurriculumUsedDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CurriculumUsedDescriptorId != source.CurriculumUsedDescriptorId))
@@ -15428,7 +15464,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DeliveryMethodDescriptorAggregate
             var mappingContract = (DeliveryMethodDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DeliveryMethodDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.DeliveryMethodDescriptorId != source.DeliveryMethodDescriptorId))
@@ -15589,13 +15625,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DescriptorMappingAggregate
             var mappingContract = (DescriptorMappingMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DescriptorMapping);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.MappedNamespace != source.MappedNamespace)
-                || (target.MappedValue != source.MappedValue)
-                || (target.Namespace != source.Namespace)
-                || (target.Value != source.Value))
+                 (!keyStringComparer.Equals(target.MappedNamespace, source.MappedNamespace))
+                || (!keyStringComparer.Equals(target.MappedValue, source.MappedValue))
+                || (!keyStringComparer.Equals(target.Namespace, source.Namespace))
+                || (!keyStringComparer.Equals(target.Value, source.Value)))
             {
                 // Disallow PK column updates on DescriptorMapping
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -15693,7 +15731,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DescriptorMappingAggregate
             var mappingContract = (DescriptorMappingModelEntityMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DescriptorMappingModelEntity);
-            
+
 
             // Copy non-PK properties
 
@@ -15768,7 +15806,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DiagnosisDescriptorAggregate
             var mappingContract = (DiagnosisDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DiagnosisDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.DiagnosisDescriptorId != source.DiagnosisDescriptorId))
@@ -15929,7 +15967,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DiplomaLevelDescriptorAggregate
             var mappingContract = (DiplomaLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DiplomaLevelDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.DiplomaLevelDescriptorId != source.DiplomaLevelDescriptorId))
@@ -16090,7 +16128,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DiplomaTypeDescriptorAggregate
             var mappingContract = (DiplomaTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DiplomaTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.DiplomaTypeDescriptorId != source.DiplomaTypeDescriptorId))
@@ -16251,7 +16289,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisabilityDescriptorAggregate
             var mappingContract = (DisabilityDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DisabilityDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.DisabilityDescriptorId != source.DisabilityDescriptorId))
@@ -16412,7 +16450,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisabilityDesignationDescriptorAggreg
             var mappingContract = (DisabilityDesignationDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DisabilityDesignationDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.DisabilityDesignationDescriptorId != source.DisabilityDesignationDescriptorId))
@@ -16573,7 +16611,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisabilityDeterminationSourceTypeDesc
             var mappingContract = (DisabilityDeterminationSourceTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DisabilityDeterminationSourceTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.DisabilityDeterminationSourceTypeDescriptorId != source.DisabilityDeterminationSourceTypeDescriptorId))
@@ -16734,10 +16772,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisciplineActionAggregate
             var mappingContract = (DisciplineActionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DisciplineAction);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.DisciplineActionIdentifier != source.DisciplineActionIdentifier)
+                 (!keyStringComparer.Equals(target.DisciplineActionIdentifier, source.DisciplineActionIdentifier))
                 || (target.DisciplineDate != source.DisciplineDate)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
@@ -16976,7 +17016,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisciplineActionAggregate
             var mappingContract = (DisciplineActionDisciplineMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DisciplineActionDiscipline);
-            
+
 
             // Copy non-PK properties
 
@@ -17046,7 +17086,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisciplineActionAggregate
             var mappingContract = (DisciplineActionStaffMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DisciplineActionStaff);
-            
+
 
             // Copy non-PK properties
 
@@ -17123,7 +17163,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisciplineActionAggregate
             var mappingContract = (DisciplineActionStudentDisciplineIncidentAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DisciplineActionStudentDisciplineIncidentAssociation);
-            
+
 
             // Copy non-PK properties
 
@@ -17201,7 +17241,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisciplineActionAggregate
             var mappingContract = (DisciplineActionStudentDisciplineIncidentBehaviorAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DisciplineActionStudentDisciplineIncidentBehaviorAssociation);
-            
+
 
             // Copy non-PK properties
 
@@ -17285,7 +17325,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisciplineActionLengthDifferenceReaso
             var mappingContract = (DisciplineActionLengthDifferenceReasonDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DisciplineActionLengthDifferenceReasonDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.DisciplineActionLengthDifferenceReasonDescriptorId != source.DisciplineActionLengthDifferenceReasonDescriptorId))
@@ -17446,7 +17486,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisciplineDescriptorAggregate
             var mappingContract = (DisciplineDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DisciplineDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.DisciplineDescriptorId != source.DisciplineDescriptorId))
@@ -17607,10 +17647,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisciplineIncidentAggregate
             var mappingContract = (DisciplineIncidentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DisciplineIncident);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.IncidentIdentifier != source.IncidentIdentifier)
+                 (!keyStringComparer.Equals(target.IncidentIdentifier, source.IncidentIdentifier))
                 || (target.SchoolId != source.SchoolId))
             {
                 // Disallow PK column updates on DisciplineIncident
@@ -17849,7 +17891,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisciplineIncidentAggregate
             var mappingContract = (DisciplineIncidentBehaviorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DisciplineIncidentBehavior);
-            
+
 
             // Copy non-PK properties
 
@@ -17929,7 +17971,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisciplineIncidentAggregate
             var mappingContract = (DisciplineIncidentExternalParticipantMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DisciplineIncidentExternalParticipant);
-            
+
 
             // Copy non-PK properties
 
@@ -18001,7 +18043,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisciplineIncidentAggregate
             var mappingContract = (DisciplineIncidentWeaponMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DisciplineIncidentWeapon);
-            
+
 
             // Copy non-PK properties
 
@@ -18076,7 +18118,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisciplineIncidentParticipationCodeDe
             var mappingContract = (DisciplineIncidentParticipationCodeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_DisciplineIncidentParticipationCodeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.DisciplineIncidentParticipationCodeDescriptorId != source.DisciplineIncidentParticipationCodeDescriptorId))
@@ -18237,7 +18279,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationalEnvironmentDescriptorAggre
             var mappingContract = (EducationalEnvironmentDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationalEnvironmentDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.EducationalEnvironmentDescriptorId != source.EducationalEnvironmentDescriptorId))
@@ -18398,10 +18440,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationContentAggregate
             var mappingContract = (EducationContentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationContent);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.ContentIdentifier != source.ContentIdentifier))
+                 (!keyStringComparer.Equals(target.ContentIdentifier, source.ContentIdentifier)))
             {
                 // Disallow PK column updates on EducationContent
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -18765,7 +18809,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationContentAggregate
             var mappingContract = (EducationContentAppropriateGradeLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationContentAppropriateGradeLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -18835,7 +18879,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationContentAggregate
             var mappingContract = (EducationContentAppropriateSexMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationContentAppropriateSex);
-            
+
 
             // Copy non-PK properties
 
@@ -18905,7 +18949,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationContentAggregate
             var mappingContract = (EducationContentAuthorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationContentAuthor);
-            
+
 
             // Copy non-PK properties
 
@@ -18975,7 +19019,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationContentAggregate
             var mappingContract = (EducationContentDerivativeSourceEducationContentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationContentDerivativeSourceEducationContent);
-            
+
 
             // Copy non-PK properties
 
@@ -19052,7 +19096,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationContentAggregate
             var mappingContract = (EducationContentDerivativeSourceLearningResourceMetadataURIMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationContentDerivativeSourceLearningResourceMetadataURI);
-            
+
 
             // Copy non-PK properties
 
@@ -19122,7 +19166,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationContentAggregate
             var mappingContract = (EducationContentDerivativeSourceURIMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationContentDerivativeSourceURI);
-            
+
 
             // Copy non-PK properties
 
@@ -19192,7 +19236,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationContentAggregate
             var mappingContract = (EducationContentLanguageMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationContentLanguage);
-            
+
 
             // Copy non-PK properties
 
@@ -19267,7 +19311,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAggregate
             var mappingContract = (EducationOrganizationAddressMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationOrganizationAddress);
-            
+
 
             // Copy non-PK properties
 
@@ -19448,7 +19492,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAggregate
             var mappingContract = (EducationOrganizationAddressPeriodMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationOrganizationAddressPeriod);
-            
+
 
             // Copy non-PK properties
 
@@ -19528,7 +19572,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAggregate
             var mappingContract = (EducationOrganizationCategoryMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationOrganizationCategory);
-            
+
 
             // Copy non-PK properties
 
@@ -19598,7 +19642,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAggregate
             var mappingContract = (EducationOrganizationIdentificationCodeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationOrganizationIdentificationCode);
-            
+
 
             // Copy non-PK properties
 
@@ -19678,7 +19722,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAggregate
             var mappingContract = (EducationOrganizationIndicatorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationOrganizationIndicator);
-            
+
 
             // Copy non-PK properties
 
@@ -19805,7 +19849,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAggregate
             var mappingContract = (EducationOrganizationIndicatorPeriodMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationOrganizationIndicatorPeriod);
-            
+
 
             // Copy non-PK properties
 
@@ -19885,7 +19929,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAggregate
             var mappingContract = (EducationOrganizationInstitutionTelephoneMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationOrganizationInstitutionTelephone);
-            
+
 
             // Copy non-PK properties
 
@@ -19965,7 +20009,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAggregate
             var mappingContract = (EducationOrganizationInternationalAddressMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationOrganizationInternationalAddress);
-            
+
 
             // Copy non-PK properties
 
@@ -20130,7 +20174,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAssociationTypeD
             var mappingContract = (EducationOrganizationAssociationTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationOrganizationAssociationTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationAssociationTypeDescriptorId != source.EducationOrganizationAssociationTypeDescriptorId))
@@ -20291,7 +20335,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationCategoryDescript
             var mappingContract = (EducationOrganizationCategoryDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationOrganizationCategoryDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationCategoryDescriptorId != source.EducationOrganizationCategoryDescriptorId))
@@ -20452,7 +20496,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationIdentificationSy
             var mappingContract = (EducationOrganizationIdentificationSystemDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationOrganizationIdentificationSystemDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationIdentificationSystemDescriptorId != source.EducationOrganizationIdentificationSystemDescriptorId))
@@ -20613,12 +20657,14 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationInterventionPres
             var mappingContract = (EducationOrganizationInterventionPrescriptionAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationOrganizationInterventionPrescriptionAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.InterventionPrescriptionEducationOrganizationId != source.InterventionPrescriptionEducationOrganizationId)
-                || (target.InterventionPrescriptionIdentificationCode != source.InterventionPrescriptionIdentificationCode))
+                || (!keyStringComparer.Equals(target.InterventionPrescriptionIdentificationCode, source.InterventionPrescriptionIdentificationCode)))
             {
                 // Disallow PK column updates on EducationOrganizationInterventionPrescriptionAssociation
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -20732,7 +20778,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationNetworkAggregate
             var mappingContract = (EducationOrganizationNetworkMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationOrganizationNetwork);
-            
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationNetworkId != source.EducationOrganizationNetworkId))
@@ -20961,7 +21007,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationNetworkAssociati
             var mappingContract = (EducationOrganizationNetworkAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationOrganizationNetworkAssociation);
-            
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationNetworkId != source.EducationOrganizationNetworkId)
@@ -21077,7 +21123,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationPeerAssociationA
             var mappingContract = (EducationOrganizationPeerAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationOrganizationPeerAssociation);
-            
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
@@ -21174,7 +21220,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationPlanDescriptorAggregate
             var mappingContract = (EducationPlanDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationPlanDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.EducationPlanDescriptorId != source.EducationPlanDescriptorId))
@@ -21335,7 +21381,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationServiceCenterAggregate
             var mappingContract = (EducationServiceCenterMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EducationServiceCenter);
-            
+
             // Detect primary key changes
             if (
                  (target.EducationServiceCenterId != source.EducationServiceCenterId))
@@ -21570,7 +21616,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ElectronicMailTypeDescriptorAggregate
             var mappingContract = (ElectronicMailTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ElectronicMailTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ElectronicMailTypeDescriptorId != source.ElectronicMailTypeDescriptorId))
@@ -21731,7 +21777,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EmploymentStatusDescriptorAggregate
             var mappingContract = (EmploymentStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EmploymentStatusDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.EmploymentStatusDescriptorId != source.EmploymentStatusDescriptorId))
@@ -21892,7 +21938,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EntryGradeLevelReasonDescriptorAggreg
             var mappingContract = (EntryGradeLevelReasonDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EntryGradeLevelReasonDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.EntryGradeLevelReasonDescriptorId != source.EntryGradeLevelReasonDescriptorId))
@@ -22053,7 +22099,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EntryTypeDescriptorAggregate
             var mappingContract = (EntryTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EntryTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.EntryTypeDescriptorId != source.EntryTypeDescriptorId))
@@ -22214,7 +22260,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EventCircumstanceDescriptorAggregate
             var mappingContract = (EventCircumstanceDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_EventCircumstanceDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.EventCircumstanceDescriptorId != source.EventCircumstanceDescriptorId))
@@ -22375,7 +22421,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ExitWithdrawTypeDescriptorAggregate
             var mappingContract = (ExitWithdrawTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ExitWithdrawTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ExitWithdrawTypeDescriptorId != source.ExitWithdrawTypeDescriptorId))
@@ -22536,7 +22582,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.FeederSchoolAssociationAggregate
             var mappingContract = (FeederSchoolAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_FeederSchoolAssociation);
-            
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
@@ -22653,7 +22699,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.FinancialCollectionDescriptorAggregat
             var mappingContract = (FinancialCollectionDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_FinancialCollectionDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.FinancialCollectionDescriptorId != source.FinancialCollectionDescriptorId))
@@ -22814,10 +22860,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.FunctionDimensionAggregate
             var mappingContract = (FunctionDimensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_FunctionDimension);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.Code != source.Code)
+                 (!keyStringComparer.Equals(target.Code, source.Code))
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on FunctionDimension
@@ -22924,7 +22972,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.FunctionDimensionAggregate
             var mappingContract = (FunctionDimensionReportingTagMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_FunctionDimensionReportingTag);
-            
+
 
             // Copy non-PK properties
 
@@ -22999,10 +23047,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.FundDimensionAggregate
             var mappingContract = (FundDimensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_FundDimension);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.Code != source.Code)
+                 (!keyStringComparer.Equals(target.Code, source.Code))
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on FundDimension
@@ -23109,7 +23159,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.FundDimensionAggregate
             var mappingContract = (FundDimensionReportingTagMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_FundDimensionReportingTag);
-            
+
 
             // Copy non-PK properties
 
@@ -23184,13 +23234,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GeneralStudentProgramAssociationAggre
             var mappingContract = (GeneralStudentProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GeneralStudentProgramAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
-                || (target.ProgramName != source.ProgramName)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
                 || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
@@ -23459,7 +23511,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GeneralStudentProgramAssociationAggre
             var mappingContract = (GeneralStudentProgramAssociationParticipationStatusMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GeneralStudentProgramAssociationParticipationStatus);
-            
+
 
             // Copy non-PK properties
 
@@ -23568,7 +23620,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GeneralStudentProgramAssociationAggre
             var mappingContract = (GeneralStudentProgramAssociationProgramParticipationStatusMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GeneralStudentProgramAssociationProgramParticipationStatus);
-            
+
 
             // Copy non-PK properties
 
@@ -23664,7 +23716,9 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradeAggregate
             var mappingContract = (GradeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_Grade);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
@@ -23672,11 +23726,11 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradeAggregate
                 || (target.GradingPeriodDescriptor != source.GradingPeriodDescriptor)
                 || (target.GradingPeriodSchoolYear != source.GradingPeriodSchoolYear)
                 || (target.GradingPeriodSequence != source.GradingPeriodSequence)
-                || (target.LocalCourseCode != source.LocalCourseCode)
+                || (!keyStringComparer.Equals(target.LocalCourseCode, source.LocalCourseCode))
                 || (target.SchoolId != source.SchoolId)
                 || (target.SchoolYear != source.SchoolYear)
-                || (target.SectionIdentifier != source.SectionIdentifier)
-                || (target.SessionName != source.SessionName)
+                || (!keyStringComparer.Equals(target.SectionIdentifier, source.SectionIdentifier))
+                || (!keyStringComparer.Equals(target.SessionName, source.SessionName))
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Allow PK column updates on Grade
@@ -23907,7 +23961,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradeAggregate
             var mappingContract = (GradeLearningStandardGradeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GradeLearningStandardGrade);
-            
+
 
             // Copy non-PK properties
 
@@ -24029,11 +24083,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradebookEntryAggregate
             var mappingContract = (GradebookEntryMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GradebookEntry);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.GradebookEntryIdentifier != source.GradebookEntryIdentifier)
-                || (target.Namespace != source.Namespace))
+                 (!keyStringComparer.Equals(target.GradebookEntryIdentifier, source.GradebookEntryIdentifier))
+                || (!keyStringComparer.Equals(target.Namespace, source.Namespace)))
             {
                 // Allow PK column updates on GradebookEntry
                 isModified = true;
@@ -24308,7 +24364,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradebookEntryAggregate
             var mappingContract = (GradebookEntryLearningStandardMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GradebookEntryLearningStandard);
-            
+
 
             // Copy non-PK properties
 
@@ -24390,7 +24446,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradebookEntryTypeDescriptorAggregate
             var mappingContract = (GradebookEntryTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GradebookEntryTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.GradebookEntryTypeDescriptorId != source.GradebookEntryTypeDescriptorId))
@@ -24551,7 +24607,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradeLevelDescriptorAggregate
             var mappingContract = (GradeLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GradeLevelDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.GradeLevelDescriptorId != source.GradeLevelDescriptorId))
@@ -24712,7 +24768,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradePointAverageTypeDescriptorAggreg
             var mappingContract = (GradePointAverageTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GradePointAverageTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.GradePointAverageTypeDescriptorId != source.GradePointAverageTypeDescriptorId))
@@ -24873,7 +24929,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradeTypeDescriptorAggregate
             var mappingContract = (GradeTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GradeTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.GradeTypeDescriptorId != source.GradeTypeDescriptorId))
@@ -25034,7 +25090,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradingPeriodAggregate
             var mappingContract = (GradingPeriodMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GradingPeriod);
-            
+
             // Detect primary key changes
             if (
                  (target.GradingPeriodDescriptor != source.GradingPeriodDescriptor)
@@ -25163,7 +25219,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradingPeriodDescriptorAggregate
             var mappingContract = (GradingPeriodDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GradingPeriodDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.GradingPeriodDescriptorId != source.GradingPeriodDescriptorId))
@@ -25324,7 +25380,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GraduationPlanAggregate
             var mappingContract = (GraduationPlanMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GraduationPlan);
-            
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
@@ -25525,7 +25581,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GraduationPlanAggregate
             var mappingContract = (GraduationPlanCreditsByCourseMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GraduationPlanCreditsByCourse);
-            
+
 
             // Copy non-PK properties
 
@@ -25652,7 +25708,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GraduationPlanAggregate
             var mappingContract = (GraduationPlanCreditsByCourseCourseMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GraduationPlanCreditsByCourseCourse);
-            
+
 
             // Copy non-PK properties
 
@@ -25730,7 +25786,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GraduationPlanAggregate
             var mappingContract = (GraduationPlanCreditsByCreditCategoryMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GraduationPlanCreditsByCreditCategory);
-            
+
 
             // Copy non-PK properties
 
@@ -25830,7 +25886,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GraduationPlanAggregate
             var mappingContract = (GraduationPlanCreditsBySubjectMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GraduationPlanCreditsBySubject);
-            
+
 
             // Copy non-PK properties
 
@@ -25930,7 +25986,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GraduationPlanAggregate
             var mappingContract = (GraduationPlanRequiredAssessmentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GraduationPlanRequiredAssessment);
-            
+
 
             // Copy non-PK properties
 
@@ -26077,7 +26133,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GraduationPlanAggregate
             var mappingContract = (GraduationPlanRequiredAssessmentPerformanceLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GraduationPlanRequiredAssessmentPerformanceLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -26206,7 +26262,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GraduationPlanAggregate
             var mappingContract = (GraduationPlanRequiredAssessmentScoreMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GraduationPlanRequiredAssessmentScore);
-            
+
 
             // Copy non-PK properties
 
@@ -26311,7 +26367,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GraduationPlanTypeDescriptorAggregate
             var mappingContract = (GraduationPlanTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GraduationPlanTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.GraduationPlanTypeDescriptorId != source.GraduationPlanTypeDescriptorId))
@@ -26472,7 +26528,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GunFreeSchoolsActReportingStatusDescr
             var mappingContract = (GunFreeSchoolsActReportingStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GunFreeSchoolsActReportingStatusDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.GunFreeSchoolsActReportingStatusDescriptorId != source.GunFreeSchoolsActReportingStatusDescriptorId))
@@ -26633,7 +26689,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.HomelessPrimaryNighttimeResidenceDesc
             var mappingContract = (HomelessPrimaryNighttimeResidenceDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_HomelessPrimaryNighttimeResidenceDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.HomelessPrimaryNighttimeResidenceDescriptorId != source.HomelessPrimaryNighttimeResidenceDescriptorId))
@@ -26794,7 +26850,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.HomelessProgramServiceDescriptorAggre
             var mappingContract = (HomelessProgramServiceDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_HomelessProgramServiceDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.HomelessProgramServiceDescriptorId != source.HomelessProgramServiceDescriptorId))
@@ -26955,7 +27011,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IdentificationDocumentUseDescriptorAg
             var mappingContract = (IdentificationDocumentUseDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_IdentificationDocumentUseDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.IdentificationDocumentUseDescriptorId != source.IdentificationDocumentUseDescriptorId))
@@ -27116,7 +27172,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IncidentLocationDescriptorAggregate
             var mappingContract = (IncidentLocationDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_IncidentLocationDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.IncidentLocationDescriptorId != source.IncidentLocationDescriptorId))
@@ -27277,7 +27333,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IndicatorDescriptorAggregate
             var mappingContract = (IndicatorDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_IndicatorDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.IndicatorDescriptorId != source.IndicatorDescriptorId))
@@ -27438,7 +27494,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IndicatorGroupDescriptorAggregate
             var mappingContract = (IndicatorGroupDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_IndicatorGroupDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.IndicatorGroupDescriptorId != source.IndicatorGroupDescriptorId))
@@ -27599,7 +27655,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IndicatorLevelDescriptorAggregate
             var mappingContract = (IndicatorLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_IndicatorLevelDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.IndicatorLevelDescriptorId != source.IndicatorLevelDescriptorId))
@@ -27760,7 +27816,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InstitutionTelephoneNumberTypeDescrip
             var mappingContract = (InstitutionTelephoneNumberTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InstitutionTelephoneNumberTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.InstitutionTelephoneNumberTypeDescriptorId != source.InstitutionTelephoneNumberTypeDescriptorId))
@@ -27921,7 +27977,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InteractivityStyleDescriptorAggregate
             var mappingContract = (InteractivityStyleDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InteractivityStyleDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.InteractivityStyleDescriptorId != source.InteractivityStyleDescriptorId))
@@ -28082,7 +28138,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InternetAccessDescriptorAggregate
             var mappingContract = (InternetAccessDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InternetAccessDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.InternetAccessDescriptorId != source.InternetAccessDescriptorId))
@@ -28243,7 +28299,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InternetAccessTypeInResidenceDescript
             var mappingContract = (InternetAccessTypeInResidenceDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InternetAccessTypeInResidenceDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.InternetAccessTypeInResidenceDescriptorId != source.InternetAccessTypeInResidenceDescriptorId))
@@ -28404,7 +28460,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InternetPerformanceInResidenceDescrip
             var mappingContract = (InternetPerformanceInResidenceDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InternetPerformanceInResidenceDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.InternetPerformanceInResidenceDescriptorId != source.InternetPerformanceInResidenceDescriptorId))
@@ -28565,11 +28621,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionAggregate
             var mappingContract = (InterventionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_Intervention);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.InterventionIdentificationCode != source.InterventionIdentificationCode))
+                || (!keyStringComparer.Equals(target.InterventionIdentificationCode, source.InterventionIdentificationCode)))
             {
                 // Disallow PK column updates on Intervention
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -28895,7 +28953,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionAggregate
             var mappingContract = (InterventionAppropriateGradeLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionAppropriateGradeLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -28965,7 +29023,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionAggregate
             var mappingContract = (InterventionAppropriateSexMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionAppropriateSex);
-            
+
 
             // Copy non-PK properties
 
@@ -29035,7 +29093,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionAggregate
             var mappingContract = (InterventionDiagnosisMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionDiagnosis);
-            
+
 
             // Copy non-PK properties
 
@@ -29105,7 +29163,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionAggregate
             var mappingContract = (InterventionEducationContentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionEducationContent);
-            
+
 
             // Copy non-PK properties
 
@@ -29182,7 +29240,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionAggregate
             var mappingContract = (InterventionInterventionPrescriptionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionInterventionPrescription);
-            
+
 
             // Copy non-PK properties
 
@@ -29260,7 +29318,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionAggregate
             var mappingContract = (InterventionLearningResourceMetadataURIMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionLearningResourceMetadataURI);
-            
+
 
             // Copy non-PK properties
 
@@ -29330,7 +29388,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionAggregate
             var mappingContract = (InterventionMeetingTimeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionMeetingTime);
-            
+
 
             // Copy non-PK properties
 
@@ -29401,7 +29459,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionAggregate
             var mappingContract = (InterventionPopulationServedMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionPopulationServed);
-            
+
 
             // Copy non-PK properties
 
@@ -29471,7 +29529,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionAggregate
             var mappingContract = (InterventionStaffMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionStaff);
-            
+
 
             // Copy non-PK properties
 
@@ -29548,7 +29606,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionAggregate
             var mappingContract = (InterventionURIMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionURI);
-            
+
 
             // Copy non-PK properties
 
@@ -29623,7 +29681,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionClassDescriptorAggregate
             var mappingContract = (InterventionClassDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionClassDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.InterventionClassDescriptorId != source.InterventionClassDescriptorId))
@@ -29784,7 +29842,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionEffectivenessRatingDescri
             var mappingContract = (InterventionEffectivenessRatingDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionEffectivenessRatingDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.InterventionEffectivenessRatingDescriptorId != source.InterventionEffectivenessRatingDescriptorId))
@@ -29945,11 +30003,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionPrescriptionAggregate
             var mappingContract = (InterventionPrescriptionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionPrescription);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.InterventionPrescriptionIdentificationCode != source.InterventionPrescriptionIdentificationCode))
+                || (!keyStringComparer.Equals(target.InterventionPrescriptionIdentificationCode, source.InterventionPrescriptionIdentificationCode)))
             {
                 // Disallow PK column updates on InterventionPrescription
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -30204,7 +30264,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionPrescriptionAggregate
             var mappingContract = (InterventionPrescriptionAppropriateGradeLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionPrescriptionAppropriateGradeLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -30274,7 +30334,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionPrescriptionAggregate
             var mappingContract = (InterventionPrescriptionAppropriateSexMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionPrescriptionAppropriateSex);
-            
+
 
             // Copy non-PK properties
 
@@ -30344,7 +30404,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionPrescriptionAggregate
             var mappingContract = (InterventionPrescriptionDiagnosisMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionPrescriptionDiagnosis);
-            
+
 
             // Copy non-PK properties
 
@@ -30414,7 +30474,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionPrescriptionAggregate
             var mappingContract = (InterventionPrescriptionEducationContentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionPrescriptionEducationContent);
-            
+
 
             // Copy non-PK properties
 
@@ -30491,7 +30551,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionPrescriptionAggregate
             var mappingContract = (InterventionPrescriptionLearningResourceMetadataURIMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionPrescriptionLearningResourceMetadataURI);
-            
+
 
             // Copy non-PK properties
 
@@ -30561,7 +30621,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionPrescriptionAggregate
             var mappingContract = (InterventionPrescriptionPopulationServedMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionPrescriptionPopulationServed);
-            
+
 
             // Copy non-PK properties
 
@@ -30631,7 +30691,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionPrescriptionAggregate
             var mappingContract = (InterventionPrescriptionURIMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionPrescriptionURI);
-            
+
 
             // Copy non-PK properties
 
@@ -30706,11 +30766,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionStudyAggregate
             var mappingContract = (InterventionStudyMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionStudy);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.InterventionStudyIdentificationCode != source.InterventionStudyIdentificationCode))
+                || (!keyStringComparer.Equals(target.InterventionStudyIdentificationCode, source.InterventionStudyIdentificationCode)))
             {
                 // Disallow PK column updates on InterventionStudy
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -30984,7 +31046,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionStudyAggregate
             var mappingContract = (InterventionStudyAppropriateGradeLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionStudyAppropriateGradeLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -31054,7 +31116,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionStudyAggregate
             var mappingContract = (InterventionStudyAppropriateSexMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionStudyAppropriateSex);
-            
+
 
             // Copy non-PK properties
 
@@ -31124,7 +31186,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionStudyAggregate
             var mappingContract = (InterventionStudyEducationContentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionStudyEducationContent);
-            
+
 
             // Copy non-PK properties
 
@@ -31201,7 +31263,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionStudyAggregate
             var mappingContract = (InterventionStudyInterventionEffectivenessMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionStudyInterventionEffectiveness);
-            
+
 
             // Copy non-PK properties
 
@@ -31293,7 +31355,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionStudyAggregate
             var mappingContract = (InterventionStudyLearningResourceMetadataURIMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionStudyLearningResourceMetadataURI);
-            
+
 
             // Copy non-PK properties
 
@@ -31363,7 +31425,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionStudyAggregate
             var mappingContract = (InterventionStudyPopulationServedMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionStudyPopulationServed);
-            
+
 
             // Copy non-PK properties
 
@@ -31433,7 +31495,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionStudyAggregate
             var mappingContract = (InterventionStudyStateAbbreviationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionStudyStateAbbreviation);
-            
+
 
             // Copy non-PK properties
 
@@ -31503,7 +31565,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionStudyAggregate
             var mappingContract = (InterventionStudyURIMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_InterventionStudyURI);
-            
+
 
             // Copy non-PK properties
 
@@ -31578,7 +31640,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LanguageDescriptorAggregate
             var mappingContract = (LanguageDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LanguageDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.LanguageDescriptorId != source.LanguageDescriptorId))
@@ -31739,7 +31801,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LanguageInstructionProgramServiceDesc
             var mappingContract = (LanguageInstructionProgramServiceDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LanguageInstructionProgramServiceDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.LanguageInstructionProgramServiceDescriptorId != source.LanguageInstructionProgramServiceDescriptorId))
@@ -31900,7 +31962,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LanguageUseDescriptorAggregate
             var mappingContract = (LanguageUseDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LanguageUseDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.LanguageUseDescriptorId != source.LanguageUseDescriptorId))
@@ -32061,11 +32123,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningObjectiveAggregate
             var mappingContract = (LearningObjectiveMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LearningObjective);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.LearningObjectiveId != source.LearningObjectiveId)
-                || (target.Namespace != source.Namespace))
+                 (!keyStringComparer.Equals(target.LearningObjectiveId, source.LearningObjectiveId))
+                || (!keyStringComparer.Equals(target.Namespace, source.Namespace)))
             {
                 // Disallow PK column updates on LearningObjective
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -32314,7 +32378,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningObjectiveAggregate
             var mappingContract = (LearningObjectiveAcademicSubjectMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LearningObjectiveAcademicSubject);
-            
+
 
             // Copy non-PK properties
 
@@ -32384,7 +32448,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningObjectiveAggregate
             var mappingContract = (LearningObjectiveContentStandardMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LearningObjectiveContentStandard);
-            
+
 
             // Copy non-PK properties
 
@@ -32567,7 +32631,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningObjectiveAggregate
             var mappingContract = (LearningObjectiveContentStandardAuthorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LearningObjectiveContentStandardAuthor);
-            
+
 
             // Copy non-PK properties
 
@@ -32637,7 +32701,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningObjectiveAggregate
             var mappingContract = (LearningObjectiveGradeLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LearningObjectiveGradeLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -32707,7 +32771,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningObjectiveAggregate
             var mappingContract = (LearningObjectiveLearningStandardMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LearningObjectiveLearningStandard);
-            
+
 
             // Copy non-PK properties
 
@@ -32789,10 +32853,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningStandardAggregate
             var mappingContract = (LearningStandardMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LearningStandard);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.LearningStandardId != source.LearningStandardId))
+                 (!keyStringComparer.Equals(target.LearningStandardId, source.LearningStandardId)))
             {
                 // Disallow PK column updates on LearningStandard
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -33087,7 +33153,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningStandardAggregate
             var mappingContract = (LearningStandardAcademicSubjectMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LearningStandardAcademicSubject);
-            
+
 
             // Copy non-PK properties
 
@@ -33157,7 +33223,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningStandardAggregate
             var mappingContract = (LearningStandardContentStandardMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LearningStandardContentStandard);
-            
+
 
             // Copy non-PK properties
 
@@ -33340,7 +33406,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningStandardAggregate
             var mappingContract = (LearningStandardContentStandardAuthorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LearningStandardContentStandardAuthor);
-            
+
 
             // Copy non-PK properties
 
@@ -33410,7 +33476,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningStandardAggregate
             var mappingContract = (LearningStandardGradeLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LearningStandardGradeLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -33480,7 +33546,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningStandardAggregate
             var mappingContract = (LearningStandardIdentificationCodeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LearningStandardIdentificationCode);
-            
+
 
             // Copy non-PK properties
 
@@ -33551,7 +33617,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningStandardAggregate
             var mappingContract = (LearningStandardPrerequisiteLearningStandardMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LearningStandardPrerequisiteLearningStandard);
-            
+
 
             // Copy non-PK properties
 
@@ -33633,7 +33699,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningStandardCategoryDescriptorAgg
             var mappingContract = (LearningStandardCategoryDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LearningStandardCategoryDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.LearningStandardCategoryDescriptorId != source.LearningStandardCategoryDescriptorId))
@@ -33794,12 +33860,14 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningStandardEquivalenceAssociatio
             var mappingContract = (LearningStandardEquivalenceAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LearningStandardEquivalenceAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.Namespace != source.Namespace)
-                || (target.SourceLearningStandardId != source.SourceLearningStandardId)
-                || (target.TargetLearningStandardId != source.TargetLearningStandardId))
+                 (!keyStringComparer.Equals(target.Namespace, source.Namespace))
+                || (!keyStringComparer.Equals(target.SourceLearningStandardId, source.SourceLearningStandardId))
+                || (!keyStringComparer.Equals(target.TargetLearningStandardId, source.TargetLearningStandardId)))
             {
                 // Disallow PK column updates on LearningStandardEquivalenceAssociation
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -33923,7 +33991,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningStandardEquivalenceStrengthDe
             var mappingContract = (LearningStandardEquivalenceStrengthDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LearningStandardEquivalenceStrengthDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.LearningStandardEquivalenceStrengthDescriptorId != source.LearningStandardEquivalenceStrengthDescriptorId))
@@ -34084,7 +34152,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningStandardScopeDescriptorAggreg
             var mappingContract = (LearningStandardScopeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LearningStandardScopeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.LearningStandardScopeDescriptorId != source.LearningStandardScopeDescriptorId))
@@ -34245,7 +34313,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LevelOfEducationDescriptorAggregate
             var mappingContract = (LevelOfEducationDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LevelOfEducationDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.LevelOfEducationDescriptorId != source.LevelOfEducationDescriptorId))
@@ -34406,7 +34474,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LicenseStatusDescriptorAggregate
             var mappingContract = (LicenseStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LicenseStatusDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.LicenseStatusDescriptorId != source.LicenseStatusDescriptorId))
@@ -34567,7 +34635,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LicenseTypeDescriptorAggregate
             var mappingContract = (LicenseTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LicenseTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.LicenseTypeDescriptorId != source.LicenseTypeDescriptorId))
@@ -34728,7 +34796,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LimitedEnglishProficiencyDescriptorAg
             var mappingContract = (LimitedEnglishProficiencyDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LimitedEnglishProficiencyDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.LimitedEnglishProficiencyDescriptorId != source.LimitedEnglishProficiencyDescriptorId))
@@ -34889,10 +34957,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalAccountAggregate
             var mappingContract = (LocalAccountMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LocalAccount);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.AccountIdentifier != source.AccountIdentifier)
+                 (!keyStringComparer.Equals(target.AccountIdentifier, source.AccountIdentifier))
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.FiscalYear != source.FiscalYear))
             {
@@ -35030,7 +35100,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalAccountAggregate
             var mappingContract = (LocalAccountReportingTagMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LocalAccountReportingTag);
-            
+
 
             // Copy non-PK properties
 
@@ -35115,10 +35185,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalActualAggregate
             var mappingContract = (LocalActualMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LocalActual);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.AccountIdentifier != source.AccountIdentifier)
+                 (!keyStringComparer.Equals(target.AccountIdentifier, source.AccountIdentifier))
                 || (target.AsOfDate != source.AsOfDate)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.FiscalYear != source.FiscalYear))
@@ -35234,10 +35306,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalBudgetAggregate
             var mappingContract = (LocalBudgetMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LocalBudget);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.AccountIdentifier != source.AccountIdentifier)
+                 (!keyStringComparer.Equals(target.AccountIdentifier, source.AccountIdentifier))
                 || (target.AsOfDate != source.AsOfDate)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.FiscalYear != source.FiscalYear))
@@ -35353,10 +35427,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalContractedStaffAggregate
             var mappingContract = (LocalContractedStaffMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LocalContractedStaff);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.AccountIdentifier != source.AccountIdentifier)
+                 (!keyStringComparer.Equals(target.AccountIdentifier, source.AccountIdentifier))
                 || (target.AsOfDate != source.AsOfDate)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.FiscalYear != source.FiscalYear)
@@ -35476,7 +35552,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocaleDescriptorAggregate
             var mappingContract = (LocaleDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LocaleDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.LocaleDescriptorId != source.LocaleDescriptorId))
@@ -35637,7 +35713,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalEducationAgencyAggregate
             var mappingContract = (LocalEducationAgencyMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LocalEducationAgency);
-            
+
             // Detect primary key changes
             if (
                  (target.LocalEducationAgencyId != source.LocalEducationAgencyId))
@@ -35943,7 +36019,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalEducationAgencyAggregate
             var mappingContract = (LocalEducationAgencyAccountabilityMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LocalEducationAgencyAccountability);
-            
+
 
             // Copy non-PK properties
 
@@ -36039,7 +36115,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalEducationAgencyAggregate
             var mappingContract = (LocalEducationAgencyFederalFundsMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LocalEducationAgencyFederalFunds);
-            
+
 
             // Copy non-PK properties
 
@@ -36194,7 +36270,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalEducationAgencyCategoryDescripto
             var mappingContract = (LocalEducationAgencyCategoryDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LocalEducationAgencyCategoryDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.LocalEducationAgencyCategoryDescriptorId != source.LocalEducationAgencyCategoryDescriptorId))
@@ -36355,10 +36431,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalEncumbranceAggregate
             var mappingContract = (LocalEncumbranceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LocalEncumbrance);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.AccountIdentifier != source.AccountIdentifier)
+                 (!keyStringComparer.Equals(target.AccountIdentifier, source.AccountIdentifier))
                 || (target.AsOfDate != source.AsOfDate)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.FiscalYear != source.FiscalYear))
@@ -36474,10 +36552,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalPayrollAggregate
             var mappingContract = (LocalPayrollMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_LocalPayroll);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.AccountIdentifier != source.AccountIdentifier)
+                 (!keyStringComparer.Equals(target.AccountIdentifier, source.AccountIdentifier))
                 || (target.AsOfDate != source.AsOfDate)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.FiscalYear != source.FiscalYear)
@@ -36597,10 +36677,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocationAggregate
             var mappingContract = (LocationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_Location);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.ClassroomIdentificationCode != source.ClassroomIdentificationCode)
+                 (!keyStringComparer.Equals(target.ClassroomIdentificationCode, source.ClassroomIdentificationCode))
                 || (target.SchoolId != source.SchoolId))
             {
                 // Allow PK column updates on Location
@@ -36731,7 +36813,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.MagnetSpecialProgramEmphasisSchoolDes
             var mappingContract = (MagnetSpecialProgramEmphasisSchoolDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_MagnetSpecialProgramEmphasisSchoolDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.MagnetSpecialProgramEmphasisSchoolDescriptorId != source.MagnetSpecialProgramEmphasisSchoolDescriptorId))
@@ -36892,7 +36974,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.MediumOfInstructionDescriptorAggregat
             var mappingContract = (MediumOfInstructionDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_MediumOfInstructionDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.MediumOfInstructionDescriptorId != source.MediumOfInstructionDescriptorId))
@@ -37053,7 +37135,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.MethodCreditEarnedDescriptorAggregate
             var mappingContract = (MethodCreditEarnedDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_MethodCreditEarnedDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.MethodCreditEarnedDescriptorId != source.MethodCreditEarnedDescriptorId))
@@ -37214,7 +37296,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.MigrantEducationProgramServiceDescrip
             var mappingContract = (MigrantEducationProgramServiceDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_MigrantEducationProgramServiceDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.MigrantEducationProgramServiceDescriptorId != source.MigrantEducationProgramServiceDescriptorId))
@@ -37375,7 +37457,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ModelEntityDescriptorAggregate
             var mappingContract = (ModelEntityDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ModelEntityDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ModelEntityDescriptorId != source.ModelEntityDescriptorId))
@@ -37536,7 +37618,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.MonitoredDescriptorAggregate
             var mappingContract = (MonitoredDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_MonitoredDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.MonitoredDescriptorId != source.MonitoredDescriptorId))
@@ -37697,7 +37779,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.NeglectedOrDelinquentProgramDescripto
             var mappingContract = (NeglectedOrDelinquentProgramDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_NeglectedOrDelinquentProgramDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.NeglectedOrDelinquentProgramDescriptorId != source.NeglectedOrDelinquentProgramDescriptorId))
@@ -37858,7 +37940,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.NeglectedOrDelinquentProgramServiceDe
             var mappingContract = (NeglectedOrDelinquentProgramServiceDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_NeglectedOrDelinquentProgramServiceDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.NeglectedOrDelinquentProgramServiceDescriptorId != source.NeglectedOrDelinquentProgramServiceDescriptorId))
@@ -38019,7 +38101,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.NetworkPurposeDescriptorAggregate
             var mappingContract = (NetworkPurposeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_NetworkPurposeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.NetworkPurposeDescriptorId != source.NetworkPurposeDescriptorId))
@@ -38180,10 +38262,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ObjectDimensionAggregate
             var mappingContract = (ObjectDimensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ObjectDimension);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.Code != source.Code)
+                 (!keyStringComparer.Equals(target.Code, source.Code))
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on ObjectDimension
@@ -38290,7 +38374,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ObjectDimensionAggregate
             var mappingContract = (ObjectDimensionReportingTagMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ObjectDimensionReportingTag);
-            
+
 
             // Copy non-PK properties
 
@@ -38365,12 +38449,14 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ObjectiveAssessmentAggregate
             var mappingContract = (ObjectiveAssessmentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ObjectiveAssessment);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.AssessmentIdentifier != source.AssessmentIdentifier)
-                || (target.IdentificationCode != source.IdentificationCode)
-                || (target.Namespace != source.Namespace))
+                 (!keyStringComparer.Equals(target.AssessmentIdentifier, source.AssessmentIdentifier))
+                || (!keyStringComparer.Equals(target.IdentificationCode, source.IdentificationCode))
+                || (!keyStringComparer.Equals(target.Namespace, source.Namespace)))
             {
                 // Disallow PK column updates on ObjectiveAssessment
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -38587,7 +38673,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ObjectiveAssessmentAggregate
             var mappingContract = (ObjectiveAssessmentAssessmentItemMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ObjectiveAssessmentAssessmentItem);
-            
+
 
             // Copy non-PK properties
 
@@ -38664,7 +38750,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ObjectiveAssessmentAggregate
             var mappingContract = (ObjectiveAssessmentLearningStandardMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ObjectiveAssessmentLearningStandard);
-            
+
 
             // Copy non-PK properties
 
@@ -38741,7 +38827,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ObjectiveAssessmentAggregate
             var mappingContract = (ObjectiveAssessmentPerformanceLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ObjectiveAssessmentPerformanceLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -38852,7 +38938,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ObjectiveAssessmentAggregate
             var mappingContract = (ObjectiveAssessmentScoreMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ObjectiveAssessmentScore);
-            
+
 
             // Copy non-PK properties
 
@@ -38957,7 +39043,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.OldEthnicityDescriptorAggregate
             var mappingContract = (OldEthnicityDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_OldEthnicityDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.OldEthnicityDescriptorId != source.OldEthnicityDescriptorId))
@@ -39118,11 +39204,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.OpenStaffPositionAggregate
             var mappingContract = (OpenStaffPositionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_OpenStaffPosition);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.RequisitionNumber != source.RequisitionNumber))
+                || (!keyStringComparer.Equals(target.RequisitionNumber, source.RequisitionNumber)))
             {
                 // Disallow PK column updates on OpenStaffPosition
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -39312,7 +39400,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.OpenStaffPositionAggregate
             var mappingContract = (OpenStaffPositionAcademicSubjectMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_OpenStaffPositionAcademicSubject);
-            
+
 
             // Copy non-PK properties
 
@@ -39382,7 +39470,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.OpenStaffPositionAggregate
             var mappingContract = (OpenStaffPositionInstructionalGradeLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_OpenStaffPositionInstructionalGradeLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -39457,7 +39545,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.OperationalStatusDescriptorAggregate
             var mappingContract = (OperationalStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_OperationalStatusDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.OperationalStatusDescriptorId != source.OperationalStatusDescriptorId))
@@ -39618,10 +39706,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.OperationalUnitDimensionAggregate
             var mappingContract = (OperationalUnitDimensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_OperationalUnitDimension);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.Code != source.Code)
+                 (!keyStringComparer.Equals(target.Code, source.Code))
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on OperationalUnitDimension
@@ -39728,7 +39818,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.OperationalUnitDimensionAggregate
             var mappingContract = (OperationalUnitDimensionReportingTagMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_OperationalUnitDimensionReportingTag);
-            
+
 
             // Copy non-PK properties
 
@@ -39803,7 +39893,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.OrganizationDepartmentAggregate
             var mappingContract = (OrganizationDepartmentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_OrganizationDepartment);
-            
+
             // Detect primary key changes
             if (
                  (target.OrganizationDepartmentId != source.OrganizationDepartmentId))
@@ -40049,7 +40139,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.OtherNameTypeDescriptorAggregate
             var mappingContract = (OtherNameTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_OtherNameTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.OtherNameTypeDescriptorId != source.OtherNameTypeDescriptorId))
@@ -40210,7 +40300,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ParentAggregate
             var mappingContract = (ParentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_Parent);
-            
+
             // Detect primary key changes
             if (
                  (target.ParentUniqueId != source.ParentUniqueId))
@@ -40537,7 +40627,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ParentAggregate
             var mappingContract = (ParentAddressMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ParentAddress);
-            
+
 
             // Copy non-PK properties
 
@@ -40718,7 +40808,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ParentAggregate
             var mappingContract = (ParentAddressPeriodMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ParentAddressPeriod);
-            
+
 
             // Copy non-PK properties
 
@@ -40798,7 +40888,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ParentAggregate
             var mappingContract = (ParentElectronicMailMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ParentElectronicMail);
-            
+
 
             // Copy non-PK properties
 
@@ -40889,7 +40979,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ParentAggregate
             var mappingContract = (ParentInternationalAddressMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ParentInternationalAddress);
-            
+
 
             // Copy non-PK properties
 
@@ -41049,7 +41139,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ParentAggregate
             var mappingContract = (ParentLanguageMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ParentLanguage);
-            
+
 
             // Copy non-PK properties
 
@@ -41136,7 +41226,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ParentAggregate
             var mappingContract = (ParentLanguageUseMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ParentLanguageUse);
-            
+
 
             // Copy non-PK properties
 
@@ -41206,7 +41296,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ParentAggregate
             var mappingContract = (ParentOtherNameMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ParentOtherName);
-            
+
 
             // Copy non-PK properties
 
@@ -41326,7 +41416,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ParentAggregate
             var mappingContract = (ParentPersonalIdentificationDocumentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ParentPersonalIdentificationDocument);
-            
+
 
             // Copy non-PK properties
 
@@ -41447,7 +41537,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ParentAggregate
             var mappingContract = (ParentTelephoneMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ParentTelephone);
-            
+
 
             // Copy non-PK properties
 
@@ -41553,7 +41643,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ParticipationDescriptorAggregate
             var mappingContract = (ParticipationDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ParticipationDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ParticipationDescriptorId != source.ParticipationDescriptorId))
@@ -41714,7 +41804,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ParticipationStatusDescriptorAggregat
             var mappingContract = (ParticipationStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ParticipationStatusDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ParticipationStatusDescriptorId != source.ParticipationStatusDescriptorId))
@@ -41875,7 +41965,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PerformanceBaseConversionDescriptorAg
             var mappingContract = (PerformanceBaseConversionDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_PerformanceBaseConversionDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.PerformanceBaseConversionDescriptorId != source.PerformanceBaseConversionDescriptorId))
@@ -42036,7 +42126,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PerformanceLevelDescriptorAggregate
             var mappingContract = (PerformanceLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_PerformanceLevelDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.PerformanceLevelDescriptorId != source.PerformanceLevelDescriptorId))
@@ -42197,10 +42287,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PersonAggregate
             var mappingContract = (PersonMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_Person);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.PersonId != source.PersonId)
+                 (!keyStringComparer.Equals(target.PersonId, source.PersonId))
                 || (target.SourceSystemDescriptor != source.SourceSystemDescriptor))
             {
                 // Disallow PK column updates on Person
@@ -42285,7 +42377,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PersonalInformationVerificationDescri
             var mappingContract = (PersonalInformationVerificationDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_PersonalInformationVerificationDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.PersonalInformationVerificationDescriptorId != source.PersonalInformationVerificationDescriptorId))
@@ -42446,7 +42538,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PlatformTypeDescriptorAggregate
             var mappingContract = (PlatformTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_PlatformTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.PlatformTypeDescriptorId != source.PlatformTypeDescriptorId))
@@ -42607,7 +42699,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PopulationServedDescriptorAggregate
             var mappingContract = (PopulationServedDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_PopulationServedDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.PopulationServedDescriptorId != source.PopulationServedDescriptorId))
@@ -42768,7 +42860,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PostingResultDescriptorAggregate
             var mappingContract = (PostingResultDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_PostingResultDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.PostingResultDescriptorId != source.PostingResultDescriptorId))
@@ -42929,7 +43021,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PostSecondaryEventAggregate
             var mappingContract = (PostSecondaryEventMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_PostSecondaryEvent);
-            
+
             // Detect primary key changes
             if (
                  (target.EventDate != source.EventDate)
@@ -43037,7 +43129,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PostSecondaryEventCategoryDescriptorA
             var mappingContract = (PostSecondaryEventCategoryDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_PostSecondaryEventCategoryDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.PostSecondaryEventCategoryDescriptorId != source.PostSecondaryEventCategoryDescriptorId))
@@ -43198,7 +43290,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PostSecondaryInstitutionAggregate
             var mappingContract = (PostSecondaryInstitutionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_PostSecondaryInstitution);
-            
+
             // Detect primary key changes
             if (
                  (target.PostSecondaryInstitutionId != source.PostSecondaryInstitutionId))
@@ -43449,7 +43541,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PostSecondaryInstitutionAggregate
             var mappingContract = (PostSecondaryInstitutionMediumOfInstructionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_PostSecondaryInstitutionMediumOfInstruction);
-            
+
 
             // Copy non-PK properties
 
@@ -43524,7 +43616,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PostSecondaryInstitutionLevelDescript
             var mappingContract = (PostSecondaryInstitutionLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_PostSecondaryInstitutionLevelDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.PostSecondaryInstitutionLevelDescriptorId != source.PostSecondaryInstitutionLevelDescriptorId))
@@ -43685,7 +43777,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PrimaryLearningDeviceAccessDescriptor
             var mappingContract = (PrimaryLearningDeviceAccessDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_PrimaryLearningDeviceAccessDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.PrimaryLearningDeviceAccessDescriptorId != source.PrimaryLearningDeviceAccessDescriptorId))
@@ -43846,7 +43938,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PrimaryLearningDeviceAwayFromSchoolDe
             var mappingContract = (PrimaryLearningDeviceAwayFromSchoolDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_PrimaryLearningDeviceAwayFromSchoolDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.PrimaryLearningDeviceAwayFromSchoolDescriptorId != source.PrimaryLearningDeviceAwayFromSchoolDescriptorId))
@@ -44007,7 +44099,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PrimaryLearningDeviceProviderDescript
             var mappingContract = (PrimaryLearningDeviceProviderDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_PrimaryLearningDeviceProviderDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.PrimaryLearningDeviceProviderDescriptorId != source.PrimaryLearningDeviceProviderDescriptorId))
@@ -44168,7 +44260,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProficiencyDescriptorAggregate
             var mappingContract = (ProficiencyDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ProficiencyDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ProficiencyDescriptorId != source.ProficiencyDescriptorId))
@@ -44329,11 +44421,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramAggregate
             var mappingContract = (ProgramMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_Program);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.ProgramName != source.ProgramName)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
                 || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor))
             {
                 // Disallow PK column updates on Program
@@ -44516,7 +44610,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramAggregate
             var mappingContract = (ProgramCharacteristicMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ProgramCharacteristic);
-            
+
 
             // Copy non-PK properties
 
@@ -44586,7 +44680,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramAggregate
             var mappingContract = (ProgramLearningObjectiveMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ProgramLearningObjective);
-            
+
 
             // Copy non-PK properties
 
@@ -44664,7 +44758,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramAggregate
             var mappingContract = (ProgramLearningStandardMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ProgramLearningStandard);
-            
+
 
             // Copy non-PK properties
 
@@ -44741,7 +44835,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramAggregate
             var mappingContract = (ProgramServiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ProgramService);
-            
+
 
             // Copy non-PK properties
 
@@ -44811,7 +44905,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramAggregate
             var mappingContract = (ProgramSponsorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ProgramSponsor);
-            
+
 
             // Copy non-PK properties
 
@@ -44886,7 +44980,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramAssignmentDescriptorAggregate
             var mappingContract = (ProgramAssignmentDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ProgramAssignmentDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ProgramAssignmentDescriptorId != source.ProgramAssignmentDescriptorId))
@@ -45047,7 +45141,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramCharacteristicDescriptorAggreg
             var mappingContract = (ProgramCharacteristicDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ProgramCharacteristicDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ProgramCharacteristicDescriptorId != source.ProgramCharacteristicDescriptorId))
@@ -45208,10 +45302,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramDimensionAggregate
             var mappingContract = (ProgramDimensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ProgramDimension);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.Code != source.Code)
+                 (!keyStringComparer.Equals(target.Code, source.Code))
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on ProgramDimension
@@ -45318,7 +45414,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramDimensionAggregate
             var mappingContract = (ProgramDimensionReportingTagMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ProgramDimensionReportingTag);
-            
+
 
             // Copy non-PK properties
 
@@ -45393,7 +45489,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramSponsorDescriptorAggregate
             var mappingContract = (ProgramSponsorDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ProgramSponsorDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ProgramSponsorDescriptorId != source.ProgramSponsorDescriptorId))
@@ -45554,7 +45650,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramTypeDescriptorAggregate
             var mappingContract = (ProgramTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ProgramTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ProgramTypeDescriptorId != source.ProgramTypeDescriptorId))
@@ -45715,7 +45811,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgressDescriptorAggregate
             var mappingContract = (ProgressDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ProgressDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ProgressDescriptorId != source.ProgressDescriptorId))
@@ -45876,7 +45972,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgressLevelDescriptorAggregate
             var mappingContract = (ProgressLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ProgressLevelDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ProgressLevelDescriptorId != source.ProgressLevelDescriptorId))
@@ -46037,10 +46133,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProjectDimensionAggregate
             var mappingContract = (ProjectDimensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ProjectDimension);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.Code != source.Code)
+                 (!keyStringComparer.Equals(target.Code, source.Code))
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on ProjectDimension
@@ -46147,7 +46245,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProjectDimensionAggregate
             var mappingContract = (ProjectDimensionReportingTagMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ProjectDimensionReportingTag);
-            
+
 
             // Copy non-PK properties
 
@@ -46222,7 +46320,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProviderCategoryDescriptorAggregate
             var mappingContract = (ProviderCategoryDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ProviderCategoryDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ProviderCategoryDescriptorId != source.ProviderCategoryDescriptorId))
@@ -46383,7 +46481,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProviderProfitabilityDescriptorAggreg
             var mappingContract = (ProviderProfitabilityDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ProviderProfitabilityDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ProviderProfitabilityDescriptorId != source.ProviderProfitabilityDescriptorId))
@@ -46544,7 +46642,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProviderStatusDescriptorAggregate
             var mappingContract = (ProviderStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ProviderStatusDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ProviderStatusDescriptorId != source.ProviderStatusDescriptorId))
@@ -46705,7 +46803,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PublicationStatusDescriptorAggregate
             var mappingContract = (PublicationStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_PublicationStatusDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.PublicationStatusDescriptorId != source.PublicationStatusDescriptorId))
@@ -46866,7 +46964,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.QuestionFormDescriptorAggregate
             var mappingContract = (QuestionFormDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_QuestionFormDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.QuestionFormDescriptorId != source.QuestionFormDescriptorId))
@@ -47027,7 +47125,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RaceDescriptorAggregate
             var mappingContract = (RaceDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_RaceDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.RaceDescriptorId != source.RaceDescriptorId))
@@ -47188,7 +47286,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ReasonExitedDescriptorAggregate
             var mappingContract = (ReasonExitedDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ReasonExitedDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ReasonExitedDescriptorId != source.ReasonExitedDescriptorId))
@@ -47349,7 +47447,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ReasonNotTestedDescriptorAggregate
             var mappingContract = (ReasonNotTestedDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ReasonNotTestedDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ReasonNotTestedDescriptorId != source.ReasonNotTestedDescriptorId))
@@ -47510,7 +47608,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RecognitionTypeDescriptorAggregate
             var mappingContract = (RecognitionTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_RecognitionTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.RecognitionTypeDescriptorId != source.RecognitionTypeDescriptorId))
@@ -47671,7 +47769,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RelationDescriptorAggregate
             var mappingContract = (RelationDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_RelationDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.RelationDescriptorId != source.RelationDescriptorId))
@@ -47832,7 +47930,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RepeatIdentifierDescriptorAggregate
             var mappingContract = (RepeatIdentifierDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_RepeatIdentifierDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.RepeatIdentifierDescriptorId != source.RepeatIdentifierDescriptorId))
@@ -47993,7 +48091,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ReportCardAggregate
             var mappingContract = (ReportCardMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ReportCard);
-            
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
@@ -48213,7 +48311,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ReportCardAggregate
             var mappingContract = (ReportCardGradeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ReportCardGrade);
-            
+
 
             // Copy non-PK properties
 
@@ -48296,7 +48394,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ReportCardAggregate
             var mappingContract = (ReportCardGradePointAverageMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ReportCardGradePointAverage);
-            
+
 
             // Copy non-PK properties
 
@@ -48396,7 +48494,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ReportCardAggregate
             var mappingContract = (ReportCardStudentCompetencyObjectiveMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ReportCardStudentCompetencyObjective);
-            
+
 
             // Copy non-PK properties
 
@@ -48475,7 +48573,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ReportCardAggregate
             var mappingContract = (ReportCardStudentLearningObjectiveMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ReportCardStudentLearningObjective);
-            
+
 
             // Copy non-PK properties
 
@@ -48558,7 +48656,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ReporterDescriptionDescriptorAggregat
             var mappingContract = (ReporterDescriptionDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ReporterDescriptionDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ReporterDescriptionDescriptorId != source.ReporterDescriptionDescriptorId))
@@ -48719,7 +48817,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ReportingTagDescriptorAggregate
             var mappingContract = (ReportingTagDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ReportingTagDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ReportingTagDescriptorId != source.ReportingTagDescriptorId))
@@ -48880,7 +48978,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ResidencyStatusDescriptorAggregate
             var mappingContract = (ResidencyStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ResidencyStatusDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ResidencyStatusDescriptorId != source.ResidencyStatusDescriptorId))
@@ -49041,7 +49139,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ResponseIndicatorDescriptorAggregate
             var mappingContract = (ResponseIndicatorDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ResponseIndicatorDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ResponseIndicatorDescriptorId != source.ResponseIndicatorDescriptorId))
@@ -49202,7 +49300,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ResponsibilityDescriptorAggregate
             var mappingContract = (ResponsibilityDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ResponsibilityDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ResponsibilityDescriptorId != source.ResponsibilityDescriptorId))
@@ -49363,10 +49461,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RestraintEventAggregate
             var mappingContract = (RestraintEventMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_RestraintEvent);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.RestraintEventIdentifier != source.RestraintEventIdentifier)
+                 (!keyStringComparer.Equals(target.RestraintEventIdentifier, source.RestraintEventIdentifier))
                 || (target.SchoolId != source.SchoolId)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
@@ -49510,7 +49610,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RestraintEventAggregate
             var mappingContract = (RestraintEventProgramMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_RestraintEventProgram);
-            
+
 
             // Copy non-PK properties
 
@@ -49589,7 +49689,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RestraintEventAggregate
             var mappingContract = (RestraintEventReasonMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_RestraintEventReason);
-            
+
 
             // Copy non-PK properties
 
@@ -49664,7 +49764,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RestraintEventReasonDescriptorAggrega
             var mappingContract = (RestraintEventReasonDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_RestraintEventReasonDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.RestraintEventReasonDescriptorId != source.RestraintEventReasonDescriptorId))
@@ -49825,7 +49925,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ResultDatatypeTypeDescriptorAggregate
             var mappingContract = (ResultDatatypeTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ResultDatatypeTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ResultDatatypeTypeDescriptorId != source.ResultDatatypeTypeDescriptorId))
@@ -49986,7 +50086,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RetestIndicatorDescriptorAggregate
             var mappingContract = (RetestIndicatorDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_RetestIndicatorDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.RetestIndicatorDescriptorId != source.RetestIndicatorDescriptorId))
@@ -50147,7 +50247,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SchoolAggregate
             var mappingContract = (SchoolMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_School);
-            
+
             // Detect primary key changes
             if (
                  (target.SchoolId != source.SchoolId))
@@ -50492,7 +50592,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SchoolAggregate
             var mappingContract = (SchoolCategoryMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SchoolCategory);
-            
+
 
             // Copy non-PK properties
 
@@ -50562,7 +50662,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SchoolAggregate
             var mappingContract = (SchoolGradeLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SchoolGradeLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -50637,7 +50737,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SchoolCategoryDescriptorAggregate
             var mappingContract = (SchoolCategoryDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SchoolCategoryDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.SchoolCategoryDescriptorId != source.SchoolCategoryDescriptorId))
@@ -50798,7 +50898,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SchoolChoiceImplementStatusDescriptor
             var mappingContract = (SchoolChoiceImplementStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SchoolChoiceImplementStatusDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.SchoolChoiceImplementStatusDescriptorId != source.SchoolChoiceImplementStatusDescriptorId))
@@ -50959,7 +51059,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SchoolFoodServiceProgramServiceDescri
             var mappingContract = (SchoolFoodServiceProgramServiceDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SchoolFoodServiceProgramServiceDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.SchoolFoodServiceProgramServiceDescriptorId != source.SchoolFoodServiceProgramServiceDescriptorId))
@@ -51120,7 +51220,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SchoolTypeDescriptorAggregate
             var mappingContract = (SchoolTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SchoolTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.SchoolTypeDescriptorId != source.SchoolTypeDescriptorId))
@@ -51281,7 +51381,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SchoolYearTypeAggregate
             var mappingContract = (SchoolYearTypeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SchoolYearType);
-            
+
             // Detect primary key changes
             if (
                  (target.SchoolYear != source.SchoolYear))
@@ -51387,14 +51487,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SectionAggregate
             var mappingContract = (SectionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_Section);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.LocalCourseCode != source.LocalCourseCode)
+                 (!keyStringComparer.Equals(target.LocalCourseCode, source.LocalCourseCode))
                 || (target.SchoolId != source.SchoolId)
                 || (target.SchoolYear != source.SchoolYear)
-                || (target.SectionIdentifier != source.SectionIdentifier)
-                || (target.SessionName != source.SessionName))
+                || (!keyStringComparer.Equals(target.SectionIdentifier, source.SectionIdentifier))
+                || (!keyStringComparer.Equals(target.SessionName, source.SessionName)))
             {
                 // Allow PK column updates on Section
                 isModified = true;
@@ -51723,7 +51825,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SectionAggregate
             var mappingContract = (SectionCharacteristicMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SectionCharacteristic);
-            
+
 
             // Copy non-PK properties
 
@@ -51793,7 +51895,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SectionAggregate
             var mappingContract = (SectionClassPeriodMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SectionClassPeriod);
-            
+
 
             // Copy non-PK properties
 
@@ -51870,7 +51972,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SectionAggregate
             var mappingContract = (SectionCourseLevelCharacteristicMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SectionCourseLevelCharacteristic);
-            
+
 
             // Copy non-PK properties
 
@@ -51940,7 +52042,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SectionAggregate
             var mappingContract = (SectionOfferedGradeLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SectionOfferedGradeLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -52010,7 +52112,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SectionAggregate
             var mappingContract = (SectionProgramMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SectionProgram);
-            
+
 
             // Copy non-PK properties
 
@@ -52094,16 +52196,18 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SectionAttendanceTakenEventAggregate
             var mappingContract = (SectionAttendanceTakenEventMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SectionAttendanceTakenEvent);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.CalendarCode != source.CalendarCode)
+                 (!keyStringComparer.Equals(target.CalendarCode, source.CalendarCode))
                 || (target.Date != source.Date)
-                || (target.LocalCourseCode != source.LocalCourseCode)
+                || (!keyStringComparer.Equals(target.LocalCourseCode, source.LocalCourseCode))
                 || (target.SchoolId != source.SchoolId)
                 || (target.SchoolYear != source.SchoolYear)
-                || (target.SectionIdentifier != source.SectionIdentifier)
-                || (target.SessionName != source.SessionName))
+                || (!keyStringComparer.Equals(target.SectionIdentifier, source.SectionIdentifier))
+                || (!keyStringComparer.Equals(target.SessionName, source.SessionName)))
             {
                 // Disallow PK column updates on SectionAttendanceTakenEvent
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -52223,7 +52327,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SectionCharacteristicDescriptorAggreg
             var mappingContract = (SectionCharacteristicDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SectionCharacteristicDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.SectionCharacteristicDescriptorId != source.SectionCharacteristicDescriptorId))
@@ -52384,7 +52488,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SeparationDescriptorAggregate
             var mappingContract = (SeparationDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SeparationDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.SeparationDescriptorId != source.SeparationDescriptorId))
@@ -52545,7 +52649,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SeparationReasonDescriptorAggregate
             var mappingContract = (SeparationReasonDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SeparationReasonDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.SeparationReasonDescriptorId != source.SeparationReasonDescriptorId))
@@ -52706,7 +52810,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ServiceDescriptorAggregate
             var mappingContract = (ServiceDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ServiceDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ServiceDescriptorId != source.ServiceDescriptorId))
@@ -52867,12 +52971,14 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SessionAggregate
             var mappingContract = (SessionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_Session);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.SchoolId != source.SchoolId)
                 || (target.SchoolYear != source.SchoolYear)
-                || (target.SessionName != source.SessionName))
+                || (!keyStringComparer.Equals(target.SessionName, source.SessionName)))
             {
                 // Allow PK column updates on Session
                 isModified = true;
@@ -53057,7 +53163,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SessionAggregate
             var mappingContract = (SessionAcademicWeekMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SessionAcademicWeek);
-            
+
 
             // Copy non-PK properties
 
@@ -53134,7 +53240,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SessionAggregate
             var mappingContract = (SessionGradingPeriodMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SessionGradingPeriod);
-            
+
 
             // Copy non-PK properties
 
@@ -53217,7 +53323,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SexDescriptorAggregate
             var mappingContract = (SexDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SexDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.SexDescriptorId != source.SexDescriptorId))
@@ -53378,10 +53484,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SourceDimensionAggregate
             var mappingContract = (SourceDimensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SourceDimension);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.Code != source.Code)
+                 (!keyStringComparer.Equals(target.Code, source.Code))
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on SourceDimension
@@ -53488,7 +53596,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SourceDimensionAggregate
             var mappingContract = (SourceDimensionReportingTagMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SourceDimensionReportingTag);
-            
+
 
             // Copy non-PK properties
 
@@ -53563,7 +53671,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SourceSystemDescriptorAggregate
             var mappingContract = (SourceSystemDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SourceSystemDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.SourceSystemDescriptorId != source.SourceSystemDescriptorId))
@@ -53724,7 +53832,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SpecialEducationProgramServiceDescrip
             var mappingContract = (SpecialEducationProgramServiceDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SpecialEducationProgramServiceDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.SpecialEducationProgramServiceDescriptorId != source.SpecialEducationProgramServiceDescriptorId))
@@ -53885,7 +53993,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SpecialEducationSettingDescriptorAggr
             var mappingContract = (SpecialEducationSettingDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SpecialEducationSettingDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.SpecialEducationSettingDescriptorId != source.SpecialEducationSettingDescriptorId))
@@ -54046,7 +54154,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
             var mappingContract = (StaffMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_Staff);
-            
+
             // Detect primary key changes
             if (
                  (target.StaffUniqueId != source.StaffUniqueId))
@@ -54579,7 +54687,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
             var mappingContract = (StaffAddressMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffAddress);
-            
+
 
             // Copy non-PK properties
 
@@ -54760,7 +54868,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
             var mappingContract = (StaffAddressPeriodMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffAddressPeriod);
-            
+
 
             // Copy non-PK properties
 
@@ -54840,7 +54948,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
             var mappingContract = (StaffAncestryEthnicOriginMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffAncestryEthnicOrigin);
-            
+
 
             // Copy non-PK properties
 
@@ -54910,7 +55018,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
             var mappingContract = (StaffCredentialMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffCredential);
-            
+
 
             // Copy non-PK properties
 
@@ -54988,7 +55096,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
             var mappingContract = (StaffElectronicMailMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffElectronicMail);
-            
+
 
             // Copy non-PK properties
 
@@ -55079,7 +55187,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
             var mappingContract = (StaffIdentificationCodeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffIdentificationCode);
-            
+
 
             // Copy non-PK properties
 
@@ -55169,7 +55277,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
             var mappingContract = (StaffIdentificationDocumentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffIdentificationDocument);
-            
+
 
             // Copy non-PK properties
 
@@ -55290,7 +55398,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
             var mappingContract = (StaffInternationalAddressMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffInternationalAddress);
-            
+
 
             // Copy non-PK properties
 
@@ -55450,7 +55558,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
             var mappingContract = (StaffLanguageMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffLanguage);
-            
+
 
             // Copy non-PK properties
 
@@ -55537,7 +55645,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
             var mappingContract = (StaffLanguageUseMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffLanguageUse);
-            
+
 
             // Copy non-PK properties
 
@@ -55607,7 +55715,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
             var mappingContract = (StaffOtherNameMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffOtherName);
-            
+
 
             // Copy non-PK properties
 
@@ -55727,7 +55835,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
             var mappingContract = (StaffPersonalIdentificationDocumentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffPersonalIdentificationDocument);
-            
+
 
             // Copy non-PK properties
 
@@ -55848,7 +55956,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
             var mappingContract = (StaffRaceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffRace);
-            
+
 
             // Copy non-PK properties
 
@@ -55918,7 +56026,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
             var mappingContract = (StaffRecognitionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffRecognition);
-            
+
 
             // Copy non-PK properties
 
@@ -56108,7 +56216,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
             var mappingContract = (StaffTelephoneMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffTelephone);
-            
+
 
             // Copy non-PK properties
 
@@ -56209,7 +56317,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
             var mappingContract = (StaffTribalAffiliationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffTribalAffiliation);
-            
+
 
             // Copy non-PK properties
 
@@ -56279,7 +56387,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
             var mappingContract = (StaffVisaMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffVisa);
-            
+
 
             // Copy non-PK properties
 
@@ -56354,7 +56462,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAbsenceEventAggregate
             var mappingContract = (StaffAbsenceEventMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffAbsenceEvent);
-            
+
             // Detect primary key changes
             if (
                  (target.AbsenceEventCategoryDescriptor != source.AbsenceEventCategoryDescriptor)
@@ -56471,7 +56579,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffClassificationDescriptorAggregat
             var mappingContract = (StaffClassificationDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffClassificationDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.StaffClassificationDescriptorId != source.StaffClassificationDescriptorId))
@@ -56632,11 +56740,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffCohortAssociationAggregate
             var mappingContract = (StaffCohortAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffCohortAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
-                || (target.CohortIdentifier != source.CohortIdentifier)
+                || (!keyStringComparer.Equals(target.CohortIdentifier, source.CohortIdentifier))
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
@@ -56753,10 +56863,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffDisciplineIncidentAssociationAgg
             var mappingContract = (StaffDisciplineIncidentAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffDisciplineIncidentAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.IncidentIdentifier != source.IncidentIdentifier)
+                 (!keyStringComparer.Equals(target.IncidentIdentifier, source.IncidentIdentifier))
                 || (target.SchoolId != source.SchoolId)
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
@@ -56864,7 +56976,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffDisciplineIncidentAssociationAgg
             var mappingContract = (StaffDisciplineIncidentAssociationDisciplineIncidentParticipationCodeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffDisciplineIncidentAssociationDisciplineIncidentParticipationCode);
-            
+
 
             // Copy non-PK properties
 
@@ -56939,7 +57051,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffEducationOrganizationAssignmentA
             var mappingContract = (StaffEducationOrganizationAssignmentAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffEducationOrganizationAssignmentAssociation);
-            
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
@@ -57134,10 +57246,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffEducationOrganizationContactAsso
             var mappingContract = (StaffEducationOrganizationContactAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffEducationOrganizationContactAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.ContactTitle != source.ContactTitle)
+                 (!keyStringComparer.Equals(target.ContactTitle, source.ContactTitle))
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
@@ -57317,7 +57431,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffEducationOrganizationContactAsso
             var mappingContract = (StaffEducationOrganizationContactAssociationAddressMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffEducationOrganizationContactAssociationAddress);
-            
+
 
             // Copy non-PK properties
 
@@ -57543,7 +57657,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffEducationOrganizationContactAsso
             var mappingContract = (StaffEducationOrganizationContactAssociationAddressPeriodMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffEducationOrganizationContactAssociationAddressPeriod);
-            
+
 
             // Copy non-PK properties
 
@@ -57623,7 +57737,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffEducationOrganizationContactAsso
             var mappingContract = (StaffEducationOrganizationContactAssociationTelephoneMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffEducationOrganizationContactAssociationTelephone);
-            
+
 
             // Copy non-PK properties
 
@@ -57729,7 +57843,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffEducationOrganizationEmploymentA
             var mappingContract = (StaffEducationOrganizationEmploymentAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffEducationOrganizationEmploymentAssociation);
-            
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
@@ -57922,7 +58036,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffIdentificationSystemDescriptorAg
             var mappingContract = (StaffIdentificationSystemDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffIdentificationSystemDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.StaffIdentificationSystemDescriptorId != source.StaffIdentificationSystemDescriptorId))
@@ -58083,7 +58197,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffLeaveAggregate
             var mappingContract = (StaffLeaveMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffLeave);
-            
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
@@ -58210,7 +58324,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffLeaveEventCategoryDescriptorAggr
             var mappingContract = (StaffLeaveEventCategoryDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffLeaveEventCategoryDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.StaffLeaveEventCategoryDescriptorId != source.StaffLeaveEventCategoryDescriptorId))
@@ -58371,12 +58485,14 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffProgramAssociationAggregate
             var mappingContract = (StaffProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffProgramAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
-                || (target.ProgramName != source.ProgramName)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
                 || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
@@ -58494,7 +58610,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffSchoolAssociationAggregate
             var mappingContract = (StaffSchoolAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffSchoolAssociation);
-            
+
             // Detect primary key changes
             if (
                  (target.ProgramAssignmentDescriptor != source.ProgramAssignmentDescriptor)
@@ -58644,7 +58760,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffSchoolAssociationAggregate
             var mappingContract = (StaffSchoolAssociationAcademicSubjectMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffSchoolAssociationAcademicSubject);
-            
+
 
             // Copy non-PK properties
 
@@ -58714,7 +58830,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffSchoolAssociationAggregate
             var mappingContract = (StaffSchoolAssociationGradeLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffSchoolAssociationGradeLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -58789,14 +58905,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffSectionAssociationAggregate
             var mappingContract = (StaffSectionAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StaffSectionAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.LocalCourseCode != source.LocalCourseCode)
+                 (!keyStringComparer.Equals(target.LocalCourseCode, source.LocalCourseCode))
                 || (target.SchoolId != source.SchoolId)
                 || (target.SchoolYear != source.SchoolYear)
-                || (target.SectionIdentifier != source.SectionIdentifier)
-                || (target.SessionName != source.SessionName)
+                || (!keyStringComparer.Equals(target.SectionIdentifier, source.SectionIdentifier))
+                || (!keyStringComparer.Equals(target.SessionName, source.SessionName))
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
                 // Disallow PK column updates on StaffSectionAssociation
@@ -58954,7 +59072,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StateAbbreviationDescriptorAggregate
             var mappingContract = (StateAbbreviationDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StateAbbreviationDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.StateAbbreviationDescriptorId != source.StateAbbreviationDescriptorId))
@@ -59115,7 +59233,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StateEducationAgencyAggregate
             var mappingContract = (StateEducationAgencyMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StateEducationAgency);
-            
+
             // Detect primary key changes
             if (
                  (target.StateEducationAgencyId != source.StateEducationAgencyId))
@@ -59363,7 +59481,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StateEducationAgencyAggregate
             var mappingContract = (StateEducationAgencyAccountabilityMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StateEducationAgencyAccountability);
-            
+
 
             // Copy non-PK properties
 
@@ -59449,7 +59567,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StateEducationAgencyAggregate
             var mappingContract = (StateEducationAgencyFederalFundsMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StateEducationAgencyFederalFunds);
-            
+
 
             // Copy non-PK properties
 
@@ -59534,7 +59652,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAggregate
             var mappingContract = (StudentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_Student);
-            
+
             // Detect primary key changes
             if (
                  (target.StudentUniqueId != source.StudentUniqueId))
@@ -59870,7 +59988,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAggregate
             var mappingContract = (StudentIdentificationDocumentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentIdentificationDocument);
-            
+
 
             // Copy non-PK properties
 
@@ -59991,7 +60109,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAggregate
             var mappingContract = (StudentOtherNameMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentOtherName);
-            
+
 
             // Copy non-PK properties
 
@@ -60111,7 +60229,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAggregate
             var mappingContract = (StudentPersonalIdentificationDocumentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentPersonalIdentificationDocument);
-            
+
 
             // Copy non-PK properties
 
@@ -60232,7 +60350,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAggregate
             var mappingContract = (StudentVisaMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentVisa);
-            
+
 
             // Copy non-PK properties
 
@@ -60307,7 +60425,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAcademicRecordAggregate
             var mappingContract = (StudentAcademicRecordMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentAcademicRecord);
-            
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
@@ -60721,7 +60839,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAcademicRecordAggregate
             var mappingContract = (StudentAcademicRecordAcademicHonorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentAcademicRecordAcademicHonor);
-            
+
 
             // Copy non-PK properties
 
@@ -60902,7 +61020,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAcademicRecordAggregate
             var mappingContract = (StudentAcademicRecordClassRankingMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentAcademicRecordClassRanking);
-            
+
 
             // Copy non-PK properties
 
@@ -61011,7 +61129,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAcademicRecordAggregate
             var mappingContract = (StudentAcademicRecordDiplomaMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentAcademicRecordDiploma);
-            
+
 
             // Copy non-PK properties
 
@@ -61212,7 +61330,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAcademicRecordAggregate
             var mappingContract = (StudentAcademicRecordGradePointAverageMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentAcademicRecordGradePointAverage);
-            
+
 
             // Copy non-PK properties
 
@@ -61312,7 +61430,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAcademicRecordAggregate
             var mappingContract = (StudentAcademicRecordRecognitionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentAcademicRecordRecognition);
-            
+
 
             // Copy non-PK properties
 
@@ -61502,7 +61620,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAcademicRecordAggregate
             var mappingContract = (StudentAcademicRecordReportCardMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentAcademicRecordReportCard);
-            
+
 
             // Copy non-PK properties
 
@@ -61587,12 +61705,14 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
             var mappingContract = (StudentAssessmentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentAssessment);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.AssessmentIdentifier != source.AssessmentIdentifier)
-                || (target.Namespace != source.Namespace)
-                || (target.StudentAssessmentIdentifier != source.StudentAssessmentIdentifier)
+                 (!keyStringComparer.Equals(target.AssessmentIdentifier, source.AssessmentIdentifier))
+                || (!keyStringComparer.Equals(target.Namespace, source.Namespace))
+                || (!keyStringComparer.Equals(target.StudentAssessmentIdentifier, source.StudentAssessmentIdentifier))
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentAssessment
@@ -61972,7 +62092,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
             var mappingContract = (StudentAssessmentAccommodationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentAssessmentAccommodation);
-            
+
 
             // Copy non-PK properties
 
@@ -62042,7 +62162,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
             var mappingContract = (StudentAssessmentItemMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentAssessmentItem);
-            
+
 
             // Copy non-PK properties
 
@@ -62189,7 +62309,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
             var mappingContract = (StudentAssessmentPerformanceLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentAssessmentPerformanceLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -62270,7 +62390,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
             var mappingContract = (StudentAssessmentPeriodMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentAssessmentPeriod);
-            
+
 
             // Copy non-PK properties
 
@@ -62369,7 +62489,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
             var mappingContract = (StudentAssessmentScoreResultMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentAssessmentScoreResult);
-            
+
 
             // Copy non-PK properties
 
@@ -62459,7 +62579,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
             var mappingContract = (StudentAssessmentStudentObjectiveAssessmentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentAssessmentStudentObjectiveAssessment);
-            
+
 
             // Copy non-PK properties
 
@@ -62600,7 +62720,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
             var mappingContract = (StudentAssessmentStudentObjectiveAssessmentPerformanceLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentAssessmentStudentObjectiveAssessmentPerformanceLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -62681,7 +62801,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
             var mappingContract = (StudentAssessmentStudentObjectiveAssessmentScoreResultMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentAssessmentStudentObjectiveAssessmentScoreResult);
-            
+
 
             // Copy non-PK properties
 
@@ -62776,14 +62896,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentEducationOrganizatio
             var mappingContract = (StudentAssessmentEducationOrganizationAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentAssessmentEducationOrganizationAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.AssessmentIdentifier != source.AssessmentIdentifier)
+                 (!keyStringComparer.Equals(target.AssessmentIdentifier, source.AssessmentIdentifier))
                 || (target.EducationOrganizationAssociationTypeDescriptor != source.EducationOrganizationAssociationTypeDescriptor)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.Namespace != source.Namespace)
-                || (target.StudentAssessmentIdentifier != source.StudentAssessmentIdentifier)
+                || (!keyStringComparer.Equals(target.Namespace, source.Namespace))
+                || (!keyStringComparer.Equals(target.StudentAssessmentIdentifier, source.StudentAssessmentIdentifier))
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentAssessmentEducationOrganizationAssociation
@@ -62892,7 +63014,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCharacteristicDescriptorAggreg
             var mappingContract = (StudentCharacteristicDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentCharacteristicDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.StudentCharacteristicDescriptorId != source.StudentCharacteristicDescriptorId))
@@ -63053,11 +63175,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCohortAssociationAggregate
             var mappingContract = (StudentCohortAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentCohortAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
-                || (target.CohortIdentifier != source.CohortIdentifier)
+                || (!keyStringComparer.Equals(target.CohortIdentifier, source.CohortIdentifier))
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
@@ -63176,7 +63300,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCohortAssociationAggregate
             var mappingContract = (StudentCohortAssociationSectionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentCohortAssociationSection);
-            
+
 
             // Copy non-PK properties
 
@@ -63262,14 +63386,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCompetencyObjectiveAggregate
             var mappingContract = (StudentCompetencyObjectiveMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentCompetencyObjective);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.GradingPeriodDescriptor != source.GradingPeriodDescriptor)
                 || (target.GradingPeriodSchoolId != source.GradingPeriodSchoolId)
                 || (target.GradingPeriodSchoolYear != source.GradingPeriodSchoolYear)
                 || (target.GradingPeriodSequence != source.GradingPeriodSequence)
-                || (target.Objective != source.Objective)
+                || (!keyStringComparer.Equals(target.Objective, source.Objective))
                 || (target.ObjectiveEducationOrganizationId != source.ObjectiveEducationOrganizationId)
                 || (target.ObjectiveGradeLevelDescriptor != source.ObjectiveGradeLevelDescriptor)
                 || (target.StudentUniqueId != source.StudentUniqueId))
@@ -63422,7 +63548,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCompetencyObjectiveAggregate
             var mappingContract = (StudentCompetencyObjectiveGeneralStudentProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentCompetencyObjectiveGeneralStudentProgramAssociation);
-            
+
 
             // Copy non-PK properties
 
@@ -63503,7 +63629,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCompetencyObjectiveAggregate
             var mappingContract = (StudentCompetencyObjectiveStudentSectionAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentCompetencyObjectiveStudentSectionAssociation);
-            
+
 
             // Copy non-PK properties
 
@@ -63590,13 +63716,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCTEProgramAssociationAggregate
             var mappingContract = (StudentCTEProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentCTEProgramAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
-                || (target.ProgramName != source.ProgramName)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
                 || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
@@ -63878,7 +64006,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCTEProgramAssociationAggregate
             var mappingContract = (StudentCTEProgramAssociationCTEProgramMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentCTEProgramAssociationCTEProgram);
-            
+
 
             // Copy non-PK properties
 
@@ -63978,7 +64106,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCTEProgramAssociationAggregate
             var mappingContract = (StudentCTEProgramAssociationCTEProgramServiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentCTEProgramAssociationCTEProgramService);
-            
+
 
             // Copy non-PK properties
 
@@ -64088,7 +64216,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCTEProgramAssociationAggregate
             var mappingContract = (StudentCTEProgramAssociationServiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentCTEProgramAssociationService);
-            
+
 
             // Copy non-PK properties
 
@@ -64193,10 +64321,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentDisciplineIncidentAssociationA
             var mappingContract = (StudentDisciplineIncidentAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentDisciplineIncidentAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.IncidentIdentifier != source.IncidentIdentifier)
+                 (!keyStringComparer.Equals(target.IncidentIdentifier, source.IncidentIdentifier))
                 || (target.SchoolId != source.SchoolId)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
@@ -64314,7 +64444,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentDisciplineIncidentAssociationA
             var mappingContract = (StudentDisciplineIncidentAssociationBehaviorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentDisciplineIncidentAssociationBehavior);
-            
+
 
             // Copy non-PK properties
 
@@ -64399,11 +64529,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentDisciplineIncidentBehaviorAsso
             var mappingContract = (StudentDisciplineIncidentBehaviorAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentDisciplineIncidentBehaviorAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.BehaviorDescriptor != source.BehaviorDescriptor)
-                || (target.IncidentIdentifier != source.IncidentIdentifier)
+                || (!keyStringComparer.Equals(target.IncidentIdentifier, source.IncidentIdentifier))
                 || (target.SchoolId != source.SchoolId)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
@@ -64522,7 +64654,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentDisciplineIncidentBehaviorAsso
             var mappingContract = (StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCode);
-            
+
 
             // Copy non-PK properties
 
@@ -64597,10 +64729,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentDisciplineIncidentNonOffenderA
             var mappingContract = (StudentDisciplineIncidentNonOffenderAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentDisciplineIncidentNonOffenderAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.IncidentIdentifier != source.IncidentIdentifier)
+                 (!keyStringComparer.Equals(target.IncidentIdentifier, source.IncidentIdentifier))
                 || (target.SchoolId != source.SchoolId)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
@@ -64708,7 +64842,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentDisciplineIncidentNonOffenderA
             var mappingContract = (StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCodeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode);
-            
+
 
             // Copy non-PK properties
 
@@ -64783,7 +64917,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociation);
-            
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
@@ -65243,7 +65377,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationAddressMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationAddress);
-            
+
 
             // Copy non-PK properties
 
@@ -65424,7 +65558,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationAddressPeriodMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationAddressPeriod);
-            
+
 
             // Copy non-PK properties
 
@@ -65504,7 +65638,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationAncestryEthnicOriginMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationAncestryEthnicOrigin);
-            
+
 
             // Copy non-PK properties
 
@@ -65574,7 +65708,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationCohortYearMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationCohortYear);
-            
+
 
             // Copy non-PK properties
 
@@ -65661,7 +65795,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationDisabilityMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationDisability);
-            
+
 
             // Copy non-PK properties
 
@@ -65778,7 +65912,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationDisabilityDesignationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationDisabilityDesignation);
-            
+
 
             // Copy non-PK properties
 
@@ -65848,7 +65982,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationElectronicMailMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationElectronicMail);
-            
+
 
             // Copy non-PK properties
 
@@ -65939,7 +66073,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationInternationalAddressMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationInternationalAddress);
-            
+
 
             // Copy non-PK properties
 
@@ -66099,7 +66233,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationLanguageMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationLanguage);
-            
+
 
             // Copy non-PK properties
 
@@ -66186,7 +66320,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationLanguageUseMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationLanguageUse);
-            
+
 
             // Copy non-PK properties
 
@@ -66256,7 +66390,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationProgramParticipationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationProgramParticipation);
-            
+
 
             // Copy non-PK properties
 
@@ -66373,7 +66507,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationProgramParticipationProgramCharacteristicMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationProgramParticipationProgramCharacteristic);
-            
+
 
             // Copy non-PK properties
 
@@ -66443,7 +66577,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationRaceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationRace);
-            
+
 
             // Copy non-PK properties
 
@@ -66513,7 +66647,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationStudentCharacteristicMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationStudentCharacteristic);
-            
+
 
             // Copy non-PK properties
 
@@ -66610,7 +66744,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationStudentCharacteristicPeriodMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationStudentCharacteristicPeriod);
-            
+
 
             // Copy non-PK properties
 
@@ -66690,7 +66824,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationStudentIdentificationCodeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationStudentIdentificationCode);
-            
+
 
             // Copy non-PK properties
 
@@ -66771,7 +66905,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationStudentIndicatorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationStudentIndicator);
-            
+
 
             // Copy non-PK properties
 
@@ -66888,7 +67022,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationStudentIndicatorPeriodMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationStudentIndicatorPeriod);
-            
+
 
             // Copy non-PK properties
 
@@ -66968,7 +67102,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationTelephoneMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationTelephone);
-            
+
 
             // Copy non-PK properties
 
@@ -67069,7 +67203,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             var mappingContract = (StudentEducationOrganizationAssociationTribalAffiliationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationAssociationTribalAffiliation);
-            
+
 
             // Copy non-PK properties
 
@@ -67144,7 +67278,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationResponsib
             var mappingContract = (StudentEducationOrganizationResponsibilityAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentEducationOrganizationResponsibilityAssociation);
-            
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
@@ -67255,11 +67389,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentGradebookEntryAggregate
             var mappingContract = (StudentGradebookEntryMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentGradebookEntry);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.GradebookEntryIdentifier != source.GradebookEntryIdentifier)
-                || (target.Namespace != source.Namespace)
+                 (!keyStringComparer.Equals(target.GradebookEntryIdentifier, source.GradebookEntryIdentifier))
+                || (!keyStringComparer.Equals(target.Namespace, source.Namespace))
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentGradebookEntry
@@ -67444,13 +67580,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentHomelessProgramAssociationAggr
             var mappingContract = (StudentHomelessProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentHomelessProgramAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
-                || (target.ProgramName != source.ProgramName)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
                 || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
@@ -67698,7 +67836,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentHomelessProgramAssociationAggr
             var mappingContract = (StudentHomelessProgramAssociationHomelessProgramServiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentHomelessProgramAssociationHomelessProgramService);
-            
+
 
             // Copy non-PK properties
 
@@ -67803,7 +67941,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentIdentificationSystemDescriptor
             var mappingContract = (StudentIdentificationSystemDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentIdentificationSystemDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.StudentIdentificationSystemDescriptorId != source.StudentIdentificationSystemDescriptorId))
@@ -67964,11 +68102,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentInterventionAssociationAggrega
             var mappingContract = (StudentInterventionAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentInterventionAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.InterventionIdentificationCode != source.InterventionIdentificationCode)
+                || (!keyStringComparer.Equals(target.InterventionIdentificationCode, source.InterventionIdentificationCode))
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentInterventionAssociation
@@ -68117,7 +68257,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentInterventionAssociationAggrega
             var mappingContract = (StudentInterventionAssociationInterventionEffectivenessMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentInterventionAssociationInterventionEffectiveness);
-            
+
 
             // Copy non-PK properties
 
@@ -68214,13 +68354,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentInterventionAttendanceEventAgg
             var mappingContract = (StudentInterventionAttendanceEventMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentInterventionAttendanceEvent);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.AttendanceEventCategoryDescriptor != source.AttendanceEventCategoryDescriptor)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.EventDate != source.EventDate)
-                || (target.InterventionIdentificationCode != source.InterventionIdentificationCode)
+                || (!keyStringComparer.Equals(target.InterventionIdentificationCode, source.InterventionIdentificationCode))
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentInterventionAttendanceEvent
@@ -68357,13 +68499,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentLanguageInstructionProgramAsso
             var mappingContract = (StudentLanguageInstructionProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentLanguageInstructionProgramAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
-                || (target.ProgramName != source.ProgramName)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
                 || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
@@ -68618,7 +68762,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentLanguageInstructionProgramAsso
             var mappingContract = (StudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessmentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessment);
-            
+
 
             // Copy non-PK properties
 
@@ -68734,7 +68878,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentLanguageInstructionProgramAsso
             var mappingContract = (StudentLanguageInstructionProgramAssociationLanguageInstructionProgramServiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentLanguageInstructionProgramAssociationLanguageInstructionProgramService);
-            
+
 
             // Copy non-PK properties
 
@@ -68839,15 +68983,17 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentLearningObjectiveAggregate
             var mappingContract = (StudentLearningObjectiveMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentLearningObjective);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.GradingPeriodDescriptor != source.GradingPeriodDescriptor)
                 || (target.GradingPeriodSchoolId != source.GradingPeriodSchoolId)
                 || (target.GradingPeriodSchoolYear != source.GradingPeriodSchoolYear)
                 || (target.GradingPeriodSequence != source.GradingPeriodSequence)
-                || (target.LearningObjectiveId != source.LearningObjectiveId)
-                || (target.Namespace != source.Namespace)
+                || (!keyStringComparer.Equals(target.LearningObjectiveId, source.LearningObjectiveId))
+                || (!keyStringComparer.Equals(target.Namespace, source.Namespace))
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentLearningObjective
@@ -68997,7 +69143,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentLearningObjectiveAggregate
             var mappingContract = (StudentLearningObjectiveGeneralStudentProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentLearningObjectiveGeneralStudentProgramAssociation);
-            
+
 
             // Copy non-PK properties
 
@@ -69078,7 +69224,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentLearningObjectiveAggregate
             var mappingContract = (StudentLearningObjectiveStudentSectionAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentLearningObjectiveStudentSectionAssociation);
-            
+
 
             // Copy non-PK properties
 
@@ -69165,13 +69311,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentMigrantEducationProgramAssocia
             var mappingContract = (StudentMigrantEducationProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentMigrantEducationProgramAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
-                || (target.ProgramName != source.ProgramName)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
                 || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
@@ -69479,7 +69627,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentMigrantEducationProgramAssocia
             var mappingContract = (StudentMigrantEducationProgramAssociationMigrantEducationProgramServiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentMigrantEducationProgramAssociationMigrantEducationProgramService);
-            
+
 
             // Copy non-PK properties
 
@@ -69584,13 +69732,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentNeglectedOrDelinquentProgramAs
             var mappingContract = (StudentNeglectedOrDelinquentProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentNeglectedOrDelinquentProgramAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
-                || (target.ProgramName != source.ProgramName)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
                 || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
@@ -69838,7 +69988,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentNeglectedOrDelinquentProgramAs
             var mappingContract = (StudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramServiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramService);
-            
+
 
             // Copy non-PK properties
 
@@ -69943,7 +70093,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentParentAssociationAggregate
             var mappingContract = (StudentParentAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentParentAssociation);
-            
+
             // Detect primary key changes
             if (
                  (target.ParentUniqueId != source.ParentUniqueId)
@@ -70110,7 +70260,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentParticipationCodeDescriptorAgg
             var mappingContract = (StudentParticipationCodeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentParticipationCodeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.StudentParticipationCodeDescriptorId != source.StudentParticipationCodeDescriptorId))
@@ -70271,13 +70421,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentProgramAssociationAggregate
             var mappingContract = (StudentProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentProgramAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
-                || (target.ProgramName != source.ProgramName)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
                 || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
@@ -70495,7 +70647,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentProgramAssociationAggregate
             var mappingContract = (StudentProgramAssociationServiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentProgramAssociationService);
-            
+
 
             // Copy non-PK properties
 
@@ -70600,14 +70752,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentProgramAttendanceEventAggregat
             var mappingContract = (StudentProgramAttendanceEventMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentProgramAttendanceEvent);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.AttendanceEventCategoryDescriptor != source.AttendanceEventCategoryDescriptor)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.EventDate != source.EventDate)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
-                || (target.ProgramName != source.ProgramName)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
                 || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
@@ -70749,7 +70903,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSchoolAssociationAggregate
             var mappingContract = (StudentSchoolAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentSchoolAssociation);
-            
+
             // Detect primary key changes
             if (
                  (target.EntryDate != source.EntryDate)
@@ -71086,7 +71240,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSchoolAssociationAggregate
             var mappingContract = (StudentSchoolAssociationAlternativeGraduationPlanMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentSchoolAssociationAlternativeGraduationPlan);
-            
+
 
             // Copy non-PK properties
 
@@ -71165,7 +71319,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSchoolAssociationAggregate
             var mappingContract = (StudentSchoolAssociationEducationPlanMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentSchoolAssociationEducationPlan);
-            
+
 
             // Copy non-PK properties
 
@@ -71240,14 +71394,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSchoolAttendanceEventAggregate
             var mappingContract = (StudentSchoolAttendanceEventMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentSchoolAttendanceEvent);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.AttendanceEventCategoryDescriptor != source.AttendanceEventCategoryDescriptor)
                 || (target.EventDate != source.EventDate)
                 || (target.SchoolId != source.SchoolId)
                 || (target.SchoolYear != source.SchoolYear)
-                || (target.SessionName != source.SessionName)
+                || (!keyStringComparer.Equals(target.SessionName, source.SessionName))
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentSchoolAttendanceEvent
@@ -71406,13 +71562,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSchoolFoodServiceProgramAssoci
             var mappingContract = (StudentSchoolFoodServiceProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentSchoolFoodServiceProgramAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
-                || (target.ProgramName != source.ProgramName)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
                 || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
@@ -71640,7 +71798,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSchoolFoodServiceProgramAssoci
             var mappingContract = (StudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramServiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramService);
-            
+
 
             // Copy non-PK properties
 
@@ -71745,15 +71903,17 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSectionAssociationAggregate
             var mappingContract = (StudentSectionAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentSectionAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
-                || (target.LocalCourseCode != source.LocalCourseCode)
+                || (!keyStringComparer.Equals(target.LocalCourseCode, source.LocalCourseCode))
                 || (target.SchoolId != source.SchoolId)
                 || (target.SchoolYear != source.SchoolYear)
-                || (target.SectionIdentifier != source.SectionIdentifier)
-                || (target.SessionName != source.SessionName)
+                || (!keyStringComparer.Equals(target.SectionIdentifier, source.SectionIdentifier))
+                || (!keyStringComparer.Equals(target.SessionName, source.SessionName))
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Allow PK column updates on StudentSectionAssociation
@@ -71942,16 +72102,18 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSectionAttendanceEventAggregat
             var mappingContract = (StudentSectionAttendanceEventMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentSectionAttendanceEvent);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.AttendanceEventCategoryDescriptor != source.AttendanceEventCategoryDescriptor)
                 || (target.EventDate != source.EventDate)
-                || (target.LocalCourseCode != source.LocalCourseCode)
+                || (!keyStringComparer.Equals(target.LocalCourseCode, source.LocalCourseCode))
                 || (target.SchoolId != source.SchoolId)
                 || (target.SchoolYear != source.SchoolYear)
-                || (target.SectionIdentifier != source.SectionIdentifier)
-                || (target.SessionName != source.SessionName)
+                || (!keyStringComparer.Equals(target.SectionIdentifier, source.SectionIdentifier))
+                || (!keyStringComparer.Equals(target.SessionName, source.SessionName))
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentSectionAttendanceEvent
@@ -72123,7 +72285,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSectionAttendanceEventAggregat
             var mappingContract = (StudentSectionAttendanceEventClassPeriodMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentSectionAttendanceEventClassPeriod);
-            
+
 
             // Copy non-PK properties
 
@@ -72205,13 +72367,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSpecialEducationProgramAssocia
             var mappingContract = (StudentSpecialEducationProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentSpecialEducationProgramAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
-                || (target.ProgramName != source.ProgramName)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
                 || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
@@ -72563,7 +72727,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSpecialEducationProgramAssocia
             var mappingContract = (StudentSpecialEducationProgramAssociationDisabilityMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentSpecialEducationProgramAssociationDisability);
-            
+
 
             // Copy non-PK properties
 
@@ -72680,7 +72844,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSpecialEducationProgramAssocia
             var mappingContract = (StudentSpecialEducationProgramAssociationDisabilityDesignationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentSpecialEducationProgramAssociationDisabilityDesignation);
-            
+
 
             // Copy non-PK properties
 
@@ -72750,7 +72914,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSpecialEducationProgramAssocia
             var mappingContract = (StudentSpecialEducationProgramAssociationServiceProviderMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentSpecialEducationProgramAssociationServiceProvider);
-            
+
 
             // Copy non-PK properties
 
@@ -72837,7 +73001,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSpecialEducationProgramAssocia
             var mappingContract = (StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentSpecialEducationProgramAssociationSpecialEducationProgramService);
-            
+
 
             // Copy non-PK properties
 
@@ -72954,7 +73118,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSpecialEducationProgramAssocia
             var mappingContract = (StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceProviderMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceProvider);
-            
+
 
             // Copy non-PK properties
 
@@ -73046,13 +73210,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentTitleIPartAProgramAssociationA
             var mappingContract = (StudentTitleIPartAProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentTitleIPartAProgramAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
-                || (target.ProgramName != source.ProgramName)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
                 || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
@@ -73297,7 +73463,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentTitleIPartAProgramAssociationA
             var mappingContract = (StudentTitleIPartAProgramAssociationServiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentTitleIPartAProgramAssociationService);
-            
+
 
             // Copy non-PK properties
 
@@ -73397,7 +73563,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentTitleIPartAProgramAssociationA
             var mappingContract = (StudentTitleIPartAProgramAssociationTitleIPartAProgramServiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_StudentTitleIPartAProgramAssociationTitleIPartAProgramService);
-            
+
 
             // Copy non-PK properties
 
@@ -73502,7 +73668,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SubmissionStatusDescriptorAggregate
             var mappingContract = (SubmissionStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SubmissionStatusDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.SubmissionStatusDescriptorId != source.SubmissionStatusDescriptorId))
@@ -73663,11 +73829,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyAggregate
             var mappingContract = (SurveyMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_Survey);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.Namespace != source.Namespace)
-                || (target.SurveyIdentifier != source.SurveyIdentifier))
+                 (!keyStringComparer.Equals(target.Namespace, source.Namespace))
+                || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier)))
             {
                 // Disallow PK column updates on Survey
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -73831,7 +73999,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyCategoryDescriptorAggregate
             var mappingContract = (SurveyCategoryDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SurveyCategoryDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.SurveyCategoryDescriptorId != source.SurveyCategoryDescriptorId))
@@ -73992,13 +74160,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyCourseAssociationAggregate
             var mappingContract = (SurveyCourseAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SurveyCourseAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.CourseCode != source.CourseCode)
+                 (!keyStringComparer.Equals(target.CourseCode, source.CourseCode))
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.Namespace != source.Namespace)
-                || (target.SurveyIdentifier != source.SurveyIdentifier))
+                || (!keyStringComparer.Equals(target.Namespace, source.Namespace))
+                || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier)))
             {
                 // Disallow PK column updates on SurveyCourseAssociation
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -74093,7 +74263,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyLevelDescriptorAggregate
             var mappingContract = (SurveyLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SurveyLevelDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.SurveyLevelDescriptorId != source.SurveyLevelDescriptorId))
@@ -74254,14 +74424,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyProgramAssociationAggregate
             var mappingContract = (SurveyProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SurveyProgramAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.Namespace != source.Namespace)
-                || (target.ProgramName != source.ProgramName)
+                || (!keyStringComparer.Equals(target.Namespace, source.Namespace))
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
                 || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
-                || (target.SurveyIdentifier != source.SurveyIdentifier))
+                || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier)))
             {
                 // Disallow PK column updates on SurveyProgramAssociation
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -74357,12 +74529,14 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyQuestionAggregate
             var mappingContract = (SurveyQuestionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SurveyQuestion);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.Namespace != source.Namespace)
-                || (target.QuestionCode != source.QuestionCode)
-                || (target.SurveyIdentifier != source.SurveyIdentifier))
+                 (!keyStringComparer.Equals(target.Namespace, source.Namespace))
+                || (!keyStringComparer.Equals(target.QuestionCode, source.QuestionCode))
+                || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier)))
             {
                 // Disallow PK column updates on SurveyQuestion
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -74515,7 +74689,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyQuestionAggregate
             var mappingContract = (SurveyQuestionMatrixMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SurveyQuestionMatrix);
-            
+
 
             // Copy non-PK properties
 
@@ -74605,7 +74779,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyQuestionAggregate
             var mappingContract = (SurveyQuestionResponseChoiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SurveyQuestionResponseChoice);
-            
+
 
             // Copy non-PK properties
 
@@ -74700,13 +74874,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyQuestionResponseAggregate
             var mappingContract = (SurveyQuestionResponseMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SurveyQuestionResponse);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.Namespace != source.Namespace)
-                || (target.QuestionCode != source.QuestionCode)
-                || (target.SurveyIdentifier != source.SurveyIdentifier)
-                || (target.SurveyResponseIdentifier != source.SurveyResponseIdentifier))
+                 (!keyStringComparer.Equals(target.Namespace, source.Namespace))
+                || (!keyStringComparer.Equals(target.QuestionCode, source.QuestionCode))
+                || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier))
+                || (!keyStringComparer.Equals(target.SurveyResponseIdentifier, source.SurveyResponseIdentifier)))
             {
                 // Disallow PK column updates on SurveyQuestionResponse
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -74850,7 +75026,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyQuestionResponseAggregate
             var mappingContract = (SurveyQuestionResponseSurveyQuestionMatrixElementResponseMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SurveyQuestionResponseSurveyQuestionMatrixElementResponse);
-            
+
 
             // Copy non-PK properties
 
@@ -74970,7 +75146,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyQuestionResponseAggregate
             var mappingContract = (SurveyQuestionResponseValueMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SurveyQuestionResponseValue);
-            
+
 
             // Copy non-PK properties
 
@@ -75065,12 +75241,14 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyResponseAggregate
             var mappingContract = (SurveyResponseMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SurveyResponse);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.Namespace != source.Namespace)
-                || (target.SurveyIdentifier != source.SurveyIdentifier)
-                || (target.SurveyResponseIdentifier != source.SurveyResponseIdentifier))
+                 (!keyStringComparer.Equals(target.Namespace, source.Namespace))
+                || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier))
+                || (!keyStringComparer.Equals(target.SurveyResponseIdentifier, source.SurveyResponseIdentifier)))
             {
                 // Disallow PK column updates on SurveyResponse
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -75260,7 +75438,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyResponseAggregate
             var mappingContract = (SurveyResponseSurveyLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SurveyResponseSurveyLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -75335,13 +75513,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyResponseEducationOrganizationTa
             var mappingContract = (SurveyResponseEducationOrganizationTargetAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SurveyResponseEducationOrganizationTargetAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.Namespace != source.Namespace)
-                || (target.SurveyIdentifier != source.SurveyIdentifier)
-                || (target.SurveyResponseIdentifier != source.SurveyResponseIdentifier))
+                || (!keyStringComparer.Equals(target.Namespace, source.Namespace))
+                || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier))
+                || (!keyStringComparer.Equals(target.SurveyResponseIdentifier, source.SurveyResponseIdentifier)))
             {
                 // Disallow PK column updates on SurveyResponseEducationOrganizationTargetAssociation
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -75436,13 +75616,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyResponseStaffTargetAssociationA
             var mappingContract = (SurveyResponseStaffTargetAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SurveyResponseStaffTargetAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.Namespace != source.Namespace)
+                 (!keyStringComparer.Equals(target.Namespace, source.Namespace))
                 || (target.StaffUniqueId != source.StaffUniqueId)
-                || (target.SurveyIdentifier != source.SurveyIdentifier)
-                || (target.SurveyResponseIdentifier != source.SurveyResponseIdentifier))
+                || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier))
+                || (!keyStringComparer.Equals(target.SurveyResponseIdentifier, source.SurveyResponseIdentifier)))
             {
                 // Disallow PK column updates on SurveyResponseStaffTargetAssociation
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -75537,12 +75719,14 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveySectionAggregate
             var mappingContract = (SurveySectionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SurveySection);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.Namespace != source.Namespace)
-                || (target.SurveyIdentifier != source.SurveyIdentifier)
-                || (target.SurveySectionTitle != source.SurveySectionTitle))
+                 (!keyStringComparer.Equals(target.Namespace, source.Namespace))
+                || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier))
+                || (!keyStringComparer.Equals(target.SurveySectionTitle, source.SurveySectionTitle)))
             {
                 // Disallow PK column updates on SurveySection
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -75634,16 +75818,18 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveySectionAssociationAggregate
             var mappingContract = (SurveySectionAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SurveySectionAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.LocalCourseCode != source.LocalCourseCode)
-                || (target.Namespace != source.Namespace)
+                 (!keyStringComparer.Equals(target.LocalCourseCode, source.LocalCourseCode))
+                || (!keyStringComparer.Equals(target.Namespace, source.Namespace))
                 || (target.SchoolId != source.SchoolId)
                 || (target.SchoolYear != source.SchoolYear)
-                || (target.SectionIdentifier != source.SectionIdentifier)
-                || (target.SessionName != source.SessionName)
-                || (target.SurveyIdentifier != source.SurveyIdentifier))
+                || (!keyStringComparer.Equals(target.SectionIdentifier, source.SectionIdentifier))
+                || (!keyStringComparer.Equals(target.SessionName, source.SessionName))
+                || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier)))
             {
                 // Disallow PK column updates on SurveySectionAssociation
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -75741,13 +75927,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveySectionResponseAggregate
             var mappingContract = (SurveySectionResponseMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SurveySectionResponse);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.Namespace != source.Namespace)
-                || (target.SurveyIdentifier != source.SurveyIdentifier)
-                || (target.SurveyResponseIdentifier != source.SurveyResponseIdentifier)
-                || (target.SurveySectionTitle != source.SurveySectionTitle))
+                 (!keyStringComparer.Equals(target.Namespace, source.Namespace))
+                || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier))
+                || (!keyStringComparer.Equals(target.SurveyResponseIdentifier, source.SurveyResponseIdentifier))
+                || (!keyStringComparer.Equals(target.SurveySectionTitle, source.SurveySectionTitle)))
             {
                 // Disallow PK column updates on SurveySectionResponse
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -75852,14 +76040,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveySectionResponseEducationOrganiz
             var mappingContract = (SurveySectionResponseEducationOrganizationTargetAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SurveySectionResponseEducationOrganizationTargetAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.Namespace != source.Namespace)
-                || (target.SurveyIdentifier != source.SurveyIdentifier)
-                || (target.SurveyResponseIdentifier != source.SurveyResponseIdentifier)
-                || (target.SurveySectionTitle != source.SurveySectionTitle))
+                || (!keyStringComparer.Equals(target.Namespace, source.Namespace))
+                || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier))
+                || (!keyStringComparer.Equals(target.SurveyResponseIdentifier, source.SurveyResponseIdentifier))
+                || (!keyStringComparer.Equals(target.SurveySectionTitle, source.SurveySectionTitle)))
             {
                 // Disallow PK column updates on SurveySectionResponseEducationOrganizationTargetAssociation
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -75955,14 +76145,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveySectionResponseStaffTargetAssoc
             var mappingContract = (SurveySectionResponseStaffTargetAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_SurveySectionResponseStaffTargetAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.Namespace != source.Namespace)
+                 (!keyStringComparer.Equals(target.Namespace, source.Namespace))
                 || (target.StaffUniqueId != source.StaffUniqueId)
-                || (target.SurveyIdentifier != source.SurveyIdentifier)
-                || (target.SurveyResponseIdentifier != source.SurveyResponseIdentifier)
-                || (target.SurveySectionTitle != source.SurveySectionTitle))
+                || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier))
+                || (!keyStringComparer.Equals(target.SurveyResponseIdentifier, source.SurveyResponseIdentifier))
+                || (!keyStringComparer.Equals(target.SurveySectionTitle, source.SurveySectionTitle)))
             {
                 // Disallow PK column updates on SurveySectionResponseStaffTargetAssociation
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -76058,7 +76250,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.TeachingCredentialBasisDescriptorAggr
             var mappingContract = (TeachingCredentialBasisDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_TeachingCredentialBasisDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.TeachingCredentialBasisDescriptorId != source.TeachingCredentialBasisDescriptorId))
@@ -76219,7 +76411,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.TeachingCredentialDescriptorAggregate
             var mappingContract = (TeachingCredentialDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_TeachingCredentialDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.TeachingCredentialDescriptorId != source.TeachingCredentialDescriptorId))
@@ -76380,7 +76572,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.TechnicalSkillsAssessmentDescriptorAg
             var mappingContract = (TechnicalSkillsAssessmentDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_TechnicalSkillsAssessmentDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.TechnicalSkillsAssessmentDescriptorId != source.TechnicalSkillsAssessmentDescriptorId))
@@ -76541,7 +76733,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.TelephoneNumberTypeDescriptorAggregat
             var mappingContract = (TelephoneNumberTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_TelephoneNumberTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.TelephoneNumberTypeDescriptorId != source.TelephoneNumberTypeDescriptorId))
@@ -76702,7 +76894,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.TermDescriptorAggregate
             var mappingContract = (TermDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_TermDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.TermDescriptorId != source.TermDescriptorId))
@@ -76863,7 +77055,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.TitleIPartAParticipantDescriptorAggre
             var mappingContract = (TitleIPartAParticipantDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_TitleIPartAParticipantDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.TitleIPartAParticipantDescriptorId != source.TitleIPartAParticipantDescriptorId))
@@ -77024,7 +77216,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.TitleIPartAProgramServiceDescriptorAg
             var mappingContract = (TitleIPartAProgramServiceDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_TitleIPartAProgramServiceDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.TitleIPartAProgramServiceDescriptorId != source.TitleIPartAProgramServiceDescriptorId))
@@ -77185,7 +77377,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.TitleIPartASchoolDesignationDescripto
             var mappingContract = (TitleIPartASchoolDesignationDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_TitleIPartASchoolDesignationDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.TitleIPartASchoolDesignationDescriptorId != source.TitleIPartASchoolDesignationDescriptorId))
@@ -77346,7 +77538,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.TribalAffiliationDescriptorAggregate
             var mappingContract = (TribalAffiliationDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_TribalAffiliationDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.TribalAffiliationDescriptorId != source.TribalAffiliationDescriptorId))
@@ -77507,7 +77699,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.VisaDescriptorAggregate
             var mappingContract = (VisaDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_VisaDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.VisaDescriptorId != source.VisaDescriptorId))
@@ -77668,7 +77860,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.WeaponDescriptorAggregate
             var mappingContract = (WeaponDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_WeaponDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.WeaponDescriptorId != source.WeaponDescriptorId))

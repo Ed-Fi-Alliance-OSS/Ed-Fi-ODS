@@ -36,9 +36,6 @@ namespace EdFi.Ods.Entities.NHibernate.ArtMediumDescriptorAggregate.Sample
     public class ArtMediumDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.Sample.IArtMediumDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -157,7 +154,7 @@ namespace EdFi.Ods.Entities.NHibernate.ArtMediumDescriptorAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -185,7 +182,7 @@ namespace EdFi.Ods.Entities.NHibernate.ArtMediumDescriptorAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -299,9 +296,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
     public class Bus : AggregateRootWithCompositeKey,
         Entities.Common.Sample.IBus, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public Bus()
@@ -387,7 +381,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -415,7 +409,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -531,9 +525,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     public class BusRoute : AggregateRootWithCompositeKey,
         Entities.Common.Sample.IBusRoute, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public BusRoute()
@@ -1049,7 +1040,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -1077,7 +1068,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -1110,9 +1101,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     public class BusRouteBusYear : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IBusRouteBusYear, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public BusRouteBusYear()
@@ -1207,7 +1195,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -1235,7 +1223,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -1272,9 +1260,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     public class BusRouteProgram : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IBusRouteProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public BusRouteProgram()
@@ -1429,7 +1414,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -1457,7 +1442,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -1494,9 +1479,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     public class BusRouteServiceAreaPostalCode : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IBusRouteServiceAreaPostalCode, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public BusRouteServiceAreaPostalCode()
@@ -1591,7 +1573,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -1619,7 +1601,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -1656,9 +1638,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     public class BusRouteStartTime : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IBusRouteStartTime, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public BusRouteStartTime()
@@ -1753,7 +1732,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -1781,7 +1760,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -1818,9 +1797,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     public class BusRouteTelephone : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IBusRouteTelephone, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public BusRouteTelephone()
@@ -1955,7 +1931,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -1983,7 +1959,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -2025,9 +2001,6 @@ namespace EdFi.Ods.Entities.NHibernate.FavoriteBookCategoryDescriptorAggregate.S
     public class FavoriteBookCategoryDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.Sample.IFavoriteBookCategoryDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -2146,7 +2119,7 @@ namespace EdFi.Ods.Entities.NHibernate.FavoriteBookCategoryDescriptorAggregate.S
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -2174,7 +2147,7 @@ namespace EdFi.Ods.Entities.NHibernate.FavoriteBookCategoryDescriptorAggregate.S
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -2212,9 +2185,6 @@ namespace EdFi.Ods.Entities.NHibernate.MembershipTypeDescriptorAggregate.Sample
     public class MembershipTypeDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.Sample.IMembershipTypeDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -2333,7 +2303,7 @@ namespace EdFi.Ods.Entities.NHibernate.MembershipTypeDescriptorAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -2361,7 +2331,7 @@ namespace EdFi.Ods.Entities.NHibernate.MembershipTypeDescriptorAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -2399,9 +2369,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     public class ParentAddressSchoolDistrict : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IParentAddressSchoolDistrict, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public ParentAddressSchoolDistrict()
@@ -2498,7 +2465,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -2526,7 +2493,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -2563,9 +2530,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     public class ParentAddressTerm : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IParentAddressTerm, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public ParentAddressTerm()
@@ -2696,7 +2660,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -2724,7 +2688,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -2761,9 +2725,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     public class ParentAuthor : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IParentAuthor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public ParentAuthor()
@@ -2858,7 +2819,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -2886,7 +2847,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -2923,9 +2884,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     public class ParentCeilingHeight : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IParentCeilingHeight, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public ParentCeilingHeight()
@@ -3020,7 +2978,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -3048,7 +3006,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -3085,9 +3043,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     public class ParentCTEProgram : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IParentCTEProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public ParentCTEProgram()
@@ -3219,7 +3174,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -3247,7 +3202,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -3284,9 +3239,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     public class ParentEducationContent : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IParentEducationContent, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public ParentEducationContent()
@@ -3401,7 +3353,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -3429,7 +3381,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -3466,9 +3418,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     public class ParentFavoriteBookTitle : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IParentFavoriteBookTitle, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public ParentFavoriteBookTitle()
@@ -3563,7 +3512,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -3591,7 +3540,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -3628,9 +3577,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     public class ParentStudentProgramAssociation : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IParentStudentProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public ParentStudentProgramAssociation()
@@ -3829,7 +3775,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -3857,7 +3803,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -3894,9 +3840,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     public class ParentTeacherConference : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IParentTeacherConference, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public ParentTeacherConference()
@@ -3994,7 +3937,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -4022,7 +3965,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -4059,9 +4002,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     public class ParentExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IParentExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public ParentExtension()
@@ -4421,7 +4361,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -4449,7 +4389,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -4486,9 +4426,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     public class ParentAddressExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IParentAddressExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public ParentAddressExtension()
@@ -4635,7 +4572,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -4663,7 +4600,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -4705,9 +4642,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
     public class SchoolCTEProgram : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.ISchoolCTEProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public SchoolCTEProgram()
@@ -4839,7 +4773,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -4867,7 +4801,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -4904,9 +4838,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
     public class SchoolDirectlyOwnedBus : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.ISchoolDirectlyOwnedBus, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public SchoolDirectlyOwnedBus()
@@ -5021,7 +4952,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -5049,7 +4980,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -5086,9 +5017,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
     public class SchoolExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.ISchoolExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public SchoolExtension()
@@ -5242,7 +5170,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -5270,7 +5198,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -5312,9 +5240,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
     public class StaffPet : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStaffPet, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StaffPet()
@@ -5410,7 +5335,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -5438,7 +5363,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -5475,9 +5400,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
     public class StaffPetPreference : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStaffPetPreference, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StaffPetPreference()
@@ -5571,7 +5493,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -5599,7 +5521,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -5636,9 +5558,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
     public class StaffExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStaffExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StaffExtension()
@@ -5810,7 +5729,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -5838,7 +5757,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -5880,9 +5799,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     public class StudentAquaticPet : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentAquaticPet, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentAquaticPet()
@@ -5981,7 +5897,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -6009,7 +5925,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -6046,9 +5962,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     public class StudentFavoriteBook : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentFavoriteBook, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentFavoriteBook()
@@ -6228,7 +6141,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -6256,7 +6169,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -6293,9 +6206,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     public class StudentFavoriteBookArtMedium : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentFavoriteBookArtMedium, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentFavoriteBookArtMedium()
@@ -6426,7 +6336,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -6454,7 +6364,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -6491,9 +6401,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     public class StudentPet : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentPet, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentPet()
@@ -6589,7 +6496,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -6617,7 +6524,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -6654,9 +6561,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     public class StudentPetPreference : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentPetPreference, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentPetPreference()
@@ -6750,7 +6654,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -6778,7 +6682,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -6988,9 +6892,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     public class StudentArtProgramAssociation : GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociation,
         Entities.Common.Sample.IStudentArtProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public StudentArtProgramAssociation()
         {
             StudentArtProgramAssociationArtMedia = new HashSet<StudentArtProgramAssociationArtMedium>();
@@ -7406,7 +7307,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -7434,7 +7335,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -7467,9 +7368,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     public class StudentArtProgramAssociationArtMedium : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentArtProgramAssociationArtMedium, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentArtProgramAssociationArtMedium()
@@ -7599,7 +7497,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -7627,7 +7525,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -7664,9 +7562,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     public class StudentArtProgramAssociationPortfolioYears : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentArtProgramAssociationPortfolioYears()
@@ -7762,7 +7657,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -7790,7 +7685,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -7827,9 +7722,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     public class StudentArtProgramAssociationService : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentArtProgramAssociationService, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentArtProgramAssociationService()
@@ -7998,7 +7890,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -8026,7 +7918,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -8063,9 +7955,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     public class StudentArtProgramAssociationStyle : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentArtProgramAssociationStyle, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentArtProgramAssociationStyle()
@@ -8161,7 +8050,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -8189,7 +8078,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -8231,9 +8120,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.Sam
     public class StudentCTEProgramAssociationExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentCTEProgramAssociationExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentCTEProgramAssociationExtension()
@@ -8344,7 +8230,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.Sam
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -8372,7 +8258,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.Sam
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -8414,9 +8300,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
     public class StudentEducationOrganizationAssociationAddressSchoolDistrict : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentEducationOrganizationAssociationAddressSchoolDistrict()
@@ -8513,7 +8396,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -8541,7 +8424,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -8578,9 +8461,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
     public class StudentEducationOrganizationAssociationAddressTerm : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentEducationOrganizationAssociationAddressTerm()
@@ -8711,7 +8591,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -8739,7 +8619,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -8776,9 +8656,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
     public class StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed()
@@ -8902,7 +8779,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -8930,7 +8807,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -8967,9 +8844,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
     public class StudentEducationOrganizationAssociationAddressExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentEducationOrganizationAssociationAddressExtension()
@@ -9116,7 +8990,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -9144,7 +9018,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -9353,9 +9227,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     public class StudentGraduationPlanAssociation : AggregateRootWithCompositeKey,
         Entities.Common.Sample.IStudentGraduationPlanAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentGraduationPlanAssociation()
@@ -10044,7 +9915,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -10072,7 +9943,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -10105,9 +9976,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     public class StudentGraduationPlanAssociationAcademicSubject : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentGraduationPlanAssociationAcademicSubject()
@@ -10237,7 +10105,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -10265,7 +10133,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -10302,9 +10170,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     public class StudentGraduationPlanAssociationCareerPathwayCode : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentGraduationPlanAssociationCareerPathwayCode()
@@ -10400,7 +10265,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -10428,7 +10293,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -10465,9 +10330,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     public class StudentGraduationPlanAssociationCTEProgram : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentGraduationPlanAssociationCTEProgram()
@@ -10600,7 +10462,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -10628,7 +10490,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -10665,9 +10527,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     public class StudentGraduationPlanAssociationDescription : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentGraduationPlanAssociationDescription, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentGraduationPlanAssociationDescription()
@@ -10763,7 +10622,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -10791,7 +10650,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -10828,9 +10687,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     public class StudentGraduationPlanAssociationDesignatedBy : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentGraduationPlanAssociationDesignatedBy()
@@ -10926,7 +10782,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -10954,7 +10810,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -10991,9 +10847,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     public class StudentGraduationPlanAssociationIndustryCredential : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentGraduationPlanAssociationIndustryCredential()
@@ -11089,7 +10942,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -11117,7 +10970,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -11154,9 +11007,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     public class StudentGraduationPlanAssociationStudentParentAssociation : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentGraduationPlanAssociationStudentParentAssociation()
@@ -11308,7 +11158,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -11336,7 +11186,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -11373,9 +11223,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     public class StudentGraduationPlanAssociationYearsAttended : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentGraduationPlanAssociationYearsAttended()
@@ -11471,7 +11318,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -11499,7 +11346,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -11541,9 +11388,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     public class StudentParentAssociationDiscipline : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentParentAssociationDiscipline, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentParentAssociationDiscipline()
@@ -11672,7 +11516,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -11700,7 +11544,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -11737,9 +11581,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     public class StudentParentAssociationFavoriteBookTitle : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentParentAssociationFavoriteBookTitle()
@@ -11834,7 +11675,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -11862,7 +11703,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -11899,9 +11740,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     public class StudentParentAssociationHoursPerWeek : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentParentAssociationHoursPerWeek, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentParentAssociationHoursPerWeek()
@@ -11996,7 +11834,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -12024,7 +11862,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -12061,9 +11899,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     public class StudentParentAssociationPagesRead : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentParentAssociationPagesRead, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentParentAssociationPagesRead()
@@ -12158,7 +11993,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -12186,7 +12021,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -12223,9 +12058,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     public class StudentParentAssociationStaffEducationOrganizationEmploymentAssociation : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentParentAssociationStaffEducationOrganizationEmploymentAssociation()
@@ -12427,7 +12259,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -12455,7 +12287,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -12492,9 +12324,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     public class StudentParentAssociationTelephone : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentParentAssociationTelephone, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentParentAssociationTelephone()
@@ -12627,7 +12456,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -12655,7 +12484,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -12692,9 +12521,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     public class StudentParentAssociationExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentParentAssociationExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentParentAssociationExtension()
@@ -13008,7 +12834,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -13036,7 +12862,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -13078,9 +12904,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
     public class StudentSchoolAssociationExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentSchoolAssociationExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentSchoolAssociationExtension()
@@ -13207,7 +13030,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -13235,7 +13058,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -13277,9 +13100,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
     public class StudentSectionAssociationRelatedGeneralStudentProgramAssociation : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentSectionAssociationRelatedGeneralStudentProgramAssociation()
@@ -13448,7 +13268,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -13476,7 +13296,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
