@@ -11,7 +11,7 @@ begin
         drop view dbo.apiclientidentityrawdetails;
 
         -- Increase the size of the EducationOrganizationId column
-        alter table applicationeducationorganizations alter column educationorganizationid TYPE bigint;
+        alter table dbo.applicationeducationorganizations alter column educationorganizationid TYPE bigint;
 
         -- Recreate the view
         create view dbo.apiclientidentityrawdetails
