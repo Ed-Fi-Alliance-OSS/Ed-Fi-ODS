@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Api.Infrastructure.Pipelines.CreateOrUpdate;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
 

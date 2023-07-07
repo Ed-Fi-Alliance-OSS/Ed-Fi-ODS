@@ -75,7 +75,6 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
         {
             var files = new List<string>();
 
-            var filesList = Directory.GetFiles(_extensionRepositoryExtensionsFolder, GeneratedCs, SearchOption.AllDirectories).Where(filePath => filePath.Contains(StandardVersion));
             files.AddRange(Directory.GetFiles(_extensionRepositoryExtensionsFolder, GeneratedCs, SearchOption.AllDirectories).Where(filePath => filePath.Contains(StandardVersion)));
             files.AddRange(Directory.GetFiles(_extensionRepositoryExtensionsFolder, GeneratedHbm, SearchOption.AllDirectories).Where(filePath => filePath.Contains(StandardVersion)));
             files.AddRange(Directory.GetFiles(_odsRepositoryProjects, GeneratedSql, SearchOption.AllDirectories).Where(filePath => filePath.Contains(StandardVersion)));
@@ -159,7 +158,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
                         string destFileName = Path.Combine(
                             _odsRepository
                             , "Utilities", "CodeGeneration", "EdFi.Ods.CodeGen.Tests", "Approval"
-                            , $"ApprovalTests.Verify.{file.Scenario}.approved{ext}");
+                            , $"{nameof(DataStanadard_400_ApprovalTests)}.Verify.{file.Scenario}.approved{ext}");
 
                         System.Console.WriteLine("Copying file: {0} to {1}", file.SourcePath, destFileName);
 
