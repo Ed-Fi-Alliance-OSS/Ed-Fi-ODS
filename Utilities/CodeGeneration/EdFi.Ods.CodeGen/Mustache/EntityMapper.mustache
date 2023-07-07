@@ -33,12 +33,16 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
             var mappingContract = ({{ModelName}}MappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_{{ModelSchema}}_{{ModelName}});
-            
+
             {{#IsRootEntity}}
+                {{#AnnotatedLocalPrimaryKeyHasStrings}}
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
+                {{/AnnotatedLocalPrimaryKeyHasStrings}}
             // Detect primary key changes
             if (
                 {{#AnnotatedLocalPrimaryKeyList}}
-                {{#NotFirst}}||{{/NotFirst}} (target.{{PrimaryKeyName}} != source.{{PrimaryKeyName}}){{#IsLast}}){{/IsLast}}
+                {{^IsFirst}}||{{/IsFirst}} {{#IsString}}(!keyStringComparer.Equals(target.{{PrimaryKeyName}}, source.{{PrimaryKeyName}})){{/IsString}}{{^IsString}}(target.{{PrimaryKeyName}} != source.{{PrimaryKeyName}}){{/IsString}}{{#IsLast}}){{/IsLast}}
                 {{/AnnotatedLocalPrimaryKeyList}}
             {
                 {{#AllowPrimaryKeyUpdates}}
