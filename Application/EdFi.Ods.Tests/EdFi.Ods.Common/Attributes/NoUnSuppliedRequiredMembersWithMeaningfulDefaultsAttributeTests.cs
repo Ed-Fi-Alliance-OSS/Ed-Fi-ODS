@@ -20,7 +20,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Validation
     public class NoUnsuppliedRequiredMembersWithMeaningfulDefaultsAttributeTests
     {
         [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
-        private class TestResourceClassWithMembersWithMeaningfulDefaultValues: IHasRequiredMembersWithMeaningfulDefaultValues
+        private class TestResourceClassWithMembersWithMeaningfulDefaultValues : IHasRequiredMembersWithMeaningfulDefaultValues
         {
             public int NonMeaningfulDefaultValue {get; set; }
 
