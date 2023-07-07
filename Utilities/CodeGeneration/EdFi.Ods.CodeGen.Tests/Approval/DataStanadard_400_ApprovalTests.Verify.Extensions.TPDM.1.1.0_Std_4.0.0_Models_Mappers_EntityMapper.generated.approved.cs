@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Providers;
