@@ -25,7 +25,7 @@ namespace EdFi.Ods.Common.Dependencies
         private static Lazy<IETagProvider> _etagProvider;
         private static Lazy<IMappingContractProvider> _mappingContractProvider;
         private static Lazy<IContextProvider<ProfileContentTypeContext>> _profileContentTypeContextProvider;
-        private static Lazy<IDatabaseEngineSpecificEqualityComparerProvider<string>> _databaseEngineSpecificStringComparerProvider;
+        private static Lazy<StringComparer> _databaseEngineSpecificStringComparer;
         private static Lazy<IDescriptorResolver> _descriptorResolver;
 
         public static IAuthorizationContextProvider AuthorizationContextProvider => _authorizationContextProvider?.Value;
@@ -34,7 +34,7 @@ namespace EdFi.Ods.Common.Dependencies
         public static IETagProvider ETagProvider => _etagProvider?.Value;
         public static IMappingContractProvider MappingContractProvider => _mappingContractProvider?.Value;
         public static IContextProvider<ProfileContentTypeContext> ProfileContentTypeContextProvider => _profileContentTypeContextProvider?.Value;
-        public static IDatabaseEngineSpecificEqualityComparerProvider<string> DatabaseEngineSpecificStringComparerProvider => _databaseEngineSpecificStringComparerProvider?.Value;
+        public static StringComparer DatabaseEngineSpecificStringComparer => _databaseEngineSpecificStringComparer?.Value;
         public static IDescriptorResolver DescriptorResolver => _descriptorResolver?.Value;
 
         /// <summary>
@@ -73,9 +73,9 @@ namespace EdFi.Ods.Common.Dependencies
                 _profileContentTypeContextProvider = new Lazy<IContextProvider<ProfileContentTypeContext>>(resolver);
             }
 
-            public static void Set(Func<IDatabaseEngineSpecificEqualityComparerProvider<string>> resolver)
+            public static void Set(Func<StringComparer> resolver)
             {
-                _databaseEngineSpecificStringComparerProvider = new Lazy<IDatabaseEngineSpecificEqualityComparerProvider<string>>(resolver);
+                _databaseEngineSpecificStringComparer = new Lazy<StringComparer>(resolver);
             }
             
             public static void Set(Func<IDescriptorResolver> resolver)

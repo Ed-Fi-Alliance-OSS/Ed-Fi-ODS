@@ -456,10 +456,11 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
                 // Mock the database engine specific string comparison provider
                 var databaseEngineSpecificStringComparisonProvider = A.Fake<IDatabaseEngineSpecificEqualityComparerProvider<string>>();
-                A.CallTo(() => databaseEngineSpecificStringComparisonProvider.GetEqualityComparer()).Returns(apiSettings.GetDatabaseEngine() == DatabaseEngine.SqlServer ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal);
+                A.CallTo(() => databaseEngineSpecificStringComparisonProvider.GetEqualityComparer())
+                    .Returns(apiSettings.GetDatabaseEngine() == DatabaseEngine.SqlServer ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal);
 
                 builder.RegisterInstance(databaseEngineSpecificStringComparisonProvider).As<IDatabaseEngineSpecificEqualityComparerProvider<string>>();
-                GeneratedArtifactStaticDependencies.Resolvers.Set(() => databaseEngineSpecificStringComparisonProvider);
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => (StringComparer) databaseEngineSpecificStringComparisonProvider.GetEqualityComparer());
 
                 _container = builder.Build();
             }
