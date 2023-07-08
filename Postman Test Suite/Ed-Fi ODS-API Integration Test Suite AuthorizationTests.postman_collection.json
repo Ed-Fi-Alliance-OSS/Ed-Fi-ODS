@@ -10028,6 +10028,889 @@
 					]
 				},
 				{
+					"name": "StudentSpecialEducationProgramEligibilityAssociation",
+					"item": [
+						{
+							"name": "Setup",
+							"item": [
+								{
+									"name": "Identify High School (HS) Student",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const responseItems = pm.response.json();\r",
+													"\r",
+													"pm.environment.set('known:studentUniqueId:HS', responseItems[0].studentReference.studentUniqueId);\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?limit=1&schoolId=255901001",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSchoolAssociations"
+											],
+											"query": [
+												{
+													"key": "limit",
+													"value": "1"
+												},
+												{
+													"key": "schoolId",
+													"value": "255901001",
+													"description": "High School"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Identify Middle School (MS) Student",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const responseItems = pm.response.json();\r",
+													"\r",
+													"pm.environment.set('known:studentUniqueId:MS', responseItems[0].studentReference.studentUniqueId);\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?limit=1&schoolId=255901044",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSchoolAssociations"
+											],
+											"query": [
+												{
+													"key": "limit",
+													"value": "1"
+												},
+												{
+													"key": "schoolId",
+													"value": "255901044",
+													"description": "Middle School"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Identify Elementary School (ES) Student",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const responseItems = pm.response.json();\r",
+													"\r",
+													"pm.environment.set('known:studentUniqueId:ES', responseItems[0].studentReference.studentUniqueId);\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?limit=1&schoolId=255901107",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSchoolAssociations"
+											],
+											"query": [
+												{
+													"key": "limit",
+													"value": "1"
+												},
+												{
+													"key": "schoolId",
+													"value": "255901107",
+													"description": "Elementary School"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create MS student responsiblity association with HS",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:responsibility:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901001\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:studentUniqueId:MS}}\"\r\n  },\r\n  \"beginDate\": \"2021-08-23\",\r\n  \"responsibilityDescriptor\": \"uri://ed-fi.org/ResponsibilityDescriptor#Residency\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentEducationOrganizationResponsibilityAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentEducationOrganizationResponsibilityAssociations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create HS Program",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:program:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901001\r\n  },\r\n  \"programName\": \"Bilingual\",\r\n  \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\",\r\n  \"programId\": \"1\",\r\n  \"characteristics\": [],\r\n  \"learningStandards\": [],\r\n  \"sponsors\": [\r\n    {\r\n      \"programSponsorDescriptor\": \"uri://ed-fi.org/ProgramSponsorDescriptor#Local Education Agency\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"programs"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create HS StudentSpecialEducationProgramEligibilityAssociation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 201\", () => {\r",
+													"   pm.expect(pm.response.code).to.equal(201); \r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:eligibility:id:HS', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"consentToEvaluationReceivedDate\": \"2023-07-08\",\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901001\r\n  },\r\n  \"programReference\": {\r\n    \"educationOrganizationId\": 255901001,\r\n    \"programName\": \"Bilingual\",\r\n    \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:studentUniqueId:HS}}\"\r\n  },\r\n  \"ideaPartDescriptor\": \"uri://ed-fi.org/IDEAPartDescriptor#IDEA Part C\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSpecialEducationProgramEligibilityAssociations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create MS StudentSpecialEducationProgramEligibilityAssociation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 201\", () => {\r",
+													"   pm.expect(pm.response.code).to.equal(201); \r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:eligibility:id:MS', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"consentToEvaluationReceivedDate\": \"2023-07-08\",\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901001\r\n  },\r\n  \"programReference\": {\r\n    \"educationOrganizationId\": 255901001,\r\n    \"programName\": \"Bilingual\",\r\n    \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:studentUniqueId:MS}}\"\r\n  },\r\n  \"ideaPartDescriptor\": \"uri://ed-fi.org/IDEAPartDescriptor#IDEA Part C\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSpecialEducationProgramEligibilityAssociations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create ES StudentSpecialEducationProgramEligibilityAssociation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 201\", () => {\r",
+													"   pm.expect(pm.response.code).to.equal(201); \r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:eligibility:id:ES', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"consentToEvaluationReceivedDate\": \"2023-07-08\",\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901001\r\n  },\r\n  \"programReference\": {\r\n    \"educationOrganizationId\": 255901001,\r\n    \"programName\": \"Bilingual\",\r\n    \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:studentUniqueId:ES}}\"\r\n  },\r\n  \"ideaPartDescriptor\": \"uri://ed-fi.org/IDEAPartDescriptor#IDEA Part C\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSpecialEducationProgramEligibilityAssociations"
+											],
+											"query": [
+												{
+													"key": "limit",
+													"value": "1",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Authorized through Enrollment",
+							"item": [
+								{
+									"name": "Get the HS student eligibility",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const responseItem = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should contain the high school student\", () => {\r",
+													"  pm.expect(responseItem.studentReference.studentUniqueId).to.equal(pm.environment.get(\"known:studentUniqueId:HS\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations/{{known:eligibility:id:HS}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSpecialEducationProgramEligibilityAssociations",
+												"{{known:eligibility:id:HS}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Authorized through Responsibility",
+							"item": [
+								{
+									"name": "Get the MS student eligibility",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const responseItem = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should contain the middle school student\", () => {\r",
+													"  pm.expect(responseItem.studentReference.studentUniqueId).to.equal(pm.environment.get(\"known:studentUniqueId:MS\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations/{{known:eligibility:id:MS}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSpecialEducationProgramEligibilityAssociations",
+												"{{known:eligibility:id:MS}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Not Authorized (through either Enrollment or Responsibility)",
+							"item": [
+								{
+									"name": "Get the ES student eligibility",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 403\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(403);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations/{{known:eligibility:id:ES}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSpecialEducationProgramEligibilityAssociations",
+												"{{known:eligibility:id:ES}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Teardown",
+							"item": [
+								{
+									"name": "Delete the HS student eligibility",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations/{{known:eligibility:id:HS}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSpecialEducationProgramEligibilityAssociations",
+												"{{known:eligibility:id:HS}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete the MS student eligibility",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations/{{known:eligibility:id:MS}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSpecialEducationProgramEligibilityAssociations",
+												"{{known:eligibility:id:MS}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete the ES student eligibility",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations/{{known:eligibility:id:ES}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSpecialEducationProgramEligibilityAssociations",
+												"{{known:eligibility:id:ES}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete the HS Program",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/{{known:program:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"programs",
+												"{{known:program:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete the MS responsibility association",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentEducationOrganizationResponsibilityAssociations/{{known:responsibility:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentEducationOrganizationResponsibilityAssociations",
+												"{{known:responsibility:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Clean up Environment Variables",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+													"  .each(k => pm.environment.unset(k)).value();\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
 					"name": "Clean Up Test Data",
 					"item": [
 						{
