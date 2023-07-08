@@ -29,20 +29,17 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         private readonly IApiClientContextProvider _apiClientContextProvider;
         private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
         private readonly IPersonTypesProvider _personTypesProvider;
-        private readonly IDatabaseNamingConvention _databaseNamingConvention;
 
         public RelationshipsAuthorizationStrategyFilterDefinitionsFactory(
             IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider,
             IApiClientContextProvider apiClientContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IPersonTypesProvider personTypesProvider,
-            IDatabaseNamingConvention databaseNamingConvention)
+            IPersonTypesProvider personTypesProvider)
         {
             _educationOrganizationIdNamesProvider = educationOrganizationIdNamesProvider;
             _apiClientContextProvider = apiClientContextProvider;
             _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
             _personTypesProvider = personTypesProvider;
-            _databaseNamingConvention = databaseNamingConvention;
         }
         
         public virtual IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
@@ -66,7 +63,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             return personUsiNames.Select(usiName => 
                 new ViewBasedAuthorizationFilterDefinition(
                     $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{usiName}{authorizationPathModifier}",
-                    _databaseNamingConvention.IdentifierName($"EducationOrganizationIdTo{usiName}{authorizationPathModifier}"),
+                    $"EducationOrganizationIdTo{usiName}{authorizationPathModifier}",
                     EducationOrganizationAuthorizationViewConstants.SourceColumnName,
                     usiName,
                     ApplyTrackedChangesAuthorizationCriteria,
