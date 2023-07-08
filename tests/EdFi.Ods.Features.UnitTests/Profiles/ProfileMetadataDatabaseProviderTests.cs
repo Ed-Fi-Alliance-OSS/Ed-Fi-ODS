@@ -3,17 +3,16 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Xml.Linq;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
-using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Features.Profiles;
 using EdFi.TestFixture;
 using FakeItEasy;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using Shouldly;
 
@@ -28,19 +27,19 @@ namespace EdFi.Ods.Features.UnitTests.Profiles
             private IProfileDefinitionsProvider? _adminDatabaseProfileDefinitionsProvider;
             public IDictionary<string, XElement>? _profileDefinitions;
 
-            private readonly Profile ValidProfile = new Profile
+            private readonly Profile ValidProfile = new()
             {
                 ProfileName = "Valid-Profile",
                 ProfileDefinition = $"<Profile name=\"{ValidProfileName}\"><Resource name=\"School\"><WriteContentType memberSelection=\"IncludeAll\"/></Resource></Profile>"
             };
 
-            private readonly Profile InvalidProfile = new Profile
+            private readonly Profile InvalidProfile = new()
             {
                 ProfileName = "Invalid-Profile",
                 ProfileDefinition = "Invalid xml"
             };
 
-            private readonly Profile EmptyProfile = new Profile
+            private readonly Profile EmptyProfile = new()
             {
                 ProfileName = "Empty-Profile",
             };
