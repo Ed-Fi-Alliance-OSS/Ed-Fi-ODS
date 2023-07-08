@@ -16,6 +16,14 @@ public class RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletesA
 {
     private readonly IPersonEntitySpecification _personEntitySpecification;
 
+    // NOTE:
+    // The authorization path modifier has been shortened here from "ThroughResponsibilityIncludingDeletes" for the sake
+    // of Postgres' 63 character limit on identifier names (This is used, by convention, to build the auth view name.)
+    //
+    // The class name must match the convention for the name of the strategy as it appears in the security metadata,
+    // but the path modifier can be different, as was necessary here.
+    public const string AuthorizationPathModifier = "ThroughDeletedResponsibility";
+
     public RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletesAuthorizationStrategy(
         IDomainModelProvider domainModelProvider,
         IPersonEntitySpecification personEntitySpecification)
@@ -29,7 +37,7 @@ public class RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletesA
     {
         return authorizationContextTuples
             .Where(nv => _personEntitySpecification.IsPersonIdentifier(nv.name, WellKnownPersonTypes.Student))
-            .Select(nv => new SubjectEndpoint(nv, "ThroughDeletedResponsibility"))
+            .Select(nv => new SubjectEndpoint(nv, AuthorizationPathModifier))
             .ToArray();
     }
 }

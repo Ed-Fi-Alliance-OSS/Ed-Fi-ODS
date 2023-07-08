@@ -30,9 +30,11 @@ public class RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletesA
 
     public override IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
     {
+        string authorizationPathModifier = RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletesAuthorizationStrategy<RelationshipsAuthorizationContextData>.AuthorizationPathModifier;
+
         return CreateAllEducationOrganizationToPersonFilters(
                 shouldIncludePersonType: pt => pt == WellKnownPersonTypes.Student,
-                authorizationPathModifier: "ThroughDeletedResponsibility")
+                authorizationPathModifier: authorizationPathModifier)
             .ToArray();
     }
 }
