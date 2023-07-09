@@ -259,7 +259,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                                               CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(entity.Name),
                                                               IsRequiredWithNonDefault = !p.PropertyType.IsNullable
                                                                                          && !p.IsServerAssigned
-                                                                                         && !CSharpDefaultHasDomainMeaning(p),
+                                                                                         && !p.CSharpDefaultHasDomainMeaning(),
                                                               ValidationReferenceName = UniqueIdConventions.IsUSI(p.PropertyName)
                                                                   ? _personEntitySpecification.GetUSIPersonType(p.PropertyName)
                                                                   : _notRendered,
@@ -302,7 +302,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                                   CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(entity.Name), Attributes =
                                                       string.Join(
                                                           ", ",
-                                                          (!p.PropertyType.IsNullable && !CSharpDefaultHasDomainMeaning(p)
+                                                          (!p.PropertyType.IsNullable && !p.CSharpDefaultHasDomainMeaning()
                                                               ? new[]
                                                                 {
                                                                     "RequiredWithNonDefault"
@@ -638,53 +638,6 @@ namespace EdFi.Ods.CodeGen.Generators
                              }
                            : _notRendered
                    };
-        }
-
-        private static bool CSharpDefaultHasDomainMeaning(EntityProperty property)
-        {
-            // Any min/max range definition implies domain meaning
-            if (property.PropertyType.MinValue.HasValue || property.PropertyType.MaxValue.HasValue)
-            {
-                return true;
-            }
-
-            switch (property.PropertyType.ToCSharp())
-            {
-                case "string":
-                case "DateTime":
-                    return false;
-
-                case "TimeSpan":
-
-                    if (property.PropertyName.StartsWith("Start", StringComparison.InvariantCultureIgnoreCase)
-                        || property.PropertyName.StartsWith("Begin", StringComparison.InvariantCultureIgnoreCase)
-                        || property.PropertyName.StartsWith("End", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        return false;
-                    }
-
-                    break;
-
-                case "short":
-                case "int":
-
-                    if (property.PropertyName.EndsWith("Year", StringComparison.InvariantCultureIgnoreCase)
-                        || property.PropertyName.Equals("Version", StringComparison.InvariantCultureIgnoreCase)
-                        || property.PropertyName.Contains("Sequence")
-                        || property.PropertyName.EndsWith("Number", StringComparison.InvariantCultureIgnoreCase)
-                        || property.PropertyName.EndsWith("Id", StringComparison.InvariantCultureIgnoreCase)
-                        || property.PropertyName.EndsWith("USI", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        return false;
-                    }
-
-                    break;
-
-                default:
-                    return true;
-            }
-
-            return true;
         }
 
         private static bool IsDelegatedToBaseProperty(Entity entity, EntityProperty p)

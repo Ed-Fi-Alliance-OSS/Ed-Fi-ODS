@@ -66,7 +66,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         {
             get
             {
-                return !Property.PropertyType.IsNullable && !Property.IsServerAssigned && CSharpDefaultHasDomainMeaning(Property);
+                return !Property.PropertyType.IsNullable && !Property.IsServerAssigned && Property.CSharpDefaultHasDomainMeaning();
             }
         }
 
@@ -354,53 +354,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     : ResourceRenderer.RenderNull;
 
             return propertyData;
-        }
-
-        private static bool CSharpDefaultHasDomainMeaning(ResourceProperty property)
-        {
-            // Any min/max range definition implies domain meaning
-            if (property.PropertyType.MinValue.HasValue || property.PropertyType.MaxValue.HasValue)
-            {
-                return true;
-            }
-
-            switch (property.PropertyType.ToCSharp())
-            {
-                case "string":
-                case "DateTime":
-                    return false;
-
-                case "TimeSpan":
-
-                    if (property.PropertyName.StartsWith("Start", StringComparison.InvariantCultureIgnoreCase)
-                        || property.PropertyName.StartsWith("Begin", StringComparison.InvariantCultureIgnoreCase)
-                        || property.PropertyName.StartsWith("End", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        return false;
-                    }
-
-                    break;
-
-                case "short":
-                case "int":
-
-                    if (property.PropertyName.EndsWith("Year", StringComparison.InvariantCultureIgnoreCase)
-                        || property.PropertyName.Equals("Version", StringComparison.InvariantCultureIgnoreCase)
-                        || property.PropertyName.Contains("Sequence")
-                        || property.PropertyName.EndsWith("Number", StringComparison.InvariantCultureIgnoreCase)
-                        || property.PropertyName.EndsWith("Id", StringComparison.InvariantCultureIgnoreCase)
-                        || property.PropertyName.EndsWith("USI", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        return false;
-                    }
-
-                    break;
-
-                default:
-                    return true;
-            }
-
-            return true;
         }
     }
 }
