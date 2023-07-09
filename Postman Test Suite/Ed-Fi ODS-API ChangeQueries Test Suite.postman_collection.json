@@ -3444,7 +3444,7 @@
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													"pm.environment.set('supplied:localEducationAgencyId', \"{{$randomInt}}{{$randomInt}}\");",
+													"pm.environment.set('supplied:localEducationAgencyId', pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}\"));",
 													""
 												],
 												"type": "text/javascript"
