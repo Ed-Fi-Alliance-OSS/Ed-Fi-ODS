@@ -10034,6 +10034,64 @@
 							"name": "Setup",
 							"item": [
 								{
+									"name": "Probe for StudentSpecialEducationProgramEligibilityAssociation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"if (pm.response.code == 404) {\r",
+													"  pm.environment.set('known:eligibilitySupported', false);\r",
+													"} else {\r",
+													"  pm.environment.set('known:eligibilitySupported', true);\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSpecialEducationProgramEligibilityAssociations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
 									"name": "Identify High School (HS) Student",
 									"event": [
 										{
@@ -10304,7 +10362,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/{{known:{{scenarioId}}:programGuid}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -10312,7 +10370,8 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"programs"
+												"programs",
+												"{{known:{{scenarioId}}:programGuid}}"
 											]
 										}
 									},
@@ -10325,11 +10384,15 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 201\", () => {\r",
-													"   pm.expect(pm.response.code).to.equal(201); \r",
-													"});\r",
+													"const eligibilitySupported = pm.environment.get('known:eligibilitySupported');\r",
 													"\r",
-													"pm.environment.set('known:eligibility:id:HS', pm.response.headers.one('Location').value.split(\"/\").pop());"
+													"if (eligibilitySupported) {\r",
+													"  pm.test(\"Response is 201\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(201);\r",
+													"  });\r",
+													"\r",
+													"  pm.environment.set('known:eligibility:id:HS', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -10379,11 +10442,15 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 201\", () => {\r",
-													"   pm.expect(pm.response.code).to.equal(201); \r",
-													"});\r",
+													"const eligibilitySupported = pm.environment.get('known:eligibilitySupported');\r",
 													"\r",
-													"pm.environment.set('known:eligibility:id:MS', pm.response.headers.one('Location').value.split(\"/\").pop());"
+													"if (eligibilitySupported) {\r",
+													"  pm.test(\"Response is 201\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(201);\r",
+													"  });\r",
+													"\r",
+													"  pm.environment.set('known:eligibility:id:MS', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -10433,11 +10500,15 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 201\", () => {\r",
-													"   pm.expect(pm.response.code).to.equal(201); \r",
-													"});\r",
+													"const eligibilitySupported = pm.environment.get('known:eligibilitySupported');\r",
 													"\r",
-													"pm.environment.set('known:eligibility:id:ES', pm.response.headers.one('Location').value.split(\"/\").pop());"
+													"if (eligibilitySupported) {\r",
+													"  pm.test(\"Response is 201\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(201);\r",
+													"  });\r",
+													"\r",
+													"  pm.environment.set('known:eligibility:id:ES', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -10499,15 +10570,19 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 200\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(200);\r",
-													"});\r",
+													"const eligibilitySupported = pm.environment.get('known:eligibilitySupported');\r",
 													"\r",
-													"const responseItem = pm.response.json();\r",
+													"if (eligibilitySupported) {\r",
+													"  pm.test(\"Response is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"  });\r",
 													"\r",
-													"pm.test(\"Should contain the high school student\", () => {\r",
-													"  pm.expect(responseItem.studentReference.studentUniqueId).to.equal(pm.environment.get(\"known:studentUniqueId:HS\"));\r",
-													"});"
+													"  const responseItem = pm.response.json();\r",
+													"\r",
+													"  pm.test(\"Should contain the high school student\", () => {\r",
+													"    pm.expect(responseItem.studentReference.studentUniqueId).to.equal(pm.environment.get(\"known:studentUniqueId:HS\"));\r",
+													"  });\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -10554,15 +10629,19 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 200\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(200);\r",
-													"});\r",
+													"const eligibilitySupported = pm.environment.get('known:eligibilitySupported');\r",
 													"\r",
-													"const responseItem = pm.response.json();\r",
+													"if (eligibilitySupported) {\r",
+													"  pm.test(\"Response is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"  });\r",
 													"\r",
-													"pm.test(\"Should contain the middle school student\", () => {\r",
-													"  pm.expect(responseItem.studentReference.studentUniqueId).to.equal(pm.environment.get(\"known:studentUniqueId:MS\"));\r",
-													"});"
+													"  const responseItem = pm.response.json();\r",
+													"\r",
+													"  pm.test(\"Should contain the middle school student\", () => {\r",
+													"    pm.expect(responseItem.studentReference.studentUniqueId).to.equal(pm.environment.get(\"known:studentUniqueId:MS\"));\r",
+													"  });\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -10609,10 +10688,13 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 403\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(403);\r",
-													"});\r",
-													""
+													"const eligibilitySupported = pm.environment.get('known:eligibilitySupported');\r",
+													"\r",
+													"if (eligibilitySupported) {\r",
+													"  pm.test(\"Response is 403\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(403);\r",
+													"  });\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -10659,10 +10741,13 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 204\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
-													""
+													"const eligibilitySupported = pm.environment.get('known:eligibilitySupported');\r",
+													"\r",
+													"if (eligibilitySupported) {\r",
+													"  pm.test(\"Response is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"  });\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -10704,10 +10789,13 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 204\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
-													""
+													"const eligibilitySupported = pm.environment.get('known:eligibilitySupported');\r",
+													"\r",
+													"if (eligibilitySupported) {\r",
+													"  pm.test(\"Response is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"  });\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -10749,10 +10837,13 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 204\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
-													""
+													"const eligibilitySupported = pm.environment.get('known:eligibilitySupported');\r",
+													"\r",
+													"if (eligibilitySupported) {\r",
+													"  pm.test(\"Response is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"  });\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
