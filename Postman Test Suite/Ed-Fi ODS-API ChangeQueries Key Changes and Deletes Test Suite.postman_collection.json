@@ -10171,13 +10171,12 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 201 or 404\", () => {\r",
-													"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
-													" });\r",
+													"pm.test(\"Response is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201)\r",
+													"});\r",
 													"\r",
-													"if (pm.response.code === 201 ) {\r",
-													"    pm.environment.set('known:studentSchoolAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
-													"}"
+													"pm.environment.set('known:studentSchoolAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -10286,10 +10285,13 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 204\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"pm.test(\"Status code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
 													"});\r",
-													""
+													"\r",
+													"pm.test(\"Should indicate that Student keys cannot be changed.\", () => {\r",
+													"  pm.expect(pm.response.json().message).to.include(\"Key values for this resource cannot be changed.\");\r",
+													"});"
 												],
 												"type": "text/javascript"
 											}
@@ -10322,163 +10324,6 @@
 										}
 									},
 									"response": []
-								},
-								{
-									"name": "Get Students Changes",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 200\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(200);\r",
-													"});\r",
-													"\r",
-													"const items = pm.response.json();\r",
-													"const item = items[0];\r",
-													"\r",
-													"pm.test(\"Single item with the updated key is returned\", () => {\r",
-													"  pm.expect(items.length).equal(1);\r",
-													"  pm.expect(item.id).equal(pm.environment.get(`known:student:id`));\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Values reflect the changes\", () => {\r",
-													"  pm.expect(item.firstName).equals('Johnny');\r",
-													"  pm.expect(item.studentUniqueId).equals(`${pm.environment.get('supplied:studentUniqueId')}-Changed`);\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?minChangeVersion={{known:newestChangeVersion}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"students"
-											],
-											"query": [
-												{
-													"key": "minChangeVersion",
-													"value": "{{known:newestChangeVersion}}"
-												}
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Get Key Changes",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 200\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(200);\r",
-													"});\r",
-													"\r",
-													"const items = pm.response.json();\r",
-													"const item = items[0];\r",
-													"\r",
-													"pm.test(\"Single item with the updated key is returned\", () => {\r",
-													"  pm.expect(items.length).equal(1);\r",
-													"  pm.expect(item.id).equal(pm.environment.get(`known:student:id`));\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
-													"  pm.expect(Object.keys(item.oldKeyValues).length).equal(1);\r",
-													"  pm.expect(Object.keys(item.newKeyValues).length).equal(1);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Old key value reports the original value\", () => {\r",
-													"  pm.expect(item.oldKeyValues.studentUniqueId).equal(pm.environment.get('supplied:studentUniqueId'));\r",
-													"});\r",
-													"\r",
-													"pm.test(\"New key value reports the most recent update\", () => {\r",
-													"  pm.expect(item.newKeyValues.studentUniqueId).equal(`${pm.environment.get('supplied:studentUniqueId')}-Changed`);\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/keyChanges?minChangeVersion={{known:newestChangeVersion}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"students",
-												"keyChanges"
-											],
-											"query": [
-												{
-													"key": "minChangeVersion",
-													"value": "{{known:newestChangeVersion}}"
-												}
-											]
-										}
-									},
-									"response": []
 								}
 							]
 						},
@@ -10501,9 +10346,15 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 204 or 404\", () => {\r",
-													"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) \r",
-													" });"
+													"pm.test(\"Response is 400 or 404\", () => {\r",
+													"  pm.expect(pm.response.code).to.be.oneOf([400, 404])\r",
+													"});\r",
+													"\r",
+													"if (pm.response.code == 400) {\r",
+													"  pm.test(\"Should indicate that Student keys cannot be changed.\", () => {\r",
+													"    pm.expect(pm.response.json().message).to.include(\"Key values for this resource cannot be changed.\");\r",
+													"  });\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -10532,177 +10383,6 @@
 												"ed-fi",
 												"parents",
 												"{{known:parent:id}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Get Parents Changes",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response is 200 or 404\", () => {\r",
-													"    pm.expect(pm.response.code).to.be.oneOf([200, 404]) \r",
-													" });\r",
-													"\r",
-													"if (pm.response.code === 200) {\r",
-													"    const items = pm.response.json();\r",
-													"    const item = items[0];\r",
-													"\r",
-													"    /*\r",
-													"    pm.test(\"Single item with the updated key is returned\", () => {\r",
-													"    pm.expect(items.length).equal(1);\r",
-													"    pm.expect(item.id).equal(pm.environment.get(`known:parent:id`));\r",
-													"    });\r",
-													"    */\r",
-													"\r",
-													"    pm.test(\"Values reflect the changes\", () => {\r",
-													"    pm.expect(item.firstName).equals('Jonathon');\r",
-													"    // pm.expect(item.parentUniqueId).equals(`${pm.environment.get('supplied:parentUniqueId')}-Changed`);\r",
-													"    });\r",
-													"\r",
-													"} "
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents?minChangeVersion={{known:newestChangeVersion}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"parents"
-											],
-											"query": [
-												{
-													"key": "minChangeVersion",
-													"value": "{{known:newestChangeVersion}}"
-												}
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Get Key Changes",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response is 200 or 500\", () => {\r",
-													"    pm.expect(pm.response.code).to.be.oneOf([200, 500]) \r",
-													" });\r",
-													"\r",
-													"/*\r",
-													"-------------------------------------------------------\r",
-													"NOTE: Tests disabled due to cascade problem within NHibernate when it attempts to cascade a change in the USI value due to a change being made to the UniqueId. After having to add the extension collections, the PUT (update) request above that used to update the ParentUniqueId now results in the following exception (similar to Staff):\r",
-													"-------------------------------------------------------\r",
-													"2023-01-31 13:20:32,227 [.NET ThreadPool Worker,2] ERROR ParentsController - Put\r",
-													"NHibernate.NonUniqueObjectException: a different object with the same identifier value was already associated with the session: Parent: ParentUSI: 1877, FavoriteBookTitle: Green Eggs and Ham, of entity: EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample.ParentFavoriteBookTitle\r",
-													"   at NHibernate.Event.Default.AbstractSaveEventListener.PerformSaveAsync(Object entity, Object id, IEntityPersister persister, Boolean useIdentityColumn, Object anythin\r",
-													"g, IEventSource source, Boolean requiresImmediateIdAccess, CancellationToken cancellationToken)\r",
-													"-------------------------------------------------------\r",
-													"\r",
-													"const items = pm.response.json();\r",
-													"const item = items[0];\r",
-													"\r",
-													"pm.test(\"Single item with the updated key is returned\", () => {\r",
-													"  pm.expect(items.length).equal(1);\r",
-													"  pm.expect(item.id).equal(pm.environment.get(`known:parent:id`));\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
-													"  pm.expect(Object.keys(item.oldKeyValues).length).equal(1);\r",
-													"  pm.expect(Object.keys(item.newKeyValues).length).equal(1);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Old key value reports the original value\", () => {\r",
-													"  pm.expect(item.oldKeyValues.parentUniqueId).equal(pm.environment.get('supplied:parentUniqueId'));\r",
-													"});\r",
-													"\r",
-													"pm.test(\"New key value reports the most recent update\", () => {\r",
-													"  pm.expect(item.newKeyValues.parentUniqueId).equal(`${pm.environment.get('supplied:parentUniqueId')}-Changed`);\r",
-													"});\r",
-													"*/"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents/keyChanges?minChangeVersion={{known:newestChangeVersion}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"parents",
-												"keyChanges"
-											],
-											"query": [
-												{
-													"key": "minChangeVersion",
-													"value": "{{known:newestChangeVersion}}"
-												}
 											]
 										}
 									},
