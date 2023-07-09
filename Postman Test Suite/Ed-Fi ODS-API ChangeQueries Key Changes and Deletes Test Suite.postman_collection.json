@@ -10351,7 +10351,7 @@
 													"});\r",
 													"\r",
 													"if (pm.response.code == 400) {\r",
-													"  pm.test(\"Should indicate that Student keys cannot be changed.\", () => {\r",
+													"  pm.test(\"Should indicate that Parent keys cannot be changed.\", () => {\r",
 													"    pm.expect(pm.response.json().message).to.include(\"Key values for this resource cannot be changed.\");\r",
 													"  });\r",
 													"}"
@@ -10365,7 +10365,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"parentUniqueId\": \"{{supplied:parentUniqueId}}\",\r\n  \"parentUniqueId-WAS\": \"{{supplied:parentUniqueId}}-Changed\",\r\n  \"birthDate\": \"1988-09-13\",\r\n  \"firstName\": \"Jonathon\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"parentUniqueId\": \"{{supplied:parentUniqueId}}-Changed\",\r\n  \"birthDate\": \"1988-09-13\",\r\n  \"firstName\": \"Jonathon\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
