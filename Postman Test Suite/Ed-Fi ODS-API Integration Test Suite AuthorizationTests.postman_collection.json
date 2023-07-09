@@ -10362,7 +10362,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/{{known:{{scenarioId}}:programGuid}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -10370,8 +10370,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"programs",
-												"{{known:{{scenarioId}}:programGuid}}"
+												"programs"
 											]
 										}
 									},

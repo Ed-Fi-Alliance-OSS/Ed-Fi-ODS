@@ -3444,7 +3444,7 @@
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													"pm.environment.set('supplied:localEducationAgencyId', pm.variables.replaceIn(\"{{$timestamp}}\"));",
+													"pm.environment.set('supplied:localEducationAgencyId', \"{{$randomInt}}{{$randomInt}}\");",
 													""
 												],
 												"type": "text/javascript"
@@ -3476,7 +3476,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"localEducationAgencyId\": \"{{supplied:localEducationAgencyId}}\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Local Education Agency\"\r\n    }\r\n  ],\r\n  \"stateEducationAgencyReference\": {\r\n    \"stateEducationAgencyId\": 31\r\n  },\r\n  \"localEducationAgencyCategoryDescriptor\": \"uri://ed-fi.org/LocalEducationAgencyCategoryDescriptor#Charter\",\r\n  \"nameOfInstitution\": \"LEA-100001\"\r\n}"
+											"raw": "{\r\n  \"localEducationAgencyId\": \"{{supplied:localEducationAgencyId}}\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Local Education Agency\"\r\n    }\r\n  ],\r\n  \"stateEducationAgencyReference\": {\r\n    \"stateEducationAgencyId\": \"{{supplied:stateEducationAgencyId}}\"\r\n  },\r\n  \"localEducationAgencyCategoryDescriptor\": \"uri://ed-fi.org/LocalEducationAgencyCategoryDescriptor#Charter\",\r\n  \"nameOfInstitution\": \"LEA-100001\"\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localEducationAgencies",
