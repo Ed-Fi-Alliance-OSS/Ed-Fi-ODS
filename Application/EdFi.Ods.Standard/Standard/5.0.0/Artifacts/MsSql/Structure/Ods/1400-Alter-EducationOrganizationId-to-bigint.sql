@@ -35,12 +35,37 @@ IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationO
     DROP VIEW auth.EducationOrganizationIdToStudentUSIThroughDeletedResponsibility;
 GO 
 
+
+ALTER TABLE auth.EducationOrganizationIdToEducationOrganizationId
+DROP CONSTRAINT EducationOrganizationIdToEducationOrganizationId_PK; 
+
+GO
+
+DROP INDEX auth.EducationOrganizationIdToEducationOrganizationId.IX_EducationOrganizationIdToEducationOrganizationId; -- Drop the index
+
+GO
+
 ALTER TABLE auth.EducationOrganizationIdToEducationOrganizationId 
 ALTER COLUMN SourceEducationOrganizationId BIGINT NOT NULL;
 ALTER TABLE auth.EducationOrganizationIdToEducationOrganizationId
 ALTER COLUMN TargetEducationOrganizationId BIGINT NOT NULL;
 
 GO
+
+ALTER TABLE auth.EducationOrganizationIdToEducationOrganizationId
+ADD CONSTRAINT [EducationOrganizationIdToEducationOrganizationId_PK] PRIMARY KEY CLUSTERED (
+        [SourceEducationOrganizationId] ASC,
+        [TargetEducationOrganizationId] ASC
+    )
+GO
+
+CREATE NONCLUSTERED INDEX IX_EducationOrganizationIdToEducationOrganizationId
+ON auth.EducationOrganizationIdToEducationOrganizationId
+(
+	TargetEducationOrganizationId
+) INCLUDE (SourceEducationOrganizationId)
+GO
+
 
 CREATE OR ALTER VIEW auth.EducationOrganizationIdToStudentUSI 
     WITH SCHEMABINDING AS
