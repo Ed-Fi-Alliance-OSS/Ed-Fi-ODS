@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Adapters;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.Ods.Entities.Common.Sample;
@@ -680,7 +681,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class BusRoute : Entities.Common.Sample.IBusRoute, IHasETag, IDateVersionedEntity
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class BusRoute : Entities.Common.Sample.IBusRoute, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -922,20 +924,44 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="expectedTransitTime")]
         public string ExpectedTransitTime { get; set; }
+        
+        private bool _hoursPerWeekExplicitlyAssigned = false;
+        private decimal _hoursPerWeek;
 
         /// <summary>
         /// The number of hours per week in which the bus route is operational.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="hoursPerWeek")]
-        public decimal HoursPerWeek { get; set; }
+        public decimal HoursPerWeek 
+        { 
+            get => _hoursPerWeek;
+            set 
+            { 
+                _hoursPerWeek = value;
+                _hoursPerWeekExplicitlyAssigned = true; 
+            }
+        }
+
+        
+        private bool _operatingCostExplicitlyAssigned = false;
+        private decimal _operatingCost;
 
         /// <summary>
         /// The approximate annual cost for the bus route.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="operatingCost")]
-        public decimal OperatingCost { get; set; }
+        public decimal OperatingCost 
+        { 
+            get => _operatingCost;
+            set 
+            { 
+                _operatingCost = value;
+                _operatingCostExplicitlyAssigned = true; 
+            }
+        }
+
 
         /// <summary>
         /// The percentage of seats filled under optimal conditions.
@@ -1007,6 +1033,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="weeklyMileage")]
         public decimal? WeeklyMileage { get; set; }
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_hoursPerWeekExplicitlyAssigned)
+            {
+                yield return "HoursPerWeek";
+            }
+            if (!_operatingCostExplicitlyAssigned)
+            {
+                yield return "OperatingCost";
+            }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -3251,7 +3289,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ParentAddressExtension : Entities.Common.Sample.IParentAddressExtension
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class ParentAddressExtension : Entities.Common.Sample.IParentAddressExtension, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3361,13 +3400,33 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="complex")]
         public string Complex { get; set; }
+        
+        private bool _onBusRouteExplicitlyAssigned = false;
+        private bool _onBusRoute;
 
         /// <summary>
         /// An indicator if the address is on a bus route.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="onBusRoute")]
-        public bool OnBusRoute { get; set; }
+        public bool OnBusRoute 
+        { 
+            get => _onBusRoute;
+            set 
+            { 
+                _onBusRoute = value;
+                _onBusRouteExplicitlyAssigned = true; 
+            }
+        }
+
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_onBusRouteExplicitlyAssigned)
+            {
+                yield return "OnBusRoute";
+            }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -5013,7 +5072,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ParentExtension : Entities.Common.Sample.IParentExtension
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class ParentExtension : Entities.Common.Sample.IParentExtension, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -5168,13 +5228,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="graduationDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
         public DateTime? GraduationDate { get; set; }
+        
+        private bool _isSportsFanExplicitlyAssigned = false;
+        private bool _isSportsFan;
 
         /// <summary>
         /// An indication as to whether the parent is a sports fan.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="isSportsFan")]
-        public bool IsSportsFan { get; set; }
+        public bool IsSportsFan 
+        { 
+            get => _isSportsFan;
+            set 
+            { 
+                _isSportsFan = value;
+                _isSportsFanExplicitlyAssigned = true; 
+            }
+        }
+
 
         /// <summary>
         /// The parent's lucky number.
@@ -5196,6 +5268,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="rainCertainty")]
         public decimal? RainCertainty { get; set; }
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_isSportsFanExplicitlyAssigned)
+            {
+                yield return "IsSportsFan";
+            }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -7877,7 +7957,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StaffPetPreference : Entities.Common.Sample.IStaffPetPreference
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class StaffPetPreference : Entities.Common.Sample.IStaffPetPreference, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -7975,20 +8056,56 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        
+        private bool _maximumWeightExplicitlyAssigned = false;
+        private int _maximumWeight;
 
         /// <summary>
         /// The preferred maximum weight of a household pet.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="maximumWeight")]
-        public int MaximumWeight { get; set; }
+        public int MaximumWeight 
+        { 
+            get => _maximumWeight;
+            set 
+            { 
+                _maximumWeight = value;
+                _maximumWeightExplicitlyAssigned = true; 
+            }
+        }
+
+        
+        private bool _minimumWeightExplicitlyAssigned = false;
+        private int _minimumWeight;
 
         /// <summary>
         /// The preferred minimum weight of a household pet.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="minimumWeight")]
-        public int MinimumWeight { get; set; }
+        public int MinimumWeight 
+        { 
+            get => _minimumWeight;
+            set 
+            { 
+                _minimumWeight = value;
+                _minimumWeightExplicitlyAssigned = true; 
+            }
+        }
+
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_maximumWeightExplicitlyAssigned)
+            {
+                yield return "MaximumWeight";
+            }
+            if (!_minimumWeightExplicitlyAssigned)
+            {
+                yield return "MinimumWeight";
+            }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -9520,7 +9637,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentPetPreference : Entities.Common.Sample.IStudentPetPreference
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class StudentPetPreference : Entities.Common.Sample.IStudentPetPreference, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -9618,20 +9736,56 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        
+        private bool _maximumWeightExplicitlyAssigned = false;
+        private int _maximumWeight;
 
         /// <summary>
         /// The preferred maximum weight of a household pet.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="maximumWeight")]
-        public int MaximumWeight { get; set; }
+        public int MaximumWeight 
+        { 
+            get => _maximumWeight;
+            set 
+            { 
+                _maximumWeight = value;
+                _maximumWeightExplicitlyAssigned = true; 
+            }
+        }
+
+        
+        private bool _minimumWeightExplicitlyAssigned = false;
+        private int _minimumWeight;
 
         /// <summary>
         /// The preferred minimum weight of a household pet.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="minimumWeight")]
-        public int MinimumWeight { get; set; }
+        public int MinimumWeight 
+        { 
+            get => _minimumWeight;
+            set 
+            { 
+                _minimumWeight = value;
+                _minimumWeightExplicitlyAssigned = true; 
+            }
+        }
+
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_maximumWeightExplicitlyAssigned)
+            {
+                yield return "MaximumWeight";
+            }
+            if (!_minimumWeightExplicitlyAssigned)
+            {
+                yield return "MinimumWeight";
+            }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -9815,7 +9969,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentArtProgramAssociation : Entities.Common.Sample.IStudentArtProgramAssociation, Entities.Common.EdFi.IGeneralStudentProgramAssociation, IHasETag, IDateVersionedEntity
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class StudentArtProgramAssociation : Entities.Common.Sample.IStudentArtProgramAssociation, Entities.Common.EdFi.IGeneralStudentProgramAssociation, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -10264,13 +10419,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="portfolioPieces")]
         public int? PortfolioPieces { get; set; }
+        
+        private bool _privateArtProgramExplicitlyAssigned = false;
+        private bool _privateArtProgram;
 
         /// <summary>
         /// Indicator that the student participated in art education at a private agency or institution.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="privateArtProgram")]
-        public bool PrivateArtProgram { get; set; }
+        public bool PrivateArtProgram 
+        { 
+            get => _privateArtProgram;
+            set 
+            { 
+                _privateArtProgram = value;
+                _privateArtProgramExplicitlyAssigned = true; 
+            }
+        }
+
 
         /// <summary>
         /// Required program fees to purchase materials for the student.
@@ -10278,6 +10445,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="programFees")]
         public decimal? ProgramFees { get; set; }
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_privateArtProgramExplicitlyAssigned)
+            {
+                yield return "PrivateArtProgram";
+            }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -11867,7 +12042,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationAddressExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class StudentEducationOrganizationAssociationAddressExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -11977,13 +12153,33 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="complex")]
         public string Complex { get; set; }
+        
+        private bool _onBusRouteExplicitlyAssigned = false;
+        private bool _onBusRoute;
 
         /// <summary>
         /// An indicator if the address is on a bus route.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="onBusRoute")]
-        public bool OnBusRoute { get; set; }
+        public bool OnBusRoute 
+        { 
+            get => _onBusRoute;
+            set 
+            { 
+                _onBusRoute = value;
+                _onBusRouteExplicitlyAssigned = true; 
+            }
+        }
+
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_onBusRouteExplicitlyAssigned)
+            {
+                yield return "OnBusRoute";
+            }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -13279,7 +13475,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentGraduationPlanAssociation : Entities.Common.Sample.IStudentGraduationPlanAssociation, IHasETag, IDateVersionedEntity
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class StudentGraduationPlanAssociation : Entities.Common.Sample.IStudentGraduationPlanAssociation, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -13623,13 +13820,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="highSchoolDuration")]
         public string HighSchoolDuration { get; set; }
+        
+        private bool _hoursPerWeekExplicitlyAssigned = false;
+        private decimal _hoursPerWeek;
 
         /// <summary>
         /// The number of hours per week the student will attend to graduate.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="hoursPerWeek")]
-        public decimal HoursPerWeek { get; set; }
+        public decimal HoursPerWeek 
+        { 
+            get => _hoursPerWeek;
+            set 
+            { 
+                _hoursPerWeek = value;
+                _hoursPerWeekExplicitlyAssigned = true; 
+            }
+        }
+
 
         /// <summary>
         /// An indication as to whether the plan is active.
@@ -13671,13 +13880,37 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
                 ImplicitStaffReference.StaffUniqueId = value;
             }
         }
+        
+        private bool _targetGPAExplicitlyAssigned = false;
+        private decimal _targetGPA;
 
         /// <summary>
         /// The GPA the student is working toward.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="targetGPA")]
-        public decimal TargetGPA { get; set; }
+        public decimal TargetGPA 
+        { 
+            get => _targetGPA;
+            set 
+            { 
+                _targetGPA = value;
+                _targetGPAExplicitlyAssigned = true; 
+            }
+        }
+
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_hoursPerWeekExplicitlyAssigned)
+            {
+                yield return "HoursPerWeek";
+            }
+            if (!_targetGPAExplicitlyAssigned)
+            {
+                yield return "TargetGPA";
+            }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -16480,7 +16713,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentParentAssociationExtension : Entities.Common.Sample.IStudentParentAssociationExtension
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class StudentParentAssociationExtension : Entities.Common.Sample.IStudentParentAssociationExtension, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -16619,13 +16853,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        
+        private bool _bedtimeReaderExplicitlyAssigned = false;
+        private bool _bedtimeReader;
 
         /// <summary>
         /// An indication as to whether the parent regularly reads to the student before bed.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="bedtimeReader")]
-        public bool BedtimeReader { get; set; }
+        public bool BedtimeReader 
+        { 
+            get => _bedtimeReader;
+            set 
+            { 
+                _bedtimeReader = value;
+                _bedtimeReaderExplicitlyAssigned = true; 
+            }
+        }
+
 
         /// <summary>
         /// The average number of pages the parent reads with the student each day.
@@ -16750,6 +16996,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="studentRead")]
         public short? StudentRead { get; set; }
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_bedtimeReaderExplicitlyAssigned)
+            {
+                yield return "BedtimeReader";
+            }
+        }
         // -------------------------------------------------------------
 
         // =============================================================

@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Adapters;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Entities.Common.EdFi;
 using Newtonsoft.Json;
@@ -118,7 +119,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentTransportation : Entities.Common.SampleStudentTransportation.IStudentTransportation, IHasETag, IDateVersionedEntity
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class StudentTransportation : Entities.Common.SampleStudentTransportation.IStudentTransportation, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -361,13 +363,33 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        
+        private bool _estimatedMilesFromSchoolExplicitlyAssigned = false;
+        private decimal _estimatedMilesFromSchool;
 
         /// <summary>
         /// The estimated distance, in miles, the student lives from the school.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="estimatedMilesFromSchool")]
-        public decimal EstimatedMilesFromSchool { get; set; }
+        public decimal EstimatedMilesFromSchool 
+        { 
+            get => _estimatedMilesFromSchool;
+            set 
+            { 
+                _estimatedMilesFromSchool = value;
+                _estimatedMilesFromSchoolExplicitlyAssigned = true; 
+            }
+        }
+
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_estimatedMilesFromSchoolExplicitlyAssigned)
+            {
+                yield return "EstimatedMilesFromSchool";
+            }
+        }
         // -------------------------------------------------------------
 
         // =============================================================

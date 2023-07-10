@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Adapters;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.Ods.Entities.Common.TPDM;

@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Adapters;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Validation;
 {{#SchemaNamespaces}}
 using {{Namespace}};
@@ -268,7 +269,10 @@ namespace {{ResourceClassesNamespace}}
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}} : {{NamespacePrefix}}I{{EntityName}}{{DerivedName}}{{#IsAggregateRoot}}, IHasETag, IDateVersionedEntity{{/IsAggregateRoot}}
+    {{#HasRequiredMembersWithMeaningfulDefaultValues}}
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    {{/HasRequiredMembersWithMeaningfulDefaultValues}}
+    public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}} : {{NamespacePrefix}}I{{EntityName}}{{DerivedName}}{{#IsAggregateRoot}}, IHasETag, IDateVersionedEntity{{/IsAggregateRoot}}{{#HasRequiredMembersWithMeaningfulDefaultValues}}, IHasRequiredMembersWithMeaningfulDefaultValues{{/HasRequiredMembersWithMeaningfulDefaultValues}}
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -939,13 +943,35 @@ namespace {{ResourceClassesNamespace}}
         {{/UnifiedType}}
         {{#Standard}}
         {{#Property}}
+        {{#PropertyDefaultHasDomainMeaning}}
+        
+        private bool _{{PropertyFieldName}}ExplicitlyAssigned = false;
+        private {{PropertyType}} _{{PropertyFieldName}};
 
         /// <summary>
         /// {{{Description}}}
         /// </summary>
         {{Misc}}
         [DataMember(Name="{{JsonPropertyName}}")]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        public {{PropertyType}} {{CSharpSafePropertyName}} 
+        { 
+            get => _{{PropertyFieldName}};
+            set 
+            { 
+                _{{PropertyFieldName}} = value;
+                _{{PropertyFieldName}}ExplicitlyAssigned = true; 
+            }
+        }
+        {{/PropertyDefaultHasDomainMeaning}}
+
+        {{^PropertyDefaultHasDomainMeaning}}
+        /// <summary>
+        /// {{{Description}}}
+        /// </summary>
+        {{Misc}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{CSharpSafePropertyName}} { get; set; }
+        {{/PropertyDefaultHasDomainMeaning}}
         {{/Property}}
         {{/Standard}}
         {{#Null}}
@@ -972,6 +998,24 @@ namespace {{ResourceClassesNamespace}}
         {{/NullLookup}}
         {{/Properties}}
         {{/NonIdentifiers}}
+        {{#HasRequiredMembersWithMeaningfulDefaultValues}}
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+        {{#NonIdentifiers}}
+        {{#Properties}}
+        {{#Property}}        
+        {{#PropertyDefaultHasDomainMeaning}}
+            if (!_{{PropertyFieldName}}ExplicitlyAssigned)
+            {
+                yield return "{{CSharpSafePropertyName}}";
+            }
+        {{/PropertyDefaultHasDomainMeaning}}
+        {{/Property}}
+        {{/Properties}}
+        {{/NonIdentifiers}}
+        }
+        {{/HasRequiredMembersWithMeaningfulDefaultValues}}
         // -------------------------------------------------------------
 
         // =============================================================

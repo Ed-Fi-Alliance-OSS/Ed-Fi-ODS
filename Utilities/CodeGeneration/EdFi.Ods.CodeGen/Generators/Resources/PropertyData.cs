@@ -62,6 +62,14 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             get { return Property.IsPersonOrUsi() && Property.IsIdentifying; }
         }
 
+        public bool PropertyDefaultHasDomainMeaning
+        {
+            get
+            {
+                return !Property.PropertyType.IsNullable && !Property.IsServerAssigned && Property.CSharpDefaultHasDomainMeaning();
+            }
+        }
+
         public List<AssociationView> Associations { get; }
 
         public List<AssociationView> ExtensionAssociations { get; }
@@ -158,7 +166,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     ? $"{propertyNamespacePrefix}I{Property.EntityProperty.Entity.Name}."
                     : $"{propertyNamespacePrefix}I{Property.EntityProperty.Entity.ResolvedEdFiEntityName()}.",
                 IsNullable = Property.PropertyType.IsNullable,
-                PropertyIsUnifiedAndLocallyDefined = Property.IsUnified() && Property.IsLocallyDefined
+                PropertyIsUnifiedAndLocallyDefined = Property.IsUnified() && Property.IsLocallyDefined,
+                PropertyDefaultHasDomainMeaning = PropertyDefaultHasDomainMeaning          
             };
         }
 

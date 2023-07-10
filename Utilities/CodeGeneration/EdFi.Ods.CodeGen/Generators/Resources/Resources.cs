@@ -436,7 +436,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 HasDiscriminator = resourceClass.Entity.HasDiscriminator(),
 
                 // Foreign Key Discriminators should not have any profile applied to this, as this data is required for links
-                ResourceReferences = CreateResourceReferences(resourceClass)
+                ResourceReferences = CreateResourceReferences(resourceClass),
+                HasRequiredMembersWithMeaningfulDefaultValues = _resourcePropertyRenderer.HasRequiredMembersWithMeaningfulDefaultValues(resourceClass)
             };
         }
 

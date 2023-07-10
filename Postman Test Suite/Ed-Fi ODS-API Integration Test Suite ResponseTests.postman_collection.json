@@ -4889,6 +4889,65 @@
 									"response": []
 								}
 							]
+						},
+						{
+							"name": "when_posting_a_resource_with_unsupplied_required_member_with_meaningful_default",
+							"item": [
+								{
+									"name": "api_should_fail_with_400_code",
+									"item": [
+										{
+											"name": "api_should_fail_with_400_code",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(400);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should return a message indicating that Validation failed. TotalInstructionalDays is not explicitly assigned\", () => {\r",
+															"    const responseItem = pm.response.json();\r",
+															"    pm.expect(responseItem.modelState[\"request.TotalInstructionalDays\"][0]).to.include(\"Required value not explicitly assigned.\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"contextSchoolYearTypeReference\": {\r\n    \"schoolYear\": 2021\r\n  },\r\n  \"weekIdentifier\": \"WEEK1\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"beginDate\": \"2021-07-21\",\r\n  \"endDate\": \"2021-07-21\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks/",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"academicWeeks",
+														""
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
 						}
 					]
 				},
