@@ -211,7 +211,7 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											""
+											"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}\"));"
 										],
 										"type": "text/javascript"
 									}
@@ -228,7 +228,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": \"255901\"\r\n    },\r\n    \"schoolId\": \"{{$randomInt}}{{$randomInt}}\",\r\n    \"nameOfInstitution\": \"Grand Bend Elementary School\",\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eleventh grade\"\r\n        }\r\n    ]\r\n}",
+									"raw": "{\r\n  \"schoolId\": \"{{supplied:schoolId}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"255901\"\r\n  },\r\n  \"nameOfInstitution\": \"Grand Bend Elementary School\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eleventh grade\"\r\n    }\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -313,7 +313,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eleventh grade\"\r\n        }\r\n    ]\r\n}",
+									"raw": "{\r\n  \"schoolId\": \"{{supplied:schoolId}}\",\r\n  \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eleventh grade\"\r\n    }\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2633,7 +2633,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"assessmentTitle\": \"4th Grade Reading 1st Six Weeks 2012-2013\",\r\n    \"contentStandard\": {\r\n        \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n    },\r\n    \"academicSubjects\": [\r\n        {\r\n            \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n        }\r\n    ]\r\n}",
+											"raw": "{\r\n  \"assessmentIdentifier\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"4th Grade Reading 1st Six Weeks 2012-2013\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2748,7 +2748,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"assessmentTitle\": \"3rd Grade Reading 1st Six Weeks 2012-2013\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"assessmentIdentifier\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"3rd Grade Reading 1st Six Weeks 2012-2013\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -9548,7 +9548,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"nameOfInstitution\": \"Modified\",\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Other\",\r\n        \"city\": \"Modified\",\r\n        \"postalCode\": \"78713\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#AA\",\r\n        \"streetNumberName\": \"Modified\",\r\n        \"nameOfCounty\": \"Modified\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Other\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Other\"\r\n    }\r\n  ]\r\n}",
+									"raw": "{\r\n  \"schoolId\": {{supplied:intlSchoolId}},\r\n  \"nameOfInstitution\": \"Modified\",\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Other\",\r\n        \"city\": \"Modified\",\r\n        \"postalCode\": \"78713\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#AA\",\r\n        \"streetNumberName\": \"Modified\",\r\n        \"nameOfCounty\": \"Modified\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Other\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Other\"\r\n    }\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -9640,7 +9640,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"internationalAddresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"countryDescriptor\": \"uri://ed-fi.org/CountryDescriptor#Mx\",\r\n        \"addressLine1\": \"line 1\",\r\n        \"addressLine2\": \"line 2\",\r\n        \"addressLine3\": \"line 3\",\r\n        \"addressLine4\": \"line 4\"\r\n      }\r\n    ]\r\n}",
+									"raw": "{\r\n  \"schoolId\": {{supplied:intlSchoolId}},\r\n  \"internationalAddresses\": [\r\n    {\r\n      \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n      \"countryDescriptor\": \"uri://ed-fi.org/CountryDescriptor#Mx\",\r\n      \"addressLine1\": \"line 1\",\r\n      \"addressLine2\": \"line 2\",\r\n      \"addressLine3\": \"line 3\",\r\n      \"addressLine4\": \"line 4\"\r\n    }\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -9749,7 +9749,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"ideaEligibility\": false,\r\n    \"iepBeginDate\": \"2021-09-02\",\r\n    \"iepReviewDate\": \"2021-08-28\",\r\n    \"lastEvaluationDate\": \"2021-08-25\",\r\n    \"schoolHoursPerWeek\": 5.00,\r\n    \"specialEducationHoursPerWeek\": 5.00,\r\n    \"specialEducationSettingDescriptor\": \"uri://ed-fi.org/SpecialEducationSettingDescriptor#Home\"\r\n}",
+									"raw": "{\r\n  \"beginDate\": \"{{supplied:studentSpecialEducationProgramAssociations:beginDate}}\",\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"programReference\": {\r\n    \"educationOrganizationId\": 255901,\r\n    \"programName\": \"Special Education\",\r\n    \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Special Education\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"604872\"\r\n  },\r\n  \"ideaEligibility\": false,\r\n  \"iepBeginDate\": \"2021-09-02\",\r\n  \"iepReviewDate\": \"2021-08-28\",\r\n  \"lastEvaluationDate\": \"2021-08-25\",\r\n  \"schoolHoursPerWeek\": 5.00,\r\n  \"specialEducationHoursPerWeek\": 5.00,\r\n  \"specialEducationSettingDescriptor\": \"uri://ed-fi.org/SpecialEducationSettingDescriptor#Home\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -10455,7 +10455,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"shortNameOfInstitution\": \"Modified\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Changed\",\r\n  \"website\": \"Modified\",\r\n  \"charterStatusDescriptor\": \"uri://ed-fi.org/CharterStatusDescriptor#School Charter\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Private School\",\r\n  \"internationalAddresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Other\",\r\n        \"countryDescriptor\": \"uri://ed-fi.org/CountryDescriptor#MY\",\r\n        \"addressLine1\": \"Modified\",\r\n        \"addressLine2\": \"Modified\",\r\n        \"addressLine3\": \"Modified\",\r\n        \"addressLine4\": \"Modified\"\r\n      }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Kindergarten\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"schoolId\": {{supplied:intlSchoolId}},\r\n  \"shortNameOfInstitution\": \"Modified\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Changed\",\r\n  \"website\": \"Modified\",\r\n  \"charterStatusDescriptor\": \"uri://ed-fi.org/CharterStatusDescriptor#School Charter\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Private School\",\r\n  \"internationalAddresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Other\",\r\n        \"countryDescriptor\": \"uri://ed-fi.org/CountryDescriptor#MY\",\r\n        \"addressLine1\": \"Modified\",\r\n        \"addressLine2\": \"Modified\",\r\n        \"addressLine3\": \"Modified\",\r\n        \"addressLine4\": \"Modified\"\r\n      }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Kindergarten\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -10576,7 +10576,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"ideaEligibility\": false,\r\n    \"iepBeginDate\": \"2021-04-02\",\r\n    \"iepReviewDate\": \"2021-04-28\",\r\n    \"lastEvaluationDate\": \"2021-04-25\",\r\n    \"endDate\": \"2021-10-25\",\r\n    \"schoolHoursPerWeek\": 7.00,\r\n    \"specialEducationHoursPerWeek\": 7.00,\r\n    \"specialEducationSettingDescriptor\": \"uri://ed-fi.org/SpecialEducationSettingDescriptor#Separate class\",\r\n    \"reasonExitedDescriptor\": \"uri://ed-fi.org/ReasonExitedDescriptor#Moved out of state\"\r\n}",
+											"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"programReference\": {\r\n    \"educationOrganizationId\": 255901,\r\n    \"programName\": \"Special Education\",\r\n    \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Special Education\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"604872\"\r\n  },\r\n  \"beginDate\": \"{{supplied:studentSpecialEducationProgramAssociations:beginDate}}\",\r\n  \"ideaEligibility\": false,\r\n  \"iepBeginDate\": \"2021-04-02\",\r\n  \"iepReviewDate\": \"2021-04-28\",\r\n  \"lastEvaluationDate\": \"2021-04-25\",\r\n  \"endDate\": \"2021-10-25\",\r\n  \"schoolHoursPerWeek\": 7.00,\r\n  \"specialEducationHoursPerWeek\": 7.00,\r\n  \"specialEducationSettingDescriptor\": \"uri://ed-fi.org/SpecialEducationSettingDescriptor#Separate class\",\r\n  \"reasonExitedDescriptor\": \"uri://ed-fi.org/ReasonExitedDescriptor#Moved out of state\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -11291,7 +11291,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"nameOfInstitution\": \"Modified\",\r\n  \"shortNameOfInstitution\": \"Modified\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Changed\",\r\n  \"website\": \"Modified\",\r\n  \"charterStatusDescriptor\": \"uri://ed-fi.org/CharterStatusDescriptor#School Charter\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Private School\",\r\n  \"internationalAddresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Other\",\r\n        \"countryDescriptor\": \"uri://ed-fi.org/CountryDescriptor#MY\",\r\n        \"addressLine1\": \"Modified\",\r\n        \"addressLine2\": \"Modified\",\r\n        \"addressLine3\": \"Modified\",\r\n        \"addressLine4\": \"Modified\"\r\n      }\r\n  ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Other\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Kindergarten\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"schoolId\": {{supplied:intlSchoolId}},\r\n  \"nameOfInstitution\": \"Modified\",\r\n  \"shortNameOfInstitution\": \"Modified\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Changed\",\r\n  \"website\": \"Modified\",\r\n  \"charterStatusDescriptor\": \"uri://ed-fi.org/CharterStatusDescriptor#School Charter\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Private School\",\r\n  \"internationalAddresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Other\",\r\n        \"countryDescriptor\": \"uri://ed-fi.org/CountryDescriptor#MY\",\r\n        \"addressLine1\": \"Modified\",\r\n        \"addressLine2\": \"Modified\",\r\n        \"addressLine3\": \"Modified\",\r\n        \"addressLine4\": \"Modified\"\r\n      }\r\n  ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Other\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Kindergarten\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -11427,7 +11427,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"ideaEligibility\": false,\r\n    \"iepBeginDate\": \"2021-04-02\",\r\n    \"iepReviewDate\": \"2021-04-28\",\r\n    \"lastEvaluationDate\": \"2021-04-25\",\r\n    \"endDate\": \"2021-10-25\",\r\n    \"schoolHoursPerWeek\": 7.00,\r\n    \"specialEducationHoursPerWeek\": 7.00,\r\n    \"specialEducationSettingDescriptor\": \"uri://ed-fi.org/SpecialEducationSettingDescriptor#Separate class\",\r\n    \"reasonExitedDescriptor\": \"uri://ed-fi.org/ReasonExitedDescriptor#Moved out of state\"\r\n}",
+											"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"programReference\": {\r\n    \"educationOrganizationId\": 255901,\r\n    \"programName\": \"Special Education\",\r\n    \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Special Education\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"604872\"\r\n  },\r\n  \"beginDate\": \"{{supplied:studentSpecialEducationProgramAssociations:beginDate}}\",\r\n  \"ideaEligibility\": false,\r\n  \"iepBeginDate\": \"2021-04-02\",\r\n  \"iepReviewDate\": \"2021-04-28\",\r\n  \"lastEvaluationDate\": \"2021-04-25\",\r\n  \"endDate\": \"2021-10-25\",\r\n  \"schoolHoursPerWeek\": 7.00,\r\n  \"specialEducationHoursPerWeek\": 7.00,\r\n  \"specialEducationSettingDescriptor\": \"uri://ed-fi.org/SpecialEducationSettingDescriptor#Separate class\",\r\n  \"reasonExitedDescriptor\": \"uri://ed-fi.org/ReasonExitedDescriptor#Moved out of state\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -11927,7 +11927,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"shortNameOfInstitution\": \"Modified\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Changed\",\r\n  \"website\": \"Modified\",\r\n  \"charterStatusDescriptor\": \"uri://ed-fi.org/CharterStatusDescriptor#School Charter\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Private School\",\r\n  \"localEducationAgencyReference\": null,\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2023\r\n  },\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Kindergarten\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"shortNameOfInstitution\": \"Modified\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Changed\",\r\n  \"website\": \"Modified\",\r\n  \"charterStatusDescriptor\": \"uri://ed-fi.org/CharterStatusDescriptor#School Charter\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Private School\",\r\n  \"localEducationAgencyReference\": null,\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2023\r\n  },\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Kindergarten\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -12344,7 +12344,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"nameOfInstitution\": \"Modified\",\r\n  \"shortNameOfInstitution\": \"Modified\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Changed\",\r\n  \"website\": \"Modified\",\r\n  \"charterStatusDescriptor\": \"uri://ed-fi.org/CharterStatusDescriptor#School Charter\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Private School\",\r\n  \"localEducationAgencyReference\": null,\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2023\r\n  },\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Other\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Kindergarten\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"nameOfInstitution\": \"Modified\",\r\n  \"shortNameOfInstitution\": \"Modified\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Changed\",\r\n  \"website\": \"Modified\",\r\n  \"charterStatusDescriptor\": \"uri://ed-fi.org/CharterStatusDescriptor#School Charter\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Private School\",\r\n  \"localEducationAgencyReference\": null,\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2023\r\n  },\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Other\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Kindergarten\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -12900,7 +12900,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"addresses\": [\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n            \"city\": \"AA\",\r\n            \"postalCode\": \"73334\",\r\n            \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n            \"streetNumberName\": \"123 Main Street\",\r\n            \"nameOfCounty\": \"modified\",\r\n            \"latitude\": \"modified\",\r\n            \"longitude\": \"modified\",\r\n            \"apartmentRoomSuiteNumber\": \"modified\",\r\n            \"doNotPublishIndicator\": true\r\n        }\r\n    ]\r\n}",
+									"raw": "{\r\n  \"localEducationAgencyId\": {{supplied:localEducationAgencyId:A}},\r\n  \"addresses\": [\r\n    {\r\n      \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n      \"city\": \"AA\",\r\n      \"postalCode\": \"73334\",\r\n      \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n      \"streetNumberName\": \"123 Main Street\",\r\n      \"nameOfCounty\": \"modified\",\r\n      \"latitude\": \"modified\",\r\n      \"longitude\": \"modified\",\r\n      \"apartmentRoomSuiteNumber\": \"modified\",\r\n      \"doNotPublishIndicator\": true\r\n    }\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -13014,7 +13014,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"addresses\": [\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n            \"city\": \"BB\",\r\n            \"postalCode\": \"73334\",\r\n            \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n            \"streetNumberName\": \"123 Main Street\",\r\n            \"nameOfCounty\": \"modified\",\r\n            \"latitude\": \"modified\",\r\n            \"longitude\": \"modified\",\r\n            \"apartmentRoomSuiteNumber\": \"modified\",\r\n            \"doNotPublishIndicator\": true\r\n        }\r\n    ]\r\n}",
+									"raw": "{\r\n  \"localEducationAgencyId\": {{supplied:localEducationAgencyId:B}},\r\n  \"addresses\": [\r\n    {\r\n      \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n      \"city\": \"BB\",\r\n      \"postalCode\": \"73334\",\r\n      \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n      \"streetNumberName\": \"123 Main Street\",\r\n      \"nameOfCounty\": \"modified\",\r\n      \"latitude\": \"modified\",\r\n      \"longitude\": \"modified\",\r\n      \"apartmentRoomSuiteNumber\": \"modified\",\r\n      \"doNotPublishIndicator\": true\r\n    }\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"

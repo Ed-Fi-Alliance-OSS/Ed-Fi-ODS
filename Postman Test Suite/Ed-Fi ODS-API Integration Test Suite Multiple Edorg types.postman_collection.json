@@ -500,7 +500,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "  {\r\n    \"educationOrganizationReference\": {\r\n     \"educationOrganizationId\": \"{{known:schoolId}}\"\r\n    },\r\n    \"programReference\": {\r\n      \"educationOrganizationId\": \"{{known:schoolId}}\",\r\n       \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n      \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\"\r\n    },\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\"\r\n    },\r\n    \"beginDate\": \"2010-08-30\",\r\n    \"endDate\": \"2010-12-17\",\r\n    \"reasonExitedDescriptor\": \"uri://ed-fi.org/ReasonExitedDescriptor#Moved out of state\"\r\n  }\r\n"
+									"raw": "{\r\n  \"beginDate\": \"2010-08-30\",\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"{{known:schoolId}}\"\r\n  },\r\n  \"programReference\": {\r\n    \"educationOrganizationId\": \"{{known:schoolId}}\",\r\n    \"programName\": \"{{supplied:{{scenarioId}}:programName}}\",\r\n    \"programTypeDescriptor\": \"{{supplied:{{scenarioId}}:programTypeDescriptor}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\"\r\n  },\r\n  \"endDate\": \"2010-12-17\",\r\n  \"reasonExitedDescriptor\": \"uri://ed-fi.org/ReasonExitedDescriptor#Moved out of state\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations",
@@ -685,7 +685,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "  {\r\n    \"ServedOutsideOfRegularSession\": true\r\n  }"
+									"raw": "{\r\n  \"beginDate\": \"2010-08-30\",\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"{{known:schoolId}}\"\r\n  },\r\n  \"programReference\": {\r\n    \"educationOrganizationId\": \"{{known:schoolId}}\",\r\n    \"programName\": \"{{supplied:{{scenarioId}}:programName}}\",\r\n    \"programTypeDescriptor\": \"{{supplied:{{scenarioId}}:programTypeDescriptor}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\"\r\n  },\r\n  \"servedOutsideOfRegularSession\": true\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations/{{known:studentProgramAssociationGuid}}",

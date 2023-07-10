@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Resource;
@@ -143,7 +144,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         {
             if (filterDefinition is not ViewBasedAuthorizationFilterDefinition viewBasedFilterDefinition)
             {
-                 throw new Exception($"Expected a view-based filter definition of type '{typeof(ViewBasedAuthorizationFilterDefinition)}'.");
+                 throw new Exception($"Expected a view-based filter definition of type '{nameof(ViewBasedAuthorizationFilterDefinition)}'.");
             }
 
             string viewName = viewBasedFilterDefinition.ViewName;
