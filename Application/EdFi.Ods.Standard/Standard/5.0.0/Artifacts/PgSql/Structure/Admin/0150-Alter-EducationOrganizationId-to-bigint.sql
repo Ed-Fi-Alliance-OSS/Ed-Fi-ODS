@@ -3,17 +3,12 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-DO
-$DO$
-BEGIN
-    IF EXISTS (SELECT * FROM information_schema.columns c WHERE c.table_name = 'applicationeducationorganizations' AND c.column_name = 'educationorganizationid' AND DATA_TYPE = 'integer') THEN
-        -- Drop the view using the EducationOrganizationId
-        DROP VIEW dbo.apiclientidentityrawdetails;
+    -- Drop the view using the EducationOrganizationId
+    DROP VIEW IF EXISTS dbo.apiclientidentityrawdetails;
+    -- Increase the size of the EducationOrganizationId column
+    ALTER TABLE dbo.applicationeducationorganizations ALTER COLUMN educationorganizationid TYPE BIGINT;
 
-        -- Increase the size of the EducationOrganizationId column
-        ALTER TABLE dbo.applicationeducationorganizations ALTER COLUMN educationorganizationid TYPE BIGINT;
-
-        -- Recreate the view
+    -- Recreate the view
     CREATE VIEW dbo.ApiClientIdentityRawDetails
     AS
         SELECT
@@ -48,49 +43,43 @@ BEGIN
         LEFT OUTER JOIN dbo.ApiClientOwnershipTokens acot
             ON ac.ApiClientId = acot.ApiClient_ApiClientId;
 
+    DROP FUNCTION IF EXISTS dbo.GetClientForKey;
 
-        ALTER TABLE dbo.apiclientidentityrawdetails
-            OWNER to postgres;
-    END IF;
+    CREATE FUNCTION dbo.GetClientForKey (ApiKey VARCHAR(50))
+    RETURNS TABLE (
+        Key VARCHAR(50)
+        , UseSandbox BOOLEAN
+        , StudentIdentificationSystemDescriptor VARCHAR(306)
+        , EducationOrganizationId BIGINT
+        , ClaimSetName VARCHAR(255)
+        , NamespacePrefix VARCHAR(255)
+        , ProfileName VARCHAR
+        , CreatorOwnershipTokenId SMALLINT
+        , OwnershipTokenId SMALLINT
+        , ApiClientId INT
+        , Secret VARCHAR(100)
+        , SecretIsHashed BOOLEAN
+    )
+    AS
+    $BODY$
+    BEGIN
+        RETURN QUERY
+        SELECT
+            d.Key
+            , d.UseSandbox
+            , d.StudentIdentificationSystemDescriptor
+            , d.EducationOrganizationId
+            , d.ClaimSetName
+            , d.NamespacePrefix
+            , d.ProfileName
+            , d.CreatorOwnershipTokenId
+            , d.OwnershipTokenId
+            , d.ApiClientId
+            , d.Secret
+            , d.SecretIsHashed
+        FROM    dbo.ApiClientIdentityRawDetails d
+        WHERE   d.Key = ApiKey;
+    END
+    $BODY$ LANGUAGE plpgsql;
 
-        DROP FUNCTION IF EXISTS dbo.GetClientForKey;
 
-        CREATE FUNCTION dbo.GetClientForKey (ApiKey VARCHAR(50))
-        RETURNS TABLE (
-            Key VARCHAR(50)
-            , UseSandbox BOOLEAN
-            , StudentIdentificationSystemDescriptor VARCHAR(306)
-            , EducationOrganizationId BIGINT
-            , ClaimSetName VARCHAR(255)
-            , NamespacePrefix VARCHAR(255)
-            , ProfileName VARCHAR
-            , CreatorOwnershipTokenId SMALLINT
-            , OwnershipTokenId SMALLINT
-            , ApiClientId INT
-            , Secret VARCHAR(100)
-            , SecretIsHashed BOOLEAN
-        )
-        AS
-        $$
-        BEGIN
-            RETURN QUERY
-            SELECT
-                d.Key
-                , d.UseSandbox
-                , d.StudentIdentificationSystemDescriptor
-                , d.EducationOrganizationId
-                , d.ClaimSetName
-                , d.NamespacePrefix
-                , d.ProfileName
-                , d.CreatorOwnershipTokenId
-                , d.OwnershipTokenId
-                , d.ApiClientId
-                , d.Secret
-                , d.SecretIsHashed
-            FROM    dbo.ApiClientIdentityRawDetails d
-            WHERE   d.Key = ApiKey;
-        END
-        $$
-        LANGUAGE plpgsql;
-END
-$DO$
