@@ -43,11 +43,19 @@ namespace EdFi.LoadTools.Engine
             new AtomicTypePairs(XmlTypes.Boolean, JsonTypes.Boolean), new AtomicTypePairs(XmlTypes.Date, JsonTypes.Date),
             new AtomicTypePairs(XmlTypes.DateTime, JsonTypes.DateTime), new AtomicTypePairs(XmlTypes.Decimal, JsonTypes.Number),
             new AtomicTypePairs(XmlTypes.Int, JsonTypes.Integer), new AtomicTypePairs(XmlTypes.Integer, JsonTypes.Integer),
+<<<<<<< HEAD
             new AtomicTypePairs(XmlTypes.Long, JsonTypes.Integer),new AtomicTypePairs(XmlTypes.PositiveInteger, JsonTypes.Integer),
             new AtomicTypePairs(XmlTypes.Id, JsonTypes.String),new AtomicTypePairs(XmlTypes.String, JsonTypes.String),
             new AtomicTypePairs(XmlTypes.Token, JsonTypes.String),new AtomicTypePairs(XmlTypes.Token, JsonTypes.Integer),
             new AtomicTypePairs(XmlTypes.Year, JsonTypes.Integer),new AtomicTypePairs(XmlTypes.Duration, JsonTypes.String),
             new AtomicTypePairs(XmlTypes.Time, JsonTypes.String)
+=======
+            new AtomicTypePairs(XmlTypes.Long, JsonTypes.Integer), new AtomicTypePairs(XmlTypes.Integer, JsonTypes.Integer),
+            new AtomicTypePairs(XmlTypes.PositiveInteger, JsonTypes.Integer), new AtomicTypePairs(XmlTypes.Id, JsonTypes.String),
+            new AtomicTypePairs(XmlTypes.String, JsonTypes.String), new AtomicTypePairs(XmlTypes.Token, JsonTypes.String),
+            new AtomicTypePairs(XmlTypes.Token, JsonTypes.Integer), new AtomicTypePairs(XmlTypes.Year, JsonTypes.Integer),
+            new AtomicTypePairs(XmlTypes.Duration, JsonTypes.String), new AtomicTypePairs(XmlTypes.Time, JsonTypes.String)
+>>>>>>> 58002263 (Long DataType Added)
         };
 
         public static readonly string[] JsonAtomicTypes = AtomicTypes.Select(x => x.Json).ToArray();
