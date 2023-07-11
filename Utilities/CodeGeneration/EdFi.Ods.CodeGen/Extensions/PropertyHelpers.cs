@@ -38,6 +38,7 @@ public static class PropertyHelpers
 
             case "short":
             case "int":
+            case "long":
 
                 if (propertyName.EndsWith("Year", StringComparison.OrdinalIgnoreCase)
                     || propertyName.Equals("Version", StringComparison.OrdinalIgnoreCase)
