@@ -11,8 +11,6 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using EdFi.LoadTools.ApiClient;
-using EdFi.LoadTools.Common;
-using EdFi.LoadTools.Engine.Factories;
 using EdFi.LoadTools.Engine.Mapping;
 using EdFi.LoadTools.Engine.XmlLookupPipeline;
 
@@ -25,8 +23,6 @@ namespace EdFi.LoadTools.Engine
         string Profile { get; }
 
         int Retries { get; }
-
-        string RootUrl { get; }
     }
 
     public interface IApiMetadataConfiguration
