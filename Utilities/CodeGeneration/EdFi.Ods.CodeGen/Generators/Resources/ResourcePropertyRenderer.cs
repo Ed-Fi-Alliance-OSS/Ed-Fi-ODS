@@ -223,17 +223,11 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 throw new ArgumentNullException(nameof(resource));
             }
 
-            IList<ResourcePropertyData> includedProperties = null;
+            IList<ResourceProperty> includedProperties = null;
 
             includedProperties = resource.InheritedProperties()
                     .OrderBy(x => x.PropertyName)
                     .Where(x => !x.IsIdentifying && !x.PropertyName.Equals("Id"))
-                    .Select(
-                        x => new ResourcePropertyData
-                        {
-                            Property = x,
-                            IsStandardProperty = false
-                        })
                     .ToList();
 
             var propertiesToRender = new List<PropertyData>();
@@ -246,9 +240,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     includedProperties.Select(
                         x =>
                         {
-                            var propertyData = x.IsStandardProperty
-                                ? PropertyData.CreateNullProperty(x.Property)
-                                : PropertyData.CreateStandardProperty(x.Property);
+                            var propertyData = PropertyData.CreateStandardProperty(x);
 
                             propertyData[ResourceRenderer.MiscellaneousComment] = "// NOT in a reference, NOT a lookup column ";
                             return propertyData;
@@ -258,9 +250,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             {
                 propertiesToRender.AddRange(
                     includedProperties.Select(
-                        x => x.IsStandardProperty
-                            ? PropertyData.CreateNullProperty(x.Property)
-                            : PropertyData.CreateStandardProperty(x.Property)));
+                        PropertyData.CreateStandardProperty));
             }
 
             return propertiesToRender.Any()
@@ -408,14 +398,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             foreach (var propertyPair in propertyPairs)
             {
-                // If the property was filtered out, then generate an explicit interface "Null" implementation only.
-                if (propertyPair.CurrentProperty == null)
-                {
-                    yield return PropertyData.CreateNullProperty(propertyPair.UnderlyingProperty);
-
-                    continue;
-                }
-
                 var property = propertyPair.CurrentProperty;
 
                 if (property.IsSynchronizable())
@@ -453,13 +435,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     }
                 }
             }
-        }
-
-        private class ResourcePropertyData
-        {
-            public ResourceProperty Property { get; set; }
-
-            public bool IsStandardProperty { get; set; }
         }
     }
 }

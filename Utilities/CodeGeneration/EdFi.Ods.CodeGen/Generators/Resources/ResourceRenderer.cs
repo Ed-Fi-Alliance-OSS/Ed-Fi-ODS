@@ -17,8 +17,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         public const string RenderReferenced = "referenced";
         public const string RenderUnified = "unified";
         public const string RenderUsi = "usi";
-        public const string RenderNull = "null";
-        public const string RenderNullLookup = "nullLookup";
         public const object DoNotRenderProperty = null;
         public const bool DoRenderProperty = true;
     }
