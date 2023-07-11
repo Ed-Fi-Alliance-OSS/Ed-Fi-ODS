@@ -11989,13 +11989,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         {
             _evaluationElementRating = value;
         }
+        
+        private bool _ratingExplicitlyAssigned = false;
+        private decimal _rating;
 
         /// <summary>
         /// The numerical summary rating or score for the evaluation.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="rating"), NaturalKeyMember]
-        public decimal Rating { get; set; }
+        public decimal Rating 
+        { 
+            get => _rating;
+            set 
+            { 
+                _rating = value;
+                _ratingExplicitlyAssigned = true; 
+            }
+        }
+
 
         /// <summary>
         /// The title of Rating Result.
@@ -14494,13 +14506,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         {
             _evaluationObjectiveRating = value;
         }
+        
+        private bool _ratingExplicitlyAssigned = false;
+        private decimal _rating;
 
         /// <summary>
         /// The numerical summary rating or score for the evaluation.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="rating"), NaturalKeyMember]
-        public decimal Rating { get; set; }
+        public decimal Rating 
+        { 
+            get => _rating;
+            set 
+            { 
+                _rating = value;
+                _ratingExplicitlyAssigned = true; 
+            }
+        }
+
 
         /// <summary>
         /// The title of Rating Result.
@@ -16202,13 +16226,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         {
             _evaluationRating = value;
         }
+        
+        private bool _ratingExplicitlyAssigned = false;
+        private decimal _rating;
 
         /// <summary>
         /// The numerical summary rating or score for the evaluation.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="rating"), NaturalKeyMember]
-        public decimal Rating { get; set; }
+        public decimal Rating 
+        { 
+            get => _rating;
+            set 
+            { 
+                _rating = value;
+                _ratingExplicitlyAssigned = true; 
+            }
+        }
+
 
         /// <summary>
         /// The title of Rating Result.
@@ -20748,13 +20784,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         {
             _performanceEvaluationRating = value;
         }
+        
+        private bool _ratingExplicitlyAssigned = false;
+        private decimal _rating;
 
         /// <summary>
         /// The numerical summary rating or score for the evaluation.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="rating"), NaturalKeyMember]
-        public decimal Rating { get; set; }
+        public decimal Rating 
+        { 
+            get => _rating;
+            set 
+            { 
+                _rating = value;
+                _ratingExplicitlyAssigned = true; 
+            }
+        }
+
 
         /// <summary>
         /// The title of Rating Result.
@@ -22403,13 +22451,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
                 ImplicitEvaluationElementReference.PerformanceEvaluationTypeDescriptor = value;
             }
         }
+        
+        private bool _rubricRatingExplicitlyAssigned = false;
+        private int _rubricRating;
 
         /// <summary>
         /// The rating achieved for the rubric dimension.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="rubricRating"), NaturalKeyMember]
-        public int RubricRating { get; set; }
+        public int RubricRating 
+        { 
+            get => _rubricRating;
+            set 
+            { 
+                _rubricRating = value;
+                _rubricRatingExplicitlyAssigned = true; 
+            }
+        }
+
 
         /// <summary>
         /// The identifier for the school year.
