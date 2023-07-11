@@ -44,13 +44,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Approval\*.approved.cs" />
+    <Compile Remove="Approval\**\*.approved.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Approval\*.approved.cs" />
-    <None Remove="Approval\*.approved.xml" />
-    <None Remove="Approval\*.approved.sql" />
+    <None Remove="Approval\**\*.approved.cs" />
+    <None Remove="Approval\**\*.approved.xml" />
+    <None Remove="Approval\**\*.approved.sql" />
   </ItemGroup>
 
   <ItemGroup>
@@ -63,6 +63,9 @@
   <ItemGroup>
     <None Update="Approval\DataStanadard_400_ApprovalTests.Generated_File_List.Standard.4.0.0.approved.txt">
       <DependentUpon>DataStanadard_400_ApprovalTests.cs</DependentUpon>
+    </None>
+    <None Update="Approval\DataStanadard_500_ApprovalTests.Generated_File_List.Standard.5.0.0.approved.txt">
+      <DependentUpon>DataStanadard_500_ApprovalTests.cs</DependentUpon>
     </None>
   </ItemGroup>
 
