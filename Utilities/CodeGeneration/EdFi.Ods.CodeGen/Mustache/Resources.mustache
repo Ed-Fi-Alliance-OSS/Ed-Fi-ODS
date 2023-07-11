@@ -451,13 +451,35 @@ namespace {{ResourceClassesNamespace}}
         {{/Usi}}
         {{#Standard}}
         {{#Property}}
+        {{#PropertyDefaultHasDomainMeaning}}
+        
+        private bool _{{PropertyFieldName}}ExplicitlyAssigned = false;
+        private {{PropertyType}} _{{PropertyFieldName}};
 
         /// <summary>
         /// {{{Description}}}
         /// </summary>
         {{Misc}}
         [DataMember(Name="{{JsonPropertyName}}"), NaturalKeyMember{{#IsUnique}}, UniqueId{{/IsUnique}}]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        public {{PropertyType}} {{CSharpSafePropertyName}} 
+        { 
+            get => _{{PropertyFieldName}};
+            set 
+            { 
+                _{{PropertyFieldName}} = value;
+                _{{PropertyFieldName}}ExplicitlyAssigned = true; 
+            }
+        }
+        {{/PropertyDefaultHasDomainMeaning}}
+
+        {{^PropertyDefaultHasDomainMeaning}}
+        /// <summary>
+        /// {{{Description}}}
+        /// </summary>
+        {{Misc}}
+        [DataMember(Name="{{JsonPropertyName}}"), NaturalKeyMember{{#IsUnique}}, UniqueId{{/IsUnique}}]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{CSharpSafePropertyName}} { get; set; }
+        {{/PropertyDefaultHasDomainMeaning}}
         {{/Property}}
         {{/Standard}}
         {{#Null}}
