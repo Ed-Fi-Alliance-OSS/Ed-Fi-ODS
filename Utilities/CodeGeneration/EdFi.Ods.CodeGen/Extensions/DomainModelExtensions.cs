@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -325,21 +326,20 @@ namespace EdFi.Ods.CodeGen.Extensions
             return resource.IsAggregateRoot() && !resource.IsDescriptorEntity();
         }
 
-        private static IPersonEntitySpecification _personEntitySpecification;
+        private static readonly ConcurrentDictionary<DomainModel, IPersonEntitySpecification> _personEntitySpecificationByDomainModel =
+            new();
 
         private static IPersonEntitySpecification PersonEntitySpecification(DomainModel domainModel)
         {
-            if (_personEntitySpecification == null)
-            {
-                _personEntitySpecification = 
+            return _personEntitySpecificationByDomainModel.GetOrAdd(
+                domainModel, (dm) =>
+
                     new PersonEntitySpecification(
                         new PersonTypesProvider(
-                            new SuppliedDomainModelProvider(domainModel)));
-            }
-
-            return _personEntitySpecification;
+                            new SuppliedDomainModelProvider(domainModel)))
+            );
         }
-        
+
         /// <summary>
         /// Converts surrogate id property names to their publicly visible counterparts.
         /// </summary>
