@@ -1,0 +1,1608 @@
+{
+	"info": {
+		"_postman_id": "b4248763-f5f2-4939-a5fb-d0670f42cd52",
+		"name": "Ed-Fi ODS/API Multi-Tenancy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7275232"
+	},
+	"item": [
+		{
+			"name": "Version Endpoints",
+			"item": [
+				{
+					"name": "Get Versions (root)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"const responseItem = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Version urls should include the {tenantIdentifier} placeholder\", () => {\r",
+									"    for (const key of Object.keys(responseItem.urls)) {\r",
+									"        pm.expect(responseItem.urls[key]).to.include('{tenantIdentifier}');\r",
+									"    } \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Metadata",
+			"item": [
+				{
+					"name": "Open API",
+					"item": [
+						{
+							"name": "Sections",
+							"item": [
+								{
+									"name": "Tenant1",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const responseItem = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Endpoint uris should include Tenant1\", () => {\r",
+													"    for (const key of Object.keys(responseItem)) {\r",
+													"        pm.expect(responseItem[key].endpointUri).to.include('Tenant1');\r",
+													"    }\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/Tenant1/metadata",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"Tenant1",
+												"metadata"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Tenant2",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const responseItem = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Endpoint uris should include Tenant2\", () => {\r",
+													"    for (const key of Object.keys(responseItem)) {\r",
+													"        pm.expect(responseItem[key].endpointUri).to.include('Tenant2');\r",
+													"    }\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/Tenant2/metadata",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"Tenant2",
+												"metadata"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Resources",
+							"item": [
+								{
+									"name": "Tenant1",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const responseItem = pm.response.json();\r",
+													"\r",
+													"pm.test(\"BasePath should include Tenant1\", () => {\r",
+													"    pm.expect(responseItem.basePath).to.include('Tenant1');\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/Tenant1/metadata/data/v3/resources/swagger.json",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"Tenant1",
+												"metadata",
+												"data",
+												"v3",
+												"resources",
+												"swagger.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Tenant2",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const responseItem = pm.response.json();\r",
+													"\r",
+													"pm.test(\"BasePath should include Tenant2\", () => {\r",
+													"    pm.expect(responseItem.basePath).to.include('Tenant2');\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/Tenant2/metadata/data/v3/resources/swagger.json",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"Tenant2",
+												"metadata",
+												"data",
+												"v3",
+												"resources",
+												"swagger.json"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Dependencies",
+					"item": [
+						{
+							"name": "Tenant1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Content-Type should be application/json\", () => {\r",
+											"    pm.expect(pm.response.headers.get('Content-Type')).to.contain('application/json');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant1/metadata/data/v3/dependencies",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant1",
+										"metadata",
+										"data",
+										"v3",
+										"dependencies"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Tenant1 (GraphML)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Content-Type should be application/graphml\", () => {\r",
+											"    pm.expect(pm.response.headers.get('Content-Type')).to.contain('application/graphml');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/graphml",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant1/metadata/data/v3/dependencies",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant1",
+										"metadata",
+										"data",
+										"v3",
+										"dependencies"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Tenant2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Content-Type should be application/json\", () => {\r",
+											"    pm.expect(pm.response.headers.get('Content-Type')).to.contain('application/json');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant2/metadata/data/v3/dependencies",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant2",
+										"metadata",
+										"data",
+										"v3",
+										"dependencies"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Tenant2 (GraphML)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Content-Type should be application/graphml\", () => {\r",
+											"    pm.expect(pm.response.headers.get('Content-Type')).to.contain('application/graphml');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/graphml",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant2/metadata/data/v3/dependencies",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant2",
+										"metadata",
+										"data",
+										"v3",
+										"dependencies"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Token Info",
+			"item": [
+				{
+					"name": "Token Info (Tenant1)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"const responseItem = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Client Id should be Tenant1 ApiKey\", () => {\r",
+									"    pm.expect(responseItem.client_id).to.equal(pm.environment.get(\"ApiKey_Tenant1\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AccessToken_Tenant1}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"token\": \"{{AccessToken_Tenant1}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/Tenant1/oauth/token_info",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"Tenant1",
+								"oauth",
+								"token_info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Token Info (Tenant2)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"const responseItem = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Client Id should be Tenant2 ApiKey\", () => {\r",
+									"    pm.expect(responseItem.client_id).to.equal(pm.environment.get(\"ApiKey_Tenant2\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AccessToken_Tenant2}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"token\": \"{{AccessToken_Tenant2}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/Tenant2/oauth/token_info",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"Tenant2",
+								"oauth",
+								"token_info"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Change Queries",
+			"item": [
+				{
+					"name": "Get Available Change Versions (Tenant1)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AccessToken_Tenant1}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/Tenant1/changeQueries/v1/availableChangeVersions",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"Tenant1",
+								"changeQueries",
+								"v1",
+								"availableChangeVersions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Change Versions (Tenant2)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AccessToken_Tenant2}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/Tenant2/changeQueries/v1/availableChangeVersions",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"Tenant2",
+								"changeQueries",
+								"v1",
+								"availableChangeVersions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Identities",
+			"item": [
+				{
+					"name": "Get Identities (Tenant1)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AccessToken_Tenant1}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lastSurname\": \"Smith\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/Tenant1/identity/v2/identities",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"Tenant1",
+								"identity",
+								"v2",
+								"identities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Identities (Tenant2)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AccessToken_Tenant2}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lastSurname\": \"Smith\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/Tenant2/identity/v2/identities",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"Tenant2",
+								"identity",
+								"v2",
+								"identities"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Resources",
+			"item": [
+				{
+					"name": "Setup",
+					"item": [
+						{
+							"name": "Create Tenant1 School",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set(\"known:tenant1:schoolId\", pm.response.headers.one(\"Location\").value.split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"supplied:tenant1:schoolId\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}{{$randomInt}}\"));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant1}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"schoolId\": {{supplied:tenant1:schoolId}},\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant1/data/v3/ed-fi/schools",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant1",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Tenant2 School",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set(\"known:tenant2:schoolId\", pm.response.headers.one(\"Location\").value.split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"supplied:tenant2:schoolId\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}{{$randomInt}}\"));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant2}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"schoolId\": {{supplied:tenant2:schoolId}},\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant2/data/v3/ed-fi/schools",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant2",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Tenant1 Requests",
+					"item": [
+						{
+							"name": "Get School",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant1}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant1/data/v3/ed-fi/schools/{{known:tenant1:schoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant1",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:tenant1:schoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get School with Tenant2 SchoolId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(404);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant1}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant1/data/v3/ed-fi/schools/known:tenant2:schoolId",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant1",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"known:tenant2:schoolId"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete School",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant1}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant1/data/v3/ed-fi/schools/{{known:tenant1:schoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant1",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:tenant1:schoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Tenant2 School",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(404);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant1}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant1/data/v3/ed-fi/schools/{{known:tenant1:schoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant1",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:tenant1:schoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Schools Deletes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const responseItem = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response should include deleted Id\", () => {\r",
+											"    var deletedId = responseItem.find(x => x.id === pm.environment.get(\"known:tenant1:schoolId\"))\r",
+											"    pm.expect(deletedId).to.not.be.undefined;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant1}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant1/data/v3/ed-fi/schools/deletes",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant1",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"deletes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Schools Key Changes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant1}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant1/data/v3/ed-fi/schools/keyChanges",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant1",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"keyChanges"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Tenant2 Requests",
+					"item": [
+						{
+							"name": "Get School",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant2}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant2/data/v3/ed-fi/schools/{{known:tenant2:schoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant2",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:tenant2:schoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get School with Tenant1 SchoolId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(404);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant2}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant2/data/v3/ed-fi/schools/{{known:tenant1:schoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant2",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:tenant1:schoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete School",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant2}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant2/data/v3/ed-fi/schools/{{known:tenant2:schoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant2",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:tenant2:schoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Tenant1 School",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(404);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant2}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant2/data/v3/ed-fi/schools/{{known:tenant1:schoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant2",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:tenant1:schoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Schools Deletes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const responseItem = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response should include deleted Id\", () => {\r",
+											"    var deletedId = responseItem.find(x => x.id === pm.environment.get(\"known:tenant2:schoolId\"))\r",
+											"    pm.expect(deletedId).to.not.be.undefined;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant2}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant2/data/v3/ed-fi/schools/deletes",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant2",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"deletes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Schools Key Changes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant2}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant2/data/v3/ed-fi/schools/keyChanges",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant2",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"keyChanges"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Teardown",
+					"item": [
+						{
+							"name": "Clean up Environment Variables",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+											"_.chain(_.keys(pm.environment.toObject()))\r",
+											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+											"  .each(k => pm.environment.unset(k)).value();\r",
+											"  "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{AccessToken_Tenant1}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"CreateAccessToken(\"Tenant1\");",
+					"CreateAccessToken(\"Tenant2\");",
+					"",
+					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
+					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
+					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",
+					"// Handles auto refreshing based on provided expiration, but doesn't handle the token being revoked early",
+					"// If stuck with \"Bad Token\" or \"Not Authenticated\", just delete the Token or TokenExpiry variables to force a new token",
+					"function CreateAccessToken(clientSuffix) {",
+					"  const apiKeyName = `ApiKey_${clientSuffix}`;",
+					"  const apiSecretName = `ApiSecret_${clientSuffix}`;",
+					"  const tokenExpiryName = `TokenExpiry_${clientSuffix}`;",
+					"  const accessTokenName = `AccessToken_${clientSuffix}`;",
+					"",
+					"  let tokenExpiration = pm.environment.get(tokenExpiryName);",
+					"  let currentToken = pm.environment.get(accessTokenName);",
+					"  let getToken = true;",
+					"  ",
+					"  if (!tokenExpiration || !currentToken) {",
+					"    console.log('Token or expiry date are missing, retrieving new token')",
+					"  } else if (tokenExpiration <= (new Date()).getTime()) {",
+					"    console.log('Token is expired, retrieving new token')",
+					"  } else {",
+					"    getToken = false;",
+					"  }",
+					"",
+					"  if (getToken === true) {",
+					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + `/${clientSuffix}` + '/oauth/token';",
+					"    let clientId = pm.environment.get(apiKeyName);",
+					"    let clientSecret = pm.environment.get(apiSecretName);",
+					"    let grantType = 'client_credentials';",
+					"",
+					"    let getTokenRequest = {",
+					"      method: 'POST',",
+					"      url: tokenUrl,",
+					"      auth: {",
+					"        type: \"basic\",",
+					"        basic: [",
+					"          { key: \"username\", value: clientId },",
+					"          { key: \"password\", value: clientSecret }",
+					"        ]",
+					"      },",
+					"      header: [",
+					"        \"content-type:application/x-www-form-urlencoded\"",
+					"      ],",
+					"      body: {",
+					"        mode: \"urlencoded\",",
+					"        urlencoded: [{ key: \"grant_type\", value: grantType }]",
+					"      }",
+					"    };",
+					"",
+					"    pm.sendRequest(getTokenRequest, (err, response) => {",
+					"      let jsonResponse = response.json();",
+					"      let newAccessToken = jsonResponse.access_token;",
+					"",
+					"      // console.log({ err, jsonResponse, newAccessToken })",
+					"      console.log(`${accessTokenName} = ${newAccessToken}`);",
+					"      pm.environment.set(accessTokenName, newAccessToken);",
+					"",
+					"      let expiryDate = new Date();",
+					"      expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
+					"      pm.environment.set(tokenExpiryName, expiryDate.getTime());",
+					"    });",
+					"  }",
+					"}",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
