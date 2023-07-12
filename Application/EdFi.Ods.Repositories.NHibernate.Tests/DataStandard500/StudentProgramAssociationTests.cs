@@ -45,8 +45,10 @@ using Microsoft.AspNetCore.Http;
 using Npgsql;
 using Test.Common.DataConstants;
 using Environment = NHibernate.Cfg.Environment;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
-namespace EdFi.Ods.Repositories.NHibernate.Tests
+namespace EdFi.Ods.Repositories.NHibernate.Tests.DataStandard500
 {
     [TestFixture]
     public class StudentProgramAssociationTests
@@ -55,8 +57,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
         {
             private string _studentUniqueId;
 
-            private int _educationOrganization1;
-            private int _educationOrganization2;
+            private long _educationOrganization1;
+            private long _educationOrganization2;
 
             private ServiceDescriptor _serviceDescriptor;
             private Program _program1;
@@ -128,7 +130,11 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
                 _upsertService = _container.Resolve<IUpsertEntity<ServiceDescriptor>>();
 
-                InitializeEducationOrganizationIdsForTest();
+                var _educationOrganizationValues = InitializeEducationOrganizationIdsForTest<long>().ToList();
+
+                _educationOrganization1 = _educationOrganizationValues[0];
+
+                _educationOrganization2 = _educationOrganizationValues[1];
 
                 _studentUniqueId = Guid.NewGuid()
                     .ToString("N");
@@ -483,24 +489,26 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 _programRepo.UpsertAsync(_program2, false, CancellationToken.None).WaitSafely();
             }
 
-            private void InitializeEducationOrganizationIdsForTest()
+            private IEnumerable<T1> InitializeEducationOrganizationIdsForTest<T1>()
             {
+                var result = new List<T1>();
                 // Verify the service got removed
                 using (var conn = GetDbConnectionForOds())
                 {
                     var cmd = GetDbCommand(
                         "SELECT EducationOrganizationId FROM edfi.EducationOrganization", 
                         conn);
-
+                    
                     using (var reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
                         try
                         {
                             reader.Read();
-                            _educationOrganization1 = reader.GetInt32(0);
+                           var  _educationOrganization1 = (T1)reader.GetValue(0);
                             reader.Read();
-                            _educationOrganization2 = reader.GetInt32(0);
-
+                            var _educationOrganization2 = (T1)reader.GetValue(0);
+                            result.Add(_educationOrganization1);
+                            result.Add(_educationOrganization2);
                             reader.Dispose();
                             conn.Close();
                         }
@@ -512,6 +520,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                         }
                     }
                 }
+                return result;
             }
 
             private void CreateTestServiceDescriptor()

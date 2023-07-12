@@ -1,5 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+		<StandardVersion Condition="'$(StandardVersion)' == '' ">5.0.0</StandardVersion>
+  </PropertyGroup>	
+  <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <AssemlbyName>EdFi.Ods.Repositories.NHibernate.Tests</AssemlbyName>
     <RootNamespace>EdFi.Ods.Repositories.NHibernate.Tests</RootNamespace>
@@ -63,5 +66,14 @@
     <None Update="hibernate.cfg.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+	  <ItemGroup>
+		<Compile Remove="**\*.cs" />
+  </ItemGroup>	
+  <ItemGroup Condition=" '$(StandardVersion)' == '5.0.0' ">
+	 <Compile Include="**\*.cs" Exclude="**\Datastandard400\*.*" /> 
+  </ItemGroup>
+  <ItemGroup Condition=" '$(StandardVersion)' == '4.0.0' ">
+	  <Compile Include="**\*.cs" Exclude="**\Datastandard500\*.*" />
   </ItemGroup>
 </Project>
