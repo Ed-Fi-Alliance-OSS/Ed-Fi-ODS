@@ -1033,6 +1033,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="weeklyMileage")]
         public decimal? WeeklyMileage { get; set; }
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -1045,7 +1046,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
                 yield return "OperatingCost";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
@@ -3419,6 +3419,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             }
         }
 
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -3427,7 +3428,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
                 yield return "OnBusRoute";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
@@ -5280,6 +5280,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="rainCertainty")]
         public decimal? RainCertainty { get; set; }
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -5288,7 +5289,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
                 yield return "IsSportsFan";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
@@ -8106,6 +8106,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
             }
         }
 
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -8118,7 +8119,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
                 yield return "MinimumWeight";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
@@ -9798,6 +9798,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             }
         }
 
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -9810,7 +9811,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
                 yield return "MinimumWeight";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
@@ -10469,6 +10469,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="programFees")]
         public decimal? ProgramFees { get; set; }
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -10477,7 +10478,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
                 yield return "PrivateArtProgram";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
@@ -12208,6 +12208,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             }
         }
 
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -12216,7 +12217,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
                 yield return "OnBusRoute";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
@@ -13935,6 +13935,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             }
         }
 
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -13947,7 +13948,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
                 yield return "TargetGPA";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
@@ -17056,6 +17056,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="studentRead")]
         public short? StudentRead { get; set; }
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -17064,7 +17065,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
                 yield return "BedtimeReader";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships

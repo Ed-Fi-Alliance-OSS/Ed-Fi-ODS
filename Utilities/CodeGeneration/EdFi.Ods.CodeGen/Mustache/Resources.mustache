@@ -1020,6 +1020,7 @@ namespace {{ResourceClassesNamespace}}
         {{/NullLookup}}
         {{/Properties}}
         {{/NonIdentifiers}}
+        // -------------------------------------------------------------
         {{#HasRequiredMembersWithMeaningfulDefaultValues}}
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
@@ -1038,7 +1039,6 @@ namespace {{ResourceClassesNamespace}}
         {{/NonIdentifiers}}
         }
         {{/HasRequiredMembersWithMeaningfulDefaultValues}}
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships

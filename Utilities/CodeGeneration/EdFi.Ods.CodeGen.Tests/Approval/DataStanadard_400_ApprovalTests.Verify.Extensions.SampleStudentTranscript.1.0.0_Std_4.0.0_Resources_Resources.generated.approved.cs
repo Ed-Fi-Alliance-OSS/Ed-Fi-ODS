@@ -783,6 +783,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         // NOT in a reference, IS a lookup column 
         [DataMember(Name="institutionLevelDescriptor")]
         public string InstitutionLevelDescriptor { get; set; }
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -791,7 +792,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
                 yield return "AcceptanceIndicator";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
