@@ -29,7 +29,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.InstitutionControl
             var mappingContract = (InstitutionControlDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_samplestudenttranscript_InstitutionControlDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.InstitutionControlDescriptorId != source.InstitutionControlDescriptorId))
@@ -190,7 +190,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.InstitutionLevelDe
             var mappingContract = (InstitutionLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_samplestudenttranscript_InstitutionLevelDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.InstitutionLevelDescriptorId != source.InstitutionLevelDescriptorId))
@@ -351,10 +351,12 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.PostSecondaryOrgan
             var mappingContract = (PostSecondaryOrganizationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_samplestudenttranscript_PostSecondaryOrganization);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.NameOfInstitution != source.NameOfInstitution))
+                 (!keyStringComparer.Equals(target.NameOfInstitution, source.NameOfInstitution)))
             {
                 // Disallow PK column updates on PostSecondaryOrganization
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -463,7 +465,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.SpecialEducationGr
             var mappingContract = (SpecialEducationGraduationStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_samplestudenttranscript_SpecialEducationGraduationStatusDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.SpecialEducationGraduationStatusDescriptorId != source.SpecialEducationGraduationStatusDescriptorId))
@@ -624,7 +626,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.StudentAcademicRec
             var mappingContract = (StudentAcademicRecordClassRankingExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_samplestudenttranscript_StudentAcademicRecordClassRankingExtension);
-            
+
 
             // Copy non-PK properties
 
@@ -699,7 +701,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.StudentAcademicRec
             var mappingContract = (StudentAcademicRecordExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_samplestudenttranscript_StudentAcademicRecordExtension);
-            
+
 
             // Copy non-PK properties
 
@@ -796,7 +798,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.SubmissionCertific
             var mappingContract = (SubmissionCertificationDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_samplestudenttranscript_SubmissionCertificationDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.SubmissionCertificationDescriptorId != source.SubmissionCertificationDescriptorId))

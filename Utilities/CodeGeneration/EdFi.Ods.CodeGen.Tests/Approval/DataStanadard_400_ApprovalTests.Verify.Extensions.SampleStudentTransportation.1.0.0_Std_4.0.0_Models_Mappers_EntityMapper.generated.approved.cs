@@ -29,11 +29,13 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTransportation //.StudentTranspo
             var mappingContract = (StudentTransportationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_samplestudenttransportation_StudentTransportation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.AMBusNumber != source.AMBusNumber)
-                || (target.PMBusNumber != source.PMBusNumber)
+                 (!keyStringComparer.Equals(target.AMBusNumber, source.AMBusNumber))
+                || (!keyStringComparer.Equals(target.PMBusNumber, source.PMBusNumber))
                 || (target.SchoolId != source.SchoolId)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {

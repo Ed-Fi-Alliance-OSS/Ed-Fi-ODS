@@ -117,9 +117,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
     public class StudentTransportation : AggregateRootWithCompositeKey,
         Entities.Common.SampleStudentTransportation.IStudentTransportation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
-        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
-                                                                                                    .DatabaseEngineSpecificStringComparerProvider
-                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentTransportation()
@@ -283,7 +280,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
             {
                 if (entry.Value is string)
                 {
-                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -311,7 +308,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
                 }
                 else
                 {
