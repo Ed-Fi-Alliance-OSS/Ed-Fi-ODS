@@ -507,6 +507,9 @@ namespace {{ResourceClassesNamespace}}
 
         {{#PropertyIsUnifiedAndLocallyDefined}}
         private {{PropertyType}} _{{PropertyFieldName}};
+            {{#PropertyDefaultHasDomainMeaning}}
+        private bool _{{PropertyFieldName}}ExplicitlyAssigned = false;
+            {{/PropertyDefaultHasDomainMeaning}}
 
         {{/PropertyIsUnifiedAndLocallyDefined}}
         /// <summary>
@@ -538,6 +541,9 @@ namespace {{ResourceClassesNamespace}}
             {
                 {{#PropertyIsUnifiedAndLocallyDefined}}
                 _{{PropertyFieldName}} = value;
+                    {{#PropertyDefaultHasDomainMeaning}}
+                _{{PropertyFieldName}}ExplicitlyAssigned = true;
+                    {{/PropertyDefaultHasDomainMeaning}}
 
                 {{/PropertyIsUnifiedAndLocallyDefined}}
                 // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
@@ -858,6 +864,9 @@ namespace {{ResourceClassesNamespace}}
 
         {{#PropertyIsUnifiedAndLocallyDefined}}
         private {{PropertyType}} _{{PropertyFieldName}};
+            {{#PropertyDefaultHasDomainMeaning}}
+        private bool _{{PropertyFieldName}}ExplicitlyAssigned = false;
+            {{/PropertyDefaultHasDomainMeaning}}
 
         {{/PropertyIsUnifiedAndLocallyDefined}}
         /// <summary>
@@ -901,7 +910,10 @@ namespace {{ResourceClassesNamespace}}
             {
                 {{#PropertyIsUnifiedAndLocallyDefined}}
                 _{{PropertyFieldName}} = value;
-                
+                    {{#PropertyDefaultHasDomainMeaning}}
+                _{{PropertyFieldName}}ExplicitlyAssigned = true;
+                    {{/PropertyDefaultHasDomainMeaning}}
+
                 {{/PropertyIsUnifiedAndLocallyDefined}}
                 // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
                 // All ExplicitlyAssigned are reset to false in advanced
