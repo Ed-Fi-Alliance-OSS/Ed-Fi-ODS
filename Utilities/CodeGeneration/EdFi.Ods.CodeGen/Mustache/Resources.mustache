@@ -1025,18 +1025,12 @@ namespace {{ResourceClassesNamespace}}
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
-        {{#NonIdentifiers}}
-        {{#Properties}}
-        {{#Property}}        
-        {{#PropertyDefaultHasDomainMeaning}}
+            {{#RequiredMembersWithMeaningfulDefaultValues}}
             if (!_{{PropertyFieldName}}ExplicitlyAssigned)
             {
                 yield return "{{CSharpSafePropertyName}}";
             }
-        {{/PropertyDefaultHasDomainMeaning}}
-        {{/Property}}
-        {{/Properties}}
-        {{/NonIdentifiers}}
+            {{/RequiredMembersWithMeaningfulDefaultValues}}
         }
         {{/HasRequiredMembersWithMeaningfulDefaultValues}}
 

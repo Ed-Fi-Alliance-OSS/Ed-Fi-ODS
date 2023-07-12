@@ -321,7 +321,20 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
         public bool HasRequiredMembersWithMeaningfulDefaultValues(ResourceClassBase resource)
         {
-            return CreateProperties(resource).Any(p => p.PropertyDefaultHasDomainMeaning);
+            return resource.Properties.Any(
+                p => !p.PropertyType.IsNullable && !p.IsServerAssigned && p.CSharpDefaultHasDomainMeaning());
+        }
+
+        public object RequiredMembersWithMeaningfulDefaultValues(ResourceClassBase resource)
+        {
+            return resource.Properties
+                .Where(p => !p.PropertyType.IsNullable && !p.IsServerAssigned && p.CSharpDefaultHasDomainMeaning())
+                .Select(p => new
+                {
+                    CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(resource.Name), 
+                    PropertyFieldName = p.PropertyName.ToCamelCase(),
+                })
+                .ToList();
         }
 
         private IList<object> CreatePropertyDtos(IEnumerable<PropertyData> propertiesToRender)
