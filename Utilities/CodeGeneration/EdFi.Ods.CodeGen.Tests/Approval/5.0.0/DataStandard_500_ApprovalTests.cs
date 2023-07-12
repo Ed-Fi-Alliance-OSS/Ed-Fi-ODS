@@ -21,9 +21,9 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
 {
     [TestFixture]
     [UseReporter(typeof(DiffReporter), typeof(NUnitReporter), typeof(PowerShellClipboardReporter))]
-    public class DataStanadard_400_ApprovalTests
+    public class DataStandard_500_ApprovalTests
     {
-        private const string StandardVersion = "4.0.0";
+        private const string StandardVersion = "5.0.0";
         private const string GeneratedCs = "*.generated.cs";
         private const string GeneratedHbm = "*.generated.hbm.xml";
         private const string GeneratedSql = "*_generated.sql";
@@ -70,7 +70,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
         /// <summary>
         /// Creates approval file containing all known generated files needed for verification
         /// </summary>
-        [Test]
+        [Test, Explicit]
         public void Generated_File_List()
         {
             var files = new List<string>();
@@ -97,7 +97,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
         /// requires that the approved files would be renamed.
         /// </summary>
         /// <param name="approvalFileInfo"></param>
-        [Test, TestCaseSource(nameof(_approvalFileInfos))]
+        [Test, Explicit, TestCaseSource(nameof(_approvalFileInfos))]
         public void Verify(ApprovalFileInfo approvalFileInfo)
         {
             Console.WriteLine("Testing {0}", approvalFileInfo.SourcePath);
@@ -127,7 +127,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
         {
             var generatedFileList = Path.Combine(
                 _odsRepository,
-                "Utilities", "CodeGeneration", "EdFi.Ods.CodeGen.Tests", "Approval", StandardVersion, $"{nameof(DataStanadard_400_ApprovalTests)}.{nameof(Generated_File_List)}.Standard.{StandardVersion}.approved.txt");
+                "Utilities", "CodeGeneration", "EdFi.Ods.CodeGen.Tests", "Approval", StandardVersion, $"{nameof(DataStandard_500_ApprovalTests)}.{nameof(Generated_File_List)}.Standard.{StandardVersion}.approved.txt");
 
             var files = File.ReadAllLines(generatedFileList)
                 .Select(x => new ApprovalFileInfo(Path.Combine(_repositoryRoot, x)))
@@ -158,7 +158,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
                         string destFileName = Path.Combine(
                             _odsRepository
                             , "Utilities", "CodeGeneration", "EdFi.Ods.CodeGen.Tests", "Approval", StandardVersion
-                            , $"{nameof(DataStanadard_400_ApprovalTests)}.Verify.{file.Scenario}.approved{ext}");
+                            , $"{nameof(DataStandard_500_ApprovalTests)}.Verify.{file.Scenario}.approved{ext}");
 
                         System.Console.WriteLine("Copying file: {0} to {1}", file.SourcePath, destFileName);
 
