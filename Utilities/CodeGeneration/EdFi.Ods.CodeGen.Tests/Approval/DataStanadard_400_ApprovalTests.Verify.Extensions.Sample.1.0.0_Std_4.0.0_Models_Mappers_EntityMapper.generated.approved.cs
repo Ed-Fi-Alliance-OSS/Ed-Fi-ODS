@@ -29,7 +29,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ArtMediumDescriptorAggregate
             var mappingContract = (ArtMediumDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_ArtMediumDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ArtMediumDescriptorId != source.ArtMediumDescriptorId))
@@ -190,10 +190,12 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusAggregate
             var mappingContract = (BusMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_Bus);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.BusId != source.BusId))
+                 (!keyStringComparer.Equals(target.BusId, source.BusId)))
             {
                 // Disallow PK column updates on Bus
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -272,10 +274,12 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
             var mappingContract = (BusRouteMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_BusRoute);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.BusId != source.BusId)
+                 (!keyStringComparer.Equals(target.BusId, source.BusId))
                 || (target.BusRouteNumber != source.BusRouteNumber))
             {
                 // Disallow PK column updates on BusRoute
@@ -583,7 +587,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
             var mappingContract = (BusRouteBusYearMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_BusRouteBusYear);
-            
+
 
             // Copy non-PK properties
 
@@ -649,7 +653,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
             var mappingContract = (BusRouteProgramMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_BusRouteProgram);
-            
+
 
             // Copy non-PK properties
 
@@ -724,7 +728,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
             var mappingContract = (BusRouteServiceAreaPostalCodeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_BusRouteServiceAreaPostalCode);
-            
+
 
             // Copy non-PK properties
 
@@ -790,7 +794,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
             var mappingContract = (BusRouteStartTimeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_BusRouteStartTime);
-            
+
 
             // Copy non-PK properties
 
@@ -856,7 +860,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
             var mappingContract = (BusRouteTelephoneMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_BusRouteTelephone);
-            
+
 
             // Copy non-PK properties
 
@@ -958,7 +962,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.FavoriteBookCategoryDescriptorAggre
             var mappingContract = (FavoriteBookCategoryDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_FavoriteBookCategoryDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.FavoriteBookCategoryDescriptorId != source.FavoriteBookCategoryDescriptorId))
@@ -1119,7 +1123,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.MembershipTypeDescriptorAggregate
             var mappingContract = (MembershipTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_MembershipTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.MembershipTypeDescriptorId != source.MembershipTypeDescriptorId))
@@ -1280,7 +1284,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             var mappingContract = (ParentAddressExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_ParentAddressExtension);
-            
+
 
             // Copy non-PK properties
 
@@ -1405,7 +1409,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             var mappingContract = (ParentAddressSchoolDistrictMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_ParentAddressSchoolDistrict);
-            
+
 
             // Copy non-PK properties
 
@@ -1471,7 +1475,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             var mappingContract = (ParentAddressTermMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_ParentAddressTerm);
-            
+
 
             // Copy non-PK properties
 
@@ -1537,7 +1541,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             var mappingContract = (ParentAuthorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_ParentAuthor);
-            
+
 
             // Copy non-PK properties
 
@@ -1603,7 +1607,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             var mappingContract = (ParentCeilingHeightMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_ParentCeilingHeight);
-            
+
 
             // Copy non-PK properties
 
@@ -1669,7 +1673,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             var mappingContract = (ParentCTEProgramMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_ParentCTEProgram);
-            
+
 
             // Copy non-PK properties
 
@@ -1774,7 +1778,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             var mappingContract = (ParentEducationContentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_ParentEducationContent);
-            
+
 
             // Copy non-PK properties
 
@@ -1847,7 +1851,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             var mappingContract = (ParentExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_ParentExtension);
-            
+
 
             // Copy non-PK properties
 
@@ -2220,7 +2224,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             var mappingContract = (ParentFavoriteBookTitleMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_ParentFavoriteBookTitle);
-            
+
 
             // Copy non-PK properties
 
@@ -2286,7 +2290,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             var mappingContract = (ParentStudentProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_ParentStudentProgramAssociation);
-            
+
 
             // Copy non-PK properties
 
@@ -2363,7 +2367,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             var mappingContract = (ParentTeacherConferenceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_ParentTeacherConference);
-            
+
 
             // Copy non-PK properties
 
@@ -2463,7 +2467,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
             var mappingContract = (SchoolCTEProgramMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_SchoolCTEProgram);
-            
+
 
             // Copy non-PK properties
 
@@ -2568,7 +2572,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
             var mappingContract = (SchoolDirectlyOwnedBusMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_SchoolDirectlyOwnedBus);
-            
+
 
             // Copy non-PK properties
 
@@ -2641,7 +2645,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
             var mappingContract = (SchoolExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_SchoolExtension);
-            
+
 
             // Copy non-PK properties
 
@@ -2793,7 +2797,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
             var mappingContract = (StaffExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StaffExtension);
-            
+
 
             // Copy non-PK properties
 
@@ -2940,7 +2944,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
             var mappingContract = (StaffPetMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StaffPet);
-            
+
 
             // Copy non-PK properties
 
@@ -3016,7 +3020,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
             var mappingContract = (StaffPetPreferenceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StaffPetPreference);
-            
+
 
             // Copy non-PK properties
 
@@ -3106,7 +3110,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
             var mappingContract = (StudentAquaticPetMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentAquaticPet);
-            
+
 
             // Copy non-PK properties
 
@@ -3183,7 +3187,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
             var mappingContract = (StudentExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentExtension);
-            
+
 
             // Copy non-PK properties
 
@@ -3360,7 +3364,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
             var mappingContract = (StudentFavoriteBookMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentFavoriteBook);
-            
+
 
             // Copy non-PK properties
 
@@ -3453,7 +3457,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
             var mappingContract = (StudentFavoriteBookArtMediumMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentFavoriteBookArtMedium);
-            
+
 
             // Copy non-PK properties
 
@@ -3529,7 +3533,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
             var mappingContract = (StudentPetMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentPet);
-            
+
 
             // Copy non-PK properties
 
@@ -3605,7 +3609,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
             var mappingContract = (StudentPetPreferenceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentPetPreference);
-            
+
 
             // Copy non-PK properties
 
@@ -3695,13 +3699,15 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             var mappingContract = (StudentArtProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentArtProgramAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
-                || (target.ProgramName != source.ProgramName)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
                 || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
@@ -4076,7 +4082,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             var mappingContract = (StudentArtProgramAssociationArtMediumMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentArtProgramAssociationArtMedium);
-            
+
 
             // Copy non-PK properties
 
@@ -4142,7 +4148,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             var mappingContract = (StudentArtProgramAssociationPortfolioYearsMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentArtProgramAssociationPortfolioYears);
-            
+
 
             // Copy non-PK properties
 
@@ -4208,7 +4214,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             var mappingContract = (StudentArtProgramAssociationServiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentArtProgramAssociationService);
-            
+
 
             // Copy non-PK properties
 
@@ -4304,7 +4310,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             var mappingContract = (StudentArtProgramAssociationStyleMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentArtProgramAssociationStyle);
-            
+
 
             // Copy non-PK properties
 
@@ -4375,7 +4381,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentCTEProgramAssociationAggrega
             var mappingContract = (StudentCTEProgramAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentCTEProgramAssociationExtension);
-            
+
 
             // Copy non-PK properties
 
@@ -4465,7 +4471,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
             var mappingContract = (StudentEducationOrganizationAssociationAddressExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationAddressExtension);
-            
+
 
             // Copy non-PK properties
 
@@ -4590,7 +4596,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
             var mappingContract = (StudentEducationOrganizationAssociationAddressSchoolDistrictMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationAddressSchoolDistrict);
-            
+
 
             // Copy non-PK properties
 
@@ -4656,7 +4662,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
             var mappingContract = (StudentEducationOrganizationAssociationAddressTermMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationAddressTerm);
-            
+
 
             // Copy non-PK properties
 
@@ -4722,7 +4728,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
             var mappingContract = (StudentEducationOrganizationAssociationStudentCharacteristicExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationStudentCharacteristicExtension);
-            
+
 
             // Copy non-PK properties
 
@@ -4807,7 +4813,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
             var mappingContract = (StudentEducationOrganizationAssociationStudentCharacteristicStudentNeedMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed);
-            
+
 
             // Copy non-PK properties
 
@@ -4898,7 +4904,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             var mappingContract = (StudentGraduationPlanAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociation);
-            
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
@@ -5253,7 +5259,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             var mappingContract = (StudentGraduationPlanAssociationAcademicSubjectMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationAcademicSubject);
-            
+
 
             // Copy non-PK properties
 
@@ -5319,7 +5325,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             var mappingContract = (StudentGraduationPlanAssociationCareerPathwayCodeMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationCareerPathwayCode);
-            
+
 
             // Copy non-PK properties
 
@@ -5385,7 +5391,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             var mappingContract = (StudentGraduationPlanAssociationCTEProgramMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationCTEProgram);
-            
+
 
             // Copy non-PK properties
 
@@ -5490,7 +5496,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             var mappingContract = (StudentGraduationPlanAssociationDescriptionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationDescription);
-            
+
 
             // Copy non-PK properties
 
@@ -5556,7 +5562,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             var mappingContract = (StudentGraduationPlanAssociationDesignatedByMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationDesignatedBy);
-            
+
 
             // Copy non-PK properties
 
@@ -5622,7 +5628,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             var mappingContract = (StudentGraduationPlanAssociationIndustryCredentialMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationIndustryCredential);
-            
+
 
             // Copy non-PK properties
 
@@ -5688,7 +5694,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             var mappingContract = (StudentGraduationPlanAssociationStudentParentAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationStudentParentAssociation);
-            
+
 
             // Copy non-PK properties
 
@@ -5761,7 +5767,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             var mappingContract = (StudentGraduationPlanAssociationYearsAttendedMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationYearsAttended);
-            
+
 
             // Copy non-PK properties
 
@@ -5832,7 +5838,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             var mappingContract = (StudentParentAssociationDisciplineMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentParentAssociationDiscipline);
-            
+
 
             // Copy non-PK properties
 
@@ -5898,7 +5904,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             var mappingContract = (StudentParentAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentParentAssociationExtension);
-            
+
 
             // Copy non-PK properties
 
@@ -6252,7 +6258,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             var mappingContract = (StudentParentAssociationFavoriteBookTitleMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentParentAssociationFavoriteBookTitle);
-            
+
 
             // Copy non-PK properties
 
@@ -6318,7 +6324,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             var mappingContract = (StudentParentAssociationHoursPerWeekMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentParentAssociationHoursPerWeek);
-            
+
 
             // Copy non-PK properties
 
@@ -6384,7 +6390,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             var mappingContract = (StudentParentAssociationPagesReadMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentParentAssociationPagesRead);
-            
+
 
             // Copy non-PK properties
 
@@ -6450,7 +6456,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             var mappingContract = (StudentParentAssociationStaffEducationOrganizationEmploymentAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentParentAssociationStaffEducationOrganizationEmploymentAssociation);
-            
+
 
             // Copy non-PK properties
 
@@ -6526,7 +6532,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             var mappingContract = (StudentParentAssociationTelephoneMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentParentAssociationTelephone);
-            
+
 
             // Copy non-PK properties
 
@@ -6646,7 +6652,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSchoolAssociationAggregate
             var mappingContract = (StudentSchoolAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentSchoolAssociationExtension);
-            
+
 
             // Copy non-PK properties
 
@@ -6726,7 +6732,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
             var mappingContract = (StudentSectionAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentSectionAssociationExtension);
-            
+
 
             // Copy non-PK properties
 
@@ -6811,7 +6817,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
             var mappingContract = (StudentSectionAssociationRelatedGeneralStudentProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentSectionAssociationRelatedGeneralStudentProgramAssociation);
-            
+
 
             // Copy non-PK properties
 

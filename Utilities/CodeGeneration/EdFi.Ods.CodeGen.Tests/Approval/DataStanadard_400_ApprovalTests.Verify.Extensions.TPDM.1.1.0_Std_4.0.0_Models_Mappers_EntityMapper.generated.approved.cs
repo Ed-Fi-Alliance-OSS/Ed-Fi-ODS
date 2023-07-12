@@ -29,7 +29,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AccreditationStatusDescriptorAggregat
             var mappingContract = (AccreditationStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_AccreditationStatusDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AccreditationStatusDescriptorId != source.AccreditationStatusDescriptorId))
@@ -190,7 +190,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AidTypeDescriptorAggregate
             var mappingContract = (AidTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_AidTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.AidTypeDescriptorId != source.AidTypeDescriptorId))
@@ -351,10 +351,12 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             var mappingContract = (CandidateMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_Candidate);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.CandidateIdentifier != source.CandidateIdentifier))
+                 (!keyStringComparer.Equals(target.CandidateIdentifier, source.CandidateIdentifier)))
             {
                 // Disallow PK column updates on Candidate
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -811,7 +813,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             var mappingContract = (CandidateAddressMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CandidateAddress);
-            
+
 
             // Copy non-PK properties
 
@@ -988,7 +990,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             var mappingContract = (CandidateAddressPeriodMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CandidateAddressPeriod);
-            
+
 
             // Copy non-PK properties
 
@@ -1064,7 +1066,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             var mappingContract = (CandidateDisabilityMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CandidateDisability);
-            
+
 
             // Copy non-PK properties
 
@@ -1177,7 +1179,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             var mappingContract = (CandidateDisabilityDesignationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CandidateDisabilityDesignation);
-            
+
 
             // Copy non-PK properties
 
@@ -1243,7 +1245,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             var mappingContract = (CandidateElectronicMailMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CandidateElectronicMail);
-            
+
 
             // Copy non-PK properties
 
@@ -1330,7 +1332,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             var mappingContract = (CandidateLanguageMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CandidateLanguage);
-            
+
 
             // Copy non-PK properties
 
@@ -1413,7 +1415,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             var mappingContract = (CandidateLanguageUseMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CandidateLanguageUse);
-            
+
 
             // Copy non-PK properties
 
@@ -1479,7 +1481,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             var mappingContract = (CandidateOtherNameMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CandidateOtherName);
-            
+
 
             // Copy non-PK properties
 
@@ -1595,7 +1597,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             var mappingContract = (CandidatePersonalIdentificationDocumentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CandidatePersonalIdentificationDocument);
-            
+
 
             // Copy non-PK properties
 
@@ -1712,7 +1714,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             var mappingContract = (CandidateRaceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CandidateRace);
-            
+
 
             // Copy non-PK properties
 
@@ -1778,7 +1780,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             var mappingContract = (CandidateTelephoneMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CandidateTelephone);
-            
+
 
             // Copy non-PK properties
 
@@ -1880,13 +1882,15 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
             var mappingContract = (CandidateEducatorPreparationProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CandidateEducatorPreparationProgramAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
-                || (target.CandidateIdentifier != source.CandidateIdentifier)
+                || (!keyStringComparer.Equals(target.CandidateIdentifier, source.CandidateIdentifier))
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.ProgramName != source.ProgramName)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
                 || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor))
             {
                 // Disallow PK column updates on CandidateEducatorPreparationProgramAssociation
@@ -2038,7 +2042,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
             var mappingContract = (CandidateEducatorPreparationProgramAssociationCohortYearMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CandidateEducatorPreparationProgramAssociationCohortYear);
-            
+
 
             // Copy non-PK properties
 
@@ -2121,7 +2125,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
             var mappingContract = (CandidateEducatorPreparationProgramAssociationDegreeSpecializationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CandidateEducatorPreparationProgramAssociationDegreeSpecialization);
-            
+
 
             // Copy non-PK properties
 
@@ -2212,7 +2216,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CertificationRouteDescriptorAggregate
             var mappingContract = (CertificationRouteDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CertificationRouteDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CertificationRouteDescriptorId != source.CertificationRouteDescriptorId))
@@ -2373,7 +2377,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CoteachingStyleObservedDescriptorAggr
             var mappingContract = (CoteachingStyleObservedDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CoteachingStyleObservedDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CoteachingStyleObservedDescriptorId != source.CoteachingStyleObservedDescriptorId))
@@ -2534,7 +2538,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
             var mappingContract = (CredentialExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CredentialExtension);
-            
+
 
             // Copy non-PK properties
 
@@ -2706,7 +2710,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
             var mappingContract = (CredentialStudentAcademicRecordMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CredentialStudentAcademicRecord);
-            
+
 
             // Copy non-PK properties
 
@@ -2787,7 +2791,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialStatusDescriptorAggregate
             var mappingContract = (CredentialStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CredentialStatusDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.CredentialStatusDescriptorId != source.CredentialStatusDescriptorId))
@@ -2948,11 +2952,13 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
             var mappingContract = (EducatorPreparationProgramMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EducatorPreparationProgram);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.ProgramName != source.ProgramName)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
                 || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor))
             {
                 // Disallow PK column updates on EducatorPreparationProgram
@@ -3073,7 +3079,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
             var mappingContract = (EducatorPreparationProgramGradeLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EducatorPreparationProgramGradeLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -3144,7 +3150,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorRoleDescriptorAggregate
             var mappingContract = (EducatorRoleDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EducatorRoleDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.EducatorRoleDescriptorId != source.EducatorRoleDescriptorId))
@@ -3305,7 +3311,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EnglishLanguageExamDescriptorAggregat
             var mappingContract = (EnglishLanguageExamDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EnglishLanguageExamDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.EnglishLanguageExamDescriptorId != source.EnglishLanguageExamDescriptorId))
@@ -3466,7 +3472,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EPPProgramPathwayDescriptorAggregate
             var mappingContract = (EPPProgramPathwayDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EPPProgramPathwayDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.EPPProgramPathwayDescriptorId != source.EPPProgramPathwayDescriptorId))
@@ -3627,13 +3633,15 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
             var mappingContract = (EvaluationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_Evaluation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.EvaluationPeriodDescriptor != source.EvaluationPeriodDescriptor)
-                || (target.EvaluationTitle != source.EvaluationTitle)
-                || (target.PerformanceEvaluationTitle != source.PerformanceEvaluationTitle)
+                || (!keyStringComparer.Equals(target.EvaluationTitle, source.EvaluationTitle))
+                || (!keyStringComparer.Equals(target.PerformanceEvaluationTitle, source.PerformanceEvaluationTitle))
                 || (target.PerformanceEvaluationTypeDescriptor != source.PerformanceEvaluationTypeDescriptor)
                 || (target.SchoolYear != source.SchoolYear)
                 || (target.TermDescriptor != source.TermDescriptor))
@@ -3790,7 +3798,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
             var mappingContract = (EvaluationRatingLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationRatingLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -3881,15 +3889,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
             var mappingContract = (EvaluationElementMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationElement);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.EvaluationElementTitle != source.EvaluationElementTitle)
-                || (target.EvaluationObjectiveTitle != source.EvaluationObjectiveTitle)
+                || (!keyStringComparer.Equals(target.EvaluationElementTitle, source.EvaluationElementTitle))
+                || (!keyStringComparer.Equals(target.EvaluationObjectiveTitle, source.EvaluationObjectiveTitle))
                 || (target.EvaluationPeriodDescriptor != source.EvaluationPeriodDescriptor)
-                || (target.EvaluationTitle != source.EvaluationTitle)
-                || (target.PerformanceEvaluationTitle != source.PerformanceEvaluationTitle)
+                || (!keyStringComparer.Equals(target.EvaluationTitle, source.EvaluationTitle))
+                || (!keyStringComparer.Equals(target.PerformanceEvaluationTitle, source.PerformanceEvaluationTitle))
                 || (target.PerformanceEvaluationTypeDescriptor != source.PerformanceEvaluationTypeDescriptor)
                 || (target.SchoolYear != source.SchoolYear)
                 || (target.TermDescriptor != source.TermDescriptor))
@@ -4038,7 +4048,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
             var mappingContract = (EvaluationElementRatingLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationElementRatingLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -4129,18 +4139,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
             var mappingContract = (EvaluationElementRatingMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationElementRating);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.EvaluationDate != source.EvaluationDate)
-                || (target.EvaluationElementTitle != source.EvaluationElementTitle)
-                || (target.EvaluationObjectiveTitle != source.EvaluationObjectiveTitle)
+                || (!keyStringComparer.Equals(target.EvaluationElementTitle, source.EvaluationElementTitle))
+                || (!keyStringComparer.Equals(target.EvaluationObjectiveTitle, source.EvaluationObjectiveTitle))
                 || (target.EvaluationPeriodDescriptor != source.EvaluationPeriodDescriptor)
-                || (target.EvaluationTitle != source.EvaluationTitle)
-                || (target.PerformanceEvaluationTitle != source.PerformanceEvaluationTitle)
+                || (!keyStringComparer.Equals(target.EvaluationTitle, source.EvaluationTitle))
+                || (!keyStringComparer.Equals(target.PerformanceEvaluationTitle, source.PerformanceEvaluationTitle))
                 || (target.PerformanceEvaluationTypeDescriptor != source.PerformanceEvaluationTypeDescriptor)
-                || (target.PersonId != source.PersonId)
+                || (!keyStringComparer.Equals(target.PersonId, source.PersonId))
                 || (target.SchoolYear != source.SchoolYear)
                 || (target.SourceSystemDescriptor != source.SourceSystemDescriptor)
                 || (target.TermDescriptor != source.TermDescriptor))
@@ -4304,7 +4316,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
             var mappingContract = (EvaluationElementRatingResultMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationElementRatingResult);
-            
+
 
             // Copy non-PK properties
 
@@ -4386,7 +4398,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingLevelDescripto
             var mappingContract = (EvaluationElementRatingLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationElementRatingLevelDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.EvaluationElementRatingLevelDescriptorId != source.EvaluationElementRatingLevelDescriptorId))
@@ -4547,14 +4559,16 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
             var mappingContract = (EvaluationObjectiveMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationObjective);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.EvaluationObjectiveTitle != source.EvaluationObjectiveTitle)
+                || (!keyStringComparer.Equals(target.EvaluationObjectiveTitle, source.EvaluationObjectiveTitle))
                 || (target.EvaluationPeriodDescriptor != source.EvaluationPeriodDescriptor)
-                || (target.EvaluationTitle != source.EvaluationTitle)
-                || (target.PerformanceEvaluationTitle != source.PerformanceEvaluationTitle)
+                || (!keyStringComparer.Equals(target.EvaluationTitle, source.EvaluationTitle))
+                || (!keyStringComparer.Equals(target.PerformanceEvaluationTitle, source.PerformanceEvaluationTitle))
                 || (target.PerformanceEvaluationTypeDescriptor != source.PerformanceEvaluationTypeDescriptor)
                 || (target.SchoolYear != source.SchoolYear)
                 || (target.TermDescriptor != source.TermDescriptor))
@@ -4712,7 +4726,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
             var mappingContract = (EvaluationObjectiveRatingLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationObjectiveRatingLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -4803,17 +4817,19 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
             var mappingContract = (EvaluationObjectiveRatingMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationObjectiveRating);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.EvaluationDate != source.EvaluationDate)
-                || (target.EvaluationObjectiveTitle != source.EvaluationObjectiveTitle)
+                || (!keyStringComparer.Equals(target.EvaluationObjectiveTitle, source.EvaluationObjectiveTitle))
                 || (target.EvaluationPeriodDescriptor != source.EvaluationPeriodDescriptor)
-                || (target.EvaluationTitle != source.EvaluationTitle)
-                || (target.PerformanceEvaluationTitle != source.PerformanceEvaluationTitle)
+                || (!keyStringComparer.Equals(target.EvaluationTitle, source.EvaluationTitle))
+                || (!keyStringComparer.Equals(target.PerformanceEvaluationTitle, source.PerformanceEvaluationTitle))
                 || (target.PerformanceEvaluationTypeDescriptor != source.PerformanceEvaluationTypeDescriptor)
-                || (target.PersonId != source.PersonId)
+                || (!keyStringComparer.Equals(target.PersonId, source.PersonId))
                 || (target.SchoolYear != source.SchoolYear)
                 || (target.SourceSystemDescriptor != source.SourceSystemDescriptor)
                 || (target.TermDescriptor != source.TermDescriptor))
@@ -4946,7 +4962,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
             var mappingContract = (EvaluationObjectiveRatingResultMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationObjectiveRatingResult);
-            
+
 
             // Copy non-PK properties
 
@@ -5028,7 +5044,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationPeriodDescriptorAggregate
             var mappingContract = (EvaluationPeriodDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationPeriodDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.EvaluationPeriodDescriptorId != source.EvaluationPeriodDescriptorId))
@@ -5189,16 +5205,18 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
             var mappingContract = (EvaluationRatingMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationRating);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.EvaluationDate != source.EvaluationDate)
                 || (target.EvaluationPeriodDescriptor != source.EvaluationPeriodDescriptor)
-                || (target.EvaluationTitle != source.EvaluationTitle)
-                || (target.PerformanceEvaluationTitle != source.PerformanceEvaluationTitle)
+                || (!keyStringComparer.Equals(target.EvaluationTitle, source.EvaluationTitle))
+                || (!keyStringComparer.Equals(target.PerformanceEvaluationTitle, source.PerformanceEvaluationTitle))
                 || (target.PerformanceEvaluationTypeDescriptor != source.PerformanceEvaluationTypeDescriptor)
-                || (target.PersonId != source.PersonId)
+                || (!keyStringComparer.Equals(target.PersonId, source.PersonId))
                 || (target.SchoolYear != source.SchoolYear)
                 || (target.SourceSystemDescriptor != source.SourceSystemDescriptor)
                 || (target.TermDescriptor != source.TermDescriptor))
@@ -5389,7 +5407,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
             var mappingContract = (EvaluationRatingResultMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationRatingResult);
-            
+
 
             // Copy non-PK properties
 
@@ -5466,7 +5484,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
             var mappingContract = (EvaluationRatingReviewerMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationRatingReviewer);
-            
+
 
             // Copy non-PK properties
 
@@ -5612,7 +5630,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
             var mappingContract = (EvaluationRatingReviewerReceivedTrainingMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationRatingReviewerReceivedTraining);
-            
+
 
             // Copy non-PK properties
 
@@ -5702,7 +5720,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingLevelDescriptorAggreg
             var mappingContract = (EvaluationRatingLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationRatingLevelDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.EvaluationRatingLevelDescriptorId != source.EvaluationRatingLevelDescriptorId))
@@ -5863,7 +5881,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingStatusDescriptorAggre
             var mappingContract = (EvaluationRatingStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationRatingStatusDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.EvaluationRatingStatusDescriptorId != source.EvaluationRatingStatusDescriptorId))
@@ -6024,7 +6042,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationTypeDescriptorAggregate
             var mappingContract = (EvaluationTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.EvaluationTypeDescriptorId != source.EvaluationTypeDescriptorId))
@@ -6185,7 +6203,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.FinancialAidAggregate
             var mappingContract = (FinancialAidMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_FinancialAid);
-            
+
             // Detect primary key changes
             if (
                  (target.AidTypeDescriptor != source.AidTypeDescriptor)
@@ -6318,7 +6336,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.GenderDescriptorAggregate
             var mappingContract = (GenderDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_GenderDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.GenderDescriptorId != source.GenderDescriptorId))
@@ -6479,7 +6497,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.ObjectiveRatingLevelDescriptorAggrega
             var mappingContract = (ObjectiveRatingLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_ObjectiveRatingLevelDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.ObjectiveRatingLevelDescriptorId != source.ObjectiveRatingLevelDescriptorId))
@@ -6640,12 +6658,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
             var mappingContract = (PerformanceEvaluationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.EvaluationPeriodDescriptor != source.EvaluationPeriodDescriptor)
-                || (target.PerformanceEvaluationTitle != source.PerformanceEvaluationTitle)
+                || (!keyStringComparer.Equals(target.PerformanceEvaluationTitle, source.PerformanceEvaluationTitle))
                 || (target.PerformanceEvaluationTypeDescriptor != source.PerformanceEvaluationTypeDescriptor)
                 || (target.SchoolYear != source.SchoolYear)
                 || (target.TermDescriptor != source.TermDescriptor))
@@ -6789,7 +6809,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
             var mappingContract = (PerformanceEvaluationGradeLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluationGradeLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -6855,7 +6875,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
             var mappingContract = (PerformanceEvaluationRatingLevelMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingLevel);
-            
+
 
             // Copy non-PK properties
 
@@ -6946,14 +6966,16 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
             var mappingContract = (PerformanceEvaluationRatingMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRating);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.EvaluationPeriodDescriptor != source.EvaluationPeriodDescriptor)
-                || (target.PerformanceEvaluationTitle != source.PerformanceEvaluationTitle)
+                || (!keyStringComparer.Equals(target.PerformanceEvaluationTitle, source.PerformanceEvaluationTitle))
                 || (target.PerformanceEvaluationTypeDescriptor != source.PerformanceEvaluationTypeDescriptor)
-                || (target.PersonId != source.PersonId)
+                || (!keyStringComparer.Equals(target.PersonId, source.PersonId))
                 || (target.SchoolYear != source.SchoolYear)
                 || (target.SourceSystemDescriptor != source.SourceSystemDescriptor)
                 || (target.TermDescriptor != source.TermDescriptor))
@@ -7160,7 +7182,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
             var mappingContract = (PerformanceEvaluationRatingResultMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingResult);
-            
+
 
             // Copy non-PK properties
 
@@ -7237,7 +7259,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
             var mappingContract = (PerformanceEvaluationRatingReviewerMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingReviewer);
-            
+
 
             // Copy non-PK properties
 
@@ -7383,7 +7405,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
             var mappingContract = (PerformanceEvaluationRatingReviewerReceivedTrainingMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingReviewerReceivedTraining);
-            
+
 
             // Copy non-PK properties
 
@@ -7473,7 +7495,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingLevelDescr
             var mappingContract = (PerformanceEvaluationRatingLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingLevelDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.PerformanceEvaluationRatingLevelDescriptorId != source.PerformanceEvaluationRatingLevelDescriptorId))
@@ -7634,7 +7656,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationTypeDescriptorAg
             var mappingContract = (PerformanceEvaluationTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluationTypeDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.PerformanceEvaluationTypeDescriptorId != source.PerformanceEvaluationTypeDescriptorId))
@@ -7795,15 +7817,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricDimensionAggregate
             var mappingContract = (RubricDimensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_RubricDimension);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.EvaluationElementTitle != source.EvaluationElementTitle)
-                || (target.EvaluationObjectiveTitle != source.EvaluationObjectiveTitle)
+                || (!keyStringComparer.Equals(target.EvaluationElementTitle, source.EvaluationElementTitle))
+                || (!keyStringComparer.Equals(target.EvaluationObjectiveTitle, source.EvaluationObjectiveTitle))
                 || (target.EvaluationPeriodDescriptor != source.EvaluationPeriodDescriptor)
-                || (target.EvaluationTitle != source.EvaluationTitle)
-                || (target.PerformanceEvaluationTitle != source.PerformanceEvaluationTitle)
+                || (!keyStringComparer.Equals(target.EvaluationTitle, source.EvaluationTitle))
+                || (!keyStringComparer.Equals(target.PerformanceEvaluationTitle, source.PerformanceEvaluationTitle))
                 || (target.PerformanceEvaluationTypeDescriptor != source.PerformanceEvaluationTypeDescriptor)
                 || (target.RubricRating != source.RubricRating)
                 || (target.SchoolYear != source.SchoolYear)
@@ -7932,7 +7956,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricRatingLevelDescriptorAggregate
             var mappingContract = (RubricRatingLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_RubricRatingLevelDescriptor);
-            
+
             // Detect primary key changes
             if (
                  (target.RubricRatingLevelDescriptorId != source.RubricRatingLevelDescriptorId))
@@ -8093,7 +8117,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SchoolAggregate
             var mappingContract = (SchoolExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_SchoolExtension);
-            
+
 
             // Copy non-PK properties
 
@@ -8179,7 +8203,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponseAggregate
             var mappingContract = (SurveyResponseExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_SurveyResponseExtension);
-            
+
 
             // Copy non-PK properties
 
@@ -8276,14 +8300,16 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponsePersonTargetAssociation
             var mappingContract = (SurveyResponsePersonTargetAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_SurveyResponsePersonTargetAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.Namespace != source.Namespace)
-                || (target.PersonId != source.PersonId)
+                 (!keyStringComparer.Equals(target.Namespace, source.Namespace))
+                || (!keyStringComparer.Equals(target.PersonId, source.PersonId))
                 || (target.SourceSystemDescriptor != source.SourceSystemDescriptor)
-                || (target.SurveyIdentifier != source.SurveyIdentifier)
-                || (target.SurveyResponseIdentifier != source.SurveyResponseIdentifier))
+                || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier))
+                || (!keyStringComparer.Equals(target.SurveyResponseIdentifier, source.SurveyResponseIdentifier)))
             {
                 // Disallow PK column updates on SurveyResponsePersonTargetAssociation
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -8375,15 +8401,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveySectionResponsePersonTargetAsso
             var mappingContract = (SurveySectionResponsePersonTargetAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_SurveySectionResponsePersonTargetAssociation);
-            
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
-                 (target.Namespace != source.Namespace)
-                || (target.PersonId != source.PersonId)
+                 (!keyStringComparer.Equals(target.Namespace, source.Namespace))
+                || (!keyStringComparer.Equals(target.PersonId, source.PersonId))
                 || (target.SourceSystemDescriptor != source.SourceSystemDescriptor)
-                || (target.SurveyIdentifier != source.SurveyIdentifier)
-                || (target.SurveyResponseIdentifier != source.SurveyResponseIdentifier)
-                || (target.SurveySectionTitle != source.SurveySectionTitle))
+                || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier))
+                || (!keyStringComparer.Equals(target.SurveyResponseIdentifier, source.SurveyResponseIdentifier))
+                || (!keyStringComparer.Equals(target.SurveySectionTitle, source.SurveySectionTitle)))
             {
                 // Disallow PK column updates on SurveySectionResponsePersonTargetAssociation
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
