@@ -6,7 +6,7 @@
 using System;
 using NUnit.Framework;
 
-namespace EdFi.Ods.Api.IntegrationTests.Contact
+namespace EdFi.Ods.Api.IntegrationTests.DataStandard500
 {
     [TestFixture]
     public class EducationOrganizationIdToContactUsiAuthViewTests : DatabaseTestFixtureBase
@@ -55,7 +55,9 @@ namespace EdFi.Ods.Api.IntegrationTests.Contact
                 .AddStudentContactAssociation(contactUsi, studentUsi)
                 .Execute();
 
-            AuthorizationViewHelper.ShouldContainTuples(Connection, PersonType.Contact, (9801, contactUsi));
+            var expectedTuples = new (long, int)[] { (9801, contactUsi) };
+
+            AuthorizationViewHelper.ShouldContainTuples(Connection, PersonType.Contact, expectedTuples);
         }
 
         [Test]
@@ -79,7 +81,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Contact
                 .AddStudentContactAssociation(contactUsi, studentUsi)
                 .Execute();
 
-            var expectedTuples = new[] { (9902, contactUsi) };
+            var expectedTuples = new (long, int)[] { (9902, contactUsi) };
 
             AuthorizationViewHelper.ShouldNotContainTuples(Connection, PersonType.Contact, expectedTuples);
         }
@@ -106,7 +108,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Contact
                 .AddStudentContactAssociation(contactUsi, studentUsi)
                 .Execute();
 
-            var expectedTuples = new[]
+            var expectedTuples = new (long, int)[]
             {
                 (9803, contactUsi),
                 (9804, contactUsi)
@@ -127,7 +129,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Contact
 
             var contactUsi = AuthorizationViewHelper.GetContactUsi(Connection, contactUniqueId);
 
-            var expectedTuples = new[] { (9899, contactUsi) };
+            var expectedTuples = new (long, int)[] { (9899, contactUsi) };
 
             AuthorizationViewHelper.ShouldNotContainTuples(
                 Connection, PersonType.Contact, expectedTuples);
@@ -155,7 +157,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Contact
                 .AddStudentContactAssociation(contactUsi, studentUsi)
                 .Execute();
 
-            var expectedTuples = new[]
+            var expectedTuples = new (long, int)[]
             {
                 (9805, contactUsi),
                 (5601, contactUsi)
@@ -188,7 +190,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Contact
                 .AddStudentContactAssociation(contactUsi, studentUsi)
                 .Execute();
 
-            var expectedTuples = new[]
+            var expectedTuples = new (long, int)[]
             {
                 (5692, contactUsi),
                 (9899, contactUsi)

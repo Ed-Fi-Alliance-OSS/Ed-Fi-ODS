@@ -8,7 +8,7 @@ using System.Linq;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.Api.IntegrationTests
+namespace EdFi.Ods.Api.IntegrationTests.DataStandard500
 {
     [TestFixture]
     public class OrganizationDepartmentTests : DatabaseTestFixtureBase
@@ -21,13 +21,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddOrganizationDepartment(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples(Connection, (9001, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<long,long>(Connection, (9001, 9001));
 
             Builder
                 .DeleteEducationOrganization(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldNotContainTuples(Connection, (9001, 9001));
+            EducationOrganizationHelper.ShouldNotContainTuples<long,long>(Connection, (9001, 9001));
         }
 
         [Test]
@@ -38,14 +38,14 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddOrganizationDepartment(9001, 900)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples(Connection, (900, 900), (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<long,long>(Connection, (900, 900), (9001, 9001), (900, 9001));
 
             Builder
                 .DeleteEducationOrganization(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples(Connection, (900, 900));
-            EducationOrganizationHelper.ShouldNotContainTuples(Connection, (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<long,long>(Connection, (900, 900));
+            EducationOrganizationHelper.ShouldNotContainTuples<long,long>(Connection, (9001, 9001), (900, 9001));
         }
 
         [Test]
@@ -56,14 +56,14 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddOrganizationDepartment(9001, 900)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples(Connection, (900, 900), (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<long,long>(Connection, (900, 900), (9001, 9001), (900, 9001));
 
             Builder
                 .DeleteEducationOrganization(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples(Connection, (900, 900));
-            EducationOrganizationHelper.ShouldNotContainTuples(Connection, (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<long,long>(Connection, (900, 900));
+            EducationOrganizationHelper.ShouldNotContainTuples<long,long>(Connection, (9001, 9001), (900, 9001));
         }
 
         [Test]
@@ -74,13 +74,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddOrganizationDepartment(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples(Connection, (900, 900), (9001, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<long,long>(Connection, (900, 900), (9001, 9001));
 
             Builder
                 .UpdateOrganizationDepartment(9001, 900)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples(Connection, (900, 900), (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<long,long>(Connection, (900, 900), (9001, 9001), (900, 9001));
         }
 
         [Test]
@@ -91,13 +91,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddOrganizationDepartment(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples(Connection, (900, 900), (9001, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<long,long>(Connection, (900, 900), (9001, 9001));
 
             Builder
                 .UpdateOrganizationDepartment(9001, 900)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples(Connection, (900, 900), (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<long,long>(Connection, (900, 900), (9001, 9001), (900, 9001));
         }
 
         [Test]
@@ -108,14 +108,14 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddOrganizationDepartment(9001, 900)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples(Connection, (900, 900), (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<long,long>(Connection, (900, 900), (9001, 9001), (900, 9001));
 
             Builder
                 .UpdateOrganizationDepartment(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples(Connection, (900, 900), (9001, 9001));
-            EducationOrganizationHelper.ShouldNotContainTuples(Connection, (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<long,long>(Connection, (900, 900), (9001, 9001));
+            EducationOrganizationHelper.ShouldNotContainTuples<long,long>(Connection, (900, 9001));
         }
 
         [Test]
@@ -126,14 +126,14 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddOrganizationDepartment(9001, 900)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples(Connection, (900, 900), (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<long,long>(Connection, (900, 900), (9001, 9001), (900, 9001));
 
             Builder
                 .UpdateOrganizationDepartment(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples(Connection, (900, 900), (9001, 9001));
-            EducationOrganizationHelper.ShouldNotContainTuples(Connection, (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<long,long>(Connection, (900, 900), (9001, 9001));
+            EducationOrganizationHelper.ShouldNotContainTuples<long,long>(Connection, (900, 9001));
         }
         
         // ---------- Advanced Scenarios -------------
@@ -145,7 +145,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         [Test]
         public void When_updating_organization_departments_parent_elsewhere_in_hierarchy_should_update_tuples()
         {
-            var baselineTuples = EducationOrganizationHelper.GetExistingTuples(Connection);
+            var baselineTuples = EducationOrganizationHelper.GetExistingTuples<long,long>(Connection);
             var baselineTupleCount = baselineTuples.Count;
             
             Builder
@@ -191,9 +191,9 @@ namespace EdFi.Ods.Api.IntegrationTests
                 (8901002, 88901002)
             };
 
-            EducationOrganizationHelper.ShouldContainTuples(Connection, expectedTuplesAfterCreation);
+            EducationOrganizationHelper.ShouldContainTuples<long,long>(Connection, expectedTuplesAfterCreation);
             
-            var afterCreationCount = EducationOrganizationHelper.GetExistingTuples(Connection).Count;
+            var afterCreationCount = EducationOrganizationHelper.GetExistingTuples<long, long>(Connection).Count;
             
             // Make sure all the tuples above were added (and only those tuples)
             (baselineTupleCount + expectedTuplesAfterCreation.Length).ShouldBe(afterCreationCount);
@@ -201,7 +201,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             // Move the LEA org department to the bottom of the hierarchy (under 2nd-level school org dept)
             Builder.UpdateOrganizationDepartment(8901, parentEducationOrganizationId: 88901002).Execute();
 
-            var afterMovedDown = EducationOrganizationHelper.GetExistingTuples(Connection);
+            var afterMovedDown = EducationOrganizationHelper.GetExistingTuples<long,long>(Connection);
 
             var expectedTuplesAfterMovedDown = new (long, long)[]
             {
@@ -241,7 +241,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 (88901002, 88901),
             };
             
-            EducationOrganizationHelper.ShouldContainTuples(Connection, expectedTuplesAfterMovedDown);
+            EducationOrganizationHelper.ShouldContainTuples<long,long>(Connection, expectedTuplesAfterMovedDown);
             
             afterMovedDown.Count.ShouldBe(afterCreationCount + 6,
                     $"The following additional tuples were found: {Environment.NewLine}"
@@ -255,10 +255,10 @@ namespace EdFi.Ods.Api.IntegrationTests
             // Move the original LEA org department back to the LEA
             Builder.UpdateOrganizationDepartment(8901, parentEducationOrganizationId: 901).Execute();
 
-            var afterMoveBackUpCount = EducationOrganizationHelper.GetExistingTuples(Connection).Count;
+            var afterMoveBackUpCount = EducationOrganizationHelper.GetExistingTuples<long, long>(Connection).Count;
 
-            EducationOrganizationHelper.ShouldContainTuples(Connection, expectedTuplesAfterCreation);
-            EducationOrganizationHelper.ShouldNotContainTuples(Connection,
+            EducationOrganizationHelper.ShouldContainTuples<long,long>(Connection, expectedTuplesAfterCreation);
+            EducationOrganizationHelper.ShouldNotContainTuples<long,long>(Connection,
                 // These are the tuples that were created when the Org Dept was moved to the bottom of the hierarchy
                 (901002, 8901), // School (to new descendants)
                 (901002, 88901),

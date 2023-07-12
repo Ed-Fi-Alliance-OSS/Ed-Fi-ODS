@@ -12,35 +12,37 @@ namespace EdFi.Ods.Api.IntegrationTests
 {
     public static class EducationOrganizationHelper
     {
-        public static List<(long, long)> GetExistingTuples(IDbConnection connection)
+        public static List<(T1, T2)> GetExistingTuples<T1, T2>(IDbConnection connection)
         {
             var sql = @"
-                SELECT SourceEducationOrganizationId, TargetEducationOrganizationId
-                FROM auth.EducationOrganizationIdToEducationOrganizationId;";
+        SELECT SourceEducationOrganizationId, TargetEducationOrganizationId
+        FROM auth.EducationOrganizationIdToEducationOrganizationId;";
 
             using var command = connection.CreateCommand();
             command.CommandText = sql;
 
             using var reader = command.ExecuteReader();
 
-            var actualTuples = new List<(long, long)>();
+            var actualTuples = new List<(T1, T2)>();
             while (reader.Read())
             {
-                actualTuples.Add((reader.GetInt64(0), reader.GetInt64(1)));
+                var value1 = (T1)reader.GetValue(0);
+                var value2 = (T2)reader.GetValue(1);
+                actualTuples.Add((value1, value2));
             }
 
             return actualTuples;
         }
 
-        public static void ShouldContainTuples(IDbConnection connection, params (long, long)[] expectedTuples)
+        public static void ShouldContainTuples<T1, T2>(IDbConnection connection, params (T1, T2)[] expectedTuples)
         {
-            var actualTuples = GetExistingTuples(connection);
+            var actualTuples = GetExistingTuples<T1, T2>(connection);
             expectedTuples.ShouldBeSubsetOf(actualTuples);
         }
 
-        public static void ShouldNotContainTuples(IDbConnection connection, params (long, long)[] expectedTuples)
+        public static void ShouldNotContainTuples<T1, T2>(IDbConnection connection, params (T1, T2)[] expectedTuples)
         {
-            var actualTuples = GetExistingTuples(connection);
+            var actualTuples = GetExistingTuples<T1, T2>(connection);
             expectedTuples.ShouldAllBe(item => !actualTuples.Contains(item));
         }
     }
