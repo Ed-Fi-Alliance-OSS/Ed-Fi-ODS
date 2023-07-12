@@ -11945,7 +11945,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationElementRatingResult : Entities.Common.TPDM.IEvaluationElementRatingResult
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class EvaluationElementRatingResult : Entities.Common.TPDM.IEvaluationElementRatingResult, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -12095,6 +12096,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         [DataMember(Name="resultDatatypeTypeDescriptor")]
         public string ResultDatatypeTypeDescriptor { get; set; }
         // -------------------------------------------------------------
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_ratingExplicitlyAssigned)
+            {
+                yield return "Rating";
+            }
+        }
 
         // =============================================================
         //                     One-to-one relationships
@@ -14462,7 +14471,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationObjectiveRatingResult : Entities.Common.TPDM.IEvaluationObjectiveRatingResult
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class EvaluationObjectiveRatingResult : Entities.Common.TPDM.IEvaluationObjectiveRatingResult, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -14612,6 +14622,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         [DataMember(Name="resultDatatypeTypeDescriptor")]
         public string ResultDatatypeTypeDescriptor { get; set; }
         // -------------------------------------------------------------
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_ratingExplicitlyAssigned)
+            {
+                yield return "Rating";
+            }
+        }
 
         // =============================================================
         //                     One-to-one relationships
@@ -16182,7 +16200,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingResult : Entities.Common.TPDM.IEvaluationRatingResult
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class EvaluationRatingResult : Entities.Common.TPDM.IEvaluationRatingResult, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -16332,6 +16351,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         [DataMember(Name="resultDatatypeTypeDescriptor")]
         public string ResultDatatypeTypeDescriptor { get; set; }
         // -------------------------------------------------------------
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_ratingExplicitlyAssigned)
+            {
+                yield return "Rating";
+            }
+        }
 
         // =============================================================
         //                     One-to-one relationships
@@ -20740,7 +20767,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRatingResult : Entities.Common.TPDM.IPerformanceEvaluationRatingResult
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class PerformanceEvaluationRatingResult : Entities.Common.TPDM.IPerformanceEvaluationRatingResult, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -20890,6 +20918,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         [DataMember(Name="resultDatatypeTypeDescriptor")]
         public string ResultDatatypeTypeDescriptor { get; set; }
         // -------------------------------------------------------------
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_ratingExplicitlyAssigned)
+            {
+                yield return "Rating";
+            }
+        }
 
         // =============================================================
         //                     One-to-one relationships
@@ -22218,7 +22254,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class RubricDimension : Entities.Common.TPDM.IRubricDimension, IHasETag, IDateVersionedEntity
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class RubricDimension : Entities.Common.TPDM.IRubricDimension, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -22669,6 +22706,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
         [DataMember(Name="rubricRatingLevelDescriptor")]
         public string RubricRatingLevelDescriptor { get; set; }
         // -------------------------------------------------------------
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_rubricRatingExplicitlyAssigned)
+            {
+                yield return "RubricRating";
+            }
+        }
 
         // =============================================================
         //                     One-to-one relationships
