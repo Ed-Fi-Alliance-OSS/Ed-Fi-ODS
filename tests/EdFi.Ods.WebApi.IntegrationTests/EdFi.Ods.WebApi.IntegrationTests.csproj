@@ -1,6 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
+    <StandardVersion Condition="'$(StandardVersion)' == '' ">5.0.0</StandardVersion>
+  </PropertyGroup>
+  <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>EdFi.Ods.WebApi.IntegrationTests</AssemblyName>
     <RootNamespace>EdFi.Ods.WebApi.IntegrationTests</RootNamespace>
@@ -64,5 +67,12 @@
     <None Update="log4net.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="**\Standard\**\*.cs" />
+    <None Remove="**\Standard\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include ="**\Standard\$(StandardVersion)\*.cs" />
   </ItemGroup>
 </Project>

@@ -16,14 +16,11 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
 
         protected EdFiTestUriHelper UriHelper { get; private set; }
 
-        protected string StandardVersion { get; private set; }
-
         [OneTimeSetUp]
         public void Setup()
         {
             HttpClient = new HttpClient();
             UriHelper = new EdFiTestUriHelper(TestConstants.BaseUrl);
-            StandardVersion = TestContext.Parameters["StandardVersion"];//Environment.GetEnvironmentVariable("STANDARD_VERSION") ?? "5.0.0";
         }
 
         [OneTimeTearDown]
