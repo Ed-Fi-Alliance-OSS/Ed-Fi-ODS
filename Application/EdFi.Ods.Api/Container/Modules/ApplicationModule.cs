@@ -26,6 +26,7 @@ using EdFi.Ods.Api.Jobs.Extensions;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Security.Authentication;
+using EdFi.Ods.Api.Security.Utilities;
 using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
@@ -355,6 +356,17 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<InitializeScheduledJobs>()
                 .As<IExternalTask>();
+
+            builder.RegisterType<AES256SymmetricStringEncryptionProvider>()
+                .As<ISymmetricStringEncryptionProvider>();
+
+            builder.RegisterType<OdsConnectionStringEncryptionApplicator>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name == "privateKey",
+                        (p, c) => c.Resolve<ApiSettings>().ConfigurationEncryptionPrivateKeyBytes()))
+                .As<IOdsConnectionStringEncryptionApplicator>()
+                .SingleInstance();
             
             RegisterPipeLineStepProviders();
             RegisterModels();

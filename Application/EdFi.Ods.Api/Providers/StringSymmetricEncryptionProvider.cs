@@ -91,7 +91,7 @@ public class AES256SymmetricStringEncryptionProvider : ISymmetricStringEncryptio
             encryptedBytes = Convert.FromBase64String(base64EncryptedBytes);
             hashValue = Convert.FromBase64String(base64HashValue);
         }
-        catch (Exception exception)
+        catch
         {
             output = null;
             return false;

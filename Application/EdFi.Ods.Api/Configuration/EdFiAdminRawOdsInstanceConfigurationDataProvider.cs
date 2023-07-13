@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using EdFi.Admin.DataAccess.Providers;
+using EdFi.Ods.Api.Security.Utilities;
 
 namespace EdFi.Ods.Api.Configuration;
 
@@ -18,15 +19,19 @@ public class EdFiAdminRawOdsInstanceConfigurationDataProvider : IEdFiAdminRawOds
 {
     private readonly DbProviderFactory _dbProviderFactory;
     private readonly IAdminDatabaseConnectionStringProvider _adminDatabaseConnectionStringProvider;
+    private readonly IOdsConnectionStringEncryptionApplicator _odsConnectionStringEncryptionApplicator;
 
     private const string GetOdsConfigurationByIdSql = "SELECT OdsInstanceId, ConnectionString, ContextKey, ContextValue, DerivativeType, ConnectionStringByDerivativeType FROM dbo.GetOdsInstanceConfigurationById(@OdsInstanceId);";
+    private const string UpdateOdsConnectionStringByIdSql = "UPDATE dbo.OdsInstances SET ConnectionString = @ConnectionString WHERE OdsInstanceId = @OdsInstanceId";
 
     public EdFiAdminRawOdsInstanceConfigurationDataProvider(
         IAdminDatabaseConnectionStringProvider adminDatabaseConnectionStringProvider,
-        DbProviderFactory dbProviderFactory)
+        DbProviderFactory dbProviderFactory,
+        IOdsConnectionStringEncryptionApplicator odsConnectionStringEncryptionApplicator)
     {
         _adminDatabaseConnectionStringProvider = adminDatabaseConnectionStringProvider;
         _dbProviderFactory = dbProviderFactory;
+        _odsConnectionStringEncryptionApplicator = odsConnectionStringEncryptionApplicator;
     }
 
     /// <inheritdoc cref="IEdFiAdminRawOdsInstanceConfigurationDataProvider.GetByIdAsync" />
@@ -39,6 +44,16 @@ public class EdFiAdminRawOdsInstanceConfigurationDataProvider : IEdFiAdminRawOds
                 new { OdsInstanceId = odsInstanceId }))
             .ToArray();
 
+        foreach (var row in rawDataRows)
+        {
+            _odsConnectionStringEncryptionApplicator.DecryptOrApplyEncryption(row, out bool rowHasChanged);
+
+            if (rowHasChanged)
+                await connection.QueryAsync<RawOdsInstanceConfigurationDataRow>(
+                    UpdateOdsConnectionStringByIdSql,
+                    new { ConnectionString = row.ConnectionString, OdsInstanceId = odsInstanceId });
+        }
+        
         return rawDataRows;
         
         DbConnection CreateConnectionAsync()
