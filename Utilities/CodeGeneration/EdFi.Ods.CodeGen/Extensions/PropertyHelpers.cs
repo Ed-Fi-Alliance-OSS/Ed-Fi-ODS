@@ -20,6 +20,7 @@ public static class PropertyHelpers
 
         switch (propertyType.ToCSharp())
         {
+            case "Guid":
             case "string":
             case "DateTime":
                 return false;

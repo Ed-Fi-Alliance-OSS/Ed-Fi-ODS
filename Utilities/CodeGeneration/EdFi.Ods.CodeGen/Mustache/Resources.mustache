@@ -451,13 +451,35 @@ namespace {{ResourceClassesNamespace}}
         {{/Usi}}
         {{#Standard}}
         {{#Property}}
+        {{#PropertyDefaultHasDomainMeaning}}
+        
+        private bool _{{PropertyFieldName}}ExplicitlyAssigned = false;
+        private {{PropertyType}} _{{PropertyFieldName}};
 
         /// <summary>
         /// {{{Description}}}
         /// </summary>
         {{Misc}}
         [DataMember(Name="{{JsonPropertyName}}"), NaturalKeyMember{{#IsUnique}}, UniqueId{{/IsUnique}}]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        public {{PropertyType}} {{CSharpSafePropertyName}} 
+        { 
+            get => _{{PropertyFieldName}};
+            set 
+            { 
+                _{{PropertyFieldName}} = value;
+                _{{PropertyFieldName}}ExplicitlyAssigned = true; 
+            }
+        }
+        {{/PropertyDefaultHasDomainMeaning}}
+
+        {{^PropertyDefaultHasDomainMeaning}}
+        /// <summary>
+        /// {{{Description}}}
+        /// </summary>
+        {{Misc}}
+        [DataMember(Name="{{JsonPropertyName}}"), NaturalKeyMember{{#IsUnique}}, UniqueId{{/IsUnique}}]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{CSharpSafePropertyName}} { get; set; }
+        {{/PropertyDefaultHasDomainMeaning}}
         {{/Property}}
         {{/Standard}}
         {{#Null}}
@@ -485,6 +507,9 @@ namespace {{ResourceClassesNamespace}}
 
         {{#PropertyIsUnifiedAndLocallyDefined}}
         private {{PropertyType}} _{{PropertyFieldName}};
+            {{#PropertyDefaultHasDomainMeaning}}
+        private bool _{{PropertyFieldName}}ExplicitlyAssigned = false;
+            {{/PropertyDefaultHasDomainMeaning}}
 
         {{/PropertyIsUnifiedAndLocallyDefined}}
         /// <summary>
@@ -516,6 +541,9 @@ namespace {{ResourceClassesNamespace}}
             {
                 {{#PropertyIsUnifiedAndLocallyDefined}}
                 _{{PropertyFieldName}} = value;
+                    {{#PropertyDefaultHasDomainMeaning}}
+                _{{PropertyFieldName}}ExplicitlyAssigned = true;
+                    {{/PropertyDefaultHasDomainMeaning}}
 
                 {{/PropertyIsUnifiedAndLocallyDefined}}
                 // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
@@ -836,6 +864,9 @@ namespace {{ResourceClassesNamespace}}
 
         {{#PropertyIsUnifiedAndLocallyDefined}}
         private {{PropertyType}} _{{PropertyFieldName}};
+            {{#PropertyDefaultHasDomainMeaning}}
+        private bool _{{PropertyFieldName}}ExplicitlyAssigned = false;
+            {{/PropertyDefaultHasDomainMeaning}}
 
         {{/PropertyIsUnifiedAndLocallyDefined}}
         /// <summary>
@@ -879,7 +910,10 @@ namespace {{ResourceClassesNamespace}}
             {
                 {{#PropertyIsUnifiedAndLocallyDefined}}
                 _{{PropertyFieldName}} = value;
-                
+                    {{#PropertyDefaultHasDomainMeaning}}
+                _{{PropertyFieldName}}ExplicitlyAssigned = true;
+                    {{/PropertyDefaultHasDomainMeaning}}
+
                 {{/PropertyIsUnifiedAndLocallyDefined}}
                 // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
                 // All ExplicitlyAssigned are reset to false in advanced
@@ -998,25 +1032,19 @@ namespace {{ResourceClassesNamespace}}
         {{/NullLookup}}
         {{/Properties}}
         {{/NonIdentifiers}}
+        // -------------------------------------------------------------
         {{#HasRequiredMembersWithMeaningfulDefaultValues}}
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
-        {{#NonIdentifiers}}
-        {{#Properties}}
-        {{#Property}}        
-        {{#PropertyDefaultHasDomainMeaning}}
+            {{#RequiredMembersWithMeaningfulDefaultValues}}
             if (!_{{PropertyFieldName}}ExplicitlyAssigned)
             {
                 yield return "{{CSharpSafePropertyName}}";
             }
-        {{/PropertyDefaultHasDomainMeaning}}
-        {{/Property}}
-        {{/Properties}}
-        {{/NonIdentifiers}}
+            {{/RequiredMembersWithMeaningfulDefaultValues}}
         }
         {{/HasRequiredMembersWithMeaningfulDefaultValues}}
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
