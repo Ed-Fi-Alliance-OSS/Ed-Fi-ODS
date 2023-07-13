@@ -29,4 +29,3 @@ public class DataStandard_400_ApprovalTests : ApprovalTestsBase<V400>
     [Test]
     public void Generated_File_List() => ApproveGeneratedFileList();
 }
-

@@ -27,8 +27,8 @@ public abstract class ApprovalTestsBase<TVersionMetadata>
     private const string GeneratedHbm = "*.generated.hbm.xml";
     private const string GeneratedSql = "*_generated.sql";
 
-    private readonly Lazy<string> _extensionRepositoryExtensionsFolder;
-    private readonly Lazy<string> _odsRepositoryProjects;
+    private readonly string _extensionRepositoryExtensionsFolder;
+    private readonly string _odsRepositoryProjects;
 
     protected ApprovalTestsBase()
     {
@@ -36,12 +36,8 @@ public abstract class ApprovalTestsBase<TVersionMetadata>
 
         _approvalsFileNamePrefix = metadata.ApprovalsFileNamePrefix;
         _standardVersion = metadata.StandardVersion;
-
-        _extensionRepositoryExtensionsFolder =
-            new Lazy<string>(() => Path.Combine(ApprovalTestHelpers.ExtensionRepository, CodeRepositoryConventions.Extensions));
-
-        _odsRepositoryProjects =
-            new Lazy<string>(() => Path.Combine(ApprovalTestHelpers.OdsRepository, CodeRepositoryConventions.Application));
+        _extensionRepositoryExtensionsFolder = Path.Combine(ApprovalTestHelpers.ExtensionRepository, CodeRepositoryConventions.Extensions);
+        _odsRepositoryProjects = Path.Combine(ApprovalTestHelpers.OdsRepository, CodeRepositoryConventions.Application);
     }
 
     protected void CreateApprovedFiles()
@@ -75,21 +71,20 @@ public abstract class ApprovalTestsBase<TVersionMetadata>
     {
         var files = new List<string>();
 
-        files.AddRange(Directory.GetFiles(_extensionRepositoryExtensionsFolder.Value, GeneratedCs, SearchOption.AllDirectories).Where(filePath => filePath.Contains(_standardVersion)));
-        files.AddRange(Directory.GetFiles(_extensionRepositoryExtensionsFolder.Value, GeneratedHbm, SearchOption.AllDirectories).Where(filePath => filePath.Contains(_standardVersion)));
-        files.AddRange(Directory.GetFiles(_odsRepositoryProjects.Value, GeneratedSql, SearchOption.AllDirectories).Where(filePath => filePath.Contains(_standardVersion)));
-        files.AddRange(Directory.GetFiles(_odsRepositoryProjects.Value, GeneratedCs, SearchOption.AllDirectories).Where(filePath => filePath.Contains(_standardVersion)));
-        files.AddRange(Directory.GetFiles(_odsRepositoryProjects.Value, GeneratedHbm, SearchOption.AllDirectories).Where(filePath => filePath.Contains(_standardVersion)));
+        files.AddRange(Directory.GetFiles(_extensionRepositoryExtensionsFolder, GeneratedCs, SearchOption.AllDirectories).Where(filePath => filePath.Contains(_standardVersion)));
+        files.AddRange(Directory.GetFiles(_extensionRepositoryExtensionsFolder, GeneratedHbm, SearchOption.AllDirectories).Where(filePath => filePath.Contains(_standardVersion)));
+        files.AddRange(Directory.GetFiles(_odsRepositoryProjects, GeneratedSql, SearchOption.AllDirectories).Where(filePath => filePath.Contains(_standardVersion)));
+        files.AddRange(Directory.GetFiles(_odsRepositoryProjects, GeneratedCs, SearchOption.AllDirectories).Where(filePath => filePath.Contains(_standardVersion)));
+        files.AddRange(Directory.GetFiles(_odsRepositoryProjects, GeneratedHbm, SearchOption.AllDirectories).Where(filePath => filePath.Contains(_standardVersion)));
 
         files.Sort();
 
-        using (var cleanup = NamerFactory.AsEnvironmentSpecificTest($"Standard.{_standardVersion}"))
-        {
-            Approvals.Verify(
-                string.Join('\n', files.Select(x => Path.GetRelativePath(ApprovalTestHelpers.RepositoryRoot, x)))
-                    .Replace('\\', '/') + '\n' // Unix uses forward slash directory separator and files are terminated with newline
-            );
-        }
+        using var cleanup = NamerFactory.AsEnvironmentSpecificTest($"Standard.{_standardVersion}");
+
+        Approvals.Verify(
+            string.Join('\n', files.Select(x => Path.GetRelativePath(ApprovalTestHelpers.RepositoryRoot, x)))
+                .Replace('\\', '/') + '\n' // Unix uses forward slash directory separator and files are terminated with newline
+        );
     }
 
     /// <summary>
@@ -146,7 +141,7 @@ public abstract class ApprovalTestsBase<TVersionMetadata>
                         , "Utilities", "CodeGeneration", "EdFi.Ods.CodeGen.Tests", "Approval", _standardVersion
                         , $"{_approvalsFileNamePrefix}.Verify.{file.Scenario}.approved{ext}");
 
-                    System.Console.WriteLine("Copying file: {0} to {1}", file.SourcePath, destFileName);
+                    Console.WriteLine("Copying file: {0} to {1}", file.SourcePath, destFileName);
 
                     File.Copy(file.SourcePath, destFileName, true);
 
