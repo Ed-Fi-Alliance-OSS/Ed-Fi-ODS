@@ -3,24 +3,23 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using log4net;
 using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
-using EdFi.LoadTools.Common;
-using log4net;
 
 namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 {
     public abstract class BaseBuilder : IPropertyBuilder
     {
         protected static readonly Random Random = new Random(1);
+        private int _counter = 50; // Start from 50 to not collide with existing EdOrgIds if running over the populated template
+        private readonly int _defaultStringLength = 7;
         private readonly IPropertyInfoMetadataLookup _metadataLookup;
 
         protected virtual ILog Log => LogManager.GetLogger(GetType().Name);
-
-        protected virtual string RandomTestString => BuildRandomString(7);
 
         protected BaseBuilder(IPropertyInfoMetadataLookup metadataLookup)
         {
@@ -41,7 +40,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 
         public abstract bool BuildProperty(object obj, PropertyInfo propertyInfo);
 
-        protected static string BuildRandomString(int length)
+        protected string BuildRandomString(int length)
         {
             // NOTE: replaced the original method as this was causing the same string to be used,
             // instead of a random string as what the method implied. We may want to revert
@@ -69,6 +68,14 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
             return res.ToString();
         }
 
+        protected string BuildRandomString(PropertyInfo propertyInfo)
+        {
+            var parameter = _metadataLookup.GetMetadata(propertyInfo);
+            var length = Math.Max(parameter.minLength.HasValue ? parameter.minLength.Value: 0, _defaultStringLength);
+            length = Math.Min(parameter.maxLength.HasValue ? parameter.maxLength.Value : _defaultStringLength, length);
+            return BuildRandomString(length);
+        }
+
         protected bool IsTypeMatch<T>(PropertyInfo propertyInfo)
             where T : struct
         {
@@ -81,6 +88,28 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
             var parameter = _metadataLookup.GetMetadata(propertyInfo);
 
             return parameter.required.HasValue && parameter.required.Value;
+        }
+
+        protected int BuildRandomNumber(PropertyInfo propertyInfo)
+        {
+            var parameter = _metadataLookup.GetMetadata(propertyInfo);
+            
+            if (parameter.minimum.HasValue && parameter.maximum.HasValue)
+            {
+                return Random.Next((int)parameter.minimum.Value, (int)parameter.maximum.Value);
+            }
+            else if (parameter.minimum.HasValue)
+            {
+                return (int)parameter.minimum.Value;
+            }
+            else if(parameter.maximum.HasValue)
+            {
+                return (int)parameter.maximum.Value;
+            }
+            else
+            {
+                return _counter++;
+            }
         }
     }
 }

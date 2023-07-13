@@ -74,6 +74,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 description = PropertyDescription(resourceProperty),
                 isIdentity = GetIsIdentity(resourceProperty),
                 maxLength = GetMaxLength(resourceProperty),
+                minLength = GetMinLength(resourceProperty),
+                minimum = GetMinimum(resourceProperty),
+                maximum = GetMaximum(resourceProperty),
                 isDeprecated = GetIsDeprecated(resourceProperty),
                 deprecatedReasons = GetDeprecatedReasons(resourceProperty)
             };
@@ -114,9 +117,35 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 return 32;
             }
 
-            return resourceProperty.PropertyType.ToCSharp().EqualsIgnoreCase("string") && resourceProperty.PropertyType.MaxLength > 0
+            return resourceProperty.PropertyType.ToCSharp().EqualsIgnoreCase("string") && 
+                resourceProperty.PropertyType.MaxLength > 0
                 ? resourceProperty.PropertyType.MaxLength
                 : (int?)null;
+        }
+        public static int? GetMinLength(ResourceProperty resourceProperty)
+        {
+            return resourceProperty.PropertyType.ToCSharp().EqualsIgnoreCase("string") && 
+                resourceProperty.PropertyType.MinLength > 0
+                ? resourceProperty.PropertyType.MinLength
+                : (int?)null;
+        }
+        public static dynamic GetMinimum(ResourceProperty resourceProperty)
+        {
+            if (resourceProperty.PropertyType.ToCSharp().EqualsIgnoreCase("int"))
+                return (int?)resourceProperty.PropertyType.MinValue;
+            else if (resourceProperty.PropertyType.ToCSharp().EqualsIgnoreCase("decimal"))
+                return (resourceProperty.PropertyType.MinValue);
+
+            return null;
+        }
+        public static dynamic GetMaximum(ResourceProperty resourceProperty)
+        {
+            if (resourceProperty.PropertyType.ToCSharp().EqualsIgnoreCase("int"))
+                return (int?)resourceProperty.PropertyType.MaxValue;
+            else if (resourceProperty.PropertyType.ToCSharp().EqualsIgnoreCase("decimal"))
+                return (resourceProperty.PropertyType.MaxValue);
+
+            return null;
         }
 
         public static string GetEdFiExtensionBridgeName(ResourceClassBase resource, IOpenApiMetadataResourceContext resourceContext = null)

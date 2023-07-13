@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -33,34 +33,33 @@ namespace EdFi.LoadTools.SmokeTest
         {
             string parentTypeName = Inflector.MakeInitialLowerCase(propInfo.DeclaringType?.Name);
 
-            // check if the resource properties are required if they exist.
-            // in the case where a child object has no definition (its a ref in the swagger document)
-            // then the result will be null.
-            // (note this may be a moot point) with the definitions below.
-            var parameter = _resourceDictionary.Values.FirstOrDefault(
-                    r =>
-                        TypeNameHelper.CompareTypeNames(r.Name, parentTypeName, string.Empty, _schemaNames))
-                ?.Definition
-                .required
-                .FirstOrDefault(
-                    p => p.Equals(
-                        Regex.Replace(propInfo.Name, @"_", string.Empty),
-                        StringComparison.InvariantCultureIgnoreCase));
+            var resource = _resourceDictionary.Values.FirstOrDefault(
+                r =>
+                TypeNameHelper.CompareTypeNames(r.Name, parentTypeName, string.Empty, _schemaNames))
+                ?.Definition;
+
+            var property = resource?.properties.FirstOrDefault(x => x.Key.Equals(
+                Regex.Replace(propInfo.Name, @"_", string.Empty),
+                StringComparison.InvariantCultureIgnoreCase)).Value;
 
             // check for any definition if we could not find the the property from the resource
-            if (parameter == null)
+            if (property == null)
             {
-                parameter = _entityDictionary.Values
+                resource = _entityDictionary.Values
                     .FirstOrDefault(r => r.Name.Equals(parentTypeName, StringComparison.InvariantCultureIgnoreCase))
-                    ?.Definition
-                    .required
-                    ?.FirstOrDefault(
-                        p => p.Equals(
-                            Regex.Replace(propInfo.Name, @"_", string.Empty),
-                            StringComparison.InvariantCultureIgnoreCase));
+                    ?.Definition;
+                property = resource?.properties.FirstOrDefault(x => x.Key.Equals(
+                    Regex.Replace(propInfo.Name, @"_", string.Empty),
+                    StringComparison.InvariantCultureIgnoreCase)).Value;
+
             }
 
-            return new Parameter {required = parameter != null};
+            var required = resource?.required?.FirstOrDefault(
+                p => p.Equals(
+                    Regex.Replace(propInfo.Name, @"_", string.Empty),
+                    StringComparison.InvariantCultureIgnoreCase));
+
+            return new Parameter { required = required != null, minimum = property?.minimum, maximum = property?.maximum, minLength = property?.minLength, maxLength = property?.maxLength };
         }
     }
 }

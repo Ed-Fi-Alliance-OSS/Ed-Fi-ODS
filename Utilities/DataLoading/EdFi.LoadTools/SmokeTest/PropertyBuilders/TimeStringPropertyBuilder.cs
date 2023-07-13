@@ -16,7 +16,6 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
         public TimeStringPropertyBuilder(IPropertyInfoMetadataLookup metadataLookup)
             : base(metadataLookup) { }
 
-        protected override string RandomTestString => DateTime.Now.AddMilliseconds(-Random.Next()).ToString("HH:mm:ss");
 
         public override bool BuildProperty(object obj, PropertyInfo propertyInfo)
         {
@@ -25,7 +24,12 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
                 return false;
             }
 
-            return base.BuildProperty(obj, propertyInfo);
+            if (IsRequired(propertyInfo))
+            {
+                propertyInfo.SetValue(obj, DateTime.Now.AddMilliseconds(-Random.Next()).ToString("HH:mm:ss"));
+            }
+
+            return true;
         }
     }
 }

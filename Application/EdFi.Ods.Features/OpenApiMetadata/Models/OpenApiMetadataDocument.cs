@@ -213,7 +213,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Models
 
         public Schema items;
 
-        public int? maximum;
+        public dynamic maximum;
 
         public int? maxItems;
 
@@ -221,7 +221,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Models
 
         public int? maxProperties;
 
-        public int? minimum;
+        public dynamic minimum;
 
         public int? minItems;
 
