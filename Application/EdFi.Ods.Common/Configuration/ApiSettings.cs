@@ -51,6 +51,10 @@ namespace EdFi.Ods.Common.Configuration
         public string OdsContextRouteTemplate { get; set; }
         
         public CacheSettings Caching { get; set; } = new();
+        
+        public string ConfigurationEncryptionPrivateKey { get; set; }
+
+        public byte[] ConfigurationEncryptionPrivateKeyBytes() => Convert.FromBase64String(ConfigurationEncryptionPrivateKey);
 
         public ReverseProxySettings GetReverseProxySettings()
         {
