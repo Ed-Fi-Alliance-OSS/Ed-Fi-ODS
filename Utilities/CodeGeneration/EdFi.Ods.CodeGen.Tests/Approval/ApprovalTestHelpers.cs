@@ -20,7 +20,6 @@ public static class ApprovalTestHelpers
 
     private static readonly Lazy<string> _extensionRepository = new(() => _codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.ExtensionsRepositoryName));
 
-    public static ICodeRepositoryProvider CodeRepositoryProvider => _codeRepositoryProvider;
     public static string OdsRepository => _odsRepository.Value;
     public static string RepositoryRoot => _repositoryRoot.Value;
     public static string ExtensionRepository => _extensionRepository.Value;
