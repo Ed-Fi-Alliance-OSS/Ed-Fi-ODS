@@ -5,7 +5,7 @@
 
 namespace EdFi.Ods.CodeGen.Tests.Approval;
 
-public interface IVersionMetadata
+public interface IStandardVersionMetadata
 {
     public string StandardVersion { get; }
     public string ApprovalsFileNamePrefix { get; }

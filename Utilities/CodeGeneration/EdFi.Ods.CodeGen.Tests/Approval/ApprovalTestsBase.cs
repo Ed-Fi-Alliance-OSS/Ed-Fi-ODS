@@ -22,7 +22,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests;
 
 [UseReporter(typeof(DiffReporter), typeof(NUnitReporter), typeof(PowerShellClipboardReporter))]
 public abstract class ApprovalTestsBase<TVersionMetadata>
-    where TVersionMetadata : IVersionMetadata, new()
+    where TVersionMetadata : IStandardVersionMetadata, new()
 {
     private readonly string _approvalsFileNamePrefix;
     private readonly string _standardVersion;
@@ -50,7 +50,7 @@ public abstract class ApprovalTestsBase<TVersionMetadata>
     [Test]
     public void Create_Approved_Files()
     {
-        var files = new ApprovalFileInfos<TVersionMetadata>();
+        var files = new ApprovalFileInfoSource<TVersionMetadata>();
         CopyFiles(files.Cast<ApprovalFileInfo>());
     }
 

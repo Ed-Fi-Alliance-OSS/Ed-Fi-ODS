@@ -10,12 +10,12 @@ using EdFi.Ods.CodeGen.Tests.Approval_Tests;
 
 namespace EdFi.Ods.CodeGen.Tests.Approval;
 
-public class ApprovalFileInfos<TVersionMetadata> : IEnumerable
-    where TVersionMetadata : IVersionMetadata, new()
+public class ApprovalFileInfoSource<TVersionMetadata> : IEnumerable
+    where TVersionMetadata : IStandardVersionMetadata, new()
 {
     private TVersionMetadata _versionMetadata;
 
-    public ApprovalFileInfos()
+    public ApprovalFileInfoSource()
     {
         _versionMetadata = new TVersionMetadata();
     }

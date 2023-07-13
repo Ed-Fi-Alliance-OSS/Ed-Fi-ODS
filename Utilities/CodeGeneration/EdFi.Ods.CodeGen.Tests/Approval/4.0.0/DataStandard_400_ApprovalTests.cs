@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace EdFi.Ods.CodeGen.Tests.Approval_Tests;
 
-public class V400 : IVersionMetadata
+public class V400 : IStandardVersionMetadata
 {
     public string StandardVersion => "4.0.0";
 
@@ -18,7 +18,7 @@ public class V400 : IVersionMetadata
 [TestFixture]
 public class DataStandard_400_ApprovalTests : ApprovalTestsBase<V400>
 {
-    [Test, TestCaseSource(typeof(ApprovalFileInfos<V400>))]
+    [Test, TestCaseSource(typeof(ApprovalFileInfoSource<V400>))]
     public override void Verify(ApprovalFileInfo approvalFileInfo) => base.Verify(approvalFileInfo);
     
     [Test]
