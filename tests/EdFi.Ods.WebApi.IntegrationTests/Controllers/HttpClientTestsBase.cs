@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Net.Http;
 using NUnit.Framework;
 using Test.Common;
@@ -15,11 +16,14 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
 
         protected EdFiTestUriHelper UriHelper { get; private set; }
 
+        protected string StandardVersion { get; private set; }
+
         [OneTimeSetUp]
         public void Setup()
         {
             HttpClient = new HttpClient();
             UriHelper = new EdFiTestUriHelper(TestConstants.BaseUrl);
+            StandardVersion = TestContext.Parameters["StandardVersion"];//Environment.GetEnvironmentVariable("STANDARD_VERSION") ?? "5.0.0";
         }
 
         [OneTimeTearDown]
