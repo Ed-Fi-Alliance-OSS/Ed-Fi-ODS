@@ -1076,7 +1076,7 @@
 									"",
 									"pm.test(\"Should return the item with SchoolId of the resource is empty string\", function () {",
 									"    const responseItem = pm.response.json();",
-									"    const expectedErrorMessage1 = \"Access to the resource item could not be authorized because the 'SchoolId' of the resource is empty\";",
+									"    const expectedErrorMessage1 = \"Access to the resource item could not be authorized because the 'SchoolId' of the resource is empty.\";",
 									"    const expectedErrorMessage2 = \"The request is invalid.\";",
 									"    pm.expect(responseItem.message).to.satisfy(function (message) {",
 									"        return message === expectedErrorMessage1 || message === expectedErrorMessage2;",
