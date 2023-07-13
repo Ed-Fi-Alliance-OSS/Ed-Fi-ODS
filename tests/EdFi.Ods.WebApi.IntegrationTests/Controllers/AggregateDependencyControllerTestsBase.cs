@@ -13,7 +13,6 @@ using Shouldly;
 
 namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
 {
-    [TestFixture]
     public class AggregateDependencyControllerTestsBase : HttpClientTestsBase
     {
         public async Task<string> Get_Dependencies()
