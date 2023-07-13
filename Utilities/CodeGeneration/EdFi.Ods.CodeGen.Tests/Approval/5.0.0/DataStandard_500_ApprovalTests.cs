@@ -18,9 +18,14 @@ public class V500 : IStandardVersionMetadata
 [TestFixture]
 public class DataStandard_500_ApprovalTests : ApprovalTestsBase<V500>
 {
+    // =========================================================================================
+    [Test, Explicit("WARNING!!! This copies all the generated files as approved files")]
+    public void Create_Approved_Files() => CreateApprovedFiles();
+    // =========================================================================================
+
     [Test, TestCaseSource(typeof(ApprovalFileInfoSource<V500>))]
-    public override void Verify(ApprovalFileInfo approvalFileInfo) => base.Verify(approvalFileInfo);
+    public void Verify(ApprovalFileInfo approvalFileInfo) => ApproveFile(approvalFileInfo);
 
     [Test]
-    public override void Generated_File_List() => base.Generated_File_List();
+    public void Generated_File_List() => ApproveGeneratedFileList();
 }

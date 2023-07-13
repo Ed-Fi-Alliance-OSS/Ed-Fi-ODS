@@ -8,7 +8,7 @@ using EdFi.Ods.CodeGen.Conventions;
 using EdFi.Ods.CodeGen.Providers;
 using EdFi.Ods.CodeGen.Providers.Impl;
 
-namespace EdFi.Ods.CodeGen.Tests.Approval_Tests;
+namespace EdFi.Ods.CodeGen.Tests.Approval;
 
 public static class ApprovalTestHelpers
 {

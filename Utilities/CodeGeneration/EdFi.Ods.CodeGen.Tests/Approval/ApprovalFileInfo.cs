@@ -17,6 +17,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval
         {
             _odsRepository = odsRepository;
             _extensionRepository = extensionRepository;
+
             SourcePath = sourcePath.Replace("\\", "/");
             Scenario = $"{CreateScenario(sourcePath)}";
             GeneratedName = sourcePath.Split("/").LastOrDefault();

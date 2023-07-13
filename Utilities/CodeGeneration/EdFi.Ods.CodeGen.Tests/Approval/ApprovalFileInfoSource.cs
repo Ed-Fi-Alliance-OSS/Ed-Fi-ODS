@@ -6,7 +6,6 @@
 using System.Collections;
 using System.IO;
 using System.Linq;
-using EdFi.Ods.CodeGen.Tests.Approval_Tests;
 
 namespace EdFi.Ods.CodeGen.Tests.Approval;
 

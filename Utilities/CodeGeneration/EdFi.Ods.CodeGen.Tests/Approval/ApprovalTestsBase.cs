@@ -4,21 +4,18 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using ApprovalTests;
 using ApprovalTests.Namers;
 using ApprovalTests.Reporters;
 using ApprovalTests.Reporters.TestFrameworks;
 using EdFi.Ods.CodeGen.Conventions;
-using EdFi.Ods.CodeGen.Tests.Approval;
 using NUnit.Framework;
 
-namespace EdFi.Ods.CodeGen.Tests.Approval_Tests;
+namespace EdFi.Ods.CodeGen.Tests.Approval;
 
 [UseReporter(typeof(DiffReporter), typeof(NUnitReporter), typeof(PowerShellClipboardReporter))]
 public abstract class ApprovalTestsBase<TVersionMetadata>
@@ -36,6 +33,7 @@ public abstract class ApprovalTestsBase<TVersionMetadata>
     protected ApprovalTestsBase()
     {
         var metadata = new TVersionMetadata();
+
         _approvalsFileNamePrefix = metadata.ApprovalsFileNamePrefix;
         _standardVersion = metadata.StandardVersion;
 
@@ -46,9 +44,7 @@ public abstract class ApprovalTestsBase<TVersionMetadata>
             new Lazy<string>(() => Path.Combine(ApprovalTestHelpers.OdsRepository, CodeRepositoryConventions.Application));
     }
 
-    [Explicit("WARNING!!! This copies all the generated files as approved files")]
-    [Test]
-    public void Create_Approved_Files()
+    protected void CreateApprovedFiles()
     {
         var files = new ApprovalFileInfoSource<TVersionMetadata>();
         CopyFiles(files.Cast<ApprovalFileInfo>());
@@ -75,7 +71,7 @@ public abstract class ApprovalTestsBase<TVersionMetadata>
     /// <summary>
     /// Creates approval file containing all known generated files needed for verification
     /// </summary>
-    public virtual void Generated_File_List()
+    protected void ApproveGeneratedFileList()
     {
         var files = new List<string>();
 
@@ -101,7 +97,7 @@ public abstract class ApprovalTestsBase<TVersionMetadata>
     /// requires that the approved files would be renamed.
     /// </summary>
     /// <param name="approvalFileInfo"></param>
-    public virtual void Verify(ApprovalFileInfo approvalFileInfo)
+    protected void ApproveFile(ApprovalFileInfo approvalFileInfo)
     {
         Console.WriteLine("Testing {0}", approvalFileInfo.SourcePath);
 
