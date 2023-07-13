@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using EdFi.Ods.Common.Caching;
 using Quartz.Util;
 
 namespace EdFi.Ods.Api.Providers;
@@ -45,12 +46,18 @@ public class AES256SymmetricStringEncryptionProvider : ISymmetricStringEncryptio
 
         ICryptoTransform encryptor = aesInstance.CreateEncryptor(aesInstance.Key, aesInstance.IV);
 
-        using MemoryStream msEncrypt = new MemoryStream();
-        using CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write);
-        using StreamWriter swEncrypt = new StreamWriter(csEncrypt);
+        using (MemoryStream msEncrypt = new MemoryStream())
+        {
+            using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+            {
+                using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
+                {
+                    swEncrypt.Write(value);
+                }
 
-        swEncrypt.Write(value);
-        encryptedBytes = msEncrypt.ToArray();
+                encryptedBytes = msEncrypt.ToArray();
+            }
+        }
 
         byte[] hashValue;
 
@@ -115,11 +122,17 @@ public class AES256SymmetricStringEncryptionProvider : ISymmetricStringEncryptio
 
         ICryptoTransform decryptor = aesInstance.CreateDecryptor(aesInstance.Key, aesInstance.IV);
 
-        using MemoryStream msDecrypt = new MemoryStream(encryptedBytes);
-        using CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read);
-        using StreamReader srDecrypt = new StreamReader(csDecrypt);
+        using (MemoryStream msDecrypt = new MemoryStream(encryptedBytes))
+        {
+            using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+            {
+                using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                {
+                    output = srDecrypt.ReadToEnd();
+                }
+            }
+        }
 
-        output = srDecrypt.ReadToEnd();
         return true;
     }
 }
