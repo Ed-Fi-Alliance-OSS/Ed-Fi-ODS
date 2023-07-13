@@ -44,16 +44,8 @@ public class EdFiAdminRawOdsInstanceConfigurationDataProvider : IEdFiAdminRawOds
                 new { OdsInstanceId = odsInstanceId }))
             .ToArray();
 
-        foreach (var row in rawDataRows)
-        {
-            _odsConnectionStringEncryptionApplicator.DecryptOrApplyEncryption(row, out bool rowHasChanged);
+        HandleOdsConnectionStringEncryption(rawDataRows, connection);
 
-            if (rowHasChanged)
-                await connection.QueryAsync<RawOdsInstanceConfigurationDataRow>(
-                    UpdateOdsConnectionStringByIdSql,
-                    new { ConnectionString = row.ConnectionString, OdsInstanceId = odsInstanceId });
-        }
-        
         return rawDataRows;
         
         DbConnection CreateConnectionAsync()
@@ -63,5 +55,26 @@ public class EdFiAdminRawOdsInstanceConfigurationDataProvider : IEdFiAdminRawOds
             
             return newConnection;
         }
+    }
+
+    private void HandleOdsConnectionStringEncryption(RawOdsInstanceConfigurationDataRow[] rawDataRows, DbConnection connection)
+    {
+        int odsInstanceId;
+
+        var connectionStringPlainText =
+            _odsConnectionStringEncryptionApplicator.DecryptOrApplyEncryption(rawDataRows[0], out bool rowHasChanged);
+
+        if (rowHasChanged)
+        {
+            connection.Query(
+                UpdateOdsConnectionStringByIdSql,
+                new
+                {
+                    ConnectionString = rawDataRows[0].ConnectionString,
+                    OdsInstanceId = rawDataRows[0].OdsInstanceId
+                });
+        }
+
+        rawDataRows[0].ConnectionString = connectionStringPlainText;
     }
 }
