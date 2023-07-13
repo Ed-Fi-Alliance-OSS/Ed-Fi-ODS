@@ -4,24 +4,25 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using ApprovalTests;
 using ApprovalTests.Namers;
 using ApprovalTests.Reporters;
 using ApprovalTests.Reporters.TestFrameworks;
 using EdFi.Ods.CodeGen.Conventions;
-using EdFi.Ods.CodeGen.Providers;
-using EdFi.Ods.CodeGen.Providers.Impl;
 using EdFi.Ods.CodeGen.Tests.Approval;
 using NUnit.Framework;
 
 namespace EdFi.Ods.CodeGen.Tests.Approval_Tests;
 
 [UseReporter(typeof(DiffReporter), typeof(NUnitReporter), typeof(PowerShellClipboardReporter))]
-public abstract class ApprovalTestsBase
+public abstract class ApprovalTestsBase<TVersionMetadata>
+    where TVersionMetadata : IVersionMetadata, new()
 {
     private readonly string _approvalsFileNamePrefix;
     private readonly string _standardVersion;
@@ -29,62 +30,28 @@ public abstract class ApprovalTestsBase
     private const string GeneratedHbm = "*.generated.hbm.xml";
     private const string GeneratedSql = "*_generated.sql";
 
-    private readonly ICodeRepositoryProvider _codeRepositoryProvider = new DeveloperCodeRepositoryProvider();
-    private readonly Lazy<string> _repositoryRoot;
-    private readonly Lazy<string> _extensionRepository;
     private readonly Lazy<string> _extensionRepositoryExtensionsFolder;
-    private readonly Lazy<string> _odsRepository;
     private readonly Lazy<string> _odsRepositoryProjects;
 
-    private static Func<List<ApprovalFileInfo>> _getApprovalFileInfos;
-
-    // private static IEnumerable<ApprovalFileInfo> _approvalFileInfos = GetApprovalFileInfos();
-
-    protected ApprovalTestsBase(string approvalsFileNamePrefix, string standardVersion)
+    protected ApprovalTestsBase()
     {
-        _approvalsFileNamePrefix = approvalsFileNamePrefix;
-        _standardVersion = standardVersion;
-
-        _repositoryRoot = new Lazy<string>(
-            () => _codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Root));
-
-        _extensionRepository = new Lazy<string>(
-            () => _codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.ExtensionsRepositoryName));
+        var metadata = new TVersionMetadata();
+        _approvalsFileNamePrefix = metadata.ApprovalsFileNamePrefix;
+        _standardVersion = metadata.StandardVersion;
 
         _extensionRepositoryExtensionsFolder =
-            new Lazy<string>(() => Path.Combine(_extensionRepository.Value, CodeRepositoryConventions.Extensions));
-
-        _odsRepository =
-            new Lazy<string>(() => _codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Ods));
+            new Lazy<string>(() => Path.Combine(ApprovalTestHelpers.ExtensionRepository, CodeRepositoryConventions.Extensions));
 
         _odsRepositoryProjects =
-            new Lazy<string>(() => Path.Combine(_odsRepository.Value, CodeRepositoryConventions.Application));
-
-        _getApprovalFileInfos =
-            () =>
-            {
-                var generatedFileList = Path.Combine(
-                    _odsRepository.Value,
-                    "Utilities",
-                    "CodeGeneration",
-                    "EdFi.Ods.CodeGen.Tests",
-                    "Approval",
-                    _standardVersion,
-                    $"{_approvalsFileNamePrefix}.{nameof(Generated_File_List)}.Standard.{_standardVersion}.approved.txt");
-
-                var files = File.ReadAllLines(generatedFileList)
-                    .Select(x => new ApprovalFileInfo(Path.Combine(_repositoryRoot.Value, x), _odsRepository.Value, _extensionRepository.Value))
-                    .ToList();
-
-                return files;
-            };
+            new Lazy<string>(() => Path.Combine(ApprovalTestHelpers.OdsRepository, CodeRepositoryConventions.Application));
     }
 
     [Explicit("WARNING!!! This copies all the generated files as approved files")]
     [Test]
     public void Create_Approved_Files()
     {
-        CopyFiles(GetApprovalFileInfos());
+        var files = new ApprovalFileInfos<TVersionMetadata>();
+        CopyFiles(files.Cast<ApprovalFileInfo>());
     }
 
     /// <summary>
@@ -97,7 +64,7 @@ public abstract class ApprovalTestsBase
             new[]
             {
                 "--ExtensionPaths",
-                _extensionRepository.Value,
+                ApprovalTestHelpers.ExtensionRepository,
                 "--ExtensionVersion",
                 "1.1.0",
                 "--StandardVersion",
@@ -108,8 +75,7 @@ public abstract class ApprovalTestsBase
     /// <summary>
     /// Creates approval file containing all known generated files needed for verification
     /// </summary>
-    [Test]
-    public void Generated_File_List()
+    public virtual void Generated_File_List()
     {
         var files = new List<string>();
 
@@ -124,7 +90,7 @@ public abstract class ApprovalTestsBase
         using (var cleanup = NamerFactory.AsEnvironmentSpecificTest($"Standard.{_standardVersion}"))
         {
             Approvals.Verify(
-                string.Join('\n', files.Select(x => Path.GetRelativePath(_repositoryRoot.Value, x)))
+                string.Join('\n', files.Select(x => Path.GetRelativePath(ApprovalTestHelpers.RepositoryRoot, x)))
                     .Replace('\\', '/') + '\n' // Unix uses forward slash directory separator and files are terminated with newline
             );
         }
@@ -135,8 +101,7 @@ public abstract class ApprovalTestsBase
     /// requires that the approved files would be renamed.
     /// </summary>
     /// <param name="approvalFileInfo"></param>
-    [Test, TestCaseSource(nameof(GetApprovalFileInfos))]
-    public void Verify(ApprovalFileInfo approvalFileInfo)
+    public virtual void Verify(ApprovalFileInfo approvalFileInfo)
     {
         Console.WriteLine("Testing {0}", approvalFileInfo.SourcePath);
 
@@ -161,11 +126,6 @@ public abstract class ApprovalTestsBase
         }
     }
 
-    private static List<ApprovalFileInfo> GetApprovalFileInfos()
-    {
-        return _getApprovalFileInfos();
-    }
-
     private void CopyFiles(IEnumerable<ApprovalFileInfo> files)
     {
         foreach (var file in files)
@@ -186,7 +146,7 @@ public abstract class ApprovalTestsBase
                 case ".sql":
 
                     string destFileName = Path.Combine(
-                        _odsRepository.Value
+                        ApprovalTestHelpers.OdsRepository
                         , "Utilities", "CodeGeneration", "EdFi.Ods.CodeGen.Tests", "Approval", _standardVersion
                         , $"{_approvalsFileNamePrefix}.Verify.{file.Scenario}.approved{ext}");
 
