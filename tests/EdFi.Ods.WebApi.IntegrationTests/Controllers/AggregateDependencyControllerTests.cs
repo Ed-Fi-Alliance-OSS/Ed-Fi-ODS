@@ -8,60 +8,65 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using ApprovalTests;
+using ApprovalTests.Namers;
 using ApprovalTests.Reporters;
 using ApprovalTests.Reporters.TestFrameworks;
 using EdFi.Ods.Api.Constants;
-using EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers;
 using NUnit.Framework;
 using Shouldly;
 
 namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
 {
     [TestFixture]
-    [Ignore("Ignore a fixture this time being due to different datastandard versions to handle")]
     [UseReporter(typeof(DiffReporter), typeof(NUnitReporter))]
     public class AggregateDependencyControllerTests : HttpClientTestsBase
     {
         [Test]
         public async Task Should_Get_Dependencies()
         {
-            HttpClient.DefaultRequestHeaders.Accept.Clear();
-            HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            using (var cleanup = NamerFactory.AsEnvironmentSpecificTest($"Standard.{StandardVersion}"))
+            {
+                HttpClient.DefaultRequestHeaders.Accept.Clear();
+                HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpClient.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", Guid.NewGuid().ToString());
+                HttpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", Guid.NewGuid().ToString());
 
-            var response = await HttpClient.GetAsync(UriHelper.BuildOdsUri("dependencies", null, null, true));
+                var response = await HttpClient.GetAsync(UriHelper.BuildOdsUri("dependencies", null, null, true));
 
-            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+                response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
-            var json = await response.Content.ReadAsStringAsync();
+                var json = await response.Content.ReadAsStringAsync();
 
-            json.ShouldNotBeNullOrWhiteSpace();
+                json.ShouldNotBeNullOrWhiteSpace();
 
-            // fix for teamcity
-            Approvals.Verify(json, s =>  s.Replace(@"\r\n", @"\n"));
+                // fix for teamcity
+                Approvals.Verify(json, s => s.Replace(@"\r\n", @"\n"));
+            }
         }
 
         [Test]
         public async Task Should_Get_Dependencies_GraphML()
         {
-            HttpClient.DefaultRequestHeaders.Accept.Clear();
-            HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(CustomMediaContentTypes.GraphML));
+            using (var cleanup = NamerFactory.AsEnvironmentSpecificTest($"Standard.{StandardVersion}"))
+            {
+                HttpClient.DefaultRequestHeaders.Accept.Clear();
+                HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(CustomMediaContentTypes.GraphML));
 
-            HttpClient.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", Guid.NewGuid().ToString());
+                HttpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", Guid.NewGuid().ToString());
 
-            var response = await HttpClient.GetAsync(UriHelper.BuildOdsUri("dependencies", null, null, true));
+                var response = await HttpClient.GetAsync(UriHelper.BuildOdsUri("dependencies", null, null, true));
 
-            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+                response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
-            var xml = await response.Content.ReadAsStringAsync();
+                var xml = await response.Content.ReadAsStringAsync();
 
-            xml.ShouldNotBeNullOrWhiteSpace();
+                xml.ShouldNotBeNullOrWhiteSpace();
 
-            // fix for teamcity
-            Approvals.Verify(xml, s => s.Replace(@"\r\n", @"\n"));
+                // fix for teamcity
+                Approvals.Verify(xml, s => s.Replace(@"\r\n", @"\n"));
+            }
         }
     }
 }
