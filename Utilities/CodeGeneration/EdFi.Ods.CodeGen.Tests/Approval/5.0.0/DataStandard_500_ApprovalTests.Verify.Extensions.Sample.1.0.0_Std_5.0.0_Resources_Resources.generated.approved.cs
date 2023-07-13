@@ -1033,6 +1033,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="weeklyMileage")]
         public decimal? WeeklyMileage { get; set; }
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -1045,7 +1046,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
                 yield return "OperatingCost";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
@@ -2877,6 +2877,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
             }
         }
 
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -2885,7 +2886,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
                 yield return "OnBusRoute";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
@@ -3788,7 +3788,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ContactCeilingHeight : Entities.Common.Sample.IContactCeilingHeight
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class ContactCeilingHeight : Entities.Common.Sample.IContactCeilingHeight, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3832,13 +3833,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
         {
             _contactExtension = value;
         }
+        
+        private bool _ceilingHeightExplicitlyAssigned = false;
+        private decimal _ceilingHeight;
 
         /// <summary>
         /// The height of the ceiling in the rooms of the contact's home.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="ceilingHeight"), NaturalKeyMember]
-        public decimal CeilingHeight { get; set; }
+        public decimal CeilingHeight 
+        { 
+            get => _ceilingHeight;
+            set 
+            { 
+                _ceilingHeight = value;
+                _ceilingHeightExplicitlyAssigned = true; 
+            }
+        }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -3903,6 +3916,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
         //                          Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_ceilingHeightExplicitlyAssigned)
+            {
+                yield return "CeilingHeight";
+            }
+        }
 
         // =============================================================
         //                     One-to-one relationships
@@ -4726,6 +4747,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="rainCertainty")]
         public decimal? RainCertainty { get; set; }
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -4734,7 +4756,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
                 yield return "IsSportsFan";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
@@ -8094,6 +8115,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
             }
         }
 
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -8106,7 +8128,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
                 yield return "MinimumWeight";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
@@ -8219,7 +8240,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentAquaticPet : Entities.Common.Sample.IStudentAquaticPet
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class StudentAquaticPet : Entities.Common.Sample.IStudentAquaticPet, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -8263,13 +8285,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         {
             _studentExtension = value;
         }
+        
+        private bool _mimimumTankVolumeExplicitlyAssigned = false;
+        private int _mimimumTankVolume;
 
         /// <summary>
         /// The minimum tank volume this aquatic pet requires.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="mimimumTankVolume"), NaturalKeyMember]
-        public int MimimumTankVolume { get; set; }
+        public int MimimumTankVolume 
+        { 
+            get => _mimimumTankVolume;
+            set 
+            { 
+                _mimimumTankVolume = value;
+                _mimimumTankVolumeExplicitlyAssigned = true; 
+            }
+        }
+
 
         /// <summary>
         /// The pet's name.
@@ -8357,6 +8391,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         [DataMember(Name="isFixed")]
         public bool? IsFixed { get; set; }
         // -------------------------------------------------------------
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_mimimumTankVolumeExplicitlyAssigned)
+            {
+                yield return "MimimumTankVolume";
+            }
+        }
 
         // =============================================================
         //                     One-to-one relationships
@@ -9774,6 +9816,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             }
         }
 
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -9786,7 +9829,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
                 yield return "MinimumWeight";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
@@ -10445,6 +10487,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="programFees")]
         public decimal? ProgramFees { get; set; }
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -10453,7 +10496,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
                 yield return "PrivateArtProgram";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
@@ -11113,7 +11155,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentArtProgramAssociationPortfolioYears : Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class StudentArtProgramAssociationPortfolioYears : Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -11157,13 +11200,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         {
             _studentArtProgramAssociation = value;
         }
+        
+        private bool _portfolioYearsExplicitlyAssigned = false;
+        private short _portfolioYears;
 
         /// <summary>
         /// The of year(s) of work included in the student's portfolio.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="portfolioYears"), NaturalKeyMember]
-        public short PortfolioYears { get; set; }
+        public short PortfolioYears 
+        { 
+            get => _portfolioYears;
+            set 
+            { 
+                _portfolioYears = value;
+                _portfolioYearsExplicitlyAssigned = true; 
+            }
+        }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -11228,6 +11283,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         //                          Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_portfolioYearsExplicitlyAssigned)
+            {
+                yield return "PortfolioYears";
+            }
+        }
 
         // =============================================================
         //                     One-to-one relationships
@@ -12310,6 +12373,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="studentRead")]
         public short? StudentRead { get; set; }
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -12318,7 +12382,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
                 yield return "BedtimeReader";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
@@ -12968,7 +13031,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentContactAssociationHoursPerWeek : Entities.Common.Sample.IStudentContactAssociationHoursPerWeek
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class StudentContactAssociationHoursPerWeek : Entities.Common.Sample.IStudentContactAssociationHoursPerWeek, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -13012,13 +13076,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
         {
             _studentContactAssociationExtension = value;
         }
+        
+        private bool _hoursPerWeekExplicitlyAssigned = false;
+        private decimal _hoursPerWeek;
 
         /// <summary>
         /// Total number of hours per week a student and contact dedicates to reading.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="hoursPerWeek"), NaturalKeyMember]
-        public decimal HoursPerWeek { get; set; }
+        public decimal HoursPerWeek 
+        { 
+            get => _hoursPerWeek;
+            set 
+            { 
+                _hoursPerWeek = value;
+                _hoursPerWeekExplicitlyAssigned = true; 
+            }
+        }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -13083,6 +13159,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
         //                          Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_hoursPerWeekExplicitlyAssigned)
+            {
+                yield return "HoursPerWeek";
+            }
+        }
 
         // =============================================================
         //                     One-to-one relationships
@@ -13190,7 +13274,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentContactAssociationPagesRead : Entities.Common.Sample.IStudentContactAssociationPagesRead
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class StudentContactAssociationPagesRead : Entities.Common.Sample.IStudentContactAssociationPagesRead, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -13234,13 +13319,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
         {
             _studentContactAssociationExtension = value;
         }
+        
+        private bool _pagesReadExplicitlyAssigned = false;
+        private decimal _pagesRead;
 
         /// <summary>
         /// Total number of pages the contact has read the student.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="pagesRead"), NaturalKeyMember]
-        public decimal PagesRead { get; set; }
+        public decimal PagesRead 
+        { 
+            get => _pagesRead;
+            set 
+            { 
+                _pagesRead = value;
+                _pagesReadExplicitlyAssigned = true; 
+            }
+        }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -13305,6 +13402,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
         //                          Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_pagesReadExplicitlyAssigned)
+            {
+                yield return "PagesRead";
+            }
+        }
 
         // =============================================================
         //                     One-to-one relationships
@@ -14395,6 +14500,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             }
         }
 
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -14403,7 +14509,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
                 yield return "OnBusRoute";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
@@ -16122,6 +16227,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             }
         }
 
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -16134,7 +16240,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
                 yield return "TargetGPA";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
@@ -16929,7 +17034,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentGraduationPlanAssociationCareerPathwayCode : Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class StudentGraduationPlanAssociationCareerPathwayCode : Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -16973,13 +17079,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         {
             _studentGraduationPlanAssociation = value;
         }
+        
+        private bool _careerPathwayCodeExplicitlyAssigned = false;
+        private int _careerPathwayCode;
 
         /// <summary>
         /// The code representing the student's intended career pathway after graduation.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="careerPathwayCode"), NaturalKeyMember]
-        public int CareerPathwayCode { get; set; }
+        public int CareerPathwayCode 
+        { 
+            get => _careerPathwayCode;
+            set 
+            { 
+                _careerPathwayCode = value;
+                _careerPathwayCodeExplicitlyAssigned = true; 
+            }
+        }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -17044,6 +17162,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         //                          Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_careerPathwayCodeExplicitlyAssigned)
+            {
+                yield return "CareerPathwayCode";
+            }
+        }
 
         // =============================================================
         //                     One-to-one relationships
@@ -18487,7 +18613,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentGraduationPlanAssociationYearsAttended : Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended
+    [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
+    public class StudentGraduationPlanAssociationYearsAttended : Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended, IHasRequiredMembersWithMeaningfulDefaultValues
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -18531,13 +18658,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         {
             _studentGraduationPlanAssociation = value;
         }
+        
+        private bool _yearsAttendedExplicitlyAssigned = false;
+        private short _yearsAttended;
 
         /// <summary>
         /// The number of years the student will have attended high school by the time of graduation.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="yearsAttended"), NaturalKeyMember]
-        public short YearsAttended { get; set; }
+        public short YearsAttended 
+        { 
+            get => _yearsAttended;
+            set 
+            { 
+                _yearsAttended = value;
+                _yearsAttendedExplicitlyAssigned = true; 
+            }
+        }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -18602,6 +18741,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         //                          Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
+
+        IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
+        {
+            if (!_yearsAttendedExplicitlyAssigned)
+            {
+                yield return "YearsAttended";
+            }
+        }
 
         // =============================================================
         //                     One-to-one relationships

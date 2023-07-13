@@ -382,6 +382,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
             }
         }
 
+        // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
         {
@@ -390,7 +391,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
                 yield return "EstimatedMilesFromSchool";
             }
         }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
