@@ -52,9 +52,9 @@ namespace EdFi.Ods.Common.Configuration
         
         public CacheSettings Caching { get; set; } = new();
         
-        public string ConfigurationEncryptionPrivateKey { get; set; }
+        public string OdsConnectionStringEncryptionKey { get; set; }
 
-        public byte[] ConfigurationEncryptionPrivateKeyBytes() => Convert.FromBase64String(ConfigurationEncryptionPrivateKey);
+        public byte[] ConfigurationEncryptionPrivateKeyBytes() => Convert.FromBase64String(OdsConnectionStringEncryptionKey);
 
         public ReverseProxySettings GetReverseProxySettings()
         {
