@@ -170,7 +170,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             var dictionary = new Dictionary<string, JArray>();
 
-            var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.RootUrl == Address);
+            var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
 
             var subject = new GetAllTest(_resource, dictionary, configuration, tokenHandler);
             var result = await subject.PerformTest();
@@ -184,7 +184,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             var dictionary = new Dictionary<string, JArray> { [ResourceName] = _data };
 
-            var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.RootUrl == Address);
+            var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
             var subject = new GetAllSkipLimitTest(_resource, dictionary, configuration, tokenHandler);
             var result = await subject.PerformTest();
 
@@ -208,7 +208,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             var dictionary = new Dictionary<string, JArray> { [ResourceName] = _data };
 
-            var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.RootUrl == Address);
+            var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
             var subject = new GetByExampleTest(_resource, dictionary, configuration, tokenHandler);
             var result = await subject.PerformTest();
 

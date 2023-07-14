@@ -4,8 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.IO;
-using System.Text.RegularExpressions;
-using EdFi.Common.Configuration;
 using EdFi.LoadTools.Engine;
 using Microsoft.Extensions.Configuration;
 
@@ -19,8 +17,6 @@ namespace EdFi.XmlLookup.Console.Application
         private string _xsdFolder;
 
         public string ApiUrl { get; set; }
-
-        public string RootUrl { get; set; }
 
         public string OAuthKey { get; set; }
 
@@ -149,7 +145,6 @@ namespace EdFi.XmlLookup.Console.Application
                 XsdFolder = configuration.GetValue("Folders:Xsd", currentDirectory),
                 MaxSimultaneousRequests = configuration.GetValue("Concurrency:MaxSimultaneousApiRequests", 500),
                 ApiUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:ApiUrl")),
-                RootUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:ApiUrl")),
                 MetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:MetadataUrl")),
                 XsdMetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:XsdMetadataUrl")),
                 OAuthUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:OAuthUrl"))

@@ -6,9 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using EdFi.Common.Configuration;
 using EdFi.LoadTools;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest;
@@ -20,8 +17,6 @@ namespace EdFi.SmokeTest.Console.Application
         IOAuthSessionToken, ISdkLibraryConfiguration, IDestructiveTestConfiguration
     {
         public string ApiUrl { get; set; }
-
-        public string RootUrl { get; set; }
 
         public string OAuthKey { get; set; }
 
@@ -124,7 +119,6 @@ namespace EdFi.SmokeTest.Console.Application
             return new SmokeTestsConfiguration
             {
                 ApiUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:ApiUrl")),
-                RootUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:Url")),
                 MetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:MetadataUrl")),
                 XsdMetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:XsdMetadataUrl")),
                 DependenciesUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:DependenciesUrl")),
