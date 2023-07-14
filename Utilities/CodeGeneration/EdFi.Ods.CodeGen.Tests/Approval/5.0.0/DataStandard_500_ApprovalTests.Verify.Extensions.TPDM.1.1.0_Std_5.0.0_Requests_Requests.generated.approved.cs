@@ -178,7 +178,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.CandidateEducatorPreparationP
     {
         public DateTime BeginDate { get; set; }
         public string CandidateIdentifier { get; set; }
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
         public DateTime EndDate { get; set; }
         public string EPPProgramPathwayDescriptor { get; set; }
         public Guid Id { get; set; }
@@ -369,7 +369,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EducatorPreparationPrograms
     public class EducatorPreparationProgramGetByExample
     {
         public string AccreditationStatusDescriptor { get; set; }
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
         public Guid Id { get; set; }
         public string ProgramId { get; set; }
         public string ProgramName { get; set; }
@@ -557,7 +557,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.Evaluations
     [ExcludeFromCodeCoverage]
     public class EvaluationGetByExample
     {
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
         public string EvaluationDescription { get; set; }
         public string EvaluationPeriodDescriptor { get; set; }
         public string EvaluationTitle { get; set; }
@@ -615,7 +615,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationElements
     [ExcludeFromCodeCoverage]
     public class EvaluationElementGetByExample
     {
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
         public string EvaluationElementTitle { get; set; }
         public string EvaluationObjectiveTitle { get; set; }
         public string EvaluationPeriodDescriptor { get; set; }
@@ -677,7 +677,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationElementRatings
         public string AreaOfRefinement { get; set; }
         public string AreaOfReinforcement { get; set; }
         public string Comments { get; set; }
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
         public DateTime EvaluationDate { get; set; }
         public string EvaluationElementRatingLevelDescriptor { get; set; }
         public string EvaluationElementTitle { get; set; }
@@ -783,7 +783,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationObjectives
     [ExcludeFromCodeCoverage]
     public class EvaluationObjectiveGetByExample
     {
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
         public string EvaluationObjectiveDescription { get; set; }
         public string EvaluationObjectiveTitle { get; set; }
         public string EvaluationPeriodDescriptor { get; set; }
@@ -843,7 +843,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationObjectiveRatings
     public class EvaluationObjectiveRatingGetByExample
     {
         public string Comments { get; set; }
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
         public DateTime EvaluationDate { get; set; }
         public string EvaluationObjectiveTitle { get; set; }
         public string EvaluationPeriodDescriptor { get; set; }
@@ -947,7 +947,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationRatings
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingGetByExample
     {
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
         public DateTime EvaluationDate { get; set; }
         public string EvaluationPeriodDescriptor { get; set; }
         public string EvaluationRatingLevelDescriptor { get; set; }
@@ -958,7 +958,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationRatings
         public string PerformanceEvaluationTitle { get; set; }
         public string PerformanceEvaluationTypeDescriptor { get; set; }
         public string PersonId { get; set; }
-        public int SchoolId { get; set; }
+        public long SchoolId { get; set; }
         public short SchoolYear { get; set; }
         public string SectionIdentifier { get; set; }
         public string SessionName { get; set; }
@@ -1293,7 +1293,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.PerformanceEvaluations
     public class PerformanceEvaluationGetByExample
     {
         public string AcademicSubjectDescriptor { get; set; }
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
         public string EvaluationPeriodDescriptor { get; set; }
         public Guid Id { get; set; }
         public string PerformanceEvaluationDescription { get; set; }
@@ -1352,7 +1352,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.PerformanceEvaluationRatings
         public bool Announced { get; set; }
         public string Comments { get; set; }
         public string CoteachingStyleObservedDescriptor { get; set; }
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
         public string EvaluationPeriodDescriptor { get; set; }
         public Guid Id { get; set; }
         public string PerformanceEvaluationRatingLevelDescriptor { get; set; }
@@ -1502,7 +1502,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.RubricDimensions
     {
         public string CriterionDescription { get; set; }
         public int DimensionOrder { get; set; }
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
         public string EvaluationElementTitle { get; set; }
         public string EvaluationObjectiveTitle { get; set; }
         public string EvaluationPeriodDescriptor { get; set; }

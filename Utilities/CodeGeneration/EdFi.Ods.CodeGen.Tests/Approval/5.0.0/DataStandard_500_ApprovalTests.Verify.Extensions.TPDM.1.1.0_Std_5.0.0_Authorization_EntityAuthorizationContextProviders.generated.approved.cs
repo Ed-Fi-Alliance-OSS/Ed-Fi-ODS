@@ -42,7 +42,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.TPDM
             var entity = resource as CandidateEducatorPreparationProgramAssociation;
 
             dynamic contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return (TContextData) contextData;
         }
 
@@ -86,7 +86,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.TPDM
             var entity = resource as EducatorPreparationProgram;
 
             dynamic contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return (TContextData) contextData;
         }
 
@@ -130,7 +130,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.TPDM
             var entity = resource as Evaluation;
 
             dynamic contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return (TContextData) contextData;
         }
 
@@ -174,7 +174,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.TPDM
             var entity = resource as EvaluationElement;
 
             dynamic contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return (TContextData) contextData;
         }
 
@@ -218,7 +218,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.TPDM
             var entity = resource as EvaluationElementRating;
 
             dynamic contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return (TContextData) contextData;
         }
 
@@ -262,7 +262,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.TPDM
             var entity = resource as EvaluationObjective;
 
             dynamic contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return (TContextData) contextData;
         }
 
@@ -306,7 +306,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.TPDM
             var entity = resource as EvaluationObjectiveRating;
 
             dynamic contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return (TContextData) contextData;
         }
 
@@ -350,7 +350,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.TPDM
             var entity = resource as EvaluationRating;
 
             dynamic contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // SchoolId = entity.SchoolId, // Not part of primary key
             return (TContextData) contextData;
         }
@@ -440,7 +440,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.TPDM
             var entity = resource as PerformanceEvaluation;
 
             dynamic contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return (TContextData) contextData;
         }
 
@@ -484,7 +484,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.TPDM
             var entity = resource as PerformanceEvaluationRating;
 
             dynamic contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return (TContextData) contextData;
         }
 
@@ -528,7 +528,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.TPDM
             var entity = resource as RubricDimension;
 
             dynamic contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return (TContextData) contextData;
         }
 

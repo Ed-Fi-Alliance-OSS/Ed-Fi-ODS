@@ -3900,7 +3900,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         // -------------------------------------------------------------
         public virtual DateTime BeginDate { get; set; }
         public virtual string CandidateIdentifier { get; set; }
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         public virtual string ProgramName { get; set; }
         public virtual int ProgramTypeDescriptorId { get; set; }
         // -------------------------------------------------------------
@@ -4011,7 +4011,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         [DomainSignature, RequiredWithNonDefault, StringLength(32, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string CandidateIdentifier  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
+        public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(255, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string ProgramName  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
@@ -5230,7 +5230,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         }
 
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
+        public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual short SchoolYear  { get; set; }
         [Display(Name="StudentUniqueId")]
@@ -6020,7 +6020,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         public virtual string ProgramName { get; set; }
         public virtual int ProgramTypeDescriptorId { get; set; }
         // -------------------------------------------------------------
@@ -6116,7 +6116,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
+        public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(255, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string ProgramName  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
@@ -7143,7 +7143,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         public virtual int EvaluationPeriodDescriptorId { get; set; }
         public virtual string EvaluationTitle { get; set; }
         public virtual string PerformanceEvaluationTitle { get; set; }
@@ -7247,7 +7247,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
+        public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EvaluationPeriodDescriptorId 
         {
@@ -7813,7 +7813,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         public virtual string EvaluationElementTitle { get; set; }
         public virtual string EvaluationObjectiveTitle { get; set; }
         public virtual int EvaluationPeriodDescriptorId { get; set; }
@@ -7921,7 +7921,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
+        public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(255, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string EvaluationElementTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=1), NoDangerousText, NoWhitespace]
@@ -8491,7 +8491,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         public virtual DateTime EvaluationDate { get; set; }
         public virtual string EvaluationElementTitle { get; set; }
         public virtual string EvaluationObjectiveTitle { get; set; }
@@ -8605,7 +8605,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
+        public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual DateTime EvaluationDate 
         {
@@ -9444,7 +9444,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         public virtual string EvaluationObjectiveTitle { get; set; }
         public virtual int EvaluationPeriodDescriptorId { get; set; }
         public virtual string EvaluationTitle { get; set; }
@@ -9550,7 +9550,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
+        public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string EvaluationObjectiveTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
@@ -10119,7 +10119,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         public virtual DateTime EvaluationDate { get; set; }
         public virtual string EvaluationObjectiveTitle { get; set; }
         public virtual int EvaluationPeriodDescriptorId { get; set; }
@@ -10231,7 +10231,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
+        public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual DateTime EvaluationDate 
         {
@@ -11061,7 +11061,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         public virtual DateTime EvaluationDate { get; set; }
         public virtual int EvaluationPeriodDescriptorId { get; set; }
         public virtual string EvaluationTitle { get; set; }
@@ -11172,7 +11172,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
+        public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual DateTime EvaluationDate 
         {
@@ -11420,7 +11420,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         }
         [StringLength(60, MinimumLength=1), NoDangerousText]
         public virtual string LocalCourseCode  { get; set; }
-        public virtual int? SchoolId  { get; set; }
+        public virtual long? SchoolId  { get; set; }
         [StringLength(255, MinimumLength=1), NoDangerousText]
         public virtual string SectionIdentifier  { get; set; }
         [StringLength(60, MinimumLength=1), NoDangerousText]
@@ -13665,7 +13665,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         public virtual int EvaluationPeriodDescriptorId { get; set; }
         public virtual string PerformanceEvaluationTitle { get; set; }
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
@@ -13768,7 +13768,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
+        public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EvaluationPeriodDescriptorId 
         {
@@ -14581,7 +14581,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         public virtual int EvaluationPeriodDescriptorId { get; set; }
         public virtual string PerformanceEvaluationTitle { get; set; }
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
@@ -14688,7 +14688,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
+        public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EvaluationPeriodDescriptorId 
         {
@@ -16255,7 +16255,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         public virtual string EvaluationElementTitle { get; set; }
         public virtual string EvaluationObjectiveTitle { get; set; }
         public virtual int EvaluationPeriodDescriptorId { get; set; }
@@ -16364,7 +16364,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
+        public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(255, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string EvaluationElementTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=1), NoDangerousText, NoWhitespace]
@@ -16904,7 +16904,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        public virtual int? PostSecondaryInstitutionId  { get; set; }
+        public virtual long? PostSecondaryInstitutionId  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================

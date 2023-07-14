@@ -80,7 +80,7 @@
     <property name="BusRouteDuration" column="BusRouteDuration" type="int" />
     <property name="Daily" column="Daily" type="bool" />
     <property name="DisabilityDescriptorId" column="DisabilityDescriptorId" type="int" />
-    <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+    <property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
     <property name="ExpectedTransitTime" column="ExpectedTransitTime" type="string" length="30" not-null="true" />
     <property name="HoursPerWeek" column="HoursPerWeek" type="decimal" not-null="true" />
     <property name="OperatingCost" column="OperatingCost" type="Currency" not-null="true" />
@@ -174,7 +174,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample.BusRouteProgram" table="BusRouteProgram" lazy="false" schema="sample">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="ProgramName" column="ProgramName" type="string" length="60" />
       <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" />
       <key-many-to-one name="BusRoute">
@@ -470,8 +470,8 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
-      <key-property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
+      <key-property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="long" />
       <key-property name="ProgramName" column="ProgramName" type="string" length="60" />
       <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
@@ -1102,7 +1102,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample.StudentContactAssociationStaffEducationOrganizationEmploymentAssociation" table="StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d" lazy="false" schema="sample">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="EmploymentStatusDescriptorId" column="EmploymentStatusDescriptorId" type="int" />
       <key-property name="HireDate" column="HireDate" type="date" />
       <key-property name="StaffUSI" column="StaffUSI" type="int" />
@@ -1179,7 +1179,7 @@
     <property name="BedtimeReadingRate" column="BedtimeReadingRate" type="decimal" />
     <property name="BookBudget" column="BookBudget" type="Currency" />
     <property name="BooksBorrowed" column="BooksBorrowed" type="int" />
-    <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+    <property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
     <property name="InterventionStudyIdentificationCode" column="InterventionStudyIdentificationCode" type="string" length="60" />
     <property name="LibraryDuration" column="LibraryDuration" type="int" />
     <property name="LibraryTime" column="LibraryTime" type="TimeAsTimeSpan" />
@@ -1354,7 +1354,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationReferenceData" table="StudentGraduationPlanAssociation" lazy="true"  schema="sample" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="GraduationPlanTypeDescriptorId" column="GraduationPlanTypeDescriptorId" type="int"  />
             <key-property name="GraduationSchoolYear" column="GraduationSchoolYear" type="short"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
@@ -1370,7 +1370,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociation" table="StudentGraduationPlanAssociation" lazy="false" schema="sample" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="GraduationPlanTypeDescriptorId" column="GraduationPlanTypeDescriptorId" type="int" />
       <key-property name="GraduationSchoolYear" column="GraduationSchoolYear" type="short" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
@@ -1754,8 +1754,8 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="RelatedBeginDate" column="RelatedBeginDate" type="date" />
-      <key-property name="RelatedEducationOrganizationId" column="RelatedEducationOrganizationId" type="int" />
-      <key-property name="RelatedProgramEducationOrganizationId" column="RelatedProgramEducationOrganizationId" type="int" />
+      <key-property name="RelatedEducationOrganizationId" column="RelatedEducationOrganizationId" type="long" />
+      <key-property name="RelatedProgramEducationOrganizationId" column="RelatedProgramEducationOrganizationId" type="long" />
       <key-property name="RelatedProgramName" column="RelatedProgramName" type="string" length="60" />
       <key-property name="RelatedProgramTypeDescriptorId" column="RelatedProgramTypeDescriptorId" type="int" />
       <key-many-to-one name="StudentSectionAssociation">

@@ -895,7 +895,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int? Entities.Common.Sample.IBusRoute.EducationOrganizationId
+        long? Entities.Common.Sample.IBusRoute.EducationOrganizationId
         {
             get
             {
@@ -905,7 +905,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
                         return ImplicitStaffEducationOrganizationAssignmentAssociationReference.EducationOrganizationId;
                     }
 
-                return default(int?);
+                return default(long?);
             }
             set
             {
@@ -1772,7 +1772,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.Sample.IBusRouteProgram.EducationOrganizationId
+        long Entities.Common.Sample.IBusRouteProgram.EducationOrganizationId
         {
             get
             {
@@ -1780,7 +1780,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
                     && (_SuspendReferenceAssignmentCheck || ImplicitProgramReference.IsReferenceFullyDefined()))
                     return ImplicitProgramReference.EducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -5510,7 +5510,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.Sample.IContactStudentProgramAssociation.EducationOrganizationId
+        long Entities.Common.Sample.IContactStudentProgramAssociation.EducationOrganizationId
         {
             get
             {
@@ -5518,7 +5518,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
                     && (_SuspendReferenceAssignmentCheck || ImplicitStudentProgramAssociationReference.IsReferenceFullyDefined()))
                     return ImplicitStudentProgramAssociationReference.EducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -5535,7 +5535,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.Sample.IContactStudentProgramAssociation.ProgramEducationOrganizationId
+        long Entities.Common.Sample.IContactStudentProgramAssociation.ProgramEducationOrganizationId
         {
             get
             {
@@ -5543,7 +5543,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
                     && (_SuspendReferenceAssignmentCheck || ImplicitStudentProgramAssociationReference.IsReferenceFullyDefined()))
                     return ImplicitStudentProgramAssociationReference.ProgramEducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -9947,10 +9947,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         public DateTime BeginDate { get; set; }
 
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
 
         [DataMember(Name="programEducationOrganizationId"), NaturalKeyMember]
-        public int ProgramEducationOrganizationId { get; set; }
+        public long ProgramEducationOrganizationId { get; set; }
 
         [DataMember(Name="programName"), NaturalKeyMember]
         public string ProgramName { get; set; }
@@ -9991,7 +9991,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// <returns><b>true</b> if the reference's properties are all set to non-default values; otherwise <b>false</b>.</returns>
         public bool IsReferenceFullyDefined()
         {
-            return BeginDate != default(DateTime) && EducationOrganizationId != default(int) && ProgramEducationOrganizationId != default(int) && ProgramName != default(string) && ProgramTypeDescriptor != default(string) && StudentUniqueId != default(string);
+            return BeginDate != default(DateTime) && EducationOrganizationId != default(long) && ProgramEducationOrganizationId != default(long) && ProgramName != default(string) && ProgramTypeDescriptor != default(string) && StudentUniqueId != default(string);
         }
 
         private Link CreateLink()
@@ -10164,7 +10164,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.EdFi.IGeneralStudentProgramAssociation.EducationOrganizationId
+        long Entities.Common.EdFi.IGeneralStudentProgramAssociation.EducationOrganizationId
         {
             get
             {
@@ -10172,7 +10172,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
                     && (_SuspendReferenceAssignmentCheck || ImplicitEducationOrganizationReference.IsReferenceFullyDefined()))
                     return ImplicitEducationOrganizationReference.EducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -10189,7 +10189,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.EdFi.IGeneralStudentProgramAssociation.ProgramEducationOrganizationId
+        long Entities.Common.EdFi.IGeneralStudentProgramAssociation.ProgramEducationOrganizationId
         {
             get
             {
@@ -10197,7 +10197,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
                     && (_SuspendReferenceAssignmentCheck || ImplicitProgramReference.IsReferenceFullyDefined()))
                     return ImplicitProgramReference.EducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -12275,7 +12275,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int? Entities.Common.Sample.IStudentContactAssociationExtension.EducationOrganizationId
+        long? Entities.Common.Sample.IStudentContactAssociationExtension.EducationOrganizationId
         {
             get
             {
@@ -12285,7 +12285,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
                         return ImplicitInterventionStudyReference.EducationOrganizationId;
                     }
 
-                return default(int?);
+                return default(long?);
             }
             set
             {
@@ -13599,7 +13599,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.Sample.IStudentContactAssociationStaffEducationOrganizationEmploymentAssociation.EducationOrganizationId
+        long Entities.Common.Sample.IStudentContactAssociationStaffEducationOrganizationEmploymentAssociation.EducationOrganizationId
         {
             get
             {
@@ -13607,7 +13607,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
                     && (_SuspendReferenceAssignmentCheck || ImplicitStaffEducationOrganizationEmploymentAssociationReference.IsReferenceFullyDefined()))
                     return ImplicitStaffEducationOrganizationEmploymentAssociationReference.EducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -15717,7 +15717,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     public class StudentGraduationPlanAssociationReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
 
         [DataMember(Name="graduationPlanTypeDescriptor"), NaturalKeyMember]
         public string GraduationPlanTypeDescriptor { get; set; }
@@ -15764,7 +15764,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// <returns><b>true</b> if the reference's properties are all set to non-default values; otherwise <b>false</b>.</returns>
         public bool IsReferenceFullyDefined()
         {
-            return EducationOrganizationId != default(int) && GraduationPlanTypeDescriptor != default(string) && GraduationSchoolYear != default(short) && StudentUniqueId != default(string);
+            return EducationOrganizationId != default(long) && GraduationPlanTypeDescriptor != default(string) && GraduationSchoolYear != default(short) && StudentUniqueId != default(string);
         }
 
         private Link CreateLink()
@@ -15949,7 +15949,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.Sample.IStudentGraduationPlanAssociation.EducationOrganizationId
+        long Entities.Common.Sample.IStudentGraduationPlanAssociation.EducationOrganizationId
         {
             get
             {
@@ -15957,7 +15957,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
                     && (_SuspendReferenceAssignmentCheck || ImplicitGraduationPlanReference.IsReferenceFullyDefined()))
                     return ImplicitGraduationPlanReference.EducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -19398,10 +19398,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         public DateTime BeginDate { get; set; }
 
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
 
         [DataMember(Name="programEducationOrganizationId"), NaturalKeyMember]
-        public int ProgramEducationOrganizationId { get; set; }
+        public long ProgramEducationOrganizationId { get; set; }
 
         [DataMember(Name="programName"), NaturalKeyMember]
         public string ProgramName { get; set; }
@@ -19449,8 +19449,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         public bool IsReferenceFullyDefined()
         {
             return BeginDate != default(DateTime)
-                && EducationOrganizationId != default(int)
-                && ProgramEducationOrganizationId != default(int)
+                && EducationOrganizationId != default(long)
+                && ProgramEducationOrganizationId != default(long)
                 && ProgramName != default(string)
                 && ProgramTypeDescriptor != default(string)
                 ;
@@ -19606,7 +19606,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation.RelatedEducationOrganizationId
+        long Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation.RelatedEducationOrganizationId
         {
             get
             {
@@ -19614,7 +19614,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
                     && (_SuspendReferenceAssignmentCheck || ImplicitRelatedGeneralStudentProgramAssociationReference.IsReferenceFullyDefined()))
                     return ImplicitRelatedGeneralStudentProgramAssociationReference.EducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -19631,7 +19631,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation.RelatedProgramEducationOrganizationId
+        long Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation.RelatedProgramEducationOrganizationId
         {
             get
             {
@@ -19639,7 +19639,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
                     && (_SuspendReferenceAssignmentCheck || ImplicitRelatedGeneralStudentProgramAssociationReference.IsReferenceFullyDefined()))
                     return ImplicitRelatedGeneralStudentProgramAssociationReference.ProgramEducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {

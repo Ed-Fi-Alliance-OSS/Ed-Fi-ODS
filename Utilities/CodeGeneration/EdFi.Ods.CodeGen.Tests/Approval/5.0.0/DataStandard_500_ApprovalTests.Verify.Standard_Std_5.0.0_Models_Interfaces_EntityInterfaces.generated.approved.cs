@@ -247,7 +247,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         string WeekIdentifier { get; set; }
 
@@ -393,7 +393,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string RatingTitle { get; set; }
         [NaturalKeyMember]
@@ -1016,7 +1016,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string AssessmentForm { get; set; }
         string AssessmentTitle { get; set; }
         int? AssessmentVersion { get; set; }
-        int? EducationOrganizationId { get; set; }
+        long? EducationOrganizationId { get; set; }
         decimal? MaxRawScore { get; set; }
         string Nomenclature { get; set; }
         DateTime? RevisionDate { get; set; }
@@ -1398,7 +1398,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Non-PK properties
         DateTime? BeginDate { get; set; }
         DateTime? EndDate { get; set; }
-        int? MandatingEducationOrganizationId { get; set; }
+        long? MandatingEducationOrganizationId { get; set; }
         DateTime? PublicationDate { get; set; }
         string PublicationStatusDescriptor { get; set; }
         short? PublicationYear { get; set; }
@@ -2394,7 +2394,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         IAssessment Assessment { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string ProgramName { get; set; }
         [NaturalKeyMember]
@@ -2741,7 +2741,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string LocalCourseCode { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
         [NaturalKeyMember]
@@ -3297,7 +3297,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string BellScheduleName { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
 
         // Non-PK properties
         string AlternateDayName { get; set; }
@@ -3555,7 +3555,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string CalendarCode { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
 
@@ -3627,7 +3627,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         DateTime Date { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
 
@@ -4173,7 +4173,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string AccountIdentifier { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         int FiscalYear { get; set; }
 
@@ -4446,7 +4446,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string ClassPeriodName { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
 
         // Non-PK properties
         bool? OfficialAttendancePeriod { get; set; }
@@ -4642,7 +4642,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string CohortIdentifier { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
 
         // Non-PK properties
         string AcademicSubjectDescriptor { get; set; }
@@ -4728,7 +4728,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         ICohort Cohort { get; set; }
         [NaturalKeyMember]
-        int ProgramEducationOrganizationId { get; set; }
+        long ProgramEducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string ProgramName { get; set; }
         [NaturalKeyMember]
@@ -5011,7 +5011,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int CommunityOrganizationId { get; set; }
+        long CommunityOrganizationId { get; set; }
 
         // Non-PK properties
 
@@ -5128,10 +5128,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int CommunityProviderId { get; set; }
+        long CommunityProviderId { get; set; }
 
         // Non-PK properties
-        int? CommunityOrganizationId { get; set; }
+        long? CommunityOrganizationId { get; set; }
         bool? LicenseExemptIndicator { get; set; }
         string ProviderCategoryDescriptor { get; set; }
         string ProviderProfitabilityDescriptor { get; set; }
@@ -5282,7 +5282,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int CommunityProviderId { get; set; }
+        long CommunityProviderId { get; set; }
         [NaturalKeyMember]
         string LicenseIdentifier { get; set; }
         [NaturalKeyMember]
@@ -5460,7 +5460,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string Objective { get; set; }
         [NaturalKeyMember]
@@ -6807,7 +6807,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string CourseCode { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
 
         // Non-PK properties
         string AcademicSubjectDescriptor { get; set; }
@@ -7662,7 +7662,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string LocalCourseCode { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
         [NaturalKeyMember]
@@ -7670,7 +7670,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Non-PK properties
         string CourseCode { get; set; }
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         int? InstructionalTimePlanned { get; set; }
         string LocalCourseTitle { get; set; }
 
@@ -8004,9 +8004,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string CourseCode { get; set; }
         [NaturalKeyMember]
-        int CourseEducationOrganizationId { get; set; }
+        long CourseEducationOrganizationId { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
         [NaturalKeyMember]
@@ -8026,7 +8026,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         decimal? EarnedCreditConversion { get; set; }
         decimal? EarnedCredits { get; set; }
         string EarnedCreditTypeDescriptor { get; set; }
-        int? ExternalEducationOrganizationId { get; set; }
+        long? ExternalEducationOrganizationId { get; set; }
         string ExternalEducationOrganizationNameOfInstitution { get; set; }
         string FinalLetterGradeEarned { get; set; }
         decimal? FinalNumericGradeEarned { get; set; }
@@ -9990,12 +9990,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Non-PK properties
         decimal? ActualDisciplineActionLength { get; set; }
-        int? AssignmentSchoolId { get; set; }
+        long? AssignmentSchoolId { get; set; }
         decimal? DisciplineActionLength { get; set; }
         string DisciplineActionLengthDifferenceReasonDescriptor { get; set; }
         bool? IEPPlacementMeetingIndicator { get; set; }
         bool? RelatedToZeroTolerancePolicy { get; set; }
-        int ResponsibilitySchoolId { get; set; }
+        long ResponsibilitySchoolId { get; set; }
 
         // One-to-one relationships
 
@@ -10294,7 +10294,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string IncidentIdentifier { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
 
         // Non-PK properties
 
@@ -10423,7 +10423,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string IncidentIdentifier { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
 
         // Non-PK properties
         string CaseNumber { get; set; }
@@ -11438,7 +11438,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
 
         // Non-PK properties
         string NameOfInstitution { get; set; }
@@ -12375,9 +12375,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
-        int InterventionPrescriptionEducationOrganizationId { get; set; }
+        long InterventionPrescriptionEducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string InterventionPrescriptionIdentificationCode { get; set; }
 
@@ -12444,7 +12444,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationNetworkId { get; set; }
+        long EducationOrganizationNetworkId { get; set; }
 
         // Non-PK properties
         string NetworkPurposeDescriptor { get; set; }
@@ -12567,9 +12567,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationNetworkId { get; set; }
+        long EducationOrganizationNetworkId { get; set; }
         [NaturalKeyMember]
-        int MemberEducationOrganizationId { get; set; }
+        long MemberEducationOrganizationId { get; set; }
 
         // Non-PK properties
         DateTime? BeginDate { get; set; }
@@ -12633,9 +12633,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
-        int PeerEducationOrganizationId { get; set; }
+        long PeerEducationOrganizationId { get; set; }
 
         // Non-PK properties
 
@@ -12764,10 +12764,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationServiceCenterId { get; set; }
+        long EducationServiceCenterId { get; set; }
 
         // Non-PK properties
-        int? StateEducationAgencyId { get; set; }
+        long? StateEducationAgencyId { get; set; }
 
         // One-to-one relationships
 
@@ -13650,9 +13650,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         DateTime BeginDate { get; set; }
         [NaturalKeyMember]
-        int FeederSchoolId { get; set; }
+        long FeederSchoolId { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
 
         // Non-PK properties
         DateTime? EndDate { get; set; }
@@ -14027,9 +14027,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         DateTime BeginDate { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
-        int ProgramEducationOrganizationId { get; set; }
+        long ProgramEducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string ProgramName { get; set; }
         [NaturalKeyMember]
@@ -14186,7 +14186,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string LocalCourseCode { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
         [NaturalKeyMember]
@@ -14312,7 +14312,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string LocalCourseCode { get; set; }
         decimal? MaxPoints { get; set; }
         int? PeriodSequence { get; set; }
-        int? SchoolId { get; set; }
+        long? SchoolId { get; set; }
         short? SchoolYear { get; set; }
         string SectionIdentifier { get; set; }
         string SessionName { get; set; }
@@ -14890,7 +14890,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         int PeriodSequence { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
 
@@ -15037,7 +15037,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string GraduationPlanTypeDescriptor { get; set; }
         [NaturalKeyMember]
@@ -15241,7 +15241,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string CourseCode { get; set; }
         [NaturalKeyMember]
-        int CourseEducationOrganizationId { get; set; }
+        long CourseEducationOrganizationId { get; set; }
 
         // Non-PK properties
 
@@ -16795,7 +16795,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string InterventionIdentificationCode { get; set; }
 
@@ -17340,7 +17340,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         IIntervention Intervention { get; set; }
         [NaturalKeyMember]
-        int InterventionPrescriptionEducationOrganizationId { get; set; }
+        long InterventionPrescriptionEducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string InterventionPrescriptionIdentificationCode { get; set; }
 
@@ -17548,7 +17548,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string InterventionPrescriptionIdentificationCode { get; set; }
 
@@ -18106,14 +18106,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string InterventionStudyIdentificationCode { get; set; }
 
         // Non-PK properties
         string DeliveryMethodDescriptor { get; set; }
         string InterventionClassDescriptor { get; set; }
-        int InterventionPrescriptionEducationOrganizationId { get; set; }
+        long InterventionPrescriptionEducationOrganizationId { get; set; }
         string InterventionPrescriptionIdentificationCode { get; set; }
         int Participants { get; set; }
 
@@ -19239,7 +19239,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Non-PK properties
         DateTime? BeginDate { get; set; }
         DateTime? EndDate { get; set; }
-        int? MandatingEducationOrganizationId { get; set; }
+        long? MandatingEducationOrganizationId { get; set; }
         DateTime? PublicationDate { get; set; }
         string PublicationStatusDescriptor { get; set; }
         short? PublicationYear { get; set; }
@@ -20036,13 +20036,13 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string AccountIdentifier { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         int FiscalYear { get; set; }
 
         // Non-PK properties
         string AccountName { get; set; }
-        int ChartOfAccountEducationOrganizationId { get; set; }
+        long ChartOfAccountEducationOrganizationId { get; set; }
         string ChartOfAccountIdentifier { get; set; }
 
         // One-to-one relationships
@@ -20179,7 +20179,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         DateTime AsOfDate { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         int FiscalYear { get; set; }
 
@@ -20248,7 +20248,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         DateTime AsOfDate { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         int FiscalYear { get; set; }
 
@@ -20317,7 +20317,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         DateTime AsOfDate { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         int FiscalYear { get; set; }
         [NaturalKeyMember]
@@ -20462,14 +20462,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int LocalEducationAgencyId { get; set; }
+        long LocalEducationAgencyId { get; set; }
 
         // Non-PK properties
         string CharterStatusDescriptor { get; set; }
-        int? EducationServiceCenterId { get; set; }
+        long? EducationServiceCenterId { get; set; }
         string LocalEducationAgencyCategoryDescriptor { get; set; }
-        int? ParentLocalEducationAgencyId { get; set; }
-        int? StateEducationAgencyId { get; set; }
+        long? ParentLocalEducationAgencyId { get; set; }
+        long? StateEducationAgencyId { get; set; }
 
         // One-to-one relationships
 
@@ -20873,7 +20873,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         DateTime AsOfDate { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         int FiscalYear { get; set; }
 
@@ -20942,7 +20942,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         DateTime AsOfDate { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         int FiscalYear { get; set; }
         [NaturalKeyMember]
@@ -21013,7 +21013,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string ClassroomIdentificationCode { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
 
         // Non-PK properties
         int? MaximumNumberOfSeats { get; set; }
@@ -22257,7 +22257,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string RequisitionNumber { get; set; }
 
@@ -22665,11 +22665,11 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int OrganizationDepartmentId { get; set; }
+        long OrganizationDepartmentId { get; set; }
 
         // Non-PK properties
         string AcademicSubjectDescriptor { get; set; }
-        int? ParentEducationOrganizationId { get; set; }
+        long? ParentEducationOrganizationId { get; set; }
 
         // One-to-one relationships
 
@@ -23538,7 +23538,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string StudentUniqueId { get; set; }
 
         // Non-PK properties
-        int? PostSecondaryInstitutionId { get; set; }
+        long? PostSecondaryInstitutionId { get; set; }
 
         // One-to-one relationships
 
@@ -23669,7 +23669,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int PostSecondaryInstitutionId { get; set; }
+        long PostSecondaryInstitutionId { get; set; }
 
         // Non-PK properties
         string AdministrativeFundingControlDescriptor { get; set; }
@@ -24238,7 +24238,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string ProgramName { get; set; }
         [NaturalKeyMember]
@@ -26007,11 +26007,11 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string GradingPeriodDescriptor { get; set; }
         [NaturalKeyMember]
-        int GradingPeriodSchoolId { get; set; }
+        long GradingPeriodSchoolId { get; set; }
         [NaturalKeyMember]
         short GradingPeriodSchoolYear { get; set; }
         [NaturalKeyMember]
@@ -26125,7 +26125,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string LocalCourseCode { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
         [NaturalKeyMember]
@@ -26255,7 +26255,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string Objective { get; set; }
         [NaturalKeyMember]
-        int ObjectiveEducationOrganizationId { get; set; }
+        long ObjectiveEducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string ObjectiveGradeLevelDescriptor { get; set; }
 
@@ -26690,7 +26690,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string RestraintEventIdentifier { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         string StudentUniqueId { get; set; }
 
@@ -26776,7 +26776,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         IRestraintEvent RestraintEvent { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string ProgramName { get; set; }
         [NaturalKeyMember]
@@ -27110,7 +27110,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
 
         // Non-PK properties
         string AdministrativeFundingControlDescriptor { get; set; }
@@ -27118,7 +27118,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         short? CharterApprovalSchoolYear { get; set; }
         string CharterStatusDescriptor { get; set; }
         string InternetAccessDescriptor { get; set; }
-        int? LocalEducationAgencyId { get; set; }
+        long? LocalEducationAgencyId { get; set; }
         string MagnetSpecialProgramEmphasisSchoolDescriptor { get; set; }
         string SchoolTypeDescriptor { get; set; }
         string TitleIPartASchoolDesignationDescriptor { get; set; }
@@ -27846,7 +27846,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string LocalCourseCode { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
         [NaturalKeyMember]
@@ -27861,7 +27861,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string EducationalEnvironmentDescriptor { get; set; }
         string InstructionLanguageDescriptor { get; set; }
         string LocationClassroomIdentificationCode { get; set; }
-        int? LocationSchoolId { get; set; }
+        long? LocationSchoolId { get; set; }
         string MediumOfInstructionDescriptor { get; set; }
         bool? OfficialAttendancePeriod { get; set; }
         string PopulationServedDescriptor { get; set; }
@@ -28029,7 +28029,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string LocalCourseCode { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
         [NaturalKeyMember]
@@ -28386,7 +28386,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         ISection Section { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string ProgramName { get; set; }
         [NaturalKeyMember]
@@ -28669,7 +28669,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
         [NaturalKeyMember]
@@ -29977,7 +29977,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string CohortIdentifier { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string StaffUniqueId { get; set; }
 
@@ -30101,7 +30101,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string IncidentIdentifier { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         string StaffUniqueId { get; set; }
 
@@ -30218,7 +30218,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         DateTime BeginDate { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string StaffClassificationDescriptor { get; set; }
         [NaturalKeyMember]
@@ -30226,7 +30226,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Non-PK properties
         string CredentialIdentifier { get; set; }
-        int? EmploymentEducationOrganizationId { get; set; }
+        long? EmploymentEducationOrganizationId { get; set; }
         DateTime? EmploymentHireDate { get; set; }
         string EmploymentStatusDescriptor { get; set; }
         DateTime? EndDate { get; set; }
@@ -30335,7 +30335,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string ContactTitle { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string StaffUniqueId { get; set; }
 
@@ -30688,7 +30688,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string EmploymentStatusDescriptor { get; set; }
         [NaturalKeyMember]
@@ -31621,7 +31621,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         DateTime BeginDate { get; set; }
         [NaturalKeyMember]
-        int ProgramEducationOrganizationId { get; set; }
+        long ProgramEducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string ProgramName { get; set; }
         [NaturalKeyMember]
@@ -31868,7 +31868,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string ProgramAssignmentDescriptor { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         string StaffUniqueId { get; set; }
 
@@ -32059,7 +32059,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string LocalCourseCode { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
         [NaturalKeyMember]
@@ -32405,7 +32405,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int StateEducationAgencyId { get; set; }
+        long StateEducationAgencyId { get; set; }
 
         // Non-PK properties
 
@@ -32861,7 +32861,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
         [NaturalKeyMember]
@@ -33570,7 +33570,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string GradingPeriodDescriptor { get; set; }
         [NaturalKeyMember]
-        int GradingPeriodSchoolId { get; set; }
+        long GradingPeriodSchoolId { get; set; }
         [NaturalKeyMember]
         short GradingPeriodSchoolYear { get; set; }
         [NaturalKeyMember]
@@ -33643,7 +33643,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string EventDescription { get; set; }
         string PlatformTypeDescriptor { get; set; }
         string ReasonNotTestedDescriptor { get; set; }
-        int? ReportedSchoolId { get; set; }
+        long? ReportedSchoolId { get; set; }
         string ReportedSchoolIdentifier { get; set; }
         string RetestIndicatorDescriptor { get; set; }
         short? SchoolYear { get; set; }
@@ -33883,7 +33883,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string EducationOrganizationAssociationTypeDescriptor { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string Namespace { get; set; }
         [NaturalKeyMember]
@@ -34524,7 +34524,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string CohortIdentifier { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string StudentUniqueId { get; set; }
 
@@ -34598,7 +34598,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string LocalCourseCode { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
         [NaturalKeyMember]
@@ -34657,7 +34657,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string GradingPeriodDescriptor { get; set; }
         [NaturalKeyMember]
-        int GradingPeriodSchoolId { get; set; }
+        long GradingPeriodSchoolId { get; set; }
         [NaturalKeyMember]
         short GradingPeriodSchoolYear { get; set; }
         [NaturalKeyMember]
@@ -34665,7 +34665,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string Objective { get; set; }
         [NaturalKeyMember]
-        int ObjectiveEducationOrganizationId { get; set; }
+        long ObjectiveEducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string ObjectiveGradeLevelDescriptor { get; set; }
         [NaturalKeyMember]
@@ -34758,9 +34758,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         DateTime BeginDate { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
-        int ProgramEducationOrganizationId { get; set; }
+        long ProgramEducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string ProgramName { get; set; }
         [NaturalKeyMember]
@@ -34821,7 +34821,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string LocalCourseCode { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
         [NaturalKeyMember]
@@ -35151,7 +35151,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string IncidentIdentifier { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         string StudentUniqueId { get; set; }
 
@@ -35274,7 +35274,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string IncidentIdentifier { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         string StudentUniqueId { get; set; }
 
@@ -35389,7 +35389,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string StudentUniqueId { get; set; }
 
@@ -36825,7 +36825,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         DateTime BeginDate { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string ResponsibilityDescriptor { get; set; }
         [NaturalKeyMember]
@@ -37324,14 +37324,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string InterventionIdentificationCode { get; set; }
         [NaturalKeyMember]
         string StudentUniqueId { get; set; }
 
         // Non-PK properties
-        int? CohortEducationOrganizationId { get; set; }
+        long? CohortEducationOrganizationId { get; set; }
         string CohortIdentifier { get; set; }
         string DiagnosticStatement { get; set; }
         int? Dosage { get; set; }
@@ -37485,7 +37485,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string AttendanceEventCategoryDescriptor { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         DateTime EventDate { get; set; }
         [NaturalKeyMember]
@@ -38571,11 +38571,11 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string AttendanceEventCategoryDescriptor { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         DateTime EventDate { get; set; }
         [NaturalKeyMember]
-        int ProgramEducationOrganizationId { get; set; }
+        long ProgramEducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string ProgramName { get; set; }
         [NaturalKeyMember]
@@ -38662,14 +38662,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         DateTime EntryDate { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         string StudentUniqueId { get; set; }
 
         // Non-PK properties
         string CalendarCode { get; set; }
         short? ClassOfSchoolYear { get; set; }
-        int? EducationOrganizationId { get; set; }
+        long? EducationOrganizationId { get; set; }
         bool? EmployedWhileEnrolled { get; set; }
         string EnrollmentTypeDescriptor { get; set; }
         string EntryGradeLevelDescriptor { get; set; }
@@ -38681,7 +38681,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string GraduationPlanTypeDescriptor { get; set; }
         short? GraduationSchoolYear { get; set; }
         string NextYearGradeLevelDescriptor { get; set; }
-        int? NextYearSchoolId { get; set; }
+        long? NextYearSchoolId { get; set; }
         bool? PrimarySchool { get; set; }
         bool? RepeatGradeIndicator { get; set; }
         string ResidencyStatusDescriptor { get; set; }
@@ -38881,7 +38881,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         IStudentSchoolAssociation StudentSchoolAssociation { get; set; }
         [NaturalKeyMember]
-        int AlternativeEducationOrganizationId { get; set; }
+        long AlternativeEducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string AlternativeGraduationPlanTypeDescriptor { get; set; }
         [NaturalKeyMember]
@@ -38991,7 +38991,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         DateTime EventDate { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
         [NaturalKeyMember]
@@ -39245,7 +39245,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string LocalCourseCode { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
         [NaturalKeyMember]
@@ -39342,7 +39342,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string LocalCourseCode { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
         [NaturalKeyMember]
@@ -39985,7 +39985,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         DateTime ConsentToEvaluationReceivedDate { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string ProgramName { get; set; }
         [NaturalKeyMember]
@@ -40416,9 +40416,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string SurveyIdentifier { get; set; }
 
         // Non-PK properties
-        int? EducationOrganizationId { get; set; }
+        long? EducationOrganizationId { get; set; }
         int? NumberAdministered { get; set; }
-        int? SchoolId { get; set; }
+        long? SchoolId { get; set; }
         short SchoolYear { get; set; }
         string SessionName { get; set; }
         string SurveyCategoryDescriptor { get; set; }
@@ -40587,7 +40587,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string CourseCode { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string Namespace { get; set; }
         [NaturalKeyMember]
@@ -40720,7 +40720,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string Namespace { get; set; }
         [NaturalKeyMember]
@@ -41351,7 +41351,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string Namespace { get; set; }
         [NaturalKeyMember]
@@ -41579,7 +41579,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string Namespace { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
         [NaturalKeyMember]
@@ -41705,7 +41705,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string Namespace { get; set; }
         [NaturalKeyMember]

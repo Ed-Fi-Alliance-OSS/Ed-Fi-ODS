@@ -133,7 +133,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as AcademicWeek;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -177,7 +177,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as AccountabilityRating;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -265,7 +265,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as BellSchedule;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -309,7 +309,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as Calendar;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -353,7 +353,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as CalendarDate;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -397,7 +397,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as ChartOfAccount;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -441,7 +441,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as ClassPeriod;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -485,7 +485,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as Cohort;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -529,7 +529,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as CommunityOrganization;
 
             var contextData = new TContextData();
-            contextData.CommunityOrganizationId = entity.CommunityOrganizationId == default(int) ? null as int? : entity.CommunityOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.CommunityOrganizationId = entity.CommunityOrganizationId == default(long) ? null as long? : entity.CommunityOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -574,7 +574,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
 
             var contextData = new TContextData();
             // CommunityOrganizationId = entity.CommunityOrganizationId, // Not part of primary key
-            contextData.CommunityProviderId = entity.CommunityProviderId == default(int) ? null as int? : entity.CommunityProviderId; // Primary key property, Only Education Organization Id present
+            contextData.CommunityProviderId = entity.CommunityProviderId == default(long) ? null as long? : entity.CommunityProviderId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -619,7 +619,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as CommunityProviderLicense;
 
             var contextData = new TContextData();
-            contextData.CommunityProviderId = entity.CommunityProviderId == default(int) ? null as int? : entity.CommunityProviderId; // Primary key property, Only Education Organization Id present
+            contextData.CommunityProviderId = entity.CommunityProviderId == default(long) ? null as long? : entity.CommunityProviderId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -663,7 +663,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as CompetencyObjective;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -751,7 +751,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as Course;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -796,7 +796,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
 
             var contextData = new TContextData();
             // EducationOrganizationId = entity.EducationOrganizationId, // Not part of primary key
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -842,7 +842,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
 
             var contextData = new TContextData();
             // CourseEducationOrganizationId = entity.CourseEducationOrganizationId, // Primary key property, Role name applied
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // ExternalEducationOrganizationId = entity.ExternalEducationOrganizationId, // Role name applied and not part of primary key
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
@@ -939,7 +939,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as DisciplineIncident;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -983,7 +983,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as EducationOrganization;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -1027,7 +1027,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as EducationOrganizationInterventionPrescriptionAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // InterventionPrescriptionEducationOrganizationId = entity.InterventionPrescriptionEducationOrganizationId, // Primary key property, Role name applied
             return contextData;
         }
@@ -1073,7 +1073,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as EducationOrganizationNetwork;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationNetworkId = entity.EducationOrganizationNetworkId == default(int) ? null as int? : entity.EducationOrganizationNetworkId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationNetworkId = entity.EducationOrganizationNetworkId == default(long) ? null as long? : entity.EducationOrganizationNetworkId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -1117,7 +1117,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as EducationOrganizationNetworkAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationNetworkId = entity.EducationOrganizationNetworkId == default(int) ? null as int? : entity.EducationOrganizationNetworkId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationNetworkId = entity.EducationOrganizationNetworkId == default(long) ? null as long? : entity.EducationOrganizationNetworkId; // Primary key property, Only Education Organization Id present
             // MemberEducationOrganizationId = entity.MemberEducationOrganizationId, // Primary key property, Role name applied
             return contextData;
         }
@@ -1163,7 +1163,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as EducationOrganizationPeerAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // PeerEducationOrganizationId = entity.PeerEducationOrganizationId, // Primary key property, Role name applied
             return contextData;
         }
@@ -1209,7 +1209,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as EducationServiceCenter;
 
             var contextData = new TContextData();
-            contextData.EducationServiceCenterId = entity.EducationServiceCenterId == default(int) ? null as int? : entity.EducationServiceCenterId; // Primary key property, Only Education Organization Id present
+            contextData.EducationServiceCenterId = entity.EducationServiceCenterId == default(long) ? null as long? : entity.EducationServiceCenterId; // Primary key property, Only Education Organization Id present
             // StateEducationAgencyId = entity.StateEducationAgencyId, // Not part of primary key
             return contextData;
         }
@@ -1256,7 +1256,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
 
             var contextData = new TContextData();
             // FeederSchoolId = entity.FeederSchoolId, // Primary key property, Role name applied
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -1301,7 +1301,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as GeneralStudentProgramAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // ProgramEducationOrganizationId = entity.ProgramEducationOrganizationId, // Primary key property, Role name applied
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
@@ -1349,7 +1349,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as Grade;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
@@ -1439,7 +1439,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as GradingPeriod;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -1483,7 +1483,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as GraduationPlan;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -1527,7 +1527,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as Intervention;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -1571,7 +1571,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as InterventionPrescription;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -1615,7 +1615,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as InterventionStudy;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // InterventionPrescriptionEducationOrganizationId = entity.InterventionPrescriptionEducationOrganizationId, // Role name applied and not part of primary key
             return contextData;
         }
@@ -1662,7 +1662,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
 
             var contextData = new TContextData();
             // ChartOfAccountEducationOrganizationId = entity.ChartOfAccountEducationOrganizationId, // Role name applied and not part of primary key
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -1707,7 +1707,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as LocalActual;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -1751,7 +1751,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as LocalBudget;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -1795,7 +1795,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as LocalContractedStaff;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             contextData.StaffUSI = entity.StaffUSI == default(int) ? null as int? : entity.StaffUSI; // Primary key property, USI
             return contextData;
         }
@@ -1842,7 +1842,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
 
             var contextData = new TContextData();
             // EducationServiceCenterId = entity.EducationServiceCenterId, // Not part of primary key
-            contextData.LocalEducationAgencyId = entity.LocalEducationAgencyId == default(int) ? null as int? : entity.LocalEducationAgencyId; // Primary key property, Only Education Organization Id present
+            contextData.LocalEducationAgencyId = entity.LocalEducationAgencyId == default(long) ? null as long? : entity.LocalEducationAgencyId; // Primary key property, Only Education Organization Id present
             // ParentLocalEducationAgencyId = entity.ParentLocalEducationAgencyId, // Role name applied and not part of primary key
             // StateEducationAgencyId = entity.StateEducationAgencyId, // Not part of primary key
             return contextData;
@@ -1891,7 +1891,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as LocalEncumbrance;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -1935,7 +1935,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as LocalPayroll;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             contextData.StaffUSI = entity.StaffUSI == default(int) ? null as int? : entity.StaffUSI; // Primary key property, USI
             return contextData;
         }
@@ -1981,7 +1981,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as Location;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -2025,7 +2025,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as OpenStaffPosition;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -2069,7 +2069,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as OrganizationDepartment;
 
             var contextData = new TContextData();
-            contextData.OrganizationDepartmentId = entity.OrganizationDepartmentId == default(int) ? null as int? : entity.OrganizationDepartmentId; // Primary key property, Only Education Organization Id present
+            contextData.OrganizationDepartmentId = entity.OrganizationDepartmentId == default(long) ? null as long? : entity.OrganizationDepartmentId; // Primary key property, Only Education Organization Id present
             // ParentEducationOrganizationId = entity.ParentEducationOrganizationId, // Role name applied and not part of primary key
             return contextData;
         }
@@ -2161,7 +2161,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as PostSecondaryInstitution;
 
             var contextData = new TContextData();
-            contextData.PostSecondaryInstitutionId = entity.PostSecondaryInstitutionId == default(int) ? null as int? : entity.PostSecondaryInstitutionId; // Primary key property, Only Education Organization Id present
+            contextData.PostSecondaryInstitutionId = entity.PostSecondaryInstitutionId == default(long) ? null as long? : entity.PostSecondaryInstitutionId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -2205,7 +2205,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as Program;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -2249,7 +2249,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as ReportCard;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // GradingPeriodSchoolId = entity.GradingPeriodSchoolId, // Primary key property, Role name applied
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
@@ -2297,7 +2297,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as RestraintEvent;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
@@ -2344,7 +2344,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
 
             var contextData = new TContextData();
             // LocalEducationAgencyId = entity.LocalEducationAgencyId, // Not part of primary key
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -2390,7 +2390,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
 
             var contextData = new TContextData();
             // LocationSchoolId = entity.LocationSchoolId, // Role name applied and not part of primary key
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -2435,7 +2435,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as SectionAttendanceTakenEvent;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             // StaffUSI = entity.StaffUSI, // Not part of primary key
             return contextData;
         }
@@ -2481,7 +2481,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as Session;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -2613,7 +2613,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StaffCohortAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             contextData.StaffUSI = entity.StaffUSI == default(int) ? null as int? : entity.StaffUSI; // Primary key property, USI
             return contextData;
         }
@@ -2659,7 +2659,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StaffDisciplineIncidentAssociation;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             contextData.StaffUSI = entity.StaffUSI == default(int) ? null as int? : entity.StaffUSI; // Primary key property, USI
             return contextData;
         }
@@ -2705,7 +2705,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StaffEducationOrganizationAssignmentAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // EmploymentEducationOrganizationId = entity.EmploymentEducationOrganizationId, // Role name applied and not part of primary key
             contextData.StaffUSI = entity.StaffUSI == default(int) ? null as int? : entity.StaffUSI; // Primary key property, USI
             return contextData;
@@ -2753,7 +2753,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StaffEducationOrganizationContactAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             contextData.StaffUSI = entity.StaffUSI == default(int) ? null as int? : entity.StaffUSI; // Primary key property, USI
             return contextData;
         }
@@ -2799,7 +2799,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StaffEducationOrganizationEmploymentAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             contextData.StaffUSI = entity.StaffUSI == default(int) ? null as int? : entity.StaffUSI; // Primary key property, USI
             return contextData;
         }
@@ -2935,7 +2935,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StaffSchoolAssociation;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             contextData.StaffUSI = entity.StaffUSI == default(int) ? null as int? : entity.StaffUSI; // Primary key property, USI
             return contextData;
         }
@@ -2981,7 +2981,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StaffSectionAssociation;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             contextData.StaffUSI = entity.StaffUSI == default(int) ? null as int? : entity.StaffUSI; // Primary key property, USI
             return contextData;
         }
@@ -3027,7 +3027,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StateEducationAgency;
 
             var contextData = new TContextData();
-            contextData.StateEducationAgencyId = entity.StateEducationAgencyId == default(int) ? null as int? : entity.StateEducationAgencyId; // Primary key property, Only Education Organization Id present
+            contextData.StateEducationAgencyId = entity.StateEducationAgencyId == default(long) ? null as long? : entity.StateEducationAgencyId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -3115,7 +3115,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentAcademicRecord;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
@@ -3207,7 +3207,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentAssessmentEducationOrganizationAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
@@ -3253,7 +3253,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentCohortAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
@@ -3393,7 +3393,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentCTEProgramAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // ProgramEducationOrganizationId = entity.ProgramEducationOrganizationId, // Primary key property, Role name applied
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
@@ -3441,7 +3441,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentDisciplineIncidentBehaviorAssociation;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
@@ -3487,7 +3487,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentDisciplineIncidentNonOffenderAssociation;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
@@ -3533,7 +3533,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentEducationOrganizationAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
@@ -3579,7 +3579,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentEducationOrganizationResponsibilityAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
@@ -3669,7 +3669,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentHomelessProgramAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // ProgramEducationOrganizationId = entity.ProgramEducationOrganizationId, // Primary key property, Role name applied
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
@@ -3718,7 +3718,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
 
             var contextData = new TContextData();
             // CohortEducationOrganizationId = entity.CohortEducationOrganizationId, // Role name applied and not part of primary key
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
@@ -3765,7 +3765,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentInterventionAttendanceEvent;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
@@ -3811,7 +3811,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentLanguageInstructionProgramAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // ProgramEducationOrganizationId = entity.ProgramEducationOrganizationId, // Primary key property, Role name applied
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
@@ -3859,7 +3859,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentMigrantEducationProgramAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // ProgramEducationOrganizationId = entity.ProgramEducationOrganizationId, // Primary key property, Role name applied
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
@@ -3907,7 +3907,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentNeglectedOrDelinquentProgramAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // ProgramEducationOrganizationId = entity.ProgramEducationOrganizationId, // Primary key property, Role name applied
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
@@ -3955,7 +3955,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentProgramAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // ProgramEducationOrganizationId = entity.ProgramEducationOrganizationId, // Primary key property, Role name applied
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
@@ -4003,7 +4003,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentProgramAttendanceEvent;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // ProgramEducationOrganizationId = entity.ProgramEducationOrganizationId, // Primary key property, Role name applied
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
@@ -4053,7 +4053,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var contextData = new TContextData();
             // EducationOrganizationId = entity.EducationOrganizationId, // Not part of primary key
             // NextYearSchoolId = entity.NextYearSchoolId, // Role name applied and not part of primary key
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
@@ -4101,7 +4101,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentSchoolAttendanceEvent;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
@@ -4147,7 +4147,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentSchoolFoodServiceProgramAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // ProgramEducationOrganizationId = entity.ProgramEducationOrganizationId, // Primary key property, Role name applied
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
@@ -4195,7 +4195,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentSectionAssociation;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
@@ -4241,7 +4241,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentSectionAttendanceEvent;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
@@ -4287,7 +4287,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentSpecialEducationProgramAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // ProgramEducationOrganizationId = entity.ProgramEducationOrganizationId, // Primary key property, Role name applied
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
@@ -4335,7 +4335,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentSpecialEducationProgramEligibilityAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
@@ -4381,7 +4381,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentTitleIPartAProgramAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // ProgramEducationOrganizationId = entity.ProgramEducationOrganizationId, // Primary key property, Role name applied
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
@@ -4475,7 +4475,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as SurveyCourseAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -4519,7 +4519,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as SurveyProgramAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -4611,7 +4611,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as SurveyResponseEducationOrganizationTargetAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -4699,7 +4699,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as SurveySectionAssociation;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 
@@ -4743,7 +4743,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as SurveySectionResponseEducationOrganizationTargetAssociation;
 
             var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             return contextData;
         }
 

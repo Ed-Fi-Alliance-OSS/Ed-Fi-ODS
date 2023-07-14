@@ -39,7 +39,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
         public string PMBusNumber { get; set; }
 
         [DataMember(Name="schoolId"), NaturalKeyMember]
-        public int SchoolId { get; set; }
+        public long SchoolId { get; set; }
 
         [DataMember(Name="studentUniqueId"), NaturalKeyMember]
         public string StudentUniqueId { get; set; }
@@ -80,7 +80,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
         /// <returns><b>true</b> if the reference's properties are all set to non-default values; otherwise <b>false</b>.</returns>
         public bool IsReferenceFullyDefined()
         {
-            return AMBusNumber != default(string) && PMBusNumber != default(string) && SchoolId != default(int) && StudentUniqueId != default(string);
+            return AMBusNumber != default(string) && PMBusNumber != default(string) && SchoolId != default(long) && StudentUniqueId != default(string);
         }
 
         private Link CreateLink()
@@ -237,7 +237,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
         /// The identifier assigned to a school.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.SampleStudentTransportation.IStudentTransportation.SchoolId
+        long Entities.Common.SampleStudentTransportation.IStudentTransportation.SchoolId
         {
             get
             {
@@ -245,7 +245,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
                     && (_SuspendReferenceAssignmentCheck || ImplicitSchoolReference.IsReferenceFullyDefined()))
                     return ImplicitSchoolReference.SchoolId;
 
-                return default(int);
+                return default(long);
             }
             set
             {

@@ -31,7 +31,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.SampleStudent
             var entity = resource as StudentTransportation;
 
             dynamic contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return (TContextData) contextData;
         }

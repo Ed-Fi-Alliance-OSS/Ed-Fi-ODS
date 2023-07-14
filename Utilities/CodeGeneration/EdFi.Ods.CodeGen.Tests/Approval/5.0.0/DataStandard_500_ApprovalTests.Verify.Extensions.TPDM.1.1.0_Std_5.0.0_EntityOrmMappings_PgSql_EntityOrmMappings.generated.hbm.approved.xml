@@ -466,7 +466,7 @@
         <composite-id>
             <key-property name="BeginDate" column="BeginDate" type="date"  />
             <key-property name="CandidateIdentifier" column="CandidateIdentifier" type="string"  length="32"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="ProgramName" column="ProgramName" type="string"  length="255"  />
             <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int"  />
         </composite-id>
@@ -483,7 +483,7 @@
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
       <key-property name="CandidateIdentifier" column="CandidateIdentifier" type="string" length="32" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="ProgramName" column="ProgramName" type="string" length="255" />
       <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" />
     </composite-id>
@@ -611,7 +611,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM.CredentialStudentAcademicRecord" table="CredentialStudentAcademicRecord" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
       <key-property name="TermDescriptorId" column="TermDescriptorId" type="int" />
@@ -680,7 +680,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramReferenceData" table="EducatorPreparationProgram" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="ProgramName" column="ProgramName" type="string"  length="255"  />
             <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int"  />
         </composite-id>
@@ -695,7 +695,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgram" table="EducatorPreparationProgram" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="ProgramName" column="ProgramName" type="string" length="255" />
       <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" />
     </composite-id>
@@ -766,7 +766,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData" table="Evaluation" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
             <key-property name="EvaluationTitle" column="EvaluationTitle" type="string"  length="50"  />
             <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string"  length="50"  />
@@ -785,7 +785,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM.Evaluation" table="Evaluation" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
       <key-property name="EvaluationTitle" column="EvaluationTitle" type="string" length="50" />
       <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string" length="50" />
@@ -878,7 +878,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData" table="EvaluationElement" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="EvaluationElementTitle" column="EvaluationElementTitle" type="string"  length="255"  />
             <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string"  length="50"  />
             <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
@@ -899,7 +899,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElement" table="EvaluationElement" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="EvaluationElementTitle" column="EvaluationElementTitle" type="string" length="255" />
       <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string" length="50" />
       <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
@@ -999,7 +999,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRatingReferenceData" table="EvaluationElementRating" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="EvaluationDate" column="EvaluationDate" type="UtcDateTime"  />
             <key-property name="EvaluationElementTitle" column="EvaluationElementTitle" type="string"  length="255"  />
             <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string"  length="50"  />
@@ -1023,7 +1023,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRating" table="EvaluationElementRating" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="EvaluationDate" column="EvaluationDate" type="UtcDateTime" />
       <key-property name="EvaluationElementTitle" column="EvaluationElementTitle" type="string" length="255" />
       <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string" length="50" />
@@ -1147,7 +1147,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData" table="EvaluationObjective" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string"  length="50"  />
             <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
             <key-property name="EvaluationTitle" column="EvaluationTitle" type="string"  length="50"  />
@@ -1167,7 +1167,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjective" table="EvaluationObjective" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string" length="50" />
       <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
       <key-property name="EvaluationTitle" column="EvaluationTitle" type="string" length="50" />
@@ -1264,7 +1264,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData" table="EvaluationObjectiveRating" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="EvaluationDate" column="EvaluationDate" type="UtcDateTime"  />
             <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string"  length="50"  />
             <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
@@ -1287,7 +1287,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRating" table="EvaluationObjectiveRating" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="EvaluationDate" column="EvaluationDate" type="UtcDateTime" />
       <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string" length="50" />
       <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
@@ -1403,7 +1403,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData" table="EvaluationRating" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="EvaluationDate" column="EvaluationDate" type="UtcDateTime"  />
             <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
             <key-property name="EvaluationTitle" column="EvaluationTitle" type="string"  length="50"  />
@@ -1425,7 +1425,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRating" table="EvaluationRating" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="EvaluationDate" column="EvaluationDate" type="UtcDateTime" />
       <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
       <key-property name="EvaluationTitle" column="EvaluationTitle" type="string" length="50" />
@@ -1453,7 +1453,7 @@
     <property name="EvaluationRatingLevelDescriptorId" column="EvaluationRatingLevelDescriptorId" type="int" />
     <property name="EvaluationRatingStatusDescriptorId" column="EvaluationRatingStatusDescriptorId" type="int" />
     <property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
-    <property name="SchoolId" column="SchoolId" type="int" />
+    <property name="SchoolId" column="SchoolId" type="long" />
     <property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" />
     <property name="SessionName" column="SessionName" type="string" length="60" />
 
@@ -1710,7 +1710,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData" table="PerformanceEvaluation" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
             <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string"  length="50"  />
             <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int"  />
@@ -1728,7 +1728,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluation" table="PerformanceEvaluation" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
       <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string" length="50" />
       <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int" />
@@ -1854,7 +1854,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData" table="PerformanceEvaluationRating" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
             <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string"  length="50"  />
             <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int"  />
@@ -1874,7 +1874,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRating" table="PerformanceEvaluationRating" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
       <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string" length="50" />
       <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int" />
@@ -2080,7 +2080,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM.RubricDimensionReferenceData" table="RubricDimension" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="EvaluationElementTitle" column="EvaluationElementTitle" type="string"  length="255"  />
             <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string"  length="50"  />
             <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
@@ -2102,7 +2102,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM.RubricDimension" table="RubricDimension" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="EvaluationElementTitle" column="EvaluationElementTitle" type="string" length="255" />
       <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string" length="50" />
       <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
@@ -2164,7 +2164,7 @@
 
 
     <!-- Properties -->
-    <property name="PostSecondaryInstitutionId" column="PostSecondaryInstitutionId" type="int" />
+    <property name="PostSecondaryInstitutionId" column="PostSecondaryInstitutionId" type="long" />
 
     <!-- Aggregate references -->
     <many-to-one name="PostSecondaryInstitutionReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">

@@ -147,7 +147,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         int? BusRouteDuration { get; set; }
         bool? Daily { get; set; }
         string DisabilityDescriptor { get; set; }
-        int? EducationOrganizationId { get; set; }
+        long? EducationOrganizationId { get; set; }
         string ExpectedTransitTime { get; set; }
         decimal HoursPerWeek { get; set; }
         decimal OperatingCost { get; set; }
@@ -356,7 +356,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         [NaturalKeyMember]
         IBusRoute BusRoute { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string ProgramName { get; set; }
         [NaturalKeyMember]
@@ -1118,9 +1118,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         [NaturalKeyMember]
         DateTime BeginDate { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
-        int ProgramEducationOrganizationId { get; set; }
+        long ProgramEducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string ProgramName { get; set; }
         [NaturalKeyMember]
@@ -2172,7 +2172,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         decimal? BedtimeReadingRate { get; set; }
         decimal? BookBudget { get; set; }
         int? BooksBorrowed { get; set; }
-        int? EducationOrganizationId { get; set; }
+        long? EducationOrganizationId { get; set; }
         string InterventionStudyIdentificationCode { get; set; }
         int? LibraryDuration { get; set; }
         TimeSpan? LibraryTime { get; set; }
@@ -2469,7 +2469,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         [NaturalKeyMember]
         IStudentContactAssociationExtension StudentContactAssociationExtension { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string EmploymentStatusDescriptor { get; set; }
         [NaturalKeyMember]
@@ -3086,7 +3086,7 @@ namespace EdFi.Ods.Entities.Common.Sample
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string GraduationPlanTypeDescriptor { get; set; }
         [NaturalKeyMember]
@@ -3834,9 +3834,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         [NaturalKeyMember]
         DateTime RelatedBeginDate { get; set; }
         [NaturalKeyMember]
-        int RelatedEducationOrganizationId { get; set; }
+        long RelatedEducationOrganizationId { get; set; }
         [NaturalKeyMember]
-        int RelatedProgramEducationOrganizationId { get; set; }
+        long RelatedProgramEducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string RelatedProgramName { get; set; }
         [NaturalKeyMember]
