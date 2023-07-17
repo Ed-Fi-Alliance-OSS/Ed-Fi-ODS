@@ -34,14 +34,14 @@ CREATE TABLE [tracked_changes_sample].[BusRoute]
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_sample].[StudentGraduationPlanAssociation]'))
 CREATE TABLE [tracked_changes_sample].[StudentGraduationPlanAssociation]
 (
-       OldEducationOrganizationId [INT] NOT NULL,
+       OldEducationOrganizationId [BIGINT] NOT NULL,
        OldGraduationPlanTypeDescriptorId [INT] NOT NULL,
        OldGraduationPlanTypeDescriptorNamespace [NVARCHAR](255) NOT NULL,
        OldGraduationPlanTypeDescriptorCodeValue [NVARCHAR](50) NOT NULL,
        OldGraduationSchoolYear [SMALLINT] NOT NULL,
        OldStudentUSI [INT] NOT NULL,
        OldStudentUniqueId [NVARCHAR](32) NOT NULL,
-       NewEducationOrganizationId [INT] NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
        NewGraduationPlanTypeDescriptorId [INT] NULL,
        NewGraduationPlanTypeDescriptorNamespace [NVARCHAR](255) NULL,
        NewGraduationPlanTypeDescriptorCodeValue [NVARCHAR](50) NULL,

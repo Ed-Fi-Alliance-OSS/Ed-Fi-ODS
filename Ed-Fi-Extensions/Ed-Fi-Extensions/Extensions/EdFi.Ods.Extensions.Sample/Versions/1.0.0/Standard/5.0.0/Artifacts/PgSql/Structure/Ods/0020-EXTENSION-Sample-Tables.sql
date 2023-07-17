@@ -37,7 +37,7 @@ CREATE TABLE sample.BusRoute (
     BusRouteDuration INT NULL,
     DisabilityDescriptorId INT NULL,
     StaffUSI INT NULL,
-    EducationOrganizationId INT NULL,
+    EducationOrganizationId BIGINT NULL,
     StaffClassificationDescriptorId INT NULL,
     BeginDate DATE NULL,
     Discriminator VARCHAR(128) NULL,
@@ -64,7 +64,7 @@ ALTER TABLE sample.BusRouteBusYear ALTER COLUMN CreateDate SET DEFAULT current_t
 CREATE TABLE sample.BusRouteProgram (
     BusId VARCHAR(60) NOT NULL,
     BusRouteNumber INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -220,8 +220,8 @@ ALTER TABLE sample.ContactFavoriteBookTitle ALTER COLUMN CreateDate SET DEFAULT 
 CREATE TABLE sample.ContactStudentProgramAssociation (
     BeginDate DATE NOT NULL,
     ContactUSI INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -255,7 +255,7 @@ CREATE TABLE sample.MembershipTypeDescriptor (
 
 -- Table sample.SchoolCTEProgram --
 CREATE TABLE sample.SchoolCTEProgram (
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     CareerPathwayDescriptorId INT NOT NULL,
     CIPCode VARCHAR(120) NULL,
     PrimaryCTEProgramIndicator BOOLEAN NULL,
@@ -268,7 +268,7 @@ ALTER TABLE sample.SchoolCTEProgram ALTER COLUMN CreateDate SET DEFAULT current_
 -- Table sample.SchoolDirectlyOwnedBus --
 CREATE TABLE sample.SchoolDirectlyOwnedBus (
     DirectlyOwnedBusId VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT SchoolDirectlyOwnedBus_PK PRIMARY KEY (DirectlyOwnedBusId, SchoolId)
 );
@@ -276,7 +276,7 @@ ALTER TABLE sample.SchoolDirectlyOwnedBus ALTER COLUMN CreateDate SET DEFAULT cu
 
 -- Table sample.SchoolExtension --
 CREATE TABLE sample.SchoolExtension (
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     IsExemplary BOOLEAN NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT SchoolExtension_PK PRIMARY KEY (SchoolId)
@@ -326,8 +326,8 @@ ALTER TABLE sample.StudentAquaticPet ALTER COLUMN CreateDate SET DEFAULT current
 -- Table sample.StudentArtProgramAssociation --
 CREATE TABLE sample.StudentArtProgramAssociation (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -349,8 +349,8 @@ CREATE TABLE sample.StudentArtProgramAssociation (
 CREATE TABLE sample.StudentArtProgramAssociationArtMedium (
     ArtMediumDescriptorId INT NOT NULL,
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -362,9 +362,9 @@ ALTER TABLE sample.StudentArtProgramAssociationArtMedium ALTER COLUMN CreateDate
 -- Table sample.StudentArtProgramAssociationPortfolioYears --
 CREATE TABLE sample.StudentArtProgramAssociationPortfolioYears (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     PortfolioYears SMALLINT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -376,8 +376,8 @@ ALTER TABLE sample.StudentArtProgramAssociationPortfolioYears ALTER COLUMN Creat
 -- Table sample.StudentArtProgramAssociationService --
 CREATE TABLE sample.StudentArtProgramAssociationService (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     ServiceDescriptorId INT NOT NULL,
@@ -393,8 +393,8 @@ ALTER TABLE sample.StudentArtProgramAssociationService ALTER COLUMN CreateDate S
 -- Table sample.StudentArtProgramAssociationStyle --
 CREATE TABLE sample.StudentArtProgramAssociationStyle (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -429,7 +429,7 @@ CREATE TABLE sample.StudentContactAssociationExtension (
     LibraryVisits SMALLINT NULL,
     StudentRead SMALLINT NULL,
     LibraryDuration INT NULL,
-    EducationOrganizationId INT NULL,
+    EducationOrganizationId BIGINT NULL,
     InterventionStudyIdentificationCode VARCHAR(60) NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentContactAssociationExtension_PK PRIMARY KEY (ContactUSI, StudentUSI)
@@ -469,7 +469,7 @@ ALTER TABLE sample.StudentContactAssociationPagesRead ALTER COLUMN CreateDate SE
 -- Table sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d --
 CREATE TABLE sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d (
     ContactUSI INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     EmploymentStatusDescriptorId INT NOT NULL,
     HireDate DATE NOT NULL,
     StaffUSI INT NOT NULL,
@@ -496,8 +496,8 @@ ALTER TABLE sample.StudentContactAssociationTelephone ALTER COLUMN CreateDate SE
 -- Table sample.StudentCTEProgramAssociationExtension --
 CREATE TABLE sample.StudentCTEProgramAssociationExtension (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -512,7 +512,7 @@ ALTER TABLE sample.StudentCTEProgramAssociationExtension ALTER COLUMN CreateDate
 CREATE TABLE sample.StudentEducationOrganizationAssociationAddressExtension (
     AddressTypeDescriptorId INT NOT NULL,
     City VARCHAR(30) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     PostalCode VARCHAR(17) NOT NULL,
     StateAbbreviationDescriptorId INT NOT NULL,
     StreetNumberName VARCHAR(150) NOT NULL,
@@ -528,7 +528,7 @@ ALTER TABLE sample.StudentEducationOrganizationAssociationAddressExtension ALTER
 CREATE TABLE sample.StudentEducationOrganizationAssociationAddressSchoolDistrict (
     AddressTypeDescriptorId INT NOT NULL,
     City VARCHAR(30) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     PostalCode VARCHAR(17) NOT NULL,
     SchoolDistrict VARCHAR(250) NOT NULL,
     StateAbbreviationDescriptorId INT NOT NULL,
@@ -543,7 +543,7 @@ ALTER TABLE sample.StudentEducationOrganizationAssociationAddressSchoolDistrict 
 CREATE TABLE sample.StudentEducationOrganizationAssociationAddressTerm (
     AddressTypeDescriptorId INT NOT NULL,
     City VARCHAR(30) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     PostalCode VARCHAR(17) NOT NULL,
     StateAbbreviationDescriptorId INT NOT NULL,
     StreetNumberName VARCHAR(150) NOT NULL,
@@ -557,7 +557,7 @@ ALTER TABLE sample.StudentEducationOrganizationAssociationAddressTerm ALTER COLU
 -- Table sample.StudentEducationOrganizationAssociationStudentCharacteri_17d152 --
 CREATE TABLE sample.StudentEducationOrganizationAssociationStudentCharacteri_17d152 (
     BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     StudentCharacteristicDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
     PrimaryStudentNeedIndicator BOOLEAN NULL,
@@ -590,7 +590,7 @@ ALTER TABLE sample.StudentFavoriteBookArtMedium ALTER COLUMN CreateDate SET DEFA
 
 -- Table sample.StudentGraduationPlanAssociation --
 CREATE TABLE sample.StudentGraduationPlanAssociation (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GraduationPlanTypeDescriptorId INT NOT NULL,
     GraduationSchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -616,7 +616,7 @@ ALTER TABLE sample.StudentGraduationPlanAssociation ALTER COLUMN LastModifiedDat
 -- Table sample.StudentGraduationPlanAssociationAcademicSubject --
 CREATE TABLE sample.StudentGraduationPlanAssociationAcademicSubject (
     AcademicSubjectDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GraduationPlanTypeDescriptorId INT NOT NULL,
     GraduationSchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -628,7 +628,7 @@ ALTER TABLE sample.StudentGraduationPlanAssociationAcademicSubject ALTER COLUMN 
 -- Table sample.StudentGraduationPlanAssociationCareerPathwayCode --
 CREATE TABLE sample.StudentGraduationPlanAssociationCareerPathwayCode (
     CareerPathwayCode INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GraduationPlanTypeDescriptorId INT NOT NULL,
     GraduationSchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -639,7 +639,7 @@ ALTER TABLE sample.StudentGraduationPlanAssociationCareerPathwayCode ALTER COLUM
 
 -- Table sample.StudentGraduationPlanAssociationCTEProgram --
 CREATE TABLE sample.StudentGraduationPlanAssociationCTEProgram (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GraduationPlanTypeDescriptorId INT NOT NULL,
     GraduationSchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -655,7 +655,7 @@ ALTER TABLE sample.StudentGraduationPlanAssociationCTEProgram ALTER COLUMN Creat
 -- Table sample.StudentGraduationPlanAssociationDescription --
 CREATE TABLE sample.StudentGraduationPlanAssociationDescription (
     Description VARCHAR(1024) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GraduationPlanTypeDescriptorId INT NOT NULL,
     GraduationSchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -667,7 +667,7 @@ ALTER TABLE sample.StudentGraduationPlanAssociationDescription ALTER COLUMN Crea
 -- Table sample.StudentGraduationPlanAssociationDesignatedBy --
 CREATE TABLE sample.StudentGraduationPlanAssociationDesignatedBy (
     DesignatedBy VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GraduationPlanTypeDescriptorId INT NOT NULL,
     GraduationSchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -678,7 +678,7 @@ ALTER TABLE sample.StudentGraduationPlanAssociationDesignatedBy ALTER COLUMN Cre
 
 -- Table sample.StudentGraduationPlanAssociationIndustryCredential --
 CREATE TABLE sample.StudentGraduationPlanAssociationIndustryCredential (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GraduationPlanTypeDescriptorId INT NOT NULL,
     GraduationSchoolYear SMALLINT NOT NULL,
     IndustryCredential VARCHAR(100) NOT NULL,
@@ -691,7 +691,7 @@ ALTER TABLE sample.StudentGraduationPlanAssociationIndustryCredential ALTER COLU
 -- Table sample.StudentGraduationPlanAssociationStudentContactAssociation --
 CREATE TABLE sample.StudentGraduationPlanAssociationStudentContactAssociation (
     ContactUSI INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GraduationPlanTypeDescriptorId INT NOT NULL,
     GraduationSchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -702,7 +702,7 @@ ALTER TABLE sample.StudentGraduationPlanAssociationStudentContactAssociation ALT
 
 -- Table sample.StudentGraduationPlanAssociationYearsAttended --
 CREATE TABLE sample.StudentGraduationPlanAssociationYearsAttended (
-    EducationOrganizationId INT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
     GraduationPlanTypeDescriptorId INT NOT NULL,
     GraduationSchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
@@ -735,7 +735,7 @@ ALTER TABLE sample.StudentPetPreference ALTER COLUMN CreateDate SET DEFAULT curr
 -- Table sample.StudentSchoolAssociationExtension --
 CREATE TABLE sample.StudentSchoolAssociationExtension (
     EntryDate DATE NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     MembershipTypeDescriptorId INT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -748,11 +748,11 @@ CREATE TABLE sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72
     BeginDate DATE NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
     RelatedBeginDate DATE NOT NULL,
-    RelatedEducationOrganizationId INT NOT NULL,
-    RelatedProgramEducationOrganizationId INT NOT NULL,
+    RelatedEducationOrganizationId BIGINT NOT NULL,
+    RelatedProgramEducationOrganizationId BIGINT NOT NULL,
     RelatedProgramName VARCHAR(60) NOT NULL,
     RelatedProgramTypeDescriptorId INT NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,

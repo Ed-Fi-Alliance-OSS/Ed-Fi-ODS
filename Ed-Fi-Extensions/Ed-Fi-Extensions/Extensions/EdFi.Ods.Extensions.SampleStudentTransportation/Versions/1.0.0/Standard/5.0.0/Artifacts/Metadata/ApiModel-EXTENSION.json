@@ -183,7 +183,7 @@
         {
           "propertyName": "SchoolId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -206,7 +206,7 @@
         {
           "propertyName": "SchoolId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,

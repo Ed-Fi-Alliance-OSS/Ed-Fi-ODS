@@ -54,7 +54,7 @@ GO
 
 -- Table [samplestudenttranscript].[StudentAcademicRecordClassRankingExtension] --
 CREATE TABLE [samplestudenttranscript].[StudentAcademicRecordClassRankingExtension] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [TermDescriptorId] [INT] NOT NULL,
@@ -73,7 +73,7 @@ GO
 
 -- Table [samplestudenttranscript].[StudentAcademicRecordExtension] --
 CREATE TABLE [samplestudenttranscript].[StudentAcademicRecordExtension] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [TermDescriptorId] [INT] NOT NULL,

@@ -28,14 +28,14 @@ CREATE TABLE tracked_changes_tpdm.candidateeducatorpreparationprogramassociation
 (
        oldbegindate DATE NOT NULL,
        oldcandidateidentifier VARCHAR(32) NOT NULL,
-       oldeducationorganizationid INT NOT NULL,
+       oldeducationorganizationid BIGINT NOT NULL,
        oldprogramname VARCHAR(255) NOT NULL,
        oldprogramtypedescriptorid INT NOT NULL,
        oldprogramtypedescriptornamespace VARCHAR(255) NOT NULL,
        oldprogramtypedescriptorcodevalue VARCHAR(50) NOT NULL,
        newbegindate DATE NULL,
        newcandidateidentifier VARCHAR(32) NULL,
-       neweducationorganizationid INT NULL,
+       neweducationorganizationid BIGINT NULL,
        newprogramname VARCHAR(255) NULL,
        newprogramtypedescriptorid INT NULL,
        newprogramtypedescriptornamespace VARCHAR(255) NULL,
@@ -51,12 +51,12 @@ END IF;
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_tpdm' AND table_name = 'educatorpreparationprogram') THEN
 CREATE TABLE tracked_changes_tpdm.educatorpreparationprogram
 (
-       oldeducationorganizationid INT NOT NULL,
+       oldeducationorganizationid BIGINT NOT NULL,
        oldprogramname VARCHAR(255) NOT NULL,
        oldprogramtypedescriptorid INT NOT NULL,
        oldprogramtypedescriptornamespace VARCHAR(255) NOT NULL,
        oldprogramtypedescriptorcodevalue VARCHAR(50) NOT NULL,
-       neweducationorganizationid INT NULL,
+       neweducationorganizationid BIGINT NULL,
        newprogramname VARCHAR(255) NULL,
        newprogramtypedescriptorid INT NULL,
        newprogramtypedescriptornamespace VARCHAR(255) NULL,
@@ -72,7 +72,7 @@ END IF;
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_tpdm' AND table_name = 'evaluation') THEN
 CREATE TABLE tracked_changes_tpdm.evaluation
 (
-       oldeducationorganizationid INT NOT NULL,
+       oldeducationorganizationid BIGINT NOT NULL,
        oldevaluationperioddescriptorid INT NOT NULL,
        oldevaluationperioddescriptornamespace VARCHAR(255) NOT NULL,
        oldevaluationperioddescriptorcodevalue VARCHAR(50) NOT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE tracked_changes_tpdm.evaluation
        oldtermdescriptorid INT NOT NULL,
        oldtermdescriptornamespace VARCHAR(255) NOT NULL,
        oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
-       neweducationorganizationid INT NULL,
+       neweducationorganizationid BIGINT NULL,
        newevaluationperioddescriptorid INT NULL,
        newevaluationperioddescriptornamespace VARCHAR(255) NULL,
        newevaluationperioddescriptorcodevalue VARCHAR(50) NULL,
@@ -109,7 +109,7 @@ END IF;
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_tpdm' AND table_name = 'evaluationelement') THEN
 CREATE TABLE tracked_changes_tpdm.evaluationelement
 (
-       oldeducationorganizationid INT NOT NULL,
+       oldeducationorganizationid BIGINT NOT NULL,
        oldevaluationelementtitle VARCHAR(255) NOT NULL,
        oldevaluationobjectivetitle VARCHAR(50) NOT NULL,
        oldevaluationperioddescriptorid INT NOT NULL,
@@ -124,7 +124,7 @@ CREATE TABLE tracked_changes_tpdm.evaluationelement
        oldtermdescriptorid INT NOT NULL,
        oldtermdescriptornamespace VARCHAR(255) NOT NULL,
        oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
-       neweducationorganizationid INT NULL,
+       neweducationorganizationid BIGINT NULL,
        newevaluationelementtitle VARCHAR(255) NULL,
        newevaluationobjectivetitle VARCHAR(50) NULL,
        newevaluationperioddescriptorid INT NULL,
@@ -150,7 +150,7 @@ END IF;
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_tpdm' AND table_name = 'evaluationelementrating') THEN
 CREATE TABLE tracked_changes_tpdm.evaluationelementrating
 (
-       oldeducationorganizationid INT NOT NULL,
+       oldeducationorganizationid BIGINT NOT NULL,
        oldevaluationdate TIMESTAMP NOT NULL,
        oldevaluationelementtitle VARCHAR(255) NOT NULL,
        oldevaluationobjectivetitle VARCHAR(50) NOT NULL,
@@ -170,7 +170,7 @@ CREATE TABLE tracked_changes_tpdm.evaluationelementrating
        oldtermdescriptorid INT NOT NULL,
        oldtermdescriptornamespace VARCHAR(255) NOT NULL,
        oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
-       neweducationorganizationid INT NULL,
+       neweducationorganizationid BIGINT NULL,
        newevaluationdate TIMESTAMP NULL,
        newevaluationelementtitle VARCHAR(255) NULL,
        newevaluationobjectivetitle VARCHAR(50) NULL,
@@ -201,7 +201,7 @@ END IF;
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_tpdm' AND table_name = 'evaluationobjective') THEN
 CREATE TABLE tracked_changes_tpdm.evaluationobjective
 (
-       oldeducationorganizationid INT NOT NULL,
+       oldeducationorganizationid BIGINT NOT NULL,
        oldevaluationobjectivetitle VARCHAR(50) NOT NULL,
        oldevaluationperioddescriptorid INT NOT NULL,
        oldevaluationperioddescriptornamespace VARCHAR(255) NOT NULL,
@@ -215,7 +215,7 @@ CREATE TABLE tracked_changes_tpdm.evaluationobjective
        oldtermdescriptorid INT NOT NULL,
        oldtermdescriptornamespace VARCHAR(255) NOT NULL,
        oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
-       neweducationorganizationid INT NULL,
+       neweducationorganizationid BIGINT NULL,
        newevaluationobjectivetitle VARCHAR(50) NULL,
        newevaluationperioddescriptorid INT NULL,
        newevaluationperioddescriptornamespace VARCHAR(255) NULL,
@@ -240,7 +240,7 @@ END IF;
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_tpdm' AND table_name = 'evaluationobjectiverating') THEN
 CREATE TABLE tracked_changes_tpdm.evaluationobjectiverating
 (
-       oldeducationorganizationid INT NOT NULL,
+       oldeducationorganizationid BIGINT NOT NULL,
        oldevaluationdate TIMESTAMP NOT NULL,
        oldevaluationobjectivetitle VARCHAR(50) NOT NULL,
        oldevaluationperioddescriptorid INT NOT NULL,
@@ -259,7 +259,7 @@ CREATE TABLE tracked_changes_tpdm.evaluationobjectiverating
        oldtermdescriptorid INT NOT NULL,
        oldtermdescriptornamespace VARCHAR(255) NOT NULL,
        oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
-       neweducationorganizationid INT NULL,
+       neweducationorganizationid BIGINT NULL,
        newevaluationdate TIMESTAMP NULL,
        newevaluationobjectivetitle VARCHAR(50) NULL,
        newevaluationperioddescriptorid INT NULL,
@@ -289,7 +289,7 @@ END IF;
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_tpdm' AND table_name = 'evaluationrating') THEN
 CREATE TABLE tracked_changes_tpdm.evaluationrating
 (
-       oldeducationorganizationid INT NOT NULL,
+       oldeducationorganizationid BIGINT NOT NULL,
        oldevaluationdate TIMESTAMP NOT NULL,
        oldevaluationperioddescriptorid INT NOT NULL,
        oldevaluationperioddescriptornamespace VARCHAR(255) NOT NULL,
@@ -307,7 +307,7 @@ CREATE TABLE tracked_changes_tpdm.evaluationrating
        oldtermdescriptorid INT NOT NULL,
        oldtermdescriptornamespace VARCHAR(255) NOT NULL,
        oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
-       neweducationorganizationid INT NULL,
+       neweducationorganizationid BIGINT NULL,
        newevaluationdate TIMESTAMP NULL,
        newevaluationperioddescriptorid INT NULL,
        newevaluationperioddescriptornamespace VARCHAR(255) NULL,
@@ -359,7 +359,7 @@ END IF;
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_tpdm' AND table_name = 'performanceevaluation') THEN
 CREATE TABLE tracked_changes_tpdm.performanceevaluation
 (
-       oldeducationorganizationid INT NOT NULL,
+       oldeducationorganizationid BIGINT NOT NULL,
        oldevaluationperioddescriptorid INT NOT NULL,
        oldevaluationperioddescriptornamespace VARCHAR(255) NOT NULL,
        oldevaluationperioddescriptorcodevalue VARCHAR(50) NOT NULL,
@@ -371,7 +371,7 @@ CREATE TABLE tracked_changes_tpdm.performanceevaluation
        oldtermdescriptorid INT NOT NULL,
        oldtermdescriptornamespace VARCHAR(255) NOT NULL,
        oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
-       neweducationorganizationid INT NULL,
+       neweducationorganizationid BIGINT NULL,
        newevaluationperioddescriptorid INT NULL,
        newevaluationperioddescriptornamespace VARCHAR(255) NULL,
        newevaluationperioddescriptorcodevalue VARCHAR(50) NULL,
@@ -394,7 +394,7 @@ END IF;
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_tpdm' AND table_name = 'performanceevaluationrating') THEN
 CREATE TABLE tracked_changes_tpdm.performanceevaluationrating
 (
-       oldeducationorganizationid INT NOT NULL,
+       oldeducationorganizationid BIGINT NOT NULL,
        oldevaluationperioddescriptorid INT NOT NULL,
        oldevaluationperioddescriptornamespace VARCHAR(255) NOT NULL,
        oldevaluationperioddescriptorcodevalue VARCHAR(50) NOT NULL,
@@ -410,7 +410,7 @@ CREATE TABLE tracked_changes_tpdm.performanceevaluationrating
        oldtermdescriptorid INT NOT NULL,
        oldtermdescriptornamespace VARCHAR(255) NOT NULL,
        oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
-       neweducationorganizationid INT NULL,
+       neweducationorganizationid BIGINT NULL,
        newevaluationperioddescriptorid INT NULL,
        newevaluationperioddescriptornamespace VARCHAR(255) NULL,
        newevaluationperioddescriptorcodevalue VARCHAR(50) NULL,
@@ -437,7 +437,7 @@ END IF;
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_tpdm' AND table_name = 'rubricdimension') THEN
 CREATE TABLE tracked_changes_tpdm.rubricdimension
 (
-       oldeducationorganizationid INT NOT NULL,
+       oldeducationorganizationid BIGINT NOT NULL,
        oldevaluationelementtitle VARCHAR(255) NOT NULL,
        oldevaluationobjectivetitle VARCHAR(50) NOT NULL,
        oldevaluationperioddescriptorid INT NOT NULL,
@@ -453,7 +453,7 @@ CREATE TABLE tracked_changes_tpdm.rubricdimension
        oldtermdescriptorid INT NOT NULL,
        oldtermdescriptornamespace VARCHAR(255) NOT NULL,
        oldtermdescriptorcodevalue VARCHAR(50) NOT NULL,
-       neweducationorganizationid INT NULL,
+       neweducationorganizationid BIGINT NULL,
        newevaluationelementtitle VARCHAR(255) NULL,
        newevaluationobjectivetitle VARCHAR(50) NULL,
        newevaluationperioddescriptorid INT NULL,

@@ -46,7 +46,7 @@ CREATE TABLE [sample].[BusRoute] (
     [BusRouteDuration] [INT] NULL,
     [DisabilityDescriptorId] [INT] NULL,
     [StaffUSI] [INT] NULL,
-    [EducationOrganizationId] [INT] NULL,
+    [EducationOrganizationId] [BIGINT] NULL,
     [StaffClassificationDescriptorId] [INT] NULL,
     [BeginDate] [DATE] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
@@ -86,7 +86,7 @@ GO
 CREATE TABLE [sample].[BusRouteProgram] (
     [BusId] [NVARCHAR](60) NOT NULL,
     [BusRouteNumber] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -326,8 +326,8 @@ GO
 CREATE TABLE [sample].[ContactStudentProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
     [ContactUSI] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -381,7 +381,7 @@ GO
 
 -- Table [sample].[SchoolCTEProgram] --
 CREATE TABLE [sample].[SchoolCTEProgram] (
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [CareerPathwayDescriptorId] [INT] NOT NULL,
     [CIPCode] [NVARCHAR](120) NULL,
     [PrimaryCTEProgramIndicator] [BIT] NULL,
@@ -398,7 +398,7 @@ GO
 -- Table [sample].[SchoolDirectlyOwnedBus] --
 CREATE TABLE [sample].[SchoolDirectlyOwnedBus] (
     [DirectlyOwnedBusId] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [SchoolDirectlyOwnedBus_PK] PRIMARY KEY CLUSTERED (
         [DirectlyOwnedBusId] ASC,
@@ -411,7 +411,7 @@ GO
 
 -- Table [sample].[SchoolExtension] --
 CREATE TABLE [sample].[SchoolExtension] (
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [IsExemplary] [BIT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [SchoolExtension_PK] PRIMARY KEY CLUSTERED (
@@ -484,8 +484,8 @@ GO
 -- Table [sample].[StudentArtProgramAssociation] --
 CREATE TABLE [sample].[StudentArtProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -515,8 +515,8 @@ GO
 CREATE TABLE [sample].[StudentArtProgramAssociationArtMedium] (
     [ArtMediumDescriptorId] [INT] NOT NULL,
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -538,9 +538,9 @@ GO
 -- Table [sample].[StudentArtProgramAssociationPortfolioYears] --
 CREATE TABLE [sample].[StudentArtProgramAssociationPortfolioYears] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [PortfolioYears] [SMALLINT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -562,8 +562,8 @@ GO
 -- Table [sample].[StudentArtProgramAssociationService] --
 CREATE TABLE [sample].[StudentArtProgramAssociationService] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [ServiceDescriptorId] [INT] NOT NULL,
@@ -589,8 +589,8 @@ GO
 -- Table [sample].[StudentArtProgramAssociationStyle] --
 CREATE TABLE [sample].[StudentArtProgramAssociationStyle] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -641,7 +641,7 @@ CREATE TABLE [sample].[StudentContactAssociationExtension] (
     [LibraryVisits] [SMALLINT] NULL,
     [StudentRead] [SMALLINT] NULL,
     [LibraryDuration] [INT] NULL,
-    [EducationOrganizationId] [INT] NULL,
+    [EducationOrganizationId] [BIGINT] NULL,
     [InterventionStudyIdentificationCode] [NVARCHAR](60) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentContactAssociationExtension_PK] PRIMARY KEY CLUSTERED (
@@ -704,7 +704,7 @@ GO
 -- Table [sample].[StudentContactAssociationStaffEducationOrganizationEmploymentAssociation] --
 CREATE TABLE [sample].[StudentContactAssociationStaffEducationOrganizationEmploymentAssociation] (
     [ContactUSI] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EmploymentStatusDescriptorId] [INT] NOT NULL,
     [HireDate] [DATE] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
@@ -745,8 +745,8 @@ GO
 -- Table [sample].[StudentCTEProgramAssociationExtension] --
 CREATE TABLE [sample].[StudentCTEProgramAssociationExtension] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -770,7 +770,7 @@ GO
 CREATE TABLE [sample].[StudentEducationOrganizationAssociationAddressExtension] (
     [AddressTypeDescriptorId] [INT] NOT NULL,
     [City] [NVARCHAR](30) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [PostalCode] [NVARCHAR](17) NOT NULL,
     [StateAbbreviationDescriptorId] [INT] NOT NULL,
     [StreetNumberName] [NVARCHAR](150) NOT NULL,
@@ -796,7 +796,7 @@ GO
 CREATE TABLE [sample].[StudentEducationOrganizationAssociationAddressSchoolDistrict] (
     [AddressTypeDescriptorId] [INT] NOT NULL,
     [City] [NVARCHAR](30) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [PostalCode] [NVARCHAR](17) NOT NULL,
     [SchoolDistrict] [NVARCHAR](250) NOT NULL,
     [StateAbbreviationDescriptorId] [INT] NOT NULL,
@@ -822,7 +822,7 @@ GO
 CREATE TABLE [sample].[StudentEducationOrganizationAssociationAddressTerm] (
     [AddressTypeDescriptorId] [INT] NOT NULL,
     [City] [NVARCHAR](30) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [PostalCode] [NVARCHAR](17) NOT NULL,
     [StateAbbreviationDescriptorId] [INT] NOT NULL,
     [StreetNumberName] [NVARCHAR](150) NOT NULL,
@@ -847,7 +847,7 @@ GO
 -- Table [sample].[StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed] --
 CREATE TABLE [sample].[StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [StudentCharacteristicDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [PrimaryStudentNeedIndicator] [BIT] NULL,
@@ -898,7 +898,7 @@ GO
 
 -- Table [sample].[StudentGraduationPlanAssociation] --
 CREATE TABLE [sample].[StudentGraduationPlanAssociation] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -933,7 +933,7 @@ GO
 -- Table [sample].[StudentGraduationPlanAssociationAcademicSubject] --
 CREATE TABLE [sample].[StudentGraduationPlanAssociationAcademicSubject] (
     [AcademicSubjectDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -953,7 +953,7 @@ GO
 -- Table [sample].[StudentGraduationPlanAssociationCareerPathwayCode] --
 CREATE TABLE [sample].[StudentGraduationPlanAssociationCareerPathwayCode] (
     [CareerPathwayCode] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -972,7 +972,7 @@ GO
 
 -- Table [sample].[StudentGraduationPlanAssociationCTEProgram] --
 CREATE TABLE [sample].[StudentGraduationPlanAssociationCTEProgram] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -995,7 +995,7 @@ GO
 -- Table [sample].[StudentGraduationPlanAssociationDescription] --
 CREATE TABLE [sample].[StudentGraduationPlanAssociationDescription] (
     [Description] [NVARCHAR](1024) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -1015,7 +1015,7 @@ GO
 -- Table [sample].[StudentGraduationPlanAssociationDesignatedBy] --
 CREATE TABLE [sample].[StudentGraduationPlanAssociationDesignatedBy] (
     [DesignatedBy] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -1034,7 +1034,7 @@ GO
 
 -- Table [sample].[StudentGraduationPlanAssociationIndustryCredential] --
 CREATE TABLE [sample].[StudentGraduationPlanAssociationIndustryCredential] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [IndustryCredential] [NVARCHAR](100) NOT NULL,
@@ -1055,7 +1055,7 @@ GO
 -- Table [sample].[StudentGraduationPlanAssociationStudentContactAssociation] --
 CREATE TABLE [sample].[StudentGraduationPlanAssociationStudentContactAssociation] (
     [ContactUSI] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -1074,7 +1074,7 @@ GO
 
 -- Table [sample].[StudentGraduationPlanAssociationYearsAttended] --
 CREATE TABLE [sample].[StudentGraduationPlanAssociationYearsAttended] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -1124,7 +1124,7 @@ GO
 -- Table [sample].[StudentSchoolAssociationExtension] --
 CREATE TABLE [sample].[StudentSchoolAssociationExtension] (
     [EntryDate] [DATE] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [MembershipTypeDescriptorId] [INT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -1143,11 +1143,11 @@ CREATE TABLE [sample].[StudentSectionAssociationRelatedGeneralStudentProgramAsso
     [BeginDate] [DATE] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
     [RelatedBeginDate] [DATE] NOT NULL,
-    [RelatedEducationOrganizationId] [INT] NOT NULL,
-    [RelatedProgramEducationOrganizationId] [INT] NOT NULL,
+    [RelatedEducationOrganizationId] [BIGINT] NOT NULL,
+    [RelatedProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [RelatedProgramName] [NVARCHAR](60) NOT NULL,
     [RelatedProgramTypeDescriptorId] [INT] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,

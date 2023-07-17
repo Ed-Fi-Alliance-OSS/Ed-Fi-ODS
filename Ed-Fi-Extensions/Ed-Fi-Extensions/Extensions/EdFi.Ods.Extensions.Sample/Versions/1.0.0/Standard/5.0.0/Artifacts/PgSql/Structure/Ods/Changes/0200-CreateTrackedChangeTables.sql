@@ -41,14 +41,14 @@ END IF;
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_sample' AND table_name = 'studentgraduationplanassociation') THEN
 CREATE TABLE tracked_changes_sample.studentgraduationplanassociation
 (
-       oldeducationorganizationid INT NOT NULL,
+       oldeducationorganizationid BIGINT NOT NULL,
        oldgraduationplantypedescriptorid INT NOT NULL,
        oldgraduationplantypedescriptornamespace VARCHAR(255) NOT NULL,
        oldgraduationplantypedescriptorcodevalue VARCHAR(50) NOT NULL,
        oldgraduationschoolyear SMALLINT NOT NULL,
        oldstudentusi INT NOT NULL,
        oldstudentuniqueid VARCHAR(32) NOT NULL,
-       neweducationorganizationid INT NULL,
+       neweducationorganizationid BIGINT NULL,
        newgraduationplantypedescriptorid INT NULL,
        newgraduationplantypedescriptornamespace VARCHAR(255) NULL,
        newgraduationplantypedescriptorcodevalue VARCHAR(50) NULL,

@@ -7,7 +7,7 @@
 CREATE TABLE samplestudenttransportation.StudentTransportation (
     AMBusNumber VARCHAR(6) NOT NULL,
     PMBusNumber VARCHAR(6) NOT NULL,
-    SchoolId INT NOT NULL,
+    SchoolId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     EstimatedMilesFromSchool DECIMAL(5, 2) NOT NULL,
     Discriminator VARCHAR(128) NULL,

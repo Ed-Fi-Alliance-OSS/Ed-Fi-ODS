@@ -23,14 +23,14 @@ CREATE TABLE [tracked_changes_tpdm].[CandidateEducatorPreparationProgramAssociat
 (
        OldBeginDate [DATE] NOT NULL,
        OldCandidateIdentifier [NVARCHAR](32) NOT NULL,
-       OldEducationOrganizationId [INT] NOT NULL,
+       OldEducationOrganizationId [BIGINT] NOT NULL,
        OldProgramName [NVARCHAR](255) NOT NULL,
        OldProgramTypeDescriptorId [INT] NOT NULL,
        OldProgramTypeDescriptorNamespace [NVARCHAR](255) NOT NULL,
        OldProgramTypeDescriptorCodeValue [NVARCHAR](50) NOT NULL,
        NewBeginDate [DATE] NULL,
        NewCandidateIdentifier [NVARCHAR](32) NULL,
-       NewEducationOrganizationId [INT] NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
        NewProgramName [NVARCHAR](255) NULL,
        NewProgramTypeDescriptorId [INT] NULL,
        NewProgramTypeDescriptorNamespace [NVARCHAR](255) NULL,
@@ -44,12 +44,12 @@ CREATE TABLE [tracked_changes_tpdm].[CandidateEducatorPreparationProgramAssociat
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_tpdm].[EducatorPreparationProgram]'))
 CREATE TABLE [tracked_changes_tpdm].[EducatorPreparationProgram]
 (
-       OldEducationOrganizationId [INT] NOT NULL,
+       OldEducationOrganizationId [BIGINT] NOT NULL,
        OldProgramName [NVARCHAR](255) NOT NULL,
        OldProgramTypeDescriptorId [INT] NOT NULL,
        OldProgramTypeDescriptorNamespace [NVARCHAR](255) NOT NULL,
        OldProgramTypeDescriptorCodeValue [NVARCHAR](50) NOT NULL,
-       NewEducationOrganizationId [INT] NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
        NewProgramName [NVARCHAR](255) NULL,
        NewProgramTypeDescriptorId [INT] NULL,
        NewProgramTypeDescriptorNamespace [NVARCHAR](255) NULL,
@@ -63,7 +63,7 @@ CREATE TABLE [tracked_changes_tpdm].[EducatorPreparationProgram]
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_tpdm].[Evaluation]'))
 CREATE TABLE [tracked_changes_tpdm].[Evaluation]
 (
-       OldEducationOrganizationId [INT] NOT NULL,
+       OldEducationOrganizationId [BIGINT] NOT NULL,
        OldEvaluationPeriodDescriptorId [INT] NOT NULL,
        OldEvaluationPeriodDescriptorNamespace [NVARCHAR](255) NOT NULL,
        OldEvaluationPeriodDescriptorCodeValue [NVARCHAR](50) NOT NULL,
@@ -76,7 +76,7 @@ CREATE TABLE [tracked_changes_tpdm].[Evaluation]
        OldTermDescriptorId [INT] NOT NULL,
        OldTermDescriptorNamespace [NVARCHAR](255) NOT NULL,
        OldTermDescriptorCodeValue [NVARCHAR](50) NOT NULL,
-       NewEducationOrganizationId [INT] NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
        NewEvaluationPeriodDescriptorId [INT] NULL,
        NewEvaluationPeriodDescriptorNamespace [NVARCHAR](255) NULL,
        NewEvaluationPeriodDescriptorCodeValue [NVARCHAR](50) NULL,
@@ -98,7 +98,7 @@ CREATE TABLE [tracked_changes_tpdm].[Evaluation]
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_tpdm].[EvaluationElement]'))
 CREATE TABLE [tracked_changes_tpdm].[EvaluationElement]
 (
-       OldEducationOrganizationId [INT] NOT NULL,
+       OldEducationOrganizationId [BIGINT] NOT NULL,
        OldEvaluationElementTitle [NVARCHAR](255) NOT NULL,
        OldEvaluationObjectiveTitle [NVARCHAR](50) NOT NULL,
        OldEvaluationPeriodDescriptorId [INT] NOT NULL,
@@ -113,7 +113,7 @@ CREATE TABLE [tracked_changes_tpdm].[EvaluationElement]
        OldTermDescriptorId [INT] NOT NULL,
        OldTermDescriptorNamespace [NVARCHAR](255) NOT NULL,
        OldTermDescriptorCodeValue [NVARCHAR](50) NOT NULL,
-       NewEducationOrganizationId [INT] NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
        NewEvaluationElementTitle [NVARCHAR](255) NULL,
        NewEvaluationObjectiveTitle [NVARCHAR](50) NULL,
        NewEvaluationPeriodDescriptorId [INT] NULL,
@@ -137,7 +137,7 @@ CREATE TABLE [tracked_changes_tpdm].[EvaluationElement]
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_tpdm].[EvaluationElementRating]'))
 CREATE TABLE [tracked_changes_tpdm].[EvaluationElementRating]
 (
-       OldEducationOrganizationId [INT] NOT NULL,
+       OldEducationOrganizationId [BIGINT] NOT NULL,
        OldEvaluationDate [DATETIME2](7) NOT NULL,
        OldEvaluationElementTitle [NVARCHAR](255) NOT NULL,
        OldEvaluationObjectiveTitle [NVARCHAR](50) NOT NULL,
@@ -157,7 +157,7 @@ CREATE TABLE [tracked_changes_tpdm].[EvaluationElementRating]
        OldTermDescriptorId [INT] NOT NULL,
        OldTermDescriptorNamespace [NVARCHAR](255) NOT NULL,
        OldTermDescriptorCodeValue [NVARCHAR](50) NOT NULL,
-       NewEducationOrganizationId [INT] NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
        NewEvaluationDate [DATETIME2](7) NULL,
        NewEvaluationElementTitle [NVARCHAR](255) NULL,
        NewEvaluationObjectiveTitle [NVARCHAR](50) NULL,
@@ -186,7 +186,7 @@ CREATE TABLE [tracked_changes_tpdm].[EvaluationElementRating]
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_tpdm].[EvaluationObjective]'))
 CREATE TABLE [tracked_changes_tpdm].[EvaluationObjective]
 (
-       OldEducationOrganizationId [INT] NOT NULL,
+       OldEducationOrganizationId [BIGINT] NOT NULL,
        OldEvaluationObjectiveTitle [NVARCHAR](50) NOT NULL,
        OldEvaluationPeriodDescriptorId [INT] NOT NULL,
        OldEvaluationPeriodDescriptorNamespace [NVARCHAR](255) NOT NULL,
@@ -200,7 +200,7 @@ CREATE TABLE [tracked_changes_tpdm].[EvaluationObjective]
        OldTermDescriptorId [INT] NOT NULL,
        OldTermDescriptorNamespace [NVARCHAR](255) NOT NULL,
        OldTermDescriptorCodeValue [NVARCHAR](50) NOT NULL,
-       NewEducationOrganizationId [INT] NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
        NewEvaluationObjectiveTitle [NVARCHAR](50) NULL,
        NewEvaluationPeriodDescriptorId [INT] NULL,
        NewEvaluationPeriodDescriptorNamespace [NVARCHAR](255) NULL,
@@ -223,7 +223,7 @@ CREATE TABLE [tracked_changes_tpdm].[EvaluationObjective]
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_tpdm].[EvaluationObjectiveRating]'))
 CREATE TABLE [tracked_changes_tpdm].[EvaluationObjectiveRating]
 (
-       OldEducationOrganizationId [INT] NOT NULL,
+       OldEducationOrganizationId [BIGINT] NOT NULL,
        OldEvaluationDate [DATETIME2](7) NOT NULL,
        OldEvaluationObjectiveTitle [NVARCHAR](50) NOT NULL,
        OldEvaluationPeriodDescriptorId [INT] NOT NULL,
@@ -242,7 +242,7 @@ CREATE TABLE [tracked_changes_tpdm].[EvaluationObjectiveRating]
        OldTermDescriptorId [INT] NOT NULL,
        OldTermDescriptorNamespace [NVARCHAR](255) NOT NULL,
        OldTermDescriptorCodeValue [NVARCHAR](50) NOT NULL,
-       NewEducationOrganizationId [INT] NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
        NewEvaluationDate [DATETIME2](7) NULL,
        NewEvaluationObjectiveTitle [NVARCHAR](50) NULL,
        NewEvaluationPeriodDescriptorId [INT] NULL,
@@ -270,7 +270,7 @@ CREATE TABLE [tracked_changes_tpdm].[EvaluationObjectiveRating]
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_tpdm].[EvaluationRating]'))
 CREATE TABLE [tracked_changes_tpdm].[EvaluationRating]
 (
-       OldEducationOrganizationId [INT] NOT NULL,
+       OldEducationOrganizationId [BIGINT] NOT NULL,
        OldEvaluationDate [DATETIME2](7) NOT NULL,
        OldEvaluationPeriodDescriptorId [INT] NOT NULL,
        OldEvaluationPeriodDescriptorNamespace [NVARCHAR](255) NOT NULL,
@@ -288,7 +288,7 @@ CREATE TABLE [tracked_changes_tpdm].[EvaluationRating]
        OldTermDescriptorId [INT] NOT NULL,
        OldTermDescriptorNamespace [NVARCHAR](255) NOT NULL,
        OldTermDescriptorCodeValue [NVARCHAR](50) NOT NULL,
-       NewEducationOrganizationId [INT] NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
        NewEvaluationDate [DATETIME2](7) NULL,
        NewEvaluationPeriodDescriptorId [INT] NULL,
        NewEvaluationPeriodDescriptorNamespace [NVARCHAR](255) NULL,
@@ -336,7 +336,7 @@ CREATE TABLE [tracked_changes_tpdm].[FinancialAid]
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_tpdm].[PerformanceEvaluation]'))
 CREATE TABLE [tracked_changes_tpdm].[PerformanceEvaluation]
 (
-       OldEducationOrganizationId [INT] NOT NULL,
+       OldEducationOrganizationId [BIGINT] NOT NULL,
        OldEvaluationPeriodDescriptorId [INT] NOT NULL,
        OldEvaluationPeriodDescriptorNamespace [NVARCHAR](255) NOT NULL,
        OldEvaluationPeriodDescriptorCodeValue [NVARCHAR](50) NOT NULL,
@@ -348,7 +348,7 @@ CREATE TABLE [tracked_changes_tpdm].[PerformanceEvaluation]
        OldTermDescriptorId [INT] NOT NULL,
        OldTermDescriptorNamespace [NVARCHAR](255) NOT NULL,
        OldTermDescriptorCodeValue [NVARCHAR](50) NOT NULL,
-       NewEducationOrganizationId [INT] NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
        NewEvaluationPeriodDescriptorId [INT] NULL,
        NewEvaluationPeriodDescriptorNamespace [NVARCHAR](255) NULL,
        NewEvaluationPeriodDescriptorCodeValue [NVARCHAR](50) NULL,
@@ -369,7 +369,7 @@ CREATE TABLE [tracked_changes_tpdm].[PerformanceEvaluation]
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_tpdm].[PerformanceEvaluationRating]'))
 CREATE TABLE [tracked_changes_tpdm].[PerformanceEvaluationRating]
 (
-       OldEducationOrganizationId [INT] NOT NULL,
+       OldEducationOrganizationId [BIGINT] NOT NULL,
        OldEvaluationPeriodDescriptorId [INT] NOT NULL,
        OldEvaluationPeriodDescriptorNamespace [NVARCHAR](255) NOT NULL,
        OldEvaluationPeriodDescriptorCodeValue [NVARCHAR](50) NOT NULL,
@@ -385,7 +385,7 @@ CREATE TABLE [tracked_changes_tpdm].[PerformanceEvaluationRating]
        OldTermDescriptorId [INT] NOT NULL,
        OldTermDescriptorNamespace [NVARCHAR](255) NOT NULL,
        OldTermDescriptorCodeValue [NVARCHAR](50) NOT NULL,
-       NewEducationOrganizationId [INT] NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
        NewEvaluationPeriodDescriptorId [INT] NULL,
        NewEvaluationPeriodDescriptorNamespace [NVARCHAR](255) NULL,
        NewEvaluationPeriodDescriptorCodeValue [NVARCHAR](50) NULL,
@@ -410,7 +410,7 @@ CREATE TABLE [tracked_changes_tpdm].[PerformanceEvaluationRating]
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_tpdm].[RubricDimension]'))
 CREATE TABLE [tracked_changes_tpdm].[RubricDimension]
 (
-       OldEducationOrganizationId [INT] NOT NULL,
+       OldEducationOrganizationId [BIGINT] NOT NULL,
        OldEvaluationElementTitle [NVARCHAR](255) NOT NULL,
        OldEvaluationObjectiveTitle [NVARCHAR](50) NOT NULL,
        OldEvaluationPeriodDescriptorId [INT] NOT NULL,
@@ -426,7 +426,7 @@ CREATE TABLE [tracked_changes_tpdm].[RubricDimension]
        OldTermDescriptorId [INT] NOT NULL,
        OldTermDescriptorNamespace [NVARCHAR](255) NOT NULL,
        OldTermDescriptorCodeValue [NVARCHAR](50) NOT NULL,
-       NewEducationOrganizationId [INT] NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
        NewEvaluationElementTitle [NVARCHAR](255) NULL,
        NewEvaluationObjectiveTitle [NVARCHAR](50) NULL,
        NewEvaluationPeriodDescriptorId [INT] NULL,

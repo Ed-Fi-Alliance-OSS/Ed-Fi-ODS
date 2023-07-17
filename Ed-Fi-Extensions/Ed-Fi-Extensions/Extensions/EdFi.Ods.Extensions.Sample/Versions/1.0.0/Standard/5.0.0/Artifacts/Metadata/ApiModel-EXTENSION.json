@@ -5419,7 +5419,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -5494,7 +5494,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -5773,7 +5773,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -5831,7 +5831,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -7662,7 +7662,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -7679,7 +7679,7 @@
         {
           "propertyName": "ProgramEducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -7772,7 +7772,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -7789,7 +7789,7 @@
         {
           "propertyName": "ProgramEducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -8118,7 +8118,7 @@
         {
           "propertyName": "SchoolId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -8141,7 +8141,7 @@
         {
           "propertyName": "SchoolId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -8240,7 +8240,7 @@
         {
           "propertyName": "SchoolId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -8263,7 +8263,7 @@
         {
           "propertyName": "SchoolId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -8300,7 +8300,7 @@
         {
           "propertyName": "SchoolId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -8323,7 +8323,7 @@
         {
           "propertyName": "SchoolId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -8616,7 +8616,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -8633,7 +8633,7 @@
         {
           "propertyName": "ProgramEducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -8726,7 +8726,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -8743,7 +8743,7 @@
         {
           "propertyName": "ProgramEducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -8909,7 +8909,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -8926,7 +8926,7 @@
         {
           "propertyName": "ProgramEducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -9019,7 +9019,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -9036,7 +9036,7 @@
         {
           "propertyName": "ProgramEducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -9143,7 +9143,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -9160,7 +9160,7 @@
         {
           "propertyName": "ProgramEducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -9253,7 +9253,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -9270,7 +9270,7 @@
         {
           "propertyName": "ProgramEducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -9437,7 +9437,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -9454,7 +9454,7 @@
         {
           "propertyName": "ProgramEducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -9547,7 +9547,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -9564,7 +9564,7 @@
         {
           "propertyName": "ProgramEducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -9671,7 +9671,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -9688,7 +9688,7 @@
         {
           "propertyName": "ProgramEducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -9781,7 +9781,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -9798,7 +9798,7 @@
         {
           "propertyName": "ProgramEducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -10041,7 +10041,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -10082,7 +10082,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -10512,7 +10512,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -10587,7 +10587,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -10942,7 +10942,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -10959,7 +10959,7 @@
         {
           "propertyName": "ProgramEducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -11052,7 +11052,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -11069,7 +11069,7 @@
         {
           "propertyName": "ProgramEducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -11192,7 +11192,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -11320,7 +11320,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -11462,7 +11462,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -11590,7 +11590,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -11732,7 +11732,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -11860,7 +11860,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -12027,7 +12027,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -12084,7 +12084,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -12429,7 +12429,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -12486,7 +12486,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -12737,7 +12737,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -12811,7 +12811,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -12899,7 +12899,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -12973,7 +12973,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -13121,7 +13121,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -13195,7 +13195,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -13283,7 +13283,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -13357,7 +13357,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -13445,7 +13445,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -13519,7 +13519,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -13607,7 +13607,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -13681,7 +13681,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -13863,7 +13863,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -13937,7 +13937,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -14025,7 +14025,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -14099,7 +14099,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -14385,7 +14385,7 @@
         {
           "propertyName": "SchoolId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -14443,7 +14443,7 @@
         {
           "propertyName": "SchoolId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -14514,7 +14514,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -14531,7 +14531,7 @@
         {
           "propertyName": "ProgramEducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -14624,7 +14624,7 @@
         {
           "propertyName": "RelatedEducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -14641,7 +14641,7 @@
         {
           "propertyName": "RelatedProgramEducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -14766,7 +14766,7 @@
         {
           "propertyName": "SchoolId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -14895,7 +14895,7 @@
         {
           "propertyName": "SchoolId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,

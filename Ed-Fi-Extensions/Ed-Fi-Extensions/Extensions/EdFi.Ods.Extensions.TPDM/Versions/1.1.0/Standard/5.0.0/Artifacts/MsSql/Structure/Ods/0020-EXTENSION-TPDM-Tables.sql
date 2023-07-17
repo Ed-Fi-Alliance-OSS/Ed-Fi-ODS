@@ -159,7 +159,7 @@ GO
 CREATE TABLE [tpdm].[CandidateEducatorPreparationProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
     [CandidateIdentifier] [NVARCHAR](32) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](255) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [EndDate] [DATE] NULL,
@@ -190,7 +190,7 @@ CREATE TABLE [tpdm].[CandidateEducatorPreparationProgramAssociationCohortYear] (
     [BeginDate] [DATE] NOT NULL,
     [CandidateIdentifier] [NVARCHAR](32) NOT NULL,
     [CohortYearTypeDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](255) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
@@ -214,7 +214,7 @@ GO
 CREATE TABLE [tpdm].[CandidateEducatorPreparationProgramAssociationDegreeSpecialization] (
     [BeginDate] [DATE] NOT NULL,
     [CandidateIdentifier] [NVARCHAR](32) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [MajorSpecialization] [NVARCHAR](255) NOT NULL,
     [ProgramName] [NVARCHAR](255) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
@@ -407,7 +407,7 @@ GO
 -- Table [tpdm].[CredentialStudentAcademicRecord] --
 CREATE TABLE [tpdm].[CredentialStudentAcademicRecord] (
     [CredentialIdentifier] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [StateOfIssueStateAbbreviationDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -428,7 +428,7 @@ GO
 
 -- Table [tpdm].[EducatorPreparationProgram] --
 CREATE TABLE [tpdm].[EducatorPreparationProgram] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](255) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [ProgramId] [NVARCHAR](20) NULL,
@@ -453,7 +453,7 @@ GO
 
 -- Table [tpdm].[EducatorPreparationProgramGradeLevel] --
 CREATE TABLE [tpdm].[EducatorPreparationProgramGradeLevel] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GradeLevelDescriptorId] [INT] NOT NULL,
     [ProgramName] [NVARCHAR](255) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
@@ -498,7 +498,7 @@ GO
 
 -- Table [tpdm].[Evaluation] --
 CREATE TABLE [tpdm].[Evaluation] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
     [EvaluationTitle] [NVARCHAR](50) NOT NULL,
     [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
@@ -534,7 +534,7 @@ GO
 
 -- Table [tpdm].[EvaluationElement] --
 CREATE TABLE [tpdm].[EvaluationElement] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationElementTitle] [NVARCHAR](255) NOT NULL,
     [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
@@ -573,7 +573,7 @@ GO
 
 -- Table [tpdm].[EvaluationElementRating] --
 CREATE TABLE [tpdm].[EvaluationElementRating] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationDate] [DATETIME2](7) NOT NULL,
     [EvaluationElementTitle] [NVARCHAR](255) NOT NULL,
     [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
@@ -619,7 +619,7 @@ GO
 
 -- Table [tpdm].[EvaluationElementRatingLevel] --
 CREATE TABLE [tpdm].[EvaluationElementRatingLevel] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationElementTitle] [NVARCHAR](255) NOT NULL,
     [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
@@ -660,7 +660,7 @@ GO
 
 -- Table [tpdm].[EvaluationElementRatingResult] --
 CREATE TABLE [tpdm].[EvaluationElementRatingResult] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationDate] [DATETIME2](7) NOT NULL,
     [EvaluationElementTitle] [NVARCHAR](255) NOT NULL,
     [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
@@ -699,7 +699,7 @@ GO
 
 -- Table [tpdm].[EvaluationObjective] --
 CREATE TABLE [tpdm].[EvaluationObjective] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
     [EvaluationTitle] [NVARCHAR](50) NOT NULL,
@@ -737,7 +737,7 @@ GO
 
 -- Table [tpdm].[EvaluationObjectiveRating] --
 CREATE TABLE [tpdm].[EvaluationObjectiveRating] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationDate] [DATETIME2](7) NOT NULL,
     [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
@@ -778,7 +778,7 @@ GO
 
 -- Table [tpdm].[EvaluationObjectiveRatingLevel] --
 CREATE TABLE [tpdm].[EvaluationObjectiveRatingLevel] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
     [EvaluationRatingLevelDescriptorId] [INT] NOT NULL,
@@ -808,7 +808,7 @@ GO
 
 -- Table [tpdm].[EvaluationObjectiveRatingResult] --
 CREATE TABLE [tpdm].[EvaluationObjectiveRatingResult] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationDate] [DATETIME2](7) NOT NULL,
     [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
@@ -854,7 +854,7 @@ GO
 
 -- Table [tpdm].[EvaluationRating] --
 CREATE TABLE [tpdm].[EvaluationRating] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationDate] [DATETIME2](7) NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
     [EvaluationTitle] [NVARCHAR](50) NOT NULL,
@@ -868,7 +868,7 @@ CREATE TABLE [tpdm].[EvaluationRating] (
     [SectionIdentifier] [NVARCHAR](255) NULL,
     [LocalCourseCode] [NVARCHAR](60) NULL,
     [SessionName] [NVARCHAR](60) NULL,
-    [SchoolId] [INT] NULL,
+    [SchoolId] [BIGINT] NULL,
     [EvaluationRatingStatusDescriptorId] [INT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -897,7 +897,7 @@ GO
 
 -- Table [tpdm].[EvaluationRatingLevel] --
 CREATE TABLE [tpdm].[EvaluationRatingLevel] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
     [EvaluationRatingLevelDescriptorId] [INT] NOT NULL,
     [EvaluationTitle] [NVARCHAR](50) NOT NULL,
@@ -934,7 +934,7 @@ GO
 
 -- Table [tpdm].[EvaluationRatingResult] --
 CREATE TABLE [tpdm].[EvaluationRatingResult] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationDate] [DATETIME2](7) NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
     [EvaluationTitle] [NVARCHAR](50) NOT NULL,
@@ -969,7 +969,7 @@ GO
 
 -- Table [tpdm].[EvaluationRatingReviewer] --
 CREATE TABLE [tpdm].[EvaluationRatingReviewer] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationDate] [DATETIME2](7) NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
     [EvaluationTitle] [NVARCHAR](50) NOT NULL,
@@ -1005,7 +1005,7 @@ GO
 
 -- Table [tpdm].[EvaluationRatingReviewerReceivedTraining] --
 CREATE TABLE [tpdm].[EvaluationRatingReviewerReceivedTraining] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationDate] [DATETIME2](7) NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
     [EvaluationTitle] [NVARCHAR](50) NOT NULL,
@@ -1104,7 +1104,7 @@ GO
 
 -- Table [tpdm].[PerformanceEvaluation] --
 CREATE TABLE [tpdm].[PerformanceEvaluation] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
     [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
     [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
@@ -1135,7 +1135,7 @@ GO
 
 -- Table [tpdm].[PerformanceEvaluationGradeLevel] --
 CREATE TABLE [tpdm].[PerformanceEvaluationGradeLevel] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
     [GradeLevelDescriptorId] [INT] NOT NULL,
     [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
@@ -1159,7 +1159,7 @@ GO
 
 -- Table [tpdm].[PerformanceEvaluationRating] --
 CREATE TABLE [tpdm].[PerformanceEvaluationRating] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
     [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
     [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
@@ -1200,7 +1200,7 @@ GO
 
 -- Table [tpdm].[PerformanceEvaluationRatingLevel] --
 CREATE TABLE [tpdm].[PerformanceEvaluationRatingLevel] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
     [EvaluationRatingLevelDescriptorId] [INT] NOT NULL,
     [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
@@ -1235,7 +1235,7 @@ GO
 
 -- Table [tpdm].[PerformanceEvaluationRatingResult] --
 CREATE TABLE [tpdm].[PerformanceEvaluationRatingResult] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
     [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
     [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
@@ -1266,7 +1266,7 @@ GO
 
 -- Table [tpdm].[PerformanceEvaluationRatingReviewer] --
 CREATE TABLE [tpdm].[PerformanceEvaluationRatingReviewer] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
     [FirstName] [NVARCHAR](75) NOT NULL,
     [LastSurname] [NVARCHAR](75) NOT NULL,
@@ -1298,7 +1298,7 @@ GO
 
 -- Table [tpdm].[PerformanceEvaluationRatingReviewerReceivedTraining] --
 CREATE TABLE [tpdm].[PerformanceEvaluationRatingReviewerReceivedTraining] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
     [FirstName] [NVARCHAR](75) NOT NULL,
     [LastSurname] [NVARCHAR](75) NOT NULL,
@@ -1339,7 +1339,7 @@ GO
 
 -- Table [tpdm].[RubricDimension] --
 CREATE TABLE [tpdm].[RubricDimension] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EvaluationElementTitle] [NVARCHAR](255) NOT NULL,
     [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
     [EvaluationPeriodDescriptorId] [INT] NOT NULL,
@@ -1388,8 +1388,8 @@ GO
 
 -- Table [tpdm].[SchoolExtension] --
 CREATE TABLE [tpdm].[SchoolExtension] (
-    [SchoolId] [INT] NOT NULL,
-    [PostSecondaryInstitutionId] [INT] NULL,
+    [SchoolId] [BIGINT] NOT NULL,
+    [PostSecondaryInstitutionId] [BIGINT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [SchoolExtension_PK] PRIMARY KEY CLUSTERED (
         [SchoolId] ASC
