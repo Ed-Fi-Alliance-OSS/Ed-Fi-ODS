@@ -9685,16 +9685,16 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CourseOfferingAggregate.EdFi.CourseOfferingQ" />
           </set>
 
-          <set name="ResponsibilityDisciplineActions" cascade="none" lazy="true">
+          <set name="AssignmentDisciplineActions" cascade="none" lazy="true">
             <key>
-              <column name="ResponsibilitySchoolId" />
+              <column name="AssignmentSchoolId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineActionAggregate.EdFi.DisciplineActionQ" />
           </set>
 
-          <set name="AssignmentDisciplineActions" cascade="none" lazy="true">
+          <set name="ResponsibilityDisciplineActions" cascade="none" lazy="true">
             <key>
-              <column name="AssignmentSchoolId" />
+              <column name="ResponsibilitySchoolId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineActionAggregate.EdFi.DisciplineActionQ" />
           </set>

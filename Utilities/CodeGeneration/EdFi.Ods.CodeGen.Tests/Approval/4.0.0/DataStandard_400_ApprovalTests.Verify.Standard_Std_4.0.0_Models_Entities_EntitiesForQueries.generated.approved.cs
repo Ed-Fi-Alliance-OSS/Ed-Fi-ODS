@@ -8597,9 +8597,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradeAggregate.EdFi
         [DomainSignature]
         public virtual int GradingPeriodDescriptorId { get; set; }
         [DomainSignature]
-        public virtual short GradingPeriodSchoolYear { get; set; }
-        [DomainSignature]
         public virtual int GradingPeriodSequence { get; set; }
+        [DomainSignature]
+        public virtual short GradingPeriodSchoolYear { get; set; }
         [DomainSignature]
         public virtual string LocalCourseCode { get; set; }
         [DomainSignature]
@@ -17150,11 +17150,11 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReportCardAggregate.EdFi
         [DomainSignature]
         public virtual int GradingPeriodDescriptorId { get; set; }
         [DomainSignature]
+        public virtual int GradingPeriodSequence { get; set; }
+        [DomainSignature]
         public virtual int GradingPeriodSchoolId { get; set; }
         [DomainSignature]
         public virtual short GradingPeriodSchoolYear { get; set; }
-        [DomainSignature]
-        public virtual int GradingPeriodSequence { get; set; }
         [DomainSignature]
         public virtual int StudentUSI { get; set; }
         // -------------------------------------------------------------
@@ -17316,9 +17316,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReportCardAggregate.EdFi
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual NHibernate.QueryModels.ReportCardAggregate.EdFi.ReportCardQ ReportCard { get; set; }
         [DomainSignature]
-        public virtual string Objective { get; set; }
-        [DomainSignature]
         public virtual int ObjectiveEducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual string Objective { get; set; }
         [DomainSignature]
         public virtual int ObjectiveGradeLevelDescriptorId { get; set; }
         // -------------------------------------------------------------
@@ -22229,11 +22229,11 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAcademicRecordAggregat
         [DomainSignature]
         public virtual int GradingPeriodDescriptorId { get; set; }
         [DomainSignature]
+        public virtual int GradingPeriodSequence { get; set; }
+        [DomainSignature]
         public virtual int GradingPeriodSchoolId { get; set; }
         [DomainSignature]
         public virtual short GradingPeriodSchoolYear { get; set; }
-        [DomainSignature]
-        public virtual int GradingPeriodSequence { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -22955,15 +22955,15 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCompetencyObjectiveAgg
         [DomainSignature]
         public virtual int GradingPeriodDescriptorId { get; set; }
         [DomainSignature]
+        public virtual int GradingPeriodSequence { get; set; }
+        [DomainSignature]
         public virtual int GradingPeriodSchoolId { get; set; }
         [DomainSignature]
         public virtual short GradingPeriodSchoolYear { get; set; }
         [DomainSignature]
-        public virtual int GradingPeriodSequence { get; set; }
+        public virtual int ObjectiveEducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string Objective { get; set; }
-        [DomainSignature]
-        public virtual int ObjectiveEducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int ObjectiveGradeLevelDescriptorId { get; set; }
         [DomainSignature]
@@ -25169,11 +25169,11 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentLearningObjectiveAggre
         [DomainSignature]
         public virtual int GradingPeriodDescriptorId { get; set; }
         [DomainSignature]
+        public virtual int GradingPeriodSequence { get; set; }
+        [DomainSignature]
         public virtual int GradingPeriodSchoolId { get; set; }
         [DomainSignature]
         public virtual short GradingPeriodSchoolYear { get; set; }
-        [DomainSignature]
-        public virtual int GradingPeriodSequence { get; set; }
         [DomainSignature]
         public virtual string LearningObjectiveId { get; set; }
         [DomainSignature]
