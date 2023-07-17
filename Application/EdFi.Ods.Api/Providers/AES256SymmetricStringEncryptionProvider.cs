@@ -60,14 +60,21 @@ public class Aes256SymmetricStringEncryptionProvider : ISymmetricStringEncryptio
             }
         }
 
-        byte[] hashValue;
+        byte[] hmacSignatureValue = GenerateHmacSignature(key, encryptedBytes);
 
-        using (HMACSHA256 hmac = new HMACSHA256(key))
+        return $"{Convert.ToBase64String(aesInstance.IV)}.{Convert.ToBase64String(encryptedBytes)}.{Convert.ToBase64String(hmacSignatureValue)}";
+        
+        byte[] GenerateHmacSignature(byte[] key, byte[] encryptedBytes)
         {
-            hashValue = hmac.ComputeHash(encryptedBytes);
-        }
+            byte[] hmacSignature;
 
-        return $"{Convert.ToBase64String(aesInstance.IV)}.{Convert.ToBase64String(encryptedBytes)}.{Convert.ToBase64String(hashValue)}";
+            using (HMACSHA256 hmac = new HMACSHA256(key))
+            {
+                hmacSignature = hmac.ComputeHash(encryptedBytes);
+            }
+
+            return hmacSignature;
+        }
     }
 
     /// <summary>
@@ -113,15 +120,12 @@ public class Aes256SymmetricStringEncryptionProvider : ISymmetricStringEncryptio
             return false;
         }
 
-        using (HMACSHA256 hmac = new HMACSHA256(key))
-        {
-            byte[] computedHashValue = hmac.ComputeHash(encryptedBytes);
+        bool signatureIsValid = IsHmacSignatureValid(key, encryptedBytes, hashValue);
 
-            if (!hashValue.SequenceEqual(computedHashValue))
-            {
-                output = null;
-                return false;
-            }
+        if (!signatureIsValid)
+        {
+            output = null;
+            return false;
         }
 
         using Aes aesInstance = Aes.Create();
@@ -143,5 +147,18 @@ public class Aes256SymmetricStringEncryptionProvider : ISymmetricStringEncryptio
         }
 
         return true;
+        
+        bool IsHmacSignatureValid(byte[] key, byte[] message, byte[] hmacValue)
+        {
+            bool signatureIsValid;
+
+            using (HMACSHA256 hmac = new HMACSHA256(key))
+            {
+                byte[] computedHashValue = hmac.ComputeHash(message);
+                signatureIsValid = hmacValue.SequenceEqual(computedHashValue);
+            }
+
+            return signatureIsValid;
+        }
     }
 }
