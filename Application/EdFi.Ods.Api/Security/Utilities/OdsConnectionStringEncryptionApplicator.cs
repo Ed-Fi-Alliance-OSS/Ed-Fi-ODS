@@ -9,6 +9,12 @@ using EdFi.Ods.Api.Providers;
 
 namespace EdFi.Ods.Api.Security.Utilities;
 
+/// <summary>
+/// Defines an class for applying encryption to the ODS connection strings in the Admin database.
+/// </summary>
+/// <remarks>
+/// This class is used to facilitate the encryption and decryption
+/// of ODS connection strings in the Admin database.</remarks>
 public class OdsConnectionStringEncryptionApplicator : IOdsConnectionStringEncryptionApplicator
 {
     private readonly byte[] _privateKey;
@@ -20,6 +26,15 @@ public class OdsConnectionStringEncryptionApplicator : IOdsConnectionStringEncry
         _encryptionProvider = encryptionProvider;
     }
     
+    /// <summary>
+    /// Applies encryption to the specified connection string, if necessary, otherwise
+    /// decrypts the connection string. Returns a plain-text version of the connection string.
+    /// </summary>
+    /// <para name="configurationDataRow">A row of data from the Admin database containing the ODS connection string
+    /// in either encrypted or plain-text form.</para>
+    /// <para name="rowHasChanged">Boolean indicating if the <paramref name="configurationDataRow" /> has been modified to
+    /// replace the plain-text version of the ODS connection string with the encrypted version.</para>
+    /// <returns>The connection string from the data row as plain-text.</returns>
     public string DecryptOrApplyEncryption(RawOdsInstanceConfigurationDataRow configurationDataRow, out bool rowHasChanged)
     {
         rowHasChanged = false;
