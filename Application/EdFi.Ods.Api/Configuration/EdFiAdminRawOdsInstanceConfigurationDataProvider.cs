@@ -44,7 +44,10 @@ public class EdFiAdminRawOdsInstanceConfigurationDataProvider : IEdFiAdminRawOds
                 new { OdsInstanceId = odsInstanceId }))
             .ToArray();
 
-        HandleOdsConnectionStringEncryption(rawDataRows, connection);
+        if (!System.Diagnostics.Debugger.IsAttached)
+        {
+            HandleOdsConnectionStringEncryption(rawDataRows, connection);
+        }
 
         return rawDataRows;
         
