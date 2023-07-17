@@ -111,7 +111,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Sample.BusRoutes
         public int BusRouteNumber { get; set; }
         public bool Daily { get; set; }
         public string DisabilityDescriptor { get; set; }
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
         public string ExpectedTransitTime { get; set; }
         public decimal HoursPerWeek { get; set; }
         public Guid Id { get; set; }
@@ -260,7 +260,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Sample.StudentArtProgramAssociatio
     {
         public int ArtPieces { get; set; }
         public DateTime BeginDate { get; set; }
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
         public DateTime ExhibitDate { get; set; }
         public decimal HoursPerDay { get; set; }
         public string IdentificationCode { get; set; }
@@ -270,7 +270,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Sample.StudentArtProgramAssociatio
         public decimal NumberOfDaysInAttendance { get; set; }
         public int PortfolioPieces { get; set; }
         public bool PrivateArtProgram { get; set; }
-        public int ProgramEducationOrganizationId { get; set; }
+        public long ProgramEducationOrganizationId { get; set; }
         public decimal ProgramFees { get; set; }
         public string ProgramName { get; set; }
         public string ProgramTypeDescriptor { get; set; }
@@ -321,7 +321,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Sample.StudentGraduationPlanAssoci
     public class StudentGraduationPlanAssociationGetByExample
     {
         public TimeSpan CommencementTime { get; set; }
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
         public DateTime EffectiveDate { get; set; }
         public decimal GraduationFee { get; set; }
         public string GraduationPlanTypeDescriptor { get; set; }

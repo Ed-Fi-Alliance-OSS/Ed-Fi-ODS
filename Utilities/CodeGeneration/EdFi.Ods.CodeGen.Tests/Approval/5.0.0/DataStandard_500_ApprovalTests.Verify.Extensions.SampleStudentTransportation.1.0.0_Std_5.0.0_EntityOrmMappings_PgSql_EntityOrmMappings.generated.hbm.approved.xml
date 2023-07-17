@@ -6,7 +6,7 @@
         <composite-id>
             <key-property name="AMBusNumber" column="AMBusNumber" type="string"  length="6"  />
             <key-property name="PMBusNumber" column="PMBusNumber" type="string"  length="6"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
         </composite-id>
 
@@ -22,7 +22,7 @@
     <composite-id>
       <key-property name="AMBusNumber" column="AMBusNumber" type="string" length="6" />
       <key-property name="PMBusNumber" column="PMBusNumber" type="string" length="6" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
     </composite-id>
 

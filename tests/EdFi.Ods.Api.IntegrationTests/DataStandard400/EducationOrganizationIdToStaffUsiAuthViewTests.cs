@@ -6,7 +6,7 @@
 using System;
 using NUnit.Framework;
 
-namespace EdFi.Ods.Api.IntegrationTests
+namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
 {
     [TestFixture]
     public class EducationOrganizationIdToStaffUsiAuthViewTests : DatabaseTestFixtureBase
@@ -87,8 +87,10 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStaffEducationOrganizationEmploymentAssociation(9701, staffUsi, DateTime.UtcNow.Date)
                 .Execute();
 
+            var expectedTuples = new (int, int)[] { (9701, staffUsi) };
+
             AuthorizationViewHelper.ShouldContainTuples(
-                Connection, PersonType.Staff, (9701, staffUsi));
+                Connection, PersonType.Staff, expectedTuples);
         }
 
         [Test]
@@ -107,8 +109,10 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStaffEducationOrganizationAssignmentAssociation(9701, staffUsi, DateTime.UtcNow.Date)
                 .Execute();
 
+            var expectedTuples = new (int, int)[] { (9701, staffUsi) };
+
             AuthorizationViewHelper.ShouldContainTuples(
-                Connection, PersonType.Staff, (9701, staffUsi));
+                Connection, PersonType.Staff, expectedTuples);
         }
 
         [Test]
@@ -128,7 +132,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStaffEducationOrganizationEmploymentAssociation(9702, staffUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new[] { (9722, staffUsi) };
+            var expectedTuples = new (int, int)[] { (9722, staffUsi) };
 
             AuthorizationViewHelper.ShouldNotContainTuples(
                 Connection, PersonType.Staff, expectedTuples);
@@ -151,7 +155,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStaffEducationOrganizationAssignmentAssociation(9702, staffUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new[] { (9722, staffUsi) };
+            var expectedTuples = new (int, int)[] { (9722, staffUsi) };
 
             AuthorizationViewHelper.ShouldNotContainTuples(
                 Connection, PersonType.Staff, expectedTuples);
@@ -225,7 +229,7 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             var staffUsi = AuthorizationViewHelper.GetStaffUsi(Connection, staffId);
 
-            var expectedTuples = new[] { (4500, staffUsi) };
+            var expectedTuples = new (int, int)[] { (4500, staffUsi) };
 
             AuthorizationViewHelper.ShouldNotContainTuples(
                 Connection, PersonType.Staff, expectedTuples);
@@ -304,7 +308,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStaffEducationOrganizationEmploymentAssociation(9706, staffUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new[]
+            var expectedTuples = new (int, int)[]
             {
                 (2221, staffUsi),
                 (9776, staffUsi)
@@ -333,7 +337,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStaffEducationOrganizationAssignmentAssociation(9706, staffUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new[]
+            var expectedTuples = new (int, int)[]
             {
                 (2221, staffUsi),
                 (9776, staffUsi)

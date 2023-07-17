@@ -32,7 +32,7 @@ GO
 
 -- Table [edfi].[AcademicWeek] --
 CREATE TABLE [edfi].[AcademicWeek] (
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [WeekIdentifier] [NVARCHAR](80) NOT NULL,
     [BeginDate] [DATE] NOT NULL,
     [EndDate] [DATE] NOT NULL,
@@ -65,7 +65,7 @@ GO
 
 -- Table [edfi].[AccountabilityRating] --
 CREATE TABLE [edfi].[AccountabilityRating] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [RatingTitle] [NVARCHAR](60) NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [Rating] [NVARCHAR](35) NOT NULL,
@@ -165,7 +165,7 @@ CREATE TABLE [edfi].[Assessment] (
     [MaxRawScore] [DECIMAL](15, 5) NULL,
     [Nomenclature] [NVARCHAR](100) NULL,
     [AssessmentFamily] [NVARCHAR](60) NULL,
-    [EducationOrganizationId] [INT] NULL,
+    [EducationOrganizationId] [BIGINT] NULL,
     [AdaptiveAssessment] [BIT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -235,7 +235,7 @@ CREATE TABLE [edfi].[AssessmentContentStandard] (
     [PublicationDate] [DATE] NULL,
     [PublicationYear] [SMALLINT] NULL,
     [PublicationStatusDescriptorId] [INT] NULL,
-    [MandatingEducationOrganizationId] [INT] NULL,
+    [MandatingEducationOrganizationId] [BIGINT] NULL,
     [BeginDate] [DATE] NULL,
     [EndDate] [DATE] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -460,7 +460,7 @@ GO
 -- Table [edfi].[AssessmentProgram] --
 CREATE TABLE [edfi].[AssessmentProgram] (
     [AssessmentIdentifier] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [Namespace] [NVARCHAR](255) NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
@@ -555,7 +555,7 @@ CREATE TABLE [edfi].[AssessmentSection] (
     [AssessmentIdentifier] [NVARCHAR](60) NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
     [Namespace] [NVARCHAR](255) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
@@ -660,7 +660,7 @@ GO
 -- Table [edfi].[BellSchedule] --
 CREATE TABLE [edfi].[BellSchedule] (
     [BellScheduleName] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [AlternateDayName] [NVARCHAR](20) NULL,
     [StartTime] [TIME](7) NULL,
     [EndTime] [TIME](7) NULL,
@@ -686,7 +686,7 @@ GO
 CREATE TABLE [edfi].[BellScheduleClassPeriod] (
     [BellScheduleName] [NVARCHAR](60) NOT NULL,
     [ClassPeriodName] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [BellScheduleClassPeriod_PK] PRIMARY KEY CLUSTERED (
         [BellScheduleName] ASC,
@@ -702,7 +702,7 @@ GO
 CREATE TABLE [edfi].[BellScheduleDate] (
     [BellScheduleName] [NVARCHAR](60) NOT NULL,
     [Date] [DATE] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [BellScheduleDate_PK] PRIMARY KEY CLUSTERED (
         [BellScheduleName] ASC,
@@ -718,7 +718,7 @@ GO
 CREATE TABLE [edfi].[BellScheduleGradeLevel] (
     [BellScheduleName] [NVARCHAR](60) NOT NULL,
     [GradeLevelDescriptorId] [INT] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [BellScheduleGradeLevel_PK] PRIMARY KEY CLUSTERED (
         [BellScheduleName] ASC,
@@ -733,7 +733,7 @@ GO
 -- Table [edfi].[Calendar] --
 CREATE TABLE [edfi].[Calendar] (
     [CalendarCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [CalendarTypeDescriptorId] [INT] NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,
@@ -758,7 +758,7 @@ GO
 CREATE TABLE [edfi].[CalendarDate] (
     [CalendarCode] [NVARCHAR](60) NOT NULL,
     [Date] [DATE] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -784,7 +784,7 @@ CREATE TABLE [edfi].[CalendarDateCalendarEvent] (
     [CalendarCode] [NVARCHAR](60) NOT NULL,
     [CalendarEventDescriptorId] [INT] NOT NULL,
     [Date] [DATE] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [CalendarDateCalendarEvent_PK] PRIMARY KEY CLUSTERED (
@@ -812,7 +812,7 @@ GO
 CREATE TABLE [edfi].[CalendarGradeLevel] (
     [CalendarCode] [NVARCHAR](60) NOT NULL,
     [GradeLevelDescriptorId] [INT] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [CalendarGradeLevel_PK] PRIMARY KEY CLUSTERED (
@@ -865,7 +865,7 @@ GO
 -- Table [edfi].[ChartOfAccount] --
 CREATE TABLE [edfi].[ChartOfAccount] (
     [AccountIdentifier] [NVARCHAR](50) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [FiscalYear] [INT] NOT NULL,
     [AccountTypeDescriptorId] [INT] NOT NULL,
     [AccountName] [NVARCHAR](100) NULL,
@@ -898,7 +898,7 @@ GO
 -- Table [edfi].[ChartOfAccountReportingTag] --
 CREATE TABLE [edfi].[ChartOfAccountReportingTag] (
     [AccountIdentifier] [NVARCHAR](50) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [FiscalYear] [INT] NOT NULL,
     [ReportingTagDescriptorId] [INT] NOT NULL,
     [TagValue] [NVARCHAR](100) NULL,
@@ -926,7 +926,7 @@ GO
 -- Table [edfi].[ClassPeriod] --
 CREATE TABLE [edfi].[ClassPeriod] (
     [ClassPeriodName] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [OfficialAttendancePeriod] [BIT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -949,7 +949,7 @@ GO
 CREATE TABLE [edfi].[ClassPeriodMeetingTime] (
     [ClassPeriodName] [NVARCHAR](60) NOT NULL,
     [EndTime] [TIME](7) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [StartTime] [TIME](7) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [ClassPeriodMeetingTime_PK] PRIMARY KEY CLUSTERED (
@@ -975,7 +975,7 @@ GO
 -- Table [edfi].[Cohort] --
 CREATE TABLE [edfi].[Cohort] (
     [CohortIdentifier] [NVARCHAR](36) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [CohortDescription] [NVARCHAR](1024) NULL,
     [CohortTypeDescriptorId] [INT] NOT NULL,
     [CohortScopeDescriptorId] [INT] NULL,
@@ -1000,8 +1000,8 @@ GO
 -- Table [edfi].[CohortProgram] --
 CREATE TABLE [edfi].[CohortProgram] (
     [CohortIdentifier] [NVARCHAR](36) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -1046,7 +1046,7 @@ GO
 
 -- Table [edfi].[CommunityOrganization] --
 CREATE TABLE [edfi].[CommunityOrganization] (
-    [CommunityOrganizationId] [INT] NOT NULL,
+    [CommunityOrganizationId] [BIGINT] NOT NULL,
     CONSTRAINT [CommunityOrganization_PK] PRIMARY KEY CLUSTERED (
         [CommunityOrganizationId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -1055,8 +1055,8 @@ GO
 
 -- Table [edfi].[CommunityProvider] --
 CREATE TABLE [edfi].[CommunityProvider] (
-    [CommunityProviderId] [INT] NOT NULL,
-    [CommunityOrganizationId] [INT] NULL,
+    [CommunityProviderId] [BIGINT] NOT NULL,
+    [CommunityOrganizationId] [BIGINT] NULL,
     [ProviderProfitabilityDescriptorId] [INT] NULL,
     [ProviderStatusDescriptorId] [INT] NOT NULL,
     [ProviderCategoryDescriptorId] [INT] NOT NULL,
@@ -1070,7 +1070,7 @@ GO
 
 -- Table [edfi].[CommunityProviderLicense] --
 CREATE TABLE [edfi].[CommunityProviderLicense] (
-    [CommunityProviderId] [INT] NOT NULL,
+    [CommunityProviderId] [BIGINT] NOT NULL,
     [LicenseIdentifier] [NVARCHAR](36) NOT NULL,
     [LicensingOrganization] [NVARCHAR](75) NOT NULL,
     [LicenseEffectiveDate] [DATE] NOT NULL,
@@ -1110,7 +1110,7 @@ GO
 
 -- Table [edfi].[CompetencyObjective] --
 CREATE TABLE [edfi].[CompetencyObjective] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [Objective] [NVARCHAR](60) NOT NULL,
     [ObjectiveGradeLevelDescriptorId] [INT] NOT NULL,
     [CompetencyObjectiveId] [NVARCHAR](60) NULL,
@@ -1405,7 +1405,7 @@ GO
 -- Table [edfi].[Course] --
 CREATE TABLE [edfi].[Course] (
     [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [CourseTitle] [NVARCHAR](60) NOT NULL,
     [NumberOfParts] [INT] NOT NULL,
     [AcademicSubjectDescriptorId] [INT] NULL,
@@ -1453,7 +1453,7 @@ GO
 CREATE TABLE [edfi].[CourseCompetencyLevel] (
     [CompetencyLevelDescriptorId] [INT] NOT NULL,
     [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [CourseCompetencyLevel_PK] PRIMARY KEY CLUSTERED (
         [CompetencyLevelDescriptorId] ASC,
@@ -1487,7 +1487,7 @@ GO
 CREATE TABLE [edfi].[CourseIdentificationCode] (
     [CourseCode] [NVARCHAR](60) NOT NULL,
     [CourseIdentificationSystemDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [IdentificationCode] [NVARCHAR](60) NOT NULL,
     [AssigningOrganizationIdentificationCode] [NVARCHAR](60) NULL,
     [CourseCatalogURL] [NVARCHAR](255) NULL,
@@ -1514,7 +1514,7 @@ GO
 -- Table [edfi].[CourseLearningStandard] --
 CREATE TABLE [edfi].[CourseLearningStandard] (
     [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [LearningStandardId] [NVARCHAR](60) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [CourseLearningStandard_PK] PRIMARY KEY CLUSTERED (
@@ -1531,7 +1531,7 @@ GO
 CREATE TABLE [edfi].[CourseLevelCharacteristic] (
     [CourseCode] [NVARCHAR](60) NOT NULL,
     [CourseLevelCharacteristicDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [CourseLevelCharacteristic_PK] PRIMARY KEY CLUSTERED (
         [CourseCode] ASC,
@@ -1555,7 +1555,7 @@ GO
 -- Table [edfi].[CourseOfferedGradeLevel] --
 CREATE TABLE [edfi].[CourseOfferedGradeLevel] (
     [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GradeLevelDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [CourseOfferedGradeLevel_PK] PRIMARY KEY CLUSTERED (
@@ -1571,13 +1571,13 @@ GO
 -- Table [edfi].[CourseOffering] --
 CREATE TABLE [edfi].[CourseOffering] (
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
     [LocalCourseTitle] [NVARCHAR](60) NULL,
     [InstructionalTimePlanned] [INT] NULL,
     [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
@@ -1601,7 +1601,7 @@ GO
 CREATE TABLE [edfi].[CourseOfferingCourseLevelCharacteristic] (
     [CourseLevelCharacteristicDescriptorId] [INT] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -1621,7 +1621,7 @@ GO
 CREATE TABLE [edfi].[CourseOfferingCurriculumUsed] (
     [CurriculumUsedDescriptorId] [INT] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -1641,7 +1641,7 @@ GO
 CREATE TABLE [edfi].[CourseOfferingOfferedGradeLevel] (
     [GradeLevelDescriptorId] [INT] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -1670,8 +1670,8 @@ GO
 CREATE TABLE [edfi].[CourseTranscript] (
     [CourseAttemptResultDescriptorId] [INT] NOT NULL,
     [CourseCode] [NVARCHAR](60) NOT NULL,
-    [CourseEducationOrganizationId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [CourseEducationOrganizationId] [BIGINT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [TermDescriptorId] [INT] NOT NULL,
@@ -1688,7 +1688,7 @@ CREATE TABLE [edfi].[CourseTranscript] (
     [CourseRepeatCodeDescriptorId] [INT] NULL,
     [CourseTitle] [NVARCHAR](60) NULL,
     [AlternativeCourseTitle] [NVARCHAR](60) NULL,
-    [ExternalEducationOrganizationId] [INT] NULL,
+    [ExternalEducationOrganizationId] [BIGINT] NULL,
     [ExternalEducationOrganizationNameOfInstitution] [NVARCHAR](75) NULL,
     [AssigningOrganizationIdentificationCode] [NVARCHAR](60) NULL,
     [CourseCatalogURL] [NVARCHAR](255) NULL,
@@ -1719,8 +1719,8 @@ CREATE TABLE [edfi].[CourseTranscriptAcademicSubject] (
     [AcademicSubjectDescriptorId] [INT] NOT NULL,
     [CourseAttemptResultDescriptorId] [INT] NOT NULL,
     [CourseCode] [NVARCHAR](60) NOT NULL,
-    [CourseEducationOrganizationId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [CourseEducationOrganizationId] [BIGINT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [TermDescriptorId] [INT] NOT NULL,
@@ -1744,9 +1744,9 @@ GO
 CREATE TABLE [edfi].[CourseTranscriptAlternativeCourseIdentificationCode] (
     [CourseAttemptResultDescriptorId] [INT] NOT NULL,
     [CourseCode] [NVARCHAR](60) NOT NULL,
-    [CourseEducationOrganizationId] [INT] NOT NULL,
+    [CourseEducationOrganizationId] [BIGINT] NOT NULL,
     [CourseIdentificationSystemDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [TermDescriptorId] [INT] NOT NULL,
@@ -1773,9 +1773,9 @@ GO
 CREATE TABLE [edfi].[CourseTranscriptCreditCategory] (
     [CourseAttemptResultDescriptorId] [INT] NOT NULL,
     [CourseCode] [NVARCHAR](60) NOT NULL,
-    [CourseEducationOrganizationId] [INT] NOT NULL,
+    [CourseEducationOrganizationId] [BIGINT] NOT NULL,
     [CreditCategoryDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [TermDescriptorId] [INT] NOT NULL,
@@ -1800,8 +1800,8 @@ CREATE TABLE [edfi].[CourseTranscriptEarnedAdditionalCredits] (
     [AdditionalCreditTypeDescriptorId] [INT] NOT NULL,
     [CourseAttemptResultDescriptorId] [INT] NOT NULL,
     [CourseCode] [NVARCHAR](60) NOT NULL,
-    [CourseEducationOrganizationId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [CourseEducationOrganizationId] [BIGINT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [TermDescriptorId] [INT] NOT NULL,
@@ -1827,8 +1827,8 @@ CREATE TABLE [edfi].[CourseTranscriptPartialCourseTranscriptAwards] (
     [AwardDate] [DATE] NOT NULL,
     [CourseAttemptResultDescriptorId] [INT] NOT NULL,
     [CourseCode] [NVARCHAR](60) NOT NULL,
-    [CourseEducationOrganizationId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [CourseEducationOrganizationId] [BIGINT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [TermDescriptorId] [INT] NOT NULL,
@@ -2133,8 +2133,8 @@ CREATE TABLE [edfi].[DisciplineAction] (
     [ActualDisciplineActionLength] [DECIMAL](5, 2) NULL,
     [DisciplineActionLengthDifferenceReasonDescriptorId] [INT] NULL,
     [RelatedToZeroTolerancePolicy] [BIT] NULL,
-    [ResponsibilitySchoolId] [INT] NOT NULL,
-    [AssignmentSchoolId] [INT] NULL,
+    [ResponsibilitySchoolId] [BIGINT] NOT NULL,
+    [AssignmentSchoolId] [BIGINT] NULL,
     [IEPPlacementMeetingIndicator] [BIT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -2205,7 +2205,7 @@ CREATE TABLE [edfi].[DisciplineActionStudentDisciplineIncidentBehaviorAssociatio
     [DisciplineActionIdentifier] [NVARCHAR](36) NOT NULL,
     [DisciplineDate] [DATE] NOT NULL,
     [IncidentIdentifier] [NVARCHAR](36) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [DisciplineActionStudentDisciplineIncidentBehaviorAssociation_PK] PRIMARY KEY CLUSTERED (
@@ -2233,7 +2233,7 @@ GO
 -- Table [edfi].[DisciplineIncident] --
 CREATE TABLE [edfi].[DisciplineIncident] (
     [IncidentIdentifier] [NVARCHAR](36) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [IncidentDate] [DATE] NOT NULL,
     [IncidentTime] [TIME](7) NULL,
     [IncidentLocationDescriptorId] [INT] NULL,
@@ -2264,7 +2264,7 @@ GO
 CREATE TABLE [edfi].[DisciplineIncidentBehavior] (
     [BehaviorDescriptorId] [INT] NOT NULL,
     [IncidentIdentifier] [NVARCHAR](36) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [BehaviorDetailedDescription] [NVARCHAR](1024) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [DisciplineIncidentBehavior_PK] PRIMARY KEY CLUSTERED (
@@ -2283,7 +2283,7 @@ CREATE TABLE [edfi].[DisciplineIncidentExternalParticipant] (
     [FirstName] [NVARCHAR](75) NOT NULL,
     [IncidentIdentifier] [NVARCHAR](36) NOT NULL,
     [LastSurname] [NVARCHAR](75) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [DisciplineIncidentExternalParticipant_PK] PRIMARY KEY CLUSTERED (
         [DisciplineIncidentParticipationCodeDescriptorId] ASC,
@@ -2309,7 +2309,7 @@ GO
 -- Table [edfi].[DisciplineIncidentWeapon] --
 CREATE TABLE [edfi].[DisciplineIncidentWeapon] (
     [IncidentIdentifier] [NVARCHAR](36) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [WeaponDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [DisciplineIncidentWeapon_PK] PRIMARY KEY CLUSTERED (
@@ -2466,7 +2466,7 @@ GO
 
 -- Table [edfi].[EducationOrganization] --
 CREATE TABLE [edfi].[EducationOrganization] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [NameOfInstitution] [NVARCHAR](75) NOT NULL,
     [ShortNameOfInstitution] [NVARCHAR](75) NULL,
     [WebSite] [NVARCHAR](255) NULL,
@@ -2491,7 +2491,7 @@ GO
 CREATE TABLE [edfi].[EducationOrganizationAddress] (
     [AddressTypeDescriptorId] [INT] NOT NULL,
     [City] [NVARCHAR](30) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [PostalCode] [NVARCHAR](17) NOT NULL,
     [StateAbbreviationDescriptorId] [INT] NOT NULL,
     [StreetNumberName] [NVARCHAR](150) NOT NULL,
@@ -2523,7 +2523,7 @@ CREATE TABLE [edfi].[EducationOrganizationAddressPeriod] (
     [AddressTypeDescriptorId] [INT] NOT NULL,
     [BeginDate] [DATE] NOT NULL,
     [City] [NVARCHAR](30) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [PostalCode] [NVARCHAR](17) NOT NULL,
     [StateAbbreviationDescriptorId] [INT] NOT NULL,
     [StreetNumberName] [NVARCHAR](150) NOT NULL,
@@ -2555,7 +2555,7 @@ GO
 -- Table [edfi].[EducationOrganizationCategory] --
 CREATE TABLE [edfi].[EducationOrganizationCategory] (
     [EducationOrganizationCategoryDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [EducationOrganizationCategory_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationCategoryDescriptorId] ASC,
@@ -2577,7 +2577,7 @@ GO
 
 -- Table [edfi].[EducationOrganizationIdentificationCode] --
 CREATE TABLE [edfi].[EducationOrganizationIdentificationCode] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EducationOrganizationIdentificationSystemDescriptorId] [INT] NOT NULL,
     [IdentificationCode] [NVARCHAR](60) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -2601,7 +2601,7 @@ GO
 
 -- Table [edfi].[EducationOrganizationIndicator] --
 CREATE TABLE [edfi].[EducationOrganizationIndicator] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [IndicatorDescriptorId] [INT] NOT NULL,
     [DesignatedBy] [NVARCHAR](60) NULL,
     [IndicatorValue] [NVARCHAR](60) NULL,
@@ -2620,7 +2620,7 @@ GO
 -- Table [edfi].[EducationOrganizationIndicatorPeriod] --
 CREATE TABLE [edfi].[EducationOrganizationIndicatorPeriod] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [IndicatorDescriptorId] [INT] NOT NULL,
     [EndDate] [DATE] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -2636,7 +2636,7 @@ GO
 
 -- Table [edfi].[EducationOrganizationInstitutionTelephone] --
 CREATE TABLE [edfi].[EducationOrganizationInstitutionTelephone] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InstitutionTelephoneNumberTypeDescriptorId] [INT] NOT NULL,
     [TelephoneNumber] [NVARCHAR](24) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -2652,7 +2652,7 @@ GO
 -- Table [edfi].[EducationOrganizationInternationalAddress] --
 CREATE TABLE [edfi].[EducationOrganizationInternationalAddress] (
     [AddressTypeDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [AddressLine1] [NVARCHAR](150) NOT NULL,
     [AddressLine2] [NVARCHAR](150) NULL,
     [AddressLine3] [NVARCHAR](150) NULL,
@@ -2674,8 +2674,8 @@ GO
 
 -- Table [edfi].[EducationOrganizationInterventionPrescriptionAssociation] --
 CREATE TABLE [edfi].[EducationOrganizationInterventionPrescriptionAssociation] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [InterventionPrescriptionEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [InterventionPrescriptionEducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionPrescriptionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [BeginDate] [DATE] NULL,
     [EndDate] [DATE] NULL,
@@ -2699,7 +2699,7 @@ GO
 
 -- Table [edfi].[EducationOrganizationNetwork] --
 CREATE TABLE [edfi].[EducationOrganizationNetwork] (
-    [EducationOrganizationNetworkId] [INT] NOT NULL,
+    [EducationOrganizationNetworkId] [BIGINT] NOT NULL,
     [NetworkPurposeDescriptorId] [INT] NOT NULL,
     CONSTRAINT [EducationOrganizationNetwork_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationNetworkId] ASC
@@ -2709,8 +2709,8 @@ GO
 
 -- Table [edfi].[EducationOrganizationNetworkAssociation] --
 CREATE TABLE [edfi].[EducationOrganizationNetworkAssociation] (
-    [EducationOrganizationNetworkId] [INT] NOT NULL,
-    [MemberEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationNetworkId] [BIGINT] NOT NULL,
+    [MemberEducationOrganizationId] [BIGINT] NOT NULL,
     [BeginDate] [DATE] NULL,
     [EndDate] [DATE] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
@@ -2732,8 +2732,8 @@ GO
 
 -- Table [edfi].[EducationOrganizationPeerAssociation] --
 CREATE TABLE [edfi].[EducationOrganizationPeerAssociation] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [PeerEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [PeerEducationOrganizationId] [BIGINT] NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
@@ -2762,8 +2762,8 @@ GO
 
 -- Table [edfi].[EducationServiceCenter] --
 CREATE TABLE [edfi].[EducationServiceCenter] (
-    [EducationServiceCenterId] [INT] NOT NULL,
-    [StateEducationAgencyId] [INT] NULL,
+    [EducationServiceCenterId] [BIGINT] NOT NULL,
+    [StateEducationAgencyId] [BIGINT] NULL,
     CONSTRAINT [EducationServiceCenter_PK] PRIMARY KEY CLUSTERED (
         [EducationServiceCenterId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -2863,8 +2863,8 @@ GO
 -- Table [edfi].[FeederSchoolAssociation] --
 CREATE TABLE [edfi].[FeederSchoolAssociation] (
     [BeginDate] [DATE] NOT NULL,
-    [FeederSchoolId] [INT] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [FeederSchoolId] [BIGINT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [EndDate] [DATE] NULL,
     [FeederRelationshipDescription] [NVARCHAR](1024) NULL,
     [Discriminator] [NVARCHAR](128) NULL,
@@ -2973,8 +2973,8 @@ GO
 -- Table [edfi].[GeneralStudentProgramAssociation] --
 CREATE TABLE [edfi].[GeneralStudentProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -3005,9 +3005,9 @@ GO
 -- Table [edfi].[GeneralStudentProgramAssociationProgramParticipationStatus] --
 CREATE TABLE [edfi].[GeneralStudentProgramAssociationProgramParticipationStatus] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [ParticipationStatusDescriptorId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StatusBeginDate] [DATE] NOT NULL,
@@ -3038,7 +3038,7 @@ CREATE TABLE [edfi].[Grade] (
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [GradingPeriodSequence] [INT] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
@@ -3084,7 +3084,7 @@ CREATE TABLE [edfi].[GradebookEntry] (
     [SectionIdentifier] [NVARCHAR](255) NULL,
     [LocalCourseCode] [NVARCHAR](60) NULL,
     [SessionName] [NVARCHAR](60) NULL,
-    [SchoolId] [INT] NULL,
+    [SchoolId] [BIGINT] NULL,
     [DateAssigned] [DATE] NOT NULL,
     [Title] [NVARCHAR](100) NOT NULL,
     [Description] [NVARCHAR](1024) NULL,
@@ -3146,7 +3146,7 @@ CREATE TABLE [edfi].[GradeLearningStandardGrade] (
     [GradingPeriodSequence] [INT] NOT NULL,
     [LearningStandardId] [NVARCHAR](60) NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
@@ -3206,7 +3206,7 @@ GO
 CREATE TABLE [edfi].[GradingPeriod] (
     [GradingPeriodDescriptorId] [INT] NOT NULL,
     [PeriodSequence] [INT] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [BeginDate] [DATE] NOT NULL,
     [EndDate] [DATE] NOT NULL,
@@ -3241,7 +3241,7 @@ GO
 
 -- Table [edfi].[GraduationPlan] --
 CREATE TABLE [edfi].[GraduationPlan] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [IndividualPlan] [BIT] NULL,
@@ -3269,7 +3269,7 @@ GO
 -- Table [edfi].[GraduationPlanCreditsByCourse] --
 CREATE TABLE [edfi].[GraduationPlanCreditsByCourse] (
     [CourseSetName] [NVARCHAR](120) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [Credits] [DECIMAL](9, 3) NOT NULL,
@@ -3291,9 +3291,9 @@ GO
 -- Table [edfi].[GraduationPlanCreditsByCourseCourse] --
 CREATE TABLE [edfi].[GraduationPlanCreditsByCourseCourse] (
     [CourseCode] [NVARCHAR](60) NOT NULL,
-    [CourseEducationOrganizationId] [INT] NOT NULL,
+    [CourseEducationOrganizationId] [BIGINT] NOT NULL,
     [CourseSetName] [NVARCHAR](120) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -3313,7 +3313,7 @@ GO
 -- Table [edfi].[GraduationPlanCreditsByCreditCategory] --
 CREATE TABLE [edfi].[GraduationPlanCreditsByCreditCategory] (
     [CreditCategoryDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [Credits] [DECIMAL](9, 3) NOT NULL,
@@ -3334,7 +3334,7 @@ GO
 -- Table [edfi].[GraduationPlanCreditsBySubject] --
 CREATE TABLE [edfi].[GraduationPlanCreditsBySubject] (
     [AcademicSubjectDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [Credits] [DECIMAL](9, 3) NOT NULL,
@@ -3355,7 +3355,7 @@ GO
 -- Table [edfi].[GraduationPlanRequiredAssessment] --
 CREATE TABLE [edfi].[GraduationPlanRequiredAssessment] (
     [AssessmentIdentifier] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [Namespace] [NVARCHAR](255) NOT NULL,
@@ -3375,7 +3375,7 @@ GO
 -- Table [edfi].[GraduationPlanRequiredAssessmentPerformanceLevel] --
 CREATE TABLE [edfi].[GraduationPlanRequiredAssessmentPerformanceLevel] (
     [AssessmentIdentifier] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [Namespace] [NVARCHAR](255) NOT NULL,
@@ -3402,7 +3402,7 @@ GO
 CREATE TABLE [edfi].[GraduationPlanRequiredAssessmentScore] (
     [AssessmentIdentifier] [NVARCHAR](60) NOT NULL,
     [AssessmentReportingMethodDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [Namespace] [NVARCHAR](255) NOT NULL,
@@ -3560,7 +3560,7 @@ GO
 
 -- Table [edfi].[Intervention] --
 CREATE TABLE [edfi].[Intervention] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [InterventionClassDescriptorId] [INT] NOT NULL,
     [DeliveryMethodDescriptorId] [INT] NOT NULL,
@@ -3588,7 +3588,7 @@ GO
 
 -- Table [edfi].[InterventionAppropriateGradeLevel] --
 CREATE TABLE [edfi].[InterventionAppropriateGradeLevel] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GradeLevelDescriptorId] [INT] NOT NULL,
     [InterventionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -3604,7 +3604,7 @@ GO
 
 -- Table [edfi].[InterventionAppropriateSex] --
 CREATE TABLE [edfi].[InterventionAppropriateSex] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [SexDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -3630,7 +3630,7 @@ GO
 -- Table [edfi].[InterventionDiagnosis] --
 CREATE TABLE [edfi].[InterventionDiagnosis] (
     [DiagnosisDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [InterventionDiagnosis_PK] PRIMARY KEY CLUSTERED (
@@ -3646,7 +3646,7 @@ GO
 -- Table [edfi].[InterventionEducationContent] --
 CREATE TABLE [edfi].[InterventionEducationContent] (
     [ContentIdentifier] [NVARCHAR](225) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [InterventionEducationContent_PK] PRIMARY KEY CLUSTERED (
@@ -3670,9 +3670,9 @@ GO
 
 -- Table [edfi].[InterventionInterventionPrescription] --
 CREATE TABLE [edfi].[InterventionInterventionPrescription] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionIdentificationCode] [NVARCHAR](60) NOT NULL,
-    [InterventionPrescriptionEducationOrganizationId] [INT] NOT NULL,
+    [InterventionPrescriptionEducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionPrescriptionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [InterventionInterventionPrescription_PK] PRIMARY KEY CLUSTERED (
@@ -3688,7 +3688,7 @@ GO
 
 -- Table [edfi].[InterventionLearningResourceMetadataURI] --
 CREATE TABLE [edfi].[InterventionLearningResourceMetadataURI] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [LearningResourceMetadataURI] [NVARCHAR](255) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -3704,7 +3704,7 @@ GO
 
 -- Table [edfi].[InterventionMeetingTime] --
 CREATE TABLE [edfi].[InterventionMeetingTime] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EndTime] [TIME](7) NOT NULL,
     [InterventionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [StartTime] [TIME](7) NOT NULL,
@@ -3722,7 +3722,7 @@ GO
 
 -- Table [edfi].[InterventionPopulationServed] --
 CREATE TABLE [edfi].[InterventionPopulationServed] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [PopulationServedDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -3738,7 +3738,7 @@ GO
 
 -- Table [edfi].[InterventionPrescription] --
 CREATE TABLE [edfi].[InterventionPrescription] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionPrescriptionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [InterventionClassDescriptorId] [INT] NOT NULL,
     [DeliveryMethodDescriptorId] [INT] NOT NULL,
@@ -3764,7 +3764,7 @@ GO
 
 -- Table [edfi].[InterventionPrescriptionAppropriateGradeLevel] --
 CREATE TABLE [edfi].[InterventionPrescriptionAppropriateGradeLevel] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GradeLevelDescriptorId] [INT] NOT NULL,
     [InterventionPrescriptionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -3780,7 +3780,7 @@ GO
 
 -- Table [edfi].[InterventionPrescriptionAppropriateSex] --
 CREATE TABLE [edfi].[InterventionPrescriptionAppropriateSex] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionPrescriptionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [SexDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -3797,7 +3797,7 @@ GO
 -- Table [edfi].[InterventionPrescriptionDiagnosis] --
 CREATE TABLE [edfi].[InterventionPrescriptionDiagnosis] (
     [DiagnosisDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionPrescriptionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [InterventionPrescriptionDiagnosis_PK] PRIMARY KEY CLUSTERED (
@@ -3813,7 +3813,7 @@ GO
 -- Table [edfi].[InterventionPrescriptionEducationContent] --
 CREATE TABLE [edfi].[InterventionPrescriptionEducationContent] (
     [ContentIdentifier] [NVARCHAR](225) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionPrescriptionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [InterventionPrescriptionEducationContent_PK] PRIMARY KEY CLUSTERED (
@@ -3828,7 +3828,7 @@ GO
 
 -- Table [edfi].[InterventionPrescriptionLearningResourceMetadataURI] --
 CREATE TABLE [edfi].[InterventionPrescriptionLearningResourceMetadataURI] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionPrescriptionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [LearningResourceMetadataURI] [NVARCHAR](255) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -3844,7 +3844,7 @@ GO
 
 -- Table [edfi].[InterventionPrescriptionPopulationServed] --
 CREATE TABLE [edfi].[InterventionPrescriptionPopulationServed] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionPrescriptionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [PopulationServedDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -3860,7 +3860,7 @@ GO
 
 -- Table [edfi].[InterventionPrescriptionURI] --
 CREATE TABLE [edfi].[InterventionPrescriptionURI] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionPrescriptionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [URI] [NVARCHAR](255) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -3876,7 +3876,7 @@ GO
 
 -- Table [edfi].[InterventionStaff] --
 CREATE TABLE [edfi].[InterventionStaff] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [StaffUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -3892,9 +3892,9 @@ GO
 
 -- Table [edfi].[InterventionStudy] --
 CREATE TABLE [edfi].[InterventionStudy] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionStudyIdentificationCode] [NVARCHAR](60) NOT NULL,
-    [InterventionPrescriptionEducationOrganizationId] [INT] NOT NULL,
+    [InterventionPrescriptionEducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionPrescriptionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [Participants] [INT] NOT NULL,
     [DeliveryMethodDescriptorId] [INT] NOT NULL,
@@ -3918,7 +3918,7 @@ GO
 
 -- Table [edfi].[InterventionStudyAppropriateGradeLevel] --
 CREATE TABLE [edfi].[InterventionStudyAppropriateGradeLevel] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GradeLevelDescriptorId] [INT] NOT NULL,
     [InterventionStudyIdentificationCode] [NVARCHAR](60) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -3934,7 +3934,7 @@ GO
 
 -- Table [edfi].[InterventionStudyAppropriateSex] --
 CREATE TABLE [edfi].[InterventionStudyAppropriateSex] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionStudyIdentificationCode] [NVARCHAR](60) NOT NULL,
     [SexDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -3951,7 +3951,7 @@ GO
 -- Table [edfi].[InterventionStudyEducationContent] --
 CREATE TABLE [edfi].[InterventionStudyEducationContent] (
     [ContentIdentifier] [NVARCHAR](225) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionStudyIdentificationCode] [NVARCHAR](60) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [InterventionStudyEducationContent_PK] PRIMARY KEY CLUSTERED (
@@ -3967,7 +3967,7 @@ GO
 -- Table [edfi].[InterventionStudyInterventionEffectiveness] --
 CREATE TABLE [edfi].[InterventionStudyInterventionEffectiveness] (
     [DiagnosisDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GradeLevelDescriptorId] [INT] NOT NULL,
     [InterventionStudyIdentificationCode] [NVARCHAR](60) NOT NULL,
     [PopulationServedDescriptorId] [INT] NOT NULL,
@@ -3988,7 +3988,7 @@ GO
 
 -- Table [edfi].[InterventionStudyLearningResourceMetadataURI] --
 CREATE TABLE [edfi].[InterventionStudyLearningResourceMetadataURI] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionStudyIdentificationCode] [NVARCHAR](60) NOT NULL,
     [LearningResourceMetadataURI] [NVARCHAR](255) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -4004,7 +4004,7 @@ GO
 
 -- Table [edfi].[InterventionStudyPopulationServed] --
 CREATE TABLE [edfi].[InterventionStudyPopulationServed] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionStudyIdentificationCode] [NVARCHAR](60) NOT NULL,
     [PopulationServedDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -4020,7 +4020,7 @@ GO
 
 -- Table [edfi].[InterventionStudyStateAbbreviation] --
 CREATE TABLE [edfi].[InterventionStudyStateAbbreviation] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionStudyIdentificationCode] [NVARCHAR](60) NOT NULL,
     [StateAbbreviationDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -4036,7 +4036,7 @@ GO
 
 -- Table [edfi].[InterventionStudyURI] --
 CREATE TABLE [edfi].[InterventionStudyURI] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionStudyIdentificationCode] [NVARCHAR](60) NOT NULL,
     [URI] [NVARCHAR](255) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -4052,7 +4052,7 @@ GO
 
 -- Table [edfi].[InterventionURI] --
 CREATE TABLE [edfi].[InterventionURI] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [URI] [NVARCHAR](255) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -4153,7 +4153,7 @@ CREATE TABLE [edfi].[LearningStandardContentStandard] (
     [PublicationDate] [DATE] NULL,
     [PublicationYear] [SMALLINT] NULL,
     [PublicationStatusDescriptorId] [INT] NULL,
-    [MandatingEducationOrganizationId] [INT] NULL,
+    [MandatingEducationOrganizationId] [BIGINT] NULL,
     [BeginDate] [DATE] NULL,
     [EndDate] [DATE] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -4292,11 +4292,11 @@ GO
 -- Table [edfi].[LocalAccount] --
 CREATE TABLE [edfi].[LocalAccount] (
     [AccountIdentifier] [NVARCHAR](50) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [FiscalYear] [INT] NOT NULL,
     [AccountName] [NVARCHAR](100) NULL,
     [ChartOfAccountIdentifier] [NVARCHAR](50) NOT NULL,
-    [ChartOfAccountEducationOrganizationId] [INT] NOT NULL,
+    [ChartOfAccountEducationOrganizationId] [BIGINT] NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
@@ -4318,7 +4318,7 @@ GO
 -- Table [edfi].[LocalAccountReportingTag] --
 CREATE TABLE [edfi].[LocalAccountReportingTag] (
     [AccountIdentifier] [NVARCHAR](50) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [FiscalYear] [INT] NOT NULL,
     [ReportingTagDescriptorId] [INT] NOT NULL,
     [TagValue] [NVARCHAR](100) NULL,
@@ -4338,7 +4338,7 @@ GO
 CREATE TABLE [edfi].[LocalActual] (
     [AccountIdentifier] [NVARCHAR](50) NOT NULL,
     [AsOfDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [FiscalYear] [INT] NOT NULL,
     [Amount] [MONEY] NOT NULL,
     [FinancialCollectionDescriptorId] [INT] NULL,
@@ -4365,7 +4365,7 @@ GO
 CREATE TABLE [edfi].[LocalBudget] (
     [AccountIdentifier] [NVARCHAR](50) NOT NULL,
     [AsOfDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [FiscalYear] [INT] NOT NULL,
     [Amount] [MONEY] NOT NULL,
     [FinancialCollectionDescriptorId] [INT] NULL,
@@ -4392,7 +4392,7 @@ GO
 CREATE TABLE [edfi].[LocalContractedStaff] (
     [AccountIdentifier] [NVARCHAR](50) NOT NULL,
     [AsOfDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [FiscalYear] [INT] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
     [Amount] [MONEY] NOT NULL,
@@ -4428,12 +4428,12 @@ GO
 
 -- Table [edfi].[LocalEducationAgency] --
 CREATE TABLE [edfi].[LocalEducationAgency] (
-    [LocalEducationAgencyId] [INT] NOT NULL,
+    [LocalEducationAgencyId] [BIGINT] NOT NULL,
     [LocalEducationAgencyCategoryDescriptorId] [INT] NOT NULL,
     [CharterStatusDescriptorId] [INT] NULL,
-    [ParentLocalEducationAgencyId] [INT] NULL,
-    [EducationServiceCenterId] [INT] NULL,
-    [StateEducationAgencyId] [INT] NULL,
+    [ParentLocalEducationAgencyId] [BIGINT] NULL,
+    [EducationServiceCenterId] [BIGINT] NULL,
+    [StateEducationAgencyId] [BIGINT] NULL,
     CONSTRAINT [LocalEducationAgency_PK] PRIMARY KEY CLUSTERED (
         [LocalEducationAgencyId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -4442,7 +4442,7 @@ GO
 
 -- Table [edfi].[LocalEducationAgencyAccountability] --
 CREATE TABLE [edfi].[LocalEducationAgencyAccountability] (
-    [LocalEducationAgencyId] [INT] NOT NULL,
+    [LocalEducationAgencyId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [GunFreeSchoolsActReportingStatusDescriptorId] [INT] NULL,
     [SchoolChoiceImplementStatusDescriptorId] [INT] NULL,
@@ -4468,7 +4468,7 @@ GO
 -- Table [edfi].[LocalEducationAgencyFederalFunds] --
 CREATE TABLE [edfi].[LocalEducationAgencyFederalFunds] (
     [FiscalYear] [INT] NOT NULL,
-    [LocalEducationAgencyId] [INT] NOT NULL,
+    [LocalEducationAgencyId] [BIGINT] NOT NULL,
     [InnovativeDollarsSpent] [MONEY] NULL,
     [InnovativeDollarsSpentStrategicPriorities] [MONEY] NULL,
     [InnovativeProgramsFundsReceived] [MONEY] NULL,
@@ -4491,7 +4491,7 @@ GO
 CREATE TABLE [edfi].[LocalEncumbrance] (
     [AccountIdentifier] [NVARCHAR](50) NOT NULL,
     [AsOfDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [FiscalYear] [INT] NOT NULL,
     [Amount] [MONEY] NOT NULL,
     [FinancialCollectionDescriptorId] [INT] NULL,
@@ -4518,7 +4518,7 @@ GO
 CREATE TABLE [edfi].[LocalPayroll] (
     [AccountIdentifier] [NVARCHAR](50) NOT NULL,
     [AsOfDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [FiscalYear] [INT] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
     [Amount] [MONEY] NOT NULL,
@@ -4546,7 +4546,7 @@ GO
 -- Table [edfi].[Location] --
 CREATE TABLE [edfi].[Location] (
     [ClassroomIdentificationCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [MaximumNumberOfSeats] [INT] NULL,
     [OptimalNumberOfSeats] [INT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
@@ -4797,7 +4797,7 @@ GO
 
 -- Table [edfi].[OpenStaffPosition] --
 CREATE TABLE [edfi].[OpenStaffPosition] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [RequisitionNumber] [NVARCHAR](20) NOT NULL,
     [EmploymentStatusDescriptorId] [INT] NOT NULL,
     [StaffClassificationDescriptorId] [INT] NOT NULL,
@@ -4826,7 +4826,7 @@ GO
 -- Table [edfi].[OpenStaffPositionAcademicSubject] --
 CREATE TABLE [edfi].[OpenStaffPositionAcademicSubject] (
     [AcademicSubjectDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [RequisitionNumber] [NVARCHAR](20) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [OpenStaffPositionAcademicSubject_PK] PRIMARY KEY CLUSTERED (
@@ -4841,7 +4841,7 @@ GO
 
 -- Table [edfi].[OpenStaffPositionInstructionalGradeLevel] --
 CREATE TABLE [edfi].[OpenStaffPositionInstructionalGradeLevel] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GradeLevelDescriptorId] [INT] NOT NULL,
     [RequisitionNumber] [NVARCHAR](20) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -4904,9 +4904,9 @@ GO
 
 -- Table [edfi].[OrganizationDepartment] --
 CREATE TABLE [edfi].[OrganizationDepartment] (
-    [OrganizationDepartmentId] [INT] NOT NULL,
+    [OrganizationDepartmentId] [BIGINT] NOT NULL,
     [AcademicSubjectDescriptorId] [INT] NULL,
-    [ParentEducationOrganizationId] [INT] NULL,
+    [ParentEducationOrganizationId] [BIGINT] NULL,
     CONSTRAINT [OrganizationDepartment_PK] PRIMARY KEY CLUSTERED (
         [OrganizationDepartmentId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -5020,7 +5020,7 @@ CREATE TABLE [edfi].[PostSecondaryEvent] (
     [EventDate] [DATE] NOT NULL,
     [PostSecondaryEventCategoryDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
-    [PostSecondaryInstitutionId] [INT] NULL,
+    [PostSecondaryInstitutionId] [BIGINT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
@@ -5050,7 +5050,7 @@ GO
 
 -- Table [edfi].[PostSecondaryInstitution] --
 CREATE TABLE [edfi].[PostSecondaryInstitution] (
-    [PostSecondaryInstitutionId] [INT] NOT NULL,
+    [PostSecondaryInstitutionId] [BIGINT] NOT NULL,
     [PostSecondaryInstitutionLevelDescriptorId] [INT] NULL,
     [AdministrativeFundingControlDescriptorId] [INT] NULL,
     CONSTRAINT [PostSecondaryInstitution_PK] PRIMARY KEY CLUSTERED (
@@ -5071,7 +5071,7 @@ GO
 -- Table [edfi].[PostSecondaryInstitutionMediumOfInstruction] --
 CREATE TABLE [edfi].[PostSecondaryInstitutionMediumOfInstruction] (
     [MediumOfInstructionDescriptorId] [INT] NOT NULL,
-    [PostSecondaryInstitutionId] [INT] NOT NULL,
+    [PostSecondaryInstitutionId] [BIGINT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [PostSecondaryInstitutionMediumOfInstruction_PK] PRIMARY KEY CLUSTERED (
         [MediumOfInstructionDescriptorId] ASC,
@@ -5120,7 +5120,7 @@ GO
 
 -- Table [edfi].[Program] --
 CREATE TABLE [edfi].[Program] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [ProgramId] [NVARCHAR](20) NULL,
@@ -5153,7 +5153,7 @@ GO
 
 -- Table [edfi].[ProgramCharacteristic] --
 CREATE TABLE [edfi].[ProgramCharacteristic] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramCharacteristicDescriptorId] [INT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
@@ -5218,7 +5218,7 @@ GO
 
 -- Table [edfi].[ProgramLearningStandard] --
 CREATE TABLE [edfi].[ProgramLearningStandard] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [LearningStandardId] [NVARCHAR](60) NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
@@ -5236,7 +5236,7 @@ GO
 
 -- Table [edfi].[ProgramSponsor] --
 CREATE TABLE [edfi].[ProgramSponsor] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramSponsorDescriptorId] [INT] NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
@@ -5427,9 +5427,9 @@ GO
 
 -- Table [edfi].[ReportCard] --
 CREATE TABLE [edfi].[ReportCard] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [GradingPeriodSchoolId] [INT] NOT NULL,
+    [GradingPeriodSchoolId] [BIGINT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [GradingPeriodSequence] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -5460,14 +5460,14 @@ GO
 -- Table [edfi].[ReportCardGrade] --
 CREATE TABLE [edfi].[ReportCardGrade] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GradeTypeDescriptorId] [INT] NOT NULL,
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [GradingPeriodSchoolId] [INT] NOT NULL,
+    [GradingPeriodSchoolId] [BIGINT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [GradingPeriodSequence] [INT] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
@@ -5495,10 +5495,10 @@ GO
 
 -- Table [edfi].[ReportCardGradePointAverage] --
 CREATE TABLE [edfi].[ReportCardGradePointAverage] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GradePointAverageTypeDescriptorId] [INT] NOT NULL,
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [GradingPeriodSchoolId] [INT] NOT NULL,
+    [GradingPeriodSchoolId] [BIGINT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [GradingPeriodSequence] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -5522,13 +5522,13 @@ GO
 
 -- Table [edfi].[ReportCardStudentCompetencyObjective] --
 CREATE TABLE [edfi].[ReportCardStudentCompetencyObjective] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [GradingPeriodSchoolId] [INT] NOT NULL,
+    [GradingPeriodSchoolId] [BIGINT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [GradingPeriodSequence] [INT] NOT NULL,
     [Objective] [NVARCHAR](60) NOT NULL,
-    [ObjectiveEducationOrganizationId] [INT] NOT NULL,
+    [ObjectiveEducationOrganizationId] [BIGINT] NOT NULL,
     [ObjectiveGradeLevelDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -5596,7 +5596,7 @@ GO
 -- Table [edfi].[RestraintEvent] --
 CREATE TABLE [edfi].[RestraintEvent] (
     [RestraintEventIdentifier] [NVARCHAR](36) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [EventDate] [DATE] NOT NULL,
     [EducationalEnvironmentDescriptorId] [INT] NULL,
@@ -5620,11 +5620,11 @@ GO
 
 -- Table [edfi].[RestraintEventProgram] --
 CREATE TABLE [edfi].[RestraintEventProgram] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [RestraintEventIdentifier] [NVARCHAR](36) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [RestraintEventProgram_PK] PRIMARY KEY CLUSTERED (
@@ -5644,7 +5644,7 @@ GO
 CREATE TABLE [edfi].[RestraintEventReason] (
     [RestraintEventIdentifier] [NVARCHAR](36) NOT NULL,
     [RestraintEventReasonDescriptorId] [INT] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [RestraintEventReason_PK] PRIMARY KEY CLUSTERED (
@@ -5687,14 +5687,14 @@ GO
 
 -- Table [edfi].[School] --
 CREATE TABLE [edfi].[School] (
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolTypeDescriptorId] [INT] NULL,
     [CharterStatusDescriptorId] [INT] NULL,
     [TitleIPartASchoolDesignationDescriptorId] [INT] NULL,
     [MagnetSpecialProgramEmphasisSchoolDescriptorId] [INT] NULL,
     [AdministrativeFundingControlDescriptorId] [INT] NULL,
     [InternetAccessDescriptorId] [INT] NULL,
-    [LocalEducationAgencyId] [INT] NULL,
+    [LocalEducationAgencyId] [BIGINT] NULL,
     [CharterApprovalAgencyTypeDescriptorId] [INT] NULL,
     [CharterApprovalSchoolYear] [SMALLINT] NULL,
     CONSTRAINT [School_PK] PRIMARY KEY CLUSTERED (
@@ -5706,7 +5706,7 @@ GO
 -- Table [edfi].[SchoolCategory] --
 CREATE TABLE [edfi].[SchoolCategory] (
     [SchoolCategoryDescriptorId] [INT] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [SchoolCategory_PK] PRIMARY KEY CLUSTERED (
         [SchoolCategoryDescriptorId] ASC,
@@ -5756,7 +5756,7 @@ GO
 -- Table [edfi].[SchoolGradeLevel] --
 CREATE TABLE [edfi].[SchoolGradeLevel] (
     [GradeLevelDescriptorId] [INT] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [SchoolGradeLevel_PK] PRIMARY KEY CLUSTERED (
         [GradeLevelDescriptorId] ASC,
@@ -5799,7 +5799,7 @@ GO
 -- Table [edfi].[Section] --
 CREATE TABLE [edfi].[Section] (
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
@@ -5811,7 +5811,7 @@ CREATE TABLE [edfi].[Section] (
     [AvailableCreditTypeDescriptorId] [INT] NULL,
     [AvailableCreditConversion] [DECIMAL](9, 2) NULL,
     [InstructionLanguageDescriptorId] [INT] NULL,
-    [LocationSchoolId] [INT] NULL,
+    [LocationSchoolId] [BIGINT] NULL,
     [LocationClassroomIdentificationCode] [NVARCHAR](60) NULL,
     [OfficialAttendancePeriod] [BIT] NULL,
     [SectionName] [NVARCHAR](100) NULL,
@@ -5840,7 +5840,7 @@ CREATE TABLE [edfi].[SectionAttendanceTakenEvent] (
     [CalendarCode] [NVARCHAR](60) NOT NULL,
     [Date] [DATE] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
@@ -5871,7 +5871,7 @@ GO
 -- Table [edfi].[SectionCharacteristic] --
 CREATE TABLE [edfi].[SectionCharacteristic] (
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionCharacteristicDescriptorId] [INT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
@@ -5903,7 +5903,7 @@ GO
 CREATE TABLE [edfi].[SectionClassPeriod] (
     [ClassPeriodName] [NVARCHAR](60) NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
@@ -5925,7 +5925,7 @@ GO
 CREATE TABLE [edfi].[SectionCourseLevelCharacteristic] (
     [CourseLevelCharacteristicDescriptorId] [INT] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
@@ -5947,7 +5947,7 @@ GO
 CREATE TABLE [edfi].[SectionOfferedGradeLevel] (
     [GradeLevelDescriptorId] [INT] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
@@ -5967,11 +5967,11 @@ GO
 
 -- Table [edfi].[SectionProgram] --
 CREATE TABLE [edfi].[SectionProgram] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
@@ -6020,7 +6020,7 @@ GO
 
 -- Table [edfi].[Session] --
 CREATE TABLE [edfi].[Session] (
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
     [BeginDate] [DATE] NOT NULL,
@@ -6047,7 +6047,7 @@ GO
 
 -- Table [edfi].[SessionAcademicWeek] --
 CREATE TABLE [edfi].[SessionAcademicWeek] (
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
     [WeekIdentifier] [NVARCHAR](80) NOT NULL,
@@ -6067,7 +6067,7 @@ GO
 CREATE TABLE [edfi].[SessionGradingPeriod] (
     [GradingPeriodDescriptorId] [INT] NOT NULL,
     [PeriodSequence] [INT] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -6308,7 +6308,7 @@ GO
 CREATE TABLE [edfi].[StaffCohortAssociation] (
     [BeginDate] [DATE] NOT NULL,
     [CohortIdentifier] [NVARCHAR](36) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
     [EndDate] [DATE] NULL,
     [StudentRecordAccess] [BIT] NULL,
@@ -6350,7 +6350,7 @@ GO
 -- Table [edfi].[StaffDisciplineIncidentAssociation] --
 CREATE TABLE [edfi].[StaffDisciplineIncidentAssociation] (
     [IncidentIdentifier] [NVARCHAR](36) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -6374,7 +6374,7 @@ GO
 CREATE TABLE [edfi].[StaffDisciplineIncidentAssociationDisciplineIncidentParticipationCode] (
     [DisciplineIncidentParticipationCodeDescriptorId] [INT] NOT NULL,
     [IncidentIdentifier] [NVARCHAR](36) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StaffDisciplineIncidentAssociationDisciplineIncidentParticipationCode_PK] PRIMARY KEY CLUSTERED (
@@ -6391,13 +6391,13 @@ GO
 -- Table [edfi].[StaffEducationOrganizationAssignmentAssociation] --
 CREATE TABLE [edfi].[StaffEducationOrganizationAssignmentAssociation] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [StaffClassificationDescriptorId] [INT] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
     [PositionTitle] [NVARCHAR](100) NULL,
     [EndDate] [DATE] NULL,
     [OrderOfAssignment] [INT] NULL,
-    [EmploymentEducationOrganizationId] [INT] NULL,
+    [EmploymentEducationOrganizationId] [BIGINT] NULL,
     [EmploymentStatusDescriptorId] [INT] NULL,
     [EmploymentHireDate] [DATE] NULL,
     [CredentialIdentifier] [NVARCHAR](60) NULL,
@@ -6425,7 +6425,7 @@ GO
 -- Table [edfi].[StaffEducationOrganizationContactAssociation] --
 CREATE TABLE [edfi].[StaffEducationOrganizationContactAssociation] (
     [ContactTitle] [NVARCHAR](75) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
     [ContactTypeDescriptorId] [INT] NULL,
     [ElectronicMailAddress] [NVARCHAR](128) NOT NULL,
@@ -6450,7 +6450,7 @@ GO
 -- Table [edfi].[StaffEducationOrganizationContactAssociationAddress] --
 CREATE TABLE [edfi].[StaffEducationOrganizationContactAssociationAddress] (
     [ContactTitle] [NVARCHAR](75) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
     [StreetNumberName] [NVARCHAR](150) NOT NULL,
     [ApartmentRoomSuiteNumber] [NVARCHAR](50) NULL,
@@ -6481,7 +6481,7 @@ GO
 CREATE TABLE [edfi].[StaffEducationOrganizationContactAssociationAddressPeriod] (
     [BeginDate] [DATE] NOT NULL,
     [ContactTitle] [NVARCHAR](75) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
     [EndDate] [DATE] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -6499,7 +6499,7 @@ GO
 -- Table [edfi].[StaffEducationOrganizationContactAssociationTelephone] --
 CREATE TABLE [edfi].[StaffEducationOrganizationContactAssociationTelephone] (
     [ContactTitle] [NVARCHAR](75) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
     [TelephoneNumber] [NVARCHAR](24) NOT NULL,
     [TelephoneNumberTypeDescriptorId] [INT] NOT NULL,
@@ -6521,7 +6521,7 @@ GO
 
 -- Table [edfi].[StaffEducationOrganizationEmploymentAssociation] --
 CREATE TABLE [edfi].[StaffEducationOrganizationEmploymentAssociation] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EmploymentStatusDescriptorId] [INT] NOT NULL,
     [HireDate] [DATE] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
@@ -6748,7 +6748,7 @@ GO
 -- Table [edfi].[StaffProgramAssociation] --
 CREATE TABLE [edfi].[StaffProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
@@ -6817,7 +6817,7 @@ GO
 -- Table [edfi].[StaffSchoolAssociation] --
 CREATE TABLE [edfi].[StaffSchoolAssociation] (
     [ProgramAssignmentDescriptorId] [INT] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
     [CalendarCode] [NVARCHAR](60) NULL,
     [SchoolYear] [SMALLINT] NULL,
@@ -6843,7 +6843,7 @@ GO
 CREATE TABLE [edfi].[StaffSchoolAssociationAcademicSubject] (
     [AcademicSubjectDescriptorId] [INT] NOT NULL,
     [ProgramAssignmentDescriptorId] [INT] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StaffSchoolAssociationAcademicSubject_PK] PRIMARY KEY CLUSTERED (
@@ -6861,7 +6861,7 @@ GO
 CREATE TABLE [edfi].[StaffSchoolAssociationGradeLevel] (
     [GradeLevelDescriptorId] [INT] NOT NULL,
     [ProgramAssignmentDescriptorId] [INT] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StaffSchoolAssociationGradeLevel_PK] PRIMARY KEY CLUSTERED (
@@ -6878,7 +6878,7 @@ GO
 -- Table [edfi].[StaffSectionAssociation] --
 CREATE TABLE [edfi].[StaffSectionAssociation] (
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
@@ -6968,7 +6968,7 @@ GO
 
 -- Table [edfi].[StateEducationAgency] --
 CREATE TABLE [edfi].[StateEducationAgency] (
-    [StateEducationAgencyId] [INT] NOT NULL,
+    [StateEducationAgencyId] [BIGINT] NOT NULL,
     CONSTRAINT [StateEducationAgency_PK] PRIMARY KEY CLUSTERED (
         [StateEducationAgencyId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -6978,7 +6978,7 @@ GO
 -- Table [edfi].[StateEducationAgencyAccountability] --
 CREATE TABLE [edfi].[StateEducationAgencyAccountability] (
     [SchoolYear] [SMALLINT] NOT NULL,
-    [StateEducationAgencyId] [INT] NOT NULL,
+    [StateEducationAgencyId] [BIGINT] NOT NULL,
     [CTEGraduationRateInclusion] [BIT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StateEducationAgencyAccountability_PK] PRIMARY KEY CLUSTERED (
@@ -6993,7 +6993,7 @@ GO
 -- Table [edfi].[StateEducationAgencyFederalFunds] --
 CREATE TABLE [edfi].[StateEducationAgencyFederalFunds] (
     [FiscalYear] [INT] NOT NULL,
-    [StateEducationAgencyId] [INT] NOT NULL,
+    [StateEducationAgencyId] [BIGINT] NOT NULL,
     [FederalProgramsFundingAllocation] [MONEY] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StateEducationAgencyFederalFunds_PK] PRIMARY KEY CLUSTERED (
@@ -7050,7 +7050,7 @@ GO
 
 -- Table [edfi].[StudentAcademicRecord] --
 CREATE TABLE [edfi].[StudentAcademicRecord] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [TermDescriptorId] [INT] NOT NULL,
@@ -7089,7 +7089,7 @@ GO
 -- Table [edfi].[StudentAcademicRecordAcademicHonor] --
 CREATE TABLE [edfi].[StudentAcademicRecordAcademicHonor] (
     [AcademicHonorCategoryDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [HonorDescription] [NVARCHAR](80) NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -7121,7 +7121,7 @@ GO
 
 -- Table [edfi].[StudentAcademicRecordClassRanking] --
 CREATE TABLE [edfi].[StudentAcademicRecordClassRanking] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [TermDescriptorId] [INT] NOT NULL,
@@ -7145,7 +7145,7 @@ GO
 CREATE TABLE [edfi].[StudentAcademicRecordDiploma] (
     [DiplomaAwardDate] [DATE] NOT NULL,
     [DiplomaTypeDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [TermDescriptorId] [INT] NOT NULL,
@@ -7178,7 +7178,7 @@ GO
 
 -- Table [edfi].[StudentAcademicRecordGradePointAverage] --
 CREATE TABLE [edfi].[StudentAcademicRecordGradePointAverage] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GradePointAverageTypeDescriptorId] [INT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -7201,7 +7201,7 @@ GO
 
 -- Table [edfi].[StudentAcademicRecordRecognition] --
 CREATE TABLE [edfi].[StudentAcademicRecordRecognition] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [RecognitionTypeDescriptorId] [INT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -7233,9 +7233,9 @@ GO
 
 -- Table [edfi].[StudentAcademicRecordReportCard] --
 CREATE TABLE [edfi].[StudentAcademicRecordReportCard] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [GradingPeriodSchoolId] [INT] NOT NULL,
+    [GradingPeriodSchoolId] [BIGINT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [GradingPeriodSequence] [INT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
@@ -7276,7 +7276,7 @@ CREATE TABLE [edfi].[StudentAssessment] (
     [SchoolYear] [SMALLINT] NULL,
     [PlatformTypeDescriptorId] [INT] NULL,
     [AssessedMinutes] [INT] NULL,
-    [ReportedSchoolId] [INT] NULL,
+    [ReportedSchoolId] [BIGINT] NULL,
     [ReportedSchoolIdentifier] [NVARCHAR](60) NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -7321,7 +7321,7 @@ GO
 CREATE TABLE [edfi].[StudentAssessmentEducationOrganizationAssociation] (
     [AssessmentIdentifier] [NVARCHAR](60) NOT NULL,
     [EducationOrganizationAssociationTypeDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [Namespace] [NVARCHAR](255) NOT NULL,
     [StudentAssessmentIdentifier] [NVARCHAR](60) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -7525,7 +7525,7 @@ GO
 CREATE TABLE [edfi].[StudentCohortAssociation] (
     [BeginDate] [DATE] NOT NULL,
     [CohortIdentifier] [NVARCHAR](36) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [EndDate] [DATE] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
@@ -7551,9 +7551,9 @@ GO
 CREATE TABLE [edfi].[StudentCohortAssociationSection] (
     [BeginDate] [DATE] NOT NULL,
     [CohortIdentifier] [NVARCHAR](36) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
@@ -7578,11 +7578,11 @@ GO
 -- Table [edfi].[StudentCompetencyObjective] --
 CREATE TABLE [edfi].[StudentCompetencyObjective] (
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [GradingPeriodSchoolId] [INT] NOT NULL,
+    [GradingPeriodSchoolId] [BIGINT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [GradingPeriodSequence] [INT] NOT NULL,
     [Objective] [NVARCHAR](60) NOT NULL,
-    [ObjectiveEducationOrganizationId] [INT] NOT NULL,
+    [ObjectiveEducationOrganizationId] [BIGINT] NOT NULL,
     [ObjectiveGradeLevelDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [CompetencyLevelDescriptorId] [INT] NOT NULL,
@@ -7613,15 +7613,15 @@ GO
 -- Table [edfi].[StudentCompetencyObjectiveGeneralStudentProgramAssociation] --
 CREATE TABLE [edfi].[StudentCompetencyObjectiveGeneralStudentProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [GradingPeriodSchoolId] [INT] NOT NULL,
+    [GradingPeriodSchoolId] [BIGINT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [GradingPeriodSequence] [INT] NOT NULL,
     [Objective] [NVARCHAR](60) NOT NULL,
-    [ObjectiveEducationOrganizationId] [INT] NOT NULL,
+    [ObjectiveEducationOrganizationId] [BIGINT] NOT NULL,
     [ObjectiveGradeLevelDescriptorId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -7650,14 +7650,14 @@ GO
 CREATE TABLE [edfi].[StudentCompetencyObjectiveStudentSectionAssociation] (
     [BeginDate] [DATE] NOT NULL,
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [GradingPeriodSchoolId] [INT] NOT NULL,
+    [GradingPeriodSchoolId] [BIGINT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [GradingPeriodSequence] [INT] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
     [Objective] [NVARCHAR](60) NOT NULL,
-    [ObjectiveEducationOrganizationId] [INT] NOT NULL,
+    [ObjectiveEducationOrganizationId] [BIGINT] NOT NULL,
     [ObjectiveGradeLevelDescriptorId] [INT] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
@@ -7715,8 +7715,8 @@ GO
 -- Table [edfi].[StudentCTEProgramAssociation] --
 CREATE TABLE [edfi].[StudentCTEProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -7738,8 +7738,8 @@ GO
 CREATE TABLE [edfi].[StudentCTEProgramAssociationCTEProgramService] (
     [BeginDate] [DATE] NOT NULL,
     [CTEProgramServiceDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -7766,7 +7766,7 @@ GO
 CREATE TABLE [edfi].[StudentDisciplineIncidentBehaviorAssociation] (
     [BehaviorDescriptorId] [INT] NOT NULL,
     [IncidentIdentifier] [NVARCHAR](36) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [BehaviorDetailedDescription] [NVARCHAR](1024) NULL,
     [Discriminator] [NVARCHAR](128) NULL,
@@ -7793,7 +7793,7 @@ CREATE TABLE [edfi].[StudentDisciplineIncidentBehaviorAssociationDisciplineIncid
     [BehaviorDescriptorId] [INT] NOT NULL,
     [DisciplineIncidentParticipationCodeDescriptorId] [INT] NOT NULL,
     [IncidentIdentifier] [NVARCHAR](36) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCode_PK] PRIMARY KEY CLUSTERED (
@@ -7811,7 +7811,7 @@ GO
 -- Table [edfi].[StudentDisciplineIncidentNonOffenderAssociation] --
 CREATE TABLE [edfi].[StudentDisciplineIncidentNonOffenderAssociation] (
     [IncidentIdentifier] [NVARCHAR](36) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -7835,7 +7835,7 @@ GO
 CREATE TABLE [edfi].[StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode] (
     [DisciplineIncidentParticipationCodeDescriptorId] [INT] NOT NULL,
     [IncidentIdentifier] [NVARCHAR](36) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode_PK] PRIMARY KEY CLUSTERED (
@@ -7851,7 +7851,7 @@ GO
 
 -- Table [edfi].[StudentEducationOrganizationAssociation] --
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociation] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [SexDescriptorId] [INT] NOT NULL,
     [ProfileThumbnail] [NVARCHAR](255) NULL,
@@ -7886,7 +7886,7 @@ GO
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociationAddress] (
     [AddressTypeDescriptorId] [INT] NOT NULL,
     [City] [NVARCHAR](30) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [PostalCode] [NVARCHAR](17) NOT NULL,
     [StateAbbreviationDescriptorId] [INT] NOT NULL,
     [StreetNumberName] [NVARCHAR](150) NOT NULL,
@@ -7920,7 +7920,7 @@ CREATE TABLE [edfi].[StudentEducationOrganizationAssociationAddressPeriod] (
     [AddressTypeDescriptorId] [INT] NOT NULL,
     [BeginDate] [DATE] NOT NULL,
     [City] [NVARCHAR](30) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [PostalCode] [NVARCHAR](17) NOT NULL,
     [StateAbbreviationDescriptorId] [INT] NOT NULL,
     [StreetNumberName] [NVARCHAR](150) NOT NULL,
@@ -7945,7 +7945,7 @@ GO
 -- Table [edfi].[StudentEducationOrganizationAssociationAncestryEthnicOrigin] --
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociationAncestryEthnicOrigin] (
     [AncestryEthnicOriginDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentEducationOrganizationAssociationAncestryEthnicOrigin_PK] PRIMARY KEY CLUSTERED (
@@ -7961,7 +7961,7 @@ GO
 -- Table [edfi].[StudentEducationOrganizationAssociationCohortYear] --
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociationCohortYear] (
     [CohortYearTypeDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [TermDescriptorId] [INT] NULL,
@@ -7980,7 +7980,7 @@ GO
 -- Table [edfi].[StudentEducationOrganizationAssociationDisability] --
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociationDisability] (
     [DisabilityDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [DisabilityDiagnosis] [NVARCHAR](80) NULL,
     [OrderOfDisability] [INT] NULL,
@@ -8000,7 +8000,7 @@ GO
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociationDisabilityDesignation] (
     [DisabilityDescriptorId] [INT] NOT NULL,
     [DisabilityDesignationDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentEducationOrganizationAssociationDisabilityDesignation_PK] PRIMARY KEY CLUSTERED (
@@ -8016,7 +8016,7 @@ GO
 
 -- Table [edfi].[StudentEducationOrganizationAssociationElectronicMail] --
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociationElectronicMail] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [ElectronicMailAddress] [NVARCHAR](128) NOT NULL,
     [ElectronicMailTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -8037,7 +8037,7 @@ GO
 -- Table [edfi].[StudentEducationOrganizationAssociationInternationalAddress] --
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociationInternationalAddress] (
     [AddressTypeDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [AddressLine1] [NVARCHAR](150) NOT NULL,
     [AddressLine2] [NVARCHAR](150) NULL,
@@ -8061,7 +8061,7 @@ GO
 
 -- Table [edfi].[StudentEducationOrganizationAssociationLanguage] --
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociationLanguage] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [LanguageDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -8077,7 +8077,7 @@ GO
 
 -- Table [edfi].[StudentEducationOrganizationAssociationLanguageUse] --
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociationLanguageUse] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [LanguageDescriptorId] [INT] NOT NULL,
     [LanguageUseDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -8095,7 +8095,7 @@ GO
 
 -- Table [edfi].[StudentEducationOrganizationAssociationRace] --
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociationRace] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [RaceDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -8111,7 +8111,7 @@ GO
 
 -- Table [edfi].[StudentEducationOrganizationAssociationStudentCharacteristic] --
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociationStudentCharacteristic] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [StudentCharacteristicDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [DesignatedBy] [NVARCHAR](60) NULL,
@@ -8129,7 +8129,7 @@ GO
 -- Table [edfi].[StudentEducationOrganizationAssociationStudentCharacteristicPeriod] --
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociationStudentCharacteristicPeriod] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [StudentCharacteristicDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [EndDate] [DATE] NULL,
@@ -8148,7 +8148,7 @@ GO
 -- Table [edfi].[StudentEducationOrganizationAssociationStudentIdentificationCode] --
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociationStudentIdentificationCode] (
     [AssigningOrganizationIdentificationCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [StudentIdentificationSystemDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [IdentificationCode] [NVARCHAR](60) NOT NULL,
@@ -8166,7 +8166,7 @@ GO
 
 -- Table [edfi].[StudentEducationOrganizationAssociationStudentIndicator] --
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociationStudentIndicator] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [IndicatorName] [NVARCHAR](200) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [IndicatorGroup] [NVARCHAR](200) NULL,
@@ -8186,7 +8186,7 @@ GO
 -- Table [edfi].[StudentEducationOrganizationAssociationStudentIndicatorPeriod] --
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociationStudentIndicatorPeriod] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [IndicatorName] [NVARCHAR](200) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [EndDate] [DATE] NULL,
@@ -8204,7 +8204,7 @@ GO
 
 -- Table [edfi].[StudentEducationOrganizationAssociationTelephone] --
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociationTelephone] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [TelephoneNumber] [NVARCHAR](24) NOT NULL,
     [TelephoneNumberTypeDescriptorId] [INT] NOT NULL,
@@ -8225,7 +8225,7 @@ GO
 
 -- Table [edfi].[StudentEducationOrganizationAssociationTribalAffiliation] --
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociationTribalAffiliation] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [TribalAffiliationDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -8242,7 +8242,7 @@ GO
 -- Table [edfi].[StudentEducationOrganizationResponsibilityAssociation] --
 CREATE TABLE [edfi].[StudentEducationOrganizationResponsibilityAssociation] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [ResponsibilityDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [EndDate] [DATE] NULL,
@@ -8300,8 +8300,8 @@ GO
 -- Table [edfi].[StudentHomelessProgramAssociation] --
 CREATE TABLE [edfi].[StudentHomelessProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -8322,9 +8322,9 @@ GO
 -- Table [edfi].[StudentHomelessProgramAssociationHomelessProgramService] --
 CREATE TABLE [edfi].[StudentHomelessProgramAssociationHomelessProgramService] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [HomelessProgramServiceDescriptorId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -8378,11 +8378,11 @@ GO
 
 -- Table [edfi].[StudentInterventionAssociation] --
 CREATE TABLE [edfi].[StudentInterventionAssociation] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [InterventionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [CohortIdentifier] [NVARCHAR](36) NULL,
-    [CohortEducationOrganizationId] [INT] NULL,
+    [CohortEducationOrganizationId] [BIGINT] NULL,
     [DiagnosticStatement] [NVARCHAR](1024) NULL,
     [Dosage] [INT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
@@ -8406,7 +8406,7 @@ GO
 -- Table [edfi].[StudentInterventionAssociationInterventionEffectiveness] --
 CREATE TABLE [edfi].[StudentInterventionAssociationInterventionEffectiveness] (
     [DiagnosisDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [GradeLevelDescriptorId] [INT] NOT NULL,
     [InterventionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [PopulationServedDescriptorId] [INT] NOT NULL,
@@ -8430,7 +8430,7 @@ GO
 -- Table [edfi].[StudentInterventionAttendanceEvent] --
 CREATE TABLE [edfi].[StudentInterventionAttendanceEvent] (
     [AttendanceEventCategoryDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EventDate] [DATE] NOT NULL,
     [InterventionIdentificationCode] [NVARCHAR](60) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -8461,8 +8461,8 @@ GO
 -- Table [edfi].[StudentLanguageInstructionProgramAssociation] --
 CREATE TABLE [edfi].[StudentLanguageInstructionProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -8482,8 +8482,8 @@ GO
 -- Table [edfi].[StudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessment] --
 CREATE TABLE [edfi].[StudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessment] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
@@ -8510,9 +8510,9 @@ GO
 -- Table [edfi].[StudentLanguageInstructionProgramAssociationLanguageInstructionProgramService] --
 CREATE TABLE [edfi].[StudentLanguageInstructionProgramAssociationLanguageInstructionProgramService] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [LanguageInstructionProgramServiceDescriptorId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -8537,8 +8537,8 @@ GO
 -- Table [edfi].[StudentMigrantEducationProgramAssociation] --
 CREATE TABLE [edfi].[StudentMigrantEducationProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -8565,9 +8565,9 @@ GO
 -- Table [edfi].[StudentMigrantEducationProgramAssociationMigrantEducationProgramService] --
 CREATE TABLE [edfi].[StudentMigrantEducationProgramAssociationMigrantEducationProgramService] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [MigrantEducationProgramServiceDescriptorId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -8592,8 +8592,8 @@ GO
 -- Table [edfi].[StudentNeglectedOrDelinquentProgramAssociation] --
 CREATE TABLE [edfi].[StudentNeglectedOrDelinquentProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -8614,9 +8614,9 @@ GO
 -- Table [edfi].[StudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramService] --
 CREATE TABLE [edfi].[StudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramService] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [NeglectedOrDelinquentProgramServiceDescriptorId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -8690,8 +8690,8 @@ GO
 -- Table [edfi].[StudentProgramAssociation] --
 CREATE TABLE [edfi].[StudentProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -8709,8 +8709,8 @@ GO
 -- Table [edfi].[StudentProgramAssociationService] --
 CREATE TABLE [edfi].[StudentProgramAssociationService] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [ServiceDescriptorId] [INT] NOT NULL,
@@ -8736,9 +8736,9 @@ GO
 -- Table [edfi].[StudentProgramAttendanceEvent] --
 CREATE TABLE [edfi].[StudentProgramAttendanceEvent] (
     [AttendanceEventCategoryDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [EventDate] [DATE] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -8771,7 +8771,7 @@ GO
 -- Table [edfi].[StudentSchoolAssociation] --
 CREATE TABLE [edfi].[StudentSchoolAssociation] (
     [EntryDate] [DATE] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [PrimarySchool] [BIT] NULL,
     [EntryGradeLevelDescriptorId] [INT] NOT NULL,
@@ -8784,14 +8784,14 @@ CREATE TABLE [edfi].[StudentSchoolAssociation] (
     [ExitWithdrawTypeDescriptorId] [INT] NULL,
     [ResidencyStatusDescriptorId] [INT] NULL,
     [GraduationPlanTypeDescriptorId] [INT] NULL,
-    [EducationOrganizationId] [INT] NULL,
+    [EducationOrganizationId] [BIGINT] NULL,
     [GraduationSchoolYear] [SMALLINT] NULL,
     [EmployedWhileEnrolled] [BIT] NULL,
     [CalendarCode] [NVARCHAR](60) NULL,
     [SchoolYear] [SMALLINT] NULL,
     [FullTimeEquivalency] [DECIMAL](5, 4) NULL,
     [TermCompletionIndicator] [BIT] NULL,
-    [NextYearSchoolId] [INT] NULL,
+    [NextYearSchoolId] [BIGINT] NULL,
     [NextYearGradeLevelDescriptorId] [INT] NULL,
     [SchoolChoice] [BIT] NULL,
     [SchoolChoiceBasisDescriptorId] [INT] NULL,
@@ -8816,11 +8816,11 @@ GO
 
 -- Table [edfi].[StudentSchoolAssociationAlternativeGraduationPlan] --
 CREATE TABLE [edfi].[StudentSchoolAssociationAlternativeGraduationPlan] (
-    [AlternativeEducationOrganizationId] [INT] NOT NULL,
+    [AlternativeEducationOrganizationId] [BIGINT] NOT NULL,
     [AlternativeGraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [AlternativeGraduationSchoolYear] [SMALLINT] NOT NULL,
     [EntryDate] [DATE] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentSchoolAssociationAlternativeGraduationPlan_PK] PRIMARY KEY CLUSTERED (
@@ -8840,7 +8840,7 @@ GO
 CREATE TABLE [edfi].[StudentSchoolAssociationEducationPlan] (
     [EducationPlanDescriptorId] [INT] NOT NULL,
     [EntryDate] [DATE] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentSchoolAssociationEducationPlan_PK] PRIMARY KEY CLUSTERED (
@@ -8858,7 +8858,7 @@ GO
 CREATE TABLE [edfi].[StudentSchoolAttendanceEvent] (
     [AttendanceEventCategoryDescriptorId] [INT] NOT NULL,
     [EventDate] [DATE] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -8892,8 +8892,8 @@ GO
 -- Table [edfi].[StudentSchoolFoodServiceProgramAssociation] --
 CREATE TABLE [edfi].[StudentSchoolFoodServiceProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -8912,8 +8912,8 @@ GO
 -- Table [edfi].[StudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramService] --
 CREATE TABLE [edfi].[StudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramService] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [SchoolFoodServiceProgramServiceDescriptorId] [INT] NOT NULL,
@@ -8940,7 +8940,7 @@ GO
 CREATE TABLE [edfi].[StudentSectionAssociation] (
     [BeginDate] [DATE] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
@@ -8977,7 +8977,7 @@ CREATE TABLE [edfi].[StudentSectionAttendanceEvent] (
     [AttendanceEventCategoryDescriptorId] [INT] NOT NULL,
     [EventDate] [DATE] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
@@ -9017,7 +9017,7 @@ CREATE TABLE [edfi].[StudentSectionAttendanceEventClassPeriod] (
     [ClassPeriodName] [NVARCHAR](60) NOT NULL,
     [EventDate] [DATE] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
@@ -9042,8 +9042,8 @@ GO
 -- Table [edfi].[StudentSpecialEducationProgramAssociation] --
 CREATE TABLE [edfi].[StudentSpecialEducationProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -9072,8 +9072,8 @@ GO
 CREATE TABLE [edfi].[StudentSpecialEducationProgramAssociationDisability] (
     [BeginDate] [DATE] NOT NULL,
     [DisabilityDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -9100,8 +9100,8 @@ CREATE TABLE [edfi].[StudentSpecialEducationProgramAssociationDisabilityDesignat
     [BeginDate] [DATE] NOT NULL,
     [DisabilityDescriptorId] [INT] NOT NULL,
     [DisabilityDesignationDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -9124,8 +9124,8 @@ GO
 -- Table [edfi].[StudentSpecialEducationProgramAssociationServiceProvider] --
 CREATE TABLE [edfi].[StudentSpecialEducationProgramAssociationServiceProvider] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
@@ -9149,8 +9149,8 @@ GO
 -- Table [edfi].[StudentSpecialEducationProgramAssociationSpecialEducationProgramService] --
 CREATE TABLE [edfi].[StudentSpecialEducationProgramAssociationSpecialEducationProgramService] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [SpecialEducationProgramServiceDescriptorId] [INT] NOT NULL,
@@ -9176,8 +9176,8 @@ GO
 -- Table [edfi].[StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceProvider] --
 CREATE TABLE [edfi].[StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceProvider] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [SpecialEducationProgramServiceDescriptorId] [INT] NOT NULL,
@@ -9203,7 +9203,7 @@ GO
 -- Table [edfi].[StudentSpecialEducationProgramEligibilityAssociation] --
 CREATE TABLE [edfi].[StudentSpecialEducationProgramEligibilityAssociation] (
     [ConsentToEvaluationReceivedDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -9244,8 +9244,8 @@ GO
 -- Table [edfi].[StudentTitleIPartAProgramAssociation] --
 CREATE TABLE [edfi].[StudentTitleIPartAProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -9264,8 +9264,8 @@ GO
 -- Table [edfi].[StudentTitleIPartAProgramAssociationTitleIPartAProgramService] --
 CREATE TABLE [edfi].[StudentTitleIPartAProgramAssociationTitleIPartAProgramService] (
     [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -9315,11 +9315,11 @@ GO
 CREATE TABLE [edfi].[Survey] (
     [Namespace] [NVARCHAR](255) NOT NULL,
     [SurveyIdentifier] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NULL,
+    [EducationOrganizationId] [BIGINT] NULL,
     [SurveyTitle] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
-    [SchoolId] [INT] NULL,
+    [SchoolId] [BIGINT] NULL,
     [SurveyCategoryDescriptorId] [INT] NULL,
     [NumberAdministered] [INT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
@@ -9351,7 +9351,7 @@ GO
 -- Table [edfi].[SurveyCourseAssociation] --
 CREATE TABLE [edfi].[SurveyCourseAssociation] (
     [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [Namespace] [NVARCHAR](255) NOT NULL,
     [SurveyIdentifier] [NVARCHAR](60) NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,
@@ -9384,7 +9384,7 @@ GO
 
 -- Table [edfi].[SurveyProgramAssociation] --
 CREATE TABLE [edfi].[SurveyProgramAssociation] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [Namespace] [NVARCHAR](255) NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
@@ -9582,7 +9582,7 @@ GO
 
 -- Table [edfi].[SurveyResponseEducationOrganizationTargetAssociation] --
 CREATE TABLE [edfi].[SurveyResponseEducationOrganizationTargetAssociation] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [Namespace] [NVARCHAR](255) NOT NULL,
     [SurveyIdentifier] [NVARCHAR](60) NOT NULL,
     [SurveyResponseIdentifier] [NVARCHAR](60) NOT NULL,
@@ -9675,7 +9675,7 @@ GO
 CREATE TABLE [edfi].[SurveySectionAssociation] (
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
     [Namespace] [NVARCHAR](255) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
@@ -9730,7 +9730,7 @@ GO
 
 -- Table [edfi].[SurveySectionResponseEducationOrganizationTargetAssociation] --
 CREATE TABLE [edfi].[SurveySectionResponseEducationOrganizationTargetAssociation] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [Namespace] [NVARCHAR](255) NOT NULL,
     [SurveyIdentifier] [NVARCHAR](60) NOT NULL,
     [SurveyResponseIdentifier] [NVARCHAR](60) NOT NULL,

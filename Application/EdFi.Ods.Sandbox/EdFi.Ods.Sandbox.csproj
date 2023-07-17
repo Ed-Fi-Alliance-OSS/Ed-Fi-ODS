@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Sandbox</AssemblyName>
@@ -20,8 +20,8 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.0.80" />
-        <PackageReference Include="EdFi.Suite3.Common" Version="7.0.45" />
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.0.84" />
+        <PackageReference Include="EdFi.Suite3.Common" Version="7.0.48" />
       </ItemGroup>
     </Otherwise>
   </Choose>

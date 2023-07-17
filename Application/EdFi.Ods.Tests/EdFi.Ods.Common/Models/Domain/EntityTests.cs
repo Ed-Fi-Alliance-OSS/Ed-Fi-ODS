@@ -268,7 +268,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     "EdOrg",
                     new[]
                     {
-                        new EntityPropertyDefinition("EdOrgId", new PropertyType(DbType.Int32), null, isIdentifying: true),
+                        new EntityPropertyDefinition("EdOrgId", new PropertyType(DbType.Int64), null, isIdentifying: true),
                         new EntityPropertyDefinition("NameOfInstitution", new PropertyType(DbType.String, 30), null)
                     },
                     new[]
@@ -310,12 +310,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new FullName("schema", "EdOrg"),
                     new[]
                     {
-                        new EntityPropertyDefinition("EdOrgId", new PropertyType(DbType.Int32), null, isIdentifying: true)
+                        new EntityPropertyDefinition("EdOrgId", new PropertyType(DbType.Int64), null, isIdentifying: true)
                     },
                     new FullName("schema", "EdOrgAddress"),
                     new[]
                     {
-                        new EntityPropertyDefinition("EdOrgId", new PropertyType(DbType.Int32), null)
+                        new EntityPropertyDefinition("EdOrgId", new PropertyType(DbType.Int64), null)
                     },
                     isIdentifying: true,
                     isRequired: true));
@@ -368,12 +368,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new FullName("schema", "School"),
                     new[]
                     {
-                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int32), null, isIdentifying: true)
+                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int64), null, isIdentifying: true)
                     },
                     new FullName("schema", "SchoolCategory"),
                     new[]
                     {
-                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int32), null)
+                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int64), null)
                     },
                     isIdentifying: true,
                     isRequired: true));
@@ -385,12 +385,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new FullName("schema", "EdOrg"),
                     new[]
                     {
-                        new EntityPropertyDefinition("EdOrgId", new PropertyType(DbType.Int32), null, isIdentifying: true)
+                        new EntityPropertyDefinition("EdOrgId", new PropertyType(DbType.Int64), null, isIdentifying: true)
                     },
                     new FullName("schema", "School"),
                     new[]
                     {
-                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int32), null)
+                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int64), null)
                     },
                     isIdentifying: true,
                     isRequired: true));
@@ -423,12 +423,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new FullName("schema", "School"),
                     new[]
                     {
-                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int32), null, isIdentifying: true)
+                        new EntityPropertyDefinition("SchoolId", new PropertyType(DbType.Int64), null, isIdentifying: true)
                     },
                     new FullName("schema", "SpecializedSchool"),
                     new[]
                     {
-                        new EntityPropertyDefinition("SpecializedSchoolId", new PropertyType(DbType.Int32), null)
+                        new EntityPropertyDefinition("SpecializedSchoolId", new PropertyType(DbType.Int64), null)
                     },
                     isIdentifying: true,
                     isRequired: true));

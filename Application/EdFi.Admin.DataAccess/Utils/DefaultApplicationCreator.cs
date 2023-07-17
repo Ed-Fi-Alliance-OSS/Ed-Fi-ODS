@@ -52,7 +52,7 @@ namespace EdFi.Admin.DataAccess.Utils
             }
         }
 
-        public void AddEdOrgIdsToApplication(IList<int> edOrgIds, int applicationId)
+        public void AddEdOrgIdsToApplication(IList<long> edOrgIds, int applicationId)
         {
             using (var context = _usersContextFactory.CreateContext())
             {

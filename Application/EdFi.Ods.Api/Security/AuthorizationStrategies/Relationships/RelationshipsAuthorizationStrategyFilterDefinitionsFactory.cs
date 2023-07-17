@@ -125,7 +125,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 // NOTE: Could consider caching the EdOrgToEdOrgId tuple table.
                 // If the EdOrgId values match, then we can report the filter as successfully authorized
                 if (_apiClientContextProvider.GetApiClientContext()
-                    .EducationOrganizationIds.Contains((int) filterContext.SubjectEndpointValue))
+                    .EducationOrganizationIds.Contains((long) filterContext.SubjectEndpointValue))
                 {
                     return InstanceAuthorizationResult.Success();
                 }

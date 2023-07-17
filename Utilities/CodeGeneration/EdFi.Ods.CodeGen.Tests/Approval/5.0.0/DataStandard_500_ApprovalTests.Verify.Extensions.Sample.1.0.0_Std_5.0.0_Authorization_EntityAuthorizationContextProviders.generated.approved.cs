@@ -79,7 +79,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.Sample
             var entity = resource as StudentArtProgramAssociation;
 
             dynamic contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // ProgramEducationOrganizationId = entity.ProgramEducationOrganizationId, // Primary key property, Role name applied
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return (TContextData) contextData;
@@ -127,7 +127,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.Sample
             var entity = resource as StudentGraduationPlanAssociation;
 
             dynamic contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // StaffUSI = entity.StaffUSI, // Not part of primary key
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return (TContextData) contextData;

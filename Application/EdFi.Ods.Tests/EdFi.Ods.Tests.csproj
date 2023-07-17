@@ -1,4 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+	 <StandardVersion Condition="'$(StandardVersion)' == '' ">5.0.0</StandardVersion>
+  </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Tests</AssemblyName>
@@ -24,8 +27,8 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.0.80" />
-        <PackageReference Include="EdFi.Suite3.Common" Version="7.0.45" />
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.0.84" />
+        <PackageReference Include="EdFi.Suite3.Common" Version="7.0.48" />
       </ItemGroup>
     </Otherwise>
   </Choose>
@@ -80,5 +83,14 @@
   <ItemGroup>
     <None Remove="**\TestModels\*.json" />
     <EmbeddedResource Include="**\TestModels\*.json" />
+  </ItemGroup>
+	  <ItemGroup>
+		<Compile Remove="**\*.cs" />
+  </ItemGroup>	
+  <ItemGroup Condition=" '$(StandardVersion)' == '5.0.0' ">
+	 <Compile Include="**\*.cs" Exclude="**\EdFi.Ods.Features\TokenInfo\Datastandard400\*.*" /> 
+  </ItemGroup>
+  <ItemGroup Condition=" '$(StandardVersion)' == '4.0.0' ">
+	  <Compile Include="**\*.cs" Exclude="**\EdFi.Ods.Features\TokenInfo\Datastandard500\*.*" />
   </ItemGroup>
 </Project>

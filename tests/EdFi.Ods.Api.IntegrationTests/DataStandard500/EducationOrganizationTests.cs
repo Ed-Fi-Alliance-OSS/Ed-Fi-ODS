@@ -5,7 +5,7 @@
 
 using NUnit.Framework;
 
-namespace EdFi.Ods.Api.IntegrationTests
+namespace EdFi.Ods.Api.IntegrationTests.DataStandard500
 {
     [TestFixture]
     public class EducationOrganizationTests : DatabaseTestFixtureBase
@@ -17,15 +17,15 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddLocalEducationAgency(99990000)
                 .Execute();
 
-            var expectedTuples = new[] {(99990000, 99990000)};
+            var expectedTuples = new (long, long)[] { (99990000, 99990000)};
 
-            EducationOrganizationHelper.ShouldContainTuples(Connection, expectedTuples);
+            EducationOrganizationHelper.ShouldContainTuples<long, long>(Connection, expectedTuples);
 
             Builder
                 .DeleteEducationOrganization(99990000)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldNotContainTuples(Connection, expectedTuples);
+            EducationOrganizationHelper.ShouldNotContainTuples<long, long>(Connection, expectedTuples);
         }
 
         [Test]
@@ -37,13 +37,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddLocalEducationAgency(99990002)
                 .Execute();
 
-            var expectedTuples = new[]
+            var expectedTuples = new (long, long)[]
             {
                 (99990000, 99990000),
                 (99990001, 99990001),
                 (99990002, 99990002)
             };
-            EducationOrganizationHelper.ShouldContainTuples(Connection, expectedTuples);
+            EducationOrganizationHelper.ShouldContainTuples<long, long>(Connection, expectedTuples);
 
             Builder
                 .DeleteEducationOrganization(99990000)
@@ -51,7 +51,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .DeleteEducationOrganization(99990002)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldNotContainTuples(Connection, expectedTuples);
+            EducationOrganizationHelper.ShouldNotContainTuples<long, long>(Connection, expectedTuples);
         }
     }
 }

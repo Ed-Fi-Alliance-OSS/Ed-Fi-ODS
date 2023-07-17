@@ -16,14 +16,14 @@ using NHibernate.Transform;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers.DataStandard400
 {
     [TestFixture]
     public class TokenInfoProviderTests
     {
         private ApiClientContext CreateApiContext()
         {
-            var educationOrganizationIds = new[] {1234};
+            var educationOrganizationIds = new[] { 1234L};
 
             var namespacePrefixes = new[] {"uri://ed-fi.org"};
 
@@ -128,9 +128,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
             A.CallTo(() => edOrgIdentifierSqlQuery.ListAsync<TokenInfoEducationOrganizationData>(CancellationToken.None))
                 .MustHaveHappenedOnceExactly();
 
-            var postSecondaryEntry = results.EducationOrganizations.SingleOrDefault(d => d["education_organization_id"].Equals(6000203));
-            var communityProviderEntry = results.EducationOrganizations.SingleOrDefault(d => d["education_organization_id"].Equals(19255901));
-            var schoolEntry = results.EducationOrganizations.SingleOrDefault(d => d["education_organization_id"].Equals(255901107));
+            var postSecondaryEntry = results.EducationOrganizations.SingleOrDefault(d => d["education_organization_id"].Equals(6000203L));
+            var communityProviderEntry = results.EducationOrganizations.SingleOrDefault(d => d["education_organization_id"].Equals(19255901L));
+            var schoolEntry = results.EducationOrganizations.SingleOrDefault(d => d["education_organization_id"].Equals(255901107L));
 
             results.EducationOrganizations.ShouldSatisfyAllConditions(
                 // validate we have a valid object

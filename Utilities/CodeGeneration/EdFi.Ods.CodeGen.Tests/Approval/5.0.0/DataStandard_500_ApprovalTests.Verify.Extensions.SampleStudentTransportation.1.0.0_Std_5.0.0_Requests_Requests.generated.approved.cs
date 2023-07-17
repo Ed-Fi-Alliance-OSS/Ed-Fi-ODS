@@ -15,7 +15,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SampleStudentTransportation.Studen
         public decimal EstimatedMilesFromSchool { get; set; }
         public Guid Id { get; set; }
         public string PMBusNumber { get; set; }
-        public int SchoolId { get; set; }
+        public long SchoolId { get; set; }
         public string StudentUniqueId { get; set; }
     }
 

@@ -34,7 +34,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
         // -------------------------------------------------------------
         public virtual string AMBusNumber { get; set; }
         public virtual string PMBusNumber { get; set; }
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         public virtual int StudentUSI { get; set; }
         // -------------------------------------------------------------
 
@@ -133,7 +133,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
         [DomainSignature, RequiredWithNonDefault, StringLength(6, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string PMBusNumber  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int SchoolId  { get; set; }
+        public virtual long SchoolId  { get; set; }
         [Display(Name="StudentUniqueId")]
         [DomainSignature, RequiredWithNonDefault("Student")]
         public virtual int StudentUSI 

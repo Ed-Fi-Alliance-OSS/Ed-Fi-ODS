@@ -4597,7 +4597,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         public string CandidateIdentifier { get; set; }
 
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
 
         [DataMember(Name="programName"), NaturalKeyMember]
         public string ProgramName { get; set; }
@@ -4641,7 +4641,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// <returns><b>true</b> if the reference's properties are all set to non-default values; otherwise <b>false</b>.</returns>
         public bool IsReferenceFullyDefined()
         {
-            return BeginDate != default(DateTime) && CandidateIdentifier != default(string) && EducationOrganizationId != default(int) && ProgramName != default(string) && ProgramTypeDescriptor != default(string);
+            return BeginDate != default(DateTime) && CandidateIdentifier != default(string) && EducationOrganizationId != default(long) && ProgramName != default(string) && ProgramTypeDescriptor != default(string);
         }
 
         private Link CreateLink()
@@ -4820,7 +4820,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation.EducationOrganizationId
+        long Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation.EducationOrganizationId
         {
             get
             {
@@ -4828,7 +4828,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
                     && (_SuspendReferenceAssignmentCheck || ImplicitEducatorPreparationProgramReference.IsReferenceFullyDefined()))
                     return ImplicitEducatorPreparationProgramReference.EducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -6858,7 +6858,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.TPDM.ICredentialStudentAcademicRecord.EducationOrganizationId
+        long Entities.Common.TPDM.ICredentialStudentAcademicRecord.EducationOrganizationId
         {
             get
             {
@@ -6866,7 +6866,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
                     && (_SuspendReferenceAssignmentCheck || ImplicitStudentAcademicRecordReference.IsReferenceFullyDefined()))
                     return ImplicitStudentAcademicRecordReference.EducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -7437,7 +7437,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
     public class EducatorPreparationProgramReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
 
         [DataMember(Name="programName"), NaturalKeyMember]
         public string ProgramName { get; set; }
@@ -7481,7 +7481,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         /// <returns><b>true</b> if the reference's properties are all set to non-default values; otherwise <b>false</b>.</returns>
         public bool IsReferenceFullyDefined()
         {
-            return EducationOrganizationId != default(int) && ProgramName != default(string) && ProgramTypeDescriptor != default(string);
+            return EducationOrganizationId != default(long) && ProgramName != default(string) && ProgramTypeDescriptor != default(string);
         }
 
         private Link CreateLink()
@@ -7595,7 +7595,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.TPDM.IEducatorPreparationProgram.EducationOrganizationId
+        long Entities.Common.TPDM.IEducatorPreparationProgram.EducationOrganizationId
         {
             get
             {
@@ -7603,7 +7603,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
                     && (_SuspendReferenceAssignmentCheck || ImplicitEducationOrganizationReference.IsReferenceFullyDefined()))
                     return ImplicitEducationOrganizationReference.EducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -8962,7 +8962,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
     public class EvaluationReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
 
         [DataMember(Name="evaluationPeriodDescriptor"), NaturalKeyMember]
         public string EvaluationPeriodDescriptor { get; set; }
@@ -9018,7 +9018,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         /// <returns><b>true</b> if the reference's properties are all set to non-default values; otherwise <b>false</b>.</returns>
         public bool IsReferenceFullyDefined()
         {
-            return EducationOrganizationId != default(int) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && SchoolYear != default(short) && TermDescriptor != default(string);
+            return EducationOrganizationId != default(long) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && SchoolYear != default(short) && TermDescriptor != default(string);
         }
 
         private Link CreateLink()
@@ -9132,7 +9132,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.TPDM.IEvaluation.EducationOrganizationId
+        long Entities.Common.TPDM.IEvaluation.EducationOrganizationId
         {
             get
             {
@@ -9140,7 +9140,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
                     && (_SuspendReferenceAssignmentCheck || ImplicitPerformanceEvaluationReference.IsReferenceFullyDefined()))
                     return ImplicitPerformanceEvaluationReference.EducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -9861,7 +9861,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
     public class EvaluationElementReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
 
         [DataMember(Name="evaluationElementTitle"), NaturalKeyMember]
         public string EvaluationElementTitle { get; set; }
@@ -9923,7 +9923,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         /// <returns><b>true</b> if the reference's properties are all set to non-default values; otherwise <b>false</b>.</returns>
         public bool IsReferenceFullyDefined()
         {
-            return EducationOrganizationId != default(int) && EvaluationElementTitle != default(string) && EvaluationObjectiveTitle != default(string) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && SchoolYear != default(short) && TermDescriptor != default(string);
+            return EducationOrganizationId != default(long) && EvaluationElementTitle != default(string) && EvaluationObjectiveTitle != default(string) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && SchoolYear != default(short) && TermDescriptor != default(string);
         }
 
         private Link CreateLink()
@@ -10037,7 +10037,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.TPDM.IEvaluationElement.EducationOrganizationId
+        long Entities.Common.TPDM.IEvaluationElement.EducationOrganizationId
         {
             get
             {
@@ -10045,7 +10045,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
                     && (_SuspendReferenceAssignmentCheck || ImplicitEvaluationObjectiveReference.IsReferenceFullyDefined()))
                     return ImplicitEvaluationObjectiveReference.EducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -10825,7 +10825,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
     public class EvaluationElementRatingReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
 
         [DataMember(Name="evaluationDate"), NaturalKeyMember]
         public DateTime EvaluationDate { get; set; }
@@ -10896,7 +10896,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         /// <returns><b>true</b> if the reference's properties are all set to non-default values; otherwise <b>false</b>.</returns>
         public bool IsReferenceFullyDefined()
         {
-            return EducationOrganizationId != default(int) && EvaluationDate != default(DateTime) && EvaluationElementTitle != default(string) && EvaluationObjectiveTitle != default(string) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && PersonId != default(string) && SchoolYear != default(short) && SourceSystemDescriptor != default(string) && TermDescriptor != default(string);
+            return EducationOrganizationId != default(long) && EvaluationDate != default(DateTime) && EvaluationElementTitle != default(string) && EvaluationObjectiveTitle != default(string) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && PersonId != default(string) && SchoolYear != default(short) && SourceSystemDescriptor != default(string) && TermDescriptor != default(string);
         }
 
         private Link CreateLink()
@@ -11042,7 +11042,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.TPDM.IEvaluationElementRating.EducationOrganizationId
+        long Entities.Common.TPDM.IEvaluationElementRating.EducationOrganizationId
         {
             get
             {
@@ -11050,7 +11050,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
                     && (_SuspendReferenceAssignmentCheck || ImplicitEvaluationElementReference.IsReferenceFullyDefined()))
                     return ImplicitEvaluationElementReference.EducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -11718,7 +11718,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
                     $"Supplied values for unified key property 'educationOrganizationId' on 'EvaluationElementRating' are not consistent: {string.Join(", ", sourcesForEducationOrganizationId.Select(x => $"{x.Item1} = {x.Item2}"))}"));
             }
 
-            IEnumerable<Tuple<string, int>> GetEducationOrganizationIdSources()
+            IEnumerable<Tuple<string, long>> GetEducationOrganizationIdSources()
             {
                 // Obtain value from other references
                 var valueFromEvaluationElementReference = instance.EvaluationElementReference?.EducationOrganizationId;
@@ -12504,7 +12504,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
     public class EvaluationObjectiveReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
 
         [DataMember(Name="evaluationObjectiveTitle"), NaturalKeyMember]
         public string EvaluationObjectiveTitle { get; set; }
@@ -12563,7 +12563,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         /// <returns><b>true</b> if the reference's properties are all set to non-default values; otherwise <b>false</b>.</returns>
         public bool IsReferenceFullyDefined()
         {
-            return EducationOrganizationId != default(int) && EvaluationObjectiveTitle != default(string) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && SchoolYear != default(short) && TermDescriptor != default(string);
+            return EducationOrganizationId != default(long) && EvaluationObjectiveTitle != default(string) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && SchoolYear != default(short) && TermDescriptor != default(string);
         }
 
         private Link CreateLink()
@@ -12677,7 +12677,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.TPDM.IEvaluationObjective.EducationOrganizationId
+        long Entities.Common.TPDM.IEvaluationObjective.EducationOrganizationId
         {
             get
             {
@@ -12685,7 +12685,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
                     && (_SuspendReferenceAssignmentCheck || ImplicitEvaluationReference.IsReferenceFullyDefined()))
                     return ImplicitEvaluationReference.EducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -13439,7 +13439,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
     public class EvaluationObjectiveRatingReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
 
         [DataMember(Name="evaluationDate"), NaturalKeyMember]
         public DateTime EvaluationDate { get; set; }
@@ -13507,7 +13507,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         /// <returns><b>true</b> if the reference's properties are all set to non-default values; otherwise <b>false</b>.</returns>
         public bool IsReferenceFullyDefined()
         {
-            return EducationOrganizationId != default(int) && EvaluationDate != default(DateTime) && EvaluationObjectiveTitle != default(string) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && PersonId != default(string) && SchoolYear != default(short) && SourceSystemDescriptor != default(string) && TermDescriptor != default(string);
+            return EducationOrganizationId != default(long) && EvaluationDate != default(DateTime) && EvaluationObjectiveTitle != default(string) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && PersonId != default(string) && SchoolYear != default(short) && SourceSystemDescriptor != default(string) && TermDescriptor != default(string);
         }
 
         private Link CreateLink()
@@ -13653,7 +13653,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.TPDM.IEvaluationObjectiveRating.EducationOrganizationId
+        long Entities.Common.TPDM.IEvaluationObjectiveRating.EducationOrganizationId
         {
             get
             {
@@ -13661,7 +13661,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
                     && (_SuspendReferenceAssignmentCheck || ImplicitEvaluationObjectiveReference.IsReferenceFullyDefined()))
                     return ImplicitEvaluationObjectiveReference.EducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -14271,7 +14271,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
                     $"Supplied values for unified key property 'educationOrganizationId' on 'EvaluationObjectiveRating' are not consistent: {string.Join(", ", sourcesForEducationOrganizationId.Select(x => $"{x.Item1} = {x.Item2}"))}"));
             }
 
-            IEnumerable<Tuple<string, int>> GetEducationOrganizationIdSources()
+            IEnumerable<Tuple<string, long>> GetEducationOrganizationIdSources()
             {
                 // Obtain value from other references
                 var valueFromEvaluationObjectiveReference = instance.EvaluationObjectiveReference?.EducationOrganizationId;
@@ -15030,7 +15030,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     public class EvaluationRatingReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
 
         [DataMember(Name="evaluationDate"), NaturalKeyMember]
         public DateTime EvaluationDate { get; set; }
@@ -15095,7 +15095,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// <returns><b>true</b> if the reference's properties are all set to non-default values; otherwise <b>false</b>.</returns>
         public bool IsReferenceFullyDefined()
         {
-            return EducationOrganizationId != default(int) && EvaluationDate != default(DateTime) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && PersonId != default(string) && SchoolYear != default(short) && SourceSystemDescriptor != default(string) && TermDescriptor != default(string);
+            return EducationOrganizationId != default(long) && EvaluationDate != default(DateTime) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && PersonId != default(string) && SchoolYear != default(short) && SourceSystemDescriptor != default(string) && TermDescriptor != default(string);
         }
 
         private Link CreateLink()
@@ -15274,7 +15274,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.TPDM.IEvaluationRating.EducationOrganizationId
+        long Entities.Common.TPDM.IEvaluationRating.EducationOrganizationId
         {
             get
             {
@@ -15282,7 +15282,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
                     && (_SuspendReferenceAssignmentCheck || ImplicitEvaluationReference.IsReferenceFullyDefined()))
                     return ImplicitEvaluationReference.EducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -15682,7 +15682,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// The identifier assigned to a school.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int? Entities.Common.TPDM.IEvaluationRating.SchoolId
+        long? Entities.Common.TPDM.IEvaluationRating.SchoolId
         {
             get
             {
@@ -15692,7 +15692,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
                         return ImplicitSectionReference.SchoolId;
                     }
 
-                return default(int?);
+                return default(long?);
             }
             set
             {
@@ -16009,7 +16009,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
                     $"Supplied values for unified key property 'educationOrganizationId' on 'EvaluationRating' are not consistent: {string.Join(", ", sourcesForEducationOrganizationId.Select(x => $"{x.Item1} = {x.Item2}"))}"));
             }
 
-            IEnumerable<Tuple<string, int>> GetEducationOrganizationIdSources()
+            IEnumerable<Tuple<string, long>> GetEducationOrganizationIdSources()
             {
                 // Obtain value from other references
                 var valueFromEvaluationReference = instance.EvaluationReference?.EducationOrganizationId;
@@ -18836,7 +18836,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
     public class PerformanceEvaluationReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
 
         [DataMember(Name="evaluationPeriodDescriptor"), NaturalKeyMember]
         public string EvaluationPeriodDescriptor { get; set; }
@@ -18889,7 +18889,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         /// <returns><b>true</b> if the reference's properties are all set to non-default values; otherwise <b>false</b>.</returns>
         public bool IsReferenceFullyDefined()
         {
-            return EducationOrganizationId != default(int) && EvaluationPeriodDescriptor != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && SchoolYear != default(short) && TermDescriptor != default(string);
+            return EducationOrganizationId != default(long) && EvaluationPeriodDescriptor != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && SchoolYear != default(short) && TermDescriptor != default(string);
         }
 
         private Link CreateLink()
@@ -19036,7 +19036,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.TPDM.IPerformanceEvaluation.EducationOrganizationId
+        long Entities.Common.TPDM.IPerformanceEvaluation.EducationOrganizationId
         {
             get
             {
@@ -19044,7 +19044,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
                     && (_SuspendReferenceAssignmentCheck || ImplicitEducationOrganizationReference.IsReferenceFullyDefined()))
                     return ImplicitEducationOrganizationReference.EducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -19953,7 +19953,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     public class PerformanceEvaluationRatingReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
 
         [DataMember(Name="evaluationPeriodDescriptor"), NaturalKeyMember]
         public string EvaluationPeriodDescriptor { get; set; }
@@ -20012,7 +20012,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// <returns><b>true</b> if the reference's properties are all set to non-default values; otherwise <b>false</b>.</returns>
         public bool IsReferenceFullyDefined()
         {
-            return EducationOrganizationId != default(int) && EvaluationPeriodDescriptor != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && PersonId != default(string) && SchoolYear != default(short) && SourceSystemDescriptor != default(string) && TermDescriptor != default(string);
+            return EducationOrganizationId != default(long) && EvaluationPeriodDescriptor != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && PersonId != default(string) && SchoolYear != default(short) && SourceSystemDescriptor != default(string) && TermDescriptor != default(string);
         }
 
         private Link CreateLink()
@@ -20159,7 +20159,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.TPDM.IPerformanceEvaluationRating.EducationOrganizationId
+        long Entities.Common.TPDM.IPerformanceEvaluationRating.EducationOrganizationId
         {
             get
             {
@@ -20167,7 +20167,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
                     && (_SuspendReferenceAssignmentCheck || ImplicitPerformanceEvaluationReference.IsReferenceFullyDefined()))
                     return ImplicitPerformanceEvaluationReference.EducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -22164,7 +22164,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
     public class RubricDimensionReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
 
         [DataMember(Name="evaluationElementTitle"), NaturalKeyMember]
         public string EvaluationElementTitle { get; set; }
@@ -22229,7 +22229,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
         /// <returns><b>true</b> if the reference's properties are all set to non-default values; otherwise <b>false</b>.</returns>
         public bool IsReferenceFullyDefined()
         {
-            return EducationOrganizationId != default(int) && EvaluationElementTitle != default(string) && EvaluationObjectiveTitle != default(string) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && RubricRating != default(int) && SchoolYear != default(short) && TermDescriptor != default(string);
+            return EducationOrganizationId != default(long) && EvaluationElementTitle != default(string) && EvaluationObjectiveTitle != default(string) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && RubricRating != default(int) && SchoolYear != default(short) && TermDescriptor != default(string);
         }
 
         private Link CreateLink()
@@ -22340,7 +22340,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.TPDM.IRubricDimension.EducationOrganizationId
+        long Entities.Common.TPDM.IRubricDimension.EducationOrganizationId
         {
             get
             {
@@ -22348,7 +22348,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
                     && (_SuspendReferenceAssignmentCheck || ImplicitEvaluationElementReference.IsReferenceFullyDefined()))
                     return ImplicitEvaluationElementReference.EducationOrganizationId;
 
-                return default(int);
+                return default(long);
             }
             set
             {
@@ -23268,7 +23268,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
         /// The ID of the post secondary institution.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionId
+        long? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionId
         {
             get
             {
@@ -23278,7 +23278,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
                         return ImplicitPostSecondaryInstitutionReference.PostSecondaryInstitutionId;
                     }
 
-                return default(int?);
+                return default(long?);
             }
             set
             {

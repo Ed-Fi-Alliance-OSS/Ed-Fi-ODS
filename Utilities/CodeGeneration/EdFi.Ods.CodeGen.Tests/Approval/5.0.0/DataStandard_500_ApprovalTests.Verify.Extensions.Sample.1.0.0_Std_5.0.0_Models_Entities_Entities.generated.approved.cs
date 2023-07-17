@@ -613,7 +613,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                 _disabilityDescriptorId = default(int?);
             }
         }
-        public virtual int? EducationOrganizationId  { get; set; }
+        public virtual long? EducationOrganizationId  { get; set; }
         [RequiredWithNonDefault, StringLength(30, MinimumLength=0), NoDangerousText]
         public virtual string ExpectedTransitTime  { get; set; }
         [Range(typeof(decimal), "-999.99", "999.99")]
@@ -1282,7 +1282,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         }
 
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
+        public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string ProgramName  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
@@ -3242,9 +3242,9 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         private DateTime _beginDate;
         
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
+        public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int ProgramEducationOrganizationId  { get; set; }
+        public virtual long ProgramEducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string ProgramName  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
@@ -6913,9 +6913,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         [DomainSignature, RequiredWithNonDefault]
         public override DateTime BeginDate  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
-        public override int EducationOrganizationId  { get; set; }
+        public override long EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
-        public override int ProgramEducationOrganizationId  { get; set; }
+        public override long ProgramEducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=1), NoDangerousText, NoWhitespace]
         public override string ProgramName  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
@@ -8818,7 +8818,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         }
 
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
+        public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EmploymentStatusDescriptorId 
         {
@@ -9297,7 +9297,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         [Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807")]
         public virtual decimal? BookBudget  { get; set; }
         public virtual int? BooksBorrowed  { get; set; }
-        public virtual int? EducationOrganizationId  { get; set; }
+        public virtual long? EducationOrganizationId  { get; set; }
         [StringLength(60, MinimumLength=1), NoDangerousText]
         public virtual string InterventionStudyIdentificationCode  { get; set; }
         [Range(1, 2147483647)]
@@ -10668,7 +10668,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         public virtual int GraduationPlanTypeDescriptorId { get; set; }
         public virtual short GraduationSchoolYear { get; set; }
         public virtual int StudentUSI { get; set; }
@@ -10773,7 +10773,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
+        public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int GraduationPlanTypeDescriptorId 
         {
@@ -13141,9 +13141,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
         private DateTime _relatedBeginDate;
         
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int RelatedEducationOrganizationId  { get; set; }
+        public virtual long RelatedEducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
-        public virtual int RelatedProgramEducationOrganizationId  { get; set; }
+        public virtual long RelatedProgramEducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string RelatedProgramName  { get; set; }
         [DomainSignature, RequiredWithNonDefault]

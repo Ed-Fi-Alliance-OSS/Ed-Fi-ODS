@@ -4,7 +4,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.AcademicWeekAggregate.EdFi.AcademicWeekReferenceData" table="AcademicWeek" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="WeekIdentifier" column="WeekIdentifier" type="string"  length="80"  />
         </composite-id>
 
@@ -18,7 +18,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.AcademicWeekAggregate.EdFi.AcademicWeek" table="AcademicWeek" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="WeekIdentifier" column="WeekIdentifier" type="string" length="80" />
     </composite-id>
 
@@ -54,7 +54,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.AccountabilityRatingAggregate.EdFi.AccountabilityRatingReferenceData" table="AccountabilityRating" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="RatingTitle" column="RatingTitle" type="string"  length="60"  />
             <key-property name="SchoolYear" column="SchoolYear" type="short"  />
         </composite-id>
@@ -69,7 +69,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.AccountabilityRatingAggregate.EdFi.AccountabilityRating" table="AccountabilityRating" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="RatingTitle" column="RatingTitle" type="string" length="60" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
     </composite-id>
@@ -147,7 +147,7 @@
     <property name="AssessmentForm" column="AssessmentForm" type="string" length="60" />
     <property name="AssessmentTitle" column="AssessmentTitle" type="string" length="255" not-null="true" />
     <property name="AssessmentVersion" column="AssessmentVersion" type="int" />
-    <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+    <property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
     <property name="MaxRawScore" column="MaxRawScore" type="decimal" />
     <property name="Nomenclature" column="Nomenclature" type="string" length="100" />
     <property name="RevisionDate" column="RevisionDate" type="date" />
@@ -319,7 +319,7 @@
     <!-- Properties -->
     <property name="BeginDate" column="BeginDate" type="date" />
     <property name="EndDate" column="EndDate" type="date" />
-    <property name="MandatingEducationOrganizationId" column="MandatingEducationOrganizationId" type="int" />
+    <property name="MandatingEducationOrganizationId" column="MandatingEducationOrganizationId" type="long" />
     <property name="PublicationDate" column="PublicationDate" type="date" />
     <property name="PublicationStatusDescriptorId" column="PublicationStatusDescriptorId" type="int" />
     <property name="PublicationYear" column="PublicationYear" type="short" />
@@ -510,7 +510,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.AssessmentAggregate.EdFi.AssessmentProgram" table="AssessmentProgram" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="ProgramName" column="ProgramName" type="string" length="60" />
       <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" />
       <key-many-to-one name="Assessment">
@@ -571,7 +571,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
       <key-property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" />
       <key-property name="SessionName" column="SessionName" type="string" length="60" />
@@ -912,7 +912,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="BellScheduleName" column="BellScheduleName" type="string"  length="60"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
         </composite-id>
 
         <property name="Id" column="Id" type="guid" insert="false" update="false" />
@@ -926,7 +926,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BellScheduleName" column="BellScheduleName" type="string" length="60" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
     </composite-id>
 
     <!-- Discriminator -->
@@ -1066,7 +1066,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="CalendarCode" column="CalendarCode" type="string"  length="60"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="SchoolYear" column="SchoolYear" type="short"  />
         </composite-id>
 
@@ -1081,7 +1081,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CalendarCode" column="CalendarCode" type="string" length="60" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
     </composite-id>
 
@@ -1155,7 +1155,7 @@
         <composite-id>
             <key-property name="CalendarCode" column="CalendarCode" type="string"  length="60"  />
             <key-property name="Date" column="Date" type="date"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="SchoolYear" column="SchoolYear" type="short"  />
         </composite-id>
 
@@ -1171,7 +1171,7 @@
     <composite-id>
       <key-property name="CalendarCode" column="CalendarCode" type="string" length="60" />
       <key-property name="Date" column="Date" type="date" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
     </composite-id>
 
@@ -1244,7 +1244,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="AccountIdentifier" column="AccountIdentifier" type="string"  length="50"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="FiscalYear" column="FiscalYear" type="int"  />
         </composite-id>
 
@@ -1259,7 +1259,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="FiscalYear" column="FiscalYear" type="int" />
     </composite-id>
 
@@ -1371,7 +1371,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="ClassPeriodName" column="ClassPeriodName" type="string"  length="60"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
         </composite-id>
 
         <property name="Id" column="Id" type="guid" insert="false" update="false" />
@@ -1385,7 +1385,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="ClassPeriodName" column="ClassPeriodName" type="string" length="60" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
     </composite-id>
 
     <!-- Discriminator -->
@@ -1453,7 +1453,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="CohortIdentifier" column="CohortIdentifier" type="string"  length="36"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
         </composite-id>
 
         <property name="Id" column="Id" type="guid" insert="false" update="false" />
@@ -1467,7 +1467,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CohortIdentifier" column="CohortIdentifier" type="string" length="36" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
     </composite-id>
 
     <!-- Discriminator -->
@@ -1512,7 +1512,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.CohortAggregate.EdFi.CohortProgram" table="CohortProgram" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="int" />
+      <key-property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="long" />
       <key-property name="ProgramName" column="ProgramName" type="string" length="60" />
       <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" />
       <key-many-to-one name="Cohort">
@@ -1543,7 +1543,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.CommunityProviderLicenseAggregate.EdFi.CommunityProviderLicenseReferenceData" table="CommunityProviderLicense" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="CommunityProviderId" column="CommunityProviderId" type="int"  />
+            <key-property name="CommunityProviderId" column="CommunityProviderId" type="long"  />
             <key-property name="LicenseIdentifier" column="LicenseIdentifier" type="string"  length="36"  />
             <key-property name="LicensingOrganization" column="LicensingOrganization" type="string"  length="75"  />
         </composite-id>
@@ -1558,7 +1558,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.CommunityProviderLicenseAggregate.EdFi.CommunityProviderLicense" table="CommunityProviderLicense" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="CommunityProviderId" column="CommunityProviderId" type="int" />
+      <key-property name="CommunityProviderId" column="CommunityProviderId" type="long" />
       <key-property name="LicenseIdentifier" column="LicenseIdentifier" type="string" length="36" />
       <key-property name="LicensingOrganization" column="LicensingOrganization" type="string" length="75" />
     </composite-id>
@@ -1600,7 +1600,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.CompetencyObjectiveAggregate.EdFi.CompetencyObjectiveReferenceData" table="CompetencyObjective" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="Objective" column="Objective" type="string"  length="60"  />
             <key-property name="ObjectiveGradeLevelDescriptorId" column="ObjectiveGradeLevelDescriptorId" type="int"  />
         </composite-id>
@@ -1615,7 +1615,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.CompetencyObjectiveAggregate.EdFi.CompetencyObjective" table="CompetencyObjective" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="Objective" column="Objective" type="string" length="60" />
       <key-property name="ObjectiveGradeLevelDescriptorId" column="ObjectiveGradeLevelDescriptorId" type="int" />
     </composite-id>
@@ -2043,7 +2043,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="CourseCode" column="CourseCode" type="string"  length="60"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
         </composite-id>
 
         <property name="Id" column="Id" type="guid" insert="false" update="false" />
@@ -2057,7 +2057,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CourseCode" column="CourseCode" type="string" length="60" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
     </composite-id>
 
     <!-- Discriminator -->
@@ -2278,7 +2278,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="LocalCourseCode" column="LocalCourseCode" type="string"  length="60"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="SchoolYear" column="SchoolYear" type="short"  />
             <key-property name="SessionName" column="SessionName" type="string"  length="60"  />
         </composite-id>
@@ -2294,7 +2294,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
       <key-property name="SessionName" column="SessionName" type="string" length="60" />
     </composite-id>
@@ -2313,7 +2313,7 @@
 
     <!-- Properties -->
     <property name="CourseCode" column="CourseCode" type="string" length="60" not-null="true" />
-    <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" not-null="true" />
+    <property name="EducationOrganizationId" column="EducationOrganizationId" type="long" not-null="true" />
     <property name="InstructionalTimePlanned" column="InstructionalTimePlanned" type="int" />
     <property name="LocalCourseTitle" column="LocalCourseTitle" type="string" length="60" />
 
@@ -2454,8 +2454,8 @@
         <composite-id>
             <key-property name="CourseAttemptResultDescriptorId" column="CourseAttemptResultDescriptorId" type="int"  />
             <key-property name="CourseCode" column="CourseCode" type="string"  length="60"  />
-            <key-property name="CourseEducationOrganizationId" column="CourseEducationOrganizationId" type="int"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="CourseEducationOrganizationId" column="CourseEducationOrganizationId" type="long"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="SchoolYear" column="SchoolYear" type="short"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
             <key-property name="TermDescriptorId" column="TermDescriptorId" type="int"  />
@@ -2473,8 +2473,8 @@
     <composite-id>
       <key-property name="CourseAttemptResultDescriptorId" column="CourseAttemptResultDescriptorId" type="int" />
       <key-property name="CourseCode" column="CourseCode" type="string" length="60" />
-      <key-property name="CourseEducationOrganizationId" column="CourseEducationOrganizationId" type="int" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="CourseEducationOrganizationId" column="CourseEducationOrganizationId" type="long" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
       <key-property name="TermDescriptorId" column="TermDescriptorId" type="int" />
@@ -2504,7 +2504,7 @@
     <property name="EarnedCreditConversion" column="EarnedCreditConversion" type="decimal" />
     <property name="EarnedCredits" column="EarnedCredits" type="decimal" />
     <property name="EarnedCreditTypeDescriptorId" column="EarnedCreditTypeDescriptorId" type="int" />
-    <property name="ExternalEducationOrganizationId" column="ExternalEducationOrganizationId" type="int" />
+    <property name="ExternalEducationOrganizationId" column="ExternalEducationOrganizationId" type="long" />
     <property name="ExternalEducationOrganizationNameOfInstitution" column="ExternalEducationOrganizationNameOfInstitution" type="string" length="75" />
     <property name="FinalLetterGradeEarned" column="FinalLetterGradeEarned" type="string" length="20" />
     <property name="FinalNumericGradeEarned" column="FinalNumericGradeEarned" type="decimal" />
@@ -5781,12 +5781,12 @@
 
     <!-- Properties -->
     <property name="ActualDisciplineActionLength" column="ActualDisciplineActionLength" type="decimal" />
-    <property name="AssignmentSchoolId" column="AssignmentSchoolId" type="int" />
+    <property name="AssignmentSchoolId" column="AssignmentSchoolId" type="long" />
     <property name="DisciplineActionLength" column="DisciplineActionLength" type="decimal" />
     <property name="DisciplineActionLengthDifferenceReasonDescriptorId" column="DisciplineActionLengthDifferenceReasonDescriptorId" type="int" />
     <property name="IEPPlacementMeetingIndicator" column="IEPPlacementMeetingIndicator" type="bool" />
     <property name="RelatedToZeroTolerancePolicy" column="RelatedToZeroTolerancePolicy" type="bool" />
-    <property name="ResponsibilitySchoolId" column="ResponsibilitySchoolId" type="int" not-null="true" />
+    <property name="ResponsibilitySchoolId" column="ResponsibilitySchoolId" type="long" not-null="true" />
 
     <!-- Aggregate references -->
     <many-to-one name="AssignmentSchoolReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
@@ -5894,7 +5894,7 @@
     <composite-id>
       <key-property name="BehaviorDescriptorId" column="BehaviorDescriptorId" type="int" />
       <key-property name="IncidentIdentifier" column="IncidentIdentifier" type="string" length="36" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-many-to-one name="DisciplineAction">
         <column name="DisciplineActionIdentifier" />
         <column name="DisciplineDate" />
@@ -5926,7 +5926,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="IncidentIdentifier" column="IncidentIdentifier" type="string"  length="36"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
         </composite-id>
 
         <property name="Id" column="Id" type="guid" insert="false" update="false" />
@@ -5940,7 +5940,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="IncidentIdentifier" column="IncidentIdentifier" type="string" length="36" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
     </composite-id>
 
     <!-- Discriminator -->
@@ -6360,7 +6360,7 @@
 
     <!-- Aggregate reference data class mapping -->
     <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" table="EducationOrganization" lazy="true" >
-        <id name="EducationOrganizationId" column="EducationOrganizationId" type="int" >
+        <id name="EducationOrganizationId" column="EducationOrganizationId" type="long" >
             <generator class="assigned" />
         </id>
 
@@ -6372,7 +6372,7 @@
 
   <!-- Class definition -->
   <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganization" table="EducationOrganization" lazy="false" abstract="true" discriminator-value="NULL">
-    <id name="EducationOrganizationId" column="EducationOrganizationId" type="int">
+    <id name="EducationOrganizationId" column="EducationOrganizationId" type="long">
       <generator class="assigned" />
     </id>
 
@@ -6449,7 +6449,7 @@
           </key>
 
           <!-- PK properties -->
-          <property name="CommunityOrganizationId" column="CommunityOrganizationId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="CommunityOrganizationId" column="CommunityOrganizationId" type="long" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
 
@@ -6465,10 +6465,10 @@
           </key>
 
           <!-- PK properties -->
-          <property name="CommunityProviderId" column="CommunityProviderId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="CommunityProviderId" column="CommunityProviderId" type="long" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
-          <property name="CommunityOrganizationId" column="CommunityOrganizationId" type="int" />
+          <property name="CommunityOrganizationId" column="CommunityOrganizationId" type="long" />
           <property name="LicenseExemptIndicator" column="LicenseExemptIndicator" type="bool" />
           <property name="ProviderCategoryDescriptorId" column="ProviderCategoryDescriptorId" type="int" not-null="true" />
           <property name="ProviderProfitabilityDescriptorId" column="ProviderProfitabilityDescriptorId" type="int" />
@@ -6491,7 +6491,7 @@
           </key>
 
           <!-- PK properties -->
-          <property name="EducationOrganizationNetworkId" column="EducationOrganizationNetworkId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="EducationOrganizationNetworkId" column="EducationOrganizationNetworkId" type="long" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
           <property name="NetworkPurposeDescriptorId" column="NetworkPurposeDescriptorId" type="int" not-null="true" />
@@ -6508,10 +6508,10 @@
           </key>
 
           <!-- PK properties -->
-          <property name="EducationServiceCenterId" column="EducationServiceCenterId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="EducationServiceCenterId" column="EducationServiceCenterId" type="long" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
-          <property name="StateEducationAgencyId" column="StateEducationAgencyId" type="int" />
+          <property name="StateEducationAgencyId" column="StateEducationAgencyId" type="long" />
 
           <!-- Aggregate references -->
           <many-to-one name="StateEducationAgencyReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
@@ -6529,14 +6529,14 @@
           </key>
 
           <!-- PK properties -->
-          <property name="LocalEducationAgencyId" column="LocalEducationAgencyId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="LocalEducationAgencyId" column="LocalEducationAgencyId" type="long" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
           <property name="CharterStatusDescriptorId" column="CharterStatusDescriptorId" type="int" />
-          <property name="EducationServiceCenterId" column="EducationServiceCenterId" type="int" />
+          <property name="EducationServiceCenterId" column="EducationServiceCenterId" type="long" />
           <property name="LocalEducationAgencyCategoryDescriptorId" column="LocalEducationAgencyCategoryDescriptorId" type="int" not-null="true" />
-          <property name="ParentLocalEducationAgencyId" column="ParentLocalEducationAgencyId" type="int" />
-          <property name="StateEducationAgencyId" column="StateEducationAgencyId" type="int" />
+          <property name="ParentLocalEducationAgencyId" column="ParentLocalEducationAgencyId" type="long" />
+          <property name="StateEducationAgencyId" column="StateEducationAgencyId" type="long" />
 
           <!-- Aggregate references -->
           <many-to-one name="EducationServiceCenterReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
@@ -6576,11 +6576,11 @@
           </key>
 
           <!-- PK properties -->
-          <property name="OrganizationDepartmentId" column="OrganizationDepartmentId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="OrganizationDepartmentId" column="OrganizationDepartmentId" type="long" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
           <property name="AcademicSubjectDescriptorId" column="AcademicSubjectDescriptorId" type="int" />
-          <property name="ParentEducationOrganizationId" column="ParentEducationOrganizationId" type="int" />
+          <property name="ParentEducationOrganizationId" column="ParentEducationOrganizationId" type="long" />
 
           <!-- Aggregate references -->
           <many-to-one name="ParentEducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
@@ -6598,7 +6598,7 @@
           </key>
 
           <!-- PK properties -->
-          <property name="PostSecondaryInstitutionId" column="PostSecondaryInstitutionId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="PostSecondaryInstitutionId" column="PostSecondaryInstitutionId" type="long" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
           <property name="AdministrativeFundingControlDescriptorId" column="AdministrativeFundingControlDescriptorId" type="int" />
@@ -6623,7 +6623,7 @@
           </key>
 
           <!-- PK properties -->
-          <property name="SchoolId" column="SchoolId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="SchoolId" column="SchoolId" type="long" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
           <property name="AdministrativeFundingControlDescriptorId" column="AdministrativeFundingControlDescriptorId" type="int" />
@@ -6631,7 +6631,7 @@
           <property name="CharterApprovalSchoolYear" column="CharterApprovalSchoolYear" type="short" />
           <property name="CharterStatusDescriptorId" column="CharterStatusDescriptorId" type="int" />
           <property name="InternetAccessDescriptorId" column="InternetAccessDescriptorId" type="int" />
-          <property name="LocalEducationAgencyId" column="LocalEducationAgencyId" type="int" />
+          <property name="LocalEducationAgencyId" column="LocalEducationAgencyId" type="long" />
           <property name="MagnetSpecialProgramEmphasisSchoolDescriptorId" column="MagnetSpecialProgramEmphasisSchoolDescriptorId" type="int" />
           <property name="SchoolTypeDescriptorId" column="SchoolTypeDescriptorId" type="int" />
           <property name="TitleIPartASchoolDesignationDescriptorId" column="TitleIPartASchoolDesignationDescriptorId" type="int" />
@@ -6670,7 +6670,7 @@
           </key>
 
           <!-- PK properties -->
-          <property name="StateEducationAgencyId" column="StateEducationAgencyId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="StateEducationAgencyId" column="StateEducationAgencyId" type="long" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
 
@@ -6948,8 +6948,8 @@
     <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationInterventionPrescriptionAssociationAggregate.EdFi.EducationOrganizationInterventionPrescriptionAssociationReferenceData" table="EducationOrganizationInterventionPrescriptionAssociation" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
-            <key-property name="InterventionPrescriptionEducationOrganizationId" column="InterventionPrescriptionEducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
+            <key-property name="InterventionPrescriptionEducationOrganizationId" column="InterventionPrescriptionEducationOrganizationId" type="long"  />
             <key-property name="InterventionPrescriptionIdentificationCode" column="InterventionPrescriptionIdentificationCode" type="string"  length="60"  />
         </composite-id>
 
@@ -6963,8 +6963,8 @@
   <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationInterventionPrescriptionAssociationAggregate.EdFi.EducationOrganizationInterventionPrescriptionAssociation" table="EducationOrganizationInterventionPrescriptionAssociation" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
-      <key-property name="InterventionPrescriptionEducationOrganizationId" column="InterventionPrescriptionEducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
+      <key-property name="InterventionPrescriptionEducationOrganizationId" column="InterventionPrescriptionEducationOrganizationId" type="long" />
       <key-property name="InterventionPrescriptionIdentificationCode" column="InterventionPrescriptionIdentificationCode" type="string" length="60" />
     </composite-id>
 
@@ -7003,8 +7003,8 @@
     <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationNetworkAssociationAggregate.EdFi.EducationOrganizationNetworkAssociationReferenceData" table="EducationOrganizationNetworkAssociation" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationNetworkId" column="EducationOrganizationNetworkId" type="int"  />
-            <key-property name="MemberEducationOrganizationId" column="MemberEducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationNetworkId" column="EducationOrganizationNetworkId" type="long"  />
+            <key-property name="MemberEducationOrganizationId" column="MemberEducationOrganizationId" type="long"  />
         </composite-id>
 
         <property name="Id" column="Id" type="guid" insert="false" update="false" />
@@ -7017,8 +7017,8 @@
   <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationNetworkAssociationAggregate.EdFi.EducationOrganizationNetworkAssociation" table="EducationOrganizationNetworkAssociation" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationNetworkId" column="EducationOrganizationNetworkId" type="int" />
-      <key-property name="MemberEducationOrganizationId" column="MemberEducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationNetworkId" column="EducationOrganizationNetworkId" type="long" />
+      <key-property name="MemberEducationOrganizationId" column="MemberEducationOrganizationId" type="long" />
     </composite-id>
 
     <!-- Discriminator -->
@@ -7055,8 +7055,8 @@
     <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationPeerAssociationAggregate.EdFi.EducationOrganizationPeerAssociationReferenceData" table="EducationOrganizationPeerAssociation" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
-            <key-property name="PeerEducationOrganizationId" column="PeerEducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
+            <key-property name="PeerEducationOrganizationId" column="PeerEducationOrganizationId" type="long"  />
         </composite-id>
 
         <property name="Id" column="Id" type="guid" insert="false" update="false" />
@@ -7069,8 +7069,8 @@
   <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationPeerAssociationAggregate.EdFi.EducationOrganizationPeerAssociation" table="EducationOrganizationPeerAssociation" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
-      <key-property name="PeerEducationOrganizationId" column="PeerEducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
+      <key-property name="PeerEducationOrganizationId" column="PeerEducationOrganizationId" type="long" />
     </composite-id>
 
     <!-- Discriminator -->
@@ -7106,8 +7106,8 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="BeginDate" column="BeginDate" type="date"  />
-            <key-property name="FeederSchoolId" column="FeederSchoolId" type="int"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="FeederSchoolId" column="FeederSchoolId" type="long"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
         </composite-id>
 
         <property name="Id" column="Id" type="guid" insert="false" update="false" />
@@ -7121,8 +7121,8 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
-      <key-property name="FeederSchoolId" column="FeederSchoolId" type="int" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="FeederSchoolId" column="FeederSchoolId" type="long" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
     </composite-id>
 
     <!-- Discriminator -->
@@ -7316,8 +7316,8 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="BeginDate" column="BeginDate" type="date"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
-            <key-property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
+            <key-property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="long"  />
             <key-property name="ProgramName" column="ProgramName" type="string"  length="60"  />
             <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
@@ -7334,8 +7334,8 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
-      <key-property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
+      <key-property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="long" />
       <key-property name="ProgramName" column="ProgramName" type="string" length="60" />
       <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
@@ -7400,8 +7400,8 @@
 
           <!-- PK properties -->
           <property name="BeginDate" column="BeginDate" type="date" not-null="true" insert="false" update="false"/>
-          <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" not-null="true" insert="false" update="false"/>
-          <property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="EducationOrganizationId" column="EducationOrganizationId" type="long" not-null="true" insert="false" update="false"/>
+          <property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="long" not-null="true" insert="false" update="false"/>
           <property name="ProgramName" column="ProgramName" type="string" length="60" not-null="true" insert="false" update="false"/>
           <property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
           <property name="StudentUSI" column="StudentUSI" type="int" not-null="true" insert="false" update="false"/>
@@ -7441,8 +7441,8 @@
 
           <!-- PK properties -->
           <property name="BeginDate" column="BeginDate" type="date" not-null="true" insert="false" update="false"/>
-          <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" not-null="true" insert="false" update="false"/>
-          <property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="EducationOrganizationId" column="EducationOrganizationId" type="long" not-null="true" insert="false" update="false"/>
+          <property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="long" not-null="true" insert="false" update="false"/>
           <property name="ProgramName" column="ProgramName" type="string" length="60" not-null="true" insert="false" update="false"/>
           <property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
           <property name="StudentUSI" column="StudentUSI" type="int" not-null="true" insert="false" update="false"/>
@@ -7482,8 +7482,8 @@
 
           <!-- PK properties -->
           <property name="BeginDate" column="BeginDate" type="date" not-null="true" insert="false" update="false"/>
-          <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" not-null="true" insert="false" update="false"/>
-          <property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="EducationOrganizationId" column="EducationOrganizationId" type="long" not-null="true" insert="false" update="false"/>
+          <property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="long" not-null="true" insert="false" update="false"/>
           <property name="ProgramName" column="ProgramName" type="string" length="60" not-null="true" insert="false" update="false"/>
           <property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
           <property name="StudentUSI" column="StudentUSI" type="int" not-null="true" insert="false" update="false"/>
@@ -7534,8 +7534,8 @@
 
           <!-- PK properties -->
           <property name="BeginDate" column="BeginDate" type="date" not-null="true" insert="false" update="false"/>
-          <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" not-null="true" insert="false" update="false"/>
-          <property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="EducationOrganizationId" column="EducationOrganizationId" type="long" not-null="true" insert="false" update="false"/>
+          <property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="long" not-null="true" insert="false" update="false"/>
           <property name="ProgramName" column="ProgramName" type="string" length="60" not-null="true" insert="false" update="false"/>
           <property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
           <property name="StudentUSI" column="StudentUSI" type="int" not-null="true" insert="false" update="false"/>
@@ -7581,8 +7581,8 @@
 
           <!-- PK properties -->
           <property name="BeginDate" column="BeginDate" type="date" not-null="true" insert="false" update="false"/>
-          <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" not-null="true" insert="false" update="false"/>
-          <property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="EducationOrganizationId" column="EducationOrganizationId" type="long" not-null="true" insert="false" update="false"/>
+          <property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="long" not-null="true" insert="false" update="false"/>
           <property name="ProgramName" column="ProgramName" type="string" length="60" not-null="true" insert="false" update="false"/>
           <property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
           <property name="StudentUSI" column="StudentUSI" type="int" not-null="true" insert="false" update="false"/>
@@ -7622,8 +7622,8 @@
 
           <!-- PK properties -->
           <property name="BeginDate" column="BeginDate" type="date" not-null="true" insert="false" update="false"/>
-          <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" not-null="true" insert="false" update="false"/>
-          <property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="EducationOrganizationId" column="EducationOrganizationId" type="long" not-null="true" insert="false" update="false"/>
+          <property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="long" not-null="true" insert="false" update="false"/>
           <property name="ProgramName" column="ProgramName" type="string" length="60" not-null="true" insert="false" update="false"/>
           <property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
           <property name="StudentUSI" column="StudentUSI" type="int" not-null="true" insert="false" update="false"/>
@@ -7660,8 +7660,8 @@
 
           <!-- PK properties -->
           <property name="BeginDate" column="BeginDate" type="date" not-null="true" insert="false" update="false"/>
-          <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" not-null="true" insert="false" update="false"/>
-          <property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="EducationOrganizationId" column="EducationOrganizationId" type="long" not-null="true" insert="false" update="false"/>
+          <property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="long" not-null="true" insert="false" update="false"/>
           <property name="ProgramName" column="ProgramName" type="string" length="60" not-null="true" insert="false" update="false"/>
           <property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
           <property name="StudentUSI" column="StudentUSI" type="int" not-null="true" insert="false" update="false"/>
@@ -7699,8 +7699,8 @@
 
           <!-- PK properties -->
           <property name="BeginDate" column="BeginDate" type="date" not-null="true" insert="false" update="false"/>
-          <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" not-null="true" insert="false" update="false"/>
-          <property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="EducationOrganizationId" column="EducationOrganizationId" type="long" not-null="true" insert="false" update="false"/>
+          <property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="long" not-null="true" insert="false" update="false"/>
           <property name="ProgramName" column="ProgramName" type="string" length="60" not-null="true" insert="false" update="false"/>
           <property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
           <property name="StudentUSI" column="StudentUSI" type="int" not-null="true" insert="false" update="false"/>
@@ -7771,8 +7771,8 @@
 
           <!-- PK properties -->
           <property name="BeginDate" column="BeginDate" type="date" not-null="true" insert="false" update="false"/>
-          <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" not-null="true" insert="false" update="false"/>
-          <property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="EducationOrganizationId" column="EducationOrganizationId" type="long" not-null="true" insert="false" update="false"/>
+          <property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="long" not-null="true" insert="false" update="false"/>
           <property name="ProgramName" column="ProgramName" type="string" length="60" not-null="true" insert="false" update="false"/>
           <property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
           <property name="StudentUSI" column="StudentUSI" type="int" not-null="true" insert="false" update="false"/>
@@ -7842,7 +7842,7 @@
             <key-property name="GradingPeriodSchoolYear" column="GradingPeriodSchoolYear" type="short"  />
             <key-property name="GradingPeriodSequence" column="GradingPeriodSequence" type="int"  />
             <key-property name="LocalCourseCode" column="LocalCourseCode" type="string"  length="60"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="SchoolYear" column="SchoolYear" type="short"  />
             <key-property name="SectionIdentifier" column="SectionIdentifier" type="string"  length="255"  />
             <key-property name="SessionName" column="SessionName" type="string"  length="60"  />
@@ -7865,7 +7865,7 @@
       <key-property name="GradingPeriodSchoolYear" column="GradingPeriodSchoolYear" type="short" />
       <key-property name="GradingPeriodSequence" column="GradingPeriodSequence" type="int" />
       <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
       <key-property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" />
       <key-property name="SessionName" column="SessionName" type="string" length="60" />
@@ -8018,7 +8018,7 @@
     <property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
     <property name="MaxPoints" column="MaxPoints" type="decimal" />
     <property name="PeriodSequence" column="PeriodSequence" type="int" />
-    <property name="SchoolId" column="SchoolId" type="int" />
+    <property name="SchoolId" column="SchoolId" type="long" />
     <property name="SchoolYear" column="SchoolYear" type="short" />
     <property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" />
     <property name="SessionName" column="SessionName" type="string" length="60" />
@@ -8088,7 +8088,7 @@
         <composite-id>
             <key-property name="GradingPeriodDescriptorId" column="GradingPeriodDescriptorId" type="int"  />
             <key-property name="PeriodSequence" column="PeriodSequence" type="int"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="SchoolYear" column="SchoolYear" type="short"  />
         </composite-id>
 
@@ -8104,7 +8104,7 @@
     <composite-id>
       <key-property name="GradingPeriodDescriptorId" column="GradingPeriodDescriptorId" type="int" />
       <key-property name="PeriodSequence" column="PeriodSequence" type="int" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
     </composite-id>
 
@@ -8143,7 +8143,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData" table="GraduationPlan" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="GraduationPlanTypeDescriptorId" column="GraduationPlanTypeDescriptorId" type="int"  />
             <key-property name="GraduationSchoolYear" column="GraduationSchoolYear" type="short"  />
         </composite-id>
@@ -8158,7 +8158,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.GraduationPlanAggregate.EdFi.GraduationPlan" table="GraduationPlan" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="GraduationPlanTypeDescriptorId" column="GraduationPlanTypeDescriptorId" type="int" />
       <key-property name="GraduationSchoolYear" column="GraduationSchoolYear" type="short" />
     </composite-id>
@@ -8277,7 +8277,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CourseCode" column="CourseCode" type="string" length="60" />
-      <key-property name="CourseEducationOrganizationId" column="CourseEducationOrganizationId" type="int" />
+      <key-property name="CourseEducationOrganizationId" column="CourseEducationOrganizationId" type="long" />
       <key-many-to-one name="GraduationPlanCreditsByCourse">
         <column name="CourseSetName" />
         <column name="EducationOrganizationId" />
@@ -8483,7 +8483,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.InterventionAggregate.EdFi.InterventionReferenceData" table="Intervention" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="InterventionIdentificationCode" column="InterventionIdentificationCode" type="string"  length="60"  />
         </composite-id>
 
@@ -8497,7 +8497,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.InterventionAggregate.EdFi.Intervention" table="Intervention" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="InterventionIdentificationCode" column="InterventionIdentificationCode" type="string" length="60" />
     </composite-id>
 
@@ -8721,7 +8721,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.InterventionAggregate.EdFi.InterventionInterventionPrescription" table="InterventionInterventionPrescription" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="InterventionPrescriptionEducationOrganizationId" column="InterventionPrescriptionEducationOrganizationId" type="int" />
+      <key-property name="InterventionPrescriptionEducationOrganizationId" column="InterventionPrescriptionEducationOrganizationId" type="long" />
       <key-property name="InterventionPrescriptionIdentificationCode" column="InterventionPrescriptionIdentificationCode" type="string" length="60" />
       <key-many-to-one name="Intervention">
         <column name="EducationOrganizationId" />
@@ -8879,7 +8879,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.InterventionPrescriptionAggregate.EdFi.InterventionPrescriptionReferenceData" table="InterventionPrescription" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="InterventionPrescriptionIdentificationCode" column="InterventionPrescriptionIdentificationCode" type="string"  length="60"  />
         </composite-id>
 
@@ -8893,7 +8893,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.InterventionPrescriptionAggregate.EdFi.InterventionPrescription" table="InterventionPrescription" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="InterventionPrescriptionIdentificationCode" column="InterventionPrescriptionIdentificationCode" type="string" length="60" />
     </composite-id>
 
@@ -9165,7 +9165,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.InterventionStudyAggregate.EdFi.InterventionStudyReferenceData" table="InterventionStudy" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="InterventionStudyIdentificationCode" column="InterventionStudyIdentificationCode" type="string"  length="60"  />
         </composite-id>
 
@@ -9179,7 +9179,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.InterventionStudyAggregate.EdFi.InterventionStudy" table="InterventionStudy" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="InterventionStudyIdentificationCode" column="InterventionStudyIdentificationCode" type="string" length="60" />
     </composite-id>
 
@@ -9198,7 +9198,7 @@
     <!-- Properties -->
     <property name="DeliveryMethodDescriptorId" column="DeliveryMethodDescriptorId" type="int" not-null="true" />
     <property name="InterventionClassDescriptorId" column="InterventionClassDescriptorId" type="int" not-null="true" />
-    <property name="InterventionPrescriptionEducationOrganizationId" column="InterventionPrescriptionEducationOrganizationId" type="int" not-null="true" />
+    <property name="InterventionPrescriptionEducationOrganizationId" column="InterventionPrescriptionEducationOrganizationId" type="long" not-null="true" />
     <property name="InterventionPrescriptionIdentificationCode" column="InterventionPrescriptionIdentificationCode" type="string" length="60" not-null="true" />
     <property name="Participants" column="Participants" type="int" not-null="true" />
 
@@ -9609,7 +9609,7 @@
     <!-- Properties -->
     <property name="BeginDate" column="BeginDate" type="date" />
     <property name="EndDate" column="EndDate" type="date" />
-    <property name="MandatingEducationOrganizationId" column="MandatingEducationOrganizationId" type="int" />
+    <property name="MandatingEducationOrganizationId" column="MandatingEducationOrganizationId" type="long" />
     <property name="PublicationDate" column="PublicationDate" type="date" />
     <property name="PublicationStatusDescriptorId" column="PublicationStatusDescriptorId" type="int" />
     <property name="PublicationYear" column="PublicationYear" type="short" />
@@ -9768,7 +9768,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="AccountIdentifier" column="AccountIdentifier" type="string"  length="50"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="FiscalYear" column="FiscalYear" type="int"  />
         </composite-id>
 
@@ -9783,7 +9783,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="FiscalYear" column="FiscalYear" type="int" />
     </composite-id>
 
@@ -9801,7 +9801,7 @@
 
     <!-- Properties -->
     <property name="AccountName" column="AccountName" type="string" length="100" />
-    <property name="ChartOfAccountEducationOrganizationId" column="ChartOfAccountEducationOrganizationId" type="int" not-null="true" />
+    <property name="ChartOfAccountEducationOrganizationId" column="ChartOfAccountEducationOrganizationId" type="long" not-null="true" />
     <property name="ChartOfAccountIdentifier" column="ChartOfAccountIdentifier" type="string" length="50" not-null="true" />
 
     <!-- Aggregate references -->
@@ -9862,7 +9862,7 @@
         <composite-id>
             <key-property name="AccountIdentifier" column="AccountIdentifier" type="string"  length="50"  />
             <key-property name="AsOfDate" column="AsOfDate" type="date"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="FiscalYear" column="FiscalYear" type="int"  />
         </composite-id>
 
@@ -9878,7 +9878,7 @@
     <composite-id>
       <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
       <key-property name="AsOfDate" column="AsOfDate" type="date" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="FiscalYear" column="FiscalYear" type="int" />
     </composite-id>
 
@@ -9917,7 +9917,7 @@
         <composite-id>
             <key-property name="AccountIdentifier" column="AccountIdentifier" type="string"  length="50"  />
             <key-property name="AsOfDate" column="AsOfDate" type="date"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="FiscalYear" column="FiscalYear" type="int"  />
         </composite-id>
 
@@ -9933,7 +9933,7 @@
     <composite-id>
       <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
       <key-property name="AsOfDate" column="AsOfDate" type="date" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="FiscalYear" column="FiscalYear" type="int" />
     </composite-id>
 
@@ -9972,7 +9972,7 @@
         <composite-id>
             <key-property name="AccountIdentifier" column="AccountIdentifier" type="string"  length="50"  />
             <key-property name="AsOfDate" column="AsOfDate" type="date"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="FiscalYear" column="FiscalYear" type="int"  />
             <key-property name="StaffUSI" column="StaffUSI" type="int"  />
         </composite-id>
@@ -9989,7 +9989,7 @@
     <composite-id>
       <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
       <key-property name="AsOfDate" column="AsOfDate" type="date" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="FiscalYear" column="FiscalYear" type="int" />
       <key-property name="StaffUSI" column="StaffUSI" type="int" />
     </composite-id>
@@ -10093,7 +10093,7 @@
         <composite-id>
             <key-property name="AccountIdentifier" column="AccountIdentifier" type="string"  length="50"  />
             <key-property name="AsOfDate" column="AsOfDate" type="date"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="FiscalYear" column="FiscalYear" type="int"  />
         </composite-id>
 
@@ -10109,7 +10109,7 @@
     <composite-id>
       <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
       <key-property name="AsOfDate" column="AsOfDate" type="date" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="FiscalYear" column="FiscalYear" type="int" />
     </composite-id>
 
@@ -10148,7 +10148,7 @@
         <composite-id>
             <key-property name="AccountIdentifier" column="AccountIdentifier" type="string"  length="50"  />
             <key-property name="AsOfDate" column="AsOfDate" type="date"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="FiscalYear" column="FiscalYear" type="int"  />
             <key-property name="StaffUSI" column="StaffUSI" type="int"  />
         </composite-id>
@@ -10165,7 +10165,7 @@
     <composite-id>
       <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
       <key-property name="AsOfDate" column="AsOfDate" type="date" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="FiscalYear" column="FiscalYear" type="int" />
       <key-property name="StaffUSI" column="StaffUSI" type="int" />
     </composite-id>
@@ -10207,7 +10207,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="ClassroomIdentificationCode" column="ClassroomIdentificationCode" type="string"  length="60"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
         </composite-id>
 
         <property name="Id" column="Id" type="guid" insert="false" update="false" />
@@ -10221,7 +10221,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="ClassroomIdentificationCode" column="ClassroomIdentificationCode" type="string" length="60" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
     </composite-id>
 
     <!-- Discriminator -->
@@ -10550,7 +10550,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.OpenStaffPositionAggregate.EdFi.OpenStaffPositionReferenceData" table="OpenStaffPosition" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="RequisitionNumber" column="RequisitionNumber" type="string"  length="20"  />
         </composite-id>
 
@@ -10564,7 +10564,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.OpenStaffPositionAggregate.EdFi.OpenStaffPosition" table="OpenStaffPosition" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="RequisitionNumber" column="RequisitionNumber" type="string" length="20" />
     </composite-id>
 
@@ -10825,7 +10825,7 @@
     <property name="Id" column="Id" type="guid" not-null="true" />
 
     <!-- Properties -->
-    <property name="PostSecondaryInstitutionId" column="PostSecondaryInstitutionId" type="int" />
+    <property name="PostSecondaryInstitutionId" column="PostSecondaryInstitutionId" type="long" />
 
     <!-- Aggregate references -->
     <many-to-one name="PostSecondaryInstitutionReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
@@ -10869,7 +10869,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.ProgramAggregate.EdFi.ProgramReferenceData" table="Program" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="ProgramName" column="ProgramName" type="string"  length="60"  />
             <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int"  />
         </composite-id>
@@ -10884,7 +10884,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.ProgramAggregate.EdFi.Program" table="Program" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="ProgramName" column="ProgramName" type="string" length="60" />
       <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" />
     </composite-id>
@@ -11183,9 +11183,9 @@
     <class name="EdFi.Ods.Entities.NHibernate.ReportCardAggregate.EdFi.ReportCardReferenceData" table="ReportCard" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="GradingPeriodDescriptorId" column="GradingPeriodDescriptorId" type="int"  />
-            <key-property name="GradingPeriodSchoolId" column="GradingPeriodSchoolId" type="int"  />
+            <key-property name="GradingPeriodSchoolId" column="GradingPeriodSchoolId" type="long"  />
             <key-property name="GradingPeriodSchoolYear" column="GradingPeriodSchoolYear" type="short"  />
             <key-property name="GradingPeriodSequence" column="GradingPeriodSequence" type="int"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
@@ -11201,9 +11201,9 @@
   <class name="EdFi.Ods.Entities.NHibernate.ReportCardAggregate.EdFi.ReportCard" table="ReportCard" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="GradingPeriodDescriptorId" column="GradingPeriodDescriptorId" type="int" />
-      <key-property name="GradingPeriodSchoolId" column="GradingPeriodSchoolId" type="int" />
+      <key-property name="GradingPeriodSchoolId" column="GradingPeriodSchoolId" type="long" />
       <key-property name="GradingPeriodSchoolYear" column="GradingPeriodSchoolYear" type="short" />
       <key-property name="GradingPeriodSequence" column="GradingPeriodSequence" type="int" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
@@ -11290,7 +11290,7 @@
       <key-property name="BeginDate" column="BeginDate" type="date" />
       <key-property name="GradeTypeDescriptorId" column="GradeTypeDescriptorId" type="int" />
       <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
       <key-property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" />
       <key-property name="SessionName" column="SessionName" type="string" length="60" />
@@ -11368,7 +11368,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Objective" column="Objective" type="string" length="60" />
-      <key-property name="ObjectiveEducationOrganizationId" column="ObjectiveEducationOrganizationId" type="int" />
+      <key-property name="ObjectiveEducationOrganizationId" column="ObjectiveEducationOrganizationId" type="long" />
       <key-property name="ObjectiveGradeLevelDescriptorId" column="ObjectiveGradeLevelDescriptorId" type="int" />
       <key-many-to-one name="ReportCard">
         <column name="EducationOrganizationId" />
@@ -11408,7 +11408,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="RestraintEventIdentifier" column="RestraintEventIdentifier" type="string"  length="36"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
         </composite-id>
 
@@ -11423,7 +11423,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="RestraintEventIdentifier" column="RestraintEventIdentifier" type="string" length="36" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
     </composite-id>
 
@@ -11480,7 +11480,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.RestraintEventAggregate.EdFi.RestraintEventProgram" table="RestraintEventProgram" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="ProgramName" column="ProgramName" type="string" length="60" />
       <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" />
       <key-many-to-one name="RestraintEvent">
@@ -11626,7 +11626,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="LocalCourseCode" column="LocalCourseCode" type="string"  length="60"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="SchoolYear" column="SchoolYear" type="short"  />
             <key-property name="SectionIdentifier" column="SectionIdentifier" type="string"  length="255"  />
             <key-property name="SessionName" column="SessionName" type="string"  length="60"  />
@@ -11643,7 +11643,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
       <key-property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" />
       <key-property name="SessionName" column="SessionName" type="string" length="60" />
@@ -11668,7 +11668,7 @@
     <property name="EducationalEnvironmentDescriptorId" column="EducationalEnvironmentDescriptorId" type="int" />
     <property name="InstructionLanguageDescriptorId" column="InstructionLanguageDescriptorId" type="int" />
     <property name="LocationClassroomIdentificationCode" column="LocationClassroomIdentificationCode" type="string" length="60" />
-    <property name="LocationSchoolId" column="LocationSchoolId" type="int" />
+    <property name="LocationSchoolId" column="LocationSchoolId" type="long" />
     <property name="MediumOfInstructionDescriptorId" column="MediumOfInstructionDescriptorId" type="int" />
     <property name="OfficialAttendancePeriod" column="OfficialAttendancePeriod" type="bool" />
     <property name="PopulationServedDescriptorId" column="PopulationServedDescriptorId" type="int" />
@@ -11872,7 +11872,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.SectionAggregate.EdFi.SectionProgram" table="SectionProgram" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="ProgramName" column="ProgramName" type="string" length="60" />
       <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" />
       <key-many-to-one name="Section">
@@ -11909,7 +11909,7 @@
             <key-property name="CalendarCode" column="CalendarCode" type="string"  length="60"  />
             <key-property name="Date" column="Date" type="date"  />
             <key-property name="LocalCourseCode" column="LocalCourseCode" type="string"  length="60"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="SchoolYear" column="SchoolYear" type="short"  />
             <key-property name="SectionIdentifier" column="SectionIdentifier" type="string"  length="255"  />
             <key-property name="SessionName" column="SessionName" type="string"  length="60"  />
@@ -11928,7 +11928,7 @@
       <key-property name="CalendarCode" column="CalendarCode" type="string" length="60" />
       <key-property name="Date" column="Date" type="date" />
       <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
       <key-property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" />
       <key-property name="SessionName" column="SessionName" type="string" length="60" />
@@ -11978,7 +11978,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.SessionAggregate.EdFi.SessionReferenceData" table="Session" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="SchoolYear" column="SchoolYear" type="short"  />
             <key-property name="SessionName" column="SessionName" type="string"  length="60"  />
         </composite-id>
@@ -11993,7 +11993,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.SessionAggregate.EdFi.Session" table="Session" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
       <key-property name="SessionName" column="SessionName" type="string" length="60" />
     </composite-id>
@@ -12915,7 +12915,7 @@
         <composite-id>
             <key-property name="BeginDate" column="BeginDate" type="date"  />
             <key-property name="CohortIdentifier" column="CohortIdentifier" type="string"  length="36"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="StaffUSI" column="StaffUSI" type="int"  />
         </composite-id>
 
@@ -12931,7 +12931,7 @@
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
       <key-property name="CohortIdentifier" column="CohortIdentifier" type="string" length="36" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="StaffUSI" column="StaffUSI" type="int" />
     </composite-id>
 
@@ -12971,7 +12971,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="IncidentIdentifier" column="IncidentIdentifier" type="string"  length="36"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="StaffUSI" column="StaffUSI" type="int"  />
         </composite-id>
 
@@ -12986,7 +12986,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="IncidentIdentifier" column="IncidentIdentifier" type="string" length="36" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="StaffUSI" column="StaffUSI" type="int" />
     </composite-id>
 
@@ -13059,7 +13059,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="BeginDate" column="BeginDate" type="date"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="StaffClassificationDescriptorId" column="StaffClassificationDescriptorId" type="int"  />
             <key-property name="StaffUSI" column="StaffUSI" type="int"  />
         </composite-id>
@@ -13075,7 +13075,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="StaffClassificationDescriptorId" column="StaffClassificationDescriptorId" type="int" />
       <key-property name="StaffUSI" column="StaffUSI" type="int" />
     </composite-id>
@@ -13094,7 +13094,7 @@
 
     <!-- Properties -->
     <property name="CredentialIdentifier" column="CredentialIdentifier" type="string" length="60" />
-    <property name="EmploymentEducationOrganizationId" column="EmploymentEducationOrganizationId" type="int" />
+    <property name="EmploymentEducationOrganizationId" column="EmploymentEducationOrganizationId" type="long" />
     <property name="EmploymentHireDate" column="EmploymentHireDate" type="date" />
     <property name="EmploymentStatusDescriptorId" column="EmploymentStatusDescriptorId" type="int" />
     <property name="EndDate" column="EndDate" type="date" />
@@ -13132,7 +13132,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="ContactTitle" column="ContactTitle" type="string"  length="75"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="StaffUSI" column="StaffUSI" type="int"  />
         </composite-id>
 
@@ -13147,7 +13147,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="ContactTitle" column="ContactTitle" type="string" length="75" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="StaffUSI" column="StaffUSI" type="int" />
     </composite-id>
 
@@ -13309,7 +13309,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData" table="StaffEducationOrganizationEmploymentAssociation" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="EmploymentStatusDescriptorId" column="EmploymentStatusDescriptorId" type="int"  />
             <key-property name="HireDate" column="HireDate" type="date"  />
             <key-property name="StaffUSI" column="StaffUSI" type="int"  />
@@ -13325,7 +13325,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociation" table="StaffEducationOrganizationEmploymentAssociation" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="EmploymentStatusDescriptorId" column="EmploymentStatusDescriptorId" type="int" />
       <key-property name="HireDate" column="HireDate" type="date" />
       <key-property name="StaffUSI" column="StaffUSI" type="int" />
@@ -13429,7 +13429,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="BeginDate" column="BeginDate" type="date"  />
-            <key-property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="int"  />
+            <key-property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="long"  />
             <key-property name="ProgramName" column="ProgramName" type="string"  length="60"  />
             <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int"  />
             <key-property name="StaffUSI" column="StaffUSI" type="int"  />
@@ -13446,7 +13446,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
-      <key-property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="int" />
+      <key-property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="long" />
       <key-property name="ProgramName" column="ProgramName" type="string" length="60" />
       <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" />
       <key-property name="StaffUSI" column="StaffUSI" type="int" />
@@ -13489,7 +13489,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="ProgramAssignmentDescriptorId" column="ProgramAssignmentDescriptorId" type="int"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="StaffUSI" column="StaffUSI" type="int"  />
         </composite-id>
 
@@ -13504,7 +13504,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="ProgramAssignmentDescriptorId" column="ProgramAssignmentDescriptorId" type="int" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="StaffUSI" column="StaffUSI" type="int" />
     </composite-id>
 
@@ -13621,7 +13621,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="LocalCourseCode" column="LocalCourseCode" type="string"  length="60"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="SchoolYear" column="SchoolYear" type="short"  />
             <key-property name="SectionIdentifier" column="SectionIdentifier" type="string"  length="255"  />
             <key-property name="SessionName" column="SessionName" type="string"  length="60"  />
@@ -13639,7 +13639,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
       <key-property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" />
       <key-property name="SessionName" column="SessionName" type="string" length="60" />
@@ -13946,7 +13946,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData" table="StudentAcademicRecord" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="SchoolYear" column="SchoolYear" type="short"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
             <key-property name="TermDescriptorId" column="TermDescriptorId" type="int"  />
@@ -13962,7 +13962,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecord" table="StudentAcademicRecord" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
       <key-property name="TermDescriptorId" column="TermDescriptorId" type="int" />
@@ -14258,7 +14258,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="GradingPeriodDescriptorId" column="GradingPeriodDescriptorId" type="int" />
-      <key-property name="GradingPeriodSchoolId" column="GradingPeriodSchoolId" type="int" />
+      <key-property name="GradingPeriodSchoolId" column="GradingPeriodSchoolId" type="long" />
       <key-property name="GradingPeriodSchoolYear" column="GradingPeriodSchoolYear" type="short" />
       <key-property name="GradingPeriodSequence" column="GradingPeriodSequence" type="int" />
       <key-many-to-one name="StudentAcademicRecord">
@@ -14338,7 +14338,7 @@
     <property name="EventDescription" column="EventDescription" type="string" length="1024" />
     <property name="PlatformTypeDescriptorId" column="PlatformTypeDescriptorId" type="int" />
     <property name="ReasonNotTestedDescriptorId" column="ReasonNotTestedDescriptorId" type="int" />
-    <property name="ReportedSchoolId" column="ReportedSchoolId" type="int" />
+    <property name="ReportedSchoolId" column="ReportedSchoolId" type="long" />
     <property name="ReportedSchoolIdentifier" column="ReportedSchoolIdentifier" type="string" length="60" />
     <property name="RetestIndicatorDescriptorId" column="RetestIndicatorDescriptorId" type="int" />
     <property name="SchoolYear" column="SchoolYear" type="short" />
@@ -14703,7 +14703,7 @@
         <composite-id>
             <key-property name="AssessmentIdentifier" column="AssessmentIdentifier" type="string"  length="60"  />
             <key-property name="EducationOrganizationAssociationTypeDescriptorId" column="EducationOrganizationAssociationTypeDescriptorId" type="int"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="Namespace" column="Namespace" type="string"  length="255"  />
             <key-property name="StudentAssessmentIdentifier" column="StudentAssessmentIdentifier" type="string"  length="60"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
@@ -14721,7 +14721,7 @@
     <composite-id>
       <key-property name="AssessmentIdentifier" column="AssessmentIdentifier" type="string" length="60" />
       <key-property name="EducationOrganizationAssociationTypeDescriptorId" column="EducationOrganizationAssociationTypeDescriptorId" type="int" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="Namespace" column="Namespace" type="string" length="255" />
       <key-property name="StudentAssessmentIdentifier" column="StudentAssessmentIdentifier" type="string" length="60" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
@@ -14768,7 +14768,7 @@
         <composite-id>
             <key-property name="BeginDate" column="BeginDate" type="date"  />
             <key-property name="CohortIdentifier" column="CohortIdentifier" type="string"  length="36"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
         </composite-id>
 
@@ -14784,7 +14784,7 @@
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
       <key-property name="CohortIdentifier" column="CohortIdentifier" type="string" length="36" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
     </composite-id>
 
@@ -14834,7 +14834,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
       <key-property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" />
       <key-property name="SessionName" column="SessionName" type="string" length="60" />
@@ -14871,11 +14871,11 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="GradingPeriodDescriptorId" column="GradingPeriodDescriptorId" type="int"  />
-            <key-property name="GradingPeriodSchoolId" column="GradingPeriodSchoolId" type="int"  />
+            <key-property name="GradingPeriodSchoolId" column="GradingPeriodSchoolId" type="long"  />
             <key-property name="GradingPeriodSchoolYear" column="GradingPeriodSchoolYear" type="short"  />
             <key-property name="GradingPeriodSequence" column="GradingPeriodSequence" type="int"  />
             <key-property name="Objective" column="Objective" type="string"  length="60"  />
-            <key-property name="ObjectiveEducationOrganizationId" column="ObjectiveEducationOrganizationId" type="int"  />
+            <key-property name="ObjectiveEducationOrganizationId" column="ObjectiveEducationOrganizationId" type="long"  />
             <key-property name="ObjectiveGradeLevelDescriptorId" column="ObjectiveGradeLevelDescriptorId" type="int"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
         </composite-id>
@@ -14891,11 +14891,11 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="GradingPeriodDescriptorId" column="GradingPeriodDescriptorId" type="int" />
-      <key-property name="GradingPeriodSchoolId" column="GradingPeriodSchoolId" type="int" />
+      <key-property name="GradingPeriodSchoolId" column="GradingPeriodSchoolId" type="long" />
       <key-property name="GradingPeriodSchoolYear" column="GradingPeriodSchoolYear" type="short" />
       <key-property name="GradingPeriodSequence" column="GradingPeriodSequence" type="int" />
       <key-property name="Objective" column="Objective" type="string" length="60" />
-      <key-property name="ObjectiveEducationOrganizationId" column="ObjectiveEducationOrganizationId" type="int" />
+      <key-property name="ObjectiveEducationOrganizationId" column="ObjectiveEducationOrganizationId" type="long" />
       <key-property name="ObjectiveGradeLevelDescriptorId" column="ObjectiveGradeLevelDescriptorId" type="int" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
     </composite-id>
@@ -14972,8 +14972,8 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
-      <key-property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
+      <key-property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="long" />
       <key-property name="ProgramName" column="ProgramName" type="string" length="60" />
       <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" />
       <key-many-to-one name="StudentCompetencyObjective">
@@ -15016,7 +15016,7 @@
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
       <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
       <key-property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" />
       <key-property name="SessionName" column="SessionName" type="string" length="60" />
@@ -15150,7 +15150,7 @@
         <composite-id>
             <key-property name="BehaviorDescriptorId" column="BehaviorDescriptorId" type="int"  />
             <key-property name="IncidentIdentifier" column="IncidentIdentifier" type="string"  length="36"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
         </composite-id>
 
@@ -15166,7 +15166,7 @@
     <composite-id>
       <key-property name="BehaviorDescriptorId" column="BehaviorDescriptorId" type="int" />
       <key-property name="IncidentIdentifier" column="IncidentIdentifier" type="string" length="36" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
     </composite-id>
 
@@ -15242,7 +15242,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="IncidentIdentifier" column="IncidentIdentifier" type="string"  length="36"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
         </composite-id>
 
@@ -15257,7 +15257,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="IncidentIdentifier" column="IncidentIdentifier" type="string" length="36" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
     </composite-id>
 
@@ -15329,7 +15329,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationReferenceData" table="StudentEducationOrganizationAssociation" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
         </composite-id>
 
@@ -15343,7 +15343,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociation" table="StudentEducationOrganizationAssociation" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
     </composite-id>
 
@@ -16050,7 +16050,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="BeginDate" column="BeginDate" type="date"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="ResponsibilityDescriptorId" column="ResponsibilityDescriptorId" type="int"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
         </composite-id>
@@ -16066,7 +16066,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="ResponsibilityDescriptorId" column="ResponsibilityDescriptorId" type="int" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
     </composite-id>
@@ -16198,7 +16198,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.StudentInterventionAssociationAggregate.EdFi.StudentInterventionAssociationReferenceData" table="StudentInterventionAssociation" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="InterventionIdentificationCode" column="InterventionIdentificationCode" type="string"  length="60"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
         </composite-id>
@@ -16213,7 +16213,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.StudentInterventionAssociationAggregate.EdFi.StudentInterventionAssociation" table="StudentInterventionAssociation" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="InterventionIdentificationCode" column="InterventionIdentificationCode" type="string" length="60" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
     </composite-id>
@@ -16231,7 +16231,7 @@
     <property name="Id" column="Id" type="guid" not-null="true" />
 
     <!-- Properties -->
-    <property name="CohortEducationOrganizationId" column="CohortEducationOrganizationId" type="int" />
+    <property name="CohortEducationOrganizationId" column="CohortEducationOrganizationId" type="long" />
     <property name="CohortIdentifier" column="CohortIdentifier" type="string" length="36" />
     <property name="DiagnosticStatement" column="DiagnosticStatement" type="string" length="1024" />
     <property name="Dosage" column="Dosage" type="int" />
@@ -16299,7 +16299,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="AttendanceEventCategoryDescriptorId" column="AttendanceEventCategoryDescriptorId" type="int"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="EventDate" column="EventDate" type="date"  />
             <key-property name="InterventionIdentificationCode" column="InterventionIdentificationCode" type="string"  length="60"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
@@ -16316,7 +16316,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AttendanceEventCategoryDescriptorId" column="AttendanceEventCategoryDescriptorId" type="int" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="EventDate" column="EventDate" type="date" />
       <key-property name="InterventionIdentificationCode" column="InterventionIdentificationCode" type="string" length="60" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
@@ -16524,9 +16524,9 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="AttendanceEventCategoryDescriptorId" column="AttendanceEventCategoryDescriptorId" type="int"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="EventDate" column="EventDate" type="date"  />
-            <key-property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="int"  />
+            <key-property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="long"  />
             <key-property name="ProgramName" column="ProgramName" type="string"  length="60"  />
             <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
@@ -16543,9 +16543,9 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AttendanceEventCategoryDescriptorId" column="AttendanceEventCategoryDescriptorId" type="int" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="EventDate" column="EventDate" type="date" />
-      <key-property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="int" />
+      <key-property name="ProgramEducationOrganizationId" column="ProgramEducationOrganizationId" type="long" />
       <key-property name="ProgramName" column="ProgramName" type="string" length="60" />
       <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
@@ -16593,7 +16593,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="EntryDate" column="EntryDate" type="date"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
         </composite-id>
 
@@ -16608,7 +16608,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EntryDate" column="EntryDate" type="date" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
     </composite-id>
 
@@ -16627,7 +16627,7 @@
     <!-- Properties -->
     <property name="CalendarCode" column="CalendarCode" type="string" length="60" />
     <property name="ClassOfSchoolYear" column="ClassOfSchoolYear" type="short" />
-    <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+    <property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
     <property name="EmployedWhileEnrolled" column="EmployedWhileEnrolled" type="bool" />
     <property name="EnrollmentTypeDescriptorId" column="EnrollmentTypeDescriptorId" type="int" />
     <property name="EntryGradeLevelDescriptorId" column="EntryGradeLevelDescriptorId" type="int" not-null="true" />
@@ -16639,7 +16639,7 @@
     <property name="GraduationPlanTypeDescriptorId" column="GraduationPlanTypeDescriptorId" type="int" />
     <property name="GraduationSchoolYear" column="GraduationSchoolYear" type="short" />
     <property name="NextYearGradeLevelDescriptorId" column="NextYearGradeLevelDescriptorId" type="int" />
-    <property name="NextYearSchoolId" column="NextYearSchoolId" type="int" />
+    <property name="NextYearSchoolId" column="NextYearSchoolId" type="long" />
     <property name="PrimarySchool" column="PrimarySchool" type="bool" />
     <property name="RepeatGradeIndicator" column="RepeatGradeIndicator" type="bool" />
     <property name="ResidencyStatusDescriptorId" column="ResidencyStatusDescriptorId" type="int" />
@@ -16705,7 +16705,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationAlternativeGraduationPlan" table="StudentSchoolAssociationAlternativeGraduationPlan" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="AlternativeEducationOrganizationId" column="AlternativeEducationOrganizationId" type="int" />
+      <key-property name="AlternativeEducationOrganizationId" column="AlternativeEducationOrganizationId" type="long" />
       <key-property name="AlternativeGraduationPlanTypeDescriptorId" column="AlternativeGraduationPlanTypeDescriptorId" type="int" />
       <key-property name="AlternativeGraduationSchoolYear" column="AlternativeGraduationSchoolYear" type="short" />
       <key-many-to-one name="StudentSchoolAssociation">
@@ -16765,7 +16765,7 @@
         <composite-id>
             <key-property name="AttendanceEventCategoryDescriptorId" column="AttendanceEventCategoryDescriptorId" type="int"  />
             <key-property name="EventDate" column="EventDate" type="date"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="SchoolYear" column="SchoolYear" type="short"  />
             <key-property name="SessionName" column="SessionName" type="string"  length="60"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
@@ -16783,7 +16783,7 @@
     <composite-id>
       <key-property name="AttendanceEventCategoryDescriptorId" column="AttendanceEventCategoryDescriptorId" type="int" />
       <key-property name="EventDate" column="EventDate" type="date" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
       <key-property name="SessionName" column="SessionName" type="string" length="60" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
@@ -16866,7 +16866,7 @@
         <composite-id>
             <key-property name="BeginDate" column="BeginDate" type="date"  />
             <key-property name="LocalCourseCode" column="LocalCourseCode" type="string"  length="60"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="SchoolYear" column="SchoolYear" type="short"  />
             <key-property name="SectionIdentifier" column="SectionIdentifier" type="string"  length="255"  />
             <key-property name="SessionName" column="SessionName" type="string"  length="60"  />
@@ -16885,7 +16885,7 @@
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
       <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
       <key-property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" />
       <key-property name="SessionName" column="SessionName" type="string" length="60" />
@@ -16936,7 +16936,7 @@
             <key-property name="AttendanceEventCategoryDescriptorId" column="AttendanceEventCategoryDescriptorId" type="int"  />
             <key-property name="EventDate" column="EventDate" type="date"  />
             <key-property name="LocalCourseCode" column="LocalCourseCode" type="string"  length="60"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="SchoolYear" column="SchoolYear" type="short"  />
             <key-property name="SectionIdentifier" column="SectionIdentifier" type="string"  length="255"  />
             <key-property name="SessionName" column="SessionName" type="string"  length="60"  />
@@ -16956,7 +16956,7 @@
       <key-property name="AttendanceEventCategoryDescriptorId" column="AttendanceEventCategoryDescriptorId" type="int" />
       <key-property name="EventDate" column="EventDate" type="date" />
       <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
       <key-property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" />
       <key-property name="SessionName" column="SessionName" type="string" length="60" />
@@ -17242,7 +17242,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="ConsentToEvaluationReceivedDate" column="ConsentToEvaluationReceivedDate" type="date"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="ProgramName" column="ProgramName" type="string"  length="60"  />
             <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
@@ -17259,7 +17259,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="ConsentToEvaluationReceivedDate" column="ConsentToEvaluationReceivedDate" type="date" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="ProgramName" column="ProgramName" type="string" length="60" />
       <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
@@ -17379,9 +17379,9 @@
     <property name="Id" column="Id" type="guid" not-null="true" />
 
     <!-- Properties -->
-    <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+    <property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
     <property name="NumberAdministered" column="NumberAdministered" type="int" />
-    <property name="SchoolId" column="SchoolId" type="int" />
+    <property name="SchoolId" column="SchoolId" type="long" />
     <property name="SchoolYear" column="SchoolYear" type="short" not-null="true" />
     <property name="SessionName" column="SessionName" type="string" length="60" />
     <property name="SurveyCategoryDescriptorId" column="SurveyCategoryDescriptorId" type="int" />
@@ -17411,7 +17411,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="CourseCode" column="CourseCode" type="string"  length="60"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="Namespace" column="Namespace" type="string"  length="255"  />
             <key-property name="SurveyIdentifier" column="SurveyIdentifier" type="string"  length="60"  />
         </composite-id>
@@ -17427,7 +17427,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CourseCode" column="CourseCode" type="string" length="60" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="Namespace" column="Namespace" type="string" length="255" />
       <key-property name="SurveyIdentifier" column="SurveyIdentifier" type="string" length="60" />
     </composite-id>
@@ -17466,7 +17466,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.SurveyProgramAssociationAggregate.EdFi.SurveyProgramAssociationReferenceData" table="SurveyProgramAssociation" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="Namespace" column="Namespace" type="string"  length="255"  />
             <key-property name="ProgramName" column="ProgramName" type="string"  length="60"  />
             <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int"  />
@@ -17483,7 +17483,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.SurveyProgramAssociationAggregate.EdFi.SurveyProgramAssociation" table="SurveyProgramAssociation" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="Namespace" column="Namespace" type="string" length="255" />
       <key-property name="ProgramName" column="ProgramName" type="string" length="60" />
       <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" />
@@ -17900,7 +17900,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.SurveyResponseEducationOrganizationTargetAssociationAggregate.EdFi.SurveyResponseEducationOrganizationTargetAssociationReferenceData" table="SurveyResponseEducationOrganizationTargetAssociation" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="Namespace" column="Namespace" type="string"  length="255"  />
             <key-property name="SurveyIdentifier" column="SurveyIdentifier" type="string"  length="60"  />
             <key-property name="SurveyResponseIdentifier" column="SurveyResponseIdentifier" type="string"  length="60"  />
@@ -17916,7 +17916,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.SurveyResponseEducationOrganizationTargetAssociationAggregate.EdFi.SurveyResponseEducationOrganizationTargetAssociation" table="SurveyResponseEducationOrganizationTargetAssociation" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="Namespace" column="Namespace" type="string" length="255" />
       <key-property name="SurveyIdentifier" column="SurveyIdentifier" type="string" length="60" />
       <key-property name="SurveyResponseIdentifier" column="SurveyResponseIdentifier" type="string" length="60" />
@@ -18064,7 +18064,7 @@
         <composite-id>
             <key-property name="LocalCourseCode" column="LocalCourseCode" type="string"  length="60"  />
             <key-property name="Namespace" column="Namespace" type="string"  length="255"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="SchoolYear" column="SchoolYear" type="short"  />
             <key-property name="SectionIdentifier" column="SectionIdentifier" type="string"  length="255"  />
             <key-property name="SessionName" column="SessionName" type="string"  length="60"  />
@@ -18083,7 +18083,7 @@
     <composite-id>
       <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
       <key-property name="Namespace" column="Namespace" type="string" length="255" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
       <key-property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" />
       <key-property name="SessionName" column="SessionName" type="string" length="60" />
@@ -18186,7 +18186,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.SurveySectionResponseEducationOrganizationTargetAssociationAggregate.EdFi.SurveySectionResponseEducationOrganizationTargetAssociationReferenceData" table="SurveySectionResponseEducationOrganizationTargetAssociation" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
             <key-property name="Namespace" column="Namespace" type="string"  length="255"  />
             <key-property name="SurveyIdentifier" column="SurveyIdentifier" type="string"  length="60"  />
             <key-property name="SurveyResponseIdentifier" column="SurveyResponseIdentifier" type="string"  length="60"  />
@@ -18203,7 +18203,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.SurveySectionResponseEducationOrganizationTargetAssociationAggregate.EdFi.SurveySectionResponseEducationOrganizationTargetAssociation" table="SurveySectionResponseEducationOrganizationTargetAssociation" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
       <key-property name="Namespace" column="Namespace" type="string" length="255" />
       <key-property name="SurveyIdentifier" column="SurveyIdentifier" type="string" length="60" />
       <key-property name="SurveyResponseIdentifier" column="SurveyResponseIdentifier" type="string" length="60" />

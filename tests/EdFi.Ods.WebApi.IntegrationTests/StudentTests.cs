@@ -11,7 +11,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
+using EdFi.Ods.Api.Common.Models.Resources.Student.EdFi;
 using EdFi.Ods.WebApi.IntegrationTests.Helpers;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using Shouldly;
 using Test.Common;
@@ -45,7 +47,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests
             var createResponse1 = await _httpClient.PostAsync(
                 _uriHelper.BuildOdsUri("students", null),
                 new StringContent(
-                    ResourceHelper.CreateStudent(
+                    CreateStudent(
                         uniqueId1,
                         DateTime.Now.Ticks.ToString(
                             CultureInfo.InvariantCulture),
@@ -67,7 +69,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests
             var createResponse2 = await _httpClient.PostAsync(
                 _uriHelper.BuildOdsUri("students", null),
                 new StringContent(
-                    ResourceHelper.CreateStudent(
+                    CreateStudent(
                         uniqueId2,
                         DateTime.Now.Ticks.ToString(
                             CultureInfo.InvariantCulture),
@@ -99,6 +101,21 @@ namespace EdFi.Ods.WebApi.IntegrationTests
             
             return await conn.QuerySingleOrDefaultAsync<int?>(
                 $"SELECT 1 FROM edfi.Student WHERE StudentUniqueId = '{uniqueId}'", _cancellationToken);
+        }
+        
+        private static string CreateStudent(string uniqueId, string lastName = null, string firstName = null)
+        {
+            var ticks = DateTime.Now.Ticks;
+
+            var student = new Student
+            {
+                StudentUniqueId = uniqueId,
+                FirstName = firstName ?? string.Format("F{0}", ticks),
+                LastSurname = lastName ?? string.Format("L{0}", ticks),
+                BirthDate = new DateTime(2017, 05, 31)
+            };
+
+            return JsonConvert.SerializeObject(student);
         }
     }
 }

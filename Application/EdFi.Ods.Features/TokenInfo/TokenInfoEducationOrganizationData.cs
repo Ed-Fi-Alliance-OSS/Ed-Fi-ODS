@@ -9,7 +9,7 @@ namespace EdFi.Ods.Features.TokenInfo
     {
         public TokenInfoEducationOrganizationData() { }
 
-        public TokenInfoEducationOrganizationData(int educationOrganizationId, string nameOfInstitution, string discriminator, string ancestorDiscriminator, int ancestorEducationOrganizationId)
+        public TokenInfoEducationOrganizationData(long educationOrganizationId, string nameOfInstitution, string discriminator, string ancestorDiscriminator, long ancestorEducationOrganizationId)
         {
             EducationOrganizationId = educationOrganizationId;
             NameOfInstitution = nameOfInstitution;
@@ -18,10 +18,10 @@ namespace EdFi.Ods.Features.TokenInfo
             AncestorEducationOrganizationId = ancestorEducationOrganizationId;
         }
 
-        public int EducationOrganizationId { get; set; }
+        public long EducationOrganizationId { get; set; }
         public string NameOfInstitution { get; set; }
         public string Discriminator { get; set; }
         public string AncestorDiscriminator { get; set; }
-        public int AncestorEducationOrganizationId { get; set; }
+        public long AncestorEducationOrganizationId { get; set; }
     }
 }

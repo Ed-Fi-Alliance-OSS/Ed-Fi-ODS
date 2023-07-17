@@ -95,7 +95,7 @@ public class ApiClientDetailsProviderTests
 
             // Collection assertions
             () => actual.EducationOrganizationIds.ToArray().ShouldBeEquivalentTo(
-                new[]
+                new long[]
                 {
                     1000,
                     1001
@@ -120,7 +120,7 @@ public class ApiClientDetailsProviderTests
                 }));
 
         RawApiClientDetailsDataRow CreateRawApiClientDetailsRow(
-            int? educationOrganizationId = null,
+            long? educationOrganizationId = null,
             string namespacePrefix = null,
             string profileName = null,
             short? ownershipTokenId = null)

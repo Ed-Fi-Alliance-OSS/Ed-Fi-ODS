@@ -20,7 +20,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
         {
             private const string SuppliedApiKey = "SomeKey";
             private const string SuppliedClaimsetName = "SomeClaimset";
-            private readonly int[] _suppliedEducationOrganizationIds =
+            private readonly long[] _suppliedEducationOrganizationIds =
             {
                 1,
                 2
@@ -55,7 +55,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
 
             private string _actualApiKey;
             private string _actualClaimsetName;
-            private IEnumerable<int> _actualEducationOrganizationIds;
+
+            private IEnumerable<long> _actualEducationOrganizationIds;
             private IEnumerable<string> _actualNamespacePrefixes;
             private ApiClientContext _actualApiClientContext;
             private IEnumerable<string> _actualProfiles;

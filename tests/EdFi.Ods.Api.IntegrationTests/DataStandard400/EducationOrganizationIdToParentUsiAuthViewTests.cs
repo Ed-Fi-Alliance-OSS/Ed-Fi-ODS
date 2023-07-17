@@ -6,7 +6,7 @@
 using System;
 using NUnit.Framework;
 
-namespace EdFi.Ods.Api.IntegrationTests.Parent
+namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
 {
     [TestFixture]
     public class EducationOrganizationIdToParentUsiAuthViewTests : DatabaseTestFixtureBase
@@ -79,7 +79,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Parent
                 .AddStudentParentAssociation(parentUsi, studentUsi)
                 .Execute();
 
-            var expectedTuples = new[] {(9902, parentUsi)};
+            var expectedTuples = new[] { (9902, parentUsi) };
 
             AuthorizationViewHelper.ShouldNotContainTuples(Connection, PersonType.Parent, expectedTuples);
         }
@@ -127,7 +127,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Parent
 
             var parentUsi = AuthorizationViewHelper.GetParentUsi(Connection, parentUniqueId);
 
-            var expectedTuples = new[] {(9899, parentUsi)};
+            var expectedTuples = new[] { (9899, parentUsi) };
 
             AuthorizationViewHelper.ShouldNotContainTuples(
                 Connection, PersonType.Parent, expectedTuples);

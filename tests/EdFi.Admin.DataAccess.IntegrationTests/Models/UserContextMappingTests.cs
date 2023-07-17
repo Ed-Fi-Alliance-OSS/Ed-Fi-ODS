@@ -55,13 +55,13 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
         public class When_adding_an_lea_mapping_to_a_client : UserContextTestBase
         {
             private string clientName;
-            private int leaId;
+            private long leaId;
 
             [OneTimeSetUp]
             public new void Setup()
             {
                 clientName = string.Format("{0}_TestData", DateTime.Now.Ticks);
-                leaId = int.MaxValue - 1;
+                leaId = long.MaxValue - 1;
             }
 
             [Test]
@@ -85,7 +85,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                         .Include(x => x.ApplicationEducationOrganizations)
                         .Single();
 
-                    int[] leas = clientFromDb.ApplicationEducationOrganizations.Select(x => x.EducationOrganizationId)
+                    long[] leas = clientFromDb.ApplicationEducationOrganizations.Select(x => x.EducationOrganizationId)
                         .ToArray();
 
                     leas.ShouldBe(
@@ -99,13 +99,13 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
         public class When_adding_an_lea_mapping_to_an_application : UserContextTestBase
         {
             private string appName;
-            private int leaId;
+            private long leaId;
 
             [OneTimeSetUp]
             public new void Setup()
             {
                 appName = string.Format("{0}_TestData", DateTime.Now.Ticks);
-                leaId = int.MaxValue - 1;
+                leaId = long.MaxValue - 1;
             }
 
             [Test]
@@ -131,7 +131,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                         .Include(x => x.ApplicationEducationOrganizations)
                         .Single();
 
-                    int[] leas = applicationFromDb.ApplicationEducationOrganizations.Select(x => x.EducationOrganizationId)
+                    long[] leas = applicationFromDb.ApplicationEducationOrganizations.Select(x => x.EducationOrganizationId)
                         .ToArray();
 
                     leas.ShouldBe(
@@ -191,7 +191,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
         {
             private string vendorName;
             private string appName;
-            private int leaId;
+            private long leaId;
             private const string ClaimSetName = "ClaimSet";
 
             [OneTimeSetUp]
@@ -199,7 +199,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
             {
                 vendorName = string.Format("{0}_TestData", DateTime.Now.Ticks);
                 appName = string.Format("{0}_TestData", DateTime.Now.Ticks);
-                leaId = int.MaxValue - 1;
+                leaId = long.MaxValue - 1;
             }
 
             [Test]

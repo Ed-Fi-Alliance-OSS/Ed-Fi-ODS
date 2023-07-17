@@ -23,7 +23,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTransportation
         [NaturalKeyMember]
         string PMBusNumber { get; set; }
         [NaturalKeyMember]
-        int SchoolId { get; set; }
+        long SchoolId { get; set; }
         [NaturalKeyMember]
         string StudentUniqueId { get; set; }
 

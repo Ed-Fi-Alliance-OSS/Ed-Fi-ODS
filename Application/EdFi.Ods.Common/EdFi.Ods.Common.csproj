@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>EdFi.Suite3.Ods.Common</PackageId>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
@@ -22,7 +22,7 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Common" Version="7.0.45" />
+        <PackageReference Include="EdFi.Suite3.Common" Version="7.0.48" />
       </ItemGroup>
     </Otherwise>
   </Choose>

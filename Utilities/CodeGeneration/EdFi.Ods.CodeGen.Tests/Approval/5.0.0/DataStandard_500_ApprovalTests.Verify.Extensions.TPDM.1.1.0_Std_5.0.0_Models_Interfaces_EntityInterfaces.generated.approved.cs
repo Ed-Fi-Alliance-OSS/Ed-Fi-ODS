@@ -723,7 +723,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         [NaturalKeyMember]
         string CandidateIdentifier { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string ProgramName { get; set; }
         [NaturalKeyMember]
@@ -1651,7 +1651,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         [NaturalKeyMember]
         ICredentialExtension CredentialExtension { get; set; }
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         short SchoolYear { get; set; }
         [NaturalKeyMember]
@@ -1700,7 +1700,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string ProgramName { get; set; }
         [NaturalKeyMember]
@@ -2039,7 +2039,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string EvaluationPeriodDescriptor { get; set; }
         [NaturalKeyMember]
@@ -2133,7 +2133,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string EvaluationElementTitle { get; set; }
         [NaturalKeyMember]
@@ -2225,7 +2225,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         DateTime EvaluationDate { get; set; }
         [NaturalKeyMember]
@@ -2513,7 +2513,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string EvaluationObjectiveTitle { get; set; }
         [NaturalKeyMember]
@@ -2609,7 +2609,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         DateTime EvaluationDate { get; set; }
         [NaturalKeyMember]
@@ -2877,7 +2877,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         DateTime EvaluationDate { get; set; }
         [NaturalKeyMember]
@@ -2901,7 +2901,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         string EvaluationRatingLevelDescriptor { get; set; }
         string EvaluationRatingStatusDescriptor { get; set; }
         string LocalCourseCode { get; set; }
-        int? SchoolId { get; set; }
+        long? SchoolId { get; set; }
         string SectionIdentifier { get; set; }
         string SessionName { get; set; }
 
@@ -3672,7 +3672,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string EvaluationPeriodDescriptor { get; set; }
         [NaturalKeyMember]
@@ -3799,7 +3799,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string EvaluationPeriodDescriptor { get; set; }
         [NaturalKeyMember]
@@ -4301,7 +4301,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         // Primary Key properties
         [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
+        long EducationOrganizationId { get; set; }
         [NaturalKeyMember]
         string EvaluationElementTitle { get; set; }
         [NaturalKeyMember]
@@ -4459,7 +4459,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         EdFi.ISchool School { get; set; }
 
         // Non-PK properties
-        int? PostSecondaryInstitutionId { get; set; }
+        long? PostSecondaryInstitutionId { get; set; }
 
         // One-to-one relationships
 

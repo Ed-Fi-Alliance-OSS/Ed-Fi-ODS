@@ -46,9 +46,9 @@
 		<Compile Remove="**\*.cs" />
   </ItemGroup>	
   <ItemGroup Condition=" '$(StandardVersion)' == '5.0.0' ">
-	 <Compile Include="**\*.cs" Exclude="**\Parent\*.*" /> 
+	 <Compile Include="**\*.cs" Exclude="**\Datastandard400\*.*" /> 
   </ItemGroup>
   <ItemGroup Condition=" '$(StandardVersion)' == '4.0.0' ">
-	  <Compile Include="**\*.cs" Exclude="**\Contact\*.*" />
+	  <Compile Include="**\*.cs" Exclude="**\Datastandard500\*.*" />
   </ItemGroup>
 </Project>

@@ -11,7 +11,7 @@ namespace EdFi.Common.Security
     {
         public string ClaimSetName { get; set; }
 
-        public IList<int> EducationOrganizationIds { get; set; }
+        public IList<long> EducationOrganizationIds { get; set; }
 
         public string Key { get; set; }
 

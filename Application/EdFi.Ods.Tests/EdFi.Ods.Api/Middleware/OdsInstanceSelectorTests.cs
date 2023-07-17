@@ -204,7 +204,7 @@ namespace EdFi.Ods.Api.Middleware.Tests
                 odsInstanceIds: odsInstanceIds,
                 apiKey: "abc",
                 claimSetName: "TestClaimSet",
-                educationOrganizationIds: new [] { 1 },
+                educationOrganizationIds: new [] { 1L },
                 namespacePrefixes: Array.Empty<string>(),
                 profiles: Array.Empty<string>(),
                 studentIdentificationSystemDescriptor: null,

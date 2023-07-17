@@ -19,17 +19,17 @@ namespace EdFi.Ods.Api.IntegrationTests
             actualTuples.ShouldBeFalse();
         }
 
-        public static void ShouldContainTuples(IDbConnection connection,
-            PersonType personType, params (int, int)[] expectedTuples)
+        public static void ShouldContainTuples<T1, T2>(IDbConnection connection,
+            PersonType personType, params (T1, T2)[] expectedTuples)
         {
-            var actualTuples = GetExistingRecordsInAuthorizationView(connection, personType);
+            var actualTuples = GetExistingRecordsInAuthorizationView<T1, T2>(connection, personType);
             expectedTuples.ShouldBeSubsetOf(actualTuples);
         }
 
-        public static void ShouldNotContainTuples(IDbConnection connection,
-            PersonType personType, params (int, int)[] expectedTuples)
+        public static void ShouldNotContainTuples<T1, T2>(IDbConnection connection,
+            PersonType personType, params (T1, T2)[] expectedTuples)
         {
-            var actualTuples = GetExistingRecordsInAuthorizationView(connection, personType);
+            var actualTuples = GetExistingRecordsInAuthorizationView<T1, T2>(connection, personType);
             expectedTuples.ShouldAllBe(item => !actualTuples.Contains(item));
         }
 
@@ -65,11 +65,12 @@ namespace EdFi.Ods.Api.IntegrationTests
             return result;
         }
 
-        private static IEnumerable<(int, int)> GetExistingRecordsInAuthorizationView(IDbConnection connection, PersonType personType)
+
+        private static IEnumerable<(T1, T2)> GetExistingRecordsInAuthorizationView<T1, T2>(IDbConnection connection, PersonType personType)
         {
             var viewName = $"EducationOrganizationIdTo{personType}USI";
 
-            return GetRecordsForAuthorizationView(connection, viewName);
+            return GetRecordsForAuthorizationView<T1, T2>(connection, viewName);
         }
 
         private static bool IsDuplicateRecordExistForAuthorizationView(IDbConnection connection, PersonType personType)
@@ -85,7 +86,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             return 1 == Convert.ToInt32(command.ExecuteScalar());
         }
 
-        private static IEnumerable<(int, int)> GetRecordsForAuthorizationView(IDbConnection connection, string viewName)
+        private static IEnumerable<(T1, T2)> GetRecordsForAuthorizationView<T1, T2>(IDbConnection connection, string viewName)
         {
             var sql = @$"SELECT * FROM auth.{viewName}";
 
@@ -93,19 +94,21 @@ namespace EdFi.Ods.Api.IntegrationTests
             command.CommandText = sql;
 
             using var reader = command.ExecuteReader();
-            var result = new List<(int, int)>();
+            var result = new List<(T1, T2)>();
 
             while (reader.Read())
             {
-                result.Add((reader.GetInt32(0), reader.GetInt32(1)));
+                var value1 = (T1)reader.GetValue(0);
+                var value2 = (T2)reader.GetValue(1);
+                result.Add((value1, value2));
             }
 
             return result;
         }
 
-        public static bool HasDuplicateRecordsForAuthorizationView(IDbConnection connection, string viewName)
+        public static bool HasDuplicateRecordsForAuthorizationView<T1, T2>(IDbConnection connection, string viewName)
         {
-            return GetRecordsForAuthorizationView(connection, viewName).GroupBy(
+            return GetRecordsForAuthorizationView<T1, T2>(connection, viewName).GroupBy(
                 x => new
                 {
                     x.Item1,
@@ -113,21 +116,21 @@ namespace EdFi.Ods.Api.IntegrationTests
                 }).Any(x => x.Count() > 1);
         }
 
-        public static void ShouldContainTuples(
+        public static void ShouldContainTuples<T1, T2>(
             IDbConnection connection,
             string viewName,
-            params (int, int)[] expectedTuples)
+            params (T1, T2)[] expectedTuples)
         {
-            var actualTuples = GetRecordsForAuthorizationView(connection, viewName);
+            var actualTuples = GetRecordsForAuthorizationView<T1, T2>(connection, viewName);
             expectedTuples.ShouldBeSubsetOf(actualTuples);
         }
 
-        public static void ShouldNotContainTuples(
+        public static void ShouldNotContainTuples<T1, T2>(
             IDbConnection connection,
             string viewName,
-            params (int, int)[] expectedTuples)
+            params (T1, T2)[] expectedTuples)
         {
-            var actualTuples = GetRecordsForAuthorizationView(connection, viewName);
+            var actualTuples = GetRecordsForAuthorizationView<T1, T2>(connection, viewName);
             expectedTuples.ShouldAllBe(item => !actualTuples.Contains(item));
         }
     }

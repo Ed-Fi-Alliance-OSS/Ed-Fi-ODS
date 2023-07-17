@@ -397,7 +397,7 @@ namespace EdFi.Admin.DataAccess.Repositories
             return attachedUser.AddSandboxClient(name, sandboxType, key, secret);
         }
 
-        public void AddEdOrgIdsToApiClient(int userId, int apiClientId, IList<int> edOrgIds, int applicationId)
+        public void AddEdOrgIdsToApiClient(int userId, int apiClientId, IList<long> edOrgIds, int applicationId)
         {
             using (var context = _contextFactory.CreateContext())
             {

@@ -180,7 +180,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AcademicWeekAggregate.EdFi
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual string WeekIdentifier { get; set; }
         // -------------------------------------------------------------
@@ -278,7 +278,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccountabilityRatingAggregate
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string RatingTitle { get; set; }
         [DomainSignature]
@@ -686,7 +686,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         public virtual string AssessmentForm  { get; set; }
         public virtual string AssessmentTitle  { get; set; }
         public virtual int? AssessmentVersion  { get; set; }
-        public virtual int? EducationOrganizationId  { get; set; }
+        public virtual long? EducationOrganizationId  { get; set; }
         public virtual decimal? MaxRawScore  { get; set; }
         public virtual string Nomenclature  { get; set; }
         public virtual DateTime? RevisionDate  { get; set; }
@@ -853,7 +853,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         // -------------------------------------------------------------
         public virtual DateTime? BeginDate  { get; set; }
         public virtual DateTime? EndDate  { get; set; }
-        public virtual int? MandatingEducationOrganizationId  { get; set; }
+        public virtual long? MandatingEducationOrganizationId  { get; set; }
         public virtual DateTime? PublicationDate  { get; set; }
         public virtual int? PublicationStatusDescriptorId  { get; set; }
         public virtual short? PublicationYear  { get; set; }
@@ -1160,7 +1160,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ Assessment { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string ProgramName { get; set; }
         [DomainSignature]
@@ -1256,7 +1256,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         [DomainSignature]
         public virtual string LocalCourseCode { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual short SchoolYear { get; set; }
         [DomainSignature]
@@ -2164,7 +2164,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.BellScheduleAggregate.EdFi
         [DomainSignature]
         public virtual string BellScheduleName { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -2345,7 +2345,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CalendarAggregate.EdFi
         [DomainSignature]
         public virtual string CalendarCode { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual short SchoolYear { get; set; }
         // -------------------------------------------------------------
@@ -2455,7 +2455,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CalendarDateAggregate.EdFi
         [DomainSignature]
         public virtual DateTime Date { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual short SchoolYear { get; set; }
         // -------------------------------------------------------------
@@ -2767,7 +2767,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ChartOfAccountAggregate.EdFi
         [DomainSignature]
         public virtual string AccountIdentifier { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int FiscalYear { get; set; }
         // -------------------------------------------------------------
@@ -2931,7 +2931,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ClassPeriodAggregate.EdFi
         [DomainSignature]
         public virtual string ClassPeriodName { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -3076,7 +3076,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CohortAggregate.EdFi
         [DomainSignature]
         public virtual string CohortIdentifier { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -3138,7 +3138,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CohortAggregate.EdFi
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual NHibernate.QueryModels.CohortAggregate.EdFi.CohortQ Cohort { get; set; }
         [DomainSignature]
-        public virtual int ProgramEducationOrganizationId { get; set; }
+        public virtual long ProgramEducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string ProgramName { get; set; }
         [DomainSignature]
@@ -3314,7 +3314,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CommunityOrganizationAggregat
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int CommunityOrganizationId { get; set; }
+        public virtual long CommunityOrganizationId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -3356,13 +3356,13 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CommunityProviderAggregate.Ed
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int CommunityProviderId { get; set; }
+        public virtual long CommunityProviderId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        public virtual int? CommunityOrganizationId  { get; set; }
+        public virtual long? CommunityOrganizationId  { get; set; }
         public virtual bool? LicenseExemptIndicator  { get; set; }
         public virtual int ProviderCategoryDescriptorId  { get; set; }
         public virtual int? ProviderProfitabilityDescriptorId  { get; set; }
@@ -3410,7 +3410,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CommunityProviderLicenseAggre
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int CommunityProviderId { get; set; }
+        public virtual long CommunityProviderId { get; set; }
         [DomainSignature]
         public virtual string LicenseIdentifier { get; set; }
         [DomainSignature]
@@ -3518,7 +3518,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CompetencyObjectiveAggregate.
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string Objective { get; set; }
         [DomainSignature]
@@ -4332,7 +4332,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseAggregate.EdFi
         [DomainSignature]
         public virtual string CourseCode { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -4859,7 +4859,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseOfferingAggregate.EdFi
         [DomainSignature]
         public virtual string LocalCourseCode { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual short SchoolYear { get; set; }
         [DomainSignature]
@@ -4876,7 +4876,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseOfferingAggregate.EdFi
         //                          Properties
         // -------------------------------------------------------------
         public virtual string CourseCode  { get; set; }
-        public virtual int EducationOrganizationId  { get; set; }
+        public virtual long EducationOrganizationId  { get; set; }
         public virtual int? InstructionalTimePlanned  { get; set; }
         public virtual string LocalCourseTitle  { get; set; }
         // -------------------------------------------------------------
@@ -5098,9 +5098,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdF
         [DomainSignature]
         public virtual string CourseCode { get; set; }
         [DomainSignature]
-        public virtual int CourseEducationOrganizationId { get; set; }
+        public virtual long CourseEducationOrganizationId { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual short SchoolYear { get; set; }
         [DomainSignature]
@@ -5129,7 +5129,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdF
         public virtual decimal? EarnedCreditConversion  { get; set; }
         public virtual decimal? EarnedCredits  { get; set; }
         public virtual int? EarnedCreditTypeDescriptorId  { get; set; }
-        public virtual int? ExternalEducationOrganizationId  { get; set; }
+        public virtual long? ExternalEducationOrganizationId  { get; set; }
         public virtual string ExternalEducationOrganizationNameOfInstitution  { get; set; }
         public virtual string FinalLetterGradeEarned  { get; set; }
         public virtual decimal? FinalNumericGradeEarned  { get; set; }
@@ -6367,12 +6367,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineActionAggregate.EdF
         //                          Properties
         // -------------------------------------------------------------
         public virtual decimal? ActualDisciplineActionLength  { get; set; }
-        public virtual int? AssignmentSchoolId  { get; set; }
+        public virtual long? AssignmentSchoolId  { get; set; }
         public virtual decimal? DisciplineActionLength  { get; set; }
         public virtual int? DisciplineActionLengthDifferenceReasonDescriptorId  { get; set; }
         public virtual bool? IEPPlacementMeetingIndicator  { get; set; }
         public virtual bool? RelatedToZeroTolerancePolicy  { get; set; }
-        public virtual int ResponsibilitySchoolId  { get; set; }
+        public virtual long ResponsibilitySchoolId  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -6500,7 +6500,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineActionAggregate.EdF
         [DomainSignature]
         public virtual string IncidentIdentifier { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -6632,7 +6632,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineIncidentAggregate.E
         [DomainSignature]
         public virtual string IncidentIdentifier { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -7320,7 +7320,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -7988,9 +7988,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationInterven
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
-        public virtual int InterventionPrescriptionEducationOrganizationId { get; set; }
+        public virtual long InterventionPrescriptionEducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string InterventionPrescriptionIdentificationCode { get; set; }
         // -------------------------------------------------------------
@@ -8041,7 +8041,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationNetworkA
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationNetworkId { get; set; }
+        public virtual long EducationOrganizationNetworkId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -8087,9 +8087,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationNetworkA
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationNetworkId { get; set; }
+        public virtual long EducationOrganizationNetworkId { get; set; }
         [DomainSignature]
-        public virtual int MemberEducationOrganizationId { get; set; }
+        public virtual long MemberEducationOrganizationId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -8138,9 +8138,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationPeerAsso
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
-        public virtual int PeerEducationOrganizationId { get; set; }
+        public virtual long PeerEducationOrganizationId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -8229,13 +8229,13 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationServiceCenterAggrega
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationServiceCenterId { get; set; }
+        public virtual long EducationServiceCenterId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        public virtual int? StateEducationAgencyId  { get; set; }
+        public virtual long? StateEducationAgencyId  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -8706,9 +8706,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.FeederSchoolAssociationAggreg
         [DomainSignature]
         public virtual DateTime BeginDate { get; set; }
         [DomainSignature]
-        public virtual int FeederSchoolId { get; set; }
+        public virtual long FeederSchoolId { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -9001,8 +9001,8 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GeneralStudentProgramAssociat
         //                         Primary Key
         // -------------------------------------------------------------
         public virtual DateTime BeginDate { get; set; }
-        public virtual int EducationOrganizationId { get; set; }
-        public virtual int ProgramEducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
+        public virtual long ProgramEducationOrganizationId { get; set; }
         public virtual string ProgramName { get; set; }
         public virtual int ProgramTypeDescriptorId { get; set; }
         public virtual int StudentUSI { get; set; }
@@ -9122,7 +9122,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradeAggregate.EdFi
         [DomainSignature]
         public virtual string LocalCourseCode { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual short SchoolYear { get; set; }
         [DomainSignature]
@@ -9263,7 +9263,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradebookEntryAggregate.EdFi
         public virtual string LocalCourseCode  { get; set; }
         public virtual decimal? MaxPoints  { get; set; }
         public virtual int? PeriodSequence  { get; set; }
-        public virtual int? SchoolId  { get; set; }
+        public virtual long? SchoolId  { get; set; }
         public virtual short? SchoolYear  { get; set; }
         public virtual string SectionIdentifier  { get; set; }
         public virtual string SessionName  { get; set; }
@@ -9595,7 +9595,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradingPeriodAggregate.EdFi
         [DomainSignature]
         public virtual int PeriodSequence { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual short SchoolYear { get; set; }
         // -------------------------------------------------------------
@@ -9707,7 +9707,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GraduationPlanAggregate.EdFi
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int GraduationPlanTypeDescriptorId { get; set; }
         [DomainSignature]
@@ -9824,7 +9824,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GraduationPlanAggregate.EdFi
         [DomainSignature]
         public virtual string CourseCode { get; set; }
         [DomainSignature]
-        public virtual int CourseEducationOrganizationId { get; set; }
+        public virtual long CourseEducationOrganizationId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -10754,7 +10754,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionAggregate.EdFi
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string InterventionIdentificationCode { get; set; }
         // -------------------------------------------------------------
@@ -10998,7 +10998,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionAggregate.EdFi
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual NHibernate.QueryModels.InterventionAggregate.EdFi.InterventionQ Intervention { get; set; }
         [DomainSignature]
-        public virtual int InterventionPrescriptionEducationOrganizationId { get; set; }
+        public virtual long InterventionPrescriptionEducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string InterventionPrescriptionIdentificationCode { get; set; }
         // -------------------------------------------------------------
@@ -11347,7 +11347,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionPrescriptionAggre
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string InterventionPrescriptionIdentificationCode { get; set; }
         // -------------------------------------------------------------
@@ -11715,7 +11715,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionStudyAggregate.Ed
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string InterventionStudyIdentificationCode { get; set; }
         // -------------------------------------------------------------
@@ -11731,7 +11731,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionStudyAggregate.Ed
         // -------------------------------------------------------------
         public virtual int DeliveryMethodDescriptorId  { get; set; }
         public virtual int InterventionClassDescriptorId  { get; set; }
-        public virtual int InterventionPrescriptionEducationOrganizationId  { get; set; }
+        public virtual long InterventionPrescriptionEducationOrganizationId  { get; set; }
         public virtual string InterventionPrescriptionIdentificationCode  { get; set; }
         public virtual int Participants  { get; set; }
         // -------------------------------------------------------------
@@ -12426,7 +12426,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardAggregate.EdF
         // -------------------------------------------------------------
         public virtual DateTime? BeginDate  { get; set; }
         public virtual DateTime? EndDate  { get; set; }
-        public virtual int? MandatingEducationOrganizationId  { get; set; }
+        public virtual long? MandatingEducationOrganizationId  { get; set; }
         public virtual DateTime? PublicationDate  { get; set; }
         public virtual int? PublicationStatusDescriptorId  { get; set; }
         public virtual short? PublicationYear  { get; set; }
@@ -12948,7 +12948,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalAccountAggregate.EdFi
         [DomainSignature]
         public virtual string AccountIdentifier { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int FiscalYear { get; set; }
         // -------------------------------------------------------------
@@ -12963,7 +12963,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalAccountAggregate.EdFi
         //                          Properties
         // -------------------------------------------------------------
         public virtual string AccountName  { get; set; }
-        public virtual int ChartOfAccountEducationOrganizationId  { get; set; }
+        public virtual long ChartOfAccountEducationOrganizationId  { get; set; }
         public virtual string ChartOfAccountIdentifier  { get; set; }
         // -------------------------------------------------------------
 
@@ -13066,7 +13066,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalActualAggregate.EdFi
         [DomainSignature]
         public virtual DateTime AsOfDate { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int FiscalYear { get; set; }
         // -------------------------------------------------------------
@@ -13121,7 +13121,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalBudgetAggregate.EdFi
         [DomainSignature]
         public virtual DateTime AsOfDate { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int FiscalYear { get; set; }
         // -------------------------------------------------------------
@@ -13176,7 +13176,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalContractedStaffAggregate
         [DomainSignature]
         public virtual DateTime AsOfDate { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int FiscalYear { get; set; }
         [DomainSignature]
@@ -13284,17 +13284,17 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalEducationAgencyAggregate
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int LocalEducationAgencyId { get; set; }
+        public virtual long LocalEducationAgencyId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
         public virtual int? CharterStatusDescriptorId  { get; set; }
-        public virtual int? EducationServiceCenterId  { get; set; }
+        public virtual long? EducationServiceCenterId  { get; set; }
         public virtual int LocalEducationAgencyCategoryDescriptorId  { get; set; }
-        public virtual int? ParentLocalEducationAgencyId  { get; set; }
-        public virtual int? StateEducationAgencyId  { get; set; }
+        public virtual long? ParentLocalEducationAgencyId  { get; set; }
+        public virtual long? StateEducationAgencyId  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -13469,7 +13469,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalEncumbranceAggregate.EdF
         [DomainSignature]
         public virtual DateTime AsOfDate { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int FiscalYear { get; set; }
         // -------------------------------------------------------------
@@ -13524,7 +13524,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalPayrollAggregate.EdFi
         [DomainSignature]
         public virtual DateTime AsOfDate { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int FiscalYear { get; set; }
         [DomainSignature]
@@ -13580,7 +13580,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocationAggregate.EdFi
         [DomainSignature]
         public virtual string ClassroomIdentificationCode { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -14366,7 +14366,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.OpenStaffPositionAggregate.Ed
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string RequisitionNumber { get; set; }
         // -------------------------------------------------------------
@@ -14650,14 +14650,14 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.OrganizationDepartmentAggrega
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int OrganizationDepartmentId { get; set; }
+        public virtual long OrganizationDepartmentId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
         public virtual int? AcademicSubjectDescriptorId  { get; set; }
-        public virtual int? ParentEducationOrganizationId  { get; set; }
+        public virtual long? ParentEducationOrganizationId  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -15197,7 +15197,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PostSecondaryEventAggregate.E
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        public virtual int? PostSecondaryInstitutionId  { get; set; }
+        public virtual long? PostSecondaryInstitutionId  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -15276,7 +15276,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PostSecondaryInstitutionAggre
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int PostSecondaryInstitutionId { get; set; }
+        public virtual long PostSecondaryInstitutionId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -15572,7 +15572,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramAggregate.EdFi
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string ProgramName { get; set; }
         [DomainSignature]
@@ -16704,11 +16704,11 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReportCardAggregate.EdFi
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int GradingPeriodDescriptorId { get; set; }
         [DomainSignature]
-        public virtual int GradingPeriodSchoolId { get; set; }
+        public virtual long GradingPeriodSchoolId { get; set; }
         [DomainSignature]
         public virtual short GradingPeriodSchoolYear { get; set; }
         [DomainSignature]
@@ -16776,7 +16776,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReportCardAggregate.EdFi
         [DomainSignature]
         public virtual string LocalCourseCode { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual short SchoolYear { get; set; }
         [DomainSignature]
@@ -16873,7 +16873,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReportCardAggregate.EdFi
         [DomainSignature]
         public virtual string Objective { get; set; }
         [DomainSignature]
-        public virtual int ObjectiveEducationOrganizationId { get; set; }
+        public virtual long ObjectiveEducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int ObjectiveGradeLevelDescriptorId { get; set; }
         // -------------------------------------------------------------
@@ -17160,7 +17160,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.RestraintEventAggregate.EdFi
         [DomainSignature]
         public virtual string RestraintEventIdentifier { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual int StudentUSI { get; set; }
         // -------------------------------------------------------------
@@ -17211,7 +17211,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.RestraintEventAggregate.EdFi
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual NHibernate.QueryModels.RestraintEventAggregate.EdFi.RestraintEventQ RestraintEvent { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string ProgramName { get; set; }
         [DomainSignature]
@@ -17451,7 +17451,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -17462,7 +17462,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi
         public virtual short? CharterApprovalSchoolYear  { get; set; }
         public virtual int? CharterStatusDescriptorId  { get; set; }
         public virtual int? InternetAccessDescriptorId  { get; set; }
-        public virtual int? LocalEducationAgencyId  { get; set; }
+        public virtual long? LocalEducationAgencyId  { get; set; }
         public virtual int? MagnetSpecialProgramEmphasisSchoolDescriptorId  { get; set; }
         public virtual int? SchoolTypeDescriptorId  { get; set; }
         public virtual int? TitleIPartASchoolDesignationDescriptorId  { get; set; }
@@ -17950,7 +17950,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi
         [DomainSignature]
         public virtual string LocalCourseCode { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual short SchoolYear { get; set; }
         [DomainSignature]
@@ -17974,7 +17974,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi
         public virtual int? EducationalEnvironmentDescriptorId  { get; set; }
         public virtual int? InstructionLanguageDescriptorId  { get; set; }
         public virtual string LocationClassroomIdentificationCode  { get; set; }
-        public virtual int? LocationSchoolId  { get; set; }
+        public virtual long? LocationSchoolId  { get; set; }
         public virtual int? MediumOfInstructionDescriptorId  { get; set; }
         public virtual bool? OfficialAttendancePeriod  { get; set; }
         public virtual int? PopulationServedDescriptorId  { get; set; }
@@ -18221,7 +18221,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual NHibernate.QueryModels.SectionAggregate.EdFi.SectionQ Section { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string ProgramName { get; set; }
         [DomainSignature]
@@ -18277,7 +18277,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SectionAttendanceTakenEventAg
         [DomainSignature]
         public virtual string LocalCourseCode { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual short SchoolYear { get; set; }
         [DomainSignature]
@@ -18501,7 +18501,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SessionAggregate.EdFi
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual short SchoolYear { get; set; }
         [DomainSignature]
@@ -19999,7 +19999,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffCohortAssociationAggrega
         [DomainSignature]
         public virtual string CohortIdentifier { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int StaffUSI { get; set; }
         // -------------------------------------------------------------
@@ -20052,7 +20052,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffDisciplineIncidentAssoci
         [DomainSignature]
         public virtual string IncidentIdentifier { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual int StaffUSI { get; set; }
         // -------------------------------------------------------------
@@ -20147,7 +20147,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationAss
         [DomainSignature]
         public virtual DateTime BeginDate { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int StaffClassificationDescriptorId { get; set; }
         [DomainSignature]
@@ -20164,7 +20164,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationAss
         //                          Properties
         // -------------------------------------------------------------
         public virtual string CredentialIdentifier  { get; set; }
-        public virtual int? EmploymentEducationOrganizationId  { get; set; }
+        public virtual long? EmploymentEducationOrganizationId  { get; set; }
         public virtual DateTime? EmploymentHireDate  { get; set; }
         public virtual int? EmploymentStatusDescriptorId  { get; set; }
         public virtual DateTime? EndDate  { get; set; }
@@ -20212,7 +20212,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationCon
         [DomainSignature]
         public virtual string ContactTitle { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int StaffUSI { get; set; }
         // -------------------------------------------------------------
@@ -20418,7 +20418,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationEmp
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int EmploymentStatusDescriptorId { get; set; }
         [DomainSignature]
@@ -20629,7 +20629,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffProgramAssociationAggreg
         [DomainSignature]
         public virtual DateTime BeginDate { get; set; }
         [DomainSignature]
-        public virtual int ProgramEducationOrganizationId { get; set; }
+        public virtual long ProgramEducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string ProgramName { get; set; }
         [DomainSignature]
@@ -20686,7 +20686,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffSchoolAssociationAggrega
         [DomainSignature]
         public virtual int ProgramAssignmentDescriptorId { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual int StaffUSI { get; set; }
         // -------------------------------------------------------------
@@ -20830,7 +20830,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffSectionAssociationAggreg
         [DomainSignature]
         public virtual string LocalCourseCode { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual short SchoolYear { get; set; }
         [DomainSignature]
@@ -20955,7 +20955,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StateEducationAgencyAggregate
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int StateEducationAgencyId { get; set; }
+        public virtual long StateEducationAgencyId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -21418,7 +21418,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAcademicRecordAggregat
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual short SchoolYear { get; set; }
         [DomainSignature]
@@ -21766,7 +21766,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAcademicRecordAggregat
         [DomainSignature]
         public virtual int GradingPeriodDescriptorId { get; set; }
         [DomainSignature]
-        public virtual int GradingPeriodSchoolId { get; set; }
+        public virtual long GradingPeriodSchoolId { get; set; }
         [DomainSignature]
         public virtual short GradingPeriodSchoolYear { get; set; }
         [DomainSignature]
@@ -21843,7 +21843,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.Ed
         public virtual string EventDescription  { get; set; }
         public virtual int? PlatformTypeDescriptorId  { get; set; }
         public virtual int? ReasonNotTestedDescriptorId  { get; set; }
-        public virtual int? ReportedSchoolId  { get; set; }
+        public virtual long? ReportedSchoolId  { get; set; }
         public virtual string ReportedSchoolIdentifier  { get; set; }
         public virtual int? RetestIndicatorDescriptorId  { get; set; }
         public virtual short? SchoolYear  { get; set; }
@@ -22286,7 +22286,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentEducationOrg
         [DomainSignature]
         public virtual int EducationOrganizationAssociationTypeDescriptorId { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string Namespace { get; set; }
         [DomainSignature]
@@ -22388,7 +22388,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCohortAssociationAggre
         [DomainSignature]
         public virtual string CohortIdentifier { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int StudentUSI { get; set; }
         // -------------------------------------------------------------
@@ -22438,7 +22438,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCohortAssociationAggre
         [DomainSignature]
         public virtual string LocalCourseCode { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual short SchoolYear { get; set; }
         [DomainSignature]
@@ -22492,7 +22492,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCompetencyObjectiveAgg
         [DomainSignature]
         public virtual int GradingPeriodDescriptorId { get; set; }
         [DomainSignature]
-        public virtual int GradingPeriodSchoolId { get; set; }
+        public virtual long GradingPeriodSchoolId { get; set; }
         [DomainSignature]
         public virtual short GradingPeriodSchoolYear { get; set; }
         [DomainSignature]
@@ -22500,7 +22500,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCompetencyObjectiveAgg
         [DomainSignature]
         public virtual string Objective { get; set; }
         [DomainSignature]
-        public virtual int ObjectiveEducationOrganizationId { get; set; }
+        public virtual long ObjectiveEducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int ObjectiveGradeLevelDescriptorId { get; set; }
         [DomainSignature]
@@ -22561,9 +22561,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCompetencyObjectiveAgg
         [DomainSignature]
         public virtual DateTime BeginDate { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
-        public virtual int ProgramEducationOrganizationId { get; set; }
+        public virtual long ProgramEducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string ProgramName { get; set; }
         [DomainSignature]
@@ -22614,7 +22614,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCompetencyObjectiveAgg
         [DomainSignature]
         public virtual string LocalCourseCode { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual short SchoolYear { get; set; }
         [DomainSignature]
@@ -22725,9 +22725,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCTEProgramAssociationA
         [DomainSignature]
         public override DateTime BeginDate { get; set; }
         [DomainSignature]
-        public override int EducationOrganizationId { get; set; }
+        public override long EducationOrganizationId { get; set; }
         [DomainSignature]
-        public override int ProgramEducationOrganizationId { get; set; }
+        public override long ProgramEducationOrganizationId { get; set; }
         [DomainSignature]
         public override string ProgramName { get; set; }
         [DomainSignature]
@@ -22822,7 +22822,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentDisciplineIncidentBeha
         [DomainSignature]
         public virtual string IncidentIdentifier { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual int StudentUSI { get; set; }
         // -------------------------------------------------------------
@@ -22924,7 +22924,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentDisciplineIncidentNonO
         [DomainSignature]
         public virtual string IncidentIdentifier { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual int StudentUSI { get; set; }
         // -------------------------------------------------------------
@@ -23017,7 +23017,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int StudentUSI { get; set; }
         // -------------------------------------------------------------
@@ -23925,7 +23925,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationR
         [DomainSignature]
         public virtual DateTime BeginDate { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int ResponsibilityDescriptorId { get; set; }
         [DomainSignature]
@@ -24043,9 +24043,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentHomelessProgramAssocia
         [DomainSignature]
         public override DateTime BeginDate { get; set; }
         [DomainSignature]
-        public override int EducationOrganizationId { get; set; }
+        public override long EducationOrganizationId { get; set; }
         [DomainSignature]
-        public override int ProgramEducationOrganizationId { get; set; }
+        public override long ProgramEducationOrganizationId { get; set; }
         [DomainSignature]
         public override string ProgramName { get; set; }
         [DomainSignature]
@@ -24177,7 +24177,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentInterventionAssociatio
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string InterventionIdentificationCode { get; set; }
         [DomainSignature]
@@ -24193,7 +24193,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentInterventionAssociatio
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        public virtual int? CohortEducationOrganizationId  { get; set; }
+        public virtual long? CohortEducationOrganizationId  { get; set; }
         public virtual string CohortIdentifier  { get; set; }
         public virtual string DiagnosticStatement  { get; set; }
         public virtual int? Dosage  { get; set; }
@@ -24288,7 +24288,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentInterventionAttendance
         [DomainSignature]
         public virtual int AttendanceEventCategoryDescriptorId { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual DateTime EventDate { get; set; }
         [DomainSignature]
@@ -24349,9 +24349,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentLanguageInstructionPro
         [DomainSignature]
         public override DateTime BeginDate { get; set; }
         [DomainSignature]
-        public override int EducationOrganizationId { get; set; }
+        public override long EducationOrganizationId { get; set; }
         [DomainSignature]
-        public override int ProgramEducationOrganizationId { get; set; }
+        public override long ProgramEducationOrganizationId { get; set; }
         [DomainSignature]
         public override string ProgramName { get; set; }
         [DomainSignature]
@@ -24485,9 +24485,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentMigrantEducationProgra
         [DomainSignature]
         public override DateTime BeginDate { get; set; }
         [DomainSignature]
-        public override int EducationOrganizationId { get; set; }
+        public override long EducationOrganizationId { get; set; }
         [DomainSignature]
-        public override int ProgramEducationOrganizationId { get; set; }
+        public override long ProgramEducationOrganizationId { get; set; }
         [DomainSignature]
         public override string ProgramName { get; set; }
         [DomainSignature]
@@ -24585,9 +24585,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentNeglectedOrDelinquentP
         [DomainSignature]
         public override DateTime BeginDate { get; set; }
         [DomainSignature]
-        public override int EducationOrganizationId { get; set; }
+        public override long EducationOrganizationId { get; set; }
         [DomainSignature]
-        public override int ProgramEducationOrganizationId { get; set; }
+        public override long ProgramEducationOrganizationId { get; set; }
         [DomainSignature]
         public override string ProgramName { get; set; }
         [DomainSignature]
@@ -24718,9 +24718,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentProgramAssociationAggr
         [DomainSignature]
         public override DateTime BeginDate { get; set; }
         [DomainSignature]
-        public override int EducationOrganizationId { get; set; }
+        public override long EducationOrganizationId { get; set; }
         [DomainSignature]
-        public override int ProgramEducationOrganizationId { get; set; }
+        public override long ProgramEducationOrganizationId { get; set; }
         [DomainSignature]
         public override string ProgramName { get; set; }
         [DomainSignature]
@@ -24806,11 +24806,11 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentProgramAttendanceEvent
         [DomainSignature]
         public virtual int AttendanceEventCategoryDescriptorId { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual DateTime EventDate { get; set; }
         [DomainSignature]
-        public virtual int ProgramEducationOrganizationId { get; set; }
+        public virtual long ProgramEducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string ProgramName { get; set; }
         [DomainSignature]
@@ -24872,7 +24872,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggre
         [DomainSignature]
         public virtual DateTime EntryDate { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual int StudentUSI { get; set; }
         // -------------------------------------------------------------
@@ -24888,7 +24888,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggre
         // -------------------------------------------------------------
         public virtual string CalendarCode  { get; set; }
         public virtual short? ClassOfSchoolYear  { get; set; }
-        public virtual int? EducationOrganizationId  { get; set; }
+        public virtual long? EducationOrganizationId  { get; set; }
         public virtual bool? EmployedWhileEnrolled  { get; set; }
         public virtual int? EnrollmentTypeDescriptorId  { get; set; }
         public virtual int EntryGradeLevelDescriptorId  { get; set; }
@@ -24900,7 +24900,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggre
         public virtual int? GraduationPlanTypeDescriptorId  { get; set; }
         public virtual short? GraduationSchoolYear  { get; set; }
         public virtual int? NextYearGradeLevelDescriptorId  { get; set; }
-        public virtual int? NextYearSchoolId  { get; set; }
+        public virtual long? NextYearSchoolId  { get; set; }
         public virtual bool? PrimarySchool  { get; set; }
         public virtual bool? RepeatGradeIndicator  { get; set; }
         public virtual int? ResidencyStatusDescriptorId  { get; set; }
@@ -24956,7 +24956,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggre
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ StudentSchoolAssociation { get; set; }
         [DomainSignature]
-        public virtual int AlternativeEducationOrganizationId { get; set; }
+        public virtual long AlternativeEducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int AlternativeGraduationPlanTypeDescriptorId { get; set; }
         [DomainSignature]
@@ -25053,7 +25053,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAttendanceEventA
         [DomainSignature]
         public virtual DateTime EventDate { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual short SchoolYear { get; set; }
         [DomainSignature]
@@ -25117,9 +25117,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolFoodServiceProgr
         [DomainSignature]
         public override DateTime BeginDate { get; set; }
         [DomainSignature]
-        public override int EducationOrganizationId { get; set; }
+        public override long EducationOrganizationId { get; set; }
         [DomainSignature]
-        public override int ProgramEducationOrganizationId { get; set; }
+        public override long ProgramEducationOrganizationId { get; set; }
         [DomainSignature]
         public override string ProgramName { get; set; }
         [DomainSignature]
@@ -25208,7 +25208,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSectionAssociationAggr
         [DomainSignature]
         public virtual string LocalCourseCode { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual short SchoolYear { get; set; }
         [DomainSignature]
@@ -25284,7 +25284,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSectionAttendanceEvent
         [DomainSignature]
         public virtual string LocalCourseCode { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual short SchoolYear { get; set; }
         [DomainSignature]
@@ -25393,9 +25393,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgra
         [DomainSignature]
         public override DateTime BeginDate { get; set; }
         [DomainSignature]
-        public override int EducationOrganizationId { get; set; }
+        public override long EducationOrganizationId { get; set; }
         [DomainSignature]
-        public override int ProgramEducationOrganizationId { get; set; }
+        public override long ProgramEducationOrganizationId { get; set; }
         [DomainSignature]
         public override string ProgramName { get; set; }
         [DomainSignature]
@@ -25652,7 +25652,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgra
         [DomainSignature]
         public virtual DateTime ConsentToEvaluationReceivedDate { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string ProgramName { get; set; }
         [DomainSignature]
@@ -25726,9 +25726,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentTitleIPartAProgramAsso
         [DomainSignature]
         public override DateTime BeginDate { get; set; }
         [DomainSignature]
-        public override int EducationOrganizationId { get; set; }
+        public override long EducationOrganizationId { get; set; }
         [DomainSignature]
-        public override int ProgramEducationOrganizationId { get; set; }
+        public override long ProgramEducationOrganizationId { get; set; }
         [DomainSignature]
         public override string ProgramName { get; set; }
         [DomainSignature]
@@ -25872,9 +25872,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyAggregate.EdFi
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        public virtual int? EducationOrganizationId  { get; set; }
+        public virtual long? EducationOrganizationId  { get; set; }
         public virtual int? NumberAdministered  { get; set; }
-        public virtual int? SchoolId  { get; set; }
+        public virtual long? SchoolId  { get; set; }
         public virtual short SchoolYear  { get; set; }
         public virtual string SessionName  { get; set; }
         public virtual int? SurveyCategoryDescriptorId  { get; set; }
@@ -25980,7 +25980,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyCourseAssociationAggreg
         [DomainSignature]
         public virtual string CourseCode { get; set; }
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string Namespace { get; set; }
         [DomainSignature]
@@ -26073,7 +26073,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyProgramAssociationAggre
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string Namespace { get; set; }
         [DomainSignature]
@@ -26537,7 +26537,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyResponseEducationOrgani
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string Namespace { get; set; }
         [DomainSignature]
@@ -26705,7 +26705,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionAssociationAggre
         [DomainSignature]
         public virtual string Namespace { get; set; }
         [DomainSignature]
-        public virtual int SchoolId { get; set; }
+        public virtual long SchoolId { get; set; }
         [DomainSignature]
         public virtual short SchoolYear { get; set; }
         [DomainSignature]
@@ -26822,7 +26822,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionResponseEducatio
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
+        public virtual long EducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string Namespace { get; set; }
         [DomainSignature]

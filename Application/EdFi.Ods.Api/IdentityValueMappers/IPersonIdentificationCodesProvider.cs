@@ -25,13 +25,13 @@ namespace EdFi.Ods.Api.IdentityValueMappers
 
         UniqueIdMatch[] GetMatchingUniqueIds(
             string personType,
-            int educationOrganizationId,
+            long educationOrganizationId,
             string identificationSystemDescriptor,
             string identificationCode);
 
         IdentificationCodeMatch[] GetMatchingIdentificationCodes(
             string personType,
-            int educationOrganizationId,
+            long educationOrganizationId,
             string identificationSystemDescriptor,
             string uniqueId);
     }
