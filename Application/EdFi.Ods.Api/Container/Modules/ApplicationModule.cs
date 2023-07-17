@@ -357,7 +357,7 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<InitializeScheduledJobs>()
                 .As<IExternalTask>();
 
-            builder.RegisterType<AES256SymmetricStringEncryptionProvider>()
+            builder.RegisterType<Aes256SymmetricStringEncryptionProvider>()
                 .As<ISymmetricStringEncryptionProvider>();
 
             builder.RegisterType<OdsConnectionStringEncryptionApplicator>()

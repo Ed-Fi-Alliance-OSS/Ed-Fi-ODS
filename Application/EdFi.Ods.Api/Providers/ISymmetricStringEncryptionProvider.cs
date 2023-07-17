@@ -8,7 +8,8 @@ namespace EdFi.Ods.Api.Providers;
     /// Defines an interface for providing symmetric encryption and decryption of string values.
     /// </summary>
     /// <remarks>
-    /// This interface and its implementations are used to facilitate the encryption and decryption of string values using a symmetric encryption algorithm.</remarks>
+    /// This interface and its implementations are used to facilitate the encryption and decryption
+    /// of string values using a symmetric encryption algorithm.</remarks>
 public interface ISymmetricStringEncryptionProvider
 {
     /// <summary>
@@ -16,7 +17,8 @@ public interface ISymmetricStringEncryptionProvider
     /// </summary>
     /// <para name="value">The string value to be encrypted.</para>
     /// <para name="key">The private key to be used for encryption.</para>
-    /// <returns>A string representing the input in encrypted form along with any other information necessary to decrypt it (aside from the private key)</returns>
+    /// <returns>A string representing the input in encrypted form along with any
+    /// other information necessary to decrypt it (aside from the private key)</returns>
     public string Encrypt(string value, byte[] key);
     
     /// <summary>

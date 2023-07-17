@@ -12,24 +12,25 @@ using Quartz.Util;
 
 namespace EdFi.Ods.Api.Providers;
 
-public class AES256SymmetricStringEncryptionProvider : ISymmetricStringEncryptionProvider
+/// <summary>
+/// Implements AES 256 bit symmetric encryption and decryption of string values.
+/// </summary>
+/// <remarks>
+/// This class is used to facilitate the encryption and decryption of string values using the AES 256 bit
+/// encryption algorithm. HMAC signing of the encrypted value is used to mitigate potential
+/// timing-based padding oracle attacks on AES in CBC mode (as discussed here
+/// https://learn.microsoft.com/en-us/dotnet/standard/security/vulnerabilities-cbc-mode)
+/// by verifying the authenticity of the encrypted content before decryption is attempted.</remarks>
+public class Aes256SymmetricStringEncryptionProvider : ISymmetricStringEncryptionProvider
 {
-    public string Encrypt(string value, string base64EncodedKey)
-    {
-        if (string.IsNullOrWhiteSpace(base64EncodedKey))
-            throw new ArgumentException("Key value cannot be null or whitespace.", nameof(base64EncodedKey));
-
-        return Encrypt(value, Convert.FromBase64String(base64EncodedKey));
-    }
-    
-    public bool TryDecrypt(string value, out string output, string base64EncodedKey)
-    {
-        if (string.IsNullOrWhiteSpace(base64EncodedKey))
-            throw new ArgumentException("Key value cannot be null or whitespace.", nameof(base64EncodedKey));
-
-        return TryDecrypt(value, out output, Convert.FromBase64String(base64EncodedKey));
-    }
-
+    /// <summary>
+    /// Encrypt the specified string value using the specified key.
+    /// </summary>
+    /// <para name="value">The string value to be encrypted.</para>
+    /// <para name="key">The 256 bit private key to be used for encryption.</para>
+    /// <returns>A string representing the input in encrypted form along with the other information
+    /// necessary to decrypt it (aside from the private key). The output is three strings concatenated in
+    /// the format "IV.EncryptedMessage.HMACSignature"</returns>
     public string Encrypt(string value, byte[] key)
     {
         if (value.IsNullOrWhiteSpace())
@@ -69,6 +70,14 @@ public class AES256SymmetricStringEncryptionProvider : ISymmetricStringEncryptio
         return $"{Convert.ToBase64String(aesInstance.IV)}.{Convert.ToBase64String(encryptedBytes)}.{Convert.ToBase64String(hashValue)}";
     }
 
+    /// <summary>
+    /// Decrypt a string value using the specified key.
+    /// </summary>
+    /// <para name="value">The data to be decrypted and related information as three base64
+    /// encoded segments concatenated in the format "IV.EncryptedMessage.HMACSignature"</para>
+    /// <para name="output">If decryption is successful, then the plaintext output, otherwise null</para>
+    /// <para name="key">The 256 bit private key to be used for decryption.</para>
+    /// <returns>A boolean value indicating if decryption was successful.</returns>
     public bool TryDecrypt(string value, out string output, byte[] key)
     {
         if (String.IsNullOrWhiteSpace(value))
