@@ -100,7 +100,8 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
             }
             else if (parameter.minimum.HasValue)
             {
-                return (int)parameter.minimum.Value;
+                var minVal = (int)parameter.minimum.Value == 0 ? _counter++ : (int)parameter.minimum.Value;
+                return minVal;
             }
             else if(parameter.maximum.HasValue)
             {
