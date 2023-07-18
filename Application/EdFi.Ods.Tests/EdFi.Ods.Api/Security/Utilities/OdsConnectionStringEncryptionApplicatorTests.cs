@@ -27,7 +27,7 @@ public class OdsConnectionStringEncryptionApplicatorTests
     }
 
     [Test]
-    public void DecryptOrApplyEncryption_ShouldEncryptAnUndecryptableConnectionString()
+    public void When_provided_with_an_undecryptable_connection_string()
     {
         // Arrange
         A.CallTo(() => _stringEncryptionProvider.Encrypt(A<string>._, A<byte[]>._))
@@ -48,7 +48,7 @@ public class OdsConnectionStringEncryptionApplicatorTests
     }
     
     [Test]
-    public void DecryptOrApplyEncryption_ShouldDecryptValidEncryptedConnectionString()
+    public void When_provided_with_a_valid_encrypted_connection_string()
     {
         // Arrange
         string decryptedString = "plaintext";
@@ -56,7 +56,7 @@ public class OdsConnectionStringEncryptionApplicatorTests
             .Returns(true);
 
         // Act
-        var dataRow = new RawOdsInstanceConfigurationDataRow() { OdsInstanceId = 1, ConnectionString = "encrypted"};
+        var dataRow = new RawOdsInstanceConfigurationDataRow() { OdsInstanceId = 1, ConnectionString = "encrypted" };
         var result = _odsConnectionStringEncryptionApplicator.DecryptOrApplyEncryption(dataRow, out bool rowChanged);
 
         // Assert

@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Security.Cryptography;
 using EdFi.Ods.Api.Providers;
 using Shouldly;
 
@@ -24,7 +23,7 @@ public class Aes256SymmetricStringEncryptionProviderTests
     }
 
     [Test]
-    public void Encrypt_ShouldProduceSamePlaintextAfterEncryptionThenDecryption()
+    public void When_encrypting_then_decrypting_a_string()
     {
         // Arrange
         var plainText = "Hello World";
@@ -39,7 +38,7 @@ public class Aes256SymmetricStringEncryptionProviderTests
     }
     
     [Test]
-    public void Decrypt_ShouldProduceExpectedPlaintextValueGivenValidStaticInput()
+    public void When_decrypting_a_string_using_the_correct_key()
     {
         // Arrange
         var cipherText = "Gx5FXSHSelzRF2quaCOaNw==.RlK3dR28TP/dbslPezxa4w==.D7VcBfHXG0iPkPR36QDvv9W7SGiGWUUe7WBu5neV/fo=";
@@ -53,7 +52,7 @@ public class Aes256SymmetricStringEncryptionProviderTests
     }
     
     [Test]
-    public void Decrypt_ShouldProduceExpectedResultGivenInvalidHmac()
+    public void When_hmac_signature_of_ciphertext_is_invalid()
     {
         // Arrange
         var cipherText = "Gx5FXSHSelzRF2quaCOaNw==.RlK3dR28TP/dbslPezxa4w==.D7VcBfHXG0iPkPR36QDvv8W7SGiGWUUe7WBu5neV/fo=";
@@ -67,7 +66,7 @@ public class Aes256SymmetricStringEncryptionProviderTests
     }
     
     [Test]
-    public void Decrypt_ShouldProduceExpectedResultGivenInvalidInputFormat()
+    public void When_input_string_is_not_in_correct_format_for_decryption()
     {
         // Arrange
         var cipherText = "Not a valid format for decryption";
