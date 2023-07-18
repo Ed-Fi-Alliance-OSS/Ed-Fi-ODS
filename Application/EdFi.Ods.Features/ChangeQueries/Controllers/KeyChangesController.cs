@@ -78,10 +78,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
                 return ControllerHelpers.NotFound();
             }
 
-            var resourceClass = _domainModelProvider.GetDomainModel()
-                .ResourceModel.GetResourceByApiCollectionName(schema, resource);
-
-            if (resourceClass == null)
+            if (!_domainModelProvider.GetDomainModel()
+                    .ResourceModel.TryGetResourceByApiCollectionName(schema, resource, out var resourceClass))
             {
                 return ControllerHelpers.NotFound();
             }

@@ -33,7 +33,16 @@ namespace EdFi.Ods.Common.Models.Resource
         /// <param name="resourceCollectionName">The pluralized collection name of the resource.</param>
         /// <returns>The matching resource.</returns>
         Resource GetResourceByApiCollectionName(string schemaUriSegment, string resourceCollectionName);
-        
+
+        /// <summary>
+        /// Gets the specified resource using the schema and collection name representation as used on the API using "Try" semantics.
+        /// </summary>
+        /// <param name="schemaUriSegment">The URI representation of the schema of the resource.</param>
+        /// <param name="resourceCollectionName">The pluralized collection name of the resource.</param>
+        /// <param name="resource">The matching resource if found; otherwise <b>null</b>.</param>
+        /// <returns><b>true</b> if found; otherwise <b>false</b>.</returns>
+        bool TryGetResourceByApiCollectionName(string schemaUriSegment, string resourceCollectionName, out Resource resource);
+
         /// <summary>
         /// Get a read-only list of all the resources available in the model.
         /// </summary>
@@ -107,6 +116,11 @@ namespace EdFi.Ods.Common.Models.Resource
         public Resource GetResourceByApiCollectionName(string schemaUriSegment, string resourceCollectionName)
         {
             return ResourceSelector.GetByApiCollectionName(schemaUriSegment, resourceCollectionName);
+        }
+
+        public bool TryGetResourceByApiCollectionName(string schemaUriSegment, string resourceCollectionName, out Resource resource)
+        {
+            return ResourceSelector.TryGetByApiCollectionName(schemaUriSegment, resourceCollectionName, out resource);
         }
 
         public IReadOnlyList<Resource> GetAllResources()

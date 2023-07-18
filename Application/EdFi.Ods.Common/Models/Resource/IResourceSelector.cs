@@ -15,5 +15,7 @@ namespace EdFi.Ods.Common.Models.Resource
         Resource GetByName(FullName fullName);
 
         Resource GetByApiCollectionName(string schemaUriSegment, string resourceCollectionName);
+
+        bool TryGetByApiCollectionName(string schemaUriSegment, string resourceCollectionName, out Resource resource);
     }
 }

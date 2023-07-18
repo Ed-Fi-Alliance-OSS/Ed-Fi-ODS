@@ -40,6 +40,11 @@ namespace EdFi.Ods.Common.Models.Resource
             return _resourceByCollectionName.GetValueOrThrow(new FullName(schemaUriSegment, resourceCollectionName), $"Resource for collection '/{schemaUriSegment}/{resourceCollectionName}' was not found.");
         }
 
+        public bool TryGetByApiCollectionName(string schemaUriSegment, string resourceCollectionName, out Resource resource)
+        {
+            return _resourceByCollectionName.TryGetValue(new FullName(schemaUriSegment, resourceCollectionName), out resource);
+        }
+
         public Resource GetBySchemaProperCaseNameAndName(string properCaseName, string name)
         {
             return _resourceByFullName.GetValueOrThrow(new FullName(properCaseName, name), "Resource '{0}' not found.");
