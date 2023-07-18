@@ -2462,7 +2462,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
-        [ValidateObject]
+        [Required][ValidateObject]
         public virtual Entities.NHibernate.StudentAggregate.Homograph.StudentAddress StudentAddress
         {
             get
