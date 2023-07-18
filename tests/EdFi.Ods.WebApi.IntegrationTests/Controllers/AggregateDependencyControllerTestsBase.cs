@@ -7,23 +7,15 @@ using System;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using ApprovalTests;
-using ApprovalTests.Reporters;
-using ApprovalTests.Reporters.TestFrameworks;
 using EdFi.Ods.Api.Constants;
-using EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers;
 using NUnit.Framework;
 using Shouldly;
 
 namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
 {
-    [TestFixture]
-    [Ignore("Ignore a fixture this time being due to different datastandard versions to handle")]
-    [UseReporter(typeof(DiffReporter), typeof(NUnitReporter))]
-    public class AggregateDependencyControllerTests : HttpClientTestsBase
+    public class AggregateDependencyControllerTestsBase : HttpClientTestsBase
     {
-        [Test]
-        public async Task Should_Get_Dependencies()
+        public async Task<string> Get_Dependencies()
         {
             HttpClient.DefaultRequestHeaders.Accept.Clear();
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -37,14 +29,10 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
 
             var json = await response.Content.ReadAsStringAsync();
 
-            json.ShouldNotBeNullOrWhiteSpace();
-
-            // fix for teamcity
-            Approvals.Verify(json, s =>  s.Replace(@"\r\n", @"\n"));
+            return json;
         }
 
-        [Test]
-        public async Task Should_Get_Dependencies_GraphML()
+        public async Task<string> Get_Dependencies_GraphML()
         {
             HttpClient.DefaultRequestHeaders.Accept.Clear();
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(CustomMediaContentTypes.GraphML));
@@ -58,10 +46,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
 
             var xml = await response.Content.ReadAsStringAsync();
 
-            xml.ShouldNotBeNullOrWhiteSpace();
-
-            // fix for teamcity
-            Approvals.Verify(xml, s => s.Replace(@"\r\n", @"\n"));
+            return xml;
         }
     }
 }
