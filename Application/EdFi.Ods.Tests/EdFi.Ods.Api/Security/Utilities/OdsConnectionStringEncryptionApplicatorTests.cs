@@ -33,12 +33,11 @@ public class OdsConnectionStringEncryptionApplicatorTests
         A.CallTo(() => _stringEncryptionProvider.Encrypt(A<string>._, A<byte[]>._))
             .Returns("encrypted");
         string decryptedString = null;
-
+        var dataRow = new RawOdsInstanceConfigurationDataRow() { OdsInstanceId = 1, ConnectionString = "plaintext"};
         A.CallTo(() => _stringEncryptionProvider.TryDecrypt(A<string>._, out decryptedString, A<byte[]>._))
             .Returns(false);
 
         // Act
-        var dataRow = new RawOdsInstanceConfigurationDataRow() { OdsInstanceId = 1, ConnectionString = "plaintext"};
         var result = _odsConnectionStringEncryptionApplicator.DecryptOrApplyEncryption(dataRow, out bool rowChanged);
 
         // Assert
@@ -54,9 +53,9 @@ public class OdsConnectionStringEncryptionApplicatorTests
         string decryptedString = "plaintext";
         A.CallTo(() => _stringEncryptionProvider.TryDecrypt(A<string>._, out decryptedString, A<byte[]>._))
             .Returns(true);
+        var dataRow = new RawOdsInstanceConfigurationDataRow() { OdsInstanceId = 1, ConnectionString = "encrypted" };
 
         // Act
-        var dataRow = new RawOdsInstanceConfigurationDataRow() { OdsInstanceId = 1, ConnectionString = "encrypted" };
         var result = _odsConnectionStringEncryptionApplicator.DecryptOrApplyEncryption(dataRow, out bool rowChanged);
 
         // Assert
