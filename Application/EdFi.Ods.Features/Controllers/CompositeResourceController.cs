@@ -15,7 +15,6 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Metadata.Composites;
 using EdFi.Ods.Features.Composites.Infrastructure;
 using log4net;
@@ -44,8 +43,6 @@ namespace EdFi.Ods.Features.Controllers
                 "controller",
                 "id",
                 "organizationCode",
-                "schoolYearFromRoute",
-                "instanceIdFromRoute",
                 "action" // required for net core
             };
         private readonly ICompositesMetadataProvider _compositeMetadataProvider;
@@ -64,6 +61,16 @@ namespace EdFi.Ods.Features.Controllers
             _compositeMetadataProvider = compositeMetadataProvider;
             _restErrorProvider = restErrorProvider;
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.Composites.GetConfigKeyName());
+
+            if (apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.Value))
+            {
+                _standardApiRouteKeys.Add("tenantIdentifier");
+            }
+
+            foreach (var odsContextRouteKey in apiSettings.GetOdsContextRouteTemplateKeys())
+            {
+                _standardApiRouteKeys.Add(odsContextRouteKey);
+            }
         }
 
         [HttpGet]
