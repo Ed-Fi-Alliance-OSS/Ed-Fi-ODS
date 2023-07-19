@@ -67,9 +67,12 @@ namespace EdFi.Ods.Features.Controllers
                 _standardApiRouteKeys.Add("tenantIdentifier");
             }
 
-            foreach (var odsContextRouteKey in apiSettings.GetOdsContextRouteTemplateKeys())
+            if (!string.IsNullOrEmpty(apiSettings.OdsContextRouteTemplate))
             {
-                _standardApiRouteKeys.Add(odsContextRouteKey);
+                foreach (var odsContextRouteKey in apiSettings.GetOdsContextRouteTemplateKeys())
+                {
+                    _standardApiRouteKeys.Add(odsContextRouteKey);
+                }
             }
         }
 

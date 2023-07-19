@@ -1162,6 +1162,41 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get Composite Enrollment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant1/composites/v1/ed-fi/enrollment/LocalEducationAgencies",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant1",
+										"composites",
+										"v1",
+										"ed-fi",
+										"enrollment",
+										"LocalEducationAgencies"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -1446,6 +1481,41 @@
 										"ed-fi",
 										"schools",
 										"keyChanges"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Composite Enrollment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant1/composites/v1/ed-fi/enrollment/LocalEducationAgencies",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant1",
+										"composites",
+										"v1",
+										"ed-fi",
+										"enrollment",
+										"LocalEducationAgencies"
 									]
 								}
 							},
