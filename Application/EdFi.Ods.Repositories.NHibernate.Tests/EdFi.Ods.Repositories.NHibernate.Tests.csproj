@@ -68,8 +68,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="**\DataStandard400\*.cs"/>
-    <Compile Remove="**\DataStandard500\*.cs"/>
+    <Compile Remove="**\DataStandard*\*.cs"/>
   </ItemGroup>
   <ItemGroup Condition=" '$(StandardVersion)' == '5.0.0' ">
     <Compile Include="**\DataStandard500\*.cs" />
