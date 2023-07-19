@@ -62,7 +62,7 @@ namespace EdFi.Ods.Features.Controllers
             _restErrorProvider = restErrorProvider;
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.Composites.GetConfigKeyName());
 
-            if (apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.Value))
+            if (apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
             {
                 _standardApiRouteKeys.Add("tenantIdentifier");
             }
