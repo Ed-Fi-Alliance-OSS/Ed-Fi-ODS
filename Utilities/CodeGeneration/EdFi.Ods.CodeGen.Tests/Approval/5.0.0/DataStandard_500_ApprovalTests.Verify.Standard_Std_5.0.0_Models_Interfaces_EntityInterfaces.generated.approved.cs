@@ -13544,82 +13544,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the EvaluationPeriodDescriptor model.
-    /// </summary>
-    public interface IEvaluationPeriodDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
-        int EvaluationPeriodDescriptorId { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class EvaluationPeriodDescriptorMappingContract : IMappingContract
-    {
-        public EvaluationPeriodDescriptorMappingContract(
-            bool isCodeValueSupported,
-            bool isDescriptionSupported,
-            bool isEffectiveBeginDateSupported,
-            bool isEffectiveEndDateSupported,
-            bool isNamespaceSupported,
-            bool isPriorDescriptorIdSupported,
-            bool isShortDescriptionSupported
-            )
-        {
-            IsCodeValueSupported = isCodeValueSupported;
-            IsDescriptionSupported = isDescriptionSupported;
-            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
-            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
-            IsNamespaceSupported = isNamespaceSupported;
-            IsPriorDescriptorIdSupported = isPriorDescriptorIdSupported;
-            IsShortDescriptionSupported = isShortDescriptionSupported;
-        }
-
-        public bool IsCodeValueSupported { get; }
-        public bool IsDescriptionSupported { get; }
-        public bool IsEffectiveBeginDateSupported { get; }
-        public bool IsEffectiveEndDateSupported { get; }
-        public bool IsNamespaceSupported { get; }
-        public bool IsPriorDescriptorIdSupported { get; }
-        public bool IsShortDescriptionSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "CodeValue":
-                    return IsCodeValueSupported;
-                case "Description":
-                    return IsDescriptionSupported;
-                case "EffectiveBeginDate":
-                    return IsEffectiveBeginDateSupported;
-                case "EffectiveEndDate":
-                    return IsEffectiveEndDateSupported;
-                case "Namespace":
-                    return IsNamespaceSupported;
-                case "PriorDescriptorId":
-                    return IsPriorDescriptorIdSupported;
-                case "ShortDescription":
-                    return IsShortDescriptionSupported;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-    }
-
-    /// <summary>
     /// Defines available properties and methods for the abstraction of the EvaluationRubricDimension model.
     /// </summary>
     public interface IEvaluationRubricDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
@@ -13700,82 +13624,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             return SupportedExtensions.Contains(name);    
         }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the EvaluationTypeDescriptor model.
-    /// </summary>
-    public interface IEvaluationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
-        int EvaluationTypeDescriptorId { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class EvaluationTypeDescriptorMappingContract : IMappingContract
-    {
-        public EvaluationTypeDescriptorMappingContract(
-            bool isCodeValueSupported,
-            bool isDescriptionSupported,
-            bool isEffectiveBeginDateSupported,
-            bool isEffectiveEndDateSupported,
-            bool isNamespaceSupported,
-            bool isPriorDescriptorIdSupported,
-            bool isShortDescriptionSupported
-            )
-        {
-            IsCodeValueSupported = isCodeValueSupported;
-            IsDescriptionSupported = isDescriptionSupported;
-            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
-            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
-            IsNamespaceSupported = isNamespaceSupported;
-            IsPriorDescriptorIdSupported = isPriorDescriptorIdSupported;
-            IsShortDescriptionSupported = isShortDescriptionSupported;
-        }
-
-        public bool IsCodeValueSupported { get; }
-        public bool IsDescriptionSupported { get; }
-        public bool IsEffectiveBeginDateSupported { get; }
-        public bool IsEffectiveEndDateSupported { get; }
-        public bool IsNamespaceSupported { get; }
-        public bool IsPriorDescriptorIdSupported { get; }
-        public bool IsShortDescriptionSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "CodeValue":
-                    return IsCodeValueSupported;
-                case "Description":
-                    return IsDescriptionSupported;
-                case "EffectiveBeginDate":
-                    return IsEffectiveBeginDateSupported;
-                case "EffectiveEndDate":
-                    return IsEffectiveEndDateSupported;
-                case "Namespace":
-                    return IsNamespaceSupported;
-                case "PriorDescriptorId":
-                    return IsPriorDescriptorIdSupported;
-                case "ShortDescription":
-                    return IsShortDescriptionSupported;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
     }
 
     /// <summary>
@@ -25343,6 +25191,82 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the ProgramEvaluationPeriodDescriptor model.
+    /// </summary>
+    public interface IProgramEvaluationPeriodDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int ProgramEvaluationPeriodDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ProgramEvaluationPeriodDescriptorMappingContract : IMappingContract
+    {
+        public ProgramEvaluationPeriodDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isPriorDescriptorIdSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsPriorDescriptorIdSupported = isPriorDescriptorIdSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsPriorDescriptorIdSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "PriorDescriptorId":
+                    return IsPriorDescriptorIdSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the ProgramEvaluationRatingLevel model.
     /// </summary>
     public interface IProgramEvaluationRatingLevel : ISynchronizable, IMappable, IHasExtensions, IGetByExample
@@ -25403,6 +25327,82 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             return SupportedExtensions.Contains(name);    
         }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ProgramEvaluationTypeDescriptor model.
+    /// </summary>
+    public interface IProgramEvaluationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int ProgramEvaluationTypeDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ProgramEvaluationTypeDescriptorMappingContract : IMappingContract
+    {
+        public ProgramEvaluationTypeDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isPriorDescriptorIdSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsPriorDescriptorIdSupported = isPriorDescriptorIdSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsPriorDescriptorIdSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "PriorDescriptorId":
+                    return IsPriorDescriptorIdSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>

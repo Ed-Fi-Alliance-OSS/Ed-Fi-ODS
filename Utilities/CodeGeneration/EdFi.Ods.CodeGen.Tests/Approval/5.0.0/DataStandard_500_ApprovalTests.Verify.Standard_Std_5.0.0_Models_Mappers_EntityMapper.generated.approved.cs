@@ -24105,167 +24105,6 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EvaluationDelayReasonDescriptorAggreg
     }
 
 }
-// Aggregate: EvaluationPeriodDescriptor
-
-namespace EdFi.Ods.Entities.Common.EdFi //.EvaluationPeriodDescriptorAggregate
-{
-    [ExcludeFromCodeCoverage]
-    public static class EvaluationPeriodDescriptorMapper
-    {
-        private static readonly FullName _fullName_edfi_EvaluationPeriodDescriptor = new FullName("edfi", "EvaluationPeriodDescriptor");
-    
-        public static bool SynchronizeTo(this IEvaluationPeriodDescriptor source, IEvaluationPeriodDescriptor target)
-        {
-            bool isModified = false;
-
-            // Get the mapping contract for knowing what values to synchronize through to target entity
-            var mappingContract = (EvaluationPeriodDescriptorMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_edfi_EvaluationPeriodDescriptor);
-
-            // Detect primary key changes
-            if (
-                 (target.EvaluationPeriodDescriptorId != source.EvaluationPeriodDescriptorId))
-            {
-                // Disallow PK column updates on EvaluationPeriodDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
-            }
-
-
-            // Copy inherited non-PK properties
-
-
-            if ((mappingContract?.IsCodeValueSupported != false)
-                && target.CodeValue != source.CodeValue)
-            {
-                target.CodeValue = source.CodeValue;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsDescriptionSupported != false)
-                && target.Description != source.Description)
-            {
-                target.Description = source.Description;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
-                && target.EffectiveBeginDate != source.EffectiveBeginDate)
-            {
-                target.EffectiveBeginDate = source.EffectiveBeginDate;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsEffectiveEndDateSupported != false)
-                && target.EffectiveEndDate != source.EffectiveEndDate)
-            {
-                target.EffectiveEndDate = source.EffectiveEndDate;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsNamespaceSupported != false)
-                && target.Namespace != source.Namespace)
-            {
-                target.Namespace = source.Namespace;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
-                && target.PriorDescriptorId != source.PriorDescriptorId)
-            {
-                target.PriorDescriptorId = source.PriorDescriptorId;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsShortDescriptionSupported != false)
-                && target.ShortDescription != source.ShortDescription)
-            {
-                target.ShortDescription = source.ShortDescription;
-                isModified = true;
-            }
-
-            // Copy non-PK properties
-
-
-            // Synch inherited lists
-
-            // Sync lists
-
-            return isModified;
-        }
-
-        public static void MapTo(this IEvaluationPeriodDescriptor source, IEvaluationPeriodDescriptor target, Action<IEvaluationPeriodDescriptor, IEvaluationPeriodDescriptor> onMapped)
-        {
-            // Get the mapping contract for determining what values to map through to target
-            var mappingContract = (EvaluationPeriodDescriptorMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_edfi_EvaluationPeriodDescriptor);
-    
-            // Copy resource Id
-            target.Id = source.Id;
-
-            // Copy contextual primary key values
-            target.EvaluationPeriodDescriptorId = source.EvaluationPeriodDescriptorId;
-
-            // Copy inherited non-PK properties
-
-            if (mappingContract?.IsCodeValueSupported != false)
-                target.CodeValue = source.CodeValue;
-
-            if (mappingContract?.IsDescriptionSupported != false)
-                target.Description = source.Description;
-
-            if (mappingContract?.IsEffectiveBeginDateSupported != false)
-                target.EffectiveBeginDate = source.EffectiveBeginDate;
-
-            if (mappingContract?.IsEffectiveEndDateSupported != false)
-                target.EffectiveEndDate = source.EffectiveEndDate;
-
-            if (mappingContract?.IsNamespaceSupported != false)
-                target.Namespace = source.Namespace;
-
-            if (mappingContract?.IsPriorDescriptorIdSupported != false)
-                target.PriorDescriptorId = source.PriorDescriptorId;
-
-            if (mappingContract?.IsShortDescriptionSupported != false)
-                target.ShortDescription = source.ShortDescription;
-
-            // Copy non-PK properties
-
-            // Copy Aggregate Reference Data
-
-
-            // ----------------------------------
-            //   Map One-to-one relationships
-            // ----------------------------------
-
-            // Map inherited lists
-
-            // Map lists
-
-
-            // Convert source to an ETag, if appropriate
-            if (target is IHasETag entityWithETag)
-                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
-
-            // Copy/assign LastModifiedDate, if appropriate
-            if (target is IDateVersionedEntity targetDateVersionedEntity)
-            {
-                if (source is IHasETag etagSource)
-                {
-                    // Convert resource's supplied eTag value to entity's LastModifiedDate
-                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
-                }
-                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
-                {
-                    // Copy LastModifiedDate, when mapping from entities to resources/entities
-                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
-                }
-            }
-        }
-    }
-
-}
 // Aggregate: EvaluationRubricDimension
 
 namespace EdFi.Ods.Entities.Common.EdFi //.EvaluationRubricDimensionAggregate
@@ -24382,167 +24221,6 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EvaluationRubricDimensionAggregate
 
             // Map extensions
             source.MapExtensionsTo(target, mappingContract);
-
-            // Convert source to an ETag, if appropriate
-            if (target is IHasETag entityWithETag)
-                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
-
-            // Copy/assign LastModifiedDate, if appropriate
-            if (target is IDateVersionedEntity targetDateVersionedEntity)
-            {
-                if (source is IHasETag etagSource)
-                {
-                    // Convert resource's supplied eTag value to entity's LastModifiedDate
-                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
-                }
-                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
-                {
-                    // Copy LastModifiedDate, when mapping from entities to resources/entities
-                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
-                }
-            }
-        }
-    }
-
-}
-// Aggregate: EvaluationTypeDescriptor
-
-namespace EdFi.Ods.Entities.Common.EdFi //.EvaluationTypeDescriptorAggregate
-{
-    [ExcludeFromCodeCoverage]
-    public static class EvaluationTypeDescriptorMapper
-    {
-        private static readonly FullName _fullName_edfi_EvaluationTypeDescriptor = new FullName("edfi", "EvaluationTypeDescriptor");
-    
-        public static bool SynchronizeTo(this IEvaluationTypeDescriptor source, IEvaluationTypeDescriptor target)
-        {
-            bool isModified = false;
-
-            // Get the mapping contract for knowing what values to synchronize through to target entity
-            var mappingContract = (EvaluationTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_edfi_EvaluationTypeDescriptor);
-
-            // Detect primary key changes
-            if (
-                 (target.EvaluationTypeDescriptorId != source.EvaluationTypeDescriptorId))
-            {
-                // Disallow PK column updates on EvaluationTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
-            }
-
-
-            // Copy inherited non-PK properties
-
-
-            if ((mappingContract?.IsCodeValueSupported != false)
-                && target.CodeValue != source.CodeValue)
-            {
-                target.CodeValue = source.CodeValue;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsDescriptionSupported != false)
-                && target.Description != source.Description)
-            {
-                target.Description = source.Description;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
-                && target.EffectiveBeginDate != source.EffectiveBeginDate)
-            {
-                target.EffectiveBeginDate = source.EffectiveBeginDate;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsEffectiveEndDateSupported != false)
-                && target.EffectiveEndDate != source.EffectiveEndDate)
-            {
-                target.EffectiveEndDate = source.EffectiveEndDate;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsNamespaceSupported != false)
-                && target.Namespace != source.Namespace)
-            {
-                target.Namespace = source.Namespace;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
-                && target.PriorDescriptorId != source.PriorDescriptorId)
-            {
-                target.PriorDescriptorId = source.PriorDescriptorId;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsShortDescriptionSupported != false)
-                && target.ShortDescription != source.ShortDescription)
-            {
-                target.ShortDescription = source.ShortDescription;
-                isModified = true;
-            }
-
-            // Copy non-PK properties
-
-
-            // Synch inherited lists
-
-            // Sync lists
-
-            return isModified;
-        }
-
-        public static void MapTo(this IEvaluationTypeDescriptor source, IEvaluationTypeDescriptor target, Action<IEvaluationTypeDescriptor, IEvaluationTypeDescriptor> onMapped)
-        {
-            // Get the mapping contract for determining what values to map through to target
-            var mappingContract = (EvaluationTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_edfi_EvaluationTypeDescriptor);
-    
-            // Copy resource Id
-            target.Id = source.Id;
-
-            // Copy contextual primary key values
-            target.EvaluationTypeDescriptorId = source.EvaluationTypeDescriptorId;
-
-            // Copy inherited non-PK properties
-
-            if (mappingContract?.IsCodeValueSupported != false)
-                target.CodeValue = source.CodeValue;
-
-            if (mappingContract?.IsDescriptionSupported != false)
-                target.Description = source.Description;
-
-            if (mappingContract?.IsEffectiveBeginDateSupported != false)
-                target.EffectiveBeginDate = source.EffectiveBeginDate;
-
-            if (mappingContract?.IsEffectiveEndDateSupported != false)
-                target.EffectiveEndDate = source.EffectiveEndDate;
-
-            if (mappingContract?.IsNamespaceSupported != false)
-                target.Namespace = source.Namespace;
-
-            if (mappingContract?.IsPriorDescriptorIdSupported != false)
-                target.PriorDescriptorId = source.PriorDescriptorId;
-
-            if (mappingContract?.IsShortDescriptionSupported != false)
-                target.ShortDescription = source.ShortDescription;
-
-            // Copy non-PK properties
-
-            // Copy Aggregate Reference Data
-
-
-            // ----------------------------------
-            //   Map One-to-one relationships
-            // ----------------------------------
-
-            // Map inherited lists
-
-            // Map lists
-
 
             // Convert source to an ETag, if appropriate
             if (target is IHasETag entityWithETag)
@@ -46034,6 +45712,328 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramEvaluationObjectiveAggregate
 
             // Map extensions
             source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+}
+// Aggregate: ProgramEvaluationPeriodDescriptor
+
+namespace EdFi.Ods.Entities.Common.EdFi //.ProgramEvaluationPeriodDescriptorAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class ProgramEvaluationPeriodDescriptorMapper
+    {
+        private static readonly FullName _fullName_edfi_ProgramEvaluationPeriodDescriptor = new FullName("edfi", "ProgramEvaluationPeriodDescriptor");
+    
+        public static bool SynchronizeTo(this IProgramEvaluationPeriodDescriptor source, IProgramEvaluationPeriodDescriptor target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ProgramEvaluationPeriodDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ProgramEvaluationPeriodDescriptor);
+
+            // Detect primary key changes
+            if (
+                 (target.ProgramEvaluationPeriodDescriptorId != source.ProgramEvaluationPeriodDescriptorId))
+            {
+                // Disallow PK column updates on ProgramEvaluationPeriodDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
+
+
+            // Copy inherited non-PK properties
+
+
+            if ((mappingContract?.IsCodeValueSupported != false)
+                && target.CodeValue != source.CodeValue)
+            {
+                target.CodeValue = source.CodeValue;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsDescriptionSupported != false)
+                && target.Description != source.Description)
+            {
+                target.Description = source.Description;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
+                && target.EffectiveBeginDate != source.EffectiveBeginDate)
+            {
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
+                && target.EffectiveEndDate != source.EffectiveEndDate)
+            {
+                target.EffectiveEndDate = source.EffectiveEndDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsNamespaceSupported != false)
+                && target.Namespace != source.Namespace)
+            {
+                target.Namespace = source.Namespace;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
+                && target.PriorDescriptorId != source.PriorDescriptorId)
+            {
+                target.PriorDescriptorId = source.PriorDescriptorId;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsShortDescriptionSupported != false)
+                && target.ShortDescription != source.ShortDescription)
+            {
+                target.ShortDescription = source.ShortDescription;
+                isModified = true;
+            }
+
+            // Copy non-PK properties
+
+
+            // Synch inherited lists
+
+            // Sync lists
+
+            return isModified;
+        }
+
+        public static void MapTo(this IProgramEvaluationPeriodDescriptor source, IProgramEvaluationPeriodDescriptor target, Action<IProgramEvaluationPeriodDescriptor, IProgramEvaluationPeriodDescriptor> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ProgramEvaluationPeriodDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ProgramEvaluationPeriodDescriptor);
+    
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.ProgramEvaluationPeriodDescriptorId = source.ProgramEvaluationPeriodDescriptorId;
+
+            // Copy inherited non-PK properties
+
+            if (mappingContract?.IsCodeValueSupported != false)
+                target.CodeValue = source.CodeValue;
+
+            if (mappingContract?.IsDescriptionSupported != false)
+                target.Description = source.Description;
+
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
+                target.EffectiveEndDate = source.EffectiveEndDate;
+
+            if (mappingContract?.IsNamespaceSupported != false)
+                target.Namespace = source.Namespace;
+
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
+                target.PriorDescriptorId = source.PriorDescriptorId;
+
+            if (mappingContract?.IsShortDescriptionSupported != false)
+                target.ShortDescription = source.ShortDescription;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map inherited lists
+
+            // Map lists
+
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+}
+// Aggregate: ProgramEvaluationTypeDescriptor
+
+namespace EdFi.Ods.Entities.Common.EdFi //.ProgramEvaluationTypeDescriptorAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class ProgramEvaluationTypeDescriptorMapper
+    {
+        private static readonly FullName _fullName_edfi_ProgramEvaluationTypeDescriptor = new FullName("edfi", "ProgramEvaluationTypeDescriptor");
+    
+        public static bool SynchronizeTo(this IProgramEvaluationTypeDescriptor source, IProgramEvaluationTypeDescriptor target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ProgramEvaluationTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ProgramEvaluationTypeDescriptor);
+
+            // Detect primary key changes
+            if (
+                 (target.ProgramEvaluationTypeDescriptorId != source.ProgramEvaluationTypeDescriptorId))
+            {
+                // Disallow PK column updates on ProgramEvaluationTypeDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
+
+
+            // Copy inherited non-PK properties
+
+
+            if ((mappingContract?.IsCodeValueSupported != false)
+                && target.CodeValue != source.CodeValue)
+            {
+                target.CodeValue = source.CodeValue;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsDescriptionSupported != false)
+                && target.Description != source.Description)
+            {
+                target.Description = source.Description;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
+                && target.EffectiveBeginDate != source.EffectiveBeginDate)
+            {
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
+                && target.EffectiveEndDate != source.EffectiveEndDate)
+            {
+                target.EffectiveEndDate = source.EffectiveEndDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsNamespaceSupported != false)
+                && target.Namespace != source.Namespace)
+            {
+                target.Namespace = source.Namespace;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
+                && target.PriorDescriptorId != source.PriorDescriptorId)
+            {
+                target.PriorDescriptorId = source.PriorDescriptorId;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsShortDescriptionSupported != false)
+                && target.ShortDescription != source.ShortDescription)
+            {
+                target.ShortDescription = source.ShortDescription;
+                isModified = true;
+            }
+
+            // Copy non-PK properties
+
+
+            // Synch inherited lists
+
+            // Sync lists
+
+            return isModified;
+        }
+
+        public static void MapTo(this IProgramEvaluationTypeDescriptor source, IProgramEvaluationTypeDescriptor target, Action<IProgramEvaluationTypeDescriptor, IProgramEvaluationTypeDescriptor> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ProgramEvaluationTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ProgramEvaluationTypeDescriptor);
+    
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.ProgramEvaluationTypeDescriptorId = source.ProgramEvaluationTypeDescriptorId;
+
+            // Copy inherited non-PK properties
+
+            if (mappingContract?.IsCodeValueSupported != false)
+                target.CodeValue = source.CodeValue;
+
+            if (mappingContract?.IsDescriptionSupported != false)
+                target.Description = source.Description;
+
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
+                target.EffectiveEndDate = source.EffectiveEndDate;
+
+            if (mappingContract?.IsNamespaceSupported != false)
+                target.Namespace = source.Namespace;
+
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
+                target.PriorDescriptorId = source.PriorDescriptorId;
+
+            if (mappingContract?.IsShortDescriptionSupported != false)
+                target.ShortDescription = source.ShortDescription;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map inherited lists
+
+            // Map lists
+
 
             // Convert source to an ETag, if appropriate
             if (target is IHasETag entityWithETag)

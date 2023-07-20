@@ -8648,48 +8648,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EvaluationDelayReasonDescript
         // -------------------------------------------------------------
     }
 }
-// Aggregate: EvaluationPeriodDescriptor
-
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.EvaluationPeriodDescriptorAggregate.EdFi
-{
-
-    /// <summary>
-    /// A class which represents the edfi.EvaluationPeriodDescriptor table of the EvaluationPeriodDescriptor aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class EvaluationPeriodDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature]
-        public virtual int EvaluationPeriodDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.ProgramEvaluationAggregate.EdFi.ProgramEvaluationQ> ProgramEvaluations  { get; set; }
-    #pragma warning restore 114
-        // -------------------------------------------------------------
-    }
-}
 // Aggregate: EvaluationRubricDimension
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.EvaluationRubricDimensionAggregate.EdFi
@@ -8751,48 +8709,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EvaluationRubricDimensionAggr
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.RatingLevelDescriptorAggregate.EdFi.RatingLevelDescriptorQ EvaluationRubricRatingLevelDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElementQ ProgramEvaluationElement { get; set; }
-        // -------------------------------------------------------------
-    }
-}
-// Aggregate: EvaluationTypeDescriptor
-
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.EvaluationTypeDescriptorAggregate.EdFi
-{
-
-    /// <summary>
-    /// A class which represents the edfi.EvaluationTypeDescriptor table of the EvaluationTypeDescriptor aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class EvaluationTypeDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature]
-        public virtual int EvaluationTypeDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.ProgramEvaluationAggregate.EdFi.ProgramEvaluationQ> ProgramEvaluations  { get; set; }
-    #pragma warning restore 114
         // -------------------------------------------------------------
     }
 }
@@ -16214,8 +16130,8 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationAggregate.Ed
 
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ProgramAggregate.EdFi.ProgramQ Program { get; set; }
-        protected virtual NHibernate.QueryModels.EvaluationPeriodDescriptorAggregate.EdFi.EvaluationPeriodDescriptorQ ProgramEvaluationPeriodDescriptor { get; set; }
-        protected virtual NHibernate.QueryModels.EvaluationTypeDescriptorAggregate.EdFi.EvaluationTypeDescriptorQ ProgramEvaluationTypeDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.ProgramEvaluationPeriodDescriptorAggregate.EdFi.ProgramEvaluationPeriodDescriptorQ ProgramEvaluationPeriodDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.ProgramEvaluationTypeDescriptorAggregate.EdFi.ProgramEvaluationTypeDescriptorQ ProgramEvaluationTypeDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 
@@ -16495,6 +16411,90 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationObjectiveAgg
 
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.RatingLevelDescriptorAggregate.EdFi.RatingLevelDescriptorQ RatingLevelDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: ProgramEvaluationPeriodDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationPeriodDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.ProgramEvaluationPeriodDescriptor table of the ProgramEvaluationPeriodDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationPeriodDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int ProgramEvaluationPeriodDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ProgramEvaluationAggregate.EdFi.ProgramEvaluationQ> ProgramEvaluations  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: ProgramEvaluationTypeDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationTypeDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.ProgramEvaluationTypeDescriptor table of the ProgramEvaluationTypeDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationTypeDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int ProgramEvaluationTypeDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ProgramEvaluationAggregate.EdFi.ProgramEvaluationQ> ProgramEvaluations  { get; set; }
+    #pragma warning restore 114
         // -------------------------------------------------------------
     }
 }

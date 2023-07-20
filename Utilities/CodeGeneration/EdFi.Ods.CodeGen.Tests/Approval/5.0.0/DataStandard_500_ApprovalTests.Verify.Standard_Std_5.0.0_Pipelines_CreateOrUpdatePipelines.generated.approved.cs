@@ -623,21 +623,9 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationPeriodDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EvaluationPeriodDescriptor.EdFi.EvaluationPeriodDescriptor, Entities.NHibernate.EvaluationPeriodDescriptorAggregate.EdFi.EvaluationPeriodDescriptor>
-    {
-        public EvaluationPeriodDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
     public class EvaluationRubricDimensionCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EvaluationRubricDimension.EdFi.EvaluationRubricDimension, Entities.NHibernate.EvaluationRubricDimensionAggregate.EdFi.EvaluationRubricDimension>
     {
         public EvaluationRubricDimensionCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EvaluationTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EvaluationTypeDescriptor.EdFi.EvaluationTypeDescriptor, Entities.NHibernate.EvaluationTypeDescriptorAggregate.EdFi.EvaluationTypeDescriptor>
-    {
-        public EvaluationTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1220,6 +1208,18 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class ProgramEvaluationObjectiveCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ProgramEvaluationObjective.EdFi.ProgramEvaluationObjective, Entities.NHibernate.ProgramEvaluationObjectiveAggregate.EdFi.ProgramEvaluationObjective>
     {
         public ProgramEvaluationObjectiveCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationPeriodDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ProgramEvaluationPeriodDescriptor.EdFi.ProgramEvaluationPeriodDescriptor, Entities.NHibernate.ProgramEvaluationPeriodDescriptorAggregate.EdFi.ProgramEvaluationPeriodDescriptor>
+    {
+        public ProgramEvaluationPeriodDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ProgramEvaluationTypeDescriptor.EdFi.ProgramEvaluationTypeDescriptor, Entities.NHibernate.ProgramEvaluationTypeDescriptorAggregate.EdFi.ProgramEvaluationTypeDescriptor>
+    {
+        public ProgramEvaluationTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
