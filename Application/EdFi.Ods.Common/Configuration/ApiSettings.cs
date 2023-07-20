@@ -77,7 +77,12 @@ namespace EdFi.Ods.Common.Configuration
         /// <returns>An array of keys for extracting values from the route values associated with an API request.</returns>
         public string[] GetOdsContextRouteTemplateKeys()
         {
-            return _odsContextRouteTemplateKeys ??= OdsContextRouteTemplateHelpers.GetRouteTemplateKeys(OdsContextRouteTemplate);
+            if (OdsContextRouteTemplate != null)
+            {
+                return _odsContextRouteTemplateKeys ??= OdsContextRouteTemplateHelpers.GetRouteTemplateKeys(OdsContextRouteTemplate);
+            }
+
+            return Array.Empty<string>();
         }
 
         public bool IsFeatureEnabled(string featureName)
