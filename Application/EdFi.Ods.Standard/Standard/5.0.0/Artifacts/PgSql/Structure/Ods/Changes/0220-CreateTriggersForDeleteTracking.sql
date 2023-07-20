@@ -1808,23 +1808,6 @@ CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.evaluationdelayreasondescriptor
     FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.evaluationdelayreasondescriptor_deleted();
 END IF;
 
-CREATE OR REPLACE FUNCTION tracked_changes_edfi.evaluationperioddescriptor_deleted()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.EvaluationPeriodDescriptorId, b.codevalue, b.namespace, b.id, 'edfi.EvaluationPeriodDescriptor', nextval('changes.ChangeVersionSequence')
-    FROM edfi.descriptor b WHERE old.EvaluationPeriodDescriptorId = b.descriptorid ;
-
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'evaluationperioddescriptor') THEN
-CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.evaluationperioddescriptor 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.evaluationperioddescriptor_deleted();
-END IF;
-
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.evaluationrubricdimension_deleted()
     RETURNS trigger AS
 $BODY$
@@ -1853,23 +1836,6 @@ $BODY$ LANGUAGE plpgsql;
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'evaluationrubricdimension') THEN
 CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.evaluationrubricdimension 
     FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.evaluationrubricdimension_deleted();
-END IF;
-
-CREATE OR REPLACE FUNCTION tracked_changes_edfi.evaluationtypedescriptor_deleted()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.EvaluationTypeDescriptorId, b.codevalue, b.namespace, b.id, 'edfi.EvaluationTypeDescriptor', nextval('changes.ChangeVersionSequence')
-    FROM edfi.descriptor b WHERE old.EvaluationTypeDescriptorId = b.descriptorid ;
-
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'evaluationtypedescriptor') THEN
-CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.evaluationtypedescriptor 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.evaluationtypedescriptor_deleted();
 END IF;
 
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.eventcircumstancedescriptor_deleted()
@@ -3656,6 +3622,40 @@ $BODY$ LANGUAGE plpgsql;
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'programevaluationobjective') THEN
 CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.programevaluationobjective 
     FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.programevaluationobjective_deleted();
+END IF;
+
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.programevaluationperioddescriptor_deleted()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
+    SELECT OLD.ProgramEvaluationPeriodDescriptorId, b.codevalue, b.namespace, b.id, 'edfi.ProgramEvaluationPeriodDescriptor', nextval('changes.ChangeVersionSequence')
+    FROM edfi.descriptor b WHERE old.ProgramEvaluationPeriodDescriptorId = b.descriptorid ;
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'programevaluationperioddescriptor') THEN
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.programevaluationperioddescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.programevaluationperioddescriptor_deleted();
+END IF;
+
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.programevaluationtypedescriptor_deleted()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
+    SELECT OLD.ProgramEvaluationTypeDescriptorId, b.codevalue, b.namespace, b.id, 'edfi.ProgramEvaluationTypeDescriptor', nextval('changes.ChangeVersionSequence')
+    FROM edfi.descriptor b WHERE old.ProgramEvaluationTypeDescriptorId = b.descriptorid ;
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'programevaluationtypedescriptor') THEN
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.programevaluationtypedescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.programevaluationtypedescriptor_deleted();
 END IF;
 
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.programsponsordescriptor_deleted()

@@ -1395,22 +1395,12 @@ REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
 
-ALTER TABLE [edfi].[EvaluationPeriodDescriptor] WITH CHECK ADD CONSTRAINT [FK_EvaluationPeriodDescriptor_Descriptor] FOREIGN KEY ([EvaluationPeriodDescriptorId])
-REFERENCES [edfi].[Descriptor] ([DescriptorId])
-ON DELETE CASCADE
-GO
-
 ALTER TABLE [edfi].[EvaluationRubricDimension] WITH CHECK ADD CONSTRAINT [FK_EvaluationRubricDimension_ProgramEvaluationElement] FOREIGN KEY ([ProgramEducationOrganizationId], [ProgramEvaluationElementTitle], [ProgramEvaluationPeriodDescriptorId], [ProgramEvaluationTitle], [ProgramEvaluationTypeDescriptorId], [ProgramName], [ProgramTypeDescriptorId])
 REFERENCES [edfi].[ProgramEvaluationElement] ([ProgramEducationOrganizationId], [ProgramEvaluationElementTitle], [ProgramEvaluationPeriodDescriptorId], [ProgramEvaluationTitle], [ProgramEvaluationTypeDescriptorId], [ProgramName], [ProgramTypeDescriptorId])
 GO
 
 ALTER TABLE [edfi].[EvaluationRubricDimension] WITH CHECK ADD CONSTRAINT [FK_EvaluationRubricDimension_RatingLevelDescriptor] FOREIGN KEY ([EvaluationRubricRatingLevelDescriptorId])
 REFERENCES [edfi].[RatingLevelDescriptor] ([RatingLevelDescriptorId])
-GO
-
-ALTER TABLE [edfi].[EvaluationTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_EvaluationTypeDescriptor_Descriptor] FOREIGN KEY ([EvaluationTypeDescriptorId])
-REFERENCES [edfi].[Descriptor] ([DescriptorId])
-ON DELETE CASCADE
 GO
 
 ALTER TABLE [edfi].[EventCircumstanceDescriptor] WITH CHECK ADD CONSTRAINT [FK_EventCircumstanceDescriptor_Descriptor] FOREIGN KEY ([EventCircumstanceDescriptorId])
@@ -2576,16 +2566,16 @@ ALTER TABLE [edfi].[ProgramDimensionReportingTag] WITH CHECK ADD CONSTRAINT [FK_
 REFERENCES [edfi].[ReportingTagDescriptor] ([ReportingTagDescriptorId])
 GO
 
-ALTER TABLE [edfi].[ProgramEvaluation] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluation_EvaluationPeriodDescriptor] FOREIGN KEY ([ProgramEvaluationPeriodDescriptorId])
-REFERENCES [edfi].[EvaluationPeriodDescriptor] ([EvaluationPeriodDescriptorId])
-GO
-
-ALTER TABLE [edfi].[ProgramEvaluation] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluation_EvaluationTypeDescriptor] FOREIGN KEY ([ProgramEvaluationTypeDescriptorId])
-REFERENCES [edfi].[EvaluationTypeDescriptor] ([EvaluationTypeDescriptorId])
-GO
-
 ALTER TABLE [edfi].[ProgramEvaluation] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluation_Program] FOREIGN KEY ([ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
 REFERENCES [edfi].[Program] ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
+GO
+
+ALTER TABLE [edfi].[ProgramEvaluation] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluation_ProgramEvaluationPeriodDescriptor] FOREIGN KEY ([ProgramEvaluationPeriodDescriptorId])
+REFERENCES [edfi].[ProgramEvaluationPeriodDescriptor] ([ProgramEvaluationPeriodDescriptorId])
+GO
+
+ALTER TABLE [edfi].[ProgramEvaluation] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluation_ProgramEvaluationTypeDescriptor] FOREIGN KEY ([ProgramEvaluationTypeDescriptorId])
+REFERENCES [edfi].[ProgramEvaluationTypeDescriptor] ([ProgramEvaluationTypeDescriptorId])
 GO
 
 ALTER TABLE [edfi].[ProgramEvaluationElement] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationElement_ProgramEvaluation] FOREIGN KEY ([ProgramEducationOrganizationId], [ProgramEvaluationPeriodDescriptorId], [ProgramEvaluationTitle], [ProgramEvaluationTypeDescriptorId], [ProgramName], [ProgramTypeDescriptorId])
@@ -2618,6 +2608,11 @@ ALTER TABLE [edfi].[ProgramEvaluationObjectiveRatingLevel] WITH CHECK ADD CONSTR
 REFERENCES [edfi].[RatingLevelDescriptor] ([RatingLevelDescriptorId])
 GO
 
+ALTER TABLE [edfi].[ProgramEvaluationPeriodDescriptor] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationPeriodDescriptor_Descriptor] FOREIGN KEY ([ProgramEvaluationPeriodDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
 ALTER TABLE [edfi].[ProgramEvaluationRatingLevel] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationRatingLevel_ProgramEvaluation] FOREIGN KEY ([ProgramEducationOrganizationId], [ProgramEvaluationPeriodDescriptorId], [ProgramEvaluationTitle], [ProgramEvaluationTypeDescriptorId], [ProgramName], [ProgramTypeDescriptorId])
 REFERENCES [edfi].[ProgramEvaluation] ([ProgramEducationOrganizationId], [ProgramEvaluationPeriodDescriptorId], [ProgramEvaluationTitle], [ProgramEvaluationTypeDescriptorId], [ProgramName], [ProgramTypeDescriptorId])
 ON DELETE CASCADE
@@ -2625,6 +2620,11 @@ GO
 
 ALTER TABLE [edfi].[ProgramEvaluationRatingLevel] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationRatingLevel_RatingLevelDescriptor] FOREIGN KEY ([RatingLevelDescriptorId])
 REFERENCES [edfi].[RatingLevelDescriptor] ([RatingLevelDescriptorId])
+GO
+
+ALTER TABLE [edfi].[ProgramEvaluationTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationTypeDescriptor_Descriptor] FOREIGN KEY ([ProgramEvaluationTypeDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
 GO
 
 ALTER TABLE [edfi].[ProgramLearningStandard] WITH CHECK ADD CONSTRAINT [FK_ProgramLearningStandard_LearningStandard] FOREIGN KEY ([LearningStandardId])

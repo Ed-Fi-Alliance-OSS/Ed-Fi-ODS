@@ -2857,15 +2857,6 @@ CREATE TABLE [edfi].[EvaluationDelayReasonDescriptor] (
 ) ON [PRIMARY]
 GO
 
--- Table [edfi].[EvaluationPeriodDescriptor] --
-CREATE TABLE [edfi].[EvaluationPeriodDescriptor] (
-    [EvaluationPeriodDescriptorId] [INT] NOT NULL,
-    CONSTRAINT [EvaluationPeriodDescriptor_PK] PRIMARY KEY CLUSTERED (
-        [EvaluationPeriodDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
 -- Table [edfi].[EvaluationRubricDimension] --
 CREATE TABLE [edfi].[EvaluationRubricDimension] (
     [EvaluationRubricRating] [INT] NOT NULL,
@@ -2900,15 +2891,6 @@ GO
 ALTER TABLE [edfi].[EvaluationRubricDimension] ADD CONSTRAINT [EvaluationRubricDimension_DF_Id] DEFAULT (newid()) FOR [Id]
 GO
 ALTER TABLE [edfi].[EvaluationRubricDimension] ADD CONSTRAINT [EvaluationRubricDimension_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [edfi].[EvaluationTypeDescriptor] --
-CREATE TABLE [edfi].[EvaluationTypeDescriptor] (
-    [EvaluationTypeDescriptorId] [INT] NOT NULL,
-    CONSTRAINT [EvaluationTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
-        [EvaluationTypeDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
 GO
 
 -- Table [edfi].[EventCircumstanceDescriptor] --
@@ -5444,6 +5426,15 @@ GO
 ALTER TABLE [edfi].[ProgramEvaluationObjectiveRatingLevel] ADD CONSTRAINT [ProgramEvaluationObjectiveRatingLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [edfi].[ProgramEvaluationPeriodDescriptor] --
+CREATE TABLE [edfi].[ProgramEvaluationPeriodDescriptor] (
+    [ProgramEvaluationPeriodDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [ProgramEvaluationPeriodDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [ProgramEvaluationPeriodDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [edfi].[ProgramEvaluationRatingLevel] --
 CREATE TABLE [edfi].[ProgramEvaluationRatingLevel] (
     [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
@@ -5468,6 +5459,15 @@ CREATE TABLE [edfi].[ProgramEvaluationRatingLevel] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [edfi].[ProgramEvaluationRatingLevel] ADD CONSTRAINT [ProgramEvaluationRatingLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[ProgramEvaluationTypeDescriptor] --
+CREATE TABLE [edfi].[ProgramEvaluationTypeDescriptor] (
+    [ProgramEvaluationTypeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [ProgramEvaluationTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [ProgramEvaluationTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
 -- Table [edfi].[ProgramLearningStandard] --

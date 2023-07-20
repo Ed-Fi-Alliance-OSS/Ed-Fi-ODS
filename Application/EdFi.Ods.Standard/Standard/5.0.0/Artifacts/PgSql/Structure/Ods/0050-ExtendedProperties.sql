@@ -1228,10 +1228,6 @@ COMMENT ON COLUMN edfi.EntryTypeDescriptor.EntryTypeDescriptorId IS 'A unique id
 COMMENT ON TABLE edfi.EvaluationDelayReasonDescriptor IS 'Refers to the justification as to why the evaluation report was completed beyond the state-established timeframe.';
 COMMENT ON COLUMN edfi.EvaluationDelayReasonDescriptor.EvaluationDelayReasonDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
--- Extended Properties [edfi].[EvaluationPeriodDescriptor] --
-COMMENT ON TABLE edfi.EvaluationPeriodDescriptor IS 'The period for the evaluation.';
-COMMENT ON COLUMN edfi.EvaluationPeriodDescriptor.EvaluationPeriodDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
 -- Extended Properties [edfi].[EvaluationRubricDimension] --
 COMMENT ON TABLE edfi.EvaluationRubricDimension IS 'The cells of a rubric, consisting of a qualitative decription, definition, or exemplar with the associated rubric evaluation level.';
 COMMENT ON COLUMN edfi.EvaluationRubricDimension.EvaluationRubricRating IS 'The numeric rating associated with the evaluation rubric dimension.';
@@ -1245,10 +1241,6 @@ COMMENT ON COLUMN edfi.EvaluationRubricDimension.ProgramTypeDescriptorId IS 'The
 COMMENT ON COLUMN edfi.EvaluationRubricDimension.EvaluationCriterionDescription IS 'The evaluation criterion description for the evaluation rubric dimension.';
 COMMENT ON COLUMN edfi.EvaluationRubricDimension.EvaluationRubricRatingLevelDescriptorId IS 'The rating level achieved for the evaluation rubric dimension.';
 COMMENT ON COLUMN edfi.EvaluationRubricDimension.RubricDimensionSortOrder IS 'The sort order of the rubric dimension.';
-
--- Extended Properties [edfi].[EvaluationTypeDescriptor] --
-COMMENT ON TABLE edfi.EvaluationTypeDescriptor IS 'The type of the evaluation.';
-COMMENT ON COLUMN edfi.EvaluationTypeDescriptor.EvaluationTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[EventCircumstanceDescriptor] --
 COMMENT ON TABLE edfi.EventCircumstanceDescriptor IS 'An unusual event occurred during the administration of the assessment. This could include fire alarm, student became ill, etc.';
@@ -2270,7 +2262,7 @@ COMMENT ON COLUMN edfi.ProgramEvaluationObjective.ProgramTypeDescriptorId IS 'Th
 COMMENT ON COLUMN edfi.ProgramEvaluationObjective.ObjectiveMaxNumericRating IS 'The maximum summary numerical rating or score for the program evaluation objective.';
 COMMENT ON COLUMN edfi.ProgramEvaluationObjective.ObjectiveMinNumericRating IS 'The minimum summary numerical rating or score for the program evaluation objective. If omitted, assumed to be 0.0';
 COMMENT ON COLUMN edfi.ProgramEvaluationObjective.ObjectiveSortOrder IS 'The sort order of this program evaluation objective.';
-COMMENT ON COLUMN edfi.ProgramEvaluationObjective.ProgramEvaluationObjectiveDescription IS '	The long description of the program evaluation objective.';
+COMMENT ON COLUMN edfi.ProgramEvaluationObjective.ProgramEvaluationObjectiveDescription IS 'The long description of the program evaluation objective.';
 
 -- Extended Properties [edfi].[ProgramEvaluationObjectiveRatingLevel] --
 COMMENT ON TABLE edfi.ProgramEvaluationObjectiveRatingLevel IS 'The descriptive level(s) of ratings (cut scores) for the program evaluation objective.';
@@ -2285,6 +2277,10 @@ COMMENT ON COLUMN edfi.ProgramEvaluationObjectiveRatingLevel.RatingLevelDescript
 COMMENT ON COLUMN edfi.ProgramEvaluationObjectiveRatingLevel.MaxNumericRating IS 'The maximum numerical rating or score to achieve the evaluation rating level.';
 COMMENT ON COLUMN edfi.ProgramEvaluationObjectiveRatingLevel.MinNumericRating IS 'The minimum numerical rating or score to achieve the evaluation rating level.';
 
+-- Extended Properties [edfi].[ProgramEvaluationPeriodDescriptor] --
+COMMENT ON TABLE edfi.ProgramEvaluationPeriodDescriptor IS 'The period for the evaluation.';
+COMMENT ON COLUMN edfi.ProgramEvaluationPeriodDescriptor.ProgramEvaluationPeriodDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [edfi].[ProgramEvaluationRatingLevel] --
 COMMENT ON TABLE edfi.ProgramEvaluationRatingLevel IS 'The descriptive level(s) of ratings (cut scores) for the program evaluation.';
 COMMENT ON COLUMN edfi.ProgramEvaluationRatingLevel.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -2296,6 +2292,10 @@ COMMENT ON COLUMN edfi.ProgramEvaluationRatingLevel.ProgramTypeDescriptorId IS '
 COMMENT ON COLUMN edfi.ProgramEvaluationRatingLevel.RatingLevelDescriptorId IS 'The title for a level of rating or evaluation band (e.g., Excellent, Acceptable, Needs Improvement, Unacceptable).';
 COMMENT ON COLUMN edfi.ProgramEvaluationRatingLevel.MaxNumericRating IS 'The maximum numerical rating or score to achieve the evaluation rating level.';
 COMMENT ON COLUMN edfi.ProgramEvaluationRatingLevel.MinNumericRating IS 'The minimum numerical rating or score to achieve the evaluation rating level.';
+
+-- Extended Properties [edfi].[ProgramEvaluationTypeDescriptor] --
+COMMENT ON TABLE edfi.ProgramEvaluationTypeDescriptor IS 'The type of the evaluation.';
+COMMENT ON COLUMN edfi.ProgramEvaluationTypeDescriptor.ProgramEvaluationTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[ProgramLearningStandard] --
 COMMENT ON TABLE edfi.ProgramLearningStandard IS 'Learning standard followed by this program.';

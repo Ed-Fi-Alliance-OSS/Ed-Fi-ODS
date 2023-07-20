@@ -2093,12 +2093,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EvaluationDelayReasonDescriptor', @level2type=N'COLUMN', @level2name=N'EvaluationDelayReasonDescriptorId'
 GO
 
--- Extended Properties [edfi].[EvaluationPeriodDescriptor] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EvaluationPeriodDescriptor'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EvaluationPeriodDescriptor', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
-GO
-
 -- Extended Properties [edfi].[EvaluationRubricDimension] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The cells of a rubric, consisting of a qualitative decription, definition, or exemplar with the associated rubric evaluation level.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EvaluationRubricDimension'
 GO
@@ -2123,12 +2117,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The rating level achieved for the evaluation rubric dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EvaluationRubricDimension', @level2type=N'COLUMN', @level2name=N'EvaluationRubricRatingLevelDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The sort order of the rubric dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EvaluationRubricDimension', @level2type=N'COLUMN', @level2name=N'RubricDimensionSortOrder'
-GO
-
--- Extended Properties [edfi].[EvaluationTypeDescriptor] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of the evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EvaluationTypeDescriptor'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EvaluationTypeDescriptor', @level2type=N'COLUMN', @level2name=N'EvaluationTypeDescriptorId'
 GO
 
 -- Extended Properties [edfi].[EventCircumstanceDescriptor] --
@@ -3862,7 +3850,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The minimum su
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The sort order of this program evaluation objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjective', @level2type=N'COLUMN', @level2name=N'ObjectiveSortOrder'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'	The long description of the program evaluation objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjective', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationObjectiveDescription'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The long description of the program evaluation objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjective', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationObjectiveDescription'
 GO
 
 -- Extended Properties [edfi].[ProgramEvaluationObjectiveRatingLevel] --
@@ -3889,6 +3877,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The minimum numerical rating or score to achieve the evaluation rating level.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveRatingLevel', @level2type=N'COLUMN', @level2name=N'MinNumericRating'
 GO
 
+-- Extended Properties [edfi].[ProgramEvaluationPeriodDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationPeriodDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationPeriodDescriptor', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationPeriodDescriptorId'
+GO
+
 -- Extended Properties [edfi].[ProgramEvaluationRatingLevel] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptive level(s) of ratings (cut scores) for the program evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationRatingLevel'
 GO
@@ -3909,6 +3903,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The maximum numerical rating or score to achieve the evaluation rating level.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'MaxNumericRating'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The minimum numerical rating or score to achieve the evaluation rating level.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'MinNumericRating'
+GO
+
+-- Extended Properties [edfi].[ProgramEvaluationTypeDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of the evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationTypeDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationTypeDescriptor', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationTypeDescriptorId'
 GO
 
 -- Extended Properties [edfi].[ProgramLearningStandard] --

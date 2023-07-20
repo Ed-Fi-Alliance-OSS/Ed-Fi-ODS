@@ -1920,12 +1920,6 @@ CREATE TABLE edfi.EvaluationDelayReasonDescriptor (
     CONSTRAINT EvaluationDelayReasonDescriptor_PK PRIMARY KEY (EvaluationDelayReasonDescriptorId)
 );
 
--- Table edfi.EvaluationPeriodDescriptor --
-CREATE TABLE edfi.EvaluationPeriodDescriptor (
-    EvaluationPeriodDescriptorId INT NOT NULL,
-    CONSTRAINT EvaluationPeriodDescriptor_PK PRIMARY KEY (EvaluationPeriodDescriptorId)
-);
-
 -- Table edfi.EvaluationRubricDimension --
 CREATE TABLE edfi.EvaluationRubricDimension (
     EvaluationRubricRating INT NOT NULL,
@@ -1948,12 +1942,6 @@ CREATE TABLE edfi.EvaluationRubricDimension (
 ALTER TABLE edfi.EvaluationRubricDimension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 ALTER TABLE edfi.EvaluationRubricDimension ALTER COLUMN Id SET DEFAULT gen_random_uuid();
 ALTER TABLE edfi.EvaluationRubricDimension ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table edfi.EvaluationTypeDescriptor --
-CREATE TABLE edfi.EvaluationTypeDescriptor (
-    EvaluationTypeDescriptorId INT NOT NULL,
-    CONSTRAINT EvaluationTypeDescriptor_PK PRIMARY KEY (EvaluationTypeDescriptorId)
-);
 
 -- Table edfi.EventCircumstanceDescriptor --
 CREATE TABLE edfi.EventCircumstanceDescriptor (
@@ -3635,6 +3623,12 @@ CREATE TABLE edfi.ProgramEvaluationObjectiveRatingLevel (
 );
 ALTER TABLE edfi.ProgramEvaluationObjectiveRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table edfi.ProgramEvaluationPeriodDescriptor --
+CREATE TABLE edfi.ProgramEvaluationPeriodDescriptor (
+    ProgramEvaluationPeriodDescriptorId INT NOT NULL,
+    CONSTRAINT ProgramEvaluationPeriodDescriptor_PK PRIMARY KEY (ProgramEvaluationPeriodDescriptorId)
+);
+
 -- Table edfi.ProgramEvaluationRatingLevel --
 CREATE TABLE edfi.ProgramEvaluationRatingLevel (
     ProgramEducationOrganizationId BIGINT NOT NULL,
@@ -3650,6 +3644,12 @@ CREATE TABLE edfi.ProgramEvaluationRatingLevel (
     CONSTRAINT ProgramEvaluationRatingLevel_PK PRIMARY KEY (ProgramEducationOrganizationId, ProgramEvaluationPeriodDescriptorId, ProgramEvaluationTitle, ProgramEvaluationTypeDescriptorId, ProgramName, ProgramTypeDescriptorId, RatingLevelDescriptorId)
 );
 ALTER TABLE edfi.ProgramEvaluationRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.ProgramEvaluationTypeDescriptor --
+CREATE TABLE edfi.ProgramEvaluationTypeDescriptor (
+    ProgramEvaluationTypeDescriptorId INT NOT NULL,
+    CONSTRAINT ProgramEvaluationTypeDescriptor_PK PRIMARY KEY (ProgramEvaluationTypeDescriptorId)
+);
 
 -- Table edfi.ProgramLearningStandard --
 CREATE TABLE edfi.ProgramLearningStandard (
