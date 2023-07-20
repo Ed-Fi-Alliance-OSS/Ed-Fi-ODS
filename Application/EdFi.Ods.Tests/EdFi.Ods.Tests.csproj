@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-	 <StandardVersion Condition="'$(StandardVersion)' == '' ">5.0.0</StandardVersion>
+    <StandardVersion Condition="'$(StandardVersion)' == '' ">5.0.0</StandardVersion>
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -84,13 +84,13 @@
     <None Remove="**\TestModels\*.json" />
     <EmbeddedResource Include="**\TestModels\*.json" />
   </ItemGroup>
-	  <ItemGroup>
-		<Compile Remove="**\*.cs" />
-  </ItemGroup>	
+  <ItemGroup>
+    <Compile Remove="**\EdFi.Ods.Features\TokenInfo\Datastandard*\*.cs"/>
+  </ItemGroup>
   <ItemGroup Condition=" '$(StandardVersion)' == '5.0.0' ">
-	 <Compile Include="**\*.cs" Exclude="**\EdFi.Ods.Features\TokenInfo\Datastandard400\*.*" /> 
+    <Compile Include="**\EdFi.Ods.Features\TokenInfo\Datastandard500\*.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(StandardVersion)' == '4.0.0' ">
-	  <Compile Include="**\*.cs" Exclude="**\EdFi.Ods.Features\TokenInfo\Datastandard500\*.*" />
+    <Compile Include="**\EdFi.Ods.Features\TokenInfo\Datastandard400\*.cs" />
   </ItemGroup>
 </Project>
