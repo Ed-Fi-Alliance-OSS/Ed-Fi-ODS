@@ -3339,36 +3339,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EvaluationDelayReasonDescriptors.EdF
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.EvaluationPeriodDescriptors.EdFi
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    [ApiController]
-    [Authorize]
-    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/evaluationPeriodDescriptors")]
-    public partial class EvaluationPeriodDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EvaluationPeriodDescriptor.EdFi.EvaluationPeriodDescriptor,
-        Entities.Common.EdFi.IEvaluationPeriodDescriptor,
-        Entities.NHibernate.EvaluationPeriodDescriptorAggregate.EdFi.EvaluationPeriodDescriptor,
-        Api.Common.Models.Requests.EvaluationPeriodDescriptors.EdFi.EvaluationPeriodDescriptorPut,
-        Api.Common.Models.Requests.EvaluationPeriodDescriptors.EdFi.EvaluationPeriodDescriptorPost,
-        Api.Common.Models.Requests.EvaluationPeriodDescriptors.EdFi.EvaluationPeriodDescriptorDelete,
-        Api.Common.Models.Requests.EvaluationPeriodDescriptors.EdFi.EvaluationPeriodDescriptorGetByExample>
-    {
-        public EvaluationPeriodDescriptorsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
-            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Common.Models.Requests.EvaluationPeriodDescriptors.EdFi.EvaluationPeriodDescriptorGetByExample request, Entities.Common.EdFi.IEvaluationPeriodDescriptor specification)
-        {
-            // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.EvaluationPeriodDescriptorId = request.EvaluationPeriodDescriptorId;
-        }
-    }
-}
-
 namespace EdFi.Ods.Api.Services.Controllers.EvaluationRubricDimensions.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -3406,36 +3376,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EvaluationRubricDimensions.EdFi
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.RubricDimensionSortOrder = request.RubricDimensionSortOrder;
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.EvaluationTypeDescriptors.EdFi
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    [ApiController]
-    [Authorize]
-    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/evaluationTypeDescriptors")]
-    public partial class EvaluationTypeDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EvaluationTypeDescriptor.EdFi.EvaluationTypeDescriptor,
-        Entities.Common.EdFi.IEvaluationTypeDescriptor,
-        Entities.NHibernate.EvaluationTypeDescriptorAggregate.EdFi.EvaluationTypeDescriptor,
-        Api.Common.Models.Requests.EvaluationTypeDescriptors.EdFi.EvaluationTypeDescriptorPut,
-        Api.Common.Models.Requests.EvaluationTypeDescriptors.EdFi.EvaluationTypeDescriptorPost,
-        Api.Common.Models.Requests.EvaluationTypeDescriptors.EdFi.EvaluationTypeDescriptorDelete,
-        Api.Common.Models.Requests.EvaluationTypeDescriptors.EdFi.EvaluationTypeDescriptorGetByExample>
-    {
-        public EvaluationTypeDescriptorsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
-            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Common.Models.Requests.EvaluationTypeDescriptors.EdFi.EvaluationTypeDescriptorGetByExample request, Entities.Common.EdFi.IEvaluationTypeDescriptor specification)
-        {
-            // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.EvaluationTypeDescriptorId = request.EvaluationTypeDescriptorId;
         }
     }
 }
@@ -6565,6 +6505,66 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramEvaluationObjectives.EdFi
             specification.ProgramEvaluationTypeDescriptor = request.ProgramEvaluationTypeDescriptor;
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ProgramEvaluationPeriodDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/programEvaluationPeriodDescriptors")]
+    public partial class ProgramEvaluationPeriodDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ProgramEvaluationPeriodDescriptor.EdFi.ProgramEvaluationPeriodDescriptor,
+        Entities.Common.EdFi.IProgramEvaluationPeriodDescriptor,
+        Entities.NHibernate.ProgramEvaluationPeriodDescriptorAggregate.EdFi.ProgramEvaluationPeriodDescriptor,
+        Api.Common.Models.Requests.ProgramEvaluationPeriodDescriptors.EdFi.ProgramEvaluationPeriodDescriptorPut,
+        Api.Common.Models.Requests.ProgramEvaluationPeriodDescriptors.EdFi.ProgramEvaluationPeriodDescriptorPost,
+        Api.Common.Models.Requests.ProgramEvaluationPeriodDescriptors.EdFi.ProgramEvaluationPeriodDescriptorDelete,
+        Api.Common.Models.Requests.ProgramEvaluationPeriodDescriptors.EdFi.ProgramEvaluationPeriodDescriptorGetByExample>
+    {
+        public ProgramEvaluationPeriodDescriptorsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
+            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ProgramEvaluationPeriodDescriptors.EdFi.ProgramEvaluationPeriodDescriptorGetByExample request, Entities.Common.EdFi.IProgramEvaluationPeriodDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.ProgramEvaluationPeriodDescriptorId = request.ProgramEvaluationPeriodDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ProgramEvaluationTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/programEvaluationTypeDescriptors")]
+    public partial class ProgramEvaluationTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ProgramEvaluationTypeDescriptor.EdFi.ProgramEvaluationTypeDescriptor,
+        Entities.Common.EdFi.IProgramEvaluationTypeDescriptor,
+        Entities.NHibernate.ProgramEvaluationTypeDescriptorAggregate.EdFi.ProgramEvaluationTypeDescriptor,
+        Api.Common.Models.Requests.ProgramEvaluationTypeDescriptors.EdFi.ProgramEvaluationTypeDescriptorPut,
+        Api.Common.Models.Requests.ProgramEvaluationTypeDescriptors.EdFi.ProgramEvaluationTypeDescriptorPost,
+        Api.Common.Models.Requests.ProgramEvaluationTypeDescriptors.EdFi.ProgramEvaluationTypeDescriptorDelete,
+        Api.Common.Models.Requests.ProgramEvaluationTypeDescriptors.EdFi.ProgramEvaluationTypeDescriptorGetByExample>
+    {
+        public ProgramEvaluationTypeDescriptorsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
+            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ProgramEvaluationTypeDescriptors.EdFi.ProgramEvaluationTypeDescriptorGetByExample request, Entities.Common.EdFi.IProgramEvaluationTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.ProgramEvaluationTypeDescriptorId = request.ProgramEvaluationTypeDescriptorId;
         }
     }
 }

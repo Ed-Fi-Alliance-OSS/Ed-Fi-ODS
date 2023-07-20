@@ -983,30 +983,12 @@ BEGIN
 
 END
 
-IF NOT EXISTS(SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/evaluationPeriodDescriptor' AND Application_ApplicationId = @applicationId)
-BEGIN
-
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-    VALUES (N'evaluationPeriodDescriptor', N'evaluationPeriodDescriptor', N'http://ed-fi.org/ods/identity/claims/evaluationPeriodDescriptor',
-@systemDescriptorsResourceClaimId, @applicationId);
-
-END
-
 IF NOT EXISTS(SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/evaluationRubricDimension' AND Application_ApplicationId = @applicationId)
 BEGIN
 
     INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
     VALUES (N'evaluationRubricDimension', N'evaluationRubricDimension', N'http://ed-fi.org/ods/identity/claims/evaluationRubricDimension',
 @relationshipBasedDataResourceClaimId, @applicationId);
-
-END
-
-IF NOT EXISTS(SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/evaluationTypeDescriptor' AND Application_ApplicationId = @applicationId)
-BEGIN
-
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-    VALUES (N'evaluationTypeDescriptor', N'evaluationTypeDescriptor', N'http://ed-fi.org/ods/identity/claims/evaluationTypeDescriptor',
-@systemDescriptorsResourceClaimId, @applicationId);
 
 END
 
@@ -1880,6 +1862,24 @@ BEGIN
     INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
     VALUES (N'programEvaluationObjective', N'programEvaluationObjective', N'http://ed-fi.org/ods/identity/claims/programEvaluationObjective',
 @relationshipBasedDataResourceClaimId, @applicationId);
+
+END
+
+IF NOT EXISTS(SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/programEvaluationPeriodDescriptor' AND Application_ApplicationId = @applicationId)
+BEGIN
+
+    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+    VALUES (N'programEvaluationPeriodDescriptor', N'programEvaluationPeriodDescriptor', N'http://ed-fi.org/ods/identity/claims/programEvaluationPeriodDescriptor',
+@systemDescriptorsResourceClaimId, @applicationId);
+
+END
+
+IF NOT EXISTS(SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/programEvaluationTypeDescriptor' AND Application_ApplicationId = @applicationId)
+BEGIN
+
+    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+    VALUES (N'programEvaluationTypeDescriptor', N'programEvaluationTypeDescriptor', N'http://ed-fi.org/ods/identity/claims/programEvaluationTypeDescriptor',
+@systemDescriptorsResourceClaimId, @applicationId);
 
 END
 

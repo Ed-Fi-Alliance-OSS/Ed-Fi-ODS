@@ -3993,34 +3993,6 @@
 
           <!-- Collections -->
       </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.EvaluationPeriodDescriptorAggregate.EdFi.EvaluationPeriodDescriptor" table="EvaluationPeriodDescriptor" lazy="false">
-          <key>
-            <column name="EvaluationPeriodDescriptorId" />
-          </key>
-
-          <!-- PK properties -->
-          <property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" not-null="true" insert="false" update="false"/>
-
-          <!-- Properties -->
-
-          <!-- Aggregate references -->
-
-          <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.EvaluationTypeDescriptorAggregate.EdFi.EvaluationTypeDescriptor" table="EvaluationTypeDescriptor" lazy="false">
-          <key>
-            <column name="EvaluationTypeDescriptorId" />
-          </key>
-
-          <!-- PK properties -->
-          <property name="EvaluationTypeDescriptorId" column="EvaluationTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
-
-          <!-- Properties -->
-
-          <!-- Aggregate references -->
-
-          <!-- Collections -->
-      </joined-subclass>
     <joined-subclass name="EdFi.Ods.Entities.NHibernate.EventCircumstanceDescriptorAggregate.EdFi.EventCircumstanceDescriptor" table="EventCircumstanceDescriptor" lazy="false">
           <key>
             <column name="EventCircumstanceDescriptorId" />
@@ -4910,6 +4882,34 @@
 
           <!-- PK properties -->
           <property name="ProgramCharacteristicDescriptorId" column="ProgramCharacteristicDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ProgramEvaluationPeriodDescriptorAggregate.EdFi.ProgramEvaluationPeriodDescriptor" table="ProgramEvaluationPeriodDescriptor" lazy="false">
+          <key>
+            <column name="ProgramEvaluationPeriodDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="ProgramEvaluationPeriodDescriptorId" column="ProgramEvaluationPeriodDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ProgramEvaluationTypeDescriptorAggregate.EdFi.ProgramEvaluationTypeDescriptor" table="ProgramEvaluationTypeDescriptor" lazy="false">
+          <key>
+            <column name="ProgramEvaluationTypeDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="ProgramEvaluationTypeDescriptorId" column="ProgramEvaluationTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
 
