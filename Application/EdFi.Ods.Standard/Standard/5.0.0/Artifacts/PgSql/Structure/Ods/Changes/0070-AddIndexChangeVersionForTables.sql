@@ -59,6 +59,8 @@ CREATE INDEX IF NOT EXISTS UX_252151_ChangeVersion ON edfi.EducationOrganization
 
 CREATE INDEX IF NOT EXISTS UX_74e4e5_ChangeVersion ON edfi.EducationOrganizationPeerAssociation(ChangeVersion);
 
+CREATE INDEX IF NOT EXISTS UX_1b7ccf_ChangeVersion ON edfi.EvaluationRubricDimension(ChangeVersion);
+
 CREATE INDEX IF NOT EXISTS UX_11f7b6_ChangeVersion ON edfi.FeederSchoolAssociation(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_c4d12e_ChangeVersion ON edfi.FunctionDimension(ChangeVersion);
@@ -114,6 +116,12 @@ CREATE INDEX IF NOT EXISTS UX_b8b6d7_ChangeVersion ON edfi.PostSecondaryEvent(Ch
 CREATE INDEX IF NOT EXISTS UX_90920d_ChangeVersion ON edfi.Program(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_a9a613_ChangeVersion ON edfi.ProgramDimension(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_f3a20e_ChangeVersion ON edfi.ProgramEvaluation(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_784616_ChangeVersion ON edfi.ProgramEvaluationElement(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_a53c6c_ChangeVersion ON edfi.ProgramEvaluationObjective(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_d16e19_ChangeVersion ON edfi.ProjectDimension(ChangeVersion);
 
@@ -182,6 +190,8 @@ CREATE INDEX IF NOT EXISTS UX_25cb9c_ChangeVersion ON edfi.StudentInterventionAs
 CREATE INDEX IF NOT EXISTS UX_631023_ChangeVersion ON edfi.StudentInterventionAttendanceEvent(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_317aeb_ChangeVersion ON edfi.StudentProgramAttendanceEvent(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_4b1054_ChangeVersion ON edfi.StudentProgramEvaluation(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_857b52_ChangeVersion ON edfi.StudentSchoolAssociation(ChangeVersion);
 

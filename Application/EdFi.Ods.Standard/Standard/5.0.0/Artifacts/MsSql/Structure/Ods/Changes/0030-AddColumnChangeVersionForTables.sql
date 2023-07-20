@@ -229,6 +229,14 @@ ALTER TABLE [edfi].[EducationOrganizationPeerAssociation] ADD CONSTRAINT Educati
 END
 
 
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[EvaluationRubricDimension]') AND name = 'ChangeVersion')
+BEGIN
+ALTER TABLE [edfi].[EvaluationRubricDimension] ADD [ChangeVersion] [BIGINT] CONSTRAINT EvaluationRubricDimension_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[EvaluationRubricDimension] DROP CONSTRAINT EvaluationRubricDimension_DF_ChangeVersion;
+ALTER TABLE [edfi].[EvaluationRubricDimension] ADD CONSTRAINT EvaluationRubricDimension_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+END
+
+
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[FeederSchoolAssociation]') AND name = 'ChangeVersion')
 BEGIN
 ALTER TABLE [edfi].[FeederSchoolAssociation] ADD [ChangeVersion] [BIGINT] CONSTRAINT FeederSchoolAssociation_DF_ChangeVersion DEFAULT (0) NOT NULL;
@@ -450,6 +458,30 @@ BEGIN
 ALTER TABLE [edfi].[ProgramDimension] ADD [ChangeVersion] [BIGINT] CONSTRAINT ProgramDimension_DF_ChangeVersion DEFAULT (0) NOT NULL;
 ALTER TABLE [edfi].[ProgramDimension] DROP CONSTRAINT ProgramDimension_DF_ChangeVersion;
 ALTER TABLE [edfi].[ProgramDimension] ADD CONSTRAINT ProgramDimension_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+END
+
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[ProgramEvaluation]') AND name = 'ChangeVersion')
+BEGIN
+ALTER TABLE [edfi].[ProgramEvaluation] ADD [ChangeVersion] [BIGINT] CONSTRAINT ProgramEvaluation_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[ProgramEvaluation] DROP CONSTRAINT ProgramEvaluation_DF_ChangeVersion;
+ALTER TABLE [edfi].[ProgramEvaluation] ADD CONSTRAINT ProgramEvaluation_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+END
+
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[ProgramEvaluationElement]') AND name = 'ChangeVersion')
+BEGIN
+ALTER TABLE [edfi].[ProgramEvaluationElement] ADD [ChangeVersion] [BIGINT] CONSTRAINT ProgramEvaluationElement_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[ProgramEvaluationElement] DROP CONSTRAINT ProgramEvaluationElement_DF_ChangeVersion;
+ALTER TABLE [edfi].[ProgramEvaluationElement] ADD CONSTRAINT ProgramEvaluationElement_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+END
+
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[ProgramEvaluationObjective]') AND name = 'ChangeVersion')
+BEGIN
+ALTER TABLE [edfi].[ProgramEvaluationObjective] ADD [ChangeVersion] [BIGINT] CONSTRAINT ProgramEvaluationObjective_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[ProgramEvaluationObjective] DROP CONSTRAINT ProgramEvaluationObjective_DF_ChangeVersion;
+ALTER TABLE [edfi].[ProgramEvaluationObjective] ADD CONSTRAINT ProgramEvaluationObjective_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
 END
 
 
@@ -722,6 +754,14 @@ BEGIN
 ALTER TABLE [edfi].[StudentProgramAttendanceEvent] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentProgramAttendanceEvent_DF_ChangeVersion DEFAULT (0) NOT NULL;
 ALTER TABLE [edfi].[StudentProgramAttendanceEvent] DROP CONSTRAINT StudentProgramAttendanceEvent_DF_ChangeVersion;
 ALTER TABLE [edfi].[StudentProgramAttendanceEvent] ADD CONSTRAINT StudentProgramAttendanceEvent_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+END
+
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StudentProgramEvaluation]') AND name = 'ChangeVersion')
+BEGIN
+ALTER TABLE [edfi].[StudentProgramEvaluation] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentProgramEvaluation_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[StudentProgramEvaluation] DROP CONSTRAINT StudentProgramEvaluation_DF_ChangeVersion;
+ALTER TABLE [edfi].[StudentProgramEvaluation] ADD CONSTRAINT StudentProgramEvaluation_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
 END
 
 

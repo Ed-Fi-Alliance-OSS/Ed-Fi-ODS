@@ -59,6 +59,8 @@ ALTER TABLE [edfi].[EducationOrganizationNetworkAssociation] ADD [CreatedByOwner
 
 ALTER TABLE [edfi].[EducationOrganizationPeerAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
+ALTER TABLE [edfi].[EvaluationRubricDimension] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+
 ALTER TABLE [edfi].[FeederSchoolAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[FunctionDimension] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
@@ -114,6 +116,12 @@ ALTER TABLE [edfi].[PostSecondaryEvent] ADD [CreatedByOwnershipTokenId] SMALLINT
 ALTER TABLE [edfi].[Program] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[ProgramDimension] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+
+ALTER TABLE [edfi].[ProgramEvaluation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+
+ALTER TABLE [edfi].[ProgramEvaluationElement] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+
+ALTER TABLE [edfi].[ProgramEvaluationObjective] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[ProjectDimension] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
@@ -182,6 +190,8 @@ ALTER TABLE [edfi].[StudentInterventionAssociation] ADD [CreatedByOwnershipToken
 ALTER TABLE [edfi].[StudentInterventionAttendanceEvent] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[StudentProgramAttendanceEvent] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+
+ALTER TABLE [edfi].[StudentProgramEvaluation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[StudentSchoolAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
