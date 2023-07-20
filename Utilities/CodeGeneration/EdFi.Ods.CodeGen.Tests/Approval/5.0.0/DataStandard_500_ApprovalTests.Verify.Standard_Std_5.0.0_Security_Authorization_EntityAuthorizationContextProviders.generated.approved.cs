@@ -32,6 +32,7 @@ using EdFi.Ods.Entities.NHibernate.EducationOrganizationNetworkAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.EducationOrganizationNetworkAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.EducationOrganizationPeerAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.EducationServiceCenterAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.EvaluationRubricDimensionAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.FeederSchoolAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.GeneralStudentProgramAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.GradeAggregate.EdFi;
@@ -54,6 +55,9 @@ using EdFi.Ods.Entities.NHibernate.OrganizationDepartmentAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.PostSecondaryEventAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.PostSecondaryInstitutionAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.ProgramAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.ProgramEvaluationAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.ProgramEvaluationElementAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.ProgramEvaluationObjectiveAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.ReportCardAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.RestraintEventAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.SchoolAggregate.EdFi;
@@ -93,6 +97,7 @@ using EdFi.Ods.Entities.NHibernate.StudentMigrantEducationProgramAssociationAggr
 using EdFi.Ods.Entities.NHibernate.StudentNeglectedOrDelinquentProgramAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentProgramAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentProgramAttendanceEventAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.StudentProgramEvaluationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentSchoolAttendanceEventAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentSchoolFoodServiceProgramAssociationAggregate.EdFi;
@@ -1238,6 +1243,50 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
     }
 
     /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.EvaluationRubricDimension table of the EvaluationRubricDimension aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRubricDimensionRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IEvaluationRubricDimension, TContextData>
+        where TContextData : RelationshipsAuthorizationContextData, new()
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(IEvaluationRubricDimension resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'evaluationRubricDimension' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as EvaluationRubricDimension;
+
+            var contextData = new TContextData();
+            // ProgramEducationOrganizationId = entity.ProgramEducationOrganizationId, // Primary key property, Role name applied
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    // "ProgramEducationOrganizationId",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(object resource)
+        {
+            return GetContextData((EvaluationRubricDimension) resource);
+        }
+    }
+
+    /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.FeederSchoolAssociation table of the FeederSchoolAssociation aggregate in the Ods Database.
     /// </summary>
     [ExcludeFromCodeCoverage]
@@ -2228,6 +2277,138 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Program) resource);
+        }
+    }
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.ProgramEvaluation table of the ProgramEvaluation aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IProgramEvaluation, TContextData>
+        where TContextData : RelationshipsAuthorizationContextData, new()
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(IProgramEvaluation resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'programEvaluation' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as ProgramEvaluation;
+
+            var contextData = new TContextData();
+            // ProgramEducationOrganizationId = entity.ProgramEducationOrganizationId, // Primary key property, Role name applied
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    // "ProgramEducationOrganizationId",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(object resource)
+        {
+            return GetContextData((ProgramEvaluation) resource);
+        }
+    }
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.ProgramEvaluationElement table of the ProgramEvaluationElement aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationElementRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IProgramEvaluationElement, TContextData>
+        where TContextData : RelationshipsAuthorizationContextData, new()
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(IProgramEvaluationElement resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'programEvaluationElement' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as ProgramEvaluationElement;
+
+            var contextData = new TContextData();
+            // ProgramEducationOrganizationId = entity.ProgramEducationOrganizationId, // Primary key property, Role name applied
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    // "ProgramEducationOrganizationId",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(object resource)
+        {
+            return GetContextData((ProgramEvaluationElement) resource);
+        }
+    }
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.ProgramEvaluationObjective table of the ProgramEvaluationObjective aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationObjectiveRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IProgramEvaluationObjective, TContextData>
+        where TContextData : RelationshipsAuthorizationContextData, new()
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(IProgramEvaluationObjective resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'programEvaluationObjective' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as ProgramEvaluationObjective;
+
+            var contextData = new TContextData();
+            // ProgramEducationOrganizationId = entity.ProgramEducationOrganizationId, // Primary key property, Role name applied
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    // "ProgramEducationOrganizationId",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(object resource)
+        {
+            return GetContextData((ProgramEvaluationObjective) resource);
         }
     }
 
@@ -4030,6 +4211,56 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentProgramAttendanceEvent) resource);
+        }
+    }
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentProgramEvaluation table of the StudentProgramEvaluation aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class StudentProgramEvaluationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentProgramEvaluation, TContextData>
+        where TContextData : RelationshipsAuthorizationContextData, new()
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(IStudentProgramEvaluation resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'studentProgramEvaluation' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as StudentProgramEvaluation;
+
+            var contextData = new TContextData();
+            // EducationOrganizationId = entity.EducationOrganizationId, // Not part of primary key
+            // ProgramEducationOrganizationId = entity.ProgramEducationOrganizationId, // Primary key property, Role name applied
+            // StaffEvaluatorStaffUSI = entity.StaffEvaluatorStaffUSI, // Not part of primary key
+            contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    // "EducationOrganizationId",
+                    // "ProgramEducationOrganizationId",
+                    // "StaffEvaluatorStaffUSI",
+                    "StudentUSI",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(object resource)
+        {
+            return GetContextData((StudentProgramEvaluation) resource);
         }
     }
 

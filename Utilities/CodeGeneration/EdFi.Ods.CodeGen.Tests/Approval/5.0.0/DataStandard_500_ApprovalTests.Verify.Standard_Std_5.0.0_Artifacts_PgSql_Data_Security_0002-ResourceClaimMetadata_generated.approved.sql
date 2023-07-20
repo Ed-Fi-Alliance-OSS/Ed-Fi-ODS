@@ -551,6 +551,21 @@ begin
     values ('evaluationDelayReasonDescriptor', 'evaluationDelayReasonDescriptor', 'http://ed-fi.org/ods/identity/claims/evaluationDelayReasonDescriptor', systemDescriptorsResourceClaimId, application_id);
     END IF;
 
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='evaluationPeriodDescriptor') THEN
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('evaluationPeriodDescriptor', 'evaluationPeriodDescriptor', 'http://ed-fi.org/ods/identity/claims/evaluationPeriodDescriptor', systemDescriptorsResourceClaimId, application_id);
+    END IF;
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='evaluationRubricDimension') THEN
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('evaluationRubricDimension', 'evaluationRubricDimension', 'http://ed-fi.org/ods/identity/claims/evaluationRubricDimension', relationshipBasedDataResourceClaimId, application_id);
+    END IF;
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='evaluationTypeDescriptor') THEN
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('evaluationTypeDescriptor', 'evaluationTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/evaluationTypeDescriptor', systemDescriptorsResourceClaimId, application_id);
+    END IF;
+
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='eventCircumstanceDescriptor') THEN
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('eventCircumstanceDescriptor', 'eventCircumstanceDescriptor', 'http://ed-fi.org/ods/identity/claims/eventCircumstanceDescriptor', systemDescriptorsResourceClaimId, application_id);
@@ -1021,6 +1036,21 @@ begin
     values ('programDimension', 'programDimension', 'http://ed-fi.org/ods/identity/claims/programDimension', relationshipBasedDataResourceClaimId, application_id);
     END IF;
 
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='programEvaluation') THEN
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('programEvaluation', 'programEvaluation', 'http://ed-fi.org/ods/identity/claims/programEvaluation', relationshipBasedDataResourceClaimId, application_id);
+    END IF;
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='programEvaluationElement') THEN
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('programEvaluationElement', 'programEvaluationElement', 'http://ed-fi.org/ods/identity/claims/programEvaluationElement', relationshipBasedDataResourceClaimId, application_id);
+    END IF;
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='programEvaluationObjective') THEN
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('programEvaluationObjective', 'programEvaluationObjective', 'http://ed-fi.org/ods/identity/claims/programEvaluationObjective', relationshipBasedDataResourceClaimId, application_id);
+    END IF;
+
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='programSponsorDescriptor') THEN
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('programSponsorDescriptor', 'programSponsorDescriptor', 'http://ed-fi.org/ods/identity/claims/programSponsorDescriptor', systemDescriptorsResourceClaimId, application_id);
@@ -1074,6 +1104,11 @@ begin
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='raceDescriptor') THEN
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('raceDescriptor', 'raceDescriptor', 'http://ed-fi.org/ods/identity/claims/raceDescriptor', systemDescriptorsResourceClaimId, application_id);
+    END IF;
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='ratingLevelDescriptor') THEN
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('ratingLevelDescriptor', 'ratingLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/ratingLevelDescriptor', systemDescriptorsResourceClaimId, application_id);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='reasonExitedDescriptor') THEN
@@ -1444,6 +1479,11 @@ begin
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentProgramAttendanceEvent') THEN
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('studentProgramAttendanceEvent', 'studentProgramAttendanceEvent', 'http://ed-fi.org/ods/identity/claims/studentProgramAttendanceEvent', relationshipBasedDataResourceClaimId, application_id);
+    END IF;
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentProgramEvaluation') THEN
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('studentProgramEvaluation', 'studentProgramEvaluation', 'http://ed-fi.org/ods/identity/claims/studentProgramEvaluation', relationshipBasedDataResourceClaimId, application_id);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentSchoolAssociation') THEN

@@ -12434,13 +12434,6 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseAggregate
 
             // Copy non-PK properties
 
-            if ((mappingContract?.IsAcademicSubjectDescriptorSupported != false)
-                && target.AcademicSubjectDescriptor != source.AcademicSubjectDescriptor)
-            {
-                target.AcademicSubjectDescriptor = source.AcademicSubjectDescriptor;
-                isModified = true;
-            }
-
             if ((mappingContract?.IsCareerPathwayDescriptorSupported != false)
                 && target.CareerPathwayDescriptor != source.CareerPathwayDescriptor)
             {
@@ -12555,6 +12548,18 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseAggregate
 
 
             // Sync lists
+            if (mappingContract?.IsCourseAcademicSubjectsSupported ?? true)
+            {
+                isModified |=
+                    source.CourseAcademicSubjects.SynchronizeCollectionTo(
+                        target.CourseAcademicSubjects,
+                        onChildAdded: child =>
+                            {
+                                child.Course = target;
+                            },
+                        includeItem: item => mappingContract?.IsCourseAcademicSubjectIncluded?.Invoke(item) ?? true);
+            }
+
             if (mappingContract?.IsCourseCompetencyLevelsSupported ?? true)
             {
                 isModified |=
@@ -12637,9 +12642,6 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseAggregate
 
             // Copy non-PK properties
 
-            if (mappingContract?.IsAcademicSubjectDescriptorSupported != false)
-                target.AcademicSubjectDescriptor = source.AcademicSubjectDescriptor;
-
             if (mappingContract?.IsCareerPathwayDescriptorSupported != false)
                 target.CareerPathwayDescriptor = source.CareerPathwayDescriptor;
 
@@ -12704,6 +12706,11 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseAggregate
 
             // Map lists
 
+            if (mappingContract?.IsCourseAcademicSubjectsSupported != false)
+            {
+                source.CourseAcademicSubjects.MapCollectionTo(target.CourseAcademicSubjects, target, mappingContract?.IsCourseAcademicSubjectIncluded);
+            }
+
             if (mappingContract?.IsCourseCompetencyLevelsSupported != false)
             {
                 source.CourseCompetencyLevels.MapCollectionTo(target.CourseCompetencyLevels, target, mappingContract?.IsCourseCompetencyLevelIncluded);
@@ -12728,6 +12735,76 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseAggregate
             {
                 source.CourseOfferedGradeLevels.MapCollectionTo(target.CourseOfferedGradeLevels, target, mappingContract?.IsCourseOfferedGradeLevelIncluded);
             }
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class CourseAcademicSubjectMapper
+    {
+        private static readonly FullName _fullName_edfi_CourseAcademicSubject = new FullName("edfi", "CourseAcademicSubject");
+    
+        public static bool SynchronizeTo(this ICourseAcademicSubject source, ICourseAcademicSubject target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CourseAcademicSubjectMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_CourseAcademicSubject);
+
+
+            // Copy non-PK properties
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this ICourseAcademicSubject source, ICourseAcademicSubject target, Action<ICourseAcademicSubject, ICourseAcademicSubject> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CourseAcademicSubjectMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_CourseAcademicSubject);
+    
+            // Copy contextual primary key values
+            target.AcademicSubjectDescriptor = source.AcademicSubjectDescriptor;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
 
             // Map extensions
             source.MapExtensionsTo(target, mappingContract);
@@ -23968,6 +24045,467 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EvaluationDelayReasonDescriptorAggreg
 
             // Copy contextual primary key values
             target.EvaluationDelayReasonDescriptorId = source.EvaluationDelayReasonDescriptorId;
+
+            // Copy inherited non-PK properties
+
+            if (mappingContract?.IsCodeValueSupported != false)
+                target.CodeValue = source.CodeValue;
+
+            if (mappingContract?.IsDescriptionSupported != false)
+                target.Description = source.Description;
+
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
+                target.EffectiveEndDate = source.EffectiveEndDate;
+
+            if (mappingContract?.IsNamespaceSupported != false)
+                target.Namespace = source.Namespace;
+
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
+                target.PriorDescriptorId = source.PriorDescriptorId;
+
+            if (mappingContract?.IsShortDescriptionSupported != false)
+                target.ShortDescription = source.ShortDescription;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map inherited lists
+
+            // Map lists
+
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+}
+// Aggregate: EvaluationPeriodDescriptor
+
+namespace EdFi.Ods.Entities.Common.EdFi //.EvaluationPeriodDescriptorAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class EvaluationPeriodDescriptorMapper
+    {
+        private static readonly FullName _fullName_edfi_EvaluationPeriodDescriptor = new FullName("edfi", "EvaluationPeriodDescriptor");
+    
+        public static bool SynchronizeTo(this IEvaluationPeriodDescriptor source, IEvaluationPeriodDescriptor target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationPeriodDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_EvaluationPeriodDescriptor);
+
+            // Detect primary key changes
+            if (
+                 (target.EvaluationPeriodDescriptorId != source.EvaluationPeriodDescriptorId))
+            {
+                // Disallow PK column updates on EvaluationPeriodDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
+
+
+            // Copy inherited non-PK properties
+
+
+            if ((mappingContract?.IsCodeValueSupported != false)
+                && target.CodeValue != source.CodeValue)
+            {
+                target.CodeValue = source.CodeValue;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsDescriptionSupported != false)
+                && target.Description != source.Description)
+            {
+                target.Description = source.Description;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
+                && target.EffectiveBeginDate != source.EffectiveBeginDate)
+            {
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
+                && target.EffectiveEndDate != source.EffectiveEndDate)
+            {
+                target.EffectiveEndDate = source.EffectiveEndDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsNamespaceSupported != false)
+                && target.Namespace != source.Namespace)
+            {
+                target.Namespace = source.Namespace;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
+                && target.PriorDescriptorId != source.PriorDescriptorId)
+            {
+                target.PriorDescriptorId = source.PriorDescriptorId;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsShortDescriptionSupported != false)
+                && target.ShortDescription != source.ShortDescription)
+            {
+                target.ShortDescription = source.ShortDescription;
+                isModified = true;
+            }
+
+            // Copy non-PK properties
+
+
+            // Synch inherited lists
+
+            // Sync lists
+
+            return isModified;
+        }
+
+        public static void MapTo(this IEvaluationPeriodDescriptor source, IEvaluationPeriodDescriptor target, Action<IEvaluationPeriodDescriptor, IEvaluationPeriodDescriptor> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationPeriodDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_EvaluationPeriodDescriptor);
+    
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.EvaluationPeriodDescriptorId = source.EvaluationPeriodDescriptorId;
+
+            // Copy inherited non-PK properties
+
+            if (mappingContract?.IsCodeValueSupported != false)
+                target.CodeValue = source.CodeValue;
+
+            if (mappingContract?.IsDescriptionSupported != false)
+                target.Description = source.Description;
+
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
+                target.EffectiveEndDate = source.EffectiveEndDate;
+
+            if (mappingContract?.IsNamespaceSupported != false)
+                target.Namespace = source.Namespace;
+
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
+                target.PriorDescriptorId = source.PriorDescriptorId;
+
+            if (mappingContract?.IsShortDescriptionSupported != false)
+                target.ShortDescription = source.ShortDescription;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map inherited lists
+
+            // Map lists
+
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+}
+// Aggregate: EvaluationRubricDimension
+
+namespace EdFi.Ods.Entities.Common.EdFi //.EvaluationRubricDimensionAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class EvaluationRubricDimensionMapper
+    {
+        private static readonly FullName _fullName_edfi_EvaluationRubricDimension = new FullName("edfi", "EvaluationRubricDimension");
+    
+        public static bool SynchronizeTo(this IEvaluationRubricDimension source, IEvaluationRubricDimension target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationRubricDimensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_EvaluationRubricDimension);
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
+            // Detect primary key changes
+            if (
+                 (target.EvaluationRubricRating != source.EvaluationRubricRating)
+                || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
+                || (!keyStringComparer.Equals(target.ProgramEvaluationElementTitle, source.ProgramEvaluationElementTitle))
+                || (target.ProgramEvaluationPeriodDescriptor != source.ProgramEvaluationPeriodDescriptor)
+                || (!keyStringComparer.Equals(target.ProgramEvaluationTitle, source.ProgramEvaluationTitle))
+                || (target.ProgramEvaluationTypeDescriptor != source.ProgramEvaluationTypeDescriptor)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
+                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor))
+            {
+                // Disallow PK column updates on EvaluationRubricDimension
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
+
+
+            // Copy non-PK properties
+
+            if ((mappingContract?.IsEvaluationCriterionDescriptionSupported != false)
+                && target.EvaluationCriterionDescription != source.EvaluationCriterionDescription)
+            {
+                target.EvaluationCriterionDescription = source.EvaluationCriterionDescription;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEvaluationRubricRatingLevelDescriptorSupported != false)
+                && target.EvaluationRubricRatingLevelDescriptor != source.EvaluationRubricRatingLevelDescriptor)
+            {
+                target.EvaluationRubricRatingLevelDescriptor = source.EvaluationRubricRatingLevelDescriptor;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsRubricDimensionSortOrderSupported != false)
+                && target.RubricDimensionSortOrder != source.RubricDimensionSortOrder)
+            {
+                target.RubricDimensionSortOrder = source.RubricDimensionSortOrder;
+                isModified = true;
+            }
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this IEvaluationRubricDimension source, IEvaluationRubricDimension target, Action<IEvaluationRubricDimension, IEvaluationRubricDimension> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationRubricDimensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_EvaluationRubricDimension);
+    
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.EvaluationRubricRating = source.EvaluationRubricRating;
+            target.ProgramEducationOrganizationId = source.ProgramEducationOrganizationId;
+            target.ProgramEvaluationElementTitle = source.ProgramEvaluationElementTitle;
+            target.ProgramEvaluationPeriodDescriptor = source.ProgramEvaluationPeriodDescriptor;
+            target.ProgramEvaluationTitle = source.ProgramEvaluationTitle;
+            target.ProgramEvaluationTypeDescriptor = source.ProgramEvaluationTypeDescriptor;
+            target.ProgramName = source.ProgramName;
+            target.ProgramTypeDescriptor = source.ProgramTypeDescriptor;
+
+            // Copy non-PK properties
+
+            if (mappingContract?.IsEvaluationCriterionDescriptionSupported != false)
+                target.EvaluationCriterionDescription = source.EvaluationCriterionDescription;
+
+            if (mappingContract?.IsEvaluationRubricRatingLevelDescriptorSupported != false)
+                target.EvaluationRubricRatingLevelDescriptor = source.EvaluationRubricRatingLevelDescriptor;
+
+            if (mappingContract?.IsRubricDimensionSortOrderSupported != false)
+                target.RubricDimensionSortOrder = source.RubricDimensionSortOrder;
+
+            // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.ProgramEvaluationElementResourceId = source.ProgramEvaluationElementResourceId;
+                target.ProgramEvaluationElementDiscriminator = source.ProgramEvaluationElementDiscriminator;
+            }
+
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+}
+// Aggregate: EvaluationTypeDescriptor
+
+namespace EdFi.Ods.Entities.Common.EdFi //.EvaluationTypeDescriptorAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class EvaluationTypeDescriptorMapper
+    {
+        private static readonly FullName _fullName_edfi_EvaluationTypeDescriptor = new FullName("edfi", "EvaluationTypeDescriptor");
+    
+        public static bool SynchronizeTo(this IEvaluationTypeDescriptor source, IEvaluationTypeDescriptor target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_EvaluationTypeDescriptor);
+
+            // Detect primary key changes
+            if (
+                 (target.EvaluationTypeDescriptorId != source.EvaluationTypeDescriptorId))
+            {
+                // Disallow PK column updates on EvaluationTypeDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
+
+
+            // Copy inherited non-PK properties
+
+
+            if ((mappingContract?.IsCodeValueSupported != false)
+                && target.CodeValue != source.CodeValue)
+            {
+                target.CodeValue = source.CodeValue;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsDescriptionSupported != false)
+                && target.Description != source.Description)
+            {
+                target.Description = source.Description;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
+                && target.EffectiveBeginDate != source.EffectiveBeginDate)
+            {
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
+                && target.EffectiveEndDate != source.EffectiveEndDate)
+            {
+                target.EffectiveEndDate = source.EffectiveEndDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsNamespaceSupported != false)
+                && target.Namespace != source.Namespace)
+            {
+                target.Namespace = source.Namespace;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
+                && target.PriorDescriptorId != source.PriorDescriptorId)
+            {
+                target.PriorDescriptorId = source.PriorDescriptorId;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsShortDescriptionSupported != false)
+                && target.ShortDescription != source.ShortDescription)
+            {
+                target.ShortDescription = source.ShortDescription;
+                isModified = true;
+            }
+
+            // Copy non-PK properties
+
+
+            // Synch inherited lists
+
+            // Sync lists
+
+            return isModified;
+        }
+
+        public static void MapTo(this IEvaluationTypeDescriptor source, IEvaluationTypeDescriptor target, Action<IEvaluationTypeDescriptor, IEvaluationTypeDescriptor> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_EvaluationTypeDescriptor);
+    
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.EvaluationTypeDescriptorId = source.EvaluationTypeDescriptorId;
 
             // Copy inherited non-PK properties
 
@@ -44757,6 +45295,768 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramDimensionAggregate
     }
 
 }
+// Aggregate: ProgramEvaluation
+
+namespace EdFi.Ods.Entities.Common.EdFi //.ProgramEvaluationAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class ProgramEvaluationMapper
+    {
+        private static readonly FullName _fullName_edfi_ProgramEvaluation = new FullName("edfi", "ProgramEvaluation");
+    
+        public static bool SynchronizeTo(this IProgramEvaluation source, IProgramEvaluation target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ProgramEvaluationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ProgramEvaluation);
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
+            // Detect primary key changes
+            if (
+                 (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
+                || (target.ProgramEvaluationPeriodDescriptor != source.ProgramEvaluationPeriodDescriptor)
+                || (!keyStringComparer.Equals(target.ProgramEvaluationTitle, source.ProgramEvaluationTitle))
+                || (target.ProgramEvaluationTypeDescriptor != source.ProgramEvaluationTypeDescriptor)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
+                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor))
+            {
+                // Disallow PK column updates on ProgramEvaluation
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
+
+
+            // Copy non-PK properties
+
+            if ((mappingContract?.IsEvaluationMaxNumericRatingSupported != false)
+                && target.EvaluationMaxNumericRating != source.EvaluationMaxNumericRating)
+            {
+                target.EvaluationMaxNumericRating = source.EvaluationMaxNumericRating;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEvaluationMinNumericRatingSupported != false)
+                && target.EvaluationMinNumericRating != source.EvaluationMinNumericRating)
+            {
+                target.EvaluationMinNumericRating = source.EvaluationMinNumericRating;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsProgramEvaluationDescriptionSupported != false)
+                && target.ProgramEvaluationDescription != source.ProgramEvaluationDescription)
+            {
+                target.ProgramEvaluationDescription = source.ProgramEvaluationDescription;
+                isModified = true;
+            }
+
+
+            // Sync lists
+            if (mappingContract?.IsProgramEvaluationRatingLevelsSupported ?? true)
+            {
+                isModified |=
+                    source.ProgramEvaluationRatingLevels.SynchronizeCollectionTo(
+                        target.ProgramEvaluationRatingLevels,
+                        onChildAdded: child =>
+                            {
+                                child.ProgramEvaluation = target;
+                            },
+                        includeItem: item => mappingContract?.IsProgramEvaluationRatingLevelIncluded?.Invoke(item) ?? true);
+            }
+
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this IProgramEvaluation source, IProgramEvaluation target, Action<IProgramEvaluation, IProgramEvaluation> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ProgramEvaluationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ProgramEvaluation);
+    
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.ProgramEducationOrganizationId = source.ProgramEducationOrganizationId;
+            target.ProgramEvaluationPeriodDescriptor = source.ProgramEvaluationPeriodDescriptor;
+            target.ProgramEvaluationTitle = source.ProgramEvaluationTitle;
+            target.ProgramEvaluationTypeDescriptor = source.ProgramEvaluationTypeDescriptor;
+            target.ProgramName = source.ProgramName;
+            target.ProgramTypeDescriptor = source.ProgramTypeDescriptor;
+
+            // Copy non-PK properties
+
+            if (mappingContract?.IsEvaluationMaxNumericRatingSupported != false)
+                target.EvaluationMaxNumericRating = source.EvaluationMaxNumericRating;
+
+            if (mappingContract?.IsEvaluationMinNumericRatingSupported != false)
+                target.EvaluationMinNumericRating = source.EvaluationMinNumericRating;
+
+            if (mappingContract?.IsProgramEvaluationDescriptionSupported != false)
+                target.ProgramEvaluationDescription = source.ProgramEvaluationDescription;
+
+            // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.ProgramResourceId = source.ProgramResourceId;
+                target.ProgramDiscriminator = source.ProgramDiscriminator;
+            }
+
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            if (mappingContract?.IsProgramEvaluationRatingLevelsSupported != false)
+            {
+                source.ProgramEvaluationRatingLevels.MapCollectionTo(target.ProgramEvaluationRatingLevels, target, mappingContract?.IsProgramEvaluationRatingLevelIncluded);
+            }
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class ProgramEvaluationRatingLevelMapper
+    {
+        private static readonly FullName _fullName_edfi_ProgramEvaluationRatingLevel = new FullName("edfi", "ProgramEvaluationRatingLevel");
+    
+        public static bool SynchronizeTo(this IProgramEvaluationRatingLevel source, IProgramEvaluationRatingLevel target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ProgramEvaluationRatingLevelMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ProgramEvaluationRatingLevel);
+
+
+            // Copy non-PK properties
+
+            if ((mappingContract?.IsMaxNumericRatingSupported != false)
+                && target.MaxNumericRating != source.MaxNumericRating)
+            {
+                target.MaxNumericRating = source.MaxNumericRating;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsMinNumericRatingSupported != false)
+                && target.MinNumericRating != source.MinNumericRating)
+            {
+                target.MinNumericRating = source.MinNumericRating;
+                isModified = true;
+            }
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this IProgramEvaluationRatingLevel source, IProgramEvaluationRatingLevel target, Action<IProgramEvaluationRatingLevel, IProgramEvaluationRatingLevel> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ProgramEvaluationRatingLevelMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ProgramEvaluationRatingLevel);
+    
+            // Copy contextual primary key values
+            target.RatingLevelDescriptor = source.RatingLevelDescriptor;
+
+            // Copy non-PK properties
+
+            if (mappingContract?.IsMaxNumericRatingSupported != false)
+                target.MaxNumericRating = source.MaxNumericRating;
+
+            if (mappingContract?.IsMinNumericRatingSupported != false)
+                target.MinNumericRating = source.MinNumericRating;
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+}
+// Aggregate: ProgramEvaluationElement
+
+namespace EdFi.Ods.Entities.Common.EdFi //.ProgramEvaluationElementAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class ProgramEvaluationElementMapper
+    {
+        private static readonly FullName _fullName_edfi_ProgramEvaluationElement = new FullName("edfi", "ProgramEvaluationElement");
+    
+        public static bool SynchronizeTo(this IProgramEvaluationElement source, IProgramEvaluationElement target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ProgramEvaluationElementMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ProgramEvaluationElement);
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
+            // Detect primary key changes
+            if (
+                 (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
+                || (!keyStringComparer.Equals(target.ProgramEvaluationElementTitle, source.ProgramEvaluationElementTitle))
+                || (target.ProgramEvaluationPeriodDescriptor != source.ProgramEvaluationPeriodDescriptor)
+                || (!keyStringComparer.Equals(target.ProgramEvaluationTitle, source.ProgramEvaluationTitle))
+                || (target.ProgramEvaluationTypeDescriptor != source.ProgramEvaluationTypeDescriptor)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
+                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor))
+            {
+                // Disallow PK column updates on ProgramEvaluationElement
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
+
+
+            // Copy non-PK properties
+
+            if ((mappingContract?.IsElementMaxNumericRatingSupported != false)
+                && target.ElementMaxNumericRating != source.ElementMaxNumericRating)
+            {
+                target.ElementMaxNumericRating = source.ElementMaxNumericRating;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsElementMinNumericRatingSupported != false)
+                && target.ElementMinNumericRating != source.ElementMinNumericRating)
+            {
+                target.ElementMinNumericRating = source.ElementMinNumericRating;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsElementSortOrderSupported != false)
+                && target.ElementSortOrder != source.ElementSortOrder)
+            {
+                target.ElementSortOrder = source.ElementSortOrder;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsProgramEvaluationElementDescriptionSupported != false)
+                && target.ProgramEvaluationElementDescription != source.ProgramEvaluationElementDescription)
+            {
+                target.ProgramEvaluationElementDescription = source.ProgramEvaluationElementDescription;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsProgramEvaluationObjectiveTitleSupported != false)
+                && target.ProgramEvaluationObjectiveTitle != source.ProgramEvaluationObjectiveTitle)
+            {
+                target.ProgramEvaluationObjectiveTitle = source.ProgramEvaluationObjectiveTitle;
+                isModified = true;
+            }
+
+
+            // Sync lists
+            if (mappingContract?.IsProgramEvaluationElementRatingLevelsSupported ?? true)
+            {
+                isModified |=
+                    source.ProgramEvaluationElementRatingLevels.SynchronizeCollectionTo(
+                        target.ProgramEvaluationElementRatingLevels,
+                        onChildAdded: child =>
+                            {
+                                child.ProgramEvaluationElement = target;
+                            },
+                        includeItem: item => mappingContract?.IsProgramEvaluationElementRatingLevelIncluded?.Invoke(item) ?? true);
+            }
+
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this IProgramEvaluationElement source, IProgramEvaluationElement target, Action<IProgramEvaluationElement, IProgramEvaluationElement> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ProgramEvaluationElementMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ProgramEvaluationElement);
+    
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.ProgramEducationOrganizationId = source.ProgramEducationOrganizationId;
+            target.ProgramEvaluationElementTitle = source.ProgramEvaluationElementTitle;
+            target.ProgramEvaluationPeriodDescriptor = source.ProgramEvaluationPeriodDescriptor;
+            target.ProgramEvaluationTitle = source.ProgramEvaluationTitle;
+            target.ProgramEvaluationTypeDescriptor = source.ProgramEvaluationTypeDescriptor;
+            target.ProgramName = source.ProgramName;
+            target.ProgramTypeDescriptor = source.ProgramTypeDescriptor;
+
+            // Copy non-PK properties
+
+            if (mappingContract?.IsElementMaxNumericRatingSupported != false)
+                target.ElementMaxNumericRating = source.ElementMaxNumericRating;
+
+            if (mappingContract?.IsElementMinNumericRatingSupported != false)
+                target.ElementMinNumericRating = source.ElementMinNumericRating;
+
+            if (mappingContract?.IsElementSortOrderSupported != false)
+                target.ElementSortOrder = source.ElementSortOrder;
+
+            if (mappingContract?.IsProgramEvaluationElementDescriptionSupported != false)
+                target.ProgramEvaluationElementDescription = source.ProgramEvaluationElementDescription;
+
+            if (mappingContract?.IsProgramEvaluationObjectiveTitleSupported != false)
+                target.ProgramEvaluationObjectiveTitle = source.ProgramEvaluationObjectiveTitle;
+
+            // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.ProgramEvaluationResourceId = source.ProgramEvaluationResourceId;
+                target.ProgramEvaluationDiscriminator = source.ProgramEvaluationDiscriminator;
+                target.ProgramEvaluationObjectiveResourceId = source.ProgramEvaluationObjectiveResourceId;
+                target.ProgramEvaluationObjectiveDiscriminator = source.ProgramEvaluationObjectiveDiscriminator;
+            }
+
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            if (mappingContract?.IsProgramEvaluationElementRatingLevelsSupported != false)
+            {
+                source.ProgramEvaluationElementRatingLevels.MapCollectionTo(target.ProgramEvaluationElementRatingLevels, target, mappingContract?.IsProgramEvaluationElementRatingLevelIncluded);
+            }
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class ProgramEvaluationElementRatingLevelMapper
+    {
+        private static readonly FullName _fullName_edfi_ProgramEvaluationElementRatingLevel = new FullName("edfi", "ProgramEvaluationElementRatingLevel");
+    
+        public static bool SynchronizeTo(this IProgramEvaluationElementRatingLevel source, IProgramEvaluationElementRatingLevel target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ProgramEvaluationElementRatingLevelMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ProgramEvaluationElementRatingLevel);
+
+
+            // Copy non-PK properties
+
+            if ((mappingContract?.IsMaxNumericRatingSupported != false)
+                && target.MaxNumericRating != source.MaxNumericRating)
+            {
+                target.MaxNumericRating = source.MaxNumericRating;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsMinNumericRatingSupported != false)
+                && target.MinNumericRating != source.MinNumericRating)
+            {
+                target.MinNumericRating = source.MinNumericRating;
+                isModified = true;
+            }
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this IProgramEvaluationElementRatingLevel source, IProgramEvaluationElementRatingLevel target, Action<IProgramEvaluationElementRatingLevel, IProgramEvaluationElementRatingLevel> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ProgramEvaluationElementRatingLevelMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ProgramEvaluationElementRatingLevel);
+    
+            // Copy contextual primary key values
+            target.RatingLevelDescriptor = source.RatingLevelDescriptor;
+
+            // Copy non-PK properties
+
+            if (mappingContract?.IsMaxNumericRatingSupported != false)
+                target.MaxNumericRating = source.MaxNumericRating;
+
+            if (mappingContract?.IsMinNumericRatingSupported != false)
+                target.MinNumericRating = source.MinNumericRating;
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+}
+// Aggregate: ProgramEvaluationObjective
+
+namespace EdFi.Ods.Entities.Common.EdFi //.ProgramEvaluationObjectiveAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class ProgramEvaluationObjectiveMapper
+    {
+        private static readonly FullName _fullName_edfi_ProgramEvaluationObjective = new FullName("edfi", "ProgramEvaluationObjective");
+    
+        public static bool SynchronizeTo(this IProgramEvaluationObjective source, IProgramEvaluationObjective target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ProgramEvaluationObjectiveMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ProgramEvaluationObjective);
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
+            // Detect primary key changes
+            if (
+                 (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
+                || (!keyStringComparer.Equals(target.ProgramEvaluationObjectiveTitle, source.ProgramEvaluationObjectiveTitle))
+                || (target.ProgramEvaluationPeriodDescriptor != source.ProgramEvaluationPeriodDescriptor)
+                || (!keyStringComparer.Equals(target.ProgramEvaluationTitle, source.ProgramEvaluationTitle))
+                || (target.ProgramEvaluationTypeDescriptor != source.ProgramEvaluationTypeDescriptor)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
+                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor))
+            {
+                // Disallow PK column updates on ProgramEvaluationObjective
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
+
+
+            // Copy non-PK properties
+
+            if ((mappingContract?.IsObjectiveMaxNumericRatingSupported != false)
+                && target.ObjectiveMaxNumericRating != source.ObjectiveMaxNumericRating)
+            {
+                target.ObjectiveMaxNumericRating = source.ObjectiveMaxNumericRating;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsObjectiveMinNumericRatingSupported != false)
+                && target.ObjectiveMinNumericRating != source.ObjectiveMinNumericRating)
+            {
+                target.ObjectiveMinNumericRating = source.ObjectiveMinNumericRating;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsObjectiveSortOrderSupported != false)
+                && target.ObjectiveSortOrder != source.ObjectiveSortOrder)
+            {
+                target.ObjectiveSortOrder = source.ObjectiveSortOrder;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsProgramEvaluationObjectiveDescriptionSupported != false)
+                && target.ProgramEvaluationObjectiveDescription != source.ProgramEvaluationObjectiveDescription)
+            {
+                target.ProgramEvaluationObjectiveDescription = source.ProgramEvaluationObjectiveDescription;
+                isModified = true;
+            }
+
+
+            // Sync lists
+            if (mappingContract?.IsProgramEvaluationObjectiveRatingLevelsSupported ?? true)
+            {
+                isModified |=
+                    source.ProgramEvaluationObjectiveRatingLevels.SynchronizeCollectionTo(
+                        target.ProgramEvaluationObjectiveRatingLevels,
+                        onChildAdded: child =>
+                            {
+                                child.ProgramEvaluationObjective = target;
+                            },
+                        includeItem: item => mappingContract?.IsProgramEvaluationObjectiveRatingLevelIncluded?.Invoke(item) ?? true);
+            }
+
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this IProgramEvaluationObjective source, IProgramEvaluationObjective target, Action<IProgramEvaluationObjective, IProgramEvaluationObjective> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ProgramEvaluationObjectiveMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ProgramEvaluationObjective);
+    
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.ProgramEducationOrganizationId = source.ProgramEducationOrganizationId;
+            target.ProgramEvaluationObjectiveTitle = source.ProgramEvaluationObjectiveTitle;
+            target.ProgramEvaluationPeriodDescriptor = source.ProgramEvaluationPeriodDescriptor;
+            target.ProgramEvaluationTitle = source.ProgramEvaluationTitle;
+            target.ProgramEvaluationTypeDescriptor = source.ProgramEvaluationTypeDescriptor;
+            target.ProgramName = source.ProgramName;
+            target.ProgramTypeDescriptor = source.ProgramTypeDescriptor;
+
+            // Copy non-PK properties
+
+            if (mappingContract?.IsObjectiveMaxNumericRatingSupported != false)
+                target.ObjectiveMaxNumericRating = source.ObjectiveMaxNumericRating;
+
+            if (mappingContract?.IsObjectiveMinNumericRatingSupported != false)
+                target.ObjectiveMinNumericRating = source.ObjectiveMinNumericRating;
+
+            if (mappingContract?.IsObjectiveSortOrderSupported != false)
+                target.ObjectiveSortOrder = source.ObjectiveSortOrder;
+
+            if (mappingContract?.IsProgramEvaluationObjectiveDescriptionSupported != false)
+                target.ProgramEvaluationObjectiveDescription = source.ProgramEvaluationObjectiveDescription;
+
+            // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.ProgramEvaluationResourceId = source.ProgramEvaluationResourceId;
+                target.ProgramEvaluationDiscriminator = source.ProgramEvaluationDiscriminator;
+            }
+
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            if (mappingContract?.IsProgramEvaluationObjectiveRatingLevelsSupported != false)
+            {
+                source.ProgramEvaluationObjectiveRatingLevels.MapCollectionTo(target.ProgramEvaluationObjectiveRatingLevels, target, mappingContract?.IsProgramEvaluationObjectiveRatingLevelIncluded);
+            }
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class ProgramEvaluationObjectiveRatingLevelMapper
+    {
+        private static readonly FullName _fullName_edfi_ProgramEvaluationObjectiveRatingLevel = new FullName("edfi", "ProgramEvaluationObjectiveRatingLevel");
+    
+        public static bool SynchronizeTo(this IProgramEvaluationObjectiveRatingLevel source, IProgramEvaluationObjectiveRatingLevel target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ProgramEvaluationObjectiveRatingLevelMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ProgramEvaluationObjectiveRatingLevel);
+
+
+            // Copy non-PK properties
+
+            if ((mappingContract?.IsMaxNumericRatingSupported != false)
+                && target.MaxNumericRating != source.MaxNumericRating)
+            {
+                target.MaxNumericRating = source.MaxNumericRating;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsMinNumericRatingSupported != false)
+                && target.MinNumericRating != source.MinNumericRating)
+            {
+                target.MinNumericRating = source.MinNumericRating;
+                isModified = true;
+            }
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this IProgramEvaluationObjectiveRatingLevel source, IProgramEvaluationObjectiveRatingLevel target, Action<IProgramEvaluationObjectiveRatingLevel, IProgramEvaluationObjectiveRatingLevel> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ProgramEvaluationObjectiveRatingLevelMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ProgramEvaluationObjectiveRatingLevel);
+    
+            // Copy contextual primary key values
+            target.RatingLevelDescriptor = source.RatingLevelDescriptor;
+
+            // Copy non-PK properties
+
+            if (mappingContract?.IsMaxNumericRatingSupported != false)
+                target.MaxNumericRating = source.MaxNumericRating;
+
+            if (mappingContract?.IsMinNumericRatingSupported != false)
+                target.MinNumericRating = source.MinNumericRating;
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+}
 // Aggregate: ProgramSponsorDescriptor
 
 namespace EdFi.Ods.Entities.Common.EdFi //.ProgramSponsorDescriptorAggregate
@@ -46494,6 +47794,167 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RaceDescriptorAggregate
 
             // Copy contextual primary key values
             target.RaceDescriptorId = source.RaceDescriptorId;
+
+            // Copy inherited non-PK properties
+
+            if (mappingContract?.IsCodeValueSupported != false)
+                target.CodeValue = source.CodeValue;
+
+            if (mappingContract?.IsDescriptionSupported != false)
+                target.Description = source.Description;
+
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
+                target.EffectiveEndDate = source.EffectiveEndDate;
+
+            if (mappingContract?.IsNamespaceSupported != false)
+                target.Namespace = source.Namespace;
+
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
+                target.PriorDescriptorId = source.PriorDescriptorId;
+
+            if (mappingContract?.IsShortDescriptionSupported != false)
+                target.ShortDescription = source.ShortDescription;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map inherited lists
+
+            // Map lists
+
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+}
+// Aggregate: RatingLevelDescriptor
+
+namespace EdFi.Ods.Entities.Common.EdFi //.RatingLevelDescriptorAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class RatingLevelDescriptorMapper
+    {
+        private static readonly FullName _fullName_edfi_RatingLevelDescriptor = new FullName("edfi", "RatingLevelDescriptor");
+    
+        public static bool SynchronizeTo(this IRatingLevelDescriptor source, IRatingLevelDescriptor target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (RatingLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_RatingLevelDescriptor);
+
+            // Detect primary key changes
+            if (
+                 (target.RatingLevelDescriptorId != source.RatingLevelDescriptorId))
+            {
+                // Disallow PK column updates on RatingLevelDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
+
+
+            // Copy inherited non-PK properties
+
+
+            if ((mappingContract?.IsCodeValueSupported != false)
+                && target.CodeValue != source.CodeValue)
+            {
+                target.CodeValue = source.CodeValue;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsDescriptionSupported != false)
+                && target.Description != source.Description)
+            {
+                target.Description = source.Description;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
+                && target.EffectiveBeginDate != source.EffectiveBeginDate)
+            {
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
+                && target.EffectiveEndDate != source.EffectiveEndDate)
+            {
+                target.EffectiveEndDate = source.EffectiveEndDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsNamespaceSupported != false)
+                && target.Namespace != source.Namespace)
+            {
+                target.Namespace = source.Namespace;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
+                && target.PriorDescriptorId != source.PriorDescriptorId)
+            {
+                target.PriorDescriptorId = source.PriorDescriptorId;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsShortDescriptionSupported != false)
+                && target.ShortDescription != source.ShortDescription)
+            {
+                target.ShortDescription = source.ShortDescription;
+                isModified = true;
+            }
+
+            // Copy non-PK properties
+
+
+            // Synch inherited lists
+
+            // Sync lists
+
+            return isModified;
+        }
+
+        public static void MapTo(this IRatingLevelDescriptor source, IRatingLevelDescriptor target, Action<IRatingLevelDescriptor, IRatingLevelDescriptor> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (RatingLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_RatingLevelDescriptor);
+    
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.RatingLevelDescriptorId = source.RatingLevelDescriptorId;
 
             // Copy inherited non-PK properties
 
@@ -68866,6 +70327,496 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentProgramAttendanceEventAggregat
                 target.ProgramDiscriminator = source.ProgramDiscriminator;
                 target.StudentResourceId = source.StudentResourceId;
                 target.StudentDiscriminator = source.StudentDiscriminator;
+            }
+
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+}
+// Aggregate: StudentProgramEvaluation
+
+namespace EdFi.Ods.Entities.Common.EdFi //.StudentProgramEvaluationAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class StudentProgramEvaluationMapper
+    {
+        private static readonly FullName _fullName_edfi_StudentProgramEvaluation = new FullName("edfi", "StudentProgramEvaluation");
+    
+        public static bool SynchronizeTo(this IStudentProgramEvaluation source, IStudentProgramEvaluation target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentProgramEvaluationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentProgramEvaluation);
+
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
+            // Detect primary key changes
+            if (
+                 (target.EvaluationDate != source.EvaluationDate)
+                || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
+                || (target.ProgramEvaluationPeriodDescriptor != source.ProgramEvaluationPeriodDescriptor)
+                || (!keyStringComparer.Equals(target.ProgramEvaluationTitle, source.ProgramEvaluationTitle))
+                || (target.ProgramEvaluationTypeDescriptor != source.ProgramEvaluationTypeDescriptor)
+                || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
+                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
+                || (target.StudentUniqueId != source.StudentUniqueId))
+            {
+                // Disallow PK column updates on StudentProgramEvaluation
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
+
+
+            // Copy non-PK properties
+
+            if ((mappingContract?.IsEducationOrganizationIdSupported != false)
+                && target.EducationOrganizationId != source.EducationOrganizationId)
+            {
+                target.EducationOrganizationId = source.EducationOrganizationId;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEvaluationDurationSupported != false)
+                && target.EvaluationDuration != source.EvaluationDuration)
+            {
+                target.EvaluationDuration = source.EvaluationDuration;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsStaffEvaluatorStaffUniqueIdSupported != false)
+                && target.StaffEvaluatorStaffUniqueId != source.StaffEvaluatorStaffUniqueId)
+            {
+                target.StaffEvaluatorStaffUniqueId = source.StaffEvaluatorStaffUniqueId;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsSummaryEvaluationCommentSupported != false)
+                && target.SummaryEvaluationComment != source.SummaryEvaluationComment)
+            {
+                target.SummaryEvaluationComment = source.SummaryEvaluationComment;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsSummaryEvaluationNumericRatingSupported != false)
+                && target.SummaryEvaluationNumericRating != source.SummaryEvaluationNumericRating)
+            {
+                target.SummaryEvaluationNumericRating = source.SummaryEvaluationNumericRating;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsSummaryEvaluationRatingLevelDescriptorSupported != false)
+                && target.SummaryEvaluationRatingLevelDescriptor != source.SummaryEvaluationRatingLevelDescriptor)
+            {
+                target.SummaryEvaluationRatingLevelDescriptor = source.SummaryEvaluationRatingLevelDescriptor;
+                isModified = true;
+            }
+
+
+            // Sync lists
+            if (mappingContract?.IsStudentProgramEvaluationExternalEvaluatorsSupported ?? true)
+            {
+                isModified |=
+                    source.StudentProgramEvaluationExternalEvaluators.SynchronizeCollectionTo(
+                        target.StudentProgramEvaluationExternalEvaluators,
+                        onChildAdded: child =>
+                            {
+                                child.StudentProgramEvaluation = target;
+                            },
+                        includeItem: item => mappingContract?.IsStudentProgramEvaluationExternalEvaluatorIncluded?.Invoke(item) ?? true);
+            }
+
+            if (mappingContract?.IsStudentProgramEvaluationStudentEvaluationElementsSupported ?? true)
+            {
+                isModified |=
+                    source.StudentProgramEvaluationStudentEvaluationElements.SynchronizeCollectionTo(
+                        target.StudentProgramEvaluationStudentEvaluationElements,
+                        onChildAdded: child =>
+                            {
+                                child.StudentProgramEvaluation = target;
+                            },
+                        includeItem: item => mappingContract?.IsStudentProgramEvaluationStudentEvaluationElementIncluded?.Invoke(item) ?? true);
+            }
+
+            if (mappingContract?.IsStudentProgramEvaluationStudentEvaluationObjectivesSupported ?? true)
+            {
+                isModified |=
+                    source.StudentProgramEvaluationStudentEvaluationObjectives.SynchronizeCollectionTo(
+                        target.StudentProgramEvaluationStudentEvaluationObjectives,
+                        onChildAdded: child =>
+                            {
+                                child.StudentProgramEvaluation = target;
+                            },
+                        includeItem: item => mappingContract?.IsStudentProgramEvaluationStudentEvaluationObjectiveIncluded?.Invoke(item) ?? true);
+            }
+
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this IStudentProgramEvaluation source, IStudentProgramEvaluation target, Action<IStudentProgramEvaluation, IStudentProgramEvaluation> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentProgramEvaluationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentProgramEvaluation);
+    
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.EvaluationDate = source.EvaluationDate;
+            target.ProgramEducationOrganizationId = source.ProgramEducationOrganizationId;
+            target.ProgramEvaluationPeriodDescriptor = source.ProgramEvaluationPeriodDescriptor;
+            target.ProgramEvaluationTitle = source.ProgramEvaluationTitle;
+            target.ProgramEvaluationTypeDescriptor = source.ProgramEvaluationTypeDescriptor;
+            target.ProgramName = source.ProgramName;
+            target.ProgramTypeDescriptor = source.ProgramTypeDescriptor;
+            target.StudentUniqueId = source.StudentUniqueId;
+
+            // Copy non-PK properties
+
+            if (mappingContract?.IsEducationOrganizationIdSupported != false)
+                target.EducationOrganizationId = source.EducationOrganizationId;
+
+            if (mappingContract?.IsEvaluationDurationSupported != false)
+                target.EvaluationDuration = source.EvaluationDuration;
+
+            if (mappingContract?.IsStaffEvaluatorStaffUniqueIdSupported != false)
+                target.StaffEvaluatorStaffUniqueId = source.StaffEvaluatorStaffUniqueId;
+
+            if (mappingContract?.IsSummaryEvaluationCommentSupported != false)
+                target.SummaryEvaluationComment = source.SummaryEvaluationComment;
+
+            if (mappingContract?.IsSummaryEvaluationNumericRatingSupported != false)
+                target.SummaryEvaluationNumericRating = source.SummaryEvaluationNumericRating;
+
+            if (mappingContract?.IsSummaryEvaluationRatingLevelDescriptorSupported != false)
+                target.SummaryEvaluationRatingLevelDescriptor = source.SummaryEvaluationRatingLevelDescriptor;
+
+            // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.EducationOrganizationResourceId = source.EducationOrganizationResourceId;
+                target.EducationOrganizationDiscriminator = source.EducationOrganizationDiscriminator;
+                target.ProgramEvaluationResourceId = source.ProgramEvaluationResourceId;
+                target.ProgramEvaluationDiscriminator = source.ProgramEvaluationDiscriminator;
+                target.StaffEvaluatorStaffResourceId = source.StaffEvaluatorStaffResourceId;
+                target.StaffEvaluatorStaffDiscriminator = source.StaffEvaluatorStaffDiscriminator;
+                target.StudentResourceId = source.StudentResourceId;
+                target.StudentDiscriminator = source.StudentDiscriminator;
+            }
+
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            if (mappingContract?.IsStudentProgramEvaluationExternalEvaluatorsSupported != false)
+            {
+                source.StudentProgramEvaluationExternalEvaluators.MapCollectionTo(target.StudentProgramEvaluationExternalEvaluators, target, mappingContract?.IsStudentProgramEvaluationExternalEvaluatorIncluded);
+            }
+
+            if (mappingContract?.IsStudentProgramEvaluationStudentEvaluationElementsSupported != false)
+            {
+                source.StudentProgramEvaluationStudentEvaluationElements.MapCollectionTo(target.StudentProgramEvaluationStudentEvaluationElements, target, mappingContract?.IsStudentProgramEvaluationStudentEvaluationElementIncluded);
+            }
+
+            if (mappingContract?.IsStudentProgramEvaluationStudentEvaluationObjectivesSupported != false)
+            {
+                source.StudentProgramEvaluationStudentEvaluationObjectives.MapCollectionTo(target.StudentProgramEvaluationStudentEvaluationObjectives, target, mappingContract?.IsStudentProgramEvaluationStudentEvaluationObjectiveIncluded);
+            }
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class StudentProgramEvaluationExternalEvaluatorMapper
+    {
+        private static readonly FullName _fullName_edfi_StudentProgramEvaluationExternalEvaluator = new FullName("edfi", "StudentProgramEvaluationExternalEvaluator");
+    
+        public static bool SynchronizeTo(this IStudentProgramEvaluationExternalEvaluator source, IStudentProgramEvaluationExternalEvaluator target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentProgramEvaluationExternalEvaluatorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentProgramEvaluationExternalEvaluator);
+
+
+            // Copy non-PK properties
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this IStudentProgramEvaluationExternalEvaluator source, IStudentProgramEvaluationExternalEvaluator target, Action<IStudentProgramEvaluationExternalEvaluator, IStudentProgramEvaluationExternalEvaluator> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentProgramEvaluationExternalEvaluatorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentProgramEvaluationExternalEvaluator);
+    
+            // Copy contextual primary key values
+            target.ExternalEvaluator = source.ExternalEvaluator;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class StudentProgramEvaluationStudentEvaluationElementMapper
+    {
+        private static readonly FullName _fullName_edfi_StudentProgramEvaluationStudentEvaluationElement = new FullName("edfi", "StudentProgramEvaluationStudentEvaluationElement");
+    
+        public static bool SynchronizeTo(this IStudentProgramEvaluationStudentEvaluationElement source, IStudentProgramEvaluationStudentEvaluationElement target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentProgramEvaluationStudentEvaluationElementMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentProgramEvaluationStudentEvaluationElement);
+
+
+            // Copy non-PK properties
+
+            if ((mappingContract?.IsEvaluationElementNumericRatingSupported != false)
+                && target.EvaluationElementNumericRating != source.EvaluationElementNumericRating)
+            {
+                target.EvaluationElementNumericRating = source.EvaluationElementNumericRating;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEvaluationElementRatingLevelDescriptorSupported != false)
+                && target.EvaluationElementRatingLevelDescriptor != source.EvaluationElementRatingLevelDescriptor)
+            {
+                target.EvaluationElementRatingLevelDescriptor = source.EvaluationElementRatingLevelDescriptor;
+                isModified = true;
+            }
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this IStudentProgramEvaluationStudentEvaluationElement source, IStudentProgramEvaluationStudentEvaluationElement target, Action<IStudentProgramEvaluationStudentEvaluationElement, IStudentProgramEvaluationStudentEvaluationElement> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentProgramEvaluationStudentEvaluationElementMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentProgramEvaluationStudentEvaluationElement);
+    
+            // Copy contextual primary key values
+            target.ProgramEvaluationElementTitle = source.ProgramEvaluationElementTitle;
+
+            // Copy non-PK properties
+
+            if (mappingContract?.IsEvaluationElementNumericRatingSupported != false)
+                target.EvaluationElementNumericRating = source.EvaluationElementNumericRating;
+
+            if (mappingContract?.IsEvaluationElementRatingLevelDescriptorSupported != false)
+                target.EvaluationElementRatingLevelDescriptor = source.EvaluationElementRatingLevelDescriptor;
+
+            // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.ProgramEvaluationElementResourceId = source.ProgramEvaluationElementResourceId;
+                target.ProgramEvaluationElementDiscriminator = source.ProgramEvaluationElementDiscriminator;
+            }
+
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class StudentProgramEvaluationStudentEvaluationObjectiveMapper
+    {
+        private static readonly FullName _fullName_edfi_StudentProgramEvaluationStudentEvaluationObjective = new FullName("edfi", "StudentProgramEvaluationStudentEvaluationObjective");
+    
+        public static bool SynchronizeTo(this IStudentProgramEvaluationStudentEvaluationObjective source, IStudentProgramEvaluationStudentEvaluationObjective target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentProgramEvaluationStudentEvaluationObjectiveMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentProgramEvaluationStudentEvaluationObjective);
+
+
+            // Copy non-PK properties
+
+            if ((mappingContract?.IsEvaluationObjectiveNumericRatingSupported != false)
+                && target.EvaluationObjectiveNumericRating != source.EvaluationObjectiveNumericRating)
+            {
+                target.EvaluationObjectiveNumericRating = source.EvaluationObjectiveNumericRating;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEvaluationObjectiveRatingLevelDescriptorSupported != false)
+                && target.EvaluationObjectiveRatingLevelDescriptor != source.EvaluationObjectiveRatingLevelDescriptor)
+            {
+                target.EvaluationObjectiveRatingLevelDescriptor = source.EvaluationObjectiveRatingLevelDescriptor;
+                isModified = true;
+            }
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this IStudentProgramEvaluationStudentEvaluationObjective source, IStudentProgramEvaluationStudentEvaluationObjective target, Action<IStudentProgramEvaluationStudentEvaluationObjective, IStudentProgramEvaluationStudentEvaluationObjective> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentProgramEvaluationStudentEvaluationObjectiveMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentProgramEvaluationStudentEvaluationObjective);
+    
+            // Copy contextual primary key values
+            target.ProgramEvaluationObjectiveTitle = source.ProgramEvaluationObjectiveTitle;
+
+            // Copy non-PK properties
+
+            if (mappingContract?.IsEvaluationObjectiveNumericRatingSupported != false)
+                target.EvaluationObjectiveNumericRating = source.EvaluationObjectiveNumericRating;
+
+            if (mappingContract?.IsEvaluationObjectiveRatingLevelDescriptorSupported != false)
+                target.EvaluationObjectiveRatingLevelDescriptor = source.EvaluationObjectiveRatingLevelDescriptor;
+
+            // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.ProgramEvaluationObjectiveResourceId = source.ProgramEvaluationObjectiveResourceId;
+                target.ProgramEvaluationObjectiveDiscriminator = source.ProgramEvaluationObjectiveDiscriminator;
             }
 
 
