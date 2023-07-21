@@ -16,6 +16,8 @@ namespace EdFi.Ods.Common.Configuration
         private readonly Lazy<DatabaseEngine> _databaseEngine;
         private string _odsContextRoutePath;
         private string[] _odsContextRouteTemplateKeys;
+        private string _odsConnectionStringEncryptionKey;
+        private Lazy<byte[]> _odsConnectionStringEncryptionKeyBytes;
 
         public ApiSettings()
         {
@@ -51,10 +53,18 @@ namespace EdFi.Ods.Common.Configuration
         public string OdsContextRouteTemplate { get; set; }
         
         public CacheSettings Caching { get; set; } = new();
-        
-        public string OdsConnectionStringEncryptionKey { get; set; }
 
-        public byte[] ConfigurationEncryptionPrivateKeyBytes() => Convert.FromBase64String(OdsConnectionStringEncryptionKey);
+        public string OdsConnectionStringEncryptionKey
+        {
+            get => _odsConnectionStringEncryptionKey;
+            set
+            {
+                _odsConnectionStringEncryptionKey = value;
+                _odsConnectionStringEncryptionKeyBytes = new Lazy<byte[]>(() => Convert.FromBase64String(_odsConnectionStringEncryptionKey ?? ""));
+            }
+        }
+
+        public byte[] GetConfigurationEncryptionPrivateKeyBytes() => _odsConnectionStringEncryptionKeyBytes.Value;
 
         public ReverseProxySettings GetReverseProxySettings()
         {
