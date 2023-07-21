@@ -7438,805 +7438,6 @@
 			]
 		},
 		{
-			"name": "Extensions",
-			"item": [
-				{
-					"name": "Aggregate Extensions",
-					"item": [
-						{
-							"name": "Setup",
-							"item": [
-								{
-									"name": "Initialize Supplied ParentUniqueId",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"pm.environment.set(\"supplied:parent:parentUniqueId\", pm.variables.replaceIn(\"AGGREGATE-EXTENSION-{{$randomInt}}{{$randomInt}}\"));"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "Invalid (Collections Empty)",
-							"item": [
-								{
-									"name": "Create Parent",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response is  400 or 404\", () => {\r",
-													"    pm.expect(pm.response.code).to.be.oneOf([400, 404]) \r",
-													" });\r",
-													"\r",
-													"\r",
-													"if (pm.response.code === 400 ) {\r",
-													"    const message = pm.response.json().message;\r",
-													"\r",
-													"    /*\r",
-													"        string FavoriteBookTitle\r",
-													"            documentation \"The title of the parent's favorite book.\"\r",
-													"            is required collection\r",
-													"            max length 100\r",
-													"    */\r",
-													"    pm.test(\"Should indicate that the required collection has no items.\", () => {\r",
-													"    pm.expect(message).to.contain(\"ParentFavoriteBookTitles (Sample) requires at least one object in the collection.\");\r",
-													"    });\r",
-													"\r",
-													"    /*\r",
-													"        shared string EdFi.Author\r",
-													"            documentation \"The parent's favorite authors.\"\r",
-													"            is optional collection\r",
-													"    */\r",
-													"    pm.test(\"Should NOT indicate any issues with the optional collection that is empty.\", () => {\r",
-													"    pm.expect(message).to.not.contain(\"ParentAuthors (Sample)\");\r",
-													"    });\r",
-													"}"
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n  \"parentUniqueId\": \"{{supplied:parent:parentUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"parents"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "Invalid (Embedded Objects Not Supplied)",
-							"item": [
-								{
-									"name": "Create Parent",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response is  400 or 404\", () => {\r",
-													"    pm.expect(pm.response.code).to.be.oneOf([400, 404]) \r",
-													" });\r",
-													"\r",
-													"if (pm.response.code === 400 ) {\r",
-													"    const message = pm.response.json().message;\r",
-													"\r",
-													"    /*\r",
-													"        common TeacherConference\r",
-													"            documentation \"The parent's preferred day of the week and time for parent-teacher conferences.\"\r",
-													"            is required\r",
-													"    */\r",
-													"    pm.test(\"Should indicate that the required embedded object is missing.\", () => {\r",
-													"    pm.expect(message).to.contain(\"ParentTeacherConference (Sample) is required.\");\r",
-													"    });\r",
-													"\r",
-													"    /*\r",
-													"        common EdFi.CTEProgram\r",
-													"            documentation \"A CTE program the parent has completed.\"\r",
-													"            is optional\r",
-													"    */\r",
-													"    pm.test(\"Should NOT indicate any issues with the optional embedded object that is missing.\", () => {\r",
-													"    pm.expect(message).to.not.contain(\"ParentCTEProgram (Sample)\");\r",
-													"    });\r",
-													"}"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n  \"parentUniqueId\": \"{{supplied:parent:parentUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"parents"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "Valid (Required Items Supplied)",
-							"item": [
-								{
-									"name": "Create Parent",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response is  201 or 404\", () => {\r",
-													"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
-													" });\r",
-													"\r",
-													"if (pm.response.code === 201 ) {\r",
-													"    pm.environment.set('known:parent:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
-													"}"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n  \"parentUniqueId\": \"{{supplied:parent:parentUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"parents"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "Teardown",
-							"item": [
-								{
-									"name": "Delete the Parent",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response is  204 or 404\", () => {",
-													"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) ",
-													" });"
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "DELETE",
-										"header": [
-											{
-												"key": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json"
-											}
-										],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents/{{known:parent:id}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"parents",
-												"{{known:parent:id}}"
-											]
-										},
-										"description": "Scenario: A POST request is made with a write only profile \r\n    Given the caller is using the \"Test-Profile-Resource-WriteOnly\" profile\t\r\n    When a POST request with a resource is submitted to schools with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success"
-									},
-									"response": []
-								},
-								{
-									"name": "Clean up Environment Variables",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
-													"_.chain(_.keys(pm.environment.toObject()))\r",
-													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
-													"  .each(k => pm.environment.unset(k)).value();"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Deletes",
-			"item": [
-				{
-					"name": "Inheritance-based Entities",
-					"item": [
-						{
-							"name": "Descriptors",
-							"item": [
-								{
-									"name": "Create Descriptor",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 201\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(201);\r",
-													"});\r",
-													"\r",
-													"pm.environment.set('known:descriptor:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n  \"codeValue\": \"Delete-Test\",\r\n  \"description\": \"Delete-Test\",\r\n  \"namespace\": \"uri://ed-fi.org/AcademicSubjectDescriptor\",\r\n  \"shortDescription\": \"Delete-Test\"\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/AcademicSubjectDescriptors",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"AcademicSubjectDescriptors"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Delete Descriptor",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 204\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/AcademicSubjectDescriptors/{{known:descriptor:id}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"AcademicSubjectDescriptors",
-												"{{known:descriptor:id}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "Education Organizations (single column PK)",
-							"item": [
-								{
-									"name": "Create School",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 201\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(201);\r",
-													"});\r",
-													"\r",
-													"pm.environment.set('known:school:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "  {\r\n    \"schoolId\": 999999,\r\n    \"nameOfInstitution\": \"Test School\",\r\n    \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\",\r\n        \"periods\": []\r\n      }\r\n    ],\r\n    \"educationOrganizationCategories\": [\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n      }\r\n    ],\r\n    \"identificationCodes\": [],\r\n    \"indicators\": [],\r\n    \"institutionTelephones\": [],\r\n    \"internationalAddresses\": [],\r\n    \"schoolCategories\": [],\r\n    \"gradeLevels\": [\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Ninth grade\"\r\n      }\r\n    ]\r\n  }\r\n",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"schools"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Delete School",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 204\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"schools",
-												"{{known:school:id}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "Student Program Associations (composite PK)",
-							"item": [
-								{
-									"name": "Create Student Program Association",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 201\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(201);\r",
-													"});\r",
-													"\r",
-													"pm.environment.set('known:studentProgramAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"programReference\": {\r\n    \"educationOrganizationId\": 255901,\r\n    \"programName\": \"Special Education\",\r\n    \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Special Education\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"604872\"\r\n  },\r\n  \"beginDate\": \"2099-09-09\",\r\n  \"ideaEligibility\": true,\r\n  \"iepBeginDate\": \"2021-09-01\",\r\n  \"iepReviewDate\": \"2021-08-27\",\r\n  \"lastEvaluationDate\": \"2021-08-23\",\r\n  \"schoolHoursPerWeek\": 10.00,\r\n  \"specialEducationHoursPerWeek\": 25.00,\r\n  \"specialEducationSettingDescriptor\": \"uri://ed-fi.org/SpecialEducationSettingDescriptor#Inside regular class less than 40% of the day\",\r\n  \"programParticipationStatuses\": [],\r\n  \"disabilities\": [\r\n    {\r\n      \"disabilityDescriptor\": \"uri://ed-fi.org/DisabilityDescriptor#Autism Spectrum Disorders\",\r\n      \"designations\": []\r\n    }\r\n  ],\r\n  \"serviceProviders\": [],\r\n  \"specialEducationProgramServices\": []\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramAssociations",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"studentSpecialEducationProgramAssociations"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Delete Student Program Association",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 204\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramAssociations/{{known:studentProgramAssociation:id}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"studentSpecialEducationProgramAssociations",
-												"{{known:studentProgramAssociation:id}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						}
-					]
-				},
-				{
-					"name": "Standard Entities",
-					"item": [
-						{
-							"name": "Student (alternate key-based)",
-							"item": [
-								{
-									"name": "Create Student",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 201\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(201);\r",
-													"});\r",
-													"\r",
-													"pm.environment.set('known:student:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "  {\r\n    \"studentUniqueId\": \"DELETE-TEST\",\r\n    \"birthDate\": \"2008-09-13\",\r\n    \"firstName\": \"John\",\r\n    \"lastSurname\": \"Doe\",\r\n    \"middleName\": \"X\",\r\n    \"personalTitlePrefix\": \"Ms\",\r\n    \"identificationDocuments\": [],\r\n    \"otherNames\": [],\r\n    \"personalIdentificationDocuments\": [],\r\n    \"visas\": []\r\n  }",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"students"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Delete Student",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 204\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student:id}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"students",
-												"{{known:student:id}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "Academic Week (composite PK)",
-							"item": [
-								{
-									"name": "Create Academic Week",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 201\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(201);\r",
-													"});\r",
-													"\r",
-													"pm.environment.set('known:academicWeek:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"weekIdentifier\": \"TEST-DELETE\",\r\n  \"beginDate\": \"2099-09-09\",\r\n  \"endDate\": \"2099-09-09\",\r\n  \"totalInstructionalDays\": 5\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"academicWeeks"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Delete Academic Week",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 204\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks/{{known:academicWeek:id}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"academicWeeks",
-												"{{known:academicWeek:id}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						}
-					]
-				},
-				{
-					"name": "Teardown",
-					"item": [
-						{
-							"name": "Clean up Environment Variables",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
-											"_.chain(_.keys(pm.environment.toObject()))\r",
-											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
-											"  .each(k => pm.environment.unset(k)).value();"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			]
-		},
-		{
 			"name": "Data Validation",
 			"item": [
 				{
@@ -8427,6 +7628,681 @@
 								}
 							},
 							"response": []
+						}
+					]
+				},
+				{
+					"name": "Embedded Objects",
+					"item": [
+						{
+							"name": "Required",
+							"item": [
+								{
+									"name": "Invalid (Required Object Missing)",
+									"item": [
+										{
+											"name": "Create LearningStandard without ContentStandard",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(400);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should indicate that the LearningStandard is required\", () => {\r",
+															"  const message = pm.response.json().message;\r",
+															"\r",
+															"  pm.expect(message).to.contain(\"The LearningStandardContentStandard field is required.\");\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"learningStandardId\": \"REQUIRED-TEST\",\r\n  \"description\": \"Reading/Beginning Reading Skills/Print Awareness. Students understand how English is written and printed.\",\r\n  \"namespace\": \"uri://ed-fi.org/LearningStandard/LearningStandard.xml\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Second grade\"\r\n    }\r\n  ]\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/learningStandards",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"learningStandards"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Valid (Required Object Supplied)",
+									"item": [
+										{
+											"name": "Create LearningStandard with ContentStandard",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 201\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(201);\r",
+															"});\r",
+															"\r",
+															"pm.environment.set('known:learningStandard:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"learningStandardId\": \"REQUIRED-TEST\",\r\n  \"contentStandard\": {\r\n    \"title\": \"State Standard\",\r\n    \"authors\": []\r\n  },\r\n  \"description\": \"Reading/Beginning Reading Skills/Print Awareness. Students understand how English is written and printed.\",\r\n  \"namespace\": \"uri://ed-fi.org/LearningStandard/LearningStandard.xml\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Second grade\"\r\n    }\r\n  ]\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/learningStandards",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"learningStandards"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Teardown",
+									"item": [
+										{
+											"name": "Delete the LearningStandard",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 204\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(204);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "  {\r\n    \"staffUniqueId\": \"207288\",\r\n    \"birthDate\": \"1976-08-19\",\r\n    \"firstName\": \"Barry\",\r\n    \"highestCompletedLevelOfEducationDescriptor\": \"uri://ed-fi.org/LevelOfEducationDescriptor#Master's\",\r\n    \"hispanicLatinoEthnicity\": false,\r\n    \"lastSurname\": \"Tanner\",\r\n    \"loginId\": \"btanner\",\r\n    \"personalTitlePrefix\": \"Mr\",\r\n    \"sexDescriptor\": \"uri://ed-fi.org/SexDescriptor#Male\",\r\n    \"yearsOfPriorProfessionalExperience\": 30.00,\r\n    \"_ext\": {\r\n      \"Sample\": {\r\n        \"pets\": [\r\n          {\r\n            \"petName\": \"John Jacob Jingleheimer Schmidt\",\r\n            \"isFixed\": true\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    \"addresses\": [],\r\n    \"ancestryEthnicOrigins\": [],\r\n    \"credentials\": [],\r\n    \"electronicMails\": [\r\n      {\r\n        \"electronicMailAddress\": \"BarryTanner@edfi.org\",\r\n        \"electronicMailTypeDescriptor\": \"uri://ed-fi.org/ElectronicMailTypeDescriptor#Work\"\r\n      }\r\n    ],\r\n    \"identificationCodes\": [\r\n      {\r\n        \"staffIdentificationSystemDescriptor\": \"uri://ed-fi.org/StaffIdentificationSystemDescriptor#State\",\r\n        \"identificationCode\": \"207288\"\r\n      }\r\n    ],\r\n    \"identificationDocuments\": [],\r\n    \"internationalAddresses\": [],\r\n    \"languages\": [],\r\n    \"otherNames\": [],\r\n    \"personalIdentificationDocuments\": [\r\n      {\r\n        \"identificationDocumentUseDescriptor\": \"uri://ed-fi.org/IdentificationDocumentUseDescriptor#Personal Information Verification\",\r\n        \"personalInformationVerificationDescriptor\": \"uri://ed-fi.org/PersonalInformationVerificationDescriptor#State-issued ID\"\r\n      }\r\n    ],\r\n    \"races\": [\r\n      {\r\n        \"raceDescriptor\": \"uri://ed-fi.org/RaceDescriptor#American Indian - Alaska Native\"\r\n      }\r\n    ],\r\n    \"recognitions\": [],\r\n    \"telephones\": [],\r\n    \"tribalAffiliations\": [],\r\n    \"visas\": []\r\n  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/learningStandards/{{known:learningStandard:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"learningStandards",
+														"{{known:learningStandard:id}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Optional",
+							"item": [
+								{
+									"name": "Valid (Optional Object)",
+									"item": [
+										{
+											"name": "Create Assessment without ContentStandard",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 201\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(201);\r",
+															"});\r",
+															"\r",
+															"pm.environment.set('known:assessment:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"assessmentIdentifier\": \"TEST-ASSESSMENT\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"3rd Grade Reading 1st Six Weeks 2021-2022\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"assessments"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update Assessment adding the ContentStandard",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(200);\r",
+															"});\r",
+															"\r",
+															"pm.environment.set('known:assessment:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"assessmentIdentifier\": \"TEST-ASSESSMENT\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"3rd Grade Reading 1st Six Weeks 2021-2022\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ],\r\n  \"contentStandard\": {\r\n    \"title\": \"State Essential Knowledge and Skills\",\r\n    \"authors\": []\r\n  }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"assessments"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Teardown",
+									"item": [
+										{
+											"name": "Delete the Assessment",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 204\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(204);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "  {\r\n    \"staffUniqueId\": \"207288\",\r\n    \"birthDate\": \"1976-08-19\",\r\n    \"firstName\": \"Barry\",\r\n    \"highestCompletedLevelOfEducationDescriptor\": \"uri://ed-fi.org/LevelOfEducationDescriptor#Master's\",\r\n    \"hispanicLatinoEthnicity\": false,\r\n    \"lastSurname\": \"Tanner\",\r\n    \"loginId\": \"btanner\",\r\n    \"personalTitlePrefix\": \"Mr\",\r\n    \"sexDescriptor\": \"uri://ed-fi.org/SexDescriptor#Male\",\r\n    \"yearsOfPriorProfessionalExperience\": 30.00,\r\n    \"_ext\": {\r\n      \"Sample\": {\r\n        \"pets\": [\r\n          {\r\n            \"petName\": \"John Jacob Jingleheimer Schmidt\",\r\n            \"isFixed\": true\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    \"addresses\": [],\r\n    \"ancestryEthnicOrigins\": [],\r\n    \"credentials\": [],\r\n    \"electronicMails\": [\r\n      {\r\n        \"electronicMailAddress\": \"BarryTanner@edfi.org\",\r\n        \"electronicMailTypeDescriptor\": \"uri://ed-fi.org/ElectronicMailTypeDescriptor#Work\"\r\n      }\r\n    ],\r\n    \"identificationCodes\": [\r\n      {\r\n        \"staffIdentificationSystemDescriptor\": \"uri://ed-fi.org/StaffIdentificationSystemDescriptor#State\",\r\n        \"identificationCode\": \"207288\"\r\n      }\r\n    ],\r\n    \"identificationDocuments\": [],\r\n    \"internationalAddresses\": [],\r\n    \"languages\": [],\r\n    \"otherNames\": [],\r\n    \"personalIdentificationDocuments\": [\r\n      {\r\n        \"identificationDocumentUseDescriptor\": \"uri://ed-fi.org/IdentificationDocumentUseDescriptor#Personal Information Verification\",\r\n        \"personalInformationVerificationDescriptor\": \"uri://ed-fi.org/PersonalInformationVerificationDescriptor#State-issued ID\"\r\n      }\r\n    ],\r\n    \"races\": [\r\n      {\r\n        \"raceDescriptor\": \"uri://ed-fi.org/RaceDescriptor#American Indian - Alaska Native\"\r\n      }\r\n    ],\r\n    \"recognitions\": [],\r\n    \"telephones\": [],\r\n    \"tribalAffiliations\": [],\r\n    \"visas\": []\r\n  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments/{{known:assessment:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"assessments",
+														"{{known:assessment:id}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Extensions",
+					"item": [
+						{
+							"name": "Aggregate Extensions",
+							"item": [
+								{
+									"name": "Setup",
+									"item": [
+										{
+											"name": "Initialize Supplied Parent/Contact UniqueId",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.environment.set(\"supplied:parentOrContact:uniqueId\", pm.variables.replaceIn(\"AGGREGATE-EXTENSION-{{$randomInt}}{{$randomInt}}\"));"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"if (pm.response.code == 200) {\r",
+															"  pm.environment.set('parentOrContactName', 'parent');\r",
+															"  pm.environment.set('parentOrContactProperName', 'Parent');\r",
+															"  pm.environment.set('parentOrContactCollectionName', 'parents');\r",
+															"  pm.environment.set('parentOrContactUniqueIdName', 'parentUniqueId');\r",
+															"} else if (pm.response.code == 404) {\r",
+															"  pm.environment.set('parentOrContactName', 'contact');\r",
+															"  pm.environment.set('parentOrContactProperName', 'Contact');\r",
+															"  pm.environment.set('parentOrContactCollectionName', 'contacts');\r",
+															"  pm.environment.set('parentOrContactUniqueIdName', 'contactUniqueId');\r",
+															"} else {\r",
+															"  pm.expect.fail(\"Unable to determine whether Parent or Contact is in use.\");\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents?limit=1",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"parents"
+													],
+													"query": [
+														{
+															"key": "limit",
+															"value": "1"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Invalid (Collections Empty)",
+									"item": [
+										{
+											"name": "Create Parent/Contact",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is  400\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(400);\r",
+															"});\r",
+															"\r",
+															"const parentOrContactProperName = pm.environment.get('parentOrContactProperName');\r",
+															"\r",
+															"const message = pm.response.json().message;\r",
+															"\r",
+															"/*\r",
+															"    string FavoriteBookTitle\r",
+															"        documentation \"The title of the parent's favorite book.\"\r",
+															"        is required collection\r",
+															"        max length 100\r",
+															"*/\r",
+															"pm.test(\"Should indicate that the required collection has no items.\", () => {\r",
+															"  pm.expect(message).to.contain(`${parentOrContactProperName}FavoriteBookTitles (Sample) requires at least one object in the collection.`);\r",
+															"});\r",
+															"\r",
+															"/*\r",
+															"    shared string EdFi.Author\r",
+															"        documentation \"The parent's favorite authors.\"\r",
+															"        is optional collection\r",
+															"*/\r",
+															"pm.test(\"Should NOT indicate any issues with the optional collection that is empty.\", () => {\r",
+															"  pm.expect(message).to.not.contain(`${parentOrContactProperName}Authors (Sample)`);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"{{parentOrContactUniqueIdName}}\": \"{{supplied:parentOrContact:uniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{parentOrContactCollectionName}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"{{parentOrContactCollectionName}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Invalid (Embedded Objects Not Supplied)",
+									"item": [
+										{
+											"name": "Create Parent/Contact",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is  400\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(400);\r",
+															"});\r",
+															"\r",
+															"const parentOrContactProperName = pm.environment.get('parentOrContactProperName');\r",
+															"\r",
+															"if (pm.response.code === 400) {\r",
+															"  const message = pm.response.json().message;\r",
+															"\r",
+															"  /*\r",
+															"      common TeacherConference\r",
+															"          documentation \"The parent's preferred day of the week and time for parent-teacher conferences.\"\r",
+															"          is required\r",
+															"  */\r",
+															"  pm.test(\"Should indicate that the required embedded object is missing.\", () => {\r",
+															"    pm.expect(message).to.contain(`${parentOrContactProperName}TeacherConference (Sample) is required.`);\r",
+															"  });\r",
+															"\r",
+															"  /*\r",
+															"      common EdFi.CTEProgram\r",
+															"          documentation \"A CTE program the parent has completed.\"\r",
+															"          is optional\r",
+															"  */\r",
+															"  pm.test(\"Should NOT indicate any issues with the optional embedded object that is missing.\", () => {\r",
+															"    pm.expect(message).to.not.contain(`${parentOrContactProperName}CTEProgram (Sample)`);\r",
+															"  });\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"{{parentOrContactUniqueIdName}}\": \"{{supplied:parentOrContact:uniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{parentOrContactCollectionName}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"{{parentOrContactCollectionName}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Valid (Required Items Supplied)",
+									"item": [
+										{
+											"name": "Create Parent/Contact",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is  201\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(201);\r",
+															" });\r",
+															"\r",
+															"pm.environment.set('known:parentOrContact:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"{{parentOrContactUniqueIdName}}\": \"{{supplied:parentOrContact:uniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{parentOrContactCollectionName}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"{{parentOrContactCollectionName}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Teardown",
+									"item": [
+										{
+											"name": "Delete the Parent/Contact",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is  204\", () => {",
+															"  pm.expect(pm.response.code).to.equal(204);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Content-Type",
+														"type": "text",
+														"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json"
+													}
+												],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{parentOrContactCollectionName}}/{{known:parentOrContact:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"{{parentOrContactCollectionName}}",
+														"{{known:parentOrContact:id}}"
+													]
+												},
+												"description": "Scenario: A POST request is made with a write only profile \r\n    Given the caller is using the \"Test-Profile-Resource-WriteOnly\" profile\t\r\n    When a POST request with a resource is submitted to schools with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success"
+											},
+											"response": []
+										},
+										{
+											"name": "Clean up Environment Variables",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+															"_.chain(_.keys(pm.environment.toObject()))\r",
+															"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+															"  .each(k => pm.environment.unset(k)).value();"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
 						}
 					]
 				}

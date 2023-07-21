@@ -107,10 +107,10 @@ namespace EdFi.Ods.Common.Models.Domain
                         .Where(av => av != null)
                         .Any(av =>
                             // An optional collection
-                            (av.AssociationType == AssociationViewType.ManyToOne && !av.Association.IsRequiredCollection)
+                            (av.AssociationType == AssociationViewType.ManyToOne && !av.Inverse.IsRequiredCollection)
 
                             // An optional incoming one-to-one reference
-                            || (av.AssociationType == AssociationViewType.OneToOneIncoming && !av.IsRequired));
+                            || (av.AssociationType == AssociationViewType.OneToOneIncoming && !av.IsRequiredIncomingAssociation));
 
                     if (isContainingEntityPresenceOptional)
                     {
@@ -121,7 +121,7 @@ namespace EdFi.Ods.Common.Models.Domain
                     if (AssociationType == AssociationViewType.ManyToOne
                         || AssociationType == AssociationViewType.OneToOneIncoming)
                     {
-                        return !IsRequired;
+                        return !Association.IsRequired;
                     }
 
                     // All other associations do not represent dependencies
@@ -436,14 +436,33 @@ namespace EdFi.Ods.Common.Models.Domain
         /// </summary>
         public AssociationView Inverse { get; internal set; }
 
-        public bool IsRequired
+        /// <summary>
+        /// Indicates that the properties of an incoming association are required on the receiving entity (for outgoing associations,
+        /// see <see cref="IsRequiredCollection" /> and <see cref="IsRequiredEmbeddedObject" />).
+        /// </summary>
+        public bool IsRequiredIncomingAssociation
         {
-            get { return Association.IsRequired; }
+            get => Association.IsRequired && AssociationType.IsIncoming();
         }
 
+        /// <summary>
+        /// Indicates that the association view represents an outgoing one-to-one relationship (single object) with an entity that must exist.
+        /// </summary>
+        public bool IsRequiredEmbeddedObject
+        {
+            get => 
+                AssociationType == AssociationViewType.OneToOneOutgoing 
+                && Association.Cardinality == Cardinality.OneToOne;
+        }
+
+        /// <summary>
+        /// Indicates that the association view represents an outgoing one-to-many relationship (collection) that must contain at least one item.
+        /// </summary>
         public bool IsRequiredCollection
         {
-            get { return Association.IsRequiredCollection; }
+            get => 
+                AssociationType == AssociationViewType.OneToMany 
+                && Association.Cardinality == Cardinality.OneToOneOrMore;
         }
 
         FullName IHasNameContext.ParentFullName

@@ -16,4 +16,23 @@ namespace EdFi.Ods.Common.Models.Domain
         ToExtension,
         FromCore
     }
+
+    public static class AssociationViewTypeExtensions
+    {
+        public static bool IsIncoming(this AssociationViewType associationViewType)
+        {
+            return (associationViewType == AssociationViewType.FromBase
+                || associationViewType == AssociationViewType.FromCore
+                || associationViewType == AssociationViewType.OneToOneIncoming
+                || associationViewType == AssociationViewType.ManyToOne);
+        }
+        
+        public static bool IsOutgoing(this AssociationViewType associationViewType)
+        {
+            return (associationViewType == AssociationViewType.ToDerived
+                || associationViewType == AssociationViewType.ToExtension
+                || associationViewType == AssociationViewType.OneToMany
+                || associationViewType == AssociationViewType.OneToOneOutgoing);
+        }
+    }
 }

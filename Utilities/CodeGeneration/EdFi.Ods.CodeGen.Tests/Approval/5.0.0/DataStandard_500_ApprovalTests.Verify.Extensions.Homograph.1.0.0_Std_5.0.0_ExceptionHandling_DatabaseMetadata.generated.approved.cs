@@ -31,7 +31,6 @@ namespace EdFi.Ods.Api.Common.ExceptionHandling.Homograph
             { "FK_School_SchoolYearType", new IndexDetails { IndexName = "FK_School_SchoolYearType", TableName = "School", ColumnNames = new List<string> { "SchoolYear" } } },
             { "School_PK", new IndexDetails { IndexName = "School_PK", TableName = "School", ColumnNames = new List<string> { "SchoolName" } } },
             { "UX_School_Id", new IndexDetails { IndexName = "UX_School_Id", TableName = "School", ColumnNames = new List<string> { "Id" } } },
-            { "FK_SchoolAddress_School", new IndexDetails { IndexName = "FK_SchoolAddress_School", TableName = "SchoolAddress", ColumnNames = new List<string> { "SchoolName" } } },
             { "SchoolAddress_PK", new IndexDetails { IndexName = "SchoolAddress_PK", TableName = "SchoolAddress", ColumnNames = new List<string> { "SchoolName" } } },
             { "SchoolYearType_PK", new IndexDetails { IndexName = "SchoolYearType_PK", TableName = "SchoolYearType", ColumnNames = new List<string> { "SchoolYear" } } },
             { "UX_SchoolYearType_Id", new IndexDetails { IndexName = "UX_SchoolYearType_Id", TableName = "SchoolYearType", ColumnNames = new List<string> { "Id" } } },

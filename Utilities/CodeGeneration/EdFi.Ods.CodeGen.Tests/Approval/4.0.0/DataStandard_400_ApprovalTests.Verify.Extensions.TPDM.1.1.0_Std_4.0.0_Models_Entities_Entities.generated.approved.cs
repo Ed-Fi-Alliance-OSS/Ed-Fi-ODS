@@ -11992,7 +11992,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
-        [ValidateObject]
+        [Required][ValidateObject]
         public virtual Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewerReceivedTraining EvaluationRatingReviewerReceivedTraining
         {
             get
@@ -15492,7 +15492,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
-        [ValidateObject]
+        [Required][ValidateObject]
         public virtual Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewerReceivedTraining PerformanceEvaluationRatingReviewerReceivedTraining
         {
             get

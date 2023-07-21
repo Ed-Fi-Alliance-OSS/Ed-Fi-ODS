@@ -164,7 +164,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     resourceChildItem.EmbeddedObjects.Select(
                         e => new
                         {
-                            IsRequired = false,
+                            IsRequired = e.Association?.IsRequiredEmbeddedObject ?? false,
                             Key = e.JsonPropertyName,
                             Schema = CreateEmbeddedObjectSchema(e, openApiMetadataResource)
                         })).ToList();
@@ -332,6 +332,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         x => new PropertySchemaInfo
                         {
                             PropertyName = x.JsonPropertyName,
+                            IsRequired = x.Association?.IsRequiredEmbeddedObject ?? false,
                             Sort = SortOrder(x.PropertyName, false),
                             Schema = CreateEmbeddedObjectSchema(x, openApiMetadataResource)
                         })).Concat(

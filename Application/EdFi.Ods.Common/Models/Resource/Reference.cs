@@ -82,7 +82,7 @@ namespace EdFi.Ods.Common.Models.Resource
 
         public bool IsRequired
         {
-            get { return Association.IsRequired; }
+            get { return Association.IsRequiredIncomingAssociation; }
         }
 
         /// <summary>
