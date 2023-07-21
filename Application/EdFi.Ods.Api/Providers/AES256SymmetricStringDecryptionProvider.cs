@@ -33,6 +33,7 @@ public class Aes256SymmetricStringDecryptionProvider : ISymmetricStringDecryptio
     /// <returns>A boolean value indicating if decryption was successful.</returns>
     public bool TryDecrypt(string value, out string output, byte[] key)
     {
+        //Includes code from https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.aes?view=net-7.0
         if (String.IsNullOrWhiteSpace(value))
             throw new ArgumentException("Input value cannot be null or whitespace.", nameof(value));
 
