@@ -303,7 +303,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IConnectionStringOverridesApplicator>()
                 .SingleInstance();
             
-            builder.RegisterType<EdFiAdminRawOdsInstanceConfigurationDataProvider >()
+            builder.RegisterType<AutoEncryptingEdFiAdminRawOdsInstanceConfigurationDataProviderDecorator>()
                 .As<IEdFiAdminRawOdsInstanceConfigurationDataProvider>()
                 .SingleInstance();
 
