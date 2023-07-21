@@ -4,7 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Data.Common;
 using System.Threading.Tasks;
+using EdFi.Admin.DataAccess.Providers;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Security.Authentication;
 
@@ -22,16 +24,17 @@ public class AutoEncryptingOdsInstanceConfigurationDataProviderDecorator : IEdFi
     private readonly Lazy<byte[]> _privateKeyBytesLazy;
 
     public AutoEncryptingOdsInstanceConfigurationDataProviderDecorator(
-        IEdFiAdminRawOdsInstanceConfigurationDataProvider edFiAdminRawOdsInstanceConfigurationDataProvider,
         ISymmetricStringEncryptionProvider symmetricStringEncryptionProvider,
         ISymmetricStringDecryptionProvider symmetricStringDecryptionProvider,
         IEdFiAdminRawOdsConnectionStringWriter edFiAdminRawOdsConnectionStringWriter, 
+        IAdminDatabaseConnectionStringProvider adminDatabaseConnectionStringProvider,
+        DbProviderFactory dbProviderFactory,
         Lazy<byte[]> privateKeyBytesLazy)
     {
         _symmetricStringEncryptionProvider = symmetricStringEncryptionProvider;
         _symmetricStringDecryptionProvider = symmetricStringDecryptionProvider;
         _edFiAdminRawOdsConnectionStringWriter = edFiAdminRawOdsConnectionStringWriter;
-        _edFiAdminRawOdsInstanceConfigurationDataProvider = edFiAdminRawOdsInstanceConfigurationDataProvider;
+        _edFiAdminRawOdsInstanceConfigurationDataProvider = new EdFiAdminRawOdsInstanceConfigurationDataProvider(adminDatabaseConnectionStringProvider, dbProviderFactory);
         _privateKeyBytesLazy = privateKeyBytesLazy;
     }
 
@@ -40,7 +43,7 @@ public class AutoEncryptingOdsInstanceConfigurationDataProviderDecorator : IEdFi
     {
         var rawDataRows = await _edFiAdminRawOdsInstanceConfigurationDataProvider.GetByIdAsync(odsInstanceId);
 
-        if (System.Diagnostics.Debugger.IsAttached)
+        if (!System.Diagnostics.Debugger.IsAttached)
         {
             foreach (var row in rawDataRows)
             {
@@ -57,6 +60,9 @@ public class AutoEncryptingOdsInstanceConfigurationDataProviderDecorator : IEdFi
     /// <param name="rawDataRow">
     /// The raw data row containing the connection string to which the encryption logic should be applied.
     /// </param>
+    /// <returns>
+    /// Plaintext connection string.
+    /// </returns>
     private string ApplyConnectionStringEncryptionLogic(RawOdsInstanceConfigurationDataRow rawDataRow)
     {
         var privateKey = _privateKeyBytesLazy.Value;
