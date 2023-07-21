@@ -85,7 +85,7 @@
     <EmbeddedResource Include="**\TestModels\*.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="**\EdFi.Ods.Features\TokenInfo\Datastandard*\*.cs"/>
+    <Compile Remove="**\EdFi.Ods.Features\TokenInfo\Datastandard*\*.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(StandardVersion)' == '5.0.0' ">
     <Compile Include="**\EdFi.Ods.Features\TokenInfo\Datastandard500\*.cs" />
