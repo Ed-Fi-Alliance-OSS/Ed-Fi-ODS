@@ -8,7 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using EdFi.Admin.DataAccess.Providers;
-using EdFi.Ods.Api.Security.Utilities;
 
 namespace EdFi.Ods.Api.Configuration;
 
@@ -19,19 +18,15 @@ public class EdFiAdminRawOdsInstanceConfigurationDataProvider : IEdFiAdminRawOds
 {
     private readonly DbProviderFactory _dbProviderFactory;
     private readonly IAdminDatabaseConnectionStringProvider _adminDatabaseConnectionStringProvider;
-    private readonly IOdsConnectionStringEncryptionApplicator _odsConnectionStringEncryptionApplicator;
 
     private const string GetOdsConfigurationByIdSql = "SELECT OdsInstanceId, ConnectionString, ContextKey, ContextValue, DerivativeType, ConnectionStringByDerivativeType FROM dbo.GetOdsInstanceConfigurationById(@OdsInstanceId);";
-    private const string UpdateOdsConnectionStringByIdSql = "UPDATE dbo.OdsInstances SET ConnectionString = @ConnectionString WHERE OdsInstanceId = @OdsInstanceId";
 
     public EdFiAdminRawOdsInstanceConfigurationDataProvider(
         IAdminDatabaseConnectionStringProvider adminDatabaseConnectionStringProvider,
-        DbProviderFactory dbProviderFactory,
-        IOdsConnectionStringEncryptionApplicator odsConnectionStringEncryptionApplicator)
+        DbProviderFactory dbProviderFactory)
     {
         _adminDatabaseConnectionStringProvider = adminDatabaseConnectionStringProvider;
         _dbProviderFactory = dbProviderFactory;
-        _odsConnectionStringEncryptionApplicator = odsConnectionStringEncryptionApplicator;
     }
 
     /// <inheritdoc cref="IEdFiAdminRawOdsInstanceConfigurationDataProvider.GetByIdAsync" />
@@ -44,11 +39,6 @@ public class EdFiAdminRawOdsInstanceConfigurationDataProvider : IEdFiAdminRawOds
                 new { OdsInstanceId = odsInstanceId }))
             .ToArray();
 
-        if (!System.Diagnostics.Debugger.IsAttached)
-        {
-            HandleOdsConnectionStringEncryption(rawDataRows, connection);
-        }
-
         return rawDataRows;
         
         DbConnection CreateConnectionAsync()
@@ -58,26 +48,5 @@ public class EdFiAdminRawOdsInstanceConfigurationDataProvider : IEdFiAdminRawOds
             
             return newConnection;
         }
-    }
-
-    private void HandleOdsConnectionStringEncryption(RawOdsInstanceConfigurationDataRow[] rawDataRows, DbConnection connection)
-    {
-        int odsInstanceId;
-
-        var connectionStringPlainText =
-            _odsConnectionStringEncryptionApplicator.DecryptOrApplyEncryption(rawDataRows[0], out bool rowHasChanged);
-
-        if (rowHasChanged)
-        {
-            connection.Query(
-                UpdateOdsConnectionStringByIdSql,
-                new
-                {
-                    ConnectionString = rawDataRows[0].ConnectionString,
-                    OdsInstanceId = rawDataRows[0].OdsInstanceId
-                });
-        }
-
-        rawDataRows[0].ConnectionString = connectionStringPlainText;
     }
 }

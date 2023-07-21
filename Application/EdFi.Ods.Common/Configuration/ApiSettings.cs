@@ -64,7 +64,7 @@ namespace EdFi.Ods.Common.Configuration
             }
         }
 
-        public byte[] GetConfigurationEncryptionPrivateKeyBytes() => _odsConnectionStringEncryptionKeyBytes.Value;
+        public Lazy<byte[]> GetConfigurationEncryptionPrivateKeyBytesLazy() => _odsConnectionStringEncryptionKeyBytes;
 
         public ReverseProxySettings GetReverseProxySettings()
         {
