@@ -26,7 +26,6 @@ using EdFi.Ods.Api.Jobs.Extensions;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Security.Authentication;
-using EdFi.Ods.Api.Security.Utilities;
 using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
@@ -303,7 +302,11 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IConnectionStringOverridesApplicator>()
                 .SingleInstance();
             
-            builder.RegisterType<AutoEncryptingEdFiAdminRawOdsInstanceConfigurationDataProviderDecorator>()
+            builder.RegisterType<AutoEncryptingOdsInstanceConfigurationDataProviderDecorator>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name == "privateKeyBytesLazy",
+                        (p, c) => c.Resolve<ApiSettings>().GetConfigurationEncryptionPrivateKeyBytesLazy()))
                 .As<IEdFiAdminRawOdsInstanceConfigurationDataProvider>()
                 .SingleInstance();
 
@@ -365,14 +368,6 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<ISymmetricStringDecryptionProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<OdsConnectionStringEncryptionApplicator>()
-                .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.Name == "privateKey",
-                        (p, c) => c.Resolve<ApiSettings>().GetConfigurationEncryptionPrivateKeyBytes()))
-                .As<IOdsConnectionStringEncryptionApplicator>()
-                .SingleInstance();
-            
             RegisterPipeLineStepProviders();
             RegisterModels();
 
