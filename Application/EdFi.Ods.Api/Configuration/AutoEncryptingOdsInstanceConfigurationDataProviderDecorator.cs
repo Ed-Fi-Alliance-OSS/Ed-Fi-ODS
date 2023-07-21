@@ -19,21 +19,21 @@ public class AutoEncryptingOdsInstanceConfigurationDataProviderDecorator : IEdFi
 {
     private readonly ISymmetricStringEncryptionProvider _symmetricStringEncryptionProvider;
     private readonly ISymmetricStringDecryptionProvider _symmetricStringDecryptionProvider;
-    private readonly IEdFiAdminRawOdsConnectionStringWriter _edFiAdminRawOdsConnectionStringWriter;
+    private readonly IEdFiOdsConnectionStringWriter _edFiOdsConnectionStringWriter;
     private readonly IEdFiAdminRawOdsInstanceConfigurationDataProvider _edFiAdminRawOdsInstanceConfigurationDataProvider;
     private readonly Lazy<byte[]> _privateKeyBytesLazy;
 
     public AutoEncryptingOdsInstanceConfigurationDataProviderDecorator(
         ISymmetricStringEncryptionProvider symmetricStringEncryptionProvider,
         ISymmetricStringDecryptionProvider symmetricStringDecryptionProvider,
-        IEdFiAdminRawOdsConnectionStringWriter edFiAdminRawOdsConnectionStringWriter, 
+        IEdFiOdsConnectionStringWriter edFiOdsConnectionStringWriter, 
         IAdminDatabaseConnectionStringProvider adminDatabaseConnectionStringProvider,
         DbProviderFactory dbProviderFactory,
         Lazy<byte[]> privateKeyBytesLazy)
     {
         _symmetricStringEncryptionProvider = symmetricStringEncryptionProvider;
         _symmetricStringDecryptionProvider = symmetricStringDecryptionProvider;
-        _edFiAdminRawOdsConnectionStringWriter = edFiAdminRawOdsConnectionStringWriter;
+        _edFiOdsConnectionStringWriter = edFiOdsConnectionStringWriter;
         _edFiAdminRawOdsInstanceConfigurationDataProvider = new EdFiAdminRawOdsInstanceConfigurationDataProvider(adminDatabaseConnectionStringProvider, dbProviderFactory);
         _privateKeyBytesLazy = privateKeyBytesLazy;
     }
@@ -77,7 +77,7 @@ public class AutoEncryptingOdsInstanceConfigurationDataProviderDecorator : IEdFi
         var plaintextConnectionString = rawDataRow.ConnectionString;
         var encryptedConnectionString = _symmetricStringEncryptionProvider.Encrypt(rawDataRow.ConnectionString, privateKey);
 
-        _edFiAdminRawOdsConnectionStringWriter.WriteConnectionString(
+        _edFiOdsConnectionStringWriter.WriteConnectionString(
             rawDataRow.OdsInstanceId, encryptedConnectionString, rawDataRow.DerivativeType);
 
         return plaintextConnectionString;
