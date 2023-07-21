@@ -369,7 +369,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
             
             builder.RegisterType<EdFiAdminOdsConnectionStringDatabaseWriter>()
-                .As<IEdFiAdminRawOdsConnectionStringWriter>()
+                .As<IEdFiOdsConnectionStringWriter>()
                 .SingleInstance();
 
             RegisterPipeLineStepProviders();

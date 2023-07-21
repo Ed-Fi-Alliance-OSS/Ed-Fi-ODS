@@ -13,7 +13,7 @@ namespace EdFi.Ods.Api.Security.Authentication;
 /// <summary>
 /// Defines an interface for writing the connection string for an ODS instance to the admin database.
 /// </summary>
-public class EdFiAdminOdsConnectionStringDatabaseWriter : IEdFiAdminRawOdsConnectionStringWriter
+public class EdFiAdminOdsConnectionStringDatabaseWriter : IEdFiOdsConnectionStringWriter
 {
     private readonly IAdminDatabaseConnectionStringProvider _adminDatabaseConnectionStringProvider;
     private readonly DbProviderFactory _dbProviderFactory;
@@ -21,7 +21,7 @@ public class EdFiAdminOdsConnectionStringDatabaseWriter : IEdFiAdminRawOdsConnec
     private const string UpdateOdsConnectionStringByIdSql = "UPDATE dbo.OdsInstances SET ConnectionString = @ConnectionString WHERE OdsInstanceId = @OdsInstanceId";
     private const string UpdateOdsDerivativeConnectionStringByIdSql = "UPDATE dbo.OdsInstanceDerivative SET ConnectionString = @ConnectionString WHERE OdsInstanceId = @OdsInstanceId AND DerivativeType = @DerivativeType";
 
-    /// <inheritdoc cref="IEdFiAdminRawOdsConnectionStringWriter.WriteConnectionString"/>
+    /// <inheritdoc cref="IEdFiOdsConnectionStringWriter.WriteConnectionString"/>
     public EdFiAdminOdsConnectionStringDatabaseWriter(IAdminDatabaseConnectionStringProvider adminDatabaseConnectionStringProvider,
         DbProviderFactory dbProviderFactory)
     {

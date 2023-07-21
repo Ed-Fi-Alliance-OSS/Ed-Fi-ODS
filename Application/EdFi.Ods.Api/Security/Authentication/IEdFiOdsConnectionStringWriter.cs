@@ -8,7 +8,7 @@ namespace EdFi.Ods.Api.Security.Authentication;
 /// <summary>
 /// Defines an interface for writing the connection string for an ODS instance to persistent storage.
 /// </summary>
-public interface IEdFiAdminRawOdsConnectionStringWriter
+public interface IEdFiOdsConnectionStringWriter
 {
     /// <summary>
     /// Writes the connection string for an ODS instance to persistent storage.
