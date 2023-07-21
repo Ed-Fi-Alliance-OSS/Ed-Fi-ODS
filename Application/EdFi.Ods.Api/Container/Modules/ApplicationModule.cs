@@ -367,6 +367,10 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<Aes256SymmetricStringDecryptionProvider>()
                 .As<ISymmetricStringDecryptionProvider>()
                 .SingleInstance();
+            
+            builder.RegisterType<EdFiAdminOdsConnectionStringDatabaseWriter>()
+                .As<IEdFiAdminRawOdsConnectionStringWriter>()
+                .SingleInstance();
 
             RegisterPipeLineStepProviders();
             RegisterModels();
