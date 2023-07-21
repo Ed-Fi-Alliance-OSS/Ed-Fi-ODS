@@ -58,7 +58,7 @@ public class AutoEncryptingOdsInstanceConfigurationDataProviderDecorator : IEdFi
     /// Encrypts the connection string in the database if it is not already encrypted, and returns the plaintext connection string.
     /// </summary>
     /// <param name="rawDataRow">
-    /// The raw data row containing the connection string to which the encryption logic should be applied.
+    /// The <see cref="RawOdsInstanceConfigurationDataRow"/> containing the connection string to which the encryption logic should be applied.
     /// </param>
     /// <returns>
     /// Plaintext connection string.
