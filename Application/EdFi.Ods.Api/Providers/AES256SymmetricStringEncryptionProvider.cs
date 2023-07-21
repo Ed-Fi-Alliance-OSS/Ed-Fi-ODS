@@ -5,10 +5,7 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
-using EdFi.Ods.Common.Caching;
-using Quartz.Util;
 
 namespace EdFi.Ods.Api.Providers;
 
@@ -33,8 +30,8 @@ public class Aes256SymmetricStringEncryptionProvider : ISymmetricStringEncryptio
     /// the format "IV.EncryptedMessage.HMACSignature"</returns>
     public string Encrypt(string value, byte[] key)
     {
-        //Incorporates code from https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.aes?view=net-6.0
-        if (value.IsNullOrWhiteSpace())
+        // Incorporates code from https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.aes?view=net-6.0
+        if (string.IsNullOrWhiteSpace(value))
             throw new ArgumentException("Input value cannot be null or whitespace.", nameof(value));
 
         if (key == null || key.Length != 32)
