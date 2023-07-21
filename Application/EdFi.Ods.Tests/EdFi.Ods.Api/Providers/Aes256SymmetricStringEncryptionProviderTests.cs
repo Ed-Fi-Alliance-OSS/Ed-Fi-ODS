@@ -3,12 +3,11 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Ods.Api.Providers;
-using Shouldly;
-
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Providers;
 
 using System;
+using Shouldly;
+using EdFi.Ods.Api.Providers;
 using NUnit.Framework;
 
 public class Aes256SymmetricStringEncryptionDecryptionProviderTests
@@ -44,6 +43,7 @@ public class Aes256SymmetricStringEncryptionDecryptionProviderTests
     public void When_decrypting_a_string_using_the_correct_key()
     {
         // Arrange
+        
         // This is a valid ciphertext with a valid HMAC signature which was encrypted using the static key and decrypts to "Hello World"
         var cipherText = "Gx5FXSHSelzRF2quaCOaNw==|RlK3dR28TP/dbslPezxa4w==|D7VcBfHXG0iPkPR36QDvv9W7SGiGWUUe7WBu5neV/fo=";
 
@@ -59,14 +59,17 @@ public class Aes256SymmetricStringEncryptionDecryptionProviderTests
     public void When_hmac_signature_of_ciphertext_is_invalid()
     {
         // Arrange
+        
         // This is a valid ciphertext with a valid HMAC signature which was encrypted using the static key and decrypts to "Hello World"
         var ciphertextWithValidHmac = "Gx5FXSHSelzRF2quaCOaNw==|RlK3dR28TP/dbslPezxa4w==|D7VcBfHXG0iPkPR36QDvv9W7SGiGWUUe7WBu5neV/fo=";
+        
         // Change the last character of the HMAC signature to make it invalid
         var cipherTextWithInvalidHmac = "Gx5FXSHSelzRF2quaCOaNw==|RlK3dR28TP/dbslPezxa4w==|D7VcBfHXG0iPkPR36QDvv9W7SGiGWUUe7WBu5neV/f0=";
 
         // Act
         bool decryptionOfValidCiphertextWithValidHmacSuccessful = _decryptionProvider.TryDecrypt(ciphertextWithValidHmac, out string vaildHmacOutput, _staticKey);
         bool decryptionOfValidCiphertextWithInvalidHmacSuccessful = _decryptionProvider.TryDecrypt(cipherTextWithInvalidHmac, out string invalidHmacOutput, _staticKey);
+        
         // Assert
         decryptionOfValidCiphertextWithValidHmacSuccessful.ShouldBeTrue();
         vaildHmacOutput.ShouldBe("Hello World");
