@@ -357,8 +357,13 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<InitializeScheduledJobs>()
                 .As<IExternalTask>();
 
+            // Register components for string encryption/decryption 
             builder.RegisterType<Aes256SymmetricStringEncryptionProvider>()
-                .As<ISymmetricStringEncryptionProvider>();
+                .As<ISymmetricStringEncryptionProvider>()
+                .SingleInstance();
+            builder.RegisterType<Aes256SymmetricStringDecryptionProvider>()
+                .As<ISymmetricStringDecryptionProvider>()
+                .SingleInstance();
 
             builder.RegisterType<OdsConnectionStringEncryptionApplicator>()
                 .WithParameter(
