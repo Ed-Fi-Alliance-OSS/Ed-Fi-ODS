@@ -45,7 +45,7 @@ public class Aes256SymmetricStringEncryptionDecryptionProviderTests
     {
         // Arrange
         // This is a valid ciphertext with a valid HMAC signature which was encrypted using the static key and decrypts to "Hello World"
-        var cipherText = "Gx5FXSHSelzRF2quaCOaNw==.RlK3dR28TP/dbslPezxa4w==.D7VcBfHXG0iPkPR36QDvv9W7SGiGWUUe7WBu5neV/fo=";
+        var cipherText = "Gx5FXSHSelzRF2quaCOaNw==|RlK3dR28TP/dbslPezxa4w==|D7VcBfHXG0iPkPR36QDvv9W7SGiGWUUe7WBu5neV/fo=";
 
         // Act
         bool decryptionSuccessful = _decryptionProvider.TryDecrypt(cipherText, out string output, _staticKey);
@@ -60,9 +60,9 @@ public class Aes256SymmetricStringEncryptionDecryptionProviderTests
     {
         // Arrange
         // This is a valid ciphertext with a valid HMAC signature which was encrypted using the static key and decrypts to "Hello World"
-        var ciphertextWithValidHmac = "Gx5FXSHSelzRF2quaCOaNw==.RlK3dR28TP/dbslPezxa4w==.D7VcBfHXG0iPkPR36QDvv9W7SGiGWUUe7WBu5neV/fo=";
+        var ciphertextWithValidHmac = "Gx5FXSHSelzRF2quaCOaNw==|RlK3dR28TP/dbslPezxa4w==|D7VcBfHXG0iPkPR36QDvv9W7SGiGWUUe7WBu5neV/fo=";
         // Change the last character of the HMAC signature to make it invalid
-        var cipherTextWithInvalidHmac = "Gx5FXSHSelzRF2quaCOaNw==.RlK3dR28TP/dbslPezxa4w==.D7VcBfHXG0iPkPR36QDvv9W7SGiGWUUe7WBu5neV/f0=";
+        var cipherTextWithInvalidHmac = "Gx5FXSHSelzRF2quaCOaNw==|RlK3dR28TP/dbslPezxa4w==|D7VcBfHXG0iPkPR36QDvv9W7SGiGWUUe7WBu5neV/f0=";
 
         // Act
         bool decryptionOfValidCiphertextWithValidHmacSuccessful = _decryptionProvider.TryDecrypt(ciphertextWithValidHmac, out string vaildHmacOutput, _staticKey);

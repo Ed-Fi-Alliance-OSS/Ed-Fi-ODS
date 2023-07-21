@@ -27,7 +27,7 @@ public class Aes256SymmetricStringEncryptionProvider : ISymmetricStringEncryptio
     /// <para name="key">The 256 bit private key to be used for encryption.</para>
     /// <returns>A string representing the input in encrypted form along with the other information
     /// necessary to decrypt it (aside from the private key). The output is three strings concatenated in
-    /// the format "IV.EncryptedMessage.HMACSignature"</returns>
+    /// the format "IV|EncryptedMessage|HMACSignature"</returns>
     public string Encrypt(string value, byte[] key)
     {
         // Incorporates code from https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.aes?view=net-6.0
@@ -61,7 +61,7 @@ public class Aes256SymmetricStringEncryptionProvider : ISymmetricStringEncryptio
         byte[] hmacSignatureValue = GenerateHmacSignature();
 
         return
-            $"{Convert.ToBase64String(aesInstance.IV)}.{Convert.ToBase64String(encryptedBytes)}.{Convert.ToBase64String(hmacSignatureValue)}";
+            $"{Convert.ToBase64String(aesInstance.IV)}|{Convert.ToBase64String(encryptedBytes)}|{Convert.ToBase64String(hmacSignatureValue)}";
 
         byte[] GenerateHmacSignature()
         {

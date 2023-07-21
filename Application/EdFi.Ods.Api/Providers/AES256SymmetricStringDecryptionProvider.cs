@@ -25,7 +25,7 @@ public class Aes256SymmetricStringDecryptionProvider : ISymmetricStringDecryptio
     /// Decrypt a string value using the specified key.
     /// </summary>
     /// <para name="value">The data to be decrypted and related information as three base64
-    /// encoded segments concatenated in the format "IV.EncryptedMessage.HMACSignature"</para>
+    /// encoded segments concatenated in the format "IV|EncryptedMessage|HMACSignature"</para>
     /// <para name="output">If decryption is successful, then the plaintext output, otherwise null</para>
     /// <para name="key">The 256 bit private key to be used for decryption.</para>
     /// <returns>A boolean value indicating if decryption was successful.</returns>
@@ -38,7 +38,7 @@ public class Aes256SymmetricStringDecryptionProvider : ISymmetricStringDecryptio
         if (key == null || key.Length != 32)
             throw new ArgumentException("Key must be 256 bits (32 bytes) in length.", nameof(key));
 
-        string[] inputParts = value.Split('.');
+        string[] inputParts = value.Split('|');
 
         if (inputParts.Length != 3)
         {
