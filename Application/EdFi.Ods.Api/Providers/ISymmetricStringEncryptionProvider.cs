@@ -5,10 +5,10 @@
 
 namespace EdFi.Ods.Api.Providers;
     /// <summary>
-    /// Defines an interface for providing symmetric encryption and decryption of string values.
+    /// Defines an interface for providing symmetric encryption of string values.
     /// </summary>
     /// <remarks>
-    /// This interface and its implementations are used to facilitate the encryption and decryption
+    /// This interface and its implementations are used to facilitate the encryption
     /// of string values using a symmetric encryption algorithm.</remarks>
 public interface ISymmetricStringEncryptionProvider
 {

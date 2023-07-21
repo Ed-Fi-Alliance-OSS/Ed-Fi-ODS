@@ -16,7 +16,7 @@ namespace EdFi.Ods.Api.Providers;
 /// Implements AES 256 bit symmetric encryption and decryption of string values.
 /// </summary>
 /// <remarks>
-/// This class is used to facilitate the encryption and decryption of string values using the AES 256 bit
+/// This class is used to facilitate the decryption of string values using the AES 256 bit
 /// encryption algorithm. HMAC signing of the encrypted value is used to mitigate potential
 /// timing-based padding oracle attacks on AES in CBC mode (as discussed here
 /// https://learn.microsoft.com/en-us/dotnet/standard/security/vulnerabilities-cbc-mode)
@@ -33,7 +33,7 @@ public class Aes256SymmetricStringDecryptionProvider : ISymmetricStringDecryptio
     /// <returns>A boolean value indicating if decryption was successful.</returns>
     public bool TryDecrypt(string value, out string output, byte[] key)
     {
-        //Includes code from https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.aes?view=net-7.0
+        //Includes code from https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.aes?view=net-6.0
         if (String.IsNullOrWhiteSpace(value))
             throw new ArgumentException("Input value cannot be null or whitespace.", nameof(value));
 

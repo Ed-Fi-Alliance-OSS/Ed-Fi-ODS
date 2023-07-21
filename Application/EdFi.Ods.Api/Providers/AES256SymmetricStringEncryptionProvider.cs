@@ -20,7 +20,7 @@ namespace EdFi.Ods.Api.Providers;
 /// encryption algorithm. HMAC signing of the encrypted value is used to mitigate potential
 /// timing-based padding oracle attacks on AES in CBC mode (as discussed here
 /// https://learn.microsoft.com/en-us/dotnet/standard/security/vulnerabilities-cbc-mode)
-/// by verifying the authenticity of the encrypted content before decryption is attempted.</remarks>
+/// by providing a means of verifying the authenticity of the encrypted content before decryption is attempted.</remarks>
 public class Aes256SymmetricStringEncryptionProvider : ISymmetricStringEncryptionProvider
 {
     /// <summary>
@@ -33,7 +33,7 @@ public class Aes256SymmetricStringEncryptionProvider : ISymmetricStringEncryptio
     /// the format "IV.EncryptedMessage.HMACSignature"</returns>
     public string Encrypt(string value, byte[] key)
     {
-        //Incorporates code from https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.aes?view=net-7.0
+        //Incorporates code from https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.aes?view=net-6.0
         if (value.IsNullOrWhiteSpace())
             throw new ArgumentException("Input value cannot be null or whitespace.", nameof(value));
 
