@@ -364,7 +364,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .WithParameter(
                     new ResolvedParameter(
                         (p, c) => p.Name == "privateKey",
-                        (p, c) => c.Resolve<ApiSettings>().ConfigurationEncryptionPrivateKeyBytes()))
+                        (p, c) => c.Resolve<ApiSettings>().GetConfigurationEncryptionPrivateKeyBytes()))
                 .As<IOdsConnectionStringEncryptionApplicator>()
                 .SingleInstance();
             
