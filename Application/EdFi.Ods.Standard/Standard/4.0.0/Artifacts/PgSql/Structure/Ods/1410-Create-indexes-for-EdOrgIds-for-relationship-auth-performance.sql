@@ -1,3 +1,8 @@
+-- SPDX-License-Identifier: Apache-2.0
+-- Licensed to the Ed-Fi Alliance under one or more agreements.
+-- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+-- See the LICENSE and NOTICES files in the project root for more information.
+
 -- Create missing indexes needed for authorization using EdOrgIds
 CREATE INDEX IF NOT EXISTS IX_213515_SchoolId ON edfi.AcademicWeek(SchoolId) INCLUDE (Id);
 CREATE INDEX IF NOT EXISTS IX_bb42a4_EducationOrganizationId ON edfi.AccountabilityRating(EducationOrganizationId) INCLUDE (Id);
