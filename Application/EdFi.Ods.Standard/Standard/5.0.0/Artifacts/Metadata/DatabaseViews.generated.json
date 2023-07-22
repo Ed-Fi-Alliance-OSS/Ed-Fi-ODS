@@ -5,10 +5,10 @@
     "Columns": [
       {
         "Name": "SourceEducationOrganizationId",
-        "DbDataType": "int",
+        "DbDataType": "bigint",
         "IsPrimaryKey": false,
         "Length": null,
-        "Precision": 10,
+        "Precision": 19,
         "Scale": 0,
         "Nullable": false
       },
@@ -38,10 +38,10 @@
     "Columns": [
       {
         "Name": "SourceEducationOrganizationId",
-        "DbDataType": "int",
+        "DbDataType": "bigint",
         "IsPrimaryKey": false,
         "Length": null,
-        "Precision": 10,
+        "Precision": 19,
         "Scale": 0,
         "Nullable": false
       },
@@ -62,10 +62,10 @@
     "Columns": [
       {
         "Name": "SourceEducationOrganizationId",
-        "DbDataType": "int",
+        "DbDataType": "bigint",
         "IsPrimaryKey": false,
         "Length": null,
-        "Precision": 10,
+        "Precision": 19,
         "Scale": 0,
         "Nullable": false
       },
@@ -86,10 +86,10 @@
     "Columns": [
       {
         "Name": "SourceEducationOrganizationId",
-        "DbDataType": "int",
+        "DbDataType": "bigint",
         "IsPrimaryKey": false,
         "Length": null,
-        "Precision": 10,
+        "Precision": 19,
         "Scale": 0,
         "Nullable": false
       },
@@ -110,10 +110,10 @@
     "Columns": [
       {
         "Name": "SourceEducationOrganizationId",
-        "DbDataType": "int",
+        "DbDataType": "bigint",
         "IsPrimaryKey": false,
         "Length": null,
-        "Precision": 10,
+        "Precision": 19,
         "Scale": 0,
         "Nullable": false
       },
@@ -143,10 +143,34 @@
     "Columns": [
       {
         "Name": "SourceEducationOrganizationId",
+        "DbDataType": "bigint",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 19,
+        "Scale": 0,
+        "Nullable": false
+      },
+      {
+        "Name": "StudentUSI",
         "DbDataType": "int",
         "IsPrimaryKey": false,
         "Length": null,
         "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      }
+    ]
+  },
+  {
+    "SchemaOwner": "auth",
+    "Name": "EducationOrganizationIdToStudentUSIThroughDeletedResponsibility",
+    "Columns": [
+      {
+        "Name": "SourceEducationOrganizationId",
+        "DbDataType": "bigint",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 19,
         "Scale": 0,
         "Nullable": false
       },
@@ -167,10 +191,10 @@
     "Columns": [
       {
         "Name": "SourceEducationOrganizationId",
-        "DbDataType": "int",
+        "DbDataType": "bigint",
         "IsPrimaryKey": false,
         "Length": null,
-        "Precision": 10,
+        "Precision": 19,
         "Scale": 0,
         "Nullable": false
       },
@@ -233,19 +257,19 @@
     "Columns": [
       {
         "Name": "SourceEducationOrganizationId",
-        "DbDataType": "int",
+        "DbDataType": "bigint",
         "IsPrimaryKey": true,
         "Length": null,
-        "Precision": 10,
+        "Precision": 19,
         "Scale": 0,
         "Nullable": false
       },
       {
         "Name": "TargetEducationOrganizationId",
-        "DbDataType": "int",
+        "DbDataType": "bigint",
         "IsPrimaryKey": true,
         "Length": null,
-        "Precision": 10,
+        "Precision": 19,
         "Scale": 0,
         "Nullable": false
       }
