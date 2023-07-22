@@ -24,7 +24,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
         // -------------------------------------------------------------
         public virtual int ContactUSI  { get; set; }
         public virtual long? Ignored  { get; set; }
-        public virtual int SourceEducationOrganizationId  { get; set; }
+        public virtual long SourceEducationOrganizationId  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -56,7 +56,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
         //                          Properties
         // -------------------------------------------------------------
         public virtual int ContactUSI  { get; set; }
-        public virtual int SourceEducationOrganizationId  { get; set; }
+        public virtual long SourceEducationOrganizationId  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -87,7 +87,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        public virtual int SourceEducationOrganizationId  { get; set; }
+        public virtual long SourceEducationOrganizationId  { get; set; }
         public virtual int StaffUSI  { get; set; }
         // -------------------------------------------------------------
 
@@ -119,7 +119,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        public virtual int SourceEducationOrganizationId  { get; set; }
+        public virtual long SourceEducationOrganizationId  { get; set; }
         public virtual int StaffUSI  { get; set; }
         // -------------------------------------------------------------
 
@@ -152,7 +152,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
         //                          Properties
         // -------------------------------------------------------------
         public virtual long? Ignored  { get; set; }
-        public virtual int SourceEducationOrganizationId  { get; set; }
+        public virtual long SourceEducationOrganizationId  { get; set; }
         public virtual int StudentUSI  { get; set; }
         // -------------------------------------------------------------
 
@@ -184,7 +184,39 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        public virtual int SourceEducationOrganizationId  { get; set; }
+        public virtual long SourceEducationOrganizationId  { get; set; }
+        public virtual int StudentUSI  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the auth.EducationOrganizationIdToStudentUSIThroughDeletedResponsibility table of the (unspecified) aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class auth_EducationOrganizationIdToStudentUSIThroughDeletedResponsibility : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual long SourceEducationOrganizationId  { get; set; }
         public virtual int StudentUSI  { get; set; }
         // -------------------------------------------------------------
 
@@ -216,7 +248,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        public virtual int SourceEducationOrganizationId  { get; set; }
+        public virtual long SourceEducationOrganizationId  { get; set; }
         public virtual int StudentUSI  { get; set; }
         // -------------------------------------------------------------
 
@@ -248,8 +280,8 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        public virtual int SourceEducationOrganizationId  { get; set; }
-        public virtual int TargetEducationOrganizationId  { get; set; }
+        public virtual long SourceEducationOrganizationId  { get; set; }
+        public virtual long TargetEducationOrganizationId  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
