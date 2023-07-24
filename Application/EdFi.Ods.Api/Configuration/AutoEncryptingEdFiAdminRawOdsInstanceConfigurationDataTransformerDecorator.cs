@@ -61,17 +61,27 @@ public class AutoEncryptingEdFiAdminRawOdsInstanceConfigurationDataTransformerDe
         }
         else
         {
-            // Process the main connection string
-            odsInstanceConfiguration.ConnectionString = await DecryptOrEncryptAndPersistConnectionStringAsync(
-                encryptionKey,
-                odsInstanceConfiguration.ConnectionString,
-                odsInstanceConfiguration.OdsInstanceId);
+            // Don't process null/empty connection strings
+            if (!string.IsNullOrEmpty(odsInstanceConfiguration.ConnectionString))
+            {
+                // Process the main connection string
+                odsInstanceConfiguration.ConnectionString = await DecryptOrEncryptAndPersistConnectionStringAsync(
+                    encryptionKey,
+                    odsInstanceConfiguration.ConnectionString,
+                    odsInstanceConfiguration.OdsInstanceId);
+            }
 
             // Process the ODS derivative connection strings
             foreach (var kvp in odsInstanceConfiguration.ConnectionStringByDerivativeType.ToList())
             {
                 var derivativeType = kvp.Key;
                 string connectionString = kvp.Value;
+
+                // Don't process null/empty connection strings
+                if (string.IsNullOrEmpty(connectionString))
+                {
+                    continue;
+                }
                 
                 string plaintextConnectionString = await DecryptOrEncryptAndPersistConnectionStringAsync(
                     encryptionKey,

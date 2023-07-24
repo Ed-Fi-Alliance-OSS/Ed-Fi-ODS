@@ -36,7 +36,7 @@ public class OdsInstanceConfigurationProviderTests
     private OdsInstanceConfigurationProvider _configurationProvider;
 
     [Test]
-    public async Task Should()
+    public async Task GetByIdAsync_GetsRawData_TransformsItToOdsConfiguration_and_AppliesOverrides()
     {
         // Arrange
         int suppliedOdsInstanceId = 123;
@@ -57,5 +57,45 @@ public class OdsInstanceConfigurationProviderTests
         A.CallTo(() => _dataRowDataTransformer.TransformAsync(suppliedRawDataRows)).MustHaveHappenedOnceExactly();
         A.CallTo(() => _overridesApplicator.ApplyOverrides(suppliedOdsConfiguration)).MustHaveHappenedOnceExactly();
         result.ShouldBe(suppliedOdsConfiguration);
+    }
+
+    [TestCase(null)]
+    [TestCase("")]
+    public async Task GetByIdAsync_WhenOdsConnectionStringIsNullOrEmpty_ThrowsException(string suppliedConnectionString)
+    {
+        // Arrange
+        int suppliedOdsInstanceId = 123;
+        var suppliedRawDataRows = Array.Empty<RawOdsInstanceConfigurationDataRow>();
+        var suppliedOdsConfiguration = new OdsInstanceConfiguration(123, 456, suppliedConnectionString,
+            new Dictionary<string, string>(), new Dictionary<DerivativeType, string>());
+        
+        A.CallTo(() => _dataRowDataProvider.GetByIdAsync(suppliedOdsInstanceId)).Returns(Task.FromResult(suppliedRawDataRows));
+        A.CallTo(() => _dataRowDataTransformer.TransformAsync(suppliedRawDataRows)).Returns(Task.FromResult(suppliedOdsConfiguration));
+        
+        // Act
+        Should.Throw<Exception>(async () => await _configurationProvider.GetByIdAsync(suppliedOdsInstanceId))
+            .Message.ShouldBe("ODS connection string has not been initialized.");
+    }
+    
+    [TestCase(null)]
+    [TestCase("")]
+    public async Task GetByIdAsync_WhenDerivativeOdsConnectionStringIsNullOrEmpty_ThrowsException(string suppliedConnectionString)
+    {
+        // Arrange
+        int suppliedOdsInstanceId = 123;
+        var suppliedRawDataRows = Array.Empty<RawOdsInstanceConfigurationDataRow>();
+        var suppliedOdsConfiguration = new OdsInstanceConfiguration(123, 456, "the-connection-string",
+            new Dictionary<string, string>(), 
+            new Dictionary<DerivativeType, string>()
+            {
+                { DerivativeType.ReadReplica, suppliedConnectionString }
+            });
+        
+        A.CallTo(() => _dataRowDataProvider.GetByIdAsync(suppliedOdsInstanceId)).Returns(Task.FromResult(suppliedRawDataRows));
+        A.CallTo(() => _dataRowDataTransformer.TransformAsync(suppliedRawDataRows)).Returns(Task.FromResult(suppliedOdsConfiguration));
+        
+        // Act
+        Should.Throw<Exception>(async () => await _configurationProvider.GetByIdAsync(suppliedOdsInstanceId))
+            .Message.ShouldBe($"Derivative ODS connection string '{DerivativeType.ReadReplica}' has not been initialized.");
     }
 }

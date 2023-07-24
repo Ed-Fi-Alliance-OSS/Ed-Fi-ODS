@@ -3,6 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
 
@@ -39,7 +42,30 @@ public class OdsInstanceConfigurationProvider : IOdsInstanceConfigurationProvide
         // Apply overrides (from configuration sources)
         _connectionStringOverridesApplicator.ApplyOverrides(odsInstanceConfiguration);
 
+        // Ensure that all connection strings have values
+        EnsureConnectionStringsInitialized();
+
         // Return the final configuration
         return odsInstanceConfiguration;
+
+        void EnsureConnectionStringsInitialized()
+        {
+            if (string.IsNullOrEmpty(odsInstanceConfiguration.ConnectionString))
+            {
+                throw new Exception("ODS connection string has not been initialized.");
+            }
+
+            var uninitializedDerivatives = odsInstanceConfiguration.ConnectionStringByDerivativeType
+                .Where(kvp => string.IsNullOrEmpty(kvp.Value))
+                .ToList();
+
+            if (uninitializedDerivatives.Any())
+            {
+                var uninitializedDerivativeType = uninitializedDerivatives.Select(kvp => kvp.Key).First();
+
+                throw new Exception(
+                    $"Derivative ODS connection string '{uninitializedDerivativeType}' has not been initialized.");
+            }
+        }
     }
 }
