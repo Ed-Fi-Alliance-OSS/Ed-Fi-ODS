@@ -178,3 +178,23 @@ jobs:
         path: |
           ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/**/logfile*.*
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarness*Log*.* 
+    - name: Move Log Files
+      run: |
+        $bulkLoadClientSourcePath = "${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/**/logfile*.*"
+        $testHarnessSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarness*Log*.* ""
+        $destinationPath = "${{ github.workspace }}/CreateDatabaseTemplateLogs/"
+        # Create the destination folder if it doesn't exist
+        if (!(Test-Path -Path $destinationPath)) {
+            New-Item -ItemType Directory -Path $destinationPath -Force
+        }
+        # Move the files
+        Move-Item -Path $bulkLoadClientSourcePath -Destination $destinationPath -Force
+        Move-Item -Path $testHarnessSourcePath -Destination $destinationPath -Force        
+      shell: pwsh        
+    - name: Upload Create Database Template Logs
+      if: success() || failure()
+      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      with:
+        name: Create Database Template Logs
+        path: |
+          ${{ github.workspace }}/CreateDatabaseTemplateLogs/*.*
