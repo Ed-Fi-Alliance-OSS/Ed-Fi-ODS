@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 namespace EdFi.Ods.Api.Providers;
 
 /// <summary>
-/// Implements AES 256 bit symmetric encryption of string values.
+/// Implements AES 256 bit symmetric key encryption of string values.
 /// </summary>
 /// <remarks>
 /// This class is used to facilitate the encryption of string values using the AES 256 bit

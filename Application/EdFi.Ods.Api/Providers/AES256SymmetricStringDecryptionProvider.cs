@@ -11,7 +11,7 @@ using System.Security.Cryptography;
 namespace EdFi.Ods.Api.Providers;
 
 /// <summary>
-/// Implements AES 256 bit symmetric encryption and decryption of string values.
+/// Implements AES 256 bit symmetric key decryption of string values.
 /// </summary>
 /// <remarks>
 /// This class is used to facilitate the decryption of string values using the AES 256 bit
@@ -26,10 +26,10 @@ public class Aes256SymmetricStringDecryptionProvider : ISymmetricStringDecryptio
     /// </summary>
     /// <para name="value">The data to be decrypted and related information as three base64
     /// encoded segments concatenated in the format "IV|EncryptedMessage|HMACSignature"</para>
-    /// <para name="output">If decryption is successful, then the plaintext output, otherwise null</para>
     /// <para name="key">The 256 bit private key to be used for decryption.</para>
+    /// <para name="output">If decryption is successful, then the plaintext output, otherwise null</para>
     /// <returns>A boolean value indicating if decryption was successful.</returns>
-    public bool TryDecrypt(string value, out string output, byte[] key)
+    public bool TryDecrypt(string value, byte[] key, out string output)
     {
         // Includes code from https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.aes?view=net-6.0
         if (string.IsNullOrWhiteSpace(value))

@@ -17,8 +17,8 @@ public interface ISymmetricStringDecryptionProvider
     /// Decrypts the specified string value using the specified key.
     /// </summary>
     /// <para name="value">The string value to be decrypted.</para>
-    /// <para name="output">TThe decrypted string value</para>
     /// <para name="key">The private key to be used for decryption.</para>
+    /// <para name="output">TThe decrypted string value</para>
     /// <returns>Indicates if the decryption operation was successful</returns>
-    public bool TryDecrypt(string value, out string output, byte[] key);
+    public bool TryDecrypt(string value, byte[] key, out string output);
 }

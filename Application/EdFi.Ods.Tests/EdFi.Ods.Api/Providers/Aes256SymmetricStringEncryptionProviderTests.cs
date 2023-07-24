@@ -33,7 +33,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Providers.StringEncryption
 
             // Act
             string encryptedString = _encryptionProvider.Encrypt(plainText, _staticKey);
-            bool decryptedSuccessfully = _decryptionProvider.TryDecrypt(encryptedString, out string decryptionResult, _staticKey);
+            bool decryptedSuccessfully = _decryptionProvider.TryDecrypt(encryptedString, _staticKey, out string decryptionResult);
 
             // Assert
             decryptedSuccessfully.ShouldBeTrue();
@@ -50,7 +50,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Providers.StringEncryption
             var cipherText = "Gx5FXSHSelzRF2quaCOaNw==|RlK3dR28TP/dbslPezxa4w==|D7VcBfHXG0iPkPR36QDvv9W7SGiGWUUe7WBu5neV/fo=";
 
             // Act
-            bool decryptionSuccessful = _decryptionProvider.TryDecrypt(cipherText, out string output, _staticKey);
+            bool decryptionSuccessful = _decryptionProvider.TryDecrypt(cipherText, _staticKey, out string output);
 
             // Assert
             decryptionSuccessful.ShouldBeTrue();
@@ -71,11 +71,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Providers.StringEncryption
                 "Gx5FXSHSelzRF2quaCOaNw==|RlK3dR28TP/dbslPezxa4w==|D7VcBfHXG0iPkPR36QDvv9W7SGiGWUUe7WBu5neV/f0=";
 
             // Act
-            bool decryptionOfValidCiphertextWithValidHmacSuccessful = _decryptionProvider.TryDecrypt(
-                ciphertextWithValidHmac, out string vaildHmacOutput, _staticKey);
+            bool decryptionOfValidCiphertextWithValidHmacSuccessful = _decryptionProvider.TryDecrypt(ciphertextWithValidHmac, _staticKey, out string vaildHmacOutput);
 
-            bool decryptionOfValidCiphertextWithInvalidHmacSuccessful = _decryptionProvider.TryDecrypt(
-                cipherTextWithInvalidHmac, out string invalidHmacOutput, _staticKey);
+            bool decryptionOfValidCiphertextWithInvalidHmacSuccessful = _decryptionProvider.TryDecrypt(cipherTextWithInvalidHmac, _staticKey, out string invalidHmacOutput);
 
             // Assert
             decryptionOfValidCiphertextWithValidHmacSuccessful.ShouldBeTrue();
@@ -91,7 +89,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Providers.StringEncryption
             var cipherText = "Not a valid format for decryption";
 
             // Act
-            bool decryptionSuccessful = _decryptionProvider.TryDecrypt(cipherText, out string output, _staticKey);
+            bool decryptionSuccessful = _decryptionProvider.TryDecrypt(cipherText, _staticKey, out string output);
 
             // Assert
             decryptionSuccessful.ShouldBeFalse();

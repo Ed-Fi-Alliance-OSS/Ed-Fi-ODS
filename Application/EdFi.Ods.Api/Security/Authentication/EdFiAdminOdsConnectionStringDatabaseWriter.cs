@@ -3,15 +3,16 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Data.Common;
+using System.Threading.Tasks;
 using Dapper;
 using EdFi.Admin.DataAccess.Providers;
+using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Api.Security.Authentication;
 
 /// <summary>
-/// Defines an interface for writing the connection string for an ODS instance to the admin database.
+/// Defines an interface for writing the connection string for an ODS instance to the EdFi_Admin database.
 /// </summary>
 public class EdFiAdminOdsConnectionStringDatabaseWriter : IEdFiOdsConnectionStringWriter
 {
@@ -21,7 +22,7 @@ public class EdFiAdminOdsConnectionStringDatabaseWriter : IEdFiOdsConnectionStri
     private const string UpdateOdsConnectionStringByIdSql = "UPDATE dbo.OdsInstances SET ConnectionString = @ConnectionString WHERE OdsInstanceId = @OdsInstanceId";
     private const string UpdateOdsDerivativeConnectionStringByIdSql = "UPDATE dbo.OdsInstanceDerivative SET ConnectionString = @ConnectionString WHERE OdsInstanceId = @OdsInstanceId AND DerivativeType = @DerivativeType";
 
-    /// <inheritdoc cref="IEdFiOdsConnectionStringWriter.WriteConnectionString"/>
+    /// <inheritdoc cref="IEdFiOdsConnectionStringWriter.WriteConnectionStringAsync"/>
     public EdFiAdminOdsConnectionStringDatabaseWriter(IAdminDatabaseConnectionStringProvider adminDatabaseConnectionStringProvider,
         DbProviderFactory dbProviderFactory)
     {
@@ -29,29 +30,31 @@ public class EdFiAdminOdsConnectionStringDatabaseWriter : IEdFiOdsConnectionStri
         _dbProviderFactory = dbProviderFactory;
     }
     
-    public void WriteConnectionString(int odsInstanceId, string connectionString, string derivativeType = null)
+    public async Task WriteConnectionStringAsync(int odsInstanceId, string connectionString, DerivativeType derivativeType = null)
     {
         var connection = CreateConnection();
         
-        if(!string.IsNullOrEmpty(derivativeType))
+        if (derivativeType == null)
         {
-            connection.Query(
-                UpdateOdsDerivativeConnectionStringByIdSql,
-                new
-                {
-                    ConnectionString = connectionString,
-                    OdsInstanceId = odsInstanceId
-                });
-        }
-        else
-        {
-            connection.Query(
+            // Write the encrypted connection string for the main ODS
+            await connection.QueryAsync(
                 UpdateOdsConnectionStringByIdSql,
                 new
                 {
                     ConnectionString = connectionString,
                     OdsInstanceId = odsInstanceId,
-                    DerivativeType = derivativeType
+                });
+        }
+        else
+        {
+            // Write the encrypted connection string for the derivative ODS
+            await connection.QueryAsync(
+                UpdateOdsDerivativeConnectionStringByIdSql,
+                new
+                {
+                    OdsInstanceId = odsInstanceId,
+                    ConnectionString = connectionString,
+                    DerivativeType = derivativeType.ToString(),
                 });
         }
         

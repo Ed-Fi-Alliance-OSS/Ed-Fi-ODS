@@ -301,14 +301,18 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<ConnectionStringOverridesApplicator>()
                 .As<IConnectionStringOverridesApplicator>()
                 .SingleInstance();
-            
-            builder.RegisterType<AutoEncryptingOdsInstanceConfigurationDataProviderDecorator>()
-                .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.Name == "privateKeyBytesLazy",
-                        (p, c) => c.Resolve<ApiSettings>().GetConfigurationEncryptionPrivateKeyBytesLazy()))
+
+            builder.RegisterType<EdFiAdminRawOdsInstanceConfigurationDataProvider>()
                 .As<IEdFiAdminRawOdsInstanceConfigurationDataProvider>()
                 .SingleInstance();
+
+            builder.RegisterType<EdFiAdminRawOdsInstanceConfigurationDataTransformer>()
+                .As<IEdFiAdminRawOdsInstanceConfigurationDataTransformer>()
+                .SingleInstance();
+            
+            builder.RegisterDecorator<
+                AutoEncryptingEdFiAdminRawOdsInstanceConfigurationDataTransformerDecorator, 
+                IEdFiAdminRawOdsInstanceConfigurationDataTransformer>();
 
             builder.RegisterType<OdsInstanceHashIdGenerator>()
                 .As<IOdsInstanceHashIdGenerator>()

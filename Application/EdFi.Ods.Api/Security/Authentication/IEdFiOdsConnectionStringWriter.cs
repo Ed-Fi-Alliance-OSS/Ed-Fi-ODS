@@ -3,6 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Threading.Tasks;
+using EdFi.Ods.Common.Configuration;
+
 namespace EdFi.Ods.Api.Security.Authentication;
 
 /// <summary>
@@ -22,5 +25,5 @@ public interface IEdFiOdsConnectionStringWriter
     /// <param name="derivativeType">
     /// Optional. The type of ODS instance derivative to which the connection string should be written.
     /// </param>
-    public void WriteConnectionString(int odsInstanceId, string connectionString, string derivativeType = null);
+    public Task WriteConnectionStringAsync(int odsInstanceId, string connectionString, DerivativeType derivativeType = null);
 }
