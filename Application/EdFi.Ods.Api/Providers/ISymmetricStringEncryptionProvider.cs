@@ -4,12 +4,13 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 namespace EdFi.Ods.Api.Providers;
-    /// <summary>
-    /// Defines an interface for providing symmetric encryption of string values.
-    /// </summary>
-    /// <remarks>
-    /// This interface and its implementations are used to facilitate the encryption
-    /// of string values using a symmetric encryption algorithm.</remarks>
+
+/// <summary>
+/// Defines an interface for providing symmetric encryption of string values.
+/// </summary>
+/// <remarks>
+/// This interface and its implementations are used to facilitate the encryption
+/// of string values using a symmetric encryption algorithm.</remarks>
 public interface ISymmetricStringEncryptionProvider
 {
     /// <summary>
