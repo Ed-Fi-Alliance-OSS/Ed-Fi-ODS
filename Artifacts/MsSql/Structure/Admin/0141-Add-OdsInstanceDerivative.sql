@@ -7,7 +7,7 @@ CREATE TABLE [dbo].[OdsInstanceDerivative](
     [OdsInstanceDerivativeId] INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
     [OdsInstanceId] INT NOT NULL,
     [DerivativeType] NVARCHAR(50) NOT NULL,
-    [ConnectionString] NVARCHAR(255) NOT NULL
+    [ConnectionString] NVARCHAR(500) NOT NULL
 );
 GO
 

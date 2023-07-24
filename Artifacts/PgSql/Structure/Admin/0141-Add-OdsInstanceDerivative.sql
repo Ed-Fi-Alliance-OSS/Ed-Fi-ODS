@@ -7,7 +7,7 @@ CREATE TABLE dbo.OdsInstanceDerivative(
     OdsInstanceDerivativeId SERIAL PRIMARY KEY NOT NULL,
     OdsInstanceId INT NOT NULL,
     DerivativeType VARCHAR(50) NOT NULL,
-    ConnectionString VARCHAR(255) NOT NULL
+    ConnectionString VARCHAR(500) NOT NULL
 );
 
 ALTER TABLE dbo.OdsInstanceDerivative
