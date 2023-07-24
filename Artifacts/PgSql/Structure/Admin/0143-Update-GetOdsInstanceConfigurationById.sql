@@ -8,7 +8,7 @@ DROP FUNCTION IF EXISTS dbo.GetOdsInstanceConfigurationById;
 CREATE FUNCTION dbo.GetOdsInstanceConfigurationById (ods_instanceId INT)
 RETURNS TABLE (
     OdsInstanceId INT
-    ,ConnectionString TEXT
+    ,ConnectionString VARCHAR(500)
     ,ContextKey VARCHAR(50)
     ,ContextValue VARCHAR(50)
     ,DerivativeType VARCHAR(50)
