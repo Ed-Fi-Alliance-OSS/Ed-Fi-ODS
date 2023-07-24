@@ -78,6 +78,23 @@ public class EdFiAdminRawOdsInstanceConfigurationDataTransformerTests
         result.ConnectionStringByDerivativeType.ShouldBeEmpty();
     }
 
+    [Test]
+    public async Task GetByIdAsync_WithNoDerivatives_ReturnsEmptyConnectionStringsByDerivativeType()
+    {
+        // Arrange
+        int odsInstanceId = 123;
+        var rawDataRows = GetRawDataRowsWithINoDerivatives();
+
+        A.CallTo(() => _hashIdGenerator.GenerateHashId(odsInstanceId)).Returns(456UL);
+
+        // Act
+        var result = await _rawDataRowDataTransformer.TransformAsync(rawDataRows);
+
+        // Assert
+        result.ShouldNotBeNull();
+        result.ConnectionStringByDerivativeType.ShouldBeEmpty();
+    }
+
     private static RawOdsInstanceConfigurationDataRow[] GetRawDataRows()
     {
         return new[]
@@ -151,6 +168,22 @@ public class EdFiAdminRawOdsInstanceConfigurationDataTransformerTests
                 ContextValue = "ContextValue2",
                 DerivativeType = "Sapshot",
                 ConnectionStringByDerivativeType = "SnapshotConnectionString"
+            }
+        };
+    }
+    
+    private static RawOdsInstanceConfigurationDataRow[] GetRawDataRowsWithINoDerivatives()
+    {
+        return new[]
+        {
+            new RawOdsInstanceConfigurationDataRow
+            {
+                OdsInstanceId = 123,
+                ConnectionString = "TestConnectionString",
+                ContextKey = null,
+                ContextValue = null,
+                DerivativeType = null,
+                ConnectionStringByDerivativeType = null
             }
         };
     }

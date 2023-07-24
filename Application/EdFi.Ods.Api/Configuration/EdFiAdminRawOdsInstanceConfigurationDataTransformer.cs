@@ -53,16 +53,26 @@ public class EdFiAdminRawOdsInstanceConfigurationDataTransformer : IEdFiAdminRaw
 
         IDictionary<DerivativeType, string> GetConnectionStringsByDerivativeType()
         {
-            var misconfiguredDerivativeTypeRows = rawDataRows.Where(x =>
-                    string.IsNullOrEmpty(x.DerivativeType) ||
-                    !DerivativeType.TryParse(x.DerivativeType, out _))
+            var misconfiguredOrEmptyDerivativeTypeRows = rawDataRows
+                .Where(x =>
+                    string.IsNullOrEmpty(x.DerivativeType) 
+                    || !DerivativeType.TryParse(x.DerivativeType, out _))
                 .ToList();
 
-            misconfiguredDerivativeTypeRows.ForEach(misconfiguredDerivativeType =>
-                _logger.Error($"DerivativeType enumeration does not contains '{misconfiguredDerivativeType.DerivativeType}' value.")
-            );
+            var misconfiguredDerivativeTypes = misconfiguredOrEmptyDerivativeTypeRows
+                .Select(x => x.DerivativeType)
+                .Where(x => !string.IsNullOrEmpty(x))
+                .ToList();
 
-            return rawDataRows.Except(misconfiguredDerivativeTypeRows)
+            // Add a log entry capturing the presence of misconfigured derivative types
+            if (misconfiguredDerivativeTypes.Any())
+            {
+                _logger.Error(
+                    $"Invalid DerivativeType values found for OdsInstance '{firstRow.OdsInstanceId}': '{string.Join("', '", misconfiguredDerivativeTypes)}'");
+            }
+
+            // Construct the dictionary of connection strings, keyed by valid derivative type
+            return rawDataRows.Except(misconfiguredOrEmptyDerivativeTypeRows)
                 .Select(x => new KeyValuePair<DerivativeType, string>(DerivativeType.Parse(x.DerivativeType), x.ConnectionStringByDerivativeType))
                 .DistinctBy(x => x.Key)
                 .ToDictionary(x => x.Key, x => x.Value);
