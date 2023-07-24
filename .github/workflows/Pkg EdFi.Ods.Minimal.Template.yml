@@ -190,3 +190,11 @@ jobs:
       with:
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.*.nupkg
+    - name: Upload Create Database Template Logs
+      if: success() || failure()
+      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      with:
+        name: Create Database Template Logs
+        path: |
+          ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/**/logfile*.*
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarness*Log*.*         
