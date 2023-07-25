@@ -156,6 +156,7 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
+        [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}') 
         $PSVersionTable
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
         Initialize-DevelopmentEnvironment -UsePlugins -NoDeploy -NoRestore -extensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }}
@@ -164,6 +165,7 @@ jobs:
       working-directory: ./
       run: |
         $ErrorActionPreference = 'Stop'
+        [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')        
         Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-tpdm-minimal-template.psm1"
         Initialize-TPDMMinimalTemplate -extensionVersion ${{ matrix.ExtensionVersion }} -standardVersion ${{ matrix.StandardVersion }}
       shell: powershell

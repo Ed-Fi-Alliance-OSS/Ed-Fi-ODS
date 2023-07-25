@@ -211,4 +211,4 @@ jobs:
       with:
         name: Create Database Template Logs
         path: |
-          ${{ github.workspace }}/CreateDatabaseTemplateLogs/*.*          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarness*Log*.*
+          ${{ github.workspace }}/CreateDatabaseTemplateLogs/*.* 
