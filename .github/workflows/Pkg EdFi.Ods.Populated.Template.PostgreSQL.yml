@@ -180,8 +180,9 @@ jobs:
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarness*Log*.* 
     - name: Move Log Files
       run: |
-        $bulkLoadClientSourcePath = "${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/**/logfile*.*"
-        $testHarnessSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarness*Log*.* ""
+        $bulkLoadClientSourcePath = "${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/${{ env.CONFIGURATION }}/logfile.txt"
+        $testHarnessSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/TestHarnessLog.log"
+        $testHarnessRequestResponseDetailsSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/TestHarnessRequestResponseDetailsLog.log"        
         $destinationPath = "${{ github.workspace }}/CreateDatabaseTemplateLogs/"
         # Create the destination folder if it doesn't exist
         if (!(Test-Path -Path $destinationPath)) {
@@ -189,8 +190,9 @@ jobs:
         }
         # Move the files
         Move-Item -Path $bulkLoadClientSourcePath -Destination $destinationPath -Force
-        Move-Item -Path $testHarnessSourcePath -Destination $destinationPath -Force        
-      shell: pwsh        
+        Move-Item -Path $testHarnessSourcePath -Destination $destinationPath -Force
+        Move-Item -Path $testHarnessRequestResponseDetailsSourcePath -Destination $destinationPath -Force           
+      shell: pwsh       
     - name: Upload Create Database Template Logs
       if: success() || failure()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
