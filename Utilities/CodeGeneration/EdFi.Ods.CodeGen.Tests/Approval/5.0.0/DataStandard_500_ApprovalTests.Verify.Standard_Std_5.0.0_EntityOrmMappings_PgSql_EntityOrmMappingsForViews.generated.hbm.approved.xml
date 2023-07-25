@@ -7,7 +7,7 @@
     <composite-id>
       <key-property name="ContactUSI" column="ContactUSI" type="int" />
       <key-property name="Ignored" column="Ignored" type="long" />
-      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" />
+      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="long" />
     </composite-id>
     <!-- Transient state detection -->
     <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
@@ -16,7 +16,7 @@
     <!-- Properties -->
     <property name="ContactUSI" column="ContactUSI" type="int" not-null="true" insert="false" update="false" />
     <property name="Ignored" column="Ignored" type="long" insert="false" update="false" />
-    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" not-null="true" insert="false" update="false" />
+    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="long" not-null="true" insert="false" update="false" />
 
     <!-- Aggregate references -->
 
@@ -32,7 +32,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="ContactUSI" column="ContactUSI" type="int" />
-      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" />
+      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="long" />
     </composite-id>
     <!-- Transient state detection -->
     <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
@@ -40,7 +40,7 @@
 
     <!-- Properties -->
     <property name="ContactUSI" column="ContactUSI" type="int" not-null="true" insert="false" update="false" />
-    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" not-null="true" insert="false" update="false" />
+    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="long" not-null="true" insert="false" update="false" />
 
     <!-- Aggregate references -->
 
@@ -55,7 +55,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStaffUSI" table="EducationOrganizationIdToStaffUSI" lazy="false" schema="auth">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" />
+      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="long" />
       <key-property name="StaffUSI" column="StaffUSI" type="int" />
     </composite-id>
     <!-- Transient state detection -->
@@ -63,7 +63,7 @@
 
 
     <!-- Properties -->
-    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" not-null="true" insert="false" update="false" />
+    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="long" not-null="true" insert="false" update="false" />
     <property name="StaffUSI" column="StaffUSI" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Aggregate references -->
@@ -79,7 +79,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStaffUSIIncludingDeletes" table="EducationOrganizationIdToStaffUSIIncludingDeletes" lazy="false" schema="auth">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" />
+      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="long" />
       <key-property name="StaffUSI" column="StaffUSI" type="int" />
     </composite-id>
     <!-- Transient state detection -->
@@ -87,7 +87,7 @@
 
 
     <!-- Properties -->
-    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" not-null="true" insert="false" update="false" />
+    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="long" not-null="true" insert="false" update="false" />
     <property name="StaffUSI" column="StaffUSI" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Aggregate references -->
@@ -104,7 +104,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Ignored" column="Ignored" type="long" />
-      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" />
+      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="long" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
     </composite-id>
     <!-- Transient state detection -->
@@ -113,7 +113,7 @@
 
     <!-- Properties -->
     <property name="Ignored" column="Ignored" type="long" insert="false" update="false" />
-    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" not-null="true" insert="false" update="false" />
+    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="long" not-null="true" insert="false" update="false" />
     <property name="StudentUSI" column="StudentUSI" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Aggregate references -->
@@ -129,7 +129,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStudentUSIIncludingDeletes" table="EducationOrganizationIdToStudentUSIIncludingDeletes" lazy="false" schema="auth">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" />
+      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="long" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
     </composite-id>
     <!-- Transient state detection -->
@@ -137,7 +137,31 @@
 
 
     <!-- Properties -->
-    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" not-null="true" insert="false" update="false" />
+    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="long" not-null="true" insert="false" update="false" />
+    <property name="StudentUSI" column="StudentUSI" type="int" not-null="true" insert="false" update="false" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStudentUSIThroughDeletedResponsibility" table="EducationOrganizationIdToStudentUSIThroughDeletedResponsibility" lazy="false" schema="auth">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="long" />
+      <key-property name="StudentUSI" column="StudentUSI" type="int" />
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="long" not-null="true" insert="false" update="false" />
     <property name="StudentUSI" column="StudentUSI" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Aggregate references -->
@@ -153,7 +177,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStudentUSIThroughResponsibility" table="EducationOrganizationIdToStudentUSIThroughResponsibility" lazy="false" schema="auth">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" />
+      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="long" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
     </composite-id>
     <!-- Transient state detection -->
@@ -161,7 +185,7 @@
 
 
     <!-- Properties -->
-    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" not-null="true" insert="false" update="false" />
+    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="long" not-null="true" insert="false" update="false" />
     <property name="StudentUSI" column="StudentUSI" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Aggregate references -->
@@ -177,16 +201,16 @@
   <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId" table="EducationOrganizationIdToEducationOrganizationId" lazy="false" schema="auth">
     <!-- Composite primary key -->
     <composite-id>
-      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" />
-      <key-property name="TargetEducationOrganizationId" column="TargetEducationOrganizationId" type="int" />
+      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="long" />
+      <key-property name="TargetEducationOrganizationId" column="TargetEducationOrganizationId" type="long" />
     </composite-id>
     <!-- Transient state detection -->
     <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
 
 
     <!-- Properties -->
-    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" not-null="true" insert="false" update="false" />
-    <property name="TargetEducationOrganizationId" column="TargetEducationOrganizationId" type="int" not-null="true" insert="false" update="false" />
+    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="long" not-null="true" insert="false" update="false" />
+    <property name="TargetEducationOrganizationId" column="TargetEducationOrganizationId" type="long" not-null="true" insert="false" update="false" />
 
     <!-- Aggregate references -->
 
