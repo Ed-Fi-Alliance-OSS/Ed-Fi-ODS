@@ -207,7 +207,7 @@ jobs:
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarness*Log*.*
     - name: Move Log Files
       run: |
-        $bulkLoadClientSourcePath = "${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/${{ env.CONFIGURATION }}/logfile.txt"
+        $bulkLoadClientSourcePath = "${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/${{ env.CONFIGURATION }}/logfile.log"
         $testHarnessSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/TestHarnessLog.log"
         $testHarnessRequestResponseDetailsSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/TestHarnessRequestResponseDetailsLog.log"        
         $destinationPath = "${{ github.workspace }}/CreateDatabaseTemplateLogs/"
