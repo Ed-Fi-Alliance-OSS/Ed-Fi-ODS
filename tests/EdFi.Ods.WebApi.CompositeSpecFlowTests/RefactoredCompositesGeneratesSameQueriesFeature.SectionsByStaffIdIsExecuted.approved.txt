@@ -12,8 +12,8 @@ select distinct
 	comp_aad.Namespace as educationalEnvironmentDescriptor__Namespace,
 	comp_aad.CodeValue as educationalEnvironmentDescriptor,
 	comp_aaa.AvailableCredits as availableCredits,
-	comp_aag.Namespace as careerPathwayDescriptor__Namespace,
-	comp_aag.CodeValue as careerPathwayDescriptor,
+	comp_aag.Namespace as maximumAvailableCreditTypeDescriptor__Namespace,
+	comp_aag.CodeValue as maximumAvailableCreditTypeDescriptor,
 	comp_aai.LocalCourseCode as localCourseCode,
 	comp_aai.LocalCourseTitle as localCourseTitle
 from 
@@ -21,7 +21,7 @@ from
 		left join comp_aaa.EducationalEnvironmentDescriptor comp_aad 
 	join comp_aaa.CourseOffering comp_aae
 	join comp_aae.Course comp_aaf
-		left join comp_aaf.CareerPathwayDescriptor comp_aag 
+		left join comp_aaf.MaximumAvailableCreditTypeDescriptor comp_aag 
 	join comp_aaa.CourseOffering comp_aah
 	join comp_aaa.CourseOffering comp_aai
 	join comp_aaa.StaffSectionAssociations comp_aab
