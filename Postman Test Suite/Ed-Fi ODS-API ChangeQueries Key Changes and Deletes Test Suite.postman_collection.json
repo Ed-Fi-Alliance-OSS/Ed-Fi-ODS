@@ -10896,6 +10896,9 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
+					"// Add a requestId to the query string for API log message correlation",
+					"pm.request.addQueryParams(`reqId=${pm.variables.replaceIn(\"{{$guid}}\").replace(/-/g, \"\")}`);",
+					"",
 					"CreateAccessToken(\"TokenExpiry_255901\",\"AccessToken_255901\",\"ApiKey_255901\",\"ApiSecret_255901\")",
 					"",
 					"CreateAccessToken(\"TokenExpiry_Other_Namespace\",\"AccessToken_Other_Namespace\",\"ApiKey_Other_Namespace\",\"ApiSecret_Other_Namespace\")",

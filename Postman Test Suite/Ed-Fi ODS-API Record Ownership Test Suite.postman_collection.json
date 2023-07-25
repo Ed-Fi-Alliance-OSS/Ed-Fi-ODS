@@ -5152,6 +5152,9 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
+					"// Add a requestId to the query string for API log message correlation",
+					"pm.request.addQueryParams(`reqId=${pm.variables.replaceIn(\"{{$guid}}\").replace(/-/g, \"\")}`);",
+					"",
 					"CreateAccessToken(\"TokenExpiry_255901-A\",",
 					"                  \"AccessToken_255901-A\",",
 					"                  \"ApiKey_255901-A\", ",

@@ -8801,6 +8801,9 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
+					"// Add a requestId to the query string for API log message correlation",
+					"pm.request.addQueryParams(`reqId=${pm.variables.replaceIn(\"{{$guid}}\").replace(/-/g, \"\")}`);",
+					"",
 					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
 					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
 					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",
