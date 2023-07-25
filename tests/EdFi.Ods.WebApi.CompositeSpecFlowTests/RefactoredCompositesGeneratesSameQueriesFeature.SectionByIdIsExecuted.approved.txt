@@ -12,15 +12,18 @@ select
 	comp_aab.Namespace as educationalEnvironmentDescriptor__Namespace,
 	comp_aab.CodeValue as educationalEnvironmentDescriptor,
 	comp_aaa.AvailableCredits as availableCredits,
-	comp_aaf.LocalCourseCode as localCourseCode,
-	comp_aaf.LocalCourseTitle as localCourseTitle
+	comp_aae.Namespace as careerPathwayDescriptor__Namespace,
+	comp_aae.CodeValue as careerPathwayDescriptor,
+	comp_aag.LocalCourseCode as localCourseCode,
+	comp_aag.LocalCourseTitle as localCourseTitle
 from 
 	EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi.SectionQ comp_aaa
 		left join comp_aaa.EducationalEnvironmentDescriptor comp_aab 
 	join comp_aaa.CourseOffering comp_aac
 	join comp_aac.Course comp_aad
-	join comp_aaa.CourseOffering comp_aae
+		left join comp_aad.CareerPathwayDescriptor comp_aae 
 	join comp_aaa.CourseOffering comp_aaf
+	join comp_aaa.CourseOffering comp_aag
 where comp_aaa.Id = :Id AND ( (comp_aaa.SchoolId IN (
                     SELECT fltr_aal.TargetEducationOrganizationId 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aal 
@@ -38,18 +41,18 @@ select
 	comp_aaa.SchoolYear as PK1a_SchoolYear,
 	comp_aaa.SectionIdentifier as PK1a_SectionIdentifier,
 	comp_aaa.SessionName as PK1a_SessionName,
-	comp_aag.ClassPeriodName as PK2a_ClassPeriodName,
-	comp_aag.ClassPeriodName as classPeriodName
+	comp_aah.ClassPeriodName as PK2a_ClassPeriodName,
+	comp_aah.ClassPeriodName as classPeriodName
 from 
 	EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi.SectionQ comp_aaa
-	join comp_aaa.SectionClassPeriods comp_aag
+	join comp_aaa.SectionClassPeriods comp_aah
 where comp_aaa.Id IN (:BaseEntityId)
 order by comp_aaa.LocalCourseCode,
 	comp_aaa.SchoolId,
 	comp_aaa.SchoolYear,
 	comp_aaa.SectionIdentifier,
 	comp_aaa.SessionName,
-	comp_aag.ClassPeriodName
+	comp_aah.ClassPeriodName
 HQL:
 select 
 	comp_aaa.Id As __BaseEntityId__,
@@ -58,17 +61,17 @@ select
 	comp_aaa.SchoolYear as PK1a_SchoolYear,
 	comp_aaa.SectionIdentifier as PK1a_SectionIdentifier,
 	comp_aaa.SessionName as PK1a_SessionName,
-	comp_aah.StaffUSI as PK2b_StaffUSI,
-	comp_aai.Id as id,
-	comp_aai.StaffUniqueId as staffUniqueId
+	comp_aai.StaffUSI as PK2b_StaffUSI,
+	comp_aaj.Id as id,
+	comp_aaj.StaffUniqueId as staffUniqueId
 from 
 	EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi.SectionQ comp_aaa
-	join comp_aaa.StaffSectionAssociations comp_aah
-	join comp_aah.Staff comp_aai
-where comp_aaa.Id IN (:BaseEntityId) AND ( (comp_aah.SchoolId IN (
+	join comp_aaa.StaffSectionAssociations comp_aai
+	join comp_aai.Staff comp_aaj
+where comp_aaa.Id IN (:BaseEntityId) AND ( (comp_aai.SchoolId IN (
                     SELECT fltr_aal.TargetEducationOrganizationId 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aal 
-                    WHERE fltr_aal.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))) AND (comp_aah.StaffUSI IN (
+                    WHERE fltr_aal.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))) AND (comp_aai.StaffUSI IN (
                     SELECT fltr_aab.StaffUSI 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStaffUSI fltr_aab 
                     WHERE fltr_aab.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))
@@ -77,7 +80,7 @@ order by comp_aaa.LocalCourseCode,
 	comp_aaa.SchoolYear,
 	comp_aaa.SectionIdentifier,
 	comp_aaa.SessionName,
-	comp_aah.StaffUSI
+	comp_aai.StaffUSI
 HQL:
 select 
 	comp_aaa.Id As __BaseEntityId__,
@@ -86,20 +89,20 @@ select
 	comp_aaa.SchoolYear as PK1a_SchoolYear,
 	comp_aaa.SectionIdentifier as PK1a_SectionIdentifier,
 	comp_aaa.SessionName as PK1a_SessionName,
-	comp_aak.BeginDate as PK2c_BeginDate,
-	comp_aak.StudentUSI as PK2c_StudentUSI,
-	comp_aak.BeginDate as enrollmentBeginDate,
-	comp_aak.EndDate as enrollmentEndDate,
-	comp_aal.Id as id,
-	comp_aal.StudentUniqueId as studentUniqueId
+	comp_aal.BeginDate as PK2c_BeginDate,
+	comp_aal.StudentUSI as PK2c_StudentUSI,
+	comp_aal.BeginDate as enrollmentBeginDate,
+	comp_aal.EndDate as enrollmentEndDate,
+	comp_aam.Id as id,
+	comp_aam.StudentUniqueId as studentUniqueId
 from 
 	EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi.SectionQ comp_aaa
-	join comp_aaa.StudentSectionAssociations comp_aak
-	join comp_aak.Student comp_aal
-where comp_aaa.Id IN (:BaseEntityId) AND ( (comp_aak.SchoolId IN (
+	join comp_aaa.StudentSectionAssociations comp_aal
+	join comp_aal.Student comp_aam
+where comp_aaa.Id IN (:BaseEntityId) AND ( (comp_aal.SchoolId IN (
                     SELECT fltr_aal.TargetEducationOrganizationId 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aal 
-                    WHERE fltr_aal.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))) AND (comp_aak.StudentUSI IN (
+                    WHERE fltr_aal.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))) AND (comp_aal.StudentUSI IN (
                     SELECT fltr_aac.StudentUSI 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStudentUSI fltr_aac 
                     WHERE fltr_aac.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))
@@ -108,8 +111,8 @@ order by comp_aaa.LocalCourseCode,
 	comp_aaa.SchoolYear,
 	comp_aaa.SectionIdentifier,
 	comp_aaa.SessionName,
-	comp_aak.BeginDate,
-	comp_aak.StudentUSI
+	comp_aal.BeginDate,
+	comp_aal.StudentUSI
 HQL:
 select 
 	comp_aaa.Id As __BaseEntityId__,
@@ -118,23 +121,23 @@ select
 	comp_aaa.SchoolYear as PK1a_SchoolYear,
 	comp_aaa.SectionIdentifier as PK1a_SectionIdentifier,
 	comp_aaa.SessionName as PK1a_SessionName,
-	comp_aaq.Id as id,
-	comp_aaq.SchoolId as schoolId,
-	comp_aaq.SchoolYear as schoolYear,
-	comp_aar.Namespace as termDescriptor__Namespace,
-	comp_aar.CodeValue as termDescriptor,
-	comp_aaq.SessionName as sessionName,
-	comp_aaq.BeginDate as beginDate,
-	comp_aaq.EndDate as endDate,
-	comp_aaq.TotalInstructionalDays as totalInstructionalDays
+	comp_aar.Id as id,
+	comp_aar.SchoolId as schoolId,
+	comp_aar.SchoolYear as schoolYear,
+	comp_aas.Namespace as termDescriptor__Namespace,
+	comp_aas.CodeValue as termDescriptor,
+	comp_aar.SessionName as sessionName,
+	comp_aar.BeginDate as beginDate,
+	comp_aar.EndDate as endDate,
+	comp_aar.TotalInstructionalDays as totalInstructionalDays
 from 
 	EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi.SectionQ comp_aaa
-	join comp_aaa.CourseOffering comp_aan
-	join comp_aan.Course comp_aao
-	join comp_aaa.CourseOffering comp_aap
-	join comp_aap.Session comp_aaq
-		left join comp_aaq.TermDescriptor comp_aar 
-where comp_aaa.Id IN (:BaseEntityId) AND ( (comp_aaq.SchoolId IN (
+	join comp_aaa.CourseOffering comp_aao
+	join comp_aao.Course comp_aap
+	join comp_aaa.CourseOffering comp_aaq
+	join comp_aaq.Session comp_aar
+		left join comp_aar.TermDescriptor comp_aas 
+where comp_aaa.Id IN (:BaseEntityId) AND ( (comp_aar.SchoolId IN (
                     SELECT fltr_aal.TargetEducationOrganizationId 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aal 
                     WHERE fltr_aal.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))
@@ -151,17 +154,17 @@ select
 	comp_aaa.SchoolYear as PK1a_SchoolYear,
 	comp_aaa.SectionIdentifier as PK1a_SectionIdentifier,
 	comp_aaa.SessionName as PK1a_SessionName,
-	comp_aat.Id as id,
-	comp_aat.SchoolId as schoolId,
-	comp_aat.ClassroomIdentificationCode as classroomIdentificationCode
+	comp_aau.Id as id,
+	comp_aau.SchoolId as schoolId,
+	comp_aau.ClassroomIdentificationCode as classroomIdentificationCode
 from 
 	EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi.SectionQ comp_aaa
-	join comp_aaa.CourseOffering comp_aan
-	join comp_aan.Course comp_aao
-	join comp_aaa.CourseOffering comp_aap
-	join comp_aaa.CourseOffering comp_aas
-	join comp_aaa.Location comp_aat
-where comp_aaa.Id IN (:BaseEntityId) AND ( (comp_aat.SchoolId IN (
+	join comp_aaa.CourseOffering comp_aao
+	join comp_aao.Course comp_aap
+	join comp_aaa.CourseOffering comp_aaq
+	join comp_aaa.CourseOffering comp_aat
+	join comp_aaa.Location comp_aau
+where comp_aaa.Id IN (:BaseEntityId) AND ( (comp_aau.SchoolId IN (
                     SELECT fltr_aal.TargetEducationOrganizationId 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aal 
                     WHERE fltr_aal.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))
