@@ -4,7 +4,7 @@
 -- See the LICENSE and NOTICES files in the project root for more information.
 
 ALTER TABLE dbo.OdsInstances
-    ADD ConnectionString TEXT;
+    ADD ConnectionString VARCHAR(500);
 
 CREATE TABLE dbo.ApiClientOdsInstances
 (

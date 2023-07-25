@@ -301,10 +301,18 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<ConnectionStringOverridesApplicator>()
                 .As<IConnectionStringOverridesApplicator>()
                 .SingleInstance();
-            
-            builder.RegisterType<EdFiAdminRawOdsInstanceConfigurationDataProvider >()
+
+            builder.RegisterType<EdFiAdminRawOdsInstanceConfigurationDataProvider>()
                 .As<IEdFiAdminRawOdsInstanceConfigurationDataProvider>()
                 .SingleInstance();
+
+            builder.RegisterType<EdFiAdminRawOdsInstanceConfigurationDataTransformer>()
+                .As<IEdFiAdminRawOdsInstanceConfigurationDataTransformer>()
+                .SingleInstance();
+            
+            builder.RegisterDecorator<
+                AutoEncryptingEdFiAdminRawOdsInstanceConfigurationDataTransformerDecorator, 
+                IEdFiAdminRawOdsInstanceConfigurationDataTransformer>();
 
             builder.RegisterType<OdsInstanceHashIdGenerator>()
                 .As<IOdsInstanceHashIdGenerator>()
@@ -355,7 +363,19 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<InitializeScheduledJobs>()
                 .As<IExternalTask>();
+
+            // Register components for string encryption/decryption 
+            builder.RegisterType<Aes256SymmetricStringEncryptionProvider>()
+                .As<ISymmetricStringEncryptionProvider>()
+                .SingleInstance();
+            builder.RegisterType<Aes256SymmetricStringDecryptionProvider>()
+                .As<ISymmetricStringDecryptionProvider>()
+                .SingleInstance();
             
+            builder.RegisterType<EdFiAdminOdsConnectionStringDatabaseWriter>()
+                .As<IEdFiOdsConnectionStringWriter>()
+                .SingleInstance();
+
             RegisterPipeLineStepProviders();
             RegisterModels();
 

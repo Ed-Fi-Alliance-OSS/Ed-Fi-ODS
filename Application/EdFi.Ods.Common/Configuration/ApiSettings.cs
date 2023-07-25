@@ -16,10 +16,13 @@ namespace EdFi.Ods.Common.Configuration
         private readonly Lazy<DatabaseEngine> _databaseEngine;
         private string _odsContextRoutePath;
         private string[] _odsContextRouteTemplateKeys;
+        private string _odsConnectionStringEncryptionKey;
+        private Lazy<byte[]> _odsConnectionStringEncryptionKeyBytes;
 
         public ApiSettings()
         {
             _databaseEngine = new Lazy<DatabaseEngine>(() => DatabaseEngine.TryParseEngine(Engine));
+            _odsConnectionStringEncryptionKeyBytes = new Lazy<byte[]>(GetEncryptionKeyBytes);
         }
 
         public int BearerTokenTimeoutMinutes { get; set; } = 60;
@@ -51,6 +54,28 @@ namespace EdFi.Ods.Common.Configuration
         public string OdsContextRouteTemplate { get; set; }
         
         public CacheSettings Caching { get; set; } = new();
+
+        public string OdsConnectionStringEncryptionKey
+        {
+            get => _odsConnectionStringEncryptionKey;
+            set
+            {
+                _odsConnectionStringEncryptionKey = value;
+                _odsConnectionStringEncryptionKeyBytes = new Lazy<byte[]>(GetEncryptionKeyBytes);
+            }
+        }
+
+        /// <summary>
+        /// Gets the symmetric encryption key as a byte array if configured; otherwise <b>null</b>.
+        /// </summary>
+        public byte[] OdsConnectionStringEncryptionKeyBytes
+        {
+            get => _odsConnectionStringEncryptionKeyBytes.Value;
+        }
+
+        private byte[] GetEncryptionKeyBytes() => string.IsNullOrEmpty(_odsConnectionStringEncryptionKey)
+            ? null
+            : Convert.FromBase64String(_odsConnectionStringEncryptionKey);
 
         public ReverseProxySettings GetReverseProxySettings()
         {

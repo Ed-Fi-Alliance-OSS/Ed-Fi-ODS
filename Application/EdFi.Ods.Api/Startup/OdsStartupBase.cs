@@ -64,6 +64,7 @@ namespace EdFi.Ods.Api.Startup
 {
     public abstract class OdsStartupBase
     {
+        private readonly IWebHostEnvironment _webHostEnvironment;
         private const string CorsPolicyName = "_development_";
 
         private static readonly string _identityManagementClaimType = $"{EdFiConventions.EdFiOdsResourceClaimBaseUri}/services/identity";
@@ -71,8 +72,10 @@ namespace EdFi.Ods.Api.Startup
         private readonly ILog _logger = LogManager.GetLogger(typeof(OdsStartupBase));
         private ApiSettings _apiSettings;
 
-        protected OdsStartupBase(IWebHostEnvironment env, IConfiguration configuration)
+        protected OdsStartupBase(IWebHostEnvironment webHostEnvironment, IConfiguration configuration)
         {
+            _webHostEnvironment = webHostEnvironment;
+
             Configuration = (IConfigurationRoot) configuration;
 
             GlobalContext.Properties["ApiClientId"] = null;
@@ -87,6 +90,9 @@ namespace EdFi.Ods.Api.Startup
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // Provide access to the web host environment through the container
+            services.AddSingleton(_webHostEnvironment);
+
             // Bind configuration objects to sections 
             services.Configure<ApiSettings>(Configuration.GetSection("ApiSettings"));
             services.Configure<Plugin>(Configuration.GetSection("Plugin"));

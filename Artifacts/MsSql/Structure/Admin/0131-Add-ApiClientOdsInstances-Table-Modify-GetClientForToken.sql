@@ -9,7 +9,7 @@ SET ANSI_NULLS ON;
 GO
 
 ALTER TABLE [dbo].[OdsInstances]
-    ADD [ConnectionString] NVARCHAR(MAX);
+    ADD [ConnectionString] NVARCHAR(500);
 
 CREATE TABLE [dbo].[ApiClientOdsInstances](
     [ApiClientOdsInstanceId] INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
