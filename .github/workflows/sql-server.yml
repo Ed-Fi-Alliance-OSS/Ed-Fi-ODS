@@ -12,13 +12,15 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      mssql:
+      sql-server:
         image: mcr.microsoft.com/mssql/server:2019-latest
         env:
           SA_PASSWORD: your_strong_sa_password
           ACCEPT_EULA: Y
         ports:
           - 1433:1433
+        volumes:
+          - ./data:/var/opt/mssql/data
         options: --health-cmd "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P your_strong_sa_password -Q \"SELECT 1\"" --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
