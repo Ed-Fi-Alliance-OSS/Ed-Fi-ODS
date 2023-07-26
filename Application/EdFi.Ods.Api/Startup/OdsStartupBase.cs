@@ -184,10 +184,11 @@ namespace EdFi.Ods.Api.Startup
             services.AddApplicationInsightsTelemetry(
                 options => { options.ApplicationVersion = ApiVersionConstants.Version; });
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.IdentityManagement.GetConfigKeyName()))
-            {
-                services.AddAuthorization(
-                    options =>
+            
+            services.AddAuthorization(
+                options =>
+                {
+                    if (_apiSettings.IsFeatureEnabled(ApiFeature.IdentityManagement.GetConfigKeyName()))
                     {
                         options.AddPolicy(
                             "IdentityManagement",
@@ -198,19 +199,13 @@ namespace EdFi.Ods.Api.Startup
                                         .HasClaim(c => c.Type == _identityManagementClaimType);
                                 }
                             ));
-                    });
-            }
-            else
-            {
-                services.AddAuthorization(
-                    options =>
+                    }
+                    else
                     {
                         options.AddPolicy(
-                            "IdentityManagement",
-                            policy => policy.RequireAssertion(_ => false)
-                            );
-                    });
-            }
+                            "IdentityManagement", policy => policy.RequireAssertion(_ => false));
+                    }
+                });
 
             if (_apiSettings.UseReverseProxyHeaders.HasValue && _apiSettings.UseReverseProxyHeaders.Value)
             {
