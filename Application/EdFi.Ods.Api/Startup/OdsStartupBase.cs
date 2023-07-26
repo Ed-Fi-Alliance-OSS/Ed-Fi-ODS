@@ -192,8 +192,23 @@ namespace EdFi.Ods.Api.Startup
                         options.AddPolicy(
                             "IdentityManagement",
                             policy => policy.RequireAssertion(
-                                context => context.User
-                                    .HasClaim(c => c.Type == _identityManagementClaimType)));
+                                context =>
+                                {
+                                    return context.User
+                                        .HasClaim(c => c.Type == _identityManagementClaimType);
+                                }
+                            ));
+                    });
+            }
+            else
+            {
+                services.AddAuthorization(
+                    options =>
+                    {
+                        options.AddPolicy(
+                            "IdentityManagement",
+                            policy => policy.RequireAssertion(_ => false)
+                            );
                     });
             }
 
