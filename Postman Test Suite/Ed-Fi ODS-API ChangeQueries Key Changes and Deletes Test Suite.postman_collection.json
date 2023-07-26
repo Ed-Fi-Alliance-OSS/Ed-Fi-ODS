@@ -10346,9 +10346,15 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 404\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(404)\r",
-													"});"
+													"pm.test(\"Response is 400 or 404\", () => {\r",
+													"  pm.expect(pm.response.code).to.be.oneOf([400, 404])\r",
+													"});\r",
+													"\r",
+													"if (pm.response.code == 400) {\r",
+													"  pm.test(\"Should indicate that Parent keys cannot be changed.\", () => {\r",
+													"    pm.expect(pm.response.json().message).to.include(\"Key values for this resource cannot be changed.\");\r",
+													"  });\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -10367,7 +10373,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents/0",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents/{{known:parent:id}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -10376,81 +10382,7 @@
 												"v3",
 												"ed-fi",
 												"parents",
-												"0"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Get Parents Changes",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response is 404\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(404)\r",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents/keyChanges?minChangeVersion=0",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"parents",
-												"keyChanges"
-											],
-											"query": [
-												{
-													"key": "minChangeVersion",
-													"value": "0"
-												}
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Delete Parent",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response is 404\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(404)\r",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents/0",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"parents",
-												"0"
+												"{{known:parent:id}}"
 											]
 										}
 									},
@@ -10905,6 +10837,79 @@
 											"key": "totalCount",
 											"value": "true"
 										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Non Existing",
+					"item": [
+						{
+							"name": "Non Existing KeyChange Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response is 404\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(404)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/nonExisting/keyChanges",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"nonExisting",
+										"keyChanges"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Non Existing Deletes Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response is 404\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(404)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/nonExisting/deletes",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"nonExisting",
+										"deletes"
 									]
 								}
 							},
