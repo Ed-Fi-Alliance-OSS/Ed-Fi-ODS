@@ -10843,6 +10843,79 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Non Existing",
+					"item": [
+						{
+							"name": "Non Existing KeyChange Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response is 404\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(404)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/nonExisting/keyChanges",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"nonExisting",
+										"keyChanges"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Non Existing Deletes Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response is 404\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(404)\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/nonExisting/deletes",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"nonExisting",
+										"deletes"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},

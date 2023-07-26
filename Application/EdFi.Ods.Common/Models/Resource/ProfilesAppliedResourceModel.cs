@@ -60,6 +60,11 @@ namespace EdFi.Ods.Common.Models.Resource
             return _resourceSelector.GetByName(resourceName);
         }
 
+        public bool TryGetResourceByApiCollectionName(string schemaUriSegment, string resourceCollectionName, out Resource resource)
+        {
+            return _resourceSelector.TryGetByApiCollectionName(schemaUriSegment, resourceCollectionName, out resource);
+        }
+
         /// <summary>
         /// Get a read-only of all the resources available in the model.
         /// </summary>
@@ -107,7 +112,7 @@ namespace EdFi.Ods.Common.Models.Resource
             {
                 return GetByName(fullName, model => model.ResourceByName)
                     // No resources means there's no Profile in play so we should return the main ResourceModel's resource
-                    ??  UnderlyingResourceSelector.GetByName(fullName);               
+                    ??  UnderlyingResourceSelector.GetByName(fullName); 
             }
 
             public Resource GetByApiCollectionName(string schemaUriSegment, string resourceCollectionName)
@@ -117,6 +122,21 @@ namespace EdFi.Ods.Common.Models.Resource
                         model => model.ResourceByApiCollectionName)
                     // No resources means there's no Profile in play so we should return the main ResourceModel's resource
                     ?? UnderlyingResourceSelector.GetByApiCollectionName(schemaUriSegment, resourceCollectionName);
+            }
+
+            public bool TryGetByApiCollectionName(string schemaUriSegment, string resourceCollectionName, out Resource resource)
+            {
+                resource = GetByName(
+                        new FullName(schemaUriSegment, resourceCollectionName),
+                        model => model.ResourceByApiCollectionName);
+
+                if (resource == null)
+                {
+                    // No resources means there's no Profile in play so we should return the main ResourceModel's resource
+                    return UnderlyingResourceSelector.TryGetByApiCollectionName(schemaUriSegment, resourceCollectionName, out resource);
+                }
+
+                return true;
             }
 
             private Resource GetByName(
