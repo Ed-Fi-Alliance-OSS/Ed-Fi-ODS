@@ -1809,7 +1809,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Courses.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.AcademicSubjectDescriptor = request.AcademicSubjectDescriptor;
             specification.CareerPathwayDescriptor = request.CareerPathwayDescriptor;
             specification.CourseCode = request.CourseCode;
             specification.CourseDefinedByDescriptor = request.CourseDefinedByDescriptor;
@@ -3336,6 +3335,47 @@ namespace EdFi.Ods.Api.Services.Controllers.EvaluationDelayReasonDescriptors.EdF
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EvaluationDelayReasonDescriptorId = request.EvaluationDelayReasonDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.EvaluationRubricDimensions.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/evaluationRubricDimensions")]
+    public partial class EvaluationRubricDimensionsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EvaluationRubricDimension.EdFi.EvaluationRubricDimension,
+        Entities.Common.EdFi.IEvaluationRubricDimension,
+        Entities.NHibernate.EvaluationRubricDimensionAggregate.EdFi.EvaluationRubricDimension,
+        Api.Common.Models.Requests.EvaluationRubricDimensions.EdFi.EvaluationRubricDimensionPut,
+        Api.Common.Models.Requests.EvaluationRubricDimensions.EdFi.EvaluationRubricDimensionPost,
+        Api.Common.Models.Requests.EvaluationRubricDimensions.EdFi.EvaluationRubricDimensionDelete,
+        Api.Common.Models.Requests.EvaluationRubricDimensions.EdFi.EvaluationRubricDimensionGetByExample>
+    {
+        public EvaluationRubricDimensionsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
+            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EvaluationRubricDimensions.EdFi.EvaluationRubricDimensionGetByExample request, Entities.Common.EdFi.IEvaluationRubricDimension specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EvaluationCriterionDescription = request.EvaluationCriterionDescription;
+            specification.EvaluationRubricRating = request.EvaluationRubricRating;
+            specification.EvaluationRubricRatingLevelDescriptor = request.EvaluationRubricRatingLevelDescriptor;
+            specification.Id = request.Id;
+            specification.ProgramEducationOrganizationId = request.ProgramEducationOrganizationId;
+            specification.ProgramEvaluationElementTitle = request.ProgramEvaluationElementTitle;
+            specification.ProgramEvaluationPeriodDescriptor = request.ProgramEvaluationPeriodDescriptor;
+            specification.ProgramEvaluationTitle = request.ProgramEvaluationTitle;
+            specification.ProgramEvaluationTypeDescriptor = request.ProgramEvaluationTypeDescriptor;
+            specification.ProgramName = request.ProgramName;
+            specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
+            specification.RubricDimensionSortOrder = request.RubricDimensionSortOrder;
         }
     }
 }
@@ -6347,6 +6387,188 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramDimensions.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.ProgramEvaluations.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/programEvaluations")]
+    public partial class ProgramEvaluationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ProgramEvaluation.EdFi.ProgramEvaluation,
+        Entities.Common.EdFi.IProgramEvaluation,
+        Entities.NHibernate.ProgramEvaluationAggregate.EdFi.ProgramEvaluation,
+        Api.Common.Models.Requests.ProgramEvaluations.EdFi.ProgramEvaluationPut,
+        Api.Common.Models.Requests.ProgramEvaluations.EdFi.ProgramEvaluationPost,
+        Api.Common.Models.Requests.ProgramEvaluations.EdFi.ProgramEvaluationDelete,
+        Api.Common.Models.Requests.ProgramEvaluations.EdFi.ProgramEvaluationGetByExample>
+    {
+        public ProgramEvaluationsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
+            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ProgramEvaluations.EdFi.ProgramEvaluationGetByExample request, Entities.Common.EdFi.IProgramEvaluation specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EvaluationMaxNumericRating = request.EvaluationMaxNumericRating;
+            specification.EvaluationMinNumericRating = request.EvaluationMinNumericRating;
+            specification.Id = request.Id;
+            specification.ProgramEducationOrganizationId = request.ProgramEducationOrganizationId;
+            specification.ProgramEvaluationDescription = request.ProgramEvaluationDescription;
+            specification.ProgramEvaluationPeriodDescriptor = request.ProgramEvaluationPeriodDescriptor;
+            specification.ProgramEvaluationTitle = request.ProgramEvaluationTitle;
+            specification.ProgramEvaluationTypeDescriptor = request.ProgramEvaluationTypeDescriptor;
+            specification.ProgramName = request.ProgramName;
+            specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ProgramEvaluationElements.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/programEvaluationElements")]
+    public partial class ProgramEvaluationElementsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ProgramEvaluationElement.EdFi.ProgramEvaluationElement,
+        Entities.Common.EdFi.IProgramEvaluationElement,
+        Entities.NHibernate.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElement,
+        Api.Common.Models.Requests.ProgramEvaluationElements.EdFi.ProgramEvaluationElementPut,
+        Api.Common.Models.Requests.ProgramEvaluationElements.EdFi.ProgramEvaluationElementPost,
+        Api.Common.Models.Requests.ProgramEvaluationElements.EdFi.ProgramEvaluationElementDelete,
+        Api.Common.Models.Requests.ProgramEvaluationElements.EdFi.ProgramEvaluationElementGetByExample>
+    {
+        public ProgramEvaluationElementsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
+            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ProgramEvaluationElements.EdFi.ProgramEvaluationElementGetByExample request, Entities.Common.EdFi.IProgramEvaluationElement specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.ElementMaxNumericRating = request.ElementMaxNumericRating;
+            specification.ElementMinNumericRating = request.ElementMinNumericRating;
+            specification.ElementSortOrder = request.ElementSortOrder;
+            specification.Id = request.Id;
+            specification.ProgramEducationOrganizationId = request.ProgramEducationOrganizationId;
+            specification.ProgramEvaluationElementDescription = request.ProgramEvaluationElementDescription;
+            specification.ProgramEvaluationElementTitle = request.ProgramEvaluationElementTitle;
+            specification.ProgramEvaluationObjectiveTitle = request.ProgramEvaluationObjectiveTitle;
+            specification.ProgramEvaluationPeriodDescriptor = request.ProgramEvaluationPeriodDescriptor;
+            specification.ProgramEvaluationTitle = request.ProgramEvaluationTitle;
+            specification.ProgramEvaluationTypeDescriptor = request.ProgramEvaluationTypeDescriptor;
+            specification.ProgramName = request.ProgramName;
+            specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ProgramEvaluationObjectives.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/programEvaluationObjectives")]
+    public partial class ProgramEvaluationObjectivesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ProgramEvaluationObjective.EdFi.ProgramEvaluationObjective,
+        Entities.Common.EdFi.IProgramEvaluationObjective,
+        Entities.NHibernate.ProgramEvaluationObjectiveAggregate.EdFi.ProgramEvaluationObjective,
+        Api.Common.Models.Requests.ProgramEvaluationObjectives.EdFi.ProgramEvaluationObjectivePut,
+        Api.Common.Models.Requests.ProgramEvaluationObjectives.EdFi.ProgramEvaluationObjectivePost,
+        Api.Common.Models.Requests.ProgramEvaluationObjectives.EdFi.ProgramEvaluationObjectiveDelete,
+        Api.Common.Models.Requests.ProgramEvaluationObjectives.EdFi.ProgramEvaluationObjectiveGetByExample>
+    {
+        public ProgramEvaluationObjectivesController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
+            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ProgramEvaluationObjectives.EdFi.ProgramEvaluationObjectiveGetByExample request, Entities.Common.EdFi.IProgramEvaluationObjective specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Id = request.Id;
+            specification.ObjectiveMaxNumericRating = request.ObjectiveMaxNumericRating;
+            specification.ObjectiveMinNumericRating = request.ObjectiveMinNumericRating;
+            specification.ObjectiveSortOrder = request.ObjectiveSortOrder;
+            specification.ProgramEducationOrganizationId = request.ProgramEducationOrganizationId;
+            specification.ProgramEvaluationObjectiveDescription = request.ProgramEvaluationObjectiveDescription;
+            specification.ProgramEvaluationObjectiveTitle = request.ProgramEvaluationObjectiveTitle;
+            specification.ProgramEvaluationPeriodDescriptor = request.ProgramEvaluationPeriodDescriptor;
+            specification.ProgramEvaluationTitle = request.ProgramEvaluationTitle;
+            specification.ProgramEvaluationTypeDescriptor = request.ProgramEvaluationTypeDescriptor;
+            specification.ProgramName = request.ProgramName;
+            specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ProgramEvaluationPeriodDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/programEvaluationPeriodDescriptors")]
+    public partial class ProgramEvaluationPeriodDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ProgramEvaluationPeriodDescriptor.EdFi.ProgramEvaluationPeriodDescriptor,
+        Entities.Common.EdFi.IProgramEvaluationPeriodDescriptor,
+        Entities.NHibernate.ProgramEvaluationPeriodDescriptorAggregate.EdFi.ProgramEvaluationPeriodDescriptor,
+        Api.Common.Models.Requests.ProgramEvaluationPeriodDescriptors.EdFi.ProgramEvaluationPeriodDescriptorPut,
+        Api.Common.Models.Requests.ProgramEvaluationPeriodDescriptors.EdFi.ProgramEvaluationPeriodDescriptorPost,
+        Api.Common.Models.Requests.ProgramEvaluationPeriodDescriptors.EdFi.ProgramEvaluationPeriodDescriptorDelete,
+        Api.Common.Models.Requests.ProgramEvaluationPeriodDescriptors.EdFi.ProgramEvaluationPeriodDescriptorGetByExample>
+    {
+        public ProgramEvaluationPeriodDescriptorsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
+            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ProgramEvaluationPeriodDescriptors.EdFi.ProgramEvaluationPeriodDescriptorGetByExample request, Entities.Common.EdFi.IProgramEvaluationPeriodDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.ProgramEvaluationPeriodDescriptorId = request.ProgramEvaluationPeriodDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ProgramEvaluationTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/programEvaluationTypeDescriptors")]
+    public partial class ProgramEvaluationTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ProgramEvaluationTypeDescriptor.EdFi.ProgramEvaluationTypeDescriptor,
+        Entities.Common.EdFi.IProgramEvaluationTypeDescriptor,
+        Entities.NHibernate.ProgramEvaluationTypeDescriptorAggregate.EdFi.ProgramEvaluationTypeDescriptor,
+        Api.Common.Models.Requests.ProgramEvaluationTypeDescriptors.EdFi.ProgramEvaluationTypeDescriptorPut,
+        Api.Common.Models.Requests.ProgramEvaluationTypeDescriptors.EdFi.ProgramEvaluationTypeDescriptorPost,
+        Api.Common.Models.Requests.ProgramEvaluationTypeDescriptors.EdFi.ProgramEvaluationTypeDescriptorDelete,
+        Api.Common.Models.Requests.ProgramEvaluationTypeDescriptors.EdFi.ProgramEvaluationTypeDescriptorGetByExample>
+    {
+        public ProgramEvaluationTypeDescriptorsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
+            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ProgramEvaluationTypeDescriptors.EdFi.ProgramEvaluationTypeDescriptorGetByExample request, Entities.Common.EdFi.IProgramEvaluationTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.ProgramEvaluationTypeDescriptorId = request.ProgramEvaluationTypeDescriptorId;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.ProgramSponsorDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -6676,6 +6898,36 @@ namespace EdFi.Ods.Api.Services.Controllers.RaceDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.RaceDescriptorId = request.RaceDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.RatingLevelDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/ratingLevelDescriptors")]
+    public partial class RatingLevelDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.RatingLevelDescriptor.EdFi.RatingLevelDescriptor,
+        Entities.Common.EdFi.IRatingLevelDescriptor,
+        Entities.NHibernate.RatingLevelDescriptorAggregate.EdFi.RatingLevelDescriptor,
+        Api.Common.Models.Requests.RatingLevelDescriptors.EdFi.RatingLevelDescriptorPut,
+        Api.Common.Models.Requests.RatingLevelDescriptors.EdFi.RatingLevelDescriptorPost,
+        Api.Common.Models.Requests.RatingLevelDescriptors.EdFi.RatingLevelDescriptorDelete,
+        Api.Common.Models.Requests.RatingLevelDescriptors.EdFi.RatingLevelDescriptorGetByExample>
+    {
+        public RatingLevelDescriptorsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
+            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.RatingLevelDescriptors.EdFi.RatingLevelDescriptorGetByExample request, Entities.Common.EdFi.IRatingLevelDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.RatingLevelDescriptorId = request.RatingLevelDescriptorId;
         }
     }
 }
@@ -9256,6 +9508,50 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAttendanceEvents.EdFi
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.StudentProgramEvaluations.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentProgramEvaluations")]
+    public partial class StudentProgramEvaluationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentProgramEvaluation.EdFi.StudentProgramEvaluation,
+        Entities.Common.EdFi.IStudentProgramEvaluation,
+        Entities.NHibernate.StudentProgramEvaluationAggregate.EdFi.StudentProgramEvaluation,
+        Api.Common.Models.Requests.StudentProgramEvaluations.EdFi.StudentProgramEvaluationPut,
+        Api.Common.Models.Requests.StudentProgramEvaluations.EdFi.StudentProgramEvaluationPost,
+        Api.Common.Models.Requests.StudentProgramEvaluations.EdFi.StudentProgramEvaluationDelete,
+        Api.Common.Models.Requests.StudentProgramEvaluations.EdFi.StudentProgramEvaluationGetByExample>
+    {
+        public StudentProgramEvaluationsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
+            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StudentProgramEvaluations.EdFi.StudentProgramEvaluationGetByExample request, Entities.Common.EdFi.IStudentProgramEvaluation specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EvaluationDate = request.EvaluationDate;
+            specification.EvaluationDuration = request.EvaluationDuration;
+            specification.Id = request.Id;
+            specification.ProgramEducationOrganizationId = request.ProgramEducationOrganizationId;
+            specification.ProgramEvaluationPeriodDescriptor = request.ProgramEvaluationPeriodDescriptor;
+            specification.ProgramEvaluationTitle = request.ProgramEvaluationTitle;
+            specification.ProgramEvaluationTypeDescriptor = request.ProgramEvaluationTypeDescriptor;
+            specification.ProgramName = request.ProgramName;
+            specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
+            specification.StaffEvaluatorStaffUniqueId = request.StaffEvaluatorStaffUniqueId;
+            specification.StudentUniqueId = request.StudentUniqueId;
+            specification.SummaryEvaluationComment = request.SummaryEvaluationComment;
+            specification.SummaryEvaluationNumericRating = request.SummaryEvaluationNumericRating;
+            specification.SummaryEvaluationRatingLevelDescriptor = request.SummaryEvaluationRatingLevelDescriptor;
         }
     }
 }

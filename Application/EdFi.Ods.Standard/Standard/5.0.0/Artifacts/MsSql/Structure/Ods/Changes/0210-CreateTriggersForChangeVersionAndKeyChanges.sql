@@ -407,6 +407,19 @@ BEGIN
 END	
 GO
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_EvaluationRubricDimension_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EvaluationRubricDimension_TR_UpdateChangeVersion] ON [edfi].[EvaluationRubricDimension] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[EvaluationRubricDimension]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[EvaluationRubricDimension] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_FeederSchoolAssociation_TR_UpdateChangeVersion]
 GO
 
@@ -472,12 +485,12 @@ BEGIN
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.Grade(
-        OldBeginDate, OldGradeTypeDescriptorId, OldGradeTypeDescriptorNamespace, OldGradeTypeDescriptorCodeValue, OldGradingPeriodDescriptorId, OldGradingPeriodDescriptorNamespace, OldGradingPeriodDescriptorCodeValue, OldGradingPeriodSchoolYear, OldGradingPeriodSequence, OldLocalCourseCode, OldSchoolId, OldSchoolYear, OldSectionIdentifier, OldSessionName, OldStudentUSI, OldStudentUniqueId, 
-        NewBeginDate, NewGradeTypeDescriptorId, NewGradeTypeDescriptorNamespace, NewGradeTypeDescriptorCodeValue, NewGradingPeriodDescriptorId, NewGradingPeriodDescriptorNamespace, NewGradingPeriodDescriptorCodeValue, NewGradingPeriodSchoolYear, NewGradingPeriodSequence, NewLocalCourseCode, NewSchoolId, NewSchoolYear, NewSectionIdentifier, NewSessionName, NewStudentUSI, NewStudentUniqueId, 
+        OldBeginDate, OldGradeTypeDescriptorId, OldGradeTypeDescriptorNamespace, OldGradeTypeDescriptorCodeValue, OldGradingPeriodDescriptorId, OldGradingPeriodDescriptorNamespace, OldGradingPeriodDescriptorCodeValue, OldGradingPeriodSequence, OldGradingPeriodSchoolYear, OldLocalCourseCode, OldSchoolId, OldSchoolYear, OldSectionIdentifier, OldSessionName, OldStudentUSI, OldStudentUniqueId, 
+        NewBeginDate, NewGradeTypeDescriptorId, NewGradeTypeDescriptorNamespace, NewGradeTypeDescriptorCodeValue, NewGradingPeriodDescriptorId, NewGradingPeriodDescriptorNamespace, NewGradingPeriodDescriptorCodeValue, NewGradingPeriodSequence, NewGradingPeriodSchoolYear, NewLocalCourseCode, NewSchoolId, NewSchoolYear, NewSectionIdentifier, NewSessionName, NewStudentUSI, NewStudentUniqueId, 
         Id, ChangeVersion)
     SELECT
-        d.BeginDate, d.GradeTypeDescriptorId, dj0.Namespace, dj0.CodeValue, d.GradingPeriodDescriptorId, dj1.Namespace, dj1.CodeValue, d.GradingPeriodSchoolYear, d.GradingPeriodSequence, d.LocalCourseCode, d.SchoolId, d.SchoolYear, d.SectionIdentifier, d.SessionName, d.StudentUSI, dj2.StudentUniqueId, 
-        i.BeginDate, i.GradeTypeDescriptorId, ij0.Namespace, ij0.CodeValue, i.GradingPeriodDescriptorId, ij1.Namespace, ij1.CodeValue, i.GradingPeriodSchoolYear, i.GradingPeriodSequence, i.LocalCourseCode, i.SchoolId, i.SchoolYear, i.SectionIdentifier, i.SessionName, i.StudentUSI, ij2.StudentUniqueId, 
+        d.BeginDate, d.GradeTypeDescriptorId, dj0.Namespace, dj0.CodeValue, d.GradingPeriodDescriptorId, dj1.Namespace, dj1.CodeValue, d.GradingPeriodSequence, d.GradingPeriodSchoolYear, d.LocalCourseCode, d.SchoolId, d.SchoolYear, d.SectionIdentifier, d.SessionName, d.StudentUSI, dj2.StudentUniqueId, 
+        i.BeginDate, i.GradeTypeDescriptorId, ij0.Namespace, ij0.CodeValue, i.GradingPeriodDescriptorId, ij1.Namespace, ij1.CodeValue, i.GradingPeriodSequence, i.GradingPeriodSchoolYear, i.LocalCourseCode, i.SchoolId, i.SchoolYear, i.SectionIdentifier, i.SessionName, i.StudentUSI, ij2.StudentUniqueId, 
         d.Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM deleted d INNER JOIN inserted i ON d.Id = i.Id
         INNER JOIN edfi.Descriptor dj0
@@ -494,7 +507,7 @@ BEGIN
             ON i.StudentUSI = ij2.StudentUSI
 
     WHERE
-        d.BeginDate <> i.BeginDate OR d.GradeTypeDescriptorId <> i.GradeTypeDescriptorId OR d.GradingPeriodDescriptorId <> i.GradingPeriodDescriptorId OR d.GradingPeriodSchoolYear <> i.GradingPeriodSchoolYear OR d.GradingPeriodSequence <> i.GradingPeriodSequence OR d.LocalCourseCode <> i.LocalCourseCode OR d.SchoolId <> i.SchoolId OR d.SchoolYear <> i.SchoolYear OR d.SectionIdentifier <> i.SectionIdentifier OR d.SessionName <> i.SessionName OR d.StudentUSI <> i.StudentUSI;
+        d.BeginDate <> i.BeginDate OR d.GradeTypeDescriptorId <> i.GradeTypeDescriptorId OR d.GradingPeriodDescriptorId <> i.GradingPeriodDescriptorId OR d.GradingPeriodSequence <> i.GradingPeriodSequence OR d.GradingPeriodSchoolYear <> i.GradingPeriodSchoolYear OR d.LocalCourseCode <> i.LocalCourseCode OR d.SchoolId <> i.SchoolId OR d.SchoolYear <> i.SchoolYear OR d.SectionIdentifier <> i.SectionIdentifier OR d.SessionName <> i.SessionName OR d.StudentUSI <> i.StudentUSI;
 END	
 GO
 
@@ -821,6 +834,45 @@ BEGIN
     UPDATE [edfi].[ProgramDimension]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[ProgramDimension] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_ProgramEvaluation_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ProgramEvaluation_TR_UpdateChangeVersion] ON [edfi].[ProgramEvaluation] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[ProgramEvaluation]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[ProgramEvaluation] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_ProgramEvaluationElement_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ProgramEvaluationElement_TR_UpdateChangeVersion] ON [edfi].[ProgramEvaluationElement] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[ProgramEvaluationElement]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[ProgramEvaluationElement] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_ProgramEvaluationObjective_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ProgramEvaluationObjective_TR_UpdateChangeVersion] ON [edfi].[ProgramEvaluationObjective] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[ProgramEvaluationObjective]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[ProgramEvaluationObjective] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -1365,6 +1417,19 @@ BEGIN
     UPDATE [edfi].[StudentProgramAttendanceEvent]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[StudentProgramAttendanceEvent] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_StudentProgramEvaluation_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StudentProgramEvaluation_TR_UpdateChangeVersion] ON [edfi].[StudentProgramEvaluation] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[StudentProgramEvaluation]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[StudentProgramEvaluation] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO

@@ -623,6 +623,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class EvaluationRubricDimensionCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EvaluationRubricDimension.EdFi.EvaluationRubricDimension, Entities.NHibernate.EvaluationRubricDimensionAggregate.EdFi.EvaluationRubricDimension>
+    {
+        public EvaluationRubricDimensionCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class EventCircumstanceDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EventCircumstanceDescriptor.EdFi.EventCircumstanceDescriptor, Entities.NHibernate.EventCircumstanceDescriptorAggregate.EdFi.EventCircumstanceDescriptor>
     {
         public EventCircumstanceDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -1187,6 +1193,36 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ProgramEvaluation.EdFi.ProgramEvaluation, Entities.NHibernate.ProgramEvaluationAggregate.EdFi.ProgramEvaluation>
+    {
+        public ProgramEvaluationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationElementCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ProgramEvaluationElement.EdFi.ProgramEvaluationElement, Entities.NHibernate.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElement>
+    {
+        public ProgramEvaluationElementCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationObjectiveCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ProgramEvaluationObjective.EdFi.ProgramEvaluationObjective, Entities.NHibernate.ProgramEvaluationObjectiveAggregate.EdFi.ProgramEvaluationObjective>
+    {
+        public ProgramEvaluationObjectiveCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationPeriodDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ProgramEvaluationPeriodDescriptor.EdFi.ProgramEvaluationPeriodDescriptor, Entities.NHibernate.ProgramEvaluationPeriodDescriptorAggregate.EdFi.ProgramEvaluationPeriodDescriptor>
+    {
+        public ProgramEvaluationPeriodDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ProgramEvaluationTypeDescriptor.EdFi.ProgramEvaluationTypeDescriptor, Entities.NHibernate.ProgramEvaluationTypeDescriptorAggregate.EdFi.ProgramEvaluationTypeDescriptor>
+    {
+        public ProgramEvaluationTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class ProgramSponsorDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ProgramSponsorDescriptor.EdFi.ProgramSponsorDescriptor, Entities.NHibernate.ProgramSponsorDescriptorAggregate.EdFi.ProgramSponsorDescriptor>
     {
         public ProgramSponsorDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -1250,6 +1286,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class RaceDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.RaceDescriptor.EdFi.RaceDescriptor, Entities.NHibernate.RaceDescriptorAggregate.EdFi.RaceDescriptor>
     {
         public RaceDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class RatingLevelDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.RatingLevelDescriptor.EdFi.RatingLevelDescriptor, Entities.NHibernate.RatingLevelDescriptorAggregate.EdFi.RatingLevelDescriptor>
+    {
+        public RatingLevelDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1694,6 +1736,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class StudentProgramAttendanceEventCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentProgramAttendanceEvent.EdFi.StudentProgramAttendanceEvent, Entities.NHibernate.StudentProgramAttendanceEventAggregate.EdFi.StudentProgramAttendanceEvent>
     {
         public StudentProgramAttendanceEventCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentProgramEvaluationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentProgramEvaluation.EdFi.StudentProgramEvaluation, Entities.NHibernate.StudentProgramEvaluationAggregate.EdFi.StudentProgramEvaluation>
+    {
+        public StudentProgramEvaluationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]

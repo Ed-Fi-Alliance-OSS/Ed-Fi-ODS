@@ -121,7 +121,7 @@
           </LinkedCollection>
           <ReferencedResource name="CourseOfferingReference" flatten="true">
             <ReferencedResource name="CourseReference" flatten="true">
-              <Property name="AcademicSubjectDescriptor" />
+              <Property name="MaximumAvailableCreditTypeDescriptor" />
             </ReferencedResource>
           </ReferencedResource>
           <ReferencedResource name="CourseOfferingReference" flatten="true">

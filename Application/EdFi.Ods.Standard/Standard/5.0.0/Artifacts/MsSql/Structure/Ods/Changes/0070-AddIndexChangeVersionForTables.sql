@@ -172,6 +172,12 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.EvaluationRubricDimension') AND name = N'UX_EvaluationRubricDimension_ChangeVersion')
+    CREATE INDEX [UX_EvaluationRubricDimension_ChangeVersion] ON [edfi].[EvaluationRubricDimension] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.FeederSchoolAssociation') AND name = N'UX_FeederSchoolAssociation_ChangeVersion')
     CREATE INDEX [UX_FeederSchoolAssociation_ChangeVersion] ON [edfi].[FeederSchoolAssociation] ([ChangeVersion] ASC)
     GO
@@ -336,6 +342,24 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.ProgramDimension') AND name = N'UX_ProgramDimension_ChangeVersion')
     CREATE INDEX [UX_ProgramDimension_ChangeVersion] ON [edfi].[ProgramDimension] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.ProgramEvaluation') AND name = N'UX_ProgramEvaluation_ChangeVersion')
+    CREATE INDEX [UX_ProgramEvaluation_ChangeVersion] ON [edfi].[ProgramEvaluation] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.ProgramEvaluationElement') AND name = N'UX_ProgramEvaluationElement_ChangeVersion')
+    CREATE INDEX [UX_ProgramEvaluationElement_ChangeVersion] ON [edfi].[ProgramEvaluationElement] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.ProgramEvaluationObjective') AND name = N'UX_ProgramEvaluationObjective_ChangeVersion')
+    CREATE INDEX [UX_ProgramEvaluationObjective_ChangeVersion] ON [edfi].[ProgramEvaluationObjective] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -540,6 +564,12 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentProgramAttendanceEvent') AND name = N'UX_StudentProgramAttendanceEvent_ChangeVersion')
     CREATE INDEX [UX_StudentProgramAttendanceEvent_ChangeVersion] ON [edfi].[StudentProgramAttendanceEvent] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentProgramEvaluation') AND name = N'UX_StudentProgramEvaluation_ChangeVersion')
+    CREATE INDEX [UX_StudentProgramEvaluation_ChangeVersion] ON [edfi].[StudentProgramEvaluation] ([ChangeVersion] ASC)
     GO
 COMMIT
 

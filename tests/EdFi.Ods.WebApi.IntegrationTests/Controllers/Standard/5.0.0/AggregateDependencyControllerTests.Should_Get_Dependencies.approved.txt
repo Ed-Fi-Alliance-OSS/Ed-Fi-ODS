@@ -1096,6 +1096,22 @@
     ]
   },
   {
+    "resource": "/ed-fi/programEvaluationPeriodDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/programEvaluationTypeDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/programSponsorDescriptors",
     "order": 1,
     "operations": [
@@ -1169,6 +1185,14 @@
   },
   {
     "resource": "/ed-fi/raceDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/ratingLevelDescriptors",
     "order": 1,
     "operations": [
       "Create",
@@ -2012,6 +2036,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/programEvaluations",
+    "order": 9,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/staffAbsenceEvents",
     "order": 9,
     "operations": [
@@ -2108,6 +2140,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/programEvaluationObjectives",
+    "order": 10,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/sections",
     "order": 10,
     "operations": [
@@ -2148,6 +2188,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/programEvaluationElements",
+    "order": 11,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/sectionAttendanceTakenEvents",
     "order": 11,
     "operations": [
@@ -2173,6 +2221,14 @@
   },
   {
     "resource": "/ed-fi/assessmentItems",
+    "order": 12,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/evaluationRubricDimensions",
     "order": 12,
     "operations": [
       "Create",
@@ -2364,6 +2420,14 @@
   },
   {
     "resource": "/ed-fi/studentProgramAttendanceEvents",
+    "order": 14,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/studentProgramEvaluations",
     "order": 14,
     "operations": [
       "Create",

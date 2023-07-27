@@ -61,7 +61,7 @@ namespace EdFi.Ods.Common.Specifications
             string personType = _personTypesProvider.PersonTypes.FirstOrDefault(
                 pt =>
                 {
-                    int personTypePos = propertyName.IndexOf(pt, StringComparison.OrdinalIgnoreCase);
+                    int personTypePos = propertyName.LastIndexOf(pt, StringComparison.OrdinalIgnoreCase);
 
                     if (personTypePos < 0 || personTypePos + pt.Length > propertyName.Length)
                     {
@@ -89,7 +89,7 @@ namespace EdFi.Ods.Common.Specifications
             string personType = _personTypesProvider.PersonTypes.FirstOrDefault(
                 pt =>
                 {
-                    int personTypePos = propertyName.IndexOf(pt, StringComparison.OrdinalIgnoreCase);
+                    int personTypePos = propertyName.LastIndexOf(pt, StringComparison.OrdinalIgnoreCase);
 
                     if (personTypePos < 0 || personTypePos + pt.Length > propertyName.Length)
                     {
@@ -126,7 +126,7 @@ namespace EdFi.Ods.Common.Specifications
             int personStartPos;
 
             // Extract role name applied as a prefix
-            if ((personStartPos = propertyName.IndexOf(personType)) >= 0)
+            if ((personStartPos = propertyName.LastIndexOf(personType)) >= 0)
             {
                 roleName = propertyName.Substring(0, personStartPos);
             }

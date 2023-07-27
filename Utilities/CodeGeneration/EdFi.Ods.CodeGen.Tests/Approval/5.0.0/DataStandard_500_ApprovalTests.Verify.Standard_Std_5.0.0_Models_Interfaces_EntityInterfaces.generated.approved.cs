@@ -6810,7 +6810,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         long EducationOrganizationId { get; set; }
 
         // Non-PK properties
-        string AcademicSubjectDescriptor { get; set; }
         string CareerPathwayDescriptor { get; set; }
         string CourseDefinedByDescriptor { get; set; }
         string CourseDescription { get; set; }
@@ -6831,6 +6830,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // One-to-one relationships
 
         // Lists
+        ICollection<ICourseAcademicSubject> CourseAcademicSubjects { get; set; }
         ICollection<ICourseCompetencyLevel> CourseCompetencyLevels { get; set; }
         ICollection<ICourseIdentificationCode> CourseIdentificationCodes { get; set; }
         ICollection<ICourseLearningStandard> CourseLearningStandards { get; set; }
@@ -6849,8 +6849,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
     public class CourseMappingContract : IMappingContract, IExtensionsMappingContract
     {
         public CourseMappingContract(
-            bool isAcademicSubjectDescriptorSupported,
             bool isCareerPathwayDescriptorSupported,
+            bool isCourseAcademicSubjectsSupported,
             bool isCourseCompetencyLevelsSupported,
             bool isCourseDefinedByDescriptorSupported,
             bool isCourseDescriptionSupported,
@@ -6871,6 +6871,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isMinimumAvailableCreditTypeDescriptorSupported,
             bool isNumberOfPartsSupported,
             bool isTimeRequiredForCompletionSupported,
+            Func<ICourseAcademicSubject, bool> isCourseAcademicSubjectIncluded,
             Func<ICourseCompetencyLevel, bool> isCourseCompetencyLevelIncluded,
             Func<ICourseIdentificationCode, bool> isCourseIdentificationCodeIncluded,
             Func<ICourseLearningStandard, bool> isCourseLearningStandardIncluded,
@@ -6879,8 +6880,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IReadOnlyList<string> supportedExtensions
             )
         {
-            IsAcademicSubjectDescriptorSupported = isAcademicSubjectDescriptorSupported;
             IsCareerPathwayDescriptorSupported = isCareerPathwayDescriptorSupported;
+            IsCourseAcademicSubjectsSupported = isCourseAcademicSubjectsSupported;
             IsCourseCompetencyLevelsSupported = isCourseCompetencyLevelsSupported;
             IsCourseDefinedByDescriptorSupported = isCourseDefinedByDescriptorSupported;
             IsCourseDescriptionSupported = isCourseDescriptionSupported;
@@ -6901,6 +6902,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsMinimumAvailableCreditTypeDescriptorSupported = isMinimumAvailableCreditTypeDescriptorSupported;
             IsNumberOfPartsSupported = isNumberOfPartsSupported;
             IsTimeRequiredForCompletionSupported = isTimeRequiredForCompletionSupported;
+            IsCourseAcademicSubjectIncluded = isCourseAcademicSubjectIncluded;
             IsCourseCompetencyLevelIncluded = isCourseCompetencyLevelIncluded;
             IsCourseIdentificationCodeIncluded = isCourseIdentificationCodeIncluded;
             IsCourseLearningStandardIncluded = isCourseLearningStandardIncluded;
@@ -6909,8 +6911,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             SupportedExtensions = supportedExtensions;
         }
 
-        public bool IsAcademicSubjectDescriptorSupported { get; }
         public bool IsCareerPathwayDescriptorSupported { get; }
+        public bool IsCourseAcademicSubjectsSupported { get; }
         public bool IsCourseCompetencyLevelsSupported { get; }
         public bool IsCourseDefinedByDescriptorSupported { get; }
         public bool IsCourseDescriptionSupported { get; }
@@ -6931,6 +6933,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsMinimumAvailableCreditTypeDescriptorSupported { get; }
         public bool IsNumberOfPartsSupported { get; }
         public bool IsTimeRequiredForCompletionSupported { get; }
+        public Func<ICourseAcademicSubject, bool> IsCourseAcademicSubjectIncluded { get; }
         public Func<ICourseCompetencyLevel, bool> IsCourseCompetencyLevelIncluded { get; }
         public Func<ICourseIdentificationCode, bool> IsCourseIdentificationCodeIncluded { get; }
         public Func<ICourseLearningStandard, bool> IsCourseLearningStandardIncluded { get; }
@@ -6941,10 +6944,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
-                case "AcademicSubjectDescriptor":
-                    return IsAcademicSubjectDescriptorSupported;
                 case "CareerPathwayDescriptor":
                     return IsCareerPathwayDescriptorSupported;
+                case "CourseAcademicSubjects":
+                    return IsCourseAcademicSubjectsSupported;
                 case "CourseCompetencyLevels":
                     return IsCourseCompetencyLevelsSupported;
                 case "CourseDefinedByDescriptor":
@@ -6985,6 +6988,57 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNumberOfPartsSupported;
                 case "TimeRequiredForCompletion":
                     return IsTimeRequiredForCompletionSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CourseAcademicSubject model.
+    /// </summary>
+    public interface ICourseAcademicSubject : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICourse Course { get; set; }
+        [NaturalKeyMember]
+        string AcademicSubjectDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class CourseAcademicSubjectMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public CourseAcademicSubjectMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -13487,6 +13541,89 @@ namespace EdFi.Ods.Entities.Common.EdFi
             }
         }
 
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the EvaluationRubricDimension model.
+    /// </summary>
+    public interface IEvaluationRubricDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        int EvaluationRubricRating { get; set; }
+        [NaturalKeyMember]
+        long ProgramEducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationElementTitle { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationPeriodDescriptor { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationTitle { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationTypeDescriptor { get; set; }
+        [NaturalKeyMember]
+        string ProgramName { get; set; }
+        [NaturalKeyMember]
+        string ProgramTypeDescriptor { get; set; }
+
+        // Non-PK properties
+        string EvaluationCriterionDescription { get; set; }
+        string EvaluationRubricRatingLevelDescriptor { get; set; }
+        int? RubricDimensionSortOrder { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? ProgramEvaluationElementResourceId { get; set; }
+        string ProgramEvaluationElementDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class EvaluationRubricDimensionMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public EvaluationRubricDimensionMappingContract(
+            bool isEvaluationCriterionDescriptionSupported,
+            bool isEvaluationRubricRatingLevelDescriptorSupported,
+            bool isRubricDimensionSortOrderSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsEvaluationCriterionDescriptionSupported = isEvaluationCriterionDescriptionSupported;
+            IsEvaluationRubricRatingLevelDescriptorSupported = isEvaluationRubricRatingLevelDescriptorSupported;
+            IsRubricDimensionSortOrderSupported = isRubricDimensionSortOrderSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsEvaluationCriterionDescriptionSupported { get; }
+        public bool IsEvaluationRubricRatingLevelDescriptorSupported { get; }
+        public bool IsRubricDimensionSortOrderSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EvaluationCriterionDescription":
+                    return IsEvaluationCriterionDescriptionSupported;
+                case "EvaluationRubricRatingLevelDescriptor":
+                    return IsEvaluationRubricRatingLevelDescriptorSupported;
+                case "RubricDimensionSortOrder":
+                    return IsRubricDimensionSortOrderSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
     }
 
     /// <summary>
@@ -24640,6 +24777,635 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the ProgramEvaluation model.
+    /// </summary>
+    public interface IProgramEvaluation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        long ProgramEducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationPeriodDescriptor { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationTitle { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationTypeDescriptor { get; set; }
+        [NaturalKeyMember]
+        string ProgramName { get; set; }
+        [NaturalKeyMember]
+        string ProgramTypeDescriptor { get; set; }
+
+        // Non-PK properties
+        decimal? EvaluationMaxNumericRating { get; set; }
+        decimal? EvaluationMinNumericRating { get; set; }
+        string ProgramEvaluationDescription { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IProgramEvaluationRatingLevel> ProgramEvaluationRatingLevels { get; set; }
+
+        // Resource reference data
+        Guid? ProgramResourceId { get; set; }
+        string ProgramDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ProgramEvaluationMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public ProgramEvaluationMappingContract(
+            bool isEvaluationMaxNumericRatingSupported,
+            bool isEvaluationMinNumericRatingSupported,
+            bool isProgramEvaluationDescriptionSupported,
+            bool isProgramEvaluationRatingLevelsSupported,
+            Func<IProgramEvaluationRatingLevel, bool> isProgramEvaluationRatingLevelIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsEvaluationMaxNumericRatingSupported = isEvaluationMaxNumericRatingSupported;
+            IsEvaluationMinNumericRatingSupported = isEvaluationMinNumericRatingSupported;
+            IsProgramEvaluationDescriptionSupported = isProgramEvaluationDescriptionSupported;
+            IsProgramEvaluationRatingLevelsSupported = isProgramEvaluationRatingLevelsSupported;
+            IsProgramEvaluationRatingLevelIncluded = isProgramEvaluationRatingLevelIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsEvaluationMaxNumericRatingSupported { get; }
+        public bool IsEvaluationMinNumericRatingSupported { get; }
+        public bool IsProgramEvaluationDescriptionSupported { get; }
+        public bool IsProgramEvaluationRatingLevelsSupported { get; }
+        public Func<IProgramEvaluationRatingLevel, bool> IsProgramEvaluationRatingLevelIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EvaluationMaxNumericRating":
+                    return IsEvaluationMaxNumericRatingSupported;
+                case "EvaluationMinNumericRating":
+                    return IsEvaluationMinNumericRatingSupported;
+                case "ProgramEvaluationDescription":
+                    return IsProgramEvaluationDescriptionSupported;
+                case "ProgramEvaluationRatingLevels":
+                    return IsProgramEvaluationRatingLevelsSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ProgramEvaluationElement model.
+    /// </summary>
+    public interface IProgramEvaluationElement : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        long ProgramEducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationElementTitle { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationPeriodDescriptor { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationTitle { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationTypeDescriptor { get; set; }
+        [NaturalKeyMember]
+        string ProgramName { get; set; }
+        [NaturalKeyMember]
+        string ProgramTypeDescriptor { get; set; }
+
+        // Non-PK properties
+        decimal? ElementMaxNumericRating { get; set; }
+        decimal? ElementMinNumericRating { get; set; }
+        int? ElementSortOrder { get; set; }
+        string ProgramEvaluationElementDescription { get; set; }
+        string ProgramEvaluationObjectiveTitle { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IProgramEvaluationElementRatingLevel> ProgramEvaluationElementRatingLevels { get; set; }
+
+        // Resource reference data
+        Guid? ProgramEvaluationResourceId { get; set; }
+        string ProgramEvaluationDiscriminator { get; set; }
+        Guid? ProgramEvaluationObjectiveResourceId { get; set; }
+        string ProgramEvaluationObjectiveDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ProgramEvaluationElementMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public ProgramEvaluationElementMappingContract(
+            bool isElementMaxNumericRatingSupported,
+            bool isElementMinNumericRatingSupported,
+            bool isElementSortOrderSupported,
+            bool isProgramEvaluationElementDescriptionSupported,
+            bool isProgramEvaluationElementRatingLevelsSupported,
+            bool isProgramEvaluationObjectiveTitleSupported,
+            Func<IProgramEvaluationElementRatingLevel, bool> isProgramEvaluationElementRatingLevelIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsElementMaxNumericRatingSupported = isElementMaxNumericRatingSupported;
+            IsElementMinNumericRatingSupported = isElementMinNumericRatingSupported;
+            IsElementSortOrderSupported = isElementSortOrderSupported;
+            IsProgramEvaluationElementDescriptionSupported = isProgramEvaluationElementDescriptionSupported;
+            IsProgramEvaluationElementRatingLevelsSupported = isProgramEvaluationElementRatingLevelsSupported;
+            IsProgramEvaluationObjectiveTitleSupported = isProgramEvaluationObjectiveTitleSupported;
+            IsProgramEvaluationElementRatingLevelIncluded = isProgramEvaluationElementRatingLevelIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsElementMaxNumericRatingSupported { get; }
+        public bool IsElementMinNumericRatingSupported { get; }
+        public bool IsElementSortOrderSupported { get; }
+        public bool IsProgramEvaluationElementDescriptionSupported { get; }
+        public bool IsProgramEvaluationElementRatingLevelsSupported { get; }
+        public bool IsProgramEvaluationObjectiveTitleSupported { get; }
+        public Func<IProgramEvaluationElementRatingLevel, bool> IsProgramEvaluationElementRatingLevelIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "ElementMaxNumericRating":
+                    return IsElementMaxNumericRatingSupported;
+                case "ElementMinNumericRating":
+                    return IsElementMinNumericRatingSupported;
+                case "ElementSortOrder":
+                    return IsElementSortOrderSupported;
+                case "ProgramEvaluationElementDescription":
+                    return IsProgramEvaluationElementDescriptionSupported;
+                case "ProgramEvaluationElementRatingLevels":
+                    return IsProgramEvaluationElementRatingLevelsSupported;
+                case "ProgramEvaluationObjectiveTitle":
+                    return IsProgramEvaluationObjectiveTitleSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ProgramEvaluationElementRatingLevel model.
+    /// </summary>
+    public interface IProgramEvaluationElementRatingLevel : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IProgramEvaluationElement ProgramEvaluationElement { get; set; }
+        [NaturalKeyMember]
+        string RatingLevelDescriptor { get; set; }
+
+        // Non-PK properties
+        decimal? MaxNumericRating { get; set; }
+        decimal? MinNumericRating { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ProgramEvaluationElementRatingLevelMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public ProgramEvaluationElementRatingLevelMappingContract(
+            bool isMaxNumericRatingSupported,
+            bool isMinNumericRatingSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsMaxNumericRatingSupported = isMaxNumericRatingSupported;
+            IsMinNumericRatingSupported = isMinNumericRatingSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsMaxNumericRatingSupported { get; }
+        public bool IsMinNumericRatingSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "MaxNumericRating":
+                    return IsMaxNumericRatingSupported;
+                case "MinNumericRating":
+                    return IsMinNumericRatingSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ProgramEvaluationObjective model.
+    /// </summary>
+    public interface IProgramEvaluationObjective : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        long ProgramEducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationObjectiveTitle { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationPeriodDescriptor { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationTitle { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationTypeDescriptor { get; set; }
+        [NaturalKeyMember]
+        string ProgramName { get; set; }
+        [NaturalKeyMember]
+        string ProgramTypeDescriptor { get; set; }
+
+        // Non-PK properties
+        decimal? ObjectiveMaxNumericRating { get; set; }
+        decimal? ObjectiveMinNumericRating { get; set; }
+        int? ObjectiveSortOrder { get; set; }
+        string ProgramEvaluationObjectiveDescription { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IProgramEvaluationObjectiveRatingLevel> ProgramEvaluationObjectiveRatingLevels { get; set; }
+
+        // Resource reference data
+        Guid? ProgramEvaluationResourceId { get; set; }
+        string ProgramEvaluationDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ProgramEvaluationObjectiveMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public ProgramEvaluationObjectiveMappingContract(
+            bool isObjectiveMaxNumericRatingSupported,
+            bool isObjectiveMinNumericRatingSupported,
+            bool isObjectiveSortOrderSupported,
+            bool isProgramEvaluationObjectiveDescriptionSupported,
+            bool isProgramEvaluationObjectiveRatingLevelsSupported,
+            Func<IProgramEvaluationObjectiveRatingLevel, bool> isProgramEvaluationObjectiveRatingLevelIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsObjectiveMaxNumericRatingSupported = isObjectiveMaxNumericRatingSupported;
+            IsObjectiveMinNumericRatingSupported = isObjectiveMinNumericRatingSupported;
+            IsObjectiveSortOrderSupported = isObjectiveSortOrderSupported;
+            IsProgramEvaluationObjectiveDescriptionSupported = isProgramEvaluationObjectiveDescriptionSupported;
+            IsProgramEvaluationObjectiveRatingLevelsSupported = isProgramEvaluationObjectiveRatingLevelsSupported;
+            IsProgramEvaluationObjectiveRatingLevelIncluded = isProgramEvaluationObjectiveRatingLevelIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsObjectiveMaxNumericRatingSupported { get; }
+        public bool IsObjectiveMinNumericRatingSupported { get; }
+        public bool IsObjectiveSortOrderSupported { get; }
+        public bool IsProgramEvaluationObjectiveDescriptionSupported { get; }
+        public bool IsProgramEvaluationObjectiveRatingLevelsSupported { get; }
+        public Func<IProgramEvaluationObjectiveRatingLevel, bool> IsProgramEvaluationObjectiveRatingLevelIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "ObjectiveMaxNumericRating":
+                    return IsObjectiveMaxNumericRatingSupported;
+                case "ObjectiveMinNumericRating":
+                    return IsObjectiveMinNumericRatingSupported;
+                case "ObjectiveSortOrder":
+                    return IsObjectiveSortOrderSupported;
+                case "ProgramEvaluationObjectiveDescription":
+                    return IsProgramEvaluationObjectiveDescriptionSupported;
+                case "ProgramEvaluationObjectiveRatingLevels":
+                    return IsProgramEvaluationObjectiveRatingLevelsSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ProgramEvaluationObjectiveRatingLevel model.
+    /// </summary>
+    public interface IProgramEvaluationObjectiveRatingLevel : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IProgramEvaluationObjective ProgramEvaluationObjective { get; set; }
+        [NaturalKeyMember]
+        string RatingLevelDescriptor { get; set; }
+
+        // Non-PK properties
+        decimal? MaxNumericRating { get; set; }
+        decimal? MinNumericRating { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ProgramEvaluationObjectiveRatingLevelMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public ProgramEvaluationObjectiveRatingLevelMappingContract(
+            bool isMaxNumericRatingSupported,
+            bool isMinNumericRatingSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsMaxNumericRatingSupported = isMaxNumericRatingSupported;
+            IsMinNumericRatingSupported = isMinNumericRatingSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsMaxNumericRatingSupported { get; }
+        public bool IsMinNumericRatingSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "MaxNumericRating":
+                    return IsMaxNumericRatingSupported;
+                case "MinNumericRating":
+                    return IsMinNumericRatingSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ProgramEvaluationPeriodDescriptor model.
+    /// </summary>
+    public interface IProgramEvaluationPeriodDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int ProgramEvaluationPeriodDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ProgramEvaluationPeriodDescriptorMappingContract : IMappingContract
+    {
+        public ProgramEvaluationPeriodDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isPriorDescriptorIdSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsPriorDescriptorIdSupported = isPriorDescriptorIdSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsPriorDescriptorIdSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "PriorDescriptorId":
+                    return IsPriorDescriptorIdSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ProgramEvaluationRatingLevel model.
+    /// </summary>
+    public interface IProgramEvaluationRatingLevel : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IProgramEvaluation ProgramEvaluation { get; set; }
+        [NaturalKeyMember]
+        string RatingLevelDescriptor { get; set; }
+
+        // Non-PK properties
+        decimal? MaxNumericRating { get; set; }
+        decimal? MinNumericRating { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ProgramEvaluationRatingLevelMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public ProgramEvaluationRatingLevelMappingContract(
+            bool isMaxNumericRatingSupported,
+            bool isMinNumericRatingSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsMaxNumericRatingSupported = isMaxNumericRatingSupported;
+            IsMinNumericRatingSupported = isMinNumericRatingSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsMaxNumericRatingSupported { get; }
+        public bool IsMinNumericRatingSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "MaxNumericRating":
+                    return IsMaxNumericRatingSupported;
+                case "MinNumericRating":
+                    return IsMinNumericRatingSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ProgramEvaluationTypeDescriptor model.
+    /// </summary>
+    public interface IProgramEvaluationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int ProgramEvaluationTypeDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ProgramEvaluationTypeDescriptorMappingContract : IMappingContract
+    {
+        public ProgramEvaluationTypeDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isPriorDescriptorIdSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsPriorDescriptorIdSupported = isPriorDescriptorIdSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsPriorDescriptorIdSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "PriorDescriptorId":
+                    return IsPriorDescriptorIdSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the ProgramLearningStandard model.
     /// </summary>
     public interface IProgramLearningStandard : ISynchronizable, IMappable, IHasExtensions, IGetByExample
@@ -25569,6 +26335,82 @@ namespace EdFi.Ods.Entities.Common.EdFi
     public class RaceDescriptorMappingContract : IMappingContract
     {
         public RaceDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isPriorDescriptorIdSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsPriorDescriptorIdSupported = isPriorDescriptorIdSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsPriorDescriptorIdSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "PriorDescriptorId":
+                    return IsPriorDescriptorIdSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the RatingLevelDescriptor model.
+    /// </summary>
+    public interface IRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int RatingLevelDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class RatingLevelDescriptorMappingContract : IMappingContract
+    {
+        public RatingLevelDescriptorMappingContract(
             bool isCodeValueSupported,
             bool isDescriptionSupported,
             bool isEffectiveBeginDateSupported,
@@ -38640,6 +39482,321 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEventDurationSupported;
                 case "ProgramAttendanceDuration":
                     return IsProgramAttendanceDurationSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentProgramEvaluation model.
+    /// </summary>
+    public interface IStudentProgramEvaluation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        DateTime EvaluationDate { get; set; }
+        [NaturalKeyMember]
+        long ProgramEducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationPeriodDescriptor { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationTitle { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationTypeDescriptor { get; set; }
+        [NaturalKeyMember]
+        string ProgramName { get; set; }
+        [NaturalKeyMember]
+        string ProgramTypeDescriptor { get; set; }
+        [NaturalKeyMember]
+        string StudentUniqueId { get; set; }
+
+        // Non-PK properties
+        long? EducationOrganizationId { get; set; }
+        int? EvaluationDuration { get; set; }
+        string StaffEvaluatorStaffUniqueId { get; set; }
+        string SummaryEvaluationComment { get; set; }
+        decimal? SummaryEvaluationNumericRating { get; set; }
+        string SummaryEvaluationRatingLevelDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IStudentProgramEvaluationExternalEvaluator> StudentProgramEvaluationExternalEvaluators { get; set; }
+        ICollection<IStudentProgramEvaluationStudentEvaluationElement> StudentProgramEvaluationStudentEvaluationElements { get; set; }
+        ICollection<IStudentProgramEvaluationStudentEvaluationObjective> StudentProgramEvaluationStudentEvaluationObjectives { get; set; }
+
+        // Resource reference data
+        Guid? EducationOrganizationResourceId { get; set; }
+        string EducationOrganizationDiscriminator { get; set; }
+        Guid? ProgramEvaluationResourceId { get; set; }
+        string ProgramEvaluationDiscriminator { get; set; }
+        Guid? StaffEvaluatorStaffResourceId { get; set; }
+        string StaffEvaluatorStaffDiscriminator { get; set; }
+        Guid? StudentResourceId { get; set; }
+        string StudentDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentProgramEvaluationMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentProgramEvaluationMappingContract(
+            bool isEducationOrganizationIdSupported,
+            bool isEvaluationDurationSupported,
+            bool isStaffEvaluatorStaffUniqueIdSupported,
+            bool isStudentProgramEvaluationExternalEvaluatorsSupported,
+            bool isStudentProgramEvaluationStudentEvaluationElementsSupported,
+            bool isStudentProgramEvaluationStudentEvaluationObjectivesSupported,
+            bool isSummaryEvaluationCommentSupported,
+            bool isSummaryEvaluationNumericRatingSupported,
+            bool isSummaryEvaluationRatingLevelDescriptorSupported,
+            Func<IStudentProgramEvaluationExternalEvaluator, bool> isStudentProgramEvaluationExternalEvaluatorIncluded,
+            Func<IStudentProgramEvaluationStudentEvaluationElement, bool> isStudentProgramEvaluationStudentEvaluationElementIncluded,
+            Func<IStudentProgramEvaluationStudentEvaluationObjective, bool> isStudentProgramEvaluationStudentEvaluationObjectiveIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsEducationOrganizationIdSupported = isEducationOrganizationIdSupported;
+            IsEvaluationDurationSupported = isEvaluationDurationSupported;
+            IsStaffEvaluatorStaffUniqueIdSupported = isStaffEvaluatorStaffUniqueIdSupported;
+            IsStudentProgramEvaluationExternalEvaluatorsSupported = isStudentProgramEvaluationExternalEvaluatorsSupported;
+            IsStudentProgramEvaluationStudentEvaluationElementsSupported = isStudentProgramEvaluationStudentEvaluationElementsSupported;
+            IsStudentProgramEvaluationStudentEvaluationObjectivesSupported = isStudentProgramEvaluationStudentEvaluationObjectivesSupported;
+            IsSummaryEvaluationCommentSupported = isSummaryEvaluationCommentSupported;
+            IsSummaryEvaluationNumericRatingSupported = isSummaryEvaluationNumericRatingSupported;
+            IsSummaryEvaluationRatingLevelDescriptorSupported = isSummaryEvaluationRatingLevelDescriptorSupported;
+            IsStudentProgramEvaluationExternalEvaluatorIncluded = isStudentProgramEvaluationExternalEvaluatorIncluded;
+            IsStudentProgramEvaluationStudentEvaluationElementIncluded = isStudentProgramEvaluationStudentEvaluationElementIncluded;
+            IsStudentProgramEvaluationStudentEvaluationObjectiveIncluded = isStudentProgramEvaluationStudentEvaluationObjectiveIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsEducationOrganizationIdSupported { get; }
+        public bool IsEvaluationDurationSupported { get; }
+        public bool IsStaffEvaluatorStaffUniqueIdSupported { get; }
+        public bool IsStudentProgramEvaluationExternalEvaluatorsSupported { get; }
+        public bool IsStudentProgramEvaluationStudentEvaluationElementsSupported { get; }
+        public bool IsStudentProgramEvaluationStudentEvaluationObjectivesSupported { get; }
+        public bool IsSummaryEvaluationCommentSupported { get; }
+        public bool IsSummaryEvaluationNumericRatingSupported { get; }
+        public bool IsSummaryEvaluationRatingLevelDescriptorSupported { get; }
+        public Func<IStudentProgramEvaluationExternalEvaluator, bool> IsStudentProgramEvaluationExternalEvaluatorIncluded { get; }
+        public Func<IStudentProgramEvaluationStudentEvaluationElement, bool> IsStudentProgramEvaluationStudentEvaluationElementIncluded { get; }
+        public Func<IStudentProgramEvaluationStudentEvaluationObjective, bool> IsStudentProgramEvaluationStudentEvaluationObjectiveIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EducationOrganizationId":
+                    return IsEducationOrganizationIdSupported;
+                case "EvaluationDuration":
+                    return IsEvaluationDurationSupported;
+                case "StaffEvaluatorStaffUniqueId":
+                    return IsStaffEvaluatorStaffUniqueIdSupported;
+                case "StudentProgramEvaluationExternalEvaluators":
+                    return IsStudentProgramEvaluationExternalEvaluatorsSupported;
+                case "StudentProgramEvaluationStudentEvaluationElements":
+                    return IsStudentProgramEvaluationStudentEvaluationElementsSupported;
+                case "StudentProgramEvaluationStudentEvaluationObjectives":
+                    return IsStudentProgramEvaluationStudentEvaluationObjectivesSupported;
+                case "SummaryEvaluationComment":
+                    return IsSummaryEvaluationCommentSupported;
+                case "SummaryEvaluationNumericRating":
+                    return IsSummaryEvaluationNumericRatingSupported;
+                case "SummaryEvaluationRatingLevelDescriptor":
+                    return IsSummaryEvaluationRatingLevelDescriptorSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentProgramEvaluationExternalEvaluator model.
+    /// </summary>
+    public interface IStudentProgramEvaluationExternalEvaluator : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IStudentProgramEvaluation StudentProgramEvaluation { get; set; }
+        [NaturalKeyMember]
+        string ExternalEvaluator { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentProgramEvaluationExternalEvaluatorMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentProgramEvaluationExternalEvaluatorMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentProgramEvaluationStudentEvaluationElement model.
+    /// </summary>
+    public interface IStudentProgramEvaluationStudentEvaluationElement : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IStudentProgramEvaluation StudentProgramEvaluation { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationElementTitle { get; set; }
+
+        // Non-PK properties
+        decimal? EvaluationElementNumericRating { get; set; }
+        string EvaluationElementRatingLevelDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? ProgramEvaluationElementResourceId { get; set; }
+        string ProgramEvaluationElementDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentProgramEvaluationStudentEvaluationElementMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentProgramEvaluationStudentEvaluationElementMappingContract(
+            bool isEvaluationElementNumericRatingSupported,
+            bool isEvaluationElementRatingLevelDescriptorSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsEvaluationElementNumericRatingSupported = isEvaluationElementNumericRatingSupported;
+            IsEvaluationElementRatingLevelDescriptorSupported = isEvaluationElementRatingLevelDescriptorSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsEvaluationElementNumericRatingSupported { get; }
+        public bool IsEvaluationElementRatingLevelDescriptorSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EvaluationElementNumericRating":
+                    return IsEvaluationElementNumericRatingSupported;
+                case "EvaluationElementRatingLevelDescriptor":
+                    return IsEvaluationElementRatingLevelDescriptorSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentProgramEvaluationStudentEvaluationObjective model.
+    /// </summary>
+    public interface IStudentProgramEvaluationStudentEvaluationObjective : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IStudentProgramEvaluation StudentProgramEvaluation { get; set; }
+        [NaturalKeyMember]
+        string ProgramEvaluationObjectiveTitle { get; set; }
+
+        // Non-PK properties
+        decimal? EvaluationObjectiveNumericRating { get; set; }
+        string EvaluationObjectiveRatingLevelDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? ProgramEvaluationObjectiveResourceId { get; set; }
+        string ProgramEvaluationObjectiveDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentProgramEvaluationStudentEvaluationObjectiveMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentProgramEvaluationStudentEvaluationObjectiveMappingContract(
+            bool isEvaluationObjectiveNumericRatingSupported,
+            bool isEvaluationObjectiveRatingLevelDescriptorSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsEvaluationObjectiveNumericRatingSupported = isEvaluationObjectiveNumericRatingSupported;
+            IsEvaluationObjectiveRatingLevelDescriptorSupported = isEvaluationObjectiveRatingLevelDescriptorSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsEvaluationObjectiveNumericRatingSupported { get; }
+        public bool IsEvaluationObjectiveRatingLevelDescriptorSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EvaluationObjectiveNumericRating":
+                    return IsEvaluationObjectiveNumericRatingSupported;
+                case "EvaluationObjectiveRatingLevelDescriptor":
+                    return IsEvaluationObjectiveRatingLevelDescriptorSupported;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }

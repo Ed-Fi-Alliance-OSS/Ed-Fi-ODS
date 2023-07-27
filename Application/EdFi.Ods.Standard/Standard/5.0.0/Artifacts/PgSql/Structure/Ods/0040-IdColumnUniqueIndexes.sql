@@ -59,6 +59,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_252151_Id ON edfi.EducationOrganizationNetw
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_74e4e5_Id ON edfi.EducationOrganizationPeerAssociation(Id);
 
+CREATE UNIQUE INDEX IF NOT EXISTS UX_1b7ccf_Id ON edfi.EvaluationRubricDimension(Id);
+
 CREATE UNIQUE INDEX IF NOT EXISTS UX_11f7b6_Id ON edfi.FeederSchoolAssociation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_c4d12e_Id ON edfi.FunctionDimension(Id);
@@ -114,6 +116,12 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_b8b6d7_Id ON edfi.PostSecondaryEvent(Id);
 CREATE UNIQUE INDEX IF NOT EXISTS UX_90920d_Id ON edfi.Program(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_a9a613_Id ON edfi.ProgramDimension(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_f3a20e_Id ON edfi.ProgramEvaluation(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_784616_Id ON edfi.ProgramEvaluationElement(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_a53c6c_Id ON edfi.ProgramEvaluationObjective(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_d16e19_Id ON edfi.ProjectDimension(Id);
 
@@ -182,6 +190,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_25cb9c_Id ON edfi.StudentInterventionAssoci
 CREATE UNIQUE INDEX IF NOT EXISTS UX_631023_Id ON edfi.StudentInterventionAttendanceEvent(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_317aeb_Id ON edfi.StudentProgramAttendanceEvent(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_4b1054_Id ON edfi.StudentProgramEvaluation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_857b52_Id ON edfi.StudentSchoolAssociation(Id);
 

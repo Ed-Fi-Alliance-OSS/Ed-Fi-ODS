@@ -2657,7 +2657,6 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Courses.EdFi
     [ExcludeFromCodeCoverage]
     public class CourseGetByExample
     {
-        public string AcademicSubjectDescriptor { get; set; }
         public string CareerPathwayDescriptor { get; set; }
         public string CourseCode { get; set; }
         public string CourseDefinedByDescriptor { get; set; }
@@ -4967,6 +4966,63 @@ namespace EdFi.Ods.Api.Common.Models.Requests.EvaluationDelayReasonDescriptors.E
         public EvaluationDelayReasonDescriptorDelete() { }
 
         public EvaluationDelayReasonDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.EvaluationRubricDimensions.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRubricDimensionGetByExample
+    {
+        public string EvaluationCriterionDescription { get; set; }
+        public int EvaluationRubricRating { get; set; }
+        public string EvaluationRubricRatingLevelDescriptor { get; set; }
+        public Guid Id { get; set; }
+        public long ProgramEducationOrganizationId { get; set; }
+        public string ProgramEvaluationElementTitle { get; set; }
+        public string ProgramEvaluationPeriodDescriptor { get; set; }
+        public string ProgramEvaluationTitle { get; set; }
+        public string ProgramEvaluationTypeDescriptor { get; set; }
+        public string ProgramName { get; set; }
+        public string ProgramTypeDescriptor { get; set; }
+        public int RubricDimensionSortOrder { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRubricDimensionGetByIds : IHasIdentifiers<Guid>
+    {
+        public EvaluationRubricDimensionGetByIds() { }
+
+        public EvaluationRubricDimensionGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRubricDimensionPost : Resources.EvaluationRubricDimension.EdFi.EvaluationRubricDimension
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRubricDimensionPut : Resources.EvaluationRubricDimension.EdFi.EvaluationRubricDimension
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRubricDimensionDelete : IHasIdentifier
+    {
+        public EvaluationRubricDimensionDelete() { }
+
+        public EvaluationRubricDimensionDelete(Guid id)
         {
             Id = id;
         }
@@ -9486,6 +9542,268 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ProgramDimensions.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Common.Models.Requests.ProgramEvaluations.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationGetByExample
+    {
+        public decimal EvaluationMaxNumericRating { get; set; }
+        public decimal EvaluationMinNumericRating { get; set; }
+        public Guid Id { get; set; }
+        public long ProgramEducationOrganizationId { get; set; }
+        public string ProgramEvaluationDescription { get; set; }
+        public string ProgramEvaluationPeriodDescriptor { get; set; }
+        public string ProgramEvaluationTitle { get; set; }
+        public string ProgramEvaluationTypeDescriptor { get; set; }
+        public string ProgramName { get; set; }
+        public string ProgramTypeDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationGetByIds : IHasIdentifiers<Guid>
+    {
+        public ProgramEvaluationGetByIds() { }
+
+        public ProgramEvaluationGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationPost : Resources.ProgramEvaluation.EdFi.ProgramEvaluation
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationPut : Resources.ProgramEvaluation.EdFi.ProgramEvaluation
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationDelete : IHasIdentifier
+    {
+        public ProgramEvaluationDelete() { }
+
+        public ProgramEvaluationDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.ProgramEvaluationElements.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationElementGetByExample
+    {
+        public decimal ElementMaxNumericRating { get; set; }
+        public decimal ElementMinNumericRating { get; set; }
+        public int ElementSortOrder { get; set; }
+        public Guid Id { get; set; }
+        public long ProgramEducationOrganizationId { get; set; }
+        public string ProgramEvaluationElementDescription { get; set; }
+        public string ProgramEvaluationElementTitle { get; set; }
+        public string ProgramEvaluationObjectiveTitle { get; set; }
+        public string ProgramEvaluationPeriodDescriptor { get; set; }
+        public string ProgramEvaluationTitle { get; set; }
+        public string ProgramEvaluationTypeDescriptor { get; set; }
+        public string ProgramName { get; set; }
+        public string ProgramTypeDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationElementGetByIds : IHasIdentifiers<Guid>
+    {
+        public ProgramEvaluationElementGetByIds() { }
+
+        public ProgramEvaluationElementGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationElementPost : Resources.ProgramEvaluationElement.EdFi.ProgramEvaluationElement
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationElementPut : Resources.ProgramEvaluationElement.EdFi.ProgramEvaluationElement
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationElementDelete : IHasIdentifier
+    {
+        public ProgramEvaluationElementDelete() { }
+
+        public ProgramEvaluationElementDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.ProgramEvaluationObjectives.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationObjectiveGetByExample
+    {
+        public Guid Id { get; set; }
+        public decimal ObjectiveMaxNumericRating { get; set; }
+        public decimal ObjectiveMinNumericRating { get; set; }
+        public int ObjectiveSortOrder { get; set; }
+        public long ProgramEducationOrganizationId { get; set; }
+        public string ProgramEvaluationObjectiveDescription { get; set; }
+        public string ProgramEvaluationObjectiveTitle { get; set; }
+        public string ProgramEvaluationPeriodDescriptor { get; set; }
+        public string ProgramEvaluationTitle { get; set; }
+        public string ProgramEvaluationTypeDescriptor { get; set; }
+        public string ProgramName { get; set; }
+        public string ProgramTypeDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationObjectiveGetByIds : IHasIdentifiers<Guid>
+    {
+        public ProgramEvaluationObjectiveGetByIds() { }
+
+        public ProgramEvaluationObjectiveGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationObjectivePost : Resources.ProgramEvaluationObjective.EdFi.ProgramEvaluationObjective
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationObjectivePut : Resources.ProgramEvaluationObjective.EdFi.ProgramEvaluationObjective
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationObjectiveDelete : IHasIdentifier
+    {
+        public ProgramEvaluationObjectiveDelete() { }
+
+        public ProgramEvaluationObjectiveDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.ProgramEvaluationPeriodDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationPeriodDescriptorGetByExample
+    {
+        public int ProgramEvaluationPeriodDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationPeriodDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public ProgramEvaluationPeriodDescriptorGetByIds() { }
+
+        public ProgramEvaluationPeriodDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationPeriodDescriptorPost : Resources.ProgramEvaluationPeriodDescriptor.EdFi.ProgramEvaluationPeriodDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationPeriodDescriptorPut : Resources.ProgramEvaluationPeriodDescriptor.EdFi.ProgramEvaluationPeriodDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationPeriodDescriptorDelete : IHasIdentifier
+    {
+        public ProgramEvaluationPeriodDescriptorDelete() { }
+
+        public ProgramEvaluationPeriodDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.ProgramEvaluationTypeDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationTypeDescriptorGetByExample
+    {
+        public int ProgramEvaluationTypeDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationTypeDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public ProgramEvaluationTypeDescriptorGetByIds() { }
+
+        public ProgramEvaluationTypeDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationTypeDescriptorPost : Resources.ProgramEvaluationTypeDescriptor.EdFi.ProgramEvaluationTypeDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationTypeDescriptorPut : Resources.ProgramEvaluationTypeDescriptor.EdFi.ProgramEvaluationTypeDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationTypeDescriptorDelete : IHasIdentifier
+    {
+        public ProgramEvaluationTypeDescriptorDelete() { }
+
+        public ProgramEvaluationTypeDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Common.Models.Requests.ProgramSponsorDescriptors.EdFi
 {
 
@@ -9987,6 +10305,52 @@ namespace EdFi.Ods.Api.Common.Models.Requests.RaceDescriptors.EdFi
         public RaceDescriptorDelete() { }
 
         public RaceDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.RatingLevelDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class RatingLevelDescriptorGetByExample
+    {
+        public int RatingLevelDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class RatingLevelDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public RatingLevelDescriptorGetByIds() { }
+
+        public RatingLevelDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class RatingLevelDescriptorPost : Resources.RatingLevelDescriptor.EdFi.RatingLevelDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class RatingLevelDescriptorPut : Resources.RatingLevelDescriptor.EdFi.RatingLevelDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class RatingLevelDescriptorDelete : IHasIdentifier
+    {
+        public RatingLevelDescriptorDelete() { }
+
+        public RatingLevelDescriptorDelete(Guid id)
         {
             Id = id;
         }
@@ -13751,6 +14115,66 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentProgramAttendanceEvents.EdF
         public StudentProgramAttendanceEventDelete() { }
 
         public StudentProgramAttendanceEventDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.StudentProgramEvaluations.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class StudentProgramEvaluationGetByExample
+    {
+        public long EducationOrganizationId { get; set; }
+        public DateTime EvaluationDate { get; set; }
+        public int EvaluationDuration { get; set; }
+        public Guid Id { get; set; }
+        public long ProgramEducationOrganizationId { get; set; }
+        public string ProgramEvaluationPeriodDescriptor { get; set; }
+        public string ProgramEvaluationTitle { get; set; }
+        public string ProgramEvaluationTypeDescriptor { get; set; }
+        public string ProgramName { get; set; }
+        public string ProgramTypeDescriptor { get; set; }
+        public string StaffEvaluatorStaffUniqueId { get; set; }
+        public string StudentUniqueId { get; set; }
+        public string SummaryEvaluationComment { get; set; }
+        public decimal SummaryEvaluationNumericRating { get; set; }
+        public string SummaryEvaluationRatingLevelDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentProgramEvaluationGetByIds : IHasIdentifiers<Guid>
+    {
+        public StudentProgramEvaluationGetByIds() { }
+
+        public StudentProgramEvaluationGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentProgramEvaluationPost : Resources.StudentProgramEvaluation.EdFi.StudentProgramEvaluation
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentProgramEvaluationPut : Resources.StudentProgramEvaluation.EdFi.StudentProgramEvaluation
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentProgramEvaluationDelete : IHasIdentifier
+    {
+        public StudentProgramEvaluationDelete() { }
+
+        public StudentProgramEvaluationDelete(Guid id)
         {
             Id = id;
         }

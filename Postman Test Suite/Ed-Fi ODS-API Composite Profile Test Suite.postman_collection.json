@@ -6240,7 +6240,7 @@
 											"",
 											"    const responseItem = pm.response.json();",
 											"    const properties = Object.keys(responseItem);",
-											"    pm.expect(properties).to.have.members(['id', 'sectionIdentifier', 'sequenceOfCourse', 'educationalEnvironmentDescriptor', 'availableCredits', 'staff', 'students', 'academicSubjectDescriptor', 'sessionReference', 'classPeriods', 'courseOfferingReference', 'locationReference', 'locationSchoolReference']);",
+											"    pm.expect(properties).to.have.members(['id', 'sectionIdentifier', 'sequenceOfCourse', 'educationalEnvironmentDescriptor', 'availableCredits', 'staff', 'students', 'sessionReference', 'classPeriods', 'courseOfferingReference', 'locationReference', 'locationSchoolReference']);",
 											"",
 											"});",
 											"",

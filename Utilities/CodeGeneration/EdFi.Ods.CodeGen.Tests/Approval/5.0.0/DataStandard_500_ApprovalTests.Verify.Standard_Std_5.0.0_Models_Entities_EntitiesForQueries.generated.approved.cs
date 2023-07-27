@@ -134,7 +134,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AcademicSubjectDescriptorAggr
         protected virtual ICollection<NHibernate.QueryModels.CohortAggregate.EdFi.CohortQ> Cohorts  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.CourseAggregate.EdFi.CourseQ> Courses  { get; set; }
+        protected virtual ICollection<NHibernate.QueryModels.CourseAggregate.EdFi.CourseAcademicSubjectQ> CourseAcademicSubjects  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptAcademicSubjectQ> CourseTranscriptAcademicSubjects  { get; set; }
@@ -4344,7 +4344,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseAggregate.EdFi
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        public virtual int? AcademicSubjectDescriptorId  { get; set; }
         public virtual int? CareerPathwayDescriptorId  { get; set; }
         public virtual int? CourseDefinedByDescriptorId  { get; set; }
         public virtual string CourseDescription  { get; set; }
@@ -4366,6 +4365,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseAggregate.EdFi
         // =============================================================
         //                          Collections
         // -------------------------------------------------------------
+        public virtual ICollection<CourseAcademicSubjectQ> CourseAcademicSubjects { get; set; }
         public virtual ICollection<CourseCompetencyLevelQ> CourseCompetencyLevels { get; set; }
         public virtual ICollection<CourseIdentificationCodeQ> CourseIdentificationCodes { get; set; }
         public virtual ICollection<CourseLearningStandardQ> CourseLearningStandards { get; set; }
@@ -4393,13 +4393,55 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseAggregate.EdFi
     #pragma warning restore 114
 
         // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.AcademicSubjectDescriptorAggregate.EdFi.AcademicSubjectDescriptorQ AcademicSubjectDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.CareerPathwayDescriptorAggregate.EdFi.CareerPathwayDescriptorQ CareerPathwayDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.CourseDefinedByDescriptorAggregate.EdFi.CourseDefinedByDescriptorQ CourseDefinedByDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.CourseGPAApplicabilityDescriptorAggregate.EdFi.CourseGPAApplicabilityDescriptorQ CourseGPAApplicabilityDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.CreditTypeDescriptorAggregate.EdFi.CreditTypeDescriptorQ MaximumAvailableCreditTypeDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.CreditTypeDescriptorAggregate.EdFi.CreditTypeDescriptorQ MinimumAvailableCreditTypeDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.CourseAcademicSubject table of the Course aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class CourseAcademicSubjectQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.CourseAggregate.EdFi.CourseQ Course { get; set; }
+        [DomainSignature]
+        public virtual int AcademicSubjectDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.AcademicSubjectDescriptorAggregate.EdFi.AcademicSubjectDescriptorQ AcademicSubjectDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 
@@ -7449,6 +7491,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         protected virtual ICollection<NHibernate.QueryModels.StudentProgramAttendanceEventAggregate.EdFi.StudentProgramAttendanceEventQ> StudentProgramAttendanceEvents  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentProgramEvaluationAggregate.EdFi.StudentProgramEvaluationQ> StudentProgramEvaluations  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentSpecialEducationProgramEligibilityAssociationAggregate.EdFi.StudentSpecialEducationProgramEligibilityAssociationQ> StudentSpecialEducationProgramEligibilityAssociations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
@@ -8603,6 +8648,70 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EvaluationDelayReasonDescript
         // -------------------------------------------------------------
     }
 }
+// Aggregate: EvaluationRubricDimension
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.EvaluationRubricDimensionAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.EvaluationRubricDimension table of the EvaluationRubricDimension aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRubricDimensionQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int EvaluationRubricRating { get; set; }
+        [DomainSignature]
+        public virtual long ProgramEducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual string ProgramEvaluationElementTitle { get; set; }
+        [DomainSignature]
+        public virtual int ProgramEvaluationPeriodDescriptorId { get; set; }
+        [DomainSignature]
+        public virtual string ProgramEvaluationTitle { get; set; }
+        [DomainSignature]
+        public virtual int ProgramEvaluationTypeDescriptorId { get; set; }
+        [DomainSignature]
+        public virtual string ProgramName { get; set; }
+        [DomainSignature]
+        public virtual int ProgramTypeDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual string EvaluationCriterionDescription  { get; set; }
+        public virtual int? EvaluationRubricRatingLevelDescriptorId  { get; set; }
+        public virtual int? RubricDimensionSortOrder  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.RatingLevelDescriptorAggregate.EdFi.RatingLevelDescriptorQ EvaluationRubricRatingLevelDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElementQ ProgramEvaluationElement { get; set; }
+        // -------------------------------------------------------------
+    }
+}
 // Aggregate: EventCircumstanceDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.EventCircumstanceDescriptorAggregate.EdFi
@@ -9116,9 +9225,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradeAggregate.EdFi
         [DomainSignature]
         public virtual int GradingPeriodDescriptorId { get; set; }
         [DomainSignature]
-        public virtual short GradingPeriodSchoolYear { get; set; }
-        [DomainSignature]
         public virtual int GradingPeriodSequence { get; set; }
+        [DomainSignature]
+        public virtual short GradingPeriodSchoolYear { get; set; }
         [DomainSignature]
         public virtual string LocalCourseCode { get; set; }
         [DomainSignature]
@@ -15615,6 +15724,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramAggregate.EdFi
         protected virtual ICollection<NHibernate.QueryModels.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationQ> GeneralStudentProgramAssociations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ProgramEvaluationAggregate.EdFi.ProgramEvaluationQ> ProgramEvaluations  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.RestraintEventAggregate.EdFi.RestraintEventProgramQ> RestraintEventPrograms  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
@@ -15947,6 +16059,442 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramDimensionAggregate.EdF
 
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ReportingTagDescriptorAggregate.EdFi.ReportingTagDescriptorQ ReportingTagDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: ProgramEvaluation
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.ProgramEvaluation table of the ProgramEvaluation aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual long ProgramEducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual int ProgramEvaluationPeriodDescriptorId { get; set; }
+        [DomainSignature]
+        public virtual string ProgramEvaluationTitle { get; set; }
+        [DomainSignature]
+        public virtual int ProgramEvaluationTypeDescriptorId { get; set; }
+        [DomainSignature]
+        public virtual string ProgramName { get; set; }
+        [DomainSignature]
+        public virtual int ProgramTypeDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual decimal? EvaluationMaxNumericRating  { get; set; }
+        public virtual decimal? EvaluationMinNumericRating  { get; set; }
+        public virtual string ProgramEvaluationDescription  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<ProgramEvaluationRatingLevelQ> ProgramEvaluationRatingLevels { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElementQ> ProgramEvaluationElements  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ProgramEvaluationObjectiveAggregate.EdFi.ProgramEvaluationObjectiveQ> ProgramEvaluationObjectives  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentProgramEvaluationAggregate.EdFi.StudentProgramEvaluationQ> StudentProgramEvaluations  { get; set; }
+    #pragma warning restore 114
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.ProgramAggregate.EdFi.ProgramQ Program { get; set; }
+        protected virtual NHibernate.QueryModels.ProgramEvaluationPeriodDescriptorAggregate.EdFi.ProgramEvaluationPeriodDescriptorQ ProgramEvaluationPeriodDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.ProgramEvaluationTypeDescriptorAggregate.EdFi.ProgramEvaluationTypeDescriptorQ ProgramEvaluationTypeDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.ProgramEvaluationRatingLevel table of the ProgramEvaluation aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationRatingLevelQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.ProgramEvaluationAggregate.EdFi.ProgramEvaluationQ ProgramEvaluation { get; set; }
+        [DomainSignature]
+        public virtual int RatingLevelDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual decimal? MaxNumericRating  { get; set; }
+        public virtual decimal? MinNumericRating  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.RatingLevelDescriptorAggregate.EdFi.RatingLevelDescriptorQ RatingLevelDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: ProgramEvaluationElement
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationElementAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.ProgramEvaluationElement table of the ProgramEvaluationElement aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationElementQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual long ProgramEducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual string ProgramEvaluationElementTitle { get; set; }
+        [DomainSignature]
+        public virtual int ProgramEvaluationPeriodDescriptorId { get; set; }
+        [DomainSignature]
+        public virtual string ProgramEvaluationTitle { get; set; }
+        [DomainSignature]
+        public virtual int ProgramEvaluationTypeDescriptorId { get; set; }
+        [DomainSignature]
+        public virtual string ProgramName { get; set; }
+        [DomainSignature]
+        public virtual int ProgramTypeDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual decimal? ElementMaxNumericRating  { get; set; }
+        public virtual decimal? ElementMinNumericRating  { get; set; }
+        public virtual int? ElementSortOrder  { get; set; }
+        public virtual string ProgramEvaluationElementDescription  { get; set; }
+        public virtual string ProgramEvaluationObjectiveTitle  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<ProgramEvaluationElementRatingLevelQ> ProgramEvaluationElementRatingLevels { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.EvaluationRubricDimensionAggregate.EdFi.EvaluationRubricDimensionQ> EvaluationRubricDimensions  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentProgramEvaluationAggregate.EdFi.StudentProgramEvaluationStudentEvaluationElementQ> StudentProgramEvaluationStudentEvaluationElements  { get; set; }
+    #pragma warning restore 114
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.ProgramEvaluationAggregate.EdFi.ProgramEvaluationQ ProgramEvaluation { get; set; }
+        protected virtual NHibernate.QueryModels.ProgramEvaluationObjectiveAggregate.EdFi.ProgramEvaluationObjectiveQ ProgramEvaluationObjective { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.ProgramEvaluationElementRatingLevel table of the ProgramEvaluationElement aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationElementRatingLevelQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElementQ ProgramEvaluationElement { get; set; }
+        [DomainSignature]
+        public virtual int RatingLevelDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual decimal? MaxNumericRating  { get; set; }
+        public virtual decimal? MinNumericRating  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.RatingLevelDescriptorAggregate.EdFi.RatingLevelDescriptorQ RatingLevelDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: ProgramEvaluationObjective
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationObjectiveAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.ProgramEvaluationObjective table of the ProgramEvaluationObjective aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationObjectiveQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual long ProgramEducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual string ProgramEvaluationObjectiveTitle { get; set; }
+        [DomainSignature]
+        public virtual int ProgramEvaluationPeriodDescriptorId { get; set; }
+        [DomainSignature]
+        public virtual string ProgramEvaluationTitle { get; set; }
+        [DomainSignature]
+        public virtual int ProgramEvaluationTypeDescriptorId { get; set; }
+        [DomainSignature]
+        public virtual string ProgramName { get; set; }
+        [DomainSignature]
+        public virtual int ProgramTypeDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual decimal? ObjectiveMaxNumericRating  { get; set; }
+        public virtual decimal? ObjectiveMinNumericRating  { get; set; }
+        public virtual int? ObjectiveSortOrder  { get; set; }
+        public virtual string ProgramEvaluationObjectiveDescription  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<ProgramEvaluationObjectiveRatingLevelQ> ProgramEvaluationObjectiveRatingLevels { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElementQ> ProgramEvaluationElements  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentProgramEvaluationAggregate.EdFi.StudentProgramEvaluationStudentEvaluationObjectiveQ> StudentProgramEvaluationStudentEvaluationObjectives  { get; set; }
+    #pragma warning restore 114
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.ProgramEvaluationAggregate.EdFi.ProgramEvaluationQ ProgramEvaluation { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.ProgramEvaluationObjectiveRatingLevel table of the ProgramEvaluationObjective aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationObjectiveRatingLevelQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.ProgramEvaluationObjectiveAggregate.EdFi.ProgramEvaluationObjectiveQ ProgramEvaluationObjective { get; set; }
+        [DomainSignature]
+        public virtual int RatingLevelDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual decimal? MaxNumericRating  { get; set; }
+        public virtual decimal? MinNumericRating  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.RatingLevelDescriptorAggregate.EdFi.RatingLevelDescriptorQ RatingLevelDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: ProgramEvaluationPeriodDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationPeriodDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.ProgramEvaluationPeriodDescriptor table of the ProgramEvaluationPeriodDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationPeriodDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int ProgramEvaluationPeriodDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ProgramEvaluationAggregate.EdFi.ProgramEvaluationQ> ProgramEvaluations  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: ProgramEvaluationTypeDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationTypeDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.ProgramEvaluationTypeDescriptor table of the ProgramEvaluationTypeDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ProgramEvaluationTypeDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int ProgramEvaluationTypeDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ProgramEvaluationAggregate.EdFi.ProgramEvaluationQ> ProgramEvaluations  { get; set; }
+    #pragma warning restore 114
         // -------------------------------------------------------------
     }
 }
@@ -16474,6 +17022,66 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.RaceDescriptorAggregate.EdFi
         // -------------------------------------------------------------
     }
 }
+// Aggregate: RatingLevelDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.RatingLevelDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.RatingLevelDescriptor table of the RatingLevelDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class RatingLevelDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int RatingLevelDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.EvaluationRubricDimensionAggregate.EdFi.EvaluationRubricDimensionQ> EvaluationRubricDimensions  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElementRatingLevelQ> ProgramEvaluationElementRatingLevels  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ProgramEvaluationObjectiveAggregate.EdFi.ProgramEvaluationObjectiveRatingLevelQ> ProgramEvaluationObjectiveRatingLevels  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ProgramEvaluationAggregate.EdFi.ProgramEvaluationRatingLevelQ> ProgramEvaluationRatingLevels  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentProgramEvaluationAggregate.EdFi.StudentProgramEvaluationQ> StudentProgramEvaluations  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentProgramEvaluationAggregate.EdFi.StudentProgramEvaluationStudentEvaluationElementQ> StudentProgramEvaluationStudentEvaluationElements  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentProgramEvaluationAggregate.EdFi.StudentProgramEvaluationStudentEvaluationObjectiveQ> StudentProgramEvaluationStudentEvaluationObjectives  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
 // Aggregate: ReasonExitedDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReasonExitedDescriptorAggregate.EdFi
@@ -16708,11 +17316,11 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReportCardAggregate.EdFi
         [DomainSignature]
         public virtual int GradingPeriodDescriptorId { get; set; }
         [DomainSignature]
+        public virtual int GradingPeriodSequence { get; set; }
+        [DomainSignature]
         public virtual long GradingPeriodSchoolId { get; set; }
         [DomainSignature]
         public virtual short GradingPeriodSchoolYear { get; set; }
-        [DomainSignature]
-        public virtual int GradingPeriodSequence { get; set; }
         [DomainSignature]
         public virtual int StudentUSI { get; set; }
         // -------------------------------------------------------------
@@ -16871,9 +17479,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReportCardAggregate.EdFi
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual NHibernate.QueryModels.ReportCardAggregate.EdFi.ReportCardQ ReportCard { get; set; }
         [DomainSignature]
-        public virtual string Objective { get; set; }
-        [DomainSignature]
         public virtual long ObjectiveEducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual string Objective { get; set; }
         [DomainSignature]
         public virtual int ObjectiveGradeLevelDescriptorId { get; set; }
         // -------------------------------------------------------------
@@ -19048,6 +19656,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         protected virtual ICollection<NHibernate.QueryModels.StaffSectionAssociationAggregate.EdFi.StaffSectionAssociationQ> StaffSectionAssociations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentProgramEvaluationAggregate.EdFi.StudentProgramEvaluationQ> StudentProgramEvaluations  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationServiceProviderQ> StudentSpecialEducationProgramAssociationServiceProviders  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
@@ -21179,6 +21790,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi
         protected virtual ICollection<NHibernate.QueryModels.StudentProgramAttendanceEventAggregate.EdFi.StudentProgramAttendanceEventQ> StudentProgramAttendanceEvents  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentProgramEvaluationAggregate.EdFi.StudentProgramEvaluationQ> StudentProgramEvaluations  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ> StudentSchoolAssociations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
@@ -21766,11 +22380,11 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAcademicRecordAggregat
         [DomainSignature]
         public virtual int GradingPeriodDescriptorId { get; set; }
         [DomainSignature]
+        public virtual int GradingPeriodSequence { get; set; }
+        [DomainSignature]
         public virtual long GradingPeriodSchoolId { get; set; }
         [DomainSignature]
         public virtual short GradingPeriodSchoolYear { get; set; }
-        [DomainSignature]
-        public virtual int GradingPeriodSequence { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -22492,15 +23106,15 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCompetencyObjectiveAgg
         [DomainSignature]
         public virtual int GradingPeriodDescriptorId { get; set; }
         [DomainSignature]
+        public virtual int GradingPeriodSequence { get; set; }
+        [DomainSignature]
         public virtual long GradingPeriodSchoolId { get; set; }
         [DomainSignature]
         public virtual short GradingPeriodSchoolYear { get; set; }
         [DomainSignature]
-        public virtual int GradingPeriodSequence { get; set; }
+        public virtual long ObjectiveEducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string Objective { get; set; }
-        [DomainSignature]
-        public virtual long ObjectiveEducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual int ObjectiveGradeLevelDescriptorId { get; set; }
         [DomainSignature]
@@ -24850,6 +25464,211 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentProgramAttendanceEvent
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.ProgramAggregate.EdFi.ProgramQ Program { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: StudentProgramEvaluation
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentProgramEvaluationAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.StudentProgramEvaluation table of the StudentProgramEvaluation aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentProgramEvaluationQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual DateTime EvaluationDate { get; set; }
+        [DomainSignature]
+        public virtual long ProgramEducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual int ProgramEvaluationPeriodDescriptorId { get; set; }
+        [DomainSignature]
+        public virtual string ProgramEvaluationTitle { get; set; }
+        [DomainSignature]
+        public virtual int ProgramEvaluationTypeDescriptorId { get; set; }
+        [DomainSignature]
+        public virtual string ProgramName { get; set; }
+        [DomainSignature]
+        public virtual int ProgramTypeDescriptorId { get; set; }
+        [DomainSignature]
+        public virtual int StudentUSI { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual long? EducationOrganizationId  { get; set; }
+        public virtual int? EvaluationDuration  { get; set; }
+        public virtual int? StaffEvaluatorStaffUSI  { get; set; }
+        public virtual string SummaryEvaluationComment  { get; set; }
+        public virtual decimal? SummaryEvaluationNumericRating  { get; set; }
+        public virtual int? SummaryEvaluationRatingLevelDescriptorId  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<StudentProgramEvaluationExternalEvaluatorQ> StudentProgramEvaluationExternalEvaluators { get; set; }
+        public virtual ICollection<StudentProgramEvaluationStudentEvaluationElementQ> StudentProgramEvaluationStudentEvaluationElements { get; set; }
+        public virtual ICollection<StudentProgramEvaluationStudentEvaluationObjectiveQ> StudentProgramEvaluationStudentEvaluationObjectives { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
+        protected virtual NHibernate.QueryModels.ProgramEvaluationAggregate.EdFi.ProgramEvaluationQ ProgramEvaluation { get; set; }
+        protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ StaffEvaluatorStaff { get; set; }
+        protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
+        protected virtual NHibernate.QueryModels.RatingLevelDescriptorAggregate.EdFi.RatingLevelDescriptorQ SummaryEvaluationRatingLevelDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.StudentProgramEvaluationExternalEvaluator table of the StudentProgramEvaluation aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentProgramEvaluationExternalEvaluatorQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.StudentProgramEvaluationAggregate.EdFi.StudentProgramEvaluationQ StudentProgramEvaluation { get; set; }
+        [DomainSignature]
+        public virtual string ExternalEvaluator { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.StudentProgramEvaluationStudentEvaluationElement table of the StudentProgramEvaluation aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentProgramEvaluationStudentEvaluationElementQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.StudentProgramEvaluationAggregate.EdFi.StudentProgramEvaluationQ StudentProgramEvaluation { get; set; }
+        [DomainSignature]
+        public virtual string ProgramEvaluationElementTitle { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual decimal? EvaluationElementNumericRating  { get; set; }
+        public virtual int? EvaluationElementRatingLevelDescriptorId  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.RatingLevelDescriptorAggregate.EdFi.RatingLevelDescriptorQ EvaluationElementRatingLevelDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElementQ ProgramEvaluationElement { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.StudentProgramEvaluationStudentEvaluationObjective table of the StudentProgramEvaluation aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentProgramEvaluationStudentEvaluationObjectiveQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.StudentProgramEvaluationAggregate.EdFi.StudentProgramEvaluationQ StudentProgramEvaluation { get; set; }
+        [DomainSignature]
+        public virtual string ProgramEvaluationObjectiveTitle { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual decimal? EvaluationObjectiveNumericRating  { get; set; }
+        public virtual int? EvaluationObjectiveRatingLevelDescriptorId  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.RatingLevelDescriptorAggregate.EdFi.RatingLevelDescriptorQ EvaluationObjectiveRatingLevelDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.ProgramEvaluationObjectiveAggregate.EdFi.ProgramEvaluationObjectiveQ ProgramEvaluationObjective { get; set; }
         // -------------------------------------------------------------
     }
 }

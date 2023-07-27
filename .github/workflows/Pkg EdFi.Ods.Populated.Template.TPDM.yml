@@ -156,14 +156,16 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
+        [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}') 
         $PSVersionTable
-          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
         Initialize-DevelopmentEnvironment -UsePlugins -NoDeploy  -NoRestore  -extensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }}
       shell: powershell
     - name: Create Database Template (no extensions)
       working-directory: ./
       run: |
         $ErrorActionPreference = 'Stop'
+        [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')        
         Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-tpdm-template.psm1"
         Initialize-TPDMTemplate -extensionVersion ${{ matrix.ExtensionVersion }} -standardVersion ${{ matrix.StandardVersion }}
       shell: powershell
@@ -217,5 +219,25 @@ jobs:
         name: EdFi.Ods.Populated.Template.TPDM.Core.Artifacts
         path: |
          ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Populated.Template.TPDM.Core*.nupkg
-         ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/**/logfile*.*
-         ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarness*Log*.*
+    - name: Move Log Files
+      run: |
+        $bulkLoadClientSourcePath = "${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/${{ env.CONFIGURATION }}/net6.0/logfile.txt"
+        $testHarnessSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net6.0/TestHarnessLog.log"
+        $testHarnessRequestResponseDetailsSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net6.0/TestHarnessRequestResponseDetailsLog.log"        
+        $destinationPath = "${{ github.workspace }}/CreateDatabaseTemplateLogs/"
+        # Create the destination folder if it doesn't exist
+        if (!(Test-Path -Path $destinationPath)) {
+            New-Item -ItemType Directory -Path $destinationPath -Force
+        }
+        # Move the files
+        Move-Item -Path $bulkLoadClientSourcePath -Destination $destinationPath -Force
+        Move-Item -Path $testHarnessSourcePath -Destination $destinationPath -Force
+        Move-Item -Path $testHarnessRequestResponseDetailsSourcePath -Destination $destinationPath -Force           
+      shell: pwsh        
+    - name: Upload Create Database Template Logs
+      if: success() || failure()
+      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      with:
+        name: Create Database Template Logs
+        path: |
+          ${{ github.workspace }}/CreateDatabaseTemplateLogs/*.*          
