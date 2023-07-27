@@ -766,7 +766,7 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"pm.environment.set(\"supplied:tenant1:schoolId\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}{{$randomInt}}\"));"
+											"pm.environment.set(\"supplied:tenant1:schoolId\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));"
 										],
 										"type": "text/javascript"
 									}
@@ -831,7 +831,7 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"pm.environment.set(\"supplied:tenant2:schoolId\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}{{$randomInt}}\"));"
+											"pm.environment.set(\"supplied:tenant2:schoolId\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));"
 										],
 										"type": "text/javascript"
 									}
