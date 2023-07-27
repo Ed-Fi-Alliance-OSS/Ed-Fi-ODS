@@ -24,9 +24,9 @@ GO
 -- Table [samplestudenttranscript].[PostSecondaryOrganization] --
 CREATE TABLE [samplestudenttranscript].[PostSecondaryOrganization] (
     [NameOfInstitution] [NVARCHAR](75) NOT NULL,
-    [InstitutionLevelDescriptorId] [INT] NOT NULL,
-    [InstitutionControlDescriptorId] [INT] NOT NULL,
     [AcceptanceIndicator] [BIT] NOT NULL,
+    [InstitutionControlDescriptorId] [INT] NOT NULL,
+    [InstitutionLevelDescriptorId] [INT] NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,

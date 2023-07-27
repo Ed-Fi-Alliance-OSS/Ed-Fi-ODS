@@ -19,11 +19,11 @@ ALTER TABLE homograph.Contact ALTER COLUMN LastModifiedDate SET DEFAULT current_
 
 -- Table homograph.ContactAddress --
 CREATE TABLE homograph.ContactAddress (
-    City VARCHAR(30) NOT NULL,
     ContactFirstName VARCHAR(75) NOT NULL,
     ContactLastSurname VARCHAR(75) NOT NULL,
+    City VARCHAR(30) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT ContactAddress_PK PRIMARY KEY (City, ContactFirstName, ContactLastSurname)
+    CONSTRAINT ContactAddress_PK PRIMARY KEY (ContactFirstName, ContactLastSurname, City)
 );
 ALTER TABLE homograph.ContactAddress ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
@@ -105,23 +105,23 @@ ALTER TABLE homograph.Staff ALTER COLUMN LastModifiedDate SET DEFAULT current_ti
 
 -- Table homograph.StaffAddress --
 CREATE TABLE homograph.StaffAddress (
-    City VARCHAR(30) NOT NULL,
     StaffFirstName VARCHAR(75) NOT NULL,
     StaffLastSurname VARCHAR(75) NOT NULL,
+    City VARCHAR(30) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StaffAddress_PK PRIMARY KEY (City, StaffFirstName, StaffLastSurname)
+    CONSTRAINT StaffAddress_PK PRIMARY KEY (StaffFirstName, StaffLastSurname, City)
 );
 ALTER TABLE homograph.StaffAddress ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table homograph.StaffStudentSchoolAssociation --
 CREATE TABLE homograph.StaffStudentSchoolAssociation (
-    SchoolName VARCHAR(100) NOT NULL,
     StaffFirstName VARCHAR(75) NOT NULL,
     StaffLastSurname VARCHAR(75) NOT NULL,
+    SchoolName VARCHAR(100) NOT NULL,
     StudentFirstName VARCHAR(75) NOT NULL,
     StudentLastSurname VARCHAR(75) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StaffStudentSchoolAssociation_PK PRIMARY KEY (SchoolName, StaffFirstName, StaffLastSurname, StudentFirstName, StudentLastSurname)
+    CONSTRAINT StaffStudentSchoolAssociation_PK PRIMARY KEY (StaffFirstName, StaffLastSurname, SchoolName, StudentFirstName, StudentLastSurname)
 );
 ALTER TABLE homograph.StaffStudentSchoolAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
@@ -142,11 +142,11 @@ ALTER TABLE homograph.Student ALTER COLUMN LastModifiedDate SET DEFAULT current_
 
 -- Table homograph.StudentAddress --
 CREATE TABLE homograph.StudentAddress (
-    City VARCHAR(30) NOT NULL,
     StudentFirstName VARCHAR(75) NOT NULL,
     StudentLastSurname VARCHAR(75) NOT NULL,
+    City VARCHAR(30) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StudentAddress_PK PRIMARY KEY (City, StudentFirstName, StudentLastSurname)
+    CONSTRAINT StudentAddress_PK PRIMARY KEY (StudentFirstName, StudentLastSurname, City)
 );
 ALTER TABLE homograph.StudentAddress ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 

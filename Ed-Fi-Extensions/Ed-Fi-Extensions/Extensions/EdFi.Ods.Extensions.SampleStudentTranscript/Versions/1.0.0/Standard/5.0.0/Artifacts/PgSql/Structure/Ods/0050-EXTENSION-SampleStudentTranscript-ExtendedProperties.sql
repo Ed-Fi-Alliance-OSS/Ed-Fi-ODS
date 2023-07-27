@@ -14,9 +14,9 @@ COMMENT ON COLUMN samplestudenttranscript.InstitutionLevelDescriptor.Institution
 -- Extended Properties [samplestudenttranscript].[PostSecondaryOrganization] --
 COMMENT ON TABLE samplestudenttranscript.PostSecondaryOrganization IS 'PostSecondaryOrganization';
 COMMENT ON COLUMN samplestudenttranscript.PostSecondaryOrganization.NameOfInstitution IS 'The name of the institution.';
-COMMENT ON COLUMN samplestudenttranscript.PostSecondaryOrganization.InstitutionLevelDescriptorId IS 'The level of the institution.';
-COMMENT ON COLUMN samplestudenttranscript.PostSecondaryOrganization.InstitutionControlDescriptorId IS 'The type of control of the institution (i.e., public or private).';
 COMMENT ON COLUMN samplestudenttranscript.PostSecondaryOrganization.AcceptanceIndicator IS 'An indication of acceptance.';
+COMMENT ON COLUMN samplestudenttranscript.PostSecondaryOrganization.InstitutionControlDescriptorId IS 'The type of control of the institution (i.e., public or private).';
+COMMENT ON COLUMN samplestudenttranscript.PostSecondaryOrganization.InstitutionLevelDescriptorId IS 'The level of the institution.';
 
 -- Extended Properties [samplestudenttranscript].[SpecialEducationGraduationStatusDescriptor] --
 COMMENT ON TABLE samplestudenttranscript.SpecialEducationGraduationStatusDescriptor IS 'The graduation status for special education.';

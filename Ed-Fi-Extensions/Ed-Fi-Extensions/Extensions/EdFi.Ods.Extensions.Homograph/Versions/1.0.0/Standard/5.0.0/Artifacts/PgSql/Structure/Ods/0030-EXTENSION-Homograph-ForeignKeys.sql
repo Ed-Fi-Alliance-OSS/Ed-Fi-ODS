@@ -12,16 +12,10 @@ REFERENCES homograph.Contact (ContactFirstName, ContactLastSurname)
 ON DELETE CASCADE
 ;
 
-CREATE INDEX FK_720058_Contact
-ON homograph.ContactAddress (ContactFirstName ASC, ContactLastSurname ASC);
-
 ALTER TABLE homograph.ContactStudentSchoolAssociation ADD CONSTRAINT FK_bf6531_Contact FOREIGN KEY (ContactFirstName, ContactLastSurname)
 REFERENCES homograph.Contact (ContactFirstName, ContactLastSurname)
 ON DELETE CASCADE
 ;
-
-CREATE INDEX FK_bf6531_Contact
-ON homograph.ContactStudentSchoolAssociation (ContactFirstName ASC, ContactLastSurname ASC);
 
 ALTER TABLE homograph.ContactStudentSchoolAssociation ADD CONSTRAINT FK_bf6531_StudentSchoolAssociation FOREIGN KEY (SchoolName, StudentFirstName, StudentLastSurname)
 REFERENCES homograph.StudentSchoolAssociation (SchoolName, StudentFirstName, StudentLastSurname)
@@ -52,16 +46,10 @@ REFERENCES homograph.Staff (StaffFirstName, StaffLastSurname)
 ON DELETE CASCADE
 ;
 
-CREATE INDEX FK_c0e4a3_Staff
-ON homograph.StaffAddress (StaffFirstName ASC, StaffLastSurname ASC);
-
 ALTER TABLE homograph.StaffStudentSchoolAssociation ADD CONSTRAINT FK_fec532_Staff FOREIGN KEY (StaffFirstName, StaffLastSurname)
 REFERENCES homograph.Staff (StaffFirstName, StaffLastSurname)
 ON DELETE CASCADE
 ;
-
-CREATE INDEX FK_fec532_Staff
-ON homograph.StaffStudentSchoolAssociation (StaffFirstName ASC, StaffLastSurname ASC);
 
 ALTER TABLE homograph.StaffStudentSchoolAssociation ADD CONSTRAINT FK_fec532_StudentSchoolAssociation FOREIGN KEY (SchoolName, StudentFirstName, StudentLastSurname)
 REFERENCES homograph.StudentSchoolAssociation (SchoolName, StudentFirstName, StudentLastSurname)
@@ -86,9 +74,6 @@ ALTER TABLE homograph.StudentAddress ADD CONSTRAINT FK_e70453_Student FOREIGN KE
 REFERENCES homograph.Student (StudentFirstName, StudentLastSurname)
 ON DELETE CASCADE
 ;
-
-CREATE INDEX FK_e70453_Student
-ON homograph.StudentAddress (StudentFirstName ASC, StudentLastSurname ASC);
 
 ALTER TABLE homograph.StudentSchoolAssociation ADD CONSTRAINT FK_857b52_School FOREIGN KEY (SchoolName)
 REFERENCES homograph.School (SchoolName)

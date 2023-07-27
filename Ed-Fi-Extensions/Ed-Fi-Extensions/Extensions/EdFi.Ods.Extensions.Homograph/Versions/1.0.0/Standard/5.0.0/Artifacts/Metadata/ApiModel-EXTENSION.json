@@ -252,9 +252,9 @@
         {
           "identifierName": "ContactAddress_PK",
           "identifyingPropertyNames": [
-            "City",
             "ContactFirstName",
-            "ContactLastSurname"
+            "ContactLastSurname",
+            "City"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -853,9 +853,9 @@
         {
           "identifierName": "StaffAddress_PK",
           "identifyingPropertyNames": [
-            "City",
             "StaffFirstName",
-            "StaffLastSurname"
+            "StaffLastSurname",
+            "City"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -898,9 +898,9 @@
         {
           "identifierName": "StaffStudentSchoolAssociation_PK",
           "identifyingPropertyNames": [
-            "SchoolName",
             "StaffFirstName",
             "StaffLastSurname",
+            "SchoolName",
             "StudentFirstName",
             "StudentLastSurname"
           ],
@@ -1053,9 +1053,9 @@
         {
           "identifierName": "StudentAddress_PK",
           "identifyingPropertyNames": [
-            "City",
             "StudentFirstName",
-            "StudentLastSurname"
+            "StudentLastSurname",
+            "City"
           ],
           "isPrimary": true,
           "isUpdatable": false,

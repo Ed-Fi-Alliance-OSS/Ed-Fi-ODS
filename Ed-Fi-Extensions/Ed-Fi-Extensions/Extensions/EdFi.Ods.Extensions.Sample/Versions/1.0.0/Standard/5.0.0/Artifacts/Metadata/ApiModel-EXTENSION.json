@@ -1192,9 +1192,9 @@
         {
           "identifierName": "ContactAddressExtension_PK",
           "identifyingPropertyNames": [
+            "ContactUSI",
             "AddressTypeDescriptorId",
             "City",
-            "ContactUSI",
             "PostalCode",
             "StateAbbreviationDescriptorId",
             "StreetNumberName"
@@ -1258,13 +1258,13 @@
         {
           "identifierName": "ContactAddressSchoolDistrict_PK",
           "identifyingPropertyNames": [
+            "ContactUSI",
             "AddressTypeDescriptorId",
             "City",
-            "ContactUSI",
             "PostalCode",
-            "SchoolDistrict",
             "StateAbbreviationDescriptorId",
-            "StreetNumberName"
+            "StreetNumberName",
+            "SchoolDistrict"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -1307,9 +1307,9 @@
         {
           "identifierName": "ContactAddressTerm_PK",
           "identifyingPropertyNames": [
+            "ContactUSI",
             "AddressTypeDescriptorId",
             "City",
-            "ContactUSI",
             "PostalCode",
             "StateAbbreviationDescriptorId",
             "StreetNumberName",
@@ -1374,8 +1374,8 @@
         {
           "identifierName": "ContactAuthor_PK",
           "identifyingPropertyNames": [
-            "Author",
-            "ContactUSI"
+            "ContactUSI",
+            "Author"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -1435,8 +1435,8 @@
         {
           "identifierName": "ContactCeilingHeight_PK",
           "identifyingPropertyNames": [
-            "CeilingHeight",
-            "ContactUSI"
+            "ContactUSI",
+            "CeilingHeight"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -1904,8 +1904,8 @@
         {
           "identifierName": "ContactStudentProgramAssociation_PK",
           "identifyingPropertyNames": [
-            "BeginDate",
             "ContactUSI",
+            "BeginDate",
             "EducationOrganizationId",
             "ProgramEducationOrganizationId",
             "ProgramName",
@@ -2197,8 +2197,8 @@
         {
           "identifierName": "SchoolDirectlyOwnedBus_PK",
           "identifyingPropertyNames": [
-            "DirectlyOwnedBusId",
-            "SchoolId"
+            "SchoolId",
+            "DirectlyOwnedBusId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -2399,8 +2399,8 @@
         {
           "identifierName": "StaffPet_PK",
           "identifyingPropertyNames": [
-            "PetName",
-            "StaffUSI"
+            "StaffUSI",
+            "PetName"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -2573,9 +2573,9 @@
         {
           "identifierName": "StudentAquaticPet_PK",
           "identifyingPropertyNames": [
+            "StudentUSI",
             "MimimumTankVolume",
-            "PetName",
-            "StudentUSI"
+            "PetName"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -2848,13 +2848,13 @@
         {
           "identifierName": "StudentArtProgramAssociationArtMedium_PK",
           "identifyingPropertyNames": [
-            "ArtMediumDescriptorId",
             "BeginDate",
             "EducationOrganizationId",
             "ProgramEducationOrganizationId",
             "ProgramName",
             "ProgramTypeDescriptorId",
-            "StudentUSI"
+            "StudentUSI",
+            "ArtMediumDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -2917,11 +2917,11 @@
           "identifyingPropertyNames": [
             "BeginDate",
             "EducationOrganizationId",
-            "PortfolioYears",
             "ProgramEducationOrganizationId",
             "ProgramName",
             "ProgramTypeDescriptorId",
-            "StudentUSI"
+            "StudentUSI",
+            "PortfolioYears"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3023,8 +3023,8 @@
             "ProgramEducationOrganizationId",
             "ProgramName",
             "ProgramTypeDescriptorId",
-            "ServiceDescriptorId",
-            "StudentUSI"
+            "StudentUSI",
+            "ServiceDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3135,8 +3135,8 @@
           "identifierName": "StudentContactAssociationDiscipline_PK",
           "identifyingPropertyNames": [
             "ContactUSI",
-            "DisciplineDescriptorId",
-            "StudentUSI"
+            "StudentUSI",
+            "DisciplineDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3438,8 +3438,8 @@
           "identifierName": "StudentContactAssociationFavoriteBookTitle_PK",
           "identifyingPropertyNames": [
             "ContactUSI",
-            "FavoriteBookTitle",
-            "StudentUSI"
+            "StudentUSI",
+            "FavoriteBookTitle"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3500,8 +3500,8 @@
           "identifierName": "StudentContactAssociationHoursPerWeek_PK",
           "identifyingPropertyNames": [
             "ContactUSI",
-            "HoursPerWeek",
-            "StudentUSI"
+            "StudentUSI",
+            "HoursPerWeek"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3562,8 +3562,8 @@
           "identifierName": "StudentContactAssociationPagesRead_PK",
           "identifyingPropertyNames": [
             "ContactUSI",
-            "PagesRead",
-            "StudentUSI"
+            "StudentUSI",
+            "PagesRead"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3607,11 +3607,11 @@
           "identifierName": "StudentContactAssociationStaffEducationOrganizationEmploymentAssociation_PK",
           "identifyingPropertyNames": [
             "ContactUSI",
+            "StudentUSI",
             "EducationOrganizationId",
             "EmploymentStatusDescriptorId",
             "HireDate",
-            "StaffUSI",
-            "StudentUSI"
+            "StaffUSI"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3890,13 +3890,13 @@
         {
           "identifierName": "StudentEducationOrganizationAssociationAddressExtension_PK",
           "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "StudentUSI",
             "AddressTypeDescriptorId",
             "City",
-            "EducationOrganizationId",
             "PostalCode",
             "StateAbbreviationDescriptorId",
-            "StreetNumberName",
-            "StudentUSI"
+            "StreetNumberName"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3957,14 +3957,14 @@
         {
           "identifierName": "StudentEducationOrganizationAssociationAddressSchoolDistrict_PK",
           "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "StudentUSI",
             "AddressTypeDescriptorId",
             "City",
-            "EducationOrganizationId",
             "PostalCode",
-            "SchoolDistrict",
             "StateAbbreviationDescriptorId",
             "StreetNumberName",
-            "StudentUSI"
+            "SchoolDistrict"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4007,13 +4007,13 @@
         {
           "identifierName": "StudentEducationOrganizationAssociationAddressTerm_PK",
           "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "StudentUSI",
             "AddressTypeDescriptorId",
             "City",
-            "EducationOrganizationId",
             "PostalCode",
             "StateAbbreviationDescriptorId",
             "StreetNumberName",
-            "StudentUSI",
             "TermDescriptorId"
           ],
           "isPrimary": true,
@@ -4111,10 +4111,10 @@
         {
           "identifierName": "StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed_PK",
           "identifyingPropertyNames": [
-            "BeginDate",
             "EducationOrganizationId",
+            "StudentUSI",
             "StudentCharacteristicDescriptorId",
-            "StudentUSI"
+            "BeginDate"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4175,8 +4175,8 @@
         {
           "identifierName": "StudentFavoriteBook_PK",
           "identifyingPropertyNames": [
-            "FavoriteBookCategoryDescriptorId",
-            "StudentUSI"
+            "StudentUSI",
+            "FavoriteBookCategoryDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4238,9 +4238,9 @@
         {
           "identifierName": "StudentFavoriteBookArtMedium_PK",
           "identifyingPropertyNames": [
-            "ArtMediumDescriptorId",
+            "StudentUSI",
             "FavoriteBookCategoryDescriptorId",
-            "StudentUSI"
+            "ArtMediumDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4517,11 +4517,11 @@
         {
           "identifierName": "StudentGraduationPlanAssociationAcademicSubject_PK",
           "identifyingPropertyNames": [
-            "AcademicSubjectDescriptorId",
             "EducationOrganizationId",
             "GraduationPlanTypeDescriptorId",
             "GraduationSchoolYear",
-            "StudentUSI"
+            "StudentUSI",
+            "AcademicSubjectDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4581,11 +4581,11 @@
         {
           "identifierName": "StudentGraduationPlanAssociationCareerPathwayCode_PK",
           "identifyingPropertyNames": [
-            "CareerPathwayCode",
             "EducationOrganizationId",
             "GraduationPlanTypeDescriptorId",
             "GraduationSchoolYear",
-            "StudentUSI"
+            "StudentUSI",
+            "CareerPathwayCode"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4746,11 +4746,11 @@
         {
           "identifierName": "StudentGraduationPlanAssociationDescription_PK",
           "identifyingPropertyNames": [
-            "Description",
             "EducationOrganizationId",
             "GraduationPlanTypeDescriptorId",
             "GraduationSchoolYear",
-            "StudentUSI"
+            "StudentUSI",
+            "Description"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4811,11 +4811,11 @@
         {
           "identifierName": "StudentGraduationPlanAssociationDesignatedBy_PK",
           "identifyingPropertyNames": [
-            "DesignatedBy",
             "EducationOrganizationId",
             "GraduationPlanTypeDescriptorId",
             "GraduationSchoolYear",
-            "StudentUSI"
+            "StudentUSI",
+            "DesignatedBy"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4879,8 +4879,8 @@
             "EducationOrganizationId",
             "GraduationPlanTypeDescriptorId",
             "GraduationSchoolYear",
-            "IndustryCredential",
-            "StudentUSI"
+            "StudentUSI",
+            "IndustryCredential"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4923,11 +4923,11 @@
         {
           "identifierName": "StudentGraduationPlanAssociationStudentContactAssociation_PK",
           "identifyingPropertyNames": [
-            "ContactUSI",
             "EducationOrganizationId",
             "GraduationPlanTypeDescriptorId",
             "GraduationSchoolYear",
-            "StudentUSI"
+            "StudentUSI",
+            "ContactUSI"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -5071,8 +5071,8 @@
         {
           "identifierName": "StudentPet_PK",
           "identifyingPropertyNames": [
-            "PetName",
-            "StudentUSI"
+            "StudentUSI",
+            "PetName"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -5239,16 +5239,16 @@
           "identifyingPropertyNames": [
             "BeginDate",
             "LocalCourseCode",
-            "RelatedBeginDate",
-            "RelatedEducationOrganizationId",
-            "RelatedProgramEducationOrganizationId",
-            "RelatedProgramName",
-            "RelatedProgramTypeDescriptorId",
             "SchoolId",
             "SchoolYear",
             "SectionIdentifier",
             "SessionName",
-            "StudentUSI"
+            "StudentUSI",
+            "RelatedBeginDate",
+            "RelatedEducationOrganizationId",
+            "RelatedProgramEducationOrganizationId",
+            "RelatedProgramName",
+            "RelatedProgramTypeDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -6273,6 +6273,23 @@
       },
       "primaryEntityProperties": [
         {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -6305,23 +6322,6 @@
           "columnNames": {
             "sqlServer": "City",
             "postgreSql": "City"
-          }
-        },
-        {
-          "propertyName": "ContactUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a contact.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ContactUSI",
-            "postgreSql": "ContactUSI"
           }
         },
         {
@@ -6384,6 +6384,23 @@
       },
       "secondaryEntityProperties": [
         {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -6416,23 +6433,6 @@
           "columnNames": {
             "sqlServer": "City",
             "postgreSql": "City"
-          }
-        },
-        {
-          "propertyName": "ContactUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a contact.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ContactUSI",
-            "postgreSql": "ContactUSI"
           }
         },
         {
@@ -6509,6 +6509,23 @@
       },
       "primaryEntityProperties": [
         {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -6541,23 +6558,6 @@
           "columnNames": {
             "sqlServer": "City",
             "postgreSql": "City"
-          }
-        },
-        {
-          "propertyName": "ContactUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a contact.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ContactUSI",
-            "postgreSql": "ContactUSI"
           }
         },
         {
@@ -6620,6 +6620,23 @@
       },
       "secondaryEntityProperties": [
         {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -6652,23 +6669,6 @@
           "columnNames": {
             "sqlServer": "City",
             "postgreSql": "City"
-          }
-        },
-        {
-          "propertyName": "ContactUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a contact.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ContactUSI",
-            "postgreSql": "ContactUSI"
           }
         },
         {
@@ -6745,6 +6745,23 @@
       },
       "primaryEntityProperties": [
         {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -6777,23 +6794,6 @@
           "columnNames": {
             "sqlServer": "City",
             "postgreSql": "City"
-          }
-        },
-        {
-          "propertyName": "ContactUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a contact.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ContactUSI",
-            "postgreSql": "ContactUSI"
           }
         },
         {
@@ -6856,6 +6856,23 @@
       },
       "secondaryEntityProperties": [
         {
+          "propertyName": "ContactUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a contact.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactUSI",
+            "postgreSql": "ContactUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -6888,23 +6905,6 @@
           "columnNames": {
             "sqlServer": "City",
             "postgreSql": "City"
-          }
-        },
-        {
-          "propertyName": "ContactUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a contact.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ContactUSI",
-            "postgreSql": "ContactUSI"
           }
         },
         {
@@ -11155,6 +11155,40 @@
       },
       "primaryEntityProperties": [
         {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -11187,23 +11221,6 @@
           "columnNames": {
             "sqlServer": "City",
             "postgreSql": "City"
-          }
-        },
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int64",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
           }
         },
         {
@@ -11257,23 +11274,6 @@
           "columnNames": {
             "sqlServer": "StreetNumberName",
             "postgreSql": "StreetNumberName"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
           }
         }
       ],
@@ -11283,6 +11283,40 @@
       },
       "secondaryEntityProperties": [
         {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -11315,23 +11349,6 @@
           "columnNames": {
             "sqlServer": "City",
             "postgreSql": "City"
-          }
-        },
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int64",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
           }
         },
         {
@@ -11385,23 +11402,6 @@
           "columnNames": {
             "sqlServer": "StreetNumberName",
             "postgreSql": "StreetNumberName"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
           }
         }
       ],
@@ -11425,6 +11425,40 @@
       },
       "primaryEntityProperties": [
         {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -11457,23 +11491,6 @@
           "columnNames": {
             "sqlServer": "City",
             "postgreSql": "City"
-          }
-        },
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int64",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
           }
         },
         {
@@ -11527,23 +11544,6 @@
           "columnNames": {
             "sqlServer": "StreetNumberName",
             "postgreSql": "StreetNumberName"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
           }
         }
       ],
@@ -11553,6 +11553,40 @@
       },
       "secondaryEntityProperties": [
         {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -11585,23 +11619,6 @@
           "columnNames": {
             "sqlServer": "City",
             "postgreSql": "City"
-          }
-        },
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int64",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
           }
         },
         {
@@ -11655,23 +11672,6 @@
           "columnNames": {
             "sqlServer": "StreetNumberName",
             "postgreSql": "StreetNumberName"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
           }
         }
       ],
@@ -11695,6 +11695,40 @@
       },
       "primaryEntityProperties": [
         {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -11727,23 +11761,6 @@
           "columnNames": {
             "sqlServer": "City",
             "postgreSql": "City"
-          }
-        },
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int64",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
           }
         },
         {
@@ -11797,23 +11814,6 @@
           "columnNames": {
             "sqlServer": "StreetNumberName",
             "postgreSql": "StreetNumberName"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
           }
         }
       ],
@@ -11823,6 +11823,40 @@
       },
       "secondaryEntityProperties": [
         {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int64",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -11855,23 +11889,6 @@
           "columnNames": {
             "sqlServer": "City",
             "postgreSql": "City"
-          }
-        },
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int64",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
           }
         },
         {
@@ -11925,23 +11942,6 @@
           "columnNames": {
             "sqlServer": "StreetNumberName",
             "postgreSql": "StreetNumberName"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
           }
         }
       ],
@@ -12042,23 +12042,6 @@
           }
         },
         {
-          "propertyName": "StudentCharacteristicDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The characteristic designated for the student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentCharacteristicDescriptorId",
-            "postgreSql": "StudentCharacteristicDescriptorId"
-          }
-        },
-        {
           "propertyName": "StudentUSI",
           "propertyType": {
             "dbType": "Int32",
@@ -12073,6 +12056,23 @@
           "columnNames": {
             "sqlServer": "StudentUSI",
             "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "StudentCharacteristicDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The characteristic designated for the student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentCharacteristicDescriptorId",
+            "postgreSql": "StudentCharacteristicDescriptorId"
           }
         }
       ],
@@ -12099,23 +12099,6 @@
           }
         },
         {
-          "propertyName": "StudentCharacteristicDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The characteristic designated for the student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentCharacteristicDescriptorId",
-            "postgreSql": "StudentCharacteristicDescriptorId"
-          }
-        },
-        {
           "propertyName": "StudentUSI",
           "propertyType": {
             "dbType": "Int32",
@@ -12130,6 +12113,23 @@
           "columnNames": {
             "sqlServer": "StudentUSI",
             "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "StudentCharacteristicDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The characteristic designated for the student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentCharacteristicDescriptorId",
+            "postgreSql": "StudentCharacteristicDescriptorId"
           }
         }
       ],
@@ -12333,23 +12333,6 @@
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "FavoriteBookCategoryDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "This is documentation.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "FavoriteBookCategoryDescriptorId",
-            "postgreSql": "FavoriteBookCategoryDescriptorId"
-          }
-        },
-        {
           "propertyName": "StudentUSI",
           "propertyType": {
             "dbType": "Int32",
@@ -12364,6 +12347,23 @@
           "columnNames": {
             "sqlServer": "StudentUSI",
             "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "FavoriteBookCategoryDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "This is documentation.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "FavoriteBookCategoryDescriptorId",
+            "postgreSql": "FavoriteBookCategoryDescriptorId"
           }
         }
       ],
@@ -12373,23 +12373,6 @@
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "FavoriteBookCategoryDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "This is documentation.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "FavoriteBookCategoryDescriptorId",
-            "postgreSql": "FavoriteBookCategoryDescriptorId"
-          }
-        },
-        {
           "propertyName": "StudentUSI",
           "propertyType": {
             "dbType": "Int32",
@@ -12404,6 +12387,23 @@
           "columnNames": {
             "sqlServer": "StudentUSI",
             "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "FavoriteBookCategoryDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "This is documentation.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "FavoriteBookCategoryDescriptorId",
+            "postgreSql": "FavoriteBookCategoryDescriptorId"
           }
         }
       ],

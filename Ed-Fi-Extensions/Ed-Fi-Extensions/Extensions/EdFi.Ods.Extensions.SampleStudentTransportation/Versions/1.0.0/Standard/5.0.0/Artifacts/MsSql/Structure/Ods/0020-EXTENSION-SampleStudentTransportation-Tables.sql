@@ -7,7 +7,7 @@
 CREATE TABLE [samplestudenttransportation].[StudentTransportation] (
     [AMBusNumber] [NVARCHAR](6) NOT NULL,
     [PMBusNumber] [NVARCHAR](6) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [EstimatedMilesFromSchool] [DECIMAL](5, 2) NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,

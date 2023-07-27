@@ -1214,8 +1214,8 @@
         {
           "identifierName": "CandidateAddress_PK",
           "identifyingPropertyNames": [
-            "AddressTypeDescriptorId",
             "CandidateIdentifier",
+            "AddressTypeDescriptorId",
             "City",
             "PostalCode",
             "StateAbbreviationDescriptorId",
@@ -1298,13 +1298,13 @@
         {
           "identifierName": "CandidateAddressPeriod_PK",
           "identifyingPropertyNames": [
-            "AddressTypeDescriptorId",
-            "BeginDate",
             "CandidateIdentifier",
+            "AddressTypeDescriptorId",
             "City",
             "PostalCode",
             "StateAbbreviationDescriptorId",
-            "StreetNumberName"
+            "StreetNumberName",
+            "BeginDate"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -1602,10 +1602,10 @@
           "identifyingPropertyNames": [
             "BeginDate",
             "CandidateIdentifier",
-            "CohortYearTypeDescriptorId",
             "EducationOrganizationId",
             "ProgramName",
             "ProgramTypeDescriptorId",
+            "CohortYearTypeDescriptorId",
             "SchoolYear"
           ],
           "isPrimary": true,
@@ -1706,9 +1706,9 @@
             "BeginDate",
             "CandidateIdentifier",
             "EducationOrganizationId",
-            "MajorSpecialization",
             "ProgramName",
-            "ProgramTypeDescriptorId"
+            "ProgramTypeDescriptorId",
+            "MajorSpecialization"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -2525,9 +2525,9 @@
           "identifierName": "CredentialStudentAcademicRecord_PK",
           "identifyingPropertyNames": [
             "CredentialIdentifier",
+            "StateOfIssueStateAbbreviationDescriptorId",
             "EducationOrganizationId",
             "SchoolYear",
-            "StateOfIssueStateAbbreviationDescriptorId",
             "StudentUSI",
             "TermDescriptorId"
           ],
@@ -2700,9 +2700,9 @@
           "identifierName": "EducatorPreparationProgramGradeLevel_PK",
           "identifyingPropertyNames": [
             "EducationOrganizationId",
-            "GradeLevelDescriptorId",
             "ProgramName",
-            "ProgramTypeDescriptorId"
+            "ProgramTypeDescriptorId",
+            "GradeLevelDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3378,12 +3378,12 @@
             "EvaluationElementTitle",
             "EvaluationObjectiveTitle",
             "EvaluationPeriodDescriptorId",
-            "EvaluationRatingLevelDescriptorId",
             "EvaluationTitle",
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "SchoolYear",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "EvaluationRatingLevelDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3495,11 +3495,11 @@
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "PersonId",
-            "Rating",
-            "RatingResultTitle",
             "SchoolYear",
             "SourceSystemDescriptorId",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "Rating",
+            "RatingResultTitle"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3879,12 +3879,12 @@
             "EducationOrganizationId",
             "EvaluationObjectiveTitle",
             "EvaluationPeriodDescriptorId",
-            "EvaluationRatingLevelDescriptorId",
             "EvaluationTitle",
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "SchoolYear",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "EvaluationRatingLevelDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3970,11 +3970,11 @@
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "PersonId",
-            "Rating",
-            "RatingResultTitle",
             "SchoolYear",
             "SourceSystemDescriptorId",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "Rating",
+            "RatingResultTitle"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4194,12 +4194,12 @@
           "identifyingPropertyNames": [
             "EducationOrganizationId",
             "EvaluationPeriodDescriptorId",
-            "EvaluationRatingLevelDescriptorId",
             "EvaluationTitle",
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "SchoolYear",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "EvaluationRatingLevelDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4309,11 +4309,11 @@
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "PersonId",
-            "Rating",
-            "RatingResultTitle",
             "SchoolYear",
             "SourceSystemDescriptorId",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "Rating",
+            "RatingResultTitle"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4396,14 +4396,14 @@
             "EvaluationDate",
             "EvaluationPeriodDescriptorId",
             "EvaluationTitle",
-            "FirstName",
-            "LastSurname",
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "PersonId",
             "SchoolYear",
             "SourceSystemDescriptorId",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "FirstName",
+            "LastSurname"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4485,14 +4485,14 @@
             "EvaluationDate",
             "EvaluationPeriodDescriptorId",
             "EvaluationTitle",
-            "FirstName",
-            "LastSurname",
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "PersonId",
             "SchoolYear",
             "SourceSystemDescriptorId",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "FirstName",
+            "LastSurname"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4947,11 +4947,11 @@
           "identifyingPropertyNames": [
             "EducationOrganizationId",
             "EvaluationPeriodDescriptorId",
-            "GradeLevelDescriptorId",
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "SchoolYear",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "GradeLevelDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -5234,11 +5234,11 @@
           "identifyingPropertyNames": [
             "EducationOrganizationId",
             "EvaluationPeriodDescriptorId",
-            "EvaluationRatingLevelDescriptorId",
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "SchoolYear",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "EvaluationRatingLevelDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -5346,11 +5346,11 @@
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "PersonId",
-            "Rating",
-            "RatingResultTitle",
             "SchoolYear",
             "SourceSystemDescriptorId",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "Rating",
+            "RatingResultTitle"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -5431,14 +5431,14 @@
           "identifyingPropertyNames": [
             "EducationOrganizationId",
             "EvaluationPeriodDescriptorId",
-            "FirstName",
-            "LastSurname",
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "PersonId",
             "SchoolYear",
             "SourceSystemDescriptorId",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "FirstName",
+            "LastSurname"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -5518,14 +5518,14 @@
           "identifyingPropertyNames": [
             "EducationOrganizationId",
             "EvaluationPeriodDescriptorId",
-            "FirstName",
-            "LastSurname",
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "PersonId",
             "SchoolYear",
             "SourceSystemDescriptorId",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "FirstName",
+            "LastSurname"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -6909,23 +6909,6 @@
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "AddressTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "AddressTypeDescriptorId",
-            "postgreSql": "AddressTypeDescriptorId"
-          }
-        },
-        {
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
@@ -6941,6 +6924,23 @@
           "columnNames": {
             "sqlServer": "CandidateIdentifier",
             "postgreSql": "CandidateIdentifier"
+          }
+        },
+        {
+          "propertyName": "AddressTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "AddressTypeDescriptorId",
+            "postgreSql": "AddressTypeDescriptorId"
           }
         },
         {
@@ -7021,23 +7021,6 @@
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "AddressTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "AddressTypeDescriptorId",
-            "postgreSql": "AddressTypeDescriptorId"
-          }
-        },
-        {
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
@@ -7053,6 +7036,23 @@
           "columnNames": {
             "sqlServer": "CandidateIdentifier",
             "postgreSql": "CandidateIdentifier"
+          }
+        },
+        {
+          "propertyName": "AddressTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "AddressTypeDescriptorId",
+            "postgreSql": "AddressTypeDescriptorId"
           }
         },
         {
@@ -8282,7 +8282,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The month, day, and year on which the Teacher Candidate first declared specialization.",
+          "description": "The begin date for the association.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -17394,42 +17394,6 @@
           }
         },
         {
-          "propertyName": "FirstName",
-          "propertyType": {
-            "dbType": "String",
-            "minLength": 1,
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "FirstName",
-            "postgreSql": "FirstName"
-          }
-        },
-        {
-          "propertyName": "LastSurname",
-          "propertyType": {
-            "dbType": "String",
-            "minLength": 1,
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name borne in common by members of a family.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LastSurname",
-            "postgreSql": "LastSurname"
-          }
-        },
-        {
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
@@ -17531,6 +17495,42 @@
           "columnNames": {
             "sqlServer": "TermDescriptorId",
             "postgreSql": "TermDescriptorId"
+          }
+        },
+        {
+          "propertyName": "FirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "FirstName",
+            "postgreSql": "FirstName"
+          }
+        },
+        {
+          "propertyName": "LastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastSurname",
+            "postgreSql": "LastSurname"
           }
         }
       ],
@@ -17610,42 +17610,6 @@
           }
         },
         {
-          "propertyName": "FirstName",
-          "propertyType": {
-            "dbType": "String",
-            "minLength": 1,
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "FirstName",
-            "postgreSql": "FirstName"
-          }
-        },
-        {
-          "propertyName": "LastSurname",
-          "propertyType": {
-            "dbType": "String",
-            "minLength": 1,
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name borne in common by members of a family.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LastSurname",
-            "postgreSql": "LastSurname"
-          }
-        },
-        {
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
@@ -17747,6 +17711,42 @@
           "columnNames": {
             "sqlServer": "TermDescriptorId",
             "postgreSql": "TermDescriptorId"
+          }
+        },
+        {
+          "propertyName": "FirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "FirstName",
+            "postgreSql": "FirstName"
+          }
+        },
+        {
+          "propertyName": "LastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastSurname",
+            "postgreSql": "LastSurname"
           }
         }
       ],
@@ -20376,42 +20376,6 @@
           }
         },
         {
-          "propertyName": "FirstName",
-          "propertyType": {
-            "dbType": "String",
-            "minLength": 1,
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "FirstName",
-            "postgreSql": "FirstName"
-          }
-        },
-        {
-          "propertyName": "LastSurname",
-          "propertyType": {
-            "dbType": "String",
-            "minLength": 1,
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name borne in common by members of a family.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LastSurname",
-            "postgreSql": "LastSurname"
-          }
-        },
-        {
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
@@ -20513,6 +20477,42 @@
           "columnNames": {
             "sqlServer": "TermDescriptorId",
             "postgreSql": "TermDescriptorId"
+          }
+        },
+        {
+          "propertyName": "FirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "FirstName",
+            "postgreSql": "FirstName"
+          }
+        },
+        {
+          "propertyName": "LastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastSurname",
+            "postgreSql": "LastSurname"
           }
         }
       ],
@@ -20556,42 +20556,6 @@
           }
         },
         {
-          "propertyName": "FirstName",
-          "propertyType": {
-            "dbType": "String",
-            "minLength": 1,
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "FirstName",
-            "postgreSql": "FirstName"
-          }
-        },
-        {
-          "propertyName": "LastSurname",
-          "propertyType": {
-            "dbType": "String",
-            "minLength": 1,
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name borne in common by members of a family.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LastSurname",
-            "postgreSql": "LastSurname"
-          }
-        },
-        {
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
@@ -20693,6 +20657,42 @@
           "columnNames": {
             "sqlServer": "TermDescriptorId",
             "postgreSql": "TermDescriptorId"
+          }
+        },
+        {
+          "propertyName": "FirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "FirstName",
+            "postgreSql": "FirstName"
+          }
+        },
+        {
+          "propertyName": "LastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastSurname",
+            "postgreSql": "LastSurname"
           }
         }
       ],

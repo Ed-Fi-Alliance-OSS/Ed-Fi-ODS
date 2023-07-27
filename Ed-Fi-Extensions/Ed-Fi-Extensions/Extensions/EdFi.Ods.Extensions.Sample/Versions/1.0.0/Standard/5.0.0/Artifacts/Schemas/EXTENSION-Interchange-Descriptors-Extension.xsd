@@ -148,6 +148,8 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="ProficiencyDescriptor" type="ProficiencyDescriptor" />
         <xs:element name="ProgramAssignmentDescriptor" type="ProgramAssignmentDescriptor" />
         <xs:element name="ProgramCharacteristicDescriptor" type="ProgramCharacteristicDescriptor" />
+        <xs:element name="ProgramEvaluationPeriodDescriptor" type="ProgramEvaluationPeriodDescriptor" />
+        <xs:element name="ProgramEvaluationTypeDescriptor" type="ProgramEvaluationTypeDescriptor" />
         <xs:element name="ProgramSponsorDescriptor" type="ProgramSponsorDescriptor" />
         <xs:element name="ProgramTypeDescriptor" type="ProgramTypeDescriptor" />
         <xs:element name="ProgressDescriptor" type="ProgressDescriptor" />
@@ -158,6 +160,7 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="PublicationStatusDescriptor" type="PublicationStatusDescriptor" />
         <xs:element name="QuestionFormDescriptor" type="QuestionFormDescriptor" />
         <xs:element name="RaceDescriptor" type="RaceDescriptor" />
+        <xs:element name="RatingLevelDescriptor" type="RatingLevelDescriptor" />
         <xs:element name="ReasonExitedDescriptor" type="ReasonExitedDescriptor" />
         <xs:element name="ReasonNotTestedDescriptor" type="ReasonNotTestedDescriptor" />
         <xs:element name="RecognitionTypeDescriptor" type="RecognitionTypeDescriptor" />
