@@ -22,7 +22,9 @@ ALTER TABLE [edfi].[AcademicWeek] WITH CHECK ADD CONSTRAINT [FK_AcademicWeek_Sch
 REFERENCES [edfi].[School] ([SchoolId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_AcademicWeek_School]
+ON [edfi].[AcademicWeek] ([SchoolId] ASC)
+GO
 
 ALTER TABLE [edfi].[AccommodationDescriptor] WITH CHECK ADD CONSTRAINT [FK_AccommodationDescriptor_Descriptor] FOREIGN KEY ([AccommodationDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
@@ -33,7 +35,9 @@ ALTER TABLE [edfi].[AccountabilityRating] WITH CHECK ADD CONSTRAINT [FK_Accounta
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_AccountabilityRating_EducationOrganization]
+ON [edfi].[AccountabilityRating] ([EducationOrganizationId] ASC)
+GO
 
 ALTER TABLE [edfi].[AccountabilityRating] WITH CHECK ADD CONSTRAINT [FK_AccountabilityRating_SchoolYearType] FOREIGN KEY ([SchoolYear])
 REFERENCES [edfi].[SchoolYearType] ([SchoolYear])
@@ -107,14 +111,10 @@ REFERENCES [edfi].[Assessment] ([AssessmentIdentifier], [Namespace])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[AssessmentAssessedGradeLevel] WITH CHECK ADD CONSTRAINT [FK_AssessmentAssessedGradeLevel_Assessment] FOREIGN KEY ([AssessmentIdentifier], [Namespace])
 REFERENCES [edfi].[Assessment] ([AssessmentIdentifier], [Namespace])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[AssessmentAssessedGradeLevel] WITH CHECK ADD CONSTRAINT [FK_AssessmentAssessedGradeLevel_GradeLevelDescriptor] FOREIGN KEY ([GradeLevelDescriptorId])
 REFERENCES [edfi].[GradeLevelDescriptor] ([GradeLevelDescriptorId])
@@ -155,14 +155,10 @@ REFERENCES [edfi].[AssessmentContentStandard] ([AssessmentIdentifier], [Namespac
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[AssessmentIdentificationCode] WITH CHECK ADD CONSTRAINT [FK_AssessmentIdentificationCode_Assessment] FOREIGN KEY ([AssessmentIdentifier], [Namespace])
 REFERENCES [edfi].[Assessment] ([AssessmentIdentifier], [Namespace])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[AssessmentIdentificationCode] WITH CHECK ADD CONSTRAINT [FK_AssessmentIdentificationCode_AssessmentIdentificationSystemDescriptor] FOREIGN KEY ([AssessmentIdentificationSystemDescriptorId])
 REFERENCES [edfi].[AssessmentIdentificationSystemDescriptor] ([AssessmentIdentificationSystemDescriptorId])
@@ -203,8 +199,6 @@ REFERENCES [edfi].[AssessmentItem] ([AssessmentIdentifier], [IdentificationCode]
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[AssessmentItemLearningStandard] WITH CHECK ADD CONSTRAINT [FK_AssessmentItemLearningStandard_LearningStandard] FOREIGN KEY ([LearningStandardId])
 REFERENCES [edfi].[LearningStandard] ([LearningStandardId])
 GO
@@ -218,8 +212,6 @@ REFERENCES [edfi].[AssessmentItem] ([AssessmentIdentifier], [IdentificationCode]
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[AssessmentItemResultDescriptor] WITH CHECK ADD CONSTRAINT [FK_AssessmentItemResultDescriptor_Descriptor] FOREIGN KEY ([AssessmentItemResultDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
@@ -229,8 +221,6 @@ ALTER TABLE [edfi].[AssessmentLanguage] WITH CHECK ADD CONSTRAINT [FK_Assessment
 REFERENCES [edfi].[Assessment] ([AssessmentIdentifier], [Namespace])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[AssessmentLanguage] WITH CHECK ADD CONSTRAINT [FK_AssessmentLanguage_LanguageDescriptor] FOREIGN KEY ([LanguageDescriptorId])
 REFERENCES [edfi].[LanguageDescriptor] ([LanguageDescriptorId])
@@ -244,8 +234,6 @@ ALTER TABLE [edfi].[AssessmentPerformanceLevel] WITH CHECK ADD CONSTRAINT [FK_As
 REFERENCES [edfi].[Assessment] ([AssessmentIdentifier], [Namespace])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[AssessmentPerformanceLevel] WITH CHECK ADD CONSTRAINT [FK_AssessmentPerformanceLevel_AssessmentReportingMethodDescriptor] FOREIGN KEY ([AssessmentReportingMethodDescriptorId])
 REFERENCES [edfi].[AssessmentReportingMethodDescriptor] ([AssessmentReportingMethodDescriptorId])
@@ -276,8 +264,6 @@ REFERENCES [edfi].[Assessment] ([AssessmentIdentifier], [Namespace])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[AssessmentPeriod] WITH CHECK ADD CONSTRAINT [FK_AssessmentPeriod_AssessmentPeriodDescriptor] FOREIGN KEY ([AssessmentPeriodDescriptorId])
 REFERENCES [edfi].[AssessmentPeriodDescriptor] ([AssessmentPeriodDescriptorId])
 GO
@@ -296,8 +282,6 @@ REFERENCES [edfi].[Assessment] ([AssessmentIdentifier], [Namespace])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[AssessmentPlatformType] WITH CHECK ADD CONSTRAINT [FK_AssessmentPlatformType_PlatformTypeDescriptor] FOREIGN KEY ([PlatformTypeDescriptorId])
 REFERENCES [edfi].[PlatformTypeDescriptor] ([PlatformTypeDescriptorId])
 GO
@@ -310,8 +294,6 @@ ALTER TABLE [edfi].[AssessmentProgram] WITH CHECK ADD CONSTRAINT [FK_AssessmentP
 REFERENCES [edfi].[Assessment] ([AssessmentIdentifier], [Namespace])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[AssessmentProgram] WITH CHECK ADD CONSTRAINT [FK_AssessmentProgram_Program] FOREIGN KEY ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
 REFERENCES [edfi].[Program] ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
@@ -330,8 +312,6 @@ ALTER TABLE [edfi].[AssessmentScore] WITH CHECK ADD CONSTRAINT [FK_AssessmentSco
 REFERENCES [edfi].[Assessment] ([AssessmentIdentifier], [Namespace])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[AssessmentScore] WITH CHECK ADD CONSTRAINT [FK_AssessmentScore_AssessmentReportingMethodDescriptor] FOREIGN KEY ([AssessmentReportingMethodDescriptorId])
 REFERENCES [edfi].[AssessmentReportingMethodDescriptor] ([AssessmentReportingMethodDescriptorId])
@@ -353,7 +333,9 @@ ALTER TABLE [edfi].[AssessmentScoreRangeLearningStandard] WITH CHECK ADD CONSTRA
 REFERENCES [edfi].[Assessment] ([AssessmentIdentifier], [Namespace])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_AssessmentScoreRangeLearningStandard_Assessment]
+ON [edfi].[AssessmentScoreRangeLearningStandard] ([AssessmentIdentifier] ASC, [Namespace] ASC)
+GO
 
 ALTER TABLE [edfi].[AssessmentScoreRangeLearningStandard] WITH CHECK ADD CONSTRAINT [FK_AssessmentScoreRangeLearningStandard_AssessmentReportingMethodDescriptor] FOREIGN KEY ([AssessmentReportingMethodDescriptorId])
 REFERENCES [edfi].[AssessmentReportingMethodDescriptor] ([AssessmentReportingMethodDescriptorId])
@@ -376,8 +358,6 @@ REFERENCES [edfi].[AssessmentScoreRangeLearningStandard] ([AssessmentIdentifier]
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[AssessmentScoreRangeLearningStandardLearningStandard] WITH CHECK ADD CONSTRAINT [FK_AssessmentScoreRangeLearningStandardLearningStandard_LearningStandard] FOREIGN KEY ([LearningStandardId])
 REFERENCES [edfi].[LearningStandard] ([LearningStandardId])
 GO
@@ -390,8 +370,6 @@ ALTER TABLE [edfi].[AssessmentSection] WITH CHECK ADD CONSTRAINT [FK_AssessmentS
 REFERENCES [edfi].[Assessment] ([AssessmentIdentifier], [Namespace])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[AssessmentSection] WITH CHECK ADD CONSTRAINT [FK_AssessmentSection_Section] FOREIGN KEY ([LocalCourseCode], [SchoolId], [SchoolYear], [SectionIdentifier], [SessionName])
 REFERENCES [edfi].[Section] ([LocalCourseCode], [SchoolId], [SchoolYear], [SectionIdentifier], [SessionName])
@@ -421,8 +399,6 @@ ALTER TABLE [edfi].[BalanceSheetDimensionReportingTag] WITH CHECK ADD CONSTRAINT
 REFERENCES [edfi].[BalanceSheetDimension] ([Code], [FiscalYear])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[BalanceSheetDimensionReportingTag] WITH CHECK ADD CONSTRAINT [FK_BalanceSheetDimensionReportingTag_ReportingTagDescriptor] FOREIGN KEY ([ReportingTagDescriptorId])
 REFERENCES [edfi].[ReportingTagDescriptor] ([ReportingTagDescriptorId])
@@ -455,8 +431,6 @@ REFERENCES [edfi].[BellSchedule] ([BellScheduleName], [SchoolId])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[BellScheduleClassPeriod] WITH CHECK ADD CONSTRAINT [FK_BellScheduleClassPeriod_ClassPeriod] FOREIGN KEY ([ClassPeriodName], [SchoolId])
 REFERENCES [edfi].[ClassPeriod] ([ClassPeriodName], [SchoolId])
 ON UPDATE CASCADE
@@ -471,14 +445,10 @@ REFERENCES [edfi].[BellSchedule] ([BellScheduleName], [SchoolId])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[BellScheduleGradeLevel] WITH CHECK ADD CONSTRAINT [FK_BellScheduleGradeLevel_BellSchedule] FOREIGN KEY ([BellScheduleName], [SchoolId])
 REFERENCES [edfi].[BellSchedule] ([BellScheduleName], [SchoolId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[BellScheduleGradeLevel] WITH CHECK ADD CONSTRAINT [FK_BellScheduleGradeLevel_GradeLevelDescriptor] FOREIGN KEY ([GradeLevelDescriptorId])
 REFERENCES [edfi].[GradeLevelDescriptor] ([GradeLevelDescriptorId])
@@ -525,8 +495,6 @@ REFERENCES [edfi].[CalendarDate] ([CalendarCode], [Date], [SchoolId], [SchoolYea
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[CalendarDateCalendarEvent] WITH CHECK ADD CONSTRAINT [FK_CalendarDateCalendarEvent_CalendarEventDescriptor] FOREIGN KEY ([CalendarEventDescriptorId])
 REFERENCES [edfi].[CalendarEventDescriptor] ([CalendarEventDescriptorId])
 GO
@@ -544,8 +512,6 @@ ALTER TABLE [edfi].[CalendarGradeLevel] WITH CHECK ADD CONSTRAINT [FK_CalendarGr
 REFERENCES [edfi].[Calendar] ([CalendarCode], [SchoolId], [SchoolYear])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[CalendarGradeLevel] WITH CHECK ADD CONSTRAINT [FK_CalendarGradeLevel_GradeLevelDescriptor] FOREIGN KEY ([GradeLevelDescriptorId])
 REFERENCES [edfi].[GradeLevelDescriptor] ([GradeLevelDescriptorId])
@@ -660,8 +626,6 @@ REFERENCES [edfi].[ChartOfAccount] ([AccountIdentifier], [EducationOrganizationI
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[ChartOfAccountReportingTag] WITH CHECK ADD CONSTRAINT [FK_ChartOfAccountReportingTag_ReportingTagDescriptor] FOREIGN KEY ([ReportingTagDescriptorId])
 REFERENCES [edfi].[ReportingTagDescriptor] ([ReportingTagDescriptorId])
 GO
@@ -688,8 +652,6 @@ REFERENCES [edfi].[ClassPeriod] ([ClassPeriodName], [SchoolId])
 ON DELETE CASCADE
 ON UPDATE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[ClassroomPositionDescriptor] WITH CHECK ADD CONSTRAINT [FK_ClassroomPositionDescriptor_Descriptor] FOREIGN KEY ([ClassroomPositionDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
@@ -732,8 +694,6 @@ ALTER TABLE [edfi].[CohortProgram] WITH CHECK ADD CONSTRAINT [FK_CohortProgram_C
 REFERENCES [edfi].[Cohort] ([CohortIdentifier], [EducationOrganizationId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[CohortProgram] WITH CHECK ADD CONSTRAINT [FK_CohortProgram_Program] FOREIGN KEY ([ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
 REFERENCES [edfi].[Program] ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
@@ -804,7 +764,9 @@ ALTER TABLE [edfi].[CommunityProviderLicense] WITH CHECK ADD CONSTRAINT [FK_Comm
 REFERENCES [edfi].[CommunityProvider] ([CommunityProviderId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_CommunityProviderLicense_CommunityProvider]
+ON [edfi].[CommunityProviderLicense] ([CommunityProviderId] ASC)
+GO
 
 ALTER TABLE [edfi].[CommunityProviderLicense] WITH CHECK ADD CONSTRAINT [FK_CommunityProviderLicense_LicenseStatusDescriptor] FOREIGN KEY ([LicenseStatusDescriptorId])
 REFERENCES [edfi].[LicenseStatusDescriptor] ([LicenseStatusDescriptorId])
@@ -831,7 +793,9 @@ ALTER TABLE [edfi].[CompetencyObjective] WITH CHECK ADD CONSTRAINT [FK_Competenc
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_CompetencyObjective_EducationOrganization]
+ON [edfi].[CompetencyObjective] ([EducationOrganizationId] ASC)
+GO
 
 ALTER TABLE [edfi].[CompetencyObjective] WITH CHECK ADD CONSTRAINT [FK_CompetencyObjective_GradeLevelDescriptor] FOREIGN KEY ([ObjectiveGradeLevelDescriptorId])
 REFERENCES [edfi].[GradeLevelDescriptor] ([GradeLevelDescriptorId])
@@ -940,8 +904,6 @@ REFERENCES [edfi].[Course] ([CourseCode], [EducationOrganizationId])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[CourseDefinedByDescriptor] WITH CHECK ADD CONSTRAINT [FK_CourseDefinedByDescriptor_Descriptor] FOREIGN KEY ([CourseDefinedByDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
@@ -956,8 +918,6 @@ ALTER TABLE [edfi].[CourseIdentificationCode] WITH CHECK ADD CONSTRAINT [FK_Cour
 REFERENCES [edfi].[Course] ([CourseCode], [EducationOrganizationId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[CourseIdentificationCode] WITH CHECK ADD CONSTRAINT [FK_CourseIdentificationCode_CourseIdentificationSystemDescriptor] FOREIGN KEY ([CourseIdentificationSystemDescriptorId])
 REFERENCES [edfi].[CourseIdentificationSystemDescriptor] ([CourseIdentificationSystemDescriptorId])
@@ -977,8 +937,6 @@ REFERENCES [edfi].[Course] ([CourseCode], [EducationOrganizationId])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[CourseLearningObjective] WITH CHECK ADD CONSTRAINT [FK_CourseLearningObjective_LearningObjective] FOREIGN KEY ([LearningObjectiveId], [Namespace])
 REFERENCES [edfi].[LearningObjective] ([LearningObjectiveId], [Namespace])
 GO
@@ -992,8 +950,6 @@ REFERENCES [edfi].[Course] ([CourseCode], [EducationOrganizationId])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[CourseLearningStandard] WITH CHECK ADD CONSTRAINT [FK_CourseLearningStandard_LearningStandard] FOREIGN KEY ([LearningStandardId])
 REFERENCES [edfi].[LearningStandard] ([LearningStandardId])
 GO
@@ -1006,8 +962,6 @@ ALTER TABLE [edfi].[CourseLevelCharacteristic] WITH CHECK ADD CONSTRAINT [FK_Cou
 REFERENCES [edfi].[Course] ([CourseCode], [EducationOrganizationId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[CourseLevelCharacteristic] WITH CHECK ADD CONSTRAINT [FK_CourseLevelCharacteristic_CourseLevelCharacteristicDescriptor] FOREIGN KEY ([CourseLevelCharacteristicDescriptorId])
 REFERENCES [edfi].[CourseLevelCharacteristicDescriptor] ([CourseLevelCharacteristicDescriptorId])
@@ -1026,8 +980,6 @@ ALTER TABLE [edfi].[CourseOfferedGradeLevel] WITH CHECK ADD CONSTRAINT [FK_Cours
 REFERENCES [edfi].[Course] ([CourseCode], [EducationOrganizationId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[CourseOfferedGradeLevel] WITH CHECK ADD CONSTRAINT [FK_CourseOfferedGradeLevel_GradeLevelDescriptor] FOREIGN KEY ([GradeLevelDescriptorId])
 REFERENCES [edfi].[GradeLevelDescriptor] ([GradeLevelDescriptorId])
@@ -1076,15 +1028,11 @@ ON DELETE CASCADE
 ON UPDATE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[CourseOfferingCurriculumUsed] WITH CHECK ADD CONSTRAINT [FK_CourseOfferingCurriculumUsed_CourseOffering] FOREIGN KEY ([LocalCourseCode], [SchoolId], [SchoolYear], [SessionName])
 REFERENCES [edfi].[CourseOffering] ([LocalCourseCode], [SchoolId], [SchoolYear], [SessionName])
 ON DELETE CASCADE
 ON UPDATE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[CourseOfferingCurriculumUsed] WITH CHECK ADD CONSTRAINT [FK_CourseOfferingCurriculumUsed_CurriculumUsedDescriptor] FOREIGN KEY ([CurriculumUsedDescriptorId])
 REFERENCES [edfi].[CurriculumUsedDescriptor] ([CurriculumUsedDescriptorId])
@@ -1099,8 +1047,6 @@ REFERENCES [edfi].[CourseOffering] ([LocalCourseCode], [SchoolId], [SchoolYear],
 ON DELETE CASCADE
 ON UPDATE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[CourseOfferingOfferedGradeLevel] WITH CHECK ADD CONSTRAINT [FK_CourseOfferingOfferedGradeLevel_GradeLevelDescriptor] FOREIGN KEY ([GradeLevelDescriptorId])
 REFERENCES [edfi].[GradeLevelDescriptor] ([GradeLevelDescriptorId])
@@ -1127,7 +1073,9 @@ ALTER TABLE [edfi].[CourseTranscript] WITH CHECK ADD CONSTRAINT [FK_CourseTransc
 REFERENCES [edfi].[CourseAttemptResultDescriptor] ([CourseAttemptResultDescriptorId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_CourseTranscript_CourseAttemptResultDescriptor]
+ON [edfi].[CourseTranscript] ([CourseAttemptResultDescriptorId] ASC)
+GO
 
 ALTER TABLE [edfi].[CourseTranscript] WITH CHECK ADD CONSTRAINT [FK_CourseTranscript_CourseRepeatCodeDescriptor] FOREIGN KEY ([CourseRepeatCodeDescriptorId])
 REFERENCES [edfi].[CourseRepeatCodeDescriptor] ([CourseRepeatCodeDescriptorId])
@@ -1198,8 +1146,6 @@ REFERENCES [edfi].[CourseTranscript] ([CourseAttemptResultDescriptorId], [Course
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[CourseTranscriptAlternativeCourseIdentificationCode] WITH CHECK ADD CONSTRAINT [FK_CourseTranscriptAlternativeCourseIdentificationCode_CourseIdentificationSystemDescriptor] FOREIGN KEY ([CourseIdentificationSystemDescriptorId])
 REFERENCES [edfi].[CourseIdentificationSystemDescriptor] ([CourseIdentificationSystemDescriptorId])
 GO
@@ -1213,14 +1159,10 @@ REFERENCES [edfi].[CourseTranscript] ([CourseAttemptResultDescriptorId], [Course
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[CourseTranscriptCreditCategory] WITH CHECK ADD CONSTRAINT [FK_CourseTranscriptCreditCategory_CourseTranscript] FOREIGN KEY ([CourseAttemptResultDescriptorId], [CourseCode], [CourseEducationOrganizationId], [EducationOrganizationId], [SchoolYear], [StudentUSI], [TermDescriptorId])
 REFERENCES [edfi].[CourseTranscript] ([CourseAttemptResultDescriptorId], [CourseCode], [CourseEducationOrganizationId], [EducationOrganizationId], [SchoolYear], [StudentUSI], [TermDescriptorId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[CourseTranscriptCreditCategory] WITH CHECK ADD CONSTRAINT [FK_CourseTranscriptCreditCategory_CreditCategoryDescriptor] FOREIGN KEY ([CreditCategoryDescriptorId])
 REFERENCES [edfi].[CreditCategoryDescriptor] ([CreditCategoryDescriptorId])
@@ -1243,14 +1185,10 @@ REFERENCES [edfi].[CourseTranscript] ([CourseAttemptResultDescriptorId], [Course
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[CourseTranscriptPartialCourseTranscriptAwards] WITH CHECK ADD CONSTRAINT [FK_CourseTranscriptPartialCourseTranscriptAwards_CourseTranscript] FOREIGN KEY ([CourseAttemptResultDescriptorId], [CourseCode], [CourseEducationOrganizationId], [EducationOrganizationId], [SchoolYear], [StudentUSI], [TermDescriptorId])
 REFERENCES [edfi].[CourseTranscript] ([CourseAttemptResultDescriptorId], [CourseCode], [CourseEducationOrganizationId], [EducationOrganizationId], [SchoolYear], [StudentUSI], [TermDescriptorId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[CourseTranscriptPartialCourseTranscriptAwards] WITH CHECK ADD CONSTRAINT [FK_CourseTranscriptPartialCourseTranscriptAwards_MethodCreditEarnedDescriptor] FOREIGN KEY ([MethodCreditEarnedDescriptorId])
 REFERENCES [edfi].[MethodCreditEarnedDescriptor] ([MethodCreditEarnedDescriptorId])
@@ -1313,14 +1251,10 @@ REFERENCES [edfi].[Credential] ([CredentialIdentifier], [StateOfIssueStateAbbrev
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[CredentialEndorsement] WITH CHECK ADD CONSTRAINT [FK_CredentialEndorsement_Credential] FOREIGN KEY ([CredentialIdentifier], [StateOfIssueStateAbbreviationDescriptorId])
 REFERENCES [edfi].[Credential] ([CredentialIdentifier], [StateOfIssueStateAbbreviationDescriptorId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[CredentialFieldDescriptor] WITH CHECK ADD CONSTRAINT [FK_CredentialFieldDescriptor_Descriptor] FOREIGN KEY ([CredentialFieldDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
@@ -1331,8 +1265,6 @@ ALTER TABLE [edfi].[CredentialGradeLevel] WITH CHECK ADD CONSTRAINT [FK_Credenti
 REFERENCES [edfi].[Credential] ([CredentialIdentifier], [StateOfIssueStateAbbreviationDescriptorId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[CredentialGradeLevel] WITH CHECK ADD CONSTRAINT [FK_CredentialGradeLevel_GradeLevelDescriptor] FOREIGN KEY ([GradeLevelDescriptorId])
 REFERENCES [edfi].[GradeLevelDescriptor] ([GradeLevelDescriptorId])
@@ -1376,8 +1308,6 @@ ALTER TABLE [edfi].[DescriptorMappingModelEntity] WITH CHECK ADD CONSTRAINT [FK_
 REFERENCES [edfi].[DescriptorMapping] ([MappedNamespace], [MappedValue], [Namespace], [Value])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[DescriptorMappingModelEntity] WITH CHECK ADD CONSTRAINT [FK_DescriptorMappingModelEntity_ModelEntityDescriptor] FOREIGN KEY ([ModelEntityDescriptorId])
 REFERENCES [edfi].[ModelEntityDescriptor] ([ModelEntityDescriptorId])
@@ -1454,8 +1384,6 @@ REFERENCES [edfi].[DisciplineAction] ([DisciplineActionIdentifier], [DisciplineD
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[DisciplineActionDiscipline] WITH CHECK ADD CONSTRAINT [FK_DisciplineActionDiscipline_DisciplineDescriptor] FOREIGN KEY ([DisciplineDescriptorId])
 REFERENCES [edfi].[DisciplineDescriptor] ([DisciplineDescriptorId])
 GO
@@ -1474,8 +1402,6 @@ REFERENCES [edfi].[DisciplineAction] ([DisciplineActionIdentifier], [DisciplineD
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[DisciplineActionStaff] WITH CHECK ADD CONSTRAINT [FK_DisciplineActionStaff_Staff] FOREIGN KEY ([StaffUSI])
 REFERENCES [edfi].[Staff] ([StaffUSI])
 GO
@@ -1489,8 +1415,6 @@ REFERENCES [edfi].[DisciplineAction] ([DisciplineActionIdentifier], [DisciplineD
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[DisciplineActionStudentDisciplineIncidentAssociation] WITH CHECK ADD CONSTRAINT [FK_DisciplineActionStudentDisciplineIncidentAssociation_StudentDisciplineIncidentAssociation] FOREIGN KEY ([IncidentIdentifier], [SchoolId], [StudentUSI])
 REFERENCES [edfi].[StudentDisciplineIncidentAssociation] ([IncidentIdentifier], [SchoolId], [StudentUSI])
 GO
@@ -1503,8 +1427,6 @@ ALTER TABLE [edfi].[DisciplineActionStudentDisciplineIncidentBehaviorAssociation
 REFERENCES [edfi].[DisciplineAction] ([DisciplineActionIdentifier], [DisciplineDate], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[DisciplineActionStudentDisciplineIncidentBehaviorAssociation] WITH CHECK ADD CONSTRAINT [FK_DisciplineActionStudentDisciplineIncidentBehaviorAssociation_StudentDisciplineIncidentBehaviorAssociation] FOREIGN KEY ([BehaviorDescriptorId], [IncidentIdentifier], [SchoolId], [StudentUSI])
 REFERENCES [edfi].[StudentDisciplineIncidentBehaviorAssociation] ([BehaviorDescriptorId], [IncidentIdentifier], [SchoolId], [StudentUSI])
@@ -1564,14 +1486,10 @@ REFERENCES [edfi].[DisciplineIncident] ([IncidentIdentifier], [SchoolId])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[DisciplineIncidentExternalParticipant] WITH CHECK ADD CONSTRAINT [FK_DisciplineIncidentExternalParticipant_DisciplineIncident] FOREIGN KEY ([IncidentIdentifier], [SchoolId])
 REFERENCES [edfi].[DisciplineIncident] ([IncidentIdentifier], [SchoolId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[DisciplineIncidentExternalParticipant] WITH CHECK ADD CONSTRAINT [FK_DisciplineIncidentExternalParticipant_DisciplineIncidentParticipationCodeDescriptor] FOREIGN KEY ([DisciplineIncidentParticipationCodeDescriptorId])
 REFERENCES [edfi].[DisciplineIncidentParticipationCodeDescriptor] ([DisciplineIncidentParticipationCodeDescriptorId])
@@ -1590,8 +1508,6 @@ ALTER TABLE [edfi].[DisciplineIncidentWeapon] WITH CHECK ADD CONSTRAINT [FK_Disc
 REFERENCES [edfi].[DisciplineIncident] ([IncidentIdentifier], [SchoolId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[DisciplineIncidentWeapon] WITH CHECK ADD CONSTRAINT [FK_DisciplineIncidentWeapon_WeaponDescriptor] FOREIGN KEY ([WeaponDescriptorId])
 REFERENCES [edfi].[WeaponDescriptor] ([WeaponDescriptorId])
@@ -1643,8 +1559,6 @@ REFERENCES [edfi].[EducationContent] ([ContentIdentifier])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[EducationContentAppropriateGradeLevel] WITH CHECK ADD CONSTRAINT [FK_EducationContentAppropriateGradeLevel_GradeLevelDescriptor] FOREIGN KEY ([GradeLevelDescriptorId])
 REFERENCES [edfi].[GradeLevelDescriptor] ([GradeLevelDescriptorId])
 GO
@@ -1657,8 +1571,6 @@ ALTER TABLE [edfi].[EducationContentAppropriateSex] WITH CHECK ADD CONSTRAINT [F
 REFERENCES [edfi].[EducationContent] ([ContentIdentifier])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[EducationContentAppropriateSex] WITH CHECK ADD CONSTRAINT [FK_EducationContentAppropriateSex_SexDescriptor] FOREIGN KEY ([SexDescriptorId])
 REFERENCES [edfi].[SexDescriptor] ([SexDescriptorId])
@@ -1673,14 +1585,10 @@ REFERENCES [edfi].[EducationContent] ([ContentIdentifier])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[EducationContentDerivativeSourceEducationContent] WITH CHECK ADD CONSTRAINT [FK_EducationContentDerivativeSourceEducationContent_EducationContent] FOREIGN KEY ([ContentIdentifier])
 REFERENCES [edfi].[EducationContent] ([ContentIdentifier])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[EducationContentDerivativeSourceEducationContent] WITH CHECK ADD CONSTRAINT [FK_EducationContentDerivativeSourceEducationContent_EducationContent1] FOREIGN KEY ([DerivativeSourceContentIdentifier])
 REFERENCES [edfi].[EducationContent] ([ContentIdentifier])
@@ -1695,21 +1603,15 @@ REFERENCES [edfi].[EducationContent] ([ContentIdentifier])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[EducationContentDerivativeSourceURI] WITH CHECK ADD CONSTRAINT [FK_EducationContentDerivativeSourceURI_EducationContent] FOREIGN KEY ([ContentIdentifier])
 REFERENCES [edfi].[EducationContent] ([ContentIdentifier])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[EducationContentLanguage] WITH CHECK ADD CONSTRAINT [FK_EducationContentLanguage_EducationContent] FOREIGN KEY ([ContentIdentifier])
 REFERENCES [edfi].[EducationContent] ([ContentIdentifier])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[EducationContentLanguage] WITH CHECK ADD CONSTRAINT [FK_EducationContentLanguage_LanguageDescriptor] FOREIGN KEY ([LanguageDescriptorId])
 REFERENCES [edfi].[LanguageDescriptor] ([LanguageDescriptorId])
@@ -1740,8 +1642,6 @@ REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[EducationOrganizationAddress] WITH CHECK ADD CONSTRAINT [FK_EducationOrganizationAddress_LocaleDescriptor] FOREIGN KEY ([LocaleDescriptorId])
 REFERENCES [edfi].[LocaleDescriptor] ([LocaleDescriptorId])
 GO
@@ -1763,8 +1663,6 @@ REFERENCES [edfi].[EducationOrganizationAddress] ([EducationOrganizationId], [Ad
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[EducationOrganizationAssociationTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_EducationOrganizationAssociationTypeDescriptor_Descriptor] FOREIGN KEY ([EducationOrganizationAssociationTypeDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
@@ -1774,8 +1672,6 @@ ALTER TABLE [edfi].[EducationOrganizationCategory] WITH CHECK ADD CONSTRAINT [FK
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[EducationOrganizationCategory] WITH CHECK ADD CONSTRAINT [FK_EducationOrganizationCategory_EducationOrganizationCategoryDescriptor] FOREIGN KEY ([EducationOrganizationCategoryDescriptorId])
 REFERENCES [edfi].[EducationOrganizationCategoryDescriptor] ([EducationOrganizationCategoryDescriptorId])
@@ -1795,8 +1691,6 @@ REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[EducationOrganizationIdentificationCode] WITH CHECK ADD CONSTRAINT [FK_EducationOrganizationIdentificationCode_EducationOrganizationIdentificationSystemDescriptor] FOREIGN KEY ([EducationOrganizationIdentificationSystemDescriptorId])
 REFERENCES [edfi].[EducationOrganizationIdentificationSystemDescriptor] ([EducationOrganizationIdentificationSystemDescriptorId])
 GO
@@ -1814,8 +1708,6 @@ ALTER TABLE [edfi].[EducationOrganizationIndicator] WITH CHECK ADD CONSTRAINT [F
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[EducationOrganizationIndicator] WITH CHECK ADD CONSTRAINT [FK_EducationOrganizationIndicator_IndicatorDescriptor] FOREIGN KEY ([IndicatorDescriptorId])
 REFERENCES [edfi].[IndicatorDescriptor] ([IndicatorDescriptorId])
@@ -1846,14 +1738,10 @@ REFERENCES [edfi].[EducationOrganizationIndicator] ([EducationOrganizationId], [
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[EducationOrganizationInstitutionTelephone] WITH CHECK ADD CONSTRAINT [FK_EducationOrganizationInstitutionTelephone_EducationOrganization] FOREIGN KEY ([EducationOrganizationId])
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[EducationOrganizationInstitutionTelephone] WITH CHECK ADD CONSTRAINT [FK_EducationOrganizationInstitutionTelephone_InstitutionTelephoneNumberTypeDescriptor] FOREIGN KEY ([InstitutionTelephoneNumberTypeDescriptorId])
 REFERENCES [edfi].[InstitutionTelephoneNumberTypeDescriptor] ([InstitutionTelephoneNumberTypeDescriptorId])
@@ -1884,13 +1772,13 @@ REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[EducationOrganizationInterventionPrescriptionAssociation] WITH CHECK ADD CONSTRAINT [FK_EducationOrganizationInterventionPrescriptionAssociation_EducationOrganization] FOREIGN KEY ([EducationOrganizationId])
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_EducationOrganizationInterventionPrescriptionAssociation_EducationOrganization]
+ON [edfi].[EducationOrganizationInterventionPrescriptionAssociation] ([EducationOrganizationId] ASC)
+GO
 
 ALTER TABLE [edfi].[EducationOrganizationInterventionPrescriptionAssociation] WITH CHECK ADD CONSTRAINT [FK_EducationOrganizationInterventionPrescriptionAssociation_InterventionPrescription] FOREIGN KEY ([InterventionPrescriptionEducationOrganizationId], [InterventionPrescriptionIdentificationCode])
 REFERENCES [edfi].[InterventionPrescription] ([EducationOrganizationId], [InterventionPrescriptionIdentificationCode])
@@ -1925,13 +1813,17 @@ ALTER TABLE [edfi].[EducationOrganizationNetworkAssociation] WITH CHECK ADD CONS
 REFERENCES [edfi].[EducationOrganizationNetwork] ([EducationOrganizationNetworkId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_EducationOrganizationNetworkAssociation_EducationOrganizationNetwork]
+ON [edfi].[EducationOrganizationNetworkAssociation] ([EducationOrganizationNetworkId] ASC)
+GO
 
 ALTER TABLE [edfi].[EducationOrganizationPeerAssociation] WITH CHECK ADD CONSTRAINT [FK_EducationOrganizationPeerAssociation_EducationOrganization] FOREIGN KEY ([EducationOrganizationId])
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_EducationOrganizationPeerAssociation_EducationOrganization]
+ON [edfi].[EducationOrganizationPeerAssociation] ([EducationOrganizationId] ASC)
+GO
 
 ALTER TABLE [edfi].[EducationOrganizationPeerAssociation] WITH CHECK ADD CONSTRAINT [FK_EducationOrganizationPeerAssociation_EducationOrganization1] FOREIGN KEY ([PeerEducationOrganizationId])
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
@@ -2015,8 +1907,6 @@ REFERENCES [edfi].[FunctionDimension] ([Code], [FiscalYear])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[FunctionDimensionReportingTag] WITH CHECK ADD CONSTRAINT [FK_FunctionDimensionReportingTag_ReportingTagDescriptor] FOREIGN KEY ([ReportingTagDescriptorId])
 REFERENCES [edfi].[ReportingTagDescriptor] ([ReportingTagDescriptorId])
 GO
@@ -2029,8 +1919,6 @@ ALTER TABLE [edfi].[FundDimensionReportingTag] WITH CHECK ADD CONSTRAINT [FK_Fun
 REFERENCES [edfi].[FundDimension] ([Code], [FiscalYear])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[FundDimensionReportingTag] WITH CHECK ADD CONSTRAINT [FK_FundDimensionReportingTag_ReportingTagDescriptor] FOREIGN KEY ([ReportingTagDescriptorId])
 REFERENCES [edfi].[ReportingTagDescriptor] ([ReportingTagDescriptorId])
@@ -2089,8 +1977,6 @@ ALTER TABLE [edfi].[GeneralStudentProgramAssociationProgramParticipationStatus] 
 REFERENCES [edfi].[GeneralStudentProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[GeneralStudentProgramAssociationProgramParticipationStatus] WITH CHECK ADD CONSTRAINT [FK_GeneralStudentProgramAssociationProgramParticipationStatus_ParticipationStatusDescriptor] FOREIGN KEY ([ParticipationStatusDescriptorId])
 REFERENCES [edfi].[ParticipationStatusDescriptor] ([ParticipationStatusDescriptorId])
@@ -2164,8 +2050,6 @@ ON DELETE CASCADE
 ON UPDATE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[GradebookEntryLearningStandard] WITH CHECK ADD CONSTRAINT [FK_GradebookEntryLearningStandard_LearningStandard] FOREIGN KEY ([LearningStandardId])
 REFERENCES [edfi].[LearningStandard] ([LearningStandardId])
 GO
@@ -2184,8 +2068,6 @@ REFERENCES [edfi].[Grade] ([BeginDate], [GradeTypeDescriptorId], [GradingPeriodD
 ON DELETE CASCADE
 ON UPDATE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[GradeLearningStandardGrade] WITH CHECK ADD CONSTRAINT [FK_GradeLearningStandardGrade_LearningStandard] FOREIGN KEY ([LearningStandardId])
 REFERENCES [edfi].[LearningStandard] ([LearningStandardId])
@@ -2222,7 +2104,9 @@ ALTER TABLE [edfi].[GradingPeriod] WITH CHECK ADD CONSTRAINT [FK_GradingPeriod_G
 REFERENCES [edfi].[GradingPeriodDescriptor] ([GradingPeriodDescriptorId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_GradingPeriod_GradingPeriodDescriptor]
+ON [edfi].[GradingPeriod] ([GradingPeriodDescriptorId] ASC)
+GO
 
 ALTER TABLE [edfi].[GradingPeriod] WITH CHECK ADD CONSTRAINT [FK_GradingPeriod_School] FOREIGN KEY ([SchoolId])
 REFERENCES [edfi].[School] ([SchoolId])
@@ -2257,7 +2141,9 @@ ALTER TABLE [edfi].[GraduationPlan] WITH CHECK ADD CONSTRAINT [FK_GraduationPlan
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_GraduationPlan_EducationOrganization]
+ON [edfi].[GraduationPlan] ([EducationOrganizationId] ASC)
+GO
 
 ALTER TABLE [edfi].[GraduationPlan] WITH CHECK ADD CONSTRAINT [FK_GraduationPlan_GraduationPlanTypeDescriptor] FOREIGN KEY ([GraduationPlanTypeDescriptorId])
 REFERENCES [edfi].[GraduationPlanTypeDescriptor] ([GraduationPlanTypeDescriptorId])
@@ -2296,8 +2182,6 @@ REFERENCES [edfi].[GraduationPlan] ([EducationOrganizationId], [GraduationPlanTy
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[GraduationPlanCreditsByCourseCourse] WITH CHECK ADD CONSTRAINT [FK_GraduationPlanCreditsByCourseCourse_Course] FOREIGN KEY ([CourseCode], [CourseEducationOrganizationId])
 REFERENCES [edfi].[Course] ([CourseCode], [EducationOrganizationId])
 GO
@@ -2310,8 +2194,6 @@ ALTER TABLE [edfi].[GraduationPlanCreditsByCourseCourse] WITH CHECK ADD CONSTRAI
 REFERENCES [edfi].[GraduationPlanCreditsByCourse] ([EducationOrganizationId], [GraduationPlanTypeDescriptorId], [GraduationSchoolYear], [CourseSetName])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[GraduationPlanCreditsByCreditCategory] WITH CHECK ADD CONSTRAINT [FK_GraduationPlanCreditsByCreditCategory_CreditCategoryDescriptor] FOREIGN KEY ([CreditCategoryDescriptorId])
 REFERENCES [edfi].[CreditCategoryDescriptor] ([CreditCategoryDescriptorId])
@@ -2334,8 +2216,6 @@ REFERENCES [edfi].[GraduationPlan] ([EducationOrganizationId], [GraduationPlanTy
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[GraduationPlanCreditsBySubject] WITH CHECK ADD CONSTRAINT [FK_GraduationPlanCreditsBySubject_AcademicSubjectDescriptor] FOREIGN KEY ([AcademicSubjectDescriptorId])
 REFERENCES [edfi].[AcademicSubjectDescriptor] ([AcademicSubjectDescriptorId])
 GO
@@ -2357,8 +2237,6 @@ REFERENCES [edfi].[GraduationPlan] ([EducationOrganizationId], [GraduationPlanTy
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[GraduationPlanRequiredAssessment] WITH CHECK ADD CONSTRAINT [FK_GraduationPlanRequiredAssessment_Assessment] FOREIGN KEY ([AssessmentIdentifier], [Namespace])
 REFERENCES [edfi].[Assessment] ([AssessmentIdentifier], [Namespace])
 GO
@@ -2371,8 +2249,6 @@ ALTER TABLE [edfi].[GraduationPlanRequiredAssessment] WITH CHECK ADD CONSTRAINT 
 REFERENCES [edfi].[GraduationPlan] ([EducationOrganizationId], [GraduationPlanTypeDescriptorId], [GraduationSchoolYear])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[GraduationPlanRequiredAssessmentPerformanceLevel] WITH CHECK ADD CONSTRAINT [FK_GraduationPlanRequiredAssessmentPerformanceLevel_AssessmentReportingMethodDescriptor] FOREIGN KEY ([AssessmentReportingMethodDescriptorId])
 REFERENCES [edfi].[AssessmentReportingMethodDescriptor] ([AssessmentReportingMethodDescriptorId])
@@ -2415,8 +2291,6 @@ ALTER TABLE [edfi].[GraduationPlanRequiredAssessmentScore] WITH CHECK ADD CONSTR
 REFERENCES [edfi].[GraduationPlanRequiredAssessment] ([EducationOrganizationId], [GraduationPlanTypeDescriptorId], [GraduationSchoolYear], [AssessmentIdentifier], [Namespace])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[GraduationPlanRequiredAssessmentScore] WITH CHECK ADD CONSTRAINT [FK_GraduationPlanRequiredAssessmentScore_ResultDatatypeTypeDescriptor] FOREIGN KEY ([ResultDatatypeTypeDescriptorId])
 REFERENCES [edfi].[ResultDatatypeTypeDescriptor] ([ResultDatatypeTypeDescriptorId])
@@ -2508,7 +2382,9 @@ ALTER TABLE [edfi].[Intervention] WITH CHECK ADD CONSTRAINT [FK_Intervention_Edu
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_Intervention_EducationOrganization]
+ON [edfi].[Intervention] ([EducationOrganizationId] ASC)
+GO
 
 ALTER TABLE [edfi].[Intervention] WITH CHECK ADD CONSTRAINT [FK_Intervention_InterventionClassDescriptor] FOREIGN KEY ([InterventionClassDescriptorId])
 REFERENCES [edfi].[InterventionClassDescriptor] ([InterventionClassDescriptorId])
@@ -2531,14 +2407,10 @@ REFERENCES [edfi].[Intervention] ([EducationOrganizationId], [InterventionIdenti
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[InterventionAppropriateSex] WITH CHECK ADD CONSTRAINT [FK_InterventionAppropriateSex_Intervention] FOREIGN KEY ([EducationOrganizationId], [InterventionIdentificationCode])
 REFERENCES [edfi].[Intervention] ([EducationOrganizationId], [InterventionIdentificationCode])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[InterventionAppropriateSex] WITH CHECK ADD CONSTRAINT [FK_InterventionAppropriateSex_SexDescriptor] FOREIGN KEY ([SexDescriptorId])
 REFERENCES [edfi].[SexDescriptor] ([SexDescriptorId])
@@ -2566,8 +2438,6 @@ REFERENCES [edfi].[Intervention] ([EducationOrganizationId], [InterventionIdenti
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[InterventionEducationContent] WITH CHECK ADD CONSTRAINT [FK_InterventionEducationContent_EducationContent] FOREIGN KEY ([ContentIdentifier])
 REFERENCES [edfi].[EducationContent] ([ContentIdentifier])
 GO
@@ -2581,8 +2451,6 @@ REFERENCES [edfi].[Intervention] ([EducationOrganizationId], [InterventionIdenti
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[InterventionEffectivenessRatingDescriptor] WITH CHECK ADD CONSTRAINT [FK_InterventionEffectivenessRatingDescriptor_Descriptor] FOREIGN KEY ([InterventionEffectivenessRatingDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
@@ -2592,8 +2460,6 @@ ALTER TABLE [edfi].[InterventionInterventionPrescription] WITH CHECK ADD CONSTRA
 REFERENCES [edfi].[Intervention] ([EducationOrganizationId], [InterventionIdentificationCode])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[InterventionInterventionPrescription] WITH CHECK ADD CONSTRAINT [FK_InterventionInterventionPrescription_InterventionPrescription] FOREIGN KEY ([InterventionPrescriptionEducationOrganizationId], [InterventionPrescriptionIdentificationCode])
 REFERENCES [edfi].[InterventionPrescription] ([EducationOrganizationId], [InterventionPrescriptionIdentificationCode])
@@ -2608,21 +2474,15 @@ REFERENCES [edfi].[Intervention] ([EducationOrganizationId], [InterventionIdenti
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[InterventionMeetingTime] WITH CHECK ADD CONSTRAINT [FK_InterventionMeetingTime_Intervention] FOREIGN KEY ([EducationOrganizationId], [InterventionIdentificationCode])
 REFERENCES [edfi].[Intervention] ([EducationOrganizationId], [InterventionIdentificationCode])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[InterventionPopulationServed] WITH CHECK ADD CONSTRAINT [FK_InterventionPopulationServed_Intervention] FOREIGN KEY ([EducationOrganizationId], [InterventionIdentificationCode])
 REFERENCES [edfi].[Intervention] ([EducationOrganizationId], [InterventionIdentificationCode])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[InterventionPopulationServed] WITH CHECK ADD CONSTRAINT [FK_InterventionPopulationServed_PopulationServedDescriptor] FOREIGN KEY ([PopulationServedDescriptorId])
 REFERENCES [edfi].[PopulationServedDescriptor] ([PopulationServedDescriptorId])
@@ -2644,7 +2504,9 @@ ALTER TABLE [edfi].[InterventionPrescription] WITH CHECK ADD CONSTRAINT [FK_Inte
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_InterventionPrescription_EducationOrganization]
+ON [edfi].[InterventionPrescription] ([EducationOrganizationId] ASC)
+GO
 
 ALTER TABLE [edfi].[InterventionPrescription] WITH CHECK ADD CONSTRAINT [FK_InterventionPrescription_InterventionClassDescriptor] FOREIGN KEY ([InterventionClassDescriptorId])
 REFERENCES [edfi].[InterventionClassDescriptor] ([InterventionClassDescriptorId])
@@ -2667,14 +2529,10 @@ REFERENCES [edfi].[InterventionPrescription] ([EducationOrganizationId], [Interv
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[InterventionPrescriptionAppropriateSex] WITH CHECK ADD CONSTRAINT [FK_InterventionPrescriptionAppropriateSex_InterventionPrescription] FOREIGN KEY ([EducationOrganizationId], [InterventionPrescriptionIdentificationCode])
 REFERENCES [edfi].[InterventionPrescription] ([EducationOrganizationId], [InterventionPrescriptionIdentificationCode])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[InterventionPrescriptionAppropriateSex] WITH CHECK ADD CONSTRAINT [FK_InterventionPrescriptionAppropriateSex_SexDescriptor] FOREIGN KEY ([SexDescriptorId])
 REFERENCES [edfi].[SexDescriptor] ([SexDescriptorId])
@@ -2697,8 +2555,6 @@ REFERENCES [edfi].[InterventionPrescription] ([EducationOrganizationId], [Interv
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[InterventionPrescriptionEducationContent] WITH CHECK ADD CONSTRAINT [FK_InterventionPrescriptionEducationContent_EducationContent] FOREIGN KEY ([ContentIdentifier])
 REFERENCES [edfi].[EducationContent] ([ContentIdentifier])
 GO
@@ -2712,21 +2568,15 @@ REFERENCES [edfi].[InterventionPrescription] ([EducationOrganizationId], [Interv
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[InterventionPrescriptionLearningResourceMetadataURI] WITH CHECK ADD CONSTRAINT [FK_InterventionPrescriptionLearningResourceMetadataURI_InterventionPrescription] FOREIGN KEY ([EducationOrganizationId], [InterventionPrescriptionIdentificationCode])
 REFERENCES [edfi].[InterventionPrescription] ([EducationOrganizationId], [InterventionPrescriptionIdentificationCode])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[InterventionPrescriptionPopulationServed] WITH CHECK ADD CONSTRAINT [FK_InterventionPrescriptionPopulationServed_InterventionPrescription] FOREIGN KEY ([EducationOrganizationId], [InterventionPrescriptionIdentificationCode])
 REFERENCES [edfi].[InterventionPrescription] ([EducationOrganizationId], [InterventionPrescriptionIdentificationCode])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[InterventionPrescriptionPopulationServed] WITH CHECK ADD CONSTRAINT [FK_InterventionPrescriptionPopulationServed_PopulationServedDescriptor] FOREIGN KEY ([PopulationServedDescriptorId])
 REFERENCES [edfi].[PopulationServedDescriptor] ([PopulationServedDescriptorId])
@@ -2741,14 +2591,10 @@ REFERENCES [edfi].[InterventionPrescription] ([EducationOrganizationId], [Interv
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[InterventionStaff] WITH CHECK ADD CONSTRAINT [FK_InterventionStaff_Intervention] FOREIGN KEY ([EducationOrganizationId], [InterventionIdentificationCode])
 REFERENCES [edfi].[Intervention] ([EducationOrganizationId], [InterventionIdentificationCode])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[InterventionStaff] WITH CHECK ADD CONSTRAINT [FK_InterventionStaff_Staff] FOREIGN KEY ([StaffUSI])
 REFERENCES [edfi].[Staff] ([StaffUSI])
@@ -2770,7 +2616,9 @@ ALTER TABLE [edfi].[InterventionStudy] WITH CHECK ADD CONSTRAINT [FK_Interventio
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_InterventionStudy_EducationOrganization]
+ON [edfi].[InterventionStudy] ([EducationOrganizationId] ASC)
+GO
 
 ALTER TABLE [edfi].[InterventionStudy] WITH CHECK ADD CONSTRAINT [FK_InterventionStudy_InterventionClassDescriptor] FOREIGN KEY ([InterventionClassDescriptorId])
 REFERENCES [edfi].[InterventionClassDescriptor] ([InterventionClassDescriptorId])
@@ -2801,14 +2649,10 @@ REFERENCES [edfi].[InterventionStudy] ([EducationOrganizationId], [InterventionS
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[InterventionStudyAppropriateSex] WITH CHECK ADD CONSTRAINT [FK_InterventionStudyAppropriateSex_InterventionStudy] FOREIGN KEY ([EducationOrganizationId], [InterventionStudyIdentificationCode])
 REFERENCES [edfi].[InterventionStudy] ([EducationOrganizationId], [InterventionStudyIdentificationCode])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[InterventionStudyAppropriateSex] WITH CHECK ADD CONSTRAINT [FK_InterventionStudyAppropriateSex_SexDescriptor] FOREIGN KEY ([SexDescriptorId])
 REFERENCES [edfi].[SexDescriptor] ([SexDescriptorId])
@@ -2830,8 +2674,6 @@ ALTER TABLE [edfi].[InterventionStudyEducationContent] WITH CHECK ADD CONSTRAINT
 REFERENCES [edfi].[InterventionStudy] ([EducationOrganizationId], [InterventionStudyIdentificationCode])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[InterventionStudyInterventionEffectiveness] WITH CHECK ADD CONSTRAINT [FK_InterventionStudyInterventionEffectiveness_DiagnosisDescriptor] FOREIGN KEY ([DiagnosisDescriptorId])
 REFERENCES [edfi].[DiagnosisDescriptor] ([DiagnosisDescriptorId])
@@ -2862,8 +2704,6 @@ REFERENCES [edfi].[InterventionStudy] ([EducationOrganizationId], [InterventionS
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[InterventionStudyInterventionEffectiveness] WITH CHECK ADD CONSTRAINT [FK_InterventionStudyInterventionEffectiveness_PopulationServedDescriptor] FOREIGN KEY ([PopulationServedDescriptorId])
 REFERENCES [edfi].[PopulationServedDescriptor] ([PopulationServedDescriptorId])
 GO
@@ -2877,14 +2717,10 @@ REFERENCES [edfi].[InterventionStudy] ([EducationOrganizationId], [InterventionS
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[InterventionStudyPopulationServed] WITH CHECK ADD CONSTRAINT [FK_InterventionStudyPopulationServed_InterventionStudy] FOREIGN KEY ([EducationOrganizationId], [InterventionStudyIdentificationCode])
 REFERENCES [edfi].[InterventionStudy] ([EducationOrganizationId], [InterventionStudyIdentificationCode])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[InterventionStudyPopulationServed] WITH CHECK ADD CONSTRAINT [FK_InterventionStudyPopulationServed_PopulationServedDescriptor] FOREIGN KEY ([PopulationServedDescriptorId])
 REFERENCES [edfi].[PopulationServedDescriptor] ([PopulationServedDescriptorId])
@@ -2899,8 +2735,6 @@ REFERENCES [edfi].[InterventionStudy] ([EducationOrganizationId], [InterventionS
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[InterventionStudyStateAbbreviation] WITH CHECK ADD CONSTRAINT [FK_InterventionStudyStateAbbreviation_StateAbbreviationDescriptor] FOREIGN KEY ([StateAbbreviationDescriptorId])
 REFERENCES [edfi].[StateAbbreviationDescriptor] ([StateAbbreviationDescriptorId])
 GO
@@ -2914,14 +2748,10 @@ REFERENCES [edfi].[InterventionStudy] ([EducationOrganizationId], [InterventionS
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[InterventionURI] WITH CHECK ADD CONSTRAINT [FK_InterventionURI_Intervention] FOREIGN KEY ([EducationOrganizationId], [InterventionIdentificationCode])
 REFERENCES [edfi].[Intervention] ([EducationOrganizationId], [InterventionIdentificationCode])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[LanguageDescriptor] WITH CHECK ADD CONSTRAINT [FK_LanguageDescriptor_Descriptor] FOREIGN KEY ([LanguageDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
@@ -2959,8 +2789,6 @@ REFERENCES [edfi].[LearningObjective] ([LearningObjectiveId], [Namespace])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[LearningObjectiveContentStandard] WITH CHECK ADD CONSTRAINT [FK_LearningObjectiveContentStandard_EducationOrganization] FOREIGN KEY ([MandatingEducationOrganizationId])
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
@@ -2987,8 +2815,6 @@ REFERENCES [edfi].[LearningObjectiveContentStandard] ([LearningObjectiveId], [Na
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[LearningObjectiveGradeLevel] WITH CHECK ADD CONSTRAINT [FK_LearningObjectiveGradeLevel_GradeLevelDescriptor] FOREIGN KEY ([GradeLevelDescriptorId])
 REFERENCES [edfi].[GradeLevelDescriptor] ([GradeLevelDescriptorId])
 GO
@@ -3002,14 +2828,10 @@ REFERENCES [edfi].[LearningObjective] ([LearningObjectiveId], [Namespace])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[LearningObjectiveLearningStandard] WITH CHECK ADD CONSTRAINT [FK_LearningObjectiveLearningStandard_LearningObjective] FOREIGN KEY ([LearningObjectiveId], [Namespace])
 REFERENCES [edfi].[LearningObjective] ([LearningObjectiveId], [Namespace])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[LearningObjectiveLearningStandard] WITH CHECK ADD CONSTRAINT [FK_LearningObjectiveLearningStandard_LearningStandard] FOREIGN KEY ([LearningStandardId])
 REFERENCES [edfi].[LearningStandard] ([LearningStandardId])
@@ -3056,8 +2878,6 @@ REFERENCES [edfi].[LearningStandard] ([LearningStandardId])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[LearningStandardCategoryDescriptor] WITH CHECK ADD CONSTRAINT [FK_LearningStandardCategoryDescriptor_Descriptor] FOREIGN KEY ([LearningStandardCategoryDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
@@ -3088,8 +2908,6 @@ ALTER TABLE [edfi].[LearningStandardContentStandardAuthor] WITH CHECK ADD CONSTR
 REFERENCES [edfi].[LearningStandardContentStandard] ([LearningStandardId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[LearningStandardEquivalenceAssociation] WITH CHECK ADD CONSTRAINT [FK_LearningStandardEquivalenceAssociation_LearningStandard] FOREIGN KEY ([SourceLearningStandardId])
 REFERENCES [edfi].[LearningStandard] ([LearningStandardId])
@@ -3133,21 +2951,15 @@ REFERENCES [edfi].[LearningStandard] ([LearningStandardId])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[LearningStandardIdentificationCode] WITH CHECK ADD CONSTRAINT [FK_LearningStandardIdentificationCode_LearningStandard] FOREIGN KEY ([LearningStandardId])
 REFERENCES [edfi].[LearningStandard] ([LearningStandardId])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[LearningStandardPrerequisiteLearningStandard] WITH CHECK ADD CONSTRAINT [FK_LearningStandardPrerequisiteLearningStandard_LearningStandard] FOREIGN KEY ([LearningStandardId])
 REFERENCES [edfi].[LearningStandard] ([LearningStandardId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[LearningStandardPrerequisiteLearningStandard] WITH CHECK ADD CONSTRAINT [FK_LearningStandardPrerequisiteLearningStandard_LearningStandard1] FOREIGN KEY ([PrerequisiteLearningStandardId])
 REFERENCES [edfi].[LearningStandard] ([LearningStandardId])
@@ -3202,8 +3014,6 @@ ALTER TABLE [edfi].[LocalAccountReportingTag] WITH CHECK ADD CONSTRAINT [FK_Loca
 REFERENCES [edfi].[LocalAccount] ([AccountIdentifier], [EducationOrganizationId], [FiscalYear])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[LocalAccountReportingTag] WITH CHECK ADD CONSTRAINT [FK_LocalAccountReportingTag_ReportingTagDescriptor] FOREIGN KEY ([ReportingTagDescriptorId])
 REFERENCES [edfi].[ReportingTagDescriptor] ([ReportingTagDescriptorId])
@@ -3332,8 +3142,6 @@ REFERENCES [edfi].[LocalEducationAgency] ([LocalEducationAgencyId])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[LocalEducationAgencyAccountability] WITH CHECK ADD CONSTRAINT [FK_LocalEducationAgencyAccountability_SchoolChoiceImplementStatusDescriptor] FOREIGN KEY ([SchoolChoiceImplementStatusDescriptorId])
 REFERENCES [edfi].[SchoolChoiceImplementStatusDescriptor] ([SchoolChoiceImplementStatusDescriptorId])
 GO
@@ -3359,8 +3167,6 @@ ALTER TABLE [edfi].[LocalEducationAgencyFederalFunds] WITH CHECK ADD CONSTRAINT 
 REFERENCES [edfi].[LocalEducationAgency] ([LocalEducationAgencyId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[LocalEncumbrance] WITH CHECK ADD CONSTRAINT [FK_LocalEncumbrance_FinancialCollectionDescriptor] FOREIGN KEY ([FinancialCollectionDescriptorId])
 REFERENCES [edfi].[FinancialCollectionDescriptor] ([FinancialCollectionDescriptorId])
@@ -3460,8 +3266,6 @@ REFERENCES [edfi].[ObjectDimension] ([Code], [FiscalYear])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[ObjectDimensionReportingTag] WITH CHECK ADD CONSTRAINT [FK_ObjectDimensionReportingTag_ReportingTagDescriptor] FOREIGN KEY ([ReportingTagDescriptorId])
 REFERENCES [edfi].[ReportingTagDescriptor] ([ReportingTagDescriptorId])
 GO
@@ -3507,8 +3311,6 @@ REFERENCES [edfi].[ObjectiveAssessment] ([AssessmentIdentifier], [Identification
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[ObjectiveAssessmentLearningStandard] WITH CHECK ADD CONSTRAINT [FK_ObjectiveAssessmentLearningStandard_LearningStandard] FOREIGN KEY ([LearningStandardId])
 REFERENCES [edfi].[LearningStandard] ([LearningStandardId])
 GO
@@ -3522,8 +3324,6 @@ REFERENCES [edfi].[ObjectiveAssessment] ([AssessmentIdentifier], [Identification
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[ObjectiveAssessmentPerformanceLevel] WITH CHECK ADD CONSTRAINT [FK_ObjectiveAssessmentPerformanceLevel_AssessmentReportingMethodDescriptor] FOREIGN KEY ([AssessmentReportingMethodDescriptorId])
 REFERENCES [edfi].[AssessmentReportingMethodDescriptor] ([AssessmentReportingMethodDescriptorId])
 GO
@@ -3536,8 +3336,6 @@ ALTER TABLE [edfi].[ObjectiveAssessmentPerformanceLevel] WITH CHECK ADD CONSTRAI
 REFERENCES [edfi].[ObjectiveAssessment] ([AssessmentIdentifier], [IdentificationCode], [Namespace])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[ObjectiveAssessmentPerformanceLevel] WITH CHECK ADD CONSTRAINT [FK_ObjectiveAssessmentPerformanceLevel_PerformanceLevelDescriptor] FOREIGN KEY ([PerformanceLevelDescriptorId])
 REFERENCES [edfi].[PerformanceLevelDescriptor] ([PerformanceLevelDescriptorId])
@@ -3568,8 +3366,6 @@ REFERENCES [edfi].[ObjectiveAssessment] ([AssessmentIdentifier], [Identification
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[ObjectiveAssessmentScore] WITH CHECK ADD CONSTRAINT [FK_ObjectiveAssessmentScore_ResultDatatypeTypeDescriptor] FOREIGN KEY ([ResultDatatypeTypeDescriptorId])
 REFERENCES [edfi].[ResultDatatypeTypeDescriptor] ([ResultDatatypeTypeDescriptorId])
 GO
@@ -3587,7 +3383,9 @@ ALTER TABLE [edfi].[OpenStaffPosition] WITH CHECK ADD CONSTRAINT [FK_OpenStaffPo
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_OpenStaffPosition_EducationOrganization]
+ON [edfi].[OpenStaffPosition] ([EducationOrganizationId] ASC)
+GO
 
 ALTER TABLE [edfi].[OpenStaffPosition] WITH CHECK ADD CONSTRAINT [FK_OpenStaffPosition_EmploymentStatusDescriptor] FOREIGN KEY ([EmploymentStatusDescriptorId])
 REFERENCES [edfi].[EmploymentStatusDescriptor] ([EmploymentStatusDescriptorId])
@@ -3634,8 +3432,6 @@ REFERENCES [edfi].[OpenStaffPosition] ([EducationOrganizationId], [RequisitionNu
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[OpenStaffPositionInstructionalGradeLevel] WITH CHECK ADD CONSTRAINT [FK_OpenStaffPositionInstructionalGradeLevel_GradeLevelDescriptor] FOREIGN KEY ([GradeLevelDescriptorId])
 REFERENCES [edfi].[GradeLevelDescriptor] ([GradeLevelDescriptorId])
 GO
@@ -3649,8 +3445,6 @@ REFERENCES [edfi].[OpenStaffPosition] ([EducationOrganizationId], [RequisitionNu
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[OperationalStatusDescriptor] WITH CHECK ADD CONSTRAINT [FK_OperationalStatusDescriptor_Descriptor] FOREIGN KEY ([OperationalStatusDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
@@ -3660,8 +3454,6 @@ ALTER TABLE [edfi].[OperationalUnitDimensionReportingTag] WITH CHECK ADD CONSTRA
 REFERENCES [edfi].[OperationalUnitDimension] ([Code], [FiscalYear])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[OperationalUnitDimensionReportingTag] WITH CHECK ADD CONSTRAINT [FK_OperationalUnitDimensionReportingTag_ReportingTagDescriptor] FOREIGN KEY ([ReportingTagDescriptorId])
 REFERENCES [edfi].[ReportingTagDescriptor] ([ReportingTagDescriptorId])
@@ -3742,8 +3534,6 @@ REFERENCES [edfi].[Parent] ([ParentUSI])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[ParentAddress] WITH CHECK ADD CONSTRAINT [FK_ParentAddress_StateAbbreviationDescriptor] FOREIGN KEY ([StateAbbreviationDescriptorId])
 REFERENCES [edfi].[StateAbbreviationDescriptor] ([StateAbbreviationDescriptorId])
 GO
@@ -3757,8 +3547,6 @@ REFERENCES [edfi].[ParentAddress] ([ParentUSI], [AddressTypeDescriptorId], [City
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[ParentElectronicMail] WITH CHECK ADD CONSTRAINT [FK_ParentElectronicMail_ElectronicMailTypeDescriptor] FOREIGN KEY ([ElectronicMailTypeDescriptorId])
 REFERENCES [edfi].[ElectronicMailTypeDescriptor] ([ElectronicMailTypeDescriptorId])
 GO
@@ -3771,8 +3559,6 @@ ALTER TABLE [edfi].[ParentElectronicMail] WITH CHECK ADD CONSTRAINT [FK_ParentEl
 REFERENCES [edfi].[Parent] ([ParentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[ParentInternationalAddress] WITH CHECK ADD CONSTRAINT [FK_ParentInternationalAddress_AddressTypeDescriptor] FOREIGN KEY ([AddressTypeDescriptorId])
 REFERENCES [edfi].[AddressTypeDescriptor] ([AddressTypeDescriptorId])
@@ -3795,8 +3581,6 @@ REFERENCES [edfi].[Parent] ([ParentUSI])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[ParentLanguage] WITH CHECK ADD CONSTRAINT [FK_ParentLanguage_LanguageDescriptor] FOREIGN KEY ([LanguageDescriptorId])
 REFERENCES [edfi].[LanguageDescriptor] ([LanguageDescriptorId])
 GO
@@ -3809,8 +3593,6 @@ ALTER TABLE [edfi].[ParentLanguage] WITH CHECK ADD CONSTRAINT [FK_ParentLanguage
 REFERENCES [edfi].[Parent] ([ParentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[ParentLanguageUse] WITH CHECK ADD CONSTRAINT [FK_ParentLanguageUse_LanguageUseDescriptor] FOREIGN KEY ([LanguageUseDescriptorId])
 REFERENCES [edfi].[LanguageUseDescriptor] ([LanguageUseDescriptorId])
@@ -3825,8 +3607,6 @@ REFERENCES [edfi].[ParentLanguage] ([ParentUSI], [LanguageDescriptorId])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[ParentOtherName] WITH CHECK ADD CONSTRAINT [FK_ParentOtherName_OtherNameTypeDescriptor] FOREIGN KEY ([OtherNameTypeDescriptorId])
 REFERENCES [edfi].[OtherNameTypeDescriptor] ([OtherNameTypeDescriptorId])
 GO
@@ -3839,8 +3619,6 @@ ALTER TABLE [edfi].[ParentOtherName] WITH CHECK ADD CONSTRAINT [FK_ParentOtherNa
 REFERENCES [edfi].[Parent] ([ParentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[ParentPersonalIdentificationDocument] WITH CHECK ADD CONSTRAINT [FK_ParentPersonalIdentificationDocument_CountryDescriptor] FOREIGN KEY ([IssuerCountryDescriptorId])
 REFERENCES [edfi].[CountryDescriptor] ([CountryDescriptorId])
@@ -3863,8 +3641,6 @@ REFERENCES [edfi].[Parent] ([ParentUSI])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[ParentPersonalIdentificationDocument] WITH CHECK ADD CONSTRAINT [FK_ParentPersonalIdentificationDocument_PersonalInformationVerificationDescriptor] FOREIGN KEY ([PersonalInformationVerificationDescriptorId])
 REFERENCES [edfi].[PersonalInformationVerificationDescriptor] ([PersonalInformationVerificationDescriptorId])
 GO
@@ -3877,8 +3653,6 @@ ALTER TABLE [edfi].[ParentTelephone] WITH CHECK ADD CONSTRAINT [FK_ParentTelepho
 REFERENCES [edfi].[Parent] ([ParentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[ParentTelephone] WITH CHECK ADD CONSTRAINT [FK_ParentTelephone_TelephoneNumberTypeDescriptor] FOREIGN KEY ([TelephoneNumberTypeDescriptorId])
 REFERENCES [edfi].[TelephoneNumberTypeDescriptor] ([TelephoneNumberTypeDescriptorId])
@@ -4004,8 +3778,6 @@ REFERENCES [edfi].[PostSecondaryInstitution] ([PostSecondaryInstitutionId])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[PrimaryLearningDeviceAccessDescriptor] WITH CHECK ADD CONSTRAINT [FK_PrimaryLearningDeviceAccessDescriptor_Descriptor] FOREIGN KEY ([PrimaryLearningDeviceAccessDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
@@ -4030,7 +3802,9 @@ ALTER TABLE [edfi].[Program] WITH CHECK ADD CONSTRAINT [FK_Program_EducationOrga
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_Program_EducationOrganization]
+ON [edfi].[Program] ([EducationOrganizationId] ASC)
+GO
 
 ALTER TABLE [edfi].[Program] WITH CHECK ADD CONSTRAINT [FK_Program_ProgramTypeDescriptor] FOREIGN KEY ([ProgramTypeDescriptorId])
 REFERENCES [edfi].[ProgramTypeDescriptor] ([ProgramTypeDescriptorId])
@@ -4050,8 +3824,6 @@ REFERENCES [edfi].[Program] ([EducationOrganizationId], [ProgramName], [ProgramT
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[ProgramCharacteristic] WITH CHECK ADD CONSTRAINT [FK_ProgramCharacteristic_ProgramCharacteristicDescriptor] FOREIGN KEY ([ProgramCharacteristicDescriptorId])
 REFERENCES [edfi].[ProgramCharacteristicDescriptor] ([ProgramCharacteristicDescriptorId])
 GO
@@ -4069,8 +3841,6 @@ ALTER TABLE [edfi].[ProgramDimensionReportingTag] WITH CHECK ADD CONSTRAINT [FK_
 REFERENCES [edfi].[ProgramDimension] ([Code], [FiscalYear])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[ProgramDimensionReportingTag] WITH CHECK ADD CONSTRAINT [FK_ProgramDimensionReportingTag_ReportingTagDescriptor] FOREIGN KEY ([ReportingTagDescriptorId])
 REFERENCES [edfi].[ReportingTagDescriptor] ([ReportingTagDescriptorId])
@@ -4093,8 +3863,6 @@ REFERENCES [edfi].[Program] ([EducationOrganizationId], [ProgramName], [ProgramT
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[ProgramLearningStandard] WITH CHECK ADD CONSTRAINT [FK_ProgramLearningStandard_LearningStandard] FOREIGN KEY ([LearningStandardId])
 REFERENCES [edfi].[LearningStandard] ([LearningStandardId])
 GO
@@ -4108,14 +3876,10 @@ REFERENCES [edfi].[Program] ([EducationOrganizationId], [ProgramName], [ProgramT
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[ProgramService] WITH CHECK ADD CONSTRAINT [FK_ProgramService_Program] FOREIGN KEY ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
 REFERENCES [edfi].[Program] ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[ProgramService] WITH CHECK ADD CONSTRAINT [FK_ProgramService_ServiceDescriptor] FOREIGN KEY ([ServiceDescriptorId])
 REFERENCES [edfi].[ServiceDescriptor] ([ServiceDescriptorId])
@@ -4129,8 +3893,6 @@ ALTER TABLE [edfi].[ProgramSponsor] WITH CHECK ADD CONSTRAINT [FK_ProgramSponsor
 REFERENCES [edfi].[Program] ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[ProgramSponsor] WITH CHECK ADD CONSTRAINT [FK_ProgramSponsor_ProgramSponsorDescriptor] FOREIGN KEY ([ProgramSponsorDescriptorId])
 REFERENCES [edfi].[ProgramSponsorDescriptor] ([ProgramSponsorDescriptorId])
@@ -4164,8 +3926,6 @@ ALTER TABLE [edfi].[ProjectDimensionReportingTag] WITH CHECK ADD CONSTRAINT [FK_
 REFERENCES [edfi].[ProjectDimension] ([Code], [FiscalYear])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[ProjectDimensionReportingTag] WITH CHECK ADD CONSTRAINT [FK_ProjectDimensionReportingTag_ReportingTagDescriptor] FOREIGN KEY ([ReportingTagDescriptorId])
 REFERENCES [edfi].[ReportingTagDescriptor] ([ReportingTagDescriptorId])
@@ -4234,7 +3994,9 @@ ALTER TABLE [edfi].[ReportCard] WITH CHECK ADD CONSTRAINT [FK_ReportCard_Educati
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_ReportCard_EducationOrganization]
+ON [edfi].[ReportCard] ([EducationOrganizationId] ASC)
+GO
 
 ALTER TABLE [edfi].[ReportCard] WITH CHECK ADD CONSTRAINT [FK_ReportCard_GradingPeriod] FOREIGN KEY ([GradingPeriodDescriptorId], [GradingPeriodSequence], [GradingPeriodSchoolId], [GradingPeriodSchoolYear])
 REFERENCES [edfi].[GradingPeriod] ([GradingPeriodDescriptorId], [PeriodSequence], [SchoolId], [SchoolYear])
@@ -4266,8 +4028,6 @@ REFERENCES [edfi].[ReportCard] ([EducationOrganizationId], [GradingPeriodDescrip
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[ReportCardGradePointAverage] WITH CHECK ADD CONSTRAINT [FK_ReportCardGradePointAverage_GradePointAverageTypeDescriptor] FOREIGN KEY ([GradePointAverageTypeDescriptorId])
 REFERENCES [edfi].[GradePointAverageTypeDescriptor] ([GradePointAverageTypeDescriptorId])
 GO
@@ -4281,14 +4041,10 @@ REFERENCES [edfi].[ReportCard] ([EducationOrganizationId], [GradingPeriodDescrip
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[ReportCardStudentCompetencyObjective] WITH CHECK ADD CONSTRAINT [FK_ReportCardStudentCompetencyObjective_ReportCard] FOREIGN KEY ([EducationOrganizationId], [GradingPeriodDescriptorId], [GradingPeriodSequence], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [StudentUSI])
 REFERENCES [edfi].[ReportCard] ([EducationOrganizationId], [GradingPeriodDescriptorId], [GradingPeriodSequence], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[ReportCardStudentCompetencyObjective] WITH CHECK ADD CONSTRAINT [FK_ReportCardStudentCompetencyObjective_StudentCompetencyObjective] FOREIGN KEY ([GradingPeriodDescriptorId], [GradingPeriodSequence], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [ObjectiveEducationOrganizationId], [Objective], [ObjectiveGradeLevelDescriptorId], [StudentUSI])
 REFERENCES [edfi].[StudentCompetencyObjective] ([GradingPeriodDescriptorId], [GradingPeriodSequence], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [ObjectiveEducationOrganizationId], [Objective], [ObjectiveGradeLevelDescriptorId], [StudentUSI])
@@ -4302,8 +4058,6 @@ ALTER TABLE [edfi].[ReportCardStudentLearningObjective] WITH CHECK ADD CONSTRAIN
 REFERENCES [edfi].[ReportCard] ([EducationOrganizationId], [GradingPeriodDescriptorId], [GradingPeriodSequence], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[ReportCardStudentLearningObjective] WITH CHECK ADD CONSTRAINT [FK_ReportCardStudentLearningObjective_StudentLearningObjective] FOREIGN KEY ([GradingPeriodDescriptorId], [GradingPeriodSequence], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [LearningObjectiveId], [Namespace], [StudentUSI])
 REFERENCES [edfi].[StudentLearningObjective] ([GradingPeriodDescriptorId], [GradingPeriodSequence], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [LearningObjectiveId], [Namespace], [StudentUSI])
@@ -4375,14 +4129,10 @@ REFERENCES [edfi].[RestraintEvent] ([RestraintEventIdentifier], [SchoolId], [Stu
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[RestraintEventReason] WITH CHECK ADD CONSTRAINT [FK_RestraintEventReason_RestraintEvent] FOREIGN KEY ([RestraintEventIdentifier], [SchoolId], [StudentUSI])
 REFERENCES [edfi].[RestraintEvent] ([RestraintEventIdentifier], [SchoolId], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[RestraintEventReason] WITH CHECK ADD CONSTRAINT [FK_RestraintEventReason_RestraintEventReasonDescriptor] FOREIGN KEY ([RestraintEventReasonDescriptorId])
 REFERENCES [edfi].[RestraintEventReasonDescriptor] ([RestraintEventReasonDescriptorId])
@@ -4489,8 +4239,6 @@ REFERENCES [edfi].[School] ([SchoolId])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[SchoolCategory] WITH CHECK ADD CONSTRAINT [FK_SchoolCategory_SchoolCategoryDescriptor] FOREIGN KEY ([SchoolCategoryDescriptorId])
 REFERENCES [edfi].[SchoolCategoryDescriptor] ([SchoolCategoryDescriptorId])
 GO
@@ -4526,8 +4274,6 @@ ALTER TABLE [edfi].[SchoolGradeLevel] WITH CHECK ADD CONSTRAINT [FK_SchoolGradeL
 REFERENCES [edfi].[School] ([SchoolId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[SchoolTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_SchoolTypeDescriptor_Descriptor] FOREIGN KEY ([SchoolTypeDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
@@ -4631,8 +4377,6 @@ ON DELETE CASCADE
 ON UPDATE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[SectionCharacteristic] WITH CHECK ADD CONSTRAINT [FK_SectionCharacteristic_SectionCharacteristicDescriptor] FOREIGN KEY ([SectionCharacteristicDescriptorId])
 REFERENCES [edfi].[SectionCharacteristicDescriptor] ([SectionCharacteristicDescriptorId])
 GO
@@ -4661,8 +4405,6 @@ ON DELETE CASCADE
 ON UPDATE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[SectionCourseLevelCharacteristic] WITH CHECK ADD CONSTRAINT [FK_SectionCourseLevelCharacteristic_CourseLevelCharacteristicDescriptor] FOREIGN KEY ([CourseLevelCharacteristicDescriptorId])
 REFERENCES [edfi].[CourseLevelCharacteristicDescriptor] ([CourseLevelCharacteristicDescriptorId])
 GO
@@ -4676,8 +4418,6 @@ REFERENCES [edfi].[Section] ([LocalCourseCode], [SchoolId], [SchoolYear], [Secti
 ON DELETE CASCADE
 ON UPDATE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[SectionOfferedGradeLevel] WITH CHECK ADD CONSTRAINT [FK_SectionOfferedGradeLevel_GradeLevelDescriptor] FOREIGN KEY ([GradeLevelDescriptorId])
 REFERENCES [edfi].[GradeLevelDescriptor] ([GradeLevelDescriptorId])
@@ -4693,8 +4433,6 @@ ON DELETE CASCADE
 ON UPDATE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[SectionProgram] WITH CHECK ADD CONSTRAINT [FK_SectionProgram_Program] FOREIGN KEY ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
 REFERENCES [edfi].[Program] ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
 GO
@@ -4708,8 +4446,6 @@ REFERENCES [edfi].[Section] ([LocalCourseCode], [SchoolId], [SchoolYear], [Secti
 ON DELETE CASCADE
 ON UPDATE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[SeparationDescriptor] WITH CHECK ADD CONSTRAINT [FK_SeparationDescriptor_Descriptor] FOREIGN KEY ([SeparationDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
@@ -4730,7 +4466,9 @@ ALTER TABLE [edfi].[Session] WITH CHECK ADD CONSTRAINT [FK_Session_School] FOREI
 REFERENCES [edfi].[School] ([SchoolId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_Session_School]
+ON [edfi].[Session] ([SchoolId] ASC)
+GO
 
 ALTER TABLE [edfi].[Session] WITH CHECK ADD CONSTRAINT [FK_Session_SchoolYearType] FOREIGN KEY ([SchoolYear])
 REFERENCES [edfi].[SchoolYearType] ([SchoolYear])
@@ -4762,8 +4500,6 @@ ON DELETE CASCADE
 ON UPDATE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[SessionGradingPeriod] WITH CHECK ADD CONSTRAINT [FK_SessionGradingPeriod_GradingPeriod] FOREIGN KEY ([GradingPeriodDescriptorId], [PeriodSequence], [SchoolId], [SchoolYear])
 REFERENCES [edfi].[GradingPeriod] ([GradingPeriodDescriptorId], [PeriodSequence], [SchoolId], [SchoolYear])
 GO
@@ -4777,8 +4513,6 @@ REFERENCES [edfi].[Session] ([SchoolId], [SchoolYear], [SessionName])
 ON DELETE CASCADE
 ON UPDATE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[SexDescriptor] WITH CHECK ADD CONSTRAINT [FK_SexDescriptor_Descriptor] FOREIGN KEY ([SexDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
@@ -4797,8 +4531,6 @@ ALTER TABLE [edfi].[SourceDimensionReportingTag] WITH CHECK ADD CONSTRAINT [FK_S
 REFERENCES [edfi].[SourceDimension] ([Code], [FiscalYear])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[SourceSystemDescriptor] WITH CHECK ADD CONSTRAINT [FK_SourceSystemDescriptor_Descriptor] FOREIGN KEY ([SourceSystemDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
@@ -4859,7 +4591,9 @@ ALTER TABLE [edfi].[StaffAbsenceEvent] WITH CHECK ADD CONSTRAINT [FK_StaffAbsenc
 REFERENCES [edfi].[AbsenceEventCategoryDescriptor] ([AbsenceEventCategoryDescriptorId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StaffAbsenceEvent_AbsenceEventCategoryDescriptor]
+ON [edfi].[StaffAbsenceEvent] ([AbsenceEventCategoryDescriptorId] ASC)
+GO
 
 ALTER TABLE [edfi].[StaffAbsenceEvent] WITH CHECK ADD CONSTRAINT [FK_StaffAbsenceEvent_Staff] FOREIGN KEY ([StaffUSI])
 REFERENCES [edfi].[Staff] ([StaffUSI])
@@ -4890,8 +4624,6 @@ REFERENCES [edfi].[Staff] ([StaffUSI])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StaffAddress] WITH CHECK ADD CONSTRAINT [FK_StaffAddress_StateAbbreviationDescriptor] FOREIGN KEY ([StateAbbreviationDescriptorId])
 REFERENCES [edfi].[StateAbbreviationDescriptor] ([StateAbbreviationDescriptorId])
 GO
@@ -4905,8 +4637,6 @@ REFERENCES [edfi].[StaffAddress] ([StaffUSI], [AddressTypeDescriptorId], [City],
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StaffAncestryEthnicOrigin] WITH CHECK ADD CONSTRAINT [FK_StaffAncestryEthnicOrigin_AncestryEthnicOriginDescriptor] FOREIGN KEY ([AncestryEthnicOriginDescriptorId])
 REFERENCES [edfi].[AncestryEthnicOriginDescriptor] ([AncestryEthnicOriginDescriptorId])
 GO
@@ -4919,8 +4649,6 @@ ALTER TABLE [edfi].[StaffAncestryEthnicOrigin] WITH CHECK ADD CONSTRAINT [FK_Sta
 REFERENCES [edfi].[Staff] ([StaffUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StaffClassificationDescriptor] WITH CHECK ADD CONSTRAINT [FK_StaffClassificationDescriptor_Descriptor] FOREIGN KEY ([StaffClassificationDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
@@ -4956,13 +4684,13 @@ REFERENCES [edfi].[Staff] ([StaffUSI])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StaffDisciplineIncidentAssociation] WITH CHECK ADD CONSTRAINT [FK_StaffDisciplineIncidentAssociation_DisciplineIncident] FOREIGN KEY ([IncidentIdentifier], [SchoolId])
 REFERENCES [edfi].[DisciplineIncident] ([IncidentIdentifier], [SchoolId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StaffDisciplineIncidentAssociation_DisciplineIncident]
+ON [edfi].[StaffDisciplineIncidentAssociation] ([IncidentIdentifier] ASC, [SchoolId] ASC)
+GO
 
 ALTER TABLE [edfi].[StaffDisciplineIncidentAssociation] WITH CHECK ADD CONSTRAINT [FK_StaffDisciplineIncidentAssociation_Staff] FOREIGN KEY ([StaffUSI])
 REFERENCES [edfi].[Staff] ([StaffUSI])
@@ -4984,8 +4712,6 @@ ALTER TABLE [edfi].[StaffDisciplineIncidentAssociationDisciplineIncidentParticip
 REFERENCES [edfi].[StaffDisciplineIncidentAssociation] ([IncidentIdentifier], [SchoolId], [StaffUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StaffEducationOrganizationAssignmentAssociation] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationAssignmentAssociation_Credential] FOREIGN KEY ([CredentialIdentifier], [StateOfIssueStateAbbreviationDescriptorId])
 REFERENCES [edfi].[Credential] ([CredentialIdentifier], [StateOfIssueStateAbbreviationDescriptorId])
@@ -5085,14 +4811,10 @@ REFERENCES [edfi].[StaffEducationOrganizationContactAssociationAddress] ([Contac
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StaffEducationOrganizationContactAssociationTelephone] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationContactAssociationTelephone_StaffEducationOrganizationContactAssociation] FOREIGN KEY ([ContactTitle], [EducationOrganizationId], [StaffUSI])
 REFERENCES [edfi].[StaffEducationOrganizationContactAssociation] ([ContactTitle], [EducationOrganizationId], [StaffUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StaffEducationOrganizationContactAssociationTelephone] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationContactAssociationTelephone_TelephoneNumberTypeDescriptor] FOREIGN KEY ([TelephoneNumberTypeDescriptorId])
 REFERENCES [edfi].[TelephoneNumberTypeDescriptor] ([TelephoneNumberTypeDescriptorId])
@@ -5114,7 +4836,9 @@ ALTER TABLE [edfi].[StaffEducationOrganizationEmploymentAssociation] WITH CHECK 
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StaffEducationOrganizationEmploymentAssociation_EducationOrganization]
+ON [edfi].[StaffEducationOrganizationEmploymentAssociation] ([EducationOrganizationId] ASC)
+GO
 
 ALTER TABLE [edfi].[StaffEducationOrganizationEmploymentAssociation] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationEmploymentAssociation_EmploymentStatusDescriptor] FOREIGN KEY ([EmploymentStatusDescriptorId])
 REFERENCES [edfi].[EmploymentStatusDescriptor] ([EmploymentStatusDescriptorId])
@@ -5161,14 +4885,10 @@ REFERENCES [edfi].[Staff] ([StaffUSI])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StaffIdentificationCode] WITH CHECK ADD CONSTRAINT [FK_StaffIdentificationCode_Staff] FOREIGN KEY ([StaffUSI])
 REFERENCES [edfi].[Staff] ([StaffUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StaffIdentificationCode] WITH CHECK ADD CONSTRAINT [FK_StaffIdentificationCode_StaffIdentificationSystemDescriptor] FOREIGN KEY ([StaffIdentificationSystemDescriptorId])
 REFERENCES [edfi].[StaffIdentificationSystemDescriptor] ([StaffIdentificationSystemDescriptorId])
@@ -5207,8 +4927,6 @@ REFERENCES [edfi].[Staff] ([StaffUSI])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StaffIdentificationSystemDescriptor] WITH CHECK ADD CONSTRAINT [FK_StaffIdentificationSystemDescriptor_Descriptor] FOREIGN KEY ([StaffIdentificationSystemDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
@@ -5235,8 +4953,6 @@ REFERENCES [edfi].[Staff] ([StaffUSI])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StaffLanguage] WITH CHECK ADD CONSTRAINT [FK_StaffLanguage_LanguageDescriptor] FOREIGN KEY ([LanguageDescriptorId])
 REFERENCES [edfi].[LanguageDescriptor] ([LanguageDescriptorId])
 GO
@@ -5250,8 +4966,6 @@ REFERENCES [edfi].[Staff] ([StaffUSI])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StaffLanguageUse] WITH CHECK ADD CONSTRAINT [FK_StaffLanguageUse_LanguageUseDescriptor] FOREIGN KEY ([LanguageUseDescriptorId])
 REFERENCES [edfi].[LanguageUseDescriptor] ([LanguageUseDescriptorId])
 GO
@@ -5264,8 +4978,6 @@ ALTER TABLE [edfi].[StaffLanguageUse] WITH CHECK ADD CONSTRAINT [FK_StaffLanguag
 REFERENCES [edfi].[StaffLanguage] ([StaffUSI], [LanguageDescriptorId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StaffLeave] WITH CHECK ADD CONSTRAINT [FK_StaffLeave_Staff] FOREIGN KEY ([StaffUSI])
 REFERENCES [edfi].[Staff] ([StaffUSI])
@@ -5301,8 +5013,6 @@ REFERENCES [edfi].[Staff] ([StaffUSI])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StaffPersonalIdentificationDocument] WITH CHECK ADD CONSTRAINT [FK_StaffPersonalIdentificationDocument_CountryDescriptor] FOREIGN KEY ([IssuerCountryDescriptorId])
 REFERENCES [edfi].[CountryDescriptor] ([CountryDescriptorId])
 GO
@@ -5331,8 +5041,6 @@ ALTER TABLE [edfi].[StaffPersonalIdentificationDocument] WITH CHECK ADD CONSTRAI
 REFERENCES [edfi].[Staff] ([StaffUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StaffProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_StaffProgramAssociation_Program] FOREIGN KEY ([ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
 REFERENCES [edfi].[Program] ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
@@ -5363,8 +5071,6 @@ REFERENCES [edfi].[Staff] ([StaffUSI])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StaffRecognition] WITH CHECK ADD CONSTRAINT [FK_StaffRecognition_AchievementCategoryDescriptor] FOREIGN KEY ([AchievementCategoryDescriptorId])
 REFERENCES [edfi].[AchievementCategoryDescriptor] ([AchievementCategoryDescriptorId])
 GO
@@ -5386,8 +5092,6 @@ REFERENCES [edfi].[Staff] ([StaffUSI])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StaffSchoolAssociation] WITH CHECK ADD CONSTRAINT [FK_StaffSchoolAssociation_Calendar] FOREIGN KEY ([CalendarCode], [SchoolId], [SchoolYear])
 REFERENCES [edfi].[Calendar] ([CalendarCode], [SchoolId], [SchoolYear])
 GO
@@ -5400,7 +5104,9 @@ ALTER TABLE [edfi].[StaffSchoolAssociation] WITH CHECK ADD CONSTRAINT [FK_StaffS
 REFERENCES [edfi].[ProgramAssignmentDescriptor] ([ProgramAssignmentDescriptorId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StaffSchoolAssociation_ProgramAssignmentDescriptor]
+ON [edfi].[StaffSchoolAssociation] ([ProgramAssignmentDescriptorId] ASC)
+GO
 
 ALTER TABLE [edfi].[StaffSchoolAssociation] WITH CHECK ADD CONSTRAINT [FK_StaffSchoolAssociation_School] FOREIGN KEY ([SchoolId])
 REFERENCES [edfi].[School] ([SchoolId])
@@ -5439,8 +5145,6 @@ REFERENCES [edfi].[StaffSchoolAssociation] ([ProgramAssignmentDescriptorId], [Sc
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StaffSchoolAssociationGradeLevel] WITH CHECK ADD CONSTRAINT [FK_StaffSchoolAssociationGradeLevel_GradeLevelDescriptor] FOREIGN KEY ([GradeLevelDescriptorId])
 REFERENCES [edfi].[GradeLevelDescriptor] ([GradeLevelDescriptorId])
 GO
@@ -5453,8 +5157,6 @@ ALTER TABLE [edfi].[StaffSchoolAssociationGradeLevel] WITH CHECK ADD CONSTRAINT 
 REFERENCES [edfi].[StaffSchoolAssociation] ([ProgramAssignmentDescriptorId], [SchoolId], [StaffUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StaffSectionAssociation] WITH CHECK ADD CONSTRAINT [FK_StaffSectionAssociation_ClassroomPositionDescriptor] FOREIGN KEY ([ClassroomPositionDescriptorId])
 REFERENCES [edfi].[ClassroomPositionDescriptor] ([ClassroomPositionDescriptorId])
@@ -5469,7 +5171,9 @@ REFERENCES [edfi].[Section] ([LocalCourseCode], [SchoolId], [SchoolYear], [Secti
 ON UPDATE CASCADE
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StaffSectionAssociation_Section]
+ON [edfi].[StaffSectionAssociation] ([LocalCourseCode] ASC, [SchoolId] ASC, [SchoolYear] ASC, [SectionIdentifier] ASC, [SessionName] ASC)
+GO
 
 ALTER TABLE [edfi].[StaffSectionAssociation] WITH CHECK ADD CONSTRAINT [FK_StaffSectionAssociation_Staff] FOREIGN KEY ([StaffUSI])
 REFERENCES [edfi].[Staff] ([StaffUSI])
@@ -5484,8 +5188,6 @@ REFERENCES [edfi].[Staff] ([StaffUSI])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StaffTelephone] WITH CHECK ADD CONSTRAINT [FK_StaffTelephone_TelephoneNumberTypeDescriptor] FOREIGN KEY ([TelephoneNumberTypeDescriptorId])
 REFERENCES [edfi].[TelephoneNumberTypeDescriptor] ([TelephoneNumberTypeDescriptorId])
 GO
@@ -5499,8 +5201,6 @@ REFERENCES [edfi].[Staff] ([StaffUSI])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StaffTribalAffiliation] WITH CHECK ADD CONSTRAINT [FK_StaffTribalAffiliation_TribalAffiliationDescriptor] FOREIGN KEY ([TribalAffiliationDescriptorId])
 REFERENCES [edfi].[TribalAffiliationDescriptor] ([TribalAffiliationDescriptorId])
 GO
@@ -5513,8 +5213,6 @@ ALTER TABLE [edfi].[StaffVisa] WITH CHECK ADD CONSTRAINT [FK_StaffVisa_Staff] FO
 REFERENCES [edfi].[Staff] ([StaffUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StaffVisa] WITH CHECK ADD CONSTRAINT [FK_StaffVisa_VisaDescriptor] FOREIGN KEY ([VisaDescriptorId])
 REFERENCES [edfi].[VisaDescriptor] ([VisaDescriptorId])
@@ -5547,14 +5245,10 @@ REFERENCES [edfi].[StateEducationAgency] ([StateEducationAgencyId])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StateEducationAgencyFederalFunds] WITH CHECK ADD CONSTRAINT [FK_StateEducationAgencyFederalFunds_StateEducationAgency] FOREIGN KEY ([StateEducationAgencyId])
 REFERENCES [edfi].[StateEducationAgency] ([StateEducationAgencyId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[Student] WITH CHECK ADD CONSTRAINT [FK_Student_CitizenshipStatusDescriptor] FOREIGN KEY ([CitizenshipStatusDescriptorId])
 REFERENCES [edfi].[CitizenshipStatusDescriptor] ([CitizenshipStatusDescriptorId])
@@ -5632,7 +5326,9 @@ ALTER TABLE [edfi].[StudentAcademicRecord] WITH CHECK ADD CONSTRAINT [FK_Student
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StudentAcademicRecord_EducationOrganization]
+ON [edfi].[StudentAcademicRecord] ([EducationOrganizationId] ASC)
+GO
 
 ALTER TABLE [edfi].[StudentAcademicRecord] WITH CHECK ADD CONSTRAINT [FK_StudentAcademicRecord_SchoolYearType] FOREIGN KEY ([SchoolYear])
 REFERENCES [edfi].[SchoolYearType] ([SchoolYear])
@@ -5679,8 +5375,6 @@ REFERENCES [edfi].[StudentAcademicRecord] ([EducationOrganizationId], [SchoolYea
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentAcademicRecordClassRanking] WITH CHECK ADD CONSTRAINT [FK_StudentAcademicRecordClassRanking_StudentAcademicRecord] FOREIGN KEY ([EducationOrganizationId], [SchoolYear], [StudentUSI], [TermDescriptorId])
 REFERENCES [edfi].[StudentAcademicRecord] ([EducationOrganizationId], [SchoolYear], [StudentUSI], [TermDescriptorId])
 ON DELETE CASCADE
@@ -5715,8 +5409,6 @@ REFERENCES [edfi].[StudentAcademicRecord] ([EducationOrganizationId], [SchoolYea
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentAcademicRecordGradePointAverage] WITH CHECK ADD CONSTRAINT [FK_StudentAcademicRecordGradePointAverage_GradePointAverageTypeDescriptor] FOREIGN KEY ([GradePointAverageTypeDescriptorId])
 REFERENCES [edfi].[GradePointAverageTypeDescriptor] ([GradePointAverageTypeDescriptorId])
 GO
@@ -5729,8 +5421,6 @@ ALTER TABLE [edfi].[StudentAcademicRecordGradePointAverage] WITH CHECK ADD CONST
 REFERENCES [edfi].[StudentAcademicRecord] ([EducationOrganizationId], [SchoolYear], [StudentUSI], [TermDescriptorId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentAcademicRecordRecognition] WITH CHECK ADD CONSTRAINT [FK_StudentAcademicRecordRecognition_AchievementCategoryDescriptor] FOREIGN KEY ([AchievementCategoryDescriptorId])
 REFERENCES [edfi].[AchievementCategoryDescriptor] ([AchievementCategoryDescriptorId])
@@ -5753,8 +5443,6 @@ REFERENCES [edfi].[StudentAcademicRecord] ([EducationOrganizationId], [SchoolYea
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentAcademicRecordReportCard] WITH CHECK ADD CONSTRAINT [FK_StudentAcademicRecordReportCard_ReportCard] FOREIGN KEY ([EducationOrganizationId], [GradingPeriodDescriptorId], [GradingPeriodSequence], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [StudentUSI])
 REFERENCES [edfi].[ReportCard] ([EducationOrganizationId], [GradingPeriodDescriptorId], [GradingPeriodSequence], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [StudentUSI])
 GO
@@ -5768,8 +5456,6 @@ REFERENCES [edfi].[StudentAcademicRecord] ([EducationOrganizationId], [SchoolYea
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentAssessment] WITH CHECK ADD CONSTRAINT [FK_StudentAssessment_AdministrationEnvironmentDescriptor] FOREIGN KEY ([AdministrationEnvironmentDescriptorId])
 REFERENCES [edfi].[AdministrationEnvironmentDescriptor] ([AdministrationEnvironmentDescriptorId])
 GO
@@ -5782,7 +5468,9 @@ ALTER TABLE [edfi].[StudentAssessment] WITH CHECK ADD CONSTRAINT [FK_StudentAsse
 REFERENCES [edfi].[Assessment] ([AssessmentIdentifier], [Namespace])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StudentAssessment_Assessment]
+ON [edfi].[StudentAssessment] ([AssessmentIdentifier] ASC, [Namespace] ASC)
+GO
 
 ALTER TABLE [edfi].[StudentAssessment] WITH CHECK ADD CONSTRAINT [FK_StudentAssessment_EventCircumstanceDescriptor] FOREIGN KEY ([EventCircumstanceDescriptorId])
 REFERENCES [edfi].[EventCircumstanceDescriptor] ([EventCircumstanceDescriptorId])
@@ -5869,8 +5557,6 @@ REFERENCES [edfi].[StudentAssessment] ([AssessmentIdentifier], [Namespace], [Stu
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentAssessmentEducationOrganizationAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentAssessmentEducationOrganizationAssociation_EducationOrganization] FOREIGN KEY ([EducationOrganizationId])
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
@@ -5932,8 +5618,6 @@ REFERENCES [edfi].[StudentAssessment] ([AssessmentIdentifier], [Namespace], [Stu
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentAssessmentPerformanceLevel] WITH CHECK ADD CONSTRAINT [FK_StudentAssessmentPerformanceLevel_AssessmentReportingMethodDescriptor] FOREIGN KEY ([AssessmentReportingMethodDescriptorId])
 REFERENCES [edfi].[AssessmentReportingMethodDescriptor] ([AssessmentReportingMethodDescriptorId])
 GO
@@ -5954,8 +5638,6 @@ ALTER TABLE [edfi].[StudentAssessmentPerformanceLevel] WITH CHECK ADD CONSTRAINT
 REFERENCES [edfi].[StudentAssessment] ([AssessmentIdentifier], [Namespace], [StudentAssessmentIdentifier], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentAssessmentPeriod] WITH CHECK ADD CONSTRAINT [FK_StudentAssessmentPeriod_AssessmentPeriodDescriptor] FOREIGN KEY ([AssessmentPeriodDescriptorId])
 REFERENCES [edfi].[AssessmentPeriodDescriptor] ([AssessmentPeriodDescriptorId])
@@ -5991,8 +5673,6 @@ REFERENCES [edfi].[StudentAssessment] ([AssessmentIdentifier], [Namespace], [Stu
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentAssessmentStudentObjectiveAssessment] WITH CHECK ADD CONSTRAINT [FK_StudentAssessmentStudentObjectiveAssessment_ObjectiveAssessment] FOREIGN KEY ([AssessmentIdentifier], [IdentificationCode], [Namespace])
 REFERENCES [edfi].[ObjectiveAssessment] ([AssessmentIdentifier], [IdentificationCode], [Namespace])
 GO
@@ -6005,8 +5685,6 @@ ALTER TABLE [edfi].[StudentAssessmentStudentObjectiveAssessment] WITH CHECK ADD 
 REFERENCES [edfi].[StudentAssessment] ([AssessmentIdentifier], [Namespace], [StudentAssessmentIdentifier], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentAssessmentStudentObjectiveAssessmentPerformanceLevel] WITH CHECK ADD CONSTRAINT [FK_StudentAssessmentStudentObjectiveAssessmentPerformanceLevel_AssessmentReportingMethodDescriptor] FOREIGN KEY ([AssessmentReportingMethodDescriptorId])
 REFERENCES [edfi].[AssessmentReportingMethodDescriptor] ([AssessmentReportingMethodDescriptorId])
@@ -6029,8 +5707,6 @@ REFERENCES [edfi].[StudentAssessmentStudentObjectiveAssessment] ([AssessmentIden
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentAssessmentStudentObjectiveAssessmentScoreResult] WITH CHECK ADD CONSTRAINT [FK_StudentAssessmentStudentObjectiveAssessmentScoreResult_AssessmentReportingMethodDescriptor] FOREIGN KEY ([AssessmentReportingMethodDescriptorId])
 REFERENCES [edfi].[AssessmentReportingMethodDescriptor] ([AssessmentReportingMethodDescriptorId])
 GO
@@ -6051,8 +5727,6 @@ ALTER TABLE [edfi].[StudentAssessmentStudentObjectiveAssessmentScoreResult] WITH
 REFERENCES [edfi].[StudentAssessmentStudentObjectiveAssessment] ([AssessmentIdentifier], [Namespace], [StudentAssessmentIdentifier], [StudentUSI], [IdentificationCode])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentCharacteristicDescriptor] WITH CHECK ADD CONSTRAINT [FK_StudentCharacteristicDescriptor_Descriptor] FOREIGN KEY ([StudentCharacteristicDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
@@ -6089,8 +5763,6 @@ REFERENCES [edfi].[StudentCohortAssociation] ([BeginDate], [CohortIdentifier], [
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentCompetencyObjective] WITH CHECK ADD CONSTRAINT [FK_StudentCompetencyObjective_CompetencyLevelDescriptor] FOREIGN KEY ([CompetencyLevelDescriptorId])
 REFERENCES [edfi].[CompetencyLevelDescriptor] ([CompetencyLevelDescriptorId])
 GO
@@ -6111,7 +5783,9 @@ ALTER TABLE [edfi].[StudentCompetencyObjective] WITH CHECK ADD CONSTRAINT [FK_St
 REFERENCES [edfi].[GradingPeriod] ([GradingPeriodDescriptorId], [PeriodSequence], [SchoolId], [SchoolYear])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StudentCompetencyObjective_GradingPeriod]
+ON [edfi].[StudentCompetencyObjective] ([GradingPeriodDescriptorId] ASC, [GradingPeriodSequence] ASC, [GradingPeriodSchoolId] ASC, [GradingPeriodSchoolYear] ASC)
+GO
 
 ALTER TABLE [edfi].[StudentCompetencyObjective] WITH CHECK ADD CONSTRAINT [FK_StudentCompetencyObjective_Student] FOREIGN KEY ([StudentUSI])
 REFERENCES [edfi].[Student] ([StudentUSI])
@@ -6134,14 +5808,10 @@ REFERENCES [edfi].[StudentCompetencyObjective] ([GradingPeriodDescriptorId], [Gr
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentCompetencyObjectiveStudentSectionAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentCompetencyObjectiveStudentSectionAssociation_StudentCompetencyObjective] FOREIGN KEY ([GradingPeriodDescriptorId], [GradingPeriodSequence], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [ObjectiveEducationOrganizationId], [Objective], [ObjectiveGradeLevelDescriptorId], [StudentUSI])
 REFERENCES [edfi].[StudentCompetencyObjective] ([GradingPeriodDescriptorId], [GradingPeriodSequence], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [ObjectiveEducationOrganizationId], [Objective], [ObjectiveGradeLevelDescriptorId], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentCompetencyObjectiveStudentSectionAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentCompetencyObjectiveStudentSectionAssociation_StudentSectionAssociation] FOREIGN KEY ([BeginDate], [LocalCourseCode], [SchoolId], [SchoolYear], [SectionIdentifier], [SessionName], [StudentUSI])
 REFERENCES [edfi].[StudentSectionAssociation] ([BeginDate], [LocalCourseCode], [SchoolId], [SchoolYear], [SectionIdentifier], [SessionName], [StudentUSI])
@@ -6178,8 +5848,6 @@ REFERENCES [edfi].[StudentCTEProgramAssociation] ([BeginDate], [EducationOrganiz
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentCTEProgramAssociationCTEProgramService] WITH CHECK ADD CONSTRAINT [FK_StudentCTEProgramAssociationCTEProgramService_CTEProgramServiceDescriptor] FOREIGN KEY ([CTEProgramServiceDescriptorId])
 REFERENCES [edfi].[CTEProgramServiceDescriptor] ([CTEProgramServiceDescriptorId])
 GO
@@ -6192,8 +5860,6 @@ ALTER TABLE [edfi].[StudentCTEProgramAssociationCTEProgramService] WITH CHECK AD
 REFERENCES [edfi].[StudentCTEProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentCTEProgramAssociationService] WITH CHECK ADD CONSTRAINT [FK_StudentCTEProgramAssociationService_ServiceDescriptor] FOREIGN KEY ([ServiceDescriptorId])
 REFERENCES [edfi].[ServiceDescriptor] ([ServiceDescriptorId])
@@ -6208,13 +5874,13 @@ REFERENCES [edfi].[StudentCTEProgramAssociation] ([BeginDate], [EducationOrganiz
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentDisciplineIncidentAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentDisciplineIncidentAssociation_DisciplineIncident] FOREIGN KEY ([IncidentIdentifier], [SchoolId])
 REFERENCES [edfi].[DisciplineIncident] ([IncidentIdentifier], [SchoolId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StudentDisciplineIncidentAssociation_DisciplineIncident]
+ON [edfi].[StudentDisciplineIncidentAssociation] ([IncidentIdentifier] ASC, [SchoolId] ASC)
+GO
 
 ALTER TABLE [edfi].[StudentDisciplineIncidentAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentDisciplineIncidentAssociation_Student] FOREIGN KEY ([StudentUSI])
 REFERENCES [edfi].[Student] ([StudentUSI])
@@ -6245,13 +5911,13 @@ REFERENCES [edfi].[StudentDisciplineIncidentAssociation] ([IncidentIdentifier], 
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentDisciplineIncidentBehaviorAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentDisciplineIncidentBehaviorAssociation_BehaviorDescriptor] FOREIGN KEY ([BehaviorDescriptorId])
 REFERENCES [edfi].[BehaviorDescriptor] ([BehaviorDescriptorId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StudentDisciplineIncidentBehaviorAssociation_BehaviorDescriptor]
+ON [edfi].[StudentDisciplineIncidentBehaviorAssociation] ([BehaviorDescriptorId] ASC)
+GO
 
 ALTER TABLE [edfi].[StudentDisciplineIncidentBehaviorAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentDisciplineIncidentBehaviorAssociation_DisciplineIncident] FOREIGN KEY ([IncidentIdentifier], [SchoolId])
 REFERENCES [edfi].[DisciplineIncident] ([IncidentIdentifier], [SchoolId])
@@ -6282,13 +5948,13 @@ REFERENCES [edfi].[StudentDisciplineIncidentBehaviorAssociation] ([BehaviorDescr
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentDisciplineIncidentNonOffenderAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentDisciplineIncidentNonOffenderAssociation_DisciplineIncident] FOREIGN KEY ([IncidentIdentifier], [SchoolId])
 REFERENCES [edfi].[DisciplineIncident] ([IncidentIdentifier], [SchoolId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StudentDisciplineIncidentNonOffenderAssociation_DisciplineIncident]
+ON [edfi].[StudentDisciplineIncidentNonOffenderAssociation] ([IncidentIdentifier] ASC, [SchoolId] ASC)
+GO
 
 ALTER TABLE [edfi].[StudentDisciplineIncidentNonOffenderAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentDisciplineIncidentNonOffenderAssociation_Student] FOREIGN KEY ([StudentUSI])
 REFERENCES [edfi].[Student] ([StudentUSI])
@@ -6298,20 +5964,18 @@ CREATE NONCLUSTERED INDEX [FK_StudentDisciplineIncidentNonOffenderAssociation_St
 ON [edfi].[StudentDisciplineIncidentNonOffenderAssociation] ([StudentUSI] ASC)
 GO
 
-ALTER TABLE [edfi].[StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode] WITH CHECK ADD CONSTRAINT [FK_StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode_DisciplineIncidentParticipationCode_106438] FOREIGN KEY ([DisciplineIncidentParticipationCodeDescriptorId])
+ALTER TABLE [edfi].[StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode] WITH CHECK ADD CONSTRAINT [FK_StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode_DisciplineIncidentParticipationCodeDescrip] FOREIGN KEY ([DisciplineIncidentParticipationCodeDescriptorId])
 REFERENCES [edfi].[DisciplineIncidentParticipationCodeDescriptor] ([DisciplineIncidentParticipationCodeDescriptorId])
 GO
 
-CREATE NONCLUSTERED INDEX [FK_StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode_DisciplineIncidentParticipationCode_106438]
+CREATE NONCLUSTERED INDEX [FK_StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode_DisciplineIncidentParticipationCodeDescrip]
 ON [edfi].[StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode] ([DisciplineIncidentParticipationCodeDescriptorId] ASC)
 GO
 
-ALTER TABLE [edfi].[StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode] WITH CHECK ADD CONSTRAINT [FK_StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode_StudentDisciplineIncidentNonOffende_fd877a] FOREIGN KEY ([IncidentIdentifier], [SchoolId], [StudentUSI])
+ALTER TABLE [edfi].[StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode] WITH CHECK ADD CONSTRAINT [FK_StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode_StudentDisciplineIncidentNonOffenderAssoci] FOREIGN KEY ([IncidentIdentifier], [SchoolId], [StudentUSI])
 REFERENCES [edfi].[StudentDisciplineIncidentNonOffenderAssociation] ([IncidentIdentifier], [SchoolId], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociation_BarrierToInternetAccessInResidenceDescriptor] FOREIGN KEY ([BarrierToInternetAccessInResidenceDescriptorId])
 REFERENCES [edfi].[BarrierToInternetAccessInResidenceDescriptor] ([BarrierToInternetAccessInResidenceDescriptorId])
@@ -6325,7 +5989,9 @@ ALTER TABLE [edfi].[StudentEducationOrganizationAssociation] WITH CHECK ADD CONS
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAssociation_EducationOrganization]
+ON [edfi].[StudentEducationOrganizationAssociation] ([EducationOrganizationId] ASC)
+GO
 
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociation_InternetAccessTypeInResidenceDescriptor] FOREIGN KEY ([InternetAccessTypeInResidenceDescriptorId])
 REFERENCES [edfi].[InternetAccessTypeInResidenceDescriptor] ([InternetAccessTypeInResidenceDescriptorId])
@@ -6428,14 +6094,10 @@ REFERENCES [edfi].[StudentEducationOrganizationAssociation] ([EducationOrganizat
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationAddressPeriod] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationAddressPeriod_StudentEducationOrganizationAssociationAddress] FOREIGN KEY ([EducationOrganizationId], [StudentUSI], [AddressTypeDescriptorId], [City], [PostalCode], [StateAbbreviationDescriptorId], [StreetNumberName])
 REFERENCES [edfi].[StudentEducationOrganizationAssociationAddress] ([EducationOrganizationId], [StudentUSI], [AddressTypeDescriptorId], [City], [PostalCode], [StateAbbreviationDescriptorId], [StreetNumberName])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationAncestryEthnicOrigin] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationAncestryEthnicOrigin_AncestryEthnicOriginDescriptor] FOREIGN KEY ([AncestryEthnicOriginDescriptorId])
 REFERENCES [edfi].[AncestryEthnicOriginDescriptor] ([AncestryEthnicOriginDescriptorId])
@@ -6449,8 +6111,6 @@ ALTER TABLE [edfi].[StudentEducationOrganizationAssociationAncestryEthnicOrigin]
 REFERENCES [edfi].[StudentEducationOrganizationAssociation] ([EducationOrganizationId], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationCohortYear] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationCohortYear_CohortYearTypeDescriptor] FOREIGN KEY ([CohortYearTypeDescriptorId])
 REFERENCES [edfi].[CohortYearTypeDescriptor] ([CohortYearTypeDescriptorId])
@@ -6472,8 +6132,6 @@ ALTER TABLE [edfi].[StudentEducationOrganizationAssociationCohortYear] WITH CHEC
 REFERENCES [edfi].[StudentEducationOrganizationAssociation] ([EducationOrganizationId], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationCohortYear] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationCohortYear_TermDescriptor] FOREIGN KEY ([TermDescriptorId])
 REFERENCES [edfi].[TermDescriptor] ([TermDescriptorId])
@@ -6504,8 +6162,6 @@ REFERENCES [edfi].[StudentEducationOrganizationAssociation] ([EducationOrganizat
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationDisabilityDesignation] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationDisabilityDesignation_DisabilityDesignationDescriptor] FOREIGN KEY ([DisabilityDesignationDescriptorId])
 REFERENCES [edfi].[DisabilityDesignationDescriptor] ([DisabilityDesignationDescriptorId])
 GO
@@ -6519,8 +6175,6 @@ REFERENCES [edfi].[StudentEducationOrganizationAssociationDisability] ([Educatio
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationElectronicMail] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationElectronicMail_ElectronicMailTypeDescriptor] FOREIGN KEY ([ElectronicMailTypeDescriptorId])
 REFERENCES [edfi].[ElectronicMailTypeDescriptor] ([ElectronicMailTypeDescriptorId])
 GO
@@ -6533,8 +6187,6 @@ ALTER TABLE [edfi].[StudentEducationOrganizationAssociationElectronicMail] WITH 
 REFERENCES [edfi].[StudentEducationOrganizationAssociation] ([EducationOrganizationId], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationInternationalAddress] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationInternationalAddress_AddressTypeDescriptor] FOREIGN KEY ([AddressTypeDescriptorId])
 REFERENCES [edfi].[AddressTypeDescriptor] ([AddressTypeDescriptorId])
@@ -6557,8 +6209,6 @@ REFERENCES [edfi].[StudentEducationOrganizationAssociation] ([EducationOrganizat
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationLanguage] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationLanguage_LanguageDescriptor] FOREIGN KEY ([LanguageDescriptorId])
 REFERENCES [edfi].[LanguageDescriptor] ([LanguageDescriptorId])
 GO
@@ -6571,8 +6221,6 @@ ALTER TABLE [edfi].[StudentEducationOrganizationAssociationLanguage] WITH CHECK 
 REFERENCES [edfi].[StudentEducationOrganizationAssociation] ([EducationOrganizationId], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationLanguageUse] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationLanguageUse_LanguageUseDescriptor] FOREIGN KEY ([LanguageUseDescriptorId])
 REFERENCES [edfi].[LanguageUseDescriptor] ([LanguageUseDescriptorId])
@@ -6587,8 +6235,6 @@ REFERENCES [edfi].[StudentEducationOrganizationAssociationLanguage] ([EducationO
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationProgramParticipation] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationProgramParticipation_ProgramTypeDescriptor] FOREIGN KEY ([ProgramTypeDescriptorId])
 REFERENCES [edfi].[ProgramTypeDescriptor] ([ProgramTypeDescriptorId])
 GO
@@ -6602,8 +6248,6 @@ REFERENCES [edfi].[StudentEducationOrganizationAssociation] ([EducationOrganizat
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationProgramParticipationProgramCharacteristic] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationProgramParticipationProgramCharacteristic_ProgramCharacteristicDescriptor] FOREIGN KEY ([ProgramCharacteristicDescriptorId])
 REFERENCES [edfi].[ProgramCharacteristicDescriptor] ([ProgramCharacteristicDescriptorId])
 GO
@@ -6612,12 +6256,10 @@ CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAssociationProgramPart
 ON [edfi].[StudentEducationOrganizationAssociationProgramParticipationProgramCharacteristic] ([ProgramCharacteristicDescriptorId] ASC)
 GO
 
-ALTER TABLE [edfi].[StudentEducationOrganizationAssociationProgramParticipationProgramCharacteristic] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationProgramParticipationProgramCharacteristic_StudentEducationOrganizationAssociati_7679c4] FOREIGN KEY ([EducationOrganizationId], [StudentUSI], [ProgramTypeDescriptorId])
+ALTER TABLE [edfi].[StudentEducationOrganizationAssociationProgramParticipationProgramCharacteristic] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationProgramParticipationProgramCharacteristic_StudentEducationOrganizationAssociationProgr] FOREIGN KEY ([EducationOrganizationId], [StudentUSI], [ProgramTypeDescriptorId])
 REFERENCES [edfi].[StudentEducationOrganizationAssociationProgramParticipation] ([EducationOrganizationId], [StudentUSI], [ProgramTypeDescriptorId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationRace] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationRace_RaceDescriptor] FOREIGN KEY ([RaceDescriptorId])
 REFERENCES [edfi].[RaceDescriptor] ([RaceDescriptorId])
@@ -6632,8 +6274,6 @@ REFERENCES [edfi].[StudentEducationOrganizationAssociation] ([EducationOrganizat
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationStudentCharacteristic] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationStudentCharacteristic_StudentCharacteristicDescriptor] FOREIGN KEY ([StudentCharacteristicDescriptorId])
 REFERENCES [edfi].[StudentCharacteristicDescriptor] ([StudentCharacteristicDescriptorId])
 GO
@@ -6647,21 +6287,15 @@ REFERENCES [edfi].[StudentEducationOrganizationAssociation] ([EducationOrganizat
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
-ALTER TABLE [edfi].[StudentEducationOrganizationAssociationStudentCharacteristicPeriod] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationStudentCharacteristicPeriod_StudentEducationOrganizationAssociationStudentChara_5e984f] FOREIGN KEY ([EducationOrganizationId], [StudentUSI], [StudentCharacteristicDescriptorId])
+ALTER TABLE [edfi].[StudentEducationOrganizationAssociationStudentCharacteristicPeriod] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationStudentCharacteristicPeriod_StudentEducationOrganizationAssociationStudentCharacterist] FOREIGN KEY ([EducationOrganizationId], [StudentUSI], [StudentCharacteristicDescriptorId])
 REFERENCES [edfi].[StudentEducationOrganizationAssociationStudentCharacteristic] ([EducationOrganizationId], [StudentUSI], [StudentCharacteristicDescriptorId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationStudentIdentificationCode] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationStudentIdentificationCode_StudentEducationOrganizationAssociation] FOREIGN KEY ([EducationOrganizationId], [StudentUSI])
 REFERENCES [edfi].[StudentEducationOrganizationAssociation] ([EducationOrganizationId], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationStudentIdentificationCode] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationStudentIdentificationCode_StudentIdentificationSystemDescriptor] FOREIGN KEY ([StudentIdentificationSystemDescriptorId])
 REFERENCES [edfi].[StudentIdentificationSystemDescriptor] ([StudentIdentificationSystemDescriptorId])
@@ -6676,21 +6310,15 @@ REFERENCES [edfi].[StudentEducationOrganizationAssociation] ([EducationOrganizat
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationStudentIndicatorPeriod] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationStudentIndicatorPeriod_StudentEducationOrganizationAssociationStudentIndicator] FOREIGN KEY ([EducationOrganizationId], [StudentUSI], [IndicatorName])
 REFERENCES [edfi].[StudentEducationOrganizationAssociationStudentIndicator] ([EducationOrganizationId], [StudentUSI], [IndicatorName])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationTelephone] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationTelephone_StudentEducationOrganizationAssociation] FOREIGN KEY ([EducationOrganizationId], [StudentUSI])
 REFERENCES [edfi].[StudentEducationOrganizationAssociation] ([EducationOrganizationId], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationTelephone] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationTelephone_TelephoneNumberTypeDescriptor] FOREIGN KEY ([TelephoneNumberTypeDescriptorId])
 REFERENCES [edfi].[TelephoneNumberTypeDescriptor] ([TelephoneNumberTypeDescriptorId])
@@ -6704,8 +6332,6 @@ ALTER TABLE [edfi].[StudentEducationOrganizationAssociationTribalAffiliation] WI
 REFERENCES [edfi].[StudentEducationOrganizationAssociation] ([EducationOrganizationId], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationTribalAffiliation] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationTribalAffiliation_TribalAffiliationDescriptor] FOREIGN KEY ([TribalAffiliationDescriptorId])
 REFERENCES [edfi].[TribalAffiliationDescriptor] ([TribalAffiliationDescriptorId])
@@ -6760,7 +6386,9 @@ REFERENCES [edfi].[GradebookEntry] ([GradebookEntryIdentifier], [Namespace])
 ON UPDATE CASCADE
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StudentGradebookEntry_GradebookEntry]
+ON [edfi].[StudentGradebookEntry] ([GradebookEntryIdentifier] ASC, [Namespace] ASC)
+GO
 
 ALTER TABLE [edfi].[StudentGradebookEntry] WITH CHECK ADD CONSTRAINT [FK_StudentGradebookEntry_Student] FOREIGN KEY ([StudentUSI])
 REFERENCES [edfi].[Student] ([StudentUSI])
@@ -6804,8 +6432,6 @@ REFERENCES [edfi].[StudentHomelessProgramAssociation] ([BeginDate], [EducationOr
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentIdentificationDocument] WITH CHECK ADD CONSTRAINT [FK_StudentIdentificationDocument_CountryDescriptor] FOREIGN KEY ([IssuerCountryDescriptorId])
 REFERENCES [edfi].[CountryDescriptor] ([CountryDescriptorId])
 GO
@@ -6835,8 +6461,6 @@ REFERENCES [edfi].[Student] ([StudentUSI])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentIdentificationSystemDescriptor] WITH CHECK ADD CONSTRAINT [FK_StudentIdentificationSystemDescriptor_Descriptor] FOREIGN KEY ([StudentIdentificationSystemDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
@@ -6854,7 +6478,9 @@ ALTER TABLE [edfi].[StudentInterventionAssociation] WITH CHECK ADD CONSTRAINT [F
 REFERENCES [edfi].[Intervention] ([EducationOrganizationId], [InterventionIdentificationCode])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StudentInterventionAssociation_Intervention]
+ON [edfi].[StudentInterventionAssociation] ([EducationOrganizationId] ASC, [InterventionIdentificationCode] ASC)
+GO
 
 ALTER TABLE [edfi].[StudentInterventionAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentInterventionAssociation_Student] FOREIGN KEY ([StudentUSI])
 REFERENCES [edfi].[Student] ([StudentUSI])
@@ -6901,13 +6527,13 @@ REFERENCES [edfi].[StudentInterventionAssociation] ([EducationOrganizationId], [
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentInterventionAttendanceEvent] WITH CHECK ADD CONSTRAINT [FK_StudentInterventionAttendanceEvent_AttendanceEventCategoryDescriptor] FOREIGN KEY ([AttendanceEventCategoryDescriptorId])
 REFERENCES [edfi].[AttendanceEventCategoryDescriptor] ([AttendanceEventCategoryDescriptorId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StudentInterventionAttendanceEvent_AttendanceEventCategoryDescriptor]
+ON [edfi].[StudentInterventionAttendanceEvent] ([AttendanceEventCategoryDescriptorId] ASC)
+GO
 
 ALTER TABLE [edfi].[StudentInterventionAttendanceEvent] WITH CHECK ADD CONSTRAINT [FK_StudentInterventionAttendanceEvent_EducationalEnvironmentDescriptor] FOREIGN KEY ([EducationalEnvironmentDescriptorId])
 REFERENCES [edfi].[EducationalEnvironmentDescriptor] ([EducationalEnvironmentDescriptorId])
@@ -6983,8 +6609,6 @@ REFERENCES [edfi].[StudentLanguageInstructionProgramAssociation] ([BeginDate], [
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentLanguageInstructionProgramAssociationLanguageInstructionProgramService] WITH CHECK ADD CONSTRAINT [FK_StudentLanguageInstructionProgramAssociationLanguageInstructionProgramService_LanguageInstructionProgramServiceDescriptor] FOREIGN KEY ([LanguageInstructionProgramServiceDescriptorId])
 REFERENCES [edfi].[LanguageInstructionProgramServiceDescriptor] ([LanguageInstructionProgramServiceDescriptorId])
 GO
@@ -6998,8 +6622,6 @@ REFERENCES [edfi].[StudentLanguageInstructionProgramAssociation] ([BeginDate], [
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentLearningObjective] WITH CHECK ADD CONSTRAINT [FK_StudentLearningObjective_CompetencyLevelDescriptor] FOREIGN KEY ([CompetencyLevelDescriptorId])
 REFERENCES [edfi].[CompetencyLevelDescriptor] ([CompetencyLevelDescriptorId])
 GO
@@ -7012,7 +6634,9 @@ ALTER TABLE [edfi].[StudentLearningObjective] WITH CHECK ADD CONSTRAINT [FK_Stud
 REFERENCES [edfi].[GradingPeriod] ([GradingPeriodDescriptorId], [PeriodSequence], [SchoolId], [SchoolYear])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StudentLearningObjective_GradingPeriod]
+ON [edfi].[StudentLearningObjective] ([GradingPeriodDescriptorId] ASC, [GradingPeriodSequence] ASC, [GradingPeriodSchoolId] ASC, [GradingPeriodSchoolYear] ASC)
+GO
 
 ALTER TABLE [edfi].[StudentLearningObjective] WITH CHECK ADD CONSTRAINT [FK_StudentLearningObjective_LearningObjective] FOREIGN KEY ([LearningObjectiveId], [Namespace])
 REFERENCES [edfi].[LearningObjective] ([LearningObjectiveId], [Namespace])
@@ -7043,14 +6667,10 @@ REFERENCES [edfi].[StudentLearningObjective] ([GradingPeriodDescriptorId], [Grad
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentLearningObjectiveStudentSectionAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentLearningObjectiveStudentSectionAssociation_StudentLearningObjective] FOREIGN KEY ([GradingPeriodDescriptorId], [GradingPeriodSequence], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [LearningObjectiveId], [Namespace], [StudentUSI])
 REFERENCES [edfi].[StudentLearningObjective] ([GradingPeriodDescriptorId], [GradingPeriodSequence], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [LearningObjectiveId], [Namespace], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentLearningObjectiveStudentSectionAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentLearningObjectiveStudentSectionAssociation_StudentSectionAssociation] FOREIGN KEY ([BeginDate], [LocalCourseCode], [SchoolId], [SchoolYear], [SectionIdentifier], [SessionName], [StudentUSI])
 REFERENCES [edfi].[StudentSectionAssociation] ([BeginDate], [LocalCourseCode], [SchoolId], [SchoolYear], [SectionIdentifier], [SessionName], [StudentUSI])
@@ -7087,8 +6707,6 @@ REFERENCES [edfi].[StudentMigrantEducationProgramAssociation] ([BeginDate], [Edu
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentNeglectedOrDelinquentProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentNeglectedOrDelinquentProgramAssociation_GeneralStudentProgramAssociation] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 REFERENCES [edfi].[GeneralStudentProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 ON DELETE CASCADE
@@ -7118,20 +6736,18 @@ CREATE NONCLUSTERED INDEX [FK_StudentNeglectedOrDelinquentProgramAssociation_Pro
 ON [edfi].[StudentNeglectedOrDelinquentProgramAssociation] ([MathematicsProgressLevelDescriptorId] ASC)
 GO
 
-ALTER TABLE [edfi].[StudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramService] WITH CHECK ADD CONSTRAINT [FK_StudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramService_NeglectedOrDelinquentProgramServiceD_6831fc] FOREIGN KEY ([NeglectedOrDelinquentProgramServiceDescriptorId])
+ALTER TABLE [edfi].[StudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramService] WITH CHECK ADD CONSTRAINT [FK_StudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramService_NeglectedOrDelinquentProgramServiceDescript] FOREIGN KEY ([NeglectedOrDelinquentProgramServiceDescriptorId])
 REFERENCES [edfi].[NeglectedOrDelinquentProgramServiceDescriptor] ([NeglectedOrDelinquentProgramServiceDescriptorId])
 GO
 
-CREATE NONCLUSTERED INDEX [FK_StudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramService_NeglectedOrDelinquentProgramServiceD_6831fc]
+CREATE NONCLUSTERED INDEX [FK_StudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramService_NeglectedOrDelinquentProgramServiceDescript]
 ON [edfi].[StudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramService] ([NeglectedOrDelinquentProgramServiceDescriptorId] ASC)
 GO
 
-ALTER TABLE [edfi].[StudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramService] WITH CHECK ADD CONSTRAINT [FK_StudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramService_StudentNeglectedOrDelinquentProgramA_5fb02e] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
+ALTER TABLE [edfi].[StudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramService] WITH CHECK ADD CONSTRAINT [FK_StudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramService_StudentNeglectedOrDelinquentProgramAssociat] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 REFERENCES [edfi].[StudentNeglectedOrDelinquentProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentOtherName] WITH CHECK ADD CONSTRAINT [FK_StudentOtherName_OtherNameTypeDescriptor] FOREIGN KEY ([OtherNameTypeDescriptorId])
 REFERENCES [edfi].[OtherNameTypeDescriptor] ([OtherNameTypeDescriptorId])
@@ -7146,13 +6762,13 @@ REFERENCES [edfi].[Student] ([StudentUSI])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentParentAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentParentAssociation_Parent] FOREIGN KEY ([ParentUSI])
 REFERENCES [edfi].[Parent] ([ParentUSI])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StudentParentAssociation_Parent]
+ON [edfi].[StudentParentAssociation] ([ParentUSI] ASC)
+GO
 
 ALTER TABLE [edfi].[StudentParentAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentParentAssociation_RelationDescriptor] FOREIGN KEY ([RelationDescriptorId])
 REFERENCES [edfi].[RelationDescriptor] ([RelationDescriptorId])
@@ -7204,8 +6820,6 @@ REFERENCES [edfi].[Student] ([StudentUSI])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentProgramAssociation_GeneralStudentProgramAssociation] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 REFERENCES [edfi].[GeneralStudentProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 ON DELETE CASCADE
@@ -7224,13 +6838,13 @@ REFERENCES [edfi].[StudentProgramAssociation] ([BeginDate], [EducationOrganizati
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentProgramAttendanceEvent] WITH CHECK ADD CONSTRAINT [FK_StudentProgramAttendanceEvent_AttendanceEventCategoryDescriptor] FOREIGN KEY ([AttendanceEventCategoryDescriptorId])
 REFERENCES [edfi].[AttendanceEventCategoryDescriptor] ([AttendanceEventCategoryDescriptorId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StudentProgramAttendanceEvent_AttendanceEventCategoryDescriptor]
+ON [edfi].[StudentProgramAttendanceEvent] ([AttendanceEventCategoryDescriptorId] ASC)
+GO
 
 ALTER TABLE [edfi].[StudentProgramAttendanceEvent] WITH CHECK ADD CONSTRAINT [FK_StudentProgramAttendanceEvent_EducationalEnvironmentDescriptor] FOREIGN KEY ([EducationalEnvironmentDescriptorId])
 REFERENCES [edfi].[EducationalEnvironmentDescriptor] ([EducationalEnvironmentDescriptorId])
@@ -7366,8 +6980,6 @@ ON DELETE CASCADE
 ON UPDATE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentSchoolAssociationEducationPlan] WITH CHECK ADD CONSTRAINT [FK_StudentSchoolAssociationEducationPlan_EducationPlanDescriptor] FOREIGN KEY ([EducationPlanDescriptorId])
 REFERENCES [edfi].[EducationPlanDescriptor] ([EducationPlanDescriptorId])
 GO
@@ -7382,13 +6994,13 @@ ON DELETE CASCADE
 ON UPDATE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentSchoolAttendanceEvent] WITH CHECK ADD CONSTRAINT [FK_StudentSchoolAttendanceEvent_AttendanceEventCategoryDescriptor] FOREIGN KEY ([AttendanceEventCategoryDescriptorId])
 REFERENCES [edfi].[AttendanceEventCategoryDescriptor] ([AttendanceEventCategoryDescriptorId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StudentSchoolAttendanceEvent_AttendanceEventCategoryDescriptor]
+ON [edfi].[StudentSchoolAttendanceEvent] ([AttendanceEventCategoryDescriptorId] ASC)
+GO
 
 ALTER TABLE [edfi].[StudentSchoolAttendanceEvent] WITH CHECK ADD CONSTRAINT [FK_StudentSchoolAttendanceEvent_EducationalEnvironmentDescriptor] FOREIGN KEY ([EducationalEnvironmentDescriptorId])
 REFERENCES [edfi].[EducationalEnvironmentDescriptor] ([EducationalEnvironmentDescriptorId])
@@ -7441,8 +7053,6 @@ REFERENCES [edfi].[StudentSchoolFoodServiceProgramAssociation] ([BeginDate], [Ed
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentSectionAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentSectionAssociation_AttemptStatusDescriptor] FOREIGN KEY ([AttemptStatusDescriptorId])
 REFERENCES [edfi].[AttemptStatusDescriptor] ([AttemptStatusDescriptorId])
 GO
@@ -7480,7 +7090,9 @@ ALTER TABLE [edfi].[StudentSectionAttendanceEvent] WITH CHECK ADD CONSTRAINT [FK
 REFERENCES [edfi].[AttendanceEventCategoryDescriptor] ([AttendanceEventCategoryDescriptorId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_StudentSectionAttendanceEvent_AttendanceEventCategoryDescriptor]
+ON [edfi].[StudentSectionAttendanceEvent] ([AttendanceEventCategoryDescriptorId] ASC)
+GO
 
 ALTER TABLE [edfi].[StudentSectionAttendanceEvent] WITH CHECK ADD CONSTRAINT [FK_StudentSectionAttendanceEvent_EducationalEnvironmentDescriptor] FOREIGN KEY ([EducationalEnvironmentDescriptorId])
 REFERENCES [edfi].[EducationalEnvironmentDescriptor] ([EducationalEnvironmentDescriptorId])
@@ -7522,8 +7134,6 @@ ON DELETE CASCADE
 ON UPDATE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentSpecialEducationProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociation_GeneralStudentProgramAssociation] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 REFERENCES [edfi].[GeneralStudentProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 ON DELETE CASCADE
@@ -7558,8 +7168,6 @@ REFERENCES [edfi].[StudentSpecialEducationProgramAssociation] ([BeginDate], [Edu
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentSpecialEducationProgramAssociationDisabilityDesignation] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociationDisabilityDesignation_DisabilityDesignationDescriptor] FOREIGN KEY ([DisabilityDesignationDescriptorId])
 REFERENCES [edfi].[DisabilityDesignationDescriptor] ([DisabilityDesignationDescriptorId])
 GO
@@ -7572,8 +7180,6 @@ ALTER TABLE [edfi].[StudentSpecialEducationProgramAssociationDisabilityDesignati
 REFERENCES [edfi].[StudentSpecialEducationProgramAssociationDisability] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI], [DisabilityDescriptorId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentSpecialEducationProgramAssociationServiceProvider] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociationServiceProvider_Staff] FOREIGN KEY ([StaffUSI])
 REFERENCES [edfi].[Staff] ([StaffUSI])
@@ -7588,8 +7194,6 @@ REFERENCES [edfi].[StudentSpecialEducationProgramAssociation] ([BeginDate], [Edu
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentSpecialEducationProgramAssociationSpecialEducationProgramService] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramService_SpecialEducationProgramServiceDescriptor] FOREIGN KEY ([SpecialEducationProgramServiceDescriptorId])
 REFERENCES [edfi].[SpecialEducationProgramServiceDescriptor] ([SpecialEducationProgramServiceDescriptorId])
 GO
@@ -7603,8 +7207,6 @@ REFERENCES [edfi].[StudentSpecialEducationProgramAssociation] ([BeginDate], [Edu
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceProvider] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceProvider_Staff] FOREIGN KEY ([StaffUSI])
 REFERENCES [edfi].[Staff] ([StaffUSI])
 GO
@@ -7613,12 +7215,10 @@ CREATE NONCLUSTERED INDEX [FK_StudentSpecialEducationProgramAssociationSpecialEd
 ON [edfi].[StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceProvider] ([StaffUSI] ASC)
 GO
 
-ALTER TABLE [edfi].[StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceProvider] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceProvider_StudentSpecialEducationProgramAssociat_2935bd] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI], [SpecialEducationProgramServiceDescriptorId])
+ALTER TABLE [edfi].[StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceProvider] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceProvider_StudentSpecialEducationProgramAssociationSpec] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI], [SpecialEducationProgramServiceDescriptorId])
 REFERENCES [edfi].[StudentSpecialEducationProgramAssociationSpecialEducationProgramService] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI], [SpecialEducationProgramServiceDescriptorId])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentTitleIPartAProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentTitleIPartAProgramAssociation_GeneralStudentProgramAssociation] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 REFERENCES [edfi].[GeneralStudentProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
@@ -7646,14 +7246,10 @@ REFERENCES [edfi].[StudentTitleIPartAProgramAssociation] ([BeginDate], [Educatio
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[StudentTitleIPartAProgramAssociationTitleIPartAProgramService] WITH CHECK ADD CONSTRAINT [FK_StudentTitleIPartAProgramAssociationTitleIPartAProgramService_StudentTitleIPartAProgramAssociation] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 REFERENCES [edfi].[StudentTitleIPartAProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentTitleIPartAProgramAssociationTitleIPartAProgramService] WITH CHECK ADD CONSTRAINT [FK_StudentTitleIPartAProgramAssociationTitleIPartAProgramService_TitleIPartAProgramServiceDescriptor] FOREIGN KEY ([TitleIPartAProgramServiceDescriptorId])
 REFERENCES [edfi].[TitleIPartAProgramServiceDescriptor] ([TitleIPartAProgramServiceDescriptorId])
@@ -7667,8 +7263,6 @@ ALTER TABLE [edfi].[StudentVisa] WITH CHECK ADD CONSTRAINT [FK_StudentVisa_Stude
 REFERENCES [edfi].[Student] ([StudentUSI])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[StudentVisa] WITH CHECK ADD CONSTRAINT [FK_StudentVisa_VisaDescriptor] FOREIGN KEY ([VisaDescriptorId])
 REFERENCES [edfi].[VisaDescriptor] ([VisaDescriptorId])
@@ -7725,7 +7319,9 @@ ALTER TABLE [edfi].[SurveyCourseAssociation] WITH CHECK ADD CONSTRAINT [FK_Surve
 REFERENCES [edfi].[Course] ([CourseCode], [EducationOrganizationId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_SurveyCourseAssociation_Course]
+ON [edfi].[SurveyCourseAssociation] ([CourseCode] ASC, [EducationOrganizationId] ASC)
+GO
 
 ALTER TABLE [edfi].[SurveyCourseAssociation] WITH CHECK ADD CONSTRAINT [FK_SurveyCourseAssociation_Survey] FOREIGN KEY ([Namespace], [SurveyIdentifier])
 REFERENCES [edfi].[Survey] ([Namespace], [SurveyIdentifier])
@@ -7785,13 +7381,13 @@ REFERENCES [edfi].[SurveyQuestion] ([Namespace], [QuestionCode], [SurveyIdentifi
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[SurveyQuestionResponse] WITH CHECK ADD CONSTRAINT [FK_SurveyQuestionResponse_SurveyQuestion] FOREIGN KEY ([Namespace], [QuestionCode], [SurveyIdentifier])
 REFERENCES [edfi].[SurveyQuestion] ([Namespace], [QuestionCode], [SurveyIdentifier])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_SurveyQuestionResponse_SurveyQuestion]
+ON [edfi].[SurveyQuestionResponse] ([Namespace] ASC, [QuestionCode] ASC, [SurveyIdentifier] ASC)
+GO
 
 ALTER TABLE [edfi].[SurveyQuestionResponse] WITH CHECK ADD CONSTRAINT [FK_SurveyQuestionResponse_SurveyResponse] FOREIGN KEY ([Namespace], [SurveyIdentifier], [SurveyResponseIdentifier])
 REFERENCES [edfi].[SurveyResponse] ([Namespace], [SurveyIdentifier], [SurveyResponseIdentifier])
@@ -7806,21 +7402,15 @@ REFERENCES [edfi].[SurveyQuestion] ([Namespace], [QuestionCode], [SurveyIdentifi
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[SurveyQuestionResponseSurveyQuestionMatrixElementResponse] WITH CHECK ADD CONSTRAINT [FK_SurveyQuestionResponseSurveyQuestionMatrixElementResponse_SurveyQuestionResponse] FOREIGN KEY ([Namespace], [QuestionCode], [SurveyIdentifier], [SurveyResponseIdentifier])
 REFERENCES [edfi].[SurveyQuestionResponse] ([Namespace], [QuestionCode], [SurveyIdentifier], [SurveyResponseIdentifier])
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[SurveyQuestionResponseValue] WITH CHECK ADD CONSTRAINT [FK_SurveyQuestionResponseValue_SurveyQuestionResponse] FOREIGN KEY ([Namespace], [QuestionCode], [SurveyIdentifier], [SurveyResponseIdentifier])
 REFERENCES [edfi].[SurveyQuestionResponse] ([Namespace], [QuestionCode], [SurveyIdentifier], [SurveyResponseIdentifier])
 ON DELETE CASCADE
 GO
-
--- Reverse index suppressed
 
 ALTER TABLE [edfi].[SurveyResponse] WITH CHECK ADD CONSTRAINT [FK_SurveyResponse_Parent] FOREIGN KEY ([ParentUSI])
 REFERENCES [edfi].[Parent] ([ParentUSI])
@@ -7850,13 +7440,17 @@ ALTER TABLE [edfi].[SurveyResponse] WITH CHECK ADD CONSTRAINT [FK_SurveyResponse
 REFERENCES [edfi].[Survey] ([Namespace], [SurveyIdentifier])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_SurveyResponse_Survey]
+ON [edfi].[SurveyResponse] ([Namespace] ASC, [SurveyIdentifier] ASC)
+GO
 
 ALTER TABLE [edfi].[SurveyResponseEducationOrganizationTargetAssociation] WITH CHECK ADD CONSTRAINT [FK_SurveyResponseEducationOrganizationTargetAssociation_EducationOrganization] FOREIGN KEY ([EducationOrganizationId])
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_SurveyResponseEducationOrganizationTargetAssociation_EducationOrganization]
+ON [edfi].[SurveyResponseEducationOrganizationTargetAssociation] ([EducationOrganizationId] ASC)
+GO
 
 ALTER TABLE [edfi].[SurveyResponseEducationOrganizationTargetAssociation] WITH CHECK ADD CONSTRAINT [FK_SurveyResponseEducationOrganizationTargetAssociation_SurveyResponse] FOREIGN KEY ([Namespace], [SurveyIdentifier], [SurveyResponseIdentifier])
 REFERENCES [edfi].[SurveyResponse] ([Namespace], [SurveyIdentifier], [SurveyResponseIdentifier])
@@ -7895,13 +7489,13 @@ REFERENCES [edfi].[SurveyResponse] ([Namespace], [SurveyIdentifier], [SurveyResp
 ON DELETE CASCADE
 GO
 
--- Reverse index suppressed
-
 ALTER TABLE [edfi].[SurveySection] WITH CHECK ADD CONSTRAINT [FK_SurveySection_Survey] FOREIGN KEY ([Namespace], [SurveyIdentifier])
 REFERENCES [edfi].[Survey] ([Namespace], [SurveyIdentifier])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_SurveySection_Survey]
+ON [edfi].[SurveySection] ([Namespace] ASC, [SurveyIdentifier] ASC)
+GO
 
 ALTER TABLE [edfi].[SurveySectionAssociation] WITH CHECK ADD CONSTRAINT [FK_SurveySectionAssociation_Section] FOREIGN KEY ([LocalCourseCode], [SchoolId], [SchoolYear], [SectionIdentifier], [SessionName])
 REFERENCES [edfi].[Section] ([LocalCourseCode], [SchoolId], [SchoolYear], [SectionIdentifier], [SessionName])
@@ -7924,7 +7518,9 @@ ALTER TABLE [edfi].[SurveySectionResponse] WITH CHECK ADD CONSTRAINT [FK_SurveyS
 REFERENCES [edfi].[SurveyResponse] ([Namespace], [SurveyIdentifier], [SurveyResponseIdentifier])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_SurveySectionResponse_SurveyResponse]
+ON [edfi].[SurveySectionResponse] ([Namespace] ASC, [SurveyIdentifier] ASC, [SurveyResponseIdentifier] ASC)
+GO
 
 ALTER TABLE [edfi].[SurveySectionResponse] WITH CHECK ADD CONSTRAINT [FK_SurveySectionResponse_SurveySection] FOREIGN KEY ([Namespace], [SurveyIdentifier], [SurveySectionTitle])
 REFERENCES [edfi].[SurveySection] ([Namespace], [SurveyIdentifier], [SurveySectionTitle])
@@ -7938,7 +7534,9 @@ ALTER TABLE [edfi].[SurveySectionResponseEducationOrganizationTargetAssociation]
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
 
--- Reverse index suppressed
+CREATE NONCLUSTERED INDEX [FK_SurveySectionResponseEducationOrganizationTargetAssociation_EducationOrganization]
+ON [edfi].[SurveySectionResponseEducationOrganizationTargetAssociation] ([EducationOrganizationId] ASC)
+GO
 
 ALTER TABLE [edfi].[SurveySectionResponseEducationOrganizationTargetAssociation] WITH CHECK ADD CONSTRAINT [FK_SurveySectionResponseEducationOrganizationTargetAssociation_SurveySectionResponse] FOREIGN KEY ([Namespace], [SurveyIdentifier], [SurveyResponseIdentifier], [SurveySectionTitle])
 REFERENCES [edfi].[SurveySectionResponse] ([Namespace], [SurveyIdentifier], [SurveyResponseIdentifier], [SurveySectionTitle])
