@@ -985,20 +985,36 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
                 isModified = true;
             }
 
-
-            // Sync lists
-            if (mappingContract?.IsStudentAddressesSupported ?? true)
+            // ----------------------------------
+            //   Synch One-to-one relationships
+            // ----------------------------------
+            // StudentAddress (StudentAddress)
+            if (mappingContract?.IsStudentAddressSupported != false)
             {
-                isModified |=
-                    source.StudentAddresses.SynchronizeCollectionTo(
-                        target.StudentAddresses,
-                        onChildAdded: child =>
-                            {
-                                child.Student = target;
-                            },
-                        includeItem: item => mappingContract?.IsStudentAddressIncluded?.Invoke(item) ?? true);
+                if (source.StudentAddress == null)
+                {
+                    if (target.StudentAddress != null)
+                    {
+                        target.StudentAddress = null;
+                        isModified = true;
+                    }
+                }
+                else
+                {
+                    if (target.StudentAddress == null)
+                    {
+                        var itemType = target.GetType().GetProperty("StudentAddress").PropertyType;
+                        var newItem = Activator.CreateInstance(itemType);
+                        target.StudentAddress = (IStudentAddress) newItem;
+                    }
+
+                    isModified |= source.StudentAddress.Synchronize(target.StudentAddress);
+                }
             }
 
+            // -------------------------------------------------------------
+
+            // Sync lists
 
             return isModified;
         }
@@ -1037,13 +1053,32 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
             // ----------------------------------
             //   Map One-to-one relationships
             // ----------------------------------
+            // StudentAddress (StudentAddress) (Source)
+            if (mappingContract?.IsStudentAddressSupported != false)
+            {
+                var itemProperty = target.GetType().GetProperty("StudentAddress");
+
+                if (itemProperty != null)
+                {
+                    if (source.StudentAddress == null)
+                    {
+                        target.StudentAddress = null;
+                    }
+                    else
+                    {
+                        var itemType = itemProperty.PropertyType;
+                        object targetStudentAddress = Activator.CreateInstance(itemType);
+                        (targetStudentAddress as IChildEntity)?.SetParent(target);
+                        source.StudentAddress.Map(targetStudentAddress);
+
+                        // Update the target reference appropriately
+                        target.StudentAddress = (IStudentAddress) targetStudentAddress;
+                    }
+                }
+            }
+            // -------------------------------------------------------------
 
             // Map lists
-
-            if (mappingContract?.IsStudentAddressesSupported != false)
-            {
-                source.StudentAddresses.MapCollectionTo(target.StudentAddresses, target, mappingContract?.IsStudentAddressIncluded);
-            }
 
 
             // Convert source to an ETag, if appropriate

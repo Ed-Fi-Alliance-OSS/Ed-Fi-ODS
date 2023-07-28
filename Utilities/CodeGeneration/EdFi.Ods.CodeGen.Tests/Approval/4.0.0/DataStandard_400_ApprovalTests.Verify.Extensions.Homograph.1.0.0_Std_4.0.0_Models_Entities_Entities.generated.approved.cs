@@ -124,9 +124,9 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string FirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string LastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -358,9 +358,9 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string ParentFirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string ParentLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -634,7 +634,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
             set { Parent = (Parent) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(30, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(30, MinimumLength=2), NoDangerousText, NoWhitespace]
         public virtual string City  { get; set; }
         // -------------------------------------------------------------
 
@@ -795,9 +795,9 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
 
         [DomainSignature, RequiredWithNonDefault, StringLength(100, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string SchoolName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string StudentFirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string StudentLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -1070,7 +1070,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
-        [Required][ValidateObject]
+        [ValidateObject]
         public virtual Entities.NHibernate.SchoolAggregate.Homograph.SchoolAddress SchoolAddress
         {
             get
@@ -1297,7 +1297,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [RequiredWithNonDefault, StringLength(30, MinimumLength=0), NoDangerousText]
+        [RequiredWithNonDefault, StringLength(30, MinimumLength=2), NoDangerousText]
         public virtual string City  { get; set; }
         // -------------------------------------------------------------
 
@@ -1748,9 +1748,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string StaffFirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string StaffLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -2022,7 +2022,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
             set { Staff = (Staff) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(30, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(30, MinimumLength=2), NoDangerousText, NoWhitespace]
         public virtual string City  { get; set; }
         // -------------------------------------------------------------
 
@@ -2183,9 +2183,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
         [DomainSignature, RequiredWithNonDefault, StringLength(100, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string SchoolName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string StudentFirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string StudentLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -2433,7 +2433,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
 
         public Student()
         {
-            StudentAddresses = new HashSet<StudentAddress>();
+           StudentAddressPersistentList = new HashSet<StudentAddress>();
         }
 // restore warnings for inheritance from classes marked Obsolete
 #pragma warning restore 612, 618
@@ -2441,9 +2441,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string StudentFirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string StudentLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -2462,6 +2462,65 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
+        [Required][ValidateObject]
+        public virtual Entities.NHibernate.StudentAggregate.Homograph.StudentAddress StudentAddress
+        {
+            get
+            {
+                // Return the item in the list, if one exists
+                if (StudentAddressPersistentList.Any())
+                    return StudentAddressPersistentList.First();
+
+                // No reference is present
+                return null;
+            }
+            set
+            {
+                // Delete the existing object
+                if (StudentAddressPersistentList.Any())
+                    StudentAddressPersistentList.Clear();
+
+                // If we're setting a value, add it to the list now
+                if (value != null)
+                {
+                    // Set the back-reference to the parent
+                    value.Student = this;
+
+                    StudentAddressPersistentList.Add(value);
+                }
+            }
+        }
+
+        Entities.Common.Homograph.IStudentAddress Entities.Common.Homograph.IStudent.StudentAddress
+        {
+            get { return StudentAddress; }
+            set { StudentAddress = (Entities.NHibernate.StudentAggregate.Homograph.StudentAddress) value; }
+        }
+
+        private ICollection<Entities.NHibernate.StudentAggregate.Homograph.StudentAddress> _studentAddressPersistentList;
+
+        public virtual ICollection<Entities.NHibernate.StudentAggregate.Homograph.StudentAddress> StudentAddressPersistentList
+        {
+            get
+            {
+                // -------------------------------------------------------------
+                // On-demand deserialization logic to attach reverse reference of children
+                // due to ServiceStack's lack of [OnDeserialized] attribute support.
+                // Back-reference is required by NHibernate for persistence.
+                // -------------------------------------------------------------
+                foreach (var item in _studentAddressPersistentList)
+                    if (item.Student == null)
+                        item.Student = this;
+                // -------------------------------------------------------------
+
+                return _studentAddressPersistentList;
+            }
+            set
+            {
+                _studentAddressPersistentList = value;
+            }
+        }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -2517,54 +2576,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         //=============================================================
         //                          Collections
         // -------------------------------------------------------------
-
-        private ICollection<Entities.NHibernate.StudentAggregate.Homograph.StudentAddress> _studentAddresses;
-        private ICollection<Entities.Common.Homograph.IStudentAddress> _studentAddressesCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.StudentAggregate.Homograph.StudentAddress> StudentAddresses
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _studentAddresses)
-                    if (item.Student == null)
-                        item.Student = this;
-                // -------------------------------------------------------------
-
-                return _studentAddresses;
-            }
-            set
-            {
-                _studentAddresses = value;
-                _studentAddressesCovariant = new CovariantCollectionAdapter<Entities.Common.Homograph.IStudentAddress, Entities.NHibernate.StudentAggregate.Homograph.StudentAddress>(value);
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Homograph.IStudentAddress> Entities.Common.Homograph.IStudent.StudentAddresses
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _studentAddresses)
-                    if (item.Student == null)
-                        item.Student = this;
-                // -------------------------------------------------------------
-
-                return _studentAddressesCovariant;
-            }
-            set
-            {
-                StudentAddresses = new HashSet<Entities.NHibernate.StudentAggregate.Homograph.StudentAddress>(value.Cast<Entities.NHibernate.StudentAggregate.Homograph.StudentAddress>());
-            }
-        }
-
         // -------------------------------------------------------------
 
         // Provide lookup property map
@@ -2689,7 +2700,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
             set { Student = (Student) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(30, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(30, MinimumLength=2), NoDangerousText, NoWhitespace]
         public virtual string City  { get; set; }
         // -------------------------------------------------------------
 
@@ -2926,9 +2937,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault, StringLength(100, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string SchoolName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string StudentFirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
         public virtual string StudentLastSurname  { get; set; }
         // -------------------------------------------------------------
 

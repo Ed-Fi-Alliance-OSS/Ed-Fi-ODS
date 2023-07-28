@@ -3539,10 +3539,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         //                         Constructor
         // -------------------------------------------------------------
 
-        public Student()
-        {
-            StudentAddresses = new List<StudentAddress>();
-        }
         // ------------------------------------------------------------
 
         // ============================================================
@@ -3775,6 +3771,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
+        /// <summary>
+        /// address
+        /// </summary>
+        [DataMember(Name = "address")]
+        public StudentAddress StudentAddress { get; set; }
+
+        Entities.Common.Homograph.IStudentAddress Entities.Common.Homograph.IStudent.StudentAddress
+        {
+            get { return StudentAddress; }
+            set { StudentAddress = (StudentAddress) value; }
+        }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -3800,35 +3808,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         // =============================================================
         //                          Collections
         // -------------------------------------------------------------
-        private ICollection<StudentAddress> _studentAddresses;
-        private ICollection<Entities.Common.Homograph.IStudentAddress> _studentAddressesCovariant;
-
-        [DataMember(Name="addresses"), NoDuplicateMembers]
-        public ICollection<StudentAddress> StudentAddresses
-        {
-            get { return _studentAddresses; }
-            set
-            {
-                if (value == null) return;
-                // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
-                var list = new CollectionAdapterWithAddNotifications<StudentAddress>(value,
-                    (s, e) => ((Entities.Common.Homograph.IStudentAddress)e.Item).Student = this);
-                _studentAddresses = list;
-
-                // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Homograph.IStudentAddress, StudentAddress>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Homograph.IStudentAddress)e.Item).Student = this;
-                _studentAddressesCovariant = covariantList;
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Homograph.IStudentAddress> Entities.Common.Homograph.IStudent.StudentAddresses
-        {
-            get { return _studentAddressesCovariant; }
-            set { StudentAddresses = new List<StudentAddress>(value.Cast<StudentAddress>()); }
-        }
-
         // -------------------------------------------------------------
 
         // =============================================================
@@ -3846,17 +3825,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         // -------------------------------------------------------------
         //                        OnDeserialize
         // -------------------------------------------------------------
-
-        [OnDeserialized]
-        internal void OnDeserialized(StreamingContext context)
-        {
-            // Reconnect external inbound references on deserialization
-            if (_studentAddresses != null) foreach (var item in _studentAddresses)
-            {
-                item.Student = this;
-            }
-
-        }
         // ------------------------------------------------------------
 
         // ============================================================
@@ -3914,8 +3882,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
     [ExcludeFromCodeCoverage]
     public class StudentPutPostRequestValidator : FluentValidation.AbstractValidator<Student>
     {
-        private static readonly FullName _fullName_homograph_Student = new FullName("homograph", "Student");
-
         protected override bool PreValidate(FluentValidation.ValidationContext<Student> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -3929,43 +3895,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
 
             var failures = new List<ValidationFailure>();
 
-            // Profile-based collection item filter validation
-            string profileName = null;
-
-            // Get the current mapping contract
-            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Homograph.StudentMappingContract>(() => (global::EdFi.Ods.Entities.Common.Homograph.StudentMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_homograph_Student));
-
-            if (mappingContract.Value != null)
-            {
-                if (mappingContract.Value.IsStudentAddressIncluded != null)
-                {
-                    var hasInvalidStudentAddressesItems = instance.StudentAddresses.Any(x => !mappingContract.Value.IsStudentAddressIncluded(x));
-        
-                    if (hasInvalidStudentAddressesItems)
-                    {
-                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentAddress", $"A supplied 'StudentAddress' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
-                    }
-                }
-
-            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
 
             // Recursively invoke the child collection item validators
-            var studentAddressesValidator = new StudentAddressPutPostRequestValidator();
-
-            foreach (var item in instance.StudentAddresses)
-            {
-                var validationResult = studentAddressesValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
 
             if (failures.Any())
             {
