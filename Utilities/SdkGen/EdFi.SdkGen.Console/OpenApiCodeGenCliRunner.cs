@@ -49,11 +49,6 @@ namespace EdFi.SdkGen.Console
 
         private void RunCliCodegen(IEnumerable<OpenApiDetail> apiEndpoints)
         {
-            //string[] @params =
-            //   {
-            //       $"-XX:+PrintFlagsFinal -version | findstr /i \"HeapSize PermSize ThreadStackSize\""
-            //   };
-            //ShellProcess(Java, @params);
             foreach (var apiEndpoint in apiEndpoints)
             {
                 // Profile/Composite section namespaces end with section name.
