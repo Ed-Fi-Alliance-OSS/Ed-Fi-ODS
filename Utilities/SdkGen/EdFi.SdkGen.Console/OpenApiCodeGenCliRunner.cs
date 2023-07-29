@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+﻿// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -49,6 +49,11 @@ namespace EdFi.SdkGen.Console
 
         private void RunCliCodegen(IEnumerable<OpenApiDetail> apiEndpoints)
         {
+            //string[] @params =
+            //   {
+            //       $"-XX:+PrintFlagsFinal -version | findstr /i \"HeapSize PermSize ThreadStackSize\""
+            //   };
+            //ShellProcess(Java, @params);
             foreach (var apiEndpoint in apiEndpoints)
             {
                 // Profile/Composite section namespaces end with section name.
@@ -71,7 +76,7 @@ namespace EdFi.SdkGen.Console
                     $"-jar {_options.CliExecutableFullName()}", "generate", "-g csharp-netcore", $"-i {apiEndpoint.EndpointUri}",
                     $"--api-package {apiPackage}", $"--model-package {modelPackage}", $"-o {_options.OutputFolder}",
                     $"--additional-properties packageName={_options.Namespace},targetFramework=net6.0,netCoreProjectFile=true",
-                    "--global-property modelTests=false --global-property apiTests=false --global-property apiDocs=false --skip-validate-spec"
+                    "--global-property modelTests=false --global-property apiTests=false --global-property apiDocs=false --global-property modelDocs=false --skip-validate-spec"
                 };
 
                 _log.Info($"Generating C# SDK for {apiEndpoint.EndpointUri}");
