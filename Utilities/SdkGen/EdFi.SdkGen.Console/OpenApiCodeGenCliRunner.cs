@@ -68,6 +68,7 @@ namespace EdFi.SdkGen.Console
                 // code-gen paramaters
                 string[] @params =
                 {
+                    $"-Xms4g",
                     $"-jar {_options.CliExecutableFullName()}", "generate", "-g csharp-netcore", $"-i {apiEndpoint.EndpointUri}",
                     $"--api-package {apiPackage}", $"--model-package {modelPackage}", $"-o {_options.OutputFolder}",
                     $"--additional-properties packageName={_options.Namespace},targetFramework=net6.0,netCoreProjectFile=true",
