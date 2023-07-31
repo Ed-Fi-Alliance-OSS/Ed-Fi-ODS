@@ -361,5 +361,59 @@ namespace EdFi.Ods.Common.UnitTests.Extensions
                 ActualException.ShouldBeOfType<ArgumentNullException>();
             }
         }
+        
+        public class When_checking_an_enumerable_of_strings_containing_same_casing : TestFixtureBase
+        {
+            private bool _actualResult;
+
+            protected override void Act()
+            {
+                string[] values = { "One", "One", "One" };
+
+                _actualResult = values.AllEqual();
+            }
+
+            [Test]
+            public void Should_indicate_values_are_all_equal()
+            {
+                _actualResult.ShouldBeTrue();
+            }
+        }
+        
+        public class When_checking_an_enumerable_of_strings_with_default_comparer_containing_different_casing : TestFixtureBase
+        {
+            private bool _actualResult;
+
+            protected override void Act()
+            {
+                string[] values = { "One", "ONE", "ONE" };
+
+                _actualResult = values.AllEqual();
+            }
+
+            [Test]
+            public void Should_indicate_values_are_not_all_equal()
+            {
+                _actualResult.ShouldBeFalse();
+            }
+        }
+        
+        public class When_checking_an_enumerable_of_strings_with_explicit_case_insensitive_comparer_containing_different_casing : TestFixtureBase
+        {
+            private bool _actualResult;
+
+            protected override void Act()
+            {
+                string[] values = { "One", "oNe", "OnE" };
+
+                _actualResult = values.AllEqual(StringComparer.OrdinalIgnoreCase);
+            }
+
+            [Test]
+            public void Should_indicate_values_are_all_equal()
+            {
+                _actualResult.ShouldBeTrue();
+            }
+        }
     }
 }
