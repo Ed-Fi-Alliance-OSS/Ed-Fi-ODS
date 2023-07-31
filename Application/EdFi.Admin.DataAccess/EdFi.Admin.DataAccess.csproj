@@ -27,7 +27,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="EntityFramework6.Npgsql" Version="6.4.3" />
     <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="Npgsql" Version="6.0.8" />

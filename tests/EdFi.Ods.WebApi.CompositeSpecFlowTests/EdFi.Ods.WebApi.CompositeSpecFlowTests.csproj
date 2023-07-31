@@ -13,14 +13,24 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Application\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
     <ProjectReference Include="..\..\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
-    <ProjectReference Include="..\..\Application\EdFi.Ods.Composites.Enrollment\EdFi.Ods.Composites.Enrollment.csproj" />
-    <ProjectReference Include="..\..\Application\EdFi.Ods.Composites.Test\EdFi.Ods.Composites.Test.csproj" />
+    <ProjectReference Include="..\..\Application\EdFi.Ods.Composites.Enrollment\EdFi.Ods.Composites.Enrollment.csproj">
+      <TreatAsUsed>true</TreatAsUsed>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\EdFi.Ods.Composites.Test\EdFi.Ods.Composites.Test.csproj">
+      <TreatAsUsed>true</TreatAsUsed>
+    </ProjectReference>
     <ProjectReference Include="..\..\Application\EdFi.Ods.Features\EdFi.Ods.Features.csproj" />
-    <ProjectReference Include="..\..\Application\EdFi.Ods.Profiles.Test\EdFi.Ods.Profiles.Test.csproj" />
-    <ProjectReference Include="..\..\Application\EdFi.Ods.Sandbox\EdFi.Ods.Sandbox.csproj" />
+    <ProjectReference Include="..\..\Application\EdFi.Ods.Profiles.Test\EdFi.Ods.Profiles.Test.csproj">
+      <TreatAsUsed>true</TreatAsUsed>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\EdFi.Ods.Sandbox\EdFi.Ods.Sandbox.csproj">
+      <TreatAsUsed>true</TreatAsUsed>
+    </ProjectReference>
     <ProjectReference Include="..\..\Application\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
     <ProjectReference Include="..\..\Application\Test.Common\Test.Common.csproj" />
-    <ProjectReference Include="..\EdFi.TestFixture\EdFi.TestFixture.csproj" />
+    <ProjectReference Include="..\EdFi.TestFixture\EdFi.TestFixture.csproj">
+      <TreatAsUsed>true</TreatAsUsed>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(UseProjectsOverPackages)' == 'true'">
@@ -29,40 +39,20 @@
         <ProjectReference Include="..\..\Application\EdFi.Common\EdFi.Common.csproj" />
       </ItemGroup>
     </When>
-    <Otherwise>
-      <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.0.84" />
-        <PackageReference Include="EdFi.Suite3.Common" Version="7.0.48" />
-      </ItemGroup>
-    </Otherwise>
+    <Otherwise />
   </Choose>
   <ItemGroup>
-    <PackageReference Include="NHibernate" Version="5.4.0" />
     <PackageReference Include="ApprovalTests" Version="5.8.0" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="Dapper" Version="2.0.123" />
-    <PackageReference Include="EntityFramework" Version="6.4.4" />
-    <PackageReference Include="FakeItEasy" Version="7.3.1" />
-    <PackageReference Include="FluentValidation" Version="11.4.0" />
-    <PackageReference Include="Gherkin" Version="26.0.3" />
-    <PackageReference Include="Iesi.Collections" Version="4.0.5" />
-    <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-    <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.3.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Remotion.Linq" Version="2.2.0" />
-    <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
-    <PackageReference Include="Selenium.Support" Version="4.8.0" />
-    <PackageReference Include="Selenium.WebDriver" Version="4.8.0" />
+    
+    
     <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.36" />
     <PackageReference Include="Shouldly" Version="4.1.0" />
     <PackageReference Include="SpecFlow" Version="3.9.74" />
-    <PackageReference Include="SpecFlow.NUnit" Version="3.9.74" />
-    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.9.74" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="appsettings.json">
