@@ -25,12 +25,12 @@
         <ProjectReference Include="..\EdFi.Common\EdFi.Common.csproj" />
       </ItemGroup>
     </When>
-	<Otherwise>
-		<ItemGroup>
-			<PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.0.84" />
-			<PackageReference Include="EdFi.Suite3.Common" Version="7.0.48" />
-		</ItemGroup>
-	</Otherwise>
+    <Otherwise>
+      <ItemGroup>
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.0.84" />
+        <PackageReference Include="EdFi.Suite3.Common" Version="7.0.48" />
+      </ItemGroup>
+    </Otherwise>
   </Choose>
   <ItemGroup>
     <PackageReference Include="CompareNETObjects" Version="4.78.0" />
@@ -40,8 +40,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="NUnit.ConsoleRunner" Version="3.16.2" />
-    
+    <PackageReference Include="NUnit.ConsoleRunner" Version="3.16.2" />    
     <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.36" />
     <PackageReference Include="Shouldly" Version="4.1.0" />
   </ItemGroup>
