@@ -525,8 +525,9 @@ namespace EdFi.Ods.Entities.Common.Homograph
 
         // One-to-one relationships
 
+        IStudentAddress StudentAddress { get; set; }
+
         // Lists
-        ICollection<IStudentAddress> StudentAddresses { get; set; }
 
         // Resource reference data
         Guid? SchoolYearTypeResourceId { get; set; }
@@ -543,18 +544,15 @@ namespace EdFi.Ods.Entities.Common.Homograph
     {
         public StudentMappingContract(
             bool isSchoolYearSupported,
-            bool isStudentAddressesSupported,
-            Func<IStudentAddress, bool> isStudentAddressIncluded
+            bool isStudentAddressSupported
             )
         {
             IsSchoolYearSupported = isSchoolYearSupported;
-            IsStudentAddressesSupported = isStudentAddressesSupported;
-            IsStudentAddressIncluded = isStudentAddressIncluded;
+            IsStudentAddressSupported = isStudentAddressSupported;
         }
 
         public bool IsSchoolYearSupported { get; }
-        public bool IsStudentAddressesSupported { get; }
-        public Func<IStudentAddress, bool> IsStudentAddressIncluded { get; }
+        public bool IsStudentAddressSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -562,8 +560,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
             {
                 case "SchoolYear":
                     return IsSchoolYearSupported;
-                case "StudentAddresses":
-                    return IsStudentAddressesSupported;
+                case "StudentAddress":
+                    return IsStudentAddressSupported;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }

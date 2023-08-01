@@ -20,16 +20,16 @@ public static class PropertyHelpers
 
         switch (propertyType.ToCSharp())
         {
-            case "Guid":
-            case "string":
-            case "DateTime":
+            case CSharpLanguageType.Guid:
+            case CSharpLanguageType.String:
+            case CSharpLanguageType.DateTime:
                 return false;
 
-            case "TimeSpan":
+            case CSharpLanguageType.TimeSpan:
 
-                if (propertyName.StartsWith("Start", StringComparison.OrdinalIgnoreCase)
-                    || propertyName.StartsWith("Begin", StringComparison.OrdinalIgnoreCase)
-                    || propertyName.StartsWith("End", StringComparison.OrdinalIgnoreCase))
+                if (propertyName.StartsWith("Start")
+                    || propertyName.StartsWith("Begin")
+                    || propertyName.StartsWith("End"))
                 {
                     return false;
                 }
@@ -43,9 +43,9 @@ public static class PropertyHelpers
                 if (propertyName.EndsWith("Year", StringComparison.OrdinalIgnoreCase)
                     || propertyName.Equals("Version", StringComparison.OrdinalIgnoreCase)
                     || propertyName.Contains("Sequence")
-                    || propertyName.EndsWith("Number", StringComparison.OrdinalIgnoreCase)
-                    || propertyName.EndsWith("Id", StringComparison.OrdinalIgnoreCase)
-                    || propertyName.EndsWith("USI", StringComparison.OrdinalIgnoreCase))
+                    || propertyName.EndsWith("Number")
+                    || propertyName.EndsWith("Id")
+                    || propertyName.EndsWith("USI"))
                 {
                     return false;
                 }
@@ -58,5 +58,4 @@ public static class PropertyHelpers
 
         return true;
     }
-
 }

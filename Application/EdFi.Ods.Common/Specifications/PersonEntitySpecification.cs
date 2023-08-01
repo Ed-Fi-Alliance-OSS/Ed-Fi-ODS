@@ -31,14 +31,8 @@ namespace EdFi.Ods.Common.Specifications
             return _personTypesProvider.PersonTypes.Contains(typeName, StringComparer.OrdinalIgnoreCase);
         }
 
-        /// <inheritdoc cref="IPersonEntitySpecification.IsPersonIdentifier(string)" />
-        public bool IsPersonIdentifier(string propertyName)
-        {
-            return IsPersonIdentifier(propertyName, null);
-        }
-
         /// <inheritdoc cref="IPersonEntitySpecification.IsPersonIdentifier(string,string)" />
-        public bool IsPersonIdentifier(string propertyName, string personType)
+        public bool IsPersonIdentifier(string propertyName, string personType = null)
         {
             if (personType != null && !_personTypesProvider.PersonTypes.Any(pt => pt.EqualsIgnoreCase(personType)))
             {
@@ -126,7 +120,7 @@ namespace EdFi.Ods.Common.Specifications
             int personStartPos;
 
             // Extract role name applied as a prefix
-            if ((personStartPos = propertyName.LastIndexOf(personType)) >= 0)
+            if ((personStartPos = propertyName.LastIndexOf(personType)) > 0)
             {
                 roleName = propertyName.Substring(0, personStartPos);
             }
@@ -137,8 +131,8 @@ namespace EdFi.Ods.Common.Specifications
         /// <inheritdoc cref="IPersonEntitySpecification.IsDefiningUniqueId" />
         public bool IsDefiningUniqueId(ResourceClassBase resourceClass, ResourceProperty property)
         {
-            return UniqueIdConventions.IsUniqueId(property.PropertyName)
-                && IsPersonEntity(resourceClass.Name);
+            return IsPersonEntity(resourceClass.Name)
+                && UniqueIdConventions.IsUniqueId(property.PropertyName, resourceClass.Name);
         }
     }
 }

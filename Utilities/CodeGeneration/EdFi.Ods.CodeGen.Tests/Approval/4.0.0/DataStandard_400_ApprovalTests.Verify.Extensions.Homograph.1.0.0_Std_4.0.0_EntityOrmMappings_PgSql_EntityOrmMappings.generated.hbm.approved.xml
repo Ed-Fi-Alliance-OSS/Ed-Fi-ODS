@@ -439,6 +439,15 @@
     <!-- Properties -->
     <property name="SchoolYear" column="SchoolYear" type="string" length="20" not-null="true" />
 
+    <!-- One-to-one child mappings -->
+    <set name="StudentAddress" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="StudentFirstName" />
+        <column name="StudentLastSurname" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph.StudentAddress" />
+    </set>
+
     <!-- Aggregate references -->
     <many-to-one name="SchoolYearTypeReferenceData" class="EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="SchoolYear" />
@@ -451,14 +460,6 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="StudentAddresses" cascade="all-delete-orphan" inverse="true" lazy="true">
-      <key>
-        <column name="StudentFirstName" />
-        <column name="StudentLastSurname" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph.StudentAddress" />
-    </set>
-
 </class>
 
 

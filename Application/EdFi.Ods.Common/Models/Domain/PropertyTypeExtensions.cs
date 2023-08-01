@@ -13,7 +13,7 @@ namespace EdFi.Ods.Common.Models.Domain
     {
         private static readonly string[] _notNullableTypes =
         {
-            "string", "byte[]"
+            CSharpLanguageType.String, CSharpLanguageType.ByteArray
         };
 
         // For referenced type mapping documentation: 
@@ -27,31 +27,31 @@ namespace EdFi.Ods.Common.Models.Domain
             switch (propertyType.DbType)
             {
                 case DbType.Int64: // bigint
-                    csharpType = "long";
+                    csharpType = CSharpLanguageType.Long;
 
                     //dotNetType = "Int64";
                     break;
 
                 case DbType.Byte: // tinyint
-                    csharpType = "byte";
+                    csharpType = CSharpLanguageType.Byte;
 
                     //dotNetType = "Byte";
                     break;
 
                 case DbType.Int16: // smallint
-                    csharpType = "short";
+                    csharpType = CSharpLanguageType.Short;
 
                     //dotNetType = "Int16";
                     break;
 
                 case DbType.Int32: // int
-                    csharpType = "int";
+                    csharpType = CSharpLanguageType.Int;
 
                     //dotNetType = "Int32";
                     break;
 
                 case DbType.Guid: // uniqueidentifier
-                    csharpType = "Guid";
+                    csharpType = CSharpLanguageType.Guid;
 
                     //dotNetType = "Guid";
                     break;
@@ -59,44 +59,44 @@ namespace EdFi.Ods.Common.Models.Domain
                 case DbType.Date: // date
                 case DbType.DateTime: // smalldatetime, datetime
                 case DbType.DateTime2:
-                    csharpType = "DateTime";
+                    csharpType = CSharpLanguageType.DateTime;
 
                     //dotNetType = "DateTime";
                     break;
 
                 case DbType.Double: //float
-                    csharpType = "double";
+                    csharpType = CSharpLanguageType.Double;
 
                     //dotNetType = "Double";
                     break;
 
                 case DbType.Single: // real
-
-                    //dotNetType = "single";
+                    csharpType = CSharpLanguageType.Float;
+                    
                     //dotNetType = "Single";
                     break;
 
                 case DbType.Currency:
                 case DbType.Decimal: // numeric, smallmoney, decimal, money
-                    csharpType = "decimal";
+                    csharpType = CSharpLanguageType.Decimal;
 
                     //dotNetType = "Decimal";
                     break;
 
                 case DbType.Boolean:
-                    csharpType = "bool";
+                    csharpType = CSharpLanguageType.Bool;
 
                     //dotNetType = "Boolean";
                     break;
 
                 case DbType.Binary: // image, binary, varbinary, rowversion, timestamp
-                    csharpType = "byte[]";
+                    csharpType = CSharpLanguageType.ByteArray;
 
                     //dotNetType = "Byte[]";
                     break;
 
                 case DbType.Time: // time
-                    csharpType = "TimeSpan";
+                    csharpType = CSharpLanguageType.TimeSpan;
 
                     //dotNetType = "Timespan";
                     break;
@@ -105,14 +105,14 @@ namespace EdFi.Ods.Common.Models.Domain
                 case DbType.String: // char, nvarchar, ntext, text
                 case DbType.AnsiStringFixedLength: // char
                 case DbType.StringFixedLength: // nchar
-                    csharpType = "string";
+                    csharpType = CSharpLanguageType.String;
 
                     //dotNetType = "String";
 
                     break;
 
                 case DbType.DateTimeOffset:
-                    csharpType = "DateTimeOffset";
+                    csharpType = CSharpLanguageType.DateTimeOffset;
 
                     //dotNetType = "DateTimeOffset";
 
@@ -120,15 +120,14 @@ namespace EdFi.Ods.Common.Models.Domain
 
                 default:
 
-                    throw new NotSupportedException(
-                        string.Format(
-                            "CSharp type mapping from 'DbType.{0}' is not supported.",
-                            propertyType.DbType));
+                    throw new NotSupportedException($"CSharp type mapping from 'DbType.{propertyType.DbType}' is not supported.");
             }
 
-            return csharpType + (includeNullability && propertyType.IsNullableCSharpType()
-                       ? "?"
-                       : string.Empty);
+            return string.Format("{0}{1}",
+                csharpType,
+                (includeNullability && propertyType.IsNullableCSharpType()
+                    ? "?"
+                    : string.Empty));
         }
 
         /// <summary>
@@ -257,10 +256,7 @@ namespace EdFi.Ods.Common.Models.Domain
 
                 default:
 
-                    throw new NotSupportedException(
-                        string.Format(
-                            "System type mapping from 'DbType.{0}' is not supported.",
-                            propertyType.DbType));
+                    throw new NotSupportedException($"System type mapping from 'DbType.{propertyType.DbType}' is not supported.");
             }
 
             return systemType;
@@ -272,23 +268,23 @@ namespace EdFi.Ods.Common.Models.Domain
 
             switch (cSharpType)
             {
-                case "string":
-                case "DateTime":
-                case "TimeSpan":
-                case "Guid":
+                case CSharpLanguageType.String:
+                case CSharpLanguageType.DateTime:
+                case CSharpLanguageType.TimeSpan:
+                case CSharpLanguageType.Guid:
                     return "string";
-                case "bool":
+                case CSharpLanguageType.Bool:
                     return "boolean";
-                case "short":
-                case "int":
-                case "long":
+                case CSharpLanguageType.Short:
+                case CSharpLanguageType.Int:
+                case CSharpLanguageType.Long:
                     return "integer";
-                case "float":
-                case "double":
-                case "decimal":
+                case CSharpLanguageType.Float:
+                case CSharpLanguageType.Double:
+                case CSharpLanguageType.Decimal:
                     return "number";
                 default:
-                    throw new Exception(string.Format("Unhandled .NET data type to Swagger conversion: '{0}'.", cSharpType));
+                    throw new Exception($"Unhandled .NET data type to Swagger conversion: '{cSharpType}'.");
             }
         }
 
@@ -298,25 +294,25 @@ namespace EdFi.Ods.Common.Models.Domain
 
             switch (cSharpType)
             {
-                case "string":
-                case "bool":
-                case "TimeSpan":
-                case "Guid":
+                case CSharpLanguageType.String:
+                case CSharpLanguageType.Bool:
+                case CSharpLanguageType.TimeSpan:
+                case CSharpLanguageType.Guid:
                     return null;
-                case "short":
-                case "int":
+                case CSharpLanguageType.Short:
+                case CSharpLanguageType.Int:
                     return "int32";
-                case "long":
+                case CSharpLanguageType.Long:
                     return "int64";
-                case "float":
+                case CSharpLanguageType.Float:
                     return "float";
-                case "double":
-                case "decimal":
+                case CSharpLanguageType.Double:
+                case CSharpLanguageType.Decimal:
                     return "double";
-                case "DateTime":
+                case CSharpLanguageType.DateTime:
                     return type.DbType == DbType.Date ? "date" : "date-time";
                 default:
-                    throw new Exception(string.Format("Unhandled .NET data type to Swagger conversion: '{0}'.", cSharpType));
+                    throw new Exception($"Unhandled .NET data type to Swagger conversion: '{cSharpType}'.");
             }
         }
 
