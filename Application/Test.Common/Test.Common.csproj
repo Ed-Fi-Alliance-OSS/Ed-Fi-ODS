@@ -20,10 +20,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EdFi.Ods.Features\EdFi.Ods.Features.csproj" />
-    <ProjectReference Include="..\EdFi.Ods.Sandbox\EdFi.Ods.Sandbox.csproj">
-      <TreatAsUsed>true</TreatAsUsed>
-    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Ods.Features\EdFi.Ods.Features.csproj" />    
     <ProjectReference Include="..\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
   </ItemGroup>

@@ -22,10 +22,7 @@
     <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.36" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Application\Test.Common\Test.Common.csproj" />
-    <ProjectReference Include="..\EdFi.TestFixture\EdFi.TestFixture.csproj">
-      <TreatAsUsed>true</TreatAsUsed>
-    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Test.Common\Test.Common.csproj" />    
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">
