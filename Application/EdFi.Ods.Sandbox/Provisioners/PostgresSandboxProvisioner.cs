@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using Dapper;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Common.Configuration;
-using EdFi.Ods.Common.Configuration;
 using log4net;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
@@ -28,8 +27,12 @@ namespace EdFi.Ods.Sandbox.Provisioners
         {
             using (var conn = CreateConnection())
             {
-                 string sql =
-                    $"SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='{oldName}';ALTER DATABASE \"{oldName}\" RENAME TO \"{newName}\";";
+                string sql = $"SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='{oldName}';";
+
+                await conn.ExecuteAsync(sql,commandTimeout: CommandTimeout)
+                    .ConfigureAwait(false);
+
+                sql = $"ALTER DATABASE \"{oldName}\" RENAME TO \"{newName}\";";
 
                 await conn.ExecuteAsync(sql,commandTimeout: CommandTimeout)
                     .ConfigureAwait(false);
@@ -42,10 +45,12 @@ namespace EdFi.Ods.Sandbox.Provisioners
             {
                 foreach (string key in deletedClientKeys)
                 {
-                   await conn.ExecuteAsync($@"
-                        SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='{_databaseNameBuilder.SandboxNameForKey(key)}'; 
-                        DROP DATABASE IF EXISTS ""{_databaseNameBuilder.SandboxNameForKey(key)}"";
-                        ", commandTimeout: CommandTimeout)
+                    await conn.ExecuteAsync(
+                        $@"SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='{_databaseNameBuilder.SandboxNameForKey(key)}';");
+
+                    await conn.ExecuteAsync(
+                            $@"DROP DATABASE IF EXISTS ""{_databaseNameBuilder.SandboxNameForKey(key)}"";",
+                            commandTimeout: CommandTimeout)
                         .ConfigureAwait(false);
                 }
             }
@@ -55,11 +60,10 @@ namespace EdFi.Ods.Sandbox.Provisioners
         {
             using (var conn = CreateConnection())
             {
-                string sql = @$"
-                    SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='{originalDatabaseName}'; 
-                    CREATE DATABASE ""{newDatabaseName}"" TEMPLATE ""{originalDatabaseName}""
-                ";
+                string sql = @$"SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='{originalDatabaseName}';";
+                await conn.ExecuteAsync(sql, commandTimeout: CommandTimeout).ConfigureAwait(false);
 
+                sql = @$"CREATE DATABASE ""{newDatabaseName}"" TEMPLATE ""{originalDatabaseName}""";
                 await conn.ExecuteAsync(sql, commandTimeout: CommandTimeout).ConfigureAwait(false);
             }
         }
