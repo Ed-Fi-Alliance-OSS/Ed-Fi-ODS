@@ -1663,6 +1663,7 @@
       </xs:appinfo>
     </xs:annotation>
     <xs:restriction base="xs:string">
+      <xs:minLength value="3" />
       <xs:maxLength value="20" />
     </xs:restriction>
   </xs:simpleType>

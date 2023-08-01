@@ -15,9 +15,9 @@ COMMENT ON COLUMN homograph.Parent.ParentLastSurname IS 'The name borne in commo
 
 -- Extended Properties [homograph].[ParentAddress] --
 COMMENT ON TABLE homograph.ParentAddress IS 'The set of elements that describes an address, including the street address, city, state, and ZIP code.';
-COMMENT ON COLUMN homograph.ParentAddress.City IS 'The name of the city in which an address is located.';
 COMMENT ON COLUMN homograph.ParentAddress.ParentFirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
 COMMENT ON COLUMN homograph.ParentAddress.ParentLastSurname IS 'The name borne in common by members of a family.';
+COMMENT ON COLUMN homograph.ParentAddress.City IS 'The name of the city in which an address is located.';
 
 -- Extended Properties [homograph].[ParentStudentSchoolAssociation] --
 COMMENT ON TABLE homograph.ParentStudentSchoolAssociation IS 'The students association with the parent.';
@@ -48,15 +48,15 @@ COMMENT ON COLUMN homograph.Staff.StaffLastSurname IS 'The name borne in common 
 
 -- Extended Properties [homograph].[StaffAddress] --
 COMMENT ON TABLE homograph.StaffAddress IS 'The set of elements that describes an address, including the street address, city, state, and ZIP code.';
-COMMENT ON COLUMN homograph.StaffAddress.City IS 'The name of the city in which an address is located.';
 COMMENT ON COLUMN homograph.StaffAddress.StaffFirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
 COMMENT ON COLUMN homograph.StaffAddress.StaffLastSurname IS 'The name borne in common by members of a family.';
+COMMENT ON COLUMN homograph.StaffAddress.City IS 'The name of the city in which an address is located.';
 
 -- Extended Properties [homograph].[StaffStudentSchoolAssociation] --
 COMMENT ON TABLE homograph.StaffStudentSchoolAssociation IS 'The students under the instruction of the staff member';
-COMMENT ON COLUMN homograph.StaffStudentSchoolAssociation.SchoolName IS 'The name of the school.';
 COMMENT ON COLUMN homograph.StaffStudentSchoolAssociation.StaffFirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
 COMMENT ON COLUMN homograph.StaffStudentSchoolAssociation.StaffLastSurname IS 'The name borne in common by members of a family.';
+COMMENT ON COLUMN homograph.StaffStudentSchoolAssociation.SchoolName IS 'The name of the school.';
 COMMENT ON COLUMN homograph.StaffStudentSchoolAssociation.StudentFirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
 COMMENT ON COLUMN homograph.StaffStudentSchoolAssociation.StudentLastSurname IS 'The name borne in common by members of a family.';
 
@@ -68,9 +68,9 @@ COMMENT ON COLUMN homograph.Student.SchoolYear IS 'A school year.';
 
 -- Extended Properties [homograph].[StudentAddress] --
 COMMENT ON TABLE homograph.StudentAddress IS 'The set of elements that describes an address, including the street address, city, state, and ZIP code.';
-COMMENT ON COLUMN homograph.StudentAddress.City IS 'The name of the city in which an address is located.';
 COMMENT ON COLUMN homograph.StudentAddress.StudentFirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
 COMMENT ON COLUMN homograph.StudentAddress.StudentLastSurname IS 'The name borne in common by members of a family.';
+COMMENT ON COLUMN homograph.StudentAddress.City IS 'The name of the city in which an address is located.';
 
 -- Extended Properties [homograph].[StudentSchoolAssociation] --
 COMMENT ON TABLE homograph.StudentSchoolAssociation IS 'This association represents the School in which a student is enrolled. The semantics of enrollment may differ slightly by state. Non-enrollment relationships between a student and an education organization may be described using the StudentEducationOrganizationAssociation.';

@@ -30,6 +30,7 @@
           "propertyName": "AMBusNumber",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 6,
             "precision": 0,
             "scale": 0,
@@ -115,6 +116,7 @@
           "propertyName": "PMBusNumber",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 6,
             "precision": 0,
             "scale": 0,
@@ -287,5 +289,6 @@
       },
       "potentiallyLogical": false
     }
-  ]
+  ],
+  "edFiVersion": "4.0.0"
 }

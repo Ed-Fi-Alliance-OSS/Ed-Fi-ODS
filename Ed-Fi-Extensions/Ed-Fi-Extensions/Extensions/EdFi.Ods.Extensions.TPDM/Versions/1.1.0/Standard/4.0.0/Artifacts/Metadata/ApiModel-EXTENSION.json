@@ -585,6 +585,7 @@
           "propertyName": "BirthCity",
           "propertyType": {
             "dbType": "String",
+            "minLength": 2,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -602,6 +603,7 @@
           "propertyName": "BirthDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -619,6 +621,7 @@
           "propertyName": "BirthInternationalProvince",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -636,6 +639,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -670,6 +674,7 @@
           "propertyName": "DateEnteredUS",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -687,6 +692,7 @@
           "propertyName": "DisplacementStatus",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -704,6 +710,7 @@
           "propertyName": "EconomicDisadvantaged",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -721,6 +728,7 @@
           "propertyName": "FirstGenerationStudent",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -738,6 +746,7 @@
           "propertyName": "FirstName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -755,6 +764,7 @@
           "propertyName": "GenerationCodeSuffix",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 10,
             "precision": 0,
             "scale": 0,
@@ -772,6 +782,7 @@
           "propertyName": "HispanicLatinoEthnicity",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -823,6 +834,7 @@
           "propertyName": "LastSurname",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -840,6 +852,7 @@
           "propertyName": "MaidenName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -857,6 +870,7 @@
           "propertyName": "MiddleName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -874,6 +888,7 @@
           "propertyName": "MultipleBirthStatus",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -891,6 +906,7 @@
           "propertyName": "PersonalTitlePrefix",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -946,6 +962,7 @@
           "propertyName": "ApartmentRoomSuiteNumber",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -963,6 +980,7 @@
           "propertyName": "BuildingSiteNumber",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 20,
             "precision": 0,
             "scale": 0,
@@ -980,6 +998,7 @@
           "propertyName": "City",
           "propertyType": {
             "dbType": "String",
+            "minLength": 2,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -997,6 +1016,7 @@
           "propertyName": "CongressionalDistrict",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -1014,6 +1034,7 @@
           "propertyName": "CountyFIPSCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 3,
             "maxLength": 5,
             "precision": 0,
             "scale": 0,
@@ -1048,6 +1069,7 @@
           "propertyName": "DoNotPublishIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -1065,6 +1087,7 @@
           "propertyName": "Latitude",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 20,
             "precision": 0,
             "scale": 0,
@@ -1082,6 +1105,7 @@
           "propertyName": "Longitude",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 20,
             "precision": 0,
             "scale": 0,
@@ -1099,6 +1123,7 @@
           "propertyName": "NameOfCounty",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -1116,6 +1141,7 @@
           "propertyName": "PostalCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 17,
             "precision": 0,
             "scale": 0,
@@ -1133,6 +1159,7 @@
           "propertyName": "StreetNumberName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -1151,8 +1178,8 @@
         {
           "identifierName": "CandidateAddress_PK",
           "identifyingPropertyNames": [
-            "AddressTypeDescriptorId",
             "CandidateIdentifier",
+            "AddressTypeDescriptorId",
             "City",
             "PostalCode",
             "StateAbbreviationDescriptorId",
@@ -1181,6 +1208,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -1215,6 +1243,7 @@
           "propertyName": "EndDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -1233,13 +1262,13 @@
         {
           "identifierName": "CandidateAddressPeriod_PK",
           "identifyingPropertyNames": [
-            "AddressTypeDescriptorId",
-            "BeginDate",
             "CandidateIdentifier",
+            "AddressTypeDescriptorId",
             "City",
             "PostalCode",
             "StateAbbreviationDescriptorId",
-            "StreetNumberName"
+            "StreetNumberName",
+            "BeginDate"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -1281,6 +1310,7 @@
           "propertyName": "DisabilityDiagnosis",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 80,
             "precision": 0,
             "scale": 0,
@@ -1387,6 +1417,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -1421,6 +1452,7 @@
           "propertyName": "EndDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -1534,10 +1566,10 @@
           "identifyingPropertyNames": [
             "BeginDate",
             "CandidateIdentifier",
-            "CohortYearTypeDescriptorId",
             "EducationOrganizationId",
             "ProgramName",
             "ProgramTypeDescriptorId",
+            "CohortYearTypeDescriptorId",
             "SchoolYear"
           ],
           "isPrimary": true,
@@ -1580,6 +1612,7 @@
           "propertyName": "EndDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -1597,6 +1630,7 @@
           "propertyName": "MajorSpecialization",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -1614,6 +1648,7 @@
           "propertyName": "MinorSpecialization",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -1635,9 +1670,9 @@
             "BeginDate",
             "CandidateIdentifier",
             "EducationOrganizationId",
-            "MajorSpecialization",
             "ProgramName",
-            "ProgramTypeDescriptorId"
+            "ProgramTypeDescriptorId",
+            "MajorSpecialization"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -1679,6 +1714,7 @@
           "propertyName": "DoNotPublishIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -1696,6 +1732,7 @@
           "propertyName": "ElectronicMailAddress",
           "propertyType": {
             "dbType": "String",
+            "minLength": 7,
             "maxLength": 128,
             "precision": 0,
             "scale": 0,
@@ -1713,6 +1750,7 @@
           "propertyName": "PrimaryEmailAddressIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -1864,6 +1902,7 @@
           "propertyName": "FirstName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -1881,6 +1920,7 @@
           "propertyName": "GenerationCodeSuffix",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 10,
             "precision": 0,
             "scale": 0,
@@ -1898,6 +1938,7 @@
           "propertyName": "LastSurname",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -1915,6 +1956,7 @@
           "propertyName": "MiddleName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -1932,6 +1974,7 @@
           "propertyName": "PersonalTitlePrefix",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -1993,6 +2036,7 @@
           "propertyName": "DocumentExpirationDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -2010,6 +2054,7 @@
           "propertyName": "DocumentTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -2027,6 +2072,7 @@
           "propertyName": "IssuerDocumentIdentificationCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -2044,6 +2090,7 @@
           "propertyName": "IssuerName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -2150,6 +2197,7 @@
           "propertyName": "DoNotPublishIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -2170,7 +2218,8 @@
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": true
+            "isNullable": true,
+            "minValue": 1
           },
           "description": "The order of priority assigned to telephone numbers to define which number to attempt first, second, etc.",
           "isIdentifying": false,
@@ -2184,6 +2233,7 @@
           "propertyName": "TelephoneNumber",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 24,
             "precision": 0,
             "scale": 0,
@@ -2201,6 +2251,7 @@
           "propertyName": "TextMessageCapabilityIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -2296,6 +2347,7 @@
           "propertyName": "BoardCertificationIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -2313,6 +2365,7 @@
           "propertyName": "CertificationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 64,
             "precision": 0,
             "scale": 0,
@@ -2347,6 +2400,7 @@
           "propertyName": "CredentialStatusDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -2435,9 +2489,9 @@
           "identifierName": "CredentialStudentAcademicRecord_PK",
           "identifyingPropertyNames": [
             "CredentialIdentifier",
+            "StateOfIssueStateAbbreviationDescriptorId",
             "EducationOrganizationId",
             "SchoolYear",
-            "StateOfIssueStateAbbreviationDescriptorId",
             "StudentUSI",
             "TermDescriptorId"
           ],
@@ -2515,6 +2569,7 @@
           "propertyName": "ProgramId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 20,
             "precision": 0,
             "scale": 0,
@@ -2532,6 +2587,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -2608,9 +2664,9 @@
           "identifierName": "EducatorPreparationProgramGradeLevel_PK",
           "identifyingPropertyNames": [
             "EducationOrganizationId",
-            "GradeLevelDescriptorId",
             "ProgramName",
-            "ProgramTypeDescriptorId"
+            "ProgramTypeDescriptorId",
+            "GradeLevelDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -2727,6 +2783,7 @@
           "propertyName": "EvaluationDescription",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -2744,6 +2801,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -2907,6 +2965,7 @@
           "propertyName": "EvaluationElementTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -3055,6 +3114,7 @@
           "propertyName": "AreaOfRefinement",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 1024,
             "precision": 0,
             "scale": 0,
@@ -3072,6 +3132,7 @@
           "propertyName": "AreaOfReinforcement",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 1024,
             "precision": 0,
             "scale": 0,
@@ -3089,6 +3150,7 @@
           "propertyName": "Comments",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 1024,
             "precision": 0,
             "scale": 0,
@@ -3123,6 +3185,7 @@
           "propertyName": "Feedback",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 2048,
             "precision": 0,
             "scale": 0,
@@ -3279,12 +3342,12 @@
             "EvaluationElementTitle",
             "EvaluationObjectiveTitle",
             "EvaluationPeriodDescriptorId",
-            "EvaluationRatingLevelDescriptorId",
             "EvaluationTitle",
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "SchoolYear",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "EvaluationRatingLevelDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3368,6 +3431,7 @@
           "propertyName": "RatingResultTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -3395,11 +3459,11 @@
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "PersonId",
-            "Rating",
-            "RatingResultTitle",
             "SchoolYear",
             "SourceSystemDescriptorId",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "Rating",
+            "RatingResultTitle"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3441,6 +3505,7 @@
           "propertyName": "EvaluationObjectiveDescription",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -3458,6 +3523,7 @@
           "propertyName": "EvaluationObjectiveTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -3605,6 +3671,7 @@
           "propertyName": "Comments",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 1024,
             "precision": 0,
             "scale": 0,
@@ -3776,12 +3843,12 @@
             "EducationOrganizationId",
             "EvaluationObjectiveTitle",
             "EvaluationPeriodDescriptorId",
-            "EvaluationRatingLevelDescriptorId",
             "EvaluationTitle",
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "SchoolYear",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "EvaluationRatingLevelDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3840,6 +3907,7 @@
           "propertyName": "RatingResultTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -3866,11 +3934,11 @@
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "PersonId",
-            "Rating",
-            "RatingResultTitle",
             "SchoolYear",
             "SourceSystemDescriptorId",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "Rating",
+            "RatingResultTitle"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3937,6 +4005,7 @@
           "propertyName": "EvaluationDate",
           "propertyType": {
             "dbType": "DateTime2",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -4089,12 +4158,12 @@
           "identifyingPropertyNames": [
             "EducationOrganizationId",
             "EvaluationPeriodDescriptorId",
-            "EvaluationRatingLevelDescriptorId",
             "EvaluationTitle",
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "SchoolYear",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "EvaluationRatingLevelDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4178,6 +4247,7 @@
           "propertyName": "RatingResultTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -4203,11 +4273,11 @@
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "PersonId",
-            "Rating",
-            "RatingResultTitle",
             "SchoolYear",
             "SourceSystemDescriptorId",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "Rating",
+            "RatingResultTitle"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4249,6 +4319,7 @@
           "propertyName": "FirstName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -4266,6 +4337,7 @@
           "propertyName": "LastSurname",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -4288,14 +4360,14 @@
             "EvaluationDate",
             "EvaluationPeriodDescriptorId",
             "EvaluationTitle",
-            "FirstName",
-            "LastSurname",
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "PersonId",
             "SchoolYear",
             "SourceSystemDescriptorId",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "FirstName",
+            "LastSurname"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4354,6 +4426,7 @@
           "propertyName": "ReceivedTrainingDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -4376,14 +4449,14 @@
             "EvaluationDate",
             "EvaluationPeriodDescriptorId",
             "EvaluationTitle",
-            "FirstName",
-            "LastSurname",
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "PersonId",
             "SchoolYear",
             "SourceSystemDescriptorId",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "FirstName",
+            "LastSurname"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4475,6 +4548,7 @@
           "propertyName": "AidConditionDescription",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 1024,
             "precision": 0,
             "scale": 0,
@@ -4492,6 +4566,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -4526,6 +4601,7 @@
           "propertyName": "EndDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -4577,6 +4653,7 @@
           "propertyName": "PellGrantRecipient",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -4735,6 +4812,7 @@
           "propertyName": "PerformanceEvaluationDescription",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -4752,6 +4830,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -4832,11 +4911,11 @@
           "identifyingPropertyNames": [
             "EducationOrganizationId",
             "EvaluationPeriodDescriptorId",
-            "GradeLevelDescriptorId",
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "SchoolYear",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "GradeLevelDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4861,6 +4940,7 @@
           "propertyName": "ActualDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -4881,7 +4961,8 @@
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": true
+            "isNullable": true,
+            "minValue": 1
           },
           "description": "The actual or estimated number of clock minutes during which the performance evaluation was conducted.",
           "isIdentifying": false,
@@ -4895,6 +4976,7 @@
           "propertyName": "ActualTime",
           "propertyType": {
             "dbType": "Time",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -4912,6 +4994,7 @@
           "propertyName": "Announced",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -4929,6 +5012,7 @@
           "propertyName": "Comments",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 1024,
             "precision": 0,
             "scale": 0,
@@ -4997,6 +5081,7 @@
           "propertyName": "ScheduleDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -5113,11 +5198,11 @@
           "identifyingPropertyNames": [
             "EducationOrganizationId",
             "EvaluationPeriodDescriptorId",
-            "EvaluationRatingLevelDescriptorId",
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "SchoolYear",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "EvaluationRatingLevelDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -5201,6 +5286,7 @@
           "propertyName": "RatingResultTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -5224,11 +5310,11 @@
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "PersonId",
-            "Rating",
-            "RatingResultTitle",
             "SchoolYear",
             "SourceSystemDescriptorId",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "Rating",
+            "RatingResultTitle"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -5270,6 +5356,7 @@
           "propertyName": "FirstName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -5287,6 +5374,7 @@
           "propertyName": "LastSurname",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -5307,14 +5395,14 @@
           "identifyingPropertyNames": [
             "EducationOrganizationId",
             "EvaluationPeriodDescriptorId",
-            "FirstName",
-            "LastSurname",
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "PersonId",
             "SchoolYear",
             "SourceSystemDescriptorId",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "FirstName",
+            "LastSurname"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -5373,6 +5461,7 @@
           "propertyName": "ReceivedTrainingDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -5393,14 +5482,14 @@
           "identifyingPropertyNames": [
             "EducationOrganizationId",
             "EvaluationPeriodDescriptorId",
-            "FirstName",
-            "LastSurname",
             "PerformanceEvaluationTitle",
             "PerformanceEvaluationTypeDescriptorId",
             "PersonId",
             "SchoolYear",
             "SourceSystemDescriptorId",
-            "TermDescriptorId"
+            "TermDescriptorId",
+            "FirstName",
+            "LastSurname"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -5467,6 +5556,7 @@
           "propertyName": "CriterionDescription",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 1024,
             "precision": 0,
             "scale": 0,
@@ -6268,6 +6358,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -6308,6 +6399,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -6602,6 +6694,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -6625,6 +6718,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -6779,6 +6873,24 @@
       },
       "primaryEntityProperties": [
         {
+          "propertyName": "CandidateIdentifier",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 32,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a candidate.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CandidateIdentifier",
+            "postgreSql": "CandidateIdentifier"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -6796,26 +6908,10 @@
           }
         },
         {
-          "propertyName": "CandidateIdentifier",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 32,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a candidate.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CandidateIdentifier",
-            "postgreSql": "CandidateIdentifier"
-          }
-        },
-        {
           "propertyName": "City",
           "propertyType": {
             "dbType": "String",
+            "minLength": 2,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -6833,6 +6929,7 @@
           "propertyName": "PostalCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 17,
             "precision": 0,
             "scale": 0,
@@ -6867,6 +6964,7 @@
           "propertyName": "StreetNumberName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -6887,6 +6985,24 @@
       },
       "secondaryEntityProperties": [
         {
+          "propertyName": "CandidateIdentifier",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 32,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a candidate.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CandidateIdentifier",
+            "postgreSql": "CandidateIdentifier"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -6904,26 +7020,10 @@
           }
         },
         {
-          "propertyName": "CandidateIdentifier",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 32,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a candidate.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CandidateIdentifier",
-            "postgreSql": "CandidateIdentifier"
-          }
-        },
-        {
           "propertyName": "City",
           "propertyType": {
             "dbType": "String",
+            "minLength": 2,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -6941,6 +7041,7 @@
           "propertyName": "PostalCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 17,
             "precision": 0,
             "scale": 0,
@@ -6975,6 +7076,7 @@
           "propertyName": "StreetNumberName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -7012,6 +7114,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -7035,6 +7138,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -7192,6 +7296,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -7232,6 +7337,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -7346,6 +7452,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -7369,6 +7476,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -7423,6 +7531,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -7480,6 +7589,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -7654,6 +7764,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -7671,6 +7782,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -7705,6 +7817,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -7745,6 +7858,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -7762,6 +7876,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -7796,6 +7911,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -8030,6 +8146,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -8047,6 +8164,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -8081,6 +8199,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -8121,12 +8240,13 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
             "isNullable": false
           },
-          "description": "The month, day, and year on which the Teacher Candidate first declared specialization.",
+          "description": "The begin date for the association.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -8138,6 +8258,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -8172,6 +8293,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -8226,6 +8348,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -8249,6 +8372,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -8346,6 +8470,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -8369,6 +8494,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -8466,6 +8592,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -8506,6 +8633,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -8620,6 +8748,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -8643,6 +8772,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -8740,6 +8870,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -8763,6 +8894,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -8980,6 +9112,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -9003,6 +9136,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -9100,6 +9234,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -9123,6 +9258,7 @@
           "propertyName": "CandidateIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -9400,6 +9536,7 @@
           "propertyName": "CredentialIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -9440,6 +9577,7 @@
           "propertyName": "CredentialIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -9613,6 +9751,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -9653,6 +9792,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -9767,6 +9907,7 @@
           "propertyName": "CredentialIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -9807,6 +9948,7 @@
           "propertyName": "CredentialIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -10220,6 +10362,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -10277,6 +10420,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -10665,6 +10809,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -10773,6 +10918,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -10878,6 +11024,7 @@
           "propertyName": "EvaluationObjectiveTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -10912,6 +11059,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -10929,6 +11077,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -11020,6 +11169,7 @@
           "propertyName": "EvaluationObjectiveTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -11054,6 +11204,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -11071,6 +11222,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -11236,6 +11388,7 @@
           "propertyName": "EvaluationElementTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -11253,6 +11406,7 @@
           "propertyName": "EvaluationObjectiveTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -11287,6 +11441,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -11304,6 +11459,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -11395,6 +11551,7 @@
           "propertyName": "EvaluationElementTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -11412,6 +11569,7 @@
           "propertyName": "EvaluationObjectiveTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -11446,6 +11604,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -11463,6 +11622,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -11628,6 +11788,7 @@
           "propertyName": "EvaluationDate",
           "propertyType": {
             "dbType": "DateTime2",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -11645,6 +11806,7 @@
           "propertyName": "EvaluationObjectiveTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -11679,6 +11841,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -11696,6 +11859,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -11730,6 +11894,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -11821,6 +11986,7 @@
           "propertyName": "EvaluationDate",
           "propertyType": {
             "dbType": "DateTime2",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -11838,6 +12004,7 @@
           "propertyName": "EvaluationObjectiveTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -11872,6 +12039,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -11889,6 +12057,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -11923,6 +12092,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -12028,6 +12198,7 @@
           "propertyName": "EvaluationElementTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -12045,6 +12216,7 @@
           "propertyName": "EvaluationObjectiveTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -12079,6 +12251,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -12096,6 +12269,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -12187,6 +12361,7 @@
           "propertyName": "EvaluationElementTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -12204,6 +12379,7 @@
           "propertyName": "EvaluationObjectiveTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -12238,6 +12414,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -12255,6 +12432,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -12480,6 +12658,7 @@
           "propertyName": "EvaluationDate",
           "propertyType": {
             "dbType": "DateTime2",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -12497,6 +12676,7 @@
           "propertyName": "EvaluationElementTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -12514,6 +12694,7 @@
           "propertyName": "EvaluationObjectiveTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -12548,6 +12729,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -12565,6 +12747,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -12599,6 +12782,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -12690,6 +12874,7 @@
           "propertyName": "EvaluationDate",
           "propertyType": {
             "dbType": "DateTime2",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -12707,6 +12892,7 @@
           "propertyName": "EvaluationElementTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -12724,6 +12910,7 @@
           "propertyName": "EvaluationObjectiveTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -12758,6 +12945,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -12775,6 +12963,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -12809,6 +12998,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -12991,6 +13181,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -13008,6 +13199,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -13116,6 +13308,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -13133,6 +13326,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -13298,6 +13492,7 @@
           "propertyName": "EvaluationObjectiveTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -13332,6 +13527,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -13349,6 +13545,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -13440,6 +13637,7 @@
           "propertyName": "EvaluationObjectiveTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -13474,6 +13672,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -13491,6 +13690,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -13596,6 +13796,7 @@
           "propertyName": "EvaluationDate",
           "propertyType": {
             "dbType": "DateTime2",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -13630,6 +13831,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -13647,6 +13849,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -13681,6 +13884,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -13772,6 +13976,7 @@
           "propertyName": "EvaluationDate",
           "propertyType": {
             "dbType": "DateTime2",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -13806,6 +14011,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -13823,6 +14029,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -13857,6 +14064,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -14022,6 +14230,7 @@
           "propertyName": "EvaluationObjectiveTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -14056,6 +14265,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -14073,6 +14283,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -14164,6 +14375,7 @@
           "propertyName": "EvaluationObjectiveTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -14198,6 +14410,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -14215,6 +14428,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -14380,6 +14594,7 @@
           "propertyName": "EvaluationDate",
           "propertyType": {
             "dbType": "DateTime2",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -14397,6 +14612,7 @@
           "propertyName": "EvaluationObjectiveTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -14431,6 +14647,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -14448,6 +14665,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -14482,6 +14700,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -14573,6 +14792,7 @@
           "propertyName": "EvaluationDate",
           "propertyType": {
             "dbType": "DateTime2",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -14590,6 +14810,7 @@
           "propertyName": "EvaluationObjectiveTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -14624,6 +14845,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -14641,6 +14863,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -14675,6 +14898,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -14917,6 +15141,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -14934,6 +15159,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -15042,6 +15268,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -15059,6 +15286,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -15301,6 +15529,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -15335,6 +15564,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -15443,6 +15673,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -15477,6 +15708,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -15565,6 +15797,7 @@
           "propertyName": "LocalCourseCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -15616,6 +15849,7 @@
           "propertyName": "SectionIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -15633,6 +15867,7 @@
           "propertyName": "SessionName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -15656,6 +15891,7 @@
           "propertyName": "LocalCourseCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -15707,6 +15943,7 @@
           "propertyName": "SectionIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -15724,6 +15961,7 @@
           "propertyName": "SessionName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -15795,6 +16033,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -15812,6 +16051,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -15920,6 +16160,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -15937,6 +16178,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -16162,6 +16404,7 @@
           "propertyName": "EvaluationDate",
           "propertyType": {
             "dbType": "DateTime2",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -16196,6 +16439,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -16213,6 +16457,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -16247,6 +16492,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -16338,6 +16584,7 @@
           "propertyName": "EvaluationDate",
           "propertyType": {
             "dbType": "DateTime2",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -16372,6 +16619,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -16389,6 +16637,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -16423,6 +16672,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -16588,6 +16838,7 @@
           "propertyName": "EvaluationDate",
           "propertyType": {
             "dbType": "DateTime2",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -16622,6 +16873,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -16639,6 +16891,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -16673,6 +16926,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -16764,6 +17018,7 @@
           "propertyName": "EvaluationDate",
           "propertyType": {
             "dbType": "DateTime2",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -16798,6 +17053,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -16815,6 +17071,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -16849,6 +17106,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -16937,6 +17195,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -16977,6 +17236,7 @@
           "propertyName": "ReviewerPersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -17021,7 +17281,7 @@
         "schema": "tpdm",
         "name": "FK_EvaluationRatingReviewerReceivedTraining_EvaluationRatingReviewer"
       },
-      "cardinality": "OneToOne",
+      "cardinality": "OneToZeroOrOne",
       "primaryEntityFullName": {
         "schema": "tpdm",
         "name": "EvaluationRatingReviewer"
@@ -17048,6 +17308,7 @@
           "propertyName": "EvaluationDate",
           "propertyType": {
             "dbType": "DateTime2",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -17082,6 +17343,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -17096,43 +17358,10 @@
           }
         },
         {
-          "propertyName": "FirstName",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "FirstName",
-            "postgreSql": "FirstName"
-          }
-        },
-        {
-          "propertyName": "LastSurname",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name borne in common by members of a family.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LastSurname",
-            "postgreSql": "LastSurname"
-          }
-        },
-        {
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -17167,6 +17396,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -17229,6 +17459,42 @@
           "columnNames": {
             "sqlServer": "TermDescriptorId",
             "postgreSql": "TermDescriptorId"
+          }
+        },
+        {
+          "propertyName": "FirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "FirstName",
+            "postgreSql": "FirstName"
+          }
+        },
+        {
+          "propertyName": "LastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastSurname",
+            "postgreSql": "LastSurname"
           }
         }
       ],
@@ -17258,6 +17524,7 @@
           "propertyName": "EvaluationDate",
           "propertyType": {
             "dbType": "DateTime2",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -17292,6 +17559,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -17306,43 +17574,10 @@
           }
         },
         {
-          "propertyName": "FirstName",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "FirstName",
-            "postgreSql": "FirstName"
-          }
-        },
-        {
-          "propertyName": "LastSurname",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name borne in common by members of a family.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LastSurname",
-            "postgreSql": "LastSurname"
-          }
-        },
-        {
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -17377,6 +17612,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -17439,6 +17675,42 @@
           "columnNames": {
             "sqlServer": "TermDescriptorId",
             "postgreSql": "TermDescriptorId"
+          }
+        },
+        {
+          "propertyName": "FirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "FirstName",
+            "postgreSql": "FirstName"
+          }
+        },
+        {
+          "propertyName": "LastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastSurname",
+            "postgreSql": "LastSurname"
           }
         }
       ],
@@ -18279,6 +18551,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -18387,6 +18660,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -18569,6 +18843,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -18677,6 +18952,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -18825,6 +19101,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -18865,6 +19142,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -19013,6 +19291,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -19121,6 +19400,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -19303,6 +19583,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -19337,6 +19618,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -19445,6 +19727,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -19479,6 +19762,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -19661,6 +19945,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -19695,6 +19980,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -19803,6 +20089,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -19837,6 +20124,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -19925,6 +20213,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -19965,6 +20254,7 @@
           "propertyName": "ReviewerPersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -20009,7 +20299,7 @@
         "schema": "tpdm",
         "name": "FK_PerformanceEvaluationRatingReviewerReceivedTraining_PerformanceEvaluationRatingReviewer"
       },
-      "cardinality": "OneToOne",
+      "cardinality": "OneToZeroOrOne",
       "primaryEntityFullName": {
         "schema": "tpdm",
         "name": "PerformanceEvaluationRatingReviewer"
@@ -20050,43 +20340,10 @@
           }
         },
         {
-          "propertyName": "FirstName",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "FirstName",
-            "postgreSql": "FirstName"
-          }
-        },
-        {
-          "propertyName": "LastSurname",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name borne in common by members of a family.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LastSurname",
-            "postgreSql": "LastSurname"
-          }
-        },
-        {
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -20121,6 +20378,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -20183,6 +20441,42 @@
           "columnNames": {
             "sqlServer": "TermDescriptorId",
             "postgreSql": "TermDescriptorId"
+          }
+        },
+        {
+          "propertyName": "FirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "FirstName",
+            "postgreSql": "FirstName"
+          }
+        },
+        {
+          "propertyName": "LastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastSurname",
+            "postgreSql": "LastSurname"
           }
         }
       ],
@@ -20226,43 +20520,10 @@
           }
         },
         {
-          "propertyName": "FirstName",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "FirstName",
-            "postgreSql": "FirstName"
-          }
-        },
-        {
-          "propertyName": "LastSurname",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name borne in common by members of a family.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LastSurname",
-            "postgreSql": "LastSurname"
-          }
-        },
-        {
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -20297,6 +20558,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -20359,6 +20621,42 @@
           "columnNames": {
             "sqlServer": "TermDescriptorId",
             "postgreSql": "TermDescriptorId"
+          }
+        },
+        {
+          "propertyName": "FirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "FirstName",
+            "postgreSql": "FirstName"
+          }
+        },
+        {
+          "propertyName": "LastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastSurname",
+            "postgreSql": "LastSurname"
           }
         }
       ],
@@ -20462,6 +20760,7 @@
           "propertyName": "EvaluationElementTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -20479,6 +20778,7 @@
           "propertyName": "EvaluationObjectiveTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -20513,6 +20813,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -20530,6 +20831,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -20621,6 +20923,7 @@
           "propertyName": "EvaluationElementTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -20638,6 +20941,7 @@
           "propertyName": "EvaluationObjectiveTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -20672,6 +20976,7 @@
           "propertyName": "EvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -20689,6 +20994,7 @@
           "propertyName": "PerformanceEvaluationTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -21016,6 +21322,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -21056,6 +21363,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -21110,6 +21418,7 @@
           "propertyName": "Namespace",
           "propertyType": {
             "dbType": "String",
+            "minLength": 5,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -21127,6 +21436,7 @@
           "propertyName": "SurveyIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21144,6 +21454,7 @@
           "propertyName": "SurveyResponseIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21167,6 +21478,7 @@
           "propertyName": "Namespace",
           "propertyType": {
             "dbType": "String",
+            "minLength": 5,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -21184,6 +21496,7 @@
           "propertyName": "SurveyIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21201,6 +21514,7 @@
           "propertyName": "SurveyResponseIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21237,6 +21551,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -21277,6 +21592,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -21331,6 +21647,7 @@
           "propertyName": "Namespace",
           "propertyType": {
             "dbType": "String",
+            "minLength": 5,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -21348,6 +21665,7 @@
           "propertyName": "SurveyIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21365,6 +21683,7 @@
           "propertyName": "SurveyResponseIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21388,6 +21707,7 @@
           "propertyName": "Namespace",
           "propertyType": {
             "dbType": "String",
+            "minLength": 5,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -21405,6 +21725,7 @@
           "propertyName": "SurveyIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21422,6 +21743,7 @@
           "propertyName": "SurveyResponseIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21459,6 +21781,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -21499,6 +21822,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -21553,6 +21877,7 @@
           "propertyName": "Namespace",
           "propertyType": {
             "dbType": "String",
+            "minLength": 5,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -21570,6 +21895,7 @@
           "propertyName": "SurveyIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21587,6 +21913,7 @@
           "propertyName": "SurveyResponseIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21604,6 +21931,7 @@
           "propertyName": "SurveySectionTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -21627,6 +21955,7 @@
           "propertyName": "Namespace",
           "propertyType": {
             "dbType": "String",
+            "minLength": 5,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -21644,6 +21973,7 @@
           "propertyName": "SurveyIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21661,6 +21991,7 @@
           "propertyName": "SurveyResponseIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21678,6 +22009,7 @@
           "propertyName": "SurveySectionTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -21700,5 +22032,6 @@
       },
       "potentiallyLogical": false
     }
-  ]
+  ],
+  "edFiVersion": "4.0.0"
 }

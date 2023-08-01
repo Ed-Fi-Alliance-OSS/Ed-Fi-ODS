@@ -128,6 +128,7 @@
           "propertyName": "AcceptanceIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -196,6 +197,7 @@
           "propertyName": "NameOfInstitution",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -924,6 +926,7 @@
           "propertyName": "NameOfInstitution",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -947,6 +950,7 @@
           "propertyName": "NameOfInstitution",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -1250,5 +1254,6 @@
       },
       "potentiallyLogical": false
     }
-  ]
+  ],
+  "edFiVersion": "4.0.0"
 }

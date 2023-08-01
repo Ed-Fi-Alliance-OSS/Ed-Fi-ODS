@@ -15,7 +15,7 @@ CREATE TABLE samplestudenttransportation.StudentTransportation (
     LastModifiedDate TIMESTAMP NOT NULL,
     Id UUID NOT NULL,
     CONSTRAINT StudentTransportation_PK PRIMARY KEY (AMBusNumber, PMBusNumber, SchoolId, StudentUSI)
-); 
+);
 ALTER TABLE samplestudenttransportation.StudentTransportation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 ALTER TABLE samplestudenttransportation.StudentTransportation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
 ALTER TABLE samplestudenttransportation.StudentTransportation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;

@@ -22,11 +22,11 @@ GO
 -- Extended Properties [homograph].[ParentAddress] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The set of elements that describes an address, including the street address, city, state, and ZIP code.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'ParentAddress'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the city in which an address is located.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'ParentAddress', @level2type=N'COLUMN', @level2name=N'City'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'ParentAddress', @level2type=N'COLUMN', @level2name=N'ParentFirstName'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name borne in common by members of a family.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'ParentAddress', @level2type=N'COLUMN', @level2name=N'ParentLastSurname'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the city in which an address is located.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'ParentAddress', @level2type=N'COLUMN', @level2name=N'City'
 GO
 
 -- Extended Properties [homograph].[ParentStudentSchoolAssociation] --
@@ -76,21 +76,21 @@ GO
 -- Extended Properties [homograph].[StaffAddress] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The set of elements that describes an address, including the street address, city, state, and ZIP code.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'StaffAddress'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the city in which an address is located.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'StaffAddress', @level2type=N'COLUMN', @level2name=N'City'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'StaffAddress', @level2type=N'COLUMN', @level2name=N'StaffFirstName'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name borne in common by members of a family.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'StaffAddress', @level2type=N'COLUMN', @level2name=N'StaffLastSurname'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the city in which an address is located.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'StaffAddress', @level2type=N'COLUMN', @level2name=N'City'
 GO
 
 -- Extended Properties [homograph].[StaffStudentSchoolAssociation] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The students under the instruction of the staff member', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'StaffStudentSchoolAssociation'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the school.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'StaffStudentSchoolAssociation', @level2type=N'COLUMN', @level2name=N'SchoolName'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'StaffStudentSchoolAssociation', @level2type=N'COLUMN', @level2name=N'StaffFirstName'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name borne in common by members of a family.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'StaffStudentSchoolAssociation', @level2type=N'COLUMN', @level2name=N'StaffLastSurname'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the school.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'StaffStudentSchoolAssociation', @level2type=N'COLUMN', @level2name=N'SchoolName'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'StaffStudentSchoolAssociation', @level2type=N'COLUMN', @level2name=N'StudentFirstName'
 GO
@@ -110,11 +110,11 @@ GO
 -- Extended Properties [homograph].[StudentAddress] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The set of elements that describes an address, including the street address, city, state, and ZIP code.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'StudentAddress'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the city in which an address is located.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'StudentAddress', @level2type=N'COLUMN', @level2name=N'City'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'StudentAddress', @level2type=N'COLUMN', @level2name=N'StudentFirstName'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name borne in common by members of a family.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'StudentAddress', @level2type=N'COLUMN', @level2name=N'StudentLastSurname'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the city in which an address is located.', @level0type=N'SCHEMA', @level0name=N'homograph', @level1type=N'TABLE', @level1name=N'StudentAddress', @level2type=N'COLUMN', @level2name=N'City'
 GO
 
 -- Extended Properties [homograph].[StudentSchoolAssociation] --

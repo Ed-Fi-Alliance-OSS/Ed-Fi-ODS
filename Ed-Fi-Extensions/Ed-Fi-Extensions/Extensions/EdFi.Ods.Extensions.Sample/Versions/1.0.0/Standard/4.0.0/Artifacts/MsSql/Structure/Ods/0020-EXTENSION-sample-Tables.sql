@@ -35,20 +35,20 @@ GO
 CREATE TABLE [sample].[BusRoute] (
     [BusId] [NVARCHAR](60) NOT NULL,
     [BusRouteNumber] [INT] NOT NULL,
+    [BeginDate] [DATE] NULL,
     [BusRouteDirection] [NVARCHAR](15) NOT NULL,
+    [BusRouteDuration] [INT] NULL,
     [Daily] [BIT] NULL,
+    [DisabilityDescriptorId] [INT] NULL,
+    [EducationOrganizationId] [INT] NULL,
+    [ExpectedTransitTime] [NVARCHAR](30) NOT NULL,
+    [HoursPerWeek] [DECIMAL](5, 2) NOT NULL,
     [OperatingCost] [MONEY] NOT NULL,
+    [OptimalCapacity] [DECIMAL](5, 4) NULL,
+    [StaffClassificationDescriptorId] [INT] NULL,
+    [StaffUSI] [INT] NULL,
     [StartDate] [DATE] NULL,
     [WeeklyMileage] [DECIMAL](5, 2) NULL,
-    [ExpectedTransitTime] [NVARCHAR](30) NOT NULL,
-    [OptimalCapacity] [DECIMAL](5, 4) NULL,
-    [HoursPerWeek] [DECIMAL](5, 2) NOT NULL,
-    [BusRouteDuration] [INT] NULL,
-    [DisabilityDescriptorId] [INT] NULL,
-    [StaffUSI] [INT] NULL,
-    [EducationOrganizationId] [INT] NULL,
-    [StaffClassificationDescriptorId] [INT] NULL,
-    [BeginDate] [DATE] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
@@ -140,9 +140,9 @@ CREATE TABLE [sample].[BusRouteTelephone] (
     [BusRouteNumber] [INT] NOT NULL,
     [TelephoneNumber] [NVARCHAR](24) NOT NULL,
     [TelephoneNumberTypeDescriptorId] [INT] NOT NULL,
+    [DoNotPublishIndicator] [BIT] NULL,
     [OrderOfPriority] [INT] NULL,
     [TextMessageCapabilityIndicator] [BIT] NULL,
-    [DoNotPublishIndicator] [BIT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [BusRouteTelephone_PK] PRIMARY KEY CLUSTERED (
         [BusId] ASC,
@@ -175,9 +175,9 @@ GO
 
 -- Table [sample].[ParentAddressExtension] --
 CREATE TABLE [sample].[ParentAddressExtension] (
+    [ParentUSI] [INT] NOT NULL,
     [AddressTypeDescriptorId] [INT] NOT NULL,
     [City] [NVARCHAR](30) NOT NULL,
-    [ParentUSI] [INT] NOT NULL,
     [PostalCode] [NVARCHAR](17) NOT NULL,
     [StateAbbreviationDescriptorId] [INT] NOT NULL,
     [StreetNumberName] [NVARCHAR](150) NOT NULL,
@@ -185,9 +185,9 @@ CREATE TABLE [sample].[ParentAddressExtension] (
     [OnBusRoute] [BIT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [ParentAddressExtension_PK] PRIMARY KEY CLUSTERED (
+        [ParentUSI] ASC,
         [AddressTypeDescriptorId] ASC,
         [City] ASC,
-        [ParentUSI] ASC,
         [PostalCode] ASC,
         [StateAbbreviationDescriptorId] ASC,
         [StreetNumberName] ASC
@@ -199,22 +199,22 @@ GO
 
 -- Table [sample].[ParentAddressSchoolDistrict] --
 CREATE TABLE [sample].[ParentAddressSchoolDistrict] (
+    [ParentUSI] [INT] NOT NULL,
     [AddressTypeDescriptorId] [INT] NOT NULL,
     [City] [NVARCHAR](30) NOT NULL,
-    [ParentUSI] [INT] NOT NULL,
     [PostalCode] [NVARCHAR](17) NOT NULL,
-    [SchoolDistrict] [NVARCHAR](250) NOT NULL,
     [StateAbbreviationDescriptorId] [INT] NOT NULL,
     [StreetNumberName] [NVARCHAR](150) NOT NULL,
+    [SchoolDistrict] [NVARCHAR](250) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [ParentAddressSchoolDistrict_PK] PRIMARY KEY CLUSTERED (
+        [ParentUSI] ASC,
         [AddressTypeDescriptorId] ASC,
         [City] ASC,
-        [ParentUSI] ASC,
         [PostalCode] ASC,
-        [SchoolDistrict] ASC,
         [StateAbbreviationDescriptorId] ASC,
-        [StreetNumberName] ASC
+        [StreetNumberName] ASC,
+        [SchoolDistrict] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -223,18 +223,18 @@ GO
 
 -- Table [sample].[ParentAddressTerm] --
 CREATE TABLE [sample].[ParentAddressTerm] (
+    [ParentUSI] [INT] NOT NULL,
     [AddressTypeDescriptorId] [INT] NOT NULL,
     [City] [NVARCHAR](30) NOT NULL,
-    [ParentUSI] [INT] NOT NULL,
     [PostalCode] [NVARCHAR](17) NOT NULL,
     [StateAbbreviationDescriptorId] [INT] NOT NULL,
     [StreetNumberName] [NVARCHAR](150) NOT NULL,
     [TermDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [ParentAddressTerm_PK] PRIMARY KEY CLUSTERED (
+        [ParentUSI] ASC,
         [AddressTypeDescriptorId] ASC,
         [City] ASC,
-        [ParentUSI] ASC,
         [PostalCode] ASC,
         [StateAbbreviationDescriptorId] ASC,
         [StreetNumberName] ASC,
@@ -247,12 +247,12 @@ GO
 
 -- Table [sample].[ParentAuthor] --
 CREATE TABLE [sample].[ParentAuthor] (
-    [Author] [NVARCHAR](100) NOT NULL,
     [ParentUSI] [INT] NOT NULL,
+    [Author] [NVARCHAR](100) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [ParentAuthor_PK] PRIMARY KEY CLUSTERED (
-        [Author] ASC,
-        [ParentUSI] ASC
+        [ParentUSI] ASC,
+        [Author] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -261,12 +261,12 @@ GO
 
 -- Table [sample].[ParentCeilingHeight] --
 CREATE TABLE [sample].[ParentCeilingHeight] (
-    [CeilingHeight] [DECIMAL](5, 1) NOT NULL,
     [ParentUSI] [INT] NOT NULL,
+    [CeilingHeight] [DECIMAL](5, 1) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [ParentCeilingHeight_PK] PRIMARY KEY CLUSTERED (
-        [CeilingHeight] ASC,
-        [ParentUSI] ASC
+        [ParentUSI] ASC,
+        [CeilingHeight] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -278,8 +278,8 @@ CREATE TABLE [sample].[ParentCTEProgram] (
     [ParentUSI] [INT] NOT NULL,
     [CareerPathwayDescriptorId] [INT] NOT NULL,
     [CIPCode] [NVARCHAR](120) NULL,
-    [PrimaryCTEProgramIndicator] [BIT] NULL,
     [CTEProgramCompletionIndicator] [BIT] NULL,
+    [PrimaryCTEProgramIndicator] [BIT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [ParentCTEProgram_PK] PRIMARY KEY CLUSTERED (
         [ParentUSI] ASC
@@ -291,12 +291,12 @@ GO
 
 -- Table [sample].[ParentEducationContent] --
 CREATE TABLE [sample].[ParentEducationContent] (
-    [ContentIdentifier] [NVARCHAR](225) NOT NULL,
     [ParentUSI] [INT] NOT NULL,
+    [ContentIdentifier] [NVARCHAR](225) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [ParentEducationContent_PK] PRIMARY KEY CLUSTERED (
-        [ContentIdentifier] ASC,
-        [ParentUSI] ASC
+        [ParentUSI] ASC,
+        [ContentIdentifier] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -306,17 +306,17 @@ GO
 -- Table [sample].[ParentExtension] --
 CREATE TABLE [sample].[ParentExtension] (
     [ParentUSI] [INT] NOT NULL,
-    [IsSportsFan] [BIT] NOT NULL,
-    [CoffeeSpend] [MONEY] NULL,
-    [GraduationDate] [DATE] NULL,
     [AverageCarLineWait] [NVARCHAR](30) NULL,
-    [LuckyNumber] [INT] NULL,
-    [RainCertainty] [DECIMAL](5, 4) NULL,
-    [PreferredWakeUpTime] [TIME](7) NULL,
     [BecameParent] [SMALLINT] NULL,
-    [GPA] [DECIMAL](18, 4) NULL,
-    [Duration] [INT] NULL,
+    [CoffeeSpend] [MONEY] NULL,
     [CredentialFieldDescriptorId] [INT] NULL,
+    [Duration] [INT] NULL,
+    [GPA] [DECIMAL](18, 4) NULL,
+    [GraduationDate] [DATE] NULL,
+    [IsSportsFan] [BIT] NOT NULL,
+    [LuckyNumber] [INT] NULL,
+    [PreferredWakeUpTime] [TIME](7) NULL,
+    [RainCertainty] [DECIMAL](5, 4) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [ParentExtension_PK] PRIMARY KEY CLUSTERED (
         [ParentUSI] ASC
@@ -328,12 +328,12 @@ GO
 
 -- Table [sample].[ParentFavoriteBookTitle] --
 CREATE TABLE [sample].[ParentFavoriteBookTitle] (
-    [FavoriteBookTitle] [NVARCHAR](100) NOT NULL,
     [ParentUSI] [INT] NOT NULL,
+    [FavoriteBookTitle] [NVARCHAR](100) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [ParentFavoriteBookTitle_PK] PRIMARY KEY CLUSTERED (
-        [FavoriteBookTitle] ASC,
-        [ParentUSI] ASC
+        [ParentUSI] ASC,
+        [FavoriteBookTitle] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -342,18 +342,18 @@ GO
 
 -- Table [sample].[ParentStudentProgramAssociation] --
 CREATE TABLE [sample].[ParentStudentProgramAssociation] (
+    [ParentUSI] [INT] NOT NULL,
     [BeginDate] [DATE] NOT NULL,
     [EducationOrganizationId] [INT] NOT NULL,
-    [ParentUSI] [INT] NOT NULL,
     [ProgramEducationOrganizationId] [INT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [ParentStudentProgramAssociation_PK] PRIMARY KEY CLUSTERED (
+        [ParentUSI] ASC,
         [BeginDate] ASC,
         [EducationOrganizationId] ASC,
-        [ParentUSI] ASC,
         [ProgramEducationOrganizationId] ASC,
         [ProgramName] ASC,
         [ProgramTypeDescriptorId] ASC,
@@ -368,8 +368,8 @@ GO
 CREATE TABLE [sample].[ParentTeacherConference] (
     [ParentUSI] [INT] NOT NULL,
     [DayOfWeek] [NVARCHAR](10) NOT NULL,
-    [StartTime] [TIME](7) NOT NULL,
     [EndTime] [TIME](7) NOT NULL,
+    [StartTime] [TIME](7) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [ParentTeacherConference_PK] PRIMARY KEY CLUSTERED (
         [ParentUSI] ASC
@@ -384,8 +384,8 @@ CREATE TABLE [sample].[SchoolCTEProgram] (
     [SchoolId] [INT] NOT NULL,
     [CareerPathwayDescriptorId] [INT] NOT NULL,
     [CIPCode] [NVARCHAR](120) NULL,
-    [PrimaryCTEProgramIndicator] [BIT] NULL,
     [CTEProgramCompletionIndicator] [BIT] NULL,
+    [PrimaryCTEProgramIndicator] [BIT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [SchoolCTEProgram_PK] PRIMARY KEY CLUSTERED (
         [SchoolId] ASC
@@ -397,12 +397,12 @@ GO
 
 -- Table [sample].[SchoolDirectlyOwnedBus] --
 CREATE TABLE [sample].[SchoolDirectlyOwnedBus] (
-    [DirectlyOwnedBusId] [NVARCHAR](60) NOT NULL,
     [SchoolId] [INT] NOT NULL,
+    [DirectlyOwnedBusId] [NVARCHAR](60) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [SchoolDirectlyOwnedBus_PK] PRIMARY KEY CLUSTERED (
-        [DirectlyOwnedBusId] ASC,
-        [SchoolId] ASC
+        [SchoolId] ASC,
+        [DirectlyOwnedBusId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -437,13 +437,13 @@ GO
 
 -- Table [sample].[StaffPet] --
 CREATE TABLE [sample].[StaffPet] (
-    [PetName] [NVARCHAR](20) NOT NULL,
     [StaffUSI] [INT] NOT NULL,
+    [PetName] [NVARCHAR](20) NOT NULL,
     [IsFixed] [BIT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StaffPet_PK] PRIMARY KEY CLUSTERED (
-        [PetName] ASC,
-        [StaffUSI] ASC
+        [StaffUSI] ASC,
+        [PetName] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -453,8 +453,8 @@ GO
 -- Table [sample].[StaffPetPreference] --
 CREATE TABLE [sample].[StaffPetPreference] (
     [StaffUSI] [INT] NOT NULL,
-    [MinimumWeight] [INT] NOT NULL,
     [MaximumWeight] [INT] NOT NULL,
+    [MinimumWeight] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StaffPetPreference_PK] PRIMARY KEY CLUSTERED (
         [StaffUSI] ASC
@@ -466,15 +466,15 @@ GO
 
 -- Table [sample].[StudentAquaticPet] --
 CREATE TABLE [sample].[StudentAquaticPet] (
+    [StudentUSI] [INT] NOT NULL,
     [MimimumTankVolume] [INT] NOT NULL,
     [PetName] [NVARCHAR](20) NOT NULL,
-    [StudentUSI] [INT] NOT NULL,
     [IsFixed] [BIT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentAquaticPet_PK] PRIMARY KEY CLUSTERED (
+        [StudentUSI] ASC,
         [MimimumTankVolume] ASC,
-        [PetName] ASC,
-        [StudentUSI] ASC
+        [PetName] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -489,17 +489,17 @@ CREATE TABLE [sample].[StudentArtProgramAssociation] (
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
-    [IdentificationCode] [NVARCHAR](60) NULL,
+    [ArtPieces] [INT] NULL,
     [ExhibitDate] [DATE] NULL,
-    [ProgramFees] [MONEY] NULL,
-    [NumberOfDaysInAttendance] [DECIMAL](18, 4) NULL,
     [HoursPerDay] [DECIMAL](5, 2) NULL,
-    [PrivateArtProgram] [BIT] NOT NULL,
+    [IdentificationCode] [NVARCHAR](60) NULL,
     [KilnReservation] [TIME](7) NULL,
     [KilnReservationLength] [NVARCHAR](30) NULL,
-    [ArtPieces] [INT] NULL,
-    [PortfolioPieces] [INT] NULL,
     [MasteredMediums] [DECIMAL](5, 4) NULL,
+    [NumberOfDaysInAttendance] [DECIMAL](18, 4) NULL,
+    [PortfolioPieces] [INT] NULL,
+    [PrivateArtProgram] [BIT] NOT NULL,
+    [ProgramFees] [MONEY] NULL,
     CONSTRAINT [StudentArtProgramAssociation_PK] PRIMARY KEY CLUSTERED (
         [BeginDate] ASC,
         [EducationOrganizationId] ASC,
@@ -513,22 +513,22 @@ GO
 
 -- Table [sample].[StudentArtProgramAssociationArtMedium] --
 CREATE TABLE [sample].[StudentArtProgramAssociationArtMedium] (
-    [ArtMediumDescriptorId] [INT] NOT NULL,
     [BeginDate] [DATE] NOT NULL,
     [EducationOrganizationId] [INT] NOT NULL,
     [ProgramEducationOrganizationId] [INT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [ArtMediumDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentArtProgramAssociationArtMedium_PK] PRIMARY KEY CLUSTERED (
-        [ArtMediumDescriptorId] ASC,
         [BeginDate] ASC,
         [EducationOrganizationId] ASC,
         [ProgramEducationOrganizationId] ASC,
         [ProgramName] ASC,
         [ProgramTypeDescriptorId] ASC,
-        [StudentUSI] ASC
+        [StudentUSI] ASC,
+        [ArtMediumDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -539,20 +539,20 @@ GO
 CREATE TABLE [sample].[StudentArtProgramAssociationPortfolioYears] (
     [BeginDate] [DATE] NOT NULL,
     [EducationOrganizationId] [INT] NOT NULL,
-    [PortfolioYears] [SMALLINT] NOT NULL,
     [ProgramEducationOrganizationId] [INT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [PortfolioYears] [SMALLINT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentArtProgramAssociationPortfolioYears_PK] PRIMARY KEY CLUSTERED (
         [BeginDate] ASC,
         [EducationOrganizationId] ASC,
-        [PortfolioYears] ASC,
         [ProgramEducationOrganizationId] ASC,
         [ProgramName] ASC,
         [ProgramTypeDescriptorId] ASC,
-        [StudentUSI] ASC
+        [StudentUSI] ASC,
+        [PortfolioYears] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -566,8 +566,8 @@ CREATE TABLE [sample].[StudentArtProgramAssociationService] (
     [ProgramEducationOrganizationId] [INT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
-    [ServiceDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [ServiceDescriptorId] [INT] NOT NULL,
     [PrimaryIndicator] [BIT] NULL,
     [ServiceBeginDate] [DATE] NULL,
     [ServiceEndDate] [DATE] NULL,
@@ -578,8 +578,8 @@ CREATE TABLE [sample].[StudentArtProgramAssociationService] (
         [ProgramEducationOrganizationId] ASC,
         [ProgramName] ASC,
         [ProgramTypeDescriptorId] ASC,
-        [ServiceDescriptorId] ASC,
-        [StudentUSI] ASC
+        [StudentUSI] ASC,
+        [ServiceDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -636,24 +636,24 @@ GO
 
 -- Table [sample].[StudentEducationOrganizationAssociationAddressExtension] --
 CREATE TABLE [sample].[StudentEducationOrganizationAssociationAddressExtension] (
+    [EducationOrganizationId] [INT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
     [AddressTypeDescriptorId] [INT] NOT NULL,
     [City] [NVARCHAR](30) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
     [PostalCode] [NVARCHAR](17) NOT NULL,
     [StateAbbreviationDescriptorId] [INT] NOT NULL,
     [StreetNumberName] [NVARCHAR](150) NOT NULL,
-    [StudentUSI] [INT] NOT NULL,
     [Complex] [NVARCHAR](255) NULL,
     [OnBusRoute] [BIT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentEducationOrganizationAssociationAddressExtension_PK] PRIMARY KEY CLUSTERED (
+        [EducationOrganizationId] ASC,
+        [StudentUSI] ASC,
         [AddressTypeDescriptorId] ASC,
         [City] ASC,
-        [EducationOrganizationId] ASC,
         [PostalCode] ASC,
         [StateAbbreviationDescriptorId] ASC,
-        [StreetNumberName] ASC,
-        [StudentUSI] ASC
+        [StreetNumberName] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -662,24 +662,24 @@ GO
 
 -- Table [sample].[StudentEducationOrganizationAssociationAddressSchoolDistrict] --
 CREATE TABLE [sample].[StudentEducationOrganizationAssociationAddressSchoolDistrict] (
+    [EducationOrganizationId] [INT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
     [AddressTypeDescriptorId] [INT] NOT NULL,
     [City] [NVARCHAR](30) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
     [PostalCode] [NVARCHAR](17) NOT NULL,
-    [SchoolDistrict] [NVARCHAR](250) NOT NULL,
     [StateAbbreviationDescriptorId] [INT] NOT NULL,
     [StreetNumberName] [NVARCHAR](150) NOT NULL,
-    [StudentUSI] [INT] NOT NULL,
+    [SchoolDistrict] [NVARCHAR](250) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentEducationOrganizationAssociationAddressSchoolDistrict_PK] PRIMARY KEY CLUSTERED (
+        [EducationOrganizationId] ASC,
+        [StudentUSI] ASC,
         [AddressTypeDescriptorId] ASC,
         [City] ASC,
-        [EducationOrganizationId] ASC,
         [PostalCode] ASC,
-        [SchoolDistrict] ASC,
         [StateAbbreviationDescriptorId] ASC,
         [StreetNumberName] ASC,
-        [StudentUSI] ASC
+        [SchoolDistrict] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -688,23 +688,23 @@ GO
 
 -- Table [sample].[StudentEducationOrganizationAssociationAddressTerm] --
 CREATE TABLE [sample].[StudentEducationOrganizationAssociationAddressTerm] (
+    [EducationOrganizationId] [INT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
     [AddressTypeDescriptorId] [INT] NOT NULL,
     [City] [NVARCHAR](30) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
     [PostalCode] [NVARCHAR](17) NOT NULL,
     [StateAbbreviationDescriptorId] [INT] NOT NULL,
     [StreetNumberName] [NVARCHAR](150) NOT NULL,
-    [StudentUSI] [INT] NOT NULL,
     [TermDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentEducationOrganizationAssociationAddressTerm_PK] PRIMARY KEY CLUSTERED (
+        [EducationOrganizationId] ASC,
+        [StudentUSI] ASC,
         [AddressTypeDescriptorId] ASC,
         [City] ASC,
-        [EducationOrganizationId] ASC,
         [PostalCode] ASC,
         [StateAbbreviationDescriptorId] ASC,
         [StreetNumberName] ASC,
-        [StudentUSI] ASC,
         [TermDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
@@ -714,18 +714,18 @@ GO
 
 -- Table [sample].[StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed] --
 CREATE TABLE [sample].[StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed] (
-    [BeginDate] [DATE] NOT NULL,
     [EducationOrganizationId] [INT] NOT NULL,
-    [StudentCharacteristicDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
-    [PrimaryStudentNeedIndicator] [BIT] NULL,
+    [StudentCharacteristicDescriptorId] [INT] NOT NULL,
+    [BeginDate] [DATE] NOT NULL,
     [EndDate] [DATE] NULL,
+    [PrimaryStudentNeedIndicator] [BIT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed_PK] PRIMARY KEY CLUSTERED (
-        [BeginDate] ASC,
         [EducationOrganizationId] ASC,
+        [StudentUSI] ASC,
         [StudentCharacteristicDescriptorId] ASC,
-        [StudentUSI] ASC
+        [BeginDate] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -734,13 +734,13 @@ GO
 
 -- Table [sample].[StudentFavoriteBook] --
 CREATE TABLE [sample].[StudentFavoriteBook] (
-    [FavoriteBookCategoryDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [FavoriteBookCategoryDescriptorId] [INT] NOT NULL,
     [BookTitle] [NVARCHAR](200) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentFavoriteBook_PK] PRIMARY KEY CLUSTERED (
-        [FavoriteBookCategoryDescriptorId] ASC,
-        [StudentUSI] ASC
+        [StudentUSI] ASC,
+        [FavoriteBookCategoryDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -749,15 +749,15 @@ GO
 
 -- Table [sample].[StudentFavoriteBookArtMedium] --
 CREATE TABLE [sample].[StudentFavoriteBookArtMedium] (
-    [ArtMediumDescriptorId] [INT] NOT NULL,
-    [FavoriteBookCategoryDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [FavoriteBookCategoryDescriptorId] [INT] NOT NULL,
+    [ArtMediumDescriptorId] [INT] NOT NULL,
     [ArtPieces] [INT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentFavoriteBookArtMedium_PK] PRIMARY KEY CLUSTERED (
-        [ArtMediumDescriptorId] ASC,
+        [StudentUSI] ASC,
         [FavoriteBookCategoryDescriptorId] ASC,
-        [StudentUSI] ASC
+        [ArtMediumDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -770,15 +770,15 @@ CREATE TABLE [sample].[StudentGraduationPlanAssociation] (
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
-    [EffectiveDate] [DATE] NOT NULL,
-    [IsActivePlan] [BIT] NULL,
-    [GraduationFee] [MONEY] NULL,
-    [TargetGPA] [DECIMAL](18, 4) NOT NULL,
-    [HighSchoolDuration] [NVARCHAR](30) NULL,
-    [RequiredAttendance] [DECIMAL](5, 4) NULL,
     [CommencementTime] [TIME](7) NULL,
+    [EffectiveDate] [DATE] NOT NULL,
+    [GraduationFee] [MONEY] NULL,
+    [HighSchoolDuration] [NVARCHAR](30) NULL,
     [HoursPerWeek] [DECIMAL](5, 2) NOT NULL,
+    [IsActivePlan] [BIT] NULL,
+    [RequiredAttendance] [DECIMAL](5, 4) NULL,
     [StaffUSI] [INT] NULL,
+    [TargetGPA] [DECIMAL](18, 4) NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
@@ -800,18 +800,18 @@ GO
 
 -- Table [sample].[StudentGraduationPlanAssociationAcademicSubject] --
 CREATE TABLE [sample].[StudentGraduationPlanAssociationAcademicSubject] (
-    [AcademicSubjectDescriptorId] [INT] NOT NULL,
     [EducationOrganizationId] [INT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [AcademicSubjectDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentGraduationPlanAssociationAcademicSubject_PK] PRIMARY KEY CLUSTERED (
-        [AcademicSubjectDescriptorId] ASC,
         [EducationOrganizationId] ASC,
         [GraduationPlanTypeDescriptorId] ASC,
         [GraduationSchoolYear] ASC,
-        [StudentUSI] ASC
+        [StudentUSI] ASC,
+        [AcademicSubjectDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -820,18 +820,18 @@ GO
 
 -- Table [sample].[StudentGraduationPlanAssociationCareerPathwayCode] --
 CREATE TABLE [sample].[StudentGraduationPlanAssociationCareerPathwayCode] (
-    [CareerPathwayCode] [INT] NOT NULL,
     [EducationOrganizationId] [INT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [CareerPathwayCode] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentGraduationPlanAssociationCareerPathwayCode_PK] PRIMARY KEY CLUSTERED (
-        [CareerPathwayCode] ASC,
         [EducationOrganizationId] ASC,
         [GraduationPlanTypeDescriptorId] ASC,
         [GraduationSchoolYear] ASC,
-        [StudentUSI] ASC
+        [StudentUSI] ASC,
+        [CareerPathwayCode] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -846,8 +846,8 @@ CREATE TABLE [sample].[StudentGraduationPlanAssociationCTEProgram] (
     [StudentUSI] [INT] NOT NULL,
     [CareerPathwayDescriptorId] [INT] NOT NULL,
     [CIPCode] [NVARCHAR](120) NULL,
-    [PrimaryCTEProgramIndicator] [BIT] NULL,
     [CTEProgramCompletionIndicator] [BIT] NULL,
+    [PrimaryCTEProgramIndicator] [BIT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentGraduationPlanAssociationCTEProgram_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,
@@ -862,18 +862,18 @@ GO
 
 -- Table [sample].[StudentGraduationPlanAssociationDescription] --
 CREATE TABLE [sample].[StudentGraduationPlanAssociationDescription] (
-    [Description] [NVARCHAR](1024) NOT NULL,
     [EducationOrganizationId] [INT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [Description] [NVARCHAR](1024) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentGraduationPlanAssociationDescription_PK] PRIMARY KEY CLUSTERED (
-        [Description] ASC,
         [EducationOrganizationId] ASC,
         [GraduationPlanTypeDescriptorId] ASC,
         [GraduationSchoolYear] ASC,
-        [StudentUSI] ASC
+        [StudentUSI] ASC,
+        [Description] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -882,18 +882,18 @@ GO
 
 -- Table [sample].[StudentGraduationPlanAssociationDesignatedBy] --
 CREATE TABLE [sample].[StudentGraduationPlanAssociationDesignatedBy] (
-    [DesignatedBy] [NVARCHAR](60) NOT NULL,
     [EducationOrganizationId] [INT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [DesignatedBy] [NVARCHAR](60) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentGraduationPlanAssociationDesignatedBy_PK] PRIMARY KEY CLUSTERED (
-        [DesignatedBy] ASC,
         [EducationOrganizationId] ASC,
         [GraduationPlanTypeDescriptorId] ASC,
         [GraduationSchoolYear] ASC,
-        [StudentUSI] ASC
+        [StudentUSI] ASC,
+        [DesignatedBy] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -905,15 +905,15 @@ CREATE TABLE [sample].[StudentGraduationPlanAssociationIndustryCredential] (
     [EducationOrganizationId] [INT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
-    [IndustryCredential] [NVARCHAR](100) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [IndustryCredential] [NVARCHAR](100) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentGraduationPlanAssociationIndustryCredential_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,
         [GraduationPlanTypeDescriptorId] ASC,
         [GraduationSchoolYear] ASC,
-        [IndustryCredential] ASC,
-        [StudentUSI] ASC
+        [StudentUSI] ASC,
+        [IndustryCredential] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -925,15 +925,15 @@ CREATE TABLE [sample].[StudentGraduationPlanAssociationStudentParentAssociation]
     [EducationOrganizationId] [INT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
-    [ParentUSI] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [ParentUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentGraduationPlanAssociationStudentParentAssociation_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,
         [GraduationPlanTypeDescriptorId] ASC,
         [GraduationSchoolYear] ASC,
-        [ParentUSI] ASC,
-        [StudentUSI] ASC
+        [StudentUSI] ASC,
+        [ParentUSI] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -962,14 +962,14 @@ GO
 
 -- Table [sample].[StudentParentAssociationDiscipline] --
 CREATE TABLE [sample].[StudentParentAssociationDiscipline] (
-    [DisciplineDescriptorId] [INT] NOT NULL,
     [ParentUSI] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [DisciplineDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentParentAssociationDiscipline_PK] PRIMARY KEY CLUSTERED (
-        [DisciplineDescriptorId] ASC,
         [ParentUSI] ASC,
-        [StudentUSI] ASC
+        [StudentUSI] ASC,
+        [DisciplineDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -980,19 +980,19 @@ GO
 CREATE TABLE [sample].[StudentParentAssociationExtension] (
     [ParentUSI] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
-    [PriorContactRestrictions] [NVARCHAR](250) NULL,
     [BedtimeReader] [BIT] NOT NULL,
-    [BookBudget] [MONEY] NULL,
-    [ReadGreenEggsAndHamDate] [DATE] NULL,
-    [ReadingTimeSpent] [NVARCHAR](30) NULL,
-    [BooksBorrowed] [INT] NULL,
     [BedtimeReadingRate] [DECIMAL](5, 4) NULL,
-    [LibraryTime] [TIME](7) NULL,
-    [LibraryVisits] [SMALLINT] NULL,
-    [StudentRead] [SMALLINT] NULL,
-    [LibraryDuration] [INT] NULL,
+    [BookBudget] [MONEY] NULL,
+    [BooksBorrowed] [INT] NULL,
     [EducationOrganizationId] [INT] NULL,
     [InterventionStudyIdentificationCode] [NVARCHAR](60) NULL,
+    [LibraryDuration] [INT] NULL,
+    [LibraryTime] [TIME](7) NULL,
+    [LibraryVisits] [SMALLINT] NULL,
+    [PriorContactRestrictions] [NVARCHAR](250) NULL,
+    [ReadGreenEggsAndHamDate] [DATE] NULL,
+    [ReadingTimeSpent] [NVARCHAR](30) NULL,
+    [StudentRead] [SMALLINT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentParentAssociationExtension_PK] PRIMARY KEY CLUSTERED (
         [ParentUSI] ASC,
@@ -1005,14 +1005,14 @@ GO
 
 -- Table [sample].[StudentParentAssociationFavoriteBookTitle] --
 CREATE TABLE [sample].[StudentParentAssociationFavoriteBookTitle] (
-    [FavoriteBookTitle] [NVARCHAR](100) NOT NULL,
     [ParentUSI] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [FavoriteBookTitle] [NVARCHAR](100) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentParentAssociationFavoriteBookTitle_PK] PRIMARY KEY CLUSTERED (
-        [FavoriteBookTitle] ASC,
         [ParentUSI] ASC,
-        [StudentUSI] ASC
+        [StudentUSI] ASC,
+        [FavoriteBookTitle] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -1021,14 +1021,14 @@ GO
 
 -- Table [sample].[StudentParentAssociationHoursPerWeek] --
 CREATE TABLE [sample].[StudentParentAssociationHoursPerWeek] (
-    [HoursPerWeek] [DECIMAL](5, 2) NOT NULL,
     [ParentUSI] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [HoursPerWeek] [DECIMAL](5, 2) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentParentAssociationHoursPerWeek_PK] PRIMARY KEY CLUSTERED (
-        [HoursPerWeek] ASC,
         [ParentUSI] ASC,
-        [StudentUSI] ASC
+        [StudentUSI] ASC,
+        [HoursPerWeek] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -1037,14 +1037,14 @@ GO
 
 -- Table [sample].[StudentParentAssociationPagesRead] --
 CREATE TABLE [sample].[StudentParentAssociationPagesRead] (
-    [PagesRead] [DECIMAL](18, 2) NOT NULL,
     [ParentUSI] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [PagesRead] [DECIMAL](18, 2) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentParentAssociationPagesRead_PK] PRIMARY KEY CLUSTERED (
-        [PagesRead] ASC,
         [ParentUSI] ASC,
-        [StudentUSI] ASC
+        [StudentUSI] ASC,
+        [PagesRead] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -1053,20 +1053,20 @@ GO
 
 -- Table [sample].[StudentParentAssociationStaffEducationOrganizationEmploymentAssociation] --
 CREATE TABLE [sample].[StudentParentAssociationStaffEducationOrganizationEmploymentAssociation] (
+    [ParentUSI] [INT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
     [EducationOrganizationId] [INT] NOT NULL,
     [EmploymentStatusDescriptorId] [INT] NOT NULL,
     [HireDate] [DATE] NOT NULL,
-    [ParentUSI] [INT] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
-    [StudentUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentParentAssociationStaffEducationOrganizationEmploymentAssociation_PK] PRIMARY KEY CLUSTERED (
+        [ParentUSI] ASC,
+        [StudentUSI] ASC,
         [EducationOrganizationId] ASC,
         [EmploymentStatusDescriptorId] ASC,
         [HireDate] ASC,
-        [ParentUSI] ASC,
-        [StaffUSI] ASC,
-        [StudentUSI] ASC
+        [StaffUSI] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -1077,11 +1077,11 @@ GO
 CREATE TABLE [sample].[StudentParentAssociationTelephone] (
     [ParentUSI] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [DoNotPublishIndicator] [BIT] NULL,
+    [OrderOfPriority] [INT] NULL,
     [TelephoneNumber] [NVARCHAR](24) NOT NULL,
     [TelephoneNumberTypeDescriptorId] [INT] NOT NULL,
-    [OrderOfPriority] [INT] NULL,
     [TextMessageCapabilityIndicator] [BIT] NULL,
-    [DoNotPublishIndicator] [BIT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentParentAssociationTelephone_PK] PRIMARY KEY CLUSTERED (
         [ParentUSI] ASC,
@@ -1094,13 +1094,13 @@ GO
 
 -- Table [sample].[StudentPet] --
 CREATE TABLE [sample].[StudentPet] (
-    [PetName] [NVARCHAR](20) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [PetName] [NVARCHAR](20) NOT NULL,
     [IsFixed] [BIT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentPet_PK] PRIMARY KEY CLUSTERED (
-        [PetName] ASC,
-        [StudentUSI] ASC
+        [StudentUSI] ASC,
+        [PetName] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -1110,8 +1110,8 @@ GO
 -- Table [sample].[StudentPetPreference] --
 CREATE TABLE [sample].[StudentPetPreference] (
     [StudentUSI] [INT] NOT NULL,
-    [MinimumWeight] [INT] NOT NULL,
     [MaximumWeight] [INT] NOT NULL,
+    [MinimumWeight] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentPetPreference_PK] PRIMARY KEY CLUSTERED (
         [StudentUSI] ASC
@@ -1142,30 +1142,30 @@ GO
 CREATE TABLE [sample].[StudentSectionAssociationRelatedGeneralStudentProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [RelatedBeginDate] [DATE] NOT NULL,
-    [RelatedEducationOrganizationId] [INT] NOT NULL,
-    [RelatedProgramEducationOrganizationId] [INT] NOT NULL,
-    [RelatedProgramName] [NVARCHAR](60) NOT NULL,
-    [RelatedProgramTypeDescriptorId] [INT] NOT NULL,
     [SchoolId] [INT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [RelatedBeginDate] [DATE] NOT NULL,
+    [RelatedEducationOrganizationId] [INT] NOT NULL,
+    [RelatedProgramEducationOrganizationId] [INT] NOT NULL,
+    [RelatedProgramName] [NVARCHAR](60) NOT NULL,
+    [RelatedProgramTypeDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentSectionAssociationRelatedGeneralStudentProgramAssociation_PK] PRIMARY KEY CLUSTERED (
         [BeginDate] ASC,
         [LocalCourseCode] ASC,
-        [RelatedBeginDate] ASC,
-        [RelatedEducationOrganizationId] ASC,
-        [RelatedProgramEducationOrganizationId] ASC,
-        [RelatedProgramName] ASC,
-        [RelatedProgramTypeDescriptorId] ASC,
         [SchoolId] ASC,
         [SchoolYear] ASC,
         [SectionIdentifier] ASC,
         [SessionName] ASC,
-        [StudentUSI] ASC
+        [StudentUSI] ASC,
+        [RelatedBeginDate] ASC,
+        [RelatedEducationOrganizationId] ASC,
+        [RelatedProgramEducationOrganizationId] ASC,
+        [RelatedProgramName] ASC,
+        [RelatedProgramTypeDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO

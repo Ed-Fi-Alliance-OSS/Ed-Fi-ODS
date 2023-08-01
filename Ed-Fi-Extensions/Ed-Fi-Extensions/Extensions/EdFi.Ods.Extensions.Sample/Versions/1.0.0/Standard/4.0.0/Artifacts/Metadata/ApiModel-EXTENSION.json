@@ -364,6 +364,7 @@
           "propertyName": "BusId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -470,6 +471,7 @@
           "propertyName": "BusId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -487,6 +489,7 @@
           "propertyName": "BusRouteDirection",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 15,
             "precision": 0,
             "scale": 0,
@@ -507,7 +510,8 @@
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": true
+            "isNullable": true,
+            "minValue": 1
           },
           "description": "The number of minutes per week in which the bus route is operational.",
           "isIdentifying": false,
@@ -559,6 +563,7 @@
           "propertyName": "Daily",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -576,6 +581,7 @@
           "propertyName": "ExpectedTransitTime",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -644,6 +650,7 @@
           "propertyName": "OperatingCost",
           "propertyType": {
             "dbType": "Currency",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 19,
             "scale": 4,
@@ -661,6 +668,7 @@
           "propertyName": "OptimalCapacity",
           "propertyType": {
             "dbType": "Decimal",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 5,
             "scale": 4,
@@ -678,6 +686,7 @@
           "propertyName": "StartDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -755,6 +764,7 @@
           "propertyName": "BusYear",
           "propertyType": {
             "dbType": "Int16",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 5,
             "scale": 0,
@@ -889,6 +899,7 @@
           "propertyName": "ServiceAreaPostalCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 17,
             "precision": 0,
             "scale": 0,
@@ -955,6 +966,7 @@
           "propertyName": "StartTime",
           "propertyType": {
             "dbType": "Time",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -1021,6 +1033,7 @@
           "propertyName": "DoNotPublishIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -1041,7 +1054,8 @@
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": true
+            "isNullable": true,
+            "minValue": 1
           },
           "description": "The order of priority assigned to telephone numbers to define which number to attempt first, second, etc.",
           "isIdentifying": false,
@@ -1055,6 +1069,7 @@
           "propertyName": "TelephoneNumber",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 24,
             "precision": 0,
             "scale": 0,
@@ -1072,6 +1087,7 @@
           "propertyName": "TextMessageCapabilityIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -1172,6 +1188,7 @@
           "propertyName": "Complex",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -1206,6 +1223,7 @@
           "propertyName": "OnBusRoute",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -1224,9 +1242,9 @@
         {
           "identifierName": "ParentAddressExtension_PK",
           "identifyingPropertyNames": [
+            "ParentUSI",
             "AddressTypeDescriptorId",
             "City",
-            "ParentUSI",
             "PostalCode",
             "StateAbbreviationDescriptorId",
             "StreetNumberName"
@@ -1271,6 +1289,7 @@
           "propertyName": "SchoolDistrict",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 250,
             "precision": 0,
             "scale": 0,
@@ -1289,13 +1308,13 @@
         {
           "identifierName": "ParentAddressSchoolDistrict_PK",
           "identifyingPropertyNames": [
+            "ParentUSI",
             "AddressTypeDescriptorId",
             "City",
-            "ParentUSI",
             "PostalCode",
-            "SchoolDistrict",
             "StateAbbreviationDescriptorId",
-            "StreetNumberName"
+            "StreetNumberName",
+            "SchoolDistrict"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -1338,9 +1357,9 @@
         {
           "identifierName": "ParentAddressTerm_PK",
           "identifyingPropertyNames": [
+            "ParentUSI",
             "AddressTypeDescriptorId",
             "City",
-            "ParentUSI",
             "PostalCode",
             "StateAbbreviationDescriptorId",
             "StreetNumberName",
@@ -1369,6 +1388,7 @@
           "propertyName": "Author",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 100,
             "precision": 0,
             "scale": 0,
@@ -1404,8 +1424,8 @@
         {
           "identifierName": "ParentAuthor_PK",
           "identifyingPropertyNames": [
-            "Author",
-            "ParentUSI"
+            "ParentUSI",
+            "Author"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -1465,8 +1485,8 @@
         {
           "identifierName": "ParentCeilingHeight_PK",
           "identifyingPropertyNames": [
-            "CeilingHeight",
-            "ParentUSI"
+            "ParentUSI",
+            "CeilingHeight"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -1491,6 +1511,7 @@
           "propertyName": "CIPCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 120,
             "precision": 0,
             "scale": 0,
@@ -1525,6 +1546,7 @@
           "propertyName": "CTEProgramCompletionIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -1542,6 +1564,7 @@
           "propertyName": "PrimaryCTEProgramIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -1603,8 +1626,8 @@
         {
           "identifierName": "ParentEducationContent_PK",
           "identifyingPropertyNames": [
-            "ContentIdentifier",
-            "ParentUSI"
+            "ParentUSI",
+            "ContentIdentifier"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -1629,6 +1652,7 @@
           "propertyName": "AverageCarLineWait",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -1646,6 +1670,7 @@
           "propertyName": "BecameParent",
           "propertyType": {
             "dbType": "Int16",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 5,
             "scale": 0,
@@ -1663,6 +1688,7 @@
           "propertyName": "CoffeeSpend",
           "propertyType": {
             "dbType": "Currency",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 19,
             "scale": 4,
@@ -1700,7 +1726,8 @@
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": true
+            "isNullable": true,
+            "minValue": 1
           },
           "description": "The amount of time the parent spends reading to his/her children at bedtime.",
           "isIdentifying": false,
@@ -1717,7 +1744,8 @@
             "maxLength": 0,
             "precision": 18,
             "scale": 4,
-            "isNullable": true
+            "isNullable": true,
+            "minValue": 0
           },
           "description": "The parent's high school GPA.",
           "isIdentifying": false,
@@ -1731,6 +1759,7 @@
           "propertyName": "GraduationDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -1748,6 +1777,7 @@
           "propertyName": "IsSportsFan",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -1782,6 +1812,7 @@
           "propertyName": "PreferredWakeUpTime",
           "propertyType": {
             "dbType": "Time",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -1799,6 +1830,7 @@
           "propertyName": "RainCertainty",
           "propertyType": {
             "dbType": "Decimal",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 5,
             "scale": 4,
@@ -1859,6 +1891,7 @@
           "propertyName": "FavoriteBookTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 100,
             "precision": 0,
             "scale": 0,
@@ -1877,8 +1910,8 @@
         {
           "identifierName": "ParentFavoriteBookTitle_PK",
           "identifyingPropertyNames": [
-            "FavoriteBookTitle",
-            "ParentUSI"
+            "ParentUSI",
+            "FavoriteBookTitle"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -1921,9 +1954,9 @@
         {
           "identifierName": "ParentStudentProgramAssociation_PK",
           "identifyingPropertyNames": [
+            "ParentUSI",
             "BeginDate",
             "EducationOrganizationId",
-            "ParentUSI",
             "ProgramEducationOrganizationId",
             "ProgramName",
             "ProgramTypeDescriptorId",
@@ -1969,6 +2002,7 @@
           "propertyName": "DayOfWeek",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 10,
             "precision": 0,
             "scale": 0,
@@ -1986,6 +2020,7 @@
           "propertyName": "EndTime",
           "propertyType": {
             "dbType": "Time",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -2003,6 +2038,7 @@
           "propertyName": "StartTime",
           "propertyType": {
             "dbType": "Time",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -2046,6 +2082,7 @@
           "propertyName": "CIPCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 120,
             "precision": 0,
             "scale": 0,
@@ -2080,6 +2117,7 @@
           "propertyName": "CTEProgramCompletionIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -2097,6 +2135,7 @@
           "propertyName": "PrimaryCTEProgramIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -2158,8 +2197,8 @@
         {
           "identifierName": "SchoolDirectlyOwnedBus_PK",
           "identifyingPropertyNames": [
-            "DirectlyOwnedBusId",
-            "SchoolId"
+            "SchoolId",
+            "DirectlyOwnedBusId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -2201,6 +2240,7 @@
           "propertyName": "IsExemplary",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -2261,6 +2301,7 @@
           "propertyName": "FirstPetOwnedDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -2321,6 +2362,7 @@
           "propertyName": "IsFixed",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -2357,8 +2399,8 @@
         {
           "identifierName": "StaffPet_PK",
           "identifyingPropertyNames": [
-            "PetName",
-            "StaffUSI"
+            "StaffUSI",
+            "PetName"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -2477,6 +2519,7 @@
           "propertyName": "IsFixed",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -2530,9 +2573,9 @@
         {
           "identifierName": "StudentAquaticPet_PK",
           "identifyingPropertyNames": [
+            "StudentUSI",
             "MimimumTankVolume",
-            "PetName",
-            "StudentUSI"
+            "PetName"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -2560,7 +2603,9 @@
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": true
+            "isNullable": true,
+            "minValue": 0,
+            "maxValue": 100
           },
           "description": "The total number of art pieces completed by the student during the program.",
           "isIdentifying": false,
@@ -2574,6 +2619,7 @@
           "propertyName": "ExhibitDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -2608,6 +2654,7 @@
           "propertyName": "IdentificationCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -2625,6 +2672,7 @@
           "propertyName": "KilnReservation",
           "propertyType": {
             "dbType": "Time",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -2642,6 +2690,7 @@
           "propertyName": "KilnReservationLength",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -2659,6 +2708,7 @@
           "propertyName": "MasteredMediums",
           "propertyType": {
             "dbType": "Decimal",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 5,
             "scale": 4,
@@ -2679,7 +2729,8 @@
             "maxLength": 0,
             "precision": 18,
             "scale": 4,
-            "isNullable": true
+            "isNullable": true,
+            "minValue": 0
           },
           "description": "Number of days the student is in attendance at the program.",
           "isIdentifying": false,
@@ -2696,7 +2747,9 @@
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": true
+            "isNullable": true,
+            "minValue": 0,
+            "maxValue": 100
           },
           "description": "The total number of pieces in the student's portfolio.",
           "isIdentifying": false,
@@ -2710,6 +2763,7 @@
           "propertyName": "PrivateArtProgram",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -2727,6 +2781,7 @@
           "propertyName": "ProgramFees",
           "propertyType": {
             "dbType": "Currency",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 19,
             "scale": 4,
@@ -2793,13 +2848,13 @@
         {
           "identifierName": "StudentArtProgramAssociationArtMedium_PK",
           "identifyingPropertyNames": [
-            "ArtMediumDescriptorId",
             "BeginDate",
             "EducationOrganizationId",
             "ProgramEducationOrganizationId",
             "ProgramName",
             "ProgramTypeDescriptorId",
-            "StudentUSI"
+            "StudentUSI",
+            "ArtMediumDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -2841,6 +2896,7 @@
           "propertyName": "PortfolioYears",
           "propertyType": {
             "dbType": "Int16",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 5,
             "scale": 0,
@@ -2861,11 +2917,11 @@
           "identifyingPropertyNames": [
             "BeginDate",
             "EducationOrganizationId",
-            "PortfolioYears",
             "ProgramEducationOrganizationId",
             "ProgramName",
             "ProgramTypeDescriptorId",
-            "StudentUSI"
+            "StudentUSI",
+            "PortfolioYears"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -2907,6 +2963,7 @@
           "propertyName": "PrimaryIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -2924,6 +2981,7 @@
           "propertyName": "ServiceBeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -2941,6 +2999,7 @@
           "propertyName": "ServiceEndDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -2964,8 +3023,8 @@
             "ProgramEducationOrganizationId",
             "ProgramName",
             "ProgramTypeDescriptorId",
-            "ServiceDescriptorId",
-            "StudentUSI"
+            "StudentUSI",
+            "ServiceDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3007,6 +3066,7 @@
           "propertyName": "Style",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -3056,6 +3116,7 @@
           "propertyName": "AnalysisCompleted",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -3073,6 +3134,7 @@
           "propertyName": "AnalysisDate",
           "propertyType": {
             "dbType": "DateTime2",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -3138,6 +3200,7 @@
           "propertyName": "Complex",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -3172,6 +3235,7 @@
           "propertyName": "OnBusRoute",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -3190,13 +3254,13 @@
         {
           "identifierName": "StudentEducationOrganizationAssociationAddressExtension_PK",
           "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "StudentUSI",
             "AddressTypeDescriptorId",
             "City",
-            "EducationOrganizationId",
             "PostalCode",
             "StateAbbreviationDescriptorId",
-            "StreetNumberName",
-            "StudentUSI"
+            "StreetNumberName"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3238,6 +3302,7 @@
           "propertyName": "SchoolDistrict",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 250,
             "precision": 0,
             "scale": 0,
@@ -3256,14 +3321,14 @@
         {
           "identifierName": "StudentEducationOrganizationAssociationAddressSchoolDistrict_PK",
           "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "StudentUSI",
             "AddressTypeDescriptorId",
             "City",
-            "EducationOrganizationId",
             "PostalCode",
-            "SchoolDistrict",
             "StateAbbreviationDescriptorId",
             "StreetNumberName",
-            "StudentUSI"
+            "SchoolDistrict"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3306,13 +3371,13 @@
         {
           "identifierName": "StudentEducationOrganizationAssociationAddressTerm_PK",
           "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "StudentUSI",
             "AddressTypeDescriptorId",
             "City",
-            "EducationOrganizationId",
             "PostalCode",
             "StateAbbreviationDescriptorId",
             "StreetNumberName",
-            "StudentUSI",
             "TermDescriptorId"
           ],
           "isPrimary": true,
@@ -3338,6 +3403,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -3372,6 +3438,7 @@
           "propertyName": "EndDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -3389,6 +3456,7 @@
           "propertyName": "PrimaryStudentNeedIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -3407,10 +3475,10 @@
         {
           "identifierName": "StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed_PK",
           "identifyingPropertyNames": [
-            "BeginDate",
             "EducationOrganizationId",
+            "StudentUSI",
             "StudentCharacteristicDescriptorId",
-            "StudentUSI"
+            "BeginDate"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3435,6 +3503,7 @@
           "propertyName": "BookTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 200,
             "precision": 0,
             "scale": 0,
@@ -3470,8 +3539,8 @@
         {
           "identifierName": "StudentFavoriteBook_PK",
           "identifyingPropertyNames": [
-            "FavoriteBookCategoryDescriptorId",
-            "StudentUSI"
+            "StudentUSI",
+            "FavoriteBookCategoryDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3499,7 +3568,9 @@
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": true
+            "isNullable": true,
+            "minValue": 0,
+            "maxValue": 100
           },
           "description": "This is documentation.",
           "isIdentifying": false,
@@ -3531,9 +3602,9 @@
         {
           "identifierName": "StudentFavoriteBookArtMedium_PK",
           "identifyingPropertyNames": [
-            "ArtMediumDescriptorId",
+            "StudentUSI",
             "FavoriteBookCategoryDescriptorId",
-            "StudentUSI"
+            "ArtMediumDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3558,6 +3629,7 @@
           "propertyName": "CommencementTime",
           "propertyType": {
             "dbType": "Time",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -3592,6 +3664,7 @@
           "propertyName": "EffectiveDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -3609,6 +3682,7 @@
           "propertyName": "GraduationFee",
           "propertyType": {
             "dbType": "Currency",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 19,
             "scale": 4,
@@ -3626,6 +3700,7 @@
           "propertyName": "HighSchoolDuration",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -3677,6 +3752,7 @@
           "propertyName": "IsActivePlan",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -3711,6 +3787,7 @@
           "propertyName": "RequiredAttendance",
           "propertyType": {
             "dbType": "Decimal",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 5,
             "scale": 4,
@@ -3804,11 +3881,11 @@
         {
           "identifierName": "StudentGraduationPlanAssociationAcademicSubject_PK",
           "identifyingPropertyNames": [
-            "AcademicSubjectDescriptorId",
             "EducationOrganizationId",
             "GraduationPlanTypeDescriptorId",
             "GraduationSchoolYear",
-            "StudentUSI"
+            "StudentUSI",
+            "AcademicSubjectDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3868,11 +3945,11 @@
         {
           "identifierName": "StudentGraduationPlanAssociationCareerPathwayCode_PK",
           "identifyingPropertyNames": [
-            "CareerPathwayCode",
             "EducationOrganizationId",
             "GraduationPlanTypeDescriptorId",
             "GraduationSchoolYear",
-            "StudentUSI"
+            "StudentUSI",
+            "CareerPathwayCode"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -3897,6 +3974,7 @@
           "propertyName": "CIPCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 120,
             "precision": 0,
             "scale": 0,
@@ -3931,6 +4009,7 @@
           "propertyName": "CTEProgramCompletionIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -3948,6 +4027,7 @@
           "propertyName": "PrimaryCTEProgramIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -4011,6 +4091,7 @@
           "propertyName": "Description",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 1024,
             "precision": 0,
             "scale": 0,
@@ -4029,11 +4110,11 @@
         {
           "identifierName": "StudentGraduationPlanAssociationDescription_PK",
           "identifyingPropertyNames": [
-            "Description",
             "EducationOrganizationId",
             "GraduationPlanTypeDescriptorId",
             "GraduationSchoolYear",
-            "StudentUSI"
+            "StudentUSI",
+            "Description"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4075,6 +4156,7 @@
           "propertyName": "DesignatedBy",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -4093,11 +4175,11 @@
         {
           "identifierName": "StudentGraduationPlanAssociationDesignatedBy_PK",
           "identifyingPropertyNames": [
-            "DesignatedBy",
             "EducationOrganizationId",
             "GraduationPlanTypeDescriptorId",
             "GraduationSchoolYear",
-            "StudentUSI"
+            "StudentUSI",
+            "DesignatedBy"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4139,6 +4221,7 @@
           "propertyName": "IndustryCredential",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 100,
             "precision": 0,
             "scale": 0,
@@ -4160,8 +4243,8 @@
             "EducationOrganizationId",
             "GraduationPlanTypeDescriptorId",
             "GraduationSchoolYear",
-            "IndustryCredential",
-            "StudentUSI"
+            "StudentUSI",
+            "IndustryCredential"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4207,8 +4290,8 @@
             "EducationOrganizationId",
             "GraduationPlanTypeDescriptorId",
             "GraduationSchoolYear",
-            "ParentUSI",
-            "StudentUSI"
+            "StudentUSI",
+            "ParentUSI"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4250,6 +4333,7 @@
           "propertyName": "YearsAttended",
           "propertyType": {
             "dbType": "Int16",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 5,
             "scale": 0,
@@ -4315,9 +4399,9 @@
         {
           "identifierName": "StudentParentAssociationDiscipline_PK",
           "identifyingPropertyNames": [
-            "DisciplineDescriptorId",
             "ParentUSI",
-            "StudentUSI"
+            "StudentUSI",
+            "DisciplineDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4342,6 +4426,7 @@
           "propertyName": "BedtimeReader",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -4359,6 +4444,7 @@
           "propertyName": "BedtimeReadingRate",
           "propertyType": {
             "dbType": "Decimal",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 5,
             "scale": 4,
@@ -4376,6 +4462,7 @@
           "propertyName": "BookBudget",
           "propertyType": {
             "dbType": "Currency",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 19,
             "scale": 4,
@@ -4430,7 +4517,8 @@
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": true
+            "isNullable": true,
+            "minValue": 1
           },
           "description": "The actual or estimated number of clock minutes for a given library visit.",
           "isIdentifying": false,
@@ -4444,6 +4532,7 @@
           "propertyName": "LibraryTime",
           "propertyType": {
             "dbType": "Time",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -4478,6 +4567,7 @@
           "propertyName": "PriorContactRestrictions",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 250,
             "precision": 0,
             "scale": 0,
@@ -4495,6 +4585,7 @@
           "propertyName": "ReadGreenEggsAndHamDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -4512,6 +4603,7 @@
           "propertyName": "ReadingTimeSpent",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -4529,6 +4621,7 @@
           "propertyName": "StudentRead",
           "propertyType": {
             "dbType": "Int16",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 5,
             "scale": 0,
@@ -4590,6 +4683,7 @@
           "propertyName": "FavoriteBookTitle",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 100,
             "precision": 0,
             "scale": 0,
@@ -4608,9 +4702,9 @@
         {
           "identifierName": "StudentParentAssociationFavoriteBookTitle_PK",
           "identifyingPropertyNames": [
-            "FavoriteBookTitle",
             "ParentUSI",
-            "StudentUSI"
+            "StudentUSI",
+            "FavoriteBookTitle"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4670,9 +4764,9 @@
         {
           "identifierName": "StudentParentAssociationHoursPerWeek_PK",
           "identifyingPropertyNames": [
-            "HoursPerWeek",
             "ParentUSI",
-            "StudentUSI"
+            "StudentUSI",
+            "HoursPerWeek"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4732,9 +4826,9 @@
         {
           "identifierName": "StudentParentAssociationPagesRead_PK",
           "identifyingPropertyNames": [
-            "PagesRead",
             "ParentUSI",
-            "StudentUSI"
+            "StudentUSI",
+            "PagesRead"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4777,12 +4871,12 @@
         {
           "identifierName": "StudentParentAssociationStaffEducationOrganizationEmploymentAssociation_PK",
           "identifyingPropertyNames": [
+            "ParentUSI",
+            "StudentUSI",
             "EducationOrganizationId",
             "EmploymentStatusDescriptorId",
             "HireDate",
-            "ParentUSI",
-            "StaffUSI",
-            "StudentUSI"
+            "StaffUSI"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -4824,6 +4918,7 @@
           "propertyName": "DoNotPublishIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -4844,7 +4939,8 @@
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": true
+            "isNullable": true,
+            "minValue": 1
           },
           "description": "The order of priority assigned to telephone numbers to define which number to attempt first, second, etc.",
           "isIdentifying": false,
@@ -4858,6 +4954,7 @@
           "propertyName": "TelephoneNumber",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 24,
             "precision": 0,
             "scale": 0,
@@ -4875,6 +4972,7 @@
           "propertyName": "TextMessageCapabilityIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -4936,6 +5034,7 @@
           "propertyName": "IsFixed",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -4972,8 +5071,8 @@
         {
           "identifierName": "StudentPet_PK",
           "identifyingPropertyNames": [
-            "PetName",
-            "StudentUSI"
+            "StudentUSI",
+            "PetName"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -5140,16 +5239,16 @@
           "identifyingPropertyNames": [
             "BeginDate",
             "LocalCourseCode",
-            "RelatedBeginDate",
-            "RelatedEducationOrganizationId",
-            "RelatedProgramEducationOrganizationId",
-            "RelatedProgramName",
-            "RelatedProgramTypeDescriptorId",
             "SchoolId",
             "SchoolYear",
             "SectionIdentifier",
             "SessionName",
-            "StudentUSI"
+            "StudentUSI",
+            "RelatedBeginDate",
+            "RelatedEducationOrganizationId",
+            "RelatedProgramEducationOrganizationId",
+            "RelatedProgramName",
+            "RelatedProgramTypeDescriptorId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -5303,6 +5402,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -5377,6 +5477,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -5465,6 +5566,7 @@
           "propertyName": "BusId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -5509,6 +5611,7 @@
           "propertyName": "BusId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -5567,6 +5670,7 @@
           "propertyName": "BusId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -5611,6 +5715,7 @@
           "propertyName": "BusId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -5686,6 +5791,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -5743,6 +5849,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -5797,6 +5904,7 @@
           "propertyName": "BusId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -5841,6 +5949,7 @@
           "propertyName": "BusId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -5899,6 +6008,7 @@
           "propertyName": "BusId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -5943,6 +6053,7 @@
           "propertyName": "BusId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -6001,6 +6112,7 @@
           "propertyName": "BusId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -6045,6 +6157,7 @@
           "propertyName": "BusId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -6280,6 +6393,23 @@
       },
       "primaryEntityProperties": [
         {
+          "propertyName": "ParentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a parent.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ParentUSI",
+            "postgreSql": "ParentUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -6300,6 +6430,7 @@
           "propertyName": "City",
           "propertyType": {
             "dbType": "String",
+            "minLength": 2,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -6314,26 +6445,10 @@
           }
         },
         {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
           "propertyName": "PostalCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 17,
             "precision": 0,
             "scale": 0,
@@ -6368,6 +6483,7 @@
           "propertyName": "StreetNumberName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -6388,6 +6504,23 @@
       },
       "secondaryEntityProperties": [
         {
+          "propertyName": "ParentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a parent.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ParentUSI",
+            "postgreSql": "ParentUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -6408,6 +6541,7 @@
           "propertyName": "City",
           "propertyType": {
             "dbType": "String",
+            "minLength": 2,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -6422,26 +6556,10 @@
           }
         },
         {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
           "propertyName": "PostalCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 17,
             "precision": 0,
             "scale": 0,
@@ -6476,6 +6594,7 @@
           "propertyName": "StreetNumberName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -6503,12 +6622,29 @@
         "schema": "sample",
         "name": "FK_ParentAddressSchoolDistrict_ParentAddress"
       },
-      "cardinality": "OneToZeroOrMore",
+      "cardinality": "OneToOneOrMore",
       "primaryEntityFullName": {
         "schema": "edfi",
         "name": "ParentAddress"
       },
       "primaryEntityProperties": [
+        {
+          "propertyName": "ParentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a parent.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ParentUSI",
+            "postgreSql": "ParentUSI"
+          }
+        },
         {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
@@ -6530,6 +6666,7 @@
           "propertyName": "City",
           "propertyType": {
             "dbType": "String",
+            "minLength": 2,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -6544,26 +6681,10 @@
           }
         },
         {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
           "propertyName": "PostalCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 17,
             "precision": 0,
             "scale": 0,
@@ -6598,6 +6719,7 @@
           "propertyName": "StreetNumberName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -6618,6 +6740,23 @@
       },
       "secondaryEntityProperties": [
         {
+          "propertyName": "ParentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a parent.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ParentUSI",
+            "postgreSql": "ParentUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -6638,6 +6777,7 @@
           "propertyName": "City",
           "propertyType": {
             "dbType": "String",
+            "minLength": 2,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -6652,26 +6792,10 @@
           }
         },
         {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
           "propertyName": "PostalCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 17,
             "precision": 0,
             "scale": 0,
@@ -6706,6 +6830,7 @@
           "propertyName": "StreetNumberName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -6740,6 +6865,23 @@
       },
       "primaryEntityProperties": [
         {
+          "propertyName": "ParentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a parent.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ParentUSI",
+            "postgreSql": "ParentUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -6760,6 +6902,7 @@
           "propertyName": "City",
           "propertyType": {
             "dbType": "String",
+            "minLength": 2,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -6774,26 +6917,10 @@
           }
         },
         {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
           "propertyName": "PostalCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 17,
             "precision": 0,
             "scale": 0,
@@ -6828,6 +6955,7 @@
           "propertyName": "StreetNumberName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -6848,6 +6976,23 @@
       },
       "secondaryEntityProperties": [
         {
+          "propertyName": "ParentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a parent.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ParentUSI",
+            "postgreSql": "ParentUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -6868,6 +7013,7 @@
           "propertyName": "City",
           "propertyType": {
             "dbType": "String",
+            "minLength": 2,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -6882,26 +7028,10 @@
           }
         },
         {
-          "propertyName": "ParentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a parent.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ParentUSI",
-            "postgreSql": "ParentUSI"
-          }
-        },
-        {
           "propertyName": "PostalCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 17,
             "precision": 0,
             "scale": 0,
@@ -6936,6 +7066,7 @@
           "propertyName": "StreetNumberName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -7243,7 +7374,7 @@
           },
           "description": "A unique alphanumeric code assigned to a parent.",
           "isIdentifying": true,
-          "isServerAssigned": true,
+          "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "ParentUSI",
             "postgreSql": "ParentUSI"
@@ -7273,6 +7404,7 @@
           "propertyName": "ContentIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 225,
             "precision": 0,
             "scale": 0,
@@ -7296,6 +7428,7 @@
           "propertyName": "ContentIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 225,
             "precision": 0,
             "scale": 0,
@@ -7632,6 +7765,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -7683,6 +7817,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -7740,6 +7875,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -7791,6 +7927,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -8042,6 +8179,7 @@
           "propertyName": "BusId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -8065,6 +8203,7 @@
           "propertyName": "DirectlyOwnedBusId",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -8370,7 +8509,7 @@
           },
           "description": "A unique alphanumeric code assigned to a staff.",
           "isIdentifying": true,
-          "isServerAssigned": true,
+          "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "StaffUSI",
             "postgreSql": "StaffUSI"
@@ -8460,6 +8599,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -8511,6 +8651,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -8568,6 +8709,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -8619,6 +8761,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -8749,6 +8892,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -8800,6 +8944,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -8857,6 +9002,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -8908,6 +9054,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -8979,6 +9126,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -9030,6 +9178,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -9087,6 +9236,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -9138,6 +9288,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -9269,6 +9420,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -9320,6 +9472,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -9377,6 +9530,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -9428,6 +9582,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -9499,6 +9654,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -9550,6 +9706,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -9607,6 +9764,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -9658,6 +9816,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -9729,6 +9888,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -9780,6 +9940,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -9837,6 +9998,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -9888,6 +10050,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -9955,6 +10118,40 @@
       },
       "primaryEntityProperties": [
         {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -9975,6 +10172,7 @@
           "propertyName": "City",
           "propertyType": {
             "dbType": "String",
+            "minLength": 2,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -9989,26 +10187,10 @@
           }
         },
         {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
           "propertyName": "PostalCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 17,
             "precision": 0,
             "scale": 0,
@@ -10043,6 +10225,7 @@
           "propertyName": "StreetNumberName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -10054,23 +10237,6 @@
           "columnNames": {
             "sqlServer": "StreetNumberName",
             "postgreSql": "StreetNumberName"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
           }
         }
       ],
@@ -10080,6 +10246,40 @@
       },
       "secondaryEntityProperties": [
         {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -10100,6 +10300,7 @@
           "propertyName": "City",
           "propertyType": {
             "dbType": "String",
+            "minLength": 2,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -10114,26 +10315,10 @@
           }
         },
         {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
           "propertyName": "PostalCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 17,
             "precision": 0,
             "scale": 0,
@@ -10168,6 +10353,7 @@
           "propertyName": "StreetNumberName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -10179,23 +10365,6 @@
           "columnNames": {
             "sqlServer": "StreetNumberName",
             "postgreSql": "StreetNumberName"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
           }
         }
       ],
@@ -10212,12 +10381,46 @@
         "schema": "sample",
         "name": "FK_StudentEducationOrganizationAssociationAddressSchoolDistrict_StudentEducationOrganizationAssociationAddress"
       },
-      "cardinality": "OneToZeroOrMore",
+      "cardinality": "OneToOneOrMore",
       "primaryEntityFullName": {
         "schema": "edfi",
         "name": "StudentEducationOrganizationAssociationAddress"
       },
       "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
         {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
@@ -10239,6 +10442,7 @@
           "propertyName": "City",
           "propertyType": {
             "dbType": "String",
+            "minLength": 2,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -10253,26 +10457,10 @@
           }
         },
         {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
           "propertyName": "PostalCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 17,
             "precision": 0,
             "scale": 0,
@@ -10307,6 +10495,7 @@
           "propertyName": "StreetNumberName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -10318,23 +10507,6 @@
           "columnNames": {
             "sqlServer": "StreetNumberName",
             "postgreSql": "StreetNumberName"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
           }
         }
       ],
@@ -10344,6 +10516,40 @@
       },
       "secondaryEntityProperties": [
         {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -10364,6 +10570,7 @@
           "propertyName": "City",
           "propertyType": {
             "dbType": "String",
+            "minLength": 2,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -10378,26 +10585,10 @@
           }
         },
         {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
           "propertyName": "PostalCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 17,
             "precision": 0,
             "scale": 0,
@@ -10432,6 +10623,7 @@
           "propertyName": "StreetNumberName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -10443,23 +10635,6 @@
           "columnNames": {
             "sqlServer": "StreetNumberName",
             "postgreSql": "StreetNumberName"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
           }
         }
       ],
@@ -10483,6 +10658,40 @@
       },
       "primaryEntityProperties": [
         {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -10503,6 +10712,7 @@
           "propertyName": "City",
           "propertyType": {
             "dbType": "String",
+            "minLength": 2,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -10517,26 +10727,10 @@
           }
         },
         {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
           "propertyName": "PostalCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 17,
             "precision": 0,
             "scale": 0,
@@ -10571,6 +10765,7 @@
           "propertyName": "StreetNumberName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -10582,23 +10777,6 @@
           "columnNames": {
             "sqlServer": "StreetNumberName",
             "postgreSql": "StreetNumberName"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
           }
         }
       ],
@@ -10608,6 +10786,40 @@
       },
       "secondaryEntityProperties": [
         {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
           "propertyName": "AddressTypeDescriptorId",
           "propertyType": {
             "dbType": "Int32",
@@ -10628,6 +10840,7 @@
           "propertyName": "City",
           "propertyType": {
             "dbType": "String",
+            "minLength": 2,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -10642,26 +10855,10 @@
           }
         },
         {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
           "propertyName": "PostalCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 17,
             "precision": 0,
             "scale": 0,
@@ -10696,6 +10893,7 @@
           "propertyName": "StreetNumberName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -10707,23 +10905,6 @@
           "columnNames": {
             "sqlServer": "StreetNumberName",
             "postgreSql": "StreetNumberName"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
           }
         }
       ],
@@ -10824,23 +11005,6 @@
           }
         },
         {
-          "propertyName": "StudentCharacteristicDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The characteristic designated for the student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentCharacteristicDescriptorId",
-            "postgreSql": "StudentCharacteristicDescriptorId"
-          }
-        },
-        {
           "propertyName": "StudentUSI",
           "propertyType": {
             "dbType": "Int32",
@@ -10855,6 +11019,23 @@
           "columnNames": {
             "sqlServer": "StudentUSI",
             "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "StudentCharacteristicDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The characteristic designated for the student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentCharacteristicDescriptorId",
+            "postgreSql": "StudentCharacteristicDescriptorId"
           }
         }
       ],
@@ -10881,23 +11062,6 @@
           }
         },
         {
-          "propertyName": "StudentCharacteristicDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The characteristic designated for the student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentCharacteristicDescriptorId",
-            "postgreSql": "StudentCharacteristicDescriptorId"
-          }
-        },
-        {
           "propertyName": "StudentUSI",
           "propertyType": {
             "dbType": "Int32",
@@ -10912,6 +11076,23 @@
           "columnNames": {
             "sqlServer": "StudentUSI",
             "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "StudentCharacteristicDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The characteristic designated for the student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentCharacteristicDescriptorId",
+            "postgreSql": "StudentCharacteristicDescriptorId"
           }
         }
       ],
@@ -11115,23 +11296,6 @@
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "FavoriteBookCategoryDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "This is documentation.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "FavoriteBookCategoryDescriptorId",
-            "postgreSql": "FavoriteBookCategoryDescriptorId"
-          }
-        },
-        {
           "propertyName": "StudentUSI",
           "propertyType": {
             "dbType": "Int32",
@@ -11146,6 +11310,23 @@
           "columnNames": {
             "sqlServer": "StudentUSI",
             "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "FavoriteBookCategoryDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "This is documentation.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "FavoriteBookCategoryDescriptorId",
+            "postgreSql": "FavoriteBookCategoryDescriptorId"
           }
         }
       ],
@@ -11155,23 +11336,6 @@
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "FavoriteBookCategoryDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "This is documentation.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "FavoriteBookCategoryDescriptorId",
-            "postgreSql": "FavoriteBookCategoryDescriptorId"
-          }
-        },
-        {
           "propertyName": "StudentUSI",
           "propertyType": {
             "dbType": "Int32",
@@ -11186,6 +11350,23 @@
           "columnNames": {
             "sqlServer": "StudentUSI",
             "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "FavoriteBookCategoryDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "This is documentation.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "FavoriteBookCategoryDescriptorId",
+            "postgreSql": "FavoriteBookCategoryDescriptorId"
           }
         }
       ],
@@ -11450,7 +11631,7 @@
         "schema": "sample",
         "name": "FK_StudentGraduationPlanAssociationAcademicSubject_AcademicSubjectDescriptor"
       },
-      "cardinality": "OneToZeroOrMore",
+      "cardinality": "OneToOneOrMore",
       "primaryEntityFullName": {
         "schema": "edfi",
         "name": "AcademicSubjectDescriptor"
@@ -13141,6 +13322,7 @@
           "propertyName": "InterventionStudyIdentificationCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -13181,6 +13363,7 @@
           "propertyName": "InterventionStudyIdentificationCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -13627,6 +13810,7 @@
           "propertyName": "HireDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -13701,6 +13885,7 @@
           "propertyName": "HireDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -14093,7 +14278,7 @@
           },
           "description": "A unique alphanumeric code assigned to a student.",
           "isIdentifying": true,
-          "isServerAssigned": true,
+          "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "StudentUSI",
             "postgreSql": "StudentUSI"
@@ -14183,6 +14368,7 @@
           "propertyName": "EntryDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -14240,6 +14426,7 @@
           "propertyName": "EntryDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -14310,6 +14497,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -14361,6 +14549,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -14418,6 +14607,7 @@
           "propertyName": "RelatedBeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -14469,6 +14659,7 @@
           "propertyName": "RelatedProgramName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -14540,6 +14731,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -14557,6 +14749,7 @@
           "propertyName": "LocalCourseCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -14608,6 +14801,7 @@
           "propertyName": "SectionIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -14625,6 +14819,7 @@
           "propertyName": "SessionName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -14665,6 +14860,7 @@
           "propertyName": "BeginDate",
           "propertyType": {
             "dbType": "Date",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -14682,6 +14878,7 @@
           "propertyName": "LocalCourseCode",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -14733,6 +14930,7 @@
           "propertyName": "SectionIdentifier",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -14750,6 +14948,7 @@
           "propertyName": "SessionName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 1,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -14789,5 +14988,6 @@
       },
       "potentiallyLogical": false
     }
-  ]
+  ],
+  "edFiVersion": "4.0.0"
 }

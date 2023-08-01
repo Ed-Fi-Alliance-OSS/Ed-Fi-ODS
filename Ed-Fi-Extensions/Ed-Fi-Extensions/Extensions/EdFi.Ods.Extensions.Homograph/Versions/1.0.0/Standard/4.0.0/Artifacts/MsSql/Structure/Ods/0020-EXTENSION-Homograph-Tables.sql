@@ -47,14 +47,14 @@ GO
 
 -- Table [homograph].[ParentAddress] --
 CREATE TABLE [homograph].[ParentAddress] (
-    [City] [NVARCHAR](30) NOT NULL,
     [ParentFirstName] [NVARCHAR](75) NOT NULL,
     [ParentLastSurname] [NVARCHAR](75) NOT NULL,
+    [City] [NVARCHAR](30) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [ParentAddress_PK] PRIMARY KEY CLUSTERED (
-        [City] ASC,
         [ParentFirstName] ASC,
-        [ParentLastSurname] ASC
+        [ParentLastSurname] ASC,
+        [City] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -156,14 +156,14 @@ GO
 
 -- Table [homograph].[StaffAddress] --
 CREATE TABLE [homograph].[StaffAddress] (
-    [City] [NVARCHAR](30) NOT NULL,
     [StaffFirstName] [NVARCHAR](75) NOT NULL,
     [StaffLastSurname] [NVARCHAR](75) NOT NULL,
+    [City] [NVARCHAR](30) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StaffAddress_PK] PRIMARY KEY CLUSTERED (
-        [City] ASC,
         [StaffFirstName] ASC,
-        [StaffLastSurname] ASC
+        [StaffLastSurname] ASC,
+        [City] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -172,16 +172,16 @@ GO
 
 -- Table [homograph].[StaffStudentSchoolAssociation] --
 CREATE TABLE [homograph].[StaffStudentSchoolAssociation] (
-    [SchoolName] [NVARCHAR](100) NOT NULL,
     [StaffFirstName] [NVARCHAR](75) NOT NULL,
     [StaffLastSurname] [NVARCHAR](75) NOT NULL,
+    [SchoolName] [NVARCHAR](100) NOT NULL,
     [StudentFirstName] [NVARCHAR](75) NOT NULL,
     [StudentLastSurname] [NVARCHAR](75) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StaffStudentSchoolAssociation_PK] PRIMARY KEY CLUSTERED (
-        [SchoolName] ASC,
         [StaffFirstName] ASC,
         [StaffLastSurname] ASC,
+        [SchoolName] ASC,
         [StudentFirstName] ASC,
         [StudentLastSurname] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -214,14 +214,14 @@ GO
 
 -- Table [homograph].[StudentAddress] --
 CREATE TABLE [homograph].[StudentAddress] (
-    [City] [NVARCHAR](30) NOT NULL,
     [StudentFirstName] [NVARCHAR](75) NOT NULL,
     [StudentLastSurname] [NVARCHAR](75) NOT NULL,
+    [City] [NVARCHAR](30) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentAddress_PK] PRIMARY KEY CLUSTERED (
-        [City] ASC,
         [StudentFirstName] ASC,
-        [StudentLastSurname] ASC
+        [StudentLastSurname] ASC,
+        [City] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO

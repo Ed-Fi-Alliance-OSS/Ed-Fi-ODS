@@ -12,17 +12,9 @@ REFERENCES [homograph].[Parent] ([ParentFirstName], [ParentLastSurname])
 ON DELETE CASCADE
 GO
 
-CREATE NONCLUSTERED INDEX [FK_ParentAddress_Parent]
-ON [homograph].[ParentAddress] ([ParentFirstName] ASC, [ParentLastSurname] ASC)
-GO
-
 ALTER TABLE [homograph].[ParentStudentSchoolAssociation] WITH CHECK ADD CONSTRAINT [FK_ParentStudentSchoolAssociation_Parent] FOREIGN KEY ([ParentFirstName], [ParentLastSurname])
 REFERENCES [homograph].[Parent] ([ParentFirstName], [ParentLastSurname])
 ON DELETE CASCADE
-GO
-
-CREATE NONCLUSTERED INDEX [FK_ParentStudentSchoolAssociation_Parent]
-ON [homograph].[ParentStudentSchoolAssociation] ([ParentFirstName] ASC, [ParentLastSurname] ASC)
 GO
 
 ALTER TABLE [homograph].[ParentStudentSchoolAssociation] WITH CHECK ADD CONSTRAINT [FK_ParentStudentSchoolAssociation_StudentSchoolAssociation] FOREIGN KEY ([SchoolName], [StudentFirstName], [StudentLastSurname])
@@ -56,17 +48,9 @@ REFERENCES [homograph].[Staff] ([StaffFirstName], [StaffLastSurname])
 ON DELETE CASCADE
 GO
 
-CREATE NONCLUSTERED INDEX [FK_StaffAddress_Staff]
-ON [homograph].[StaffAddress] ([StaffFirstName] ASC, [StaffLastSurname] ASC)
-GO
-
 ALTER TABLE [homograph].[StaffStudentSchoolAssociation] WITH CHECK ADD CONSTRAINT [FK_StaffStudentSchoolAssociation_Staff] FOREIGN KEY ([StaffFirstName], [StaffLastSurname])
 REFERENCES [homograph].[Staff] ([StaffFirstName], [StaffLastSurname])
 ON DELETE CASCADE
-GO
-
-CREATE NONCLUSTERED INDEX [FK_StaffStudentSchoolAssociation_Staff]
-ON [homograph].[StaffStudentSchoolAssociation] ([StaffFirstName] ASC, [StaffLastSurname] ASC)
 GO
 
 ALTER TABLE [homograph].[StaffStudentSchoolAssociation] WITH CHECK ADD CONSTRAINT [FK_StaffStudentSchoolAssociation_StudentSchoolAssociation] FOREIGN KEY ([SchoolName], [StudentFirstName], [StudentLastSurname])
@@ -93,10 +77,6 @@ GO
 ALTER TABLE [homograph].[StudentAddress] WITH CHECK ADD CONSTRAINT [FK_StudentAddress_Student] FOREIGN KEY ([StudentFirstName], [StudentLastSurname])
 REFERENCES [homograph].[Student] ([StudentFirstName], [StudentLastSurname])
 ON DELETE CASCADE
-GO
-
-CREATE NONCLUSTERED INDEX [FK_StudentAddress_Student]
-ON [homograph].[StudentAddress] ([StudentFirstName] ASC, [StudentLastSurname] ASC)
 GO
 
 ALTER TABLE [homograph].[StudentSchoolAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentSchoolAssociation_School] FOREIGN KEY ([SchoolName])
