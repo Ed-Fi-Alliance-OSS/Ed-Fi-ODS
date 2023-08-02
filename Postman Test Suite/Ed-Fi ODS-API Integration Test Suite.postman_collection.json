@@ -7939,7 +7939,7 @@
 									"name": "Setup",
 									"item": [
 										{
-											"name": "Initialize Supplied Parent/Contact UniqueId",
+											"name": "Initialize Supplied Contact UniqueId",
 											"event": [
 												{
 													"listen": "prerequest",
@@ -8002,7 +8002,7 @@
 									"name": "Invalid (Collections Empty)",
 									"item": [
 										{
-											"name": "Create Parent/Contact",
+											"name": "Create Contact",
 											"event": [
 												{
 													"listen": "test",
@@ -8082,7 +8082,7 @@
 									"name": "Invalid (Embedded Objects Not Supplied)",
 									"item": [
 										{
-											"name": "Create Parent/Contact",
+											"name": "Create Contact",
 											"event": [
 												{
 													"listen": "test",
@@ -8153,7 +8153,7 @@
 									"name": "Valid (Required Items Supplied)",
 									"item": [
 										{
-											"name": "Create Parent/Contact",
+											"name": "Create Contact",
 											"event": [
 												{
 													"listen": "test",
@@ -8203,7 +8203,7 @@
 									"name": "Teardown",
 									"item": [
 										{
-											"name": "Delete the Parent/Contact",
+											"name": "Delete the Contact",
 											"event": [
 												{
 													"listen": "test",
