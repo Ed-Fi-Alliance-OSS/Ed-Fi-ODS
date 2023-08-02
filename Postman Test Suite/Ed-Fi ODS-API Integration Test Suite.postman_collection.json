@@ -4738,7 +4738,7 @@
 					]
 				},
 				{
-					"name": "Scenario 5 - Create Person With \"District\" sourceSystemDescriptor and Associate with Contact",
+					"name": "Scenario 5 - Create Person With \"District\" sourceSystemDescriptor and Associate with Parent",
 					"item": [
 						{
 							"name": "Create SourceSystemDescriptors",
@@ -5014,7 +5014,7 @@
 							"response": []
 						},
 						{
-							"name": "Initialize Contact Data for Post Request",
+							"name": "Initialize Parent Data for Post Request",
 							"event": [
 								{
 									"listen": "test",
@@ -5089,7 +5089,7 @@
 							"response": []
 						},
 						{
-							"name": "Initialize StudentContactAssociations Data for Post Request",
+							"name": "Initialize StudentParentAssociations Data for Post Request",
 							"event": [
 								{
 									"listen": "test",
@@ -5133,7 +5133,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentParentAssociations",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -5141,14 +5141,14 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"{{StudentParentOrContactAssociationName}}"
+										"StudentParentAssociations"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Get Contact  By PersonID",
+							"name": "Get Parent  By PersonID",
 							"event": [
 								{
 									"listen": "test",
@@ -5224,7 +5224,7 @@
 							"response": []
 						}
 					],
-					"description": "Scenario 4 - Create Person With \"District\" sourceSystemDescriptor and Associate with Parent\r\n\r\nStep 1  Create \"District\" sourceSystemDescriptor\r\nStep 2 Create Person With \"District\" sourceSystemDescriptor\r\nStep 3 Create Student With Associated Person\r\nStep 4 Create parent With Associated same Person\r\nStep 4 Get Contact  by PersonId",
+					"description": "Scenario 4 - Create Person With \"District\" sourceSystemDescriptor and Associate with Parent\r\n\r\nStep 1  Create \"District\" sourceSystemDescriptor\r\nStep 2 Create Person With \"District\" sourceSystemDescriptor\r\nStep 3 Create Student With Associated Person\r\nStep 4 Create parent With Associated same Person\r\nStep 4 Get Parent  by PersonId",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -7954,19 +7954,7 @@
 													"listen": "test",
 													"script": {
 														"exec": [
-															"if (pm.response.code == 200) {\r",
-															"  pm.environment.set('parentOrContactName', 'parent');\r",
-															"  pm.environment.set('parentOrContactProperName', 'Parent');\r",
-															"  pm.environment.set('ParentOrContactCollectionName', 'parents');\r",
-															"  pm.environment.set('ParentOrContactUniqueIdName', 'parentUniqueId');\r",
-															"} else if (pm.response.code == 404) {\r",
-															"  pm.environment.set('parentOrContactName', 'contact');\r",
-															"  pm.environment.set('parentOrContactProperName', 'Contact');\r",
-															"  pm.environment.set('ParentOrContactCollectionName', 'contacts');\r",
-															"  pm.environment.set('ParentOrContactUniqueIdName', 'contactUniqueId');\r",
-															"} else {\r",
-															"  pm.expect.fail(\"Unable to determine whether Contact or Contact is in use.\");\r",
-															"}"
+															""
 														],
 														"type": "text/javascript"
 													}
