@@ -3034,7 +3034,7 @@
 									"response": []
 								},
 								{
-									"name": "Initialize Parent Data for Post Request",
+									"name": "Initialize Contact Data for Post Request",
 									"event": [
 										{
 											"listen": "test",
@@ -3109,7 +3109,7 @@
 									"response": []
 								},
 								{
-									"name": "Initialize StudentParentAssociations Data for Post Request",
+									"name": "Initialize StudentContactAssociations Data for Post Request",
 									"event": [
 										{
 											"listen": "test",
@@ -3160,7 +3160,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"StudentParentAssociations"
+												"{{StudentParentOrContactAssociationName}}"
 											]
 										}
 									},
@@ -3173,8 +3173,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is  204 or 404\", () => {",
-													"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) ",
+													"pm.test(\"Response is  204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200) ",
 													" });"
 												],
 												"type": "text/javascript"
@@ -3379,7 +3379,7 @@
 									"response": []
 								},
 								{
-									"name": "Initialize Parent Data for Post Request",
+									"name": "Initialize Contact Data for Post Request",
 									"event": [
 										{
 											"listen": "test",
@@ -3506,7 +3506,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"StudentParentAssociations"
+												"{{StudentParentOrContactAssociationName}}"
 											]
 										}
 									},
@@ -3519,8 +3519,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is  204 or 404\", () => {",
-													"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) ",
+													"pm.test(\"Response is  204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204) ",
 													" });"
 												],
 												"type": "text/javascript"
@@ -3725,7 +3725,7 @@
 									"response": []
 								},
 								{
-									"name": "Initialize Parent Data for Post Request",
+									"name": "Initialize Contact Data for Post Request",
 									"event": [
 										{
 											"listen": "test",
@@ -3801,7 +3801,7 @@
 									"response": []
 								},
 								{
-									"name": "Initialize StudentParentAssociations Data for Post Request",
+									"name": "Initialize StudentContactAssociations Data for Post Request",
 									"event": [
 										{
 											"listen": "test",
@@ -3852,7 +3852,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"StudentParentAssociations"
+												"{{StudentParentOrContactAssociationName}}"
 											]
 										}
 									},
@@ -3865,8 +3865,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is  409 or 404\", () => {",
-													"    pm.expect(pm.response.code).to.be.oneOf([409, 404]) ",
+													"pm.test(\"Response is  409\", () => {",
+													"    pm.expect(pm.response.code).to.equal(409) ",
 													" });",
 													""
 												],
@@ -3908,7 +3908,7 @@
 							"name": "When_deleting_an_unused_parent_should_return_204_nocontent",
 							"item": [
 								{
-									"name": "Initialize Parent Data for Post Request",
+									"name": "Initialize Contact Data for Post Request",
 									"event": [
 										{
 											"listen": "test",

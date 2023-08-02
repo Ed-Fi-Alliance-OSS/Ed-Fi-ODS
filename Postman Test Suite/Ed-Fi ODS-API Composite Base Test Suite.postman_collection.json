@@ -6289,7 +6289,7 @@
 													"        \r",
 													"        pm.environment.set('known:testSubject', JSON.stringify(testSubject));\r",
 													"        \r",
-													"        // Build request to update the Parent with address periods\r",
+													"        // Build request to update the Contact with address periods\r",
 													"        let postRequest = {\r",
 													"            method: 'POST',\r",
 													"            url: pm.environment.get('ApiBaseUrl') + '/data/v3/ed-fi/{{ParentOrContactCollectionName}}',\r",

@@ -185,7 +185,7 @@
 					"response": []
 				},
 				{
-					"name": "Initialize First Parent Data",
+					"name": "Initialize First Contact Data",
 					"event": [
 						{
 							"listen": "test",
@@ -255,7 +255,7 @@
 					"response": []
 				},
 				{
-					"name": "Initialize Second Parent Data",
+					"name": "Initialize Second Contact Data",
 					"event": [
 						{
 							"listen": "test",
@@ -368,7 +368,7 @@
 								"data",
 								"v3",
 								"ed-fi",
-								"StudentParentAssociations"
+								"{{StudentParentOrContactAssociationName}}"
 							]
 						}
 					},
@@ -417,7 +417,7 @@
 								"data",
 								"v3",
 								"ed-fi",
-								"StudentParentAssociations"
+								"{{StudentParentOrContactAssociationName}}"
 							]
 						}
 					},

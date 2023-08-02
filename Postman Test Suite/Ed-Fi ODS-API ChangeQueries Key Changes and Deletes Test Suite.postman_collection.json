@@ -10101,7 +10101,7 @@
 									"response": []
 								},
 								{
-									"name": "Create Parent",
+									"name": "Create Contact",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -10210,7 +10210,7 @@
 									"response": []
 								},
 								{
-									"name": "Create Student Parent Association",
+									"name": "Create Student Contact Association",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -10331,7 +10331,7 @@
 							"name": "{{ParentOrContactCollectionName}}",
 							"item": [
 								{
-									"name": "Change Parent First Name",
+									"name": "Change Contact First Name",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -10346,12 +10346,12 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 400 or 404\", () => {\r",
-													"  pm.expect(pm.response.code).to.be.oneOf([400, 404])\r",
+													"pm.test(\"Response is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400)\r",
 													"});\r",
 													"\r",
 													"if (pm.response.code == 400) {\r",
-													"  pm.test(\"Should indicate that Parent keys cannot be changed.\", () => {\r",
+													"  pm.test(\"Should indicate that Contact keys cannot be changed.\", () => {\r",
 													"    pm.expect(pm.response.json().message).to.include(\"Key values for this resource cannot be changed.\");\r",
 													"  });\r",
 													"}"
@@ -10394,7 +10394,7 @@
 							"name": "Teardown",
 							"item": [
 								{
-									"name": "Delete Student Parent Association",
+									"name": "Delete Student Contact Association",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -10409,8 +10409,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 204 or 404\", () => {\r",
-													"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) \r",
+													"pm.test(\"Response is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204) \r",
 													" });\r",
 													""
 												],
@@ -10447,7 +10447,7 @@
 									"response": []
 								},
 								{
-									"name": "Delete Parent",
+									"name": "Delete Contact",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -10462,8 +10462,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 204 or 404\", () => {\r",
-													"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) \r",
+													"pm.test(\"Response is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equals(204) \r",
 													" });"
 												],
 												"type": "text/javascript"

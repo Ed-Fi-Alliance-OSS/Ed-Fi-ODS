@@ -4738,7 +4738,7 @@
 					]
 				},
 				{
-					"name": "Scenario 5 - Create Person With \"District\" sourceSystemDescriptor and Associate with Parent",
+					"name": "Scenario 5 - Create Person With \"District\" sourceSystemDescriptor and Associate with Contact",
 					"item": [
 						{
 							"name": "Create SourceSystemDescriptors",
@@ -5014,7 +5014,7 @@
 							"response": []
 						},
 						{
-							"name": "Initialize Parent Data for Post Request",
+							"name": "Initialize Contact Data for Post Request",
 							"event": [
 								{
 									"listen": "test",
@@ -5089,7 +5089,7 @@
 							"response": []
 						},
 						{
-							"name": "Initialize StudentParentAssociations Data for Post Request",
+							"name": "Initialize StudentContactAssociations Data for Post Request",
 							"event": [
 								{
 									"listen": "test",
@@ -5141,14 +5141,14 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"StudentParentAssociations"
+										"{{StudentParentOrContactAssociationName}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Get Parent  By PersonID",
+							"name": "Get Contact  By PersonID",
 							"event": [
 								{
 									"listen": "test",
@@ -5224,7 +5224,7 @@
 							"response": []
 						}
 					],
-					"description": "Scenario 4 - Create Person With \"District\" sourceSystemDescriptor and Associate with Parent\r\n\r\nStep 1  Create \"District\" sourceSystemDescriptor\r\nStep 2 Create Person With \"District\" sourceSystemDescriptor\r\nStep 3 Create Student With Associated Person\r\nStep 4 Create parent With Associated same Person\r\nStep 4 Get Parent  by PersonId",
+					"description": "Scenario 4 - Create Person With \"District\" sourceSystemDescriptor and Associate with Parent\r\n\r\nStep 1  Create \"District\" sourceSystemDescriptor\r\nStep 2 Create Person With \"District\" sourceSystemDescriptor\r\nStep 3 Create Student With Associated Person\r\nStep 4 Create parent With Associated same Person\r\nStep 4 Get Contact  by PersonId",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -7965,7 +7965,7 @@
 															"  pm.environment.set('ParentOrContactCollectionName', 'contacts');\r",
 															"  pm.environment.set('ParentOrContactUniqueIdName', 'contactUniqueId');\r",
 															"} else {\r",
-															"  pm.expect.fail(\"Unable to determine whether Parent or Contact is in use.\");\r",
+															"  pm.expect.fail(\"Unable to determine whether Contact or Contact is in use.\");\r",
 															"}"
 														],
 														"type": "text/javascript"
