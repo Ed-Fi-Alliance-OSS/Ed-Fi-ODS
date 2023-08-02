@@ -5133,7 +5133,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentParentAssociations",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],

@@ -3152,7 +3152,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentParentAssociations",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -3498,7 +3498,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentParentAssociations",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -3844,7 +3844,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentParentAssociations",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -3990,8 +3990,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is  204 or 404\", () => {",
-													"    pm.expect(pm.response.code).to.be.oneOf([204, 404]) ",
+													"pm.test(\"Response is  204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204) ",
 													" });",
 													""
 												],
