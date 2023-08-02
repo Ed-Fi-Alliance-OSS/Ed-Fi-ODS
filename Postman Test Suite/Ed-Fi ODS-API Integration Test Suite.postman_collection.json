@@ -5020,8 +5020,8 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Response is  201 or 404\", () => {",
-											"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) ",
+											"pm.test(\"Response is  201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201) ",
 											" });",
 											"",
 											"if (pm.response.code === 201 ) {",
@@ -5095,8 +5095,8 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Response is  201 or 404\", () => {",
-											"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) ",
+											"pm.test(\"Response is  201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201) ",
 											" });",
 											""
 										],
@@ -5154,8 +5154,8 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Response is  200 or 404\", () => {",
-											"    pm.expect(pm.response.code).to.be.oneOf([200, 404]) ",
+											"pm.test(\"Response is  200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200) ",
 											" });  ",
 											"",
 											"if (pm.response.code === 200 ) {",

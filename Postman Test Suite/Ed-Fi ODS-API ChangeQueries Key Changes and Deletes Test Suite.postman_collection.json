@@ -10117,7 +10117,7 @@
 											"script": {
 												"exec": [
 													"pm.test(\"Response is 201 or 404\", () => {\r",
-													"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
+													"    pm.expect(pm.response.code).to.equal(201) \r",
 													" });\r",
 													"\r",
 													"if (pm.response.code === 201 ) {\r",
@@ -10226,7 +10226,7 @@
 											"script": {
 												"exec": [
 													"pm.test(\"Response is 201 or 404\", () => {\r",
-													"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) \r",
+													"    pm.expect(pm.response.code).to.equal(201) \r",
 													" });\r",
 													"\r",
 													"if (pm.response.code === 201 ) {\r",

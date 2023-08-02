@@ -6270,8 +6270,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is  200 or 404\", () => {\r",
-													"    pm.expect(pm.response.code).to.be.oneOf([200, 404]) \r",
+													"pm.test(\"Response is  200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200) \r",
 													" });\r",
 													"\r",
 													"if (pm.response.code === 200 ) {\r",
@@ -7531,8 +7531,8 @@
 											"script": {
 												"exec": [
 													"const __ = require('lodash');\r",
-													"pm.test(\"Response is  200 or 404\", () => {\r",
-													"    pm.expect(pm.response.code).to.be.oneOf([200, 404]) \r",
+													"pm.test(\"Response is  200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200) \r",
 													" });\r",
 													"\r",
 													"const parentId = pm.environment.get(\"supplied:parentId\");\r",
