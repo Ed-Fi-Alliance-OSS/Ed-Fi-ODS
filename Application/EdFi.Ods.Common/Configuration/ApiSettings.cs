@@ -54,6 +54,8 @@ namespace EdFi.Ods.Common.Configuration
         public string OdsContextRouteTemplate { get; set; }
         
         public CacheSettings Caching { get; set; } = new();
+        
+        public string StandardVersion { get; set; }
 
         public string OdsConnectionStringEncryptionKey
         {

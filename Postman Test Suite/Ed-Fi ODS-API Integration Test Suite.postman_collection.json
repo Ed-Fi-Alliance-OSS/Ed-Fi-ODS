@@ -5066,7 +5066,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"parentUniqueId\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+									"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5074,7 +5074,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -5082,7 +5082,7 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"parents"
+										"{{ParentOrContactCollectionName}}"
 									]
 								}
 							},
@@ -5125,7 +5125,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"parentReference\": {\r\n    \"parentUniqueId\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+									"raw": "{\r\n  \"parentReference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5199,7 +5199,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents?parentUniqueId={{supplied:{{scenarioId}}:parentUniqueId}}&personId={{supplied:{{scenarioId}}:personId}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}?{{ParentOrContactUniqueIdName}}={{supplied:{{scenarioId}}:parentUniqueId}}&personId={{supplied:{{scenarioId}}:personId}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -5207,11 +5207,11 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"parents"
+										"{{ParentOrContactCollectionName}}"
 									],
 									"query": [
 										{
-											"key": "parentUniqueId",
+											"key": "{{ParentOrContactUniqueIdName}}",
 											"value": "{{supplied:{{scenarioId}}:parentUniqueId}}"
 										},
 										{
@@ -7957,13 +7957,13 @@
 															"if (pm.response.code == 200) {\r",
 															"  pm.environment.set('parentOrContactName', 'parent');\r",
 															"  pm.environment.set('parentOrContactProperName', 'Parent');\r",
-															"  pm.environment.set('parentOrContactCollectionName', 'parents');\r",
-															"  pm.environment.set('parentOrContactUniqueIdName', 'parentUniqueId');\r",
+															"  pm.environment.set('ParentOrContactCollectionName', 'parents');\r",
+															"  pm.environment.set('ParentOrContactUniqueIdName', 'parentUniqueId');\r",
 															"} else if (pm.response.code == 404) {\r",
 															"  pm.environment.set('parentOrContactName', 'contact');\r",
 															"  pm.environment.set('parentOrContactProperName', 'Contact');\r",
-															"  pm.environment.set('parentOrContactCollectionName', 'contacts');\r",
-															"  pm.environment.set('parentOrContactUniqueIdName', 'contactUniqueId');\r",
+															"  pm.environment.set('ParentOrContactCollectionName', 'contacts');\r",
+															"  pm.environment.set('ParentOrContactUniqueIdName', 'contactUniqueId');\r",
 															"} else {\r",
 															"  pm.expect.fail(\"Unable to determine whether Parent or Contact is in use.\");\r",
 															"}"
@@ -7976,7 +7976,7 @@
 												"method": "GET",
 												"header": [],
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents?limit=1",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}?limit=1",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -7984,7 +7984,7 @@
 														"data",
 														"v3",
 														"ed-fi",
-														"parents"
+														"{{ParentOrContactCollectionName}}"
 													],
 													"query": [
 														{
@@ -8054,7 +8054,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"{{parentOrContactUniqueIdName}}\": \"{{supplied:parentOrContact:uniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+													"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:parentOrContact:uniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -8062,7 +8062,7 @@
 													}
 												},
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{parentOrContactCollectionName}}",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -8070,7 +8070,7 @@
 														"data",
 														"v3",
 														"ed-fi",
-														"{{parentOrContactCollectionName}}"
+														"{{ParentOrContactCollectionName}}"
 													]
 												}
 											},
@@ -8125,7 +8125,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"{{parentOrContactUniqueIdName}}\": \"{{supplied:parentOrContact:uniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+													"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:parentOrContact:uniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -8133,7 +8133,7 @@
 													}
 												},
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{parentOrContactCollectionName}}",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -8141,7 +8141,7 @@
 														"data",
 														"v3",
 														"ed-fi",
-														"{{parentOrContactCollectionName}}"
+														"{{ParentOrContactCollectionName}}"
 													]
 												}
 											},
@@ -8175,7 +8175,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"{{parentOrContactUniqueIdName}}\": \"{{supplied:parentOrContact:uniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+													"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:parentOrContact:uniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -8183,7 +8183,7 @@
 													}
 												},
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{parentOrContactCollectionName}}",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -8191,7 +8191,7 @@
 														"data",
 														"v3",
 														"ed-fi",
-														"{{parentOrContactCollectionName}}"
+														"{{ParentOrContactCollectionName}}"
 													]
 												}
 											},
@@ -8236,7 +8236,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{parentOrContactCollectionName}}/{{known:parentOrContact:id}}",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}/{{known:parentOrContact:id}}",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -8244,7 +8244,7 @@
 														"data",
 														"v3",
 														"ed-fi",
-														"{{parentOrContactCollectionName}}",
+														"{{ParentOrContactCollectionName}}",
 														"{{known:parentOrContact:id}}"
 													]
 												},

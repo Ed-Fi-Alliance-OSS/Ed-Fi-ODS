@@ -6292,7 +6292,7 @@
 													"        // Build request to update the Parent with address periods\r",
 													"        let postRequest = {\r",
 													"            method: 'POST',\r",
-													"            url: pm.environment.get('ApiBaseUrl') + '/data/v3/ed-fi/parents',\r",
+													"            url: pm.environment.get('ApiBaseUrl') + '/data/v3/ed-fi/{{ParentOrContactCollectionName}}',\r",
 													"            header: {\r",
 													"                'Content-Type': 'application/json',\r",
 													"                'Authorization': 'Bearer ' + pm.environment.get('AccessToken')\r",
@@ -6320,7 +6320,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -6328,7 +6328,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"parents"
+												"{{ParentOrContactCollectionName}}"
 											]
 										}
 									},
