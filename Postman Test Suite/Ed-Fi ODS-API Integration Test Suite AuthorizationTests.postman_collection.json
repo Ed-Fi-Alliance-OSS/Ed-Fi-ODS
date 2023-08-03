@@ -2887,7 +2887,7 @@
 					"name": "ParentAuthorizationTests",
 					"item": [
 						{
-							"name": "When_updating_an_associated_parent_should_succeed",
+							"name": "When_updating_an_associated_contact_should_succeed",
 							"item": [
 								{
 									"name": "Initialize Student Data for Post Request",
@@ -3167,7 +3167,7 @@
 									"response": []
 								},
 								{
-									"name": "When_updating_an_associated_parent_should_succeed",
+									"name": "When_updating_an_associated_contact_should_succeed",
 									"event": [
 										{
 											"listen": "test",
@@ -3232,7 +3232,7 @@
 							]
 						},
 						{
-							"name": "When_associating_a_parent_related_to_vendors_leas_should_return_201_created",
+							"name": "When_associating_a_contact_related_to_vendors_leas_should_return_201_created",
 							"item": [
 								{
 									"name": "Initialize Student Data for Post Request",
@@ -3455,7 +3455,7 @@
 									"response": []
 								},
 								{
-									"name": "When_associating_a_parent_related_to_vendors_leas_should_return_201_created",
+									"name": "When_associating_a_contact_related_to_vendors_leas_should_return_201_created",
 									"event": [
 										{
 											"listen": "test",
@@ -3513,7 +3513,7 @@
 									"response": []
 								},
 								{
-									"name": "When_updating_an_associated_parent_should_succeed",
+									"name": "When_updating_an_associated_contact_should_succeed",
 									"event": [
 										{
 											"listen": "test",
@@ -3578,7 +3578,7 @@
 							]
 						},
 						{
-							"name": "When_deleting_a_parent_in_use_should_return_409_conflict",
+							"name": "When_deleting_a_contact_in_use_should_return_409_conflict",
 							"item": [
 								{
 									"name": "Initialize Student Data for Post Request",
@@ -3859,7 +3859,7 @@
 									"response": []
 								},
 								{
-									"name": "When_deleting_an_associated_parent_should_return_409_conflict",
+									"name": "When_deleting_an_associated_contact_should_return_409_conflict",
 									"event": [
 										{
 											"listen": "test",
@@ -3905,7 +3905,7 @@
 							]
 						},
 						{
-							"name": "When_deleting_an_unused_parent_should_return_204_nocontent",
+							"name": "When_deleting_an_unused_contact_should_return_204_nocontent",
 							"item": [
 								{
 									"name": "Initialize Contact Data for Post Request",
@@ -3984,7 +3984,7 @@
 									"response": []
 								},
 								{
-									"name": "When_deleting_an_unused_parent_should_return_204_nocontent",
+									"name": "When_deleting_an_unused_contact_should_return_204_nocontent",
 									"event": [
 										{
 											"listen": "test",
@@ -4030,10 +4030,10 @@
 							]
 						},
 						{
-							"name": "When_creating_a_parent_Should_return_201_created",
+							"name": "When_creating_a_contact_Should_return_201_created",
 							"item": [
 								{
-									"name": "When_creating_a_parent_Should_return_201_created",
+									"name": "When_creating_a_contact_Should_return_201_created",
 									"event": [
 										{
 											"listen": "test",

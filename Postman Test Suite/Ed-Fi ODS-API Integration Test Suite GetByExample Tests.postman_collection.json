@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "70bfc09f-5bc1-41c1-abb0-c63472f5f844",
+		"_postman_id": "d707346a-63cb-48b1-9c3c-15035d58896f",
 		"name": "Ed-Fi ODS/API Integration Test Suite GetByExample Tests",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -326,7 +326,7 @@
 					"response": []
 				},
 				{
-					"name": "Initialize First StudentParentAssociation Data",
+					"name": "Initialize First StudentContactAssociation Data",
 					"event": [
 						{
 							"listen": "test",
@@ -352,7 +352,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"parentReference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parent1UniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+							"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parent1UniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -368,7 +368,7 @@
 								"data",
 								"v3",
 								"ed-fi",
-								"{{StudentParentOrContactAssociationName}}"
+								"{{StudentParentOrContactAssociationCollectionName}}"
 							]
 						}
 					},
@@ -401,7 +401,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"parentReference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parent2UniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+							"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parent2UniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -417,7 +417,7 @@
 								"data",
 								"v3",
 								"ed-fi",
-								"{{StudentParentOrContactAssociationName}}"
+								"{{StudentParentOrContactAssociationCollectionName}}"
 							]
 						}
 					},
@@ -449,7 +449,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentParentAssociations?studentUniqueId=InvalidStudentId",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}?studentUniqueId=InvalidStudentId",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -457,7 +457,7 @@
 								"data",
 								"v3",
 								"ed-fi",
-								"studentParentAssociations"
+								"{{StudentParentOrContactAssociationCollectionName}}"
 							],
 							"query": [
 								{
@@ -495,7 +495,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentParentAssociations",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -503,7 +503,7 @@
 								"data",
 								"v3",
 								"ed-fi",
-								"studentParentAssociations"
+								"{{StudentParentOrContactAssociationCollectionName}}"
 							]
 						}
 					},
@@ -544,7 +544,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentParentAssociations?studentUniqueId={{known:{{scenarioId}}:studentUniqueId}}",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}?studentUniqueId={{known:{{scenarioId}}:studentUniqueId}}",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -552,7 +552,7 @@
 								"data",
 								"v3",
 								"ed-fi",
-								"studentParentAssociations"
+								"{{StudentParentOrContactAssociationCollectionName}}"
 							],
 							"query": [
 								{
@@ -586,7 +586,12 @@
 									"        const parentUniqueId = pm.variables.get('known:'+scenarioId+':parent1UniqueId');",
 									"        const responseItems = pm.response.json();",
 									"        responseItems.forEach(item => {",
-									"            pm.expect(item.parentReference.parentUniqueId).to.equal(parentUniqueId);",
+									"            if(pm.environment.get('ParentOrContactName') == 'parent') {",
+									"                pm.expect(item.parentReference.parentUniqueId).to.equal(parentUniqueId);",
+									"            }",
+									"            else if(pm.environment.get('ParentOrContactName') == 'contact') {",
+									"                pm.expect(item.contactReference.contactUniqueId).to.equal(parentUniqueId);",
+									"            }",
 									"        })",
 									"    });",
 									"}"
@@ -599,7 +604,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentParentAssociations?{{ParentOrContactUniqueIdName}}={{known:{{scenarioId}}:parent1UniqueId}}",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}?{{ParentOrContactUniqueIdName}}={{known:{{scenarioId}}:parent1UniqueId}}",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -607,7 +612,7 @@
 								"data",
 								"v3",
 								"ed-fi",
-								"studentParentAssociations"
+								"{{StudentParentOrContactAssociationCollectionName}}"
 							],
 							"query": [
 								{
@@ -643,7 +648,12 @@
 									"        const responseItems = pm.response.json();",
 									"        responseItems.forEach(item => {",
 									"            pm.expect(item.studentReference.studentUniqueId).to.equal(studentUniqueId);",
-									"            pm.expect(item.parentReference.parentUniqueId).to.equal(parentUniqueId);",
+									"            if(pm.environment.get('ParentOrContactName') == 'parent') {",
+									"                pm.expect(item.parentReference.parentUniqueId).to.equal(parentUniqueId);",
+									"            }",
+									"            else if(pm.environment.get('ParentOrContactName') == 'contact') {",
+									"                pm.expect(item.contactReference.contactUniqueId).to.equal(parentUniqueId);",
+									"            }",
 									"        })",
 									"    });",
 									"}"
@@ -656,7 +666,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentParentAssociations?studentUniqueId={{known:{{scenarioId}}:studentUniqueId}}&{{ParentOrContactUniqueIdName}}={{known:{{scenarioId}}:parent1UniqueId}}",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}?studentUniqueId={{known:{{scenarioId}}:studentUniqueId}}&{{ParentOrContactUniqueIdName}}={{known:{{scenarioId}}:parent1UniqueId}}",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -664,7 +674,7 @@
 								"data",
 								"v3",
 								"ed-fi",
-								"studentParentAssociations"
+								"{{StudentParentOrContactAssociationCollectionName}}"
 							],
 							"query": [
 								{

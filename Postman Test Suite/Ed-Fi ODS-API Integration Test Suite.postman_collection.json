@@ -5125,7 +5125,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"parentReference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+									"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5133,7 +5133,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentParentAssociations",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -5141,7 +5141,7 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"StudentParentAssociations"
+										"{{StudentParentOrContactAssociationCollectionName}}"
 									]
 								}
 							},
@@ -8011,7 +8011,7 @@
 															"        max length 100\r",
 															"*/\r",
 															"pm.test(\"Should indicate that the required collection has no items.\", () => {\r",
-															"  pm.expect(message).to.contain(`${parentOrContactProperName}FavoriteBookTitles (Sample) requires at least one object in the collection.`);\r",
+															"  pm.expect(message).to.contain(`FavoriteBookTitles (Sample) requires at least one object in the collection.`);\r",
 															"});\r",
 															"\r",
 															"/*\r",
@@ -8080,7 +8080,7 @@
 															"  pm.expect(pm.response.code).to.equal(400);\r",
 															"});\r",
 															"\r",
-															"const parentOrContactProperName = pm.environment.get('parentOrContactProperName');\r",
+															"const parentOrContactProperName = pm.environment.get('ParentOrContactProperName');\r",
 															"\r",
 															"if (pm.response.code === 400) {\r",
 															"  const message = pm.response.json().message;\r",
