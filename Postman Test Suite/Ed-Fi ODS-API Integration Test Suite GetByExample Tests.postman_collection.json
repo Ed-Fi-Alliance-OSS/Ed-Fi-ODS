@@ -54,7 +54,7 @@
 			]
 		},
 		{
-			"name": "StudentParentAssociation Tests",
+			"name": "StudentContactAssociation Tests",
 			"item": [
 				{
 					"name": "Initialize Student Data",
@@ -375,7 +375,7 @@
 					"response": []
 				},
 				{
-					"name": "Initialize Second StudentParentAssociation Data",
+					"name": "Initialize Second StudentContactAssociation Data",
 					"event": [
 						{
 							"listen": "test",
@@ -424,7 +424,7 @@
 					"response": []
 				},
 				{
-					"name": "StudentParentAssociation by Invalid StudentUniqueId",
+					"name": "StudentContactAssociation by Invalid StudentUniqueId",
 					"event": [
 						{
 							"listen": "test",
@@ -470,7 +470,7 @@
 					"response": []
 				},
 				{
-					"name": "StudentParentAssociation Has Additional Data",
+					"name": "StudentContactAssociation Has Additional Data",
 					"event": [
 						{
 							"listen": "test",
@@ -510,7 +510,7 @@
 					"response": []
 				},
 				{
-					"name": "StudentParentAssociation by Valid StudentUniqueId",
+					"name": "StudentContacctAssociation by Valid StudentUniqueId",
 					"event": [
 						{
 							"listen": "test",
@@ -565,7 +565,7 @@
 					"response": []
 				},
 				{
-					"name": "StudentParentAssociation by Valid ParentUniqueId",
+					"name": "StudentContactAssociation by Valid ContactUniqueId",
 					"event": [
 						{
 							"listen": "test",
@@ -581,7 +581,7 @@
 									"        pm.expect(responseItems.length).to.equal(1);",
 									"    });",
 									"",
-									"    pm.test(\"Should return only items for the provided parent unique id\", () => {",
+									"    pm.test(\"Should return only items for the provided contact unique id\", () => {",
 									"        const scenarioId = pm.environment.get('scenarioId');",
 									"        const parentUniqueId = pm.variables.get('known:'+scenarioId+':parent1UniqueId');",
 									"        const responseItems = pm.response.json();",
@@ -625,7 +625,7 @@
 					"response": []
 				},
 				{
-					"name": "StudentParentAssociation by Valid StudentUniqueId and ParentUniqueId",
+					"name": "StudentContactAssociation by Valid StudentUniqueId and ContactUniqueId",
 					"event": [
 						{
 							"listen": "test",
@@ -641,7 +641,7 @@
 									"        pm.expect(responseItems.length).to.equal(1);",
 									"    });",
 									"",
-									"    pm.test(\"Should return only items for the provided student and parent unique id\", () => {",
+									"    pm.test(\"Should return only items for the provided student and contact unique id\", () => {",
 									"        const scenarioId = pm.environment.get('scenarioId');",
 									"        const studentUniqueId = pm.variables.get('known:'+scenarioId+':studentUniqueId');",
 									"        const parentUniqueId = pm.variables.get('known:'+scenarioId+':parent1UniqueId');",

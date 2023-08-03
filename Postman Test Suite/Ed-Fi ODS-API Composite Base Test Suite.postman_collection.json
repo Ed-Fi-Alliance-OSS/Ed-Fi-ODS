@@ -6264,7 +6264,7 @@
 							"name": "Initialize Known",
 							"item": [
 								{
-									"name": "Initialize Known parents Data for Get Requests",
+									"name": "Initialize Known contactss Data for Get Requests",
 									"event": [
 										{
 											"listen": "test",
@@ -6302,7 +6302,7 @@
 													"                raw: JSON.stringify(testSubject)\r",
 													"            }\r",
 													"        };\r",
-													"        // Update parent to assign address periods for the scenario\r",
+													"        // Update parent/contact to assign address periods for the scenario\r",
 													"        pm.sendRequest(postRequest, (err, response) => {\r",
 													"            if (err) {\r",
 													"                console.log(JSON.stringify(err));\r",
@@ -7595,7 +7595,7 @@
 												"{{supplied:parentId}}"
 											]
 										},
-										"description": "# Collection -> Collection\r\nScenario: Composite includes collection with collection\r\n    Given the subject of the request is a StudentAssessment with ObjectAssessmentScoreResults\r\n    When a GET (by id) request is submitted to the \"StudentCollectionWithCollection\" composite\r\n    Then the response model should have only collection studentAssessmentStudentObjectiveAssessments with collection studentAssessmentStudentObjectiveAssessmentScoreResults\r\n    And the queries generated should all match previously approved values\r\n    \r\n    \r\n    ++++++++++++++++++++++++++++\r\n\tI would recommend changing this composite to go after Parent, ParentAddress, and ParentAddressPeriod.\r\n\t\r\n\t <Composite name=\"ResourceWithCollectionWithCollection\">\r\n        <BaseResource name=\"Parent\">\r\n          <Collection name=\"ParentAddresses\">\r\n            <Collection name=\"ParentAddressPeriods\">\r\n              <Property name=\"BeginDate\" />\r\n            </Collection>\r\n          </Collection>\r\n        </BaseResource>\r\n      </Composite>\r\n\t+++++++++++++++++++++++++++++++++"
+										"description": "# Collection -> Collection\r\nScenario: Composite includes collection with collection\r\n    Given the subject of the request is a StudentAssessment with ObjectAssessmentScoreResults\r\n    When a GET (by id) request is submitted to the \"StudentCollectionWithCollection\" composite\r\n    Then the response model should have only collection studentAssessmentStudentObjectiveAssessments with collection studentAssessmentStudentObjectiveAssessmentScoreResults\r\n    And the queries generated should all match previously approved values\r\n    \r\n    \r\n    ++++++++++++++++++++++++++++\r\n\tI would recommend changing this composite to go after Contact, ContactAddress, and ContactAddressPeriod.\r\n\t\r\n\t <Composite name=\"ResourceWithCollectionWithCollection\">\r\n        <BaseResource name=\"Contact\">\r\n          <Collection name=\"ContactAddresses\">\r\n            <Collection name=\"ContactAddressPeriods\">\r\n              <Property name=\"BeginDate\" />\r\n            </Collection>\r\n          </Collection>\r\n        </BaseResource>\r\n      </Composite>\r\n\t+++++++++++++++++++++++++++++++++"
 									},
 									"response": []
 								}

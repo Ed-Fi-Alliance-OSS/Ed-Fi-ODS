@@ -2884,7 +2884,7 @@
 					]
 				},
 				{
-					"name": "ParentAuthorizationTests",
+					"name": "ContactAuthorizationTests",
 					"item": [
 						{
 							"name": "When_updating_an_associated_contact_should_succeed",

@@ -5014,7 +5014,7 @@
 							"response": []
 						},
 						{
-							"name": "Initialize Parent Data for Post Request",
+							"name": "Initialize Contact Data for Post Request",
 							"event": [
 								{
 									"listen": "test",
@@ -5089,7 +5089,7 @@
 							"response": []
 						},
 						{
-							"name": "Initialize StudentParentAssociations Data for Post Request",
+							"name": "Initialize StudentContactAssociations Data for Post Request",
 							"event": [
 								{
 									"listen": "test",
@@ -5148,13 +5148,13 @@
 							"response": []
 						},
 						{
-							"name": "Get Parent  By PersonID",
+							"name": "Get Contact By PersonID",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Response is  200\", () => {",
+											"pm.test(\"Response is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200) ",
 											" });  ",
 											"",
@@ -5224,7 +5224,7 @@
 							"response": []
 						}
 					],
-					"description": "Scenario 4 - Create Person With \"District\" sourceSystemDescriptor and Associate with Parent\r\n\r\nStep 1  Create \"District\" sourceSystemDescriptor\r\nStep 2 Create Person With \"District\" sourceSystemDescriptor\r\nStep 3 Create Student With Associated Person\r\nStep 4 Create parent With Associated same Person\r\nStep 4 Get Parent  by PersonId",
+					"description": "Scenario 4 - Create Person With \"District\" sourceSystemDescriptor and Associate with Contact\r\n\r\nStep 1  Create \"District\" sourceSystemDescriptor\r\nStep 2 Create Person With \"District\" sourceSystemDescriptor\r\nStep 3 Create Student With Associated Person\r\nStep 4 Create contact With Associated same Person\r\nStep 4 Get Contact  by PersonId",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -8006,7 +8006,7 @@
 															"\r",
 															"/*\r",
 															"    string FavoriteBookTitle\r",
-															"        documentation \"The title of the parent's favorite book.\"\r",
+															"        documentation \"The title of the contact's favorite book.\"\r",
 															"        is required collection\r",
 															"        max length 100\r",
 															"*/\r",
@@ -8016,7 +8016,7 @@
 															"\r",
 															"/*\r",
 															"    shared string EdFi.Author\r",
-															"        documentation \"The parent's favorite authors.\"\r",
+															"        documentation \"The contact's favorite authors.\"\r",
 															"        is optional collection\r",
 															"*/\r",
 															"pm.test(\"Should NOT indicate any issues with the optional collection that is empty.\", () => {\r",
@@ -8087,7 +8087,7 @@
 															"\r",
 															"  /*\r",
 															"      common TeacherConference\r",
-															"          documentation \"The parent's preferred day of the week and time for parent-teacher conferences.\"\r",
+															"          documentation \"The contact's preferred day of the week and time for contact-teacher conferences.\"\r",
 															"          is required\r",
 															"  */\r",
 															"  pm.test(\"Should indicate that the required embedded object is missing.\", () => {\r",
@@ -8096,7 +8096,7 @@
 															"\r",
 															"  /*\r",
 															"      common EdFi.CTEProgram\r",
-															"          documentation \"A CTE program the parent has completed.\"\r",
+															"          documentation \"A CTE program the contact has completed.\"\r",
 															"          is optional\r",
 															"  */\r",
 															"  pm.test(\"Should NOT indicate any issues with the optional embedded object that is missing.\", () => {\r",
