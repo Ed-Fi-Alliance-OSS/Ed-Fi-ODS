@@ -3144,7 +3144,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"parentReference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3160,7 +3160,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"{{StudentParentOrContactAssociationName}}"
+												"{{StudentParentOrContactAssociationCollectionName}}"
 											]
 										}
 									},
@@ -3174,7 +3174,7 @@
 											"script": {
 												"exec": [
 													"pm.test(\"Response is  204\", () => {",
-													"    pm.expect(pm.response.code).to.equal(200) ",
+													"    pm.expect(pm.response.code).to.equal(204) ",
 													" });"
 												],
 												"type": "text/javascript"
@@ -3490,7 +3490,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"parentReference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3506,7 +3506,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"{{StudentParentOrContactAssociationName}}"
+												"{{StudentParentOrContactAssociationCollectionName}}"
 											]
 										}
 									},
@@ -3836,7 +3836,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"parentReference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3852,7 +3852,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"{{StudentParentOrContactAssociationName}}"
+												"{{StudentParentOrContactAssociationCollectionName}}"
 											]
 										}
 									},
@@ -5416,7 +5416,7 @@
 											"script": {
 												"exec": [
 													"pm.test(\"Response is 201 or 404\", () => {\r",
-													"    pm.expect(pm.response.code).to.equal(201) \r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201,404])\r",
 													" });\r",
 													"\r",
 													"if (pm.response.code === 201) {\r",
@@ -5526,7 +5526,7 @@
 											"script": {
 												"exec": [
 													"pm.test(\"Response is 201 or 404\", () => {\r",
-													"    pm.expect(pm.response.code).to.equal(201) \r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201,404])\r",
 													" });\r",
 													"\r",
 													"if (pm.response.code === 201) {\r",
@@ -8073,7 +8073,7 @@
 															"script": {
 																"exec": [
 																	"pm.test(\"Response is 201 or 404\", () => {\r",
-																	"    pm.expect(pm.response.code).to.equal(201) \r",
+																	"    pm.expect(pm.response.code).to.be.oneOf([201,404])\r",
 																	" });\r",
 																	"\r",
 																	"if (pm.response.code === 201) {\r",
@@ -8144,7 +8144,7 @@
 															"script": {
 																"exec": [
 																	"pm.test(\"Response is 201 or 404\", () => {\r",
-																	"    pm.expect(pm.response.code).to.equal(201) \r",
+																	"    pm.expect(pm.response.code).to.be.oneOf([201,404])\r",
 																	" });\r",
 																	"\r",
 																	"if (pm.response.code === 201) {\r",
