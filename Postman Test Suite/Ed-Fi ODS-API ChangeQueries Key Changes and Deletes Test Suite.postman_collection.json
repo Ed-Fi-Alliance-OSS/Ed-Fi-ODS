@@ -9925,7 +9925,7 @@
 					]
 				},
 				{
-					"name": "Students and Parents",
+					"name": "Students and Contacts",
 					"item": [
 						{
 							"name": "Initialization",
@@ -10242,7 +10242,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"parentReference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"telephone\": {\r\n        \"telephoneNumber\": \"12345\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"telephone\": {\r\n        \"telephoneNumber\": \"12345\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -10250,7 +10250,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentParentAssociations",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -10258,7 +10258,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"studentParentAssociations"
+												"{{StudentParentOrContactAssociationCollectionName}}"
 											]
 										}
 									},
@@ -10328,7 +10328,7 @@
 							]
 						},
 						{
-							"name": "{{ParentOrContactCollectionName}}",
+							"name": "Contacts",
 							"item": [
 								{
 									"name": "Change Contact First Name",
@@ -10431,7 +10431,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentParentAssociations/{{known:studentParentAssociation:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}/{{known:studentParentAssociation:id}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -10439,7 +10439,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"studentParentAssociations",
+												"{{StudentParentOrContactAssociationCollectionName}}",
 												"{{known:studentParentAssociation:id}}"
 											]
 										}
