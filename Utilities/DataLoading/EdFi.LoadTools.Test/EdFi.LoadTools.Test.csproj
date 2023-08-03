@@ -1,4 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<StandardVersion Condition="'$(StandardVersion)' == '' ">5.0.0</StandardVersion>
+	</PropertyGroup>	
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <AssemblyName>EdFi.LoadTools.Test</AssemblyName>
@@ -18,9 +21,19 @@
     <ItemGroup>
         <ProjectReference Include="..\EdFi.LoadTools\EdFi.LoadTools.csproj" />
     </ItemGroup>
+	<ItemGroup Condition=" '$(StandardVersion)' == '5.0.0' ">
+		<PackageReference Include="EdFi.Suite3.OdsApi.TestSdk.Standard.5.0.0" Version="7.0.2171" />
+	</ItemGroup>
+	<ItemGroup Condition=" '$(StandardVersion)' == '4.0.0' ">
+		<PackageReference Include="EdFi.Suite3.OdsApi.TestSdk.Standard.4.0.0" Version="7.0.2171" />
+	</ItemGroup>
     <ItemGroup>
       <PackageReference Include="EdFi.Suite3.Common" Version="7.0.50" />
       <PackageReference Include="EdFi.Suite3.OdsApi.TestSdk" Version="7.0.921" />
+      <PackageReference Include="aqua-graphcompare" Version="1.2.2" />
+      <PackageReference Include="FubarCoder.RestSharp.Portable.Core" Version="4.0.8" />
+      <PackageReference Include="FubarCoder.RestSharp.Portable.HttpClient" Version="4.0.8" />
+      <PackageReference Include="log4net" Version="2.0.15" />
       <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="6.0.13" />
       <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
       <PackageReference Include="log4net" Version="2.0.15" />
