@@ -11,77 +11,51 @@ copies of the license agreement are provided in separate files in the Licenses
 subdirectory. Unless noted below, all open source software is distributed in its
 original form without modification.
 
-## Approval Tests & Approval Utilities 
+## Approval Tests & Approval Utilities
 https://github.com/approvals/ApprovalTests.Net
 
-    Copyright (c) Llewellyn Falco. All rights reserved.
-    
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-    this file except in compliance with the License. You may obtain a copy of the
-    License at
-    
-    http://www.apache.org/licenses/LICENSE-2.0
-    
-    Unless required by applicable law or agreed to in writing, software distributed
-    under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-    CONDITIONS OF ANY KIND, either express or implied. See the License for the
-    specific language governing permissions and limitations under the License.
-
-## Aqua-graphcompare & Acqua-core 
-https://github.com/6bee/aqua-graphcompare
-
-    The MIT License (MIT)
-    
-    Copyright (c) 2016 Christof Senn
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.
+	Copyright (c) Llewellyn Falco. All rights reserved.
 	
+	Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+	this file except in compliance with the License. You may obtain a copy of the
+	License at
+	
+	http://www.apache.org/licenses/LICENSE-2.0
+	
+	Unless required by applicable law or agreed to in writing, software distributed
+	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+	CONDITIONS OF ANY KIND, either express or implied. See the License for the
+	specific language governing permissions and limitations under the License.
+
 ## AsyncEnumerable
 https://github.com/Dasync/AsyncEnumerable
 
-    The MIT License (MIT)
-    
-    Copyright (c) 2019 D-ASYNC
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.
+	The MIT License (MIT)
 
-## Autofac  & Autofac.Extensions.DependencyInjection & Autofac.Extras.FakeItEasy
+	Copyright (c) 2019 D-ASYNC
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in all
+	copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+	SOFTWARE.
+
+## Autofac & Autofac.Extensions.DependencyInjection & Autofac.Extras.FakeItEasy
 https://autofac.org/
 
-   MIT License
-
+	MIT License
 	Copyright (c) 2019
 
 	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -90,209 +64,186 @@ https://autofac.org/
 
 	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-## Auto Mapper  
-http://automapper.org/
-
-    The MIT License (MIT)
-    
-    Copyright (c) 2010 Jimmy Bogard
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy of
-    this software and associated documentation files (the "Software"), to deal in
-    the Software without restriction, including without limitation the rights to
-    use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-    the Software, and to permit persons to whom the Software is furnished to do so,
-    subject to the following conditions:
-    
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-    FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-    COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-    IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
 ## Bootstrap
 https://github.com/twbs/bootstrap
 
-    Copyright (c) 2011-2020 Twitter, Inc.
-    Copyright (c) 2011-2020 The Bootstrap Authors
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
+	Copyright (c) 2011-2020 Twitter, Inc.
+	Copyright (c) 2011-2020 The Bootstrap Authors
+	
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
+	
+	The above copyright notice and this permission notice shall be included in
+	all copies or substantial portions of the Software.
+	
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+	THE SOFTWARE.
 
 ## Command Line Parser
 https://github.com/commandlineparser/commandline
 
-    The MIT License (MIT)
-    
-    Copyright (c) 2005 - 2015 Giacomo Stelluti Scala & Contributors
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
+	The MIT License (MIT)
+	
+	Copyright (c) 2005 - 2015 Giacomo Stelluti Scala & Contributors
+	
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
+	
+	The above copyright notice and this permission notice shall be included in
+	all copies or substantial portions of the Software.
+	
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+	THE SOFTWARE.
 
-## Compare Net Objects  
+## Compare Net Objects
 https://github.com/GregFinzer/Compare-Net-Objects
 
-    Microsoft Public License (Ms-PL)
-    
-    This license governs use of the accompanying software. If you use the software,
-    you accept this license. If you do not accept the license, do not use the
-    software.
-    
-    1. Definitions
-    
-    The terms "reproduce," "reproduction," "derivative works," and "distribution"
-    have the same meaning here as under U.S. copyright law.
-    
-    A "contribution" is the original software, or any additions or changes to the 
-    software.
-    
-    A "contributor" is any person that distributes its contribution under this 
-    license.
-    
-    "Licensed patents" are a contributor's patent claims that read directly on its
-    contribution.
-    
-    2. Grant of Rights
-    
-    (A) Copyright Grant- Subject to the terms of this license,
-    including the license conditions and limitations in section 3, each contributor
-    grants you a non-exclusive, worldwide, royalty-free copyright license to
-    reproduce its contribution, prepare derivative works of its contribution, and
-    distribute its contribution or any derivative works that you create.
-    
-    (B) Patent Grant- Subject to the terms of this license, including the license
-    conditions and limitations in section 3, each contributor grants you a
-    non-exclusive, worldwide, royalty-free license under its licensed patents to
-    make, have made, use, sell, offer for sale, import, and/or otherwise dispose of
-    its contribution in the software or derivative works of the contribution in the
-    software.
+	Microsoft Public License (Ms-PL)
+	
+	This license governs use of the accompanying software. If you use the software,
+	you accept this license. If you do not accept the license, do not use the
+	software.
+	
+	1. Definitions
+	
+		The terms "reproduce," "reproduction," "derivative works," and "distribution"
+		have the same meaning here as under U.S. copyright law.
+	
+		A "contribution" is the original software, or any additions or changes to the 
+		software.
+	
+		A "contributor" is any person that distributes its contribution under this 
+		license.
+	
+		"Licensed patents" are a contributor's patent claims that read directly on its
+		contribution.
+	
+	2. Grant of Rights
+	
+		(A) Copyright Grant- Subject to the terms of this license,
+		including the license conditions and limitations in section 3, each contributor
+		grants you a non-exclusive, worldwide, royalty-free copyright license to
+		reproduce its contribution, prepare derivative works of its contribution, and
+		distribute its contribution or any derivative works that you create.
+	
+		(B) Patent Grant- Subject to the terms of this license, including the license
+		conditions and limitations in section 3, each contributor grants you a
+		non-exclusive, worldwide, royalty-free license under its licensed patents to
+		make, have made, use, sell, offer for sale, import, and/or otherwise dispose of
+		its contribution in the software or derivative works of the contribution in the
+		software.
 
-    3. Conditions and Limitations
-    
-    (A) No Trademark License- This license does not grant you rights to use any
-    contributors' name, logo, or trademarks.
-    
-    (B) If you bring a patent claim against any contributor over patents that you
-    claim are infringed by the software, your patent license from such contributor
-    to the software ends automatically.
-    
-    (C) If you distribute any portion of the software, you must retain all
-    copyright, patent, trademark, and attribution notices that are present in the
-    software.
-    
-    (D) If you distribute any portion of the software in source code form, you may
-    do so only under this license by including a complete copy of this license with
-    your distribution. If you distribute any portion of the software in compiled or
-    object code form, you may only do so under a license that complies with this
-    license.
-    
-    (E) The software is licensed "as-is." You bear the risk of using it. The
-    contributors give no express warranties, guarantees or conditions. You may have
-    additional consumer rights under your local laws which this license cannot
-    change. To the extent permitted under your local laws, the contributors exclude
-    the implied warranties of merchantability, fitness for a particular purpose and
-    non-infringement.
-      
+	3. Conditions and Limitations
+	
+		(A) No Trademark License- This license does not grant you rights to use any
+		contributors' name, logo, or trademarks.
+	
+		(B) If you bring a patent claim against any contributor over patents that you
+		claim are infringed by the software, your patent license from such contributor
+		to the software ends automatically.
+	
+		(C) If you distribute any portion of the software, you must retain all
+		copyright, patent, trademark, and attribution notices that are present in the
+		software.
+	
+		(D) If you distribute any portion of the software in source code form, you may
+		do so only under this license by including a complete copy of this license with
+		your distribution. If you distribute any portion of the software in compiled or
+		object code form, you may only do so under a license that complies with this
+		license.
+	
+		(E) The software is licensed "as-is." You bear the risk of using it. The
+		contributors give no express warranties, guarantees or conditions. You may have
+		additional consumer rights under your local laws which this license cannot
+		change. To the extent permitted under your local laws, the contributors exclude
+		the implied warranties of merchantability, fitness for a particular purpose and
+		non-infringement.
 
 ## Dapper
-    https://github.com/StackExchange/Dapper
-    Copyright © 2011 Dapper
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
-    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+https://github.com/StackExchange/Dapper
+
+	Copyright © 2011 Dapper
+	Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+	http://www.apache.org/licenses/LICENSE-2.0
+	Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
 ## DatabaseSchemaReader
-    https://github.com/martinjw/dbschemareader
-    A simple, cross-database facade over .Net 2.0 DbProviderFactories to read database metadata.
+https://github.com/martinjw/dbschemareader
 
-    Microsoft Public License (Ms-PL)
+	A simple, cross-database facade over .Net 2.0 DbProviderFactories to read database metadata.
 
-    This license governs use of the accompanying software. If you use the software, you accept this license. If you do not accept the license, do not use the software.
+	Microsoft Public License (Ms-PL)
 
-    1. Definitions
+	This license governs use of the accompanying software. If you use the software, you accept this license. If you do not accept the license, do not use the software.
 
-    The terms "reproduce," "reproduction," "derivative works," and "distribution" have the same meaning here as under U.S. copyright law.
+	1. Definitions
 
-    A "contribution" is the original software, or any additions or changes to the software.
+		The terms "reproduce," "reproduction," "derivative works," and "distribution" have the same meaning here as under U.S. copyright law.
 
-    A "contributor" is any person that distributes its contribution under this license.
+		A "contribution" is the original software, or any additions or changes to the software.
 
-    "Licensed patents" are a contributor's patent claims that read directly on its contribution.
+		A "contributor" is any person that distributes its contribution under this license.
 
-    2. Grant of Rights
+		"Licensed patents" are a contributor's patent claims that read directly on its contribution.
 
-    (A) Copyright Grant- Subject to the terms of this license, including the license conditions and limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free copyright license to reproduce its contribution, prepare derivative works of its contribution, and distribute its contribution or any derivative works that you create.
+	2. Grant of Rights
 
-    (B) Patent Grant- Subject to the terms of this license, including the license conditions and limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free license under its licensed patents to make, have made, use, sell, offer for sale, import, and/or otherwise dispose of its contribution in the software or derivative works of the contribution in the software.
+		(A) Copyright Grant- Subject to the terms of this license, including the license conditions and limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free copyright license to reproduce its contribution, prepare derivative works of its contribution, and distribute its contribution or any derivative works that you create.
 
-    3. Conditions and Limitations
+		(B) Patent Grant- Subject to the terms of this license, including the license conditions and limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free license under its licensed patents to make, have made, use, sell, offer for sale, import, and/or otherwise dispose of its contribution in the software or derivative works of the contribution in the software.
 
-    (A) No Trademark License- This license does not grant you rights to use any contributors' name, logo, or trademarks.
+	3. Conditions and Limitations
 
-    (B) If you bring a patent claim against any contributor over patents that you claim are infringed by the software, your patent license from such contributor to the software ends automatically.
+		(A) No Trademark License- This license does not grant you rights to use any contributors' name, logo, or trademarks.
 
-    (C) If you distribute any portion of the software, you must retain all copyright, patent, trademark, and attribution notices that are present in the software.
+		(B) If you bring a patent claim against any contributor over patents that you claim are infringed by the software, your patent license from such contributor to the software ends automatically.
 
-    (D) If you distribute any portion of the software in source code form, you may do so only under this license by including a complete copy of this license with your distribution. If you distribute any portion of the software in compiled or object code form, you may only do so under a license that complies with this license.
+		(C) If you distribute any portion of the software, you must retain all copyright, patent, trademark, and attribution notices that are present in the software.
 
-    (E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the contributors exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
+		(D) If you distribute any portion of the software in source code form, you may do so only under this license by including a complete copy of this license with your distribution. If you distribute any portion of the software in compiled or object code form, you may only do so under a license that complies with this license.
+
+		(E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the contributors exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
 
 ## EntityFramework
-    https://github.com/dotnet/ef6/wiki
+https://github.com/dotnet/ef6/wiki
 
-    Copyright 2019
+	Copyright 2019
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+	   http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
    
 ## EntityFramework6.Npgsql
-    https://github.com/npgsql/EntityFramework6.Npgsql
+https://github.com/npgsql/EntityFramework6.Npgsql
 
-     PostgreSQL Database Management System
+	PostgreSQL Database Management System
 
 	(formerly known as Postgres, then as Postgres95)
 
@@ -307,80 +258,59 @@ https://github.com/GregFinzer/Compare-Net-Objects
 	_____ SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND _____ HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
    
 ## EntityFrameworkTesting.FakeItEasy
-    https://github.com/scott-xu/EntityFramework.Testing
+https://github.com/scott-xu/EntityFramework.Testing
 
-    Copyright 2019
+	Copyright 2019
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+	   http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
- 	  
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+	  
 ## FakeItEasy
-    https://fakeiteasy.github.io/
+https://fakeiteasy.github.io/
 
-    A .NET dynamic fake library for creating all types of fake objects, mocks, stubs etc.
-    The MIT License (MIT)
+	A .NET dynamic fake library for creating all types of fake objects, mocks, stubs etc.
+	The MIT License (MIT)
 
-    Copyright (c) FakeItEasy contributors. (fakeiteasy@hagne.se)
+	Copyright (c) FakeItEasy contributors. (fakeiteasy@hagne.se)
 
-    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+	The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-## FluentValidation  
-    https://fluentvalidation.codeplex.com/
-    A small validation library for .NET that uses a fluent interface and lambda expressions for building validation rules for your business objects.    
-    Copyright © 2014, Licensed under the Apache License, Version 2.0, (the "License"); you may not use this file except in compliance with the License.  
-    You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0   
-    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.  
+## FluentValidation
+https://fluentvalidation.codeplex.com/
+
+	A small validation library for .NET that uses a fluent interface and lambda expressions for building validation rules for your business objects.    
+	Copyright © 2014, Licensed under the Apache License, Version 2.0, (the "License"); you may not use this file except in compliance with the License.  
+	You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0   
+	Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.  
 	
-## Font Awesome  
-    https://www.nuget.org/packages/FontAwesome/ https://github.com/FortAwesome/Font-Awesome  "Font Awesome by Dave Gandy - http://fontawesome.io".  An iconic font and CSS toolkit  The MIT License  
-    Copyright © 2014 Dave Gandy  
-    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
-    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  
-    THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,  
-    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR  
-    PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE  
-    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.   
+## Font Awesome
+https://www.nuget.org/packages/FontAwesome/ 
 
-## Gherkin
-    https://github.com/cucumber/cucumber/tree/master/gherkin
-
-    The MIT License (MIT)
-
-	Copyright (c) Cucumber Ltd, Gaspar Nagy, BjÃ¶rn Rasmusson, Peter Sergeant
-
-	Permission is hereby granted, free of charge, to any person obtaining a copy
-	of this software and associated documentation files (the "Software"), to deal
-	in the Software without restriction, including without limitation the rights
-	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-	copies of the Software, and to permit persons to whom the Software is
-	furnished to do so, subject to the following conditions:
-
-	The above copyright notice and this permission notice shall be included in
-	all copies or substantial portions of the Software.
-
-	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-	THE SOFTWARE.
+	https://github.com/FortAwesome/Font-Awesome  "Font Awesome by Dave Gandy - http://fontawesome.io".  An iconic font and CSS toolkit  The MIT License  
 	
-## HangFire 
-    http://hangfire.io/  
+	Copyright © 2014 Dave Gandy  
+	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
+	The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  
+	THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,  
+	INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR  
+	PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE  
+	LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.   
+	
+## HangFire
+http://hangfire.io/  
 
 	License
 	========
@@ -399,9 +329,9 @@ https://github.com/GregFinzer/Compare-Net-Objects
 	Commercial License
 	------------------
 	Subject to the purchase of a corresponding subscription (please see https://www.hangfire.io/pricing/), you may distribute Hangfire under the terms of commercial license, that allows you to distribute private forks and modifications. Please see LICENSE_STANDARD and LICENSE_ROYALTYFREE files for details.
-  	  
-## Hangfire.PostgreSql 
-    https://github.com/frankhommers/Hangfire.PostgreSql
+	  
+## Hangfire.PostgreSql
+https://github.com/frankhommers/Hangfire.PostgreSql
 
 	License
 	========
@@ -411,119 +341,122 @@ https://github.com/GregFinzer/Compare-Net-Objects
 	Hangfire.PostgreSql is an Open Source project licensed under the terms of the LGPLv3 license. Please see http://www.gnu.org/licenses/lgpl-3.0.html for license text or COPYING.LESSER file distributed with the source code.
 
 	This work is based on the work of Sergey Odinokov, author of Hangfire. <http://hangfire.io/>
-  	  
-## Iesi.collections
-    https://github.com/nhibernate/iesi.collections 
 
-    Some additional ISet<T> implementations for .Net 4.
-    Copyright � 2002-2004 by Aidant Systems, Inc., and by Jason Smith.
+## JQuery
+http://jquery.com/
 
-    Copied from http://www.codeproject.com/csharp/sets.asp#xx703510xx that was posted by JasonSmith 12:13 2 Jan '04 Feel free to use this code any way you want to. As a favor to me, you can leave the copyright in there. You never know when someone might recognize your name! 
-    If you do use the code in a commercial product, I would appreciate hearing about it. This message serves as legal notice that I won't be suing you for royalties!  The code is in the public domain.
-    On the other hand, I don't provide support. The code is actually simple enough that it shouldn't need it.
+	jQuery is a fast, small, and feature-rich JavaScript library jQuery projects are released under the terms of the MIT License.  
+	Copyright © 2014 jQuery.  
+	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
+	The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  
+	THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,  
+	INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR  
+	PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE  
+	LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  
+	The MIT License is simple and easy to understand and it places almost no restrictions on what you can do with a jQuery project.  
+	You are free to use any jQuery project in any other project (even commercial projects) as long as the copyright header is left intact.  
+	The Sizzle selector engine (http://sizzlejs.com/), which is included inside the jQuery library, is held by the Dojo Foundation and is licensed under either the New BSD or AFL (Academic Free License) licenses.  Copyright ©2011, Dojo Foundation.  http://dojotoolkit.org/license    
 
-## JQuery  
-    http://jquery.com/  
-    jQuery is a fast, small, and feature-rich JavaScript library jQuery projects are released under the terms of the MIT License.  
-    Copyright © 2014 jQuery.  
-    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
-    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  
-    THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,  
-    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR  
-    PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE  
-    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  
-    The MIT License is simple and easy to understand and it places almost no restrictions on what you can do with a jQuery project.  
-    You are free to use any jQuery project in any other project (even commercial projects) as long as the copyright header is left intact.  
-    The Sizzle selector engine (http://sizzlejs.com/), which is included inside the jQuery library, is held by the Dojo Foundation and is licensed under either the New BSD or AFL (Academic Free License) licenses.  Copyright ©2011, Dojo Foundation.  http://dojotoolkit.org/license    
+## JQuery.Validation
+http://jqueryvalidation.org/
 
-## JQuery.Validation  
-    http://jqueryvalidation.org/   
-    This jQuery plugin makes simple client side form validation easy, whilst still offering plenty of customization options jQuery projects are released under the terms of the MIT License.  
-    Copyright © 2014 jQuery.  
-    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
-    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  
-    THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,  
-    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR  
-    PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE  
-    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  
-    The MIT License is simple and easy to understand and it places almost no restrictions on what you can do with a jQuery project.  
-    You are free to use any jQuery project in any other project (even commercial projects) as long as the copyright header is left intact.  
+	This jQuery plugin makes simple client side form validation easy, whilst still offering plenty of customization options jQuery projects are released under the terms of the MIT License.  
+	Copyright © 2014 jQuery.  
+	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
+	The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  
+	THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,  
+	INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR  
+	PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE  
+	LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  
+	The MIT License is simple and easy to understand and it places almost no restrictions on what you can do with a jQuery project.  
+	You are free to use any jQuery project in any other project (even commercial projects) as long as the copyright header is left intact.  
 
-## Log4net   
-    http://logging.apache.org/log4net/
+## Log4net
+http://logging.apache.org/log4net/
 
-    Copyright © 2007, Licensed under the Apache License, Version 2.0, (the "License"); you may not use this file except in compliance with the License.  
-    You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0   
-    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.  
-	 
+	Copyright © 2007, Licensed under the Apache License, Version 2.0, (the "License"); you may not use this file except in compliance with the License.  
+	You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0   
+	Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.  
 
-## Microsoft ASP.Net 
-    Distributed pursuant to Microsoft Software License Terms, Microsoft .Net Library: http://www.microsoft.com/web/webpi/eula/aspnetcomponent_rtw_enu.htm.    
-    
-## Moq  
-    https://github.com/moq/moq4
-    BSD 3-Clause License
+## MediatR
+https://github.com/jbogard/MediatR
 
-    Copyright (c) 2007, Clarius Consulting, Manas Technology Solutions, InSTEDD,
-    and Contributors. All rights reserved.
+	Apache License 
+	Version 2.0, January 2004
+	http://www.apache.org/licenses/
 
-    Redistribution and use in source and binary forms, with or without
-    modification, are permitted provided that the following conditions are met:
+	A permissive license whose main conditions require preservation of copyright and license notices. Contributors provide an express grant of patent rights. Licensed works, modifications, and larger works may be distributed under different terms and without source code.
+	
 
-        * Redistributions of source code must retain the above copyright notice,
-        this list of conditions and the following disclaimer.
+## Microsoft ASP.Net
+	Distributed pursuant to Microsoft Software License Terms, Microsoft .Net Library: http://www.microsoft.com/web/webpi/eula/aspnetcomponent_rtw_enu.htm.    
 
-        * Redistributions in binary form must reproduce the above copyright
-        notice, this list of conditions and the following disclaimer in the
-        documentation and/or other materials provided with the distribution.
+## Moq
+https://github.com/moq/moq4
 
-        * Neither the names of the copyright holders nor the names of its
-        contributors may be used to endorse or promote products derived from this
-        software without specific prior written permission.
+	BSD 3-Clause License
 
-    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-    DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-    FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-    DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-    CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-    OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+	Copyright (c) 2007, Clarius Consulting, Manas Technology Solutions, InSTEDD,
+	and Contributors. All rights reserved.
+
+	Redistribution and use in source and binary forms, with or without
+	modification, are permitted provided that the following conditions are met:
+
+		* Redistributions of source code must retain the above copyright notice,
+		this list of conditions and the following disclaimer.
+
+		* Redistributions in binary form must reproduce the above copyright
+		notice, this list of conditions and the following disclaimer in the
+		documentation and/or other materials provided with the distribution.
+
+		* Neither the names of the copyright holders nor the names of its
+		contributors may be used to endorse or promote products derived from this
+		software without specific prior written permission.
+
+	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+	AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+	IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+	DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+	FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+	DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+	SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+	CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+	OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+	OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ## NCrunch.Framework
-    https://www.ncrunch.net/
-    Automated concurrent testing tool for Visual Studio.
-    https://www.ncrunch.net/legal/eula
+https://www.ncrunch.net/
+
+	Automated concurrent testing tool for Visual Studio.
+	https://www.ncrunch.net/legal/eula
 	
-## Newtonsoft.Json   
-    https://www.newtonsoft.com/json
+## Newtonsoft.Json
+https://www.newtonsoft.com/json
 
-    Newtonsoft.Json is a Json.Net serializer.  
-    The MIT License (MIT)  
-    Copyright (c) 2007 James Newton-King  
-    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
-    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
-    PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
-    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  
+	Newtonsoft.Json is a Json.Net serializer.  
+	The MIT License (MIT)  
+	Copyright (c) 2007 James Newton-King  
+	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
+	The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+	PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
+	LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  
 
-## NHibernate  
-    https://nhibernate.info/
+## NHibernate
+https://nhibernate.info/
 
-                      GNU LESSER GENERAL PUBLIC LICENSE
-                     Version 2.1, February 1999
+	GNU LESSER GENERAL PUBLIC LICENSE
+	Version 2.1, February 1999
 
-       Copyright (C) 1991, 1999 Free Software Foundation, Inc.
-       59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+	Copyright (C) 1991, 1999 Free Software Foundation, Inc.
+	59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-     Everyone is permitted to copy and distribute verbatim copies
-       of this license document, but changing it is not allowed.
+	Everyone is permitted to copy and distribute verbatim copies
+	of this license document, but changing it is not allowed.
 
-		[This is the first released version of the Lesser GPL.  It also counts
-		 as the successor of the GNU Library Public License, version 2, hence
-		 the version number 2.1.]
+	[This is the first released version of the Lesser GPL.  It also counts
+	as the successor of the GNU Library Public License, version 2, hence
+	the version number 2.1.]
 
 		                            Preamble
 
@@ -972,34 +905,33 @@ https://github.com/GregFinzer/Compare-Net-Objects
 
 		                     END OF TERMS AND CONDITIONS
 
-
 ## Npgsql
-    https://github.com/npgsql/npgsql
+https://github.com/npgsql/npgsql
 
-    Npgsql is a .NET data provider for PostgreSQL. It allows you to connect and interact with PostgreSQL server using .NET.
+	Npgsql is a .NET data provider for PostgreSQL. It allows you to connect and interact with PostgreSQL server using .NET.
   
-    Copyright (c) 2002-2019, Npgsql
+	Copyright (c) 2002-2019, Npgsql
 
-    Permission to use, copy, modify, and distribute this software and its
-    documentation for any purpose, without fee, and without a written agreement
-    is hereby granted, provided that the above copyright notice and this
-    paragraph and the following two paragraphs appear in all copies.
+	Permission to use, copy, modify, and distribute this software and its
+	documentation for any purpose, without fee, and without a written agreement
+	is hereby granted, provided that the above copyright notice and this
+	paragraph and the following two paragraphs appear in all copies.
 
-    IN NO EVENT SHALL NPGSQL BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,
-    SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS,
-    ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
-    Npgsql HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+	IN NO EVENT SHALL NPGSQL BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,
+	SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS,
+	ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
+	Npgsql HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-    NPGSQL SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED
-    TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
-    PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND Npgsql
-    HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS,
-    OR MODIFICATIONS.
+	NPGSQL SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED
+	TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+	PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND Npgsql
+	HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS,
+	OR MODIFICATIONS.
 
 ## Npgsql.EntityFrameworkCore.PostgreSQL
-    https://github.com/npgsql/efcore.pg
+https://github.com/npgsql/efcore.pg
 
-     PostgreSQL Database Management System
+	PostgreSQL Database Management System
 
 	(formerly known as Postgres, then as Postgres95)
 
@@ -1014,18 +946,51 @@ https://github.com/GregFinzer/Compare-Net-Objects
 	_____ SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND _____ HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 ## NUnit, NUnit3TestAdapter, NUnit.ConsoleRunner
-    http://www.nunit.org/  
+http://www.nunit.org/  
 
-    MIT License, NUnit 3.0:  
-    Copyright (c) 2019 Charlie Poole  
-    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
-    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,  
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR  
-    COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  
+	MIT License, NUnit 3.0:  
+	Copyright (c) 2019 Charlie Poole  
+	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
+	The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,  
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR  
+	COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  
+
+## Polly
+https://github.com/App-vNext/Polly
+
+	BSD 3-Clause License
+
+	Copyright (c) 2015-2023, App vNext
+
+	Redistribution and use in source and binary forms, with or without
+	modification, are permitted provided that the following conditions are met:
+
+	1. Redistributions of source code must retain the above copyright notice, this
+	   list of conditions and the following disclaimer.
+
+	2. Redistributions in binary form must reproduce the above copyright notice,
+	   this list of conditions and the following disclaimer in the documentation
+	   and/or other materials provided with the distribution.
+
+	3. Neither the name of the copyright holder nor the names of its
+	   contributors may be used to endorse or promote products derived from
+	   this software without specific prior written permission.
+
+	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+	AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+	IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+	DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+	FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+	DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+	SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+	CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+	OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+	OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ## Powershell
-    https://github.com/PowerShell/PowerShell
-    Copyright (c) Microsoft Corporation.
+https://github.com/PowerShell/PowerShell
+
+	Copyright (c) Microsoft Corporation.
 
 	MIT License
 
@@ -1047,274 +1012,71 @@ https://github.com/GregFinzer/Compare-Net-Objects
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 	SOFTWARE.
 
-## Remotion.Linq
-    http://relinq.codeplex.com/
-    Copyright © 2015 Respawn
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
-    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+## Quarts
+https://www.quartz-scheduler.net/
 
-## RestSharp  
-    http://restsharp.org/  
-    Simple REST and HTTP API Client for .NET  
-    Copyright © 2014, Licensed under the Apache License, Version 2.0, (the "License"); you may not use this file except in compliance with the License.  
-    You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0   
-    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.  
-  		 
+	Apache 2.0 Licensed | Copyright © 2007-present Marko Lahma
+
+	License
+	Quartz.NET is licensed under the terms of the Apache License, Version 2.0.
+
+	http://www.apache.org/licenses/LICENSE-2.0 [TXT](http://www.apache.org/licenses/LICENSE-2.0.txt or HTML
+		 
+## RestSharp
+http://restsharp.org/  
+
+	Simple REST and HTTP API Client for .NET  
+	Copyright © 2014, Licensed under the Apache License, Version 2.0, (the "License"); you may not use this file except in compliance with the License.  
+	You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0   
+	Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.  
+
+
 ## Sandwych.QuickGraph.Core
-    https://github.com/oldrev/Sandwych.QuickGraph
+https://github.com/oldrev/Sandwych.QuickGraph
 
-    Generic Graph Data Structures and Algorithms for .NET
-    Microsoft Public License (MS-PL)
-    This license governs use of the accompanying software. If you use the software, you accept this license. If you do not accept the license, do not use the software.
+	Generic Graph Data Structures and Algorithms for .NET
+	Microsoft Public License (MS-PL)
+	This license governs use of the accompanying software. If you use the software, you accept this license. If you do not accept the license, do not use the software.
 
-    1. Definitions
-    The terms "reproduce," "reproduction," "derivative works," and "distribution" have the same meaning here as under U.S. copyright law.
+	1. Definitions
+	The terms "reproduce," "reproduction," "derivative works," and "distribution" have the same meaning here as under U.S. copyright law.
 
-    A "contribution" is the original software, or any additions or changes to the software.
+	A "contribution" is the original software, or any additions or changes to the software.
 
-    A "contributor" is any person that distributes its contribution under this license.
+	A "contributor" is any person that distributes its contribution under this license.
 
-    "Licensed patents" are a contributor's patent claims that read directly on its contribution.
+	"Licensed patents" are a contributor's patent claims that read directly on its contribution.
 
-    2. Grant of Rights
-    (A) Copyright Grant- Subject to the terms of this license, including the license conditions and limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free copyright license to reproduce its contribution, prepare derivative works of its contribution, and distribute its contribution or any derivative works that you create.
+	2. Grant of Rights
+	(A) Copyright Grant- Subject to the terms of this license, including the license conditions and limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free copyright license to reproduce its contribution, prepare derivative works of its contribution, and distribute its contribution or any derivative works that you create.
 
-    (B) Patent Grant- Subject to the terms of this license, including the license conditions and limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free license under its licensed patents to make, have made, use, sell, offer for sale, import, and/or otherwise dispose of its contribution in the software or derivative works of the contribution in the software.
+	(B) Patent Grant- Subject to the terms of this license, including the license conditions and limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free license under its licensed patents to make, have made, use, sell, offer for sale, import, and/or otherwise dispose of its contribution in the software or derivative works of the contribution in the software.
 
-    3. Conditions and Limitations
-    (A) No Trademark License- This license does not grant you rights to use any contributors' name, logo, or trademarks.
+	3. Conditions and Limitations
+	(A) No Trademark License- This license does not grant you rights to use any contributors' name, logo, or trademarks.
 
-    (B) If you bring a patent claim against any contributor over patents that you claim are infringed by the software, your patent license from such contributor to the software ends automatically.
+	(B) If you bring a patent claim against any contributor over patents that you claim are infringed by the software, your patent license from such contributor to the software ends automatically.
 
-    (C) If you distribute any portion of the software, you must retain all copyright, patent, trademark, and attribution notices that are present in the software.
+	(C) If you distribute any portion of the software, you must retain all copyright, patent, trademark, and attribution notices that are present in the software.
 
-    (D) If you distribute any portion of the software in source code form, you may do so only under this license by including a complete copy of this license with your distribution. If you distribute any portion of the software in compiled or object code form, you may only do so under a license that complies with this license.
+	(D) If you distribute any portion of the software in source code form, you may do so only under this license by including a complete copy of this license with your distribution. If you distribute any portion of the software in compiled or object code form, you may only do so under a license that complies with this license.
 
-    (E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the contributors exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
+	(E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the contributors exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
+		 
+## Shouldly
+https://shouldly.io/
 
-## Selenium.Support  & Selenium.WebDriver
-    https://www.selenium.dev/
-
-   
-                                 Apache License
-                           Version 2.0, January 2004
-                        http://www.apache.org/licenses/
-
-   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
-
-   1. Definitions.
-
-      "License" shall mean the terms and conditions for use, reproduction,
-      and distribution as defined by Sections 1 through 9 of this document.
-
-      "Licensor" shall mean the copyright owner or entity authorized by
-      the copyright owner that is granting the License.
-
-      "Legal Entity" shall mean the union of the acting entity and all
-      other entities that control, are controlled by, or are under common
-      control with that entity. For the purposes of this definition,
-      "control" means (i) the power, direct or indirect, to cause the
-      direction or management of such entity, whether by contract or
-      otherwise, or (ii) ownership of fifty percent (50%) or more of the
-      outstanding shares, or (iii) beneficial ownership of such entity.
-
-      "You" (or "Your") shall mean an individual or Legal Entity
-      exercising permissions granted by this License.
-
-      "Source" form shall mean the preferred form for making modifications,
-      including but not limited to software source code, documentation
-      source, and configuration files.
-
-      "Object" form shall mean any form resulting from mechanical
-      transformation or translation of a Source form, including but
-      not limited to compiled object code, generated documentation,
-      and conversions to other media types.
-
-      "Work" shall mean the work of authorship, whether in Source or
-      Object form, made available under the License, as indicated by a
-      copyright notice that is included in or attached to the work
-      (an example is provided in the Appendix below).
-
-      "Derivative Works" shall mean any work, whether in Source or Object
-      form, that is based on (or derived from) the Work and for which the
-      editorial revisions, annotations, elaborations, or other modifications
-      represent, as a whole, an original work of authorship. For the purposes
-      of this License, Derivative Works shall not include works that remain
-      separable from, or merely link (or bind by name) to the interfaces of,
-      the Work and Derivative Works thereof.
-
-      "Contribution" shall mean any work of authorship, including
-      the original version of the Work and any modifications or additions
-      to that Work or Derivative Works thereof, that is intentionally
-      submitted to Licensor for inclusion in the Work by the copyright owner
-      or by an individual or Legal Entity authorized to submit on behalf of
-      the copyright owner. For the purposes of this definition, "submitted"
-      means any form of electronic, verbal, or written communication sent
-      to the Licensor or its representatives, including but not limited to
-      communication on electronic mailing lists, source code control systems,
-      and issue tracking systems that are managed by, or on behalf of, the
-      Licensor for the purpose of discussing and improving the Work, but
-      excluding communication that is conspicuously marked or otherwise
-      designated in writing by the copyright owner as "Not a Contribution."
-
-      "Contributor" shall mean Licensor and any individual or Legal Entity
-      on behalf of whom a Contribution has been received by Licensor and
-      subsequently incorporated within the Work.
-
-   2. Grant of Copyright License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      copyright license to reproduce, prepare Derivative Works of,
-      publicly display, publicly perform, sublicense, and distribute the
-      Work and such Derivative Works in Source or Object form.
-
-   3. Grant of Patent License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      (except as stated in this section) patent license to make, have made,
-      use, offer to sell, sell, import, and otherwise transfer the Work,
-      where such license applies only to those patent claims licensable
-      by such Contributor that are necessarily infringed by their
-      Contribution(s) alone or by combination of their Contribution(s)
-      with the Work to which such Contribution(s) was submitted. If You
-      institute patent litigation against any entity (including a
-      cross-claim or counterclaim in a lawsuit) alleging that the Work
-      or a Contribution incorporated within the Work constitutes direct
-      or contributory patent infringement, then any patent licenses
-      granted to You under this License for that Work shall terminate
-      as of the date such litigation is filed.
-
-   4. Redistribution. You may reproduce and distribute copies of the
-      Work or Derivative Works thereof in any medium, with or without
-      modifications, and in Source or Object form, provided that You
-      meet the following conditions:
-
-      (a) You must give any other recipients of the Work or
-          Derivative Works a copy of this License; and
-
-      (b) You must cause any modified files to carry prominent notices
-          stating that You changed the files; and
-
-      (c) You must retain, in the Source form of any Derivative Works
-          that You distribute, all copyright, patent, trademark, and
-          attribution notices from the Source form of the Work,
-          excluding those notices that do not pertain to any part of
-          the Derivative Works; and
-
-      (d) If the Work includes a "NOTICE" text file as part of its
-          distribution, then any Derivative Works that You distribute must
-          include a readable copy of the attribution notices contained
-          within such NOTICE file, excluding those notices that do not
-          pertain to any part of the Derivative Works, in at least one
-          of the following places: within a NOTICE text file distributed
-          as part of the Derivative Works; within the Source form or
-          documentation, if provided along with the Derivative Works; or,
-          within a display generated by the Derivative Works, if and
-          wherever such third-party notices normally appear. The contents
-          of the NOTICE file are for informational purposes only and
-          do not modify the License. You may add Your own attribution
-          notices within Derivative Works that You distribute, alongside
-          or as an addendum to the NOTICE text from the Work, provided
-          that such additional attribution notices cannot be construed
-          as modifying the License.
-
-      You may add Your own copyright statement to Your modifications and
-      may provide additional or different license terms and conditions
-      for use, reproduction, or distribution of Your modifications, or
-      for any such Derivative Works as a whole, provided Your use,
-      reproduction, and distribution of the Work otherwise complies with
-      the conditions stated in this License.
-
-   5. Submission of Contributions. Unless You explicitly state otherwise,
-      any Contribution intentionally submitted for inclusion in the Work
-      by You to the Licensor shall be under the terms and conditions of
-      this License, without any additional terms or conditions.
-      Notwithstanding the above, nothing herein shall supersede or modify
-      the terms of any separate license agreement you may have executed
-      with Licensor regarding such Contributions.
-
-   6. Trademarks. This License does not grant permission to use the trade
-      names, trademarks, service marks, or product names of the Licensor,
-      except as required for reasonable and customary use in describing the
-      origin of the Work and reproducing the content of the NOTICE file.
-
-   7. Disclaimer of Warranty. Unless required by applicable law or
-      agreed to in writing, Licensor provides the Work (and each
-      Contributor provides its Contributions) on an "AS IS" BASIS,
-      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-      implied, including, without limitation, any warranties or conditions
-      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
-      PARTICULAR PURPOSE. You are solely responsible for determining the
-      appropriateness of using or redistributing the Work and assume any
-      risks associated with Your exercise of permissions under this License.
-
-   8. Limitation of Liability. In no event and under no legal theory,
-      whether in tort (including negligence), contract, or otherwise,
-      unless required by applicable law (such as deliberate and grossly
-      negligent acts) or agreed to in writing, shall any Contributor be
-      liable to You for damages, including any direct, indirect, special,
-      incidental, or consequential damages of any character arising as a
-      result of this License or out of the use or inability to use the
-      Work (including but not limited to damages for loss of goodwill,
-      work stoppage, computer failure or malfunction, or any and all
-      other commercial damages or losses), even if such Contributor
-      has been advised of the possibility of such damages.
-
-   9. Accepting Warranty or Additional Liability. While redistributing
-      the Work or Derivative Works thereof, You may choose to offer,
-      and charge a fee for, acceptance of support, warranty, indemnity,
-      or other liability obligations and/or rights consistent with this
-      License. However, in accepting such obligations, You may act only
-      on Your own behalf and on Your sole responsibility, not on behalf
-      of any other Contributor, and only if You agree to indemnify,
-      defend, and hold each Contributor harmless for any liability
-      incurred by, or claims asserted against, such Contributor by reason
-      of your accepting any such warranty or additional liability.
-
-   END OF TERMS AND CONDITIONS
-
-   APPENDIX: How to apply the Apache License to your work.
-
-      To apply the Apache License to your work, attach the following
-      boilerplate notice, with the fields enclosed by brackets "[]"
-      replaced with your own identifying information. (Don't include
-      the brackets!)  The text should be enclosed in the appropriate
-      comment syntax for the file format. We also recommend that a
-      file or class name and description of purpose be included on the
-      same "printed page" as the copyright notice for easier
-      identification within third-party archives.
-
-   Copyright [yyyy] [name of copyright owner]
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
- 
-  	  	 
-## shouldly
-    https://shouldly.io/
-
-    Redistribution and use in source and binary forms, with or without modification,
+	Redistribution and use in source and binary forms, with or without modification,
 	are permitted provided that the following conditions are met:
 
-    * Redistributions of source code must retain the above copyright notice,
-    this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice,
-    this list of conditions and the following disclaimer in the documentation
-    and/or other materials provided with the distribution.
-    * Neither the names of the copyright holders nor the names of
-    contributors may be used to endorse or promote products derived from this
-    software without specific prior written permission.
+	* Redistributions of source code must retain the above copyright notice,
+	this list of conditions and the following disclaimer.
+	* Redistributions in binary form must reproduce the above copyright notice,
+	this list of conditions and the following disclaimer in the documentation
+	and/or other materials provided with the distribution.
+	* Neither the names of the copyright holders nor the names of
+	contributors may be used to endorse or promote products derived from this
+	software without specific prior written permission.
 
 	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 	ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -1329,80 +1091,81 @@ https://github.com/GregFinzer/Compare-Net-Objects
 
 	[ http://www.opensource.org/licenses/bsd-license.php ]
 
+## SpecFlow
+http://specflow.org/    
 
-## SpecFlow  
-    http://specflow.org/    
+	SpecFlow aims at bridging the communication gap between domain experts and developers by binding business readable behavior specifications to the underlying implementation  
+	Copyright (c) 2009, TechTalk Disclaimer:  
+	The initial codebase of Specflow was written by TechTalk employees.   
+	No 3rd party code was included.  
+	No code of customer projects was used to create this project.  
+	TechTalk had the full rights to publish the initial codebase.   
+	Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:  
+	Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.  
+	Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.     * Neither the name of the SpecFlow project nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.   
+	THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+	PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL TECHTALK OR CONTRIBUTORS BE LIABLE FOR ANY 
+	DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+	NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
+	PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+	WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.   
+	SpecFlow is open source and provided under a BSD license. 
 
-    SpecFlow aims at bridging the communication gap between domain experts and developers by binding business readable behavior specifications to the underlying implementation  
-    Copyright (c) 2009, TechTalk Disclaimer:  
-    The initial codebase of Specflow was written by TechTalk employees.   
-    No 3rd party code was included.  
-    No code of customer projects was used to create this project.  
-    TechTalk had the full rights to publish the initial codebase.   
-    Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:  
-    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.  
-    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.     * Neither the name of the SpecFlow project nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.   
-    THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
-    PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL TECHTALK OR CONTRIBUTORS BE LIABLE FOR ANY 
-    DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
-    NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
-    PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-    WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.   
-    SpecFlow is open source and provided under a BSD license. 
-  
-## Stubble 
-    https://github.com/stubbleorg/stubble
-    Trimmed down {{mustache}} templates in .NET
-    The MIT License (MIT)
+## Stubble
+https://github.com/stubbleorg/stubble
 
-    Copyright (c) 2015 Alex McAuliffe
+	Trimmed down {{mustache}} templates in .NET
+	The MIT License (MIT)
 
-    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+	Copyright (c) 2015 Alex McAuliffe
 
-    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+	The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 
 ## Swagger code-gen
-    https://github.com/swagger-api/swagger-codegen
+https://github.com/swagger-api/swagger-codegen
 
-    swagger-codegen contains a template-driven engine to generate documentation, API clients and server stubs in different languages by parsing your OpenAPI / Swagger definition. http://swagger.io
+	swagger-codegen contains a template-driven engine to generate documentation, API clients and server stubs in different languages by parsing your OpenAPI / Swagger definition. http://swagger.io
 
-    https://github.com/swagger-api/swagger-codegen/blob/master/LICENSE
-    Copyright 2016 SmartBear Software
+	https://github.com/swagger-api/swagger-codegen/blob/master/LICENSE
+	Copyright 2016 SmartBear Software
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at [apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at [apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
 	
-## Swagger UI 
-    https://github.com/swagger-api/swagger-ui
+## Swagger UI
+https://github.com/swagger-api/swagger-ui
 
-    Swagger UI is a collection of HTML, Javascript, and CSS assets that dynamically generate beautiful documentation from a Swagger-compliant API. 
+	Swagger UI is a collection of HTML, Javascript, and CSS assets that dynamically generate beautiful documentation from a Swagger-compliant API. 
 
-    https://github.com/swagger-api/swagger-ui/blob/master/LICENSE
-    Copyright 2017 SmartBear Software
+	https://github.com/swagger-api/swagger-ui/blob/master/LICENSE
+	Copyright 2017 SmartBear Software
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at [apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at [apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
 
-## Swashbuckle 
-   https://github.com/domaindrivendev/Swashbuckle.AspNetCore
+## Swashbuckle
+https://github.com/domaindrivendev/Swashbuckle.AspNetCore
 
-   The MIT License (MIT)
+	The MIT License (MIT)
 
 	Copyright (c) 2016 Richard Morris
 
@@ -1424,23 +1187,17 @@ https://github.com/GregFinzer/Compare-Net-Objects
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 	SOFTWARE.
 
-## TeamCity.VSTest.TestAdapter  
-    https://github.com/JetBrains/TeamCity.VSTest.TestAdapter
+## TeamCity.VSTest.TestAdapter
+https://github.com/JetBrains/TeamCity.VSTest.TestAdapter
 
-    Licensed under the Apache License, Version 2.0 (the "License");
+	Licensed under the Apache License, Version 2.0 (the "License");
 
-	you may not use this file except in compliance with the License.
+	You may not use this file except in compliance with the License.
 
-	You may obtain a copy of the License at
+	You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 
-	http://www.apache.org/licenses/LICENSE-2.0
-
-	Unless required by applicable law or agreed to in writing, software
-
-	distributed under the License is distributed on an "AS IS" BASIS,
+	Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
 
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 
-	See the License for the specific language governing permissions and
-
-	limitations under the License.
+	See the License for the specific language governing permissions and limitations under the License.

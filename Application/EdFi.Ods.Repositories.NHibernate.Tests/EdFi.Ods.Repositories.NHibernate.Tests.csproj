@@ -26,25 +26,16 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Common" Version="7.0.48" />
+        <PackageReference Include="EdFi.Suite3.Common" Version="7.0.50" />
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.5.0" />
-    <PackageReference Include="EntityFramework" Version="6.4.4" />
-    <PackageReference Include="FakeItEasy" Version="7.3.1" />
-    <PackageReference Include="Iesi.Collections" Version="4.0.5" />
-    <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
-    <PackageReference Include="NHibernate" Version="5.4.0" />
-    <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.3.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Remotion.Linq" Version="2.2.0" />
-    <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
+    </PackageReference>    
     <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.36" />
     <PackageReference Include="Shouldly" Version="4.1.0" />
   </ItemGroup>
@@ -68,7 +59,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="**\DataStandard*\*.cs"/>
+    <Compile Remove="**\DataStandard*\*.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(StandardVersion)' == '5.0.0' ">
     <Compile Include="**\DataStandard500\*.cs" />
