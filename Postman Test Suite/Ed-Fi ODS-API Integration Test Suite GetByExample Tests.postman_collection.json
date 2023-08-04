@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d707346a-63cb-48b1-9c3c-15035d58896f",
+		"_postman_id": "70bfc09f-5bc1-41c1-abb0-c63472f5f844",
 		"name": "Ed-Fi ODS/API Integration Test Suite GetByExample Tests",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"

@@ -2858,7 +2858,7 @@
 									"script": {
 										"exec": [
 											"pm.test(\"Response is 200 or 404\", () => {",
-											"    pm.expect(pm.response.code).to.be.oneOf([200, 404])",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 404]) ",
 											" });",
 											"",
 											"if (pm.response.code === 200) {",
