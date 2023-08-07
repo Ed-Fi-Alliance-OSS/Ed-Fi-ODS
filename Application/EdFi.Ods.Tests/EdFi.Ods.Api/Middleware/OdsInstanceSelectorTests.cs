@@ -128,6 +128,50 @@ namespace EdFi.Ods.Api.Middleware.Tests
             result.ShouldBe(odsInstanceConfiguration_2);
         }
 
+        [Test]
+        public async Task GetOdsInstanceAsync_ReturnsOdsInstanceConfiguration_WhenApiClientContextHasMoreThanOneOdsInstanceId_OneMisconfiguredOdsInstance_AndOneMatchingAllContextValues()
+        {
+            // Arrange
+            var odsInstanceIds = new[] { 1, 2, 3 };
+
+            var apiClientContext = CreateApiClientContext(odsInstanceIds);
+
+            var odsInstanceConfiguration_1 = new OdsInstanceConfiguration(
+                1,
+                1UL,
+                "TheConnectionString",
+                new Dictionary<string, string>(),
+                new Dictionary<DerivativeType, string>());
+
+            var odsInstanceConfiguration_2 = new OdsInstanceConfiguration(
+                2,
+                2UL,
+                "TheConnectionString",
+                new Dictionary<string, string> { { "schoolYear", "2022" }, { "secondKey", "Xyz" } },
+                new Dictionary<DerivativeType, string>());
+
+            var odsInstanceConfiguration_3 = new OdsInstanceConfiguration(
+                3,
+                3UL,
+                "TheConnectionString",
+                new Dictionary<string, string> { { "schoolYear", "2023" }, { "secondKey", "Abc" } },
+                new Dictionary<DerivativeType, string>());
+
+            A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(apiClientContext);
+            A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(1)).Returns(odsInstanceConfiguration_1);
+            A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(2)).Returns(odsInstanceConfiguration_2);
+            A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(3)).Returns(odsInstanceConfiguration_3);
+
+            _routeValueDictionary.Add("schoolYear", "2022");
+            _routeValueDictionary.Add("secondKey", "Xyz");
+
+            // Act
+            var result = await _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary);
+
+            // Assert
+            result.ShouldBe(odsInstanceConfiguration_2);
+        }
+
         [TestCase("2022", "NoMatch")]
         [TestCase("2024", "Abc")]
         public async Task GetOdsInstanceAsync_ReturnsNotFoundException_WhenApiClientContextHasMultipleOdsInstanceIds_AndNoneMatchingAllContextValues(
