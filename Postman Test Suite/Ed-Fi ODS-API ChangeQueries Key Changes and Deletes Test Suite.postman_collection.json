@@ -10101,7 +10101,7 @@
 									"response": []
 								},
 								{
-									"name": "Create Contact",
+									"name": "Create Parent or Contact",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -10210,7 +10210,7 @@
 									"response": []
 								},
 								{
-									"name": "Create Student Contact Association",
+									"name": "Create Student Parent or Contact Association",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -10331,7 +10331,7 @@
 							"name": "Contacts",
 							"item": [
 								{
-									"name": "Change Contact First Name",
+									"name": "Change Parent or Contact First Name",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -10394,7 +10394,7 @@
 							"name": "Teardown",
 							"item": [
 								{
-									"name": "Delete Student Contact Association",
+									"name": "Delete Student Parent or Contact Association",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -10447,7 +10447,7 @@
 									"response": []
 								},
 								{
-									"name": "Delete Contact",
+									"name": "Delete Parent or Contact",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -10974,6 +10974,20 @@
 					"CreateAccessToken(\"TokenExpiry_Other_Namespace\",\"AccessToken_Other_Namespace\",\"ApiKey_Other_Namespace\",\"ApiSecret_Other_Namespace\")",
 					"",
 					"CreateAccessToken(\"TokenExpiry_255901044\",\"AccessToken_255901044\",\"ApiKey_255901044\",\"ApiSecret_255901044\")",
+					"",
+					"// Set variables related to data standard specific contact/parent variablility ",
+					"let ParentOrContactProperName = pm.environment.get(\"ParentOrContactProperName\");",
+					"let StudentParentOrContactAssociationCollectionName = \"Student\" + ParentOrContactProperName + \"Associations\";",
+					"let ParentOrContactUniqueIdName = ParentOrContactProperName + \"UniqueId\";",
+					"let ParentOrContactName =  ParentOrContactProperName.toLowerCase();",
+					"let ParentOrContactCollectionName = ParentOrContactName + \"s\";",
+					"",
+					"pm.environment.set(\"StudentParentOrContactAssociationCollectionName\", StudentParentOrContactAssociationCollectionName);",
+					"pm.environment.set(\"ParentOrContactUniqueIdName\", ParentOrContactUniqueIdName);",
+					"pm.environment.set(\"ParentOrContactName\", ParentOrContactName);",
+					"pm.environment.set(\"ParentOrContactCollectionName\", ParentOrContactCollectionName);",
+					"",
+					"",
 					"",
 					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
 					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
