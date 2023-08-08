@@ -175,20 +175,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         {
             switch (propertyData[ResourceRenderer.RenderType])
             {
-                case ResourceRenderer.RenderNull:
-
-                    return new
-                    {
-                        Null = new { },
-                        Property = propertyData.Render()
-                    };
-                case ResourceRenderer.RenderNullLookup:
-
-                    return new
-                    {
-                        NullLookup = new { },
-                        Property = propertyData.Render()
-                    };
                 case ResourceRenderer.RenderStandard:
 
                     return new
@@ -342,18 +328,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             data[ResourceRenderer.MiscellaneousComment] = "// NOT in a reference, NOT a lookup column ";
 
             return data;
-        }
-
-        public static PropertyData CreateNullProperty(ResourceProperty property)
-        {
-            var propertyData = CreateStandardProperty(property);
-
-            propertyData[ResourceRenderer.RenderType] =
-                property.IsDescriptorUsage
-                    ? ResourceRenderer.RenderNullLookup
-                    : ResourceRenderer.RenderNull;
-
-            return propertyData;
         }
     }
 }

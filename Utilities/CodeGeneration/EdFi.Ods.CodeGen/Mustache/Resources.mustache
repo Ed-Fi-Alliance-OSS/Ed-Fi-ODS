@@ -482,26 +482,6 @@ namespace {{ResourceClassesNamespace}}
         {{/PropertyDefaultHasDomainMeaning}}
         {{/Property}}
         {{/Standard}}
-        {{#Null}}
-        {{#Property}}
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        {{PropertyType}} {{ParentNamespacePrefix}}I{{ParentName}}.{{PropertyName}}
-        {
-            get { return default({{PropertyType}}); }
-            set { }
-        }
-        {{/Property}}
-        {{/Null}}
-        {{#NullLookup}}
-        {{#Property}}
-        // IS a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        {{PropertyType}} {{ParentNamespacePrefix}}I{{ParentName}}.{{PropertyName}}
-        {
-            get { return null; }
-            set { }
-        }
-        {{/Property}}
-        {{/NullLookup}}
         {{#Referenced}}
         {{#Property}}
 
@@ -828,28 +808,6 @@ namespace {{ResourceClassesNamespace}}
         public {{PropertyType}} {{PropertyName}} { get; set; }
         {{/Property}}
         {{/Standard}}
-        {{#Null}}
-
-        {{#Property}}
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        {{PropertyType}} {{PropertyNamespacePrefix}}I{{ParentName}}.{{PropertyName}}
-        {
-            get { return default({{PropertyType}}); }
-            set { }
-        }
-        {{/Property}}
-        {{/Null}}
-        {{#NullLookup}}
-
-        {{#Property}}
-        // IS a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        {{PropertyType}} {{PropertyNamespacePrefix}}I{{ParentName}}.{{PropertyName}}
-        {
-            get { return null; }
-            set { }
-        }
-        {{/Property}}
-        {{/NullLookup}}
         {{/Properties}}
         {{/InheritedProperties}}
         // -------------------------------------------------------------
@@ -1008,28 +966,6 @@ namespace {{ResourceClassesNamespace}}
         {{/PropertyDefaultHasDomainMeaning}}
         {{/Property}}
         {{/Standard}}
-        {{#Null}}
-
-        {{#Property}}
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        {{PropertyType}} {{NullPropertyPrefix}}{{CSharpSafePropertyName}}
-        {
-            get { return default({{PropertyType}}); }
-            set { }
-        }
-        {{/Property}}
-        {{/Null}}
-        {{#NullLookup}}
-
-        {{#Property}}
-        // IS a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        {{PropertyType}} {{NullPropertyPrefix}}{{PropertyName}}
-        {
-            get { return null; }
-            set { }
-        }
-        {{/Property}}
-        {{/NullLookup}}
         {{/Properties}}
         {{/NonIdentifiers}}
         // -------------------------------------------------------------
