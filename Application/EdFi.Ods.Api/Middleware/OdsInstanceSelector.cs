@@ -55,7 +55,7 @@ public class OdsInstanceSelector : IOdsInstanceSelector
 
         var firstMatchingOdsInstanceConfiguration = apiClientContext.OdsInstanceIds
             .Select(id =>  _odsInstanceConfigurationProvider.GetByIdAsync(id).ConfigureAwait(false).GetAwaiter().GetResult())
-            .Where(config => config != null)
+            .Where(config => config != null && config.ContextValueByKey.Count != 0)
             .FirstOrDefault(config => 
                 config.ContextValueByKey.All(contextValue => 
                     routeValues.TryGetValue(contextValue.Key, out var routeValue)
