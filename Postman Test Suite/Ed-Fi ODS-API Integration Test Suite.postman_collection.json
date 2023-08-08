@@ -5014,14 +5014,14 @@
 							"response": []
 						},
 						{
-							"name": "Initialize Parent Data for Post Request",
+							"name": "Initialize Contact Data for Post Request",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Response is  201 or 404\", () => {",
-											"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) ",
+											"pm.test(\"Response is  201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201) ",
 											" });",
 											"",
 											"if (pm.response.code === 201 ) {",
@@ -5066,7 +5066,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"parentUniqueId\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+									"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5074,7 +5074,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -5082,21 +5082,21 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"parents"
+										"{{ParentOrContactCollectionName}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Initialize StudentParentAssociations Data for Post Request",
+							"name": "Initialize StudentContactAssociations Data for Post Request",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Response is  201 or 404\", () => {",
-											"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) ",
+											"pm.test(\"Response is  201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201) ",
 											" });",
 											""
 										],
@@ -5125,7 +5125,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"parentReference\": {\r\n    \"parentUniqueId\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+									"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5133,7 +5133,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentParentAssociations",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -5141,21 +5141,21 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"StudentParentAssociations"
+										"{{StudentParentOrContactAssociationCollectionName}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Get Parent  By PersonID",
+							"name": "Get Contact By PersonID",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Response is  200 or 404\", () => {",
-											"    pm.expect(pm.response.code).to.be.oneOf([200, 404]) ",
+											"pm.test(\"Response is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200) ",
 											" });  ",
 											"",
 											"if (pm.response.code === 200 ) {",
@@ -5199,7 +5199,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents?parentUniqueId={{supplied:{{scenarioId}}:parentUniqueId}}&personId={{supplied:{{scenarioId}}:personId}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}?{{ParentOrContactUniqueIdName}}={{supplied:{{scenarioId}}:parentUniqueId}}&personId={{supplied:{{scenarioId}}:personId}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -5207,11 +5207,11 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"parents"
+										"{{ParentOrContactCollectionName}}"
 									],
 									"query": [
 										{
-											"key": "parentUniqueId",
+											"key": "{{ParentOrContactUniqueIdName}}",
 											"value": "{{supplied:{{scenarioId}}:parentUniqueId}}"
 										},
 										{
@@ -5224,7 +5224,7 @@
 							"response": []
 						}
 					],
-					"description": "Scenario 4 - Create Person With \"District\" sourceSystemDescriptor and Associate with Parent\r\n\r\nStep 1  Create \"District\" sourceSystemDescriptor\r\nStep 2 Create Person With \"District\" sourceSystemDescriptor\r\nStep 3 Create Student With Associated Person\r\nStep 4 Create parent With Associated same Person\r\nStep 4 Get Parent  by PersonId",
+					"description": "Scenario 4 - Create Person With \"District\" sourceSystemDescriptor and Associate with Contact\r\n\r\nStep 1  Create \"District\" sourceSystemDescriptor\r\nStep 2 Create Person With \"District\" sourceSystemDescriptor\r\nStep 3 Create Student With Associated Person\r\nStep 4 Create contact With Associated same Person\r\nStep 4 Get Contact  by PersonId",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -7939,7 +7939,7 @@
 									"name": "Setup",
 									"item": [
 										{
-											"name": "Initialize Supplied Parent/Contact UniqueId",
+											"name": "Initialize Supplied Contact UniqueId",
 											"event": [
 												{
 													"listen": "prerequest",
@@ -7954,19 +7954,7 @@
 													"listen": "test",
 													"script": {
 														"exec": [
-															"if (pm.response.code == 200) {\r",
-															"  pm.environment.set('parentOrContactName', 'parent');\r",
-															"  pm.environment.set('parentOrContactProperName', 'Parent');\r",
-															"  pm.environment.set('parentOrContactCollectionName', 'parents');\r",
-															"  pm.environment.set('parentOrContactUniqueIdName', 'parentUniqueId');\r",
-															"} else if (pm.response.code == 404) {\r",
-															"  pm.environment.set('parentOrContactName', 'contact');\r",
-															"  pm.environment.set('parentOrContactProperName', 'Contact');\r",
-															"  pm.environment.set('parentOrContactCollectionName', 'contacts');\r",
-															"  pm.environment.set('parentOrContactUniqueIdName', 'contactUniqueId');\r",
-															"} else {\r",
-															"  pm.expect.fail(\"Unable to determine whether Parent or Contact is in use.\");\r",
-															"}"
+															""
 														],
 														"type": "text/javascript"
 													}
@@ -7976,7 +7964,7 @@
 												"method": "GET",
 												"header": [],
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents?limit=1",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}?limit=1",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -7984,7 +7972,7 @@
 														"data",
 														"v3",
 														"ed-fi",
-														"parents"
+														"{{ParentOrContactCollectionName}}"
 													],
 													"query": [
 														{
@@ -8002,7 +7990,7 @@
 									"name": "Invalid (Collections Empty)",
 									"item": [
 										{
-											"name": "Create Parent/Contact",
+											"name": "Create Contact",
 											"event": [
 												{
 													"listen": "test",
@@ -8018,17 +8006,17 @@
 															"\r",
 															"/*\r",
 															"    string FavoriteBookTitle\r",
-															"        documentation \"The title of the parent's favorite book.\"\r",
+															"        documentation \"The title of the contact's favorite book.\"\r",
 															"        is required collection\r",
 															"        max length 100\r",
 															"*/\r",
 															"pm.test(\"Should indicate that the required collection has no items.\", () => {\r",
-															"  pm.expect(message).to.contain(`${parentOrContactProperName}FavoriteBookTitles (Sample) requires at least one object in the collection.`);\r",
+															"  pm.expect(message).to.contain(`FavoriteBookTitles (Sample) requires at least one object in the collection.`);\r",
 															"});\r",
 															"\r",
 															"/*\r",
 															"    shared string EdFi.Author\r",
-															"        documentation \"The parent's favorite authors.\"\r",
+															"        documentation \"The contact's favorite authors.\"\r",
 															"        is optional collection\r",
 															"*/\r",
 															"pm.test(\"Should NOT indicate any issues with the optional collection that is empty.\", () => {\r",
@@ -8054,7 +8042,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"{{parentOrContactUniqueIdName}}\": \"{{supplied:parentOrContact:uniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+													"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:parentOrContact:uniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -8062,7 +8050,7 @@
 													}
 												},
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{parentOrContactCollectionName}}",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -8070,7 +8058,7 @@
 														"data",
 														"v3",
 														"ed-fi",
-														"{{parentOrContactCollectionName}}"
+														"{{ParentOrContactCollectionName}}"
 													]
 												}
 											},
@@ -8082,7 +8070,7 @@
 									"name": "Invalid (Embedded Objects Not Supplied)",
 									"item": [
 										{
-											"name": "Create Parent/Contact",
+											"name": "Create Contact",
 											"event": [
 												{
 													"listen": "test",
@@ -8092,14 +8080,14 @@
 															"  pm.expect(pm.response.code).to.equal(400);\r",
 															"});\r",
 															"\r",
-															"const parentOrContactProperName = pm.environment.get('parentOrContactProperName');\r",
+															"const parentOrContactProperName = pm.environment.get('ParentOrContactProperName');\r",
 															"\r",
 															"if (pm.response.code === 400) {\r",
 															"  const message = pm.response.json().message;\r",
 															"\r",
 															"  /*\r",
 															"      common TeacherConference\r",
-															"          documentation \"The parent's preferred day of the week and time for parent-teacher conferences.\"\r",
+															"          documentation \"The contact's preferred day of the week and time for contact-teacher conferences.\"\r",
 															"          is required\r",
 															"  */\r",
 															"  pm.test(\"Should indicate that the required embedded object is missing.\", () => {\r",
@@ -8108,7 +8096,7 @@
 															"\r",
 															"  /*\r",
 															"      common EdFi.CTEProgram\r",
-															"          documentation \"A CTE program the parent has completed.\"\r",
+															"          documentation \"A CTE program the contact has completed.\"\r",
 															"          is optional\r",
 															"  */\r",
 															"  pm.test(\"Should NOT indicate any issues with the optional embedded object that is missing.\", () => {\r",
@@ -8125,7 +8113,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"{{parentOrContactUniqueIdName}}\": \"{{supplied:parentOrContact:uniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+													"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:parentOrContact:uniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -8133,7 +8121,7 @@
 													}
 												},
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{parentOrContactCollectionName}}",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -8141,7 +8129,7 @@
 														"data",
 														"v3",
 														"ed-fi",
-														"{{parentOrContactCollectionName}}"
+														"{{ParentOrContactCollectionName}}"
 													]
 												}
 											},
@@ -8153,7 +8141,7 @@
 									"name": "Valid (Required Items Supplied)",
 									"item": [
 										{
-											"name": "Create Parent/Contact",
+											"name": "Create Contact",
 											"event": [
 												{
 													"listen": "test",
@@ -8175,7 +8163,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"{{parentOrContactUniqueIdName}}\": \"{{supplied:parentOrContact:uniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+													"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:parentOrContact:uniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -8183,7 +8171,7 @@
 													}
 												},
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{parentOrContactCollectionName}}",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -8191,7 +8179,7 @@
 														"data",
 														"v3",
 														"ed-fi",
-														"{{parentOrContactCollectionName}}"
+														"{{ParentOrContactCollectionName}}"
 													]
 												}
 											},
@@ -8203,7 +8191,7 @@
 									"name": "Teardown",
 									"item": [
 										{
-											"name": "Delete the Parent/Contact",
+											"name": "Delete the Contact",
 											"event": [
 												{
 													"listen": "test",
@@ -8236,7 +8224,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{parentOrContactCollectionName}}/{{known:parentOrContact:id}}",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}/{{known:parentOrContact:id}}",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -8244,7 +8232,7 @@
 														"data",
 														"v3",
 														"ed-fi",
-														"{{parentOrContactCollectionName}}",
+														"{{ParentOrContactCollectionName}}",
 														"{{known:parentOrContact:id}}"
 													]
 												},
@@ -8781,6 +8769,18 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
+					"// Set variables related to data standard specific contact/parent variablility ",
+					"let ParentOrContactProperName = pm.environment.get(\"ParentOrContactProperName\");",
+					"let StudentParentOrContactAssociationCollectionName = \"Student\" + ParentOrContactProperName + \"Associations\";",
+					"let ParentOrContactUniqueIdName = ParentOrContactProperName + \"UniqueId\";",
+					"let ParentOrContactName =  ParentOrContactProperName.toLowerCase();",
+					"let ParentOrContactCollectionName = ParentOrContactName + \"s\";",
+					"",
+					"pm.environment.set(\"StudentParentOrContactAssociationCollectionName\", StudentParentOrContactAssociationCollectionName);",
+					"pm.environment.set(\"ParentOrContactUniqueIdName\", ParentOrContactUniqueIdName);",
+					"pm.environment.set(\"ParentOrContactName\", ParentOrContactName);",
+					"pm.environment.set(\"ParentOrContactCollectionName\", ParentOrContactCollectionName);",
+					"",
 					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
 					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
 					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",

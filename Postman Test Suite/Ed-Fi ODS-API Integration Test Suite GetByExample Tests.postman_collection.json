@@ -54,7 +54,7 @@
 			]
 		},
 		{
-			"name": "StudentParentAssociation Tests",
+			"name": "StudentContactAssociation Tests",
 			"item": [
 				{
 					"name": "Initialize Student Data",
@@ -185,14 +185,14 @@
 					"response": []
 				},
 				{
-					"name": "Initialize First Parent Data",
+					"name": "Initialize First Contact Data",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response is  201 or 404\", () => {",
-									"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) ",
+									"pm.test(\"Response is  201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201) ",
 									" });",
 									"",
 									" if (pm.response.code === 201 ) {",
@@ -232,7 +232,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"parentUniqueId\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+							"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -240,7 +240,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -248,21 +248,21 @@
 								"data",
 								"v3",
 								"ed-fi",
-								"parents"
+								"{{ParentOrContactCollectionName}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Initialize Second Parent Data",
+					"name": "Initialize Second Contact Data",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response is  201 or 404\", () => {",
-									"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) ",
+									"pm.test(\"Response is  201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201) ",
 									" });",
 									"",
 									"if (pm.response.code === 201 ) {",
@@ -303,7 +303,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"parentUniqueId\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+							"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -311,7 +311,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -319,21 +319,21 @@
 								"data",
 								"v3",
 								"ed-fi",
-								"parents"
+								"{{ParentOrContactCollectionName}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Initialize First StudentParentAssociation Data",
+					"name": "Initialize First StudentContactAssociation Data",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response is  201 or 404\", () => {",
-									"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) ",
+									"pm.test(\"Response is  201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201) ",
 									" });"
 								],
 								"type": "text/javascript"
@@ -352,7 +352,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"parentReference\": {\r\n    \"parentUniqueId\": \"{{known:{{scenarioId}}:parent1UniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+							"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parent1UniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -360,7 +360,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentParentAssociations",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -368,21 +368,21 @@
 								"data",
 								"v3",
 								"ed-fi",
-								"StudentParentAssociations"
+								"{{StudentParentOrContactAssociationCollectionName}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Initialize Second StudentParentAssociation Data",
+					"name": "Initialize Second StudentContactAssociation Data",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response is  201 or 404\", () => {",
-									"    pm.expect(pm.response.code).to.be.oneOf([201, 404]) ",
+									"pm.test(\"Response is  201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201) ",
 									" });"
 								],
 								"type": "text/javascript"
@@ -401,7 +401,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"parentReference\": {\r\n    \"parentUniqueId\": \"{{known:{{scenarioId}}:parent2UniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+							"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parent2UniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -409,7 +409,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentParentAssociations",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -417,21 +417,21 @@
 								"data",
 								"v3",
 								"ed-fi",
-								"StudentParentAssociations"
+								"{{StudentParentOrContactAssociationCollectionName}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "StudentParentAssociation by Invalid StudentUniqueId",
+					"name": "StudentContactAssociation by Invalid StudentUniqueId",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response is  200 or 404\", () => {",
-									"    pm.expect(pm.response.code).to.be.oneOf([200, 404]) ",
+									"pm.test(\"Response is  200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200) ",
 									" });",
 									"",
 									"if (pm.response.code === 200 ) {",
@@ -449,7 +449,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentParentAssociations?studentUniqueId=InvalidStudentId",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}?studentUniqueId=InvalidStudentId",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -457,7 +457,7 @@
 								"data",
 								"v3",
 								"ed-fi",
-								"studentParentAssociations"
+								"{{StudentParentOrContactAssociationCollectionName}}"
 							],
 							"query": [
 								{
@@ -470,14 +470,14 @@
 					"response": []
 				},
 				{
-					"name": "StudentParentAssociation Has Additional Data",
+					"name": "StudentContactAssociation Has Additional Data",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response is  200 or 404\", () => {",
-									"    pm.expect(pm.response.code).to.be.oneOf([200, 404]) ",
+									"pm.test(\"Response is  200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200) ",
 									" });",
 									"",
 									"if (pm.response.code === 201 ) {",
@@ -495,7 +495,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentParentAssociations",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -503,21 +503,21 @@
 								"data",
 								"v3",
 								"ed-fi",
-								"studentParentAssociations"
+								"{{StudentParentOrContactAssociationCollectionName}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "StudentParentAssociation by Valid StudentUniqueId",
+					"name": "StudentContacctAssociation by Valid StudentUniqueId",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response is  200 or 404\", () => {",
-									"    pm.expect(pm.response.code).to.be.oneOf([200, 404]) ",
+									"pm.test(\"Response is  200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200) ",
 									" });",
 									"",
 									"if (pm.response.code === 200 ) {",
@@ -544,7 +544,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentParentAssociations?studentUniqueId={{known:{{scenarioId}}:studentUniqueId}}",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}?studentUniqueId={{known:{{scenarioId}}:studentUniqueId}}",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -552,7 +552,7 @@
 								"data",
 								"v3",
 								"ed-fi",
-								"studentParentAssociations"
+								"{{StudentParentOrContactAssociationCollectionName}}"
 							],
 							"query": [
 								{
@@ -565,14 +565,14 @@
 					"response": []
 				},
 				{
-					"name": "StudentParentAssociation by Valid ParentUniqueId",
+					"name": "StudentContactAssociation by Valid ContactUniqueId",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response is  200 or 404\", () => {",
-									"    pm.expect(pm.response.code).to.be.oneOf([200, 404]) ",
+									"pm.test(\"Response is  200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200) ",
 									" });",
 									"",
 									"if (pm.response.code === 200 ) {",
@@ -581,12 +581,17 @@
 									"        pm.expect(responseItems.length).to.equal(1);",
 									"    });",
 									"",
-									"    pm.test(\"Should return only items for the provided parent unique id\", () => {",
+									"    pm.test(\"Should return only items for the provided contact unique id\", () => {",
 									"        const scenarioId = pm.environment.get('scenarioId');",
 									"        const parentUniqueId = pm.variables.get('known:'+scenarioId+':parent1UniqueId');",
 									"        const responseItems = pm.response.json();",
 									"        responseItems.forEach(item => {",
-									"            pm.expect(item.parentReference.parentUniqueId).to.equal(parentUniqueId);",
+									"            if(pm.environment.get('ParentOrContactName') == 'parent') {",
+									"                pm.expect(item.parentReference.parentUniqueId).to.equal(parentUniqueId);",
+									"            }",
+									"            else if(pm.environment.get('ParentOrContactName') == 'contact') {",
+									"                pm.expect(item.contactReference.contactUniqueId).to.equal(parentUniqueId);",
+									"            }",
 									"        })",
 									"    });",
 									"}"
@@ -599,7 +604,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentParentAssociations?parentUniqueId={{known:{{scenarioId}}:parent1UniqueId}}",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}?{{ParentOrContactUniqueIdName}}={{known:{{scenarioId}}:parent1UniqueId}}",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -607,11 +612,11 @@
 								"data",
 								"v3",
 								"ed-fi",
-								"studentParentAssociations"
+								"{{StudentParentOrContactAssociationCollectionName}}"
 							],
 							"query": [
 								{
-									"key": "parentUniqueId",
+									"key": "{{ParentOrContactUniqueIdName}}",
 									"value": "{{known:{{scenarioId}}:parent1UniqueId}}"
 								}
 							]
@@ -620,14 +625,14 @@
 					"response": []
 				},
 				{
-					"name": "StudentParentAssociation by Valid StudentUniqueId and ParentUniqueId",
+					"name": "StudentContactAssociation by Valid StudentUniqueId and ContactUniqueId",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response is  200 or 404\", () => {",
-									"    pm.expect(pm.response.code).to.be.oneOf([200, 404]) ",
+									"pm.test(\"Response is  200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200) ",
 									" });",
 									"",
 									"if (pm.response.code === 200 ) {",
@@ -636,14 +641,19 @@
 									"        pm.expect(responseItems.length).to.equal(1);",
 									"    });",
 									"",
-									"    pm.test(\"Should return only items for the provided student and parent unique id\", () => {",
+									"    pm.test(\"Should return only items for the provided student and contact unique id\", () => {",
 									"        const scenarioId = pm.environment.get('scenarioId');",
 									"        const studentUniqueId = pm.variables.get('known:'+scenarioId+':studentUniqueId');",
 									"        const parentUniqueId = pm.variables.get('known:'+scenarioId+':parent1UniqueId');",
 									"        const responseItems = pm.response.json();",
 									"        responseItems.forEach(item => {",
 									"            pm.expect(item.studentReference.studentUniqueId).to.equal(studentUniqueId);",
-									"            pm.expect(item.parentReference.parentUniqueId).to.equal(parentUniqueId);",
+									"            if(pm.environment.get('ParentOrContactName') == 'parent') {",
+									"                pm.expect(item.parentReference.parentUniqueId).to.equal(parentUniqueId);",
+									"            }",
+									"            else if(pm.environment.get('ParentOrContactName') == 'contact') {",
+									"                pm.expect(item.contactReference.contactUniqueId).to.equal(parentUniqueId);",
+									"            }",
 									"        })",
 									"    });",
 									"}"
@@ -656,7 +666,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentParentAssociations?studentUniqueId={{known:{{scenarioId}}:studentUniqueId}}&parentUniqueId={{known:{{scenarioId}}:parent1UniqueId}}",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}?studentUniqueId={{known:{{scenarioId}}:studentUniqueId}}&{{ParentOrContactUniqueIdName}}={{known:{{scenarioId}}:parent1UniqueId}}",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -664,7 +674,7 @@
 								"data",
 								"v3",
 								"ed-fi",
-								"studentParentAssociations"
+								"{{StudentParentOrContactAssociationCollectionName}}"
 							],
 							"query": [
 								{
@@ -672,7 +682,7 @@
 									"value": "{{known:{{scenarioId}}:studentUniqueId}}"
 								},
 								{
-									"key": "parentUniqueId",
+									"key": "{{ParentOrContactUniqueIdName}}",
 									"value": "{{known:{{scenarioId}}:parent1UniqueId}}"
 								}
 							]
@@ -733,6 +743,18 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
+					"// Set variables related to data standard specific contact/parent variablility ",
+					"let ParentOrContactProperName = pm.environment.get(\"ParentOrContactProperName\");",
+					"let StudentParentOrContactAssociationCollectionName = \"Student\" + ParentOrContactProperName + \"Associations\";",
+					"let ParentOrContactUniqueIdName = ParentOrContactProperName + \"UniqueId\";",
+					"let ParentOrContactName =  ParentOrContactProperName.toLowerCase();",
+					"let ParentOrContactCollectionName = ParentOrContactName + \"s\";",
+					"",
+					"pm.environment.set(\"StudentParentOrContactAssociationCollectionName\", StudentParentOrContactAssociationCollectionName);",
+					"pm.environment.set(\"ParentOrContactUniqueIdName\", ParentOrContactUniqueIdName);",
+					"pm.environment.set(\"ParentOrContactName\", ParentOrContactName);",
+					"pm.environment.set(\"ParentOrContactCollectionName\", ParentOrContactCollectionName);",
+					"",
 					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
 					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
 					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",
