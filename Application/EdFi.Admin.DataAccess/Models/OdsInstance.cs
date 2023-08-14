@@ -3,6 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,6 +12,12 @@ namespace EdFi.Admin.DataAccess.Models
 {
     public class OdsInstance
     {
+        public OdsInstance()
+        {
+            OdsInstanceContexts = new Collection<OdsInstanceContext>();
+            OdsInstanceDerivatives = new Collection<OdsInstanceDerivative>();
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OdsInstanceId { get; set; }
@@ -33,5 +41,9 @@ namespace EdFi.Admin.DataAccess.Models
         /// </summary>
         [Required]
         public string ConnectionString { get; set; }
+
+        public ICollection<OdsInstanceContext> OdsInstanceContexts { get; set; }
+
+        public ICollection<OdsInstanceDerivative> OdsInstanceDerivatives { get; set; }
     }
 }
