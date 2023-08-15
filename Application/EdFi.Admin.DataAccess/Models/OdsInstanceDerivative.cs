@@ -11,7 +11,6 @@ namespace EdFi.Admin.DataAccess.Models
     [Table("OdsInstanceDerivative")]
     public class OdsInstanceDerivative
     {
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OdsInstanceDerivativeId { get; set; }
