@@ -42,8 +42,10 @@ namespace EdFi.Admin.DataAccess.Models
         [Required]
         public string ConnectionString { get; set; }
 
+        [ForeignKey("OdsInstanceId")]
         public ICollection<OdsInstanceContext> OdsInstanceContexts { get; set; }
 
+        [ForeignKey("OdsInstanceId")]
         public ICollection<OdsInstanceDerivative> OdsInstanceDerivatives { get; set; }
     }
 }

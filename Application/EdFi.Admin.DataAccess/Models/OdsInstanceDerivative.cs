@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EdFi.Admin.DataAccess.Models
 {
+    [Table("OdsInstanceDerivative")]
     public class OdsInstanceDerivative
     {
 
@@ -15,6 +16,8 @@ namespace EdFi.Admin.DataAccess.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OdsInstanceDerivativeId { get; set; }
 
+        [Required]
+        public int OdsInstanceId { get; set; }
         public virtual OdsInstance OdsInstance {get; set; }
 
         /// <summary>
