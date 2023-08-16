@@ -317,7 +317,6 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
         {
             private string odsName;
             private string connectionString;
-            private OdsInstance ods;
 
             [OneTimeSetUp]
             public new void Setup()
@@ -373,6 +372,12 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                     //Delete
                     context.OdsInstanceContexts.Remove(ods.OdsInstanceContexts.First());
                     context.SaveChangesForTest();
+
+                    ods = context.OdsInstances.Where(ods => ods.Name == odsName)
+                        .Include(x => x.OdsInstanceContexts)
+                        .Single();
+
+                    ods.OdsInstanceContexts.Count.ShouldBe(0);
                 }
             }
 
@@ -403,7 +408,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                     //Act
                     //Add
                     ods = context.OdsInstances.Where(ods => ods.Name == odsName)
-                        .Include(x => x.OdsInstanceContexts)
+                        .Include(x => x.OdsInstanceDerivatives)
                         .Single();
 
                     ods.OdsInstanceDerivatives.Count.ShouldBe(1);
@@ -423,6 +428,12 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                     //Delete
                     context.OdsInstanceDerivatives.Remove(ods.OdsInstanceDerivatives.First());
                     context.SaveChangesForTest();
+
+                    ods = context.OdsInstances.Where(ods => ods.Name == odsName)
+                        .Include(x => x.OdsInstanceDerivatives)
+                        .Single();
+
+                    ods.OdsInstanceDerivatives.Count.ShouldBe(0);
                 }
             }
         }
