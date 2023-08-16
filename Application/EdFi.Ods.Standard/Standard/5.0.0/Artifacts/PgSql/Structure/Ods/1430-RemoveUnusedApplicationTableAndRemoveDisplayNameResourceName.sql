@@ -10,12 +10,12 @@ BEGIN
         FROM information_schema.table_constraints AS tc
         JOIN information_schema.tables AS t ON tc.table_name = t.table_name AND tc.table_schema = t.table_schema
         WHERE t.table_schema = 'dbo'
-            AND t.table_name = 'ResourceClaims'
+            AND t.table_name = 'resourceclaims'
             AND tc.constraint_name = 'fk_resourceclaims_applications'
             AND tc.constraint_type = 'FOREIGN KEY'
     )
     THEN
-        ALTER TABLE "dbo"."ResourceClaims"
+        ALTER TABLE "dbo"."resourceclaims"
         DROP CONSTRAINT "fk_resourceclaims_applications";
         RAISE NOTICE 'fk_resourceclaims_applications Constraint dropped.';
     ELSE
@@ -30,12 +30,12 @@ BEGIN
         FROM information_schema.table_constraints AS tc
         JOIN information_schema.tables AS t ON tc.table_name = t.table_name AND tc.table_schema = t.table_schema
         WHERE t.table_schema = 'dbo'
-            AND t.table_name = 'ClaimSets'
+            AND t.table_name = 'claimsets'
             AND tc.constraint_name = 'fk_claimsets_applications'
             AND tc.constraint_type = 'FOREIGN KEY'
     )
     THEN
-        ALTER TABLE "dbo"."ClaimSets"
+        ALTER TABLE "dbo"."claimsets"
         DROP CONSTRAINT "fk_claimsets_applications";
         RAISE NOTICE 'fk_claimsets_applications Constraint dropped.';
     ELSE
@@ -50,12 +50,12 @@ BEGIN
         FROM information_schema.table_constraints AS tc
         JOIN information_schema.tables AS t ON tc.table_name = t.table_name AND tc.table_schema = t.table_schema
         WHERE t.table_schema = 'dbo'
-            AND t.table_name = 'AuthorizationStrategies'
+            AND t.table_name = 'authorizationstrategies'
             AND tc.constraint_name = 'fk_authorizationstrategies_applications'
             AND tc.constraint_type = 'FOREIGN KEY'
     )
     THEN
-        ALTER TABLE "dbo"."AuthorizationStrategies"
+        ALTER TABLE "dbo"."authorizationstrategies"
         DROP CONSTRAINT "fk_authorizationstrategies_applications";
         RAISE NOTICE 'fk_authorizationstrategies_applications Constraint dropped.';
     ELSE
@@ -70,16 +70,16 @@ BEGIN
         FROM information_schema.table_constraints AS tc
         JOIN information_schema.tables AS t ON tc.table_name = t.table_name AND tc.table_schema = t.table_schema
         WHERE t.table_schema = 'dbo'
-            AND t.table_name = 'Applications'
-            AND tc.constraint_name = 'pk_applications'
+            AND t.table_name = 'applications'
+            AND tc.constraint_name = 'applications_pk'
             AND tc.constraint_type = 'PRIMARY KEY'
     )
     THEN
-        ALTER TABLE "dbo"."Applications"
-        DROP CONSTRAINT "pk_applications";
-        RAISE NOTICE 'pk_applications Constraint dropped.';
+        ALTER TABLE "dbo"."applications"
+        DROP CONSTRAINT "applications_pk";
+        RAISE NOTICE 'applications_pk Constraint dropped.';
     ELSE
-        RAISE NOTICE 'pk_applications Constraint does not exist.';
+        RAISE NOTICE 'applications_pk Constraint does not exist.';
     END IF;
 END $$;
 
@@ -89,10 +89,10 @@ BEGIN
         SELECT 1
         FROM information_schema.tables AS t
         WHERE t.table_schema = 'dbo'
-            AND t.table_name = 'Applications'
+            AND t.table_name = 'applications'
     )
     THEN
-        DROP TABLE "dbo"."Applications";
+        DROP TABLE "dbo"."applications";
         RAISE NOTICE 'Table dbo.Applications dropped.';
     ELSE
         RAISE NOTICE 'Table dbo.Applications does not exist.';
@@ -105,13 +105,15 @@ BEGIN
         SELECT *
         FROM information_schema.columns
         WHERE table_schema = 'dbo'
-            AND table_name = 'ResourceClaims'
-            AND column_name IN ('DisplayName', 'ResourceName')
+            AND table_name = 'resourceclaims'
+            AND column_name IN ('displayname', 'resourcename')
     )
     THEN
-        ALTER TABLE "dbo"."ResourceClaims"
-        DROP COLUMN "DisplayName",
-                    "ResourceName";
+        ALTER TABLE "dbo"."resourceclaims"
+        DROP COLUMN "displayname";
+        ALTER TABLE "dbo"."resourceclaims"
+        DROP COLUMN "resourcename";		
+
         RAISE NOTICE 'Columns DisplayName and ResourceName dropped from dbo.ResourceClaims.';
     ELSE
         RAISE NOTICE 'Columns DisplayName and ResourceName do not exist in dbo.ResourceClaims.';
