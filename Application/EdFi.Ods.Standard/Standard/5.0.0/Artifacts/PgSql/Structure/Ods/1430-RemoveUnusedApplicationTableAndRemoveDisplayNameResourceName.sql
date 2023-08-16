@@ -39,10 +39,6 @@ BEGIN
 		RAISE NOTICE 'fk_claimsets_applications Constraint does not exist.';
 		END IF;
 
-
-
-
-		BEGIN
 		IF EXISTS (
 		SELECT 1
 		FROM information_schema.table_constraints AS tc
@@ -61,8 +57,6 @@ BEGIN
 		END IF;
 
 
-
-		BEGIN
 		IF EXISTS (
 		SELECT 1
 		FROM information_schema.table_constraints AS tc
@@ -81,7 +75,6 @@ BEGIN
 		END IF;
 
 
-		BEGIN
 		IF EXISTS (
 		SELECT 1
 		FROM information_schema.tables AS t
@@ -95,7 +88,6 @@ BEGIN
 		RAISE NOTICE 'Table dbo.Applications does not exist.';
 		END IF;
 
-		BEGIN
 		IF EXISTS (
 		SELECT *
 		FROM information_schema.columns
@@ -113,4 +105,5 @@ BEGIN
 		ELSE
 		RAISE NOTICE 'Columns DisplayName and ResourceName do not exist in dbo.ResourceClaims.';
 		END IF;
+	
 END $$;
