@@ -36,7 +36,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                 using (var context = GetUsersContextTest())
                 {
                     //Arrange
-                    var user = new User {Email = emailAddress};
+                    var user = new User { Email = emailAddress };
 
                     //Act
                     context.Users.Add(user);
@@ -69,9 +69,9 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                 using (var context = GetUsersContextTest())
                 {
                     //Arrange
-                    var lea = new ApplicationEducationOrganization {EducationOrganizationId = leaId};
+                    var lea = new ApplicationEducationOrganization { EducationOrganizationId = leaId };
 
-                    var client = new ApiClient(true) {Name = clientName};
+                    var client = new ApiClient(true) { Name = clientName };
 
                     client.ApplicationEducationOrganizations.Add(lea);
 
@@ -88,7 +88,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                         .ToArray();
 
                     leas.ShouldBe(
-                        new[] {leaId});
+                        new[] { leaId });
                 }
             }
         }
@@ -113,9 +113,9 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                 using (var context = GetUsersContextTest())
                 {
                     //Arrange
-                    var lea = new ApplicationEducationOrganization {EducationOrganizationId = leaId};
+                    var lea = new ApplicationEducationOrganization { EducationOrganizationId = leaId };
 
-                    var application = new Application {ApplicationName = appName};
+                    var application = new Application { ApplicationName = appName };
 
                     application.ApplicationEducationOrganizations.Add(lea);
 
@@ -134,7 +134,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                         .ToArray();
 
                     leas.ShouldBe(
-                        new[] {leaId});
+                        new[] { leaId });
                 }
             }
         }
@@ -158,9 +158,10 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
             public void Should_create_application()
             {
                 //Arrange
-                var vendor = new Vendor {VendorName = vendorName};
+                var vendor = new Vendor { VendorName = vendorName };
 
                 vendor.CreateApplication(appName, ClaimSetName);
+
                 using (var context = GetUsersContextTest())
                 {
                     vendor.Applications.AsEnumerable()
@@ -205,7 +206,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
             public void Should_create_lea_association()
             {
                 //Arrange
-                var vendor = new Vendor {VendorName = vendorName};
+                var vendor = new Vendor { VendorName = vendorName };
 
                 vendor.CreateApplication(appName, ClaimSetName);
 
@@ -308,6 +309,120 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                     application.OdsInstance.ConnectionString.ShouldBe(connectionString);
                     application.OdsInstance.OdsInstanceContexts.Count.ShouldBe(1);
                     application.OdsInstance.OdsInstanceDerivatives.Count.ShouldBe(1);
+                }
+            }
+        }
+
+        public class When_Creating_Ods : UserContextTestBase
+        {
+            private string odsName;
+            private string connectionString;
+            private OdsInstance ods;
+
+            [OneTimeSetUp]
+            public new void Setup()
+            {
+                odsName = string.Format("{0}_TestData", DateTime.Now.Ticks);
+                connectionString = string.Format("{0}_TestData", DateTime.Now.Ticks);
+            }
+
+            [Test]
+            public void Should_add_update_and_delete_OdsInstanceContext()
+            {
+                var ods = new OdsInstance
+                {
+                    Name = odsName,
+                    ConnectionString = connectionString,
+                    InstanceType = "TEST"
+                };
+
+                using (var context = GetUsersContextTest())
+                {
+                    {
+                        ods.OdsInstanceContexts.Add(
+                            new OdsInstanceContext
+                            {
+                                ContextKey = "TESTKEY",
+                                ContextValue = "TESTVALUE"
+                            });
+                    }
+
+                    context.OdsInstances.Add(ods);
+                    context.SaveChangesForTest();
+
+                    //Act
+                    //Add
+                    ods = context.OdsInstances.Where(ods => ods.Name == odsName)
+                        .Include(x => x.OdsInstanceContexts)
+                        .Single();
+
+                    ods.OdsInstanceContexts.Count.ShouldBe(1);
+
+                    //Update
+                    var updateTest = "UpdatedKey";
+                    ods.OdsInstanceContexts.First().ContextKey = updateTest;
+
+                    context.SaveChangesForTest();
+                    ods = context.OdsInstances.Where(ods => ods.Name == odsName)
+                        .Include(x => x.OdsInstanceContexts)
+                        .Single();
+
+                    context.SaveChangesForTest();
+                    ods.OdsInstanceContexts.First().ContextKey.ShouldBe(updateTest);
+
+                    //Delete
+                    context.OdsInstanceContexts.Remove(ods.OdsInstanceContexts.First());
+                    context.SaveChangesForTest();
+                }
+            }
+
+            [Test]
+            public void Should_add_update_and_delete_OdsInstanceDerivative()
+            {
+                var ods = new OdsInstance
+                {
+                    Name = odsName,
+                    ConnectionString = connectionString,
+                    InstanceType = "TEST"
+                };
+
+                using (var context = GetUsersContextTest())
+                {
+                    {
+                        ods.OdsInstanceDerivatives.Add(
+                            new OdsInstanceDerivative
+                            {
+                                DerivativeType = "TEST",
+                                ConnectionString = connectionString
+                            });
+                    }
+
+                    context.OdsInstances.Add(ods);
+                    context.SaveChangesForTest();
+
+                    //Act
+                    //Add
+                    ods = context.OdsInstances.Where(ods => ods.Name == odsName)
+                        .Include(x => x.OdsInstanceContexts)
+                        .Single();
+
+                    ods.OdsInstanceDerivatives.Count.ShouldBe(1);
+
+                    //Update
+                    var updateTest = "UPDATETYPE";
+                    ods.OdsInstanceDerivatives.First().DerivativeType = updateTest;
+
+                    context.SaveChangesForTest();
+                    ods = context.OdsInstances.Where(ods => ods.Name == odsName)
+                        .Include(x => x.OdsInstanceDerivatives)
+                        .Single();
+
+                    context.SaveChangesForTest();
+                    ods.OdsInstanceDerivatives.First().DerivativeType.ShouldBe(updateTest);
+
+                    //Delete
+                    context.OdsInstanceDerivatives.Remove(ods.OdsInstanceDerivatives.First());
+                    context.SaveChangesForTest();
                 }
             }
         }
