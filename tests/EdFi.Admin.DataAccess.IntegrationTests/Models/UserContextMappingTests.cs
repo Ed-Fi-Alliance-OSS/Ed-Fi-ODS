@@ -313,7 +313,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
             }
         }
 
-        public class When_Creating_Ods : UserContextTestBase
+        public class When_creating_ods_context : UserContextTestBase
         {
             private string odsName;
             private string connectionString;
@@ -379,6 +379,19 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
 
                     ods.OdsInstanceContexts.Count.ShouldBe(0);
                 }
+            }
+        }
+
+        public class When_creating_ods_derivative : UserContextTestBase
+        {
+            private string odsName;
+            private string connectionString;
+
+            [OneTimeSetUp]
+            public new void Setup()
+            {
+                odsName = string.Format("{0}_TestData", DateTime.Now.Ticks);
+                connectionString = string.Format("{0}_TestData", DateTime.Now.Ticks);
             }
 
             [Test]
