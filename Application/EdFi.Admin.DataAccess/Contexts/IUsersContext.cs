@@ -26,7 +26,11 @@ namespace EdFi.Admin.DataAccess.Contexts
         IDbSet<Profile> Profiles { get; set; }
 
         IDbSet<OdsInstance> OdsInstances { get; set; }
-        
+
+        IDbSet<OdsInstanceContext> OdsInstanceContexts { get; set; }
+
+        IDbSet<OdsInstanceDerivative> OdsInstanceDerivatives { get; set; }
+
         IDbSet<ApplicationEducationOrganization> ApplicationEducationOrganizations { get; set; }
 
         IDbSet<VendorNamespacePrefix> VendorNamespacePrefixes { get; set; }
