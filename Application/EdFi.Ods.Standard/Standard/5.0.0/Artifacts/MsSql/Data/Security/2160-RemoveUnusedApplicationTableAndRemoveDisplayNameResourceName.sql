@@ -117,6 +117,11 @@ IF EXISTS (
       AND COLUMN_NAME IN ('DisplayName', 'ResourceName','Application_ApplicationId')
 )
 BEGIN
+
+    IF EXISTS (SELECT * FROM sys.indexes WHERE name = N'IX_Application_ApplicationId' 
+    AND object_id = OBJECT_ID(N'dbo.ResourceClaims'))
+    DROP INDEX [IX_Application_ApplicationId] ON [dbo].[ResourceClaims];
+    
     ALTER TABLE dbo.ResourceClaims
     DROP COLUMN DisplayName,
                 ResourceName,Application_ApplicationId;
