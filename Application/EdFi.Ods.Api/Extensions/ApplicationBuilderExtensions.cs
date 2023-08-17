@@ -28,10 +28,7 @@ namespace EdFi.Ods.Api.Extensions
         /// <returns>A reference to this instance after the operation has completed.</returns>
         public static IApplicationBuilder UseEdFiApiAuthentication(this IApplicationBuilder builder)
             => builder.UseMiddleware<EdFiApiAuthenticationMiddleware>();
-
-        public static IApplicationBuilder UseXsdMetadata(this IApplicationBuilder builder)
-            => builder.UseMiddleware<XsdMetadataFileMiddleware>();
-
+        
         public static IApplicationBuilder UseRequestResponseDetailsLogger(this IApplicationBuilder builder)
             => builder.UseMiddleware<RequestResponseDetailsLoggerMiddleware>();
     }
