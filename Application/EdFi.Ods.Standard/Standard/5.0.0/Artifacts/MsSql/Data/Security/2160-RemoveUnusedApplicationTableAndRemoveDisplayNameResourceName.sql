@@ -114,17 +114,17 @@ IF EXISTS (
     FROM INFORMATION_SCHEMA.COLUMNS
     WHERE TABLE_SCHEMA = 'dbo'
       AND TABLE_NAME = 'ResourceClaims'
-      AND COLUMN_NAME IN ('DisplayName', 'ResourceName')
+      AND COLUMN_NAME IN ('DisplayName', 'ResourceName','Application_ApplicationId')
 )
 BEGIN
     ALTER TABLE dbo.ResourceClaims
     DROP COLUMN DisplayName,
-                ResourceName;
+                ResourceName,Application_ApplicationId;
 
-    PRINT 'Columns DisplayName and ResourceName dropped from dbo.ResourceClaims.';
+    PRINT 'Columns DisplayName Application_ApplicationId and ResourceName dropped from dbo.ResourceClaims.';
 END
 ELSE
 BEGIN
-    PRINT 'Columns DisplayName and ResourceName do not exist in dbo.ResourceClaims.';
+    PRINT 'Columns DisplayName Application_ApplicationId and ResourceName do not exist in dbo.ResourceClaims.';
 END
 GO

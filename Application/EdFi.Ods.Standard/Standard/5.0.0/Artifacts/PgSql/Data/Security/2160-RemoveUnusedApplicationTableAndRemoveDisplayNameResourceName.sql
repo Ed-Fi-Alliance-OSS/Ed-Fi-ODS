@@ -101,21 +101,25 @@ END $$;
 
 DO $$ 
 BEGIN
+
+    DROP INDEX IF EXISTS dbo.ix_resourceclaims_application_applicationid;
+
     IF EXISTS (
         SELECT *
         FROM information_schema.columns
         WHERE table_schema = 'dbo'
             AND table_name = 'resourceclaims'
-            AND column_name IN ('displayname', 'resourcename')
+            AND column_name IN ('displayname', 'resourcename','application_applicationid')
     )
     THEN
         ALTER TABLE "dbo"."resourceclaims"
         DROP COLUMN "displayname";
         ALTER TABLE "dbo"."resourceclaims"
         DROP COLUMN "resourcename";		
-
-        RAISE NOTICE 'Columns DisplayName and ResourceName dropped from dbo.ResourceClaims.';
+        ALTER TABLE "dbo"."resourceclaims"
+        DROP COLUMN application_applicationid;	
+        RAISE NOTICE 'Columns DisplayName , ResourceName and application_applicationid dropped from dbo.ResourceClaims.';
     ELSE
-        RAISE NOTICE 'Columns DisplayName and ResourceName do not exist in dbo.ResourceClaims.';
+        RAISE NOTICE 'Columns DisplayName , ResourceName and application_applicationid do not exist in dbo.ResourceClaims.';
     END IF;
 END $$;
