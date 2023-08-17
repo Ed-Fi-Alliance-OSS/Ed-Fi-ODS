@@ -23,7 +23,6 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         private readonly Lazy<Dictionary<string, IDomainModelDefinitionsProvider>> _domainModelDefinitionProvidersByProjectName;
         private readonly IExtensionPluginsProvider _extensionPluginsProviderProvider;
         private readonly string _extensionsPath;
-        private readonly IIncludePluginsProvider _includePluginsProvider;
         
         private readonly string _solutionPath;
         private readonly ILog Logger = LogManager.GetLogger(typeof(DomainModelDefinitionProvidersProvider));
@@ -31,7 +30,6 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         public DomainModelDefinitionProvidersProvider(
             ICodeRepositoryProvider codeRepositoryProvider,
             IExtensionPluginsProvider extensionPluginsProviderProvider,
-            IIncludePluginsProvider includePluginsProvider,
             IExtensionVersionsPathProvider extensionVersionsPathProvider, 
             IStandardVersionPathProvider standardVersionPathProvider)
         {
@@ -47,9 +45,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 new Lazy<Dictionary<string, IDomainModelDefinitionsProvider>>(CreateDomainModelDefinitionsByPath);
 
             _extensionPluginsProviderProvider = extensionPluginsProviderProvider;
-
-            _includePluginsProvider = includePluginsProvider;
-
+            
             _extensionVersionsPathProvider = extensionVersionsPathProvider;
 
             _standardVersionPathProvider = standardVersionPathProvider;
@@ -104,11 +100,6 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                             .Append(new DirectoryInfo(x))
                             .ToArray();
                     });
-
-            if (_includePluginsProvider.IncludePlugins() && Directory.Exists(_extensionsPath))
-            {
-                directoriesToEvaluate = directoriesToEvaluate.Concat(GetProjectDirectoriesToEvaluate(_extensionsPath)).ToArray();
-            }
 
             var modelProjects = directoriesToEvaluate.Where(p => p.Name.IsExtensionAssembly() || p.Name.IsStandardAssembly());
 
