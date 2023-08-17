@@ -4,15 +4,18 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileProviders;
 
 namespace EdFi.Ods.Features.XsdMetadata
 {
@@ -26,12 +29,17 @@ namespace EdFi.Ods.Features.XsdMetadata
         private readonly ApiSettings _apiSettings;
         private readonly bool _isEnabled;
         private readonly IXsdFileInformationProvider _xsdFileInformationProvider;
+        private readonly ConcurrentDictionary<string, EmbeddedFileProvider> _embeddedFileProviderByAssemblyName =
+            new(StringComparer.InvariantCultureIgnoreCase);
+        private readonly IAssembliesProvider _assembliesProvider;
 
         public XsdMetadataController(ApiSettings apiSettings,
+            IAssembliesProvider assembliesProvider,
             IXsdFileInformationProvider xsdFileInformationProvider)
         {
             _xsdFileInformationProvider = xsdFileInformationProvider;
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.XsdMetadata.GetConfigKeyName());
+            _assembliesProvider = assembliesProvider;
             _apiSettings = apiSettings;
         }
 
@@ -132,6 +140,34 @@ namespace EdFi.Ods.Features.XsdMetadata
             }
 
             return $"{rootUrl}/metadata/xsd/{uriSegment}/{schemaFile}";
+        }
+        
+        [HttpGet]
+        [Route("{schema}/{file}.xsd")]
+        public IActionResult Get(string schema, string file)
+        {
+            if (!_isEnabled)
+            {
+                return NotFound();
+            }
+            
+            var xsdFileInformationByUriSegment = _xsdFileInformationProvider.XsdFileInformationByUriSegment(schema);
+
+            if (xsdFileInformationByUriSegment == default || !xsdFileInformationByUriSegment.SchemaFiles.Contains($"{file}.xsd", StringComparer.Ordinal))
+            {
+                return NotFound();
+            }
+
+            string assemblyName = xsdFileInformationByUriSegment.AssemblyName;
+            string fullQualifiedFileName = $"Artifacts/Schemas/{file}.xsd";
+
+            var embeddedFileProvider = _embeddedFileProviderByAssemblyName.GetOrAdd(
+                assemblyName,
+                key => new EmbeddedFileProvider(_assembliesProvider.Get(assemblyName)));
+
+            var embeddedFile = embeddedFileProvider.GetFileInfo(fullQualifiedFileName);
+
+            return File(embeddedFile.CreateReadStream(), "application/xml");
         }
     }
 }
