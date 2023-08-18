@@ -227,7 +227,11 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                             UnifiedPropertyIsFromParent = rp.EntityProperty.IncomingAssociations
                                 .Any(a => a.IsNavigable),
                             UnifiedPropertyIsLocallyDefined = rp.IsLocallyDefined,
-                            UnifiedPropertyParentPath = resourceChildItem != null && resourceChildItem.IsResourceExtension
+                            UnifiedPropertyParentPath = resourceChildItem is
+                                {
+                                    IsResourceExtension: true,
+                                    IsResourceExtensionClass: false, 
+                                }
                                 ? string.Join(
                                     string.Empty,
                                     resourceChildItem.GetLineage().TakeWhile(l => !l.IsResourceExtension)
