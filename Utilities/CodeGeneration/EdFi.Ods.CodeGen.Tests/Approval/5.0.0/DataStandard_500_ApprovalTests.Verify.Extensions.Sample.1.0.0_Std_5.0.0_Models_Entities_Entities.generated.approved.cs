@@ -10362,6 +10362,219 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
 #pragma warning disable 612, 618
 
     /// <summary>
+    /// A class which represents the sample.StudentEducationOrganizationAssociationExtension table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
+    /// </summary>
+    [Serializable, Schema("sample")]
+    [ExcludeFromCodeCoverage]
+    public class StudentEducationOrganizationAssociationExtension : EntityWithCompositeKey, IChildEntity,
+        Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
+    {
+        public virtual void SuspendReferenceAssignmentCheck() { }
+
+        public StudentEducationOrganizationAssociationExtension()
+        {
+        }
+// restore warnings for inheritance from classes marked Obsolete
+#pragma warning restore 612, 618
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual EdFi.StudentEducationOrganizationAssociation StudentEducationOrganizationAssociation { get; set; }
+
+        Entities.Common.EdFi.IStudentEducationOrganizationAssociation IStudentEducationOrganizationAssociationExtension.StudentEducationOrganizationAssociation
+        {
+            get { return StudentEducationOrganizationAssociation; }
+            set { StudentEducationOrganizationAssociation = (EdFi.StudentEducationOrganizationAssociation) value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        [StringLength(60, MinimumLength=1), NoDangerousText]
+        public virtual string FavoriteProgramName  { get; set; }
+        public virtual int? FavoriteProgramTypeDescriptorId 
+        {
+            get
+            {
+                if (_favoriteProgramTypeDescriptorId == default(int?))
+                    _favoriteProgramTypeDescriptorId = string.IsNullOrWhiteSpace(_favoriteProgramTypeDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _favoriteProgramTypeDescriptor);
+
+                return _favoriteProgramTypeDescriptorId;
+            } 
+            set
+            {
+                _favoriteProgramTypeDescriptorId = value;
+                _favoriteProgramTypeDescriptor = null;
+            }
+        }
+
+        private int? _favoriteProgramTypeDescriptorId;
+        private string _favoriteProgramTypeDescriptor;
+
+        public virtual string FavoriteProgramTypeDescriptor
+        {
+            get
+            {
+                if (_favoriteProgramTypeDescriptor == null)
+                    _favoriteProgramTypeDescriptor = _favoriteProgramTypeDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ProgramTypeDescriptor", _favoriteProgramTypeDescriptorId.Value);
+                    
+                return _favoriteProgramTypeDescriptor;
+            }
+            set
+            {
+                _favoriteProgramTypeDescriptor = value;
+                _favoriteProgramTypeDescriptorId = default(int?);
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        public virtual NHibernate.ProgramAggregate.EdFi.ProgramReferenceData FavoriteProgramReferenceData { get; set; }
+
+        /// <summary>
+        /// Read-only property that allows the FavoriteProgram discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension.FavoriteProgramDiscriminator
+        {
+            get { return FavoriteProgramReferenceData?.Discriminator; }
+            set { }
+        }
+
+        /// <summary>
+        /// Read-only property that allows the FavoriteProgram resource identifier value to be mapped to the resource reference.
+        /// </summary>
+        Guid? Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension.FavoriteProgramResourceId
+        {
+            get { return FavoriteProgramReferenceData?.Id; }
+            set { }
+        }
+
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                { "FavoriteProgramTypeDescriptor", new LookupColumnDetails { PropertyName = "FavoriteProgramTypeDescriptorId", LookupTypeName = "ProgramTypeDescriptor"} },
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Get parent key values
+            var keyValues = (StudentEducationOrganizationAssociation as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            // Add current key values
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (entry.Value is string)
+                {
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            if (keyValues.Count == 0)
+                return base.GetHashCode();
+
+            var hashCode = new HashCode();
+
+            foreach (DictionaryEntry entry in keyValues)
+            {
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
+            }
+
+            return hashCode.ToHashCode();
+        }
+        #endregion
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension) target, null);
+        }
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentEducationOrganizationAssociation = (EdFi.StudentEducationOrganizationAssociation) value;
+        }
+    }
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
     /// A class which represents the sample.StudentEducationOrganizationAssociationAddressExtension table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
     /// </summary>
     [Serializable, Schema("sample")]

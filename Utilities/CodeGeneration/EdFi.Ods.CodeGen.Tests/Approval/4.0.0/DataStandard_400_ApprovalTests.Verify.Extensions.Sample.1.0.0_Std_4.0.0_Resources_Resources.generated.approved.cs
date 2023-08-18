@@ -12920,6 +12920,463 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     // -----------------------------------------------------------------
 
     /// <summary>
+    /// Represents a reference from the StudentEducationOrganizationAssociationExtension entity to the Program resource.
+    /// </summary>
+    [DataContract]
+    [ExcludeFromCodeCoverage]
+    public class StudentEducationOrganizationAssociationExtensionToProgramReference
+    {
+        private Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension backReference;
+
+        // Parameterless constructor for deserialization
+        public StudentEducationOrganizationAssociationExtensionToProgramReference() { }
+
+        // Constructor for inline initialization in parent
+        public StudentEducationOrganizationAssociationExtensionToProgramReference(Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension backReference)
+        {
+            this.backReference = backReference;
+        }
+
+        // Expose back reference internally for access after JSON deserialization to enable link generation
+        internal Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension BackReference
+        {
+            get { return backReference; }
+            set { backReference = value; }
+        }
+
+        private int _educationOrganizationId;
+
+        [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
+        public int EducationOrganizationId
+        {
+            get => _educationOrganizationId == default(int)
+                    ? BackReference.StudentEducationOrganizationAssociation.EducationOrganizationId
+                    : _educationOrganizationId;
+            set => _educationOrganizationId = value;
+        }
+
+        [DataMember(Name="name"), NaturalKeyMember]
+        public string ProgramName { get; set; }
+
+        [DataMember(Name="typeDescriptor"), NaturalKeyMember]
+        public string ProgramTypeDescriptor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the referenced resource's identifier (i.e. "id" property).
+        /// </summary>
+        public Guid ResourceId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
+        /// when a resource has been derived; otherwise <b>null</b>.
+        /// </summary>
+        public string Discriminator { get; set; }
+
+        private Link _link;
+
+        [DataMember(Name="link")]
+        public Link Link
+        {
+            get
+            {
+                if (_link == null)
+                {
+                    // Can't generate a link without the back reference
+                    if (backReference == null)
+                        return null;
+
+                    // Only generate links when all values are present
+                    if (IsReferenceFullyDefined())
+                        _link = CreateLink();
+                }
+
+                return _link;
+            }
+        }
+
+        /// <summary>
+        /// Indicates whether the reference has been fully defined (all key values are currently assigned non-default values).
+        /// </summary>
+        /// <returns><b>true</b> if the reference's properties are all set to non-default values; otherwise <b>false</b>.</returns>
+        public bool IsReferenceFullyDefined()
+        {
+            return ProgramName != default(string)
+                && ProgramTypeDescriptor != default(string)
+                ;
+        }
+
+        private Link CreateLink()
+        {
+            var link = new Link
+            {
+                Rel = "Program",
+                Href = $"/ed-fi/programs/{ResourceId:n}"
+            };
+
+            if (string.IsNullOrEmpty(Discriminator))
+                return link;
+
+            string[] linkParts = Discriminator.Split('.');
+
+            if (linkParts.Length < 2)
+                return link;
+
+            var resource = GeneratedArtifactStaticDependencies.ResourceModelProvider.GetResourceModel()
+                .GetResourceByFullName(new FullName(linkParts[0], linkParts[1]));
+
+            // return the default link if the relationship is already correct, and/or if the resource is not found.
+            if (resource == null || link.Rel == resource.Name)
+                return link;
+
+            return new Link
+            {
+                Rel = resource.Name,
+                Href = $"/{resource.SchemaUriSegment()}/{resource.PluralName.ToCamelCase()}/{ResourceId:n}"
+            };
+        }
+    }
+
+    /// <summary>
+    /// A class which represents the sample.StudentEducationOrganizationAssociationExtension table of the StudentEducationOrganizationAssociation aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class StudentEducationOrganizationAssociationExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension
+    {
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+
+        private bool _favoriteProgramReferenceExplicitlyAssigned;
+        private StudentEducationOrganizationAssociationExtensionToProgramReference _favoriteProgramReference;
+        private StudentEducationOrganizationAssociationExtensionToProgramReference ImplicitFavoriteProgramReference
+        {
+            get
+            {
+                // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
+                if (_favoriteProgramReference == null && !_favoriteProgramReferenceExplicitlyAssigned)
+                    _favoriteProgramReference = new StudentEducationOrganizationAssociationExtensionToProgramReference(this);
+
+                return _favoriteProgramReference;
+            }
+        }
+
+        [DataMember(Name="favoriteProgramReference")]
+        public StudentEducationOrganizationAssociationExtensionToProgramReference FavoriteProgramReference
+        {
+            get
+            {
+                // Only return the reference if it's non-null, and all its properties have non-default values assigned
+                if (ImplicitFavoriteProgramReference != null
+                    && (_favoriteProgramReferenceExplicitlyAssigned || _SuspendReferenceAssignmentCheck || ImplicitFavoriteProgramReference.IsReferenceFullyDefined()))
+                    return ImplicitFavoriteProgramReference;
+
+                return null;
+            }
+            set
+            {
+                _favoriteProgramReferenceExplicitlyAssigned = true;
+                _favoriteProgramReference = value;
+                _favoriteProgramReference.BackReference = this;
+            }
+        }
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.EdFi.IStudentEducationOrganizationAssociation _studentEducationOrganizationAssociation;
+
+        [IgnoreDataMember]
+        Entities.Common.EdFi.IStudentEducationOrganizationAssociation Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension.StudentEducationOrganizationAssociation
+        {
+            get { return _studentEducationOrganizationAssociation; }
+            set { SetStudentEducationOrganizationAssociation(value); }
+        }
+
+        internal Entities.Common.EdFi.IStudentEducationOrganizationAssociation StudentEducationOrganizationAssociation
+        {
+            set { SetStudentEducationOrganizationAssociation(value); }
+        }
+
+        private void SetStudentEducationOrganizationAssociation(Entities.Common.EdFi.IStudentEducationOrganizationAssociation value)
+        {
+            _studentEducationOrganizationAssociation = value;
+
+            // Initialize unified key values from parent context when reference is being formed by outbound mapper
+            if (!_favoriteProgramReferenceExplicitlyAssigned)
+            {
+                ImplicitFavoriteProgramReference.EducationOrganizationId = _studentEducationOrganizationAssociation.EducationOrganizationId;
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            // Parent Property
+            if (_studentEducationOrganizationAssociation == null || !_studentEducationOrganizationAssociation.Equals(compareTo.StudentEducationOrganizationAssociation))
+                return false;
+
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentEducationOrganizationAssociation != null)
+                hash.Add(_studentEducationOrganizationAssociation);
+            return hash.ToHashCode();
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.
+        /// </summary>
+        // IS in a reference, NOT a lookup column 
+        string Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension.FavoriteProgramName
+        {
+            get
+            {
+                if (ImplicitFavoriteProgramReference != null
+                    && (_SuspendReferenceAssignmentCheck || ImplicitFavoriteProgramReference.IsReferenceFullyDefined()))
+                    {
+                        return ImplicitFavoriteProgramReference.ProgramName;
+                    }
+
+                return default(string);
+            }
+            set
+            {
+                // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
+                // All ExplicitlyAssigned are reset to false in advanced
+
+                // FavoriteProgram
+                _favoriteProgramReferenceExplicitlyAssigned = false;
+                ImplicitFavoriteProgramReference.ProgramName = value;
+            }
+        }
+
+        /// <summary>
+        /// The type of program.
+        /// </summary>
+
+        // IS in a reference (StudentEducationOrganizationAssociation.FavoriteProgramTypeDescriptorId), IS a lookup column 
+        string Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension.FavoriteProgramTypeDescriptor
+        {
+            get
+            {
+                if (ImplicitFavoriteProgramReference != null
+                    && (_SuspendReferenceAssignmentCheck || ImplicitFavoriteProgramReference.IsReferenceFullyDefined()))
+                    {
+                        return ImplicitFavoriteProgramReference.ProgramTypeDescriptor;
+                    }
+
+                return null;
+            }
+            set
+            {
+                ImplicitFavoriteProgramReference.ProgramTypeDescriptor = value;
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
+        public System.Collections.IDictionary Extensions {
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+
+        [OnDeserialized]
+        internal void OnDeserialized(StreamingContext context)
+        {
+            // Reconnect external inbound references on deserialization
+            if (_favoriteProgramReference != null)
+                _favoriteProgramReference.BackReference = this;
+        }
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.Sample.StudentEducationOrganizationAssociationExtensionMapper.SynchronizeTo(this, (Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.Sample.StudentEducationOrganizationAssociationExtensionMapper.MapTo(this, (Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        Guid? Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension.FavoriteProgramResourceId
+        {
+            get { return null; }
+            set { ImplicitFavoriteProgramReference.ResourceId = value ?? default(Guid); }
+        }
+
+        string Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension.FavoriteProgramDiscriminator
+        {
+            // Not supported for Resources
+            get { return null; }
+            set { ImplicitFavoriteProgramReference.Discriminator = value; }
+        }
+
+
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class StudentEducationOrganizationAssociationExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<StudentEducationOrganizationAssociationExtension>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<StudentEducationOrganizationAssociationExtension> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            // -----------------------
+            //  Validate unified keys
+            // -----------------------
+            var sourcesForEducationOrganizationId = GetEducationOrganizationIdSources();
+
+            if (!sourcesForEducationOrganizationId.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+            {
+                failures.Add(new ValidationFailure("EducationOrganizationId",
+                    $"Supplied values for unified key property 'educationOrganizationId' on 'StudentEducationOrganizationAssociationExtension' are not consistent: {string.Join(", ", sourcesForEducationOrganizationId.Select(x => $"{x.Item1} = {x.Item2}"))}"));
+            }
+
+            IEnumerable<Tuple<string, int>> GetEducationOrganizationIdSources()
+            {
+                // Obtain value from the parent
+                yield return Tuple.Create("educationOrganizationId (from parent context)", (instance as Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension).StudentEducationOrganizationAssociation.EducationOrganizationId);
+
+                // Obtain value from other references
+                var valueFromFavoriteProgramReference = instance.FavoriteProgramReference?.EducationOrganizationId;
+
+                if (valueFromFavoriteProgramReference != null)
+                {
+                    yield return Tuple.Create("favoriteProgramReference.educationOrganizationId", instance.FavoriteProgramReference.EducationOrganizationId);
+                }
+
+            }
+
+            // Recursively invoke the child collection item validators
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+    /// <summary>
     /// A class which represents the sample.StudentEducationOrganizationAssociationStudentCharacteristicExtension table of the StudentEducationOrganizationAssociation aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
