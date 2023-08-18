@@ -5,7 +5,7 @@ on:
     branches: [main, 'ODS-*']
 
 env:
-  INFORMATIONAL_VERSION: "7.0"
+  INFORMATIONAL_VERSION: "7.1"
   CONFIGURATION: "Release"
 
 jobs:
