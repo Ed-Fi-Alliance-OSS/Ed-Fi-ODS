@@ -36,7 +36,7 @@ namespace EdFi.Ods.Api.Providers
         public string[] Schemas() => _xsdFileInformationByUriSegment.Value.Keys.ToArray();
 
         public XsdFileInformation XsdFileInformationByUriSegment(string uriSegment)
-            => !_xsdFileInformationByUriSegment.Value.ContainsKey(uriSegment)
+            => (uriSegment == null || !_xsdFileInformationByUriSegment.Value.ContainsKey(uriSegment))
                 ? default
                 : _xsdFileInformationByUriSegment.Value[uriSegment];
 
