@@ -109,7 +109,7 @@ BEGIN
         FROM information_schema.columns
         WHERE table_schema = 'dbo'
             AND table_name = 'resourceclaims'
-            AND column_name IN ('displayname''application_applicationid')
+            AND column_name IN ('displayname','application_applicationid')
     )
     THEN
         ALTER TABLE "dbo"."resourceclaims"
