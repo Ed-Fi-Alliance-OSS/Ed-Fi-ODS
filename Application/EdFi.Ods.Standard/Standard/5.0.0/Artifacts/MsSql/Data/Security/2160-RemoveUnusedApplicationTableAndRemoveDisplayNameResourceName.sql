@@ -133,3 +133,27 @@ BEGIN
     PRINT 'Columns DisplayName and Application_ApplicationId  do not exist in dbo.ResourceClaims.';
 END
 GO
+
+IF EXISTS (
+    SELECT *
+    FROM INFORMATION_SCHEMA.COLUMNS
+    WHERE TABLE_SCHEMA = 'dbo'
+      AND TABLE_NAME = 'ClaimSets'
+      AND COLUMN_NAME IN ('Application_ApplicationId')
+)
+BEGIN
+
+    IF EXISTS (SELECT * FROM sys.indexes WHERE name = N'IX_Application_ApplicationId' 
+    AND object_id = OBJECT_ID(N'dbo.ClaimSets'))
+    DROP INDEX [IX_Application_ApplicationId] ON [dbo].[ClaimSets];
+    
+    ALTER TABLE dbo.ClaimSets
+    DROP COLUMN  Application_ApplicationId;
+
+    PRINT 'Columns Application_ApplicationId  dropped from dbo.ClaimSets.';
+END
+ELSE
+BEGIN
+    PRINT 'Columns Application_ApplicationId  do not exist in dbo.ClaimSets.';
+END
+GO
