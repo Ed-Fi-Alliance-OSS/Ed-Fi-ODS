@@ -5,10 +5,6 @@ begin transaction;
 /* --------------------------------- */
 do $$
 begin
-    IF NOT EXISTS(SELECT 1 FROM dbo.Applications WHERE ApplicationName ='Ed-Fi ODS API') THEN
-        INSERT INTO dbo.Applications (ApplicationName) VALUES ('Ed-Fi ODS API');
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.Actions WHERE ActionName = 'Create' AND ActionUri = 'http://ed-fi.org/odsapi/actions/create') THEN
         INSERT INTO dbo.Actions (ActionName, ActionUri) VALUES ('Create' , 'http://ed-fi.org/odsapi/actions/create'); 
     END IF;
@@ -35,53 +31,53 @@ end $$;
 /*      Authorization Strategies     */
 /* --------------------------------- */
 do $$
-    DECLARE application_id INT;
+
 begin
-    SELECT Applicationid INTO application_Id FROM dbo.Applications WHERE ApplicationName = 'Ed-Fi ODS API';
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-        VALUES ('No Further Authorization Required', 'NoFurtherAuthorizationRequired', application_Id);
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired') THEN
+        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName)
+        VALUES ('No Further Authorization Required', 'NoFurtherAuthorizationRequired');
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeople' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-        VALUES ('Relationships with Education Organizations and People', 'RelationshipsWithEdOrgsAndPeople', application_Id);
+    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeople') THEN
+        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName)
+        VALUES ('Relationships with Education Organizations and People', 'RelationshipsWithEdOrgsAndPeople');
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'RelationshipsWithEdOrgsOnly' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-        VALUES ('Relationships with Education Organizations only', 'RelationshipsWithEdOrgsOnly', application_Id);
+    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'RelationshipsWithEdOrgsOnly') THEN
+        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName)
+        VALUES ('Relationships with Education Organizations only', 'RelationshipsWithEdOrgsOnly');
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'NamespaceBased' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-        VALUES ('Namespace Based', 'NamespaceBased', application_Id);
+    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'NamespaceBased') THEN
+        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName)
+        VALUES ('Namespace Based', 'NamespaceBased');
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'RelationshipsWithPeopleOnly' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-        VALUES ('Relationships with People only', 'RelationshipsWithPeopleOnly', application_Id);
+    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'RelationshipsWithPeopleOnly') THEN
+        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName)
+        VALUES ('Relationships with People only', 'RelationshipsWithPeopleOnly');
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'RelationshipsWithStudentsOnly' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-        VALUES ('Relationships with Students only', 'RelationshipsWithStudentsOnly', application_Id);
+    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'RelationshipsWithStudentsOnly') THEN
+        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName)
+        VALUES ('Relationships with Students only', 'RelationshipsWithStudentsOnly');
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'RelationshipsWithStudentsOnlyThroughResponsibility' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-        VALUES ('Relationships with Students only (through StudentEducationOrganizationResponsibilityAssociation)', 'RelationshipsWithStudentsOnlyThroughResponsibility', application_Id);
+    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'RelationshipsWithStudentsOnlyThroughResponsibility') THEN
+        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName)
+        VALUES ('Relationships with Students only (through StudentEducationOrganizationResponsibilityAssociation)', 'RelationshipsWithStudentsOnlyThroughResponsibility');
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'OwnershipBased' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-        VALUES ('Ownership Based', 'OwnershipBased', application_Id);
+    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'OwnershipBased') THEN
+        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName)
+        VALUES ('Ownership Based', 'OwnershipBased');
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-        VALUES ('Relationships with Education Organizations and People (including deletes)', 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes', application_Id);
+    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes') THEN
+        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName)
+        VALUES ('Relationships with Education Organizations and People (including deletes)', 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes');
     END IF;
 
 end $$;
@@ -90,48 +86,48 @@ end $$;
 /*           Claimsets               */
 /* --------------------------------- */
 do $$
-    declare application_id int;
+
 begin
-    SELECT Applicationid INTO application_Id FROM dbo.Applications WHERE ApplicationName = 'Ed-Fi ODS API';
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='SIS Vendor' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, IsEdfiPreset)
-        VALUES ('SIS Vendor', application_Id, 'TRUE');
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='SIS Vendor') THEN
+        INSERT INTO dbo.ClaimSets (ClaimSetName, IsEdfiPreset)
+        VALUES ('SIS Vendor', 'TRUE');
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Ed-Fi Sandbox' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, IsEdfiPreset)
-        VALUES ('Ed-Fi Sandbox', application_Id, 'TRUE');
+    IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Ed-Fi Sandbox') THEN
+        INSERT INTO dbo.ClaimSets (ClaimSetName, IsEdfiPreset)
+        VALUES ('Ed-Fi Sandbox', 'TRUE');
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Roster Vendor' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, IsEdfiPreset)
-        VALUES ('Roster Vendor', application_Id, 'TRUE');
+    IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Roster Vendor') THEN
+        INSERT INTO dbo.ClaimSets (ClaimSetName, IsEdfiPreset)
+        VALUES ('Roster Vendor', 'TRUE');
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Assessment Vendor' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, IsEdfiPreset)
-        VALUES ('Assessment Vendor', application_Id, 'TRUE');
+    IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Assessment Vendor') THEN
+        INSERT INTO dbo.ClaimSets (ClaimSetName, IsEdfiPreset)
+        VALUES ('Assessment Vendor', 'TRUE');
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Assessment Read' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, IsEdfiPreset)
-        VALUES ('Assessment Read', application_Id, 'TRUE');
+    IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Assessment Read') THEN
+        INSERT INTO dbo.ClaimSets (ClaimSetName, IsEdfiPreset)
+        VALUES ('Assessment Read', 'TRUE');
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Bootstrap Descriptors and EdOrgs' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, ForApplicationUseOnly, IsEdfiPreset)
-        VALUES ('Bootstrap Descriptors and EdOrgs', application_Id, 'TRUE', 'TRUE');
+    IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Bootstrap Descriptors and EdOrgs') THEN
+        INSERT INTO dbo.ClaimSets (ClaimSetName,  ForApplicationUseOnly, IsEdfiPreset)
+        VALUES ('Bootstrap Descriptors and EdOrgs',  'TRUE', 'TRUE');
     END IF;
     
-    IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Ownership Based Test' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, ForApplicationUseOnly, IsEdfiPreset)
-        VALUES ('Ownership Based Test', application_Id, 'TRUE', 'TRUE');
+    IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Ownership Based Test') THEN
+        INSERT INTO dbo.ClaimSets (ClaimSetName,  ForApplicationUseOnly, IsEdfiPreset)
+        VALUES ('Ownership Based Test',  'TRUE', 'TRUE');
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='District Hosted SIS Vendor' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, IsEdfiPreset)
-        VALUES ('District Hosted SIS Vendor', application_Id, 'TRUE');
+    IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='District Hosted SIS Vendor') THEN
+        INSERT INTO dbo.ClaimSets (ClaimSetName, IsEdfiPreset)
+        VALUES ('District Hosted SIS Vendor', 'TRUE');
     END IF;
 
 
@@ -141,63 +137,63 @@ end $$;
 /*     Parent resource claims        */
 /* --------------------------------- */
 do $$
-    declare application_id int;
+
 begin
-    SELECT Applicationid INTO application_Id FROM dbo.Applications WHERE ApplicationName = 'Ed-Fi ODS API';
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/edFiTypes' AND Application_ApplicationId = application_Id) THEN
-        insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        values ('types', 'types', 'http://ed-fi.org/ods/identity/claims/domains/edFiTypes', null, application_id);
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/edFiTypes') THEN
+        insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
+        values ('types', 'http://ed-fi.org/ods/identity/claims/domains/edFiTypes', null);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/systemDescriptors' AND Application_ApplicationId = application_Id) THEN
-        insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        values ('systemDescriptors', 'systemDescriptors', 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors', null, application_id);
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/systemDescriptors') THEN
+        insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('systemDescriptors', 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors', null);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/managedDescriptors' AND Application_ApplicationId = application_Id) THEN
-        insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        values ('managedDescriptors', 'managedDescriptors', 'http://ed-fi.org/ods/identity/claims/domains/managedDescriptors', null, application_id);
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/managedDescriptors') THEN
+        insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('managedDescriptors', 'http://ed-fi.org/ods/identity/claims/domains/managedDescriptors', null);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/educationOrganizations' AND Application_ApplicationId = application_Id) THEN
-        insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        values ('educationOrganizations', 'educationOrganizations', 'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations', null, application_id);
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/educationOrganizations') THEN
+        insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('educationOrganizations', 'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations', null);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/people' AND Application_ApplicationId = application_Id) THEN
-        insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        values ('people', 'people', 'http://ed-fi.org/ods/identity/claims/domains/people', null, application_id);
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/people') THEN
+        insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('people', 'http://ed-fi.org/ods/identity/claims/domains/people', null);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData' AND Application_ApplicationId = application_Id) THEN
-        insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        values ('relationshipBasedData', 'relationshipBasedData', 'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData', null, application_id);
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData') THEN
+        insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('relationshipBasedData', 'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData', null);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata' AND Application_ApplicationId = application_Id) THEN
-        insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        values ('assessmentMetadata', 'assessmentMetadata', 'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata', null, application_id);
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata') THEN
+        insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('assessmentMetadata', 'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata', null);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/identity' AND Application_ApplicationId = application_Id) THEN
-        insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        values ('identity', 'identity', 'http://ed-fi.org/ods/identity/claims/domains/identity', null, application_id);
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/identity') THEN
+        insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
+        values ('identity', 'http://ed-fi.org/ods/identity/claims/domains/identity', null);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/educationStandards' AND Application_ApplicationId = application_Id) THEN
-        insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        values ('educationStandards', 'educationStandards', 'http://ed-fi.org/ods/identity/claims/domains/educationStandards', null, application_id);
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/educationStandards') THEN
+        insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('educationStandards', 'http://ed-fi.org/ods/identity/claims/domains/educationStandards', null);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/primaryRelationships' AND Application_ApplicationId = application_Id) THEN
-        insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        values ('primaryRelationships', 'primaryRelationships', 'http://ed-fi.org/ods/identity/claims/domains/primaryRelationships', null, application_id);
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/primaryRelationships') THEN
+        insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('primaryRelationships', 'http://ed-fi.org/ods/identity/claims/domains/primaryRelationships', null);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/surveyDomain' AND Application_ApplicationId = application_Id) THEN
-        insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        values ('surveyDomain', 'surveyDomain', 'http://ed-fi.org/ods/identity/claims/domains/surveyDomain', null, application_id);
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/surveyDomain') THEN
+        insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('surveyDomain', 'http://ed-fi.org/ods/identity/claims/domains/surveyDomain', null);
     END IF;
 
 end $$;

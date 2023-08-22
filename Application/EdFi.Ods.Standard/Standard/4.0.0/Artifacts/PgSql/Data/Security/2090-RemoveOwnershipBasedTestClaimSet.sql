@@ -5,24 +5,24 @@
 
 DO $$
 DECLARE
-    application_id INTEGER;
+
     claim_set_id INTEGER;
 BEGIN
 
-    SELECT applicationid INTO application_id  FROM dbo.applications WHERE ApplicationName = 'Ed-Fi ODS API';
 
-    IF  EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Ownership Based Test' AND Application_ApplicationId = application_Id) THEN
+
+    IF  EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Ownership Based Test') THEN
 
         RAISE NOTICE 'Deleting ''Ownership Based Test'' claimset data from ''EdFi_Security'' database' ;
         SELECT claimsetid INTO claim_set_id FROM dbo.ClaimSets 
-        WHERE ClaimSetName ='Ownership Based Test' AND Application_ApplicationId = application_Id;
+        WHERE ClaimSetName ='Ownership Based Test';
 
         DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides WHERE ClaimSetResourceClaimActionId 
         IN (SELECT ClaimSetResourceClaimActionId FROM dbo.claimsetresourceclaimactions WHERE claimsetid =claim_set_id);
 
         DELETE FROM dbo.ClaimSetResourceClaimActions where claimsetid =claim_set_id;
 
-        DELETE FROM dbo.ClaimSets  WHERE ClaimSetName ='Ownership Based Test' AND Application_ApplicationId = application_Id;
+        DELETE FROM dbo.ClaimSets  WHERE ClaimSetName ='Ownership Based Test';
     END IF;
 
 END $$;

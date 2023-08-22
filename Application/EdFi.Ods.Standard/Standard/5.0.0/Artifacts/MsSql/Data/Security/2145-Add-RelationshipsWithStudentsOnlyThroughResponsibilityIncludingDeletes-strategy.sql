@@ -4,6 +4,6 @@
 -- See the LICENSE and NOTICES files in the project root for more information.
 
 -- Define a new authorization strategy for reading changes when authorizing access to student data through the responsiblity association
-INSERT INTO dbo.AuthorizationStrategies(DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-VALUES ('Relationships with Students only (through StudentEducationOrganizationResponsibilityAssociation, including deletes)', 	'RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletes', (SELECT ApplicationId FROM dbo.Applications WHERE ApplicationName = 'Ed-Fi ODS API'))
+INSERT INTO dbo.AuthorizationStrategies(DisplayName, AuthorizationStrategyName)
+VALUES ('Relationships with Students only (through StudentEducationOrganizationResponsibilityAssociation, including deletes)', 	'RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletes')
 GO

@@ -6,7 +6,7 @@
   
 BEGIN
     DECLARE 
-        @applicationId AS INT,
+        
         @claimId AS INT,
         @claimName AS nvarchar(max),
         @parentResourceClaimId AS INT,
@@ -25,8 +25,8 @@ BEGIN
 
     DECLARE @claimIdStack AS TABLE (Id INT IDENTITY, ResourceClaimId INT)
 
-    SELECT @applicationId = ApplicationId
-    FROM [dbo].[Applications] WHERE ApplicationName = 'Ed-Fi ODS API';
+
+
 
     SELECT @createActionId = ActionId
     FROM [dbo].[Actions] WHERE ActionName = 'Create';
@@ -45,10 +45,10 @@ BEGIN
 
     BEGIN TRANSACTION
 
-    IF (NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE Application_ApplicationId = @applicationId AND AuthorizationStrategyName = 'OwnershipBased')) 
+    IF (NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE  AuthorizationStrategyName = 'OwnershipBased')) 
     BEGIN
-        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-        VALUES ('Ownership Based', 'OwnershipBased', @applicationId);
+        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName)
+        VALUES ('Ownership Based', 'OwnershipBased');
     END
     
     -- Push claimId to the stack
@@ -73,8 +73,8 @@ BEGIN
         BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
-            INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-            VALUES ('people', 'people', 'http://ed-fi.org/ods/identity/claims/domains/people', @parentResourceClaimId, @applicationId)
+            INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+            VALUES ('people', 'http://ed-fi.org/ods/identity/claims/domains/people', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
@@ -105,8 +105,8 @@ BEGIN
     BEGIN
         PRINT 'Creating new claim set: ' + @claimSetName
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
-        VALUES (@claimSetName, @applicationId)
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (@claimSetName)
 
         SET @claimSetId = SCOPE_IDENTITY()
     END
