@@ -144,3 +144,26 @@ BEGIN
         RAISE NOTICE 'Column application_applicationid do not exist in dbo.claimsets.';
     END IF;
 END $$;
+
+
+DO $$ 
+BEGIN
+
+    DROP INDEX IF EXISTS dbo.ix_authorizationstrategies_application_applicationid;
+
+    IF EXISTS (
+        SELECT *
+        FROM information_schema.columns
+        WHERE table_schema = 'dbo'
+            AND table_name = 'authorizationstrategies'
+            AND column_name IN ('application_applicationid')
+    )
+    THEN
+        ALTER TABLE "dbo"."authorizationstrategies"
+        DROP COLUMN "application_applicationid";
+
+        RAISE NOTICE 'Column  application_applicationid dropped from dbo.authorizationstrategies.';
+    ELSE
+        RAISE NOTICE 'Column application_applicationid do not exist in dbo.authorizationstrategies.';
+    END IF;
+END $$;

@@ -157,3 +157,27 @@ BEGIN
     PRINT 'Columns Application_ApplicationId  do not exist in dbo.ClaimSets.';
 END
 GO
+
+IF EXISTS (
+    SELECT *
+    FROM INFORMATION_SCHEMA.COLUMNS
+    WHERE TABLE_SCHEMA = 'dbo'
+      AND TABLE_NAME = 'AuthorizationStrategies'
+      AND COLUMN_NAME IN ('Application_ApplicationId')
+)
+BEGIN
+
+    IF EXISTS (SELECT * FROM sys.indexes WHERE name = N'IX_Application_ApplicationId' 
+    AND object_id = OBJECT_ID(N'dbo.AuthorizationStrategies'))
+    DROP INDEX [IX_Application_ApplicationId] ON [dbo].[AuthorizationStrategies];
+    
+    ALTER TABLE dbo.AuthorizationStrategies
+    DROP COLUMN  Application_ApplicationId;
+
+    PRINT 'Columns Application_ApplicationId  dropped from dbo.AuthorizationStrategies.';
+END
+ELSE
+BEGIN
+    PRINT 'Columns Application_ApplicationId  do not exist in dbo.AuthorizationStrategies.';
+END
+GO
