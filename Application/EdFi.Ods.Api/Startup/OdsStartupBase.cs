@@ -321,11 +321,6 @@ namespace EdFi.Ods.Api.Startup
                 app.UseOpenApiMetadata();
             }
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.XsdMetadata.GetConfigKeyName()))
-            {
-                app.UseXsdMetadata();
-            }
-
             app.UseWhen(context => context.Request.Path.StartsWithSegments("/data"),
                 builder => builder.UseRequestResponseDetailsLogger());
 

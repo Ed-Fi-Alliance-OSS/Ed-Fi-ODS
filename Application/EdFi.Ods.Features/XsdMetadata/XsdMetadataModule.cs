@@ -26,11 +26,6 @@ namespace EdFi.Ods.Features.XsdMetadata
             builder.RegisterType<XsdFileInformationProvider>()
                 .As<IXsdFileInformationProvider>()
                 .SingleInstance();
-
-            builder.RegisterType<XsdMetadataFileMiddleware>()
-                .As<IMiddleware>()
-                .AsSelf()
-                .SingleInstance();
         }
     }
 }
