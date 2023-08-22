@@ -564,10 +564,10 @@
 							"name": "GetAll_400_Tests",
 							"item": [
 								{
-									"name": "When_Given_a_limit_101_or_more_Should_return_400",
+									"name": "When_Given_a_limit_501_or_more_Should_return_400",
 									"item": [
 										{
-											"name": "When_Given_a_limit_101_or_more_Should_return_400",
+											"name": "When_Given_a_limit_501_or_more_Should_return_400",
 											"event": [
 												{
 													"listen": "test",
@@ -578,9 +578,9 @@
 															"    pm.expect(pm.response.code).to.equal(400);",
 															"});",
 															"",
-															"pm.test(\"Should return a message indicating that the limit must be omitted or set to a value between 1 and defaultPageSizeLimit\", () => {",
+															"pm.test(\"Should return a message indicating that the limit must be omitted or set to a value between 0 and 500.\", () => {",
 															"    const responseItem = pm.response.json();",
-															"    pm.expect(responseItem.message).to.equal(\"Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit).\");",
+															"    pm.expect(responseItem.message).to.equal(\"Limit must be omitted or set to a value between 0 and 500.\");",
 															"});",
 															""
 														],
@@ -638,9 +638,9 @@
 															"    pm.expect(pm.response.code).to.equal(400);",
 															"});",
 															"",
-															"pm.test(\"Should return a message indicating that the limit must be omitted or set to a value between 1 and defaultPageSizeLimit\", () => {",
+															"pm.test(\"Should return a message indicating that the limit must be omitted or set to a value between 0 and 500.\", () => {",
 															"    const responseItem = pm.response.json();",
-															"    pm.expect(responseItem.message).to.equal(\"Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit).\");",
+															"    pm.expect(responseItem.message).to.equal(\"Limit must be omitted or set to a value between 0 and 500.\");",
 															"});",
 															""
 														],
@@ -1779,10 +1779,10 @@
 							"name": "GetByExample_400_Tests",
 							"item": [
 								{
-									"name": "When_Given_a_limit_101_or_more_Should_return_400",
+									"name": "When_Given_a_limit_501_or_more_Should_return_400",
 									"item": [
 										{
-											"name": "When_Given_a_limit_101_or_more_Should_return_400",
+											"name": "When_Given_a_limit_501_or_more_Should_return_400",
 											"event": [
 												{
 													"listen": "prerequest",
@@ -1802,9 +1802,9 @@
 															"});",
 															"",
 															"",
-															"pm.test(\"Should return a message indicating that the limit must be omitted or set to a value between 1 and defaultPageSizeLimit\", () => {",
+															"pm.test(\"Should return a message indicating that the limit must be omitted or set to a value between 0 and 500.\", () => {",
 															"    const responseItem = pm.response.json();",
-															"    pm.expect(responseItem.message).to.equal(\"Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit).\");",
+															"    pm.expect(responseItem.message).to.equal(\"Limit must be omitted or set to a value between 0 and 500.\");",
 															"});",
 															""
 														],
@@ -1867,9 +1867,9 @@
 															"});",
 															"",
 															"",
-															"pm.test(\"Should return a message indicating that the limit must be omitted or set to a value between 1 and defaultPageSizeLimit\", () => {",
+															"pm.test(\"Should return a message indicating that the limit must be omitted or set to a value between 0 and 500.\", () => {",
 															"    const responseItem = pm.response.json();",
-															"    pm.expect(responseItem.message).to.equal(\"Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit).\");",
+															"    pm.expect(responseItem.message).to.equal(\"Limit must be omitted or set to a value between 0 and 500.\");",
 															"});",
 															""
 														],

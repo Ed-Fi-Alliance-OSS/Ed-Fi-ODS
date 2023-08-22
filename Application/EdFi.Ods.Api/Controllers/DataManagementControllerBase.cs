@@ -178,7 +178,7 @@ namespace EdFi.Ods.Api.Controllers
             {
                 return BadRequest(
                     ErrorTranslator.GetErrorMessage(
-                        "Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit)."));
+                        $"Limit must be omitted or set to a value between 0 and { _defaultPageLimitSize }."));
             }
 
             var internalRequestAsResource = new TResourceModel();
