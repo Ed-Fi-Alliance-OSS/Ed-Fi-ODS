@@ -4,7 +4,6 @@ begin transaction;
 /*        Resource Claims            */
 /* --------------------------------- */
 do $$
-    declare application_id int;
 
     declare typesResourceClaimId int;
     declare systemDescriptorsResourceClaimId int;
@@ -18,7 +17,6 @@ do $$
     declare primaryRelationshipsResourceClaimId int;
     declare surveyDomainResourceClaimId int;
 begin
-    select ApplicationId into application_id from dbo.Applications where ApplicationName = 'Ed-Fi ODS API';
 
     select ResourceClaimId into typesResourceClaimId from dbo.ResourceClaims where ResourceName = 'types';
     select ResourceClaimId into systemDescriptorsResourceClaimId from dbo.ResourceClaims where ResourceName = 'systemDescriptors';
@@ -38,8 +36,8 @@ begin
 
 {{#Aggregates}}
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='{{ResourceName}}') THEN
-    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('{{DisplayName}}', '{{ResourceName}}', 'http://ed-fi.org/ods/identity/claims/{{ResourceName}}', {{#HasParent}}{{ParentResourceName}}ResourceClaimId{{/HasParent}}{{^HasParent}}null{{/HasParent}}, application_id);
+    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
+    values ('{{ResourceName}}', 'http://ed-fi.org/ods/identity/claims/{{ResourceName}}', {{#HasParent}}{{ParentResourceName}}ResourceClaimId{{/HasParent}}{{^HasParent}}null{{/HasParent}});
     END IF;
 
 {{/Aggregates}}
