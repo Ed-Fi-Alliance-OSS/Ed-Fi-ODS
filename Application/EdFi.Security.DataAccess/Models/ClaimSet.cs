@@ -22,7 +22,5 @@ namespace EdFi.Security.DataAccess.Models
 
         public bool ForApplicationUseOnly   { get; set; }
 
-        [Required]
-        public Application Application { get; set; }
     }
 }

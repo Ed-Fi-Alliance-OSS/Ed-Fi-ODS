@@ -15,10 +15,6 @@ namespace EdFi.Security.DataAccess.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ResourceClaimId { get; set; }
 
-        [StringLength(255)]
-        [Required]
-        public string DisplayName { get; set; }
-
         /// <summary>
         /// ResourceName is actually an Uri so length needs to be around 2048
         /// </summary>
@@ -32,9 +28,6 @@ namespace EdFi.Security.DataAccess.Models
         [StringLength(2048)]
         [Required]
         public string ClaimName { get; set; }
-
-        [Required]
-        public Application Application { get; set; }
 
         public int? ParentResourceClaimId { get; set; }
 

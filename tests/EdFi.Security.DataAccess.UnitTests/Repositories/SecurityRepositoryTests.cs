@@ -331,7 +331,6 @@ public class SecurityRepositoryTests
     // GetResourceClaimLineage
     // GetResourceClaimLineageMetadata
     
-    // GetApplication
     // GetClaimSets
     // GetResourceClaims
     // GetResourceClaimActionsAuthorizations

@@ -13,7 +13,6 @@ namespace EdFi.Security.DataAccess.Contexts
 {
     public interface ISecurityContext : IDisposable
     {
-        DbSet<Application> Applications { get; set; }
 
         DbSet<Action> Actions { get; set; }
 
