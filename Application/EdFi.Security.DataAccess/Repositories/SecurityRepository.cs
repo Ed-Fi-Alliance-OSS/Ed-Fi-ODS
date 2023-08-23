@@ -30,17 +30,14 @@ namespace EdFi.Security.DataAccess.Repositories
 
         public virtual AuthorizationStrategy GetAuthorizationStrategyByName(string authorizationStrategyName)
         {
-            int applicationId = GetApplicationId();
-
-            return _securityTableGateway.GetAuthorizationStrategies(applicationId).First(
+              return _securityTableGateway.GetAuthorizationStrategies().First(
                 a => a.AuthorizationStrategyName.Equals(authorizationStrategyName, StringComparison.OrdinalIgnoreCase));
         }
 
         public virtual IList<ClaimSetResourceClaimAction> GetClaimsForClaimSet(string claimSetName)
         {
-            int applicationId = GetApplicationId();
 
-            return _securityTableGateway.GetClaimSetResourceClaimActions(applicationId)
+            return _securityTableGateway.GetClaimSetResourceClaimActions()
                 .Where(c => c.ClaimSet.ClaimSetName.Equals(claimSetName, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
@@ -65,9 +62,7 @@ namespace EdFi.Security.DataAccess.Repositories
 
             try
             {
-                int applicationId = GetApplicationId();
-
-                resourceClaim = _securityTableGateway.GetResourceClaims(applicationId)
+                resourceClaim = _securityTableGateway.GetResourceClaims()
                     .SingleOrDefault(rc => rc.ClaimName.Equals(resourceClaimUri, StringComparison.OrdinalIgnoreCase));
             }
             catch (InvalidOperationException ex)
@@ -90,8 +85,6 @@ namespace EdFi.Security.DataAccess.Repositories
             return resourceClaimLineage;
         }
 
-        private int GetApplicationId() => _securityTableGateway.GetApplication().ApplicationId;
-
         /// <summary>
         /// Gets the authorization metadata of the lineage up the resource claim taxonomy for the specified resource claim.
         /// </summary>
@@ -108,10 +101,8 @@ namespace EdFi.Security.DataAccess.Repositories
 
         private void AddStrategiesForResourceClaimLineage(List<ResourceClaimAction> strategies, string resourceClaimUri, string action)
         {
-            int applicationId = GetApplicationId();
-
             //check for exact match on resource and action
-            var claimAndStrategy = _securityTableGateway.GetResourceClaimActionAuthorizations(applicationId)
+            var claimAndStrategy = _securityTableGateway.GetResourceClaimActionAuthorizations()
                 .SingleOrDefault(
                     rcas =>
                         rcas.ResourceClaim.ClaimName.Equals(resourceClaimUri, StringComparison.OrdinalIgnoreCase)
@@ -123,7 +114,7 @@ namespace EdFi.Security.DataAccess.Repositories
                 strategies.Add(claimAndStrategy);
             }
 
-            var resourceClaim = _securityTableGateway.GetResourceClaims(applicationId)
+            var resourceClaim = _securityTableGateway.GetResourceClaims()
                 .FirstOrDefault(rc => rc.ClaimName.Equals(resourceClaimUri, StringComparison.OrdinalIgnoreCase));
 
             // if there's a parent resource, recurse
@@ -135,9 +126,7 @@ namespace EdFi.Security.DataAccess.Repositories
 
         public virtual ResourceClaim GetResourceByResourceName(string resourceName)
         {
-            int applicationId = GetApplicationId();
-
-            return _securityTableGateway.GetResourceClaims(applicationId)
+            return _securityTableGateway.GetResourceClaims()
                 .FirstOrDefault(rc => rc.ResourceName.Equals(resourceName, StringComparison.OrdinalIgnoreCase));
         }
     }

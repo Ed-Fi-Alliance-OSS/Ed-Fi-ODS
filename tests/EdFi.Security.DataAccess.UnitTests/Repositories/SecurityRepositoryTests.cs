@@ -61,7 +61,7 @@ public class SecurityRepositoryTests
         var authorizationStrategyName = "TestAuthorizationStrategy";
         var authorizationStrategy = new AuthorizationStrategy { AuthorizationStrategyName = authorizationStrategyName };
 
-        A.CallTo(() => _securityTableGateway.GetAuthorizationStrategies(A<int>.Ignored))
+        A.CallTo(() => _securityTableGateway.GetAuthorizationStrategies())
             .Returns(new List<AuthorizationStrategy> { authorizationStrategy });
 
         // Act
@@ -78,7 +78,7 @@ public class SecurityRepositoryTests
         var authorizationStrategyName = "TestAuthorizationStrategy";
         var authorizationStrategy = new AuthorizationStrategy { AuthorizationStrategyName = authorizationStrategyName };
 
-        A.CallTo(() => _securityTableGateway.GetAuthorizationStrategies(A<int>.Ignored))
+        A.CallTo(() => _securityTableGateway.GetAuthorizationStrategies())
             .Returns(new List<AuthorizationStrategy> { authorizationStrategy });
 
         // Act & Assert
@@ -95,7 +95,7 @@ public class SecurityRepositoryTests
         var claimSetResourceClaimAction =
             new ClaimSetResourceClaimAction { ClaimSet = new ClaimSet { ClaimSetName = claimSetName } };
 
-        A.CallTo(() => _securityTableGateway.GetClaimSetResourceClaimActions(A<int>.Ignored))
+        A.CallTo(() => _securityTableGateway.GetClaimSetResourceClaimActions())
             .Returns(new List<ClaimSetResourceClaimAction> { claimSetResourceClaimAction });
 
         // Act
@@ -114,7 +114,7 @@ public class SecurityRepositoryTests
         var claimSetResourceClaimAction =
             new ClaimSetResourceClaimAction { ClaimSet = new ClaimSet { ClaimSetName = claimSetName } };
 
-        A.CallTo(() => _securityTableGateway.GetClaimSetResourceClaimActions(A<int>.Ignored))
+        A.CallTo(() => _securityTableGateway.GetClaimSetResourceClaimActions())
             .Returns(new List<ClaimSetResourceClaimAction> { claimSetResourceClaimAction });
 
         // Act
@@ -134,7 +134,7 @@ public class SecurityRepositoryTests
         var parentResourceClaim = new ResourceClaim { ClaimName = "parentUri" };
         resourceClaim.ParentResourceClaim = parentResourceClaim;
 
-        A.CallTo(() => _securityTableGateway.GetResourceClaims(A<int>._))
+        A.CallTo(() => _securityTableGateway.GetResourceClaims())
             .Returns(new List<ResourceClaim> { parentResourceClaim, resourceClaim });
 
         // Act
@@ -156,7 +156,7 @@ public class SecurityRepositoryTests
 
         var resourceClaim = new ResourceClaim { ClaimName = resourceClaimUri };
 
-        A.CallTo(() => _securityTableGateway.GetResourceClaims(A<int>._))
+        A.CallTo(() => _securityTableGateway.GetResourceClaims())
             .Returns(new List<ResourceClaim> { resourceClaim });
 
         // Act
@@ -176,10 +176,10 @@ public class SecurityRepositoryTests
         var resourceClaim = new ResourceClaim { ClaimName = resourceClaimUri };
         var actionStrategy = new ResourceClaimAction { Action = new Action { ActionUri = action }, ResourceClaim = resourceClaim };
 
-        A.CallTo(() => _securityTableGateway.GetResourceClaims(A<int>._))
+        A.CallTo(() => _securityTableGateway.GetResourceClaims())
             .Returns(new List<ResourceClaim> { resourceClaim });
 
-        A.CallTo(() => _securityTableGateway.GetResourceClaimActionAuthorizations(A<int>._))
+        A.CallTo(() => _securityTableGateway.GetResourceClaimActionAuthorizations())
             .Returns(new List<ResourceClaimAction> { actionStrategy });
 
         // Act
@@ -197,7 +197,7 @@ public class SecurityRepositoryTests
         const string resourceClaimUri = "uri";
         const string action = "action";
 
-        A.CallTo(() => _securityTableGateway.GetResourceClaims(A<int>._))
+        A.CallTo(() => _securityTableGateway.GetResourceClaims())
             .Returns(new List<ResourceClaim>());
 
         // Act
@@ -229,10 +229,8 @@ public class SecurityRepositoryTests
             Action = new Action { ActionUri = suppliedActionUri }
         };
 
-        A.CallTo(() => securityTableGateway.GetApplication())
-            .Returns(new Application { ApplicationId = 1 });
         
-        A.CallTo(() => securityTableGateway.GetResourceClaimActionAuthorizations(1))
+        A.CallTo(() => securityTableGateway.GetResourceClaimActionAuthorizations())
             .Returns(new List<ResourceClaimAction> { otherResourceClaimAction, suppliedResourceClaimAction });
 
         // Act
@@ -290,12 +288,11 @@ public class SecurityRepositoryTests
             Action = new Action { ActionUri = suppliedActionUri }
         };
 
-        A.CallTo(() => securityTableGateway.GetApplication()).Returns(new Application() { ApplicationId = 1});
         
-        A.CallTo(() => securityTableGateway.GetResourceClaimActionAuthorizations(1))
+        A.CallTo(() => securityTableGateway.GetResourceClaimActionAuthorizations())
             .Returns(new List<ResourceClaimAction> { suppliedParentResourceClaimAction, suppliedChildResourceClaimAction, suppliedOtherResourceClaimAction });
         
-        A.CallTo(() => securityTableGateway.GetResourceClaims(1))
+        A.CallTo(() => securityTableGateway.GetResourceClaims())
             .Returns(new List<ResourceClaim> { otherResourceClaim, parentResourceClaim, childResourceClaim });
 
         // Act
@@ -321,8 +318,7 @@ public class SecurityRepositoryTests
         var otherResourceName = "Other Resource";
         var otherResourceClaim = new ResourceClaim { ResourceName = otherResourceName };
 
-        A.CallTo(() => securityTableGateway.GetApplication()).Returns(new Application() { ApplicationId = 1});
-        A.CallTo(() => securityTableGateway.GetResourceClaims(1))
+        A.CallTo(() => securityTableGateway.GetResourceClaims())
             .Returns(new List<ResourceClaim> { otherResourceClaim, resourceClaim });
 
         // Act

@@ -23,14 +23,6 @@ public class SecurityTableGateway : ISecurityTableGateway
         _securityContextFactory = securityContextFactory ?? throw new ArgumentNullException(nameof(securityContextFactory));
     }
 
-    public Application GetApplication()
-    {
-        using var context = _securityContextFactory.CreateContext();
-
-        return context.Applications.First(
-            app => app.ApplicationName.Equals("Ed-Fi ODS API", StringComparison.OrdinalIgnoreCase));
-    }
-
     public List<Action> GetActions()
     {
         using var context = _securityContextFactory.CreateContext();
@@ -42,39 +34,34 @@ public class SecurityTableGateway : ISecurityTableGateway
     {
         using var context = _securityContextFactory.CreateContext();
 
-        return context.ClaimSets.Include(cs => cs.Application).ToList();
+        return context.ClaimSets.ToList();
     }
 
-    public List<ResourceClaim> GetResourceClaims(int applicationId)
+    public List<ResourceClaim> GetResourceClaims()
     {
         using var context = _securityContextFactory.CreateContext();
 
-        return context.ResourceClaims.Include(rc => rc.Application)
+        return context.ResourceClaims
             .Include(rc => rc.ParentResourceClaim)
-            .Where(rc => rc.Application.ApplicationId.Equals(applicationId))
             .ToList();
     }
 
-    public List<AuthorizationStrategy> GetAuthorizationStrategies(int applicationId)
+    public List<AuthorizationStrategy> GetAuthorizationStrategies()
     {
         using var context = _securityContextFactory.CreateContext();
 
-        return context.AuthorizationStrategies.Include(auth => auth.Application)
-            .Where(auth => auth.Application.ApplicationId.Equals(applicationId))
-            .ToList();
+        return context.AuthorizationStrategies.ToList();
     }
 
-    public List<ClaimSetResourceClaimAction> GetClaimSetResourceClaimActions(int applicationId)
+    public List<ClaimSetResourceClaimAction> GetClaimSetResourceClaimActions()
     {
         using var context = _securityContextFactory.CreateContext();
 
         var claimSetResourceClaimActions = context.ClaimSetResourceClaimActions.Include(csrc => csrc.Action)
             .Include(csrc => csrc.ClaimSet)
-            .Include(csrc => csrc.ClaimSet.Application)
             .Include(csrc => csrc.ResourceClaim)
             .Include(csrc => csrc.AuthorizationStrategyOverrides.Select(aso => aso.AuthorizationStrategy))
-            .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(applicationId))
-            .ToList();
+             .ToList();
 
         // Replace empty lists with null since some consumers expect it that way
         claimSetResourceClaimActions.Where(csrc => csrc.AuthorizationStrategyOverrides.Count == 0)
@@ -83,7 +70,7 @@ public class SecurityTableGateway : ISecurityTableGateway
         return claimSetResourceClaimActions;
     }
 
-    public List<ResourceClaimAction> GetResourceClaimActionAuthorizations(int applicationId)
+    public List<ResourceClaimAction> GetResourceClaimActionAuthorizations()
     {
         using var context = _securityContextFactory.CreateContext();
 
@@ -94,8 +81,7 @@ public class SecurityTableGateway : ISecurityTableGateway
 
         var resourceClaimActionAuthorizations = context.ResourceClaimActions.Include(rcas => rcas.Action)
             .Include(rcas => rcas.ResourceClaim)
-            .Include(rcas => rcas.AuthorizationStrategies.Select(ast => ast.AuthorizationStrategy.Application))
-            .Where(rcas => rcas.ResourceClaim.Application.ApplicationId.Equals(applicationId))
+            .Include(rcas => rcas.AuthorizationStrategies)
             .ToList();
 
         foreach (var a in resourceClaimActionAuthorizations)
