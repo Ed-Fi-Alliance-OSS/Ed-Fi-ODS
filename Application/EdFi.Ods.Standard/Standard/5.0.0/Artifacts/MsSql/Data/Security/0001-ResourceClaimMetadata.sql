@@ -151,66 +151,66 @@ END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/edFiTypes')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId])
-    VALUES (N'types', N'types', N'http://ed-fi.org/ods/identity/claims/domains/edFiTypes', NULL);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'types', N'http://ed-fi.org/ods/identity/claims/domains/edFiTypes', NULL);
 END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId])
-    VALUES (N'systemDescriptors', N'systemDescriptors', N'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors', NULL);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'systemDescriptors', N'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors', NULL);
 END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/managedDescriptors')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId])
-    VALUES (N'managedDescriptors', N'managedDescriptors', N'http://ed-fi.org/ods/identity/claims/domains/managedDescriptors', NULL);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'managedDescriptors', N'http://ed-fi.org/ods/identity/claims/domains/managedDescriptors', NULL);
 END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId])
-    VALUES (N'educationOrganizations', N'educationOrganizations', N'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations', NULL);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'educationOrganizations', N'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations', NULL);
 END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/people')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId])
-    VALUES (N'people', N'people', N'http://ed-fi.org/ods/identity/claims/domains/people', NULL);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'people', N'http://ed-fi.org/ods/identity/claims/domains/people', NULL);
 END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId])
-    VALUES (N'relationshipBasedData', N'relationshipBasedData', N'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData', NULL);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'relationshipBasedData', N'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData', NULL);
 END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId])
-    VALUES (N'assessmentMetadata', N'assessmentMetadata', N'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata', NULL);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'assessmentMetadata', N'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata', NULL);
 END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/identity')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId])
-    VALUES (N'identity', N'identity', N'http://ed-fi.org/ods/identity/claims/domains/identity', NULL);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'identity', N'http://ed-fi.org/ods/identity/claims/domains/identity', NULL);
 END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/educationStandards')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId])
-    VALUES (N'educationStandards', N'educationStandards', N'http://ed-fi.org/ods/identity/claims/domains/educationStandards', NULL);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'educationStandards', N'http://ed-fi.org/ods/identity/claims/domains/educationStandards', NULL);
 END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/primaryRelationships')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId])
-    VALUES (N'primaryRelationships', N'primaryRelationships', N'http://ed-fi.org/ods/identity/claims/domains/primaryRelationships', NULL);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'primaryRelationships', N'http://ed-fi.org/ods/identity/claims/domains/primaryRelationships', NULL);
 END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/surveyDomain')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId])
-    VALUES (N'surveyDomain', N'surveyDomain', N'http://ed-fi.org/ods/identity/claims/domains/surveyDomain', NULL);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'surveyDomain', N'http://ed-fi.org/ods/identity/claims/domains/surveyDomain', NULL);
 END
