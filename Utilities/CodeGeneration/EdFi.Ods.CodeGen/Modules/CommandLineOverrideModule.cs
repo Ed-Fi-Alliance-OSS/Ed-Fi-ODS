@@ -31,10 +31,6 @@ namespace EdFi.Ods.CodeGen.Modules
                 .WithParameter(new NamedParameter("extensionPaths", Options.ExtensionPaths))
                 .As<IExtensionPluginsProvider>();
 
-            builder.RegisterType<IncludePluginsProvider>()
-                .WithParameter(new NamedParameter("includePlugins", Options.IncludePlugins))
-                .As<IIncludePluginsProvider>();
-
             builder.RegisterType<AuthorizationDatabaseTableViewsProvider>()
                 .As<IAuthorizationDatabaseTableViewsProvider>()
                 .OnlyIf(x => Options.ViewsFromDatabase);
