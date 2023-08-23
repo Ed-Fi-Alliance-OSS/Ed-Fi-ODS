@@ -25,7 +25,6 @@ namespace Test.Common._Stubs
         {
             return new AuthorizationStrategy
             {
-                Application = new Application {ApplicationId = 1},
                 AuthorizationStrategyId = 1,
                 AuthorizationStrategyName = authorizationStrategyName,
                 DisplayName = authorizationStrategyName
