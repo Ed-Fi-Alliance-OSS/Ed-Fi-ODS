@@ -2748,7 +2748,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
-    public class ContactAddressExtension : Entities.Common.Sample.IContactAddressExtension, IHasRequiredMembersWithMeaningfulDefaultValues
+    public class ContactAddressExtension : Entities.Common.Sample.IContactAddressExtension, IHasRequiredMembersWithMeaningfulDefaultValues, IChildEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3019,6 +3019,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
         //                    Resource Reference Data
         // -----------------------------------------------------------------
         // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            ContactAddress = (IContactAddress)value;
+        }
     }
 
     // =================================================================
@@ -4552,7 +4557,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
-    public class ContactExtension : Entities.Common.Sample.IContactExtension, IHasRequiredMembersWithMeaningfulDefaultValues
+    public class ContactExtension : Entities.Common.Sample.IContactExtension, IHasRequiredMembersWithMeaningfulDefaultValues, IChildEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -5015,6 +5020,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
         //                    Resource Reference Data
         // -----------------------------------------------------------------
         // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            Contact = (IContact)value;
+        }
     }
 
     // =================================================================
@@ -7138,7 +7148,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SchoolExtension : Entities.Common.Sample.ISchoolExtension
+    public class SchoolExtension : Entities.Common.Sample.ISchoolExtension, IChildEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -7359,6 +7369,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         //                    Resource Reference Data
         // -----------------------------------------------------------------
         // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            School = (ISchool)value;
+        }
     }
 
     // =================================================================
@@ -7446,7 +7461,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StaffExtension : Entities.Common.Sample.IStaffExtension
+    public class StaffExtension : Entities.Common.Sample.IStaffExtension, IChildEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -7667,6 +7682,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         //                    Resource Reference Data
         // -----------------------------------------------------------------
         // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            Staff = (IStaff)value;
+        }
     }
 
     // =================================================================
@@ -8506,7 +8526,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentExtension : Entities.Common.Sample.IStudentExtension
+    public class StudentExtension : Entities.Common.Sample.IStudentExtension, IChildEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -8790,6 +8810,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         //                    Resource Reference Data
         // -----------------------------------------------------------------
         // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            Student = (IStudent)value;
+        }
     }
 
     // =================================================================
@@ -12091,7 +12116,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
-    public class StudentContactAssociationExtension : Entities.Common.Sample.IStudentContactAssociationExtension, IHasRequiredMembersWithMeaningfulDefaultValues
+    public class StudentContactAssociationExtension : Entities.Common.Sample.IStudentContactAssociationExtension, IHasRequiredMembersWithMeaningfulDefaultValues, IChildEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -12643,6 +12668,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
 
 
         // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentContactAssociation = (IStudentContactAssociation)value;
+        }
     }
 
     // =================================================================
@@ -14145,7 +14175,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentCTEProgramAssociationExtension : Entities.Common.Sample.IStudentCTEProgramAssociationExtension
+    public class StudentCTEProgramAssociationExtension : Entities.Common.Sample.IStudentCTEProgramAssociationExtension, IChildEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -14317,6 +14347,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi
         //                    Resource Reference Data
         // -----------------------------------------------------------------
         // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentCTEProgramAssociation = (IStudentCTEProgramAssociation)value;
+        }
     }
 
     // =================================================================
@@ -14371,7 +14406,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
-    public class StudentEducationOrganizationAssociationAddressExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension, IHasRequiredMembersWithMeaningfulDefaultValues
+    public class StudentEducationOrganizationAssociationAddressExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension, IHasRequiredMembersWithMeaningfulDefaultValues, IChildEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -14642,6 +14677,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         //                    Resource Reference Data
         // -----------------------------------------------------------------
         // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentEducationOrganizationAssociationAddress = (IStudentEducationOrganizationAssociationAddress)value;
+        }
     }
 
     // =================================================================
@@ -15306,7 +15346,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension
+    public class StudentEducationOrganizationAssociationExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension, IChildEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -15576,6 +15616,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
 
 
         // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentEducationOrganizationAssociation = (IStudentEducationOrganizationAssociation)value;
+        }
     }
 
     // =================================================================
@@ -15646,7 +15691,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationStudentCharacteristicExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicExtension
+    public class StudentEducationOrganizationAssociationStudentCharacteristicExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicExtension, IChildEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -15848,6 +15893,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         //                    Resource Reference Data
         // -----------------------------------------------------------------
         // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentEducationOrganizationAssociationStudentCharacteristic = (IStudentEducationOrganizationAssociationStudentCharacteristic)value;
+        }
     }
 
     // =================================================================
@@ -19318,7 +19368,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentSchoolAssociationExtension : Entities.Common.Sample.IStudentSchoolAssociationExtension
+    public class StudentSchoolAssociationExtension : Entities.Common.Sample.IStudentSchoolAssociationExtension, IChildEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -19483,6 +19533,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.Ext
         //                    Resource Reference Data
         // -----------------------------------------------------------------
         // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentSchoolAssociation = (IStudentSchoolAssociation)value;
+        }
     }
 
     // =================================================================
@@ -19536,7 +19591,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentSectionAssociationExtension : Entities.Common.Sample.IStudentSectionAssociationExtension
+    public class StudentSectionAssociationExtension : Entities.Common.Sample.IStudentSectionAssociationExtension, IChildEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -19738,6 +19793,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         //                    Resource Reference Data
         // -----------------------------------------------------------------
         // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentSectionAssociation = (IStudentSectionAssociation)value;
+        }
     }
 
     // =================================================================

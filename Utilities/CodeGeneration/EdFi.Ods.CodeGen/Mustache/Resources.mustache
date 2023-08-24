@@ -272,7 +272,7 @@ namespace {{ResourceClassesNamespace}}
     {{#HasRequiredMembersWithMeaningfulDefaultValues}}
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     {{/HasRequiredMembersWithMeaningfulDefaultValues}}
-    public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}} : {{NamespacePrefix}}I{{EntityName}}{{DerivedName}}{{#IsAggregateRoot}}, IHasETag, IDateVersionedEntity{{/IsAggregateRoot}}{{#HasRequiredMembersWithMeaningfulDefaultValues}}, IHasRequiredMembersWithMeaningfulDefaultValues{{/HasRequiredMembersWithMeaningfulDefaultValues}}
+    public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}} : {{NamespacePrefix}}I{{EntityName}}{{DerivedName}}{{#IsAggregateRoot}}, IHasETag, IDateVersionedEntity{{/IsAggregateRoot}}{{#HasRequiredMembersWithMeaningfulDefaultValues}}, IHasRequiredMembersWithMeaningfulDefaultValues{{/HasRequiredMembersWithMeaningfulDefaultValues}}{{#IsResourceExtensionClass}}, IChildEntity{{/IsResourceExtensionClass}}
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1190,6 +1190,13 @@ namespace {{ResourceClassesNamespace}}
 
         {{/ResourceReferences}}
         // -----------------------------------------------------------------
+        {{#IsResourceExtensionClass}}
+
+        void IChildEntity.SetParent(object value)
+        {
+            {{ParentName}} = (I{{ParentName}})value;
+        }
+        {{/IsResourceExtensionClass}}
     }
     {{/ShouldRenderClass}}
 
