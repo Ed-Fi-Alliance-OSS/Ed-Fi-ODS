@@ -19,7 +19,7 @@ namespace EdFi.Ods.Api.Security.Authorization
         {
             ApplyStudentTransformation(resourceGraph);
             ApplyStaffTransformation(resourceGraph);
-            ApplyParentTransformation(resourceGraph);
+            ApplyContactOrParentTransformation(resourceGraph);
         }
 
         private static void ApplyStaffTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
@@ -98,28 +98,40 @@ namespace EdFi.Ods.Api.Security.Authorization
             }
         }
 
-        private static void ApplyParentTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
+        private static void ApplyContactOrParentTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
         {
             var resources = resourceGraph.Vertices.ToList();
 
-            var parentResource = resources.FirstOrDefault(x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "Parent"));
-            var studentParentAssociationResource = resources.FirstOrDefault(x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "StudentParentAssociation"));
-
-            // No parent entity in the graph, nothing to do.
-            if (parentResource == null)
+            var contactOrParentResource = resources.FirstOrDefault(x => 
+                x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "Contact") 
+                || x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "Parent"));
+            
+            // No parent or contact entity in the graph, nothing to do.
+            if (contactOrParentResource == null)
             {
                 return;
             }
 
-            if (studentParentAssociationResource == null)
+            var parentOrContactStudentAssociationName = contactOrParentResource.Name switch
+            {
+                "Contact" => "StudentContactAssociation",
+                "Parent" => "StudentParentAssociation",
+                _ => throw new EdFiSecurityException(
+                    $"Unable to transform resource load graph as a student association for {contactOrParentResource.FullName} is not defined.")
+            };
+
+            var studentParentOrContactAssociationResource = resources.FirstOrDefault(
+                x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, parentOrContactStudentAssociationName));
+            
+            if (studentParentOrContactAssociationResource == null)
             {
                 throw new EdFiSecurityException(
-                    "Unable to transform resource load graph as StudentParentAssociation was not found in the graph.");
+                    $"Unable to transform resource load graph as {parentOrContactStudentAssociationName} was not found in the graph.");
             }
 
-            // Get direct parent dependencies
-            var directParentDependencies = resourceGraph.OutEdges(parentResource)
-                .Where(e => e.Target != studentParentAssociationResource)
+            // Get direct parent or contact dependencies
+            var directParentDependencies = resourceGraph.OutEdges(contactOrParentResource)
+                .Where(e => e.Target != studentParentOrContactAssociationResource)
                 .ToList();
 
             // Add dependency on primaryRelationship path
@@ -127,7 +139,7 @@ namespace EdFi.Ods.Api.Security.Authorization
             {
                 // Re-point the edge to the primary relationships
                 resourceGraph.RemoveEdge(directParentDependency);
-                resourceGraph.AddEdge(new AssociationViewEdge(studentParentAssociationResource, directParentDependency.Target, directParentDependency.AssociationView));
+                resourceGraph.AddEdge(new AssociationViewEdge(studentParentOrContactAssociationResource, directParentDependency.Target, directParentDependency.AssociationView));
             }
         }
     }
