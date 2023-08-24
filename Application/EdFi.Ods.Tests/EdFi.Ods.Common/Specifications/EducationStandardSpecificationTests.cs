@@ -4,12 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Diagnostics.CodeAnalysis;
-using NHibernateEntities = EdFi.Ods.Entities.NHibernate;
-using ModelResources = EdFi.Ods.Api.Common.Models.Resources;
 using EdFi.Ods.Common.Specifications;
-using EdFi.Ods.Entities.NHibernate.CredentialAggregate.EdFi;
-//using EdFi.Ods.Entities.NHibernate.LearningObjectiveAggregate.EdFi;
-using EdFi.Ods.Entities.NHibernate.LearningStandardAggregate.EdFi;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Test.Common;
@@ -22,86 +17,70 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
     {
         public class When_determining_if_an_entity_or_resource_is_a_educationStandard : TestFixtureBase
         {
+            // LearningStandard
             [Assert]
-            public void Should_return_true_for_learningStandard_entity()
+            public void Should_return_true_for_learningStandard_type()
             {
                 AssertHelper.All(
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            typeof(LearningStandard)), Is.True),
+                            typeof(EducationStandardSpecificationTestDummyClasses.LearningStandard)), Is.True),
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            nameof(LearningStandard)), Is.True)
+                            nameof(EducationStandardSpecificationTestDummyClasses.LearningStandard)), Is.True)
                 );
             }
-
+            
+            // LearningObjective
             [Assert]
-            public void Should_return_true_for_learningStandard_resource()
+            public void Should_return_true_for_learningObjective_type()
             {
                 AssertHelper.All(
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            typeof(Api.Common.Models.Resources.LearningStandard.EdFi.LearningStandard)), Is.True),
+                            typeof(EducationStandardSpecificationTestDummyClasses.LearningObjective)), Is.True),
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            nameof(Api.Common.Models.Resources.LearningStandard.EdFi.LearningStandard)), Is.True)
+                            nameof(EducationStandardSpecificationTestDummyClasses.LearningObjective)), Is.True)
                 );
             }
+            
 
-            /*
+            // LearningStandardEquivalenceAssociation
             [Assert]
-            public void Should_return_true_for_learningObjective_entity()
+            public void Should_return_true_for_learningStandardEquivalenceAssociation_type()
             {
                 AssertHelper.All(
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            typeof(LearningObjective)), Is.True),
+                            typeof(EducationStandardSpecificationTestDummyClasses.LearningStandardEquivalenceAssociation)), Is.True),
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            nameof(LearningObjective)), Is.True)
+                            nameof(EducationStandardSpecificationTestDummyClasses.LearningStandardEquivalenceAssociation)), Is.True)
                 );
             }
-
+            
+            // Credential
             [Assert]
-            public void Should_return_true_for_learningObjective_resource()
+            public void Should_return_true_for_credential_type()
             {
                 AssertHelper.All(
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            typeof(Api.Common.Models.Resources.LearningObjective.EdFi.LearningObjective)), Is.True),
+                            typeof(EducationStandardSpecificationTestDummyClasses.Credential)), Is.True),
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            nameof(Api.Common.Models.Resources.LearningObjective.EdFi.LearningObjective)), Is.True)
-                );
-            }
-            */
-
-            //Credential
-            [Assert]
-            public void Should_return_true_for_credential_entity()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationStandardSpecification.IsEducationStandardEntity(
-                            typeof(Credential)), Is.True),
-                    () => Assert.That(
-                        EducationStandardSpecification.IsEducationStandardEntity(
-                            nameof(Credential)), Is.True)
-                );
-            }
-
-            [Assert]
-            public void Should_return_true_for_credential_resource()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationStandardSpecification.IsEducationStandardEntity(
-                            typeof(Api.Common.Models.Resources.Credential.EdFi.Credential)), Is.True),
-                    () => Assert.That(
-                        EducationStandardSpecification.IsEducationStandardEntity(
-                            nameof(Api.Common.Models.Resources.Credential.EdFi.Credential)), Is.True)
+                            nameof(EducationStandardSpecificationTestDummyClasses.Credential)), Is.True)
                 );
             }
         }
     }
+}
+
+namespace EducationStandardSpecificationTestDummyClasses
+{
+    public class LearningStandard { }
+    public class LearningObjective { }
+    public class LearningStandardEquivalenceAssociation { }
+    public class Credential { }
 }
