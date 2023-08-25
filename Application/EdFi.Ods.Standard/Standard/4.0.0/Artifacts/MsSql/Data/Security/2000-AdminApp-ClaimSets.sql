@@ -5,20 +5,15 @@
 
 -- Create Ed-Fi ODS Admin App ClaimSet
 
-DECLARE @applicationId int
-DECLARE @applicationName  nvarchar(max)
 DECLARE @claimSetName  nvarchar(255)
 SET @claimSetName = 'Ed-Fi ODS Admin App'
-SET @applicationName = 'Ed-Fi ODS API'
-
-SELECT @applicationId = ApplicationId FROM dbo.Applications WHERE ApplicationName = @applicationName
 
 PRINT 'Ensuring Ed-Fi ODS Admin App Claimset exists.'
-INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
-SELECT DISTINCT @claimSetName, @applicationId FROM dbo.ClaimSets
+INSERT INTO dbo.ClaimSets (ClaimSetName)
+SELECT DISTINCT @claimSetName FROM dbo.ClaimSets
 WHERE NOT EXISTS (SELECT 1
                   FROM dbo.ClaimSets
-				  WHERE ClaimSetName = @claimSetName AND Application_ApplicationId = @applicationId )
+				  WHERE ClaimSetName = @claimSetName  )
 GO
 
 -- Configure Ed-Fi ODS Admin App ClaimSet
@@ -116,20 +111,17 @@ GO
 
 -- Create AB Connect ClaimSet
 
-DECLARE @applicationId int
-DECLARE @applicationName  nvarchar(max)
+
+
 DECLARE @claimSetName  nvarchar(255)
 SET @claimSetName = 'AB Connect'
-SET @applicationName = 'Ed-Fi ODS API'
-
-SELECT @applicationId = ApplicationId FROM  dbo.Applications WHERE ApplicationName = @applicationName
 
 PRINT 'Ensuring AB Connect Claimset exists.'
-INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
-SELECT DISTINCT @claimSetName, @applicationId FROM dbo.ClaimSets
+INSERT INTO dbo.ClaimSets (ClaimSetName)
+SELECT DISTINCT @claimSetName FROM dbo.ClaimSets
 WHERE NOT EXISTS (SELECT 1
                   FROM dbo.ClaimSets
-				  WHERE ClaimSetName = @claimSetName AND Application_ApplicationId = @applicationId )
+				  WHERE ClaimSetName = @claimSetName  )
 GO
 
 -- Configure AB Connect ClaimSet

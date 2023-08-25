@@ -18,8 +18,6 @@ namespace EdFi.Security.DataAccess.Contexts
             Database.SetInitializer(new ValidateDatabase<PostgresSecurityContext>());
         }
 
-        public DbSet<Application> Applications { get; set; }
-
         public DbSet<Action> Actions { get; set; }
 
         public DbSet<AuthorizationStrategy> AuthorizationStrategies { get; set; }

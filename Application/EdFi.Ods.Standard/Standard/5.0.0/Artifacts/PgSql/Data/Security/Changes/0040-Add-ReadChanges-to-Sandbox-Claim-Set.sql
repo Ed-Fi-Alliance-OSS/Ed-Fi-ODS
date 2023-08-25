@@ -6,7 +6,6 @@
   
 DO $$
 DECLARE
-    application_id INTEGER;
     claim_id INTEGER;
     claim_name VARCHAR(2048);
     parent_resource_claim_id INTEGER;
@@ -23,8 +22,6 @@ DECLARE
     claim_set_resource_claim_action_id INTEGER;
     claim_id_stack INTEGER ARRAY;
 BEGIN
-    SELECT applicationid INTO application_id
-    FROM dbo.applications WHERE ApplicationName = 'Ed-Fi ODS API';
 
     SELECT actionid INTO create_action_id
     FROM dbo.actions WHERE ActionName = 'Create';
@@ -61,8 +58,8 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('systemDescriptors', 'systemDescriptors', 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors', parent_resource_claim_id, application_id)
+        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('systemDescriptors','http://ed-fi.org/ods/identity/claims/domains/systemDescriptors', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -214,8 +211,8 @@ BEGIN
     IF claim_set_id IS NULL THEN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
-        VALUES (claim_set_name, application_id)
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -301,8 +298,8 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('managedDescriptors', 'managedDescriptors', 'http://ed-fi.org/ods/identity/claims/domains/managedDescriptors', parent_resource_claim_id, application_id)
+        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('managedDescriptors','http://ed-fi.org/ods/identity/claims/domains/managedDescriptors', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -454,8 +451,8 @@ BEGIN
     IF claim_set_id IS NULL THEN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
-        VALUES (claim_set_name, application_id)
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -541,8 +538,8 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('educationOrganizations', 'educationOrganizations', 'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations', parent_resource_claim_id, application_id)
+        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('educationOrganizations','http://ed-fi.org/ods/identity/claims/domains/educationOrganizations', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -694,8 +691,8 @@ BEGIN
     IF claim_set_id IS NULL THEN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
-        VALUES (claim_set_name, application_id)
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -779,8 +776,8 @@ BEGIN
     IF claim_set_id IS NULL THEN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
-        VALUES (claim_set_name, application_id)
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -833,8 +830,8 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('people', 'people', 'http://ed-fi.org/ods/identity/claims/domains/people', parent_resource_claim_id, application_id)
+        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('people','http://ed-fi.org/ods/identity/claims/domains/people', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -986,8 +983,8 @@ BEGIN
     IF claim_set_id IS NULL THEN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
-        VALUES (claim_set_name, application_id)
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -1073,8 +1070,8 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('relationshipBasedData', 'relationshipBasedData', 'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData', parent_resource_claim_id, application_id)
+        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('relationshipBasedData','http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -1226,8 +1223,8 @@ BEGIN
     IF claim_set_id IS NULL THEN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
-        VALUES (claim_set_name, application_id)
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -1317,8 +1314,8 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('communityProviderLicense', 'communityProviderLicense', 'http://ed-fi.org/ods/identity/claims/communityProviderLicense', parent_resource_claim_id, application_id)
+        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('communityProviderLicense', 'http://ed-fi.org/ods/identity/claims/communityProviderLicense', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -1345,8 +1342,8 @@ BEGIN
     IF claim_set_id IS NULL THEN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
-        VALUES (claim_set_name, application_id)
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -1429,8 +1426,8 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('person', 'person', 'http://ed-fi.org/ods/identity/claims/person', parent_resource_claim_id, application_id)
+        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('person', 'http://ed-fi.org/ods/identity/claims/person', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -1583,8 +1580,8 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('studentContactAssociation', 'studentContactAssociation', 'http://ed-fi.org/ods/identity/claims/studentContactAssociation', parent_resource_claim_id, application_id)
+        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('studentContactAssociation','http://ed-fi.org/ods/identity/claims/studentContactAssociation', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -1741,8 +1738,8 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('assessmentMetadata', 'assessmentMetadata', 'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata', parent_resource_claim_id, application_id)
+        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('assessmentMetadata','http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -1894,8 +1891,8 @@ BEGIN
     IF claim_set_id IS NULL THEN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
-        VALUES (claim_set_name, application_id)
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -1981,8 +1978,8 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('educationStandards', 'educationStandards', 'http://ed-fi.org/ods/identity/claims/domains/educationStandards', parent_resource_claim_id, application_id)
+        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('educationStandards','http://ed-fi.org/ods/identity/claims/domains/educationStandards', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -2134,8 +2131,8 @@ BEGIN
     IF claim_set_id IS NULL THEN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
-        VALUES (claim_set_name, application_id)
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -2225,8 +2222,8 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('credential', 'credential', 'http://ed-fi.org/ods/identity/claims/credential', parent_resource_claim_id, application_id)
+        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('credential','http://ed-fi.org/ods/identity/claims/credential', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -2383,8 +2380,8 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('primaryRelationships', 'primaryRelationships', 'http://ed-fi.org/ods/identity/claims/domains/primaryRelationships', parent_resource_claim_id, application_id)
+        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('primaryRelationships','http://ed-fi.org/ods/identity/claims/domains/primaryRelationships', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -2536,8 +2533,8 @@ BEGIN
     IF claim_set_id IS NULL THEN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
-        VALUES (claim_set_name, application_id)
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -2623,8 +2620,8 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('surveyDomain', 'surveyDomain', 'http://ed-fi.org/ods/identity/claims/domains/surveyDomain', parent_resource_claim_id, application_id)
+        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('surveyDomain', 'http://ed-fi.org/ods/identity/claims/domains/surveyDomain', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -2776,8 +2773,8 @@ BEGIN
     IF claim_set_id IS NULL THEN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
-        VALUES (claim_set_name, application_id)
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
@@ -2863,8 +2860,8 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('educationContent', 'educationContent', 'http://ed-fi.org/ods/identity/claims/educationContent', parent_resource_claim_id, application_id)
+        INSERT INTO dbo.ResourceClaims( ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('educationContent','http://ed-fi.org/ods/identity/claims/educationContent', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -3016,8 +3013,8 @@ BEGIN
     IF claim_set_id IS NULL THEN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
-        VALUES (claim_set_name, application_id)
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;

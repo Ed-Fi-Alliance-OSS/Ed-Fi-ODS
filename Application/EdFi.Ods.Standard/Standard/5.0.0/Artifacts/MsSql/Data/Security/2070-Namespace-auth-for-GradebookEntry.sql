@@ -6,7 +6,7 @@
   
 BEGIN
     DECLARE 
-        @applicationId AS INT,
+        
         @claimId AS INT,
         @claimName AS nvarchar(max),
         @parentResourceClaimId AS INT,
@@ -25,8 +25,8 @@ BEGIN
 
     DECLARE @claimIdStack AS TABLE (Id INT IDENTITY, ResourceClaimId INT)
 
-    SELECT @applicationId = ApplicationId
-    FROM [dbo].[Applications] WHERE ApplicationName = 'Ed-Fi ODS API';
+
+
 
     SELECT @createActionId = ActionId
     FROM [dbo].[Actions] WHERE ActionName = 'Create';
@@ -67,8 +67,8 @@ BEGIN
         BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
-            INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-            VALUES ('relationshipBasedData', 'relationshipBasedData', 'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData', @parentResourceClaimId, @applicationId)
+            INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+            VALUES ('relationshipBasedData', 'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
@@ -106,8 +106,8 @@ BEGIN
         BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
-            INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-            VALUES ('gradebookEntry', 'gradebookEntry', 'http://ed-fi.org/ods/identity/claims/gradebookEntry', @parentResourceClaimId, @applicationId)
+            INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+            VALUES ('gradebookEntry', 'http://ed-fi.org/ods/identity/claims/gradebookEntry', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END

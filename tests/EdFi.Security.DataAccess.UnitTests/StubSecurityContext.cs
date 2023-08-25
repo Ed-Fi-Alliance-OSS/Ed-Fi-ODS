@@ -23,7 +23,6 @@ namespace EdFi.Security.DataAccess.UnitTests
         {
             var securityContext = A.Fake<ISecurityContext>();
             // The underlying SecurityRepository implementation expects this application, so force it to be there in the fake
-            securityContext.Applications = GetFakeDbSet<Application>().SetupData(new List<Application> { new Application { ApplicationId = 1, ApplicationName = "Ed-Fi ODS API" } });
             securityContext.Actions = GetFakeDbSet<Action>().SetupData();
             securityContext.AuthorizationStrategies = GetFakeDbSet<AuthorizationStrategy>().SetupData();
             securityContext.ClaimSets = GetFakeDbSet<ClaimSet>().SetupData();

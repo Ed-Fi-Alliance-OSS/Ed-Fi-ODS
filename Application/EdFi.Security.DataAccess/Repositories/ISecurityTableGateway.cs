@@ -17,17 +17,16 @@ namespace EdFi.Security.DataAccess.Repositories;
 [Intercept("cache-security")]
 public interface ISecurityTableGateway
 {
-    Application GetApplication();
 
     List<Action> GetActions();
 
     List<ClaimSet> GetClaimSets();
 
-    List<ResourceClaim> GetResourceClaims(int applicationId);
+    List<ResourceClaim> GetResourceClaims();
 
-    List<AuthorizationStrategy> GetAuthorizationStrategies(int applicationId);
+    List<AuthorizationStrategy> GetAuthorizationStrategies();
 
-    List<ClaimSetResourceClaimAction> GetClaimSetResourceClaimActions(int applicationId);
+    List<ClaimSetResourceClaimAction> GetClaimSetResourceClaimActions();
 
-    List<ResourceClaimAction> GetResourceClaimActionAuthorizations(int applicationId);
+    List<ResourceClaimAction> GetResourceClaimActionAuthorizations();
 }

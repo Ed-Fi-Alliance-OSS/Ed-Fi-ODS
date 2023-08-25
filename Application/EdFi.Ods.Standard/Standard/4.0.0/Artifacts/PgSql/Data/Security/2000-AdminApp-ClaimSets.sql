@@ -5,23 +5,18 @@
 
 -- Create and configure Ed-Fi ODS Admin App claim set
 DO $$
-    DECLARE application_name varchar(50) := 'Ed-Fi ODS API';
-    DECLARE application_id int;
     DECLARE claimset_name varchar(50) := 'Ed-Fi ODS Admin App';
     DECLARE claimset_id int;
 	DECLARE authorizationStrategy_id int;
 BEGIN
-	SELECT applicationid INTO application_id
-    FROM dbo.applications
-    WHERE applicationname = application_name;
-	
+
 	-- Creating Ed-Fi ODS Admin App claim set
 	IF EXISTS (SELECT 1 FROM dbo.claimsets WHERE claimsetname = claimset_name)
     THEN
         RAISE NOTICE '% claimset exists', claimset_name;
     ELSE
         RAISE NOTICE 'adding % claimset', claimset_name;
-        INSERT INTO dbo.claimsets (claimsetname, application_applicationid) VALUES (claimset_name, application_id);
+        INSERT INTO dbo.ClaimSets (ClaimSetName) VALUES (claimset_name);
     END IF;	
 
     -- Configure Ed-Fi ODS Admin App claim set
@@ -92,20 +87,9 @@ END $$;
 
 -- Create and configure AB Connect claim set
 DO $$
-    DECLARE application_name varchar(50) := 'Ed-Fi ODS API';
-    DECLARE application_id int;
     DECLARE claimset_name varchar(50) := 'AB Connect';
     DECLARE claimset_id int;
 BEGIN
-
-    IF NOT EXISTS (SELECT 1 FROM dbo.applications WHERE applicationname = application_name)
-    THEN
-        RAISE NOTICE '% does not exist', application_name;
-    END IF;
-
-    SELECT applicationid INTO application_id
-    FROM dbo.applications
-    WHERE applicationname = application_name;
 
     -- Create AB Connect ClaimSet
     IF EXISTS (SELECT 1 FROM dbo.claimsets WHERE claimsetname = claimset_name)
@@ -113,7 +97,7 @@ BEGIN
         RAISE NOTICE '% claimset exists', claimset_name;
     ELSE
         RAISE NOTICE 'adding % claimset', claimset_name;
-        INSERT INTO dbo.claimsets (claimsetname, application_applicationid) VALUES (claimset_name, application_id);
+        INSERT INTO dbo.ClaimSets (ClaimSetName) VALUES (claimset_name);
     END IF;
 	
     SELECT claimsetid INTO claimset_id

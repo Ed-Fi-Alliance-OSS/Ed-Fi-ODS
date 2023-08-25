@@ -1,6 +1,5 @@
 DECLARE @ClaimSetId INT;
 DECLARE @AuthorizationStrategyId INT;
-DECLARE @applicationId INT;
 
 DECLARE @peopleResourceClaimId INT;
 DECLARE @relationshipBasedDataResourceClaimId INT;
@@ -13,9 +12,6 @@ DECLARE @systemDescriptorsResourceClaimId INT;
 DECLARE @managedDescriptorsResourceClaimId INT;
 DECLARE @identityResourceClaimId INT;
 DECLARE @surveyDomainResourceClaimId INT;
-
-SELECT @applicationId = (SELECT applicationid FROM [dbo].[Applications]
- WHERE [ApplicationName] = 'Ed-Fi ODS API');
 
 SELECT @typesResourceClaimId = (SELECT [ResourceClaimId] FROM [dbo].[ResourceClaims]
  WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/edFiTypes');
@@ -57,12 +53,12 @@ SELECT @surveyDomainResourceClaimId = (SELECT [ResourceClaimId] FROM [dbo].[Reso
 /* --------------------------------- */
 
 {{#Aggregates}}
-IF NOT EXISTS(SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/{{ResourceName}}' AND Application_ApplicationId = @applicationId)
+IF NOT EXISTS(SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/{{ResourceName}}')
 BEGIN
 
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-    VALUES (N'{{DisplayName}}', N'{{ResourceName}}', N'http://ed-fi.org/ods/identity/claims/{{ResourceName}}',
-{{#HasParent}}@{{ParentResourceName}}ResourceClaimId{{/HasParent}}{{^HasParent}}NULL{{/HasParent}}, @applicationId);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'{{ResourceName}}', N'http://ed-fi.org/ods/identity/claims/{{ResourceName}}',
+{{#HasParent}}@{{ParentResourceName}}ResourceClaimId{{/HasParent}}{{^HasParent}}NULL{{/HasParent}});
 
 END
 

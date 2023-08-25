@@ -1,4 +1,4 @@
-DECLARE @applicationId INT;
+;
 
 /* --------------------------------- */
 /*             Actions               */
@@ -32,74 +32,61 @@ END
 /* ==================================================================================================================================== */
 
 /* --------------------------------- */
-/*           Applications            */
-/* --------------------------------- */
-
-IF NOT EXISTS (SELECT 1 FROM [dbo].[Applications] WHERE [ApplicationName] = 'Ed-Fi ODS API')
-BEGIN
-    INSERT INTO [dbo].[Applications] ([ApplicationName]) VALUES ('Ed-Fi ODS API');
-END
-
-SELECT @applicationId = (SELECT applicationid FROM [dbo].[Applications] WHERE [ApplicationName] = 'Ed-Fi ODS API');
-
-/* ==================================================================================================================================== */
-
-/* --------------------------------- */
 /*      Authorization Strategies     */
 /* --------------------------------- */
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] = 'NoFurtherAuthorizationRequired' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] = 'NoFurtherAuthorizationRequired')
 BEGIN
-    INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName], [Application_ApplicationId])
-    VALUES ('No Further Authorization Required', 'NoFurtherAuthorizationRequired', @applicationId);
+    INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName])
+    VALUES ('No Further Authorization Required', 'NoFurtherAuthorizationRequired');
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] = 'RelationshipsWithEdOrgsAndPeople' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] = 'RelationshipsWithEdOrgsAndPeople')
 BEGIN
-    INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName], [Application_ApplicationId])
-    VALUES ('Relationships with Education Organizations and People', 'RelationshipsWithEdOrgsAndPeople', @applicationId);
+    INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName])
+    VALUES ('Relationships with Education Organizations and People', 'RelationshipsWithEdOrgsAndPeople');
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] = 'RelationshipsWithEdOrgsOnly' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] = 'RelationshipsWithEdOrgsOnly')
 BEGIN
-    INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName], [Application_ApplicationId])
-    VALUES ('Relationships with Education Organizations only', 'RelationshipsWithEdOrgsOnly', @applicationId);
+    INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName])
+    VALUES ('Relationships with Education Organizations only', 'RelationshipsWithEdOrgsOnly');
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] = 'NamespaceBased' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] = 'NamespaceBased')
 BEGIN
-    INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName], [Application_ApplicationId])
-    VALUES ('Namespace Based', 'NamespaceBased', @applicationId);
+    INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName])
+    VALUES ('Namespace Based', 'NamespaceBased');
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] = 'RelationshipsWithPeopleOnly' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] = 'RelationshipsWithPeopleOnly')
 BEGIN
-    INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName], [Application_ApplicationId])
-    VALUES ('Relationships with People only', 'RelationshipsWithPeopleOnly', @applicationId);
+    INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName])
+    VALUES ('Relationships with People only', 'RelationshipsWithPeopleOnly');
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] = 'RelationshipsWithStudentsOnly' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] = 'RelationshipsWithStudentsOnly')
 BEGIN
-    INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName], [Application_ApplicationId])
-    VALUES ('Relationships with Students only', 'RelationshipsWithStudentsOnly', @applicationId);
+    INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName])
+    VALUES ('Relationships with Students only', 'RelationshipsWithStudentsOnly');
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] = 'RelationshipsWithStudentsOnlyThroughResponsibility' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] = 'RelationshipsWithStudentsOnlyThroughResponsibility')
 BEGIN
-    INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName], [Application_ApplicationId])
-    VALUES ('Relationships with Students only (through StudentEducationOrganizationResponsibilityAssociation)', 'RelationshipsWithStudentsOnlyThroughResponsibility', @applicationId);
+    INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName])
+    VALUES ('Relationships with Students only (through StudentEducationOrganizationResponsibilityAssociation)', 'RelationshipsWithStudentsOnlyThroughResponsibility');
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] = 'OwnershipBased' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] = 'OwnershipBased')
 BEGIN
-    INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName], [Application_ApplicationId])
-    VALUES ('Ownership Based', 'OwnershipBased', @applicationId);
+    INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName])
+    VALUES ('Ownership Based', 'OwnershipBased');
 END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes')
 BEGIN
-    INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName], [Application_ApplicationId])
-    VALUES ('Relationships with Education Organizations and People (including deletes)', 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes', @applicationId);
+    INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName])
+    VALUES ('Relationships with Education Organizations and People (including deletes)', 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes');
 END
 
 /* ==================================================================================================================================== */
@@ -108,52 +95,52 @@ END
 /*           Claimsets               */
 /* --------------------------------- */
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'SIS Vendor' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'SIS Vendor')
 BEGIN
-    INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [Application_ApplicationId], [IsEdfiPreset])
-    VALUES ('SIS Vendor', @applicationId, 1);
+    INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [IsEdfiPreset])
+    VALUES ('SIS Vendor', 1);
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'Ed-Fi Sandbox' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'Ed-Fi Sandbox')
 BEGIN
-    INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [Application_ApplicationId], [IsEdfiPreset])
-    VALUES ('Ed-Fi Sandbox', @applicationId, 1);
+    INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [IsEdfiPreset])
+    VALUES ('Ed-Fi Sandbox', 1);
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'Roster Vendor' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'Roster Vendor')
 BEGIN
-    INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [Application_ApplicationId], [IsEdfiPreset])
-    VALUES ('Roster Vendor', @applicationId, 1);
+    INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [IsEdfiPreset])
+    VALUES ('Roster Vendor', 1);
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'Assessment Vendor' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'Assessment Vendor')
 BEGIN
-    INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [Application_ApplicationId], [IsEdfiPreset])
-    VALUES ('Assessment Vendor', @applicationId, 1);
+    INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [IsEdfiPreset])
+    VALUES ('Assessment Vendor', 1);
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'Assessment Read' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'Assessment Read')
 BEGIN
-    INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [Application_ApplicationId], [IsEdfiPreset])
-    VALUES ('Assessment Read', @applicationId, 1);
+    INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [IsEdfiPreset])
+    VALUES ('Assessment Read', 1);
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'Bootstrap Descriptors and EdOrgs' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'Bootstrap Descriptors and EdOrgs')
 BEGIN
-    INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [Application_ApplicationId], [ForApplicationUseOnly], [IsEdfiPreset])
-    VALUES ('Bootstrap Descriptors and EdOrgs', @applicationId, 1, 1);
+    INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [ForApplicationUseOnly], [IsEdfiPreset])
+    VALUES ('Bootstrap Descriptors and EdOrgs', 1, 1);
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ClaimSets] WHERE [ClaimSetName] ='Ownership Based Test' AND Application_ApplicationId = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ClaimSets] WHERE [ClaimSetName] ='Ownership Based Test' )
 BEGIN
-    INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [Application_ApplicationId], [ForApplicationUseOnly], [IsEdfiPreset])
-    VALUES ('Ownership Based Test', @applicationId, 1, 1);
+    INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [ForApplicationUseOnly], [IsEdfiPreset])
+    VALUES ('Ownership Based Test', 1, 1);
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ClaimSets] WHERE [ClaimSetName] ='District Hosted SIS Vendor' AND Application_ApplicationId = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ClaimSets] WHERE [ClaimSetName] ='District Hosted SIS Vendor' )
 BEGIN
-    INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [Application_ApplicationId], [IsEdfiPreset])
-    VALUES ('District Hosted SIS Vendor', @applicationId, 1);
+    INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [IsEdfiPreset])
+    VALUES ('District Hosted SIS Vendor', 1);
 END
 
 /* ==================================================================================================================================== */
@@ -162,68 +149,68 @@ END
 /*     Parent resource claims        */
 /* --------------------------------- */
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/edFiTypes' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/edFiTypes')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-    VALUES (N'types', N'types', N'http://ed-fi.org/ods/identity/claims/domains/edFiTypes', NULL, @applicationId);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'types', N'http://ed-fi.org/ods/identity/claims/domains/edFiTypes', NULL);
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-    VALUES (N'systemDescriptors', N'systemDescriptors', N'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors', NULL, @applicationId);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'systemDescriptors', N'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors', NULL);
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/managedDescriptors' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/managedDescriptors')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-    VALUES (N'managedDescriptors', N'managedDescriptors', N'http://ed-fi.org/ods/identity/claims/domains/managedDescriptors', NULL, @applicationId);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'managedDescriptors', N'http://ed-fi.org/ods/identity/claims/domains/managedDescriptors', NULL);
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-    VALUES (N'educationOrganizations', N'educationOrganizations', N'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations', NULL, @applicationId);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'educationOrganizations', N'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations', NULL);
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/people' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/people')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-    VALUES (N'people', N'people', N'http://ed-fi.org/ods/identity/claims/domains/people', NULL, @applicationId);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'people', N'http://ed-fi.org/ods/identity/claims/domains/people', NULL);
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-    VALUES (N'relationshipBasedData', N'relationshipBasedData', N'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData', NULL, @applicationId);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'relationshipBasedData', N'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData', NULL);
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-    VALUES (N'assessmentMetadata', N'assessmentMetadata', N'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata', NULL, @applicationId);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'assessmentMetadata', N'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata', NULL);
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/identity' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/identity')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-    VALUES (N'identity', N'identity', N'http://ed-fi.org/ods/identity/claims/domains/identity', NULL, @applicationId);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'identity', N'http://ed-fi.org/ods/identity/claims/domains/identity', NULL);
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/educationStandards' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/educationStandards')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-    VALUES (N'educationStandards', N'educationStandards', N'http://ed-fi.org/ods/identity/claims/domains/educationStandards', NULL, @applicationId);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'educationStandards', N'http://ed-fi.org/ods/identity/claims/domains/educationStandards', NULL);
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/primaryRelationships' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/primaryRelationships')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-    VALUES (N'primaryRelationships', N'primaryRelationships', N'http://ed-fi.org/ods/identity/claims/domains/primaryRelationships', NULL, @applicationId);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'primaryRelationships', N'http://ed-fi.org/ods/identity/claims/domains/primaryRelationships', NULL);
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/surveyDomain' AND [Application_ApplicationId] = @applicationId)
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/surveyDomain')
 BEGIN
-    INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-    VALUES (N'surveyDomain', N'surveyDomain', N'http://ed-fi.org/ods/identity/claims/domains/surveyDomain', NULL, @applicationId);
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'surveyDomain', N'http://ed-fi.org/ods/identity/claims/domains/surveyDomain', NULL);
 END

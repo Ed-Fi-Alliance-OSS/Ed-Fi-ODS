@@ -6,7 +6,7 @@
   
 DO $$
 DECLARE
-    application_id INTEGER;
+
     claim_id INTEGER;
     claim_name VARCHAR(2048);
     parent_resource_claim_id INTEGER;
@@ -23,8 +23,8 @@ DECLARE
     claim_set_resource_claim_action_id INTEGER;
     claim_id_stack INTEGER ARRAY;
 BEGIN
-    SELECT applicationid INTO application_id
-    FROM dbo.applications WHERE ApplicationName = 'Ed-Fi ODS API';
+
+
 
     SELECT actionid INTO create_action_id
     FROM dbo.actions WHERE ActionName = 'Create';
@@ -41,9 +41,9 @@ BEGIN
     SELECT actionid INTO readchanges_action_id
     FROM dbo.actions WHERE ActionName = 'ReadChanges';
     
-    IF (NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE Application_ApplicationId = application_id AND AuthorizationStrategyName = 'OwnershipBased')) THEN
-        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-        VALUES ('Ownership Based', 'OwnershipBased', application_id);
+    IF (NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE  AuthorizationStrategyName = 'OwnershipBased')) THEN
+        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName)
+        VALUES ('Ownership Based', 'OwnershipBased');
     END IF;
     
     -- Push claimId to the stack
@@ -65,8 +65,8 @@ BEGIN
     IF claim_id IS NULL THEN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
-        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('people', 'people', 'http://ed-fi.org/ods/identity/claims/domains/people', parent_resource_claim_id, application_id)
+        INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+        VALUES ('people', 'http://ed-fi.org/ods/identity/claims/domains/people', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -93,8 +93,8 @@ BEGIN
     IF claim_set_id IS NULL THEN
         RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
-        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
-        VALUES (claim_set_name, application_id)
+        INSERT INTO dbo.ClaimSets(ClaimSetName)
+        VALUES (claim_set_name)
         RETURNING ClaimSetId
         INTO claim_set_id;
     END IF;
