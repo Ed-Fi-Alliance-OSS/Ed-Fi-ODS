@@ -32,7 +32,6 @@ namespace EdFi.Admin.DataAccess.Models
         /// <summary>
         /// Type of ODS instance this identifies (e.g. "Enterprise" or "Cloud")
         /// </summary>
-        [Required]
         [StringLength(100)]
         public string InstanceType { get; set; }
 
