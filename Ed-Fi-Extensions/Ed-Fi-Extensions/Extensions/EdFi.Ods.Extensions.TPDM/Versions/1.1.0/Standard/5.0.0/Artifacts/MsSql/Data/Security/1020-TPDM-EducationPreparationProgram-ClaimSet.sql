@@ -28,7 +28,7 @@ SELECT @claimSetId = ClaimSetId FROM ClaimSets WHERE ClaimSetName = @claimSetNam
 IF (@claimSetId IS NULL)
 BEGIN
     --Create Claimset
-    INSERT INTO ClaimSets (ClaimSetName, Application_ApplicationId, IsEdfiPreset) VALUES(@claimSetName,1,1)
+    INSERT INTO ClaimSets (ClaimSetName, IsEdfiPreset) VALUES(@claimSetName,1)
     SELECT @claimSetId = ClaimSetId FROM ClaimSets WHERE ClaimSetName = @claimSetName
 END;
 

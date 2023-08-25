@@ -4,94 +4,76 @@
 -- See the LICENSE and NOTICES files in the project root for more information.
 
 do $$
-declare appId int;
 declare systemDescriptorsResourceClaimId int;
 declare authStrategyId int;
 declare postSecondaryOrganizationResourceClaimId int;
 
 begin
 
-SELECT ApplicationId into appId
-FROM dbo.Applications
-WHERE ApplicationName = 'Ed-Fi ODS API';
 
 SELECT ResourceClaimId into systemDescriptorsResourceClaimId
 FROM dbo.ResourceClaims
 WHERE ResourceName = 'systemDescriptors';
 
 INSERT INTO dbo.ResourceClaims (
-    DisplayName
-    ,ResourceName
+    ResourceName
     ,ClaimName
     ,ParentResourceClaimId
-    ,Application_ApplicationId
+
     )
 VALUES (
     'institutionControlDescriptor'
-    , 'institutionControlDescriptor'
     , 'http://ed-fi.org/ods/identity/claims/sample-student-transcript/institutionControlDescriptor'
     , systemDescriptorsResourceClaimId
-    , appId
     );
 
 INSERT INTO dbo.ResourceClaims (
-    DisplayName
-    ,ResourceName
+    ResourceName
     ,ClaimName
     ,ParentResourceClaimId
-    ,Application_ApplicationId
+
     )
 VALUES (
     'institutionLevelDescriptor'
-    , 'institutionLevelDescriptor'
     , 'http://ed-fi.org/ods/identity/claims/sample-student-transcript/institutionLevelDescriptor'
     , systemDescriptorsResourceClaimId
-    , appId
     );
 
 INSERT INTO dbo.ResourceClaims (
-    DisplayName
-    ,ResourceName
+    ResourceName
     ,ClaimName
     ,ParentResourceClaimId
-    ,Application_ApplicationId
+
     )
 VALUES (
     'specialEducationGraduationStatusDescriptor'
-    , 'specialEducationGraduationStatusDescriptor'
+
     , 'http://ed-fi.org/ods/identity/claims/sample-student-transcript/specialEducationGraduationStatusDescriptor'
     , systemDescriptorsResourceClaimId
-    , appId
     );
 
 INSERT INTO dbo.ResourceClaims (
-    DisplayName
-    ,ResourceName
+    ResourceName
     ,ClaimName
     ,ParentResourceClaimId
-    ,Application_ApplicationId
+
     )
 VALUES (
     'submissionCertificationDescriptor'
-    , 'submissionCertificationDescriptor'
     , 'http://ed-fi.org/ods/identity/claims/sample-student-transcript/submissionCertificationDescriptor'
     , systemDescriptorsResourceClaimId
-    , appId
     );
 
 INSERT INTO dbo.ResourceClaims (
-    DisplayName
-    ,ResourceName
+    ResourceName
     ,ClaimName
     ,ParentResourceClaimId
-    ,Application_ApplicationId
+
     )
 VALUES (
     'postSecondaryOrganization'
-    , 'postSecondaryOrganization'
     , 'http://ed-fi.org/ods/identity/claims/sample-student-transcript/postSecondaryOrganization'
     , null
-    , appId
     );
 
 --Setup Authorization Strategy

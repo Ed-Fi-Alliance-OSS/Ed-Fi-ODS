@@ -5,10 +5,6 @@
 
 DECLARE @AuthorizationStrategyId INT;
 
-DECLARE @applicationId INT
-SELECT @applicationId = ApplicationId
-FROM [dbo].[Applications]
-WHERE ApplicationName = 'Ed-Fi ODS API'
 
 DECLARE @systemDescriptorsResourceClaimId INT
 SELECT @systemDescriptorsResourceClaimId = ResourceClaimId
@@ -26,109 +22,81 @@ FROM [dbo].[ResourceClaims]
 WHERE ResourceName = 'educationOrganizations'
 
 INSERT INTO [dbo].[ResourceClaims] (
-    [DisplayName]
-    ,[ResourceName]
+    [ResourceName]
     ,[ClaimName]
     ,[ParentResourceClaimId]
-    ,[Application_ApplicationId]
     )
 VALUES (
     'artMediumDescriptor'
-    , 'artMediumDescriptor'
     , 'http://ed-fi.org/ods/identity/claims/sample/artMediumDescriptor'
     , @systemDescriptorsResourceClaimId
-    , @applicationId
-    )
+      )
 
 INSERT INTO [dbo].[ResourceClaims] (
-    [DisplayName]
-    ,[ResourceName]
+    [ResourceName]
     ,[ClaimName]
     ,[ParentResourceClaimId]
-    ,[Application_ApplicationId]
     )
 VALUES (
     'favoriteBookCategoryDescriptor'
-    , 'favoriteBookCategoryDescriptor'
     , 'http://ed-fi.org/ods/identity/claims/sample/favoriteBookCategoryDescriptor'
     , @systemDescriptorsResourceClaimId
-    , @applicationId
-    )
+      )
 
 INSERT INTO [dbo].[ResourceClaims] (
-    [DisplayName]
-    ,[ResourceName]
+    [ResourceName]
     ,[ClaimName]
     ,[ParentResourceClaimId]
-    ,[Application_ApplicationId]
     )
 VALUES (
     'membershipTypeDescriptor'
-    , 'membershipTypeDescriptor'
     , 'http://ed-fi.org/ods/identity/claims/sample/membershipTypeDescriptor'
     , @systemDescriptorsResourceClaimId
-    , @applicationId
-    )
+      )
 
 INSERT INTO [dbo].[ResourceClaims] (
-    [DisplayName]
-    ,[ResourceName]
+    [ResourceName]
     ,[ClaimName]
     ,[ParentResourceClaimId]
-    ,[Application_ApplicationId]
     )
 VALUES (
     'bus'
-    , 'bus'
     , 'http://ed-fi.org/ods/identity/claims/sample/bus'
     , @educationOrganizationsResourceClaimId
-    , @applicationId
-    )
+      )
 
 INSERT INTO [dbo].[ResourceClaims] (
-    [DisplayName]
-    ,[ResourceName]
+    [ResourceName]
     ,[ClaimName]
     ,[ParentResourceClaimId]
-    ,[Application_ApplicationId]
     )
 VALUES (
     'busRoute'
-    , 'busRoute'
     , 'http://ed-fi.org/ods/identity/claims/sample/busRoute'
     , @educationOrganizationsResourceClaimId
-    , @applicationId
-    )
+      )
 
 INSERT INTO [dbo].[ResourceClaims] (
-    [DisplayName]
-    ,[ResourceName]
+    [ResourceName]
     ,[ClaimName]
     ,[ParentResourceClaimId]
-    ,[Application_ApplicationId]
     )
 VALUES (
     'studentArtProgramAssociation'
-    , 'studentArtProgramAssociation'
     , 'http://ed-fi.org/ods/identity/claims/sample/studentArtProgramAssociation'
     , @relationshipBasedDataResourceClaimId
-    , @applicationId
-    )
+      )
 
 INSERT INTO [dbo].[ResourceClaims] (
-    [DisplayName]
-    ,[ResourceName]
+    [ResourceName]
     ,[ClaimName]
     ,[ParentResourceClaimId]
-    ,[Application_ApplicationId]
     )
 VALUES (
     'studentGraduationPlanAssociation'
-    , 'studentGraduationPlanAssociation'
     , 'http://ed-fi.org/ods/identity/claims/sample/studentGraduationPlanAssociation'
     , @relationshipBasedDataResourceClaimId
-    , @applicationId
-    )
+      )
 	
 SELECT @AuthorizationStrategyId  = (SELECT AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies] WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired');	
 

@@ -3,80 +3,56 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-DECLARE @ApplicationId INT
-DECLARE @SystemDescriptorsId INT
 
-SELECT @ApplicationId = ApplicationId
-FROM [dbo].[Applications]
-WHERE ApplicationName = 'Ed-Fi ODS API'
+DECLARE @SystemDescriptorsId INT
 
 SELECT @SystemDescriptorsId = resourceclaimid
 FROM   [dbo].[resourceclaims]
-WHERE  displayname = 'systemDescriptors'
+WHERE  resourcename = 'systemDescriptors'
 
 INSERT INTO [dbo].[resourceclaims]
-            ([displayname],
-             [resourcename],
+            ([resourcename],
              [claimname],
-             [parentresourceclaimid],
-             [application_applicationid])
+             [parentresourceclaimid])
 VALUES      ( 'institutionControlDescriptor',
-              'institutionControlDescriptor',
 'http://ed-fi.org/ods/identity/claims/sample-student-transcript/institutionControlDescriptor',
-@SystemDescriptorsId,
-@ApplicationId )
+@SystemDescriptorsId )
+
 
 INSERT INTO [dbo].[resourceclaims]
-            ([displayname],
-             [resourcename],
+            ([resourcename],
              [claimname],
-             [parentresourceclaimid],
-             [application_applicationid])
+             [parentresourceclaimid])
 VALUES      ( 'institutionLevelDescriptor',
-              'institutionLevelDescriptor',
               'http://ed-fi.org/ods/identity/claims/sample-student-transcript/institutionLevelDescriptor',
-              @SystemDescriptorsId,
-              @ApplicationId )
+              @SystemDescriptorsId)
 
 INSERT INTO [dbo].[resourceclaims]
-            ([displayname],
-             [resourcename],
+            ([resourcename],
              [claimname],
-             [parentresourceclaimid],
-             [application_applicationid])
+             [parentresourceclaimid])
 VALUES      ( 'specialEducationGraduationStatusDescriptor',
-              'specialEducationGraduationStatusDescriptor',
 'http://ed-fi.org/ods/identity/claims/sample-student-transcript/specialEducationGraduationStatusDescriptor'
-              ,
-@SystemDescriptorsId,
-@ApplicationId )
+              ,@SystemDescriptorsId )
+
 
 INSERT INTO [dbo].[resourceclaims]
-            ([displayname],
-             [resourcename],
+            ([resourcename],
              [claimname],
-             [parentresourceclaimid],
-             [application_applicationid])
+             [parentresourceclaimid])
 VALUES      ( 'submissionCertificationDescriptor',
-              'submissionCertificationDescriptor',
 'http://ed-fi.org/ods/identity/claims/sample-student-transcript/submissionCertificationDescriptor',
-@SystemDescriptorsId,
-@ApplicationId )
+@SystemDescriptorsId )
 
-INSERT INTO [dbo].[ResourceClaims] (
-    [DisplayName]
-    ,[ResourceName]
+
+INSERT INTO [dbo].[ResourceClaims] ( [ResourceName]
     ,[ClaimName]
     ,[ParentResourceClaimId]
-    ,[Application_ApplicationId]
     )
 VALUES (
     'postSecondaryOrganization'
-    ,'postSecondaryOrganization'
     ,'http://ed-fi.org/ods/identity/claims/sample-student-transcript/postSecondaryOrganization'
-    ,NULL
-    ,@ApplicationId
-    )
+    ,NULL)
 
 --Setup Authorization Strategy
 

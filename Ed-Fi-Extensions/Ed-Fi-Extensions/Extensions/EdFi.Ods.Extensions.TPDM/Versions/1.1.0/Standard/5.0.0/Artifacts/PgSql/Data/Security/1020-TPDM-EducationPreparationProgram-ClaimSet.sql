@@ -12,7 +12,7 @@ BEGIN
     
     IF (claim_set_id IS NULL) THEN
         --Create Claimset
-        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, IsEdfiPreset) VALUES(claim_set_name,1,'TRUE');
+        INSERT INTO dbo.ClaimSets (ClaimSetName, IsEdfiPreset) VALUES(claim_set_name,'TRUE');
         SELECT ClaimSetId INTO claim_set_id FROM dbo.ClaimSets WHERE ClaimSetName = claim_set_name;
     END IF;
     

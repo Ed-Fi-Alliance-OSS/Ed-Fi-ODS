@@ -1,13 +1,13 @@
 do $$
-declare appId int;
+
 declare systemDescriptorsResourceClaimId int;
 declare relationshipBasedDataResourceClaimId int;
 declare educationOrganizationsResourceClaimId int;
 begin
 
-SELECT ApplicationId into appId
-FROM dbo.Applications
-WHERE ApplicationName = 'Ed-Fi ODS API';
+
+
+
 
 SELECT ResourceClaimId into systemDescriptorsResourceClaimId
 FROM dbo.ResourceClaims
@@ -22,38 +22,38 @@ FROM dbo.ResourceClaims
 WHERE ResourceName = 'educationOrganizations';
 
 INSERT INTO dbo.ResourceClaims
-    (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    (ResourceName, ClaimName, ParentResourceClaimId)
 VALUES
-    ('name', 'name', 'http://ed-fi.org/ods/identity/claims/homograph/name', educationOrganizationsResourceClaimId, appId);
+    ('name',  'http://ed-fi.org/ods/identity/claims/homograph/name', educationOrganizationsResourceClaimId);
 	
 INSERT INTO dbo.ResourceClaims
-    (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    (ResourceName, ClaimName, ParentResourceClaimId)
 VALUES
-    ('school', 'school', 'http://ed-fi.org/ods/identity/claims/homograph/school', educationOrganizationsResourceClaimId, appId);
+    ('school', 'http://ed-fi.org/ods/identity/claims/homograph/school', educationOrganizationsResourceClaimId);
 	
 INSERT INTO dbo.ResourceClaims
-    (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    (ResourceName, ClaimName, ParentResourceClaimId)
 VALUES
-    ('parent', 'parent', 'http://ed-fi.org/ods/identity/claims/homograph/parent', educationOrganizationsResourceClaimId, appId);
+    ('parent', 'http://ed-fi.org/ods/identity/claims/homograph/parent', educationOrganizationsResourceClaimId);
 	
 INSERT INTO dbo.ResourceClaims
-    (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    (ResourceName, ClaimName, ParentResourceClaimId)
 VALUES
-    ('student', 'student', 'http://ed-fi.org/ods/identity/claims/homograph/student', educationOrganizationsResourceClaimId, appId);	
+    ('student', 'http://ed-fi.org/ods/identity/claims/homograph/student', educationOrganizationsResourceClaimId);	
 
 INSERT INTO dbo.ResourceClaims
-    (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    (ResourceName, ClaimName, ParentResourceClaimId)
 VALUES
-    ('staff', 'staff', 'http://ed-fi.org/ods/identity/claims/homograph/staff', educationOrganizationsResourceClaimId, appId);	
+    ('staff', 'http://ed-fi.org/ods/identity/claims/homograph/staff', educationOrganizationsResourceClaimId);	
 		
 INSERT INTO dbo.ResourceClaims
-    (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    (ResourceName, ClaimName, ParentResourceClaimId)
 VALUES
-    ('schoolYearType', 'schoolYearType', 'http://ed-fi.org/ods/identity/claims/homograph/schoolYearType', educationOrganizationsResourceClaimId, appId);
+    ('schoolYearType','http://ed-fi.org/ods/identity/claims/homograph/schoolYearType', educationOrganizationsResourceClaimId);
 	
 INSERT INTO dbo.ResourceClaims
-    (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    (ResourceName, ClaimName, ParentResourceClaimId)
 VALUES
-    ('studentSchoolAssociation', 'studentSchoolAssociation', 'http://ed-fi.org/ods/identity/claims/homograph/studentSchoolAssociation', educationOrganizationsResourceClaimId, appId);	
+    ('studentSchoolAssociation', 'http://ed-fi.org/ods/identity/claims/homograph/studentSchoolAssociation', educationOrganizationsResourceClaimId);	
 
 end $$

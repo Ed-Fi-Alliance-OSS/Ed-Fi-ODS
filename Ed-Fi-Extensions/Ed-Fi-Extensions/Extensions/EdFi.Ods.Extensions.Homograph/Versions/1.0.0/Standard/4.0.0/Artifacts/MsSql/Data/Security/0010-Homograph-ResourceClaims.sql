@@ -3,10 +3,6 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-DECLARE @applicationId INT
-SELECT @applicationId = ApplicationId
-FROM [dbo].[Applications]
-WHERE ApplicationName = 'Ed-Fi ODS API'
 
 DECLARE @systemDescriptorsResourceClaimId INT
 SELECT @systemDescriptorsResourceClaimId = ResourceClaimId
@@ -24,36 +20,36 @@ FROM [dbo].[ResourceClaims]
 WHERE ResourceName = 'educationOrganizations'
 
 INSERT INTO [dbo].[ResourceClaims]
-    ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+    ([ResourceName], [ClaimName], [ParentResourceClaimId])
 VALUES
-    ('name', 'name', 'http://ed-fi.org/ods/identity/claims/homograph/name', @educationOrganizationsResourceClaimId, @applicationId)
+    ('name',  'http://ed-fi.org/ods/identity/claims/homograph/name', @educationOrganizationsResourceClaimId)
 
 INSERT INTO [dbo].[ResourceClaims]
-    ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+    ([ResourceName], [ClaimName], [ParentResourceClaimId])
 VALUES
-    ('school', 'school', 'http://ed-fi.org/ods/identity/claims/homograph/school', @educationOrganizationsResourceClaimId, @applicationId)
+    ('school', 'http://ed-fi.org/ods/identity/claims/homograph/school', @educationOrganizationsResourceClaimId)
 
 INSERT INTO [dbo].[ResourceClaims]
-    ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+    ([ResourceName], [ClaimName], [ParentResourceClaimId])
 VALUES
-    ('parent', 'parent', 'http://ed-fi.org/ods/identity/claims/homograph/parent', @educationOrganizationsResourceClaimId, @applicationId)
+    ('parent', 'http://ed-fi.org/ods/identity/claims/homograph/parent', @educationOrganizationsResourceClaimId)
 
 INSERT INTO [dbo].[ResourceClaims]
-    ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+    ([ResourceName], [ClaimName], [ParentResourceClaimId])
 VALUES
-    ('student', 'student', 'http://ed-fi.org/ods/identity/claims/homograph/student', @educationOrganizationsResourceClaimId, @applicationId)
+    ('student', 'http://ed-fi.org/ods/identity/claims/homograph/student', @educationOrganizationsResourceClaimId)
 
 INSERT INTO [dbo].[ResourceClaims]
-    ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+    ([ResourceName], [ClaimName], [ParentResourceClaimId])
 VALUES
-    ('staff', 'staff', 'http://ed-fi.org/ods/identity/claims/homograph/staff', @educationOrganizationsResourceClaimId, @applicationId)
+    ('staff', 'http://ed-fi.org/ods/identity/claims/homograph/staff', @educationOrganizationsResourceClaimId)
 
 INSERT INTO [dbo].[ResourceClaims]
-    ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+    ([ResourceName], [ClaimName], [ParentResourceClaimId])
 VALUES
-    ('schoolYearType', 'schoolYearType', 'http://ed-fi.org/ods/identity/claims/homograph/schoolYearType', @educationOrganizationsResourceClaimId, @applicationId)
+    ('schoolYearType', 'http://ed-fi.org/ods/identity/claims/homograph/schoolYearType', @educationOrganizationsResourceClaimId)
 
 INSERT INTO [dbo].[ResourceClaims]
-    ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+    ([ResourceName], [ClaimName], [ParentResourceClaimId])
 VALUES
-    ('studentSchoolAssociation', 'studentSchoolAssociation', 'http://ed-fi.org/ods/identity/claims/homograph/studentSchoolAssociation', @educationOrganizationsResourceClaimId, @applicationId)
+    ('studentSchoolAssociation','http://ed-fi.org/ods/identity/claims/homograph/studentSchoolAssociation', @educationOrganizationsResourceClaimId)

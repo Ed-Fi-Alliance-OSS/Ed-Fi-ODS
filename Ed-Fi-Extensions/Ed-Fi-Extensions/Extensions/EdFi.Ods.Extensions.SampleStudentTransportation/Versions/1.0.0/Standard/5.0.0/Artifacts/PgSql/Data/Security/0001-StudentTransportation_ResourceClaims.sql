@@ -4,32 +4,20 @@
 -- See the LICENSE and NOTICES files in the project root for more information.
 
 do $$
-declare appId int;
+
 declare relationshipBasedDataResourceClaimId int;
 
 begin
-
-SELECT ApplicationId into appId
-FROM dbo.Applications
-WHERE ApplicationName = 'Ed-Fi ODS API';
 
 SELECT ResourceClaimId into relationshipBasedDataResourceClaimId
 FROM dbo.ResourceClaims
 WHERE ResourceName = 'relationshipBasedData';
 
 INSERT INTO dbo.ResourceClaims (
-    DisplayName
-    ,ResourceName
-    ,ClaimName
-    ,ParentResourceClaimId
-    ,Application_ApplicationId
-    )
+    ResourceName, ClaimName
+    ,ParentResourceClaimId )
 VALUES (
-    'studentTransportation'
-    , 'studentTransportation'
-    , 'http://ed-fi.org/ods/identity/claims/sample-student-transportation/studentTransportation'
-    , relationshipBasedDataResourceClaimId
-    , appId
-    );
+   'studentTransportation','http://ed-fi.org/ods/identity/claims/sample-student-transportation/studentTransportation'
+    , relationshipBasedDataResourceClaimId  );
 
 end $$
