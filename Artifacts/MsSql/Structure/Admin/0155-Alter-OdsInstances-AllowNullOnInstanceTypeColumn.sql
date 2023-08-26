@@ -13,7 +13,7 @@ IF EXISTS (SELECT 1
         AND table_schema ='dbo')
 BEGIN
     ALTER TABLE dbo.OdsInstances
-    ALTER COLUMN InstanceType NVARCHAR NULL;
+    ALTER COLUMN InstanceType NVARCHAR(100) NULL;
 END
 GO
 
