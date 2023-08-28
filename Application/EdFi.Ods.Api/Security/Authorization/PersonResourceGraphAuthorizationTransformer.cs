@@ -19,7 +19,7 @@ namespace EdFi.Ods.Api.Security.Authorization
         {
             ApplyStudentTransformation(resourceGraph);
             ApplyStaffTransformation(resourceGraph);
-            ApplyContactOrParentTransformation(resourceGraph);
+            ApplyContactTransformation(resourceGraph);
         }
 
         private static void ApplyStaffTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
@@ -98,48 +98,48 @@ namespace EdFi.Ods.Api.Security.Authorization
             }
         }
 
-        private static void ApplyContactOrParentTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
+        private static void ApplyContactTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
         {
             var resources = resourceGraph.Vertices.ToList();
 
-            var contactOrParentResource = resources.FirstOrDefault(x => 
+            var contactResource = resources.FirstOrDefault(x => 
                 x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "Contact") 
                 || x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "Parent"));
             
-            // No parent or contact entity in the graph, nothing to do.
-            if (contactOrParentResource == null)
+            // No entity named Parent or Contact in the graph, nothing to do.
+            if (contactResource == null)
             {
                 return;
             }
 
-            var parentOrContactStudentAssociationName = contactOrParentResource.Name switch
+            var contactStudentAssociationName = contactResource.Name switch
             {
                 "Contact" => "StudentContactAssociation",
                 "Parent" => "StudentParentAssociation",
                 _ => throw new EdFiSecurityException(
-                    $"Unable to transform resource load graph as a student association for {contactOrParentResource.FullName} is not defined.")
+                    $"Unable to transform resource load graph as a student association for {contactResource.FullName} is not defined.")
             };
 
-            var studentParentOrContactAssociationResource = resources.FirstOrDefault(
-                x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, parentOrContactStudentAssociationName));
+            var studentContactAssociationResource = resources.FirstOrDefault(
+                x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, contactStudentAssociationName));
             
-            if (studentParentOrContactAssociationResource == null)
+            if (studentContactAssociationResource == null)
             {
                 throw new EdFiSecurityException(
-                    $"Unable to transform resource load graph as {parentOrContactStudentAssociationName} was not found in the graph.");
+                    $"Unable to transform resource load graph as {contactStudentAssociationName} was not found in the graph.");
             }
 
-            // Get direct parent or contact dependencies
-            var directParentDependencies = resourceGraph.OutEdges(contactOrParentResource)
-                .Where(e => e.Target != studentParentOrContactAssociationResource)
+            // Get direct contact dependencies
+            var directContactDependencies = resourceGraph.OutEdges(contactResource)
+                .Where(e => e.Target != studentContactAssociationResource)
                 .ToList();
 
             // Add dependency on primaryRelationship path
-            foreach (var directParentDependency in directParentDependencies)
+            foreach (var directContactDependency in directContactDependencies)
             {
                 // Re-point the edge to the primary relationships
-                resourceGraph.RemoveEdge(directParentDependency);
-                resourceGraph.AddEdge(new AssociationViewEdge(studentParentOrContactAssociationResource, directParentDependency.Target, directParentDependency.AssociationView));
+                resourceGraph.RemoveEdge(directContactDependency);
+                resourceGraph.AddEdge(new AssociationViewEdge(studentContactAssociationResource, directContactDependency.Target, directContactDependency.AssociationView));
             }
         }
     }
