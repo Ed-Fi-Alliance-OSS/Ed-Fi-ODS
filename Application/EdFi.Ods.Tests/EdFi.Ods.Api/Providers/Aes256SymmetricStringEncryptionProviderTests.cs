@@ -54,7 +54,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Providers.StringEncryption
 
             // Assert
             decryptionSuccessful.ShouldBeTrue();
-            output.ShouldBe("Hello World");
+            output.ShouldBe("Hello World - intentionally cause a unit test failure with this addition to the string");
         }
 
         [Test]
