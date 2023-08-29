@@ -4862,7 +4862,7 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}{{$randomInt}}\"));"
+											"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));"
 										],
 										"type": "text/javascript"
 									}
@@ -9137,7 +9137,7 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}{{$randomInt}}\"));"
+											"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));"
 										],
 										"type": "text/javascript"
 									}
@@ -9203,7 +9203,7 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"pm.environment.set(\"supplied:intlSchoolId\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}{{$randomInt}}\"));"
+											"pm.environment.set(\"supplied:intlSchoolId\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));"
 										],
 										"type": "text/javascript"
 									}
@@ -9999,7 +9999,7 @@
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}{{$randomInt}}\"));"
+													"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));"
 												],
 												"type": "text/javascript"
 											}
@@ -10065,7 +10065,7 @@
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													"pm.environment.set(\"supplied:intlSchoolId\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}{{$randomInt}}\"));"
+													"pm.environment.set(\"supplied:intlSchoolId\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));"
 												],
 												"type": "text/javascript"
 											}
@@ -10823,7 +10823,7 @@
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}{{$randomInt}}\"));"
+													"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));"
 												],
 												"type": "text/javascript"
 											}
@@ -10889,7 +10889,7 @@
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													"pm.environment.set(\"supplied:intlSchoolId\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}{{$randomInt}}\"));"
+													"pm.environment.set(\"supplied:intlSchoolId\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));"
 												],
 												"type": "text/javascript"
 											}
@@ -11679,7 +11679,7 @@
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}{{$randomInt}}\"));"
+													"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));"
 												],
 												"type": "text/javascript"
 											}
@@ -12104,7 +12104,7 @@
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}{{$randomInt}}\"));"
+													"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));"
 												],
 												"type": "text/javascript"
 											}
@@ -12521,7 +12521,7 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"pm.environment.set(\"supplied:localEducationAgencyId:A\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}{{$randomInt}}\"));"
+											"pm.environment.set(\"supplied:localEducationAgencyId:A\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));"
 										],
 										"type": "text/javascript"
 									}
@@ -12587,7 +12587,7 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"pm.environment.set(\"supplied:localEducationAgencyId:B\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}{{$randomInt}}\"));"
+											"pm.environment.set(\"supplied:localEducationAgencyId:B\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));"
 										],
 										"type": "text/javascript"
 									}
