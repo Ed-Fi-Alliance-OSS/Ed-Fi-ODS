@@ -1182,7 +1182,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentAcademicRecordClassRankingExtension : Entities.Common.SampleStudentTranscript.IStudentAcademicRecordClassRankingExtension
+    public class StudentAcademicRecordClassRankingExtension : Entities.Common.SampleStudentTranscript.IStudentAcademicRecordClassRankingExtension, IChildEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1347,6 +1347,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
         //                    Resource Reference Data
         // -----------------------------------------------------------------
         // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentAcademicRecordClassRanking = (IStudentAcademicRecordClassRanking)value;
+        }
     }
 
     // =================================================================
@@ -1395,7 +1400,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentAcademicRecordExtension : Entities.Common.SampleStudentTranscript.IStudentAcademicRecordExtension
+    public class StudentAcademicRecordExtension : Entities.Common.SampleStudentTranscript.IStudentAcademicRecordExtension, IChildEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1634,6 +1639,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
 
 
         // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentAcademicRecord = (IStudentAcademicRecord)value;
+        }
     }
 
     // =================================================================

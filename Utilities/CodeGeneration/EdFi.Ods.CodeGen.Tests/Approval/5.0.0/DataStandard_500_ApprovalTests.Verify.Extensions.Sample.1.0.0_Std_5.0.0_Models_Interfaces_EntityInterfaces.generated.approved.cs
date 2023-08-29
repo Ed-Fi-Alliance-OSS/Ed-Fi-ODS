@@ -2793,6 +2793,61 @@ namespace EdFi.Ods.Entities.Common.Sample
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociationExtension model.
+    /// </summary>
+    public interface IStudentEducationOrganizationAssociationExtension : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        EdFi.IStudentEducationOrganizationAssociation StudentEducationOrganizationAssociation { get; set; }
+
+        // Non-PK properties
+        string FavoriteProgramName { get; set; }
+        string FavoriteProgramTypeDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? FavoriteProgramResourceId { get; set; }
+        string FavoriteProgramDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentEducationOrganizationAssociationExtensionMappingContract : IMappingContract
+    {
+        public StudentEducationOrganizationAssociationExtensionMappingContract(
+            bool isFavoriteProgramNameSupported,
+            bool isFavoriteProgramTypeDescriptorSupported
+            )
+        {
+            IsFavoriteProgramNameSupported = isFavoriteProgramNameSupported;
+            IsFavoriteProgramTypeDescriptorSupported = isFavoriteProgramTypeDescriptorSupported;
+        }
+
+        public bool IsFavoriteProgramNameSupported { get; }
+        public bool IsFavoriteProgramTypeDescriptorSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "FavoriteProgramName":
+                    return IsFavoriteProgramNameSupported;
+                case "FavoriteProgramTypeDescriptor":
+                    return IsFavoriteProgramTypeDescriptorSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociationStudentCharacteristicExtension model.
     /// </summary>
     public interface IStudentEducationOrganizationAssociationStudentCharacteristicExtension : ISynchronizable, IMappable, IGetByExample

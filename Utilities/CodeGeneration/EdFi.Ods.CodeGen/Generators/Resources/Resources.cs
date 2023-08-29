@@ -428,6 +428,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 ShouldRenderValidator = putPostRequestValidator != ResourceRenderer.DoNotRenderProperty,
                 Validator = putPostRequestValidator,
                 IsExtendable = resourceClass.IsExtendable(),
+                IsResourceExtensionClass = resourceClass.IsResourceExtensionClass,
                 HasSupportedExtensions = resourceData.Resource.Extensions.Any(),
                 SupportedExtensions = resourceData.Resource.Extensions.OrderBy(f => f.PropertyName)
                     .Select(e => new {ExtensionName = TemplateContext.GetSchemaProperCaseNameForExtension(e)}),

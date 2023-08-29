@@ -1321,6 +1321,37 @@
 
 
   <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAggregate.Sample.StudentEducationOrganizationAssociationExtension" table="StudentEducationOrganizationAssociationExtension" lazy="false" schema="sample">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-many-to-one name="StudentEducationOrganizationAssociation">
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="FavoriteProgramName" column="FavoriteProgramName" type="string" length="60" />
+    <property name="FavoriteProgramTypeDescriptorId" column="FavoriteProgramTypeDescriptorId" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="FavoriteProgramReferenceData" class="EdFi.Ods.Entities.NHibernate.ProgramAggregate.EdFi.ProgramReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="FavoriteProgramName" />
+      <column name="FavoriteProgramTypeDescriptorId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
   <class name="EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAggregate.Sample.StudentEducationOrganizationAssociationAddressExtension" table="StudentEducationOrganizationAssociationAddressExtension" lazy="false" schema="sample">
     <!-- Composite primary key -->
     <composite-id>

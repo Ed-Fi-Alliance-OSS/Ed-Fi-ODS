@@ -6339,7 +6339,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CredentialExtension : Entities.Common.TPDM.ICredentialExtension
+    public class CredentialExtension : Entities.Common.TPDM.ICredentialExtension, IChildEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -6680,6 +6680,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
 
 
         // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            Credential = (ICredential)value;
+        }
     }
 
     // =================================================================
@@ -23118,7 +23123,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SchoolExtension : Entities.Common.TPDM.ISchoolExtension
+    public class SchoolExtension : Entities.Common.TPDM.ISchoolExtension, IChildEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -23343,6 +23348,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
 
 
         // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            School = (ISchool)value;
+        }
     }
 
     // =================================================================
@@ -23396,7 +23406,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.TP
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SurveyResponseExtension : Entities.Common.TPDM.ISurveyResponseExtension
+    public class SurveyResponseExtension : Entities.Common.TPDM.ISurveyResponseExtension, IChildEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -23651,6 +23661,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.TP
 
 
         // -----------------------------------------------------------------
+
+        void IChildEntity.SetParent(object value)
+        {
+            SurveyResponse = (ISurveyResponse)value;
+        }
     }
 
     // =================================================================

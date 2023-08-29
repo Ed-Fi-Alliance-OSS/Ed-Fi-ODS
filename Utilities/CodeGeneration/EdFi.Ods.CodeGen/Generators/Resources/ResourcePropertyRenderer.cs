@@ -81,7 +81,11 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                             .Where(rp => rp.IsUnified())
                                             .Select(rp => new
                                             {
-                                                PropertyPath = resourceChildItem.IsResourceExtension
+                                                PropertyPath = resourceChildItem is
+                                                    {
+                                                        IsResourceExtension: true,
+                                                        IsResourceExtensionClass: false, 
+                                                    } 
                                                     ? string.Join(
                                                         string.Empty,
                                                         resourceChildItem.GetLineage().TakeWhile(l => !l.IsResourceExtension)
