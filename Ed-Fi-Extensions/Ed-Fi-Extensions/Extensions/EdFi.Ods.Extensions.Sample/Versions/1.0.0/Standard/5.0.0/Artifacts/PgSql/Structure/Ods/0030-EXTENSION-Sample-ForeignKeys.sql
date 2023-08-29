@@ -339,6 +339,18 @@ REFERENCES edfi.TermDescriptor (TermDescriptorId)
 CREATE INDEX FK_98438b_TermDescriptor
 ON sample.StudentEducationOrganizationAssociationAddressTerm (TermDescriptorId ASC);
 
+ALTER TABLE sample.StudentEducationOrganizationAssociationExtension ADD CONSTRAINT FK_2c2930_Program FOREIGN KEY (EducationOrganizationId, FavoriteProgramName, FavoriteProgramTypeDescriptorId)
+REFERENCES edfi.Program (EducationOrganizationId, ProgramName, ProgramTypeDescriptorId)
+;
+
+CREATE INDEX FK_2c2930_Program
+ON sample.StudentEducationOrganizationAssociationExtension (EducationOrganizationId ASC, FavoriteProgramName ASC, FavoriteProgramTypeDescriptorId ASC);
+
+ALTER TABLE sample.StudentEducationOrganizationAssociationExtension ADD CONSTRAINT FK_2c2930_StudentEducationOrganizationAssociation FOREIGN KEY (EducationOrganizationId, StudentUSI)
+REFERENCES edfi.StudentEducationOrganizationAssociation (EducationOrganizationId, StudentUSI)
+ON DELETE CASCADE
+;
+
 ALTER TABLE sample.StudentEducationOrganizationAssociationStudentCharacteri_17d152 ADD CONSTRAINT FK_17d152_StudentEducationOrganizationAssociationStudentCharacteristic FOREIGN KEY (EducationOrganizationId, StudentUSI, StudentCharacteristicDescriptorId)
 REFERENCES edfi.StudentEducationOrganizationAssociationStudentCharacteristic (EducationOrganizationId, StudentUSI, StudentCharacteristicDescriptorId)
 ON DELETE CASCADE

@@ -315,6 +315,13 @@ COMMENT ON COLUMN sample.StudentEducationOrganizationAssociationAddressTerm.Stat
 COMMENT ON COLUMN sample.StudentEducationOrganizationAssociationAddressTerm.StreetNumberName IS 'The street number and street name or post office box number of an address.';
 COMMENT ON COLUMN sample.StudentEducationOrganizationAssociationAddressTerm.TermDescriptorId IS 'Terms applicable to this address.';
 
+-- Extended Properties [sample].[StudentEducationOrganizationAssociationExtension] --
+COMMENT ON TABLE sample.StudentEducationOrganizationAssociationExtension IS '';
+COMMENT ON COLUMN sample.StudentEducationOrganizationAssociationExtension.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN sample.StudentEducationOrganizationAssociationExtension.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN sample.StudentEducationOrganizationAssociationExtension.FavoriteProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN sample.StudentEducationOrganizationAssociationExtension.FavoriteProgramTypeDescriptorId IS 'The type of program.';
+
 -- Extended Properties [sample].[StudentEducationOrganizationAssociationStudentCharacteri_17d152] --
 COMMENT ON TABLE sample.StudentEducationOrganizationAssociationStudentCharacteri_17d152 IS 'The time period of student need.';
 COMMENT ON COLUMN sample.StudentEducationOrganizationAssociationStudentCharacteri_17d152.EducationOrganizationId IS 'The identifier assigned to an education organization.';

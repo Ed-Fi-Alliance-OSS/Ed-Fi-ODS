@@ -554,6 +554,17 @@ CREATE TABLE sample.StudentEducationOrganizationAssociationAddressTerm (
 );
 ALTER TABLE sample.StudentEducationOrganizationAssociationAddressTerm ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table sample.StudentEducationOrganizationAssociationExtension --
+CREATE TABLE sample.StudentEducationOrganizationAssociationExtension (
+    EducationOrganizationId BIGINT NOT NULL,
+    StudentUSI INT NOT NULL,
+    FavoriteProgramName VARCHAR(60) NULL,
+    FavoriteProgramTypeDescriptorId INT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentEducationOrganizationAssociationExtension_PK PRIMARY KEY (EducationOrganizationId, StudentUSI)
+);
+ALTER TABLE sample.StudentEducationOrganizationAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
 -- Table sample.StudentEducationOrganizationAssociationStudentCharacteri_17d152 --
 CREATE TABLE sample.StudentEducationOrganizationAssociationStudentCharacteri_17d152 (
     EducationOrganizationId BIGINT NOT NULL,

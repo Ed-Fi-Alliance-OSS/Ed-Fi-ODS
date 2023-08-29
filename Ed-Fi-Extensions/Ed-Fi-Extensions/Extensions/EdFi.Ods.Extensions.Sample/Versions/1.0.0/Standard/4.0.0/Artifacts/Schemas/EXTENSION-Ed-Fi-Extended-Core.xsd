@@ -590,6 +590,11 @@
                       Displaced Homemaker, Immigrant, Migratory, Military Parent, Pregnant Teen, Single Parent, and Unaccompanied Youth.</xs:documentation>
             </xs:annotation>
           </xs:element>
+          <xs:element name="FavoriteProgramReference" type="ProgramReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>References the student's favorite program.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
