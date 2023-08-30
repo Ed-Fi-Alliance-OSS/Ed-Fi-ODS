@@ -504,7 +504,6 @@
 <edge source="/ed-fi/competencyLevelDescriptors" target="/ed-fi/studentGradebookEntries"/>
 <edge source="/ed-fi/competencyObjectives" target="/ed-fi/studentCompetencyObjectives"/>
 <edge source="/ed-fi/contacts" target="/ed-fi/studentContactAssociations"/>
-<edge source="/ed-fi/contacts" target="/ed-fi/surveyResponses"/>
 <edge source="/ed-fi/contactTypeDescriptors" target="/ed-fi/staffEducationOrganizationContactAssociations"/>
 <edge source="/ed-fi/contentClassDescriptors" target="/ed-fi/educationContents"/>
 <edge source="/ed-fi/continuationOfServicesReasonDescriptors" target="/ed-fi/studentMigrantEducationProgramAssociations"/>
@@ -1319,6 +1318,7 @@
 <edge source="/ed-fi/studentAssessments" target="/ed-fi/studentAssessmentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/studentCharacteristicDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/studentCompetencyObjectives" target="/ed-fi/reportCards"/>
+<edge source="/ed-fi/studentContactAssociations" target="/ed-fi/surveyResponses"/>
 <edge source="/ed-fi/studentCTEProgramAssociations" target="/ed-fi/studentCompetencyObjectives"/>
 <edge source="/ed-fi/studentDisciplineIncidentBehaviorAssociations" target="/ed-fi/disciplineActions"/>
 <edge source="/ed-fi/studentHomelessProgramAssociations" target="/ed-fi/studentCompetencyObjectives"/>
