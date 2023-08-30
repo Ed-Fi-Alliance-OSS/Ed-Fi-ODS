@@ -2491,14 +2491,6 @@
     ]
   },
   {
-    "resource": "/ed-fi/surveyResponses",
-    "order": 14,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
     "resource": "/ed-fi/contacts",
     "order": 15,
     "operations": [
@@ -2538,31 +2530,7 @@
     ]
   },
   {
-    "resource": "/ed-fi/surveyQuestionResponses",
-    "order": 15,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/surveyResponseEducationOrganizationTargetAssociations",
-    "order": 15,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/surveyResponseStaffTargetAssociations",
-    "order": 15,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/surveySectionResponses",
+    "resource": "/ed-fi/surveyResponses",
     "order": 15,
     "operations": [
       "Create",
@@ -2578,7 +2546,7 @@
     ]
   },
   {
-    "resource": "/ed-fi/surveySectionResponseEducationOrganizationTargetAssociations",
+    "resource": "/ed-fi/surveyQuestionResponses",
     "order": 16,
     "operations": [
       "Create",
@@ -2586,7 +2554,23 @@
     ]
   },
   {
-    "resource": "/ed-fi/surveySectionResponseStaffTargetAssociations",
+    "resource": "/ed-fi/surveyResponseEducationOrganizationTargetAssociations",
+    "order": 16,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/surveyResponseStaffTargetAssociations",
+    "order": 16,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/surveySectionResponses",
     "order": 16,
     "operations": [
       "Create",
@@ -2595,6 +2579,22 @@
   },
   {
     "resource": "/ed-fi/studentAcademicRecords",
+    "order": 17,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/surveySectionResponseEducationOrganizationTargetAssociations",
+    "order": 17,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/surveySectionResponseStaffTargetAssociations",
     "order": 17,
     "operations": [
       "Create",
