@@ -22,9 +22,9 @@ GO
 
 ALTER TABLE [dbo].[OdsInstanceContexts]  WITH CHECK
 ADD
-    CONSTRAINT [FK_OdsInstanceContexts_OdsInstance_OdsInstanceId] FOREIGN KEY([OdsInstance_OdsInstanceId]) REFERENCES [dbo].[OdsInstances] ([OdsInstanceId]),
-    CONSTRAINT [UC_OdsInstanceContexts_OdsInstance_OdsInstanceId_ContextKey] UNIQUE(OdsInstance_OdsInstanceId, ContextKey);
+    CONSTRAINT [FK_OdsInstanceContext_OdsInstance_OdsInstanceId] FOREIGN KEY([OdsInstance_OdsInstanceId]) REFERENCES [dbo].[OdsInstances] ([OdsInstanceId]),
+    CONSTRAINT [UC_OdsInstanceContext_OdsInstance_OdsInstanceId_ContextKey] UNIQUE(OdsInstance_OdsInstanceId, ContextKey);
 GO
 
-ALTER TABLE [dbo].[OdsInstanceContexts] CHECK CONSTRAINT [FK_OdsInstanceContexts_OdsInstance_OdsInstanceId];
+ALTER TABLE [dbo].[OdsInstanceContexts] CHECK CONSTRAINT [FK_OdsInstanceContext_OdsInstance_OdsInstanceId];
 GO

@@ -16,5 +16,5 @@ ALTER TABLE dbo.OdsInstanceContext
     RENAME TO OdsInstanceContexts;
 
 ALTER TABLE dbo.OdsInstanceContexts
-    ADD CONSTRAINT FK_OdsInstanceContexts_OdsInstance_OdsInstanceId FOREIGN KEY(OdsInstance_OdsInstanceId) REFERENCES dbo.OdsInstances (OdsInstanceId),
-    ADD CONSTRAINT UC_OdsInstanceContexts_OdsInstance_OdsInstanceId_ContextKey UNIQUE(OdsInstance_OdsInstanceId, ContextKey);
+    ADD CONSTRAINT FK_OdsInstanceContext_OdsInstance_OdsInstanceId FOREIGN KEY(OdsInstance_OdsInstanceId) REFERENCES dbo.OdsInstances (OdsInstanceId),
+    ADD CONSTRAINT UC_OdsInstanceContext_OdsInstance_OdsInstanceId_ContextKey UNIQUE(OdsInstance_OdsInstanceId, ContextKey);
