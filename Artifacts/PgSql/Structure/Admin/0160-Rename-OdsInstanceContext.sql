@@ -18,3 +18,33 @@ ALTER TABLE dbo.OdsInstanceContext
 ALTER TABLE dbo.OdsInstanceContexts
     ADD CONSTRAINT FK_OdsInstanceContext_OdsInstance_OdsInstanceId FOREIGN KEY(OdsInstance_OdsInstanceId) REFERENCES dbo.OdsInstances (OdsInstanceId),
     ADD CONSTRAINT UC_OdsInstanceContext_OdsInstance_OdsInstanceId_ContextKey UNIQUE(OdsInstance_OdsInstanceId, ContextKey);
+
+DROP FUNCTION IF EXISTS dbo.GetOdsInstanceConfigurationById;
+CREATE FUNCTION dbo.GetOdsInstanceConfigurationById (ods_instanceId INT)
+RETURNS TABLE (
+    OdsInstanceId INT
+    ,ConnectionString VARCHAR(500)
+    ,ContextKey VARCHAR(50)
+    ,ContextValue VARCHAR(50)
+    ,DerivativeType VARCHAR(50)
+    ,ConnectionStringByDerivativeType VARCHAR(500)
+)
+AS
+$$
+BEGIN
+    RETURN QUERY
+    SELECT  ods.OdsInstanceId
+            ,ods.ConnectionString
+            ,ctx.ContextKey
+            ,ctx.ContextValue
+            ,der.DerivativeType
+            ,der.ConnectionString AS ConnectionStringByDerivativeType
+    FROM dbo.OdsInstances ods
+    LEFT OUTER JOIN dbo.OdsInstanceContexts ctx 
+        ON ods.OdsInstanceId = ctx.OdsInstance_OdsInstanceId
+    LEFT JOIN dbo.OdsInstanceDerivative der 
+        ON ods.OdsInstanceId = der.OdsInstanceId
+    WHERE   ods.OdsInstanceId = ods_instanceId;
+END
+$$
+LANGUAGE plpgsql;
