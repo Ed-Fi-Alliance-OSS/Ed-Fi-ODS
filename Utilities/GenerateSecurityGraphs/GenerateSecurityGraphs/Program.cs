@@ -102,14 +102,14 @@ namespace GenerateSecurityGraphs
             if (options.User == null || options.Password == null)
             {
                 connectionString = string.Format(
-                    "Server={0};Database={1};Trusted_Connection=True",
+                    "Server={0};Database={1};Trusted_Connection=True;Encrypt=False",
                     options.Server,
                     options.Database);
             }
             else
             {
                 connectionString = string.Format(
-                    "Server={0};Database={1};User ID={2};Password={3}",
+                    "Server={0};Database={1};User ID={2};Password={3};Encrypt=False",
                     options.Server,
                     options.Database,
                     options.User,
@@ -261,11 +261,10 @@ namespace GenerateSecurityGraphs
         {
             var resourceGraph = new AdjacencyGraph<Resource, Edge<Resource>>();
 
-            var calimsSql = @"
+            var claimsSql = @"
 SELECT rc.ClaimName,
-       rc.DisplayName,
+       rc.ResourceName AS DisplayName,
        prc.ClaimName   AS ParentClaimName,
-       prc.DisplayName AS ParentDisplayName,
        a.ActionName,
        as_.AuthorizationStrategyName
 FROM   dbo.ResourceClaims rc
@@ -274,7 +273,7 @@ FROM   dbo.ResourceClaims rc
        LEFT JOIN dbo.ResourceClaimActionAuthorizationStrategies rcaas ON rca.ResourceClaimActionId = rcaas.ResourceClaimActionId
        LEFT JOIN dbo.AuthorizationStrategies as_ ON rcaas.AuthorizationStrategyId = as_.AuthorizationStrategyId
        LEFT JOIN dbo.Actions a ON rca.ActionId = a.ActionId
-ORDER  BY rc.DisplayName,
+ORDER  BY rc.ResourceName,
           a.ActionId,
           as_.AuthorizationStrategyName
 ";
@@ -291,11 +290,11 @@ FROM   dbo.ClaimSets cs
 	   LEFT JOIN dbo.Actions a ON csrca.ActionId = a.ActionId
        LEFT JOIN dbo.ResourceClaims rc ON csrca.ResourceClaimId = rc.ResourceClaimId
 ORDER  BY ClaimSetName,
-          rc.DisplayName,
+          rc.ResourceName,
           a.ActionId 
 ";
             using var conn = new SqlConnection(connectionString);
-            var claims = conn.Query<ResourceSegmentData>(calimsSql);
+            var claims = conn.Query<ResourceSegmentData>(claimsSql);
             var claimSets = conn.Query<ClaimsetResourceActionData>(claimSetsSql);
 
             // Ignore ClaimSets that don't have ClaimSetResourceClaimActions ('Ownership Based Test', for example)
