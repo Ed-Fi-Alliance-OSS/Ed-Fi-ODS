@@ -9,11 +9,30 @@ ALTER TABLE dbo.OdsInstanceContext
 ALTER TABLE dbo.OdsInstanceContext
 	DROP CONSTRAINT IF EXISTS UC_OdsInstanceDerivative_OdsInstanceId_ContextKey;
 
-ALTER TABLE dbo.OdsInstanceContext
+DO $$
+BEGIN
+IF EXISTS (
+        SELECT column_name
+        FROM information_schema.columns
+        WHERE table_name = 'odsinstancecontext'
+        AND column_name = 'odsinstanceid') 
+THEN
+    ALTER TABLE dbo.OdsInstanceContext
     RENAME COLUMN OdsInstanceId TO OdsInstance_OdsInstanceId;
+END IF;
+END $$;
 
-ALTER TABLE dbo.OdsInstanceContext
+DO $$
+BEGIN
+IF EXISTS (
+        SELECT column_name
+        FROM information_schema.columns
+        WHERE table_name = 'odsinstancecontext') 
+THEN
+    ALTER TABLE dbo.OdsInstanceContext
     RENAME TO OdsInstanceContexts;
+END IF;
+END $$;
 
 ALTER TABLE dbo.OdsInstanceContexts
     ADD CONSTRAINT FK_OdsInstanceContext_OdsInstance_OdsInstanceId FOREIGN KEY(OdsInstance_OdsInstanceId) REFERENCES dbo.OdsInstances (OdsInstanceId),

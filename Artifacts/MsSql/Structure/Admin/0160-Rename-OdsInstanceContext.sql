@@ -3,14 +3,27 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-ALTER TABLE [dbo].[OdsInstanceContext]
-DROP CONSTRAINT [FK_OdsInstanceContext_OdsInstanceId_OdsInstanceId];
+IF OBJECT_ID('dbo.FK_OdsInstanceContext_OdsInstanceId_OdsInstanceId', 'F') IS NOT NULL
+BEGIN
+    ALTER TABLE [dbo].[OdsInstanceContext]
+    DROP CONSTRAINT [FK_OdsInstanceContext_OdsInstanceId_OdsInstanceId];
+END
 
-ALTER TABLE [dbo].[OdsInstanceContext]
-DROP CONSTRAINT [UC_OdsInstanceDerivative_OdsInstanceId_ContextKey];
-    
-EXEC SP_RENAME 'dbo.OdsInstanceContext.OdsInstanceId', 'OdsInstance_OdsInstanceId', 'COLUMN';
-EXEC SP_RENAME 'dbo.OdsInstanceContext', 'OdsInstanceContexts';
+IF OBJECT_ID('dbo.UC_OdsInstanceDerivative_OdsInstanceId_ContextKey', 'UQ') IS NOT NULL
+BEGIN
+    ALTER TABLE [dbo].[OdsInstanceContext]
+    DROP CONSTRAINT [UC_OdsInstanceDerivative_OdsInstanceId_ContextKey];
+END
+
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'OdsInstanceContext' AND COLUMN_NAME = 'OdsInstanceId')
+BEGIN
+    EXEC SP_RENAME 'dbo.OdsInstanceContext.OdsInstanceId', 'OdsInstance_OdsInstanceId', 'COLUMN';
+END
+
+IF OBJECT_ID('dbo.OdsInstanceContext', 'U') IS NOT NULL
+BEGIN
+    EXEC SP_RENAME 'dbo.OdsInstanceContext', 'OdsInstanceContexts';
+END
 
 ALTER TABLE [dbo].[OdsInstanceContexts]  WITH CHECK
 ADD

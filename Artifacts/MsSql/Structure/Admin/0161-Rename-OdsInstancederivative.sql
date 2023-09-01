@@ -3,15 +3,27 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-ALTER TABLE [dbo].[OdsInstanceDerivative]
-DROP CONSTRAINT [FK_OdsInstanceDerivative_OdsInstanceId_OdsInstanceId];
+IF OBJECT_ID('dbo.FK_OdsInstanceDerivative_OdsInstanceId_OdsInstanceId', 'F') IS NOT NULL
+BEGIN
+    ALTER TABLE [dbo].[OdsInstanceDerivative]
+    DROP CONSTRAINT [FK_OdsInstanceDerivative_OdsInstanceId_OdsInstanceId];
+END
 
-ALTER TABLE [dbo].[OdsInstanceDerivative]
-DROP CONSTRAINT [UC_OdsInstanceDerivative_OdsInstanceId_DerivativeType];
+IF OBJECT_ID('dbo.UC_OdsInstanceDerivative_OdsInstanceId_DerivativeType', 'UQ') IS NOT NULL
+BEGIN
+    ALTER TABLE [dbo].[OdsInstanceDerivative]
+    DROP CONSTRAINT [UC_OdsInstanceDerivative_OdsInstanceId_DerivativeType];
+END
 
-EXEC SP_RENAME 'dbo.OdsInstanceDerivative.OdsInstanceId', 'OdsInstance_OdsInstanceId', 'COLUMN';
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'OdsInstanceDerivative' AND COLUMN_NAME = 'OdsInstanceId')
+BEGIN
+    EXEC SP_RENAME 'dbo.OdsInstanceDerivative.OdsInstanceId', 'OdsInstance_OdsInstanceId', 'COLUMN';
+END
 
-EXEC SP_RENAME 'dbo.OdsInstanceDerivative', 'OdsInstanceDerivatives';
+IF OBJECT_ID('dbo.OdsInstanceDerivative', 'U') IS NOT NULL
+BEGIN
+    EXEC SP_RENAME 'dbo.OdsInstanceDerivative', 'OdsInstanceDerivatives';
+END
 
 ALTER TABLE [dbo].[OdsInstanceDerivatives]  WITH CHECK
 ADD

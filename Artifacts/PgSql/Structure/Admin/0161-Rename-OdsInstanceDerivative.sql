@@ -9,11 +9,30 @@ ALTER TABLE dbo.OdsInstanceDerivative
 ALTER TABLE dbo.OdsInstanceDerivative
 	DROP CONSTRAINT IF EXISTS UC_OdsInstanceDerivative_OdsInstanceId_DerivativeType;
 
-ALTER TABLE dbo.OdsInstanceDerivative
+DO $$
+BEGIN
+IF EXISTS (
+        SELECT column_name
+        FROM information_schema.columns
+        WHERE table_name = 'odsinstancederivative'
+        AND column_name = 'odsinstanceid') 
+THEN
+    ALTER TABLE dbo.OdsInstanceDerivative
     RENAME COLUMN OdsInstanceId TO OdsInstance_OdsInstanceId;
+END IF;
+END $$;
 
-ALTER TABLE dbo.OdsInstanceDerivative
+DO $$
+BEGIN
+IF EXISTS (
+        SELECT column_name
+        FROM information_schema.columns
+        WHERE table_name = 'odsinstancederivative') 
+THEN
+    ALTER TABLE dbo.OdsInstanceDerivative
     RENAME TO OdsInstanceDerivatives;
+END IF;
+END $$;
 
 ALTER TABLE dbo.OdsInstanceDerivatives
     ADD CONSTRAINT FK_OdsInstanceDerivative_OdsInstance_OdsInstanceId FOREIGN KEY(OdsInstance_OdsInstanceId) REFERENCES dbo.OdsInstances (OdsInstanceId),
