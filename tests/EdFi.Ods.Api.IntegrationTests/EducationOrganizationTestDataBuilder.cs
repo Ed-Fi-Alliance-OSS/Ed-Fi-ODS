@@ -6,6 +6,7 @@
 using System;
 using System.Data;
 using System.Text;
+using EdFi.Ods.Api.Common.Models.Resources.Person.EdFi;
 using EdFi.Ods.Entities.NHibernate.CommunityOrganizationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.CommunityProviderAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.EducationServiceCenterAggregate.EdFi;
@@ -183,7 +184,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder AddLocalEducationAgency(long localEducationAgencyId, long? stateEducationAgencyId = null, long? educationServiceCenterId = null, long? parentLocalEducationAgencyId = null)
+        public EducationOrganizationTestDataBuilder AddLocalEducationAgency(long localEducationAgencyId, long? stateEducationAgencyId = null, long? educationServiceCenterId = null, long? pontactLocalEducationAgencyId = null)
         {
             AddEducationOrganization(localEducationAgencyId, nameof(LocalEducationAgency));
 
@@ -199,19 +200,19 @@ namespace EdFi.Ods.Api.IntegrationTests
                     {TestLocalEducationAgencyCategoryDescriptorId},
                     {ToSqlValue(stateEducationAgencyId)},
                     {ToSqlValue(educationServiceCenterId)},
-                    {ToSqlValue(parentLocalEducationAgencyId)});"
+                    {ToSqlValue(pontactLocalEducationAgencyId)});"
             );
 
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder UpdateLocalEducationAgency(long localEducationAgencyId, long? stateEducationAgencyId = null, long? educationServiceCenterId = null, long? parentLocalEducationAgencyId = null)
+        public EducationOrganizationTestDataBuilder UpdateLocalEducationAgency(long localEducationAgencyId, long? stateEducationAgencyId = null, long? educationServiceCenterId = null, long? pontactLocalEducationAgencyId = null)
         {
             _sql.AppendLine(
                 $@"UPDATE edfi.LocalEducationAgency SET
                     StateEducationAgencyId = {ToSqlValue(stateEducationAgencyId)},
                     EducationServiceCenterId = {ToSqlValue(educationServiceCenterId)},
-                    ParentLocalEducationAgencyId = {ToSqlValue(parentLocalEducationAgencyId)}
+                    ParentLocalEducationAgencyId = {ToSqlValue(pontactLocalEducationAgencyId)}
                 WHERE LocalEducationAgencyId = {localEducationAgencyId};"
             );
 
@@ -309,7 +310,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder AddOrganizationDepartment(long organizationDepartmentId, long? parentEducationOrganizationId = null)
+        public EducationOrganizationTestDataBuilder AddOrganizationDepartment(long organizationDepartmentId, long? contactEducationOrganizationId = null)
         {
             AddEducationOrganization(organizationDepartmentId, nameof(OrganizationDepartment));
 
@@ -319,17 +320,17 @@ namespace EdFi.Ods.Api.IntegrationTests
                     ParentEducationOrganizationId)
                 VALUES (
                     {organizationDepartmentId},
-                    {ToSqlValue(parentEducationOrganizationId)});"
+                    {ToSqlValue(contactEducationOrganizationId)});"
             );
 
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder UpdateOrganizationDepartment(long organizationDepartmentId, long? parentEducationOrganizationId = null)
+        public EducationOrganizationTestDataBuilder UpdateOrganizationDepartment(long organizationDepartmentId, long? contactEducationOrganizationId = null)
         {
             _sql.AppendLine(
                 $@"UPDATE edfi.OrganizationDepartment SET
-                    ParentEducationOrganizationId = {ToSqlValue(parentEducationOrganizationId)}
+                    ParentEducationOrganizationId = {ToSqlValue(contactEducationOrganizationId)}
                 WHERE OrganizationDepartmentId = {organizationDepartmentId};"
             );
 
@@ -381,29 +382,15 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder AddParent(string newGuidId)
-        {
-            _sql.AppendLine(
-                $@"INSERT INTO edfi.Parent (
-                    FirstName,
-                    LastSurname,
-                    ParentUniqueId)
-                VALUES(
-                    '{newGuidId}',
-                    '{newGuidId}',
-                    '{newGuidId}');"
-            );
-
-            return this;
-        }
-
         public EducationOrganizationTestDataBuilder AddContact(string newGuidId)
         {
+            var contactPersonType = AuthorizationViewHelper.GetContactPersonType(Connection); // Used to provide compatability with data standard versions <v5.0 where Contact is named Parent
+
             _sql.AppendLine(
-                $@"INSERT INTO edfi.Contact (
+                $@"INSERT INTO edfi.{contactPersonType} (
                     FirstName,
                     LastSurname,
-                    ContactUniqueId)
+                    {contactPersonType}UniqueId)
                 VALUES(
                     '{newGuidId}',
                     '{newGuidId}',
@@ -412,20 +399,14 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             return this;
         }
-
-        public EducationOrganizationTestDataBuilder AddStudentParentAssociation(int parentUSI, int studentUSI)
-        {
-            _sql.AppendLine(
-                 $@"INSERT INTO edfi.StudentParentAssociation (ParentUSI,StudentUSI)
-                VALUES ({parentUSI}, {studentUSI});");
-
-            return this;
-        }
-
+        
         public EducationOrganizationTestDataBuilder AddStudentContactAssociation(int contactUSI, int studentUSI)
         {
+            var contactPersonType = AuthorizationViewHelper.GetContactPersonType(Connection);
+            var studentContactAssociationTableName = $"edfi.Student{contactPersonType}Association"; // Used to provide compatability with data standard versions <v5.0 where Contact is named Parent
+            
             _sql.AppendLine(
-                 $@"INSERT INTO edfi.StudentContactAssociation (ContactUSI,StudentUSI)
+                 $@"INSERT INTO {studentContactAssociationTableName} ({contactPersonType}USI,StudentUSI)
                 VALUES ({contactUSI}, {studentUSI});");
 
             return this;

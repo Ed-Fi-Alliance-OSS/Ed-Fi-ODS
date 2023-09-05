@@ -5,37 +5,34 @@
 
 using System;
 using NUnit.Framework;
-using Shouldly;
 
-namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
+namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
-    public class EducationOrganizationIdToStudentUSIThroughResponsibilityAuthViewTests : DatabaseTestFixtureBase
+    public class EducationOrganizationIdToStudentUsiAuthViewTests : DatabaseTestFixtureBase
     {
-        private const string ViewName = "EducationOrganizationIdToStudentUSIThroughResponsibility";
-
         [Test]
         public void When_student_is_enrolled_in_school_that_belongs_to_a_district_should_not_return_duplicate_records()
         {
             var studentUniqueId = Guid.NewGuid().ToString("N");
-
+            
             Builder
                 .AddLocalEducationAgency(2200)
                 .AddSchool(9705, 2200)
                 .AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Student, studentUniqueId);
 
             Builder
-                .AddStudentEducationOrganizationResponsibilityAssociation(9705, studentUsi) 
+                .AddStudentSchoolAssociation(9705, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            AuthorizationViewHelper.HasDuplicateRecordsForAuthorizationView<int, int>(Connection, ViewName).ShouldBeFalse();
+            AuthorizationViewHelper.ShouldNotContainDuplicate(Connection, PersonType.Student);
         }
 
         [Test]
-        public void When_student_is_enrolled_in_multiple_schools_should_not_return_duplicate_records()
+        public void When_student_is_enrolled_in_multiple_schools_should_not_return_duplicate_records_those_schools()
         {
             var studentUniqueId = Guid.NewGuid().ToString("N");
 
@@ -45,34 +42,14 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Student, studentUniqueId);
 
             Builder
-                .AddStudentEducationOrganizationResponsibilityAssociation(9703, studentUsi)
-                .AddStudentEducationOrganizationResponsibilityAssociation(9704, studentUsi)
+                .AddStudentSchoolAssociation(9703, studentUsi, DateTime.UtcNow.Date)
+                .AddStudentSchoolAssociation(9704, studentUsi, DateTime.UtcNow.Date.AddYears(-1))
                 .Execute();
 
-            AuthorizationViewHelper.HasDuplicateRecordsForAuthorizationView<int,int>(Connection, ViewName).ShouldBeFalse();
-        }
-
-        [Test]
-        public void
-            When_student_is_enrolled_in_a_school_through_StudentSchoolAssociation_should_not_have_access_from_that_school()
-        {
-            var studentUniqueId = Guid.NewGuid().ToString("N");
-
-            Builder
-                .AddSchool(9701)
-                .AddStudent(studentUniqueId)
-                .Execute();
-
-            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
-
-            Builder
-                .AddStudentSchoolAssociation(9701, studentUsi)
-                .Execute();
-
-            AuthorizationViewHelper.ShouldNotContainTuples<int, int>(Connection, ViewName, (9701, studentUsi));
+            AuthorizationViewHelper.ShouldNotContainDuplicate(Connection, PersonType.Student);
         }
 
         [Test]
@@ -85,35 +62,40 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Student, studentUniqueId);
 
             Builder
-                .AddStudentEducationOrganizationResponsibilityAssociation(9701, studentUsi)
+                .AddStudentSchoolAssociation(9701, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            AuthorizationViewHelper.ShouldContainTuples<int, int>(Connection, ViewName, (9701, studentUsi));
+            var expectedTuples = new (int, int)[] { (9701, studentUsi) };
+
+            AuthorizationViewHelper.ShouldContainTuples<int,int>(
+                Connection, PersonType.Student, expectedTuples);
         }
 
         [Test]
         public void When_student_is_enrolled_in_one_school_should_not_have_access_from_other_school()
         {
             var studentUniqueId = Guid.NewGuid().ToString("N");
-
+            
             Builder
                 .AddSchool(9722)
                 .AddSchool(9702)
                 .AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Student, studentUniqueId);
+            ;
 
             Builder
-                .AddStudentEducationOrganizationResponsibilityAssociation(9702, studentUsi)
+                .AddStudentSchoolAssociation(9702, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new[] { (9722, studentUsi) };
+            var expectedTuples = new (int, int)[] { (9722, studentUsi)};
 
-            AuthorizationViewHelper.ShouldNotContainTuples<int, int>(Connection, ViewName, expectedTuples);
+            AuthorizationViewHelper.ShouldNotContainTuples(
+                Connection, PersonType.Student, expectedTuples);
         }
 
         [Test]
@@ -127,11 +109,11 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Student, studentUniqueId);
 
             Builder
-                .AddStudentEducationOrganizationResponsibilityAssociation(9703, studentUsi)
-                .AddStudentEducationOrganizationResponsibilityAssociation(9704, studentUsi)
+                .AddStudentSchoolAssociation(9703, studentUsi, DateTime.UtcNow.Date)
+                .AddStudentSchoolAssociation(9704, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
             var expectedTuples = new (int, int)[]
@@ -140,7 +122,8 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 (9704, studentUsi)
             };
 
-            AuthorizationViewHelper.ShouldContainTuples<int,int>(Connection, ViewName, expectedTuples);
+            AuthorizationViewHelper.ShouldContainTuples<int,int>(
+                Connection, PersonType.Student, expectedTuples);
         }
 
         [Test]
@@ -153,11 +136,12 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Student, studentUniqueId);
 
-            var expectedTuples = new (int, int)[] { (4500, studentUsi) };
+            var expectedTuples = new (int, int)[] { (4500, studentUsi)};
 
-            AuthorizationViewHelper.ShouldNotContainTuples<int,int>(Connection, ViewName, expectedTuples);
+            AuthorizationViewHelper.ShouldNotContainTuples(
+                Connection, PersonType.Student, expectedTuples);
         }
 
         [Test]
@@ -171,10 +155,10 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Student, studentUniqueId);
 
             Builder
-                .AddStudentEducationOrganizationResponsibilityAssociation(9705, studentUsi)
+                .AddStudentSchoolAssociation(9705, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
             var expectedTuples = new (int, int)[]
@@ -183,7 +167,8 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 (2200, studentUsi)
             };
 
-            AuthorizationViewHelper.ShouldContainTuples<int,int>(Connection, ViewName, expectedTuples);
+            AuthorizationViewHelper.ShouldContainTuples(
+                Connection, PersonType.Student, expectedTuples);
         }
 
         [Test]
@@ -200,10 +185,10 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Student, studentUniqueId);
 
             Builder
-                .AddStudentEducationOrganizationResponsibilityAssociation(9706, studentUsi)
+                .AddStudentSchoolAssociation(9706, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
             var expectedTuples = new (int, int)[]
@@ -212,7 +197,8 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 (9776, studentUsi)
             };
 
-            AuthorizationViewHelper.ShouldNotContainTuples<int,int>(Connection, ViewName, expectedTuples);
+            AuthorizationViewHelper.ShouldNotContainTuples(
+                Connection, PersonType.Student, expectedTuples);
         }
     }
 }

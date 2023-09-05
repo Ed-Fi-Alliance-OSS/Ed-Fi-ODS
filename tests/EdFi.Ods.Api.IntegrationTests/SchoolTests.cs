@@ -5,7 +5,7 @@
 
 using NUnit.Framework;
 
-namespace EdFi.Ods.Api.IntegrationTests.DataStandard500
+namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
     public class SchoolTests : DatabaseTestFixtureBase
@@ -17,13 +17,13 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard500
                 .AddSchool(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<long, long>(Connection, (9001, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001));
 
             Builder
                 .DeleteEducationOrganization(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldNotContainTuples<long, long>(Connection, (9001, 9001));
+            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection, (9001, 9001));
         }
 
         [Test]
@@ -34,13 +34,13 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard500
                 .AddSchool(9001, 900)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<long, long>(Connection, (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001), (900, 9001));
 
             Builder
                 .DeleteEducationOrganization(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldNotContainTuples<long, long>(Connection, (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection, (9001, 9001), (900, 9001));
         }
 
         [Test]
@@ -51,13 +51,13 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard500
                 .AddSchool(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<long, long>(Connection, (9001, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001));
 
             Builder
                 .UpdateSchool(9001, 900)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<long, long>(Connection, (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001), (900, 9001));
         }
 
         [Test]
@@ -68,14 +68,14 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard500
                 .AddSchool(9001, 900)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<long, long>(Connection, (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001), (900, 9001));
 
             Builder
                 .UpdateSchool(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<long, long>(Connection, (9001, 9001));
-            EducationOrganizationHelper.ShouldNotContainTuples<long, long>(Connection, (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001));
+            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection, (900, 9001));
         }
 
         [Test]
@@ -87,13 +87,13 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard500
                 .AddSchool(9001, 900)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<long, long>(Connection, (90, 900), (90, 9001), (900, 9001), (9001, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (90, 900), (90, 9001), (900, 9001), (9001, 9001));
 
             Builder
                 .DeleteEducationOrganization(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldNotContainTuples<long, long>(Connection, (90, 9001), (900, 9001), (9001, 9001));
+            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection, (90, 9001), (900, 9001), (9001, 9001));
         }
 
         [Test]
@@ -105,13 +105,13 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard500
                 .AddSchool(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<long, long>(Connection, (90, 900), (9001, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (90, 900), (9001, 9001));
 
             Builder
                 .UpdateSchool(9001, 900)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<long, long>(Connection, (90, 900), (9001, 9001), (90, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (90, 900), (9001, 9001), (90, 9001), (900, 9001));
         }
     }
 }

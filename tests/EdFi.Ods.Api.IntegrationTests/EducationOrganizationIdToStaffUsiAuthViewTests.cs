@@ -6,7 +6,7 @@
 using System;
 using NUnit.Framework;
 
-namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
+namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
     public class EducationOrganizationIdToStaffUsiAuthViewTests : DatabaseTestFixtureBase
@@ -22,7 +22,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStaff(staffUniqueId)
                 .Execute();
 
-            var staffUsi = AuthorizationViewHelper.GetStaffUsi(Connection, staffUniqueId);
+            var staffUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Staff, staffUniqueId);
 
             Builder
                 .AddStaffEducationOrganizationEmploymentAssociation(9705, staffUsi, DateTime.Now)
@@ -42,7 +42,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStaff(staffUniqueId)
                 .Execute();
 
-            var staffUsi = AuthorizationViewHelper.GetStaffUsi(Connection, staffUniqueId);
+            var staffUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Staff, staffUniqueId);
 
             Builder
                 .AddStaffEducationOrganizationAssignmentAssociation(9705, staffUsi, DateTime.Now)
@@ -61,7 +61,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStaff(staffUniqueId)
                 .Execute();
 
-            var staffUsi = AuthorizationViewHelper.GetStaffUsi(Connection, staffUniqueId);
+            var staffUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Staff, staffUniqueId);
 
             Builder
                 .AddStaffEducationOrganizationAssignmentAssociation(9704, staffUsi, DateTime.Now)
@@ -81,7 +81,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStaff(staffUniqueId)
                 .Execute();
 
-            var staffUsi = AuthorizationViewHelper.GetStaffUsi(Connection, staffUniqueId);
+            var staffUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Staff, staffUniqueId);
 
             Builder
                 .AddStaffEducationOrganizationEmploymentAssociation(9701, staffUsi, DateTime.UtcNow.Date)
@@ -89,7 +89,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
 
             var expectedTuples = new (int, int)[] { (9701, staffUsi) };
 
-            AuthorizationViewHelper.ShouldContainTuples(
+            AuthorizationViewHelper.ShouldContainTuples<int, int>(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -103,7 +103,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStaff(staffUniqueId)
                 .Execute();
 
-            var staffUsi = AuthorizationViewHelper.GetStaffUsi(Connection, staffUniqueId);
+            var staffUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Staff, staffUniqueId);
 
             Builder
                 .AddStaffEducationOrganizationAssignmentAssociation(9701, staffUsi, DateTime.UtcNow.Date)
@@ -111,7 +111,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
 
             var expectedTuples = new (int, int)[] { (9701, staffUsi) };
 
-            AuthorizationViewHelper.ShouldContainTuples(
+            AuthorizationViewHelper.ShouldContainTuples<int, int>(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -126,7 +126,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStaff(staffUniqueId)
                 .Execute();
 
-            var staffUsi = AuthorizationViewHelper.GetStaffUsi(Connection, staffUniqueId);
+            var staffUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Staff, staffUniqueId);
 
             Builder
                 .AddStaffEducationOrganizationEmploymentAssociation(9702, staffUsi, DateTime.UtcNow.Date)
@@ -134,7 +134,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
 
             var expectedTuples = new (int, int)[] { (9722, staffUsi) };
 
-            AuthorizationViewHelper.ShouldNotContainTuples(
+            AuthorizationViewHelper.ShouldNotContainTuples<int, int>(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -149,7 +149,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStaff(staffUniqueId)
                 .Execute();
 
-            var staffUsi = AuthorizationViewHelper.GetStaffUsi(Connection, staffUniqueId);
+            var staffUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Staff, staffUniqueId);
 
             Builder
                 .AddStaffEducationOrganizationAssignmentAssociation(9702, staffUsi, DateTime.UtcNow.Date)
@@ -157,7 +157,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
 
             var expectedTuples = new (int, int)[] { (9722, staffUsi) };
 
-            AuthorizationViewHelper.ShouldNotContainTuples(
+            AuthorizationViewHelper.ShouldNotContainTuples<int, int>(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -172,7 +172,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStaff(staffUniqueId)
                 .Execute();
 
-            var staffUsi = AuthorizationViewHelper.GetStaffUsi(Connection, staffUniqueId);
+            var staffUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Staff, staffUniqueId);
 
             Builder
                 .AddStaffEducationOrganizationEmploymentAssociation(9703, staffUsi, DateTime.UtcNow.Date)
@@ -185,7 +185,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 (9704, staffUsi)
             };
 
-            AuthorizationViewHelper.ShouldContainTuples(
+            AuthorizationViewHelper.ShouldContainTuples<int, int>(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -200,7 +200,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStaff(staffUniqueId)
                 .Execute();
 
-            var staffUsi = AuthorizationViewHelper.GetStaffUsi(Connection, staffUniqueId);
+            var staffUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Staff, staffUniqueId);
 
             Builder
                 .AddStaffEducationOrganizationAssignmentAssociation(9703, staffUsi, DateTime.UtcNow.Date)
@@ -213,7 +213,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 (9704, staffUsi)
             };
 
-            AuthorizationViewHelper.ShouldContainTuples(
+            AuthorizationViewHelper.ShouldContainTuples<int, int>(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -227,11 +227,11 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStaff(staffId)
                 .Execute();
 
-            var staffUsi = AuthorizationViewHelper.GetStaffUsi(Connection, staffId);
+            var staffUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Staff, staffId);
 
             var expectedTuples = new (int, int)[] { (4500, staffUsi) };
 
-            AuthorizationViewHelper.ShouldNotContainTuples(
+            AuthorizationViewHelper.ShouldNotContainTuples<int, int>(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -246,7 +246,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStaff(staffUniqueId)
                 .Execute();
 
-            var staffUsi = AuthorizationViewHelper.GetStaffUsi(Connection, staffUniqueId);
+            var staffUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Staff, staffUniqueId);
 
             Builder
                 .AddStaffEducationOrganizationEmploymentAssociation(9705, staffUsi, DateTime.UtcNow.Date)
@@ -258,7 +258,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 (2200, staffUsi)
             };
 
-            AuthorizationViewHelper.ShouldContainTuples(
+            AuthorizationViewHelper.ShouldContainTuples<int, int>(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -273,7 +273,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStaff(staffUniqueId)
                 .Execute();
 
-            var staffUsi = AuthorizationViewHelper.GetStaffUsi(Connection, staffUniqueId);
+            var staffUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Staff, staffUniqueId);
 
             Builder
                 .AddStaffEducationOrganizationAssignmentAssociation(9705, staffUsi, DateTime.UtcNow.Date)
@@ -285,7 +285,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 (2200, staffUsi)
             };
 
-            AuthorizationViewHelper.ShouldContainTuples(
+            AuthorizationViewHelper.ShouldContainTuples<int, int>(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -302,7 +302,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStaff(staffUniqueId)
                 .Execute();
 
-            var staffUsi = AuthorizationViewHelper.GetStaffUsi(Connection, staffUniqueId);
+            var staffUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Staff, staffUniqueId);
 
             Builder
                 .AddStaffEducationOrganizationEmploymentAssociation(9706, staffUsi, DateTime.UtcNow.Date)
@@ -314,7 +314,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 (9776, staffUsi)
             };
 
-            AuthorizationViewHelper.ShouldNotContainTuples(
+            AuthorizationViewHelper.ShouldNotContainTuples<int, int>(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -331,7 +331,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStaff(staffUniqueId)
                 .Execute();
 
-            var staffUsi = AuthorizationViewHelper.GetStaffUsi(Connection, staffUniqueId);
+            var staffUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Staff, staffUniqueId);
 
             Builder
                 .AddStaffEducationOrganizationAssignmentAssociation(9706, staffUsi, DateTime.UtcNow.Date)
@@ -343,7 +343,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 (9776, staffUsi)
             };
 
-            AuthorizationViewHelper.ShouldNotContainTuples(
+            AuthorizationViewHelper.ShouldNotContainTuples<int, int>(
                 Connection, PersonType.Staff, expectedTuples);
         }
     }

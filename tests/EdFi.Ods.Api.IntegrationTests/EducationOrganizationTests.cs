@@ -5,7 +5,7 @@
 
 using NUnit.Framework;
 
-namespace EdFi.Ods.Api.IntegrationTests.DataStandard500
+namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
     public class EducationOrganizationTests : DatabaseTestFixtureBase
@@ -17,15 +17,15 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard500
                 .AddLocalEducationAgency(99990000)
                 .Execute();
 
-            var expectedTuples = new (long, long)[] { (99990000, 99990000)};
+            var expectedTuples = new (int, int)[] { (99990000, 99990000)};
 
-            EducationOrganizationHelper.ShouldContainTuples<long, long>(Connection, expectedTuples);
+            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, expectedTuples);
 
             Builder
                 .DeleteEducationOrganization(99990000)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldNotContainTuples<long, long>(Connection, expectedTuples);
+            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection, expectedTuples);
         }
 
         [Test]
@@ -37,13 +37,13 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard500
                 .AddLocalEducationAgency(99990002)
                 .Execute();
 
-            var expectedTuples = new (long, long)[]
+            var expectedTuples = new (int, int)[]
             {
                 (99990000, 99990000),
                 (99990001, 99990001),
                 (99990002, 99990002)
             };
-            EducationOrganizationHelper.ShouldContainTuples<long, long>(Connection, expectedTuples);
+            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, expectedTuples);
 
             Builder
                 .DeleteEducationOrganization(99990000)
@@ -51,7 +51,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard500
                 .DeleteEducationOrganization(99990002)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldNotContainTuples<long, long>(Connection, expectedTuples);
+            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection, expectedTuples);
         }
     }
 }

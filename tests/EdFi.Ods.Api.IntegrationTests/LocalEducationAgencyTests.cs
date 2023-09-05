@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
+namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
     public class LocalEducationAgencyTests : DatabaseTestFixtureBase
@@ -210,7 +210,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 (900, 9001),
                 (900, 90011),
                 (900, 90012));
-
+            
             // Now remove association of LEA to the SEA
             Builder
                 .UpdateLocalEducationAgency(9001)
@@ -245,7 +245,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 (900, 90011),
                 (900, 90012));
         }
-
+        
         [Test]
         public void When_updating_local_education_agency_from_one_education_service_center_to_another_should_update_tuples()
         {
@@ -274,7 +274,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
             Builder
                 .UpdateLocalEducationAgency(9001, educationServiceCenterId: 800)
                 .Execute();
-
+            
             EducationOrganizationHelper.ShouldContainTuples<int, int>(
                 Connection,
                 (800, 800),
@@ -287,14 +287,14 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 (800, 90012),
                 (9001, 90011),
                 (9001, 90012));
-
+            
             EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection,
                 // Tuples for LEA's previously assigned ESC should have been removed
                 (900, 9001),
                 (900, 90011),
                 (900, 90012));
         }
-
+        
         [Test]
         public void When_updating_local_education_agency_with_parent_local_education_agencies_should_update_tuples()
         {
@@ -317,7 +317,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
 
             // Make 9003 the parent of LEA 9002
             Builder
-                .UpdateLocalEducationAgency(9002, parentLocalEducationAgencyId: 9003)
+                .UpdateLocalEducationAgency(9002, pontactLocalEducationAgencyId: 9003)
                 .Execute();
 
             EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection,
@@ -329,10 +329,10 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 (9003, 9002),
                 (9001, 90011),
                 (9001, 90012));
-
+            
             // Make 9002 the parent LEA
             Builder
-                .UpdateLocalEducationAgency(9001, parentLocalEducationAgencyId: 9002)
+                .UpdateLocalEducationAgency(9001, pontactLocalEducationAgencyId: 9002)
                 .Execute();
 
             EducationOrganizationHelper.ShouldContainTuples<int, int>(
@@ -351,12 +351,12 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 (9003, 9001),
                 (9003, 90011),
                 (9003, 90012));
-
+            
             // Update LEA 9001 to remove 9002 as its parent LEA
             Builder
                 .UpdateLocalEducationAgency(9001)
                 .Execute();
-
+            
             EducationOrganizationHelper.ShouldContainTuples<int, int>(
                 Connection,
                 (9001, 9001),
@@ -371,10 +371,10 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 // (9002, 90011),
                 // (9002, 90012),
                 (9003, 9002));
-            // 9003 is no longer an ancestor of 9001 through 9002
-            // (9003, 9001),
-            // (9003, 90011),
-            // (9003, 90012));
+                // 9003 is no longer an ancestor of 9001 through 9002
+                // (9003, 9001),
+                // (9003, 90011),
+                // (9003, 90012));
 
             EducationOrganizationHelper.ShouldNotContainTuples<int, int>(
                 Connection,
