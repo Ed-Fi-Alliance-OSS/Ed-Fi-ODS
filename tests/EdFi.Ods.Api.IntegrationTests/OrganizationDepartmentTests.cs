@@ -150,15 +150,15 @@ namespace EdFi.Ods.Api.IntegrationTests
             
             Builder
                 .AddLocalEducationAgency(901)
-                .AddOrganizationDepartment(8901, contactEducationOrganizationId: 901)
-                .AddOrganizationDepartment(88901, contactEducationOrganizationId: 8901)
+                .AddOrganizationDepartment(8901, parentEducationOrganizationId: 901)
+                .AddOrganizationDepartment(88901, parentEducationOrganizationId: 8901)
                 .AddSchool(901001, localEducationAgencyId: 901)
-                .AddOrganizationDepartment(7901001, contactEducationOrganizationId: 901001)
-                .AddOrganizationDepartment(8901001, contactEducationOrganizationId: 901001)
+                .AddOrganizationDepartment(7901001, parentEducationOrganizationId: 901001)
+                .AddOrganizationDepartment(8901001, parentEducationOrganizationId: 901001)
                 .AddSchool(901002, localEducationAgencyId: 901)
-                .AddOrganizationDepartment(7901002, contactEducationOrganizationId: 901002)
-                .AddOrganizationDepartment(8901002, contactEducationOrganizationId: 901002)
-                .AddOrganizationDepartment(88901002, contactEducationOrganizationId: 8901002)
+                .AddOrganizationDepartment(7901002, parentEducationOrganizationId: 901002)
+                .AddOrganizationDepartment(8901002, parentEducationOrganizationId: 901002)
+                .AddOrganizationDepartment(88901002, parentEducationOrganizationId: 8901002)
                 .Execute();
 
             var expectedTuplesAfterCreation = new (int, int) []
@@ -199,7 +199,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             (baselineTupleCount + expectedTuplesAfterCreation.Length).ShouldBe(afterCreationCount);
             
             // Move the LEA org department to the bottom of the hierarchy (under 2nd-level school org dept)
-            Builder.UpdateOrganizationDepartment(8901, contactEducationOrganizationId: 88901002).Execute();
+            Builder.UpdateOrganizationDepartment(8901, parentEducationOrganizationId: 88901002).Execute();
 
             var afterMovedDown = EducationOrganizationHelper.GetExistingTuples<int, int>(Connection);
 
@@ -253,7 +253,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             );
             
             // Move the original LEA org department back to the LEA
-            Builder.UpdateOrganizationDepartment(8901, contactEducationOrganizationId: 901).Execute();
+            Builder.UpdateOrganizationDepartment(8901, parentEducationOrganizationId: 901).Execute();
 
             var afterMoveBackUpCount = EducationOrganizationHelper.GetExistingTuples<int, int>(Connection).Count;
 

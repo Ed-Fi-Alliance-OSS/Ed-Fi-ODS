@@ -317,7 +317,7 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             // Make 9003 the parent of LEA 9002
             Builder
-                .UpdateLocalEducationAgency(9002, pontactLocalEducationAgencyId: 9003)
+                .UpdateLocalEducationAgency(9002, parentLocalEducationAgencyId: 9003)
                 .Execute();
 
             EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection,
@@ -332,7 +332,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             
             // Make 9002 the parent LEA
             Builder
-                .UpdateLocalEducationAgency(9001, pontactLocalEducationAgencyId: 9002)
+                .UpdateLocalEducationAgency(9001, parentLocalEducationAgencyId: 9002)
                 .Execute();
 
             EducationOrganizationHelper.ShouldContainTuples<int, int>(

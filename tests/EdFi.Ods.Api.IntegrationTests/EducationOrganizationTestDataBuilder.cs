@@ -184,7 +184,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder AddLocalEducationAgency(long localEducationAgencyId, long? stateEducationAgencyId = null, long? educationServiceCenterId = null, long? pontactLocalEducationAgencyId = null)
+        public EducationOrganizationTestDataBuilder AddLocalEducationAgency(long localEducationAgencyId, long? stateEducationAgencyId = null, long? educationServiceCenterId = null, long? parentLocalEducationAgencyId = null)
         {
             AddEducationOrganization(localEducationAgencyId, nameof(LocalEducationAgency));
 
@@ -200,19 +200,19 @@ namespace EdFi.Ods.Api.IntegrationTests
                     {TestLocalEducationAgencyCategoryDescriptorId},
                     {ToSqlValue(stateEducationAgencyId)},
                     {ToSqlValue(educationServiceCenterId)},
-                    {ToSqlValue(pontactLocalEducationAgencyId)});"
+                    {ToSqlValue(parentLocalEducationAgencyId)});"
             );
 
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder UpdateLocalEducationAgency(long localEducationAgencyId, long? stateEducationAgencyId = null, long? educationServiceCenterId = null, long? pontactLocalEducationAgencyId = null)
+        public EducationOrganizationTestDataBuilder UpdateLocalEducationAgency(long localEducationAgencyId, long? stateEducationAgencyId = null, long? educationServiceCenterId = null, long? parentLocalEducationAgencyId = null)
         {
             _sql.AppendLine(
                 $@"UPDATE edfi.LocalEducationAgency SET
                     StateEducationAgencyId = {ToSqlValue(stateEducationAgencyId)},
                     EducationServiceCenterId = {ToSqlValue(educationServiceCenterId)},
-                    ParentLocalEducationAgencyId = {ToSqlValue(pontactLocalEducationAgencyId)}
+                    ParentLocalEducationAgencyId = {ToSqlValue(parentLocalEducationAgencyId)}
                 WHERE LocalEducationAgencyId = {localEducationAgencyId};"
             );
 
@@ -310,7 +310,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder AddOrganizationDepartment(long organizationDepartmentId, long? contactEducationOrganizationId = null)
+        public EducationOrganizationTestDataBuilder AddOrganizationDepartment(long organizationDepartmentId, long? parentEducationOrganizationId = null)
         {
             AddEducationOrganization(organizationDepartmentId, nameof(OrganizationDepartment));
 
@@ -320,17 +320,17 @@ namespace EdFi.Ods.Api.IntegrationTests
                     ParentEducationOrganizationId)
                 VALUES (
                     {organizationDepartmentId},
-                    {ToSqlValue(contactEducationOrganizationId)});"
+                    {ToSqlValue(parentEducationOrganizationId)});"
             );
 
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder UpdateOrganizationDepartment(long organizationDepartmentId, long? contactEducationOrganizationId = null)
+        public EducationOrganizationTestDataBuilder UpdateOrganizationDepartment(long organizationDepartmentId, long? parentEducationOrganizationId = null)
         {
             _sql.AppendLine(
                 $@"UPDATE edfi.OrganizationDepartment SET
-                    ParentEducationOrganizationId = {ToSqlValue(contactEducationOrganizationId)}
+                    ParentEducationOrganizationId = {ToSqlValue(parentEducationOrganizationId)}
                 WHERE OrganizationDepartmentId = {organizationDepartmentId};"
             );
 
