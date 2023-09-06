@@ -8,15 +8,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EdFi.Admin.DataAccess.Models
 {
-    [Table("OdsInstanceContext")]
     public class OdsInstanceContext
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OdsInstanceContextId { get; set; }
 
-        [Required]
-        public int OdsInstanceId { get; set; }
         public virtual OdsInstance OdsInstance { get; set; }
 
         /// <summary>
