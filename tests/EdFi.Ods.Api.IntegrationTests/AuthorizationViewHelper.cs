@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using EdFi.Common.Extensions;
 using Shouldly;
 
 namespace EdFi.Ods.Api.IntegrationTests
@@ -146,7 +147,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 var sql = $@"   SELECT COUNT(*)
                     FROM information_schema.tables 
                     WHERE  table_schema = 'edfi'
-                    AND    table_name   = 'Parent';";
+                    AND    table_name   = 'parent';";
 
                 using var command = connection.CreateCommand();
                 command.CommandText = sql;
