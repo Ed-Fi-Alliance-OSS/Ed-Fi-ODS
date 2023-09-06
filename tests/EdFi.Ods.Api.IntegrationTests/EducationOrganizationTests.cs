@@ -17,15 +17,15 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddLocalEducationAgency(99990000)
                 .Execute();
 
-            var expectedTuples = new (int, int)[] { (99990000, 99990000)};
+            var expectedTuples = new (long, long)[] { (99990000, 99990000)};
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, expectedTuples);
+            EducationOrganizationHelper.ShouldContainTuples(Connection, expectedTuples);
 
             Builder
                 .DeleteEducationOrganization(99990000)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection, expectedTuples);
+            EducationOrganizationHelper.ShouldNotContainTuples(Connection, expectedTuples);
         }
 
         [Test]
@@ -37,13 +37,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddLocalEducationAgency(99990002)
                 .Execute();
 
-            var expectedTuples = new (int, int)[]
+            var expectedTuples = new (long, long)[]
             {
                 (99990000, 99990000),
                 (99990001, 99990001),
                 (99990002, 99990002)
             };
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, expectedTuples);
+            EducationOrganizationHelper.ShouldContainTuples(Connection, expectedTuples);
 
             Builder
                 .DeleteEducationOrganization(99990000)
@@ -51,7 +51,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .DeleteEducationOrganization(99990002)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection, expectedTuples);
+            EducationOrganizationHelper.ShouldNotContainTuples(Connection, expectedTuples);
         }
     }
 }

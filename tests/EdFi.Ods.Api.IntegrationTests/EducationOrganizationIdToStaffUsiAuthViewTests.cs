@@ -87,9 +87,9 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStaffEducationOrganizationEmploymentAssociation(9701, staffUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new (int, int)[] { (9701, staffUsi) };
+            var expectedTuples = new (long, long)[] { (9701, staffUsi) };
 
-            AuthorizationViewHelper.ShouldContainTuples<int, int>(
+            AuthorizationViewHelper.ShouldContainTuples(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -109,9 +109,9 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStaffEducationOrganizationAssignmentAssociation(9701, staffUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new (int, int)[] { (9701, staffUsi) };
+            var expectedTuples = new (long, long)[] { (9701, staffUsi) };
 
-            AuthorizationViewHelper.ShouldContainTuples<int, int>(
+            AuthorizationViewHelper.ShouldContainTuples(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -132,9 +132,9 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStaffEducationOrganizationEmploymentAssociation(9702, staffUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new (int, int)[] { (9722, staffUsi) };
+            var expectedTuples = new (long, long)[] { (9722, staffUsi) };
 
-            AuthorizationViewHelper.ShouldNotContainTuples<int, int>(
+            AuthorizationViewHelper.ShouldNotContainTuples(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -155,9 +155,9 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStaffEducationOrganizationAssignmentAssociation(9702, staffUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new (int, int)[] { (9722, staffUsi) };
+            var expectedTuples = new (long, long)[] { (9722, staffUsi) };
 
-            AuthorizationViewHelper.ShouldNotContainTuples<int, int>(
+            AuthorizationViewHelper.ShouldNotContainTuples(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -179,13 +179,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStaffEducationOrganizationEmploymentAssociation(9704, staffUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new (int, int)[]
+            var expectedTuples = new (long, long)[]
             {
                 (9703, staffUsi),
                 (9704, staffUsi)
             };
 
-            AuthorizationViewHelper.ShouldContainTuples<int, int>(
+            AuthorizationViewHelper.ShouldContainTuples(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -207,13 +207,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStaffEducationOrganizationAssignmentAssociation(9704, staffUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new (int, int)[]
+            var expectedTuples = new (long, long)[]
             {
                 (9703, staffUsi),
                 (9704, staffUsi)
             };
 
-            AuthorizationViewHelper.ShouldContainTuples<int, int>(
+            AuthorizationViewHelper.ShouldContainTuples(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -229,9 +229,9 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             var staffUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Staff, staffId);
 
-            var expectedTuples = new (int, int)[] { (4500, staffUsi) };
+            var expectedTuples = new (long, long)[] { (4500, staffUsi) };
 
-            AuthorizationViewHelper.ShouldNotContainTuples<int, int>(
+            AuthorizationViewHelper.ShouldNotContainTuples(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -252,13 +252,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStaffEducationOrganizationEmploymentAssociation(9705, staffUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new (int, int)[]
+            var expectedTuples = new (long, long)[]
             {
                 (9705, staffUsi),
                 (2200, staffUsi)
             };
 
-            AuthorizationViewHelper.ShouldContainTuples<int, int>(
+            AuthorizationViewHelper.ShouldContainTuples(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -279,13 +279,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStaffEducationOrganizationAssignmentAssociation(9705, staffUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new (int, int)[]
+            var expectedTuples = new (long, long)[]
             {
                 (9705, staffUsi),
                 (2200, staffUsi)
             };
 
-            AuthorizationViewHelper.ShouldContainTuples<int, int>(
+            AuthorizationViewHelper.ShouldContainTuples(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -308,13 +308,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStaffEducationOrganizationEmploymentAssociation(9706, staffUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new (int, int)[]
+            var expectedTuples = new (long, long)[]
             {
                 (2221, staffUsi),
                 (9776, staffUsi)
             };
 
-            AuthorizationViewHelper.ShouldNotContainTuples<int, int>(
+            AuthorizationViewHelper.ShouldNotContainTuples(
                 Connection, PersonType.Staff, expectedTuples);
         }
 
@@ -337,13 +337,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStaffEducationOrganizationAssignmentAssociation(9706, staffUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new (int, int)[]
+            var expectedTuples = new (long, long)[]
             {
                 (2221, staffUsi),
                 (9776, staffUsi)
             };
 
-            AuthorizationViewHelper.ShouldNotContainTuples<int, int>(
+            AuthorizationViewHelper.ShouldNotContainTuples(
                 Connection, PersonType.Staff, expectedTuples);
         }
     }

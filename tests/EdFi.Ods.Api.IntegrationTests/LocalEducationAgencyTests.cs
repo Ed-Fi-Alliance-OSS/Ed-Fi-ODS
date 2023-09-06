@@ -19,13 +19,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddLocalEducationAgency(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (9001, 9001));
 
             Builder
                 .DeleteEducationOrganization(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection, (9001, 9001));
+            EducationOrganizationHelper.ShouldNotContainTuples(Connection, (9001, 9001));
         }
 
         [Test]
@@ -36,13 +36,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddLocalEducationAgency(9001, educationServiceCenterId: 900)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (9001, 9001), (900, 9001));
 
             Builder
                 .DeleteEducationOrganization(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection, (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldNotContainTuples(Connection, (9001, 9001), (900, 9001));
         }
 
         [Test]
@@ -53,13 +53,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddLocalEducationAgency(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (9001, 9001));
 
             Builder
                 .UpdateLocalEducationAgency(9001, educationServiceCenterId: 900)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (9001, 9001), (900, 9001));
         }
 
         [Test]
@@ -70,14 +70,14 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddLocalEducationAgency(9001, educationServiceCenterId: 900)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (9001, 9001), (900, 9001));
 
             Builder
                 .UpdateLocalEducationAgency(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001));
-            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection, (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (9001, 9001));
+            EducationOrganizationHelper.ShouldNotContainTuples(Connection, (900, 9001));
         }
 
         [Test]
@@ -90,13 +90,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(90011, 9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001), (9001, 90010), (9001, 90011));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (9001, 9001), (9001, 90010), (9001, 90011));
 
             Builder
                 .UpdateLocalEducationAgency(9001, educationServiceCenterId: 900)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001), (9001, 90010), (9001, 90011), (900, 9001), (900, 90010), (900, 90011));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (9001, 9001), (9001, 90010), (9001, 90011), (900, 9001), (900, 90010), (900, 90011));
         }
 
         [Test]
@@ -107,13 +107,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddLocalEducationAgency(9001, stateEducationAgencyId: 9)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001), (9, 9001));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (9001, 9001), (9, 9001));
 
             Builder
                 .DeleteEducationOrganization(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection, (9001, 9001), (9, 9001));
+            EducationOrganizationHelper.ShouldNotContainTuples(Connection, (9001, 9001), (9, 9001));
         }
 
         [Test]
@@ -124,14 +124,14 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddLocalEducationAgency(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001));
-            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection, (9, 9001));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (9001, 9001));
+            EducationOrganizationHelper.ShouldNotContainTuples(Connection, (9, 9001));
 
             Builder
                 .UpdateLocalEducationAgency(9001, stateEducationAgencyId: 9)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001), (9, 9001));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (9001, 9001), (9, 9001));
         }
 
         [Test]
@@ -142,14 +142,14 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddLocalEducationAgency(9001, stateEducationAgencyId: 9)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001), (9, 9001));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (9001, 9001), (9, 9001));
 
             Builder
                 .UpdateLocalEducationAgency(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001));
-            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection, (9, 9001));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (9001, 9001));
+            EducationOrganizationHelper.ShouldNotContainTuples(Connection, (9, 9001));
         }
 
         // ---------- Advanced Scenarios -------------
@@ -165,7 +165,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(90012, localEducationAgencyId: 9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(
+            EducationOrganizationHelper.ShouldContainTuples(
                 Connection,
                 (9, 9),
                 (900, 900),
@@ -187,7 +187,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .UpdateLocalEducationAgency(9001, stateEducationAgencyId: 9)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(
+            EducationOrganizationHelper.ShouldContainTuples(
                 Connection,
                 (9, 9),
                 (900, 900),
@@ -205,7 +205,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 (9001, 90011),
                 (9001, 90012));
 
-            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection,
+            EducationOrganizationHelper.ShouldNotContainTuples(Connection,
                 // ESC tuples through LEA should be removed
                 (900, 9001),
                 (900, 90011),
@@ -216,7 +216,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .UpdateLocalEducationAgency(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(
+            EducationOrganizationHelper.ShouldContainTuples(
                 Connection,
                 (9, 9),
                 (900, 900),
@@ -235,7 +235,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 (9001, 90011),
                 (9001, 90012));
 
-            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection,
+            EducationOrganizationHelper.ShouldNotContainTuples(Connection,
                 // SEA tuples through LEA should be removed
                 (9, 9001),
                 (9, 90011),
@@ -257,7 +257,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(90012, localEducationAgencyId: 9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(
+            EducationOrganizationHelper.ShouldContainTuples(
                 Connection,
                 (800, 800),
                 (900, 900),
@@ -275,7 +275,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .UpdateLocalEducationAgency(9001, educationServiceCenterId: 800)
                 .Execute();
             
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(
+            EducationOrganizationHelper.ShouldContainTuples(
                 Connection,
                 (800, 800),
                 (900, 900),
@@ -288,7 +288,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 (9001, 90011),
                 (9001, 90012));
             
-            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection,
+            EducationOrganizationHelper.ShouldNotContainTuples(Connection,
                 // Tuples for LEA's previously assigned ESC should have been removed
                 (900, 9001),
                 (900, 90011),
@@ -306,7 +306,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(90012, localEducationAgencyId: 9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection,
+            EducationOrganizationHelper.ShouldContainTuples(Connection,
                 (9001, 9001),
                 (9002, 9002),
                 (9003, 9003),
@@ -320,7 +320,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .UpdateLocalEducationAgency(9002, parentLocalEducationAgencyId: 9003)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection,
+            EducationOrganizationHelper.ShouldContainTuples(Connection,
                 (9001, 9001),
                 (9002, 9002),
                 (9003, 9003),
@@ -335,7 +335,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .UpdateLocalEducationAgency(9001, parentLocalEducationAgencyId: 9002)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(
+            EducationOrganizationHelper.ShouldContainTuples(
                 Connection,
                 (9001, 9001),
                 (9002, 9002),
@@ -357,7 +357,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .UpdateLocalEducationAgency(9001)
                 .Execute();
             
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(
+            EducationOrganizationHelper.ShouldContainTuples(
                 Connection,
                 (9001, 9001),
                 (9002, 9002),
@@ -376,7 +376,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 // (9003, 90011),
                 // (9003, 90012));
 
-            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(
+            EducationOrganizationHelper.ShouldNotContainTuples(
                 Connection,
                 (9002, 9001),
                 (9002, 90011),
