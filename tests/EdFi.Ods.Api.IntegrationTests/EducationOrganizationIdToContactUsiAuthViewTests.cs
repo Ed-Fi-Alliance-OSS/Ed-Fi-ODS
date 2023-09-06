@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Data;
 using NUnit.Framework;
 
 namespace EdFi.Ods.Api.IntegrationTests

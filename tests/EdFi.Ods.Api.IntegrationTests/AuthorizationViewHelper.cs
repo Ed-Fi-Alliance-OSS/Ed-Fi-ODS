@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using EdFi.Ods.Api.Common.Models.Resources.Person.EdFi;
 using Shouldly;
 
 namespace EdFi.Ods.Api.IntegrationTests
@@ -113,7 +112,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 return result;
             }
 
-            public static bool HasDuplicateRecordsForAuthorizationView<T1, T2>(IDbConnection connection, string viewName)
+            public static bool HasDuplicateRecordsForAuthorizationView(IDbConnection connection, string viewName)
             {
                 return GetRecordsForAuthorizationView(connection, viewName).GroupBy(
                     x => new

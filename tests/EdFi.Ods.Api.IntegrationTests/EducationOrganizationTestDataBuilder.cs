@@ -6,7 +6,6 @@
 using System;
 using System.Data;
 using System.Text;
-using EdFi.Ods.Api.Common.Models.Resources.Person.EdFi;
 using EdFi.Ods.Entities.NHibernate.CommunityOrganizationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.CommunityProviderAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.EducationServiceCenterAggregate.EdFi;

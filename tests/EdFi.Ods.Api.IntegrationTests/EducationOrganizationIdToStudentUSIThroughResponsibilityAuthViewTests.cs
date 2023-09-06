@@ -31,7 +31,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStudentEducationOrganizationResponsibilityAssociation(9705, studentUsi)
                 .Execute();
 
-            AuthorizationViewHelper.HasDuplicateRecordsForAuthorizationView<int, int>(Connection, ViewName).ShouldBeFalse();
+            AuthorizationViewHelper.HasDuplicateRecordsForAuthorizationView(Connection, ViewName).ShouldBeFalse();
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStudentEducationOrganizationResponsibilityAssociation(9704, studentUsi)
                 .Execute();
 
-            AuthorizationViewHelper.HasDuplicateRecordsForAuthorizationView<int, int>(Connection, ViewName).ShouldBeFalse();
+            AuthorizationViewHelper.HasDuplicateRecordsForAuthorizationView(Connection, ViewName).ShouldBeFalse();
         }
 
         [Test]

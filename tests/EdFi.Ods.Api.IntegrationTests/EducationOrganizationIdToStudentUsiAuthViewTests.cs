@@ -86,7 +86,6 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .Execute();
 
             var studentUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Student, studentUniqueId);
-            ;
 
             Builder
                 .AddStudentSchoolAssociation(9702, studentUsi, DateTime.UtcNow.Date)
