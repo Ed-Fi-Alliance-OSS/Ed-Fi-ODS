@@ -381,29 +381,15 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder AddParent(string newGuidId)
-        {
-            _sql.AppendLine(
-                $@"INSERT INTO edfi.Parent (
-                    FirstName,
-                    LastSurname,
-                    ParentUniqueId)
-                VALUES(
-                    '{newGuidId}',
-                    '{newGuidId}',
-                    '{newGuidId}');"
-            );
-
-            return this;
-        }
-
         public EducationOrganizationTestDataBuilder AddContact(string newGuidId)
         {
+            var contactPersonType = AuthorizationViewHelper.GetContactPersonType(Connection); // Used to provide compatability with data standard versions <v5.0 where Contact is named Parent
+
             _sql.AppendLine(
-                $@"INSERT INTO edfi.Contact (
+                $@"INSERT INTO edfi.{contactPersonType} (
                     FirstName,
                     LastSurname,
-                    ContactUniqueId)
+                    {contactPersonType}UniqueId)
                 VALUES(
                     '{newGuidId}',
                     '{newGuidId}',
@@ -412,20 +398,14 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             return this;
         }
-
-        public EducationOrganizationTestDataBuilder AddStudentParentAssociation(int parentUSI, int studentUSI)
-        {
-            _sql.AppendLine(
-                 $@"INSERT INTO edfi.StudentParentAssociation (ParentUSI,StudentUSI)
-                VALUES ({parentUSI}, {studentUSI});");
-
-            return this;
-        }
-
+        
         public EducationOrganizationTestDataBuilder AddStudentContactAssociation(int contactUSI, int studentUSI)
         {
+            var contactPersonType = AuthorizationViewHelper.GetContactPersonType(Connection);
+            var studentContactAssociationTableName = $"edfi.Student{contactPersonType}Association"; // Used to provide compatability with data standard versions <v5.0 where Contact is named Parent
+            
             _sql.AppendLine(
-                 $@"INSERT INTO edfi.StudentContactAssociation (ContactUSI,StudentUSI)
+                 $@"INSERT INTO {studentContactAssociationTableName} ({contactPersonType}USI,StudentUSI)
                 VALUES ({contactUSI}, {studentUSI});");
 
             return this;

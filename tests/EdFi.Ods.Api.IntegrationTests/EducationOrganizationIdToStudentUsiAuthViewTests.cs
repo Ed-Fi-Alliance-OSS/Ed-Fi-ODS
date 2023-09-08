@@ -6,7 +6,7 @@
 using System;
 using NUnit.Framework;
 
-namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
+namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
     public class EducationOrganizationIdToStudentUsiAuthViewTests : DatabaseTestFixtureBase
@@ -15,14 +15,14 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
         public void When_student_is_enrolled_in_school_that_belongs_to_a_district_should_not_return_duplicate_records()
         {
             var studentUniqueId = Guid.NewGuid().ToString("N");
-
+            
             Builder
                 .AddLocalEducationAgency(2200)
                 .AddSchool(9705, 2200)
                 .AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Student, studentUniqueId);
 
             Builder
                 .AddStudentSchoolAssociation(9705, studentUsi, DateTime.UtcNow.Date)
@@ -42,7 +42,7 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Student, studentUniqueId);
 
             Builder
                 .AddStudentSchoolAssociation(9703, studentUsi, DateTime.UtcNow.Date)
@@ -62,13 +62,13 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Student, studentUniqueId);
 
             Builder
                 .AddStudentSchoolAssociation(9701, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new (int, int)[] { (9701, studentUsi) };
+            var expectedTuples = new (long, long)[] { (9701, studentUsi) };
 
             AuthorizationViewHelper.ShouldContainTuples(
                 Connection, PersonType.Student, expectedTuples);
@@ -78,21 +78,20 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
         public void When_student_is_enrolled_in_one_school_should_not_have_access_from_other_school()
         {
             var studentUniqueId = Guid.NewGuid().ToString("N");
-
+            
             Builder
                 .AddSchool(9722)
                 .AddSchool(9702)
                 .AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
-            ;
+            var studentUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Student, studentUniqueId);
 
             Builder
                 .AddStudentSchoolAssociation(9702, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new (int, int)[] { (9722, studentUsi) };
+            var expectedTuples = new (long, long)[] { (9722, studentUsi)};
 
             AuthorizationViewHelper.ShouldNotContainTuples(
                 Connection, PersonType.Student, expectedTuples);
@@ -109,14 +108,14 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Student, studentUniqueId);
 
             Builder
                 .AddStudentSchoolAssociation(9703, studentUsi, DateTime.UtcNow.Date)
                 .AddStudentSchoolAssociation(9704, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new (int, int)[]
+            var expectedTuples = new (long, long)[]
             {
                 (9703, studentUsi),
                 (9704, studentUsi)
@@ -136,9 +135,9 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Student, studentUniqueId);
 
-            var expectedTuples = new (int, int)[] { (4500, studentUsi) };
+            var expectedTuples = new (long, long)[] { (4500, studentUsi)};
 
             AuthorizationViewHelper.ShouldNotContainTuples(
                 Connection, PersonType.Student, expectedTuples);
@@ -155,13 +154,13 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Student, studentUniqueId);
 
             Builder
                 .AddStudentSchoolAssociation(9705, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new (int, int)[]
+            var expectedTuples = new (long, long)[]
             {
                 (9705, studentUsi),
                 (2200, studentUsi)
@@ -185,13 +184,13 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetPersonUsi(Connection, PersonType.Student, studentUniqueId);
 
             Builder
                 .AddStudentSchoolAssociation(9706, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var expectedTuples = new (int, int)[]
+            var expectedTuples = new (long, long)[]
             {
                 (2221, studentUsi),
                 (9776, studentUsi)

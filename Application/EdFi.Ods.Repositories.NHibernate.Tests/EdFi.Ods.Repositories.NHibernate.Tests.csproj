@@ -58,13 +58,4 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="**\DataStandard*\*.cs" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(StandardVersion)' == '5.0.0' ">
-    <Compile Include="**\DataStandard500\*.cs" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(StandardVersion)' == '4.0.0' ">
-    <Compile Include="**\DataStandard400\*.cs" />
-  </ItemGroup>
 </Project>

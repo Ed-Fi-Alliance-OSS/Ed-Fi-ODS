@@ -5,7 +5,7 @@
 
 using NUnit.Framework;
 
-namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
+namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
     public class CommunityProviderTests : DatabaseTestFixtureBase
@@ -17,13 +17,13 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddCommunityProvider(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (9001, 9001));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (9001, 9001));
 
             Builder
                 .DeleteEducationOrganization(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection, (9001, 9001));
+            EducationOrganizationHelper.ShouldNotContainTuples(Connection, (9001, 9001));
         }
 
         [Test]
@@ -34,14 +34,14 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddCommunityProvider(9001, 900)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (900, 900), (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (900, 900), (9001, 9001), (900, 9001));
 
             Builder
                 .DeleteEducationOrganization(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (900, 900));
-            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection, (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (900, 900));
+            EducationOrganizationHelper.ShouldNotContainTuples(Connection, (9001, 9001), (900, 9001));
         }
 
         [Test]
@@ -52,13 +52,13 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddCommunityProvider(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (900, 900), (9001, 9001));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (900, 900), (9001, 9001));
 
             Builder
                 .UpdateCommunityProvider(9001, 900)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (900, 900), (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (900, 900), (9001, 9001), (900, 9001));
         }
 
         [Test]
@@ -69,14 +69,14 @@ namespace EdFi.Ods.Api.IntegrationTests.DataStandard400
                 .AddCommunityProvider(9001, 900)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (900, 900), (9001, 9001), (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (900, 900), (9001, 9001), (900, 9001));
 
             Builder
                 .UpdateCommunityProvider(9001)
                 .Execute();
 
-            EducationOrganizationHelper.ShouldContainTuples<int, int>(Connection, (900, 900), (9001, 9001));
-            EducationOrganizationHelper.ShouldNotContainTuples<int, int>(Connection, (900, 9001));
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (900, 900), (9001, 9001));
+            EducationOrganizationHelper.ShouldNotContainTuples(Connection, (900, 9001));
         }
     }
 }

@@ -45,10 +45,9 @@ using Microsoft.AspNetCore.Http;
 using Npgsql;
 using Test.Common.DataConstants;
 using Environment = NHibernate.Cfg.Environment;
-using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
-namespace EdFi.Ods.Repositories.NHibernate.Tests.DataStandard500
+namespace EdFi.Ods.Repositories.NHibernate.Tests
 {
     [TestFixture]
     public class StudentProgramAssociationTests
@@ -57,8 +56,9 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.DataStandard500
         {
             private string _studentUniqueId;
 
-            private long _educationOrganization1;
-            private long _educationOrganization2;
+            // Use int rather than long for these values to maintain compatibility with Ed-Fi Data Standard 
+            private int _educationOrganization1;
+            private int _educationOrganization2;
 
             private ServiceDescriptor _serviceDescriptor;
             private Program _program1;
@@ -89,7 +89,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.DataStandard500
             private bool _actualTitleIProgramAssociationDeleted;
             private IContextProvider<DataManagementResourceContext> _dataManagementContextProvider;
             private IDomainModelProvider _domainModelProvider;
-
+                
             protected override void Arrange()
             {
                 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", false);
@@ -130,11 +130,11 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.DataStandard500
 
                 _upsertService = _container.Resolve<IUpsertEntity<ServiceDescriptor>>();
 
-                var _educationOrganizationValues = InitializeEducationOrganizationIdsForTest<long>().ToList();
+                var _educationOrganizationValues = InitializeEducationOrganizationIdsForTest().ToList();
 
-                _educationOrganization1 = _educationOrganizationValues[0];
+                _educationOrganization1 = (int)_educationOrganizationValues[0];
 
-                _educationOrganization2 = _educationOrganizationValues[1];
+                _educationOrganization2 = (int)_educationOrganizationValues[1];
 
                 _studentUniqueId = Guid.NewGuid()
                     .ToString("N");
@@ -161,7 +161,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.DataStandard500
                     BeginDate = DateTime.Today.AddDays(-60),
                     EducationOrganizationId = _educationOrganization1
                 };
-
+                
                 var service = new StudentProgramAssociationService
                 {
                     ServiceDescriptor = DescriptorHelper.GetUri(
@@ -226,9 +226,9 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.DataStandard500
                     StudentUniqueId = _student.StudentUniqueId,
                     ProgramTypeDescriptor = _program2.ProgramTypeDescriptor,
                     ProgramName = _program2.ProgramName,
-                    ProgramEducationOrganizationId = _educationOrganization1,
+                    ProgramEducationOrganizationId = (int)_educationOrganization1,
                     BeginDate = DateTime.Today.AddDays(-60),
-                    EducationOrganizationId = _educationOrganization2,
+                    EducationOrganizationId = (int)_educationOrganization2,
 
                     // Base class property
                     ReasonExitedDescriptor = KnownDescriptors.ReasonExited.MovedOutOfState,
@@ -270,9 +270,9 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.DataStandard500
                     StudentUniqueId = _student.StudentUniqueId,
                     ProgramTypeDescriptor = _program2.ProgramTypeDescriptor,
                     ProgramName = _program2.ProgramName,
-                    ProgramEducationOrganizationId = _educationOrganization1,
+                    ProgramEducationOrganizationId = (int)_educationOrganization1,
                     BeginDate = DateTime.Today.AddDays(-60),
-                    EducationOrganizationId = _educationOrganization2,
+                    EducationOrganizationId = (int)_educationOrganization2,
 
                     // Base class property
                     ReasonExitedDescriptor = KnownDescriptors.ReasonExited.GraduatedWithAHighSchoolDiploma,
@@ -383,7 +383,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.DataStandard500
             {
                 return new Program
                 {
-                    EducationOrganizationId = _educationOrganization1,
+                    EducationOrganizationId = (int)_educationOrganization1,
                     ProgramTypeDescriptor = KnownDescriptors.ProgramType.Athletics,
                     ProgramName = string.Format("{0}_1", DateTime.Now.Ticks)
                 };
@@ -393,7 +393,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.DataStandard500
             {
                 return new Program
                 {
-                    EducationOrganizationId = _educationOrganization1,
+                    EducationOrganizationId = (int)_educationOrganization1,
                     ProgramTypeDescriptor = KnownDescriptors.ProgramType.CollegePreparatory,
                     ProgramName = string.Format("{0}_2", DateTime.Now.Ticks)
                 };
@@ -489,9 +489,9 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.DataStandard500
                 _programRepo.UpsertAsync(_program2, false, CancellationToken.None).WaitSafely();
             }
 
-            private IEnumerable<T1> InitializeEducationOrganizationIdsForTest<T1>()
+            private IEnumerable<long> InitializeEducationOrganizationIdsForTest()
             {
-                var result = new List<T1>();
+                var result = new List<long>();
                 // Verify the service got removed
                 using (var conn = GetDbConnectionForOds())
                 {
@@ -503,12 +503,25 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.DataStandard500
                     {
                         try
                         {
-                            reader.Read();
-                           var  _educationOrganization1 = (T1)reader.GetValue(0);
-                            reader.Read();
-                            var _educationOrganization2 = (T1)reader.GetValue(0);
-                            result.Add(_educationOrganization1);
-                            result.Add(_educationOrganization2);
+                            if (EdOrgIdIsAnInt32())
+                            {
+                                reader.Read();
+                                var educationOrgId1 = (long)reader.GetInt32(0);
+                                reader.Read();
+                                var educationOrgId2 = (long)reader.GetInt32(0);
+                                result.Add(educationOrgId1);
+                                result.Add(educationOrgId2);
+                            }
+                            else
+                            {
+                                reader.Read();
+                                var educationOrgId1 = reader.GetInt64(0);
+                                reader.Read();
+                                var educationOrgId2 = reader.GetInt64(0);
+                                result.Add(educationOrgId1);
+                                result.Add(educationOrgId2);
+                            }
+
                             reader.Dispose();
                             conn.Close();
                         }
@@ -580,6 +593,24 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.DataStandard500
             public void Should_update_derived_student_TitleIPartA_association_with_second_upsert()
             {
                 _actualStudentTitleIPartAUpsert2Results.IsModified.ShouldBeTrue();
+            }
+            
+            // This is used to provide compatability with data standards <v5.0 where the EducationOrganizationId is an Int32
+            private bool EdOrgIdIsAnInt32()
+            {
+                using (var conn = GetDbConnectionForOds())
+                {
+                    var sql = $@"   SELECT COUNT(*)
+                    FROM information_schema.tables 
+                    WHERE  table_schema = 'edfi'
+                    AND    table_name   = 'parent';";
+
+                    using var command = conn.CreateCommand();
+                    command.CommandText = sql;
+                    var result = Convert.ToInt32(command.ExecuteScalar());
+
+                    return result > 0;
+                }
             }
         }
     }

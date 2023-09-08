@@ -12,7 +12,7 @@ namespace EdFi.Ods.Api.IntegrationTests
 {
     public static class EducationOrganizationHelper
     {
-        public static List<(T1, T2)> GetExistingTuples<T1, T2>(IDbConnection connection)
+        public static List<(long, long)> GetExistingTuples(IDbConnection connection)
         {
             var sql = @"
         SELECT SourceEducationOrganizationId, TargetEducationOrganizationId
@@ -23,26 +23,53 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             using var reader = command.ExecuteReader();
 
-            var actualTuples = new List<(T1, T2)>();
+            var actualTuples = new List<(long, long)>();
             while (reader.Read())
             {
-                var value1 = (T1)reader.GetValue(0);
-                var value2 = (T2)reader.GetValue(1);
+                long value1;
+                long value2;
+                    
+                if (reader.GetFieldType(0).Name == "Int64")
+                {
+                    value1 = reader.GetInt64(0);
+                }
+                else if (reader.GetFieldType(0).Name == "Int32")
+                {
+                    value1 = reader.GetInt32(0);
+                }
+                else
+                {
+                    throw new Exception("Unexpected data type in authorization view column 1");
+                }
+                    
+                if (reader.GetFieldType(1).Name == "Int64")
+                {
+                    value2 = reader.GetInt64(1);
+                }
+                else if (reader.GetFieldType(1).Name == "Int32")
+                {
+                    value2 = reader.GetInt32(1);
+                }
+                else
+                {
+                    throw new Exception("Unexpected data type in authorization view column 1");
+                }
+                
                 actualTuples.Add((value1, value2));
             }
 
             return actualTuples;
         }
 
-        public static void ShouldContainTuples<T1, T2>(IDbConnection connection, params (T1, T2)[] expectedTuples)
+        public static void ShouldContainTuples(IDbConnection connection, params (long, long)[] expectedTuples)
         {
-            var actualTuples = GetExistingTuples<T1, T2>(connection);
+            var actualTuples = GetExistingTuples(connection);
             expectedTuples.ShouldBeSubsetOf(actualTuples);
         }
 
-        public static void ShouldNotContainTuples<T1, T2>(IDbConnection connection, params (T1, T2)[] expectedTuples)
+        public static void ShouldNotContainTuples(IDbConnection connection, params (long, long)[] expectedTuples)
         {
-            var actualTuples = GetExistingTuples<T1, T2>(connection);
+            var actualTuples = GetExistingTuples(connection);
             expectedTuples.ShouldAllBe(item => !actualTuples.Contains(item));
         }
     }

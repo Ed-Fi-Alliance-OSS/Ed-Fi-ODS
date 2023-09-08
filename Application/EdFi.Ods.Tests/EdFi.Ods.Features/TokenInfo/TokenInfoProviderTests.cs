@@ -16,14 +16,14 @@ using NHibernate.Transform;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers.DataStandard400
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
 {
     [TestFixture]
     public class TokenInfoProviderTests
     {
         private ApiClientContext CreateApiContext()
         {
-            var educationOrganizationIds = new[] { 1234L};
+            var educationOrganizationIds = new[] { 1234L };
 
             var namespacePrefixes = new[] {"uri://ed-fi.org"};
 
