@@ -147,8 +147,17 @@ namespace EdFi.Ods.Api.Container.Modules
                 .PreserveExistingDefaults()
                 .SingleInstance();
 
-            builder.RegisterType<PersonUniqueIdToUsiCache>()
-                .WithParameter(new NamedParameter("synchronousInitialization", false))
+            builder.RegisterType<InProcessMapCache<(ulong odsInstanceHashId, string personType), string, int>>()
+                // TODO: Rationalize the use of expiring concurrent dictionary with the legacy option for rolling expiration, implying a need for MemoryCache
+                .WithParameter(
+                    ctx =>
+                    {
+                        var apiSettings = ctx.Resolve<ApiSettings>();
+
+                        return (ICacheProvider<(ulong odsInstanceHashId, string personType)>) new ExpiringConcurrentDictionaryCacheProvider<(ulong odsInstanceHashId, string personType)>(
+                            "In-memory Person Map Cache",
+                            TimeSpan.FromSeconds(apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds));
+                    })
                 .WithParameter(
                     new ResolvedParameter(
                         (p, c) => p.Name.Equals("slidingExpiration", StringComparison.InvariantCultureIgnoreCase),
@@ -180,8 +189,71 @@ namespace EdFi.Ods.Api.Container.Modules
                             
                             return apiSettings.Caching.PersonUniqueIdToUsi.CacheSuppression;
                         }))
-                .As<IPersonUniqueIdToUsiCache>()
+                .As<IMapCache<(ulong odsInstanceHashId, string personType), string, int>>()
                 .SingleInstance();
+            
+            builder.RegisterType<InProcessMapCache<(ulong odsInstanceHashId, string personType), int, string>>()
+                // TODO: Rationalize the use of expiring concurrent dictionary with the legacy option for rolling expiration, implying a need for MemoryCache
+                .WithParameter(
+                    ctx =>
+                    {
+                        var apiSettings = ctx.Resolve<ApiSettings>();
+
+                        return (ICacheProvider<(ulong odsInstanceHashId, string personType)>) new ExpiringConcurrentDictionaryCacheProvider<(ulong odsInstanceHashId, string personType)>(
+                            "In-memory Person Map Cache",
+                            TimeSpan.FromSeconds(apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds));
+                    })
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.Equals("slidingExpiration", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) =>
+                        {
+                            var apiSettings = c.Resolve<ApiSettings>();
+
+                            int period = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
+
+                            return TimeSpan.FromSeconds(period);
+                        }))
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) =>
+                        {
+                            var apiSettings = c.Resolve<ApiSettings>();
+
+                            int period = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
+
+                            return TimeSpan.FromSeconds(period);
+                        }))
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.Equals("cacheSuppression", StringComparison.OrdinalIgnoreCase),
+                        (p, c) =>
+                        {
+                            var apiSettings = c.Resolve<ApiSettings>();
+                            
+                            return apiSettings.Caching.PersonUniqueIdToUsi.CacheSuppression;
+                        }))
+                .As<IMapCache<(ulong odsInstanceHashId, string personType), int, string>>()
+                .SingleInstance();
+
+            builder.RegisterType<PersonMapCacheInitializer>()
+                .As<IPersonMapCacheInitializer>()
+                .SingleInstance();
+
+            builder.RegisterType<PersonUniqueIdResolver>()
+                .As<IPersonUniqueIdResolver>()
+                .SingleInstance();
+
+            builder.RegisterType<PersonUsiResolver>()
+                .As<IPersonUsiResolver>()
+                .SingleInstance();
+            
+            // builder.RegisterType<PersonUniqueIdToUsiCache>()
+            //     .WithParameter(new NamedParameter("synchronousInitialization", false))
+            //
+            //     .As<IPersonUniqueIdToUsiCache>()
+            //     .SingleInstance();
 
             builder.RegisterType<OrmMappingFileDataProvider>()
                 .WithParameter(new NamedParameter("assemblyName", OrmMappingFileConventions.OrmMappingAssembly))

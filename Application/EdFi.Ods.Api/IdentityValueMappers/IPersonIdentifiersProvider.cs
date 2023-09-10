@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace EdFi.Ods.Api.IdentityValueMappers
 {
     /// <summary>
-    /// Defines a method for obtaining Person identifiers for cache warming purposes.
+    /// Defines methods for obtaining Person identifiers for cache warming purposes or batch resolution.
     /// </summary>
     public interface IPersonIdentifiersProvider
     {
@@ -24,5 +24,9 @@ namespace EdFi.Ods.Api.IdentityValueMappers
         /// complete.
         /// </remarks>
         Task<IEnumerable<PersonIdentifiersValueMap>> GetAllPersonIdentifiers(string personType);
+
+        Task<IEnumerable<PersonIdentifiersValueMap>> GetPersonUniqueIds(string personType, int[] usis);
+        
+        Task<IEnumerable<PersonIdentifiersValueMap>> GetPersonUsis(string personType, string[] uniqueIds);
     }
 }

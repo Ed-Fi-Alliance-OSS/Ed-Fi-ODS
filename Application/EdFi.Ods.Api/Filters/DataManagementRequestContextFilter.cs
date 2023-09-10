@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Conventions;
+using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
@@ -27,23 +28,27 @@ namespace EdFi.Ods.Api.Filters;
 public class DataManagementRequestContextFilter : IAsyncResourceFilter
 {
     private static readonly char[] _pathDelimiters = { '/' };
-    private readonly IContextProvider<DataManagementResourceContext> _contextProvider;
+    private readonly IContextProvider<DataManagementResourceContext> _resourceContextProvider;
 
     private readonly Lazy<string> _dataManagementTemplatePrefix;
     private readonly Lazy<string[]> _knownSchemaUriSegments;
 
     private readonly ILog _logger = LogManager.GetLogger(typeof(DataManagementRequestContextFilter));
     private readonly IResourceModelProvider _resourceModelProvider;
-    private readonly IOdsRouteRootTemplateProvider _odsRouteRootTemplateProvider;
+    private readonly IContextProvider<UsiLookupsByUniqueIdContext> _usiLookupsByUniqueIdContextProvider;
+    private readonly IContextProvider<UniqueIdLookupsByUsiContext> _uniqueIdLookupsByUsiContextProvider;
 
     public DataManagementRequestContextFilter(
         IResourceModelProvider resourceModelProvider,
-        IContextProvider<DataManagementResourceContext> contextProvider,
-        IOdsRouteRootTemplateProvider odsRouteRootTemplateProvider)
+        IContextProvider<DataManagementResourceContext> resourceContextProvider,
+        IOdsRouteRootTemplateProvider odsRouteRootTemplateProvider,
+        IContextProvider<UsiLookupsByUniqueIdContext> usiLookupsByUniqueIdContextProvider,
+        IContextProvider<UniqueIdLookupsByUsiContext> uniqueIdLookupsByUsiContextProvider)
     {
         _resourceModelProvider = resourceModelProvider;
-        _contextProvider = contextProvider;
-        _odsRouteRootTemplateProvider = odsRouteRootTemplateProvider;
+        _resourceContextProvider = resourceContextProvider;
+        _usiLookupsByUniqueIdContextProvider = usiLookupsByUniqueIdContextProvider;
+        _uniqueIdLookupsByUsiContextProvider = uniqueIdLookupsByUsiContextProvider;
 
         _knownSchemaUriSegments = new Lazy<string[]>(
             () => _resourceModelProvider.GetResourceModel()
@@ -54,7 +59,7 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
         _dataManagementTemplatePrefix = new Lazy<string>(
             () =>
             {
-                string routeRootTemplate = _odsRouteRootTemplateProvider.GetOdsRouteRootTemplate();
+                string routeRootTemplate = odsRouteRootTemplateProvider.GetOdsRouteRootTemplate();
 
                 // Normalize the double braces used by ASP.NET for inline regex constraints
                 if (routeRootTemplate?.Contains(":regex") ?? false)
@@ -133,7 +138,11 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
                     var resource = _resourceModelProvider.GetResourceModel()
                         .GetResourceByApiCollectionName(schema, resourceCollection);
 
-                    _contextProvider.Set(new DataManagementResourceContext(resource, context.HttpContext.Request.Method));
+                    _resourceContextProvider.Set(new DataManagementResourceContext(resource, context.HttpContext.Request.Method));
+                    
+                    // Initialize context for UniqueId/USI mappings
+                    _uniqueIdLookupsByUsiContextProvider.Set(new UniqueIdLookupsByUsiContext());
+                    _usiLookupsByUniqueIdContextProvider.Set(new UsiLookupsByUniqueIdContext());
                 }
                 catch (Exception)
                 {

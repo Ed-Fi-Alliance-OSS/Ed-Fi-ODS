@@ -140,6 +140,10 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 IsFirstProperty = IsFirstProperty,
                 IsLastProperty = IsLastProperty,
                 IsUnique = IsUnique,
+                IsUniqueId = UniqueIdConventions.IsUniqueId(propertyName),
+                UniqueIdPersonType = UniqueIdConventions.IsUniqueId(propertyName) 
+                    ? Resources.PersonEntitySpecification.GetUniqueIdPersonType(propertyName)
+                    : null,
                 IsDateOnlyProperty = Property.PropertyType.DbType == DbType.Date,
                 IsTimeSpanProperty = Property.PropertyType.DbType == DbType.Time,
                 ClassName = this[ResourceRenderer.ClassName]

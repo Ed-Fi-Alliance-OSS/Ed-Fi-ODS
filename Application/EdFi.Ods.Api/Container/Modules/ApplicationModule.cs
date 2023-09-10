@@ -420,6 +420,14 @@ namespace EdFi.Ods.Api.Container.Modules
                 builder.RegisterGeneric(typeof(PersistEntityModel<,,,>))
                     .AsSelf()
                     .SingleInstance();
+                
+                builder.RegisterGeneric(typeof(ResolveUniqueIds<,,,>))
+                    .AsSelf()
+                    .SingleInstance();
+                
+                builder.RegisterGeneric(typeof(ResolveUsis<,,,>))
+                    .AsSelf()
+                    .SingleInstance();
             }
 
             void RegisterPipeLineStepProviders()

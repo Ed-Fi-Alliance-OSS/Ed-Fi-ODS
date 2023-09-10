@@ -9,31 +9,34 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Extensions;
+using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.CodeGen.Generators.Resources
 {
     public class Resources : GeneratorBase
     {
-        private readonly ResourceCollectionRenderer _resourceCollectionRenderer;
-        private readonly ResourcePropertyRenderer _resourcePropertyRenderer;
+        private readonly ResourceCollectionRenderer _resourceCollectionRenderer = new();
+        private readonly ResourcePropertyRenderer _resourcePropertyRenderer = new();
+        
+        public static IPersonEntitySpecification PersonEntitySpecification { get; private set; }
 
-        public Resources()
-        {
-            _resourcePropertyRenderer = new ResourcePropertyRenderer();
-            _resourceCollectionRenderer = new ResourceCollectionRenderer();
-        }
-
-        protected override void Configure()
-        {
-        }
+        protected override void Configure() { }
 
         protected override object Build()
         {
+            var domainModel = TemplateContext.DomainModelProvider.GetDomainModel();
+            
+            PersonEntitySpecification = 
+                new PersonEntitySpecification(
+                    new PersonTypesProvider(
+                        new SuppliedDomainModelProvider(domainModel)));
+            
             var schemaNameMapProvider = TemplateContext.DomainModelProvider.GetDomainModel()
                 .SchemaNameMapProvider;
 
@@ -285,7 +288,11 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                         PropertyType = p.PropertyType.ToCSharp(),
                                         // Use GetLineage to build the property path, in reverse order, skipping the first since that's the BackReference itself
                                         PropertyPathToRoot = "BackReference." +
-                                            string.Join(".", ((ResourceChildItem)resource).GetLineage().Reverse().Skip(1).Select(l => l.Name))
+                                            string.Join(".", ((ResourceChildItem)resource).GetLineage().Reverse().Skip(1).Select(l => l.Name)),
+                                        IsUniqueId = UniqueIdConventions.IsUniqueId(p.PropertyName),
+                                        UniqueIdPersonType = UniqueIdConventions.IsUniqueId(p.PropertyName) 
+                                            ? PersonEntitySpecification.GetUniqueIdPersonType(p.PropertyName)
+                                            : null
                                     }),
                             ReferenceIdentifiers =
                                 _resourcePropertyRenderer.AssembleIdentifiers(

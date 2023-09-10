@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Common;
 using EdFi.Common.Extensions;
@@ -30,6 +31,8 @@ namespace EdFi.Ods.Api.IdentityValueMappers
         private readonly IPersonEntitySpecification _personEntitySpecification;
         private readonly IPersonTypesProvider _personTypesProvider;
         private readonly Func<IStatelessSession> _openStatelessSession;
+        private readonly Lazy<Dictionary<string, string>> _uniqueIdNameByPersonType;
+        private readonly Lazy<Dictionary<string, string>> _usiNameByPersonType;
 
         public PersonIdentifiersProvider(
             Func<IStatelessSession> openStatelessSession,
@@ -41,6 +44,12 @@ namespace EdFi.Ods.Api.IdentityValueMappers
             _personEntitySpecification = personEntitySpecification;
             _personTypesProvider = personTypesProvider;
             _openStatelessSession = Preconditions.ThrowIfNull(openStatelessSession, nameof(openStatelessSession));
+
+            _uniqueIdNameByPersonType = new Lazy<Dictionary<string, string>>(
+                () => _personTypesProvider.PersonTypes.ToDictionary(k => k, k => $"{k}UniqueId"));
+
+            _usiNameByPersonType = new Lazy<Dictionary<string, string>>(
+                () => _personTypesProvider.PersonTypes.ToDictionary(k => k, k => $"{k}USI"));
         }
 
         /// <summary>
@@ -55,7 +64,25 @@ namespace EdFi.Ods.Api.IdentityValueMappers
         /// </remarks>
         public async Task<IEnumerable<PersonIdentifiersValueMap>> GetAllPersonIdentifiers(string personType)
         {
-            Preconditions.ThrowIfNull(personType, nameof(personType));
+            return await GetPersonIdentifiers(personType);
+        }
+
+        public async Task<IEnumerable<PersonIdentifiersValueMap>> GetPersonUniqueIds(string personType, int[] usis)
+        {
+            return await GetPersonIdentifiers(personType, usis: usis);
+        }
+
+        public async Task<IEnumerable<PersonIdentifiersValueMap>> GetPersonUsis(string personType, string[] uniqueIds)
+        {
+            return await GetPersonIdentifiers(personType, uniqueIds: uniqueIds);
+        }
+
+        private async Task<IEnumerable<PersonIdentifiersValueMap>> GetPersonIdentifiers(
+            string personType,
+            string[] uniqueIds = null,
+            int[] usis = null)
+        {
+            ArgumentNullException.ThrowIfNull(personType, nameof(personType));
 
             // Validate Person type
             if (!_personEntitySpecification.IsPersonEntity(personType))
@@ -72,18 +99,28 @@ namespace EdFi.Ods.Api.IdentityValueMappers
                 using var session = _openStatelessSession();
 
                 string aggregateNamespace = Namespaces.Entities.NHibernate.GetAggregateNamespace(
-                    personType, EdFiConventions.ProperCaseName);
+                    personType,
+                    EdFiConventions.ProperCaseName);
 
                 string entityName = $"{aggregateNamespace}.{personType}";
 
                 var criteria = session.CreateCriteria(entityName)
                     .SetProjection(
                         Projections.ProjectionList()
-                            .Add(Projections.Alias(Projections.Property($"{personType}USI"), "Usi"))
-                            .Add(Projections.Alias(Projections.Property($"{personType}UniqueId"), "UniqueId"))
-                    )
+                            .Add(Projections.Alias(Projections.Property(_usiNameByPersonType.Value[personType]), "Usi"))
+                            .Add(Projections.Alias(Projections.Property(_uniqueIdNameByPersonType.Value[personType]), "UniqueId")))
                     .SetResultTransformer(Transformers.AliasToBean<PersonIdentifiersValueMap>());
 
+                // TODO: Need to review possible usage of TVP here for SQL Server
+                if (uniqueIds != null)
+                {
+                    criteria.Add(Restrictions.In($"{personType}UniqueId", uniqueIds));
+                }
+                else if (usis != null)
+                {
+                    criteria.Add(Restrictions.In($"{personType}USI", usis));
+                }
+                
                 return await criteria.ListAsync<PersonIdentifiersValueMap>();
             }
             finally

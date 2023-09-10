@@ -18,16 +18,16 @@ namespace EdFi.Ods.Api.Middleware;
 /// </summary>
 public class OdsInstanceIdentificationMiddleware : IMiddleware
 {
-    private readonly IContextProvider<OdsInstanceConfiguration> _odsInstanceConfigurationProvider;
+    private readonly IContextProvider<OdsInstanceConfiguration> _odsInstanceConfigurationContextProvider;
     private readonly IOdsInstanceSelector _odsInstanceSelector;
 
     private readonly ILog _logger = LogManager.GetLogger(typeof(OdsInstanceIdentificationMiddleware));
 
     public OdsInstanceIdentificationMiddleware(
-        IContextProvider<OdsInstanceConfiguration> odsInstanceConfigurationProvider,
+        IContextProvider<OdsInstanceConfiguration> odsInstanceConfigurationContextProvider,
         IOdsInstanceSelector odsInstanceSelector)
     {
-        _odsInstanceConfigurationProvider = odsInstanceConfigurationProvider;
+        _odsInstanceConfigurationContextProvider = odsInstanceConfigurationContextProvider;
         _odsInstanceSelector = odsInstanceSelector;
     }
     
@@ -44,7 +44,7 @@ public class OdsInstanceIdentificationMiddleware : IMiddleware
                     _logger.Debug($"Setting ODS instance '{odsInstanceConfiguration.OdsInstanceId}' (with hash id '{odsInstanceConfiguration.OdsInstanceHashId}') into context...");
                 }
 
-                _odsInstanceConfigurationProvider.Set(odsInstanceConfiguration);
+                _odsInstanceConfigurationContextProvider.Set(odsInstanceConfiguration);
             }
 
             await next.Invoke(context);

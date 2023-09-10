@@ -3,6 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
+
 namespace EdFi.Ods.Common.Caching
 {
     /// <summary>
@@ -19,6 +21,8 @@ namespace EdFi.Ods.Common.Caching
         /// <returns>The UniqueId value assigned to the person if found; otherwise <b>null</b>.</returns>
         string GetUniqueId(string personType, int usi);
 
+        ICollection<string> GetUniqueIds(string personType, ICollection<int> usis);
+
         /// <summary>
         /// Gets the ODS-specific integer identifier for the specified type of person and their UniqueId value.
         /// </summary>
@@ -27,6 +31,8 @@ namespace EdFi.Ods.Common.Caching
         /// <returns>The ODS-specific integer identifier for the specified type of representation of 
         /// the person if found; otherwise 0.</returns>
         int GetUsi(string personType, string uniqueId);
+
+        ICollection<string> GetUsis(string personType, ICollection<string> uniqueIds);
 
         /// <summary>
         /// Gets the ODS-specific integer identifier for the specified type of person and their UniqueId value.

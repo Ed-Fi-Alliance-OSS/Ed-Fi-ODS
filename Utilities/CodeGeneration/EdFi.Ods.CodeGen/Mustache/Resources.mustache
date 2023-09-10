@@ -40,9 +40,24 @@ namespace {{ResourceClassesNamespace}}
     {
         {{#ReferenceIdentifiers}}
         [DataMember(Name="{{JsonPropertyName}}"), NaturalKeyMember]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        {{^IsUniqueId}}
         public {{PropertyType}} {{PropertyName}} { get; set; }
+        {{/IsUniqueId}}
+        {{#IsUniqueId}}
+        public {{PropertyType}} {{PropertyName}} 
+        {
+            get => _{{PropertyFieldName}};
+            set
+            {
+                _{{PropertyFieldName}} = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("{{UniqueIdPersonType}}", value);
+            }
+        }
+        private {{PropertyType}} _{{PropertyFieldName}};
+        {{/IsUniqueId}}
 
         {{/ReferenceIdentifiers}}
+    
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
@@ -164,13 +179,40 @@ namespace {{ResourceClassesNamespace}}
             get => _{{JsonPropertyName}} == default({{PropertyType}})
                     ? {{PropertyPathToRoot}}.{{PropertyName}}
                     : _{{JsonPropertyName}};
+            {{#IsUniqueId}}
+            set
+            {
+                _{{JsonPropertyName}} = value;
+                
+                if (value != null)
+                {
+                    GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("{{UniqueIdPersonType}}", value);
+                }
+            }
+            {{/IsUniqueId}}
+            {{^IsUniqueId}}
             set => _{{JsonPropertyName}} = value;
+            {{/IsUniqueId}}
         }
 
         {{/ContextualReferenceIdentifier}}
         {{#ReferenceIdentifiers}}
         [DataMember(Name="{{JsonPropertyName}}"), NaturalKeyMember]
+        {{^IsUniqueId}}
         public {{PropertyType}} {{PropertyName}} { get; set; }
+        {{/IsUniqueId}}
+        {{#IsUniqueId}}
+        public {{PropertyType}} {{PropertyName}} 
+        {
+            get => _{{PropertyFieldName}};
+            set
+            {
+                _{{PropertyFieldName}} = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("{{UniqueIdPersonType}}", value);
+            }
+        }
+        private {{PropertyType}} _{{PropertyFieldName}};
+        {{/IsUniqueId}}
 
         {{/ReferenceIdentifiers}}
         /// <summary>
@@ -444,8 +486,17 @@ namespace {{ResourceClassesNamespace}}
         /// </summary>
         {{{Misc}}}
         [DataMember(Name="{{JsonPropertyName}}"), NaturalKeyMember{{#IsUnique}}, UniqueId{{/IsUnique}}]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
-        public {{PropertyType}} {{PropertyName}} { get; set; }
-
+        public {{PropertyType}} {{PropertyName}} 
+        {
+            get => _{{PropertyFieldName}};
+            set
+            {
+                _{{PropertyFieldName}} = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("{{UniqueIdPersonType}}", value);
+            }
+        }
+        private {{PropertyType}} _{{PropertyFieldName}};
+        
         {{PropertyType}} IIdentifiablePerson.UniqueId { get { return {{PropertyName}}; } }
         {{/Property}}
         {{/Usi}}

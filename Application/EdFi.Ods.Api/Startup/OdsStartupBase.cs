@@ -354,6 +354,8 @@ namespace EdFi.Ods.Api.Startup
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IETagProvider>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IMappingContractProvider>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IContextProvider<ProfileContentTypeContext>>());
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IContextProvider<UniqueIdLookupsByUsiContext>>());
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IContextProvider<UsiLookupsByUniqueIdContext>>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => (StringComparer) Container.Resolve<IDatabaseEngineSpecificEqualityComparerProvider<string>>().GetEqualityComparer());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IDescriptorResolver>());
 
@@ -364,10 +366,10 @@ namespace EdFi.Ods.Api.Startup
                     .HttpContext?.User;
 
                 // Provide cache using a closure rather than repeated invocations to the container
-                IPersonUniqueIdToUsiCache personUniqueIdToUsiCache = null;
+                // IPersonUniqueIdToUsiCache personUniqueIdToUsiCache = null;
 
-                PersonUniqueIdToUsiCache.GetCache = ()
-                    => personUniqueIdToUsiCache ??= Container.Resolve<IPersonUniqueIdToUsiCache>();
+                // PersonUniqueIdToUsiCache.GetCache = ()
+                //     => personUniqueIdToUsiCache ??= Container.Resolve<IPersonUniqueIdToUsiCache>();
 
                 ResourceModelHelper.ResourceModel =
                     new Lazy<ResourceModel>(
