@@ -32,19 +32,21 @@ public class PersonMapCacheInitializer : IPersonMapCacheInitializer
         _uniqueIdByUsiMapCache = uniqueIdByUsiMapCache;
     }
 
-    public Task InitializePersonMaps(ulong odsInstanceHashId, string personType)
+    public Task EnsurePersonMapsInitialized(ulong odsInstanceHashId, string personType)
     {
         var initializationTask = _initializationTaskByOdsPersonType.GetOrAdd(
             (odsInstanceHashId, personType),
             key =>
             {
-                return Task.Run(() => _personIdentifiersProvider.GetAllPersonIdentifiers(key.personType))
+                var (hashId, pt) = key;
+                
+                return Task.Run(() => _personIdentifiersProvider.GetAllPersonIdentifiers(pt))
                     .ContinueWith(
                         x =>
                         {
                             if (x.IsFaulted)
                             {
-                                _logger.Error($"Unable to load '{personType}' mappings from ODS (hashId={odsInstanceHashId}).", x.Exception);
+                                _logger.Error($"Unable to load '{personType}' mappings from ODS (hashId={hashId}).", x.Exception);
                             }
                             else if (x.IsCompletedSuccessfully)
                             {
@@ -57,8 +59,8 @@ public class PersonMapCacheInitializer : IPersonMapCacheInitializer
                                     .ToArray();
 
                                 // Set the retrieved tuples into the cache
-                                _uniqueIdByUsiMapCache.SetMapItems(key, uniqueIdByUsiCacheEntries);
-                                _usiByUniqueIdMapCache.SetMapItems(key, usiByUniqueIdCacheEntries);
+                                _uniqueIdByUsiMapCache.SetMapEntries(key, uniqueIdByUsiCacheEntries);
+                                _usiByUniqueIdMapCache.SetMapEntries(key, usiByUniqueIdCacheEntries);
                             }
                         });
             });

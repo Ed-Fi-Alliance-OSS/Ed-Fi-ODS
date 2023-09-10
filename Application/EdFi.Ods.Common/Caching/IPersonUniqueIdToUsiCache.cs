@@ -7,6 +7,8 @@ using System.Collections.Generic;
 
 namespace EdFi.Ods.Common.Caching
 {
+    // TODO: Need to remove this for new batch-oriented USI/uniqueId cache.
+    
     /// <summary>
     /// Defines methods for obtaining the UniqueIds corresponding to USI values (or vice-versa) for a person.
     /// </summary>

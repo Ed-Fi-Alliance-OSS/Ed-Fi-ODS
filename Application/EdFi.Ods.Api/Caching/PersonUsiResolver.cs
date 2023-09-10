@@ -31,7 +31,7 @@ public class PersonUsiResolver : IPersonUsiResolver
         var keys = lookups.Keys.ToArray();
         ulong odsInstanceHashId = _odsInstanceConfigurationContextProvider.Get().OdsInstanceHashId;
         
-        var resolvedUsis = _mapCache.GetMapItems((odsInstanceHashId, personType), keys);
+        var resolvedUsis = _mapCache.GetMapEntries((odsInstanceHashId, personType), keys);
 
         resolvedUsis.ForEach(
             (usi, i) =>

@@ -9,5 +9,5 @@ namespace EdFi.Ods.Api.Caching;
 
 public interface IPersonMapCacheInitializer
 {
-    Task InitializePersonMaps(ulong odsInstanceHashId, string personType);
+    Task EnsurePersonMapsInitialized(ulong odsInstanceHashId, string personType);
 }

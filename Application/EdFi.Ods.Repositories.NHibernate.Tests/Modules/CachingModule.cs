@@ -18,10 +18,17 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new MemoryCache(new MemoryCacheOptions())).As<IMemoryCache>();
+            builder.Register(c => new MemoryCache(new MemoryCacheOptions()))
+                .As<IMemoryCache>();
 
-            builder.RegisterType<MemoryCacheProvider>().As<ICacheProvider<string>>();
-            builder.RegisterGeneric(typeof(ConcurrentDictionaryCacheProvider<>)).AsSelf().SingleInstance();
+            builder.RegisterType<MemoryCacheProvider>()
+                .AsSelf()
+                .As<ICacheProvider<string>>()
+                .SingleInstance();
+            
+            builder.RegisterGeneric(typeof(ConcurrentDictionaryCacheProvider<>))
+                .AsSelf()
+                .SingleInstance();
         }
     }
 }

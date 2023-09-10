@@ -38,7 +38,7 @@ public class PersonUniqueIdResolver : IPersonUniqueIdResolver
         ulong odsInstanceHashId = _odsInstanceConfigurationContextProvider.Get().OdsInstanceHashId;
 
         // Ensure cache initialization of the entire UniqueId/USI map for the ODS
-        var initializationTask = _personMapCacheInitializer.InitializePersonMaps(odsInstanceHashId, personType);
+        var initializationTask = _personMapCacheInitializer.EnsurePersonMapsInitialized(odsInstanceHashId, personType);
 
         ICollection<int> usisToLoad = null;
         var suppliedLookupUsis = lookups.Keys.ToArray();
@@ -47,7 +47,7 @@ public class PersonUniqueIdResolver : IPersonUniqueIdResolver
         if (initializationTask == null || initializationTask.IsCompleted)
         {
             // Resolve uniqueIds from the map cache
-            var resolvedUniqueIds = _mapCache.GetMapItems((odsInstanceHashId, personType), suppliedLookupUsis);
+            var resolvedUniqueIds = _mapCache.GetMapEntries((odsInstanceHashId, personType), suppliedLookupUsis);
 
             // Assign resolved values to the supplied dictionary
             resolvedUniqueIds.ForEach(
@@ -59,39 +59,27 @@ public class PersonUniqueIdResolver : IPersonUniqueIdResolver
                     }
                     else
                     {
-                        // Need to look up from the ODS
+                        // Need to look up in the ODS
                         AddUniqueIdToLoad(suppliedLookupUsis[i]);
                     }
                 });
 
             void AddUniqueIdToLoad(int usi)
             {
-                if (usisToLoad == null)
-                {
-                    usisToLoad = new List<int>();
-                }
-            
+                usisToLoad ??= new List<int>();
                 usisToLoad.Add(usi);
             }
         }
+        else
+        {
+            // All USIs in current context must be loaded from the ODS since initialization isn't yet complete
+            usisToLoad = suppliedLookupUsis;
+        }
 
-        // If not initialized, then all the supplied lookup USIs must be loaded
-        usisToLoad ??= suppliedLookupUsis;
-        
         // If there are any values that still need to be loaded directly from the ODS...
-        if (usisToLoad.Any())
+        if (usisToLoad != null)
         {
             var results = await _personIdentifiersProvider.GetPersonUniqueIds(personType, usisToLoad.ToArray());
-            
-            // await using var conn = _dbProviderFactory.CreateConnection();
-            //
-            // conn.ConnectionString = _odsDatabaseConnectionStringProvider.GetReadReplicaConnectionString()
-            //     ?? _odsDatabaseConnectionStringProvider.GetConnectionString();
-            //
-            // await conn.OpenAsync();
-            //
-            // var results = await conn.QueryAsync<UniqueIdUsiTuple>(
-            //     $"select {personType}UniqueId as UniqueId, {personType}Usi as Usi from edfi.{personType}");
 
             foreach (var result in results)
             {

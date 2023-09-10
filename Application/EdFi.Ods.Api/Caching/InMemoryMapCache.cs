@@ -8,18 +8,22 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Caching;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace EdFi.Ods.Api.Caching;
 
-public class InProcessMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, TMapValue>
+public class InMemoryMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, TMapValue>
 {
-    private readonly ICacheProvider<TKey> _cacheProvider;
-    private readonly TimeSpan _slidingExpiration;
-    private readonly TimeSpan _absoluteExpirationPeriod;
+    // TODO: Implement cache suppression behavior appropriately
     private readonly Dictionary<string, bool> _cacheSuppression;
 
-    public InProcessMapCache(
-        ICacheProvider<TKey> cacheProvider,
+    // private readonly ICacheProvider<TKey> _cacheProvider;
+    private readonly IMemoryCache _memoryCache;
+    private readonly MemoryCacheEntryOptions _memoryCacheEntryOptions;
+
+    public InMemoryMapCache(
+        // MemoryCacheProvider<TKey> cacheProvider,
+        IMemoryCache memoryCache,
         TimeSpan slidingExpiration,
         TimeSpan absoluteExpirationPeriod,
         Dictionary<string, bool> cacheSuppression)
@@ -40,15 +44,18 @@ public class InProcessMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapK
             absoluteExpirationPeriod = TimeSpan.Zero;
         }
 
-        _cacheProvider = cacheProvider;
-        _slidingExpiration = slidingExpiration;
-        _absoluteExpirationPeriod = absoluteExpirationPeriod;
+        // _cacheProvider = cacheProvider;
+        _memoryCache = memoryCache;
         _cacheSuppression = cacheSuppression;
         
-        // TODO: Implement cache suppression behavior appropriately
+        _memoryCacheEntryOptions = new MemoryCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = absoluteExpirationPeriod <= TimeSpan.Zero ? null : absoluteExpirationPeriod,
+            SlidingExpiration = slidingExpiration <= TimeSpan.Zero ? null : slidingExpiration,
+        };
     }
 
-    public bool SetMapItem(TKey key, TMapKey mapKey, TMapValue value)
+    public bool SetMapEntry(TKey key, TMapKey mapKey, TMapValue value)
     {
         var map = GetOrAddMap(key);
 
@@ -57,7 +64,7 @@ public class InProcessMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapK
         return true;
     }
 
-    public long SetMapItems(TKey key, (TMapKey key, TMapValue value)[] mapEntries)
+    public long SetMapEntries(TKey key, (TMapKey key, TMapValue value)[] mapEntries)
     {
         var map = GetOrAddMap(key);
 
@@ -69,7 +76,7 @@ public class InProcessMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapK
         return mapEntries.Length;
     }
 
-    public TMapValue GetMapItem(TKey key, TMapKey mapKey)
+    public TMapValue GetMapEntry(TKey key, TMapKey mapKey)
     {
         var map = GetOrAddMap(key);
 
@@ -78,7 +85,7 @@ public class InProcessMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapK
             : default;
     }
 
-    public TMapValue[] GetMapItems(TKey key, TMapKey[] mapKeys)
+    public TMapValue[] GetMapEntries(TKey key, TMapKey[] mapKeys)
     {
         var map = GetOrAddMap(key);
 
@@ -95,21 +102,23 @@ public class InProcessMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapK
         return values;
     }
 
-    public bool DeleteMapItem(TKey key, TMapKey mapKey)
+    public bool DeleteMapEntry(TKey key, TMapKey mapKey)
     {
         var map = GetOrAddMap(key);
 
         return map.TryRemove(mapKey, out var ignored);
     }
 
-    public bool ContainsMap(TKey key) => _cacheProvider.TryGetCachedObject(key, out var ignored);
+    // public bool ContainsMap(TKey key) => _memoryCache.TryGetValue(key, out var ignored); // _cacheProvider.TryGetCachedObject(key, out var ignored);
 
     private ConcurrentDictionary<TMapKey, TMapValue> GetOrAddMap(TKey key)
     {
-        if (!_cacheProvider.TryGetCachedObject(key, out var mapAsObject))
+        // if (!_cacheProvider.TryGetCachedObject(key, out var mapAsObject))
+        if (!_memoryCache.TryGetValue(key, out var mapAsObject))
         {
             mapAsObject = new ConcurrentDictionary<TMapKey, TMapValue>();
-            _cacheProvider.Insert(key, mapAsObject, DateTime.UtcNow.Add(_absoluteExpirationPeriod), _slidingExpiration);
+            // _cacheProvider.Insert(key, mapAsObject, DateTime.UtcNow.Add(_absoluteExpirationPeriod), _slidingExpiration);
+            _memoryCache.Set(key, mapAsObject, _memoryCacheEntryOptions);
         }
 
         return (ConcurrentDictionary<TMapKey, TMapValue>)mapAsObject;
