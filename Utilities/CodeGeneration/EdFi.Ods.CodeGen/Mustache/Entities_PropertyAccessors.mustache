@@ -74,7 +74,6 @@
     {{^IsPersonEntity}}
         private string {{UniqueIdFieldName}};
 
-        {{^IsNullable}}[RequiredWithNonDefault]{{/IsNullable}}
         public {{#NeedsOverride}}override{{/NeedsOverride}}{{^NeedsOverride}}virtual{{/NeedsOverride}} string {{UniqueIdPropertyName}}
         {
             get

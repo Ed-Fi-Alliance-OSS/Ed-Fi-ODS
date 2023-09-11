@@ -121,6 +121,6 @@ public class InMemoryMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKe
             _memoryCache.Set(key, mapAsObject, _memoryCacheEntryOptions);
         }
 
-        return (ConcurrentDictionary<TMapKey, TMapValue>)mapAsObject;
+        return (ConcurrentDictionary<TMapKey, TMapValue>) mapAsObject;
     }
 }

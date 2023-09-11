@@ -11,11 +11,17 @@ using log4net;
 
 namespace EdFi.Ods.Api.Caching;
 
+public enum PersonMapType
+{
+    UniqueIdByUsi,
+    UsiByUniqueId
+}
+
 public class PersonMapCacheInitializer : IPersonMapCacheInitializer
 {
     private readonly IPersonIdentifiersProvider _personIdentifiersProvider;
-    private readonly IMapCache<(ulong odsInstanceHashId, string personType), string, int> _usiByUniqueIdMapCache;
-    private readonly IMapCache<(ulong odsInstanceHashId, string personType), int, string> _uniqueIdByUsiMapCache;
+    private readonly IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int> _usiByUniqueIdMapCache;
+    private readonly IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string> _uniqueIdByUsiMapCache;
 
     private readonly ConcurrentDictionary<(ulong odsInstanceHashId, string personType), Task>
         _initializationTaskByOdsPersonType = new();
@@ -24,8 +30,8 @@ public class PersonMapCacheInitializer : IPersonMapCacheInitializer
     
     public PersonMapCacheInitializer(
         IPersonIdentifiersProvider personIdentifiersProvider,
-        IMapCache<(ulong odsInstanceHashId, string personType), int, string> uniqueIdByUsiMapCache,
-        IMapCache<(ulong odsInstanceHashId, string personType), string, int> usiByUniqueIdMapCache)
+        IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string> uniqueIdByUsiMapCache,
+        IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int> usiByUniqueIdMapCache)
     {
         _personIdentifiersProvider = personIdentifiersProvider;
         _usiByUniqueIdMapCache = usiByUniqueIdMapCache;
@@ -59,8 +65,8 @@ public class PersonMapCacheInitializer : IPersonMapCacheInitializer
                                     .ToArray();
 
                                 // Set the retrieved tuples into the cache
-                                _uniqueIdByUsiMapCache.SetMapEntries(key, uniqueIdByUsiCacheEntries);
-                                _usiByUniqueIdMapCache.SetMapEntries(key, usiByUniqueIdCacheEntries);
+                                _uniqueIdByUsiMapCache.SetMapEntries((key.odsInstanceHashId, key.personType, PersonMapType.UniqueIdByUsi), uniqueIdByUsiCacheEntries);
+                                _usiByUniqueIdMapCache.SetMapEntries((key.odsInstanceHashId, key.personType, PersonMapType.UsiByUniqueId), usiByUniqueIdCacheEntries);
                             }
                         });
             });

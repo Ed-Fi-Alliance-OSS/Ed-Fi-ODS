@@ -36,8 +36,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
             IPersonUniqueIdToUsiCache personUniqueIdToUsiCache = null;
 
-            PersonUniqueIdToUsiCache.GetCache = ()
-                    => personUniqueIdToUsiCache ??= Container.Resolve<IPersonUniqueIdToUsiCache>();
+            // PersonUniqueIdToUsiCache.GetCache = ()
+            //         => personUniqueIdToUsiCache ??= Container.Resolve<IPersonUniqueIdToUsiCache>();
 
             Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(Container);
             SessionFactory = Container.Resolve<ISessionFactory>();

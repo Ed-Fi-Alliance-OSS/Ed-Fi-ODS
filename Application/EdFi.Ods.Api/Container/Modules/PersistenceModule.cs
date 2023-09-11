@@ -148,7 +148,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .PreserveExistingDefaults()
                 .SingleInstance();
 
-            builder.RegisterType<InMemoryMapCache<(ulong odsInstanceHashId, string personType), string, int>>()
+            builder.RegisterType<InMemoryMapCache<(ulong odsInstanceHashId, string personType, PersonMapType personMapType), string, int>>()
                 // TODO: Rationalize the use of expiring concurrent dictionary with the legacy option for rolling expiration, implying a need for MemoryCache
                 // .WithParameter(
                 //     ctx =>
@@ -191,10 +191,10 @@ namespace EdFi.Ods.Api.Container.Modules
                             
                             return apiSettings.Caching.PersonUniqueIdToUsi.CacheSuppression;
                         }))
-                .As<IMapCache<(ulong odsInstanceHashId, string personType), string, int>>()
+                .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int>>()
                 .SingleInstance();
             
-            builder.RegisterType<InMemoryMapCache<(ulong odsInstanceHashId, string personType), int, string>>()
+            builder.RegisterType<InMemoryMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
                 // TODO: Rationalize the use of expiring concurrent dictionary with the legacy option for rolling expiration, implying a need for MemoryCache
                 .WithParameter(
                     ctx =>
@@ -236,7 +236,7 @@ namespace EdFi.Ods.Api.Container.Modules
                             
                             return apiSettings.Caching.PersonUniqueIdToUsi.CacheSuppression;
                         }))
-                .As<IMapCache<(ulong odsInstanceHashId, string personType), int, string>>()
+                .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
                 .SingleInstance();
 
             builder.RegisterType<PersonMapCacheInitializer>()

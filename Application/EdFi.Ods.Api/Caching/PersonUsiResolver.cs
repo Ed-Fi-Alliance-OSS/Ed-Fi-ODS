@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -6,42 +6,45 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EdFi.Common.Utils.Extensions;
+using EdFi.Ods.Api.IdentityValueMappers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 
 namespace EdFi.Ods.Api.Caching;
 
-public class PersonUsiResolver : IPersonUsiResolver
+public class PersonUsiResolver : PersonIdentifierResolverBase<string, int>, IPersonUsiResolver
 {
-    private readonly IMapCache<(ulong odsInstanceHashId, string personType), string, int> _mapCache;
-
-    private readonly IContextProvider<OdsInstanceConfiguration> _odsInstanceConfigurationContextProvider;
+    private readonly IPersonIdentifiersProvider _personIdentifiersProvider;
 
     public PersonUsiResolver(
+        IPersonMapCacheInitializer personMapCacheInitializer,
+        IPersonIdentifiersProvider personIdentifiersProvider,
         IContextProvider<OdsInstanceConfiguration> odsInstanceConfigurationContextProvider,
-        IMapCache<(ulong, string), string, int> mapCache)
+        IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int> mapCache)
+        : base(personMapCacheInitializer, odsInstanceConfigurationContextProvider, mapCache)
     {
-        _odsInstanceConfigurationContextProvider = odsInstanceConfigurationContextProvider;
-        _mapCache = mapCache;
+        _personIdentifiersProvider = personIdentifiersProvider;
     }
-    
-    public Task ResolveUsis(string personType, IDictionary<string, int> lookups)
+
+    public async Task ResolveUsis(string personType, IDictionary<string, int> lookups)
     {
-        var keys = lookups.Keys.ToArray();
-        ulong odsInstanceHashId = _odsInstanceConfigurationContextProvider.Get().OdsInstanceHashId;
-        
-        var resolvedUsis = _mapCache.GetMapEntries((odsInstanceHashId, personType), keys);
+        await ResolveIdentifiers(personType, lookups);
+    }
 
-        resolvedUsis.ForEach(
-            (usi, i) =>
-            {
-                if (usi != default)
-                {
-                    lookups[keys[i]] = usi;
-                }
-            });
+    protected override async Task<IEnumerable<PersonIdentifiersValueMap>> LoadPersonUnresolvedIdentifiers(
+        string personType,
+        ICollection<string> identifiersToLoad)
+    {
+        return await _personIdentifiersProvider.GetPersonUsis(personType, identifiersToLoad.ToArray());
+    }
 
-        return Task.CompletedTask;
+    protected override PersonMapType MapType
+    {
+        get => PersonMapType.UsiByUniqueId;
+    }
+
+    protected override void SetResolvedIdentifier(IDictionary<string, int> lookups, PersonIdentifiersValueMap result)
+    {
+        lookups[result.UniqueId] = result.Usi;
     }
 }
