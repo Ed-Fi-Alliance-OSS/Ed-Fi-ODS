@@ -9,6 +9,6 @@ namespace EdFi.Ods.Api.Providers
 {
     public interface IOpenApiMetadataDocumentProvider
     {
-        bool TryGetSwaggerDocument(HttpRequest request, out string document);
+        bool TryGetSwaggerDocument(HttpRequest request, out string document, bool upcastToV30 = false);
     }
 }

@@ -17,11 +17,18 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
+
+//using EdFi.Ods.Features.OpenApiMetadata.Models;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
+using Microsoft.OpenApi;
+using Microsoft.OpenApi.Extensions;
+using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi.Readers;
+using Microsoft.OpenApi.Writers;
 using Newtonsoft.Json;
 
 namespace EdFi.Ods.Features.Controllers
@@ -30,7 +37,7 @@ namespace EdFi.Ods.Features.Controllers
     [Produces("application/json")]
     [AllowAnonymous]
     [ApplyOdsRouteRootTemplate]
-    [Route("metadata")]
+    [Route("metadata/{version?}")]
     public class OpenApiMetadataController : ControllerBase
     {
         private readonly bool _isEnabled;
@@ -46,28 +53,21 @@ namespace EdFi.Ods.Features.Controllers
             _reverseProxySettings = apiSettings.GetReverseProxySettings();
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.OpenApiMetadata.GetConfigKeyName());
         }
-
+        
+        
         [HttpGet]
-        [Route("")]
         public IActionResult Get([FromRoute] OpenApiMetadataSectionRequest request)
         {
             if (!IsFeatureEnabled())
             {
                 return NotFound();
             }
-
-            if (Request.Query.ContainsKey("sdk"))
-            {
-                if (bool.TryParse(Request.Query["sdk"], out bool sdk))
-                {
-                    request.Sdk = sdk;
-                }
-            }
-
+           
             var content = _openApiMetadataCacheProvider.GetAllSectionDocuments(request.Sdk)
                 .OrderBy(x => x.Section)
                 .ThenBy(x => x.Name)
                 .Select(GetSwaggerSectionDetailsForCacheItem)
+                
                 .ToList();
 
             var eTag = HashHelper.GetSha256Hash(JsonConvert.SerializeObject(content))

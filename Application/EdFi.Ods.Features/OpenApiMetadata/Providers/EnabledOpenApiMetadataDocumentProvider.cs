@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Conventions;
@@ -20,6 +21,10 @@ using EdFi.Ods.Features.OpenApiMetadata.Models;
 using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.OpenApi;
+using Microsoft.OpenApi.Extensions;
+using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi.Readers;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 {
@@ -51,7 +56,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             _odsContextRoutePath = apiSettings.GetOdsContextRoutePath() ?? string.Empty;
         }
 
-        public bool TryGetSwaggerDocument(HttpRequest request, out string document)
+        public bool TryGetSwaggerDocument(HttpRequest request, out string document, bool upcastToV30 = false)
         {
             document = null;
 
@@ -67,12 +72,68 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 
             document = GetMetadataForContent(openApiContent, request, openApiMetadataRequest.OdsContext, openApiMetadataRequest.InstanceId, openApiMetadataRequest.TenantIdentifierFromRoute);
 
+            if (upcastToV30)
+            {
+                document = UpcastOasJsonToV3(document);
+            }
             return true;
+            
+            string UpcastOasJsonToV3(string json)
+            {
+                var openApiDocument = new OpenApiStringReader().Read(json, out _);
+                TranformServersConfiguration(ref openApiDocument);
+                return openApiDocument.Serialize(OpenApiSpecVersion.OpenApi3_0, OpenApiFormat.Json);
+            }
+        }
+
+        private OpenApiDocument TranformServersConfiguration(ref OpenApiDocument openApiDocument)
+        {
+            var request = new HttpContextAccessor()?.HttpContext?.Request;
+            
+            openApiDocument.Servers.Clear();
+
+            var rootUrl = request.RootUrl(this._reverseProxySettings);
+
+            openApiDocument.Servers.Add(
+                new OpenApiServer()
+                {
+                    Url = $"{rootUrl}/{{tenant}}/{{schoolYear}}",
+                    Variables = new Dictionary<string, OpenApiServerVariable>()
+                    {
+                        {
+                            "tenant", new OpenApiServerVariable()
+                            {
+                                Enum = new List<string>()
+                                {
+                                    "tenant1",
+                                    "tenant2",
+                                    "tenant3"
+                                },
+                                Default = "tenant1"
+                            }
+                        },
+                        {
+                            "schoolYear", new OpenApiServerVariable()
+                            {
+                                Enum = new List<string>()
+                                {
+                                    "2020",
+                                    "2021",
+                                    "2022",
+                                    "2023",
+                                    "2024"
+                                },
+                                Default = "2024"
+                            }
+                        }
+                    }
+                });
+
+            return openApiDocument;
         }
 
         private string GetMetadataForContent(OpenApiContent content, HttpRequest request, string odsContextName, string instanceId, string tenantIdentifier)
         {
-
             var odsContextRouteValue = string.IsNullOrEmpty(odsContextName) ? string.Empty : $"{odsContextName}/";
             var instanceIdRouteValue = string.IsNullOrEmpty(instanceId) ? string.Empty : $"{instanceId}/";
             var tenantIdentifierRouteValue = string.IsNullOrEmpty(tenantIdentifier) ? string.Empty : $"{tenantIdentifier}/";
