@@ -8751,6 +8751,702 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "StudentProgramAssociations",
+			"item": [
+				{
+					"name": "Get Student",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"const __ = require('lodash');\r",
+									"const responseItems = pm.response.json();\r",
+									"pm.environment.set('known:studentUniqueId', __.first(responseItems).studentUniqueId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"students"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New StudentProgramAssociation with a Service",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const __ = require('lodash');\r",
+									"\r",
+									"const schoolIds =pm.environment.get(\"known:schoolIds\");\r",
+									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));\r",
+									"\r",
+									"const moment = require('moment');\r",
+									"const beginDate= moment(new Date()).format(\"YYYY-MM-DD\");\r",
+									"pm.environment.set(\"known:educationOrganizationId\", 255901);\r",
+									"pm.environment.set(\"known:beginDate\",beginDate);\r",
+									"pm.environment.set(\"known:programName\", \"Bilingual\");\r",
+									"pm.environment.set(\"known:programTypeDescriptor\", \"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\");\r",
+									"pm.environment.set(\"known:serviceDescriptor\", \"uri://ed-fi.org/ServiceDescriptor#Counseling services\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"educationOrganizationReference\": {\r\n        \"educationOrganizationId\": \"{{known:educationOrganizationId}}\"\r\n    },\r\n    \"programReference\": {\r\n        \"educationOrganizationId\": \"{{known:educationOrganizationId}}\",\r\n        \"programName\": \"{{known:programName}}\",\r\n        \"programTypeDescriptor\": \"{{known:programTypeDescriptor}}\"\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:studentUniqueId}}\"\r\n    },\r\n    \"beginDate\": \"{{known:beginDate}}\",\r\n    \"services\": [\r\n        {\r\n            \"serviceDescriptor\": \"{{known:serviceDescriptor}}\"\r\n        }\r\n    ]\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentProgramAssociations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get StudentProgramAssociation with a Service",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"const __ = require('lodash');\r",
+									"const responseItems = pm.response.json();\r",
+									"const studentProgramAssociation = __.first(responseItems);\r",
+									"pm.environment.set('known:studentProgramAssociationId', studentProgramAssociation.id);\r",
+									"\r",
+									"pm.expect(studentProgramAssociation.beginDate).to.equal(pm.environment.get('known:beginDate'));\r",
+									"\r",
+									"pm.expect(studentProgramAssociation.educationOrganizationReference.educationOrganizationId).to.equal(pm.environment.get('known:educationOrganizationId'));\r",
+									"\r",
+									"pm.expect(studentProgramAssociation.studentReference.studentUniqueId).to.equal(pm.environment.get('known:studentUniqueId'));\r",
+									"\r",
+									"pm.expect(studentProgramAssociation.programReference.educationOrganizationId).to.equal(pm.environment.get(\"known:educationOrganizationId\"));\r",
+									"pm.expect(studentProgramAssociation.programReference.programName).to.equal(pm.environment.get(\"known:programName\"));\r",
+									"pm.expect(studentProgramAssociation.programReference.programTypeDescriptor).to.equal(pm.environment.get(\"known:programTypeDescriptor\"));\r",
+									"\r",
+									"const services = studentProgramAssociation.services;\r",
+									"pm.expect(services.length).to.equal(1);\r",
+									"pm.expect(services[0].serviceDescriptor).to.equal(pm.environment.get(\"known:serviceDescriptor\"));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations?beginDate={{known:beginDate}}&studentUniqueId={{known:studentUniqueId}}&educationOrganizationId={{known:educationOrganizationId}}&programEducationOrganizationId={{known:educationOrganizationId}}&programName={{known:programName}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentProgramAssociations"
+							],
+							"query": [
+								{
+									"key": "beginDate",
+									"value": "{{known:beginDate}}"
+								},
+								{
+									"key": "studentUniqueId",
+									"value": "{{known:studentUniqueId}}"
+								},
+								{
+									"key": "educationOrganizationId",
+									"value": "{{known:educationOrganizationId}}"
+								},
+								{
+									"key": "programEducationOrganizationId",
+									"value": "{{known:educationOrganizationId}}"
+								},
+								{
+									"key": "programName",
+									"value": "{{known:programName}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update StudentProgramAssociation Removing the Service",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"known:reasonExitedDescriptor\", \"uri://ed-fi.org/ReasonExitedDescriptor#Transferred to another district or school\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"educationOrganizationReference\": {\r\n        \"educationOrganizationId\": \"{{known:educationOrganizationId}}\"\r\n    },\r\n    \"programReference\": {\r\n        \"educationOrganizationId\": \"{{known:educationOrganizationId}}\",\r\n        \"programName\": \"{{known:programName}}\",\r\n        \"programTypeDescriptor\": \"{{known:programTypeDescriptor}}\"\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:studentUniqueId}}\"\r\n    },\r\n    \"beginDate\": \"{{known:beginDate}}\",\r\n    \"reasonExitedDescriptor\" : \"{{known:reasonExitedDescriptor}}\",\r\n    \"services\": []\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentProgramAssociations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get StudentProgramAssociation with no Service",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"const studentProgramAssociation = pm.response.json();\r",
+									"\r",
+									"pm.expect(studentProgramAssociation.beginDate).to.equal(pm.environment.get('known:beginDate'));\r",
+									"pm.expect(studentProgramAssociation.reasonExitedDescriptor).to.equal(pm.environment.get('known:reasonExitedDescriptor'));\r",
+									"\r",
+									"pm.expect(studentProgramAssociation.educationOrganizationReference.educationOrganizationId).to.equal(pm.environment.get('known:educationOrganizationId'));\r",
+									"\r",
+									"pm.expect(studentProgramAssociation.studentReference.studentUniqueId).to.equal(pm.environment.get('known:studentUniqueId'));\r",
+									"\r",
+									"pm.expect(studentProgramAssociation.programReference.educationOrganizationId).to.equal(pm.environment.get(\"known:educationOrganizationId\"));\r",
+									"pm.expect(studentProgramAssociation.programReference.programName).to.equal(pm.environment.get(\"known:programName\"));\r",
+									"pm.expect(studentProgramAssociation.programReference.programTypeDescriptor).to.equal(pm.environment.get(\"known:programTypeDescriptor\"));\r",
+									"\r",
+									"const services = studentProgramAssociation.services;\r",
+									"pm.expect(services.length).to.equal(0);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations/{{known:studentProgramAssociationId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentProgramAssociations",
+								"{{known:studentProgramAssociationId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete StudentProgramAssociation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations/{{known:studentProgramAssociationId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentProgramAssociations",
+								"{{known:studentProgramAssociationId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "StudentTitleIPartAProgramAssociation",
+			"item": [
+				{
+					"name": "Get Student",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"const __ = require('lodash');\r",
+									"const responseItems = pm.response.json();\r",
+									"pm.environment.set('known:studentUniqueId', __.first(responseItems).studentUniqueId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"students"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New StudentTitleIPartAProgramAssociation with a service",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const __ = require('lodash');\r",
+									"\r",
+									"const schoolIds =pm.environment.get(\"known:schoolIds\");\r",
+									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));\r",
+									"\r",
+									"const moment = require('moment');\r",
+									"const beginDate= moment(new Date()).format(\"YYYY-MM-DD\");\r",
+									"pm.environment.set(\"known:educationOrganizationId\", 255901);\r",
+									"pm.environment.set(\"known:beginDate\",beginDate);\r",
+									"pm.environment.set(\"known:programName\", \"Bilingual\");\r",
+									"pm.environment.set(\"known:programTypeDescriptor\", \"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\");\r",
+									"pm.environment.set(\"known:serviceDescriptor\", \"uri://ed-fi.org/ServiceDescriptor#Counseling services\");\r",
+									"pm.environment.set(\"known:titleIPartAParticipantDescriptor\", \"uri://ed-fi.org/TitleIPartAParticipantDescriptor#Local Neglected Program\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"educationOrganizationReference\": {\r\n        \"educationOrganizationId\": \"{{known:educationOrganizationId}}\"\r\n    },\r\n    \"programReference\": {\r\n        \"educationOrganizationId\": \"{{known:educationOrganizationId}}\",\r\n        \"programName\": \"{{known:programName}}\",\r\n        \"programTypeDescriptor\": \"{{known:programTypeDescriptor}}\"\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:studentUniqueId}}\"\r\n    },\r\n    \"beginDate\": \"{{known:beginDate}}\",\r\n    \"titleIPartAParticipantDescriptor\": \"{{known:titleIPartAParticipantDescriptor}}\",\r\n    \"services\": [\r\n        {\r\n            \"serviceDescriptor\": \"{{known:serviceDescriptor}}\"\r\n        }\r\n    ]\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentTitleIPartAProgramAssociations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentTitleIPartAProgramAssociations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get StudentTitleIPartAProgramAssociation and test for service",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"const __ = require('lodash');\r",
+									"const responseItems = pm.response.json();\r",
+									"const studentTitleIPartAProgramAssociation = __.first(responseItems);\r",
+									"pm.environment.set('known:studentTitleIPartAProgramAssociationsId', studentTitleIPartAProgramAssociation.id);\r",
+									"\r",
+									"pm.expect(studentTitleIPartAProgramAssociation.beginDate).to.equal(pm.environment.get('known:beginDate'));\r",
+									"\r",
+									"pm.expect(studentTitleIPartAProgramAssociation.educationOrganizationReference.educationOrganizationId).to.equal(pm.environment.get('known:educationOrganizationId'));\r",
+									"\r",
+									"pm.expect(studentTitleIPartAProgramAssociation.studentReference.studentUniqueId).to.equal(pm.environment.get('known:studentUniqueId'));\r",
+									"\r",
+									"pm.expect(studentTitleIPartAProgramAssociation.programReference.educationOrganizationId).to.equal(pm.environment.get(\"known:educationOrganizationId\"));\r",
+									"pm.expect(studentTitleIPartAProgramAssociation.programReference.programName).to.equal(pm.environment.get(\"known:programName\"));\r",
+									"pm.expect(studentTitleIPartAProgramAssociation.programReference.programTypeDescriptor).to.equal(pm.environment.get(\"known:programTypeDescriptor\"));\r",
+									"\r",
+									"// In StandardVersion 5.0.0 the services property was removed from studentTitleIPartAProgramAssociations\r",
+									"// We use ParentOrContactName environment variable to differentiate between standard versions. \r",
+									"if(pm.environment.get(\"ParentOrContactName\") == \"contact\") {\r",
+									"    pm.expect(studentTitleIPartAProgramAssociation.services).to.be.undefined;\r",
+									"} else if(pm.environment.get(\"ParentOrContactName\") == \"parent\") {\r",
+									"    const services = studentTitleIPartAProgramAssociation.services;\r",
+									"    pm.expect(services.length).to.equal(1);\r",
+									"    pm.expect(services[0].serviceDescriptor).to.equal(pm.environment.get(\"known:serviceDescriptor\"));\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentTitleIPartAProgramAssociations?beginDate={{known:beginDate}}&studentUniqueId={{known:studentUniqueId}}&educationOrganizationId={{known:educationOrganizationId}}&programEducationOrganizationId={{known:educationOrganizationId}}&programName={{known:programName}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentTitleIPartAProgramAssociations"
+							],
+							"query": [
+								{
+									"key": "beginDate",
+									"value": "{{known:beginDate}}"
+								},
+								{
+									"key": "studentUniqueId",
+									"value": "{{known:studentUniqueId}}"
+								},
+								{
+									"key": "educationOrganizationId",
+									"value": "{{known:educationOrganizationId}}"
+								},
+								{
+									"key": "programEducationOrganizationId",
+									"value": "{{known:educationOrganizationId}}"
+								},
+								{
+									"key": "programName",
+									"value": "{{known:programName}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update StudentTitleIPartAProgramAssociation Removing the Service",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"known:reasonExitedDescriptor\", \"uri://ed-fi.org/ReasonExitedDescriptor#Transferred to another district or school\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"educationOrganizationReference\": {\r\n        \"educationOrganizationId\": \"{{known:educationOrganizationId}}\"\r\n    },\r\n    \"programReference\": {\r\n        \"educationOrganizationId\": \"{{known:educationOrganizationId}}\",\r\n        \"programName\": \"{{known:programName}}\",\r\n        \"programTypeDescriptor\": \"{{known:programTypeDescriptor}}\"\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:studentUniqueId}}\"\r\n    },\r\n    \"beginDate\": \"{{known:beginDate}}\",\r\n    \"reasonExitedDescriptor\" : \"{{known:reasonExitedDescriptor}}\",\r\n    \"titleIPartAParticipantDescriptor\": \"{{known:titleIPartAParticipantDescriptor}}\",\r\n    \"services\": []\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentTitleIPartAProgramAssociations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentTitleIPartAProgramAssociations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get StudentTitleIPartAProgramAssociation with no Service",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"const studentTitleIPartAProgramAssociation = pm.response.json();\r",
+									"\r",
+									"pm.expect(studentTitleIPartAProgramAssociation.beginDate).to.equal(pm.environment.get('known:beginDate'));\r",
+									"pm.expect(studentTitleIPartAProgramAssociation.reasonExitedDescriptor).to.equal(pm.environment.get('known:reasonExitedDescriptor'));\r",
+									"\r",
+									"pm.expect(studentTitleIPartAProgramAssociation.educationOrganizationReference.educationOrganizationId).to.equal(pm.environment.get('known:educationOrganizationId'));\r",
+									"\r",
+									"pm.expect(studentTitleIPartAProgramAssociation.studentReference.studentUniqueId).to.equal(pm.environment.get('known:studentUniqueId'));\r",
+									"\r",
+									"pm.expect(studentTitleIPartAProgramAssociation.programReference.educationOrganizationId).to.equal(pm.environment.get(\"known:educationOrganizationId\"));\r",
+									"pm.expect(studentTitleIPartAProgramAssociation.programReference.programName).to.equal(pm.environment.get(\"known:programName\"));\r",
+									"pm.expect(studentTitleIPartAProgramAssociation.programReference.programTypeDescriptor).to.equal(pm.environment.get(\"known:programTypeDescriptor\"));\r",
+									"\r",
+									"// In StandardVersion 5.0.0 the services property was removed from studentTitleIPartAProgramAssociations\r",
+									"// We use ParentOrContactName environment variable to differentiate between standard versions. \r",
+									"if(pm.environment.get(\"ParentOrContactName\") == \"contact\") {\r",
+									"    pm.expect(studentTitleIPartAProgramAssociation.services).to.be.undefined;\r",
+									"} else if(pm.environment.get(\"ParentOrContactName\") == \"parent\") {\r",
+									"    const services = studentTitleIPartAProgramAssociation.services;\r",
+									"    pm.expect(services.length).to.equal(0);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentTitleIPartAProgramAssociations/{{known:studentTitleIPartAProgramAssociationsId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentTitleIPartAProgramAssociations",
+								"{{known:studentTitleIPartAProgramAssociationsId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete StudentTitleIPartAProgramAssociation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentTitleIPartAProgramAssociations/{{known:studentTitleIPartAProgramAssociationsId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentTitleIPartAProgramAssociations",
+								"{{known:studentTitleIPartAProgramAssociationsId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
