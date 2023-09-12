@@ -905,29 +905,29 @@ INSERT INTO sample.StudentFavoriteBookArtMedium
            ,1)
 
 --- Add extension data to a particular StudentSectionAssociation
--- INSERT INTO sample.StudentSectionAssociationRelatedGeneralStudentProgramAssociation
-           -- (BeginDate
-           -- , LocalCourseCode
-           -- , RelatedBeginDate
-           -- , RelatedEducationOrganizationId
-           -- , RelatedProgramEducationOrganizationId
-           -- , RelatedProgramName
-           -- , RelatedProgramTypeDescriptorId
-           -- , SchoolId
-           -- , SchoolYear
-           -- , SectionIdentifier
-           -- , SessionName
-           -- , StudentUSI)
-     -- VALUES
-           -- (@student604854SSABeginDate
-           -- , @student604854SSALocalCourseCode
-           -- , @student604854SPABeginDate
-           -- , @student604854SPAEducationOrganizationId
-           -- , @student604854SPAProgramEducationOrganizationId
-           -- , @student604854SPAProgramName
-           -- , @student604854SPAProgramTypeDescriptorId
-           -- , @student604854SSASchoolId
-           -- , @student604854SSASchoolYear
-           -- , @student604854SSASectionIdentifier
-           -- , @student604854SSASessionName
-           -- , @student604854SSAStudentUSI)
+INSERT INTO sample.StudentSectionAssociationRelatedGeneralStudentProgramAssociation
+           (BeginDate
+           , LocalCourseCode
+           , RelatedBeginDate
+           , RelatedEducationOrganizationId
+           , RelatedProgramEducationOrganizationId
+           , RelatedProgramName
+           , RelatedProgramTypeDescriptorId
+           , SchoolId
+           , SchoolYear
+           , SectionIdentifier
+           , SessionName
+           , StudentUSI)
+     VALUES
+           (@student604854SSABeginDate
+           , @student604854SSALocalCourseCode
+           , @student604854SPABeginDate
+           , @student604854SPAEducationOrganizationId
+           , @student604854SPAProgramEducationOrganizationId
+           , @student604854SPAProgramName
+           , @student604854SPAProgramTypeDescriptorId
+           , @student604854SSASchoolId
+           , @student604854SSASchoolYear
+           , @student604854SSASectionIdentifier
+           , @student604854SSASessionName
+           , @student604854SSAStudentUSI)
