@@ -9,9 +9,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Common.Utils.Extensions;
+using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
@@ -25,6 +28,7 @@ using log4net;
 using NHibernate;
 using NHibernate.Exceptions;
 using NHibernate.Transform;
+using Standart.Hash.xxHash;
 
 namespace EdFi.Ods.Features.Composites.Infrastructure
 {
@@ -47,25 +51,25 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
         private readonly IDescriptorResolver _descriptorResolver;
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(HqlBuilder));
-        private readonly IPersonUniqueIdToUsiCache _personUniqueIdToUsiCache;
         private readonly IResourceJoinPathExpressionProcessor _resourceJoinPathExpressionProcessor;
         private readonly IParameterListSetter _parameterListSetter;
         private readonly IPersonEntitySpecification _personEntitySpecification;
+        private readonly IPersonUsiResolver _personUsiResolver;
 
         private readonly ISessionFactory _sessionFactory;
 
         public HqlBuilder(
             ISessionFactory sessionFactory,
             IDescriptorResolver descriptorResolver,
-            IPersonUniqueIdToUsiCache personUniqueIdToUsiCache,
             IResourceJoinPathExpressionProcessor resourceJoinPathExpressionProcessor,
             IParameterListSetter parameterListSetter,
-            IPersonEntitySpecification personEntitySpecification)
+            IPersonEntitySpecification personEntitySpecification,
+            IPersonUsiResolver personUsiResolver)
         {
             _personEntitySpecification = personEntitySpecification;
+            _personUsiResolver = personUsiResolver;
             _sessionFactory = Preconditions.ThrowIfNull(sessionFactory, nameof(sessionFactory));
             _descriptorResolver = Preconditions.ThrowIfNull(descriptorResolver, nameof(descriptorResolver));
-            _personUniqueIdToUsiCache = Preconditions.ThrowIfNull(personUniqueIdToUsiCache, nameof(personUniqueIdToUsiCache));
 
             _resourceJoinPathExpressionProcessor = Preconditions.ThrowIfNull(
                 resourceJoinPathExpressionProcessor, nameof(resourceJoinPathExpressionProcessor));
@@ -789,74 +793,121 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             // Get all non "special" query string parameter for property value equality processing
             var queryStringParameters = GetCriteriaQueryStringParameters(builderContext);
 
-            foreach (var queryStringParameter in queryStringParameters)
-            {
-                ResourceProperty targetProperty;
-
-                // TODO: Embedded convention. Types and descriptors at the top level
-                if (processorContext.CurrentResourceClass.AllPropertyByName.TryGetValue(queryStringParameter.Key, out targetProperty))
+            var parameterAndPropertyTuples = queryStringParameters.Select(
+                qsp =>
                 {
-                    string criteriaPropertyName;
-                    object parameterValue;
-                    string personType;
-
-                    // Handle Lookup conversions
-                    if (targetProperty.IsDescriptorUsage)
+                    if (!processorContext.CurrentResourceClass.AllPropertyByName.TryGetValue(qsp.Key, out var targetProperty))
                     {
-                        var id = _descriptorResolver.GetDescriptorId(
-                            targetProperty.DescriptorName,
-                            Convert.ToString(queryStringParameter.Value));
-
-                        criteriaPropertyName = targetProperty.EntityProperty.PropertyName;
-                        parameterValue = id;
+                        ThrowPropertyNotFoundException(qsp.Key);
                     }
 
-                    // Handle UniqueId conversions
-                    else if (_personEntitySpecification.TryGetUniqueIdPersonType(targetProperty.PropertyName, out personType))
+                    return (qsp, targetProperty);
+                });
+
+            // Resolve any UniqueIds to USIs
+            var usisToResolveByPersonType = ResolveUsisForUniqueIdQueryStringParameters();
+
+            foreach (var tuple in parameterAndPropertyTuples)
+            {
+                var (queryStringParameter, targetProperty) = tuple;
+
+                // TODO: Embedded convention. Types and descriptors at the top level
+                string criteriaPropertyName;
+                object parameterValue;
+
+                // Handle Lookup conversions
+                if (targetProperty.IsDescriptorUsage)
+                {
+                    var id = _descriptorResolver.GetDescriptorId(
+                        targetProperty.DescriptorName,
+                        Convert.ToString(queryStringParameter.Value));
+
+                    criteriaPropertyName = targetProperty.EntityProperty.PropertyName;
+                    parameterValue = id;
+                }
+
+                // Handle UniqueId conversions
+                else if (_personEntitySpecification.TryGetUniqueIdPersonType(targetProperty.PropertyName, out string personType))
+                {
+                    string uniqueId = Convert.ToString(queryStringParameter.Value);
+
+                    if (!usisToResolveByPersonType.TryGetValue(personType, out var uniqueIdByUsi))
                     {
-                        int usi = _personUniqueIdToUsiCache.GetUsi(personType, Convert.ToString(queryStringParameter.Value));
+                        // This should never happen because of the pre-processing done on the query string parameters earlier
+                        throw new InvalidOperationException($"Unable to find resolved USIs for person type '{personType}'.");
+                    }
 
-                        // TODO: Embedded convention - Convert UniqueId to USI from Resource model to query Entity model on Person entities
-                        // The resource model maps uniqueIds to uniqueIds on the main entity(Student,Staff,Parent)
-                        if (_personEntitySpecification.IsPersonEntity(targetProperty.ParentFullName.Name))
-                        {
-                            criteriaPropertyName = targetProperty.EntityProperty.PropertyName.Replace("UniqueId", "USI");
-                        }
-                        else
-                        {
-                            criteriaPropertyName = targetProperty.EntityProperty.PropertyName;
-                        }
+                    uniqueIdByUsi.TryGetValue(uniqueId, out int usi);
 
-                        parameterValue = usi;
+                    // TODO: Embedded convention - Convert UniqueId to USI from Resource model to query Entity model on Person entities
+                    // The resource model maps uniqueIds to uniqueIds on the main entity(Student,Staff,Parent)
+                    if (_personEntitySpecification.IsPersonEntity(targetProperty.ParentFullName.Name))
+                    {
+                        criteriaPropertyName = targetProperty.EntityProperty.PropertyName.Replace("UniqueId", "USI");
                     }
                     else
                     {
-                        criteriaPropertyName = targetProperty.PropertyName;
-                        parameterValue = ConvertParameterValueForProperty(targetProperty, Convert.ToString(queryStringParameter.Value));
+                        criteriaPropertyName = targetProperty.EntityProperty.PropertyName;
                     }
 
-                    // Add criteria to the query
-                    builderContext.SpecificationWhere.AppendFormat(
-                        "{0}{1}.{2} = :{2}",
-                        AndIfNeeded(builderContext.SpecificationWhere),
-                        builderContext.CurrentAlias,
-                        criteriaPropertyName);
-
-                    if (builderContext.CurrentQueryFilterParameterValueByName.ContainsKey(criteriaPropertyName))
-                    {
-                        throw new ArgumentException(
-                            string.Format(
-                                "The value for parameter '{0}' was already assigned and cannot be reassigned using the query string.",
-                                criteriaPropertyName));
-                    }
-
-                    builderContext.CurrentQueryFilterParameterValueByName[criteriaPropertyName] =
-                        parameterValue;
+                    parameterValue = usi;
                 }
                 else
                 {
-                    ThrowPropertyNotFoundException(queryStringParameter.Key);
+                    criteriaPropertyName = targetProperty.PropertyName;
+
+                    parameterValue = ConvertParameterValueForProperty(
+                        targetProperty,
+                        Convert.ToString(queryStringParameter.Value));
                 }
+
+                // Add criteria to the query
+                builderContext.SpecificationWhere.AppendFormat(
+                    "{0}{1}.{2} = :{2}",
+                    AndIfNeeded(builderContext.SpecificationWhere),
+                    builderContext.CurrentAlias,
+                    criteriaPropertyName);
+
+                if (builderContext.CurrentQueryFilterParameterValueByName.ContainsKey(criteriaPropertyName))
+                {
+                    throw new ArgumentException(
+                        string.Format(
+                            "The value for parameter '{0}' was already assigned and cannot be reassigned using the query string.",
+                            criteriaPropertyName));
+                }
+
+                builderContext.CurrentQueryFilterParameterValueByName[criteriaPropertyName] =
+                    parameterValue;
+            }
+
+            Dictionary<string, Dictionary<string, int>> ResolveUsisForUniqueIdQueryStringParameters()
+            {
+                var usisToResolveByPersonType = parameterAndPropertyTuples
+                    .Where(t => UniqueIdConventions.IsUniqueId(t.targetProperty.PropertyName))
+                    .Select(
+                        t =>
+                        {
+                            if (!_personEntitySpecification.TryGetUniqueIdPersonType(t.targetProperty.PropertyName, out string personType))
+                            {
+                                throw new NotSupportedException(
+                                    $"Unable to determine person type from property '{t.targetProperty.PropertyName}'.");
+                            }
+
+                            string uniqueId = Convert.ToString(t.qsp.Value);
+
+                            return (personType, uniqueId);
+                        })
+                    .GroupBy(x => x.personType, x => x.uniqueId)
+                    .ToDictionary(x => x.Key, x => x.ToDictionary(k => k, k => default(int)));
+
+                var usiResolutionTasks = usisToResolveByPersonType.Select(x => _personUsiResolver.ResolveUsis(x.Key, x.Value)).ToArray();
+
+                if (usiResolutionTasks.Any())
+                {
+                    Task.WaitAll(usiResolutionTasks.ToArray(), CancellationToken.None);
+                }
+
+                return usisToResolveByPersonType;
             }
         }
 
