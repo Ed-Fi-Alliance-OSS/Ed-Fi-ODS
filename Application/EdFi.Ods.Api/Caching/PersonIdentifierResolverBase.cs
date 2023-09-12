@@ -76,7 +76,7 @@ public abstract class PersonIdentifierResolverBase<TLookup, TResolved>
                 resolvedIdentifiers.ForEach(
                     (resolvedIdentifier, i, args) =>
                     {
-                        if (resolvedIdentifier == null || resolvedIdentifier.Equals(default))
+                        if (resolvedIdentifier == null || resolvedIdentifier.Equals(default(TResolved)))
                         {
                             // Need to look up in the ODS
                             AddUniqueIdToLoad(args.suppliedLookupIdentifiers[i]);

@@ -5,8 +5,6 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Configuration;
-using EdFi.Ods.Api.Middleware;
 
 namespace EdFi.Ods.Api.Caching;
 

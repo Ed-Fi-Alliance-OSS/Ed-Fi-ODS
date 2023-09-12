@@ -183,11 +183,7 @@ namespace {{ResourceClassesNamespace}}
             set
             {
                 _{{JsonPropertyName}} = value;
-                
-                if (value != null)
-                {
-                    GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("{{UniqueIdPersonType}}", value);
-                }
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("{{UniqueIdPersonType}}", value);
             }
             {{/IsUniqueId}}
             {{^IsUniqueId}}
@@ -591,6 +587,9 @@ namespace {{ResourceClassesNamespace}}
                 _{{ReferenceFieldName}}ReferenceExplicitlyAssigned = false;
                 Implicit{{ReferenceName}}Reference.{{ParentPropertyName}} = value;
                 {{/UnifiedExtensions}}
+                {{#IsUniqueId}}
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("{{UniqueIdPersonType}}", value);                
+                {{/IsUniqueId}}
             }
         }
         {{/Property}}
@@ -938,6 +937,9 @@ namespace {{ResourceClassesNamespace}}
                 _{{ReferenceFieldName}}ReferenceExplicitlyAssigned = false;
                 Implicit{{ReferenceName}}Reference.{{ParentPropertyName}} = value{{{ImplicitNullable}}};
                 {{/UnifiedExtensions}}
+                {{#IsUniqueId}}
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("{{UniqueIdPersonType}}", value);
+                {{/IsUniqueId}}
             }
         }
         {{/Property}}

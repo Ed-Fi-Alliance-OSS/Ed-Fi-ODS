@@ -11,8 +11,9 @@ using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Database;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Api.IdentityValueMappers;
+using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
@@ -26,7 +27,6 @@ using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Security.DataAccess.Providers;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
 using NHibernate;
 using IInterceptor = Castle.DynamicProxy.IInterceptor;
 
@@ -143,6 +143,12 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterGeneric(typeof(UpsertEntity<>))
                 .As(typeof(IUpsertEntity<>))
                 .SingleInstance();
+
+            // Register decorators on Person types to delete associated map cache entries
+            builder.RegisterGenericDecorator(
+                typeof(PersonMapCacheDeleteEntityByIdDecorator<>),
+                typeof(IDeleteEntityById<>),
+                ctx => ctx.ImplementationType.GetGenericArguments()[0].IsImplementationOf<IIdentifiablePerson>());
 
             builder.RegisterType<InMemoryMapCache<(ulong odsInstanceHashId, string personType, PersonMapType personMapType), string, int>>()
                 .WithParameter(

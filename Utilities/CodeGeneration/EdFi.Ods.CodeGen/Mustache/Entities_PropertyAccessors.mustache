@@ -69,7 +69,7 @@
         private {{CSharpDeclaredType}} {{UsiFieldName}};
     {{#IsPersonEntity}}
         string IIdentifiablePerson.UniqueId { get { return {{UniqueIdPropertyName}}; } }
-        
+
     {{/IsPersonEntity}}
     {{^IsPersonEntity}}
         private string {{UniqueIdFieldName}};
