@@ -155,6 +155,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             public string UnifiedPropertyParentPath { get; set; }
 
             public IEnumerable<UnifiedReferenceProperty> References { get; set; }
+
+            public bool UnifiedPropertyIsString { get; set; }
         }
 
         public class KeyUnificationValidation
