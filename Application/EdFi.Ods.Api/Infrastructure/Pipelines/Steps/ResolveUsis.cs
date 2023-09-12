@@ -33,7 +33,7 @@ public class ResolveUsis<TContext, TResult, TResourceModel, TEntityModel> : ISte
     {
         var uniqueIdLookupsByUsiContext = _lookupContextProvider.Get();
 
-        if (!uniqueIdLookupsByUsiContext.Any())
+        if (uniqueIdLookupsByUsiContext == null || !uniqueIdLookupsByUsiContext.Any())
         {
             return;
         }

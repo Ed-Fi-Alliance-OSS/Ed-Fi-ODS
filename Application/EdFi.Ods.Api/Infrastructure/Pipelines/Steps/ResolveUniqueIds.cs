@@ -29,7 +29,7 @@ public class ResolveUniqueIds<TContext, TResult, TResourceModel, TEntityModel> :
     {
         var uniqueIdLookupsByUsiContext = _lookupContextProvider.Get();
 
-        if (!uniqueIdLookupsByUsiContext.Any())
+        if (uniqueIdLookupsByUsiContext == null || !uniqueIdLookupsByUsiContext.Any())
         {
             return;
         }

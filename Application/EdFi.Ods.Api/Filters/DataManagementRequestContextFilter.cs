@@ -4,17 +4,19 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
+using EdFi.Ods.Common.Specifications;
 using log4net;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Primitives;
@@ -37,6 +39,8 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
     private readonly IResourceModelProvider _resourceModelProvider;
     private readonly IContextProvider<UsiLookupsByUniqueIdContext> _usiLookupsByUniqueIdContextProvider;
     private readonly IContextProvider<UniqueIdLookupsByUsiContext> _uniqueIdLookupsByUsiContextProvider;
+
+    private readonly ConcurrentDictionary<FullName, bool> _containsUniqueIdsByFullName = new();
 
     public DataManagementRequestContextFilter(
         IResourceModelProvider resourceModelProvider,
@@ -139,10 +143,21 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
                         .GetResourceByApiCollectionName(schema, resourceCollection);
 
                     _resourceContextProvider.Set(new DataManagementResourceContext(resource, context.HttpContext.Request.Method));
-                    
-                    // Initialize context for UniqueId/USI mappings
-                    _uniqueIdLookupsByUsiContextProvider.Set(new UniqueIdLookupsByUsiContext());
-                    _usiLookupsByUniqueIdContextProvider.Set(new UsiLookupsByUniqueIdContext());
+
+                    // Determine if the resource contains any UniqueIds
+                    bool containsUniqueIds = _containsUniqueIdsByFullName.GetOrAdd(
+                        resource.FullName,
+                        static (fn, r) => r.AllContainedItemTypesOrSelf.Any(
+                            rc => rc.AllProperties.Any(rp => UniqueIdConventions.IsUniqueId(rp.PropertyName))),
+                        resource);
+
+                    // Only create contexts for UniqueId/USI resolution when needed
+                    if (containsUniqueIds)
+                    {
+                        // Initialize context for UniqueId/USI mappings
+                        _uniqueIdLookupsByUsiContextProvider.Set(new UniqueIdLookupsByUsiContext());
+                        _usiLookupsByUniqueIdContextProvider.Set(new UsiLookupsByUniqueIdContext());
+                    }
                 }
                 catch (Exception)
                 {
