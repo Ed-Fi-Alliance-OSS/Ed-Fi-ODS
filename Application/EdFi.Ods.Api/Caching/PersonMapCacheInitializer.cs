@@ -11,12 +11,6 @@ using log4net;
 
 namespace EdFi.Ods.Api.Caching;
 
-public enum PersonMapType
-{
-    UniqueIdByUsi,
-    UsiByUniqueId
-}
-
 public class PersonMapCacheInitializer : IPersonMapCacheInitializer
 {
     private readonly IPersonIdentifiersProvider _personIdentifiersProvider;
@@ -48,19 +42,19 @@ public class PersonMapCacheInitializer : IPersonMapCacheInitializer
                 
                 return Task.Run(() => _personIdentifiersProvider.GetAllPersonIdentifiers(pt))
                     .ContinueWith(
-                        x =>
+                        t =>
                         {
-                            if (x.IsFaulted)
+                            if (t.IsFaulted)
                             {
-                                _logger.Error($"Unable to load '{personType}' mappings from ODS (hashId={hashId}).", x.Exception);
+                                _logger.Error($"Unable to load '{personType}' mappings from ODS (with OdsInstanceHashId '{hashId}').", t.Exception);
                             }
-                            else if (x.IsCompletedSuccessfully)
+                            else if (t.IsCompletedSuccessfully)
                             {
-                                var uniqueIdByUsiCacheEntries = x.Result
+                                var uniqueIdByUsiCacheEntries = t.Result
                                     .Select(v => (v.Usi, v.UniqueId))
                                     .ToArray();
 
-                                var usiByUniqueIdCacheEntries = x.Result
+                                var usiByUniqueIdCacheEntries = t.Result
                                     .Select(v => (v.UniqueId, v.Usi))
                                     .ToArray();
 

@@ -22,8 +22,9 @@ public class PersonUniqueIdResolver : PersonIdentifierResolverBase<int, string>,
         IPersonMapCacheInitializer personMapCacheInitializer,
         IPersonIdentifiersProvider personIdentifiersProvider,
         IContextProvider<OdsInstanceConfiguration> odsInstanceConfigurationContextProvider,
-        IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string> mapCache)
-        : base(personMapCacheInitializer, odsInstanceConfigurationContextProvider, mapCache)
+        IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string> mapCache,
+        Dictionary<string, bool> cacheSuppressionByPersonType)
+        : base(personMapCacheInitializer, odsInstanceConfigurationContextProvider, mapCache, cacheSuppressionByPersonType)
     {
         _personIdentifiersProvider = personIdentifiersProvider;
     }
@@ -45,8 +46,8 @@ public class PersonUniqueIdResolver : PersonIdentifierResolverBase<int, string>,
         get => PersonMapType.UniqueIdByUsi;
     }
 
-    protected override void SetResolvedIdentifier(IDictionary<int, string> lookups, PersonIdentifiersValueMap result)
+    protected override void SetResolvedIdentifier(IDictionary<int, string> lookups, PersonIdentifiersValueMap personIdentifiers)
     {
-        lookups[result.Usi] = result.UniqueId;
+        lookups[personIdentifiers.Usi] = personIdentifiers.UniqueId;
     }
 }

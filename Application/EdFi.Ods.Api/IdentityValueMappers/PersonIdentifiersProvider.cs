@@ -46,10 +46,10 @@ namespace EdFi.Ods.Api.IdentityValueMappers
             _openStatelessSession = Preconditions.ThrowIfNull(openStatelessSession, nameof(openStatelessSession));
 
             _uniqueIdNameByPersonType = new Lazy<Dictionary<string, string>>(
-                () => _personTypesProvider.PersonTypes.ToDictionary(k => k, k => $"{k}UniqueId"));
+                () => _personTypesProvider.PersonTypes.ToDictionary(pt => pt, pt => $"{pt}UniqueId"));
 
             _usiNameByPersonType = new Lazy<Dictionary<string, string>>(
-                () => _personTypesProvider.PersonTypes.ToDictionary(k => k, k => $"{k}USI"));
+                () => _personTypesProvider.PersonTypes.ToDictionary(pt => pt, pt => $"{pt}USI"));
         }
 
         /// <summary>
@@ -114,11 +114,11 @@ namespace EdFi.Ods.Api.IdentityValueMappers
                 // TODO: Need to review possible usage of TVP here for SQL Server
                 if (uniqueIds != null)
                 {
-                    criteria.Add(Restrictions.In($"{personType}UniqueId", uniqueIds));
+                    criteria.Add(Restrictions.In(_uniqueIdNameByPersonType.Value[personType], uniqueIds));
                 }
                 else if (usis != null)
                 {
-                    criteria.Add(Restrictions.In($"{personType}USI", usis));
+                    criteria.Add(Restrictions.In(_usiNameByPersonType.Value[personType], usis));
                 }
                 
                 return await criteria.ListAsync<PersonIdentifiersValueMap>();

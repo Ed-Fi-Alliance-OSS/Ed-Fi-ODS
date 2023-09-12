@@ -14,19 +14,13 @@ namespace EdFi.Ods.Api.Caching;
 
 public class InMemoryMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, TMapValue>
 {
-    // TODO: Implement cache suppression behavior appropriately
-    private readonly Dictionary<string, bool> _cacheSuppression;
-
-    // private readonly ICacheProvider<TKey> _cacheProvider;
     private readonly IMemoryCache _memoryCache;
     private readonly MemoryCacheEntryOptions _memoryCacheEntryOptions;
 
     public InMemoryMapCache(
-        // MemoryCacheProvider<TKey> cacheProvider,
         IMemoryCache memoryCache,
         TimeSpan slidingExpiration,
-        TimeSpan absoluteExpirationPeriod,
-        Dictionary<string, bool> cacheSuppression)
+        TimeSpan absoluteExpirationPeriod)
     {
         if (slidingExpiration < TimeSpan.Zero)
         {
@@ -38,15 +32,7 @@ public class InMemoryMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKe
             throw new ArgumentOutOfRangeException(nameof(absoluteExpirationPeriod), "TimeSpan cannot be a negative value.");
         }
 
-        // Use sliding expiration value, if both are set.
-        if (slidingExpiration > TimeSpan.Zero && absoluteExpirationPeriod > TimeSpan.Zero)
-        {
-            absoluteExpirationPeriod = TimeSpan.Zero;
-        }
-
-        // _cacheProvider = cacheProvider;
         _memoryCache = memoryCache;
-        _cacheSuppression = cacheSuppression;
         
         _memoryCacheEntryOptions = new MemoryCacheEntryOptions
         {
@@ -91,13 +77,13 @@ public class InMemoryMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKe
 
         var values = new TMapValue[mapKeys.Length];
         
-        mapKeys.ForEach((k, i) =>
+        mapKeys.ForEach((k, i, args) =>
         {
-            if (map.TryGetValue(k, out var value))
+            if (args.map.TryGetValue(k, out var value))
             {
-                values[i] = value;
+                args.values[i] = value;
             }
-        });
+        }, (map, values));
 
         return values;
     }
