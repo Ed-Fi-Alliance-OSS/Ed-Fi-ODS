@@ -1259,7 +1259,7 @@ namespace {{ResourceClassesNamespace}}
                 {{#UnifiedProperties}}
             var sourcesFor{{UnifiedPropertyName}} = Get{{UnifiedPropertyName}}Sources();
 
-            if (!sourcesFor{{UnifiedPropertyName}}.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual({{#UnifiedPropertyIsString}}GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer{{/UnifiedPropertyIsString}}))
+            if (!sourcesFor{{UnifiedPropertyName}}.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
             {
                 failures.Add(new ValidationFailure("{{UnifiedPropertyName}}",
                     $"Supplied values for unified key property '{{UnifiedJsonPropertyName}}' on '{{EntityName}}' are not consistent: {string.Join(", ", sourcesFor{{UnifiedPropertyName}}.Select(x => $"{x.Item1} = {x.Item2}"))}"));
