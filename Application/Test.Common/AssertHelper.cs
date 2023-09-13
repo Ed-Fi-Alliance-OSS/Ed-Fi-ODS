@@ -19,6 +19,11 @@ namespace Test.Common
         /// <param name="asserts">Asserts to invoke</param>
         public static void All(params Action[] asserts)
         {
+            if (asserts == null || asserts.Length == 0)
+            {
+                Assert.Fail($"No asserts were provided for invocation");
+            }
+            
             var errorMessages = new List<Exception>();
 
             foreach (var assert in asserts)
