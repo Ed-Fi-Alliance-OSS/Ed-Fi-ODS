@@ -87,7 +87,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 // link definitions are excluded here and tested in a separate assertion.
                 _actualExtendableEdfiResourceDefinitions = _resources.Where(r => r.IsEdFiStandardResource && !r.Entity.IsDescriptorEntity)
-                    .Select(r => $"{r.SchemaProperCaseName.ToCamelCase()}_{r.Name.ToCamelCase()}").Where(_actualDefinitions.ContainsKey).Select(r => _actualDefinitions[r])
+                    .Select(r => $"{r.SchemaProperCaseName.ToCamelCase()}_{r.Name.ToCamelCase()}")
+                    .Where(_actualDefinitions.ContainsKey).Select(r => _actualDefinitions[r])
                     .ToList();
 
                 _actualPropertyNamesByDefinitionName = _actualDefinitions.Where(d => d.Key != "link").Select(
@@ -417,7 +418,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 AssertHelper.All(
                     definitionReferences.Select(
                         r => (Action) (() => Assert.That(
-                            r.EndsWith($"_{ContentTypeUsage.Readable}", StringComparison.OrdinalIgnoreCase) || r.EndsWith($"_{ContentTypeUsage.Writable}", StringComparison.OrdinalIgnoreCase ), Is.True,
+                            r.EndsWith($"_{ContentTypeUsage.Readable}", StringComparison.OrdinalIgnoreCase) 
+                                || r.EndsWith($"_{ContentTypeUsage.Writable}", StringComparison.OrdinalIgnoreCase), 
+                            Is.True,
                             $@"Definition reference {r} does not end with a content type usage"))).ToArray());
             }
 
