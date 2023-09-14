@@ -8,7 +8,12 @@ using System.Collections.Generic;
 
 namespace EdFi.Ods.Common.Caching;
 
-public abstract class LookupsContext<TKey, TValue>
+/// <summary>
+/// Provides a base class for storing the context of all the UniqueIds/USIs that need to be resolved during a request.
+/// </summary>
+/// <typeparam name="TKey">The type of the key of the underlying dictionary.</typeparam>
+/// <typeparam name="TValue">The type of the value of the underlying dictionary.</typeparam>
+public abstract class PersonIdentifierLookupContextBase<TKey, TValue>
 {
     private readonly Lazy<IDictionary<string, IDictionary<TKey, TValue>>> _values = new(
         () => new Dictionary<string, IDictionary<TKey, TValue>>());
@@ -18,6 +23,11 @@ public abstract class LookupsContext<TKey, TValue>
         get => _values.Value;
     }
 
+    /// <summary>
+    /// Adds an entry to the context containing the key of the value to be retrieved.
+    /// </summary>
+    /// <param name="personType">The type of person for which an identifier lookup is needed.</param>
+    /// <param name="value">The known identifier value which is the basis for looking up the associated identifier.</param>
     public void AddLookup(string personType, TKey value)
     {
         // Don't add null keys for lookup
@@ -36,6 +46,10 @@ public abstract class LookupsContext<TKey, TValue>
         values[value] = default;
     }
 
+    /// <summary>
+    /// Indicates whether any lookups have been added to the context. 
+    /// </summary>
+    /// <returns><b>true</b> if there are any identifier values to be resolved; otherwise <b>false</b>.</returns>
     public bool Any()
     {
         return _values.IsValueCreated;

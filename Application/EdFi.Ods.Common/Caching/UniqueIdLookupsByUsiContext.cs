@@ -8,7 +8,10 @@ using EdFi.Ods.Common.Context;
 
 namespace EdFi.Ods.Common.Caching;
 
-public class UniqueIdLookupsByUsiContext : LookupsContext<int, string>
+public class UniqueIdLookupsByUsiContext : PersonIdentifierLookupContextBase<int, string>
 {
-    public IDictionary<string, IDictionary<int, string>> UniqueIdByUsiByPersonType { get => ValuesByPersonType; }
+    public IDictionary<string, IDictionary<int, string>> UniqueIdByUsiByPersonType
+    {
+        get => ValuesByPersonType;
+    }
 }
