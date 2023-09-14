@@ -36,7 +36,7 @@ public abstract class PersonIdentifierResolverBase<TLookup, TResolved>
 
     protected abstract PersonMapType MapType { get; }
     
-    protected async Task ResolveIdentifiers(string personType, IDictionary<TLookup, TResolved> lookups)
+    protected async Task ResolveIdentifiersAsync(string personType, IDictionary<TLookup, TResolved> lookups)
     {
         ICollection<TLookup> identifiersToLoad = null;
         var suppliedLookupIdentifiers = lookups.Keys.ToArray();
@@ -44,7 +44,7 @@ public abstract class PersonIdentifierResolverBase<TLookup, TResolved>
         // All lookup values in current context must be loaded from the ODS since cached map initialization isn't yet complete
         identifiersToLoad = IsCacheSuppressed(personType)
             ? suppliedLookupIdentifiers
-            : ResolveIdentifiersFromCache();
+            : await ResolveIdentifiersFromCache();
 
         // If there are any values that still need to be loaded directly from the ODS...
         if (identifiersToLoad != null)
@@ -59,7 +59,7 @@ public abstract class PersonIdentifierResolverBase<TLookup, TResolved>
             // TODO: We may need to validate that all values have been resolved, though this may be more important for UniqueId to USI (PUT/POST requests)
         }
 
-        ICollection<TLookup> ResolveIdentifiersFromCache()
+        async Task<ICollection<TLookup>> ResolveIdentifiersFromCache()
         {
             ulong odsInstanceHashId = _odsInstanceConfigurationContextProvider.Get().OdsInstanceHashId;
 
@@ -70,7 +70,7 @@ public abstract class PersonIdentifierResolverBase<TLookup, TResolved>
             if (initializationTask == null || initializationTask.IsCompleted)
             {
                 // Resolve uniqueIds from the map cache
-                var resolvedIdentifiers = _mapCache.GetMapEntries((odsInstanceHashId, personType, MapType), suppliedLookupIdentifiers);
+                var resolvedIdentifiers = await _mapCache.GetMapEntriesAsync((odsInstanceHashId, personType, MapType), suppliedLookupIdentifiers);
 
                 // Assign resolved values to the supplied dictionary
                 resolvedIdentifiers.ForEach(

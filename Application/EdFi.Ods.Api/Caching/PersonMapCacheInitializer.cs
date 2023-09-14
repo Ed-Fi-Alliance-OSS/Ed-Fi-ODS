@@ -40,9 +40,9 @@ public class PersonMapCacheInitializer : IPersonMapCacheInitializer
             {
                 var (hashId, pt) = key;
                 
-                return Task.Run(() => _personIdentifiersProvider.GetAllPersonIdentifiers(pt))
+                return Task.Run(async () => await _personIdentifiersProvider.GetAllPersonIdentifiersAsync(pt))
                     .ContinueWith(
-                        t =>
+                        async t =>
                         {
                             if (t.IsFaulted)
                             {
@@ -59,8 +59,8 @@ public class PersonMapCacheInitializer : IPersonMapCacheInitializer
                                     .ToArray();
 
                                 // Set the retrieved tuples into the cache
-                                _uniqueIdByUsiMapCache.SetMapEntries((key.odsInstanceHashId, key.personType, PersonMapType.UniqueIdByUsi), uniqueIdByUsiCacheEntries);
-                                _usiByUniqueIdMapCache.SetMapEntries((key.odsInstanceHashId, key.personType, PersonMapType.UsiByUniqueId), usiByUniqueIdCacheEntries);
+                                await _uniqueIdByUsiMapCache.SetMapEntriesAsync((key.odsInstanceHashId, key.personType, PersonMapType.UniqueIdByUsi), uniqueIdByUsiCacheEntries);
+                                await _usiByUniqueIdMapCache.SetMapEntriesAsync((key.odsInstanceHashId, key.personType, PersonMapType.UsiByUniqueId), usiByUniqueIdCacheEntries);
                             }
                         });
             });

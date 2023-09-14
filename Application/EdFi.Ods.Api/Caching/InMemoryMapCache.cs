@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Caching;
 using Microsoft.Extensions.Caching.Memory;
@@ -41,16 +42,7 @@ public class InMemoryMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKe
         };
     }
 
-    public bool SetMapEntry(TKey key, TMapKey mapKey, TMapValue value)
-    {
-        var map = GetOrAddMap(key);
-
-        map[mapKey] = value;
-
-        return true;
-    }
-
-    public long SetMapEntries(TKey key, (TMapKey key, TMapValue value)[] mapEntries)
+    public Task SetMapEntriesAsync(TKey key, (TMapKey key, TMapValue value)[] mapEntries)
     {
         var map = GetOrAddMap(key);
 
@@ -59,19 +51,10 @@ public class InMemoryMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKe
             map[kvp.key] = kvp.value;
         }
 
-        return mapEntries.Length;
+        return Task.CompletedTask;
     }
 
-    public TMapValue GetMapEntry(TKey key, TMapKey mapKey)
-    {
-        var map = GetOrAddMap(key);
-
-        return map.TryGetValue(mapKey, out var value)
-            ? value
-            : default;
-    }
-
-    public TMapValue[] GetMapEntries(TKey key, TMapKey[] mapKeys)
+    public Task<TMapValue[]> GetMapEntriesAsync(TKey key, TMapKey[] mapKeys)
     {
         var map = GetOrAddMap(key);
 
@@ -85,25 +68,21 @@ public class InMemoryMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKe
             }
         }, (map, values));
 
-        return values;
+        return Task.FromResult(values);
     }
 
-    public bool DeleteMapEntry(TKey key, TMapKey mapKey)
+    public Task<bool> DeleteMapEntryAsync(TKey key, TMapKey mapKey)
     {
         var map = GetOrAddMap(key);
 
-        return map.TryRemove(mapKey, out var ignored);
+        return Task.FromResult(map.TryRemove(mapKey, out var ignored));
     }
-
-    // public bool ContainsMap(TKey key) => _memoryCache.TryGetValue(key, out var ignored); // _cacheProvider.TryGetCachedObject(key, out var ignored);
 
     private ConcurrentDictionary<TMapKey, TMapValue> GetOrAddMap(TKey key)
     {
-        // if (!_cacheProvider.TryGetCachedObject(key, out var mapAsObject))
         if (!_memoryCache.TryGetValue(key, out var mapAsObject))
         {
             mapAsObject = new ConcurrentDictionary<TMapKey, TMapValue>();
-            // _cacheProvider.Insert(key, mapAsObject, DateTime.UtcNow.Add(_absoluteExpirationPeriod), _slidingExpiration);
             _memoryCache.Set(key, mapAsObject, _memoryCacheEntryOptions);
         }
 

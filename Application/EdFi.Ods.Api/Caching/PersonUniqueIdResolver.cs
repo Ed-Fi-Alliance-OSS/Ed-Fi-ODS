@@ -29,14 +29,14 @@ public class PersonUniqueIdResolver : PersonIdentifierResolverBase<int, string>,
 
     public async Task ResolveUniqueIds(string personType, IDictionary<int, string> lookups)
     {
-        await ResolveIdentifiers(personType, lookups);
+        await ResolveIdentifiersAsync(personType, lookups);
     }
 
     protected override async Task<IEnumerable<PersonIdentifiersValueMap>> LoadPersonUnresolvedIdentifiers(
         string personType,
         ICollection<int> identifiersToLoad)
     {
-        return await _personIdentifiersProvider.GetPersonUniqueIds(personType, identifiersToLoad.ToArray());
+        return await _personIdentifiersProvider.GetPersonUniqueIdsAsync(personType, identifiersToLoad.ToArray());
     }
 
     protected override PersonMapType MapType

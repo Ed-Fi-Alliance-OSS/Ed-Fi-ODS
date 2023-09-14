@@ -9,7 +9,6 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models.Domain;
@@ -90,15 +89,16 @@ public class PersonMapCacheDeleteEntityByIdDecorator<TEntity> : IDeleteEntityByI
 
             int usi = _usiPropertyAccessor.Invoke(deletedEntity);
 
-            // Remove the USI from the cached map by UniqueId
-            _usiByUniqueIdByPersonType.DeleteMapEntry(
-                (odsInstanceHashId, _personType, PersonMapType.UsiByUniqueId),
-                person.UniqueId);
+            await Task.WhenAll(
+                // Remove the USI from the cached map by UniqueId
+                _usiByUniqueIdByPersonType.DeleteMapEntryAsync(
+                    (odsInstanceHashId, _personType, PersonMapType.UsiByUniqueId),
+                    person.UniqueId),
 
-            // Remove the UniqueId from the cached map by USI
-            _uniqueIdByUsiByPersonType.DeleteMapEntry(
-                (odsInstanceHashId, _personType, PersonMapType.UniqueIdByUsi),
-                usi);
+                // Remove the UniqueId from the cached map by USI
+                _uniqueIdByUsiByPersonType.DeleteMapEntryAsync(
+                    (odsInstanceHashId, _personType, PersonMapType.UniqueIdByUsi),
+                    usi));
         }
 
         return deletedEntity;

@@ -62,17 +62,17 @@ namespace EdFi.Ods.Api.IdentityValueMappers
         /// data back for efficiency reasons, holding on resources such as a database connection until reading is
         /// complete.
         /// </remarks>
-        public async Task<IEnumerable<PersonIdentifiersValueMap>> GetAllPersonIdentifiers(string personType)
+        public async Task<IEnumerable<PersonIdentifiersValueMap>> GetAllPersonIdentifiersAsync(string personType)
         {
             return await GetPersonIdentifiers(personType);
         }
 
-        public async Task<IEnumerable<PersonIdentifiersValueMap>> GetPersonUniqueIds(string personType, int[] usis)
+        public async Task<IEnumerable<PersonIdentifiersValueMap>> GetPersonUniqueIdsAsync(string personType, int[] usis)
         {
             return await GetPersonIdentifiers(personType, usis: usis);
         }
 
-        public async Task<IEnumerable<PersonIdentifiersValueMap>> GetPersonUsis(string personType, string[] uniqueIds)
+        public async Task<IEnumerable<PersonIdentifiersValueMap>> GetPersonUsisAsync(string personType, string[] uniqueIds)
         {
             return await GetPersonIdentifiers(personType, uniqueIds: uniqueIds);
         }

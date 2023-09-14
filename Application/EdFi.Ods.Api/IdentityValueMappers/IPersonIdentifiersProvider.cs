@@ -23,7 +23,7 @@ namespace EdFi.Ods.Api.IdentityValueMappers
         /// data back for efficiency reasons, holding onto resources such as a database connection until reading is
         /// complete.
         /// </remarks>
-        Task<IEnumerable<PersonIdentifiersValueMap>> GetAllPersonIdentifiers(string personType);
+        Task<IEnumerable<PersonIdentifiersValueMap>> GetAllPersonIdentifiersAsync(string personType);
 
         /// <summary>
         /// Gets the identifier values available for all members of the specified Person type matching the supplied array of USI values.
@@ -35,7 +35,7 @@ namespace EdFi.Ods.Api.IdentityValueMappers
         /// data back for efficiency reasons, holding onto resources such as a database connection until reading is
         /// complete.
         /// </remarks>
-        Task<IEnumerable<PersonIdentifiersValueMap>> GetPersonUniqueIds(string personType, int[] usis);
+        Task<IEnumerable<PersonIdentifiersValueMap>> GetPersonUniqueIdsAsync(string personType, int[] usis);
         
         /// <summary>
         /// Gets the identifier values available for all members of the specified Person type matching the supplied array of UniqueId values.
@@ -47,6 +47,6 @@ namespace EdFi.Ods.Api.IdentityValueMappers
         /// data back for efficiency reasons, holding onto resources such as a database connection until reading is
         /// complete.
         /// </remarks>
-        Task<IEnumerable<PersonIdentifiersValueMap>> GetPersonUsis(string personType, string[] uniqueIds);
+        Task<IEnumerable<PersonIdentifiersValueMap>> GetPersonUsisAsync(string personType, string[] uniqueIds);
     }
 }
