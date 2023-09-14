@@ -16807,7 +16807,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             // -----------------------
             var sourcesForStudentUniqueId = GetStudentUniqueIdSources();
 
-            if (!sourcesForStudentUniqueId.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+            if (!sourcesForStudentUniqueId.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
             {
                 failures.Add(new ValidationFailure("StudentUniqueId",
                     $"Supplied values for unified key property 'studentUniqueId' on 'StudentGraduationPlanAssociationStudentParentAssociation' are not consistent: {string.Join(", ", sourcesForStudentUniqueId.Select(x => $"{x.Item1} = {x.Item2}"))}"));
@@ -20430,7 +20430,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
             // -----------------------
             var sourcesForStudentUniqueId = GetStudentUniqueIdSources();
 
-            if (!sourcesForStudentUniqueId.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+            if (!sourcesForStudentUniqueId.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
             {
                 failures.Add(new ValidationFailure("StudentUniqueId",
                     $"Supplied values for unified key property 'studentUniqueId' on 'StudentSectionAssociationRelatedGeneralStudentProgramAssociation' are not consistent: {string.Join(", ", sourcesForStudentUniqueId.Select(x => $"{x.Item1} = {x.Item2}"))}"));
