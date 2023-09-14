@@ -150,88 +150,8 @@ namespace EdFi.Ods.Api.Container.Modules
                 typeof(IDeleteEntityById<>),
                 ctx => ctx.ImplementationType.GetGenericArguments()[0].IsImplementationOf<IIdentifiablePerson>());
 
-            builder.RegisterType<InMemoryMapCache<(ulong odsInstanceHashId, string personType, PersonMapType personMapType), string, int>>()
-                .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.Name.Equals("slidingExpiration", StringComparison.InvariantCultureIgnoreCase),
-                        (p, c) =>
-                        {
-                            var apiSettings = c.Resolve<ApiSettings>();
+            RegisterPersonIdentifierCaching(builder);
 
-                            int period = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
-
-                            return TimeSpan.FromSeconds(period);
-                        }))
-                .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.InvariantCultureIgnoreCase),
-                        (p, c) =>
-                        {
-                            var apiSettings = c.Resolve<ApiSettings>();
-
-                            int period = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
-
-                            return TimeSpan.FromSeconds(period);
-                        }))
-                .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int>>()
-                .SingleInstance();
-            
-            builder.RegisterType<InMemoryMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
-                .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.Name.Equals("slidingExpiration", StringComparison.InvariantCultureIgnoreCase),
-                        (p, c) =>
-                        {
-                            var apiSettings = c.Resolve<ApiSettings>();
-
-                            int period = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
-
-                            return TimeSpan.FromSeconds(period);
-                        }))
-                .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.InvariantCultureIgnoreCase),
-                        (p, c) =>
-                        {
-                            var apiSettings = c.Resolve<ApiSettings>();
-
-                            int period = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
-
-                            return TimeSpan.FromSeconds(period);
-                        }))
-                .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
-                .SingleInstance();
-
-            builder.RegisterType<PersonMapCacheInitializer>()
-                .As<IPersonMapCacheInitializer>()
-                .SingleInstance();
-
-            builder.RegisterType<PersonUniqueIdResolver>()
-                .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.Name.EqualsIgnoreCase("cacheSuppressionByPersonType"),
-                        (p, c) =>
-                        {
-                            var apiSettings = c.Resolve<ApiSettings>();
-                            
-                            return apiSettings.Caching.PersonUniqueIdToUsi.CacheSuppression;
-                        }))
-                .As<IPersonUniqueIdResolver>()
-                .SingleInstance();
-
-            builder.RegisterType<PersonUsiResolver>()
-                .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.Name.EqualsIgnoreCase("cacheSuppressionByPersonType"),
-                        (p, c) =>
-                        {
-                            var apiSettings = c.Resolve<ApiSettings>();
-                            
-                            return apiSettings.Caching.PersonUniqueIdToUsi.CacheSuppression;
-                        }))
-                .As<IPersonUsiResolver>()
-                .SingleInstance();
-            
             // builder.RegisterType<PersonUniqueIdToUsiCache>()
             //     .WithParameter(new NamedParameter("synchronousInitialization", false))
             //
@@ -307,6 +227,90 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<NHibernateOdsConnectionProvider>()
                 .AsSelf()
                 .InstancePerLifetimeScope();
+        }
+
+        private static void RegisterPersonIdentifierCaching(ContainerBuilder builder)
+        {
+            builder
+                .RegisterType<InMemoryMapCache<(ulong odsInstanceHashId, string personType, PersonMapType personMapType), string, int>>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.Equals("slidingExpiration", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) =>
+                        {
+                            var apiSettings = c.Resolve<ApiSettings>();
+
+                            int period = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
+
+                            return TimeSpan.FromSeconds(period);
+                        }))
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) =>
+                        {
+                            var apiSettings = c.Resolve<ApiSettings>();
+
+                            int period = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
+
+                            return TimeSpan.FromSeconds(period);
+                        }))
+                .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int>>()
+                .SingleInstance();
+
+            builder.RegisterType<InMemoryMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.Equals("slidingExpiration", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) =>
+                        {
+                            var apiSettings = c.Resolve<ApiSettings>();
+
+                            int period = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
+
+                            return TimeSpan.FromSeconds(period);
+                        }))
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) =>
+                        {
+                            var apiSettings = c.Resolve<ApiSettings>();
+
+                            int period = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
+
+                            return TimeSpan.FromSeconds(period);
+                        }))
+                .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
+                .SingleInstance();
+
+            builder.RegisterType<PersonMapCacheInitializer>().As<IPersonMapCacheInitializer>().SingleInstance();
+
+            builder.RegisterType<PersonUniqueIdResolver>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.EqualsIgnoreCase("cacheSuppressionByPersonType"),
+                        (p, c) =>
+                        {
+                            var apiSettings = c.Resolve<ApiSettings>();
+
+                            return apiSettings.Caching.PersonUniqueIdToUsi.CacheSuppression;
+                        }))
+                .As<IPersonUniqueIdResolver>()
+                .SingleInstance();
+
+            builder.RegisterType<PersonUsiResolver>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.EqualsIgnoreCase("cacheSuppressionByPersonType"),
+                        (p, c) =>
+                        {
+                            var apiSettings = c.Resolve<ApiSettings>();
+
+                            return apiSettings.Caching.PersonUniqueIdToUsi.CacheSuppression;
+                        }))
+                .As<IPersonUsiResolver>()
+                .SingleInstance();
         }
     }
 }
