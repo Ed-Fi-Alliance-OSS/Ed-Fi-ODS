@@ -318,35 +318,51 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 // Build the existence check SQL
                 StringBuilder sql = new();
 
+                bool queryOptimized=false;
+
                 sql.Append("SELECT CASE WHEN ");
 
                 resultsWithPendingExistenceChecks.ForEach(
                     (x, i, s) =>
                     {
-                        if (i > 0)
+                    if (i > 0)
+                    {
+                        if (x.Operator == FilterOperator.And)
                         {
-                            if (x.Operator == FilterOperator.And)
-                            {
-                                s.Append(" AND ");
-                            }
-                            else
-                            {
-                                s.Append(" OR ");
-                            }
+                            s.Append(" AND ");
                         }
+                        else
+                        {
+                            s.Append(" OR ");
+                        }
+                    }
 
-                        x.FilterResults = x.FilterResults.Where(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToStudentUSI" ||
-                                            !x.FilterResults.Any(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToContactUSI")).ToArray();
+                    x.FilterResults.ForEach(
+                      (y) =>
+                      {
+                          var viewBasedFilterDefinition = y.FilterDefinition as ViewBasedAuthorizationFilterDefinition
+                              ?? throw new InvalidOperationException(
+                                  "Expected a ViewBasedAuthorizationFilterDefinition instance for performing existence checks.");
 
-                        x.FilterResults.ForEach(
+                          var viewSqlSupport = viewBasedFilterDefinition.ViewBasedSingleItemAuthorizationQuerySupport;
+
+                          if (x.FilterResults.Any(a => a.FilterDefinition.FilterName == "ClaimEducationOrganizationIdsToStudentUSI" && a.FilterDefinition.FilterName == "ClaimEducationOrganizationIdsToContactUSI"))
+                          {
+                              x.FilterResults = x.FilterResults.Where(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToStudentUSI" ||
+                                             !x.FilterResults.Any(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToContactUSI")).ToArray();
+
+                              queryOptimized = true;
+                          }
+                      }
+                    );
+                    
+                    x.FilterResults.ForEach(
                             (y, j, s) =>
                             {
-                                var viewBasedFilterDefinition = y.FilterDefinition as ViewBasedAuthorizationFilterDefinition
-                                    ?? throw new InvalidOperationException(
-                                        "Expected a ViewBasedAuthorizationFilterDefinition instance for performing existence checks.");
+                                var viewBasedFilterDefinition = y.FilterDefinition as ViewBasedAuthorizationFilterDefinition;
 
                                 var viewSqlSupport = viewBasedFilterDefinition.ViewBasedSingleItemAuthorizationQuerySupport;
-                                
+
                                 if (j > 0)
                                 {
                                     // NOTE: Individual filters (segments) are always combined with AND
@@ -358,7 +374,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                                 s.Append(')');
                             }, s);
 
-                        if(x.FilterResults.ToList().Count > 1)
+                        if(queryOptimized)
                         s.Append(')');
                     }, sql);
 
