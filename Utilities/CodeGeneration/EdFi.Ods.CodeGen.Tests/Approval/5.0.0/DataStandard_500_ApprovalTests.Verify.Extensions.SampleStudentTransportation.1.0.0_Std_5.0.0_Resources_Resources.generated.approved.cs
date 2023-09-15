@@ -42,7 +42,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
         public long SchoolId { get; set; }
 
         [DataMember(Name="studentUniqueId"), NaturalKeyMember]
-        public string StudentUniqueId { get; set; }
+        public string StudentUniqueId 
+        {
+            get => _studentUniqueId;
+            set
+            {
+                _studentUniqueId = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("Student", value);
+            }
+        }
+        private string _studentUniqueId;
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
@@ -280,6 +289,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
                 // Student
                 _studentReferenceExplicitlyAssigned = false;
                 ImplicitStudentReference.StudentUniqueId = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("Student", value);                
             }
         }
         // -------------------------------------------------------------
