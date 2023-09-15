@@ -4,8 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Ods.Api.Caching;
-using NUnit.Framework;
 using EdFi.Ods.Features.ExternalCache.Redis;
+using NUnit.Framework;
 using Shouldly;
 
 // ---------------------------------------------------------------
@@ -13,6 +13,8 @@ using Shouldly;
 // ---------------------------------------------------------------
 // docker run --name my-redis -d -p 6379:6379 redis:alpine
 // ---------------------------------------------------------------
+
+namespace EdFi.Ods.Features.UnitTests.ExternalCache;
 
 [TestFixture, Explicit]
 public class RedisUsiByUniqueIdMapCacheTests
