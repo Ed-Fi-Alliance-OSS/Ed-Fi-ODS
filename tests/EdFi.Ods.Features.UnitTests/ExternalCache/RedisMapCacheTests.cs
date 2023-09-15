@@ -8,7 +8,13 @@ using NUnit.Framework;
 using EdFi.Ods.Features.ExternalCache.Redis;
 using Shouldly;
 
-[TestFixture]
+// ---------------------------------------------------------------
+// Docker command to run Redis in a container for testing:
+// ---------------------------------------------------------------
+// docker run --name my-redis -d -p 6379:6379 redis:alpine
+// ---------------------------------------------------------------
+
+[TestFixture, Explicit]
 public class RedisUsiByUniqueIdMapCacheTests
 {
     private RedisUsiByUniqueIdMapCache _mapCache;
