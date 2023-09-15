@@ -61,7 +61,7 @@ public class OdsInstanceConfigurationProviderTests
 
     [TestCase(null)]
     [TestCase("")]
-    public async Task GetByIdAsync_WhenOdsConnectionStringIsNullOrEmpty_ThrowsException(string suppliedConnectionString)
+    public void GetByIdAsync_WhenOdsConnectionStringIsNullOrEmpty_ThrowsException(string suppliedConnectionString)
     {
         // Arrange
         int suppliedOdsInstanceId = 123;
@@ -79,7 +79,7 @@ public class OdsInstanceConfigurationProviderTests
     
     [TestCase(null)]
     [TestCase("")]
-    public async Task GetByIdAsync_WhenDerivativeOdsConnectionStringIsNullOrEmpty_ThrowsException(string suppliedConnectionString)
+    public void GetByIdAsync_WhenDerivativeOdsConnectionStringIsNullOrEmpty_ThrowsException(string suppliedConnectionString)
     {
         // Arrange
         int suppliedOdsInstanceId = 123;
