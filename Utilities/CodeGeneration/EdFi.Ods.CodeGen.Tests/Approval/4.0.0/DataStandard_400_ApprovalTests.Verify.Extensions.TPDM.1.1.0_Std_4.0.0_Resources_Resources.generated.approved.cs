@@ -11730,7 +11730,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
             }
             var sourcesForEvaluationObjectiveTitle = GetEvaluationObjectiveTitleSources();
 
-            if (!sourcesForEvaluationObjectiveTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+            if (!sourcesForEvaluationObjectiveTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
             {
                 failures.Add(new ValidationFailure("EvaluationObjectiveTitle",
                     $"Supplied values for unified key property 'evaluationObjectiveTitle' on 'EvaluationElementRating' are not consistent: {string.Join(", ", sourcesForEvaluationObjectiveTitle.Select(x => $"{x.Item1} = {x.Item2}"))}"));
@@ -11757,7 +11757,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
             }
             var sourcesForEvaluationPeriodDescriptor = GetEvaluationPeriodDescriptorSources();
 
-            if (!sourcesForEvaluationPeriodDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+            if (!sourcesForEvaluationPeriodDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
             {
                 failures.Add(new ValidationFailure("EvaluationPeriodDescriptor",
                     $"Supplied values for unified key property 'evaluationPeriodDescriptor' on 'EvaluationElementRating' are not consistent: {string.Join(", ", sourcesForEvaluationPeriodDescriptor.Select(x => $"{x.Item1} = {x.Item2}"))}"));
@@ -11784,7 +11784,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
             }
             var sourcesForEvaluationTitle = GetEvaluationTitleSources();
 
-            if (!sourcesForEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+            if (!sourcesForEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
             {
                 failures.Add(new ValidationFailure("EvaluationTitle",
                     $"Supplied values for unified key property 'evaluationTitle' on 'EvaluationElementRating' are not consistent: {string.Join(", ", sourcesForEvaluationTitle.Select(x => $"{x.Item1} = {x.Item2}"))}"));
@@ -11811,7 +11811,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
             }
             var sourcesForPerformanceEvaluationTitle = GetPerformanceEvaluationTitleSources();
 
-            if (!sourcesForPerformanceEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+            if (!sourcesForPerformanceEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
             {
                 failures.Add(new ValidationFailure("PerformanceEvaluationTitle",
                     $"Supplied values for unified key property 'performanceEvaluationTitle' on 'EvaluationElementRating' are not consistent: {string.Join(", ", sourcesForPerformanceEvaluationTitle.Select(x => $"{x.Item1} = {x.Item2}"))}"));
@@ -11838,7 +11838,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
             }
             var sourcesForPerformanceEvaluationTypeDescriptor = GetPerformanceEvaluationTypeDescriptorSources();
 
-            if (!sourcesForPerformanceEvaluationTypeDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+            if (!sourcesForPerformanceEvaluationTypeDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
             {
                 failures.Add(new ValidationFailure("PerformanceEvaluationTypeDescriptor",
                     $"Supplied values for unified key property 'performanceEvaluationTypeDescriptor' on 'EvaluationElementRating' are not consistent: {string.Join(", ", sourcesForPerformanceEvaluationTypeDescriptor.Select(x => $"{x.Item1} = {x.Item2}"))}"));
@@ -11892,7 +11892,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
             }
             var sourcesForTermDescriptor = GetTermDescriptorSources();
 
-            if (!sourcesForTermDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+            if (!sourcesForTermDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
             {
                 failures.Add(new ValidationFailure("TermDescriptor",
                     $"Supplied values for unified key property 'termDescriptor' on 'EvaluationElementRating' are not consistent: {string.Join(", ", sourcesForTermDescriptor.Select(x => $"{x.Item1} = {x.Item2}"))}"));
@@ -14283,7 +14283,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
             }
             var sourcesForEvaluationPeriodDescriptor = GetEvaluationPeriodDescriptorSources();
 
-            if (!sourcesForEvaluationPeriodDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+            if (!sourcesForEvaluationPeriodDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
             {
                 failures.Add(new ValidationFailure("EvaluationPeriodDescriptor",
                     $"Supplied values for unified key property 'evaluationPeriodDescriptor' on 'EvaluationObjectiveRating' are not consistent: {string.Join(", ", sourcesForEvaluationPeriodDescriptor.Select(x => $"{x.Item1} = {x.Item2}"))}"));
@@ -14310,7 +14310,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
             }
             var sourcesForEvaluationTitle = GetEvaluationTitleSources();
 
-            if (!sourcesForEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+            if (!sourcesForEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
             {
                 failures.Add(new ValidationFailure("EvaluationTitle",
                     $"Supplied values for unified key property 'evaluationTitle' on 'EvaluationObjectiveRating' are not consistent: {string.Join(", ", sourcesForEvaluationTitle.Select(x => $"{x.Item1} = {x.Item2}"))}"));
@@ -14337,7 +14337,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
             }
             var sourcesForPerformanceEvaluationTitle = GetPerformanceEvaluationTitleSources();
 
-            if (!sourcesForPerformanceEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+            if (!sourcesForPerformanceEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
             {
                 failures.Add(new ValidationFailure("PerformanceEvaluationTitle",
                     $"Supplied values for unified key property 'performanceEvaluationTitle' on 'EvaluationObjectiveRating' are not consistent: {string.Join(", ", sourcesForPerformanceEvaluationTitle.Select(x => $"{x.Item1} = {x.Item2}"))}"));
@@ -14364,7 +14364,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
             }
             var sourcesForPerformanceEvaluationTypeDescriptor = GetPerformanceEvaluationTypeDescriptorSources();
 
-            if (!sourcesForPerformanceEvaluationTypeDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+            if (!sourcesForPerformanceEvaluationTypeDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
             {
                 failures.Add(new ValidationFailure("PerformanceEvaluationTypeDescriptor",
                     $"Supplied values for unified key property 'performanceEvaluationTypeDescriptor' on 'EvaluationObjectiveRating' are not consistent: {string.Join(", ", sourcesForPerformanceEvaluationTypeDescriptor.Select(x => $"{x.Item1} = {x.Item2}"))}"));
@@ -14418,7 +14418,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
             }
             var sourcesForTermDescriptor = GetTermDescriptorSources();
 
-            if (!sourcesForTermDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+            if (!sourcesForTermDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
             {
                 failures.Add(new ValidationFailure("TermDescriptor",
                     $"Supplied values for unified key property 'termDescriptor' on 'EvaluationObjectiveRating' are not consistent: {string.Join(", ", sourcesForTermDescriptor.Select(x => $"{x.Item1} = {x.Item2}"))}"));
@@ -16021,7 +16021,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
             }
             var sourcesForEvaluationPeriodDescriptor = GetEvaluationPeriodDescriptorSources();
 
-            if (!sourcesForEvaluationPeriodDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+            if (!sourcesForEvaluationPeriodDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
             {
                 failures.Add(new ValidationFailure("EvaluationPeriodDescriptor",
                     $"Supplied values for unified key property 'evaluationPeriodDescriptor' on 'EvaluationRating' are not consistent: {string.Join(", ", sourcesForEvaluationPeriodDescriptor.Select(x => $"{x.Item1} = {x.Item2}"))}"));
@@ -16048,7 +16048,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
             }
             var sourcesForPerformanceEvaluationTitle = GetPerformanceEvaluationTitleSources();
 
-            if (!sourcesForPerformanceEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+            if (!sourcesForPerformanceEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
             {
                 failures.Add(new ValidationFailure("PerformanceEvaluationTitle",
                     $"Supplied values for unified key property 'performanceEvaluationTitle' on 'EvaluationRating' are not consistent: {string.Join(", ", sourcesForPerformanceEvaluationTitle.Select(x => $"{x.Item1} = {x.Item2}"))}"));
@@ -16075,7 +16075,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
             }
             var sourcesForPerformanceEvaluationTypeDescriptor = GetPerformanceEvaluationTypeDescriptorSources();
 
-            if (!sourcesForPerformanceEvaluationTypeDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+            if (!sourcesForPerformanceEvaluationTypeDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
             {
                 failures.Add(new ValidationFailure("PerformanceEvaluationTypeDescriptor",
                     $"Supplied values for unified key property 'performanceEvaluationTypeDescriptor' on 'EvaluationRating' are not consistent: {string.Join(", ", sourcesForPerformanceEvaluationTypeDescriptor.Select(x => $"{x.Item1} = {x.Item2}"))}"));
@@ -16137,7 +16137,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
             }
             var sourcesForTermDescriptor = GetTermDescriptorSources();
 
-            if (!sourcesForTermDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+            if (!sourcesForTermDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
             {
                 failures.Add(new ValidationFailure("TermDescriptor",
                     $"Supplied values for unified key property 'termDescriptor' on 'EvaluationRating' are not consistent: {string.Join(", ", sourcesForTermDescriptor.Select(x => $"{x.Item1} = {x.Item2}"))}"));

@@ -117,7 +117,7 @@ namespace EdFi.Common.Extensions
         /// <returns><b>true</b> if all the values in the sequence are the same, or the sequence is empty; otherwise <b>false</b>.</returns>
         public static bool AllEqual<T>(this IEnumerable<T> values)
         {
-            Preconditions.ThrowIfNull(values, nameof(values));
+            ArgumentNullException.ThrowIfNull(values);
             
             if (!values.Any())
                 return true;
@@ -127,6 +127,28 @@ namespace EdFi.Common.Extensions
             return values
                 .Skip(1)
                 .All(v => first.Equals(v));
+        }
+
+        /// <summary>
+        /// Indicates whether all the strings in the supplied sequence are the same value.
+        /// </summary>
+        /// <param name="values">The sequence to be evaluated.</param>
+        /// <param name="comparer">The <see cref="StringComparer" /> to use for the comparison (defaults to <see cref="StringComparer.Ordinal" />).</param>
+        /// <returns><b>true</b> if all the values in the sequence are the same, or the sequence is empty; otherwise <b>false</b>.</returns>
+        public static bool AllEqual(this IEnumerable<string> values, StringComparer comparer = null)
+        {
+            ArgumentNullException.ThrowIfNull(values);
+            
+            comparer ??= StringComparer.Ordinal;
+            
+            if (!values.Any())
+                return true;
+            
+            string first = values.First();
+            
+            return values
+                .Skip(1)
+                .All(v => comparer.Equals(first, v));
         }
 
         /// <summary>
