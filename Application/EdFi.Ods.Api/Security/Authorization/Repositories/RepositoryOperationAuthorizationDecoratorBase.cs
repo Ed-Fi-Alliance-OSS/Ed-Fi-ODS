@@ -335,7 +335,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                             }
                         }
 
-                        s.Append('(');
+                        x.FilterResults = x.FilterResults.Where(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToStudentUSI" ||
+                                            !x.FilterResults.Any(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToContactUSI")).ToArray();
 
                         x.FilterResults.ForEach(
                             (y, j, s) =>
@@ -357,6 +358,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                                 s.Append(')');
                             }, s);
 
+                        if(x.FilterResults.ToList().Count > 1)
                         s.Append(')');
                     }, sql);
 
