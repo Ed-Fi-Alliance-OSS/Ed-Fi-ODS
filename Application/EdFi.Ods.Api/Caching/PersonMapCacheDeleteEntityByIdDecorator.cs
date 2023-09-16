@@ -8,12 +8,12 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
-using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.Api.Caching;
 
@@ -29,20 +29,19 @@ public class PersonMapCacheDeleteEntityByIdDecorator<TEntity> : IDeleteEntityByI
     private readonly IMapCache<(ulong, string, PersonMapType), string, int> _usiByUniqueIdByPersonType;
     private readonly IMapCache<(ulong, string, PersonMapType), int, string> _uniqueIdByUsiByPersonType;
     private readonly IContextProvider<OdsInstanceConfiguration> _odsInstanceConfigurationProvider;
+    
+    private readonly Lazy<Func<TEntity, int>> _usiPropertyAccessor;
     private readonly string _personType;
-    private readonly Func<TEntity, int> _usiPropertyAccessor;
 
     /// <summary>
     /// Initializes a new instance of <see cref="PersonMapCacheDeleteEntityByIdDecorator{T}"/>.
     /// </summary>
     /// <param name="next">The decorated instance for which authorization is being performed.</param>
-    /// <param name="personEntitySpecification"></param>
     /// <param name="usiByUniqueIdByPersonType"></param>
     /// <param name="uniqueIdByUsiByPersonType"></param>
     /// <param name="odsInstanceConfigurationProvider"></param>
     public PersonMapCacheDeleteEntityByIdDecorator(
         IDeleteEntityById<TEntity> next,
-        IPersonEntitySpecification personEntitySpecification,
         IMapCache<(ulong, string, PersonMapType), string, int> usiByUniqueIdByPersonType,
         IMapCache<(ulong, string, PersonMapType), int, string> uniqueIdByUsiByPersonType,
         IContextProvider<OdsInstanceConfiguration> odsInstanceConfigurationProvider)
@@ -53,28 +52,32 @@ public class PersonMapCacheDeleteEntityByIdDecorator<TEntity> : IDeleteEntityByI
         _odsInstanceConfigurationProvider = odsInstanceConfigurationProvider;
 
         // Perform a defensive check (registration logic should already not apply the decorator to non-person types)
-        if (personEntitySpecification.IsPersonEntity(typeof(TEntity)))
+        if (typeof(TEntity).IsImplementationOf<IIdentifiablePerson>())
         {
             _personType = typeof(TEntity).Name;
 
-            // Build and compile a function for extracting the USI from the entity
-            var usiProperty = typeof(TEntity).GetTypeInfo().GetDeclaredProperty($"{_personType}USI");
-            _usiPropertyAccessor = BuildUsiPropertyAccessor(usiProperty);
-        }
-        
-        static Func<TEntity, int> BuildUsiPropertyAccessor(PropertyInfo propertyInfo)
-        {
-            // Input parameter for the instance of type T
-            ParameterExpression instanceParam = Expression.Parameter(typeof(TEntity), "instance");
+            _usiPropertyAccessor = new Lazy<Func<TEntity, int>>(
+                () =>
+                {
+                    // Build and compile a function for extracting the USI from the entity
+                    var usiProperty = typeof(TEntity).GetTypeInfo().GetDeclaredProperty($"{_personType}USI");
+                    return BuildUsiPropertyAccessor(usiProperty);
+                
+                    static Func<TEntity, int> BuildUsiPropertyAccessor(PropertyInfo propertyInfo)
+                    {
+                        // Input parameter for the instance of type T
+                        ParameterExpression instanceParam = Expression.Parameter(typeof(TEntity), "instance");
 
-            // Expression to access the property on the instance
-            Expression propertyAccess = Expression.Property(instanceParam, propertyInfo);
+                        // Expression to access the property on the instance
+                        Expression propertyAccess = Expression.Property(instanceParam, propertyInfo);
 
-            // Build the lambda expression
-            LambdaExpression lambda = Expression.Lambda<Func<TEntity, int>>(propertyAccess, instanceParam);
+                        // Build the lambda expression
+                        LambdaExpression lambda = Expression.Lambda<Func<TEntity, int>>(propertyAccess, instanceParam);
 
-            // Compile and return the lambda as a delegate
-            return (Func<TEntity, int>) lambda.Compile();
+                        // Compile and return the lambda as a delegate
+                        return (Func<TEntity, int>) lambda.Compile();
+                    }
+                });
         }
     }
 
@@ -87,7 +90,7 @@ public class PersonMapCacheDeleteEntityByIdDecorator<TEntity> : IDeleteEntityByI
         {
             ulong odsInstanceHashId = _odsInstanceConfigurationProvider.Get().OdsInstanceHashId;
 
-            int usi = _usiPropertyAccessor.Invoke(deletedEntity);
+            int usi = _usiPropertyAccessor.Value.Invoke(deletedEntity);
 
             await Task.WhenAll(
                 // Remove the USI from the cached map by UniqueId

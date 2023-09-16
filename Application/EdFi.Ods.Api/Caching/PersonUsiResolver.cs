@@ -12,6 +12,9 @@ using EdFi.Ods.Common.Context;
 
 namespace EdFi.Ods.Api.Caching;
 
+/// <summary>
+/// Resolves USIs for supplied UniqueIds.
+/// </summary>
 public class PersonUsiResolver : PersonIdentifierResolverBase<string, int>, IPersonUsiResolver
 {
     private readonly IPersonIdentifiersProvider _personIdentifiersProvider;
@@ -27,12 +30,13 @@ public class PersonUsiResolver : PersonIdentifierResolverBase<string, int>, IPer
         _personIdentifiersProvider = personIdentifiersProvider;
     }
 
-    public async Task ResolveUsis(string personType, IDictionary<string, int> lookups)
+    /// <inheritdoc cref="IPersonUsiResolver.ResolveUsisAsync" />
+    public async Task ResolveUsisAsync(string personType, IDictionary<string, int> lookups)
     {
         await ResolveIdentifiersAsync(personType, lookups);
     }
 
-    protected override async Task<IEnumerable<PersonIdentifiersValueMap>> LoadPersonUnresolvedIdentifiers(
+    protected override async Task<IEnumerable<PersonIdentifiersValueMap>> LoadUnresolvedPersonIdentifiersAsync(
         string personType,
         ICollection<string> identifiersToLoad)
     {

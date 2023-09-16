@@ -8,6 +8,9 @@ using EdFi.Ods.Common.Context;
 
 namespace EdFi.Ods.Common.Caching;
 
+/// <summary>
+/// Stores the context of all the UniqueIds for the USIs that need to be resolved during the current request.
+/// </summary>
 public class UsiLookupsByUniqueIdContext : PersonIdentifierLookupContextBase<string, int>
 {
     public IDictionary<string, IDictionary<string, int>> UsiByUniqueIdByPersonType

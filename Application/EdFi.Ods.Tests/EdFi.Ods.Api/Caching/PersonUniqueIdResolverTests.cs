@@ -71,7 +71,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakeCacheSuppressionByPersonType);
 
             // Act
-            await resolver.ResolveUniqueIds(personType, lookups);
+            await resolver.ResolveUniqueIdsAsync(personType, lookups);
 
             // Assert
             lookups.ShouldSatisfyAllConditions(
@@ -120,7 +120,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakeCacheSuppressionByPersonType);
 
             // Act
-            await resolver.ResolveUniqueIds(personType, lookups);
+            await resolver.ResolveUniqueIdsAsync(personType, lookups);
 
             // Assert
             lookups.ShouldSatisfyAllConditions(
@@ -173,7 +173,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakeCacheSuppressionByPersonType);
 
             // Act
-            await resolver.ResolveUniqueIds(personType, lookups);
+            await resolver.ResolveUniqueIdsAsync(personType, lookups);
 
             // Assert
             lookups.ShouldSatisfyAllConditions(
@@ -222,7 +222,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakeCacheSuppressionByPersonType);
 
             // Act
-            await resolver.ResolveUniqueIds(personType, lookups);
+            await resolver.ResolveUniqueIdsAsync(personType, lookups);
 
             // Assert
             A.CallTo(() => _fakePersonIdentifiersProvider.GetPersonUniqueIdsAsync(
@@ -253,7 +253,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakeCacheSuppressionByPersonType);
 
             // Act
-            await resolver.ResolveUniqueIds(personType, lookups);
+            await resolver.ResolveUniqueIdsAsync(personType, lookups);
 
             // Assert
             var uniqueIdByUsiTuple = (123456UL, personType, PersonMapType.UniqueIdByUsi);

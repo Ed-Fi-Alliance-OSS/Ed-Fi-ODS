@@ -13,6 +13,12 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace EdFi.Ods.Api.Caching;
 
+/// <summary>
+/// Implements a map cache backed by the <see cref="IMemoryCache" /> implementation.
+/// </summary>
+/// <typeparam name="TKey">The type of the cache entry.</typeparam>
+/// <typeparam name="TMapKey">The type of the map's keys.</typeparam>
+/// <typeparam name="TMapValue">The type of the map's values.</typeparam>
 public class InMemoryMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, TMapValue>
 {
     private readonly IMemoryCache _memoryCache;
@@ -42,6 +48,7 @@ public class InMemoryMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKe
         };
     }
 
+    /// <inheritdoc cref="IMapCache{TKey,TMapKey,TMapValue}.SetMapEntriesAsync" />
     public Task SetMapEntriesAsync(TKey key, (TMapKey key, TMapValue value)[] mapEntries)
     {
         var map = GetOrAddMap(key);
@@ -54,6 +61,7 @@ public class InMemoryMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKe
         return Task.CompletedTask;
     }
 
+    /// <inheritdoc cref="IMapCache{TKey,TMapKey,TMapValue}.GetMapEntriesAsync" />
     public Task<TMapValue[]> GetMapEntriesAsync(TKey key, TMapKey[] mapKeys)
     {
         var map = GetOrAddMap(key);
@@ -71,6 +79,7 @@ public class InMemoryMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKe
         return Task.FromResult(values);
     }
 
+    /// <inheritdoc cref="IMapCache{TKey,TMapKey,TMapValue}.DeleteMapEntryAsync" />
     public Task<bool> DeleteMapEntryAsync(TKey key, TMapKey mapKey)
     {
         var map = GetOrAddMap(key);

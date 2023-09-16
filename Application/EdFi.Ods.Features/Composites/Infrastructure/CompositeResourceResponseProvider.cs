@@ -8,13 +8,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Security.Claims;
 using System.Text;
 using System.Xml.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
@@ -29,7 +27,6 @@ using log4net;
 using Newtonsoft.Json;
 using NHibernate;
 using NHibernate.Context;
-using Standart.Hash.xxHash;
 
 namespace EdFi.Ods.Features.Composites.Infrastructure
 {
@@ -48,15 +45,11 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
               };
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(CompositeResourceResponseProvider));
-        
+
         private readonly IProfileResourceModelProvider _profileResourceModelProvider;
-        private readonly IPersonEntitySpecification _personEntitySpecification;
         private readonly IApiClientContextProvider _apiClientContextProvider;
         private readonly IResourceModelProvider _resourceModelProvider;
         private readonly ISessionFactory _sessionFactory;
-
-        private readonly Lazy<Dictionary<string, string>> _uniqueIdSuffixByPersonType;
-        private readonly Lazy<Dictionary<string, string>> _uniqueIdPropertyNameByPersonType;
 
         public CompositeResourceResponseProvider(
             ISessionFactory sessionFactory,
@@ -64,23 +57,14 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             IResourceModelProvider resourceModelProvider,
             IFieldsExpressionParser fieldsExpressionParser,
             IProfileResourceModelProvider profileResourceModelProvider,
-            IPersonEntitySpecification personEntitySpecification,
-            IApiClientContextProvider apiClientContextProvider,
-            IPersonTypesProvider personTypesProvider)
+            IApiClientContextProvider apiClientContextProvider)
         {
             _sessionFactory = sessionFactory;
             _compositeDefinitionProcessor = compositeDefinitionProcessor;
             _resourceModelProvider = resourceModelProvider;
             _fieldsExpressionParser = fieldsExpressionParser;
             _profileResourceModelProvider = profileResourceModelProvider;
-            _personEntitySpecification = personEntitySpecification;
             _apiClientContextProvider = apiClientContextProvider;
-            
-            _uniqueIdSuffixByPersonType = new Lazy<Dictionary<string, string>>(
-                () => personTypesProvider.PersonTypes.ToDictionary(pt => pt, pt => $"{pt}UniqueId"));
-
-            _uniqueIdPropertyNameByPersonType = new Lazy<Dictionary<string, string>>(
-                () => personTypesProvider.PersonTypes.ToDictionary(pt => pt, pt => $"{pt}UniqueId".ToCamelCase()));
         }
 
         public object Get(

@@ -6,11 +6,8 @@
 using System;
 using System.Collections.Generic;
 using Autofac;
-using Autofac.Core;
-using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.IdentityValueMappers;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
@@ -33,7 +30,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
 
             RegisterPersonIdentifierCaching(builder);
         }
-        
+
         private static void RegisterPersonIdentifierCaching(ContainerBuilder builder)
         {
             var cacheSuppression = new Dictionary<string, bool>()
@@ -43,16 +40,19 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
                 { "Parent", false },
                 { "Contact", false },
             };
-            
+
             builder
                 .RegisterType<InMemoryMapCache<(ulong odsInstanceHashId, string personType, PersonMapType personMapType), string, int>>()
                 .WithParameter(new NamedParameter("slidingExpiration", TimeSpan.FromSeconds(14400)))
-                .WithParameter(new NamedParameter("absoluteExpirationPeriod", TimeSpan.FromSeconds(86400)))                .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int>>()
+                .WithParameter(new NamedParameter("absoluteExpirationPeriod", TimeSpan.FromSeconds(86400)))
+                .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int>>()
                 .SingleInstance();
 
-            builder.RegisterType<InMemoryMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
+            builder
+                .RegisterType<InMemoryMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
                 .WithParameter(new NamedParameter("slidingExpiration", TimeSpan.FromSeconds(14400)))
-                .WithParameter(new NamedParameter("absoluteExpirationPeriod", TimeSpan.FromSeconds(86400)))                .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
+                .WithParameter(new NamedParameter("absoluteExpirationPeriod", TimeSpan.FromSeconds(86400)))
+                .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
                 .SingleInstance();
 
             builder.RegisterType<PersonMapCacheInitializer>().As<IPersonMapCacheInitializer>().SingleInstance();

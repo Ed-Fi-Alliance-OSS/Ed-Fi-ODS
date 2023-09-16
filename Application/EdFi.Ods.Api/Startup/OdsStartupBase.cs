@@ -365,12 +365,6 @@ namespace EdFi.Ods.Api.Startup
                 ClaimsPrincipal.ClaimsPrincipalSelector = () => Container.Resolve<IHttpContextAccessor>()
                     .HttpContext?.User;
 
-                // Provide cache using a closure rather than repeated invocations to the container
-                // IPersonUniqueIdToUsiCache personUniqueIdToUsiCache = null;
-
-                // PersonUniqueIdToUsiCache.GetCache = ()
-                //     => personUniqueIdToUsiCache ??= Container.Resolve<IPersonUniqueIdToUsiCache>();
-
                 ResourceModelHelper.ResourceModel =
                     new Lazy<ResourceModel>(
                         () => Container.Resolve<IResourceModelProvider>()

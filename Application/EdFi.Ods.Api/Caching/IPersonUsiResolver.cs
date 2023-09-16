@@ -8,8 +8,17 @@ using System.Threading.Tasks;
 
 namespace EdFi.Ods.Api.Caching;
 
+/// <summary>
+/// Defines a method for resolving the USIs for a set of UniqueId values.
+/// </summary>
 public interface IPersonUsiResolver
 {
+    /// <summary>
+    /// Resolves the USI values for the supplied UniqueId values.
+    /// </summary>
+    /// <param name="personType">The type of person on which the identifier resolution should be performed.</param>
+    /// <param name="lookups">A dictionary (keyed by UniqueId) containing entries for all the USI values to be resolved.</param>
+    /// <returns>Nothing.</returns>
     // ReSharper disable once IdentifierTypo
-    Task ResolveUsis(string personType, IDictionary<string, int> lookups);
+    Task ResolveUsisAsync(string personType, IDictionary<string, int> lookups);
 }

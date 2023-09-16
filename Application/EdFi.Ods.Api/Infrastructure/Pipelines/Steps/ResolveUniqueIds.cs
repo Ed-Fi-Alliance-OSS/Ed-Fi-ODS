@@ -12,6 +12,13 @@ using EdFi.Ods.Common.Infrastructure.Pipelines;
 
 namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps;
 
+/// <summary>
+/// Implements a pipeline step that resolves the UniqueIds from the collection of USIs saved into the current USI lookup context.
+/// </summary>
+/// <typeparam name="TContext"></typeparam>
+/// <typeparam name="TResult"></typeparam>
+/// <typeparam name="TResourceModel"></typeparam>
+/// <typeparam name="TEntityModel"></typeparam>
 public class ResolveUniqueIds<TContext, TResult, TResourceModel, TEntityModel> : IStep<TContext, TResult>
 {
     private readonly IContextProvider<UniqueIdLookupsByUsiContext> _lookupContextProvider;
@@ -36,7 +43,7 @@ public class ResolveUniqueIds<TContext, TResult, TResourceModel, TEntityModel> :
 
         foreach (var kvp in uniqueIdLookupsByUsiContext.UniqueIdByUsiByPersonType)
         {
-            await _personUniqueIdResolver.ResolveUniqueIds(kvp.Key, kvp.Value);
+            await _personUniqueIdResolver.ResolveUniqueIdsAsync(kvp.Key, kvp.Value);
         }
     }
 }

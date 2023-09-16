@@ -13,6 +13,12 @@ using EdFi.Ods.Common.Context;
 
 namespace EdFi.Ods.Api.Caching;
 
+/// <summary>
+/// Provides a base class for common behavior needed for person identifier resolution (see <see cref="IPersonUniqueIdResolver"/>
+/// and <see cref="IPersonUsiResolver"/>).
+/// </summary>
+/// <typeparam name="TLookup">The type of the identifier being used for the lookup.</typeparam>
+/// <typeparam name="TResolved">The type of the identifier being resolved.</typeparam>
 public abstract class PersonIdentifierResolverBase<TLookup, TResolved>
 {
     private readonly IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), TLookup, TResolved> _mapCache;
@@ -49,14 +55,15 @@ public abstract class PersonIdentifierResolverBase<TLookup, TResolved>
         // If there are any values that still need to be loaded directly from the ODS...
         if (identifiersToLoad != null)
         {
-            var results = await LoadPersonUnresolvedIdentifiers(personType, identifiersToLoad);
+            var results = await LoadUnresolvedPersonIdentifiersAsync(personType, identifiersToLoad);
 
             foreach (var result in results)
             {
                 SetResolvedIdentifier(lookups, result);
             }
             
-            // TODO: We may need to validate that all values have been resolved, though this may be more important for UniqueId to USI (PUT/POST requests)
+            // Note: We may want to validate that all values have been resolved, though the behavior of the API when the
+            // resolution fails (primarily for UniqueId values passed in PUT/POST requests) is appropriate without this extra validation. 
         }
 
         async Task<ICollection<TLookup>> ResolveIdentifiersFromCache()
@@ -115,7 +122,7 @@ public abstract class PersonIdentifierResolverBase<TLookup, TResolved>
     /// <param name="personIdentifiers">The UniqueId/USI values for a person in the ODS.</param>
     protected abstract void SetResolvedIdentifier(IDictionary<TLookup, TResolved> lookups, PersonIdentifiersValueMap personIdentifiers);
 
-    protected abstract Task<IEnumerable<PersonIdentifiersValueMap>> LoadPersonUnresolvedIdentifiers(
+    protected abstract Task<IEnumerable<PersonIdentifiersValueMap>> LoadUnresolvedPersonIdentifiersAsync(
         string personType,
         ICollection<TLookup> identifiersToLoad);
 }

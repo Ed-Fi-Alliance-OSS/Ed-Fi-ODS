@@ -17,7 +17,6 @@ using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Activities;
@@ -28,7 +27,6 @@ using log4net;
 using NHibernate;
 using NHibernate.Exceptions;
 using NHibernate.Transform;
-using Standart.Hash.xxHash;
 
 namespace EdFi.Ods.Features.Composites.Infrastructure
 {
@@ -900,7 +898,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     .GroupBy(x => x.personType, x => x.uniqueId)
                     .ToDictionary(x => x.Key, x => x.ToDictionary(k => k, k => default(int)));
 
-                var usiResolutionTasks = usisToResolveByPersonType.Select(x => _personUsiResolver.ResolveUsis(x.Key, x.Value)).ToArray();
+                var usiResolutionTasks = usisToResolveByPersonType.Select(x => _personUsiResolver.ResolveUsisAsync(x.Key, x.Value)).ToArray();
 
                 if (usiResolutionTasks.Any())
                 {

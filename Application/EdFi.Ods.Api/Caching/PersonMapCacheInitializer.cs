@@ -32,6 +32,7 @@ public class PersonMapCacheInitializer : IPersonMapCacheInitializer
         _uniqueIdByUsiMapCache = uniqueIdByUsiMapCache;
     }
 
+    /// <inheritdoc cref="IPersonMapCacheInitializer.EnsurePersonMapsInitialized" />
     public Task EnsurePersonMapsInitialized(ulong odsInstanceHashId, string personType)
     {
         var initializationTask = _initializationTaskByOdsPersonType.GetOrAdd(

@@ -4,15 +4,18 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Common;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Specifications;
 using NHibernate;
@@ -30,19 +33,23 @@ namespace EdFi.Ods.Api.IdentityValueMappers
         private readonly IContextStorage _contextStorage;
         private readonly IPersonEntitySpecification _personEntitySpecification;
         private readonly IPersonTypesProvider _personTypesProvider;
+        private readonly IParameterListSetter _parameterListSetter;
         private readonly Func<IStatelessSession> _openStatelessSession;
         private readonly Lazy<Dictionary<string, string>> _uniqueIdNameByPersonType;
         private readonly Lazy<Dictionary<string, string>> _usiNameByPersonType;
+        private readonly ConcurrentDictionary<(string personType, PersonMapType? personMapType), string> _hqlByPersonType = new();
 
         public PersonIdentifiersProvider(
             Func<IStatelessSession> openStatelessSession,
             IContextStorage contextStorage,
             IPersonEntitySpecification personEntitySpecification,
-            IPersonTypesProvider personTypesProvider)
+            IPersonTypesProvider personTypesProvider,
+            IParameterListSetter parameterListSetter)
         {
             _contextStorage = contextStorage;
             _personEntitySpecification = personEntitySpecification;
             _personTypesProvider = personTypesProvider;
+            _parameterListSetter = parameterListSetter;
             _openStatelessSession = Preconditions.ThrowIfNull(openStatelessSession, nameof(openStatelessSession));
 
             _uniqueIdNameByPersonType = new Lazy<Dictionary<string, string>>(
@@ -82,15 +89,7 @@ namespace EdFi.Ods.Api.IdentityValueMappers
             string[] uniqueIds = null,
             int[] usis = null)
         {
-            ArgumentNullException.ThrowIfNull(personType, nameof(personType));
-
-            // Validate Person type
-            if (!_personEntitySpecification.IsPersonEntity(personType))
-            {
-                string validPersonTypes = string.Join("','", _personTypesProvider.PersonTypes).SingleQuoted();
-
-                throw new ArgumentException($"Invalid person type '{personType}'. Valid person types are: {validPersonTypes}");
-            }
+            ValidateArguments();
 
             try
             {
@@ -98,34 +97,86 @@ namespace EdFi.Ods.Api.IdentityValueMappers
 
                 using var session = _openStatelessSession();
 
-                string aggregateNamespace = Namespaces.Entities.NHibernate.GetAggregateNamespace(
-                    personType,
-                    EdFiConventions.ProperCaseName);
+                IQuery query = null;
 
-                string entityName = $"{aggregateNamespace}.{personType}";
-
-                var criteria = session.CreateCriteria(entityName)
-                    .SetProjection(
-                        Projections.ProjectionList()
-                            .Add(Projections.Alias(Projections.Property(_usiNameByPersonType.Value[personType]), "Usi"))
-                            .Add(Projections.Alias(Projections.Property(_uniqueIdNameByPersonType.Value[personType]), "UniqueId")))
-                    .SetResultTransformer(Transformers.AliasToBean<PersonIdentifiersValueMap>());
-
-                // TODO: Need to review possible usage of TVP here for SQL Server
                 if (uniqueIds != null)
                 {
-                    criteria.Add(Restrictions.In(_uniqueIdNameByPersonType.Value[personType], uniqueIds));
+                    // Load USIs for specified UniqueIds
+                    query = session.CreateQuery(GetHql(PersonMapType.UsiByUniqueId));
+                    _parameterListSetter.SetParameterList(query, "ids", uniqueIds);
                 }
                 else if (usis != null)
                 {
-                    criteria.Add(Restrictions.In(_usiNameByPersonType.Value[personType], usis));
+                    // Load UniqueIds for specified USIs
+                    query = session.CreateQuery(GetHql(PersonMapType.UniqueIdByUsi));
+                    _parameterListSetter.SetParameterList(query, "ids", usis);
                 }
-                
-                return await criteria.ListAsync<PersonIdentifiersValueMap>();
+                else
+                {
+                    // Load all identifiers
+                    query = session.CreateQuery(GetHql());
+                }
+
+                query.SetResultTransformer(Transformers.AliasToBean<PersonIdentifiersValueMap>());
+
+                return await query.ListAsync<PersonIdentifiersValueMap>();
             }
             finally
             {
                 _contextStorage.SetValue(NHibernateOdsConnectionProvider.UseReadWriteConnectionCacheKey, null);
+            }
+            
+            string GetHql(PersonMapType? mapType = null)
+            {
+                return _hqlByPersonType.GetOrAdd(
+                    (personType, mapType),
+                    static (key, args) =>
+                    {
+                        var (pt, mt) = key;
+                        
+                        string aggregateNamespace = Namespaces.Entities.NHibernate.GetAggregateNamespace(
+                            pt,
+                            EdFiConventions.ProperCaseName);
+
+                        string entityName = $"{aggregateNamespace}.{pt}";
+
+                        string whereClause = null;
+
+                        if (mt == PersonMapType.UniqueIdByUsi)
+                        {
+                            whereClause = $" where p.{args._usiNameByPersonType.Value[pt]} in (:ids)";
+                        }
+                        else if (mt == PersonMapType.UsiByUniqueId)
+                        {
+                            whereClause = $" where p.{args._uniqueIdNameByPersonType.Value[pt]} in (:ids)";
+                        }
+
+                        var hql = $"select p.{args._usiNameByPersonType.Value[pt]} as Usi, p.{args._uniqueIdNameByPersonType.Value[pt]} as UniqueId from {entityName} p{whereClause}";
+                        return hql;
+                    },
+                    (_usiNameByPersonType, _uniqueIdNameByPersonType));
+            }
+
+            void ValidateArguments()
+            {
+                ArgumentNullException.ThrowIfNull(personType, nameof(personType));
+
+                bool UsisSupplied() => !(usis == null || usis.Length == 0);
+                bool UniqueIdsSupplied() => !(uniqueIds == null || uniqueIds.Length == 0);
+
+                // Ensure both sets of identifiers are not provided
+                if (UniqueIdsSupplied() && UsisSupplied())
+                {
+                    throw new ArgumentException($"Both '{nameof(uniqueIds)}' and '{nameof(usis)}' cannot be provided.");
+                }
+
+                // Validate Person type
+                if (!_personEntitySpecification.IsPersonEntity(personType))
+                {
+                    string validPersonTypes = string.Join("','", _personTypesProvider.PersonTypes).SingleQuoted();
+
+                    throw new ArgumentException($"Invalid person type '{personType}'. Valid person types are: {validPersonTypes}");
+                }
             }
         }
     }
