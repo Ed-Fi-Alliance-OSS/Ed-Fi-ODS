@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Caching;
+using log4net;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using StackExchange.Redis;
 
@@ -22,30 +23,29 @@ namespace EdFi.Ods.Features.ExternalCache.Redis;
 /// <typeparam name="TMapValue">The type of the hash's value.</typeparam>
 public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, TMapValue>
 {
+    private readonly TimeSpan? _absoluteExpirationPeriod;
+    private readonly TimeSpan? _slidingExpirationPeriod;
     private readonly RedisCacheOptions _options;
     private volatile IConnectionMultiplexer _connection;
     private readonly SemaphoreSlim _connectionLock = new(initialCount: 1, maxCount: 1);
     private IDatabase _cache;
 
-    // TODO: Handle expiration of the cache entry
-    private const string AbsoluteExpirationKey = "absexp";
-    private const string SlidingExpirationKey = "sldexp";
-    private RedisValue[] _expirationKeys = new RedisValue[]
-    {
-        AbsoluteExpirationKey,
-        SlidingExpirationKey
-    };
-    
-    // public RedisMapCache(ConfigurationOptions configurationOptions)
-    // {
-    //     ArgumentNullException.ThrowIfNull(configurationOptions, nameof(configurationOptions));
-    //     _options = new RedisCacheOptions() { ConfigurationOptions = configurationOptions };
-    // }
+    private readonly ILog _logger = LogManager.GetLogger(typeof(RedisMapCache<TKey, TMapKey, TMapValue>));
 
-    public RedisMapCache(string configuration)
+    public RedisMapCache(string configuration, TimeSpan? absoluteExpirationPeriod, TimeSpan? slidingExpirationPeriod)
     {
         ArgumentNullException.ThrowIfNull(configuration, nameof(configuration));
+
+        _absoluteExpirationPeriod = absoluteExpirationPeriod;
+        _slidingExpirationPeriod = slidingExpirationPeriod;
+        
         _options = new RedisCacheOptions() { Configuration = configuration };
+
+        // Log a warning related to lack of support for sliding expiration
+        if (slidingExpirationPeriod is { TotalSeconds: > 0 })
+        {
+            _logger.Warn($"RedisMapCache is configured with a sliding expiration, but support for this has not yet been implemented.");
+        }
     }
 
     public async Task SetMapEntriesAsync(TKey key, (TMapKey key, TMapValue value)[] mapEntries)
@@ -72,17 +72,25 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
                 
                 return new HashEntry(redisHashKey, redisHashValue);
             })
-            // TODO: Handle sliding expiration refresh of the cache entry
-            // .Concat(new []
-            // {
-            //     new HashEntry(AbsoluteExpirationKey, 12435),
-            //     new HashEntry(SlidingExpirationKey, 12435),
-            // })
             .ToArray();
 
         await ConnectAsync().ConfigureAwait(false);
-        
-        await _cache.HashSetAsync(GetCacheKey(key), hashEntries);
+
+        string cacheKey = GetCacheKey(key);
+        await _cache.HashSetAsync(cacheKey, hashEntries);
+
+        if (_absoluteExpirationPeriod is { TotalSeconds: > 0 })
+        {
+            // Set initial absolute expiration for the key
+            _cache.Execute($"EXPIRE", new object[] {
+                cacheKey, 
+                _absoluteExpirationPeriod.Value.TotalSeconds,
+                "NX"},
+                CommandFlags.FireAndForget);
+        }
+
+        // Handle sliding expiration refresh of the cache entry
+        ApplySlidingExpiration(cacheKey);
     }
 
     public async Task<TMapValue[]> GetMapEntriesAsync(TKey key, TMapKey[] mapKeys)
@@ -94,7 +102,6 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
             return Array.Empty<TMapValue>();
         }
 
-        // TODO: Conditionally add keys for obtaining expiration metadata
         var redisHashKeys = mapKeys
             .Select(mapKey =>
             {
@@ -113,14 +120,9 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
         var keys = redisHashKeys.ToArray();
         var hashValues = await _cache.HashGetAsync(cacheKey, keys);
         
-        // TODO: Handle sliding expiration refresh of the cache entry
-        // _cache.HashSetAsync(cacheKey, ...);
+        // Handle sliding expiration refresh of the cache entry
+        ApplySlidingExpiration(cacheKey);
 
-        foreach (RedisValue hashValue in hashValues)
-        {
-            Console.WriteLine(hashValue.ToString());
-        }
-        
         return hashValues.Select(ConvertRedisValue).ToArray();
     }
 
@@ -136,25 +138,41 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
 
         await ConnectAsync().ConfigureAwait(false);
 
-        var deleteResult = await _cache.HashDeleteAsync(GetCacheKey(key), redisHashKey);
+        string cacheKey = GetCacheKey(key);
+        var deleteResult = await _cache.HashDeleteAsync(cacheKey, redisHashKey);
         
-        // TODO: Handle sliding expiration refresh of the cache entry
-        // _cache.HashSetAsync(cacheKey, ...);
+        // Handle sliding expiration refresh of the cache entry
+        ApplySlidingExpiration(cacheKey);
 
         return deleteResult;
     }
 
-    private async Task ConnectAsync() //CancellationToken token = default(CancellationToken))
+    private void ApplySlidingExpiration(string cacheKey)
     {
-        // CheckDisposed();
-        // token.ThrowIfCancellationRequested();
+        if (_slidingExpirationPeriod is { TotalSeconds: > 0 })
+        {
+            // Slide the expiration
+            _cache.Execute(
+                $"EXPIRE",
+                new object[]
+                {
+                    cacheKey,
+                    _slidingExpirationPeriod.Value.TotalSeconds,
+                    "GT"
+                },
+                CommandFlags.FireAndForget);
+        }
+    }
 
+    private async Task ConnectAsync()
+    {
         if (_cache != null)
         {
             return;
         }
 
         await _connectionLock.WaitAsync().ConfigureAwait(false);
+
         try
         {
             if (_cache == null)
@@ -213,7 +231,7 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
 
     protected virtual TMapValue ConvertRedisValue(RedisValue hashValue)
     {
-        return (TMapValue)Convert.ChangeType(hashValue, typeof(TMapValue));
+        return (TMapValue) Convert.ChangeType(hashValue, typeof(TMapValue));
     }
 
     private static bool TryParse<T>(T obj, out RedisValue value)

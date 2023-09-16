@@ -12,6 +12,7 @@ using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
+using EdFi.Ods.Features.ExternalCache.Redis;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace EdFi.Ods.Features.ExternalCache
@@ -112,8 +113,70 @@ namespace EdFi.Ods.Features.ExternalCache
 
         public void OverridePersonUniqueIdToUsiCache(ContainerBuilder builder)
         {
-            // TODO: ODS-6016
-            throw new NotImplementedException("Disable external caching for people until ODS-6016 is implemented.");
+            if (IsProviderSelected("Redis"))
+            {
+                builder.RegisterType<RedisUsiByUniqueIdMapCache>()
+                    .WithParameter(
+                        new ResolvedParameter(
+                            (p, c) => p.Name == "configuration",
+                            (p, c) =>
+                            {
+                                var apiSettings = c.Resolve<ApiSettings>();
+
+                                return apiSettings.Caching.Redis.Configuration;
+                            }))
+                    .WithParameter(
+                        new ResolvedParameter(
+                            (p, c) => p.Name.Equals("slidingExpirationPeriod", StringComparison.OrdinalIgnoreCase),
+                            (p, c) =>
+                            {
+                                var apiSettings = c.Resolve<ApiSettings>();
+                                int seconds = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
+                                return seconds > 0 ? TimeSpan.FromSeconds(seconds) : null;
+                            }))
+                    .WithParameter(
+                        new ResolvedParameter(
+                            (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.OrdinalIgnoreCase),
+                            (p, c) =>
+                            {
+                                var apiSettings = c.Resolve<ApiSettings>();
+                                int seconds = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
+                                return seconds > 0 ? TimeSpan.FromSeconds(seconds) : null;
+                            }))
+                    .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int>>()
+                    .SingleInstance();
+
+                builder.RegisterType<RedisUniqueIdByUsiMapCache>()
+                    .WithParameter(
+                        new ResolvedParameter(
+                            (p, c) => p.Name == "configuration",
+                            (p, c) =>
+                            {
+                                var apiSettings = c.Resolve<ApiSettings>();
+
+                                return apiSettings.Caching.Redis.Configuration;
+                            }))
+                    .WithParameter(
+                        new ResolvedParameter(
+                            (p, c) => p.Name.Equals("slidingExpirationPeriod", StringComparison.OrdinalIgnoreCase),
+                            (p, c) =>
+                            {
+                                var apiSettings = c.Resolve<ApiSettings>();
+                                int seconds = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
+                                return seconds > 0 ? TimeSpan.FromSeconds(seconds) : null;
+                            }))
+                    .WithParameter(
+                        new ResolvedParameter(
+                            (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.OrdinalIgnoreCase),
+                            (p, c) =>
+                            {
+                                var apiSettings = c.Resolve<ApiSettings>();
+                                int seconds = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
+                                return seconds > 0 ? TimeSpan.FromSeconds(seconds) : null;
+                            }))
+                    .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
+                    .SingleInstance();
+            }
         }
     }
 }

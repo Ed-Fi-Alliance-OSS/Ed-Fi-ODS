@@ -22,10 +22,20 @@ public class RedisUsiByUniqueIdMapCacheTests
     private RedisUsiByUniqueIdMapCache _mapCache;
     private (ulong, string, PersonMapType UsiByUniqueId) _cacheKey;
 
-    [SetUp]
+    private const int AbsoluteExpirationSeconds = 2;
+    private const int AbsoluteExpirationMs = AbsoluteExpirationSeconds * 1000;
+    
+    private const int SlidingExpirationSeconds = 1;
+    private const int SlidingExpirationMs = SlidingExpirationSeconds * 1000;
+
+    [OneTimeSetUp]
     public void SetUp()
     {
-        _mapCache = new RedisUsiByUniqueIdMapCache("localhost:6379");
+        _mapCache = new RedisUsiByUniqueIdMapCache(
+            "localhost:6379",
+            absoluteExpirationPeriod: TimeSpan.FromSeconds(AbsoluteExpirationSeconds),
+            slidingExpirationPeriod: TimeSpan.FromSeconds(SlidingExpirationSeconds));
+        
         _cacheKey = (123456UL, "Student", PersonMapType.UsiByUniqueId);
     }
 
@@ -85,5 +95,70 @@ public class RedisUsiByUniqueIdMapCacheTests
 
         // Assert
         deleted.ShouldBeFalse();
+    }
+    
+    [Test]
+    public async Task SetMapEntries_ShouldSetAndRetrieveMultipleMapEntriesUntilAbsoluteExpiration()
+    {
+        // Arrange
+        var mapEntries = new[] { ("Value1", 1), ("Value2", 2), ("Value3", 3), ("Extra value", 4) };
+
+        // Act I
+        await _mapCache.SetMapEntriesAsync(_cacheKey, mapEntries);
+        var retrievedValues = await _mapCache.GetMapEntriesAsync(_cacheKey, new[] { "Value1", "Value2", "Value3" });
+
+        // Assert
+        retrievedValues.ShouldBeEquivalentTo(new[] { 1, 2, 3 });
+        
+        // Wait for values to expire absolutely
+        Thread.Sleep(AbsoluteExpirationMs);
+        
+        // Act II
+        var retrievedValues2 = await _mapCache.GetMapEntriesAsync(_cacheKey, new[] { "Value1", "Value2", "Value3" });
+
+        // Assert
+        retrievedValues2.ShouldBeEquivalentTo(new[] { 0, 0, 0 });
+    }
+
+    [Test]
+    public async Task SetMapEntries_ShouldSetAndRetrieveMultipleMapEntriesPastAbsoluteExpirationWithSlidingExpiration()
+    {
+        // Arrange
+        var mapEntries = new[] { ("Value1", 1), ("Value2", 2), ("Value3", 3), ("Extra value", 4) };
+
+        // Act I
+        await _mapCache.SetMapEntriesAsync(_cacheKey, mapEntries);
+        var retrievedValues = await _mapCache.GetMapEntriesAsync(_cacheKey, new[] { "Value1", "Value2", "Value3" });
+
+        // Assert
+        retrievedValues.ShouldBeEquivalentTo(new[] { 1, 2, 3 });
+        
+        // Wait for 200ms past the point where the sliding expiration equals the absolute expiration
+        Thread.Sleep(AbsoluteExpirationMs - SlidingExpirationMs + 200);
+        
+        // Act II
+        // Delete also extends the sliding expiration
+        var deleteResult = await _mapCache.DeleteMapEntryAsync(_cacheKey, "Value2");
+
+        // Assert
+        deleteResult.ShouldBeTrue();
+
+        // Wait past original absolute expiration, allowing them to *almost* expire through sliding expiration
+        Thread.Sleep(SlidingExpirationMs - 100);
+
+        // Act III
+        var retrievedValues3 = await _mapCache.GetMapEntriesAsync(_cacheKey, new[] { "Value1", "Value2", "Value3" });
+
+        // Assert
+        retrievedValues3.ShouldBeEquivalentTo(new[] { 1, 0, 3 });
+
+        // Now wait for them to expire (past the last sliding expiration)
+        Thread.Sleep(1025);
+        
+        // Act IV
+        var retrievedValues4 = await _mapCache.GetMapEntriesAsync(_cacheKey, new[] { "Value1", "Value2", "Value3"  });
+
+        // Assert
+        retrievedValues4.ShouldBeEquivalentTo(new[] { 0, 0, 0 });
     }
 }
