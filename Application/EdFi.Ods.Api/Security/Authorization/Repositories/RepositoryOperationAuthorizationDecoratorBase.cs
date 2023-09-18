@@ -318,8 +318,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 // Build the existence check SQL
                 StringBuilder sql = new();
 
-                bool queryOptimized=false;
-
                 sql.Append("SELECT CASE WHEN ");
 
                 resultsWithPendingExistenceChecks.ForEach(
@@ -337,14 +335,14 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         }
                     }
 
-                    if(x.FilterResults.Where(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToStudentUSI" ||
+                    s.Append('(');
+                    if (x.FilterResults.Where(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToStudentUSI" ||
                                       !x.FilterResults.Any(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToContactUSI"))
                                       .Any())
                     {
                        x.FilterResults = x.FilterResults.Where(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToStudentUSI" ||
                                              !x.FilterResults.Any(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToContactUSI")).ToArray();
 
-                       queryOptimized = true;
                     }
                     
                     x.FilterResults.ForEach(
@@ -366,10 +364,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                                 s.Append(')');
                             }, s);
 
-                    if(!queryOptimized)
-                    {
                        s.Append(')');
-                    }
                     }, sql);
 
                 sql.Append(" THEN 1 ELSE 0 END AS IsAuthorized");
