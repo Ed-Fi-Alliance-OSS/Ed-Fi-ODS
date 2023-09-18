@@ -337,29 +337,19 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         }
                     }
 
-                    x.FilterResults.ForEach(
-                      (y) =>
-                      {
-                          var viewBasedFilterDefinition = y.FilterDefinition as ViewBasedAuthorizationFilterDefinition
-                              ?? throw new InvalidOperationException(
-                                  "Expected a ViewBasedAuthorizationFilterDefinition instance for performing existence checks.");
-
-                          var viewSqlSupport = viewBasedFilterDefinition.ViewBasedSingleItemAuthorizationQuerySupport;
-
-                          if (x.FilterResults.Any(a => a.FilterDefinition.FilterName == "ClaimEducationOrganizationIdsToStudentUSI" && a.FilterDefinition.FilterName == "ClaimEducationOrganizationIdsToContactUSI"))
-                          {
-                              x.FilterResults = x.FilterResults.Where(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToStudentUSI" ||
+                    if (x.FilterResults.Any(a => a.FilterDefinition.FilterName == "ClaimEducationOrganizationIdsToStudentUSI" && a.FilterDefinition.FilterName == "ClaimEducationOrganizationIdsToContactUSI"))
+                    {
+                       x.FilterResults = x.FilterResults.Where(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToStudentUSI" ||
                                              !x.FilterResults.Any(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToContactUSI")).ToArray();
 
-                              queryOptimized = true;
-                          }
-                      }
-                    );
+                       queryOptimized = true;
+                    }
                     
                     x.FilterResults.ForEach(
                             (y, j, s) =>
                             {
-                                var viewBasedFilterDefinition = y.FilterDefinition as ViewBasedAuthorizationFilterDefinition;
+                                var viewBasedFilterDefinition = y.FilterDefinition as ViewBasedAuthorizationFilterDefinition
+                                    ?? throw new InvalidOperationException("Expected a ViewBasedAuthorizationFilterDefinition instance for performing existence checks.");
 
                                 var viewSqlSupport = viewBasedFilterDefinition.ViewBasedSingleItemAuthorizationQuerySupport;
 
@@ -374,8 +364,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                                 s.Append(')');
                             }, s);
 
-                        if(queryOptimized)
-                        s.Append(')');
+                    if(queryOptimized)
+                    s.Append(')');
+
                     }, sql);
 
                 sql.Append(" THEN 1 ELSE 0 END AS IsAuthorized");
