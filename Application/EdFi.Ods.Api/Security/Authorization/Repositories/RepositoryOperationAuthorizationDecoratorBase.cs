@@ -336,14 +336,23 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     }
 
                     s.Append('(');
-                    if (x.FilterResults.Where(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToStudentUSI" ||
-                                      !x.FilterResults.Any(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToContactUSI"))
-                                      .Any())
+
+                    var filterNamesToCheck = new List<string>
+                                                {
+                                                    "ClaimEducationOrganizationIdsToStudentUSI",
+                                                    "ClaimEducationOrganizationIdsToContactUSI"
+                                                };
+
+                    bool areAllFilterNamesPresent = filterNamesToCheck.All(name => x.FilterResults.Any(a => a.FilterDefinition.FilterName == name));
+
+                    if(areAllFilterNamesPresent)
                     {
-                       x.FilterResults = x.FilterResults.Where(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToStudentUSI" ||
-                                             !x.FilterResults.Any(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToContactUSI")).ToArray();
+                        x.FilterResults = x.FilterResults
+                                            .Where(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToStudentUSI")
+                                            .ToArray();
 
                     }
+
                     
                     x.FilterResults.ForEach(
                             (y, j, s) =>
