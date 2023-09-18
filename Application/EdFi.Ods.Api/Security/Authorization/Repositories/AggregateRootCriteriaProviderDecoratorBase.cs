@@ -123,9 +123,12 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
                 foreach (var orStrategy in orStrategies)
                 {
+                   var  filters = orStrategy.Filters.Where(a=> a.FilterName != "ClaimEducationOrganizationIdsToStudentUSI" 
+                                    || !orStrategy.Filters.Any(b=>b.FilterName.Contains("ClaimEducationOrganizationIdsToContactUSI"))).ToList();
+
                     var filtersConjunction = new Conjunction(); // Combine filters with 'AND'
 
-                    if (TryApplyFilters(filtersConjunction, orStrategy.Filters))
+                    if (TryApplyFilters(filtersConjunction, filters))
                     {
                         mainDisjunction.Add(filtersConjunction);
 

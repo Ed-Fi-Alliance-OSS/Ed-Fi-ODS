@@ -323,29 +323,45 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 resultsWithPendingExistenceChecks.ForEach(
                     (x, i, s) =>
                     {
-                        if (i > 0)
+                    if (i > 0)
+                    {
+                        if (x.Operator == FilterOperator.And)
                         {
-                            if (x.Operator == FilterOperator.And)
-                            {
-                                s.Append(" AND ");
-                            }
-                            else
-                            {
-                                s.Append(" OR ");
-                            }
+                            s.Append(" AND ");
                         }
+                        else
+                        {
+                            s.Append(" OR ");
+                        }
+                    }
 
-                        s.Append('(');
+                    s.Append('(');
 
-                        x.FilterResults.ForEach(
+                    var filterNamesToCheck = new List<string>
+                                                {
+                                                    "ClaimEducationOrganizationIdsToStudentUSI",
+                                                    "ClaimEducationOrganizationIdsToContactUSI"
+                                                };
+
+                    bool areAllFilterNamesPresent = filterNamesToCheck.All(name => x.FilterResults.Any(a => a.FilterDefinition.FilterName == name));
+
+                    if(areAllFilterNamesPresent)
+                    {
+                        x.FilterResults = x.FilterResults
+                                            .Where(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToStudentUSI")
+                                            .ToArray();
+
+                    }
+
+                    
+                    x.FilterResults.ForEach(
                             (y, j, s) =>
                             {
                                 var viewBasedFilterDefinition = y.FilterDefinition as ViewBasedAuthorizationFilterDefinition
-                                    ?? throw new InvalidOperationException(
-                                        "Expected a ViewBasedAuthorizationFilterDefinition instance for performing existence checks.");
+                                    ?? throw new InvalidOperationException("Expected a ViewBasedAuthorizationFilterDefinition instance for performing existence checks.");
 
                                 var viewSqlSupport = viewBasedFilterDefinition.ViewBasedSingleItemAuthorizationQuerySupport;
-                                
+
                                 if (j > 0)
                                 {
                                     // NOTE: Individual filters (segments) are always combined with AND
@@ -357,7 +373,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                                 s.Append(')');
                             }, s);
 
-                        s.Append(')');
+                       s.Append(')');
                     }, sql);
 
                 sql.Append(" THEN 1 ELSE 0 END AS IsAuthorized");
