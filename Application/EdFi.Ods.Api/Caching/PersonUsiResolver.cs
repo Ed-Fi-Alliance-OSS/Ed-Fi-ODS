@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.IdentityValueMappers;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Context;
 
 namespace EdFi.Ods.Api.Caching;
 
@@ -24,8 +22,9 @@ public class PersonUsiResolver : PersonIdentifierResolverBase<string, int>, IPer
         IPersonIdentifiersProvider personIdentifiersProvider,
         IContextProvider<OdsInstanceConfiguration> odsInstanceConfigurationContextProvider,
         IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int> mapCache,
+        IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string> reverseMapCache,
         Dictionary<string, bool> cacheSuppressionByPersonType)
-        : base(personMapCacheInitializer, odsInstanceConfigurationContextProvider, mapCache, cacheSuppressionByPersonType)
+        : base(personMapCacheInitializer, odsInstanceConfigurationContextProvider, mapCache, reverseMapCache, cacheSuppressionByPersonType)
     {
         _personIdentifiersProvider = personIdentifiersProvider;
     }
@@ -48,8 +47,8 @@ public class PersonUsiResolver : PersonIdentifierResolverBase<string, int>, IPer
         get => PersonMapType.UsiByUniqueId;
     }
 
-    protected override void SetResolvedIdentifier(IDictionary<string, int> lookups, PersonIdentifiersValueMap personIdentifiers)
+    protected override (string key, int value) ExtractKeyValueTuple(PersonIdentifiersValueMap personIdentifiers)
     {
-        lookups[personIdentifiers.UniqueId] = personIdentifiers.Usi;
+        return (personIdentifiers.UniqueId, personIdentifiers.Usi);
     }
 }

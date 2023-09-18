@@ -21,6 +21,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
     {
         private IPersonIdentifiersProvider _fakePersonIdentifiersProvider;
         private IMapCache<(ulong, string, PersonMapType), int, string> _fakeMapCache;
+        private IMapCache<(ulong, string, PersonMapType), string, int> _fakeReverseMapCache;
         private Dictionary<string, bool> _fakeCacheSuppressionByPersonType;
         private IPersonMapCacheInitializer _fakePersonMapCacheInitializer;
         private IContextProvider<OdsInstanceConfiguration> _fakeOdsInstanceConfigurationContextProvider;
@@ -30,6 +31,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
         {
             _fakePersonIdentifiersProvider = A.Fake<IPersonIdentifiersProvider>();
             _fakeMapCache = A.Fake<IMapCache<(ulong, string, PersonMapType), int, string>>();
+            _fakeReverseMapCache = A.Fake<IMapCache<(ulong, string, PersonMapType), string, int>>();
             _fakeCacheSuppressionByPersonType = new Dictionary<string, bool>();
             _fakePersonMapCacheInitializer = A.Fake<IPersonMapCacheInitializer>();
 
@@ -57,7 +59,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
 
             // Simulate that the cache is already initialized
             var uniqueIdByUsiTuple = (123456UL, personType, PersonMapType.UniqueIdByUsi);
-            
+            var usiByUniqueIdTuple = (123456UL, personType, PersonMapType.UsiByUniqueId);
+
             A.CallTo(() => _fakeMapCache.GetMapEntriesAsync(
                 uniqueIdByUsiTuple,
                 A<int[]>.That.Matches(x => x.Length == 2 && x[0] == 1 && x[1] == 2)))
@@ -68,6 +71,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakePersonIdentifiersProvider,
                 _fakeOdsInstanceConfigurationContextProvider,
                 _fakeMapCache,
+                _fakeReverseMapCache,
                 _fakeCacheSuppressionByPersonType);
 
             // Act
@@ -81,6 +85,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
 
             A.CallTo(() => _fakePersonIdentifiersProvider.GetPersonUniqueIdsAsync(
                 personType, A<int[]>.Ignored))
+                .MustNotHaveHappened();
+            
+            A.CallTo(() => _fakeMapCache.SetMapEntriesAsync(
+                    uniqueIdByUsiTuple, A<(int, string)[]>.Ignored))
+                .MustNotHaveHappened();
+            
+            A.CallTo(() => _fakeReverseMapCache.SetMapEntriesAsync(
+                    usiByUniqueIdTuple, A<(string, int)[]>.Ignored))
                 .MustNotHaveHappened();
         }
 
@@ -97,6 +109,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
 
             // Simulate that the cache is not yet initialized
             var uniqueIdByUsiTuple = (123456UL, personType, PersonMapType.UniqueIdByUsi);
+            var usiByUniqueIdTuple = (123456UL, personType, PersonMapType.UsiByUniqueId);
 
             A.CallTo(() => _fakeMapCache.GetMapEntriesAsync(
                 uniqueIdByUsiTuple,
@@ -117,6 +130,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakePersonIdentifiersProvider,
                 _fakeOdsInstanceConfigurationContextProvider,
                 _fakeMapCache,
+                _fakeReverseMapCache,
                 _fakeCacheSuppressionByPersonType);
 
             // Act
@@ -130,6 +144,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
 
             A.CallTo(() => _fakePersonIdentifiersProvider.GetPersonUniqueIdsAsync(
                 personType, A<int[]>.Ignored))
+                .MustHaveHappenedOnceExactly();
+            
+            A.CallTo(() => _fakeMapCache.SetMapEntriesAsync(
+                    uniqueIdByUsiTuple, A<(int key, string value)[]>.That.Matches(x => 
+                        x.Length == 2 
+                        && x[0].key == 1 && x[0].value == "UniqueId1"
+                        && x[1].key == 2 && x[1].value == "UniqueId2")))
+                .MustHaveHappenedOnceExactly();
+            
+            A.CallTo(() => _fakeReverseMapCache.SetMapEntriesAsync(
+                    usiByUniqueIdTuple, A<(string key, int value)[]>.That.Matches(x => 
+                        x.Length == 2 
+                        && x[0].key == "UniqueId1" && x[0].value == 1 
+                        && x[1].key == "UniqueId2" && x[1].value == 2)))
                 .MustHaveHappenedOnceExactly();
         }
 
@@ -170,6 +198,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakePersonIdentifiersProvider,
                 _fakeOdsInstanceConfigurationContextProvider,
                 _fakeMapCache,
+                _fakeReverseMapCache,
                 _fakeCacheSuppressionByPersonType);
 
             // Act
@@ -219,6 +248,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakePersonIdentifiersProvider,
                 _fakeOdsInstanceConfigurationContextProvider,
                 _fakeMapCache,
+                _fakeReverseMapCache,
                 _fakeCacheSuppressionByPersonType);
 
             // Act
@@ -250,6 +280,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakePersonIdentifiersProvider,
                 _fakeOdsInstanceConfigurationContextProvider,
                 _fakeMapCache,
+                _fakeReverseMapCache,
                 _fakeCacheSuppressionByPersonType);
 
             // Act
