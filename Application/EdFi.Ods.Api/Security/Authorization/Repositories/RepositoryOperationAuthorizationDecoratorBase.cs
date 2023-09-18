@@ -365,8 +365,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                             }, s);
 
                     if(queryOptimized)
-                    s.Append(')');
-
+                    {
+                       s.Append(')');
+                    }
                     }, sql);
 
                 sql.Append(" THEN 1 ELSE 0 END AS IsAuthorized");
