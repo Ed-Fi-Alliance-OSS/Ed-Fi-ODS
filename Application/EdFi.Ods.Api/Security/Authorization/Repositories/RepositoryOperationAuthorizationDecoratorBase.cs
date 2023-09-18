@@ -337,7 +337,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         }
                     }
 
-                    if (x.FilterResults.Any(a => a.FilterDefinition.FilterName == "ClaimEducationOrganizationIdsToStudentUSI" && a.FilterDefinition.FilterName == "ClaimEducationOrganizationIdsToContactUSI"))
+                    if(x.FilterResults.Where(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToStudentUSI" ||
+                                      !x.FilterResults.Any(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToContactUSI"))
+                                      .Any())
                     {
                        x.FilterResults = x.FilterResults.Where(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToStudentUSI" ||
                                              !x.FilterResults.Any(a => a.FilterDefinition.FilterName != "ClaimEducationOrganizationIdsToContactUSI")).ToArray();
@@ -364,7 +366,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                                 s.Append(')');
                             }, s);
 
-                    if(queryOptimized)
+                    if(!queryOptimized)
                     {
                        s.Append(')');
                     }
