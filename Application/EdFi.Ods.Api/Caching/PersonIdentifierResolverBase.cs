@@ -69,7 +69,7 @@ public abstract class PersonIdentifierResolverBase<TLookup, TResolved>
             }
             
             // Update the underlying caches with the key/value pairs it doesn't have
-            ulong odsInstanceHashId = _edFiOdsInstanceIdentificationProvider.GetInstanceIdentification();
+            ulong odsInstanceHashId = _odsInstanceConfigurationContextProvider.Get().OdsInstanceHashId;
 
             await Task.WhenAll(
                 _mapCache.SetMapEntriesAsync((odsInstanceHashId, personType, MapType), loadedIdentifierMappings),
