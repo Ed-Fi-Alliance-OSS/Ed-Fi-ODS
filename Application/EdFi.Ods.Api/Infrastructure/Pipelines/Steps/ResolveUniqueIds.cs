@@ -35,15 +35,6 @@ public class ResolveUniqueIds<TContext, TResult, TResourceModel, TEntityModel> :
     public async Task ExecuteAsync(TContext context, TResult result, CancellationToken cancellationToken)
     {
         var uniqueIdLookupsByUsiContext = _lookupContextProvider.Get();
-
-        if (uniqueIdLookupsByUsiContext == null || !uniqueIdLookupsByUsiContext.Any())
-        {
-            return;
-        }
-
-        foreach (var kvp in uniqueIdLookupsByUsiContext.UniqueIdByUsiByPersonType)
-        {
-            await _personUniqueIdResolver.ResolveUniqueIdsAsync(kvp.Key, kvp.Value);
-        }
+        await uniqueIdLookupsByUsiContext.ResolveAllUniqueIds(_personUniqueIdResolver);
     }
 }

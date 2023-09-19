@@ -34,16 +34,7 @@ public class ResolveUsis<TContext, TResult, TResourceModel, TEntityModel> : ISte
 
     public async Task ExecuteAsync(TContext context, TResult result, CancellationToken cancellationToken)
     {
-        var uniqueIdLookupsByUsiContext = _lookupContextProvider.Get();
-
-        if (uniqueIdLookupsByUsiContext == null || !uniqueIdLookupsByUsiContext.Any())
-        {
-            return;
-        }
-
-        foreach (var kvp in uniqueIdLookupsByUsiContext.UsiByUniqueIdByPersonType)
-        {
-            await _personUsiResolver.ResolveUsisAsync(kvp.Key, kvp.Value);
-        }
+        var usiLookupsByUniqueIdContext = _lookupContextProvider.Get();
+        await usiLookupsByUniqueIdContext.ResolveAllUsis(_personUsiResolver);
     }
 }

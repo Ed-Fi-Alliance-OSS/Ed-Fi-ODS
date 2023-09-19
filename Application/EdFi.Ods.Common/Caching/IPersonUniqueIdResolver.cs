@@ -6,7 +6,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace EdFi.Ods.Api.Caching;
+namespace EdFi.Ods.Common.Caching;
 
 /// <summary>
 /// Defines a method for resolving the UniqueIds for a set of USI values.

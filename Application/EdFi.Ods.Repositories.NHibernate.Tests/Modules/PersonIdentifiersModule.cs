@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Autofac;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.IdentityValueMappers;
+using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules

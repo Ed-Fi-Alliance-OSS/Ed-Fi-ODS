@@ -6,10 +6,11 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
-using EdFi.Ods.Common.Utils.Extensions;
 using NHibernate;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
@@ -21,19 +22,25 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         private readonly IGetEntityById<TEntity> _getEntityById;
         private readonly IGetEntityByKey<TEntity> _getEntityByKey;
         private readonly IUpdateEntity<TEntity> _updateEntity;
+        private readonly IContextProvider<UniqueIdLookupsByUsiContext> _lookupContextProvider;
+        private readonly IPersonUniqueIdResolver _personUniqueIdResolver;
 
         public UpsertEntity(
             ISessionFactory sessionFactory,
             IGetEntityById<TEntity> getEntityById,
             IGetEntityByKey<TEntity> getEntityByKey,
             ICreateEntity<TEntity> createEntity,
-            IUpdateEntity<TEntity> updateEntity)
+            IUpdateEntity<TEntity> updateEntity,
+            IContextProvider<UniqueIdLookupsByUsiContext> lookupContextProvider,
+            IPersonUniqueIdResolver personUniqueIdResolver)
             : base(sessionFactory)
         {
             _getEntityById = getEntityById;
             _getEntityByKey = getEntityByKey;
             _createEntity = createEntity;
             _updateEntity = updateEntity;
+            _lookupContextProvider = lookupContextProvider;
+            _personUniqueIdResolver = personUniqueIdResolver;
         }
 
         public async Task<UpsertEntityResult<TEntity>> UpsertAsync(TEntity entity, bool enforceOptimisticLock, CancellationToken cancellationToken)
@@ -84,6 +91,10 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                             throw new ConcurrencyException("Resource was modified by another consumer.");
                         }
                     }
+
+                    // Resolve UniqueIds from USIs now that we may have some values
+                    var uniqueIdLookupsByUsiContext = _lookupContextProvider.Get();
+                    await uniqueIdLookupsByUsiContext.ResolveAllUniqueIds(_personUniqueIdResolver);
 
                     // Synchronize using strongly-typed generated code
                     isModified = entity.Synchronize(persistedEntity);
