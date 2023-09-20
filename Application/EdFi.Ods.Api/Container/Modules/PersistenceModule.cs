@@ -152,12 +152,6 @@ namespace EdFi.Ods.Api.Container.Modules
 
             RegisterPersonIdentifierCaching(builder);
 
-            // builder.RegisterType<PersonUniqueIdToUsiCache>()
-            //     .WithParameter(new NamedParameter("synchronousInitialization", false))
-            //
-            //     .As<IPersonUniqueIdToUsiCache>()
-            //     .SingleInstance();
-
             builder.RegisterType<OrmMappingFileDataProvider>()
                 .WithParameter(new NamedParameter("assemblyName", OrmMappingFileConventions.OrmMappingAssembly))
                 .As<IOrmMappingFileDataProvider>()
