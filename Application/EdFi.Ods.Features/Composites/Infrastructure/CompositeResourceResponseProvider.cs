@@ -110,7 +110,6 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
                     // Scan for USI values needing resolution
                     CaptureUsiValuesForUniqueIdResolution(query, uniqueIdLookupsByUsiContext);
-                    query.ResetEnumerator();
 
                     // Resolve all the UniqueIds
                     uniqueIdLookupsByUsiContext.ResolveAllUniqueIds(_uniqueIdResolver)
@@ -251,61 +250,68 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             CompositeQuery query,
             UniqueIdLookupsByUsiContext uniqueIdLookupsByUsiContext)
         {
-            var currentEnumerator = query.GetEnumerator(null);
-
-            (string usiKey, string personType)[] usiKeys = null;
-            
-            do
+            try
             {
-                // Nothing to enumerate?
-                if (currentEnumerator == null || currentEnumerator.IsComplete)
+                var currentEnumerator = query.GetEnumerator(null);
+
+                (string usiKey, string personType)[] usiKeys = null;
+            
+                do
                 {
-                    return;
-                }
-
-                // Get current row
-                var currentRow = (Hashtable) currentEnumerator.Current;
-
-                if (currentRow == null)
-                {
-                    break;
-                }
-
-                // Find USI columns for current level's records, if not already
-                usiKeys ??= GetUsiKeys().ToArray();
-
-                // Add UniqueId lookups for each of the USIs found
-                foreach (var usiKey in usiKeys)
-                {
-                    if (currentRow[usiKey.usiKey] is int usi)
+                    // Nothing to enumerate?
+                    if (currentEnumerator == null || currentEnumerator.IsComplete)
                     {
-                        uniqueIdLookupsByUsiContext.AddLookup(usiKey.personType, usi);
+                        return;
                     }
-                }
-                
-                // Recursively process child query results
-                foreach (var childQuery in query.ChildQueries)
-                {
-                    CaptureUsiValuesForUniqueIdResolution(childQuery, uniqueIdLookupsByUsiContext);
-                }
 
-                IEnumerable<(string usiKey, string personType)> GetUsiKeys()
-                {
-                    var keys = query.DataFields
-                        .Where(k => UniqueIdConventions.IsUSI(k));
+                    // Get current row
+                    var currentRow = (Hashtable) currentEnumerator.Current;
 
-                    foreach (string key in keys)
+                    if (currentRow == null)
                     {
-                        if (_personEntitySpecification.TryGetUSIPersonType(
-                                key,
-                                out string personType))
+                        break;
+                    }
+
+                    // Find USI columns for current level's records, if not already
+                    usiKeys ??= GetUsiKeys().ToArray();
+
+                    // Add UniqueId lookups for each of the USIs found
+                    foreach (var usiKey in usiKeys)
+                    {
+                        if (currentRow[usiKey.usiKey] is int usi)
                         {
-                            yield return (key, personType);
+                            uniqueIdLookupsByUsiContext.AddLookup(usiKey.personType, usi);
+                        }
+                    }
+                
+                    // Recursively process child query results
+                    foreach (var childQuery in query.ChildQueries)
+                    {
+                        CaptureUsiValuesForUniqueIdResolution(childQuery, uniqueIdLookupsByUsiContext);
+                    }
+
+                    IEnumerable<(string usiKey, string personType)> GetUsiKeys()
+                    {
+                        var keys = query.DataFields
+                            .Where(k => UniqueIdConventions.IsUSI(k));
+
+                        foreach (string key in keys)
+                        {
+                            if (_personEntitySpecification.TryGetUSIPersonType(
+                                    key,
+                                    out string personType))
+                            {
+                                yield return (key, personType);
+                            }
                         }
                     }
                 }
+                while (currentEnumerator.MoveNext());
             }
-            while (currentEnumerator.MoveNext());
+            finally
+            {
+                query.ResetEnumerator();
+            }
         }
 
         public IList<IDictionary> ProcessResults(
