@@ -13,6 +13,7 @@ using System.Xml.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
@@ -48,6 +49,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
         private readonly IProfileResourceModelProvider _profileResourceModelProvider;
         private readonly IApiClientContextProvider _apiClientContextProvider;
+        private readonly IPersonEntitySpecification _personEntitySpecification;
+        private readonly IPersonUniqueIdResolver _uniqueIdResolver;
         private readonly IResourceModelProvider _resourceModelProvider;
         private readonly ISessionFactory _sessionFactory;
 
@@ -57,7 +60,9 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             IResourceModelProvider resourceModelProvider,
             IFieldsExpressionParser fieldsExpressionParser,
             IProfileResourceModelProvider profileResourceModelProvider,
-            IApiClientContextProvider apiClientContextProvider)
+            IApiClientContextProvider apiClientContextProvider,
+            IPersonEntitySpecification personEntitySpecification,
+            IPersonUniqueIdResolver uniqueIdResolver)
         {
             _sessionFactory = sessionFactory;
             _compositeDefinitionProcessor = compositeDefinitionProcessor;
@@ -65,6 +70,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             _fieldsExpressionParser = fieldsExpressionParser;
             _profileResourceModelProvider = profileResourceModelProvider;
             _apiClientContextProvider = apiClientContextProvider;
+            _personEntitySpecification = personEntitySpecification;
+            _uniqueIdResolver = uniqueIdResolver;
         }
 
         public object Get(
@@ -98,7 +105,21 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     queryStringParameters,
                     out query))
                 {
-                    result = ProcessResults(query, fieldSelections, nullValueHandling);
+                    // Initialize the local context variable
+                    var uniqueIdLookupsByUsiContext = new UniqueIdLookupsByUsiContext();
+
+                    // Scan for USI values needing resolution
+                    CaptureUsiValuesForUniqueIdResolution(query, uniqueIdLookupsByUsiContext);
+                    query.ResetEnumerator();
+
+                    // Resolve all the UniqueIds
+                    uniqueIdLookupsByUsiContext.ResolveAllUniqueIds(_uniqueIdResolver)
+                        .ConfigureAwait(false)
+                        .GetAwaiter()
+                        .GetResult();
+
+                    // Process the results
+                    result = ProcessResults(query, fieldSelections, nullValueHandling, uniqueIdLookupsByUsiContext);
 
                     // Handle Single item requests
                     if (query.IsSingleItemResult && result == null)
@@ -220,10 +241,71 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             return null;
         }
 
-        public object ProcessResults(CompositeQuery query, IReadOnlyList<SelectedResourceMember> fieldSelections, NullValueHandling nullValueHandling)
+        public object ProcessResults(CompositeQuery query, IReadOnlyList<SelectedResourceMember> fieldSelections, NullValueHandling nullValueHandling, UniqueIdLookupsByUsiContext uniqueIdLookupsByUsiContext)
         {
-            return ProcessResults(query, null, null, fieldSelections, nullValueHandling)
+            return ProcessResults(query, null, null, fieldSelections, nullValueHandling, uniqueIdLookupsByUsiContext)
                .ApplyCardinality(query.IsSingleItemResult);
+        }
+
+        private void CaptureUsiValuesForUniqueIdResolution(
+            CompositeQuery query,
+            UniqueIdLookupsByUsiContext uniqueIdLookupsByUsiContext)
+        {
+            var currentEnumerator = query.GetEnumerator(null);
+
+            (string usiKey, string personType)[] usiKeys = null;
+            
+            do
+            {
+                // Nothing to enumerate?
+                if (currentEnumerator == null || currentEnumerator.IsComplete)
+                {
+                    return;
+                }
+
+                // Get current row
+                var currentRow = (Hashtable) currentEnumerator.Current;
+
+                if (currentRow == null)
+                {
+                    break;
+                }
+
+                // Find USI columns for current level's records, if not already
+                usiKeys ??= GetUsiKeys().ToArray();
+
+                // Add UniqueId lookups for each of the USIs found
+                foreach (var usiKey in usiKeys)
+                {
+                    if (currentRow[usiKey.usiKey] is int usi)
+                    {
+                        uniqueIdLookupsByUsiContext.AddLookup(usiKey.personType, usi);
+                    }
+                }
+                
+                // Recursively process child query results
+                foreach (var childQuery in query.ChildQueries)
+                {
+                    CaptureUsiValuesForUniqueIdResolution(childQuery, uniqueIdLookupsByUsiContext);
+                }
+
+                IEnumerable<(string usiKey, string personType)> GetUsiKeys()
+                {
+                    var keys = query.DataFields
+                        .Where(k => UniqueIdConventions.IsUSI(k));
+
+                    foreach (string key in keys)
+                    {
+                        if (_personEntitySpecification.TryGetUSIPersonType(
+                                key,
+                                out string personType))
+                        {
+                            yield return (key, personType);
+                        }
+                    }
+                }
+            }
+            while (currentEnumerator.MoveNext());
         }
 
         public IList<IDictionary> ProcessResults(
@@ -231,7 +313,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             Hashtable parentRow,
             string[] parentKeys,
             IReadOnlyList<SelectedResourceMember> fieldSelections,
-            NullValueHandling nullValueHandling)
+            NullValueHandling nullValueHandling,
+            UniqueIdLookupsByUsiContext uniqueIdLookupsByUsiContext)
         {
             var results = new List<IDictionary>();
 
@@ -260,7 +343,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 }
 
                 // Convert the row to serializable form
-                var resultItem = GetItem(currentRow, query.DataFields, query.OrderedFieldNames, fieldSelections, nullValueHandling);
+                var resultItem = GetItem(currentRow, query.DataFields, query.OrderedFieldNames, fieldSelections, nullValueHandling, uniqueIdLookupsByUsiContext);
 
                 // Process the children
                 foreach (var childQuery in query.ChildQueries)
@@ -288,7 +371,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                                 selectedMember == null
                                     ? null
                                     : selectedMember.Children,
-                                nullValueHandling)
+                                nullValueHandling,
+                                uniqueIdLookupsByUsiContext)
                            .ApplyCardinality(childQuery.IsSingleItemResult);
                 }
 
@@ -304,7 +388,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             string[] keys,
             string[] orderedFieldNames,
             IReadOnlyList<SelectedResourceMember> fieldSelections,
-            NullValueHandling nullValueHandling)
+            NullValueHandling nullValueHandling,
+            UniqueIdLookupsByUsiContext uniqueIdLookupsByUsiContext)
         {
             var item = new OrderedDictionary();
 
@@ -341,7 +426,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                                .Concat(keys.Where(x => x.EndsWith(CompositeDefinitionHelper.PassThroughMarker))
                                            .Select(x => x.TrimSuffix(CompositeDefinitionHelper.PassThroughMarker)))
                                .Join(
-                                    EnumerateKeyValuePairs(sourceRow, nullValueHandling, keysToProcess, descriptorNamespaceByKey, selectedKeys),
+                                    EnumerateKeyValuePairs(sourceRow, nullValueHandling, keysToProcess, descriptorNamespaceByKey, selectedKeys, uniqueIdLookupsByUsiContext),
                                     x => x,
                                     x => x.Key,
                                     (prop, kvp) => kvp,
@@ -361,7 +446,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             NullValueHandling nullValueHandling,
             IEnumerable<string> keysToProcess,
             Dictionary<string, object> descriptorNamespaceByKey,
-            HashSet<string> selectedKeys)
+            HashSet<string> selectedKeys,
+            UniqueIdLookupsByUsiContext uniqueIdLookupsByUsiContext)
         {
             foreach (string key in keysToProcess)
             {
@@ -401,7 +487,27 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                         }
                         else
                         {
-                            value = sourceRow[key];
+                            // See if we need to convert an USI to a UniqueId
+                            if (UniqueIdConventions.IsUSI(key)
+                                && _personEntitySpecification.TryGetUSIPersonTypeAndRoleName(key, out string personType, out string roleName))
+                            {
+                                // Resolve the UniqueId from the USI
+                                if (!uniqueIdLookupsByUsiContext.UniqueIdByUsiByPersonType.TryGetValue(personType, out var map) 
+                                        || !map.TryGetValue((int) sourceRow[key], out string uniqueId))
+                                {
+                                    // This should never happen
+                                    throw new Exception($"Unable to resolve {personType}USI '{(int) sourceRow[key]}' to a UniqueId value.");
+                                }
+                                
+                                string uniqueIdKey = (roleName + personType + CompositeDefinitionHelper.UniqueId).ToCamelCase();
+
+                                renamedKey = uniqueIdKey;
+                                value = uniqueId;
+                            }
+                            else
+                            {
+                                value = sourceRow[key];
+                            }
                         }
                     }
 
