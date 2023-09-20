@@ -10,8 +10,8 @@ namespace EdFi.Security.DataAccess.Contexts
 {
     public class PostgresSecurityContextCore : SecurityContextCore
     {
-        public PostgresSecurityContextCore(string connectionString)
-            : base(connectionString) { }
+        public PostgresSecurityContextCore(DbContextOptions options)
+            : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

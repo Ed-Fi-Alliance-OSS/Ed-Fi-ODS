@@ -10,12 +10,8 @@ namespace EdFi.Security.DataAccess.Contexts
 {
     public abstract class SecurityContextCore : DbContext, ISecurityContextCore
     {
-        protected SecurityContextCore(string connectionString)
-            : base()
-        {
-            //Database.SetInitializer(new ValidateDatabase<SqlServerSecurityContext>());
-            //Database.SetInitializer(new ValidateDatabase<PostgresSecurityContext>());
-        }
+        protected SecurityContextCore(DbContextOptions options)
+            : base(options) { }
 
         public DbSet<Action> Actions { get; set; }
 
@@ -39,6 +35,9 @@ namespace EdFi.Security.DataAccess.Contexts
                 .HasOne(rc => rc.ParentResourceClaim)
                 .WithMany()
                 .HasForeignKey(fk => fk.ParentResourceClaimId);
+
+            modelBuilder.Entity<ResourceClaim>()
+                .Navigation(t => t.ParentResourceClaim);
         }
     }
 }
