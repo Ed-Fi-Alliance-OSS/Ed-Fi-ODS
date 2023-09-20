@@ -16,9 +16,9 @@ namespace EdFi.Security.DataAccess.Repositories;
 
 public class SecurityTableGateway : ISecurityTableGateway
 {
-    private readonly ISecurityContextFactoryCore _securityContextFactory;
+    private readonly ISecurityContextFactory _securityContextFactory;
 
-    public SecurityTableGateway(ISecurityContextFactoryCore securityContextFactory)
+    public SecurityTableGateway(ISecurityContextFactory securityContextFactory)
     {
         _securityContextFactory = securityContextFactory ?? throw new ArgumentNullException(nameof(securityContextFactory));
     }

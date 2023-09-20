@@ -72,8 +72,8 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 .As<IUsersContextFactory>()
                 .SingleInstance();
 
-            builder.RegisterType<SecurityContextFactoryCore>()
-                .As<ISecurityContextFactoryCore>()
+            builder.RegisterType<SecurityContextFactory>()
+                .As<ISecurityContextFactory>()
                 .SingleInstance();
         }
     }

@@ -4,12 +4,13 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using EdFi.Security.DataAccess.Contexts;
 using EdFi.Security.DataAccess.Models;
 using FakeItEasy;
+using MockQueryable.FakeItEasy;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
 {
@@ -23,13 +24,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
         {
             var securityContext = A.Fake<ISecurityContext>();
             // The underlying SecurityRepository implementation expects this application, so force it to be there in the fake
-            securityContext.Actions = GetFakeDbSet<Action>().SetupData();
-            securityContext.ClaimSets = GetFakeDbSet<ClaimSet>().SetupData();
-            securityContext.ResourceClaims = GetFakeDbSet<ResourceClaim>().SetupData();
-            securityContext.AuthorizationStrategies = GetFakeDbSet<AuthorizationStrategy>().SetupData();
-            securityContext.ClaimSetResourceClaimActions = GetFakeDbSet<ClaimSetResourceClaimAction>().SetupData();
-            securityContext.ResourceClaimActionAuthorizationStrategies = GetFakeDbSet<ResourceClaimActionAuthorizationStrategies>().SetupData();
-            securityContext.ResourceClaimActions = GetFakeDbSet<ResourceClaimAction>().SetupData();
+            securityContext.Actions = GetFakeDbSet<Action>().AsQueryable().BuildMockDbSet();
+            securityContext.ClaimSets = GetFakeDbSet<ClaimSet>().AsQueryable().BuildMockDbSet();
+            securityContext.ResourceClaims = GetFakeDbSet<ResourceClaim>().AsQueryable().BuildMockDbSet();
+            securityContext.AuthorizationStrategies = GetFakeDbSet<AuthorizationStrategy>().AsQueryable().BuildMockDbSet();
+            securityContext.ClaimSetResourceClaimActions = GetFakeDbSet<ClaimSetResourceClaimAction>().AsQueryable().BuildMockDbSet();
+            securityContext.ResourceClaimActionAuthorizationStrategies = GetFakeDbSet<ResourceClaimActionAuthorizationStrategies>().AsQueryable().BuildMockDbSet();
+            securityContext.ResourceClaimActions = GetFakeDbSet<ResourceClaimAction>().AsQueryable().BuildMockDbSet();
 
             return securityContext;
         }

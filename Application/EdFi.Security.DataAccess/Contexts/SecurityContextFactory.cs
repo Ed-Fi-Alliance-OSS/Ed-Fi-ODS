@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using EdFi.Common.Configuration;
 using EdFi.Security.DataAccess.Providers;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Security.DataAccess.Contexts
 {
@@ -31,7 +32,7 @@ namespace EdFi.Security.DataAccess.Contexts
         {
             if (_securityContextTypeByDatabaseEngine.TryGetValue(_databaseEngine, out Type contextType))
             {
-                return Activator.CreateInstance(contextType, _connectionStringProvider.GetConnectionString()) as ISecurityContext;
+                return Activator.CreateInstance(contextType, new DbContextOptionsBuilder().UseSqlServer(_connectionStringProvider.GetConnectionString()).Options) as ISecurityContext;
             }
 
             throw new InvalidOperationException(
