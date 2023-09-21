@@ -32,7 +32,24 @@ namespace EdFi.Security.DataAccess.Contexts
         {
             if (_securityContextTypeByDatabaseEngine.TryGetValue(_databaseEngine, out Type contextType))
             {
-                return Activator.CreateInstance(contextType, new DbContextOptionsBuilder().UseSqlServer(_connectionStringProvider.GetConnectionString()).Options) as ISecurityContext;
+                if (_databaseEngine == DatabaseEngine.SqlServer)
+                {
+                    return Activator.CreateInstance(
+                            contextType,
+                            new DbContextOptionsBuilder().UseSqlServer(_connectionStringProvider.GetConnectionString())
+                                .Options) as
+                        ISecurityContext;
+                }
+                else if (_databaseEngine == DatabaseEngine.Postgres)
+                {
+                    return Activator.CreateInstance(
+                            contextType,
+                            new DbContextOptionsBuilder().UseNpgsql(_connectionStringProvider.GetConnectionString())
+                                .Options) as
+                        ISecurityContext;
+                }
+
+                return Activator.CreateInstance(contextType, new DbContextOptionsBuilder().UseNpgsql(_connectionStringProvider.GetConnectionString()).Options) as ISecurityContext;
             }
 
             throw new InvalidOperationException(
