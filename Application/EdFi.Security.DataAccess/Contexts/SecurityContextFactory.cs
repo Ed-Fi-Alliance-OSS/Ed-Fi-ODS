@@ -40,16 +40,15 @@ namespace EdFi.Security.DataAccess.Contexts
                                 .Options) as
                         ISecurityContext;
                 }
-                else if (_databaseEngine == DatabaseEngine.Postgres)
+                if (_databaseEngine == DatabaseEngine.Postgres)
                 {
                     return Activator.CreateInstance(
                             contextType,
                             new DbContextOptionsBuilder().UseNpgsql(_connectionStringProvider.GetConnectionString())
+                                .UseLowerCaseNamingConvention()
                                 .Options) as
                         ISecurityContext;
                 }
-
-                return Activator.CreateInstance(contextType, new DbContextOptionsBuilder().UseNpgsql(_connectionStringProvider.GetConnectionString()).Options) as ISecurityContext;
             }
 
             throw new InvalidOperationException(

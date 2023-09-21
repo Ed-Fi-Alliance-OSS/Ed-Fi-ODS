@@ -5,6 +5,7 @@
 
 using System.Configuration;
 using System.Linq;
+using EdFi.Common.Utils.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Security.DataAccess.Contexts
@@ -24,15 +25,13 @@ namespace EdFi.Security.DataAccess.Contexts
                 {
                     if (property.IsForeignKey())
                     {
-                        var foreignKey = property.GetContainingForeignKeys().FirstOrDefault(f => f.Properties.Count == 1);
-
-                        foreignKey?.SetConstraintName(foreignKey.GetConstraintName()?.ToLowerInvariant());
+                        //property.GetContainingForeignKeys().ForEach(fk => fk.SetConstraintName(fk.GetConstraintName()?.ToLowerInvariant()));
                     }
 
-                    property.SetColumnName(property.ClrType.Name.ToLowerInvariant());
+                    //property.SetColumnName(property.Name.ToLowerInvariant());
                 }
 
-                entityType.SetTableName(entityType.GetTableName()?.ToLowerInvariant());
+                entityType.SetSchema("dbo");
             }
         }
     }

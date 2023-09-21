@@ -31,13 +31,13 @@ namespace EdFi.Security.DataAccess.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ResourceClaim>()
-                .HasOne(rc => rc.ParentResourceClaim)
-                .WithMany()
-                .HasForeignKey(fk => fk.ParentResourceClaimId);
-
-            modelBuilder.Entity<ResourceClaim>()
-                .Navigation(t => t.ParentResourceClaim);
+            // modelBuilder.Entity<ResourceClaim>()
+            //     .HasOne(rc => rc.ParentResourceClaim)
+            //     .WithMany()
+            //     .HasForeignKey(fk => fk.ParentResourceClaimId);
+            //
+            // modelBuilder.Entity<ResourceClaim>()
+            //     .Navigation(t => t.ParentResourceClaim);
         }
     }
 }
