@@ -23,6 +23,7 @@ using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
 using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
+using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Utils.Profiles;
@@ -58,6 +59,7 @@ namespace EdFi.Ods.Api.Controllers
 
         private readonly IRESTErrorProvider _restErrorProvider;
         private readonly IContextProvider<ProfileContentTypeContext> _profileContentTypeContextProvider;
+        private readonly ILogContextAccessor _logContextAccessor;
         private readonly int _defaultPageLimitSize;
         private readonly ReverseProxySettings _reverseProxySettings;
         private ILog _logger;
@@ -96,11 +98,12 @@ namespace EdFi.Ods.Api.Controllers
             IRESTErrorProvider restErrorProvider,
             IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
             ApiSettings apiSettings,
-            IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
+            IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
+            ILogContextAccessor logContextAccessor)
         {
-            //this.repository = repository;
             _restErrorProvider = restErrorProvider;
             _profileContentTypeContextProvider = profileContentTypeContextProvider;
+            _logContextAccessor = logContextAccessor;
             _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
             _reverseProxySettings = apiSettings.GetReverseProxySettings();
 
@@ -142,11 +145,14 @@ namespace EdFi.Ods.Api.Controllers
                 // See RFC 5789 - Conflicting modification (with "If-Match" header)
                 restError.Code = StatusCodes.Status412PreconditionFailed;
                 restError.Message = "Resource was modified by another consumer.";
+                restError.CorrelationId = (string) _logContextAccessor.GetValue("CorrelationId");
             }
 
             return string.IsNullOrWhiteSpace(restError.Message)
-                ? (IActionResult) StatusCode(restError.Code)
-                : StatusCode(restError.Code, ErrorTranslator.GetErrorMessage(restError.Message));
+                ? (IActionResult)StatusCode(restError.Code ?? default)
+                : StatusCode(
+                    restError.Code ?? default,
+                    ErrorTranslator.GetErrorMessage(restError.Message, (string)_logContextAccessor.GetValue("CorrelationId")));
         }
 
         protected abstract void MapAll(TGetByExampleRequest request, TEntityInterface specification);
@@ -178,7 +184,8 @@ namespace EdFi.Ods.Api.Controllers
             {
                 return BadRequest(
                     ErrorTranslator.GetErrorMessage(
-                        $"Limit must be omitted or set to a value between 0 and { _defaultPageLimitSize }."));
+                        $"Limit must be omitted or set to a value between 0 and {_defaultPageLimitSize}.",
+                        (string)_logContextAccessor.GetValue("CorrelationId")));
             }
 
             var internalRequestAsResource = new TResourceModel();
@@ -245,8 +252,8 @@ namespace EdFi.Ods.Api.Controllers
             return Ok(result.Resource);
         }
 
-        [CheckModelForNull]
         [HttpPut("{id}")]
+        [ServiceFilter(typeof(CheckModelForNullFilter), IsReusable = true)]
         [ServiceFilter(typeof(EnforceAssignedProfileUsageFilter), IsReusable = true)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -296,8 +303,8 @@ namespace EdFi.Ods.Api.Controllers
             }
         }
 
-        [CheckModelForNull]
         [HttpPost]
+        [ServiceFilter(typeof(CheckModelForNullFilter), IsReusable = true)]
         [ServiceFilter(typeof(EnforceAssignedProfileUsageFilter), IsReusable = true)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -311,7 +318,10 @@ namespace EdFi.Ods.Api.Controllers
             // Make sure Id is not already set (no client-assigned Ids)
             if (request.Id != default(Guid))
             {
-                return BadRequest(ErrorTranslator.GetErrorMessage("Resource identifiers cannot be assigned by the client."));
+                return BadRequest(
+                    ErrorTranslator.GetErrorMessage(
+                        "Resource identifiers cannot be assigned by the client.",
+                        (string)_logContextAccessor.GetValue("CorrelationId")));
             }
 
             // Read the If-Match header and populate the resource DTO with an etag value.
@@ -348,8 +358,8 @@ namespace EdFi.Ods.Api.Controllers
             }
         }
 
-        [CheckModelForNull]
         [HttpDelete("{id}")]
+        [ServiceFilter(typeof(CheckModelForNullFilter), IsReusable = true)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
         [Produces(MediaTypeNames.Application.Json)]

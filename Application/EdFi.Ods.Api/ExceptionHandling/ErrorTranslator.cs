@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using EdFi.Ods.Api.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace EdFi.Ods.Api.ExceptionHandling
@@ -15,11 +16,15 @@ namespace EdFi.Ods.Api.ExceptionHandling
     public static class ErrorTranslator
     {
         // Attempts to translate the API error response to ASP.NET MVC error response format to maintain compatibility for the consumers. 
-        public static object GetErrorMessage(ModelStateDictionary modelState)
+        public static object GetErrorMessage(ModelStateDictionary modelState, string correlationId)
         {
             if (modelState.Keys.All(string.IsNullOrEmpty) && modelState.Values.Any())
             {
-                return new {Message = string.Join(",", modelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)))};
+                return new RESTError()
+                {
+                    Message = string.Join(",", modelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage))),
+                    CorrelationId = correlationId
+                };
             }
 
             var modelStateMessage = modelState
@@ -28,16 +33,21 @@ namespace EdFi.Ods.Api.ExceptionHandling
                     kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
                 );
 
-            return new
+            return new RESTError()
             {
                 Message = "The request is invalid.",
-                ModelState = modelStateMessage
+                ModelState = modelStateMessage,
+                CorrelationId = correlationId
             };
         }
 
-        public static object GetErrorMessage(string message)
+        public static object GetErrorMessage(string message, string correlationId)
         {
-            return new {Message = message};
+            return new RESTError()
+            {
+                Message = message,
+                CorrelationId = correlationId
+            };
         }
     }
 }

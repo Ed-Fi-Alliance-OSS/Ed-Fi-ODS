@@ -200,7 +200,7 @@ namespace EdFi.Ods.Features.Composites
                         p =>
                         {
                             string message = shouldIncludeResourceSubtype
-                                ? $"TTarget resource '{elementName}' cannot be authorized. Non-identifying resource member {p.Name} cannot be included."
+                                ? $"Target resource '{elementName}' cannot be authorized. Non-identifying resource member '{p.Name}' cannot be included."
                                 : $"Invalid property '{p.Name}' was found on element '{elementName}'.";
 
                             _validationErrors.Add(message);

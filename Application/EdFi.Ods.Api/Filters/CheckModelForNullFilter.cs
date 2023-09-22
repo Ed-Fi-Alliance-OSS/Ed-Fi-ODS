@@ -5,23 +5,32 @@
 
 using System;
 using System.Linq;
+using System.Threading.Tasks;
+using EdFi.Ods.Api.Models;
+using EdFi.Ods.Common.Logging;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace EdFi.Ods.Api.Filters
 {
-    [AttributeUsage(AttributeTargets.Method)]
-    public class CheckModelForNullAttribute : ActionFilterAttribute
+    public class CheckModelForNullFilter : IAsyncActionFilter
     {
+        private readonly ILogContextAccessor _logContextAccessor;
+
         private const string SingleParameterErrorMessage = "The request is invalid because it is missing a {0}.";
         private const string MultipleParametersErrorMessage = "The request is invalid because it is missing {0} ";
 
-        public override void OnActionExecuting(ActionExecutingContext context)
+        public CheckModelForNullFilter(ILogContextAccessor logContextAccessor)
+        {
+            _logContextAccessor = logContextAccessor;
+        }
+
+        public Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             if (!context.ModelState.IsValid)
             {
                 context.Result = new BadRequestObjectResult(context.ModelState);
-                return;
+                return Task.CompletedTask;
             }
 
             var nullArguments = context.ActionDescriptor.Properties
@@ -31,7 +40,7 @@ namespace EdFi.Ods.Api.Filters
 
             if (!nullArguments.Any())
             {
-                return;
+                return Task.CompletedTask;
             }
 
             var errorMessage = nullArguments.Length == 1
@@ -41,7 +50,14 @@ namespace EdFi.Ods.Api.Filters
                         : nullArguments[0])
                 : string.Format(MultipleParametersErrorMessage, string.Join("', '", nullArguments));
 
-            context.Result = new BadRequestObjectResult(errorMessage);
+            context.Result = new BadRequestObjectResult(
+                new RESTError()
+                {
+                    Message = errorMessage,
+                    CorrelationId = (string)_logContextAccessor.GetValue("CorrelationId") 
+                });
+
+            return Task.CompletedTask;
         }
     }
 }

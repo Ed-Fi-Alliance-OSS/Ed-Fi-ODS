@@ -14,6 +14,7 @@ using EdFi.Ods.Api.Models.GraphML;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models.Graphs;
 using EdFi.Ods.Common.Models.Resource;
 using log4net;
@@ -31,14 +32,19 @@ namespace EdFi.Ods.Features.Controllers
     public class AggregateDependencyController : ControllerBase
     {
         private readonly IResourceLoadGraphFactory _resourceLoadGraphFactory;
+        private readonly ILogContextAccessor _logContextAccessor;
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(AggregateDependencyController));
         private readonly bool _isEnabled;
 
-        public AggregateDependencyController(ApiSettings apiSettings, IResourceLoadGraphFactory resourceLoadGraphFactory)
+        public AggregateDependencyController(
+            ApiSettings apiSettings,
+            IResourceLoadGraphFactory resourceLoadGraphFactory,
+            ILogContextAccessor logContextAccessor)
         {
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.AggregateDependencies.GetConfigKeyName());
             _resourceLoadGraphFactory = resourceLoadGraphFactory;
+            _logContextAccessor = logContextAccessor;
         }
 
         [HttpGet]
@@ -64,7 +70,7 @@ namespace EdFi.Ods.Features.Controllers
                 string message = e.Message.Replace($"{Environment.NewLine}    is used by ", " -> ")
                     .Replace(Environment.NewLine, " ");
 
-                return BadRequest(ErrorTranslator.GetErrorMessage(message));
+                return BadRequest(ErrorTranslator.GetErrorMessage(message, (string) _logContextAccessor.GetValue("CorrelationId")));
             }
         }
 

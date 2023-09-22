@@ -13,6 +13,7 @@ using EdFi.Ods.Api.Helpers;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Models.Validation;
@@ -44,6 +45,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
         private readonly ILog _logger = LogManager.GetLogger(typeof(KeyChangesController));
         private readonly IResourceClaimUriProvider _resourceClaimUriProvider;
         private readonly ISecurityRepository _securityRepository;
+        private readonly ILogContextAccessor _logContextAccessor;
 
         public KeyChangesController(
             IDomainModelProvider domainModelProvider,
@@ -52,6 +54,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             IResourceClaimUriProvider resourceClaimUriProvider,
             ISecurityRepository securityRepository,
             IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
+            ILogContextAccessor logContextAccessor,
             ApiSettings apiSettings)
         {
             _domainModelProvider = domainModelProvider;
@@ -59,6 +62,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             _authorizationContextProvider = authorizationContextProvider;
             _resourceClaimUriProvider = resourceClaimUriProvider;
             _securityRepository = securityRepository;
+            _logContextAccessor = logContextAccessor;
 
             _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
 
@@ -88,7 +92,10 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
 
             if (parameterMessages.Any())
             {
-                return BadRequest(ErrorTranslator.GetErrorMessage(string.Join(" ", parameterMessages)));
+                return BadRequest(
+                    ErrorTranslator.GetErrorMessage(
+                        string.Join(" ", parameterMessages),
+                        (string) _logContextAccessor.GetValue("CorrelationId")));
             }
 
             var queryParameters = new QueryParameters(urlQueryParametersRequest);

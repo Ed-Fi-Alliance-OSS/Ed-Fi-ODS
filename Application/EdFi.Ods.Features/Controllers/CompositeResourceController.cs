@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Metadata.Composites;
 using EdFi.Ods.Features.Composites.Infrastructure;
 using log4net;
@@ -35,7 +36,7 @@ namespace EdFi.Ods.Features.Controllers
     public class CompositeResourceController : ControllerBase
     {
         private static readonly HashSet<string> _standardApiRouteKeys
-            = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
+            = new(StringComparer.OrdinalIgnoreCase)
             {
                 "compositeVersion",
                 "compositeCategory",
@@ -49,17 +50,20 @@ namespace EdFi.Ods.Features.Controllers
         private readonly ICompositeResourceResponseProvider _compositeResourceResponseProvider;
         private readonly ILog _logger = LogManager.GetLogger(typeof(CompositeResourceController));
         private readonly IRESTErrorProvider _restErrorProvider;
+        private readonly ILogContextAccessor _logContextAccessor;
         private readonly bool _isEnabled;
 
         public CompositeResourceController(
             ICompositeResourceResponseProvider compositeResourceResponseProvider,
             ICompositesMetadataProvider compositeMetadataProvider,
             IRESTErrorProvider restErrorProvider,
+            ILogContextAccessor logContextAccessor,
             ApiSettings apiSettings)
         {
             _compositeResourceResponseProvider = compositeResourceResponseProvider;
             _compositeMetadataProvider = compositeMetadataProvider;
             _restErrorProvider = restErrorProvider;
+            _logContextAccessor = logContextAccessor;
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.Composites.GetConfigKeyName());
 
             if (apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
@@ -124,7 +128,10 @@ namespace EdFi.Ods.Features.Controllers
                     if (int.TryParse(limitAsObject.ToString(), out int limit)
                         && (limit <= 0 || limit > 100))
                     {
-                        return BadRequest(ErrorTranslator.GetErrorMessage("Limit must be omitted or set to a value between 1 and 100."));
+                        return BadRequest(
+                            ErrorTranslator.GetErrorMessage(
+                                "Limit must be omitted or set to a value between 1 and 100.",
+                                (string)_logContextAccessor.GetValue("CorrelationId")));
                     }
                 }
 
@@ -253,8 +260,12 @@ namespace EdFi.Ods.Features.Controllers
             if (restError != null)
             {
                 return string.IsNullOrWhiteSpace(restError.Message)
-                    ? (IActionResult) StatusCode(restError.Code)
-                    : StatusCode(restError.Code, ErrorTranslator.GetErrorMessage(restError.Message));
+                    ? (IActionResult)StatusCode(restError.Code ?? default)
+                    : StatusCode(
+                        restError.Code ?? default,
+                        ErrorTranslator.GetErrorMessage(
+                            restError.Message,
+                            (string)_logContextAccessor.GetValue("CorrelationId")));
             }
 
             return Ok(json);

@@ -41,16 +41,6 @@ namespace EdFi.Ods.Api.Middleware
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            if (context.Request.Query.TryGetValue("correlationId", out var queryStringValues))
-            {
-                LogicalThreadContext.Properties["CorrelationId"] = queryStringValues[0];
-            }
-
-            if (context.Request.Headers.TryGetValue("correlation-id", out var headerValues))
-            {
-                LogicalThreadContext.Properties["CorrelationId"] = headerValues[0];
-            }
-
             if (_logRequestResponseContent && DateTime.UtcNow > _logRequestResponseContentUntil)
             {
                 _logRequestResponseContent = false;

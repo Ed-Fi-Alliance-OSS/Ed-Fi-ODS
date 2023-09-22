@@ -5,6 +5,7 @@
 
 using System.Net;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.Features.ChangeQueries.ActionResults
@@ -16,9 +17,20 @@ namespace EdFi.Ods.Features.ChangeQueries.ActionResults
     /// </summary>
     public class SnapshotsAreReadOnlyResult : IActionResult
     {
+        private readonly string _correlationId;
+
+        public SnapshotsAreReadOnlyResult(string correlationId)
+        {
+            _correlationId = correlationId;
+        }
+        
         public async Task ExecuteResultAsync(ActionContext context)
         {
-            var error = new { Message = "Snapshots are read-only." };
+            var error = new RESTError
+            {
+                Message = "Snapshots are read-only.",
+                CorrelationId = _correlationId
+            };
 
             var objectResult = new ObjectResult(error)
             {
