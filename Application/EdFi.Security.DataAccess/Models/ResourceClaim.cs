@@ -28,7 +28,7 @@ namespace EdFi.Security.DataAccess.Models
         [Required]
         public string ClaimName { get; set; }
 
-        public int? ParentResourceClaimId { get; set; }
+        public int ParentResourceClaimId { get; set; }
 
         public virtual ResourceClaim ParentResourceClaim { get; set; }
     }
