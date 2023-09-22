@@ -78,9 +78,6 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IFilterMetadata>()
                 .SingleInstance();
 
-            builder.RegisterType<CheckModelForNullFilter>()
-                .SingleInstance();
-
             builder.RegisterType<EnforceAssignedProfileUsageFilter>()
                 .SingleInstance();
             
