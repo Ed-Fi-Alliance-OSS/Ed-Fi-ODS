@@ -12,7 +12,7 @@ namespace EdFi.Security.DataAccess.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int? ResourceClaimId { get; set; }
+        public int ResourceClaimId { get; set; }
 
         /// <summary>
         /// ResourceName is actually an Uri so length needs to be around 2048

@@ -5,10 +5,11 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Security.DataAccess.Models
 {
-    
+    [Index(nameof(ClaimSetResourceClaimActionId), nameof(AuthorizationStrategyId), IsUnique = true)]
     public class ClaimSetResourceClaimActionAuthorizationStrategyOverrides
     {
         [Key]
