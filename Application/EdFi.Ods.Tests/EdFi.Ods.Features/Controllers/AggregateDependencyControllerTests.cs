@@ -17,6 +17,7 @@ using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Models.GraphML;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models.Graphs;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Features.Controllers;
@@ -154,7 +155,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             item.Name = "aggregateDependencies";
             apiSettings.Features.Add(item);
 
-            var controller = new AggregateDependencyController(apiSettings, graphFactory);
+            var logContextAccessor = A.Fake<ILogContextAccessor>();
+            var controller = new AggregateDependencyController(apiSettings, graphFactory, logContextAccessor);
             var request = A.Fake<HttpRequest>();
             var headerDictionary = A.Fake<IHeaderDictionary>();
             HeaderDictionary dict = new HeaderDictionary();
