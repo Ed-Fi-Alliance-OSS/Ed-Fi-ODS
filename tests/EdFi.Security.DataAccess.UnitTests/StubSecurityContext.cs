@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using EdFi.Security.DataAccess.Contexts;
@@ -23,7 +22,7 @@ namespace EdFi.Security.DataAccess.UnitTests
         public static ISecurityContext GetMockedSecurityContext()
         {
             var securityContext = A.Fake<ISecurityContext>();
-            // The underlying SecurityRepository implementation expects this application, so force it to be there in the fake
+
             securityContext.Actions = GetFakeDbSet<Action>().AsQueryable().BuildMockDbSet();
             securityContext.AuthorizationStrategies = GetFakeDbSet<AuthorizationStrategy>().AsQueryable().BuildMockDbSet();
             securityContext.ClaimSets = GetFakeDbSet<ClaimSet>().AsQueryable().BuildMockDbSet();
