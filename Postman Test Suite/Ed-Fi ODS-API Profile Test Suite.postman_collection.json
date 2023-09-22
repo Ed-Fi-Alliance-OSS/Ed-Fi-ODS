@@ -1240,7 +1240,11 @@
 													"",
 													"pm.test(\"Should return error message indicating that the format of the Accept header was invalid.\", () => {",
 													"  const responseItem = pm.response.json();",
-													"  pm.expect(responseItem.message).to.equal(\"The format of the profile-based 'Accept' header was invalid.\");",
+													"",
+													"  pm.expect(responseItem).to.deep.include({",
+													"    \"message\": \"The format of the profile-based 'Accept' header was invalid.\",",
+													"    \"correlationId\": pm.environment.get('correlationId')",
+													"  });",
 													"});"
 												],
 												"type": "text/javascript"
@@ -13200,6 +13204,11 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
+					"// Add a correlation id to the query string of every request and save it to the environment as well",
+					"const correlationId = pm.variables.replaceIn(\"{{$randomMACAddress}}\").replace(/:/g, '');",
+					"pm.request.addQueryParams(`correlationId=${correlationId}`);",
+					"pm.environment.set('correlationId', correlationId);",
+					"",
 					"CreateAccessToken(\"255901\");",
 					"",
 					"// Used for Assigned Profiles tests (maybe could be reduced further with additional analysis)",

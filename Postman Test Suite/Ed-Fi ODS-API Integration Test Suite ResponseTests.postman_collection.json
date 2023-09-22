@@ -8,6 +8,298 @@
 	},
 	"item": [
 		{
+			"name": "CorrelationId Usage",
+			"item": [
+				{
+					"name": "No correlation id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is 400 Bad Request\", () => {\r",
+									"  pm.expect(pm.response.code).to.equal(400);\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Should not include a correlation id in response\", () => {\r",
+									"  pm.expect(response).to.deep.equal({\r",
+									"    \"message\": \"Unexpected character encountered while parsing value: }. Path '', line 0, position 0.\"\r",
+									"  });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentSchoolAssociations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CorrelationId provided as query string",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is 400 Bad Request\", () => {\r",
+									"  pm.expect(pm.response.code).to.equal(400);\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Should include the correlation id in response\", () => {\r",
+									"  pm.expect(response).to.deep.equal({\r",
+									"    \"message\": \"Unexpected character encountered while parsing value: }. Path '', line 0, position 0.\",\r",
+									"    \"correlationId\": \"abcd-in-querystring\"\r",
+									"  });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?correlationId=abcd-in-querystring",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentSchoolAssociations"
+							],
+							"query": [
+								{
+									"key": "correlationId",
+									"value": "abcd-in-querystring"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CorrelationId provided as header",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is 400 Bad Request\", () => {\r",
+									"  pm.expect(pm.response.code).to.equal(400);\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Should include the correlation id in response\", () => {\r",
+									"  pm.expect(response).to.deep.equal({\r",
+									"    \"message\": \"Unexpected character encountered while parsing value: }. Path '', line 0, position 0.\",\r",
+									"    \"correlationId\": \"abcd-in-header\"\r",
+									"  });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "correlation-id",
+								"value": "abcd-in-header",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentSchoolAssociations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CorrelationId provided in both querystring and header",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is 400 Bad Request\", () => {\r",
+									"  pm.expect(pm.response.code).to.equal(400);\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Should include the header correlation id in response\", () => {\r",
+									"  pm.expect(response).to.deep.equal({\r",
+									"    \"message\": \"Unexpected character encountered while parsing value: }. Path '', line 0, position 0.\",\r",
+									"    \"correlationId\": \"abcd-in-header\"\r",
+									"  });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "correlation-id",
+								"value": "abcd-in-header",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?correlationId=abcd-in-querystring",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentSchoolAssociations"
+							],
+							"query": [
+								{
+									"key": "correlationId",
+									"value": "abcd-in-querystring"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
 			"name": "ResponseTests",
 			"item": [
 				{
@@ -3420,7 +3712,11 @@
 															"});",
 															"pm.test(\"Should return a message indicating that A non-empty request body is required.\", () => {",
 															"    const responseItem = pm.response.json();",
-															"    pm.expect(responseItem.message).to.equal(\"A non-empty request body is required.\");",
+															"",
+															"    pm.expect(responseItem).to.deep.include({",
+															"      \"message\": \"A non-empty request body is required.\",",
+															"      \"correlationId\": pm.environment.get('correlationId')",
+															"    });",
 															"});",
 															"",
 															"",
@@ -7746,6 +8042,30 @@
 							"response": []
 						}
 					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Add a correlation id to the query string of every request and save it to the environment as well",
+							"const correlationId = pm.variables.replaceIn(\"{{$randomMACAddress}}\").replace(/:/g, '');",
+							"pm.request.addQueryParams(`correlationId=${correlationId}`);",
+							"pm.environment.set('correlationId', correlationId);",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		}
