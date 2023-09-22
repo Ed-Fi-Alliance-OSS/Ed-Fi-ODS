@@ -253,7 +253,6 @@ namespace EdFi.Ods.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        [ServiceFilter(typeof(CheckModelForNullFilter), IsReusable = true)]
         [ServiceFilter(typeof(EnforceAssignedProfileUsageFilter), IsReusable = true)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -304,7 +303,6 @@ namespace EdFi.Ods.Api.Controllers
         }
 
         [HttpPost]
-        [ServiceFilter(typeof(CheckModelForNullFilter), IsReusable = true)]
         [ServiceFilter(typeof(EnforceAssignedProfileUsageFilter), IsReusable = true)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -359,7 +357,6 @@ namespace EdFi.Ods.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        [ServiceFilter(typeof(CheckModelForNullFilter), IsReusable = true)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
         [Produces(MediaTypeNames.Application.Json)]
