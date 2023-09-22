@@ -28,16 +28,5 @@ namespace EdFi.Security.DataAccess.Contexts
         public DbSet<ClaimSetResourceClaimActionAuthorizationStrategyOverrides> ClaimSetResourceClaimActionAuthorizationStrategyOverrides { get; set; }
 
         public DbSet<ResourceClaimActionAuthorizationStrategies> ResourceClaimActionAuthorizationStrategies { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            // modelBuilder.Entity<ResourceClaim>()
-            //     .HasOne(rc => rc.ParentResourceClaim)
-            //     .WithMany()
-            //     .HasForeignKey(fk => fk.ParentResourceClaimId);
-            //
-            // modelBuilder.Entity<ResourceClaim>()
-            //     .Navigation(t => t.ParentResourceClaim);
-        }
     }
 }

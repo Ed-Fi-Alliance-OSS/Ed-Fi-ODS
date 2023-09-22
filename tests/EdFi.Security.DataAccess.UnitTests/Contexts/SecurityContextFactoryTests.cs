@@ -25,9 +25,8 @@ namespace EdFi.Security.DataAccess.UnitTests.Contexts
                           "Server=(local); Database=EdFi_Security; Trusted_Connection=True; Application Name=EdFi.Ods.WebApi;");
 
             new SecurityContextFactory(connectionstringProvider, DatabaseEngine.SqlServer)
-                 .CreateContext()
-                .ShouldBeOfType<SqlServerSecurityContext>()
-                .ShouldNotBeNull();
+                .GetSecurityContextType()
+                .ShouldBe(typeof(SqlServerSecurityContext));
         }
 
         [Test]
@@ -39,9 +38,8 @@ namespace EdFi.Security.DataAccess.UnitTests.Contexts
                 "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security; Application Name=EdFi.Ods.WebApi;");
 
             new SecurityContextFactory(connectionstringProvider, DatabaseEngine.Postgres)
-                .CreateContext()
-                .ShouldBeOfType<PostgresSecurityContext>()
-                .ShouldNotBeNull();
+                .GetSecurityContextType()
+                .ShouldBe(typeof(PostgresSecurityContext));
         }
 
         private class UnsupportedDatabaseEngine : DatabaseEngine

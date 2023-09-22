@@ -27,30 +27,38 @@ namespace EdFi.Security.DataAccess.Contexts
             _connectionStringProvider = connectionStringProvider;
             _databaseEngine = databaseEngine;
         }
-
-        public ISecurityContext CreateContext()
+        
+        public Type GetSecurityContextType()
         {
             if (_securityContextTypeByDatabaseEngine.TryGetValue(_databaseEngine, out Type contextType))
             {
+                return contextType;
+            }
+
+            throw new InvalidOperationException(
+                $"No SecurityContext defined for database type {_databaseEngine.DisplayName}");
+        }
+
+        public ISecurityContext CreateContext()
+        {
                 if (_databaseEngine == DatabaseEngine.SqlServer)
                 {
                     return Activator.CreateInstance(
-                            contextType,
-                            new DbContextOptionsBuilder().UseSqlServer(_connectionStringProvider.GetConnectionString())
+                            GetSecurityContextType(),
+                            new DbContextOptionsBuilder<SqlServerSecurityContext>().UseSqlServer(_connectionStringProvider.GetConnectionString())
                                 .Options) as
                         ISecurityContext;
                 }
                 if (_databaseEngine == DatabaseEngine.Postgres)
                 {
                     return Activator.CreateInstance(
-                            contextType,
-                            new DbContextOptionsBuilder().UseNpgsql(_connectionStringProvider.GetConnectionString())
+                            GetSecurityContextType(),
+                            new DbContextOptionsBuilder<PostgresSecurityContext>().UseNpgsql(_connectionStringProvider.GetConnectionString())
                                 .UseLowerCaseNamingConvention()
                                 .Options) as
                         ISecurityContext;
                 }
-            }
-
+                
             throw new InvalidOperationException(
                 $"Cannot create an SecurityContext for database type {_databaseEngine.DisplayName}");
         }
