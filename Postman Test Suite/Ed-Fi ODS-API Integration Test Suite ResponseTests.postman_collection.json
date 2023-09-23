@@ -5989,7 +5989,8 @@
 															"});",
 															"",
 															"pm.test(\"Should return the correct location header\", () => {",
-															"    pm.expect(pm.response.headers.one('location').value).to.equal(pm.variables.replaceIn(pm.request.url.toString()));",
+															"    pm.request.url.removeQueryParams('correlationId');",
+															"    pm.expect(pm.response.headers.one('location').value).to.equal(pm.request.url.toString());",
 															"});"
 														],
 														"type": "text/javascript"
