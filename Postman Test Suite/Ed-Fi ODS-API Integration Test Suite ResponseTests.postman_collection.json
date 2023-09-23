@@ -3986,6 +3986,10 @@
 															"pm.test(\"Should return the correct location header\", () => {",
 															"    const scenarioId = pm.environment.get('scenarioId');",
 															"    const knownStudentId = pm.environment.get('known:'+scenarioId+':studentId');",
+															"",
+															"    // Remove the correlationId query string parameter from the request url",
+															"    pm.request.url.removeQueryParams('correlationId');",
+															"",
 															"    pm.expect(pm.response.headers.one('location').value)",
 															"        .to.equal(`${pm.variables.replaceIn(pm.request.url.toString())}${knownStudentId}`);",
 															"});"
