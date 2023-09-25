@@ -9,9 +9,11 @@ using Autofac.Core;
 using Autofac.Extras.DynamicProxy;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Database;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Api.IdentityValueMappers;
+using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
@@ -25,7 +27,6 @@ using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Security.DataAccess.Providers;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
 using NHibernate;
 using IInterceptor = Castle.DynamicProxy.IInterceptor;
 
@@ -51,6 +52,7 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<MemoryCacheProvider>()
                 .As<ICacheProvider<string>>()
+                .AsSelf()
                 .SingleInstance();
 
             builder.RegisterType<ConcurrentDictionaryCacheProvider<string>>()
@@ -142,46 +144,13 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As(typeof(IUpsertEntity<>))
                 .SingleInstance();
 
-            builder.RegisterType<UniqueIdToUsiValueMapper>()
-                .As<IUniqueIdToUsiValueMapper>()
-                .PreserveExistingDefaults()
-                .SingleInstance();
+            // Register decorators on Person types to delete associated map cache entries
+            builder.RegisterGenericDecorator(
+                typeof(PersonMapCacheDeleteEntityByIdDecorator<>),
+                typeof(IDeleteEntityById<>),
+                ctx => ctx.ImplementationType.GetGenericArguments()[0].IsImplementationOf<IIdentifiablePerson>());
 
-            builder.RegisterType<PersonUniqueIdToUsiCache>()
-                .WithParameter(new NamedParameter("synchronousInitialization", false))
-                .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.Name.Equals("slidingExpiration", StringComparison.InvariantCultureIgnoreCase),
-                        (p, c) =>
-                        {
-                            var apiSettings = c.Resolve<ApiSettings>();
-
-                            int period = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
-
-                            return TimeSpan.FromSeconds(period);
-                        }))
-                .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.InvariantCultureIgnoreCase),
-                        (p, c) =>
-                        {
-                            var apiSettings = c.Resolve<ApiSettings>();
-
-                            int period = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
-
-                            return TimeSpan.FromSeconds(period);
-                        }))
-                .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.Name.Equals("cacheSuppression", StringComparison.OrdinalIgnoreCase),
-                        (p, c) =>
-                        {
-                            var apiSettings = c.Resolve<ApiSettings>();
-                            
-                            return apiSettings.Caching.PersonUniqueIdToUsi.CacheSuppression;
-                        }))
-                .As<IPersonUniqueIdToUsiCache>()
-                .SingleInstance();
+            RegisterPersonIdentifierCaching(builder);
 
             builder.RegisterType<OrmMappingFileDataProvider>()
                 .WithParameter(new NamedParameter("assemblyName", OrmMappingFileConventions.OrmMappingAssembly))
@@ -252,6 +221,90 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<NHibernateOdsConnectionProvider>()
                 .AsSelf()
                 .InstancePerLifetimeScope();
+        }
+
+        private static void RegisterPersonIdentifierCaching(ContainerBuilder builder)
+        {
+            builder
+                .RegisterType<InMemoryMapCache<(ulong odsInstanceHashId, string personType, PersonMapType personMapType), string, int>>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.Equals("slidingExpiration", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) =>
+                        {
+                            var apiSettings = c.Resolve<ApiSettings>();
+
+                            int period = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
+
+                            return TimeSpan.FromSeconds(period);
+                        }))
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) =>
+                        {
+                            var apiSettings = c.Resolve<ApiSettings>();
+
+                            int period = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
+
+                            return TimeSpan.FromSeconds(period);
+                        }))
+                .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int>>()
+                .SingleInstance();
+
+            builder.RegisterType<InMemoryMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.Equals("slidingExpiration", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) =>
+                        {
+                            var apiSettings = c.Resolve<ApiSettings>();
+
+                            int period = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
+
+                            return TimeSpan.FromSeconds(period);
+                        }))
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) =>
+                        {
+                            var apiSettings = c.Resolve<ApiSettings>();
+
+                            int period = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
+
+                            return TimeSpan.FromSeconds(period);
+                        }))
+                .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
+                .SingleInstance();
+
+            builder.RegisterType<PersonMapCacheInitializer>().As<IPersonMapCacheInitializer>().SingleInstance();
+
+            builder.RegisterType<PersonUniqueIdResolver>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.EqualsIgnoreCase("cacheSuppressionByPersonType"),
+                        (p, c) =>
+                        {
+                            var apiSettings = c.Resolve<ApiSettings>();
+
+                            return apiSettings.Caching.PersonUniqueIdToUsi.CacheSuppression;
+                        }))
+                .As<IPersonUniqueIdResolver>()
+                .SingleInstance();
+
+            builder.RegisterType<PersonUsiResolver>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.EqualsIgnoreCase("cacheSuppressionByPersonType"),
+                        (p, c) =>
+                        {
+                            var apiSettings = c.Resolve<ApiSettings>();
+
+                            return apiSettings.Caching.PersonUniqueIdToUsi.CacheSuppression;
+                        }))
+                .As<IPersonUsiResolver>()
+                .SingleInstance();
         }
     }
 }

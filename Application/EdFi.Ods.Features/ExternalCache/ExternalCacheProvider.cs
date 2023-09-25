@@ -73,21 +73,7 @@ namespace EdFi.Ods.Features.ExternalCache
                     //   - DescriptorMapsDistributeCacheDeserializationHandler
                     //
                     // A similar approach is recommended for serialization, though implementations are only needed for int/guid.
-                    if (keyAsString.StartsWith(PersonUniqueIdToUsiCache.CacheKeyPrefix))
-                    {
-                        var identityValueMaps = JsonConvert.DeserializeObject<PersonUniqueIdToUsiCache.IdentityValueMaps>(cachedValue); 
-                        
-                        if (identityValueMaps.UsiByUniqueId == null && identityValueMaps.UniqueIdByUsi == null)
-                        {
-                            // initialized but not set
-                            value = null;
-                        }
-                        else
-                        {
-                            value = identityValueMaps;
-                        }
-                    }
-                    else if (keyAsString.StartsWith(ApiClientDetailsCacheKeyProvider.CacheKeyPrefix))
+                    if (keyAsString.StartsWith(ApiClientDetailsCacheKeyProvider.CacheKeyPrefix))
                     {
                         value = JsonConvert.DeserializeObject<ApiClientDetails>(cachedValue);
                     }

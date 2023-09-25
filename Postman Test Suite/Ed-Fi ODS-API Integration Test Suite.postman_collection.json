@@ -9447,6 +9447,507 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Person-type Lifecycle",
+			"item": [
+				{
+					"name": "Setup",
+					"item": [
+						{
+							"name": "Create a Student",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:student:id',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"studentUniqueId\": \"LIFECYCLE-TEST\",\r\n  \"birthDate\": \"2010-07-04\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a StudentSchoolAssociation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:studentSchoolAssociation:id',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"graduationPlanReference\": {\r\n    \"educationOrganizationId\": 255901001,\r\n    \"graduationPlanTypeDescriptor\": \"uri://ed-fi.org/GraduationPlanTypeDescriptor#Minimum\",\r\n    \"graduationSchoolYear\": 2022\r\n  },\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"LIFECYCLE-TEST\"\r\n  },\r\n  \"entryDate\": \"1999-12-31\",\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Ninth grade\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSchoolAssociations"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "UniqueId Usage",
+					"item": [
+						{
+							"name": "Get StudentSchoolAssociation by Entry Date",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should correctly filter by StudentUniqueId and return 1 item\", () => {\r",
+											"  pm.expect(items.length).to.equal(1);\r",
+											"});\r",
+											"\r",
+											"const item = items[0];\r",
+											"\r",
+											"pm.test(\"Should return student's UniqueId in the response body\", () => {\r",
+											"  pm.expect(item.studentReference.studentUniqueId).to.equal(\"LIFECYCLE-TEST\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return the StudentSchoolAssociation created.\", () => {\r",
+											"  pm.expect(item.id).to.equal(pm.environment.get(\"known:studentSchoolAssociation:id\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?entryDate=1999-12-31",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSchoolAssociations"
+									],
+									"query": [
+										{
+											"key": "entryDate",
+											"value": "1999-12-31"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get StudentSchoolAssociation by UniqueId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should correctly filter by StudentUniqueId and return 1 item\", () => {\r",
+											"  pm.expect(items.length).to.equal(1);\r",
+											"});\r",
+											"\r",
+											"const item = items[0];\r",
+											"\r",
+											"pm.test(\"Should return student's UniqueId in the response body\", () => {\r",
+											"  pm.expect(item.studentReference.studentUniqueId).to.equal(\"LIFECYCLE-TEST\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return the StudentSchoolAssociation created.\", () => {\r",
+											"  pm.expect(item.id).to.equal(pm.environment.get(\"known:studentSchoolAssociation:id\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?studentUniqueId=LIFECYCLE-TEST",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSchoolAssociations"
+									],
+									"query": [
+										{
+											"key": "studentUniqueId",
+											"value": "LIFECYCLE-TEST"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete the StudentSchoolAssociation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations/{{known:studentSchoolAssociation:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSchoolAssociations",
+										"{{known:studentSchoolAssociation:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete the Student",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students",
+										"{{known:student:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Recreate the Student",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:student:id',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"studentUniqueId\": \"LIFECYCLE-TEST\",\r\n  \"birthDate\": \"2010-07-04\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Recreate a StudentSchoolAssociation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:studentSchoolAssociation:id',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"graduationPlanReference\": {\r\n    \"educationOrganizationId\": 255901001,\r\n    \"graduationPlanTypeDescriptor\": \"uri://ed-fi.org/GraduationPlanTypeDescriptor#Minimum\",\r\n    \"graduationSchoolYear\": 2022\r\n  },\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"LIFECYCLE-TEST\"\r\n  },\r\n  \"entryDate\": \"2021-08-23\",\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Ninth grade\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSchoolAssociations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get StudentSchoolAssociation by UniqueId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should correctly filter by StudentUniqueId and return 1 item\", () => {\r",
+											"  pm.expect(items.length).to.equal(1);\r",
+											"});\r",
+											"\r",
+											"const item = items[0];\r",
+											"\r",
+											"pm.test(\"Should return student's UniqueId in the response body\", () => {\r",
+											"  pm.expect(item.studentReference.studentUniqueId).to.equal(\"LIFECYCLE-TEST\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return the StudentSchoolAssociation created.\", () => {\r",
+											"  pm.expect(item.id).to.equal(pm.environment.get(\"known:studentSchoolAssociation:id\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?studentUniqueId=LIFECYCLE-TEST",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSchoolAssociations"
+									],
+									"query": [
+										{
+											"key": "studentUniqueId",
+											"value": "LIFECYCLE-TEST"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Teardown",
+					"item": [
+						{
+							"name": "Delete the StudentSchoolAssociation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations/{{known:studentSchoolAssociation:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSchoolAssociations",
+										"{{known:studentSchoolAssociation:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete the Student",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students",
+										"{{known:student:id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		}
 	],
 	"auth": {

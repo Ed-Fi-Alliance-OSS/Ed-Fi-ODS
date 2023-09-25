@@ -37,33 +37,56 @@
         {
             get
             {
-                if ({{UsiFieldName}} == default({{CSharpDeclaredType}}))
-                    {{UsiFieldName}} = PersonUniqueIdToUsiCache.GetCache().GetUsi{{#IsNullable}}Nullable{{/IsNullable}}("{{PersonType}}", {{UniqueIdFieldName}});
+                if ({{UsiFieldName}} == default({{CSharpDeclaredType}}) && {{UniqueIdFieldName}} != null)
+                {
+                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("{{PersonType}}", out var usiByUniqueId)
+                        && usiByUniqueId.TryGetValue({{UniqueIdFieldName}}, out var usi))
+                    {
+                        {{UsiFieldName}} = usi;
+                    }
+                }
 
                 return {{UsiFieldName}};
             } 
             set
             {
                 {{UsiFieldName}} = value;
+        {{^IsPersonEntity}}
+            {{#IsNullable}}
+
+                if (value != null)
+                {
+                    GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("{{PersonType}}", value.Value);
+                }
+            {{/IsNullable}}
+            {{^IsNullable}}
+                GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("{{PersonType}}", value);
+            {{/IsNullable}}
+        {{/IsPersonEntity}}
             }
         }
 
         private {{CSharpDeclaredType}} {{UsiFieldName}};
     {{#IsPersonEntity}}
         string IIdentifiablePerson.UniqueId { get { return {{UniqueIdPropertyName}}; } }
-        
+
     {{/IsPersonEntity}}
     {{^IsPersonEntity}}
         private string {{UniqueIdFieldName}};
 
-        {{^IsNullable}}[RequiredWithNonDefault]{{/IsNullable}}
         public {{#NeedsOverride}}override{{/NeedsOverride}}{{^NeedsOverride}}virtual{{/NeedsOverride}} string {{UniqueIdPropertyName}}
         {
             get
             {
                 if ({{UniqueIdFieldName}} == null{{#IsNullable}} && {{UsiFieldName}}.HasValue{{/IsNullable}})
-                    {{UniqueIdFieldName}} = PersonUniqueIdToUsiCache.GetCache().GetUniqueId("{{PersonType}}", {{UsiFieldName}}{{#IsNullable}}.Value{{/IsNullable}});
-                    
+                {
+                    if (GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().UniqueIdByUsiByPersonType.TryGetValue("{{PersonType}}", out var uniqueIdByUsi)
+                        && uniqueIdByUsi.TryGetValue({{UsiFieldName}}{{#IsNullable}}.Value{{/IsNullable}}, out var uniqueId))
+                    {
+                        {{UniqueIdFieldName}} = uniqueId;
+                    }
+                }
+
                 return {{UniqueIdFieldName}};
             }
             set
@@ -80,9 +103,15 @@
         {
             get
             {
-                if ({{UniqueIdFieldName}} == null)
-                    {{UniqueIdFieldName}} = PersonUniqueIdToUsiCache.GetCache().GetUniqueId("{{PersonType}}", {{UsiFieldName}});
-                    
+                if ({{UniqueIdFieldName}} == null{{#IsNullable}} && {{UsiFieldName}}.HasValue{{/IsNullable}})
+                {
+                    if (GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().UniqueIdByUsiByPersonType.TryGetValue("{{PersonType}}", out var uniqueIdByUsi)
+                        && uniqueIdByUsi.TryGetValue({{UsiFieldName}}{{#IsNullable}}.Value{{/IsNullable}}, out var uniqueId))
+                    {
+                        {{UniqueIdFieldName}} = uniqueId;
+                    }
+                }
+
                 return {{UniqueIdFieldName}};
             }
             set

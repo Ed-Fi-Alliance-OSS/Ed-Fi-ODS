@@ -14,9 +14,10 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
     public class CompositeQuery
     {
         private readonly Lazy<string[]> _dataFields;
-        private readonly Lazy<IEnumeratorWithCompletion> _futureQueryEnumerator;
+        private Lazy<IEnumeratorWithCompletion> _futureQueryEnumerator;
         private readonly Lazy<string[]> _keyFields;
         private readonly CompositeQuery _parentCompositeQuery;
+        private readonly IEnumerable<object> _futureQuery;
         private readonly Lazy<IDictionary<string, List<Hashtable>>> _dataByParentKey;
 
         /// <summary>
@@ -55,24 +56,30 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             IsSingleItemResult = isSingleItemResult;
 
             _parentCompositeQuery = parentCompositeQuery;
+            _futureQuery = futureQuery;
 
             _keyFields = new Lazy<string[]>(() => GetKeyFields(_futureQueryEnumerator.Value));
             _dataFields = new Lazy<string[]>(() => GetDataFields(_futureQueryEnumerator.Value));
 
             _dataByParentKey = new Lazy<IDictionary<string, List<Hashtable>>>(() => GetDataByParentKey(_futureQueryEnumerator.Value));
 
-            _futureQueryEnumerator = new Lazy<IEnumeratorWithCompletion>(
+            _futureQueryEnumerator = GetFutureQueryEnumerator();
+
+            ChildQueries = new List<CompositeQuery>();
+        }
+
+        private Lazy<IEnumeratorWithCompletion> GetFutureQueryEnumerator()
+        {
+            return new Lazy<IEnumeratorWithCompletion>(
                 () =>
                 {
-                    var enumerator = futureQuery.GetEnumerator();
+                    var enumerator = _futureQuery.GetEnumerator();
 
                     if (enumerator.MoveNext())
                         return new EnumeratorWithCompletionWrapper(enumerator);
 
                     return null;
                 });
-
-            ChildQueries = new List<CompositeQuery>();
         }
 
         public string DisplayName { get; }
@@ -161,11 +168,16 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 : string.Join("|", _parentCompositeQuery.KeyFields.Select(kf => row[kf]));
         }
 
+        public void ResetEnumerator()
+        {
+            _futureQueryEnumerator = GetFutureQueryEnumerator();
+        }
+
         public IEnumeratorWithCompletion GetEnumerator(Hashtable parentRow)
         {
             // For results that are in order for correct processing, the request for
             // the enumerator always returns the underlying result enumerator
-            if (!RequiresDataReordering)
+            if (!RequiresDataReordering || parentRow == null)
             {
                 return _futureQueryEnumerator.Value;
             }

@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Descriptors;
@@ -25,6 +26,8 @@ namespace EdFi.Ods.Common.Dependencies
         private static Lazy<IETagProvider> _etagProvider;
         private static Lazy<IMappingContractProvider> _mappingContractProvider;
         private static Lazy<IContextProvider<ProfileContentTypeContext>> _profileContentTypeContextProvider;
+        private static Lazy<IContextProvider<UniqueIdLookupsByUsiContext>> _uniqueIdLookupsContextProvider;
+        private static Lazy<IContextProvider<UsiLookupsByUniqueIdContext>> _usiLookupsContextProvider;
         private static Lazy<StringComparer> _databaseEngineSpecificStringComparer;
         private static Lazy<IDescriptorResolver> _descriptorResolver;
 
@@ -34,6 +37,8 @@ namespace EdFi.Ods.Common.Dependencies
         public static IETagProvider ETagProvider => _etagProvider?.Value;
         public static IMappingContractProvider MappingContractProvider => _mappingContractProvider?.Value;
         public static IContextProvider<ProfileContentTypeContext> ProfileContentTypeContextProvider => _profileContentTypeContextProvider?.Value;
+        public static IContextProvider<UniqueIdLookupsByUsiContext> UniqueIdLookupsByUsiContextProvider => _uniqueIdLookupsContextProvider?.Value;
+        public static IContextProvider<UsiLookupsByUniqueIdContext> UsiLookupsByUniqueIdContextProvider => _usiLookupsContextProvider?.Value;
         public static StringComparer DatabaseEngineSpecificStringComparer => _databaseEngineSpecificStringComparer?.Value;
         public static IDescriptorResolver DescriptorResolver => _descriptorResolver?.Value;
 
@@ -71,6 +76,16 @@ namespace EdFi.Ods.Common.Dependencies
             public static void Set(Func<IContextProvider<ProfileContentTypeContext>> resolver)
             {
                 _profileContentTypeContextProvider = new Lazy<IContextProvider<ProfileContentTypeContext>>(resolver);
+            }
+
+            public static void Set(Func<IContextProvider<UniqueIdLookupsByUsiContext>> resolver)
+            {
+                _uniqueIdLookupsContextProvider = new Lazy<IContextProvider<UniqueIdLookupsByUsiContext>>(resolver);
+            }
+
+            public static void Set(Func<IContextProvider<UsiLookupsByUniqueIdContext>> resolver)
+            {
+                _usiLookupsContextProvider = new Lazy<IContextProvider<UsiLookupsByUniqueIdContext>>(resolver);
             }
 
             public static void Set(Func<StringComparer> resolver)

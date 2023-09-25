@@ -84,18 +84,15 @@ namespace EdFi.Ods.Common.Models.Resource
         public IReadOnlyDictionary<string, LinkedCollection> LinkedResourceCollectionByName => _linkedCollectionByName.Value;
 
         /// <summary>
-        /// Returns all the child item types contained within resource.
+        /// Returns all the child item types contained within resource (including extensions).
         /// </summary>
         public IReadOnlyList<ResourceChildItem> AllContainedItemTypes => ContainedItemTypes;
 
         /// <summary>
-        /// Returns the resource and all the child item types contained within resource.
+        /// Returns the resource and all the child item types contained within resource (including extensions).
         /// </summary>
-        public IReadOnlyList<ResourceClassBase> AllContainedItemTypesOrSelf => new ResourceClassBase[]
-                                                                               {
-                                                                                   this
-                                                                               }.Concat(ContainedItemTypes)
-                                                                                .ToArray();
+        public IReadOnlyList<ResourceClassBase> AllContainedItemTypesOrSelf
+            => new ResourceClassBase[] { this }.Concat(ContainedItemTypes).ToArray();
 
         /// <summary>
         /// Returns all the references contained within the resource.

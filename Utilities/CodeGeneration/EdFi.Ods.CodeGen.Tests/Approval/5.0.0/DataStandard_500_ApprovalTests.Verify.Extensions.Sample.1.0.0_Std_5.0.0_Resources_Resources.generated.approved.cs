@@ -1017,6 +1017,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
                 // StaffEducationOrganizationAssignmentAssociation
                 _staffEducationOrganizationAssignmentAssociationReferenceExplicitlyAssigned = false;
                 ImplicitStaffEducationOrganizationAssignmentAssociationReference.StaffUniqueId = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("Staff", value);
             }
         }
 
@@ -5634,6 +5635,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
                 // StudentProgramAssociation
                 _studentProgramAssociationReferenceExplicitlyAssigned = false;
                 ImplicitStudentProgramAssociationReference.StudentUniqueId = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("Student", value);                
             }
         }
         // -------------------------------------------------------------
@@ -9984,7 +9986,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         public string ProgramTypeDescriptor { get; set; }
 
         [DataMember(Name="studentUniqueId"), NaturalKeyMember]
-        public string StudentUniqueId { get; set; }
+        public string StudentUniqueId 
+        {
+            get => _studentUniqueId;
+            set
+            {
+                _studentUniqueId = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("Student", value);
+            }
+        }
+        private string _studentUniqueId;
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
@@ -10303,6 +10314,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
                 // Student
                 _studentReferenceExplicitlyAssigned = false;
                 ImplicitStudentReference.StudentUniqueId = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("Student", value);                
             }
         }
         // -------------------------------------------------------------
@@ -13718,6 +13730,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
                 // StaffEducationOrganizationEmploymentAssociation
                 _staffEducationOrganizationEmploymentAssociationReferenceExplicitlyAssigned = false;
                 ImplicitStaffEducationOrganizationEmploymentAssociationReference.StaffUniqueId = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("Staff", value);                
             }
         }
         // -------------------------------------------------------------
@@ -16233,7 +16246,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         public short GraduationSchoolYear { get; set; }
 
         [DataMember(Name="studentUniqueId"), NaturalKeyMember]
-        public string StudentUniqueId { get; set; }
+        public string StudentUniqueId 
+        {
+            get => _studentUniqueId;
+            set
+            {
+                _studentUniqueId = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("Student", value);
+            }
+        }
+        private string _studentUniqueId;
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
@@ -16545,6 +16567,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
                 // Student
                 _studentReferenceExplicitlyAssigned = false;
                 ImplicitStudentReference.StudentUniqueId = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("Student", value);                
             }
         }
         // -------------------------------------------------------------
@@ -16713,6 +16736,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
                 // Staff
                 _staffReferenceExplicitlyAssigned = false;
                 ImplicitStaffReference.StaffUniqueId = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("Staff", value);
             }
         }
         
@@ -18712,11 +18736,24 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             get => _studentUniqueId == default(string)
                     ? BackReference.StudentGraduationPlanAssociation.StudentUniqueId
                     : _studentUniqueId;
-            set => _studentUniqueId = value;
+            set
+            {
+                _studentUniqueId = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("Student", value);
+            }
         }
 
         [DataMember(Name="contactUniqueId"), NaturalKeyMember]
-        public string ContactUniqueId { get; set; }
+        public string ContactUniqueId 
+        {
+            get => _contactUniqueId;
+            set
+            {
+                _contactUniqueId = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("Contact", value);
+            }
+        }
+        private string _contactUniqueId;
 
         /// <summary>
         /// Gets or sets the referenced resource's identifier (i.e. "id" property).
@@ -18904,6 +18941,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
                 // StudentContactAssociation
                 _studentContactAssociationReferenceExplicitlyAssigned = false;
                 ImplicitStudentContactAssociationReference.ContactUniqueId = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("Contact", value);                
             }
         }
         // -------------------------------------------------------------
@@ -19908,7 +19946,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
             get => _studentUniqueId == default(string)
                     ? BackReference.StudentSectionAssociationExtension.StudentSectionAssociation.StudentUniqueId
                     : _studentUniqueId;
-            set => _studentUniqueId = value;
+            set
+            {
+                _studentUniqueId = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("Student", value);
+            }
         }
 
         [DataMember(Name="beginDate"), NaturalKeyMember]

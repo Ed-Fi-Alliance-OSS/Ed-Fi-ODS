@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Features.Composites.Infrastructure;
 using EdFi.TestFixture;
 using Newtonsoft.Json;
@@ -74,7 +75,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Composites.Infrastructure
                     KeyOne, KeyTwo
                 };
 
-                _actual = SystemUnderTest.ProcessResults(query, parentRow, parentKeys, new List<SelectedResourceMember>(), NullValueHandling.Ignore);
+                _actual = SystemUnderTest.ProcessResults(query, parentRow, parentKeys, new List<SelectedResourceMember>(), NullValueHandling.Ignore, new UniqueIdLookupsByUsiContext());
             }
 
             [Test]
@@ -138,7 +139,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Composites.Infrastructure
                     KeyOne, KeyTwo
                 };
 
-                _actual = SystemUnderTest.ProcessResults(query, parentRow, parentKeys, new List<SelectedResourceMember>(), NullValueHandling.Ignore);
+                _actual = SystemUnderTest.ProcessResults(query, parentRow, parentKeys, new List<SelectedResourceMember>(), NullValueHandling.Ignore, new UniqueIdLookupsByUsiContext());
             }
 
             [Test]
@@ -218,7 +219,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Composites.Infrastructure
                     KeyOne, KeyTwo
                 };
 
-                _actual = SystemUnderTest.ProcessResults(query, parentRow, parentKeys, new List<SelectedResourceMember>(), NullValueHandling.Ignore);
+                _actual = SystemUnderTest.ProcessResults(query, parentRow, parentKeys, new List<SelectedResourceMember>(), NullValueHandling.Ignore, new UniqueIdLookupsByUsiContext());
             }
 
             [Test]

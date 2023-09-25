@@ -112,45 +112,8 @@ namespace EdFi.Ods.Features.ExternalCache
 
         public void OverridePersonUniqueIdToUsiCache(ContainerBuilder builder)
         {
-            builder.RegisterType<PersonUniqueIdToUsiCache>()
-            .WithParameter(new NamedParameter("synchronousInitialization", false))
-            .WithParameter(
-                new ResolvedParameter(
-                  (p, c) => p.ParameterType == typeof(ICacheProvider<string>),
-                  (p, c) =>
-                  {
-                      int period = ApiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
-                      int expirationPeriod = ApiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
-
-                      return new ExternalCacheProvider<string>(
-                              c.Resolve<IDistributedCache>(),
-                              TimeSpan.FromSeconds(period),
-                              TimeSpan.FromSeconds(expirationPeriod));
-                  }))
-          .WithParameter(
-              new ResolvedParameter(
-                  (p, c) => p.Name.Equals("slidingExpiration", StringComparison.OrdinalIgnoreCase),
-                  (p, c) =>
-                  {
-                      int period = ApiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
-
-                      return TimeSpan.FromSeconds(period);
-                  }))
-          .WithParameter(
-              new ResolvedParameter(
-                  (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.OrdinalIgnoreCase),
-                  (p, c) =>
-                  {
-                      int period = ApiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
-
-                      return TimeSpan.FromSeconds(period);
-                  }))
-          .WithParameter(
-              new ResolvedParameter(
-                  (p, c) => p.Name.Equals("cacheSuppression", StringComparison.OrdinalIgnoreCase),
-                  (p, c) => ApiSettings.Caching.PersonUniqueIdToUsi.CacheSuppression))
-          .As<IPersonUniqueIdToUsiCache>()
-          .SingleInstance();
+            // TODO: ODS-6016
+            throw new NotImplementedException("Disable external caching for people until ODS-6016 is implemented.");
         }
     }
 }

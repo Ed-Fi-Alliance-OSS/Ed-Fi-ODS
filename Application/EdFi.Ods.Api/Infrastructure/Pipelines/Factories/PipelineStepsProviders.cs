@@ -21,7 +21,10 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
         {
             return new[]
                    {
-                       typeof(GetEntityModelById<,,,>), typeof(DetectUnmodifiedEntityModel<,,,>), typeof(MapEntityModelToResourceModel<,,,>)
+                       typeof(GetEntityModelById<,,,>), 
+                       typeof(DetectUnmodifiedEntityModel<,,,>), 
+                       typeof(ResolveUniqueIds<,,,>),
+                       typeof(MapEntityModelToResourceModel<,,,>)
                    };
         }
     }
@@ -36,7 +39,9 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
             return new[]
                    {
                        typeof(MapResourceModelToEntityModel<,,,>),
+                       typeof(ResolveUsis<,,,>),
                        typeof(GetEntityModelsBySpecification<,,,>),
+                       typeof(ResolveUniqueIds<,,,>),
                        typeof(MapEntityModelsToResourceModels<,,,>)
             };
         }
@@ -51,7 +56,10 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
         {
             return new[]
                    {
-                       typeof(ValidateResourceModel<,,,>), typeof(MapResourceModelToEntityModel<,,,>), typeof(PersistEntityModel<,,,>)
+                       typeof(ValidateResourceModel<,,,>), 
+                       typeof(ResolveUsis<,,,>),
+                       typeof(MapResourceModelToEntityModel<,,,>), 
+                       typeof(PersistEntityModel<,,,>)
                    };
         }
     }

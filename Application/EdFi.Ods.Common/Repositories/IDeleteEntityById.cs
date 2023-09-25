@@ -11,6 +11,6 @@ namespace EdFi.Ods.Common.Repositories
 {
     public interface IDeleteEntityById<TEntity>
     {
-        Task DeleteByIdAsync(Guid id, string etag, CancellationToken cancellationToken);
+        Task<TEntity> DeleteByIdAsync(Guid id, string etag, CancellationToken cancellationToken);
     }
 }

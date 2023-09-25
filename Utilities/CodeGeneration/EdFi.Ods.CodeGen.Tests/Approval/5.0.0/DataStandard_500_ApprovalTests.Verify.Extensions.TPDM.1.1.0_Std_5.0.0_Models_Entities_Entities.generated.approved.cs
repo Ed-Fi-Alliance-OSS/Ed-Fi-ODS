@@ -5239,28 +5239,40 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         {
             get
             {
-                if (_studentUSI == default(int))
-                    _studentUSI = PersonUniqueIdToUsiCache.GetCache().GetUsi("Student", _studentUniqueId);
+                if (_studentUSI == default(int) && _studentUniqueId != null)
+                {
+                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Student", out var usiByUniqueId)
+                        && usiByUniqueId.TryGetValue(_studentUniqueId, out var usi))
+                    {
+                        _studentUSI = usi;
+                    }
+                }
 
                 return _studentUSI;
             } 
             set
             {
                 _studentUSI = value;
+                GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("Student", value);
             }
         }
 
         private int _studentUSI;
         private string _studentUniqueId;
 
-        [RequiredWithNonDefault]
         public virtual string StudentUniqueId
         {
             get
             {
                 if (_studentUniqueId == null)
-                    _studentUniqueId = PersonUniqueIdToUsiCache.GetCache().GetUniqueId("Student", _studentUSI);
-                    
+                {
+                    if (GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().UniqueIdByUsiByPersonType.TryGetValue("Student", out var uniqueIdByUsi)
+                        && uniqueIdByUsi.TryGetValue(_studentUSI, out var uniqueId))
+                    {
+                        _studentUniqueId = uniqueId;
+                    }
+                }
+
                 return _studentUniqueId;
             }
             set
@@ -13083,28 +13095,40 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         {
             get
             {
-                if (_studentUSI == default(int))
-                    _studentUSI = PersonUniqueIdToUsiCache.GetCache().GetUsi("Student", _studentUniqueId);
+                if (_studentUSI == default(int) && _studentUniqueId != null)
+                {
+                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Student", out var usiByUniqueId)
+                        && usiByUniqueId.TryGetValue(_studentUniqueId, out var usi))
+                    {
+                        _studentUSI = usi;
+                    }
+                }
 
                 return _studentUSI;
             } 
             set
             {
                 _studentUSI = value;
+                GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("Student", value);
             }
         }
 
         private int _studentUSI;
         private string _studentUniqueId;
 
-        [RequiredWithNonDefault]
         public virtual string StudentUniqueId
         {
             get
             {
                 if (_studentUniqueId == null)
-                    _studentUniqueId = PersonUniqueIdToUsiCache.GetCache().GetUniqueId("Student", _studentUSI);
-                    
+                {
+                    if (GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().UniqueIdByUsiByPersonType.TryGetValue("Student", out var uniqueIdByUsi)
+                        && uniqueIdByUsi.TryGetValue(_studentUSI, out var uniqueId))
+                    {
+                        _studentUniqueId = uniqueId;
+                    }
+                }
+
                 return _studentUniqueId;
             }
             set

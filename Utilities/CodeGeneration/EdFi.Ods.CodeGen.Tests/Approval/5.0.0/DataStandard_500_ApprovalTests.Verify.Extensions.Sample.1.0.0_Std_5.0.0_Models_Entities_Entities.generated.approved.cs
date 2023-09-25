@@ -660,28 +660,44 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         {
             get
             {
-                if (_staffUSI == default(int?))
-                    _staffUSI = PersonUniqueIdToUsiCache.GetCache().GetUsiNullable("Staff", _staffUniqueId);
+                if (_staffUSI == default(int?) && _staffUniqueId != null)
+                {
+                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Staff", out var usiByUniqueId)
+                        && usiByUniqueId.TryGetValue(_staffUniqueId, out var usi))
+                    {
+                        _staffUSI = usi;
+                    }
+                }
 
                 return _staffUSI;
             } 
             set
             {
                 _staffUSI = value;
+
+                if (value != null)
+                {
+                    GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("Staff", value.Value);
+                }
             }
         }
 
         private int? _staffUSI;
         private string _staffUniqueId;
 
-        
         public virtual string StaffUniqueId
         {
             get
             {
                 if (_staffUniqueId == null && _staffUSI.HasValue)
-                    _staffUniqueId = PersonUniqueIdToUsiCache.GetCache().GetUniqueId("Staff", _staffUSI.Value);
-                    
+                {
+                    if (GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().UniqueIdByUsiByPersonType.TryGetValue("Staff", out var uniqueIdByUsi)
+                        && uniqueIdByUsi.TryGetValue(_staffUSI.Value, out var uniqueId))
+                    {
+                        _staffUniqueId = uniqueId;
+                    }
+                }
+
                 return _staffUniqueId;
             }
             set
@@ -3288,28 +3304,40 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         {
             get
             {
-                if (_studentUSI == default(int))
-                    _studentUSI = PersonUniqueIdToUsiCache.GetCache().GetUsi("Student", _studentUniqueId);
+                if (_studentUSI == default(int) && _studentUniqueId != null)
+                {
+                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Student", out var usiByUniqueId)
+                        && usiByUniqueId.TryGetValue(_studentUniqueId, out var usi))
+                    {
+                        _studentUSI = usi;
+                    }
+                }
 
                 return _studentUSI;
             } 
             set
             {
                 _studentUSI = value;
+                GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("Student", value);
             }
         }
 
         private int _studentUSI;
         private string _studentUniqueId;
 
-        [RequiredWithNonDefault]
         public virtual string StudentUniqueId
         {
             get
             {
                 if (_studentUniqueId == null)
-                    _studentUniqueId = PersonUniqueIdToUsiCache.GetCache().GetUniqueId("Student", _studentUSI);
-                    
+                {
+                    if (GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().UniqueIdByUsiByPersonType.TryGetValue("Student", out var uniqueIdByUsi)
+                        && uniqueIdByUsi.TryGetValue(_studentUSI, out var uniqueId))
+                    {
+                        _studentUniqueId = uniqueId;
+                    }
+                }
+
                 return _studentUniqueId;
             }
             set
@@ -6959,28 +6987,40 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         {
             get
             {
-                if (_studentUSI == default(int))
-                    _studentUSI = PersonUniqueIdToUsiCache.GetCache().GetUsi("Student", _studentUniqueId);
+                if (_studentUSI == default(int) && _studentUniqueId != null)
+                {
+                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Student", out var usiByUniqueId)
+                        && usiByUniqueId.TryGetValue(_studentUniqueId, out var usi))
+                    {
+                        _studentUSI = usi;
+                    }
+                }
 
                 return _studentUSI;
             } 
             set
             {
                 _studentUSI = value;
+                GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("Student", value);
             }
         }
 
         private int _studentUSI;
         private string _studentUniqueId;
 
-        [RequiredWithNonDefault]
         public override string StudentUniqueId
         {
             get
             {
                 if (_studentUniqueId == null)
-                    _studentUniqueId = PersonUniqueIdToUsiCache.GetCache().GetUniqueId("Student", _studentUSI);
-                    
+                {
+                    if (GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().UniqueIdByUsiByPersonType.TryGetValue("Student", out var uniqueIdByUsi)
+                        && uniqueIdByUsi.TryGetValue(_studentUSI, out var uniqueId))
+                    {
+                        _studentUniqueId = uniqueId;
+                    }
+                }
+
                 return _studentUniqueId;
             }
             set
@@ -8870,28 +8910,40 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         {
             get
             {
-                if (_staffUSI == default(int))
-                    _staffUSI = PersonUniqueIdToUsiCache.GetCache().GetUsi("Staff", _staffUniqueId);
+                if (_staffUSI == default(int) && _staffUniqueId != null)
+                {
+                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Staff", out var usiByUniqueId)
+                        && usiByUniqueId.TryGetValue(_staffUniqueId, out var usi))
+                    {
+                        _staffUSI = usi;
+                    }
+                }
 
                 return _staffUSI;
             } 
             set
             {
                 _staffUSI = value;
+                GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("Staff", value);
             }
         }
 
         private int _staffUSI;
         private string _staffUniqueId;
 
-        [RequiredWithNonDefault]
         public virtual string StaffUniqueId
         {
             get
             {
                 if (_staffUniqueId == null)
-                    _staffUniqueId = PersonUniqueIdToUsiCache.GetCache().GetUniqueId("Staff", _staffUSI);
-                    
+                {
+                    if (GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().UniqueIdByUsiByPersonType.TryGetValue("Staff", out var uniqueIdByUsi)
+                        && uniqueIdByUsi.TryGetValue(_staffUSI, out var uniqueId))
+                    {
+                        _staffUniqueId = uniqueId;
+                    }
+                }
+
                 return _staffUniqueId;
             }
             set
@@ -11030,28 +11082,40 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         {
             get
             {
-                if (_studentUSI == default(int))
-                    _studentUSI = PersonUniqueIdToUsiCache.GetCache().GetUsi("Student", _studentUniqueId);
+                if (_studentUSI == default(int) && _studentUniqueId != null)
+                {
+                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Student", out var usiByUniqueId)
+                        && usiByUniqueId.TryGetValue(_studentUniqueId, out var usi))
+                    {
+                        _studentUSI = usi;
+                    }
+                }
 
                 return _studentUSI;
             } 
             set
             {
                 _studentUSI = value;
+                GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("Student", value);
             }
         }
 
         private int _studentUSI;
         private string _studentUniqueId;
 
-        [RequiredWithNonDefault]
         public virtual string StudentUniqueId
         {
             get
             {
                 if (_studentUniqueId == null)
-                    _studentUniqueId = PersonUniqueIdToUsiCache.GetCache().GetUniqueId("Student", _studentUSI);
-                    
+                {
+                    if (GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().UniqueIdByUsiByPersonType.TryGetValue("Student", out var uniqueIdByUsi)
+                        && uniqueIdByUsi.TryGetValue(_studentUSI, out var uniqueId))
+                    {
+                        _studentUniqueId = uniqueId;
+                    }
+                }
+
                 return _studentUniqueId;
             }
             set
@@ -11096,28 +11160,44 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         {
             get
             {
-                if (_staffUSI == default(int?))
-                    _staffUSI = PersonUniqueIdToUsiCache.GetCache().GetUsiNullable("Staff", _staffUniqueId);
+                if (_staffUSI == default(int?) && _staffUniqueId != null)
+                {
+                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Staff", out var usiByUniqueId)
+                        && usiByUniqueId.TryGetValue(_staffUniqueId, out var usi))
+                    {
+                        _staffUSI = usi;
+                    }
+                }
 
                 return _staffUSI;
             } 
             set
             {
                 _staffUSI = value;
+
+                if (value != null)
+                {
+                    GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("Staff", value.Value);
+                }
             }
         }
 
         private int? _staffUSI;
         private string _staffUniqueId;
 
-        
         public virtual string StaffUniqueId
         {
             get
             {
                 if (_staffUniqueId == null && _staffUSI.HasValue)
-                    _staffUniqueId = PersonUniqueIdToUsiCache.GetCache().GetUniqueId("Staff", _staffUSI.Value);
-                    
+                {
+                    if (GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().UniqueIdByUsiByPersonType.TryGetValue("Staff", out var uniqueIdByUsi)
+                        && uniqueIdByUsi.TryGetValue(_staffUSI.Value, out var uniqueId))
+                    {
+                        _staffUniqueId = uniqueId;
+                    }
+                }
+
                 return _staffUniqueId;
             }
             set
@@ -12772,28 +12852,40 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         {
             get
             {
-                if (_contactUSI == default(int))
-                    _contactUSI = PersonUniqueIdToUsiCache.GetCache().GetUsi("Contact", _contactUniqueId);
+                if (_contactUSI == default(int) && _contactUniqueId != null)
+                {
+                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Contact", out var usiByUniqueId)
+                        && usiByUniqueId.TryGetValue(_contactUniqueId, out var usi))
+                    {
+                        _contactUSI = usi;
+                    }
+                }
 
                 return _contactUSI;
             } 
             set
             {
                 _contactUSI = value;
+                GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("Contact", value);
             }
         }
 
         private int _contactUSI;
         private string _contactUniqueId;
 
-        [RequiredWithNonDefault]
         public virtual string ContactUniqueId
         {
             get
             {
                 if (_contactUniqueId == null)
-                    _contactUniqueId = PersonUniqueIdToUsiCache.GetCache().GetUniqueId("Contact", _contactUSI);
-                    
+                {
+                    if (GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().UniqueIdByUsiByPersonType.TryGetValue("Contact", out var uniqueIdByUsi)
+                        && uniqueIdByUsi.TryGetValue(_contactUSI, out var uniqueId))
+                    {
+                        _contactUniqueId = uniqueId;
+                    }
+                }
+
                 return _contactUniqueId;
             }
             set

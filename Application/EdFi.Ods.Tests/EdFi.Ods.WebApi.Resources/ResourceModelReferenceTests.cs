@@ -8,6 +8,9 @@ using System.Linq;
 using EdFi.Ods.Api.Common.Models.Resources.BellSchedule.EdFi;
 using EdFi.Ods.Api.Common.Models.Resources.StaffEducationOrganizationAssignmentAssociation.EdFi;
 using EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAttendanceEvent.EdFi;
+using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.TestFixture;
 using Newtonsoft.Json;
@@ -25,6 +28,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Resources
             // Supplied values
             private StaffEducationOrganizationAssignmentAssociation _model;
             private IStaffEducationOrganizationAssignmentAssociation _modelInterface;
+            private ContextProvider<UsiLookupsByUniqueIdContext> _usiLookupsByUniqueIdContextProvider;
 
             // Actual values
             private string _actualSerializedJson;
@@ -34,6 +38,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Resources
             protected override void Arrange()
             {
                 // Set up mocked dependences and supplied values
+                _usiLookupsByUniqueIdContextProvider = new ContextProvider<UsiLookupsByUniqueIdContext>(new HashtableContextStorage());
+                _usiLookupsByUniqueIdContextProvider.Set(new UsiLookupsByUniqueIdContext());
+                
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => _usiLookupsByUniqueIdContextProvider);
             }
 
             protected override void Act()
@@ -85,6 +93,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Resources
         {
             private StaffEducationOrganizationAssignmentAssociation _model;
             private IStaffEducationOrganizationAssignmentAssociation _modelInterface;
+            private ContextProvider<UsiLookupsByUniqueIdContext> _usiLookupsByUniqueIdContextProvider;
+
+            protected override void Arrange()
+            {
+                _usiLookupsByUniqueIdContextProvider = new ContextProvider<UsiLookupsByUniqueIdContext>(new HashtableContextStorage());
+                _usiLookupsByUniqueIdContextProvider.Set(new UsiLookupsByUniqueIdContext());
+                
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => _usiLookupsByUniqueIdContextProvider);
+            }
 
             [Assert]
             public void Should_not_return_values_from_optional_reference_until_all_of_the_references_properties_have_been_set()
@@ -146,6 +163,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Resources
         [TestFixture]
         public class When_setting_and_getting_properties_for_a_required_reference_on_a_model
         {
+            private ContextProvider<UsiLookupsByUniqueIdContext> _usiLookupsByUniqueIdContextProvider;
+
+            [OneTimeSetUp]
+            protected void OneTimeSetup()
+            {
+                _usiLookupsByUniqueIdContextProvider = new ContextProvider<UsiLookupsByUniqueIdContext>(new HashtableContextStorage());
+                _usiLookupsByUniqueIdContextProvider.Set(new UsiLookupsByUniqueIdContext());
+                
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => _usiLookupsByUniqueIdContextProvider);
+            }
+            
             [SetUp]
             protected void TestSetup()
             {

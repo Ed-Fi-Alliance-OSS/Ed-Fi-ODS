@@ -11,7 +11,7 @@ namespace EdFi.Ods.Api.Providers
 {
     public class MemoryCacheProvider : ICacheProvider<string>
     {
-        private static readonly object _nullObject = new object();
+        private static readonly object _nullObject = new();
         private readonly IMemoryCache _memoryCache;
 
         public MemoryCacheProvider(IMemoryCache memoryCache)

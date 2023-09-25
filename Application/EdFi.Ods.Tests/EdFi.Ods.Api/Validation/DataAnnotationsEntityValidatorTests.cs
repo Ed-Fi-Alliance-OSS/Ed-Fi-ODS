@@ -10,6 +10,8 @@ using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi;
 using FakeItEasy;
 using NUnit.Framework;
@@ -88,8 +90,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         [Test]
         public void When_validating_person_entity_and_uniqueId_property_contains_trailing_or_leading_whitespace_should_raise_validation_error()
         {
-            PersonUniqueIdToUsiCache.GetCache =
-                () => A.Fake<IPersonUniqueIdToUsiCache>();
+            GeneratedArtifactStaticDependencies.Resolvers.Set(() => new ContextProvider<UsiLookupsByUniqueIdContext>(new CallContextStorage()));
+            GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Set(new UsiLookupsByUniqueIdContext());
 
             validationResults = validator.ValidateObject(
                 new Student

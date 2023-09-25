@@ -6917,6 +6917,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
                 // StudentAcademicRecord
                 _studentAcademicRecordReferenceExplicitlyAssigned = false;
                 ImplicitStudentAcademicRecordReference.StudentUniqueId = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("Student", value);                
             }
         }
 
@@ -17865,7 +17866,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         public DateTime BeginDate { get; set; }
 
         [DataMember(Name="studentUniqueId"), NaturalKeyMember]
-        public string StudentUniqueId { get; set; }
+        public string StudentUniqueId 
+        {
+            get => _studentUniqueId;
+            set
+            {
+                _studentUniqueId = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("Student", value);
+            }
+        }
+        private string _studentUniqueId;
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
@@ -18045,6 +18055,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
                 // Student
                 _studentReferenceExplicitlyAssigned = false;
                 ImplicitStudentReference.StudentUniqueId = value;
+                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("Student", value);                
             }
         }
         // -------------------------------------------------------------

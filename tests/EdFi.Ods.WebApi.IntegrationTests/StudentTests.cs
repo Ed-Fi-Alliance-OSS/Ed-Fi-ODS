@@ -12,6 +12,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
 using EdFi.Ods.Api.Common.Models.Resources.Student.EdFi;
+using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.WebApi.IntegrationTests.Helpers;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -23,12 +26,19 @@ namespace EdFi.Ods.WebApi.IntegrationTests
     [TestFixture]
     public class StudentTests
     {
+        private ContextProvider<UsiLookupsByUniqueIdContext> _usiLookupsByUniqueIdContextProvider;
+
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
             _cancellationToken = GlobalWebApiIntegrationTestFixture.Instance.CancellationToken;
             _uriHelper = new EdFiTestUriHelper(TestConstants.BaseUrl);
             _httpClient = HostGlobalFixture.Instance.HttpClient;
+            
+            _usiLookupsByUniqueIdContextProvider = new ContextProvider<UsiLookupsByUniqueIdContext>(new HashtableContextStorage());
+            _usiLookupsByUniqueIdContextProvider.Set(new UsiLookupsByUniqueIdContext());
+                
+            GeneratedArtifactStaticDependencies.Resolvers.Set(() => _usiLookupsByUniqueIdContextProvider);
         }
 
         private CancellationToken _cancellationToken;
