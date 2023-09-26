@@ -5,11 +5,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using EdFi.Common.Utils.Extensions;
 using EdFi.Security.DataAccess.Contexts;
 using EdFi.Security.DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 using Action = EdFi.Security.DataAccess.Models.Action;
 
 namespace EdFi.Security.DataAccess.Repositories;
@@ -60,8 +60,9 @@ public class SecurityTableGateway : ISecurityTableGateway
         var claimSetResourceClaimActions = context.ClaimSetResourceClaimActions.Include(csrc => csrc.Action)
             .Include(csrc => csrc.ClaimSet)
             .Include(csrc => csrc.ResourceClaim)
-            .Include(csrc => csrc.AuthorizationStrategyOverrides.Select(aso => aso.AuthorizationStrategy))
-             .ToList();
+            .Include(csrc => csrc.AuthorizationStrategyOverrides)
+            .ThenInclude(aso => aso.AuthorizationStrategy)
+            .ToList();
 
         // Replace empty lists with null since some consumers expect it that way
         claimSetResourceClaimActions.Where(csrc => csrc.AuthorizationStrategyOverrides.Count == 0)
