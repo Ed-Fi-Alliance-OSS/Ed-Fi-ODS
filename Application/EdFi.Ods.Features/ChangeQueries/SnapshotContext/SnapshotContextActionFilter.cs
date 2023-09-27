@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Features.ChangeQueries.ActionResults;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Primitives;
@@ -24,10 +25,12 @@ namespace EdFi.Ods.Features.ChangeQueries.SnapshotContext
         private const string UseSnapshotHeaderName = "Use-Snapshot";
 
         private readonly IContextProvider<SnapshotUsage> _snapshotContextProvider;
+        private readonly ILogContextAccessor _logContextAccessor;
 
-        public SnapshotContextActionFilter(IContextProvider<SnapshotUsage> snapshotContextProvider)
+        public SnapshotContextActionFilter(IContextProvider<SnapshotUsage> snapshotContextProvider, ILogContextAccessor logContextAccessor)
         {
             _snapshotContextProvider = snapshotContextProvider;
+            _logContextAccessor = logContextAccessor;
         }
 
         public Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
@@ -38,7 +41,7 @@ namespace EdFi.Ods.Features.ChangeQueries.SnapshotContext
                 if (!context.HttpContext.Request.Method.EqualsIgnoreCase(HttpMethod.Get.ToString())
                     && !context.HttpContext.Request.Method.EqualsIgnoreCase(HttpMethod.Options.ToString()))
                 {
-                    context.Result = new SnapshotsAreReadOnlyResult();
+                    context.Result = new SnapshotsAreReadOnlyResult((string) _logContextAccessor.GetValue("CorrelationId"));
                     return Task.CompletedTask;
                 }
 

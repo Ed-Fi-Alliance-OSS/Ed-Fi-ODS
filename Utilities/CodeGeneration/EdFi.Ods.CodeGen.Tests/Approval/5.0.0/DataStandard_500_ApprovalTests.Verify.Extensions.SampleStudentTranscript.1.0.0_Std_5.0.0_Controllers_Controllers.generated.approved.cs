@@ -8,6 +8,7 @@ using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Common.Infrastructure;
+using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models.Requests;
 using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Profiles;
@@ -34,8 +35,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTranscript.InstitutionC
         Api.Common.Models.Requests.SampleStudentTranscript.InstitutionControlDescriptors.InstitutionControlDescriptorDelete,
         Api.Common.Models.Requests.SampleStudentTranscript.InstitutionControlDescriptors.InstitutionControlDescriptorGetByExample>
     {
-        public InstitutionControlDescriptorsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
-            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider)
+        public InstitutionControlDescriptorsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, logContextAccessor)
         {
         }
 
@@ -64,8 +65,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTranscript.InstitutionL
         Api.Common.Models.Requests.SampleStudentTranscript.InstitutionLevelDescriptors.InstitutionLevelDescriptorDelete,
         Api.Common.Models.Requests.SampleStudentTranscript.InstitutionLevelDescriptors.InstitutionLevelDescriptorGetByExample>
     {
-        public InstitutionLevelDescriptorsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
-            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider)
+        public InstitutionLevelDescriptorsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, logContextAccessor)
         {
         }
 
@@ -94,8 +95,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTranscript.PostSecondar
         Api.Common.Models.Requests.SampleStudentTranscript.PostSecondaryOrganizations.PostSecondaryOrganizationDelete,
         Api.Common.Models.Requests.SampleStudentTranscript.PostSecondaryOrganizations.PostSecondaryOrganizationGetByExample>
     {
-        public PostSecondaryOrganizationsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
-            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider)
+        public PostSecondaryOrganizationsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, logContextAccessor)
         {
         }
 
@@ -128,8 +129,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTranscript.SpecialEduca
         Api.Common.Models.Requests.SampleStudentTranscript.SpecialEducationGraduationStatusDescriptors.SpecialEducationGraduationStatusDescriptorDelete,
         Api.Common.Models.Requests.SampleStudentTranscript.SpecialEducationGraduationStatusDescriptors.SpecialEducationGraduationStatusDescriptorGetByExample>
     {
-        public SpecialEducationGraduationStatusDescriptorsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
-            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider)
+        public SpecialEducationGraduationStatusDescriptorsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, logContextAccessor)
         {
         }
 
@@ -158,8 +159,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTranscript.SubmissionCe
         Api.Common.Models.Requests.SampleStudentTranscript.SubmissionCertificationDescriptors.SubmissionCertificationDescriptorDelete,
         Api.Common.Models.Requests.SampleStudentTranscript.SubmissionCertificationDescriptors.SubmissionCertificationDescriptorGetByExample>
     {
-        public SubmissionCertificationDescriptorsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
-            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider)
+        public SubmissionCertificationDescriptorsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, logContextAccessor)
         {
         }
 

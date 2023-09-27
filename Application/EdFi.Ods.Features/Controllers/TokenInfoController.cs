@@ -12,6 +12,7 @@ using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Features.TokenInfo;
 using Microsoft.AspNetCore.Authorization;
@@ -31,6 +32,7 @@ namespace EdFi.Ods.Features.Controllers
     public class TokenInfoController : ControllerBase
     {
         private readonly IApiClientContextProvider _apiClientContextProvider;
+        private readonly ILogContextAccessor _logContextAccessor;
         private readonly ITokenInfoProvider _tokenInfoProvider;
         private readonly IApiClientDetailsProvider _apiClientDetailsProvider;
         private readonly bool _isEnabled;
@@ -39,11 +41,13 @@ namespace EdFi.Ods.Features.Controllers
             ITokenInfoProvider tokenInfoProvider,
             IApiClientDetailsProvider apiClientDetailsProvider,
             IApiClientContextProvider apiClientContextProvider,
+            ILogContextAccessor logContextAccessor,
             ApiSettings apiSettings)
         {
             _tokenInfoProvider = tokenInfoProvider;
             _apiClientDetailsProvider = apiClientDetailsProvider;
             _apiClientContextProvider = apiClientContextProvider;
+            _logContextAccessor = logContextAccessor;
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.TokenInfo.GetConfigKeyName());
         }
 
@@ -66,7 +70,7 @@ namespace EdFi.Ods.Features.Controllers
             if (tokenInfoRequest == null || tokenInfoRequest.Token == null ||
                 !Guid.TryParse(tokenInfoRequest.Token, out Guid accessToken))
             {
-                return BadRequest(ErrorTranslator.GetErrorMessage("Invalid token"));
+                return BadRequest(ErrorTranslator.GetErrorMessage("Invalid token", (string) _logContextAccessor.GetValue("CorrelationId")));
             }
 
             var oAuthTokenClientDetails = await _apiClientDetailsProvider.GetApiClientDetailsForTokenAsync(accessToken.ToString("N"));

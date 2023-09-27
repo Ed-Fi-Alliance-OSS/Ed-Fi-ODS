@@ -38,6 +38,7 @@ using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.IO;
+using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
@@ -65,6 +66,10 @@ namespace EdFi.Ods.Api.Container.Modules
         {
             RegisterMiddleware();
 
+            builder.RegisterType<Log4NetLogContextAccessor>()
+                .As<ILogContextAccessor>()
+                .SingleInstance();
+            
             builder.RegisterType<ExceptionHandlingFilter>()
                 .As<IFilterMetadata>()
                 .SingleInstance();
@@ -72,7 +77,7 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<DataManagementRequestContextFilter>()
                 .As<IFilterMetadata>()
                 .SingleInstance();
-            
+
             builder.RegisterType<EnforceAssignedProfileUsageFilter>()
                 .SingleInstance();
             
@@ -455,6 +460,11 @@ namespace EdFi.Ods.Api.Container.Modules
 
             void RegisterMiddleware()
             {
+                builder.RegisterType<RequestCorrelationMiddleware>()
+                    .As<IMiddleware>()
+                    .AsSelf()
+                    .SingleInstance();
+
                 builder.RegisterType<RequestResponseDetailsLoggerMiddleware>()
                     .As<IMiddleware>()
                     .WithParameter(

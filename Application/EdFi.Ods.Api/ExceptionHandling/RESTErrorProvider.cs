@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using EdFi.Ods.Api.Models;
+using EdFi.Ods.Common.Logging;
 
 namespace EdFi.Ods.Api.ExceptionHandling
 {
@@ -17,11 +18,13 @@ namespace EdFi.Ods.Api.ExceptionHandling
 
     public class RESTErrorProvider : IRESTErrorProvider
     {
+        private readonly ILogContextAccessor _logContextAccessor;
         private readonly IEnumerable<IExceptionTranslator> _translators;
 
-        public RESTErrorProvider(IEnumerable<IExceptionTranslator> translators)
+        public RESTErrorProvider(IEnumerable<IExceptionTranslator> translators, ILogContextAccessor logContextAccessor)
         {
             _translators = translators;
+            _logContextAccessor = logContextAccessor;
         }
 
         public RESTError GetRestErrorFromException(Exception exception)
@@ -33,6 +36,9 @@ namespace EdFi.Ods.Api.ExceptionHandling
 
                 if (translator.TryTranslateMessage(exception, out error))
                 {
+                    // Assign the correlation error (if it exists)
+                    error.CorrelationId = (string)_logContextAccessor.GetValue("CorrelationId");
+
                     return error;
                 }
             }
@@ -41,9 +47,10 @@ namespace EdFi.Ods.Api.ExceptionHandling
             var response = new RESTError
             {
                 // This class translates into a serialized output that matches inBloom's approach to error handling.
-                Code = (int) HttpStatusCode.InternalServerError,
+                Code = (int)HttpStatusCode.InternalServerError,
                 Type = "Internal Server Error",
-                Message = "An unexpected error occurred on the server."
+                Message = "An unexpected error occurred on the server.",
+                CorrelationId = (string)_logContextAccessor.GetValue("CorrelationId")
             };
 
             return response;

@@ -170,13 +170,9 @@ namespace EdFi.Ods.Api.Startup
 
             mvcBuilder.AddControllersAsServices();
 
-            services.AddMvc()
-                .ConfigureApiBehaviorOptions(
-                    options =>
-                    {
-                        options.InvalidModelStateResponseFactory = actionContext
-                            => new BadRequestObjectResult(ErrorTranslator.GetErrorMessage(actionContext.ModelState));
-                    });
+            mvcBuilder.Services.ConfigureOptions<ApiBehaviorOptionsConfigurator>();
+            
+            services.AddMvc();
 
             services.AddAuthentication(EdFiAuthenticationTypes.OAuth)
                 .AddScheme<AuthenticationSchemeOptions, EdFiOAuthAuthenticationHandler>(EdFiAuthenticationTypes.OAuth, null);
@@ -271,6 +267,9 @@ namespace EdFi.Ods.Api.Startup
             IOptions<ApiSettings> apiSettingsOptions,
             IApplicationConfigurationActivity[] configurationActivities)
         {
+            // Process headers and query string arguments for correlation ids, and add to log messages
+            app.UseRequestCorrelation();
+
             var apiSettings = apiSettingsOptions.Value;
 
             if (!string.IsNullOrEmpty(apiSettings.PathBase))

@@ -4,21 +4,20 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.IO;
 using System.Linq;
-using System.Net.Mime;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Utils.Profiles;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Primitives;
-using Newtonsoft.Json;
 
 namespace EdFi.Ods.Api.Filters;
 
@@ -27,6 +26,7 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
     private readonly IApiClientContextProvider _apiClientContextProvider;
     private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
     private readonly IContextProvider<ProfileContentTypeContext> _profileContentTypeContextProvider;
+    private readonly ILogContextAccessor _logContextAccessor;
     private readonly IProfileResourceModelProvider _profileResourceModelProvider;
 
     private readonly bool _isEnabled;
@@ -36,11 +36,13 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
         IProfileResourceModelProvider profileResourceModelProvider,
         IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
         IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
-        ApiSettings apiSettings)
+        ApiSettings apiSettings,
+        ILogContextAccessor logContextAccessor)
     {
         _apiClientContextProvider = apiClientContextProvider;
         _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
         _profileContentTypeContextProvider = profileContentTypeContextProvider;
+        _logContextAccessor = logContextAccessor;
         _profileResourceModelProvider = profileResourceModelProvider;
 
         _isEnabled = apiSettings.IsFeatureEnabled("Profiles");
@@ -131,7 +133,7 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
             // -------------------------------------------------------------------------------------------------------------------
 
             // If there's more than one possible Profile, the client is required to specify which one is in use.
-            await WriteForbiddenResponse();
+            SetForbiddenResponse();
 
             return;
         }
@@ -139,30 +141,26 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
         // Ensure that the specified profile content type is using one of the assigned Profiles
         if (!assignedProfilesForRequest.Contains(profileContentTypeContext.ProfileName, StringComparer.OrdinalIgnoreCase))
         {
-            await WriteForbiddenResponse();
+            SetForbiddenResponse();
 
             return;
         }
 
         await next();
 
-        async Task WriteForbiddenResponse()
+        void SetForbiddenResponse()
         {
             string errorMessage = relevantContentTypeUsage == ContentTypeUsage.Readable
                 ? $"Based on profile assignments, one of the following profile-specific content types is required when requesting this resource: '{string.Join("', '", assignedProfilesForRequest.OrderBy(a => a).Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'"
                 : $"Based on profile assignments, one of the following profile-specific content types is required when updating this resource: '{string.Join("', '", assignedProfilesForRequest.OrderBy(a => a).Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'";
 
-            var response = context.HttpContext.Response;
-
-            response.StatusCode = StatusCodes.Status403Forbidden;
-            response.Headers.ContentType = new StringValues(MediaTypeNames.Application.Json);
-
-            await using (var sw = new StreamWriter(response.Body))
+            var error = new RESTError()
             {
-                string json = JsonConvert.SerializeObject(new { message = errorMessage });
-                response.Headers.ContentLength = json.Length;
-                await sw.WriteAsync(json);
-            }
+                Message = errorMessage,
+                CorrelationId = (string) _logContextAccessor.GetValue("CorrelationId")
+            };
+
+            context.Result = new ObjectResult(error) { StatusCode = StatusCodes.Status403Forbidden };
         }
     }
 }

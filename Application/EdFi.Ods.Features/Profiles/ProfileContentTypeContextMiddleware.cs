@@ -7,7 +7,9 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Utils.Profiles;
@@ -25,6 +27,7 @@ namespace EdFi.Ods.Api.Middleware;
 /// </summary>
 public class ProfileContentTypeContextMiddleware
 {
+    private readonly ILogContextAccessor _logContextAccessor;
     private const string ProfileContentTypePrefix = "application/vnd.ed-fi.";
 
     private const string InvalidContentTypeHeaderFormat = "The format of the profile-based '{0}' header was invalid.";
@@ -38,11 +41,18 @@ public class ProfileContentTypeContextMiddleware
     private const int UsageFacet = 2;
     private readonly RequestDelegate _next;
     private readonly IProfileMetadataProvider _profileMetadataProvider;
+    private static JsonSerializerSettings _jsonSerializerSettings;
 
-    public ProfileContentTypeContextMiddleware(RequestDelegate next, IProfileMetadataProvider profileMetadataProvider)
+    public ProfileContentTypeContextMiddleware(RequestDelegate next, IProfileMetadataProvider profileMetadataProvider, ILogContextAccessor logContextAccessor)
     {
         _next = next;
         _profileMetadataProvider = profileMetadataProvider;
+        _logContextAccessor = logContextAccessor;
+    }
+
+    static ProfileContentTypeContextMiddleware()
+    {
+        _jsonSerializerSettings = new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore };
     }
 
     public async Task InvokeAsync(
@@ -181,7 +191,13 @@ public class ProfileContentTypeContextMiddleware
 
             await using (var sw = new StreamWriter(httpResponse.Body))
             {
-                string json = JsonConvert.SerializeObject(new { message = string.Format(messageFormat, headerName) });
+                string json = JsonConvert.SerializeObject(
+                    new RESTError()
+                    {
+                        Message = string.Format(messageFormat, headerName),
+                        CorrelationId = (string)_logContextAccessor.GetValue("CorrelationId")
+                    }, Formatting.Indented, _jsonSerializerSettings);
+                
                 httpResponse.Headers.ContentLength = json.Length;
                 await sw.WriteAsync(json);
             }
