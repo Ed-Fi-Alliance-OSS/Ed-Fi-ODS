@@ -75,8 +75,13 @@ namespace EdFi.Ods.Api.Caching
                 {
                     if (_logger.IsDebugEnabled)
                     {
-                        Interlocked.Increment(ref _hits);
-                        _logger.Debug($"{nameof(ExpiringConcurrentDictionaryCacheProvider<TKey>)} cache '{_description}' HIT ({_hits} hits, {_misses} misses).");
+                        _hits++;
+                        
+                        if (_hits < 50 || _hits % 100 == 0)
+                        {
+                            _logger.Debug(
+                                $"{nameof(ExpiringConcurrentDictionaryCacheProvider<TKey>)} cache '{_description}' HIT ({_hits} hits, {_misses} misses).");
+                        }
                     }
 
                     return true;
@@ -84,7 +89,7 @@ namespace EdFi.Ods.Api.Caching
 
                 if (_logger.IsDebugEnabled)
                 {
-                    Interlocked.Increment(ref _misses);
+                    _misses++;
                     _logger.Debug($"{nameof(ExpiringConcurrentDictionaryCacheProvider<TKey>)} cache '{_description}' MISS ({_hits} hits, {_misses} misses).");
                 }
             }
