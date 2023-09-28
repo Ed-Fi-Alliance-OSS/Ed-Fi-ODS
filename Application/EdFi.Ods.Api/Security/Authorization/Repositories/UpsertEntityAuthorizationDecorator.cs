@@ -6,7 +6,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Repositories;
 
 namespace EdFi.Ods.Api.Security.Authorization.Repositories
@@ -20,14 +20,19 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         where T : IHasIdentifier, IDateVersionedEntity
     {
         private readonly IUpsertEntity<T> _next;
+        private readonly IContextProvider<ViewBasedAuthorizationQueryContext> _viewBasedAuthorizationQueryContextProvider;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UpsertEntityAuthorizationDecorator{T}"/> class.
         /// </summary>
         /// <param name="next">The decorated instance for which authorization is being performed.</param>
-        public UpsertEntityAuthorizationDecorator(IUpsertEntity<T> next)
+        /// <param name="viewBasedAuthorizationQueryContextProvider"></param>
+        public UpsertEntityAuthorizationDecorator(
+            IUpsertEntity<T> next,
+            IContextProvider<ViewBasedAuthorizationQueryContext> viewBasedAuthorizationQueryContextProvider)
         {
             _next = next;
+            _viewBasedAuthorizationQueryContextProvider = viewBasedAuthorizationQueryContextProvider;
         }
 
         /// <summary>
@@ -36,6 +41,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <returns>The specified entity if found; otherwise null.</returns>
         public async Task<UpsertEntityResult<T>> UpsertAsync(T entity, bool enforceOptimisticLock, CancellationToken cancellationToken)
         {
+            // Initialize contextual value used for preventing a redundant identical single-item authorization query execution 
+            _viewBasedAuthorizationQueryContextProvider.Set(new ViewBasedAuthorizationQueryContext());
+
             // We do not need to perform authorization because the UpsertEntity will call other 
             // methods (Create or Update) which will trigger the authorization.
             return await _next.UpsertAsync(entity, enforceOptimisticLock, cancellationToken);

@@ -29,7 +29,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         where TEntity : class, IHasIdentifier, IDateVersionedEntity
     {
         private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
-        private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
         private readonly IGetEntitiesBySpecification<TEntity> _next;
         private readonly ISessionFactory _sessionFactory;
 
@@ -48,6 +47,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="apiClientContextProvider"></param>
         /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
         /// <param name="dataManagementResourceContextProvider"></param>
+        /// <param name="viewBasedAuthorizationQueryContext"></param>
         public GetEntitiesBySpecificationAuthorizationDecorator(
             IGetEntitiesBySpecification<TEntity> next,
             ISessionFactory sessionFactory,
@@ -60,7 +60,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             ISecurityRepository securityRepository,
             IApiClientContextProvider apiClientContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            IContextProvider<ViewBasedAuthorizationQueryContext> viewBasedAuthorizationQueryContext)
             : base(
                 authorizationContextProvider,
                 authorizationFilteringProvider,
@@ -71,12 +72,12 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 sessionFactory,
                 apiClientContextProvider,
                 viewBasedSingleItemAuthorizationQuerySupport,
-                dataManagementResourceContextProvider)
+                dataManagementResourceContextProvider,
+                viewBasedAuthorizationQueryContext)
         {
             _next = next;
             _sessionFactory = sessionFactory;
             _authorizationFilterContextProvider = authorizationFilterContextProvider;
-            _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
         }
 
         /// <summary>

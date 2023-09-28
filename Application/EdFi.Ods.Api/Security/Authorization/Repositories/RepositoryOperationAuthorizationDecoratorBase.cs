@@ -46,6 +46,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         private readonly IApiClientContextProvider _apiClientContextProvider;
         private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+        private readonly IContextProvider<ViewBasedAuthorizationQueryContext> _viewBasedAuthorizationQueryContextProvider;
 
         private readonly Lazy<Dictionary<string, Actions>> _bitValuesByAction;
 
@@ -68,7 +69,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             ISessionFactory sessionFactory,
             IApiClientContextProvider apiClientContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            IContextProvider<ViewBasedAuthorizationQueryContext> viewBasedAuthorizationQueryContextProvider)
         {
             _authorizationContextProvider = authorizationContextProvider;
             _authorizationFilteringProvider = authorizationFilteringProvider;
@@ -79,6 +81,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             _apiClientContextProvider = apiClientContextProvider;
             _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+            _viewBasedAuthorizationQueryContextProvider = viewBasedAuthorizationQueryContextProvider;
 
             // Lazy initialization
             _bitValuesByAction = new Lazy<Dictionary<string, Actions>>(
@@ -288,7 +291,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             cmd.CommandText = sql;
 
             // Assign all parameters
-            cmd.Parameters.AddRange(
+            var parameters =
                 resultsWithPendingExistenceChecks.SelectMany(
                         x => x.FilterResults.Select(
                             f =>
@@ -301,7 +304,17 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                             }))
                     .GroupBy(x => x.ParameterName)
                     .Select(x => x.First())
-                    .ToArray());
+                    .ToArray();
+
+            cmd.Parameters.AddRange(parameters);
+
+            // Check for previous identical execution in current context
+            var viewBasedAuthorizationQueryContext = _viewBasedAuthorizationQueryContextProvider.Get();
+
+            if (IsRedundantAuthorizationForCurrentContext())
+            {
+                return;
+            }
 
             _viewBasedSingleItemAuthorizationQuerySupport.ApplyClaimsParametersToCommand(cmd, authorizationContext);
 
@@ -311,6 +324,13 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             if (result == 0)
             {
                 throw new EdFiSecurityException(GetAuthorizationFailureMessage());
+            }
+
+            // Save the SQL and parameters for this query execution into the current context (if context is present but uninitialized)
+            if (viewBasedAuthorizationQueryContext is { Sql: null })
+            {
+                viewBasedAuthorizationQueryContext.Sql = cmd.CommandText;
+                viewBasedAuthorizationQueryContext.Parameters = parameters;
             }
 
             string BuildExistenceCheckSql(AuthorizationStrategyFilterResults[] resultsWithPendingExistenceChecks)
@@ -416,6 +436,30 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 string claimEndpointValuesText = string.Join(", ", claimEndpointValuesForDisplayText);
 
                 return claimEndpointValuesText;
+            }
+
+            bool IsRedundantAuthorizationForCurrentContext()
+            {
+                // Has the context been set (indicating we're upserting) and is the current SQL already present? 
+                if (viewBasedAuthorizationQueryContext != null && viewBasedAuthorizationQueryContext.Sql == sql)
+                {
+                    // Check the parameters for equality
+                    for (int i = 0; i < parameters.Length; i++)
+                    {
+                        // Do parameter values differ?
+                        if (parameters[i].Value != viewBasedAuthorizationQueryContext.Parameters[i].Value)
+                        {
+                            // Authorization is not redundant
+                            return false;
+                        }
+                    }
+
+                    // SQL and parameters match - authorization is redundant
+                    return true;
+                }
+
+                // No context present, or SQL doesn't match -- not redundant
+                return false;
             }
         }
 

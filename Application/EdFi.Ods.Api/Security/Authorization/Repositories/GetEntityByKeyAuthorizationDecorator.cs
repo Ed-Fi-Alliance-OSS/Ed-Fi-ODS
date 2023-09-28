@@ -28,7 +28,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         where T : class, IHasIdentifier, IDateVersionedEntity
     {
         private readonly IGetEntityByKey<T> _next;
-        private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetEntityByKeyAuthorizationDecorator{T}"/> class. 
@@ -44,6 +43,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="apiClientContextProvider"></param>
         /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
         /// <param name="dataManagementResourceContextProvider"></param>
+        /// <param name="viewBasedAuthorizationQueryContextProvider"></param>
         public GetEntityByKeyAuthorizationDecorator(
             IGetEntityByKey<T> next,
             IAuthorizationContextProvider authorizationContextProvider,
@@ -55,7 +55,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             ISessionFactory sessionFactory,
             IApiClientContextProvider apiClientContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            IContextProvider<ViewBasedAuthorizationQueryContext> viewBasedAuthorizationQueryContextProvider)
             : base(
                 authorizationContextProvider,
                 authorizationFilteringProvider,
@@ -66,10 +67,10 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 sessionFactory,
                 apiClientContextProvider,
                 viewBasedSingleItemAuthorizationQuerySupport,
-                dataManagementResourceContextProvider)
+                dataManagementResourceContextProvider,
+                viewBasedAuthorizationQueryContextProvider)
         {
             _next = next;
-            _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
         }
 
         /// <summary>

@@ -29,7 +29,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
     {
         private readonly IUpdateEntity<T> _next;
         private readonly ISecurityRepository _securityRepository;
-        private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
 
         /// <summary>
         /// Initializes a new instance of UpdateEntityAuthorizationDecorator.
@@ -45,6 +44,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="apiClientContextProvider"></param>
         /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
         /// <param name="dataManagementResourceContextProvider"></param>
+        /// <param name="viewBasedAuthorizationQueryContext"></param>
         public UpdateEntityAuthorizationDecorator(
             IUpdateEntity<T> next,
             ISecurityRepository securityRepository,
@@ -56,7 +56,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             ISessionFactory sessionFactory,
             IApiClientContextProvider apiClientContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            IContextProvider<ViewBasedAuthorizationQueryContext> viewBasedAuthorizationQueryContext)
             : base(
                     authorizationContextProvider,
                     authorizationFilteringProvider,
@@ -67,11 +68,11 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     sessionFactory,
                     apiClientContextProvider,
                     viewBasedSingleItemAuthorizationQuerySupport,
-                    dataManagementResourceContextProvider)
+                    dataManagementResourceContextProvider,
+                    viewBasedAuthorizationQueryContext)
         {
             _next = next;
             _securityRepository = securityRepository;
-            _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
         }
 
         /// <summary>

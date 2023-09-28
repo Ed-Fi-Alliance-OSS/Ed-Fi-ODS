@@ -44,6 +44,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="apiClientContextProvider"></param>
         /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
         /// <param name="dataManagementResourceContextProvider"></param>
+        /// <param name="viewBasedAuthorizationQueryContext"></param>
         public CreateEntityAuthorizationDecorator(
             ICreateEntity<T> next,
             ISecurityRepository securityRepository,
@@ -55,7 +56,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             ISessionFactory sessionFactory,
             IApiClientContextProvider apiClientContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            IContextProvider<ViewBasedAuthorizationQueryContext> viewBasedAuthorizationQueryContext)
             : base(
                 authorizationContextProvider,
                 authorizationFilteringProvider,
@@ -66,7 +68,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 sessionFactory,
                 apiClientContextProvider,
                 viewBasedSingleItemAuthorizationQuerySupport,
-                dataManagementResourceContextProvider)
+                dataManagementResourceContextProvider,
+                viewBasedAuthorizationQueryContext)
         {
             _next = next;
             _securityRepository = securityRepository;
