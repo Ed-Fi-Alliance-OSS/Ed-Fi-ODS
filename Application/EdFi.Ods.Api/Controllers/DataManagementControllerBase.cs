@@ -19,6 +19,7 @@ using EdFi.Ods.Api.Infrastructure.Pipelines.GetMany;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Put;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
@@ -145,14 +146,14 @@ namespace EdFi.Ods.Api.Controllers
                 // See RFC 5789 - Conflicting modification (with "If-Match" header)
                 restError.Code = StatusCodes.Status412PreconditionFailed;
                 restError.Message = "Resource was modified by another consumer.";
-                restError.CorrelationId = (string) _logContextAccessor.GetValue("CorrelationId");
+                restError.CorrelationId = (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
             }
 
             return string.IsNullOrWhiteSpace(restError.Message)
                 ? (IActionResult)StatusCode(restError.Code ?? default)
                 : StatusCode(
                     restError.Code ?? default,
-                    ErrorTranslator.GetErrorMessage(restError.Message, (string)_logContextAccessor.GetValue("CorrelationId")));
+                    ErrorTranslator.GetErrorMessage(restError.Message, (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
         }
 
         protected abstract void MapAll(TGetByExampleRequest request, TEntityInterface specification);
@@ -185,7 +186,7 @@ namespace EdFi.Ods.Api.Controllers
                 return BadRequest(
                     ErrorTranslator.GetErrorMessage(
                         $"Limit must be omitted or set to a value between 0 and {_defaultPageLimitSize}.",
-                        (string)_logContextAccessor.GetValue("CorrelationId")));
+                        (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
             }
 
             var internalRequestAsResource = new TResourceModel();
@@ -319,7 +320,7 @@ namespace EdFi.Ods.Api.Controllers
                 return BadRequest(
                     ErrorTranslator.GetErrorMessage(
                         "Resource identifiers cannot be assigned by the client.",
-                        (string)_logContextAccessor.GetValue("CorrelationId")));
+                        (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
             }
 
             // Read the If-Match header and populate the resource DTO with an etag value.

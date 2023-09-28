@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Net;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Models;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Logging;
 using FakeItEasy;
 using NUnit.Framework;
@@ -35,7 +36,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling
             };
 
             var logContextAccessor = A.Fake<ILogContextAccessor>();
-            A.CallTo(() => logContextAccessor.GetValue("CorrelationId")).Returns("12345");
+            A.CallTo(() => logContextAccessor.GetValue(CorrelationConstants.LogContextKey)).Returns("12345");
 
             var exception = new Exception("Test exception");
             var restErrorProvider = new RESTErrorProvider(translators, logContextAccessor);
@@ -57,7 +58,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling
             var translators = new List<IExceptionTranslator> { new FakeExceptionTranslator(false, null) };
 
             var logContextAccessor = A.Fake<ILogContextAccessor>();
-            A.CallTo(() => logContextAccessor.GetValue("CorrelationId")).Returns("54321");
+            A.CallTo(() => logContextAccessor.GetValue(CorrelationConstants.LogContextKey)).Returns("54321");
 
             var exception = new Exception("Test exception");
             var restErrorProvider = new RESTErrorProvider(translators, logContextAccessor);
@@ -79,7 +80,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling
             var translators = new List<IExceptionTranslator> { new FakeExceptionTranslator(false, null) };
 
             var logContextAccessor = A.Fake<ILogContextAccessor>();
-            A.CallTo(() => logContextAccessor.GetValue("CorrelationId")).Returns(null);
+            A.CallTo(() => logContextAccessor.GetValue(CorrelationConstants.LogContextKey)).Returns(null);
 
             var exception = new Exception("Test exception");
             var restErrorProvider = new RESTErrorProvider(translators, logContextAccessor);

@@ -32,10 +32,12 @@
 									"\r",
 									"const response = pm.response.json();\r",
 									"\r",
-									"pm.test(\"Should not include a correlation id in response\", () => {\r",
-									"  pm.expect(response).to.deep.equal({\r",
+									"pm.test(\"Should include a server-generated correlation id in the error response\", () => {\r",
+									"  pm.expect(response).to.deep.include({\r",
 									"    \"message\": \"Unexpected character encountered while parsing value: }. Path '', line 0, position 0.\"\r",
 									"  });\r",
+									"\r",
+									"  pm.expect(response.correlationId).to.exist;\r",
 									"});\r",
 									""
 								],
@@ -5837,7 +5839,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",

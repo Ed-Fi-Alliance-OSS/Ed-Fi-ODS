@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Logging;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -24,6 +25,6 @@ public class ApiBehaviorOptionsConfigurator : IConfigureOptions<ApiBehaviorOptio
         options.InvalidModelStateResponseFactory = actionContext => 
             new BadRequestObjectResult(
                 ErrorTranslator.GetErrorMessage(actionContext.ModelState, 
-                (string)_logContextAccessor.GetValue("CorrelationId")));
+                (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
     }
 }

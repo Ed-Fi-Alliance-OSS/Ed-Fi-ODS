@@ -70,7 +70,7 @@ namespace EdFi.Ods.Features.Controllers
                 string message = e.Message.Replace($"{Environment.NewLine}    is used by ", " -> ")
                     .Replace(Environment.NewLine, " ");
 
-                return BadRequest(ErrorTranslator.GetErrorMessage(message, (string) _logContextAccessor.GetValue("CorrelationId")));
+                return BadRequest(ErrorTranslator.GetErrorMessage(message, (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
             }
         }
 

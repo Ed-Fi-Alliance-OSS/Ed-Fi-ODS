@@ -92,7 +92,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
                 return BadRequest(
                     ErrorTranslator.GetErrorMessage(
                         string.Join(" ", parameterMessages),
-                        (string)_logContextAccessor.GetValue("CorrelationId")));
+                        (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
             }
 
             // Set authorization context (should this be moved?)

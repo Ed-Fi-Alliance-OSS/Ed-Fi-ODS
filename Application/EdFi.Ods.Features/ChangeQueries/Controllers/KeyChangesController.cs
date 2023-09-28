@@ -95,7 +95,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
                 return BadRequest(
                     ErrorTranslator.GetErrorMessage(
                         string.Join(" ", parameterMessages),
-                        (string) _logContextAccessor.GetValue("CorrelationId")));
+                        (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
             }
 
             var queryParameters = new QueryParameters(urlQueryParametersRequest);
