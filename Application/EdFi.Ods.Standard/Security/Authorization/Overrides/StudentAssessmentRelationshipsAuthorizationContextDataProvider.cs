@@ -1,4 +1,9 @@
-﻿using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
+﻿// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentAssessmentAggregate.EdFi;
 using System;
@@ -19,13 +24,18 @@ namespace EdFi.Ods.Standard.Security.Authorization.Overrides
         public TContextData GetContextData(IStudentAssessment resource)
         {
             if (resource == null)
-                throw new ArgumentNullException("resource", "The 'studentAssessment' resource for obtaining authorization context data cannot be null.");
+            {
+                throw new ArgumentNullException(nameof(resource), "The 'studentAssessment' resource for obtaining authorization context data cannot be null.");
+            }
 
             var entity = resource as StudentAssessment;
 
-            var contextData = new TContextData();
-            contextData.SchoolId = entity.ReportedSchoolId; // Role name applied and not part of primary key
-            contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
+            var contextData = new TContextData 
+            { 
+                SchoolId = entity.ReportedSchoolId, // Role name applied and not part of primary key
+                StudentUSI = entity.StudentUSI == default ? null : entity.StudentUSI // Primary key property, USI
+            };
+
             return contextData;
         }
 
@@ -34,7 +44,7 @@ namespace EdFi.Ods.Standard.Security.Authorization.Overrides
         /// </summary>
         public string[] GetAuthorizationContextPropertyNames()
         {
-            var properties = new string[]
+            var properties = new[]
                  {
                     "ReportedSchoolId",
                     "StudentUSI",
@@ -51,6 +61,4 @@ namespace EdFi.Ods.Standard.Security.Authorization.Overrides
             return GetContextData((StudentAssessment)resource);
         }
     }
-
-
 }
