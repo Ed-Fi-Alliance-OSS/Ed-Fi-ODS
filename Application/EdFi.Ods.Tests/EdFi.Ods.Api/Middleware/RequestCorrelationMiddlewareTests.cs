@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Constants;
@@ -75,7 +76,7 @@ public class RequestCorrelationMiddlewareTests
     }
 
     [Test]
-    public async Task InvokeAsync_WithoutCorrelationId_DoesNotSetProperty()
+    public async Task InvokeAsync_WithoutCorrelationId_SetsPropertyToANewGuid()
     {
         // Arrange
         var context = new DefaultHttpContext();
@@ -89,6 +90,8 @@ public class RequestCorrelationMiddlewareTests
 
         // Assert
         A.CallTo(() => nextMiddleware(context)).MustHaveHappenedOnceExactly();
-        A.CallTo(() => logContextWriter.SetValue(A<string>.Ignored, A<object>.Ignored)).MustNotHaveHappened();
+        A.CallTo(() => logContextWriter.SetValue(CorrelationConstants.LogContextKey, A<object>.That.Matches(x => IsGuid(x)))).MustHaveHappenedOnceExactly();
     }
+
+    private static bool IsGuid(object x) => Guid.TryParse(x as string, out var ignored);
 }
