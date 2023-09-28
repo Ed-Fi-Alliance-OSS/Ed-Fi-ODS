@@ -131,7 +131,7 @@ namespace EdFi.Ods.Features.Controllers
                         return BadRequest(
                             ErrorTranslator.GetErrorMessage(
                                 "Limit must be omitted or set to a value between 1 and 100.",
-                                (string)_logContextAccessor.GetValue("CorrelationId")));
+                                (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
                     }
                 }
 
@@ -265,7 +265,7 @@ namespace EdFi.Ods.Features.Controllers
                         restError.Code ?? default,
                         ErrorTranslator.GetErrorMessage(
                             restError.Message,
-                            (string)_logContextAccessor.GetValue("CorrelationId")));
+                            (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
             }
 
             return Ok(json);

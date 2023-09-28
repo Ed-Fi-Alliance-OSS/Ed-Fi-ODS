@@ -5,6 +5,7 @@
 
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Middleware;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Logging;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
@@ -24,14 +25,14 @@ public class RequestCorrelationMiddlewareTests
         var logContextWriter = A.Fake<ILogContextAccessor>();
 
         var middleware = new RequestCorrelationMiddleware(logContextWriter);
-        context.Request.Headers["correlation-id"] = "123456";
+        context.Request.Headers[CorrelationConstants.HttpHeader] = "123456";
 
         // Act
         await middleware.InvokeAsync(context, nextMiddleware);
 
         // Assert
         A.CallTo(() => nextMiddleware(context)).MustHaveHappenedOnceExactly();
-        A.CallTo(() => logContextWriter.SetValue("CorrelationId", "123456")).MustHaveHappenedOnceExactly();
+        A.CallTo(() => logContextWriter.SetValue(CorrelationConstants.LogContextKey, "123456")).MustHaveHappenedOnceExactly();
     }
 
     [Test]
@@ -50,7 +51,7 @@ public class RequestCorrelationMiddlewareTests
 
         // Assert
         A.CallTo(() => nextMiddleware(context)).MustHaveHappenedOnceExactly();
-        A.CallTo(() => logContextWriter.SetValue("CorrelationId", "7890")).MustHaveHappenedOnceExactly();
+        A.CallTo(() => logContextWriter.SetValue(CorrelationConstants.LogContextKey, "7890")).MustHaveHappenedOnceExactly();
     }
 
     [Test]
@@ -62,7 +63,7 @@ public class RequestCorrelationMiddlewareTests
         var logContextWriter = A.Fake<ILogContextAccessor>();
 
         var middleware = new RequestCorrelationMiddleware(logContextWriter);
-        context.Request.Headers["correlation-id"] = "123456";
+        context.Request.Headers[CorrelationConstants.HttpHeader] = "123456";
         context.Request.QueryString = new QueryString("?correlationId=7890");
 
         // Act
@@ -70,7 +71,7 @@ public class RequestCorrelationMiddlewareTests
 
         // Assert
         A.CallTo(() => nextMiddleware(context)).MustHaveHappenedOnceExactly();
-        A.CallTo(() => logContextWriter.SetValue("CorrelationId", "123456")).MustHaveHappenedOnceExactly();
+        A.CallTo(() => logContextWriter.SetValue(CorrelationConstants.LogContextKey, "123456")).MustHaveHappenedOnceExactly();
     }
 
     [Test]

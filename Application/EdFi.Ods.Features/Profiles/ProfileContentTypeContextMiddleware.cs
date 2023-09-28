@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Models;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Metadata.Profiles;
@@ -195,7 +196,7 @@ public class ProfileContentTypeContextMiddleware
                     new RESTError()
                     {
                         Message = string.Format(messageFormat, headerName),
-                        CorrelationId = (string)_logContextAccessor.GetValue("CorrelationId")
+                        CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
                     }, Formatting.Indented, _jsonSerializerSettings);
                 
                 httpResponse.Headers.ContentLength = json.Length;

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Features.ChangeQueries.ActionResults;
@@ -41,7 +42,7 @@ namespace EdFi.Ods.Features.ChangeQueries.SnapshotContext
                 if (!context.HttpContext.Request.Method.EqualsIgnoreCase(HttpMethod.Get.ToString())
                     && !context.HttpContext.Request.Method.EqualsIgnoreCase(HttpMethod.Options.ToString()))
                 {
-                    context.Result = new SnapshotsAreReadOnlyResult((string) _logContextAccessor.GetValue("CorrelationId"));
+                    context.Result = new SnapshotsAreReadOnlyResult((string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey));
                     return Task.CompletedTask;
                 }
 

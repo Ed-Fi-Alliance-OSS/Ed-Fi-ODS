@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models;
@@ -157,7 +158,7 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
             var error = new RESTError()
             {
                 Message = errorMessage,
-                CorrelationId = (string) _logContextAccessor.GetValue("CorrelationId")
+                CorrelationId = (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
             };
 
             context.Result = new ObjectResult(error) { StatusCode = StatusCodes.Status403Forbidden };

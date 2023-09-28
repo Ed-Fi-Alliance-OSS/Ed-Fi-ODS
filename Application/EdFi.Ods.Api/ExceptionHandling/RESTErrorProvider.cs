@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using EdFi.Ods.Api.Models;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Logging;
 
 namespace EdFi.Ods.Api.ExceptionHandling
@@ -37,7 +38,7 @@ namespace EdFi.Ods.Api.ExceptionHandling
                 if (translator.TryTranslateMessage(exception, out error))
                 {
                     // Assign the correlation error (if it exists)
-                    error.CorrelationId = (string)_logContextAccessor.GetValue("CorrelationId");
+                    error.CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
 
                     return error;
                 }
@@ -50,7 +51,7 @@ namespace EdFi.Ods.Api.ExceptionHandling
                 Code = (int)HttpStatusCode.InternalServerError,
                 Type = "Internal Server Error",
                 Message = "An unexpected error occurred on the server.",
-                CorrelationId = (string)_logContextAccessor.GetValue("CorrelationId")
+                CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
             };
 
             return response;

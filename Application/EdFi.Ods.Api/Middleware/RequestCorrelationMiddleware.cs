@@ -3,7 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Threading.Tasks;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Logging;
 using Microsoft.AspNetCore.Http;
 
@@ -25,16 +27,20 @@ public class RequestCorrelationMiddleware : IMiddleware
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         // Capture correlation from the header, if present
-        if (context.Request.Headers.TryGetValue("correlation-id", out var headerValues))
+        if (context.Request.Headers.TryGetValue(CorrelationConstants.HttpHeader, out var headerValues))
         {
-            _logContextAccessor.SetValue("CorrelationId", headerValues[0]);
+            _logContextAccessor.SetValue(CorrelationConstants.LogContextKey, headerValues[0]);
         }
         else
         {
             // Capture correlation from the query string, if present
-            if (context.Request.Query.TryGetValue("correlationId", out var queryStringValues))
+            if (context.Request.Query.TryGetValue(CorrelationConstants.QueryString, out var queryStringValues))
             {
-                _logContextAccessor.SetValue("CorrelationId",  queryStringValues[0]);
+                _logContextAccessor.SetValue(CorrelationConstants.LogContextKey,  queryStringValues[0]);
+            }
+            else
+            {
+                _logContextAccessor.SetValue(CorrelationConstants.LogContextKey, Guid.NewGuid().ToString());
             }
         }
 
