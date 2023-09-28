@@ -27,13 +27,15 @@ namespace EdFi.Ods.Features.Redis
 
             var configurationOptions = StackExchange.Redis.ConfigurationOptions.Parse(
                 ApiSettings.Caching.Redis.Configuration);
-
-            builder.Register<IDistributedCache>((c, d) => new RedisCache(new RedisCacheOptions()
-            {
-                ConfigurationOptions = configurationOptions
-            }
-           ))
-           .SingleInstance();
+            
+            builder.Register<IDistributedCache>(
+                    (c, d) =>
+                    {
+                        var redisCacheOptions = new RedisCacheOptions() { ConfigurationOptions = configurationOptions };
+            
+                        return new RedisCache(redisCacheOptions);
+                    })
+                .SingleInstance();
         }
     }
 }
