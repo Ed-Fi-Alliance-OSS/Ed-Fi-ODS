@@ -3708,7 +3708,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentArtProgramAssociation
@@ -5762,7 +5762,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.GraduationPlanTypeDescriptor != source.GraduationPlanTypeDescriptor)
+                || !string.Equals(target.GraduationPlanTypeDescriptor, source.GraduationPlanTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.GraduationSchoolYear != source.GraduationSchoolYear)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {

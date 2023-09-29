@@ -10129,7 +10129,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CompetencyObjectiveAggregate
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (!keyStringComparer.Equals(target.Objective, source.Objective))
-                || (target.ObjectiveGradeLevelDescriptor != source.ObjectiveGradeLevelDescriptor))
+                || !string.Equals(target.ObjectiveGradeLevelDescriptor, source.ObjectiveGradeLevelDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CompetencyObjective
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -14611,13 +14611,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseTranscriptAggregate
 
             // Detect primary key changes
             if (
-                 (target.CourseAttemptResultDescriptor != source.CourseAttemptResultDescriptor)
+                 !string.Equals(target.CourseAttemptResultDescriptor, source.CourseAttemptResultDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (!keyStringComparer.Equals(target.CourseCode, source.CourseCode))
                 || (target.CourseEducationOrganizationId != source.CourseEducationOrganizationId)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.SchoolYear != source.SchoolYear)
                 || (target.StudentUniqueId != source.StudentUniqueId)
-                || (target.TermDescriptor != source.TermDescriptor))
+                || !string.Equals(target.TermDescriptor, source.TermDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CourseTranscript
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -15408,7 +15408,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CredentialAggregate
             // Detect primary key changes
             if (
                  (!keyStringComparer.Equals(target.CredentialIdentifier, source.CredentialIdentifier))
-                || (target.StateOfIssueStateAbbreviationDescriptor != source.StateOfIssueStateAbbreviationDescriptor))
+                || !string.Equals(target.StateOfIssueStateAbbreviationDescriptor, source.StateOfIssueStateAbbreviationDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on Credential
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -24130,11 +24130,11 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EvaluationRubricDimensionAggregate
                  (target.EvaluationRubricRating != source.EvaluationRubricRating)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
                 || (!keyStringComparer.Equals(target.ProgramEvaluationElementTitle, source.ProgramEvaluationElementTitle))
-                || (target.ProgramEvaluationPeriodDescriptor != source.ProgramEvaluationPeriodDescriptor)
+                || !string.Equals(target.ProgramEvaluationPeriodDescriptor, source.ProgramEvaluationPeriodDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (!keyStringComparer.Equals(target.ProgramEvaluationTitle, source.ProgramEvaluationTitle))
-                || (target.ProgramEvaluationTypeDescriptor != source.ProgramEvaluationTypeDescriptor)
+                || !string.Equals(target.ProgramEvaluationTypeDescriptor, source.ProgramEvaluationTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor))
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EvaluationRubricDimension
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -25244,7 +25244,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GeneralStudentProgramAssociationAggre
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on GeneralStudentProgramAssociation
@@ -25562,8 +25562,8 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradeAggregate
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
-                || (target.GradeTypeDescriptor != source.GradeTypeDescriptor)
-                || (target.GradingPeriodDescriptor != source.GradingPeriodDescriptor)
+                || !string.Equals(target.GradeTypeDescriptor, source.GradeTypeDescriptor, StringComparison.OrdinalIgnoreCase)
+                || !string.Equals(target.GradingPeriodDescriptor, source.GradingPeriodDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.GradingPeriodSchoolYear != source.GradingPeriodSchoolYear)
                 || (target.GradingPeriodSequence != source.GradingPeriodSequence)
                 || (!keyStringComparer.Equals(target.LocalCourseCode, source.LocalCourseCode))
@@ -26943,7 +26943,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradingPeriodAggregate
 
             // Detect primary key changes
             if (
-                 (target.GradingPeriodDescriptor != source.GradingPeriodDescriptor)
+                 !string.Equals(target.GradingPeriodDescriptor, source.GradingPeriodDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.PeriodSequence != source.PeriodSequence)
                 || (target.SchoolId != source.SchoolId)
                 || (target.SchoolYear != source.SchoolYear))
@@ -27234,7 +27234,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GraduationPlanAggregate
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.GraduationPlanTypeDescriptor != source.GraduationPlanTypeDescriptor)
+                || !string.Equals(target.GraduationPlanTypeDescriptor, source.GraduationPlanTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.GraduationSchoolYear != source.GraduationSchoolYear))
             {
                 // Disallow PK column updates on GraduationPlan
@@ -41976,7 +41976,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PersonAggregate
             // Detect primary key changes
             if (
                  (!keyStringComparer.Equals(target.PersonId, source.PersonId))
-                || (target.SourceSystemDescriptor != source.SourceSystemDescriptor))
+                || !string.Equals(target.SourceSystemDescriptor, source.SourceSystemDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on Person
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -42708,7 +42708,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PostSecondaryEventAggregate
             // Detect primary key changes
             if (
                  (target.EventDate != source.EventDate)
-                || (target.PostSecondaryEventCategoryDescriptor != source.PostSecondaryEventCategoryDescriptor)
+                || !string.Equals(target.PostSecondaryEventCategoryDescriptor, source.PostSecondaryEventCategoryDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on PostSecondaryEvent
@@ -44111,7 +44111,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramAggregate
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor))
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on Program
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -44996,11 +44996,11 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramEvaluationAggregate
             // Detect primary key changes
             if (
                  (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
-                || (target.ProgramEvaluationPeriodDescriptor != source.ProgramEvaluationPeriodDescriptor)
+                || !string.Equals(target.ProgramEvaluationPeriodDescriptor, source.ProgramEvaluationPeriodDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (!keyStringComparer.Equals(target.ProgramEvaluationTitle, source.ProgramEvaluationTitle))
-                || (target.ProgramEvaluationTypeDescriptor != source.ProgramEvaluationTypeDescriptor)
+                || !string.Equals(target.ProgramEvaluationTypeDescriptor, source.ProgramEvaluationTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor))
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ProgramEvaluation
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -45239,11 +45239,11 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramEvaluationElementAggregate
             if (
                  (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
                 || (!keyStringComparer.Equals(target.ProgramEvaluationElementTitle, source.ProgramEvaluationElementTitle))
-                || (target.ProgramEvaluationPeriodDescriptor != source.ProgramEvaluationPeriodDescriptor)
+                || !string.Equals(target.ProgramEvaluationPeriodDescriptor, source.ProgramEvaluationPeriodDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (!keyStringComparer.Equals(target.ProgramEvaluationTitle, source.ProgramEvaluationTitle))
-                || (target.ProgramEvaluationTypeDescriptor != source.ProgramEvaluationTypeDescriptor)
+                || !string.Equals(target.ProgramEvaluationTypeDescriptor, source.ProgramEvaluationTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor))
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ProgramEvaluationElement
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -45505,11 +45505,11 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramEvaluationObjectiveAggregate
             if (
                  (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
                 || (!keyStringComparer.Equals(target.ProgramEvaluationObjectiveTitle, source.ProgramEvaluationObjectiveTitle))
-                || (target.ProgramEvaluationPeriodDescriptor != source.ProgramEvaluationPeriodDescriptor)
+                || !string.Equals(target.ProgramEvaluationPeriodDescriptor, source.ProgramEvaluationPeriodDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (!keyStringComparer.Equals(target.ProgramEvaluationTitle, source.ProgramEvaluationTitle))
-                || (target.ProgramEvaluationTypeDescriptor != source.ProgramEvaluationTypeDescriptor)
+                || !string.Equals(target.ProgramEvaluationTypeDescriptor, source.ProgramEvaluationTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor))
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ProgramEvaluationObjective
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -48841,7 +48841,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ReportCardAggregate
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.GradingPeriodDescriptor != source.GradingPeriodDescriptor)
+                || !string.Equals(target.GradingPeriodDescriptor, source.GradingPeriodDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.GradingPeriodSchoolId != source.GradingPeriodSchoolId)
                 || (target.GradingPeriodSchoolYear != source.GradingPeriodSchoolYear)
                 || (target.GradingPeriodSequence != source.GradingPeriodSequence)
@@ -57267,7 +57267,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAbsenceEventAggregate
 
             // Detect primary key changes
             if (
-                 (target.AbsenceEventCategoryDescriptor != source.AbsenceEventCategoryDescriptor)
+                 !string.Equals(target.AbsenceEventCategoryDescriptor, source.AbsenceEventCategoryDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.EventDate != source.EventDate)
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
@@ -57858,7 +57858,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffEducationOrganizationAssignmentA
             if (
                  (target.BeginDate != source.BeginDate)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.StaffClassificationDescriptor != source.StaffClassificationDescriptor)
+                || !string.Equals(target.StaffClassificationDescriptor, source.StaffClassificationDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
                 // Disallow PK column updates on StaffEducationOrganizationAssignmentAssociation
@@ -58649,7 +58649,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffEducationOrganizationEmploymentA
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.EmploymentStatusDescriptor != source.EmploymentStatusDescriptor)
+                || !string.Equals(target.EmploymentStatusDescriptor, source.EmploymentStatusDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.HireDate != source.HireDate)
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
@@ -59003,7 +59003,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffLeaveAggregate
             // Detect primary key changes
             if (
                  (target.BeginDate != source.BeginDate)
-                || (target.StaffLeaveEventCategoryDescriptor != source.StaffLeaveEventCategoryDescriptor)
+                || !string.Equals(target.StaffLeaveEventCategoryDescriptor, source.StaffLeaveEventCategoryDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
                 // Disallow PK column updates on StaffLeave
@@ -59295,7 +59295,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffProgramAssociationAggregate
                  (target.BeginDate != source.BeginDate)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
                 // Disallow PK column updates on StaffProgramAssociation
@@ -59415,7 +59415,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffSchoolAssociationAggregate
 
             // Detect primary key changes
             if (
-                 (target.ProgramAssignmentDescriptor != source.ProgramAssignmentDescriptor)
+                 !string.Equals(target.ProgramAssignmentDescriptor, source.ProgramAssignmentDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.SchoolId != source.SchoolId)
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
@@ -61253,7 +61253,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAcademicRecordAggregate
                  (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.SchoolYear != source.SchoolYear)
                 || (target.StudentUniqueId != source.StudentUniqueId)
-                || (target.TermDescriptor != source.TermDescriptor))
+                || !string.Equals(target.TermDescriptor, source.TermDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on StudentAcademicRecord
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -63674,7 +63674,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentEducationOrganizatio
             // Detect primary key changes
             if (
                  (!keyStringComparer.Equals(target.AssessmentIdentifier, source.AssessmentIdentifier))
-                || (target.EducationOrganizationAssociationTypeDescriptor != source.EducationOrganizationAssociationTypeDescriptor)
+                || !string.Equals(target.EducationOrganizationAssociationTypeDescriptor, source.EducationOrganizationAssociationTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (!keyStringComparer.Equals(target.Namespace, source.Namespace))
                 || (!keyStringComparer.Equals(target.StudentAssessmentIdentifier, source.StudentAssessmentIdentifier))
@@ -64163,13 +64163,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCompetencyObjectiveAggregate
 
             // Detect primary key changes
             if (
-                 (target.GradingPeriodDescriptor != source.GradingPeriodDescriptor)
+                 !string.Equals(target.GradingPeriodDescriptor, source.GradingPeriodDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.GradingPeriodSchoolId != source.GradingPeriodSchoolId)
                 || (target.GradingPeriodSchoolYear != source.GradingPeriodSchoolYear)
                 || (target.GradingPeriodSequence != source.GradingPeriodSequence)
                 || (!keyStringComparer.Equals(target.Objective, source.Objective))
                 || (target.ObjectiveEducationOrganizationId != source.ObjectiveEducationOrganizationId)
-                || (target.ObjectiveGradeLevelDescriptor != source.ObjectiveGradeLevelDescriptor)
+                || !string.Equals(target.ObjectiveGradeLevelDescriptor, source.ObjectiveGradeLevelDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentCompetencyObjective
@@ -64664,7 +64664,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCTEProgramAssociationAggregate
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentCTEProgramAssociation
@@ -64979,7 +64979,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentDisciplineIncidentBehaviorAsso
 
             // Detect primary key changes
             if (
-                 (target.BehaviorDescriptor != source.BehaviorDescriptor)
+                 !string.Equals(target.BehaviorDescriptor, source.BehaviorDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (!keyStringComparer.Equals(target.IncidentIdentifier, source.IncidentIdentifier))
                 || (target.SchoolId != source.SchoolId)
                 || (target.StudentUniqueId != source.StudentUniqueId))
@@ -67514,7 +67514,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationResponsib
             if (
                  (target.BeginDate != source.BeginDate)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
-                || (target.ResponsibilityDescriptor != source.ResponsibilityDescriptor)
+                || !string.Equals(target.ResponsibilityDescriptor, source.ResponsibilityDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentEducationOrganizationResponsibilityAssociation
@@ -67820,7 +67820,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentHomelessProgramAssociationAggr
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentHomelessProgramAssociation
@@ -68538,7 +68538,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentInterventionAttendanceEventAgg
 
             // Detect primary key changes
             if (
-                 (target.AttendanceEventCategoryDescriptor != source.AttendanceEventCategoryDescriptor)
+                 !string.Equals(target.AttendanceEventCategoryDescriptor, source.AttendanceEventCategoryDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.EventDate != source.EventDate)
                 || (!keyStringComparer.Equals(target.InterventionIdentificationCode, source.InterventionIdentificationCode))
@@ -68687,7 +68687,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentLanguageInstructionProgramAsso
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentLanguageInstructionProgramAssociation
@@ -69119,7 +69119,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentMigrantEducationProgramAssocia
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentMigrantEducationProgramAssociation
@@ -69488,7 +69488,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentNeglectedOrDelinquentProgramAs
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentNeglectedOrDelinquentProgramAssociation
@@ -69958,7 +69958,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentProgramAssociationAggregate
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentProgramAssociation
@@ -70233,12 +70233,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentProgramAttendanceEventAggregat
 
             // Detect primary key changes
             if (
-                 (target.AttendanceEventCategoryDescriptor != source.AttendanceEventCategoryDescriptor)
+                 !string.Equals(target.AttendanceEventCategoryDescriptor, source.AttendanceEventCategoryDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.EventDate != source.EventDate)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentProgramAttendanceEvent
@@ -70386,11 +70386,11 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentProgramEvaluationAggregate
             if (
                  (target.EvaluationDate != source.EvaluationDate)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
-                || (target.ProgramEvaluationPeriodDescriptor != source.ProgramEvaluationPeriodDescriptor)
+                || !string.Equals(target.ProgramEvaluationPeriodDescriptor, source.ProgramEvaluationPeriodDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (!keyStringComparer.Equals(target.ProgramEvaluationTitle, source.ProgramEvaluationTitle))
-                || (target.ProgramEvaluationTypeDescriptor != source.ProgramEvaluationTypeDescriptor)
+                || !string.Equals(target.ProgramEvaluationTypeDescriptor, source.ProgramEvaluationTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentProgramEvaluation
@@ -71416,7 +71416,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSchoolAttendanceEventAggregate
 
             // Detect primary key changes
             if (
-                 (target.AttendanceEventCategoryDescriptor != source.AttendanceEventCategoryDescriptor)
+                 !string.Equals(target.AttendanceEventCategoryDescriptor, source.AttendanceEventCategoryDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.EventDate != source.EventDate)
                 || (target.SchoolId != source.SchoolId)
                 || (target.SchoolYear != source.SchoolYear)
@@ -71588,7 +71588,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSchoolFoodServiceProgramAssoci
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentSchoolFoodServiceProgramAssociation
@@ -72072,7 +72072,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSectionAttendanceEventAggregat
 
             // Detect primary key changes
             if (
-                 (target.AttendanceEventCategoryDescriptor != source.AttendanceEventCategoryDescriptor)
+                 !string.Equals(target.AttendanceEventCategoryDescriptor, source.AttendanceEventCategoryDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.EventDate != source.EventDate)
                 || (!keyStringComparer.Equals(target.LocalCourseCode, source.LocalCourseCode))
                 || (target.SchoolId != source.SchoolId)
@@ -72341,7 +72341,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSpecialEducationProgramAssocia
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentSpecialEducationProgramAssociation
@@ -73131,7 +73131,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSpecialEducationProgramEligibi
                  (target.ConsentToEvaluationReceivedDate != source.ConsentToEvaluationReceivedDate)
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentSpecialEducationProgramEligibilityAssociation
@@ -73379,7 +73379,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentTitleIPartAProgramAssociationA
                 || (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (target.ProgramEducationOrganizationId != source.ProgramEducationOrganizationId)
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentTitleIPartAProgramAssociation
@@ -74423,7 +74423,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyProgramAssociationAggregate
                  (target.EducationOrganizationId != source.EducationOrganizationId)
                 || (!keyStringComparer.Equals(target.Namespace, source.Namespace))
                 || (!keyStringComparer.Equals(target.ProgramName, source.ProgramName))
-                || (target.ProgramTypeDescriptor != source.ProgramTypeDescriptor)
+                || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier)))
             {
                 // Disallow PK column updates on SurveyProgramAssociation
