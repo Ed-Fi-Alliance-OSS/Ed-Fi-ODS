@@ -6,28 +6,26 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
-using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
-using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security;
+using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Security.DataAccess.Repositories;
-using NHibernate;
 
 namespace EdFi.Ods.Api.Security.Authorization.Repositories
 {
     /// <summary>
     /// Authorizes calls to the "Update" repository method.
     /// </summary>
-    /// <typeparam name="T">The Type of entity being updated.</typeparam>
-    public class UpdateEntityAuthorizationDecorator<T>
-        : RepositoryOperationAuthorizationDecoratorBase<T>,
-          IUpdateEntity<T>
-        where T : class, IHasIdentifier, IDateVersionedEntity
+    /// <typeparam name="TEntity">The Type of entity being updated.</typeparam>
+    public class UpdateEntityAuthorizationDecorator<TEntity>
+        : RepositoryOperationAuthorizationDecoratorBase<TEntity>,
+          IUpdateEntity<TEntity>
+        where TEntity : class, IHasIdentifier, IDateVersionedEntity
     {
-        private readonly IUpdateEntity<T> _next;
+        private readonly IUpdateEntity<TEntity> _next;
         private readonly ISecurityRepository _securityRepository;
 
         /// <summary>
@@ -37,39 +35,26 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="securityRepository">Provides access to the repository where the claims/actions are stored.</param>
         /// <param name="authorizationContextProvider">Provides access to the authorization context, such as the resource and action.</param>
         /// <param name="authorizationFilteringProvider"></param>
-        /// <param name="authorizationFilterDefinitionProvider"></param>
-        /// <param name="explicitObjectValidators"></param>
         /// <param name="authorizationBasisMetadataSelector"></param>
-        /// <param name="sessionFactory"></param>
         /// <param name="apiClientContextProvider"></param>
-        /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
         /// <param name="dataManagementResourceContextProvider"></param>
-        /// <param name="viewBasedAuthorizationQueryContext"></param>
+        /// <param name="entityAuthorizer"></param>
         public UpdateEntityAuthorizationDecorator(
-            IUpdateEntity<T> next,
+            IUpdateEntity<TEntity> next,
             ISecurityRepository securityRepository,
             IAuthorizationContextProvider authorizationContextProvider,
             IAuthorizationFilteringProvider authorizationFilteringProvider,
-            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
-            IExplicitObjectValidator[] explicitObjectValidators,
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
-            ISessionFactory sessionFactory,
             IApiClientContextProvider apiClientContextProvider,
-            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
             IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
-            IContextProvider<ViewBasedAuthorizationQueryContext> viewBasedAuthorizationQueryContext)
+            IEntityAuthorizer entityAuthorizer)
             : base(
-                    authorizationContextProvider,
-                    authorizationFilteringProvider,
-                    authorizationFilterDefinitionProvider,
-                    explicitObjectValidators,
-                    authorizationBasisMetadataSelector,
-                    securityRepository,
-                    sessionFactory,
-                    apiClientContextProvider,
-                    viewBasedSingleItemAuthorizationQuerySupport,
-                    dataManagementResourceContextProvider,
-                    viewBasedAuthorizationQueryContext)
+                authorizationContextProvider,
+                authorizationFilteringProvider,
+                authorizationBasisMetadataSelector,
+                apiClientContextProvider,
+                dataManagementResourceContextProvider,
+                entityAuthorizer)
         {
             _next = next;
             _securityRepository = securityRepository;
@@ -80,7 +65,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// </summary>
         /// <param name="persistentEntity">An entity instance that has all the primary key properties assigned with values.</param>
         /// <returns>The specified entity if found; otherwise null.</returns>
-        public async Task UpdateAsync(T persistentEntity, CancellationToken cancellationToken)
+        public async Task UpdateAsync(TEntity persistentEntity, CancellationToken cancellationToken)
         {
             // POST comes in as an "Upsert", but at this point we know it's actually about to update an entity,
             // so we'll use the more explicit action for authorization.
