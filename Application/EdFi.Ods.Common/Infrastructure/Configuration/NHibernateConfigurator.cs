@@ -14,6 +14,8 @@ using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Providers;
+using EdFi.Ods.Common.Security.Authorization;
+using EdFi.Ods.Common.Security.Claims;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
@@ -34,14 +36,20 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
         private readonly IDictionary<string, HbmJoinedSubclass[]> _extensionDescriptorByEntityName;
         private readonly IOrmMappingFileDataProvider _ormMappingFileDataProvider;
         private readonly IEnumerable<IEntityValidator> _entityValidators;
+        private readonly Func<IEntityAuthorizer> _entityAuthorizerResolver;
+        private readonly IAuthorizationContextProvider _authorizationContextProvider;
 
         public NHibernateConfigurator(IEnumerable<IExtensionNHibernateConfigurationProvider> extensionConfigurationProviders,
             IEnumerable<INHibernateBeforeBindMappingActivity> beforeBindMappingActivities,
             IEnumerable<INHibernateConfigurationActivity> configurationActivities,
             IOrmMappingFileDataProvider ormMappingFileDataProvider,
-            IEnumerable<IEntityValidator> entityValidators)
+            IEnumerable<IEntityValidator> entityValidators,
+            Func<IEntityAuthorizer> entityAuthorizerResolver,
+            IAuthorizationContextProvider authorizationContextProvider)
         {
             _entityValidators = entityValidators;
+            _entityAuthorizerResolver = entityAuthorizerResolver;
+            _authorizationContextProvider = authorizationContextProvider;
 
             _ormMappingFileDataProvider = Preconditions.ThrowIfNull(
                 ormMappingFileDataProvider, nameof(ormMappingFileDataProvider));
@@ -114,7 +122,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                 configurationActivity.Execute(configuration);
             }
 
-            configuration.AddCreateDateHooks(_entityValidators);
+            configuration.AddCreateDateHooks(_entityValidators, _entityAuthorizerResolver, _authorizationContextProvider);
 
             return configuration;
 

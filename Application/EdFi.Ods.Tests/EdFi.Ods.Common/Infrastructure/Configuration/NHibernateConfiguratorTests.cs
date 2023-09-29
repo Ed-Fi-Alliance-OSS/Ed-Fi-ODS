@@ -16,6 +16,8 @@ using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Providers.Criteria;
+using EdFi.Ods.Common.Security.Authorization;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.TestFixture;
 using FakeItEasy;
 using NHibernate.Mapping;
@@ -43,6 +45,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Configuration
                 var beforeBindMappingActivities = A.Fake<IEnumerable<INHibernateBeforeBindMappingActivity>>();
                 var configurationActivities = A.Fake<IEnumerable<INHibernateConfigurationActivity>>();
                 var entityValidators = A.Fake<IEnumerable<IEntityValidator>>();
+                var entityAuthorizer = A.Fake<IEntityAuthorizer>();
+                var authorizationContextProvider = A.Fake<IAuthorizationContextProvider>();
 
                 var assembliesProvider = A.Fake<AssembliesProvider>();
                 DatabaseEngine engine = DatabaseEngine.SqlServer;
@@ -53,7 +57,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Configuration
                     beforeBindMappingActivities,
                     configurationActivities,
                     ormMappingFileDataProvider,
-                    entityValidators);
+                    entityValidators,
+                    () => entityAuthorizer,
+                    authorizationContextProvider);
 
                 _configuration = nHibernateConfigurator.Configure();
 
