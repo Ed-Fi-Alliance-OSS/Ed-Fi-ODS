@@ -11033,6 +11033,291 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "KeyChanges",
+					"item": [
+						{
+							"name": "Setup",
+							"item": [
+								{
+									"name": "Create Session",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:session:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"schoolYearTypeReference\": {\r\n        \"schoolYear\": 2022\r\n    },\r\n    \"sessionName\": \"SESSION ONE\",\r\n    \"beginDate\": \"2021-08-23\",\r\n    \"endDate\": \"2021-12-17\",\r\n    \"termDescriptor\": \"uri://ed-fi.org/TermDescriptor#Fall Semester\",\r\n    \"totalInstructionalDays\": 81,\r\n    \"academicWeeks\": [],\r\n    \"gradingPeriods\": [\r\n        {\r\n            \"gradingPeriodReference\": {\r\n                \"schoolId\": 255901001,\r\n                \"schoolYear\": 2022,\r\n                \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#First Six Weeks\",\r\n                \"periodSequence\": 1\r\n            }\r\n        }\r\n    ]\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sessions",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sessions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Update Key to Unauthorized Target",
+							"item": [
+								{
+									"name": "Change Session Key to unauthorized SchoolId",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(403);\r",
+													"});\r",
+													"\r",
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Message should indicate that no relationships have been established between the caller and the SchoolId\", () => {\r",
+													"  pm.expect(response.message).to.contain(\"No relationships have been established\");\r",
+													"  pm.expect(response.message).to.contain(\"and the resource item's 'SchoolId' value\");\r",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901044\r\n    },\r\n    \"schoolYearTypeReference\": {\r\n        \"schoolYear\": 2022\r\n    },\r\n    \"sessionName\": \"SESSION ONE\",\r\n    \"beginDate\": \"2021-08-23\",\r\n    \"endDate\": \"2021-12-17\",\r\n    \"termDescriptor\": \"uri://ed-fi.org/TermDescriptor#Fall Semester\",\r\n    \"totalInstructionalDays\": 81,\r\n    \"academicWeeks\": [],\r\n    \"gradingPeriods\": [\r\n        {\r\n            \"gradingPeriodReference\": {\r\n                \"schoolId\": 255901044,\r\n                \"schoolYear\": 2022,\r\n                \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#First Six Weeks\",\r\n                \"periodSequence\": 1\r\n            }\r\n        }\r\n    ]\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sessions/{{known:session:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sessions",
+												"{{known:session:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Session By Id",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const item = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Resource key was not changed\", () => {\r",
+													"  pm.expect(item.schoolReference.schoolId).to.equal(255901001);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sessions/{{known:session:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sessions",
+												"{{known:session:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Session",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sessions/{{known:session:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sessions",
+												"{{known:session:id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Teardown",
+							"item": [
+								{
+									"name": "Clean up Environment Variables",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+													"  .each(k => pm.environment.unset(k)).value();"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
 				}
 			]
 		}
