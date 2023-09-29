@@ -29,9 +29,7 @@ namespace EdFi.Admin.DataAccess.Models
         public string ClaimSetName { get; set; }
 
         public virtual Vendor Vendor { get; set; }
-
-        public virtual OdsInstance OdsInstance { get; set; }
-
+        
         [StringLength(255)]
         [Required]
         public string OperationalContextUri { get; set; }
