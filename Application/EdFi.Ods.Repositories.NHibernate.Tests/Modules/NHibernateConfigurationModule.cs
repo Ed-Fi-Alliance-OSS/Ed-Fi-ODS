@@ -9,6 +9,8 @@ using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Providers;
 using NHibernate;
 using System;
+using EdFi.Ods.Api.Security.Authorization.Repositories;
+using EdFi.Ods.Common.Security.Authorization;
 using NHibernate.Cfg;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
@@ -17,6 +19,10 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<EntityAuthorizer>()
+                .As<IEntityAuthorizer>()
+                .SingleInstance();
+
             builder.RegisterType<OrmMappingFileDataProvider>()
                 .WithParameter(new NamedParameter("assemblyName", OrmMappingFileConventions.OrmMappingAssembly))
                 .As<IOrmMappingFileDataProvider>()
