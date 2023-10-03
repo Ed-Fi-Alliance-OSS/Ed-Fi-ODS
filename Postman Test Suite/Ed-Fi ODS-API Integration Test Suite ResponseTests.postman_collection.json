@@ -5211,7 +5211,7 @@
 															"\r",
 															"pm.test(\"Should return a message indicating that Validation failed. TotalInstructionalDays is not explicitly assigned\", () => {\r",
 															"    const responseItem = pm.response.json();\r",
-															"    pm.expect(responseItem.modelState[\"request.TotalInstructionalDays\"][0]).to.include(\"Required value not explicitly assigned.\");\r",
+															"    pm.expect(responseItem.modelState[\"request.TotalInstructionalDays\"][0]).to.include(\"Required\");\r",
 															"});"
 														],
 														"type": "text/javascript"

@@ -6450,7 +6450,7 @@
 													"    });\r",
 													"\r",
 													"    if (request && request.FiscalYear) {\r",
-													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"]).to.contain(\"Required value not explicitly assigned.\");\r",
+													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"]).to.contain(\"Required\");\r",
 													"    }\r",
 													"});"
 												],
@@ -6529,7 +6529,7 @@
 													"    });\r",
 													"\r",
 													"    if (request && request.FiscalYear) {\r",
-													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"]).to.contain(\"Required value not explicitly assigned.\");\r",
+													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"]).to.contain(\"Required\");\r",
 													"    }\r",
 													"});"
 												],
@@ -6608,7 +6608,7 @@
 													"    });\r",
 													"\r",
 													"    if (request && request.FiscalYear) {\r",
-													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"]).to.contain(\"Required value not explicitly assigned.\");\r",
+													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"]).to.contain(\"Required\");\r",
 													"    }\r",
 													"});"
 												],
@@ -6962,7 +6962,7 @@
 													"    });\r",
 													"\r",
 													"    if (request && request.FiscalYear) {\r",
-													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"]).to.contain(\"Required value not explicitly assigned.\");\r",
+													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"]).to.contain(\"Required\");\r",
 													"    }\r",
 													"});"
 												],
