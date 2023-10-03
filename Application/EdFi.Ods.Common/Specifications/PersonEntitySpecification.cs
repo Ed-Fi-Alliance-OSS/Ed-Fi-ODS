@@ -13,19 +13,12 @@ namespace EdFi.Ods.Common.Specifications
     public class PersonEntitySpecification : IPersonEntitySpecification
     {
         private readonly IPersonTypesProvider _personTypesProvider;
-
-        private static readonly string[] _suffixes;
-
+        
         public PersonEntitySpecification(IPersonTypesProvider personTypesProvider)
         {
             _personTypesProvider = personTypesProvider;
         }
-
-        static PersonEntitySpecification()
-        {
-            _suffixes = new[] { "USI", "UniqueId" };
-        }
-
+        
         /// <inheritdoc cref="IPersonEntitySpecification.IsPersonEntity(System.Type)" />
         public bool IsPersonEntity(Type type)
         {
@@ -47,14 +40,13 @@ namespace EdFi.Ods.Common.Specifications
             }
 
             // TODO: Embedded convention (Person identifiers can end with "USI" or "UniqueId")
-            return _suffixes.Any(
-                    s => propertyName.EndsWith(s) 
-                        && _personTypesProvider.PersonTypes.Any(
-                            pt => 
-                                // Person type was either not specified, or matches what was specified
-                                (personType == null || personType == pt) 
-                                // Person type appears immediately before the detected suffix
-                                && propertyName.LastIndexOf(pt, StringComparison.Ordinal) == propertyName.Length - (pt.Length + s.Length)));
+            if (propertyName.TryTrimSuffix("UniqueId", out string entityName)
+                || propertyName.TryTrimSuffix("USI", out entityName))
+            {
+                return IsPersonEntity(entityName) && (personType == null || entityName.EqualsIgnoreCase(personType));
+            }
+
+            return false;
         }
 
         /// <inheritdoc cref="IPersonEntitySpecification.GetUniqueIdPersonType" />

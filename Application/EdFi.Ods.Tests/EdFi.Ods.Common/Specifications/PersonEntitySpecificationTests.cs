@@ -113,66 +113,13 @@ public class PersonEntitySpecificationTests
 
         // Act
         // Assert
-        Should.Throw<ArgumentException>(() => _personEntitySpecification.IsPersonIdentifier("PersonType2UniqueId", "NotAPersonType"))
+        Should.Throw<ArgumentException>(() => _personEntitySpecification.IsPersonIdentifier("NotAUniqueId", "NotAPersonType"))
             .Message.ShouldBe($"'NotAPersonType' is not a supported person type.");
     }
 
-    [TestCase("PersonType1USIEmbedded")]
-    [TestCase("PersonType1UniqueIdEmbedded")]
-    [TestCase("SomethingElseCompletely")]
-    public void IsPersonIdentifier_ShouldReturnFalse_WhenPropertyNameDoesNotMatchConventionForASupportedSuffix(string propertyName)
-    {
-        // Arrange
-
-        // Act
-        // Assert
-        var result = _personEntitySpecification.IsPersonIdentifier(propertyName);
-
-        result.ShouldBeFalse();
-    }
-
-    [TestCase("NotAnUSI")]
     [TestCase("NotAUniqueId")]
-    public void IsPersonIdentifier_ShouldReturnFalse_WhenPropertyNameDoesNotMatchConventionForAValidPersonType(string propertyName)
-    {
-        // Arrange
-
-        // Act
-        // Assert
-        var result = _personEntitySpecification.IsPersonIdentifier(propertyName, "PersonType1");
-
-        result.ShouldBeFalse();
-    }
-
-    [TestCase("PersonType1USI", "PersonType1")]
-    [TestCase("PersonType1UniqueId", "PersonType1")]
-    public void IsPersonIdentifier_ShouldReturnTrue_WhenPropertyNameMatchesConventionForAValidSuppliedPersonType(string propertyName, string personType)
-    {
-        // Arrange
-
-        // Act
-        // Assert
-        var result = _personEntitySpecification.IsPersonIdentifier(propertyName, personType);
-
-        result.ShouldBeTrue();
-    }
-    
-    [TestCase("PersonType1USI", "PersonType2")]
-    [TestCase("PersonType1UniqueId", "PersonType2")]
-    public void IsPersonIdentifier_ShouldReturnTrue_WhenValidPropertyNameDoesNotMatchTheSuppliedPersonType(string propertyName, string personType)
-    {
-        // Arrange
-
-        // Act
-        // Assert
-        var result = _personEntitySpecification.IsPersonIdentifier(propertyName, personType);
-
-        result.ShouldBeFalse();
-    }
-
-    [TestCase("PersonType1USI")]
-    [TestCase("PersonType1UniqueId")]
-    public void IsPersonIdentifier_ShouldReturnTrue_WhenPropertyNameMatchesConventionForAValidUnsuppliedPersonType(string propertyName)
+    [TestCase("SomethingElseCompletely")]
+    public void IsPersonIdentifier_ShouldReturnFalse_WhenPropertyNameDoesNotMatchConvention(string propertyName)
     {
         // Arrange
 
@@ -180,33 +127,19 @@ public class PersonEntitySpecificationTests
         // Assert
         var result = _personEntitySpecification.IsPersonIdentifier(propertyName);
 
-        result.ShouldBeTrue();
+        result.ShouldBeFalse();
     }
-    
-    [TestCase("SmartPersonType1USI")]
-    [TestCase("SmartPersonType1UniqueId")]
-    public void IsPersonIdentifier_ShouldReturnTrue_WhenPropertyNameMatchesConventionWithARoleNameForAValidUnsuppliedPersonType(string propertyName)
+
+    [Test]
+    public void IsPersonIdentifier_ShouldReturnFalse_WhenPropertyNameDoesNotMatchConventionForAValidPersonType()
     {
         // Arrange
 
         // Act
         // Assert
-        var result = _personEntitySpecification.IsPersonIdentifier(propertyName);
+        var result = _personEntitySpecification.IsPersonIdentifier("NotAUniqueId", "PersonType1");
 
-        result.ShouldBeTrue();
-    }
-    
-    [TestCase("SmartPersonType1USI", "PersonType1")]
-    [TestCase("SmartPersonType1UniqueId", "PersonType1")]
-    public void IsPersonIdentifier_ShouldReturnTrue_WhenPropertyNameMatchesConventionWithARoleNameForAValidSuppliedPersonType(string propertyName, string personType)
-    {
-        // Arrange
-
-        // Act
-        // Assert
-        var result = _personEntitySpecification.IsPersonIdentifier(propertyName, personType);
-
-        result.ShouldBeTrue();
+        result.ShouldBeFalse();
     }
 
     [TestCase("PersonType1UniqueId")]
