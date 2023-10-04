@@ -9,8 +9,8 @@ namespace EdFi.Ods.Common.Specifications;
 
 public static class UniqueIdConventions
 {
-    public const string USI = "USI";
-    public const string UniqueId = "UniqueId";
+    public const string UsiSuffix = "USI";
+    public const string UniqueIdSuffix = "UniqueId";
 
     /// <summary>
     /// Indicates whether the supplied property name matches the USI naming convention.
@@ -22,22 +22,22 @@ public static class UniqueIdConventions
     {
         if (personEntityName == null)
         {
-            return propertyName.EndsWithIgnoreCase(USI);
+            return propertyName.EndsWith(UsiSuffix);
         }
         
         return propertyName.StartsWithIgnoreCase(personEntityName)
-            && propertyName.EndsWithIgnoreCase(USI)
-            && propertyName.Length == (personEntityName.Length + USI.Length);
+            && propertyName.EndsWith(UsiSuffix)
+            && propertyName.Length == (personEntityName.Length + UsiSuffix.Length);
     }
 
     public static string RemoveUsiSuffix(string propertyName)
     {
-        return propertyName.ReplaceSuffix(USI, string.Empty);
+        return propertyName.ReplaceSuffix(UsiSuffix, string.Empty);
     }
 
     public static string GetUsiPropertyName(string uniqueIdColumnName)
     {
-        return uniqueIdColumnName.ReplaceSuffix(UniqueId, USI);
+        return uniqueIdColumnName.ReplaceSuffix(UniqueIdSuffix, UsiSuffix);
     }
 
     /// <summary>
@@ -50,21 +50,21 @@ public static class UniqueIdConventions
     {
         if (personEntityName == null)
         {
-            return propertyName.EndsWithIgnoreCase(UniqueId);
+            return propertyName.EndsWith(UniqueIdSuffix);
         }
 
         return propertyName.StartsWithIgnoreCase(personEntityName)
-            && propertyName.EndsWithIgnoreCase(UniqueId)
-            && propertyName.Length == (personEntityName.Length + UniqueId.Length);
+            && propertyName.EndsWith(UniqueIdSuffix)
+            && propertyName.Length == (personEntityName.Length + UniqueIdSuffix.Length);
     }
 
     public static string RemoveUniqueIdSuffix(string propertyName)
     {
-        return propertyName.ReplaceSuffix(UniqueId, string.Empty);
+        return propertyName.ReplaceSuffix(UniqueIdSuffix, string.Empty);
     }
 
     public static string GetUniqueIdPropertyName(string usiPropertyName)
     {
-        return usiPropertyName.ReplaceSuffix(USI, UniqueId);
+        return usiPropertyName.ReplaceSuffix(UsiSuffix, UniqueIdSuffix);
     }
 }
