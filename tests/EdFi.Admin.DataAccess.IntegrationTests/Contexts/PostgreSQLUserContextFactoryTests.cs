@@ -11,9 +11,7 @@ using EdFi.Ods.Api.Configuration;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
-using System.Data.Entity;
 using System.Linq;
-using EdFi.Admin.DataAccess.DbConfigurations;
 
 namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
 {
@@ -26,7 +24,6 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
             var connectionStringsProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();
             A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns("Host=localhost; Port=5432; Username=postgres; Database=EdFi_Admin_Test; Application Name=EdFi.Ods.WebApi;");
 
-            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(DatabaseEngine.Postgres));
             var context = new UsersContextFactory(connectionStringsProvider, DatabaseEngine.Postgres)
                 .CreateContext();
 

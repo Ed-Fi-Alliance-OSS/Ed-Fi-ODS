@@ -10,8 +10,7 @@ using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Configuration;
 using NUnit.Framework;
 using Shouldly;
-using EdFi.Admin.DataAccess.DbConfigurations;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Admin.DataAccess.UnitTests.Contexts
 {
@@ -26,7 +25,6 @@ namespace EdFi.Admin.DataAccess.UnitTests.Contexts
             var connectionStringsProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();
             A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns("Server=.;Database=EdFi_Admin_Test;Trusted_Connection=true;");
 
-            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(DatabaseEngine.Postgres));
             new UsersContextFactory(connectionStringsProvider, DatabaseEngine.SqlServer)
                 .CreateContext()
                 .ShouldBeOfType<SqlServerUsersContext>()
@@ -39,7 +37,6 @@ namespace EdFi.Admin.DataAccess.UnitTests.Contexts
             var connectionStringsProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();
             A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns("Host=localhost; Port=5432; Username=postgres; Database=EdFi_Admin_Test; Application Name=EdFi.Ods.WebApi;");
 
-            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(DatabaseEngine.Postgres));
             new UsersContextFactory(connectionStringsProvider, DatabaseEngine.Postgres)
                 .CreateContext()
                 .ShouldBeOfType<PostgresUsersContext>()

@@ -43,14 +43,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Runtime.Loader;
 using System.Security.Claims;
-using EdFi.Admin.DataAccess.DbConfigurations;
 using EdFi.Ods.Api.Jobs.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration.Sections;
@@ -372,9 +371,7 @@ namespace EdFi.Ods.Api.Startup
                             .GetResourceModel());
 
                 EntityExtensionsFactory.Instance = Container.Resolve<IEntityExtensionsFactory>();
-
-                DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(Container.Resolve<DatabaseEngine>()));
-
+                
                 // Set NHibernate to use Autofac to resolve its dependencies
                 NHibernate.Cfg.Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(Container);
             }

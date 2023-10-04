@@ -7,6 +7,7 @@ using System;
 using System.Configuration;
 using System.Data.SqlClient;
 using EdFi.Common.Extensions;
+using Microsoft.Data.SqlClient;
 
 namespace EdFi.Admin.DataAccess.Utils
 {

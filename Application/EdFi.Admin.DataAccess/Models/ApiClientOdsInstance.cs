@@ -5,12 +5,15 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Admin.DataAccess.Models
 {
     /// <summary>
     /// Class representing the association of an Api Client with an Ods Instance
     /// </summary>
+    [Index("ApiClientId")]
+    [Index("OdsInstanceId")]
     public class ApiClientOdsInstance
     {
         /// <summary>
@@ -19,13 +22,9 @@ namespace EdFi.Admin.DataAccess.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ApiClientOdsInstanceId { get; set; }
-
-        [Required]
-        [Index(IsUnique = true, Order = 1)]
-        public ApiClient ApiClient { get; set; }
-
-        [Required]
-        [Index(IsUnique = true, Order = 2)]
-        public OdsInstance OdsInstance { get; set; }
+        
+        public virtual ApiClient ApiClient { get; set; }
+        
+        public virtual OdsInstance OdsInstance { get; set; }
     }
 }

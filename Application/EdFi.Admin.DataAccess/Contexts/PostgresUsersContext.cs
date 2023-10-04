@@ -3,68 +3,40 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Data.Entity;
-using System.Data.Entity.Core.Metadata.Edm;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.ModelConfiguration.Conventions;
+using System;
+using System.Linq;
 using EdFi.Admin.DataAccess.Models;
-using EdFi.Common;
 using EdFi.Common.Utils.Extensions;
+using Microsoft.EntityFrameworkCore;
+using EdFi.Admin.DataAccess.Extensions;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Npgsql;
 
 namespace EdFi.Admin.DataAccess.Contexts
 {
     public class PostgresUsersContext : UsersContext
     {
-        public PostgresUsersContext(string connectionString) : base(connectionString) { }
-
-        protected override void ApplyProviderSpecificMappings(DbModelBuilder modelBuilder)
+        public PostgresUsersContext(DbContextOptions options) : base(options) { }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // The column name in this linking table had to be shortened for Postgres
-            modelBuilder.Entity<ApiClient>()
-                .HasMany(t => t.ApplicationEducationOrganizations)
-                .WithMany(t => t.Clients)
-                .Map(
-                    m =>
-                    {
-                        m.ToTable("ApiClientApplicationEducationOrganizations", "dbo");
-                        m.MapLeftKey("ApiClient_ApiClientId");
-                        m.MapRightKey("ApplicationEdOrg_ApplicationEdOrgId");
-                    });
+            base.OnModelCreating(modelBuilder);
+            
+            modelBuilder.Model.GetEntityTypes().ForEach(entityType =>
+                entityType.SetSchema("dbo"));
+            
+            modelBuilder.MakeDbObjectNamesLowercase();
+            
+            modelBuilder.Model.GetEntityTypes().Single(e => e.ClrType.Name == nameof(ApiClientApplicationEducationOrganization))
+                .GetProperty("ApplicationEducationOrganizationId")
+                .SetColumnName("applicationedorg_applicationedorgid");
+            
+            // modelBuilder.Model.GetEntityTypes().Single(e => e.ClrType.Name == nameof(ApiClientApplicationEducationOrganization))
+            //     .GetProperty("Profiledefinition").SetValueConverter();
 
-            modelBuilder.Conventions.Add<ForeignKeyLowerCaseNamingConvention>();
-            modelBuilder.Conventions.Add<TableLowerCaseNamingConvention>();
-
-            modelBuilder.Properties().Configure(c => c.HasColumnName(c.ClrPropertyInfo.Name.ToLowerInvariant()));
-        }
-
-        private class TableLowerCaseNamingConvention : IStoreModelConvention<EntitySet>
-        {
-            public void Apply(EntitySet entitySet, DbModel model)
-            {
-                Preconditions.ThrowIfNull(entitySet, nameof(entitySet));
-                Preconditions.ThrowIfNull(model, nameof(model));
-
-                entitySet.Table = entitySet.Table.ToLowerInvariant();
-            }
-        }
-
-        private class ForeignKeyLowerCaseNamingConvention : IStoreModelConvention<AssociationType>
-        {
-            public void Apply(AssociationType association, DbModel model)
-            {
-                Preconditions.ThrowIfNull(association, nameof(association));
-                Preconditions.ThrowIfNull(model, nameof(model));
-
-                if (!association.IsForeignKey)
-                {
-                    return;
-                }
-
-                association.Constraint.FromProperties.ForEach(PropertyNamesToLowerInvariant);
-                association.Constraint.ToProperties.ForEach(PropertyNamesToLowerInvariant);
-
-                void PropertyNamesToLowerInvariant(EdmProperty property) => property.Name = property.Name.ToLowerInvariant();
-            }
+            modelBuilder
+                .Entity<Profile>()
+                .Property(e => e.ProfileDefinition)
+                .HasColumnType("xml");
         }
     }
 }

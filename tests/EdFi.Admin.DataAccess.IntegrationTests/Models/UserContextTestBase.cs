@@ -10,9 +10,7 @@ using EdFi.TestFixture;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using System;
-using System.Data.Entity;
 using System.Transactions;
-using EdFi.Admin.DataAccess.DbConfigurations;
 
 namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
 {
@@ -39,8 +37,6 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
             TestDatabaseEngine = DatabaseEngine.TryParseEngine(engine);
 
             var connectionStringProvider = new AdminDatabaseConnectionStringProvider(new ConfigConnectionStringsProvider(config));
-
-            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(TestDatabaseEngine));
             var userContextFactory = new UsersContextFactory(connectionStringProvider, TestDatabaseEngine);
             _userContext = userContextFactory.CreateContext() as UsersContext;
         }

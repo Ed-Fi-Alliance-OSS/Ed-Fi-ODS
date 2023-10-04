@@ -10,9 +10,7 @@ using EdFi.Common.Configuration;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
-using System.Data.Entity;
 using System.Linq;
-using EdFi.Admin.DataAccess.DbConfigurations;
 
 namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
 {
@@ -25,7 +23,6 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
             var connectionStringsProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();
             A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns("Server=.;Database=EdFi_Admin_Test;Trusted_Connection=True;");
 
-            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(DatabaseEngine.SqlServer));
             var context = new UsersContextFactory(connectionStringsProvider, DatabaseEngine.SqlServer)
                 .CreateContext();
 

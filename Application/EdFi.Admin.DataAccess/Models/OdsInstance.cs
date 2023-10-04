@@ -41,8 +41,8 @@ namespace EdFi.Admin.DataAccess.Models
         [Required]
         public string ConnectionString { get; set; }
 
-        public ICollection<OdsInstanceContext> OdsInstanceContexts { get; set; }
+        public virtual ICollection<OdsInstanceContext> OdsInstanceContexts { get; set; }
 
-        public ICollection<OdsInstanceDerivative> OdsInstanceDerivatives { get; set; }
+        public virtual ICollection<OdsInstanceDerivative> OdsInstanceDerivatives { get; set; }
     }
 }

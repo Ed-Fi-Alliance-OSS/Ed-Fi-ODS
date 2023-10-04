@@ -27,9 +27,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <PackageReference Include="EntityFramework6.Npgsql" Version="6.4.3" />
+    <PackageReference Include="EFCore.NamingConventions" Version="7.0.2" />
     <PackageReference Include="log4net" Version="2.0.15" />
-    <PackageReference Include="Npgsql" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
+
   </ItemGroup>
   <ItemGroup>
     <None Include="../../LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
