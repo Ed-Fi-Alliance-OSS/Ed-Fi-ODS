@@ -23,7 +23,7 @@ namespace EdFi.Ods.Common.Specifications
 
         static PersonEntitySpecification()
         {
-            _suffixes = new[] { "USI", "UniqueId" };
+            _suffixes = new[] { UniqueIdConventions.UsiSuffix, UniqueIdConventions.UniqueIdSuffix };
         }
 
         /// <inheritdoc cref="IPersonEntitySpecification.IsPersonEntity(System.Type)" />
@@ -41,39 +41,36 @@ namespace EdFi.Ods.Common.Specifications
         /// <inheritdoc cref="IPersonEntitySpecification.IsPersonIdentifier(string,string)" />
         public bool IsPersonIdentifier(string propertyName, string personType = null)
         {
-            int suffixLength;
-            
-            if (propertyName.EndsWith(UniqueIdConventions.UsiSuffix))
+            if (personType != null && !_personTypesProvider.PersonTypes.Any(pt => pt.EqualsIgnoreCase(personType)))
             {
-                suffixLength = UniqueIdConventions.UsiSuffix.Length;
+                throw new ArgumentException($"'{personType}' is not a supported person type.");
             }
-            else if (propertyName.EndsWith(UniqueIdConventions.UniqueIdSuffix))
+
+            // TODO: Embedded convention (Person identifiers can end with "USI" or "UniqueId")
+            return _suffixes.Any(
+                    s => propertyName.EndsWith(s) 
+                        && _personTypesProvider.PersonTypes.Any(
+                            pt => 
+                                // Person type was either not specified, or matches what was specified
+                                (personType == null || personType == pt) 
+                                // Person type appears immediately before the detected suffix
+                                && PersonTypeAppearsImmediatelyBeforeSuffix(pt, s)));
+
+            bool PersonTypeAppearsImmediatelyBeforeSuffix(string pt, string suffix)
             {
-                suffixLength = UniqueIdConventions.UniqueIdSuffix.Length;
-            }
-            else
-            {
-                // Not a person identifier
-                return false;
-            }
-            
-            if (personType != null)
-            {
-                if (!_personTypesProvider.PersonTypes.Any(pt => pt.EqualsIgnoreCase(personType)))
+                int lastIndexOfPersonType = propertyName.LastIndexOf(pt, StringComparison.Ordinal);
+
+                if (lastIndexOfPersonType < 0)
                 {
-                    throw new ArgumentException($"'{personType}' is not a supported person type.");
+                    // Person type is not in the property name
+                    return false;
                 }
+                
+                // Identify expected location of the person type in the property name
+                int expectedLastIndexOfPersonType = propertyName.Length - (pt.Length + suffix.Length);
 
-                int lastIndexOfPersonType = propertyName.LastIndexOf(personType, StringComparison.Ordinal);
-                int expectedLastIndexOfPersonType = propertyName.Length - (suffixLength + personType.Length);
-
-                return lastIndexOfPersonType >= 0 
-                    && lastIndexOfPersonType == expectedLastIndexOfPersonType;
+                return lastIndexOfPersonType == expectedLastIndexOfPersonType;
             }
-
-            return _personTypesProvider.PersonTypes.Any(
-                pt => propertyName.LastIndexOf(pt, StringComparison.OrdinalIgnoreCase)
-                    == propertyName.Length - (suffixLength + pt.Length));
         }
 
         /// <inheritdoc cref="IPersonEntitySpecification.GetUniqueIdPersonType" />
