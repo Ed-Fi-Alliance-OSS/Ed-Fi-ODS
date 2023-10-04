@@ -51,9 +51,8 @@ namespace EdFi.Ods.Common.Specifications
                     s => propertyName.EndsWith(s) 
                         && _personTypesProvider.PersonTypes.Any(
                             pt => 
-                                // Person type was either not specified, or matches what was specified
+                                // Person type was either not specified, or current person type matches what was specified
                                 (personType == null || personType == pt) 
-                                // Person type appears immediately before the detected suffix
                                 && PersonTypeAppearsImmediatelyBeforeSuffix(pt, s)));
 
             bool PersonTypeAppearsImmediatelyBeforeSuffix(string pt, string suffix)
