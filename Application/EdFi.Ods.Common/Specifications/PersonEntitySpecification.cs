@@ -64,11 +64,13 @@ namespace EdFi.Ods.Common.Specifications
                     throw new ArgumentException($"'{personType}' is not a supported person type.");
                 }
 
-                return propertyName.LastIndexOf(personType, StringComparison.Ordinal)
-                    == (propertyName.Length - (suffixLength + personType.Length));
+                int lastIndexOfPersonType = propertyName.LastIndexOf(personType, StringComparison.Ordinal);
+                int expectedLastIndexOfPersonType = propertyName.Length - (suffixLength + personType.Length);
+
+                return lastIndexOfPersonType >= 0 
+                    && lastIndexOfPersonType == expectedLastIndexOfPersonType;
             }
 
-            
             return _personTypesProvider.PersonTypes.Any(
                 pt => propertyName.LastIndexOf(pt, StringComparison.OrdinalIgnoreCase)
                     == propertyName.Length - (suffixLength + pt.Length));
