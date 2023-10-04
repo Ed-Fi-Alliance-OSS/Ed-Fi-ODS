@@ -41,20 +41,37 @@ namespace EdFi.Ods.Common.Specifications
         /// <inheritdoc cref="IPersonEntitySpecification.IsPersonIdentifier(string,string)" />
         public bool IsPersonIdentifier(string propertyName, string personType = null)
         {
-            if (personType != null && !_personTypesProvider.PersonTypes.Any(pt => pt.EqualsIgnoreCase(personType)))
+            int suffixLength;
+            
+            if (propertyName.EndsWith(UniqueIdConventions.UsiSuffix))
             {
-                throw new ArgumentException($"'{personType}' is not a supported person type.");
+                suffixLength = UniqueIdConventions.UsiSuffix.Length;
+            }
+            else if (propertyName.EndsWith(UniqueIdConventions.UniqueIdSuffix))
+            {
+                suffixLength = UniqueIdConventions.UniqueIdSuffix.Length;
+            }
+            else
+            {
+                // Not a person identifier
+                return false;
+            }
+            
+            if (personType != null)
+            {
+                if (!_personTypesProvider.PersonTypes.Any(pt => pt.EqualsIgnoreCase(personType)))
+                {
+                    throw new ArgumentException($"'{personType}' is not a supported person type.");
+                }
+
+                return propertyName.LastIndexOf(personType, StringComparison.Ordinal)
+                    == (propertyName.Length - (suffixLength + personType.Length));
             }
 
-            // TODO: Embedded convention (Person identifiers can end with "USI" or "UniqueId")
-            return _suffixes.Any(
-                    s => propertyName.EndsWith(s) 
-                        && _personTypesProvider.PersonTypes.Any(
-                            pt => 
-                                // Person type was either not specified, or matches what was specified
-                                (personType == null || personType == pt) 
-                                // Person type appears immediately before the detected suffix
-                                && propertyName.LastIndexOf(pt, StringComparison.Ordinal) == propertyName.Length - (pt.Length + s.Length)));
+            
+            return _personTypesProvider.PersonTypes.Any(
+                pt => propertyName.LastIndexOf(pt, StringComparison.OrdinalIgnoreCase)
+                    == propertyName.Length - (suffixLength + pt.Length));
         }
 
         /// <inheritdoc cref="IPersonEntitySpecification.GetUniqueIdPersonType" />
@@ -71,7 +88,7 @@ namespace EdFi.Ods.Common.Specifications
                     }
 
                     return propertyName.AsSpan(personTypePos + pt.Length)
-                        .Equals(UniqueIdConventions.UniqueId.AsSpan(), StringComparison.OrdinalIgnoreCase);
+                        .Equals(UniqueIdConventions.UniqueIdSuffix.AsSpan(), StringComparison.OrdinalIgnoreCase);
                 });
 
             return personType;
@@ -99,7 +116,7 @@ namespace EdFi.Ods.Common.Specifications
                     }
 
                     return propertyName.AsSpan(personTypePos + pt.Length)
-                        .Equals(UniqueIdConventions.USI.AsSpan(), StringComparison.OrdinalIgnoreCase);
+                        .Equals(UniqueIdConventions.UsiSuffix.AsSpan(), StringComparison.OrdinalIgnoreCase);
                 });
 
             return personType;
