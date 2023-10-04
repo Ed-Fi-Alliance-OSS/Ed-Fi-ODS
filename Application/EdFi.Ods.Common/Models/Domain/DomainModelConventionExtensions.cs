@@ -26,7 +26,7 @@ public static class DomainModelConventionExtensions
                     .Select(a => a.AggregateRoot)
                     .Where(e => 
                         e.Identifier.Properties.Count == 1 
-                        && UniqueIdConventions.IsUSI(e.Identifier.Properties[0].PropertyName))
+                        && UniqueIdConventions.IsUSI(e.Identifier.Properties[0].PropertyName, e.Name))
                     .ToArray());
     }
 }
