@@ -7,7 +7,6 @@ using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Providers;
-using EdFi.Admin.DataAccess.Extensions;
 using EdFi.Common.Configuration;
 using EdFi.TestFixture;
 using Microsoft.Extensions.Configuration;
@@ -20,8 +19,6 @@ using System.Linq;
 using System.Transactions;
 using EdFi.Ods.Api.Security.Authentication;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using NHibernate.Linq;
 using Npgsql;
 
 // ReSharper disable InconsistentNaming
@@ -169,7 +166,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                 new ApplicationEducationOrganization
                 {
                     Application = application,
-                    Clients = new[] { client },
+                    ApiClients = new[] { client },
                     EducationOrganizationId = edOrgId
                 });
 
@@ -189,12 +186,6 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
             TestFixtureContext.SaveChanges();
         }
 
-        private void ClearApiClients()
-        {
-            (TestFixtureContext as DbContext).DeleteAll<ApiClient>();
-            TestFixtureContext.SaveChanges();
-        }
-
         [TestFixture]
         public class Given_an_expired_token : AccessTokenClientRepoTests
         {
@@ -211,8 +202,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                 protected override void Arrange()
                 {
                     base.Arrange();
-
-                    ClearApiClients();
+                    
                     var vendor = LoadAVendor();
                     var application = LoadAnApplication(vendor, "whatever");
                     var apiClient = LoadAnApiClient(application);

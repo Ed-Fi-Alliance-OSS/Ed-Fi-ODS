@@ -14,7 +14,7 @@ namespace EdFi.Admin.DataAccess.Models
     {
         public ApplicationEducationOrganization()
         {
-            Clients = new Collection<ApiClient>();
+            ApiClients = new Collection<ApiClient>();
         }
 
         [Key]
@@ -25,6 +25,6 @@ namespace EdFi.Admin.DataAccess.Models
 
         public long EducationOrganizationId { get; set; }
 
-        public virtual ICollection<ApiClient> Clients { get; set; }
+        public virtual ICollection<ApiClient> ApiClients { get; set; }
     }
 }

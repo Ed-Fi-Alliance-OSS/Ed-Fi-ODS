@@ -4,19 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Autofac.Core;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Common.Configuration;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying;
 using FakeItEasy;
-using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using Microsoft.Extensions.Configuration;
 using Shouldly;
@@ -31,7 +24,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox
         {
             private ClientAppRepo _clientAppRepo;
             private ApiClient _testClient;
-            private ApiSettings _apiSettings;
             private DatabaseEngine _databaseEngine;
 
             [OneTimeSetUp]
@@ -48,12 +40,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox
                 
                 _databaseEngine = DatabaseEngine.TryParseEngine(engine);
 
-                var connectionstringProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();
+                var connectionStringProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();
                 
-                A.CallTo(() => connectionstringProvider.GetConnectionString()).Returns(
+                A.CallTo(() => connectionStringProvider.GetConnectionString()).Returns(
                     configuration.GetConnectionString("EdFi_Admin"));
 
-                var usersContextFactory = new UsersContextFactory(connectionstringProvider, _databaseEngine);
+                var usersContextFactory = new UsersContextFactory(connectionStringProvider, _databaseEngine);
 
                 _clientAppRepo = new ClientAppRepo(usersContextFactory, configuration);
 

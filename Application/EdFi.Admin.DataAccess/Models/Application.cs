@@ -45,7 +45,7 @@ namespace EdFi.Admin.DataAccess.Models
             {
                 EducationOrganizationId = educationOrganizationId,
                 Application = this,
-                Clients = ApiClients
+                ApiClients = ApiClients
             };
     }
 }

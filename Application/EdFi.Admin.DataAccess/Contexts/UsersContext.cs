@@ -11,7 +11,6 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Extensions;
 using EdFi.Admin.DataAccess.Models;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace EdFi.Admin.DataAccess.Contexts
 {
@@ -36,9 +35,10 @@ namespace EdFi.Admin.DataAccess.Contexts
         {
             modelBuilder.Entity<ApiClient>()
                 .HasMany(t => t.ApplicationEducationOrganizations)
-                .WithMany(t => t.Clients)
-                .UsingEntity<ApiClientApplicationEducationOrganization>("ApiClientApplicationEducationOrganizations",
-                     l =>
+                .WithMany(t => t.ApiClients)
+                .UsingEntity<ApiClientApplicationEducationOrganization>(
+                    "ApiClientApplicationEducationOrganizations",
+                    l =>
                         l.HasOne<ApplicationEducationOrganization>().WithMany().HasForeignKey(
                             "ApplicationEducationOrganizationId"),
                     r =>
@@ -48,12 +48,11 @@ namespace EdFi.Admin.DataAccess.Contexts
                 .HasMany(a => a.Profiles)
                 .WithMany(a => a.Applications)
                 .UsingEntity("ProfileApplications");
-            
-            modelBuilder.UseUnderscoredFkColumnNames();
-            
-            modelBuilder.Model.FindEntityTypes(typeof(ApiClient)).First().
-                GetProperty("CreatorOwnershipTokenId").SetColumnName("CreatorOwnershipTokenId_OwnershipTokenId");
 
+            modelBuilder.UseUnderscoredFkColumnNames();
+
+            modelBuilder.Model.FindEntityTypes(typeof(ApiClient)).First().GetProperty("CreatorOwnershipTokenId")
+                .SetColumnName("CreatorOwnershipTokenId_OwnershipTokenId");
         }
 
         public DbSet<User> Users { get; set; }
@@ -67,7 +66,7 @@ namespace EdFi.Admin.DataAccess.Contexts
         public DbSet<Application> Applications { get; set; }
 
         public DbSet<Profile> Profiles { get; set; }
-        
+
         public DbSet<ApiClientOwnershipToken> ApiClientOwnershipTokens { get; set; }
 
         public DbSet<OdsInstance> OdsInstances { get; set; }

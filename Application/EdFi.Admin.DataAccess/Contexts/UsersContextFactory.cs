@@ -59,8 +59,8 @@ namespace EdFi.Admin.DataAccess.Contexts
                 return Activator.CreateInstance(
                         GetUsersContextType(),
                         new DbContextOptionsBuilder<PostgresUsersContext>()
-                            .UseNpgsql(_connectionStringsProvider.GetConnectionString())
                             .UseLazyLoadingProxies()
+                            .UseNpgsql(_connectionStringsProvider.GetConnectionString())
                             .Options) as
                     IUsersContext;
             }

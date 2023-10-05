@@ -27,7 +27,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <PackageReference Include="EFCore.NamingConventions" Version="7.0.2" />
     <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.11" />
