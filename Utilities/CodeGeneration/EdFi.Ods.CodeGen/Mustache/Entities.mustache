@@ -425,7 +425,7 @@ namespace {{AggregateNamespace}}
         {{#IsRequiredCollection}}
         [RequiredCollection]
         {{/IsRequiredCollection}}
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<{{AggregateNamespacePrefix}}{{ChildClassName}}{{#IsChildForConcreteBase}}ForBase{{/IsChildForConcreteBase}}> {{ChildCollectionPropertyName}}
         {
             get
