@@ -51,7 +51,6 @@
     <EmbeddedResource Include="Services\Metadata\Resources\*.json" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
   </ItemGroup>
     <ItemGroup>
