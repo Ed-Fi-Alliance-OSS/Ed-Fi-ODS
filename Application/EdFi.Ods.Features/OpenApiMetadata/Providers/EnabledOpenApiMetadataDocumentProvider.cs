@@ -65,19 +65,19 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                 return false;
             }
 
-            document = GetMetadataForContent(openApiContent, request, openApiMetadataRequest.SchoolYear, openApiMetadataRequest.InstanceId, openApiMetadataRequest.TenantIdentifierFromRoute);
+            document = GetMetadataForContent(openApiContent, request, openApiMetadataRequest.OdsContext, openApiMetadataRequest.InstanceId, openApiMetadataRequest.TenantIdentifierFromRoute);
 
             return true;
         }
 
-        private string GetMetadataForContent(OpenApiContent content, HttpRequest request, string schoolYear, string instanceId, string tenantIdentifier)
+        private string GetMetadataForContent(OpenApiContent content, HttpRequest request, string odsContextName, string instanceId, string tenantIdentifier)
         {
 
-            var schoolYearRouteValue = string.IsNullOrEmpty(schoolYear) ? string.Empty : $"{schoolYear}/";
+            var odsContextRouteValue = string.IsNullOrEmpty(odsContextName) ? string.Empty : $"{odsContextName}/";
             var instanceIdRouteValue = string.IsNullOrEmpty(instanceId) ? string.Empty : $"{instanceId}/";
             var tenantIdentifierRouteValue = string.IsNullOrEmpty(tenantIdentifier) ? string.Empty : $"{tenantIdentifier}/";
 
-            string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + tenantIdentifierRouteValue + schoolYearRouteValue + content.BasePath.EnsureSuffixApplied("/") + instanceIdRouteValue;
+            string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + tenantIdentifierRouteValue + odsContextRouteValue + content.BasePath.EnsureSuffixApplied("/") + instanceIdRouteValue;
  
             return content.Metadata
                 .Replace("%HOST%", Host())
@@ -87,7 +87,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 
             string TokenUrl() {
                 var rootUrl = request.RootUrl(this._reverseProxySettings);
-                return $"{rootUrl}/" + tenantIdentifierRouteValue + schoolYearRouteValue + $"{instanceId}oauth/token";
+                return $"{rootUrl}/" + tenantIdentifierRouteValue + odsContextRouteValue + $"{instanceId}oauth/token";
             }
 
             string Host() => $"{request.Host(this._reverseProxySettings)}:{request.Port(this._reverseProxySettings)}";
@@ -98,6 +98,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             // need to build the request model manually as binding does not exist in the middleware pipeline.
             // this is less effort that rewriting the open api metadata cache.
             var openApiMetadataRequest = new OpenApiMetadataRequest();
+
+            var odsContextVariableName = _odsContextRoutePath?.TrimStart('{').TrimEnd('}');
 
             var matcher = new RouteMatcher();
 
@@ -129,9 +131,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                         }
                     }
 
-                    if (values.ContainsKey("schoolYear"))
+                    if (odsContextVariableName != null && values.ContainsKey(odsContextVariableName))
                     {
-                        openApiMetadataRequest.SchoolYear = values["schoolYear"]
+                        openApiMetadataRequest.OdsContext = values[odsContextVariableName]
                             .ToString();
                     }
 

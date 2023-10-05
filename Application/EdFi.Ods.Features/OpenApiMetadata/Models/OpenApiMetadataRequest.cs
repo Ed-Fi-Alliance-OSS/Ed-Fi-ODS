@@ -18,7 +18,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Models
 
         public string CompositeCategoryName { get; set; }
 
-        public string SchoolYear { get; set; }
+        public string OdsContext { get; set; }
 
         public string InstanceId { get; set; }
 
