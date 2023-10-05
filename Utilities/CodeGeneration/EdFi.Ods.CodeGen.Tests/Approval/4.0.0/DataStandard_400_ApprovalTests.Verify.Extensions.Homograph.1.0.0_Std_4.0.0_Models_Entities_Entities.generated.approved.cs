@@ -416,7 +416,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         private ICollection<Entities.NHibernate.ParentAggregate.Homograph.ParentAddress> _parentAddresses;
         private ICollection<Entities.Common.Homograph.IParentAddress> _parentAddressesCovariant;
         [RequiredCollection]
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.ParentAggregate.Homograph.ParentAddress> ParentAddresses
         {
             get
@@ -465,7 +465,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         private ICollection<Entities.NHibernate.ParentAggregate.Homograph.ParentStudentSchoolAssociation> _parentStudentSchoolAssociations;
         private ICollection<Entities.Common.Homograph.IParentStudentSchoolAssociation> _parentStudentSchoolAssociationsCovariant;
         [RequiredCollection]
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.ParentAggregate.Homograph.ParentStudentSchoolAssociation> ParentStudentSchoolAssociations
         {
             get
@@ -1805,7 +1805,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
         private ICollection<Entities.NHibernate.StaffAggregate.Homograph.StaffAddress> _staffAddresses;
         private ICollection<Entities.Common.Homograph.IStaffAddress> _staffAddressesCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StaffAggregate.Homograph.StaffAddress> StaffAddresses
         {
             get
@@ -1853,7 +1853,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
         private ICollection<Entities.NHibernate.StaffAggregate.Homograph.StaffStudentSchoolAssociation> _staffStudentSchoolAssociations;
         private ICollection<Entities.Common.Homograph.IStaffStudentSchoolAssociation> _staffStudentSchoolAssociationsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StaffAggregate.Homograph.StaffStudentSchoolAssociation> StaffStudentSchoolAssociations
         {
             get

@@ -185,12 +185,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
 
 
             // Standard Property
-             if ((this as Entities.Common.Homograph.IName).FirstName.Equals(compareTo.FirstName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IName).FirstName, compareTo.FirstName))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Homograph.IName).LastSurname.Equals(compareTo.LastSurname))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IName).LastSurname, compareTo.LastSurname))
                 return false;
 
 
@@ -574,12 +574,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Homograph.IParent).ParentFirstName.Equals(compareTo.ParentFirstName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IParent).ParentFirstName, compareTo.ParentFirstName))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Homograph.IParent).ParentLastSurname.Equals(compareTo.ParentLastSurname))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IParent).ParentLastSurname, compareTo.ParentLastSurname))
                 return false;
 
 
@@ -950,7 +950,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
 
 
             // Standard Property
-             if ((this as Entities.Common.Homograph.IParentAddress).City.Equals(compareTo.City))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IParentAddress).City, compareTo.City))
                 return false;
 
 
@@ -1273,17 +1273,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Homograph.IParentStudentSchoolAssociation).SchoolName.Equals(compareTo.SchoolName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).SchoolName, compareTo.SchoolName))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentFirstName.Equals(compareTo.StudentFirstName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentFirstName, compareTo.StudentFirstName))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentLastSurname.Equals(compareTo.StudentLastSurname))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentLastSurname, compareTo.StudentLastSurname))
                 return false;
 
 
@@ -1627,7 +1627,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
 
 
             // Standard Property
-             if ((this as Entities.Common.Homograph.ISchool).SchoolName.Equals(compareTo.SchoolName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.ISchool).SchoolName, compareTo.SchoolName))
                 return false;
 
 
@@ -2189,7 +2189,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
 
 
             // Standard Property
-             if ((this as Entities.Common.Homograph.ISchoolYearType).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.ISchoolYearType).SchoolYear, compareTo.SchoolYear))
                 return false;
 
 
@@ -2569,12 +2569,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Homograph.IStaff).StaffFirstName.Equals(compareTo.StaffFirstName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IStaff).StaffFirstName, compareTo.StaffFirstName))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Homograph.IStaff).StaffLastSurname.Equals(compareTo.StaffLastSurname))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IStaff).StaffLastSurname, compareTo.StaffLastSurname))
                 return false;
 
 
@@ -2945,7 +2945,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
 
 
             // Standard Property
-             if ((this as Entities.Common.Homograph.IStaffAddress).City.Equals(compareTo.City))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IStaffAddress).City, compareTo.City))
                 return false;
 
 
@@ -3268,17 +3268,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).SchoolName.Equals(compareTo.SchoolName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).SchoolName, compareTo.SchoolName))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentFirstName.Equals(compareTo.StudentFirstName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentFirstName, compareTo.StudentFirstName))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentLastSurname.Equals(compareTo.StudentLastSurname))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentLastSurname, compareTo.StudentLastSurname))
                 return false;
 
 
@@ -3700,12 +3700,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Homograph.IStudent).StudentFirstName.Equals(compareTo.StudentFirstName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IStudent).StudentFirstName, compareTo.StudentFirstName))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Homograph.IStudent).StudentLastSurname.Equals(compareTo.StudentLastSurname))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IStudent).StudentLastSurname, compareTo.StudentLastSurname))
                 return false;
 
 
@@ -4000,7 +4000,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
 
 
             // Standard Property
-             if ((this as Entities.Common.Homograph.IStudentAddress).City.Equals(compareTo.City))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IStudentAddress).City, compareTo.City))
                 return false;
 
 
@@ -4431,17 +4431,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Homograph.IStudentSchoolAssociation).SchoolName.Equals(compareTo.SchoolName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IStudentSchoolAssociation).SchoolName, compareTo.SchoolName))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentFirstName.Equals(compareTo.StudentFirstName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentFirstName, compareTo.StudentFirstName))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentLastSurname.Equals(compareTo.StudentLastSurname))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentLastSurname, compareTo.StudentLastSurname))
                 return false;
 
 

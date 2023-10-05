@@ -880,7 +880,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddress> _candidateAddresses;
         private ICollection<Entities.Common.TPDM.ICandidateAddress> _candidateAddressesCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddress> CandidateAddresses
         {
             get
@@ -928,7 +928,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisability> _candidateDisabilities;
         private ICollection<Entities.Common.TPDM.ICandidateDisability> _candidateDisabilitiesCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisability> CandidateDisabilities
         {
             get
@@ -976,7 +976,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateElectronicMail> _candidateElectronicMails;
         private ICollection<Entities.Common.TPDM.ICandidateElectronicMail> _candidateElectronicMailsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateElectronicMail> CandidateElectronicMails
         {
             get
@@ -1024,7 +1024,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguage> _candidateLanguages;
         private ICollection<Entities.Common.TPDM.ICandidateLanguage> _candidateLanguagesCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguage> CandidateLanguages
         {
             get
@@ -1072,7 +1072,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateOtherName> _candidateOtherNames;
         private ICollection<Entities.Common.TPDM.ICandidateOtherName> _candidateOtherNamesCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateOtherName> CandidateOtherNames
         {
             get
@@ -1120,7 +1120,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidatePersonalIdentificationDocument> _candidatePersonalIdentificationDocuments;
         private ICollection<Entities.Common.TPDM.ICandidatePersonalIdentificationDocument> _candidatePersonalIdentificationDocumentsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidatePersonalIdentificationDocument> CandidatePersonalIdentificationDocuments
         {
             get
@@ -1168,7 +1168,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateRace> _candidateRaces;
         private ICollection<Entities.Common.TPDM.ICandidateRace> _candidateRacesCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateRace> CandidateRaces
         {
             get
@@ -1216,7 +1216,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateTelephone> _candidateTelephones;
         private ICollection<Entities.Common.TPDM.ICandidateTelephone> _candidateTelephonesCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateTelephone> CandidateTelephones
         {
             get
@@ -1551,7 +1551,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddressPeriod> _candidateAddressPeriods;
         private ICollection<Entities.Common.TPDM.ICandidateAddressPeriod> _candidateAddressPeriodsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddressPeriod> CandidateAddressPeriods
         {
             get
@@ -2024,7 +2024,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisabilityDesignation> _candidateDisabilityDesignations;
         private ICollection<Entities.Common.TPDM.ICandidateDisabilityDesignation> _candidateDisabilityDesignationsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisabilityDesignation> CandidateDisabilityDesignations
         {
             get
@@ -2659,7 +2659,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguageUse> _candidateLanguageUses;
         private ICollection<Entities.Common.TPDM.ICandidateLanguageUse> _candidateLanguageUsesCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguageUse> CandidateLanguageUses
         {
             get
@@ -4205,7 +4205,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
 
         private ICollection<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationCohortYear> _candidateEducatorPreparationProgramAssociationCohortYears;
         private ICollection<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear> _candidateEducatorPreparationProgramAssociationCohortYearsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationCohortYear> CandidateEducatorPreparationProgramAssociationCohortYears
         {
             get
@@ -4253,7 +4253,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
 
         private ICollection<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationDegreeSpecialization> _candidateEducatorPreparationProgramAssociationDegreeSpecializations;
         private ICollection<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization> _candidateEducatorPreparationProgramAssociationDegreeSpecializationsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationDegreeSpecialization> CandidateEducatorPreparationProgramAssociationDegreeSpecializations
         {
             get
@@ -6251,7 +6251,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
 
         private ICollection<Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramGradeLevel> _educatorPreparationProgramGradeLevels;
         private ICollection<Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel> _educatorPreparationProgramGradeLevelsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramGradeLevel> EducatorPreparationProgramGradeLevels
         {
             get
@@ -7461,7 +7461,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
 
         private ICollection<Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationRatingLevel> _evaluationRatingLevels;
         private ICollection<Entities.Common.TPDM.IEvaluationRatingLevel> _evaluationRatingLevelsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationRatingLevel> EvaluationRatingLevels
         {
             get
@@ -8137,7 +8137,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
 
         private ICollection<Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementRatingLevel> _evaluationElementRatingLevels;
         private ICollection<Entities.Common.TPDM.IEvaluationElementRatingLevel> _evaluationElementRatingLevelsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementRatingLevel> EvaluationElementRatingLevels
         {
             get
@@ -8900,7 +8900,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 
         private ICollection<Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRatingResult> _evaluationElementRatingResults;
         private ICollection<Entities.Common.TPDM.IEvaluationElementRatingResult> _evaluationElementRatingResultsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRatingResult> EvaluationElementRatingResults
         {
             get
@@ -9766,7 +9766,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
 
         private ICollection<Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveRatingLevel> _evaluationObjectiveRatingLevels;
         private ICollection<Entities.Common.TPDM.IEvaluationObjectiveRatingLevel> _evaluationObjectiveRatingLevelsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveRatingLevel> EvaluationObjectiveRatingLevels
         {
             get
@@ -10518,7 +10518,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
 
         private ICollection<Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingResult> _evaluationObjectiveRatingResults;
         private ICollection<Entities.Common.TPDM.IEvaluationObjectiveRatingResult> _evaluationObjectiveRatingResultsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingResult> EvaluationObjectiveRatingResults
         {
             get
@@ -11516,7 +11516,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
         private ICollection<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingResult> _evaluationRatingResults;
         private ICollection<Entities.Common.TPDM.IEvaluationRatingResult> _evaluationRatingResultsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingResult> EvaluationRatingResults
         {
             get
@@ -11564,7 +11564,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
         private ICollection<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewer> _evaluationRatingReviewers;
         private ICollection<Entities.Common.TPDM.IEvaluationRatingReviewer> _evaluationRatingReviewersCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewer> EvaluationRatingReviewers
         {
             get
@@ -13998,7 +13998,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
 
         private ICollection<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationGradeLevel> _performanceEvaluationGradeLevels;
         private ICollection<Entities.Common.TPDM.IPerformanceEvaluationGradeLevel> _performanceEvaluationGradeLevelsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationGradeLevel> PerformanceEvaluationGradeLevels
         {
             get
@@ -14046,7 +14046,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
 
         private ICollection<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationRatingLevel> _performanceEvaluationRatingLevels;
         private ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingLevel> _performanceEvaluationRatingLevelsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationRatingLevel> PerformanceEvaluationRatingLevels
         {
             get
@@ -15031,7 +15031,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
         private ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingResult> _performanceEvaluationRatingResults;
         private ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingResult> _performanceEvaluationRatingResultsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingResult> PerformanceEvaluationRatingResults
         {
             get
@@ -15079,7 +15079,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
         private ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewer> _performanceEvaluationRatingReviewers;
         private ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer> _performanceEvaluationRatingReviewersCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewer> PerformanceEvaluationRatingReviewers
         {
             get

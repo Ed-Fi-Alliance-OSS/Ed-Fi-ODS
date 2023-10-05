@@ -718,7 +718,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
 
 
             // Standard Property
-             if ((this as Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization).NameOfInstitution.Equals(compareTo.NameOfInstitution))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization).NameOfInstitution, compareTo.NameOfInstitution))
                 return false;
 
 

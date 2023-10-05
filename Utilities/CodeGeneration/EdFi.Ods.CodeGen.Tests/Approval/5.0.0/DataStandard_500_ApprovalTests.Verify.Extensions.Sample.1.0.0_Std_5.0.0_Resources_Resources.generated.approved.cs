@@ -446,7 +446,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IBus).BusId.Equals(compareTo.BusId))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IBus).BusId, compareTo.BusId))
                 return false;
 
 
@@ -794,12 +794,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IBusRoute).BusId.Equals(compareTo.BusId))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IBusRoute).BusId, compareTo.BusId))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IBusRoute).BusRouteNumber.Equals(compareTo.BusRouteNumber))
+            if (!(this as Entities.Common.Sample.IBusRoute).BusRouteNumber.Equals(compareTo.BusRouteNumber))
                 return false;
 
 
@@ -1548,7 +1548,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IBusRouteBusYear).BusYear.Equals(compareTo.BusYear))
+            if (!(this as Entities.Common.Sample.IBusRouteBusYear).BusYear.Equals(compareTo.BusYear))
                 return false;
 
 
@@ -1872,12 +1872,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Sample.IBusRouteProgram).ProgramName.Equals(compareTo.ProgramName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IBusRouteProgram).ProgramName, compareTo.ProgramName))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Sample.IBusRouteProgram).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.Sample.IBusRouteProgram).ProgramTypeDescriptor, compareTo.ProgramTypeDescriptor))
                 return false;
 
 
@@ -2119,7 +2119,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IBusRouteServiceAreaPostalCode).ServiceAreaPostalCode.Equals(compareTo.ServiceAreaPostalCode))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IBusRouteServiceAreaPostalCode).ServiceAreaPostalCode, compareTo.ServiceAreaPostalCode))
                 return false;
 
 
@@ -2341,7 +2341,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IBusRouteStartTime).StartTime.Equals(compareTo.StartTime))
+            if (!(this as Entities.Common.Sample.IBusRouteStartTime).StartTime.Equals(compareTo.StartTime))
                 return false;
 
 
@@ -2570,12 +2570,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumber.Equals(compareTo.TelephoneNumber))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumber, compareTo.TelephoneNumber))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumberTypeDescriptor.Equals(compareTo.TelephoneNumberTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumberTypeDescriptor, compareTo.TelephoneNumberTypeDescriptor))
                 return false;
 
 
@@ -3207,7 +3207,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IContactAddressSchoolDistrict).SchoolDistrict.Equals(compareTo.SchoolDistrict))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IContactAddressSchoolDistrict).SchoolDistrict, compareTo.SchoolDistrict))
                 return false;
 
 
@@ -3429,7 +3429,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IContactAddressTerm).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.Sample.IContactAddressTerm).TermDescriptor, compareTo.TermDescriptor))
                 return false;
 
 
@@ -3651,7 +3651,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IContactAuthor).Author.Equals(compareTo.Author))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IContactAuthor).Author, compareTo.Author))
                 return false;
 
 
@@ -3886,7 +3886,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IContactCeilingHeight).CeilingHeight.Equals(compareTo.CeilingHeight))
+            if (!(this as Entities.Common.Sample.IContactCeilingHeight).CeilingHeight.Equals(compareTo.CeilingHeight))
                 return false;
 
 
@@ -4401,7 +4401,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Sample.IContactEducationContent).ContentIdentifier.Equals(compareTo.ContentIdentifier))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IContactEducationContent).ContentIdentifier, compareTo.ContentIdentifier))
                 return false;
 
 
@@ -5271,7 +5271,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IContactFavoriteBookTitle).FavoriteBookTitle.Equals(compareTo.FavoriteBookTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IContactFavoriteBookTitle).FavoriteBookTitle, compareTo.FavoriteBookTitle))
                 return false;
 
 
@@ -5681,17 +5681,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Sample.IContactStudentProgramAssociation).ProgramName.Equals(compareTo.ProgramName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IContactStudentProgramAssociation).ProgramName, compareTo.ProgramName))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Sample.IContactStudentProgramAssociation).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.Sample.IContactStudentProgramAssociation).ProgramTypeDescriptor, compareTo.ProgramTypeDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Sample.IContactStudentProgramAssociation).StudentUniqueId.Equals(compareTo.StudentUniqueId))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IContactStudentProgramAssociation).StudentUniqueId, compareTo.StudentUniqueId))
                 return false;
 
 
@@ -6994,7 +6994,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId.Equals(compareTo.DirectlyOwnedBusId))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId, compareTo.DirectlyOwnedBusId))
                 return false;
 
 
@@ -7850,7 +7850,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStaffPet).PetName.Equals(compareTo.PetName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IStaffPet).PetName, compareTo.PetName))
                 return false;
 
 
@@ -8361,12 +8361,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentAquaticPet).MimimumTankVolume.Equals(compareTo.MimimumTankVolume))
+            if (!(this as Entities.Common.Sample.IStudentAquaticPet).MimimumTankVolume.Equals(compareTo.MimimumTankVolume))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentAquaticPet).PetName.Equals(compareTo.PetName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IStudentAquaticPet).PetName, compareTo.PetName))
                 return false;
 
 
@@ -9024,7 +9024,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentFavoriteBook).FavoriteBookCategoryDescriptor.Equals(compareTo.FavoriteBookCategoryDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.Sample.IStudentFavoriteBook).FavoriteBookCategoryDescriptor, compareTo.FavoriteBookCategoryDescriptor))
                 return false;
 
 
@@ -9327,7 +9327,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentFavoriteBookArtMedium).ArtMediumDescriptor.Equals(compareTo.ArtMediumDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.Sample.IStudentFavoriteBookArtMedium).ArtMediumDescriptor, compareTo.ArtMediumDescriptor))
                 return false;
 
 
@@ -9556,7 +9556,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentPet).PetName.Equals(compareTo.PetName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IStudentPet).PetName, compareTo.PetName))
                 return false;
 
 
@@ -10341,7 +10341,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).BeginDate.Equals(compareTo.BeginDate))
+            if (!(this as Entities.Common.Sample.IStudentArtProgramAssociation).BeginDate.Equals(compareTo.BeginDate))
                 return false;
 
 
@@ -10356,17 +10356,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramName.Equals(compareTo.ProgramName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramName, compareTo.ProgramName))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramTypeDescriptor, compareTo.ProgramTypeDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Sample.IStudentArtProgramAssociation).StudentUniqueId.Equals(compareTo.StudentUniqueId))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IStudentArtProgramAssociation).StudentUniqueId, compareTo.StudentUniqueId))
                 return false;
 
 
@@ -11049,7 +11049,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentArtProgramAssociationArtMedium).ArtMediumDescriptor.Equals(compareTo.ArtMediumDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.Sample.IStudentArtProgramAssociationArtMedium).ArtMediumDescriptor, compareTo.ArtMediumDescriptor))
                 return false;
 
 
@@ -11284,7 +11284,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears).PortfolioYears.Equals(compareTo.PortfolioYears))
+            if (!(this as Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears).PortfolioYears.Equals(compareTo.PortfolioYears))
                 return false;
 
 
@@ -11514,7 +11514,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentArtProgramAssociationService).ServiceDescriptor.Equals(compareTo.ServiceDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.Sample.IStudentArtProgramAssociationService).ServiceDescriptor, compareTo.ServiceDescriptor))
                 return false;
 
 
@@ -11757,7 +11757,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentArtProgramAssociationStyle).Style.Equals(compareTo.Style))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IStudentArtProgramAssociationStyle).Style, compareTo.Style))
                 return false;
 
 
@@ -11984,7 +11984,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentContactAssociationDiscipline).DisciplineDescriptor.Equals(compareTo.DisciplineDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.Sample.IStudentContactAssociationDiscipline).DisciplineDescriptor, compareTo.DisciplineDescriptor))
                 return false;
 
 
@@ -12930,7 +12930,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentContactAssociationFavoriteBookTitle).FavoriteBookTitle.Equals(compareTo.FavoriteBookTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IStudentContactAssociationFavoriteBookTitle).FavoriteBookTitle, compareTo.FavoriteBookTitle))
                 return false;
 
 
@@ -13165,7 +13165,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentContactAssociationHoursPerWeek).HoursPerWeek.Equals(compareTo.HoursPerWeek))
+            if (!(this as Entities.Common.Sample.IStudentContactAssociationHoursPerWeek).HoursPerWeek.Equals(compareTo.HoursPerWeek))
                 return false;
 
 
@@ -13408,7 +13408,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentContactAssociationPagesRead).PagesRead.Equals(compareTo.PagesRead))
+            if (!(this as Entities.Common.Sample.IStudentContactAssociationPagesRead).PagesRead.Equals(compareTo.PagesRead))
                 return false;
 
 
@@ -13766,7 +13766,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Sample.IStudentContactAssociationStaffEducationOrganizationEmploymentAssociation).EmploymentStatusDescriptor.Equals(compareTo.EmploymentStatusDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.Sample.IStudentContactAssociationStaffEducationOrganizationEmploymentAssociation).EmploymentStatusDescriptor, compareTo.EmploymentStatusDescriptor))
                 return false;
 
 
@@ -13776,7 +13776,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Sample.IStudentContactAssociationStaffEducationOrganizationEmploymentAssociation).StaffUniqueId.Equals(compareTo.StaffUniqueId))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IStudentContactAssociationStaffEducationOrganizationEmploymentAssociation).StaffUniqueId, compareTo.StaffUniqueId))
                 return false;
 
 
@@ -14877,7 +14877,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict).SchoolDistrict.Equals(compareTo.SchoolDistrict))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict).SchoolDistrict, compareTo.SchoolDistrict))
                 return false;
 
 
@@ -15099,7 +15099,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm).TermDescriptor, compareTo.TermDescriptor))
                 return false;
 
 
@@ -16072,7 +16072,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed).BeginDate.Equals(compareTo.BeginDate))
+            if (!(this as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed).BeginDate.Equals(compareTo.BeginDate))
                 return false;
 
 
@@ -16599,7 +16599,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationPlanTypeDescriptor.Equals(compareTo.GraduationPlanTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationPlanTypeDescriptor, compareTo.GraduationPlanTypeDescriptor))
                 return false;
 
 
@@ -16609,7 +16609,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Sample.IStudentGraduationPlanAssociation).StudentUniqueId.Equals(compareTo.StudentUniqueId))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).StudentUniqueId, compareTo.StudentUniqueId))
                 return false;
 
 
@@ -17422,7 +17422,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject).AcademicSubjectDescriptor.Equals(compareTo.AcademicSubjectDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject).AcademicSubjectDescriptor, compareTo.AcademicSubjectDescriptor))
                 return false;
 
 
@@ -17657,7 +17657,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode).CareerPathwayCode.Equals(compareTo.CareerPathwayCode))
+            if (!(this as Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode).CareerPathwayCode.Equals(compareTo.CareerPathwayCode))
                 return false;
 
 
@@ -18121,7 +18121,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationDescription).Description.Equals(compareTo.Description))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IStudentGraduationPlanAssociationDescription).Description, compareTo.Description))
                 return false;
 
 
@@ -18343,7 +18343,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy).DesignatedBy.Equals(compareTo.DesignatedBy))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy).DesignatedBy, compareTo.DesignatedBy))
                 return false;
 
 
@@ -18565,7 +18565,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential).IndustryCredential.Equals(compareTo.IndustryCredential))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential).IndustryCredential, compareTo.IndustryCredential))
                 return false;
 
 
@@ -18972,7 +18972,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentContactAssociation).ContactUniqueId.Equals(compareTo.ContactUniqueId))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentContactAssociation).ContactUniqueId, compareTo.ContactUniqueId))
                 return false;
 
 
@@ -19250,7 +19250,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
 
             // Standard Property
-             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended).YearsAttended.Equals(compareTo.YearsAttended))
+            if (!(this as Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended).YearsAttended.Equals(compareTo.YearsAttended))
                 return false;
 
 
@@ -20299,12 +20299,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramName.Equals(compareTo.RelatedProgramName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramName, compareTo.RelatedProgramName))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramTypeDescriptor.Equals(compareTo.RelatedProgramTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramTypeDescriptor, compareTo.RelatedProgramTypeDescriptor))
                 return false;
 
 

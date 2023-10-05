@@ -316,12 +316,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
 
 
             // Standard Property
-             if ((this as Entities.Common.SampleStudentTransportation.IStudentTransportation).AMBusNumber.Equals(compareTo.AMBusNumber))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.SampleStudentTransportation.IStudentTransportation).AMBusNumber, compareTo.AMBusNumber))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.SampleStudentTransportation.IStudentTransportation).PMBusNumber.Equals(compareTo.PMBusNumber))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.SampleStudentTransportation.IStudentTransportation).PMBusNumber, compareTo.PMBusNumber))
                 return false;
 
 
@@ -331,7 +331,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
 
 
             // Referenced Property
-            if (!(this as Entities.Common.SampleStudentTransportation.IStudentTransportation).StudentUniqueId.Equals(compareTo.StudentUniqueId))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.SampleStudentTransportation.IStudentTransportation).StudentUniqueId, compareTo.StudentUniqueId))
                 return false;
 
 
