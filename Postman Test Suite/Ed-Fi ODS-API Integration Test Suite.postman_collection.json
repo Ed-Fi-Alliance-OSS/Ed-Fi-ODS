@@ -9948,6 +9948,151 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "Case-insensitive descriptor comparison in key change check",
+			"item": [
+				{
+					"name": "Setup",
+					"item": [
+						{
+							"name": "Identify staff association",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response is 200\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const item = pm.response.json()[0];\r",
+											"\r",
+											"pm.environment.set('known:staffEdOrgAssociation:id', item.id);\r",
+											"pm.environment.set('known:staffEdOrgAssociation:educationOrganizationId', item.educationOrganizationReference.educationOrganizationId);\r",
+											"pm.environment.set('known:staffEdOrgAssociation:staffUniqueId', item.staffReference.staffUniqueId);\r",
+											"pm.environment.set('known:staffEdOrgAssociation:beginDate', item.beginDate);\r",
+											"pm.environment.set('known:staffEdOrgAssociation:positionTitle', item.positionTitle);\r",
+											"pm.environment.set('known:staffEdOrgAssociation:staffClassificationDescriptor', item.staffClassificationDescriptor);\r",
+											"pm.environment.set('known:staffEdOrgAssociation:staffClassificationDescriptor:lower', item.staffClassificationDescriptor.toLowerCase());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "limit",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffEducationOrganizationAssignmentAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"staffEducationOrganizationAssignmentAssociations"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Perform Update",
+					"item": [
+						{
+							"name": "PUT with case-mismatch on descriptor URI in key",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"staffClassificationDescriptor\": \"{{known:staffEdOrgAssociation:staffClassificationDescriptor:lower}}\",\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": {{known:staffEdOrgAssociation:educationOrganizationId}}\r\n  },\r\n  \"staffReference\": {\r\n    \"staffUniqueId\": \"{{known:staffEdOrgAssociation:staffUniqueId}}\"\r\n  },\r\n  \"beginDate\": \"{{known:staffEdOrgAssociation:beginDate}}\",\r\n  \"positionTitle\": \"{{known:staffEdOrgAssociation:positionTitle}} ABCD\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffEducationOrganizationAssignmentAssociations/{{known:staffEdOrgAssociation:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"staffEducationOrganizationAssignmentAssociations",
+										"{{known:staffEdOrgAssociation:id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Teardown",
+					"item": [
+						{
+							"name": "Clean up Environment Variables",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+											"_.chain(_.keys(pm.environment.toObject()))\r",
+											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+											"  .each(k => pm.environment.unset(k)).value();"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		}
 	],
 	"auth": {
