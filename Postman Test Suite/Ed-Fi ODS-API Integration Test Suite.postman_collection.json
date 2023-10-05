@@ -6449,9 +6449,7 @@
 													"        return (message === expectedErrorMessage1);\r",
 													"    });\r",
 													"\r",
-													"    if (request && request.FiscalYear) {\r",
-													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"]).to.contain(\"Required\");\r",
-													"    }\r",
+													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"][0]).to.equal(\"Required\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -6528,9 +6526,7 @@
 													"        return (message === expectedErrorMessage1);\r",
 													"    });\r",
 													"\r",
-													"    if (request && request.FiscalYear) {\r",
-													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"]).to.contain(\"Required\");\r",
-													"    }\r",
+													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"][0]).to.equal(\"Required\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -6607,9 +6603,7 @@
 													"        return (message === expectedErrorMessage1);\r",
 													"    });\r",
 													"\r",
-													"    if (request && request.FiscalYear) {\r",
-													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"]).to.contain(\"Required\");\r",
-													"    }\r",
+													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"][0]).to.equal(\"Required\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -6957,13 +6951,10 @@
 													"\r",
 													"    const responseItem = pm.response.json();\r",
 													"    const expectedErrorMessage1 = \"The request is invalid.\";\r",
-													"    pm.expect(responseItem.message).to.satisfy(function (message) {\r",
-													"        return (message === expectedErrorMessage1);\r",
-													"    });\r",
+													"    pm.expect(responseItem.message).to.equal(expectedErrorMessage1);\r",
 													"\r",
-													"    if (request && request.FiscalYear) {\r",
-													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"]).to.contain(\"Required\");\r",
-													"    }\r",
+													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"][0]).to.equal(\"Required\");\r",
+													"\r",
 													"});"
 												],
 												"type": "text/javascript"
