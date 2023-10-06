@@ -29,13 +29,13 @@ public interface IPersonEntitySpecification
     bool IsPersonEntity(string typeName);
 
     /// <summary>
-    /// Indicates whether the specified property name is an identifier (and for the specified person type, if provided).
+    /// Indicates whether the specified property name is a person identifier (and for the specified person type, if provided), allowing for the presence of a role name as a prefix.
     /// </summary>
     /// <param name="propertyName">The name of the property to be evaluated.</param>
     /// <param name="personType">A specific type of person.</param>
     /// <returns><b>true</b> if the property is an identifier for the specified type of person; otherwise <b>false</b>.</returns>
     bool IsPersonIdentifier(string propertyName, string personType = null);
-    
+
     /// <summary>
     /// Gets the type of person for a supplied UniqueId property name.
     /// </summary>

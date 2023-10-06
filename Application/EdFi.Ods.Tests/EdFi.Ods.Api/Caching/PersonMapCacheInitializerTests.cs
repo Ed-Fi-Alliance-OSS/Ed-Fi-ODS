@@ -3,12 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.IdentityValueMappers;
 using NUnit.Framework;
 using FakeItEasy;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EdFi.Ods.Tests._Extensions;
 using Shouldly;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching;
@@ -34,7 +36,7 @@ public class PersonMapCacheInitializerTests
         };
 
         A.CallTo(() => fakePersonIdentifiersProvider.GetAllPersonIdentifiersAsync(personType))
-            .Returns(Task.FromResult<IEnumerable<PersonIdentifiersValueMap>>(personIdentifiers));
+            .Returns(TaskHelpers.FromResultWithDelay<IEnumerable<PersonIdentifiersValueMap>>(personIdentifiers, 25));
 
         var initializer = new PersonMapCacheInitializer(
             fakePersonIdentifiersProvider,
@@ -79,6 +81,9 @@ public class PersonMapCacheInitializerTests
         var fakeUniqueIdByUsiMapCache = A.Fake<IMapCache<(ulong, string, PersonMapType), int, string>>();
         var fakeUsiByUniqueIdMapCache = A.Fake<IMapCache<(ulong, string, PersonMapType), string, int>>();
     
+        A.CallTo(() => fakePersonIdentifiersProvider.GetAllPersonIdentifiersAsync(personType))
+            .Returns(TaskHelpers.FromResultWithDelay<IEnumerable<PersonIdentifiersValueMap>>(Array.Empty<PersonIdentifiersValueMap>(), 25));
+
         // Simulate that the cache is already initialized
         var uniqueIdByUsiTuple = (odsInstanceHashId, personType, PersonMapType.UniqueIdByUsi);
         

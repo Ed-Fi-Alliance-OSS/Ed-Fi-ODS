@@ -13,12 +13,19 @@ namespace EdFi.Ods.Common.Specifications
     public class PersonEntitySpecification : IPersonEntitySpecification
     {
         private readonly IPersonTypesProvider _personTypesProvider;
-        
+
+        private static readonly string[] _suffixes;
+
         public PersonEntitySpecification(IPersonTypesProvider personTypesProvider)
         {
             _personTypesProvider = personTypesProvider;
         }
-        
+
+        static PersonEntitySpecification()
+        {
+            _suffixes = new[] { UniqueIdConventions.UsiSuffix, UniqueIdConventions.UniqueIdSuffix };
+        }
+
         /// <inheritdoc cref="IPersonEntitySpecification.IsPersonEntity(System.Type)" />
         public bool IsPersonEntity(Type type)
         {
@@ -40,13 +47,29 @@ namespace EdFi.Ods.Common.Specifications
             }
 
             // TODO: Embedded convention (Person identifiers can end with "USI" or "UniqueId")
-            if (propertyName.TryTrimSuffix("UniqueId", out string entityName)
-                || propertyName.TryTrimSuffix("USI", out entityName))
-            {
-                return IsPersonEntity(entityName) && (personType == null || entityName.EqualsIgnoreCase(personType));
-            }
+            return _suffixes.Any(
+                    s => propertyName.EndsWith(s) 
+                        && _personTypesProvider.PersonTypes.Any(
+                            pt => 
+                                // Person type was either not specified, or current person type matches what was specified
+                                (personType == null || personType == pt) 
+                                && PersonTypeAppearsImmediatelyBeforeSuffix(pt, s)));
 
-            return false;
+            bool PersonTypeAppearsImmediatelyBeforeSuffix(string pt, string suffix)
+            {
+                int lastIndexOfPersonType = propertyName.LastIndexOf(pt, StringComparison.Ordinal);
+
+                if (lastIndexOfPersonType < 0)
+                {
+                    // Person type is not in the property name
+                    return false;
+                }
+                
+                // Identify expected location of the person type in the property name
+                int expectedLastIndexOfPersonType = propertyName.Length - (pt.Length + suffix.Length);
+
+                return lastIndexOfPersonType == expectedLastIndexOfPersonType;
+            }
         }
 
         /// <inheritdoc cref="IPersonEntitySpecification.GetUniqueIdPersonType" />
@@ -63,7 +86,7 @@ namespace EdFi.Ods.Common.Specifications
                     }
 
                     return propertyName.AsSpan(personTypePos + pt.Length)
-                        .Equals(UniqueIdConventions.UniqueId.AsSpan(), StringComparison.OrdinalIgnoreCase);
+                        .Equals(UniqueIdConventions.UniqueIdSuffix.AsSpan(), StringComparison.OrdinalIgnoreCase);
                 });
 
             return personType;
@@ -91,7 +114,7 @@ namespace EdFi.Ods.Common.Specifications
                     }
 
                     return propertyName.AsSpan(personTypePos + pt.Length)
-                        .Equals(UniqueIdConventions.USI.AsSpan(), StringComparison.OrdinalIgnoreCase);
+                        .Equals(UniqueIdConventions.UsiSuffix.AsSpan(), StringComparison.OrdinalIgnoreCase);
                 });
 
             return personType;
