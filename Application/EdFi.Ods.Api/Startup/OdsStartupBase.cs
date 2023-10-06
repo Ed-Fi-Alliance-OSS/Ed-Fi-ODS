@@ -270,6 +270,8 @@ namespace EdFi.Ods.Api.Startup
             // Process headers and query string arguments for correlation ids, and add to log messages
             app.UseRequestCorrelation();
 
+            app.UseOAuthContentTypeValidation();
+
             var apiSettings = apiSettingsOptions.Value;
 
             if (!string.IsNullOrEmpty(apiSettings.PathBase))
