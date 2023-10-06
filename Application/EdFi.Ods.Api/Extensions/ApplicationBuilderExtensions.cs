@@ -34,5 +34,8 @@ namespace EdFi.Ods.Api.Extensions
         
         public static IApplicationBuilder UseRequestResponseDetailsLogger(this IApplicationBuilder builder)
             => builder.UseMiddleware<RequestResponseDetailsLoggerMiddleware>();
+
+        public static IApplicationBuilder UseOAuthContentTypeValidation(this IApplicationBuilder builder)
+            => builder.UseMiddleware<OAuthContentTypeValidationMiddleware>();
     }
 }
