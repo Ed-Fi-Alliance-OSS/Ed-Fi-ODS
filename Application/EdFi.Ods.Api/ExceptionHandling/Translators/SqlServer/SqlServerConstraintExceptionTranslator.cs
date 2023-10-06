@@ -98,6 +98,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                                 }
                                 else
                                 {
+                                    columnName = columnName.Replace("USI", "UniqueId");
                                     messageFormat =
                                         "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of the '{1}' value of the '{0}' entity.";
                                 }
