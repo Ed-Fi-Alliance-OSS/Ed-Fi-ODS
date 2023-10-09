@@ -14,20 +14,20 @@ namespace EdFi.Admin.DataAccess.Contexts
 {
     public class UsersContextFactory : IUsersContextFactory
     {
-        private readonly Dictionary<DatabaseEngine, Type> _usersContextTypeByDatabaseEngine = new()
-        {
-            {DatabaseEngine.SqlServer, typeof(SqlServerUsersContext)},
-            {DatabaseEngine.Postgres, typeof(PostgresUsersContext)}
-        };
-
-        private readonly DatabaseEngine _databaseEngine;
-
         private readonly IAdminDatabaseConnectionStringProvider _connectionStringsProvider;
 
-        public UsersContextFactory(IAdminDatabaseConnectionStringProvider connectionStringsProvider, DatabaseEngine databaseEngine)
+        private readonly DatabaseEngine _databaseEngine;
+        private readonly Dictionary<DatabaseEngine, Type> _usersContextTypeByDatabaseEngine = new()
+        {
+            { DatabaseEngine.SqlServer, typeof(SqlServerUsersContext) },
+            { DatabaseEngine.Postgres, typeof(PostgresUsersContext) }
+        };
+
+        public UsersContextFactory(IAdminDatabaseConnectionStringProvider connectionStringsProvider,
+            DatabaseEngine databaseEngine)
         {
             _connectionStringsProvider = Preconditions.ThrowIfNull(connectionStringsProvider, nameof(connectionStringsProvider));
-            _databaseEngine =  Preconditions.ThrowIfNull(databaseEngine, nameof(databaseEngine));
+            _databaseEngine = Preconditions.ThrowIfNull(databaseEngine, nameof(databaseEngine));
         }
         
         public Type GetUsersContextType()

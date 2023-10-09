@@ -3,14 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Linq;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.TestFixture;
+using Microsoft.EntityFrameworkCore;
 using NCrunch.Framework;
 using NUnit.Framework;
 using Shouldly;
-using System;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using Test.Common;
 
 namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models

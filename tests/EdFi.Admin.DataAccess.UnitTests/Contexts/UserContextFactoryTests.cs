@@ -4,13 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using FakeItEasy;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Configuration;
+using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
-using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Admin.DataAccess.UnitTests.Contexts
 {

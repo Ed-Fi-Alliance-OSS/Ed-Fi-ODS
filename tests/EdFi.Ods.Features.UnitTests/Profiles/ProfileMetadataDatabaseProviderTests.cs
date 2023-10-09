@@ -4,9 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Xml.Linq;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
@@ -14,6 +11,7 @@ using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Features.Profiles;
 using EdFi.TestFixture;
 using FakeItEasy;
+using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using Shouldly;
 

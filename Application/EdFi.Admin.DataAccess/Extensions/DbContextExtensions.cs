@@ -10,7 +10,8 @@ namespace EdFi.Admin.DataAccess.Extensions
 {
     public static class DbContextExtensions
     {
-        public static void DeleteAll<T>(this DbContext context) where T : class
+        public static void DeleteAll<T>(this DbContext context)
+            where T : class
         {
             foreach (var p in context.Set<T>().ToList())
             {

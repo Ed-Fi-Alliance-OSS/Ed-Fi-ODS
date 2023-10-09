@@ -14,7 +14,7 @@ namespace EdFi.Admin.DataAccess.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OdsInstanceDerivativeId { get; set; }
 
-        public virtual OdsInstance OdsInstance {get; set; }
+        public virtual OdsInstance OdsInstance { get; set; }
 
         /// <summary>
         /// The type of derivative (e.g. "Snapshot")

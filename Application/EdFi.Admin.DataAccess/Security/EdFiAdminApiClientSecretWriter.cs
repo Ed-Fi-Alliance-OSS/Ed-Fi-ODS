@@ -34,7 +34,7 @@ namespace EdFi.Admin.DataAccess.Security
 
         private ApiClient GetClientByKey(string key)
         {
-            var client =  _clientAppRepo.GetClientByKey(key);
+            var client = _clientAppRepo.GetClientByKey(key);
 
             if (client == null)
             {

@@ -21,7 +21,8 @@ namespace EdFi.Admin.DataAccess.Utils
 
         private readonly Lazy<string> _databaseNameTemplate;
 
-        public DatabaseNameBuilder(IConfigConnectionStringsProvider connectionStringsProvider, IDbConnectionStringBuilderAdapterFactory connectionStringBuilderFactory)
+        public DatabaseNameBuilder(IConfigConnectionStringsProvider connectionStringsProvider,
+            IDbConnectionStringBuilderAdapterFactory connectionStringBuilderFactory)
         {
             _databaseNameTemplate = new Lazy<string>(
                 () =>
@@ -65,8 +66,9 @@ namespace EdFi.Admin.DataAccess.Utils
 
         public string TemplateSandboxNameForKey(string key) => SandboxPrefix + key;
 
-        private string DatabaseName(string databaseName) => _databaseNameTemplate.Value.IsFormatString()
-            ? string.Format(_databaseNameTemplate.Value, databaseName)
-            : _databaseNameTemplate.Value;
+        private string DatabaseName(string databaseName)
+            => _databaseNameTemplate.Value.IsFormatString()
+                ? string.Format(_databaseNameTemplate.Value, databaseName)
+                : _databaseNameTemplate.Value;
     }
 }

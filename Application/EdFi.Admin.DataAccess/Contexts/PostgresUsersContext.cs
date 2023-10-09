@@ -4,10 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Linq;
+using EdFi.Admin.DataAccess.Extensions;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Common.Utils.Extensions;
 using Microsoft.EntityFrameworkCore;
-using EdFi.Admin.DataAccess.Extensions;
 
 namespace EdFi.Admin.DataAccess.Contexts
 {

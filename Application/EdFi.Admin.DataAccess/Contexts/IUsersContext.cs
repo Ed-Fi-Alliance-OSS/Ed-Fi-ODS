@@ -5,9 +5,9 @@
 
 using System;
 using System.Threading;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Admin.DataAccess.Contexts
 {
@@ -36,11 +36,11 @@ namespace EdFi.Admin.DataAccess.Contexts
         DbSet<VendorNamespacePrefix> VendorNamespacePrefixes { get; set; }
 
         DbSet<OwnershipToken> OwnershipTokens { get; set; }
-        
+
         DbSet<ApiClientOdsInstance> ApiClientOdsInstances { get; set; }
-        
+
         DbSet<ApiClientOwnershipToken> ApiClientOwnershipTokens { get; set; }
-        
+
         int SaveChanges();
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);

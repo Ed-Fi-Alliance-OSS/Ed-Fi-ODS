@@ -5,21 +5,21 @@
 
 using System;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Extensions;
 using EdFi.Admin.DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Admin.DataAccess.Contexts
 {
     public abstract class UsersContext : DbContext, IUsersContext
     {
+        public const string UserTableName = "Users";
+
         protected UsersContext(DbContextOptions options)
             : base(options) { }
-
-        public const string UserTableName = "Users";
 
         public static string UserNameColumn
         {

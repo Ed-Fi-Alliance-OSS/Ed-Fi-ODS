@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Linq;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Providers;
@@ -10,7 +11,6 @@ using EdFi.Common.Configuration;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
-using System.Linq;
 
 namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
 {

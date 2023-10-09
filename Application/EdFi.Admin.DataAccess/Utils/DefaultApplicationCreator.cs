@@ -4,11 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Common;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Admin.DataAccess.Utils
@@ -38,9 +38,9 @@ namespace EdFi.Admin.DataAccess.Utils
             using (var context = _usersContextFactory.CreateContext())
             {
                 var vendor = context.Vendors
-                                    .Where(x => x.VendorId == vendorId)
-                                    .Include(x => x.Applications).ThenInclude(x => x.ApplicationEducationOrganizations)
-                                    .Single();
+                    .Where(x => x.VendorId == vendorId)
+                    .Include(x => x.Applications).ThenInclude(x => x.ApplicationEducationOrganizations)
+                    .Single();
 
                 var defaultAppName = _configuration.GetSection("DefaultApplicationName").Value ?? "Default Sandbox Application";
                 var applicationName = defaultAppName + " " + sandboxType;
@@ -55,7 +55,8 @@ namespace EdFi.Admin.DataAccess.Utils
         {
             using (var context = _usersContextFactory.CreateContext())
             {
-                var application = context.Applications.Include(a => a.ApiClients).SingleOrDefault(a => a.ApplicationId == applicationId);
+                var application = context.Applications.Include(a => a.ApiClients)
+                    .SingleOrDefault(a => a.ApplicationId == applicationId);
 
                 if (application != null)
                 {
