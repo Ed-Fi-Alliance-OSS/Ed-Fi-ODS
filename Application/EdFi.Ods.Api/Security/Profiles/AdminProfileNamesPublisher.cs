@@ -4,13 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Data.Entity;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Common.Metadata.Profiles;
 using log4net;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Ods.Api.Security.Profiles
 {
@@ -47,7 +48,7 @@ namespace EdFi.Ods.Api.Security.Profiles
                     {
                         if (_logger.IsDebugEnabled)
                         {
-                            string adminDatabaseName = (usersContext as DbContext)?.Database.Connection.Database;
+                            string adminDatabaseName = (usersContext as DbContext)?.Database.GetDbConnection().Database;
                             _logger.Debug($"No profile names need to be published to the Admin database '{adminDatabaseName}'...");
                         }
 
@@ -56,7 +57,7 @@ namespace EdFi.Ods.Api.Security.Profiles
 
                     if (_logger.IsDebugEnabled)
                     {
-                        string adminDatabaseName = (usersContext as DbContext)?.Database.Connection.Database;
+                        string adminDatabaseName = (usersContext as DbContext)?.Database.GetDbConnection().Database;
                         _logger.Debug($"Publishing the following Profile names to the Admin database '{adminDatabaseName}': {string.Join("', '", profilesToInsert)}");
                     }
 
@@ -66,7 +67,7 @@ namespace EdFi.Ods.Api.Security.Profiles
                         usersContext.Profiles.Add(new Profile { ProfileName = profileName });
                     }
 
-                    await usersContext.SaveChangesAsync();
+                    await usersContext.SaveChangesAsync(new CancellationToken());
                 }
 
                 return true;

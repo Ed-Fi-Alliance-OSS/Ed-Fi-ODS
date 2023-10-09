@@ -27,7 +27,7 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.1.7" />
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.1.14" />
         <PackageReference Include="EdFi.Suite3.Common" Version="7.1.2" />
       </ItemGroup>
     </Otherwise>
@@ -60,6 +60,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="hibernate.cfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.Development.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -8,32 +8,61 @@ using System.Collections.Generic;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common;
 using EdFi.Common.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Admin.DataAccess.Contexts
 {
     public class UsersContextFactory : IUsersContextFactory
     {
-        private readonly Dictionary<DatabaseEngine, Type> _usersContextTypeByDatabaseEngine = new()
-        {
-            {DatabaseEngine.SqlServer, typeof(SqlServerUsersContext)},
-            {DatabaseEngine.Postgres, typeof(PostgresUsersContext)}
-        };
-
-        private readonly DatabaseEngine _databaseEngine;
-
         private readonly IAdminDatabaseConnectionStringProvider _connectionStringsProvider;
 
-        public UsersContextFactory(IAdminDatabaseConnectionStringProvider connectionStringsProvider, DatabaseEngine databaseEngine)
+        private readonly DatabaseEngine _databaseEngine;
+        private readonly Dictionary<DatabaseEngine, Type> _usersContextTypeByDatabaseEngine = new()
+        {
+            { DatabaseEngine.SqlServer, typeof(SqlServerUsersContext) },
+            { DatabaseEngine.Postgres, typeof(PostgresUsersContext) }
+        };
+
+        public UsersContextFactory(IAdminDatabaseConnectionStringProvider connectionStringsProvider,
+            DatabaseEngine databaseEngine)
         {
             _connectionStringsProvider = Preconditions.ThrowIfNull(connectionStringsProvider, nameof(connectionStringsProvider));
-            _databaseEngine =  Preconditions.ThrowIfNull(databaseEngine, nameof(databaseEngine));
+            _databaseEngine = Preconditions.ThrowIfNull(databaseEngine, nameof(databaseEngine));
         }
-
-        public IUsersContext CreateContext()
+        
+        public Type GetUsersContextType()
         {
             if (_usersContextTypeByDatabaseEngine.TryGetValue(_databaseEngine, out Type contextType))
             {
-                return Activator.CreateInstance(contextType, _connectionStringsProvider.GetConnectionString()) as IUsersContext;
+                return contextType;
+            }
+
+            throw new InvalidOperationException(
+                $"No UsersContext defined for database type {_databaseEngine.DisplayName}");
+        } 
+
+        public IUsersContext CreateContext()
+        {
+            if (_databaseEngine == DatabaseEngine.SqlServer)
+            {
+                return Activator.CreateInstance(
+                        GetUsersContextType(),
+                        new DbContextOptionsBuilder<SqlServerUsersContext>()
+                            .UseLazyLoadingProxies()
+                            .UseSqlServer(_connectionStringsProvider.GetConnectionString())
+                            .Options) as
+                    IUsersContext;
+            }
+
+            if (_databaseEngine == DatabaseEngine.Postgres)
+            {
+                return Activator.CreateInstance(
+                        GetUsersContextType(),
+                        new DbContextOptionsBuilder<PostgresUsersContext>()
+                            .UseLazyLoadingProxies()
+                            .UseNpgsql(_connectionStringsProvider.GetConnectionString())
+                            .Options) as
+                    IUsersContext;
             }
 
             throw new InvalidOperationException(

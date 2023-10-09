@@ -46,7 +46,7 @@ namespace EdFi.Admin.DataAccess.Models
 
         public static Vendor Create(string vendorName, IEnumerable<string> namespacePrefixes)
         {
-            var vendor = new Vendor {VendorName = vendorName};
+            var vendor = new Vendor { VendorName = vendorName };
 
             foreach (string namespacePrefix in namespacePrefixes)
             {

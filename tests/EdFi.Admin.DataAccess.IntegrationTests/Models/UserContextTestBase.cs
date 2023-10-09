@@ -3,16 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Transactions;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Configuration;
 using EdFi.TestFixture;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
-using System;
-using System.Data.Entity;
-using System.Transactions;
-using EdFi.Admin.DataAccess.DbConfigurations;
 
 namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
 {
@@ -39,8 +37,6 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
             TestDatabaseEngine = DatabaseEngine.TryParseEngine(engine);
 
             var connectionStringProvider = new AdminDatabaseConnectionStringProvider(new ConfigConnectionStringsProvider(config));
-
-            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(TestDatabaseEngine));
             var userContextFactory = new UsersContextFactory(connectionStringProvider, TestDatabaseEngine);
             _userContext = userContextFactory.CreateContext() as UsersContext;
         }

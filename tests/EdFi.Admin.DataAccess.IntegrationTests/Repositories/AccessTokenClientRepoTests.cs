@@ -15,12 +15,10 @@ using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Transactions;
-using EdFi.Admin.DataAccess.DbConfigurations;
 using EdFi.Ods.Api.Security.Authentication;
+using Microsoft.Data.SqlClient;
 using Npgsql;
 
 // ReSharper disable InconsistentNaming
@@ -63,10 +61,9 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
             _databaseEngine = DatabaseEngine.TryParseEngine(engine);
 
             _connectionStringProvider = new AdminDatabaseConnectionStringProvider(new ConfigConnectionStringsProvider(config));
-            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(_databaseEngine));
             var userContextFactory = new UsersContextFactory(_connectionStringProvider, _databaseEngine);
             TestFixtureContext = userContextFactory.CreateContext();
-
+            
             if (_databaseEngine == DatabaseEngine.Postgres)
             {
                 ExpiredAccessTokenDeleter = new ExpiredAccessTokenDeleter(NpgsqlFactory.Instance, _connectionStringProvider);
@@ -94,9 +91,9 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
             _transaction?.Dispose();
         }
 
-        protected ApiClient LoadAnApiClient(Application application, int apiClientId)
+        protected ApiClient LoadAnApiClient(Application application)
         {
-            var a = TestFixtureContext.Clients.Add(
+            var a = TestFixtureContext.ApiClients.Add(
                 new ApiClient
                 {
                     Key = "key",
@@ -106,12 +103,12 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                     UseSandbox = true,
                     SandboxType = SandboxType.Minimal,
                     SecretIsHashed = false,
-                    Application = application,
-                    ApiClientId = apiClientId
+                    Application = application
                 });
-
+            
             TestFixtureContext.SaveChanges();
-            return a;
+            
+            return a.Entity;
         }
 
         protected ClientAccessToken LoadAnAccessToken(ApiClient client, DateTime expiration)
@@ -125,14 +122,14 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
 
             TestFixtureContext.SaveChanges();
 
-            return a;
+            return a.Entity;
         }
 
         protected Vendor LoadAVendor()
         {
             var a = TestFixtureContext.Vendors.Add(new Vendor());
             TestFixtureContext.SaveChanges();
-            return a;
+            return a.Entity;
         }
 
         protected void LoadAVendorNamespacePrefix(Vendor vendor, string namespacePrefix)
@@ -159,7 +156,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
 
             TestFixtureContext.SaveChanges();
 
-            return a;
+            return a.Entity;
         }
 
         protected ApplicationEducationOrganization LoadAnApplicationEducationOrganization(Application application,
@@ -169,12 +166,12 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                 new ApplicationEducationOrganization
                 {
                     Application = application,
-                    Clients = new[] { client },
+                    ApiClients = new[] { client },
                     EducationOrganizationId = edOrgId
                 });
 
             TestFixtureContext.SaveChanges();
-            return a;
+            return a.Entity;
         }
 
         protected void LoadAProfile(Application application, string profileName)
@@ -205,10 +202,10 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                 protected override void Arrange()
                 {
                     base.Arrange();
-
+                    
                     var vendor = LoadAVendor();
                     var application = LoadAnApplication(vendor, "whatever");
-                    var apiClient = LoadAnApiClient(application,1);
+                    var apiClient = LoadAnApiClient(application);
                     _accessToken = LoadAnAccessToken(apiClient, DateTime.UtcNow.AddSeconds(-10));
                 }
 
@@ -227,7 +224,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
         {
             protected ClientAccessToken AccessToken;
             protected ApiClient Client;
-
+            
             [TestFixture]
             public class When_deleting_access_tokens : Given_an_unexpired_token
             {
@@ -235,7 +232,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                 {
                     base.Arrange();
 
-                    Client = LoadAnApiClient(null,0);
+                    Client = LoadAnApiClient(null);
                     AccessToken = LoadAnAccessToken(Client, DateTime.UtcNow.AddSeconds(100));
                 }
 
@@ -265,7 +262,6 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                 protected const int edOrgId2 = 34;
                 protected const string profileName1 = "three";
                 protected const string profileName2 = "four";
-                protected const int apiClientId = 5;
 
                 protected override void Arrange()
                 {
@@ -277,7 +273,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
 
                     var application = LoadAnApplication(vendor, claimSetName);
 
-                    Client = LoadAnApiClient(application, apiClientId);
+                    Client = LoadAnApiClient(application);
                     LoadAnApplicationEducationOrganization(application, Client, edOrgId1);
                     LoadAnApplicationEducationOrganization(application, Client, edOrgId2);
 
@@ -384,7 +380,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                     base.Arrange();
 
                     var application = LoadAnApplication(null, "Sandbox");
-                    Client = LoadAnApiClient(application,5);
+                    Client = LoadAnApiClient(application);
                     AccessToken = LoadAnAccessToken(Client, DateTime.UtcNow.AddSeconds(100));
                 }
 

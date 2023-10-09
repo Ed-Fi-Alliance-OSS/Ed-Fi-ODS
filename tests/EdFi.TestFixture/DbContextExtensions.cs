@@ -4,9 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Data.Entity;
-using System.Data.Entity.Validation;
-using System.Linq;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.TestFixture
 {
@@ -23,16 +22,11 @@ namespace EdFi.TestFixture
             {
                 action();
             }
-            catch (DbEntityValidationException exception)
+            catch (ValidationException exception)
             {
-                var errorTexts =
-                    exception.EntityValidationErrors.SelectMany(x => x.ValidationErrors)
-                        .Select(x => x.ErrorMessage);
-
-                foreach (var error in errorTexts)
-                {
-                    Console.WriteLine(error);
-                }
+                var errorTexts = exception.ValidationResult.ErrorMessage;
+                
+                Console.WriteLine(errorTexts);
 
                 throw;
             }

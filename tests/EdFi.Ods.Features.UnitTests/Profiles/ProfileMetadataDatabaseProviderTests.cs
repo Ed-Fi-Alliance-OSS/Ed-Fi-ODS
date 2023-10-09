@@ -3,9 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
+using System.Collections;
 using System.Xml.Linq;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
@@ -13,6 +11,7 @@ using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Features.Profiles;
 using EdFi.TestFixture;
 using FakeItEasy;
+using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using Shouldly;
 
@@ -50,11 +49,11 @@ namespace EdFi.Ods.Features.UnitTests.Profiles
 
                 var userContext = Stub<IUsersContext>();
 
-                var fakeDbSet = A.Fake<IDbSet<Profile>>(options => options.Implements(typeof(IQueryable<Profile>)));
-                A.CallTo(() => fakeDbSet.Provider).Returns(profiles.Provider);
-                A.CallTo(() => fakeDbSet.Expression).Returns(profiles.Expression);
-                A.CallTo(() => fakeDbSet.ElementType).Returns(profiles.ElementType);
-                A.CallTo(() => fakeDbSet.GetEnumerator()).Returns(profiles.GetEnumerator());
+                var fakeDbSet = A.Fake<DbSet<Profile>>(options => options.Implements(typeof(IQueryable<Profile>)));
+                A.CallTo(() => ((IQueryable)fakeDbSet).Provider).Returns(profiles.Provider);
+                A.CallTo(() => ((IQueryable)fakeDbSet).Expression).Returns(profiles.Expression);
+                A.CallTo(() => ((IQueryable)fakeDbSet).ElementType).Returns(profiles.ElementType);
+                A.CallTo(() => ((IEnumerable)fakeDbSet).GetEnumerator()).Returns(profiles.GetEnumerator());
 
                 A.CallTo(() => userContext.Profiles)
                     .Returns(fakeDbSet);

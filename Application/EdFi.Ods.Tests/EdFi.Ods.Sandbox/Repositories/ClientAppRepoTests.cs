@@ -6,8 +6,9 @@
 using System;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Admin.DataAccess.Providers;
 using EdFi.Admin.DataAccess.Repositories;
-using EdFi.TestFixture;
+using EdFi.Common.Configuration;
 using FakeItEasy;
 using NUnit.Framework;
 using Microsoft.Extensions.Configuration;
@@ -23,19 +24,30 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox
         {
             private ClientAppRepo _clientAppRepo;
             private ApiClient _testClient;
+            private DatabaseEngine _databaseEngine;
 
             [OneTimeSetUp]
             public void Setup()
             {
-                var configValueProviderStub = A.Fake<IConfigurationRoot>();
-                var usersContext = A.Fake<IUsersContext>();
+                var configuration = new ConfigurationBuilder()
+                    .SetBasePath(TestContext.CurrentContext.TestDirectory)
+                    .AddJsonFile("appsettings.json", false)
+                    .AddJsonFile("appsettings.Development.json", true)
+                    .AddEnvironmentVariables()
+                    .Build();
 
+                var engine = configuration.GetSection("ApiSettings").GetValue<string>("Engine");
+                
+                _databaseEngine = DatabaseEngine.TryParseEngine(engine);
 
-                var usersContextFactory = A.Fake<IUsersContextFactory>();
-                A.CallTo(() => usersContextFactory.CreateContext())
-                    .Returns(usersContext);
+                var connectionStringProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();
+                
+                A.CallTo(() => connectionStringProvider.GetConnectionString()).Returns(
+                    configuration.GetConnectionString("EdFi_Admin"));
 
-                _clientAppRepo = new ClientAppRepo(usersContextFactory, configValueProviderStub);
+                var usersContextFactory = new UsersContextFactory(connectionStringProvider, _databaseEngine);
+
+                _clientAppRepo = new ClientAppRepo(usersContextFactory, configuration);
 
                 _testClient = new ApiClient(true)
                 {
@@ -43,10 +55,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox
                         .ToString("N")
                 };
 
-                var dbSet = new TestDbSet<ApiClient> {_testClient};
-
-                A.CallTo(() => usersContext.Clients)
-                    .Returns(dbSet);
+                _clientAppRepo.UpdateClient(_testClient);
             }
 
             [Test]

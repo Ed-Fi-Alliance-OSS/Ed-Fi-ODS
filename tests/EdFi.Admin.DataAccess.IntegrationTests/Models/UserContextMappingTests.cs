@@ -3,15 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Linq;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.TestFixture;
+using Microsoft.EntityFrameworkCore;
 using NCrunch.Framework;
 using NUnit.Framework;
 using Shouldly;
-using System;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
-using System.Linq;
 using Test.Common;
 
 namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
@@ -76,11 +75,11 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                     client.ApplicationEducationOrganizations.Add(lea);
 
                     //Act
-                    context.Clients.Add(client);
+                    context.ApiClients.Add(client);
                     context.SaveChangesForTest();
 
                     //Assert
-                    var clientFromDb = context.Clients.Where(x => x.Name == clientName)
+                    var clientFromDb = context.ApiClients.Where(x => x.Name == clientName)
                         .Include(x => x.ApplicationEducationOrganizations)
                         .Single();
 
@@ -220,7 +219,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                         .ElementAt(0)
                         .OperationalContextUri = "uri://ed-fi-api-host.org";
 
-                    context.ApplicationEducationOrganizations.AddOrUpdate(educationOrganizationAssociation);
+                    context.ApplicationEducationOrganizations.Update(educationOrganizationAssociation);
                     context.Vendors.Add(vendor);
                     context.SaveChangesForTest();
 

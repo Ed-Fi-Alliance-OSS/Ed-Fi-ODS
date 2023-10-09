@@ -40,9 +40,12 @@ namespace EdFi.Admin.DataAccess.Models
         public ApiClient AddSandboxClient(string name, SandboxType sandboxType, string key, string secret)
         {
             var client = new ApiClient(true)
-                         {
-                             Name = name, IsApproved = true, UseSandbox = true, SandboxType = sandboxType
-                         };
+            {
+                Name = name,
+                IsApproved = true,
+                UseSandbox = true,
+                SandboxType = sandboxType
+            };
 
             if (!string.IsNullOrEmpty(key) && !string.IsNullOrEmpty(secret))
             {
@@ -60,7 +63,7 @@ namespace EdFi.Admin.DataAccess.Models
             {
                 Email = userEmail,
                 FullName = userName,
-                Vendor =  vendor
+                Vendor = vendor
             };
         }
     }

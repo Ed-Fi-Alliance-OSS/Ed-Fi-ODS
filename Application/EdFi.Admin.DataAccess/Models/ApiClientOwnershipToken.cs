@@ -20,13 +20,11 @@ namespace EdFi.Admin.DataAccess.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ApiClientOwnershipTokenId { get; set; }
-
-        [Required]
-        [Index(IsUnique = true, Order = 2)]
-        public OwnershipToken OwnershipToken { get; set; }
-
-        [Required]
-        [Index(IsUnique = true, Order = 1)]
-        public ApiClient ApiClient { get; set; }
+        
+        [Column("OwnershipToken_OwnershipTokenId")]
+        public int OwnershipTokenId { get; set; }
+        
+        [Column("ApiClient_ApiClientId")]
+        public int ApiClientId { get; set; }
     }
 }

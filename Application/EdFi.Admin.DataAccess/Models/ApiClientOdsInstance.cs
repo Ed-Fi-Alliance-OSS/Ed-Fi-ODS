@@ -3,14 +3,17 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Admin.DataAccess.Models
 {
     /// <summary>
     /// Class representing the association of an Api Client with an Ods Instance
     /// </summary>
+    [Index("ApiClientId")]
+    [Index("OdsInstanceId")]
     public class ApiClientOdsInstance
     {
         /// <summary>
@@ -19,13 +22,9 @@ namespace EdFi.Admin.DataAccess.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ApiClientOdsInstanceId { get; set; }
-
-        [Required]
-        [Index(IsUnique = true, Order = 1)]
-        public ApiClient ApiClient { get; set; }
-
-        [Required]
-        [Index(IsUnique = true, Order = 2)]
-        public OdsInstance OdsInstance { get; set; }
+        
+        public virtual ApiClient ApiClient { get; set; }
+        
+        public virtual OdsInstance OdsInstance { get; set; }
     }
 }

@@ -5,16 +5,15 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Extensions;
-using Microsoft.Extensions.Configuration;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Common;
 using log4net;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Admin.DataAccess.Repositories
 {
@@ -22,16 +21,13 @@ namespace EdFi.Admin.DataAccess.Repositories
     {
         private const int DefaultDuration = 60;
         private readonly IUsersContextFactory _contextFactory;
-
-        private readonly ILog _logger = LogManager.GetLogger(typeof(ClientAppRepo));
-        private readonly Lazy<int> _duration;
-        private readonly Lazy<string> _defaultOperationalContextUri;
         private readonly Lazy<string> _defaultAppName;
         private readonly Lazy<string> _defaultClaimSetName;
+        private readonly Lazy<string> _defaultOperationalContextUri;
+        private readonly Lazy<int> _duration;
+        private readonly ILog _logger = LogManager.GetLogger(typeof(ClientAppRepo));
 
-        public ClientAppRepo(
-            IUsersContextFactory contextFactory,
-            IConfigurationRoot config)
+        public ClientAppRepo(IUsersContextFactory contextFactory, IConfigurationRoot config)
         {
             _contextFactory = Preconditions.ThrowIfNull(contextFactory, nameof(contextFactory));
             Preconditions.ThrowIfNull(config, nameof(config));
@@ -41,9 +37,9 @@ namespace EdFi.Admin.DataAccess.Repositories
                 {
                     // Get the config value, defaulting to 1 hour
                     if (!int.TryParse(
-                        config.GetSection("BearerTokenTimeoutMinutes")
-                            .Value,
-                        out int duration))
+                            config.GetSection("BearerTokenTimeoutMinutes")
+                                .Value,
+                            out int duration))
                     {
                         duration = DefaultDuration;
                     }
@@ -64,22 +60,6 @@ namespace EdFi.Admin.DataAccess.Repositories
                     .Value);
         }
 
-        private Profile GetOrCreateProfile(string profileName, string profileDefinition)
-        {
-            using (var context = _contextFactory.CreateContext())
-            {
-                var profiles = context.Profiles.FirstOrDefault(s => s.ProfileName == profileName);
-
-                if (profiles == null)
-                {
-                    context.Profiles.Add(new Profile { ProfileName = profileName ,ProfileDefinition = profileDefinition });
-                    context.SaveChanges();
-                }
-
-                return context.Profiles.FirstOrDefault(s => s.ProfileName == profileName);
-            }
-        }
-
         public void CreateProfilesWithProfileDefinition(List<Profile> profiles)
         {
             using (var context = _contextFactory.CreateContext())
@@ -90,27 +70,16 @@ namespace EdFi.Admin.DataAccess.Repositories
 
                     if (profileExists == null)
                     {
-                        context.Profiles.Add(new Profile { ProfileName = profile.ProfileName, ProfileDefinition = profile.ProfileDefinition });
-                        
+                        context.Profiles.Add(
+                            new Profile
+                            {
+                                ProfileName = profile.ProfileName,
+                                ProfileDefinition = profile.ProfileDefinition
+                            });
                     }
                 }
+
                 context.SaveChanges();
-            }
-        }
-
-        private OwnershipToken GetOrCreateOwnershipToken(string ownershipToken)
-        {
-            using (var context = _contextFactory.CreateContext())
-            {
-                var ownershipTokens = context.OwnershipTokens.FirstOrDefault(s => s.Description == ownershipToken);
-
-                if (ownershipTokens == null)
-                {
-                    context.OwnershipTokens.Add(new OwnershipToken { Description = ownershipToken });
-                    context.SaveChanges();
-                }
-
-                return context.OwnershipTokens.FirstOrDefault(s => s.Description == ownershipToken);
             }
         }
 
@@ -126,7 +95,7 @@ namespace EdFi.Admin.DataAccess.Repositories
 
                 if (!currentOwnershipToken.ApiClients.Any(a => a.ApiClientId == apiClientId))
                 {
-                    var apiClient = context.Clients.FirstOrDefault(a => a.ApiClientId == apiClientId);
+                    var apiClient = context.ApiClients.FirstOrDefault(a => a.ApiClientId == apiClientId);
                     currentOwnershipToken.ApiClients.Add(apiClient);
                 }
 
@@ -139,16 +108,20 @@ namespace EdFi.Admin.DataAccess.Repositories
             using (var context = _contextFactory.CreateContext())
             {
                 var apiClientOwnershipTokenList = new List<ApiClientOwnershipToken>();
+
                 foreach (var ownershipToken in ownershipTokens)
                 {
                     var ownershiptoken = context.OwnershipTokens.FirstOrDefault(x => x.Description == ownershipToken);
-                    var apiClient = context.Clients.FirstOrDefault(u => u.ApiClientId == apiClientId);
-                    apiClientOwnershipTokenList.Add(new ApiClientOwnershipToken
-                    {
-                        ApiClient = apiClient,
-                        OwnershipToken = ownershiptoken
-                    });
+                    var apiClient = context.ApiClients.FirstOrDefault(u => u.ApiClientId == apiClientId);
+
+                    apiClientOwnershipTokenList.Add(
+                        new ApiClientOwnershipToken
+                        {
+                            ApiClientId = apiClient.ApiClientId,
+                            OwnershipTokenId = ownershiptoken.OwnershipTokenId
+                        });
                 }
+
                 context.ApiClientOwnershipTokens.AddRange(apiClientOwnershipTokenList);
                 context.SaveChanges();
             }
@@ -160,7 +133,7 @@ namespace EdFi.Admin.DataAccess.Repositories
             {
                 foreach (var _profile in profiles)
                 {
-                    var profile = GetOrCreateProfile(_profile.ProfileName , _profile.ProfileDefinition);
+                    var profile = GetOrCreateProfile(_profile.ProfileName, _profile.ProfileDefinition);
 
                     var currentProfile = context.Profiles
                         .Include(u => u.Applications)
@@ -192,7 +165,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                return context.Users.Include(u => u.ApiClients.Select(ac => ac.Application))
+                return context.Users.Include(u => u.ApiClients).ThenInclude(ac => ac.Application)
                     .ToList();
             }
         }
@@ -202,7 +175,7 @@ namespace EdFi.Admin.DataAccess.Repositories
             using (var context = _contextFactory.CreateContext())
             {
                 return
-                    context.Users.Include(u => u.ApiClients.Select(ac => ac.Application))
+                    context.Users.Include(u => u.ApiClients).ThenInclude(ac => ac.Application)
                         .FirstOrDefault(u => u.UserId == userId);
             }
         }
@@ -212,7 +185,7 @@ namespace EdFi.Admin.DataAccess.Repositories
             using (var context = _contextFactory.CreateContext())
             {
                 return
-                    context.Users.Include(u => u.ApiClients.Select(ac => ac.Application))
+                    context.Users.Include(u => u.ApiClients).ThenInclude(a => a.Application)
                         .Include(u => u.Vendor)
                         .FirstOrDefault(x => x.Email == userName);
             }
@@ -223,7 +196,7 @@ namespace EdFi.Admin.DataAccess.Repositories
             using (var context = _contextFactory.CreateContext())
             {
                 var user =
-                    context.Users.Include(u => u.ApiClients.Select(ac => ac.Application))
+                    context.Users.Include(u => u.ApiClients).ThenInclude(ac => ac.Application)
                         .FirstOrDefault(x => x.UserId == userProfile.UserId);
 
                 if (user == null)
@@ -235,7 +208,7 @@ namespace EdFi.Admin.DataAccess.Repositories
 
                 foreach (var client in arraySoThatUnderlyingCollectionCanBeModified)
                 {
-                    context.Clients.Remove(client);
+                    context.ApiClients.Remove(client);
                 }
 
                 context.Users.Remove(user);
@@ -247,11 +220,11 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                return context.Clients.Include(c => c.Application)
-                    .Include(c => c.Application.Vendor)
-                    .Include(c => c.Application.Vendor.VendorNamespacePrefixes)
+                return context.ApiClients.Include(c => c.Application)
+                    .ThenInclude(c => c.Vendor)
+                    .ThenInclude(c => c.VendorNamespacePrefixes)
                     .Include(c => c.ApplicationEducationOrganizations)
-                    .Include(c => c.CreatorOwnershipTokenId)
+                    .Include(c => c.CreatorOwnershipToken)
                     .FirstOrDefault(c => c.Key == key);
             }
         }
@@ -260,9 +233,9 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                return await context.Clients.Include(c => c.Application)
-                    .Include(c => c.Application.Vendor)
-                    .Include(c => c.Application.Vendor.VendorNamespacePrefixes)
+                return await context.ApiClients.Include(c => c.Application)
+                    .ThenInclude(a => a.Vendor)
+                    .ThenInclude(v => v.VendorNamespacePrefixes)
                     .Include(c => c.ApplicationEducationOrganizations)
                     .Include(c => c.CreatorOwnershipTokenId)
                     .FirstOrDefaultAsync(c => c.Key == key);
@@ -273,7 +246,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                return context.Clients.FirstOrDefault(c => c.Key == key && c.Secret == secret);
+                return context.ApiClients.FirstOrDefault(c => c.Key == key && c.Secret == secret);
             }
         }
 
@@ -281,7 +254,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                return context.Clients.FirstOrDefault(c => c.Key == key);
+                return context.ApiClients.FirstOrDefault(c => c.Key == key);
             }
         }
 
@@ -289,7 +262,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                context.Clients.AddOrUpdate(client);
+                context.ApiClients.Update(client);
                 context.SaveChanges();
                 return client;
             }
@@ -299,7 +272,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                var client = context.Clients.Include(x=>x.ClientAccessTokens).First(x => x.Key == key);
+                var client = context.ApiClients.Include(x => x.ClientAccessTokens).First(x => x.Key == key);
 
                 var apiClientOdsInstances = context.ApiClientOdsInstances.Include(x => x.ApiClient).Include(x => x.OdsInstance)
                     .Where(x => x.ApiClient.ApiClientId == client.ApiClientId);
@@ -315,7 +288,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                     context.ApiClientOdsInstances.Remove(apiClientOdsInstance);
                 }
 
-                context.Clients.Remove(client);
+                context.ApiClients.Remove(client);
 
                 context.SaveChanges();
             }
@@ -336,7 +309,7 @@ namespace EdFi.Admin.DataAccess.Repositories
             {
                 var user = context.Users
                     .Include(u => u.Vendor)
-                    .Include(v => v.Vendor.Applications)
+                    .ThenInclude(v => v.Applications)
                     .SingleOrDefault(u => u.UserId == userId);
 
                 if (user == null)
@@ -349,7 +322,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                     client.Application = user.Vendor.Applications.FirstOrDefault();
                 }
 
-                context.Clients.Add(client);
+                context.ApiClients.Add(client);
                 context.SaveChanges();
             }
         }
@@ -384,19 +357,6 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
-        private ApiClient CreateApiClient(
-            IUsersContext context,
-            int userId,
-            string name,
-            SandboxType sandboxType,
-            string key,
-            string secret)
-        {
-            var attachedUser = context.Users.Find(userId);
-
-            return attachedUser.AddSandboxClient(name, sandboxType, key, secret);
-        }
-
         public void AddEdOrgIdsToApiClient(int userId, int apiClientId, IList<long> edOrgIds, int applicationId)
         {
             using (var context = _contextFactory.CreateContext())
@@ -405,7 +365,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                     .Include(a => a.ApplicationEducationOrganizations)
                     .Single(a => a.ApplicationId == applicationId);
 
-                var user = context.Users.FirstOrDefault(u => u.UserId == userId);
+                var user = context.Users.Include(u => u.ApiClients).FirstOrDefault(u => u.UserId == userId);
 
                 var client = user?.ApiClients.FirstOrDefault(c => c.ApiClientId == apiClientId);
 
@@ -417,26 +377,12 @@ namespace EdFi.Admin.DataAccess.Repositories
                 client.Application = application;
 
                 foreach (var applicationEducationOrganization in application.ApplicationEducationOrganizations.Where(
-                    s => edOrgIds.Contains(s.EducationOrganizationId)))
+                             s => edOrgIds.Contains(s.EducationOrganizationId)))
                 {
                     client.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
                 }
 
                 context.SaveChanges();
-            }
-        }
-
-        private void AddApplicationEducationOrganizations(IUsersContext context, int applicationId, ApiClient client)
-        {
-            var defaultApplication = context.Applications
-                .Include(a => a.ApplicationEducationOrganizations)
-                .First(a => a.ApplicationId == applicationId);
-
-            client.Application = defaultApplication;
-
-            foreach (var applicationEducationOrganization in defaultApplication.ApplicationEducationOrganizations)
-            {
-                client.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
             }
         }
 
@@ -505,7 +451,8 @@ namespace EdFi.Admin.DataAccess.Repositories
             SetDefaultVendorOnUserFromEmailAndName(userEmail, userName, new List<string> { namespacePrefix });
         }
 
-        public void SetDefaultVendorOnUserFromEmailAndName(string userEmail, string userName, IEnumerable<string> namespacePrefixes)
+        public void SetDefaultVendorOnUserFromEmailAndName(string userEmail, string userName,
+            IEnumerable<string> namespacePrefixes)
         {
             using (var context = _contextFactory.CreateContext())
             {
@@ -522,8 +469,8 @@ namespace EdFi.Admin.DataAccess.Repositories
                     user.Vendor = vendor;
                 }
 
-                context.Vendors.AddOrUpdate(vendor);
-                context.Users.AddOrUpdate(user);
+                context.Vendors.Update(vendor);
+                context.Users.Update(user);
                 context.SaveChanges();
             }
         }
@@ -544,28 +491,6 @@ namespace EdFi.Admin.DataAccess.Repositories
                 }
 
                 return vendor;
-            }
-        }
-
-        private Vendor FindOrCreateVendorByDomainName(string vendorName, IEnumerable<string> namespacePrefixes)
-        {
-            using (var context = _contextFactory.CreateContext())
-            {
-                var vendor = context.Vendors.FirstOrDefault(v => v.VendorName == vendorName);
-
-                if (vendor != null)
-                {
-                    return vendor;
-                }
-
-                var newVendor = Vendor.Create(vendorName, namespacePrefixes);
-
-                context.Vendors.AddOrUpdate(newVendor);
-
-                //TODO: DEA - Move this behavior to happen during client creation.  No need to do this in two places.  At a minimum, remove the duplicated code.
-                CreateDefaultApplicationForVendor(newVendor);
-
-                return newVendor;
             }
         }
 
@@ -592,14 +517,14 @@ namespace EdFi.Admin.DataAccess.Repositories
                     OperationalContextUri = _defaultOperationalContextUri.Value
                 };
 
-                context.Applications.AddOrUpdate(app);
+                context.Applications.Update(app);
 
                 context.SaveChanges();
 
                 return app;
             }
         }
-        
+
         public OdsInstance CreateOdsInstance(OdsInstance odsInstance)
         {
             using (var context = _contextFactory.CreateContext())
@@ -614,8 +539,9 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                var apiClient = context.Clients.Single(a => a.ApiClientId == apiClientId);
+                var apiClient = context.ApiClients.Single(a => a.ApiClientId == apiClientId);
                 var odsInstance = context.OdsInstances.Single(o => o.OdsInstanceId == odsInstanceId);
+
                 var apiClientOdsInstance = new ApiClientOdsInstance()
                 {
                     ApiClient = apiClient,
@@ -624,6 +550,94 @@ namespace EdFi.Admin.DataAccess.Repositories
 
                 context.ApiClientOdsInstances.Add(apiClientOdsInstance);
                 context.SaveChanges();
+            }
+        }
+
+        private Profile GetOrCreateProfile(string profileName, string profileDefinition)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var profiles = context.Profiles.FirstOrDefault(s => s.ProfileName == profileName);
+
+                if (profiles == null)
+                {
+                    context.Profiles.Add(
+                        new Profile
+                        {
+                            ProfileName = profileName,
+                            ProfileDefinition = profileDefinition
+                        });
+
+                    context.SaveChanges();
+                }
+
+                return context.Profiles.FirstOrDefault(s => s.ProfileName == profileName);
+            }
+        }
+
+        private OwnershipToken GetOrCreateOwnershipToken(string ownershipToken)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var ownershipTokens = context.OwnershipTokens.FirstOrDefault(s => s.Description == ownershipToken);
+
+                if (ownershipTokens == null)
+                {
+                    context.OwnershipTokens.Add(new OwnershipToken { Description = ownershipToken });
+                    context.SaveChanges();
+                }
+
+                return context.OwnershipTokens.FirstOrDefault(s => s.Description == ownershipToken);
+            }
+        }
+
+        private ApiClient CreateApiClient(
+            IUsersContext context,
+            int userId,
+            string name,
+            SandboxType sandboxType,
+            string key,
+            string secret)
+        {
+            var attachedUser = context.Users.Find(userId);
+
+            return attachedUser.AddSandboxClient(name, sandboxType, key, secret);
+        }
+
+        private void AddApplicationEducationOrganizations(IUsersContext context, int applicationId, ApiClient client)
+        {
+            var defaultApplication = context.Applications
+                .Include(a => a.ApplicationEducationOrganizations)
+                .First(a => a.ApplicationId == applicationId);
+
+            client.Application = defaultApplication;
+
+            foreach (var applicationEducationOrganization in defaultApplication.ApplicationEducationOrganizations)
+            {
+                client.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
+                context.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
+            }
+        }
+
+        private Vendor FindOrCreateVendorByDomainName(string vendorName, IEnumerable<string> namespacePrefixes)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var vendor = context.Vendors.FirstOrDefault(v => v.VendorName == vendorName);
+
+                if (vendor != null)
+                {
+                    return vendor;
+                }
+
+                var newVendor = Vendor.Create(vendorName, namespacePrefixes);
+
+                context.Vendors.Update(newVendor);
+
+                //TODO: DEA - Move this behavior to happen during client creation.  No need to do this in two places.  At a minimum, remove the duplicated code.
+                CreateDefaultApplicationForVendor(newVendor);
+
+                return newVendor;
             }
         }
 
@@ -639,7 +653,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                     return;
                 }
 
-                context.Applications.AddOrUpdate(
+                context.Applications.Update(
                     new Application
                     {
                         ApplicationName = _defaultAppName.Value,

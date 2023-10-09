@@ -11,7 +11,6 @@ namespace EdFi.Admin.DataAccess.Repositories
 {
     public interface IClientAppRepo
     {
-
         void CreateProfilesWithProfileDefinition(List<Profile> profiles);
 
         void AddProfilesToApplication(List<Profile> profiles, int applicationId);
@@ -42,9 +41,11 @@ namespace EdFi.Admin.DataAccess.Repositories
 
         void AddApiClientToUserWithVendorApplication(int userId, ApiClient client);
 
-        ApiClient SetupDefaultSandboxClient(string name, SandboxType sandboxType, string key, string secret, int userId, int applicationId);
+        ApiClient SetupDefaultSandboxClient(string name, SandboxType sandboxType, string key, string secret, int userId,
+            int applicationId);
 
-        void SetupKeySecret(string name, SandboxType sandboxType, string key, string secret, int userId, int applicationId);
+        void SetupKeySecret(string name, SandboxType sandboxType, string key, string secret, int userId,
+            int applicationId);
 
         Vendor CreateOrGetVendor(string userEmail, string userName, IEnumerable<string> namespacePrefixes);
 

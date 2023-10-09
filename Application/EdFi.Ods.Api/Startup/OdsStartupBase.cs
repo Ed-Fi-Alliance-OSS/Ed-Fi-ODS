@@ -3,31 +3,41 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.Loader;
+using System.Security.Claims;
 using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
-using EdFi.Common.Configuration;
 using EdFi.Common.InversionOfControl;
-using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Constants;
-using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Api.Helpers;
 using EdFi.Ods.Api.InversionOfControl;
+using EdFi.Ods.Api.Jobs.Extensions;
 using EdFi.Ods.Api.MediaTypeFormatters;
 using EdFi.Ods.Api.Middleware;
+using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Configuration.Sections;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Dependencies;
+using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
 using log4net;
 using Microsoft.AspNetCore.Authentication;
@@ -35,7 +45,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
@@ -43,22 +52,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.IO;
-using System.Linq;
-using System.Runtime.Loader;
-using System.Security.Claims;
-using EdFi.Admin.DataAccess.DbConfigurations;
-using EdFi.Ods.Api.Jobs.Extensions;
-using EdFi.Ods.Common;
-using EdFi.Ods.Common.Configuration.Sections;
-using EdFi.Ods.Common.Context;
-using EdFi.Ods.Common.Database;
-using EdFi.Ods.Common.Descriptors;
-using EdFi.Ods.Common.Profiles;
 using Microsoft.Extensions.Options;
+using Environment = NHibernate.Cfg.Environment;
 
 namespace EdFi.Ods.Api.Startup
 {
@@ -180,7 +175,6 @@ namespace EdFi.Ods.Api.Startup
             services.AddApplicationInsightsTelemetry(
                 options => { options.ApplicationVersion = ApiVersionConstants.Version; });
 
-            
             services.AddAuthorization(
                 options =>
                 {
@@ -372,9 +366,7 @@ namespace EdFi.Ods.Api.Startup
                             .GetResourceModel());
 
                 EntityExtensionsFactory.Instance = Container.Resolve<IEntityExtensionsFactory>();
-
-                DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(Container.Resolve<DatabaseEngine>()));
-
+                
                 // Set NHibernate to use Autofac to resolve its dependencies
                 NHibernate.Cfg.Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(Container);
             }

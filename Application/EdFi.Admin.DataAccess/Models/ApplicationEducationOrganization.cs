@@ -10,21 +10,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EdFi.Admin.DataAccess.Models
 {
-    public sealed class ApplicationEducationOrganization
+    public class ApplicationEducationOrganization
     {
         public ApplicationEducationOrganization()
         {
-            Clients = new Collection<ApiClient>();
+            ApiClients = new Collection<ApiClient>();
         }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ApplicationEducationOrganizationId { get; set; }
 
-        public Application Application { get; set; }
+        public virtual Application Application { get; set; }
 
         public long EducationOrganizationId { get; set; }
 
-        public ICollection<ApiClient> Clients { get; set; }
+        public virtual ICollection<ApiClient> ApiClients { get; set; }
     }
 }
