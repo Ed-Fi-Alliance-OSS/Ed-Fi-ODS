@@ -772,7 +772,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteBusYear> _busRouteBusYears;
         private ICollection<Entities.Common.Sample.IBusRouteBusYear> _busRouteBusYearsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteBusYear> BusRouteBusYears
         {
             get
@@ -820,7 +820,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteProgram> _busRoutePrograms;
         private ICollection<Entities.Common.Sample.IBusRouteProgram> _busRouteProgramsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteProgram> BusRoutePrograms
         {
             get
@@ -869,7 +869,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteServiceAreaPostalCode> _busRouteServiceAreaPostalCodes;
         private ICollection<Entities.Common.Sample.IBusRouteServiceAreaPostalCode> _busRouteServiceAreaPostalCodesCovariant;
         [RequiredCollection]
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteServiceAreaPostalCode> BusRouteServiceAreaPostalCodes
         {
             get
@@ -918,7 +918,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteStartTime> _busRouteStartTimes;
         private ICollection<Entities.Common.Sample.IBusRouteStartTime> _busRouteStartTimesCovariant;
         [RequiredCollection]
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteStartTime> BusRouteStartTimes
         {
             get
@@ -967,7 +967,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteTelephone> _busRouteTelephones;
         private ICollection<Entities.Common.Sample.IBusRouteTelephone> _busRouteTelephonesCovariant;
         [RequiredCollection]
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteTelephone> BusRouteTelephones
         {
             get
@@ -6085,7 +6085,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 
         private ICollection<Entities.NHibernate.StudentAggregate.Sample.StudentFavoriteBookArtMedium> _studentFavoriteBookArtMedia;
         private ICollection<Entities.Common.Sample.IStudentFavoriteBookArtMedium> _studentFavoriteBookArtMediaCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentAggregate.Sample.StudentFavoriteBookArtMedium> StudentFavoriteBookArtMedia
         {
             get
@@ -7116,7 +7116,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         private ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationArtMedium> _studentArtProgramAssociationArtMedia;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationArtMedium> _studentArtProgramAssociationArtMediaCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationArtMedium> StudentArtProgramAssociationArtMedia
         {
             get
@@ -7164,7 +7164,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         private ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationPortfolioYears> _studentArtProgramAssociationPortfolioYears;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears> _studentArtProgramAssociationPortfolioYearsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationPortfolioYears> StudentArtProgramAssociationPortfolioYears
         {
             get
@@ -7212,7 +7212,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         private ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationService> _studentArtProgramAssociationServices;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationService> _studentArtProgramAssociationServicesCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationService> StudentArtProgramAssociationServices
         {
             get
@@ -7261,7 +7261,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         private ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationStyle> _studentArtProgramAssociationStyles;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationStyle> _studentArtProgramAssociationStylesCovariant;
         [RequiredCollection]
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationStyle> StudentArtProgramAssociationStyles
         {
             get
@@ -9823,7 +9823,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationAcademicSubject> _studentGraduationPlanAssociationAcademicSubjects;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject> _studentGraduationPlanAssociationAcademicSubjectsCovariant;
         [RequiredCollection]
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationAcademicSubject> StudentGraduationPlanAssociationAcademicSubjects
         {
             get
@@ -9871,7 +9871,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCareerPathwayCode> _studentGraduationPlanAssociationCareerPathwayCodes;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode> _studentGraduationPlanAssociationCareerPathwayCodesCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCareerPathwayCode> StudentGraduationPlanAssociationCareerPathwayCodes
         {
             get
@@ -9919,7 +9919,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationDescription> _studentGraduationPlanAssociationDescriptions;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationDescription> _studentGraduationPlanAssociationDescriptionsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationDescription> StudentGraduationPlanAssociationDescriptions
         {
             get
@@ -9968,7 +9968,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationDesignatedBy> _studentGraduationPlanAssociationDesignatedBies;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy> _studentGraduationPlanAssociationDesignatedBiesCovariant;
         [RequiredCollection]
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationDesignatedBy> StudentGraduationPlanAssociationDesignatedBies
         {
             get
@@ -10016,7 +10016,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationIndustryCredential> _studentGraduationPlanAssociationIndustryCredentials;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential> _studentGraduationPlanAssociationIndustryCredentialsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationIndustryCredential> StudentGraduationPlanAssociationIndustryCredentials
         {
             get
@@ -10064,7 +10064,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationStudentParentAssociation> _studentGraduationPlanAssociationStudentParentAssociations;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation> _studentGraduationPlanAssociationStudentParentAssociationsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationStudentParentAssociation> StudentGraduationPlanAssociationStudentParentAssociations
         {
             get
@@ -10113,7 +10113,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationYearsAttended> _studentGraduationPlanAssociationYearsAttendeds;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended> _studentGraduationPlanAssociationYearsAttendedsCovariant;
         [RequiredCollection]
-        [ValidateEnumerable, NoDuplicateMembers]
+        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationYearsAttended> StudentGraduationPlanAssociationYearsAttendeds
         {
             get

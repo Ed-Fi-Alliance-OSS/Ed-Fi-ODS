@@ -9,6 +9,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
     {
         public const string DescriptionOverride = "desc";
         public const string MiscellaneousComment = "misc";
+        public const string StringComparer = "stringComparer";
         public const string ClassName = "className";
         public const string ParentPropertyName = "parentPropertyName";
         public const string RenderType = "renderType";

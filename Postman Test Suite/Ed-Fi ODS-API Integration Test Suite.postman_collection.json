@@ -8749,6 +8749,73 @@
 			]
 		},
 		{
+			"name": "Duplicate collection items",
+			"item": [
+				{
+					"name": "Create assessment with duplicate items",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response code is 400\", () => {\r",
+									"  pm.expect(pm.response.code).to.equal(400);\r",
+									"});\r",
+									"\r",
+									"const error = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Message should indicate the request is invalid.\", () => {\r",
+									"  pm.expect(error.message).to.equal(\"The request is invalid.\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Model state should include validation messages for duplicate items in collections.\", () => {\r",
+									"  pm.expect(error.modelState).to.deep.include({\r",
+									"    \"request.AssessmentScores\": [\r",
+									"      \"The 2nd item of the AssessmentScores collection is a duplicate.\"\r",
+									"    ],\r",
+									"    \"request.AssessmentAcademicSubjects\": [\r",
+									"      \"The 3rd item of the AssessmentAcademicSubjects collection is a duplicate.\"\r",
+									"    ],\r",
+									"    \"request.AssessmentAssessedGradeLevels\": [\r",
+									"      \"The 3rd item of the AssessmentAssessedGradeLevels collection is a duplicate.\"\r",
+									"    ]\r",
+									"  });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"assessmentIdentifier\": \"{{$guid}}\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{$randomCompanyName}}\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n    },\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    },\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n    }\r\n  ],\r\n  \"assessedGradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Third grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n    }\r\n  ],\r\n  \"identificationCodes\": [\r\n    {\r\n      \"assessmentIdentificationSystemDescriptor\": \"uri://ed-fi.org/AssessmentIdentificationSystemDescriptor#Test Contractor\",\r\n      \"identificationCode\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\"\r\n    }\r\n  ],\r\n  \"languages\": [\r\n    {\r\n      \"languageDescriptor\": \"uri://ed-fi.org/LanguageDescriptor#eng\"\r\n    }\r\n  ],\r\n  \"performanceLevels\": [],\r\n  \"periods\": [],\r\n  \"platformTypes\": [],\r\n  \"programs\": [],\r\n  \"scores\": [\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"10\",\r\n      \"minimumScore\": \"0\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    },\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"5\",\r\n      \"minimumScore\": \"0\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    }\r\n  ],\r\n  \"sections\": [],\r\n    \"contentStandard\": {\r\n    \"title\": \"State Essential Knowledge and Skills\",\r\n    \"authors\": []\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"assessments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "StudentProgramAssociations",
 			"item": [
 				{

@@ -761,7 +761,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidate).CandidateIdentifier.Equals(compareTo.CandidateIdentifier))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.ICandidate).CandidateIdentifier, compareTo.CandidateIdentifier))
                 return false;
 
 
@@ -1696,27 +1696,27 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidateAddress).AddressTypeDescriptor.Equals(compareTo.AddressTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.ICandidateAddress).AddressTypeDescriptor, compareTo.AddressTypeDescriptor))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidateAddress).City.Equals(compareTo.City))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.ICandidateAddress).City, compareTo.City))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidateAddress).PostalCode.Equals(compareTo.PostalCode))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.ICandidateAddress).PostalCode, compareTo.PostalCode))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidateAddress).StateAbbreviationDescriptor.Equals(compareTo.StateAbbreviationDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.ICandidateAddress).StateAbbreviationDescriptor, compareTo.StateAbbreviationDescriptor))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidateAddress).StreetNumberName.Equals(compareTo.StreetNumberName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.ICandidateAddress).StreetNumberName, compareTo.StreetNumberName))
                 return false;
 
 
@@ -2091,7 +2091,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidateAddressPeriod).BeginDate.Equals(compareTo.BeginDate))
+            if (!(this as Entities.Common.TPDM.ICandidateAddressPeriod).BeginDate.Equals(compareTo.BeginDate))
                 return false;
 
 
@@ -2324,7 +2324,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidateDisability).DisabilityDescriptor.Equals(compareTo.DisabilityDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.ICandidateDisability).DisabilityDescriptor, compareTo.DisabilityDescriptor))
                 return false;
 
 
@@ -2641,7 +2641,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidateDisabilityDesignation).DisabilityDesignationDescriptor.Equals(compareTo.DisabilityDesignationDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.ICandidateDisabilityDesignation).DisabilityDesignationDescriptor, compareTo.DisabilityDesignationDescriptor))
                 return false;
 
 
@@ -2870,12 +2870,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailAddress.Equals(compareTo.ElectronicMailAddress))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailAddress, compareTo.ElectronicMailAddress))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailTypeDescriptor.Equals(compareTo.ElectronicMailTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailTypeDescriptor, compareTo.ElectronicMailTypeDescriptor))
                 return false;
 
 
@@ -3119,7 +3119,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidateLanguage).LanguageDescriptor.Equals(compareTo.LanguageDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.ICandidateLanguage).LanguageDescriptor, compareTo.LanguageDescriptor))
                 return false;
 
 
@@ -3415,7 +3415,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidateLanguageUse).LanguageUseDescriptor.Equals(compareTo.LanguageUseDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.ICandidateLanguageUse).LanguageUseDescriptor, compareTo.LanguageUseDescriptor))
                 return false;
 
 
@@ -3637,7 +3637,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidateOtherName).OtherNameTypeDescriptor.Equals(compareTo.OtherNameTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.ICandidateOtherName).OtherNameTypeDescriptor, compareTo.OtherNameTypeDescriptor))
                 return false;
 
 
@@ -3901,12 +3901,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).IdentificationDocumentUseDescriptor.Equals(compareTo.IdentificationDocumentUseDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).IdentificationDocumentUseDescriptor, compareTo.IdentificationDocumentUseDescriptor))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).PersonalInformationVerificationDescriptor.Equals(compareTo.PersonalInformationVerificationDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).PersonalInformationVerificationDescriptor, compareTo.PersonalInformationVerificationDescriptor))
                 return false;
 
 
@@ -4167,7 +4167,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidateRace).RaceDescriptor.Equals(compareTo.RaceDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.ICandidateRace).RaceDescriptor, compareTo.RaceDescriptor))
                 return false;
 
 
@@ -4396,12 +4396,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumber.Equals(compareTo.TelephoneNumber))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumber, compareTo.TelephoneNumber))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumberTypeDescriptor.Equals(compareTo.TelephoneNumberTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumberTypeDescriptor, compareTo.TelephoneNumberTypeDescriptor))
                 return false;
 
 
@@ -4896,12 +4896,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).BeginDate.Equals(compareTo.BeginDate))
+            if (!(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).BeginDate.Equals(compareTo.BeginDate))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).CandidateIdentifier.Equals(compareTo.CandidateIdentifier))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).CandidateIdentifier, compareTo.CandidateIdentifier))
                 return false;
 
 
@@ -4911,12 +4911,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramName.Equals(compareTo.ProgramName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramName, compareTo.ProgramName))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramTypeDescriptor, compareTo.ProgramTypeDescriptor))
                 return false;
 
 
@@ -5391,7 +5391,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).CohortYearTypeDescriptor.Equals(compareTo.CohortYearTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).CohortYearTypeDescriptor, compareTo.CohortYearTypeDescriptor))
                 return false;
 
 
@@ -5635,7 +5635,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization).MajorSpecialization.Equals(compareTo.MajorSpecialization))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization).MajorSpecialization, compareTo.MajorSpecialization))
                 return false;
 
 
@@ -6979,12 +6979,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).StudentUniqueId.Equals(compareTo.StudentUniqueId))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).StudentUniqueId, compareTo.StudentUniqueId))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).TermDescriptor, compareTo.TermDescriptor))
                 return false;
 
 
@@ -7650,12 +7650,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramName.Equals(compareTo.ProgramName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramName, compareTo.ProgramName))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramTypeDescriptor, compareTo.ProgramTypeDescriptor))
                 return false;
 
 
@@ -7990,7 +7990,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel).GradeLevelDescriptor.Equals(compareTo.GradeLevelDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel).GradeLevelDescriptor, compareTo.GradeLevelDescriptor))
                 return false;
 
 
@@ -9293,22 +9293,22 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluation).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluation).EvaluationPeriodDescriptor, compareTo.EvaluationPeriodDescriptor))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IEvaluation).EvaluationTitle.Equals(compareTo.EvaluationTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluation).EvaluationTitle, compareTo.EvaluationTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTitle, compareTo.PerformanceEvaluationTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTypeDescriptor, compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
 
 
@@ -9318,7 +9318,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluation).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluation).TermDescriptor, compareTo.TermDescriptor))
                 return false;
 
 
@@ -9688,7 +9688,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IEvaluationRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationRatingLevel).EvaluationRatingLevelDescriptor, compareTo.EvaluationRatingLevelDescriptor))
                 return false;
 
 
@@ -10248,32 +10248,32 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IEvaluationElement).EvaluationElementTitle.Equals(compareTo.EvaluationElementTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationElement).EvaluationElementTitle, compareTo.EvaluationElementTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IEvaluationElement).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationElement).EvaluationObjectiveTitle, compareTo.EvaluationObjectiveTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluationElement).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationElement).EvaluationPeriodDescriptor, compareTo.EvaluationPeriodDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IEvaluationElement).EvaluationTitle.Equals(compareTo.EvaluationTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationElement).EvaluationTitle, compareTo.EvaluationTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTitle, compareTo.PerformanceEvaluationTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTypeDescriptor, compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
 
 
@@ -10283,7 +10283,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluationElement).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationElement).TermDescriptor, compareTo.TermDescriptor))
                 return false;
 
 
@@ -10652,7 +10652,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IEvaluationElementRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationElementRatingLevel).EvaluationRatingLevelDescriptor, compareTo.EvaluationRatingLevelDescriptor))
                 return false;
 
 
@@ -11370,37 +11370,37 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationElementTitle.Equals(compareTo.EvaluationElementTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationElementTitle, compareTo.EvaluationElementTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationObjectiveTitle, compareTo.EvaluationObjectiveTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationPeriodDescriptor, compareTo.EvaluationPeriodDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationTitle.Equals(compareTo.EvaluationTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationTitle, compareTo.EvaluationTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTitle, compareTo.PerformanceEvaluationTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTypeDescriptor, compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).PersonId.Equals(compareTo.PersonId))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationElementRating).PersonId, compareTo.PersonId))
                 return false;
 
 
@@ -11410,12 +11410,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationElementRating).SourceSystemDescriptor, compareTo.SourceSystemDescriptor))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationElementRating).TermDescriptor, compareTo.TermDescriptor))
                 return false;
 
 
@@ -12050,12 +12050,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IEvaluationElementRatingResult).Rating.Equals(compareTo.Rating))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRatingResult).Rating.Equals(compareTo.Rating))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IEvaluationElementRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationElementRatingResult).RatingResultTitle, compareTo.RatingResultTitle))
                 return false;
 
 
@@ -12863,27 +12863,27 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IEvaluationObjective).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationObjective).EvaluationObjectiveTitle, compareTo.EvaluationObjectiveTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluationObjective).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationObjective).EvaluationPeriodDescriptor, compareTo.EvaluationPeriodDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IEvaluationObjective).EvaluationTitle.Equals(compareTo.EvaluationTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationObjective).EvaluationTitle, compareTo.EvaluationTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTitle, compareTo.PerformanceEvaluationTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTypeDescriptor, compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
 
 
@@ -12893,7 +12893,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluationObjective).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationObjective).TermDescriptor, compareTo.TermDescriptor))
                 return false;
 
 
@@ -13266,7 +13266,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IEvaluationObjectiveRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationObjectiveRatingLevel).EvaluationRatingLevelDescriptor, compareTo.EvaluationRatingLevelDescriptor))
                 return false;
 
 
@@ -13952,32 +13952,32 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationObjectiveTitle, compareTo.EvaluationObjectiveTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationPeriodDescriptor, compareTo.EvaluationPeriodDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationTitle.Equals(compareTo.EvaluationTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationTitle, compareTo.EvaluationTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTitle, compareTo.PerformanceEvaluationTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTypeDescriptor, compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).PersonId.Equals(compareTo.PersonId))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationObjectiveRating).PersonId, compareTo.PersonId))
                 return false;
 
 
@@ -13987,12 +13987,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationObjectiveRating).SourceSystemDescriptor, compareTo.SourceSystemDescriptor))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationObjectiveRating).TermDescriptor, compareTo.TermDescriptor))
                 return false;
 
 
@@ -14576,12 +14576,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).Rating.Equals(compareTo.Rating))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).Rating.Equals(compareTo.Rating))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).RatingResultTitle, compareTo.RatingResultTitle))
                 return false;
 
 
@@ -15525,32 +15525,32 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IEvaluationRating).EvaluationDate.Equals(compareTo.EvaluationDate))
+            if (!(this as Entities.Common.TPDM.IEvaluationRating).EvaluationDate.Equals(compareTo.EvaluationDate))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluationRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationRating).EvaluationPeriodDescriptor, compareTo.EvaluationPeriodDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IEvaluationRating).EvaluationTitle.Equals(compareTo.EvaluationTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationRating).EvaluationTitle, compareTo.EvaluationTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTitle, compareTo.PerformanceEvaluationTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTypeDescriptor, compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IEvaluationRating).PersonId.Equals(compareTo.PersonId))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationRating).PersonId, compareTo.PersonId))
                 return false;
 
 
@@ -15560,12 +15560,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluationRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationRating).SourceSystemDescriptor, compareTo.SourceSystemDescriptor))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IEvaluationRating).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IEvaluationRating).TermDescriptor, compareTo.TermDescriptor))
                 return false;
 
 
@@ -16305,12 +16305,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IEvaluationRatingResult).Rating.Equals(compareTo.Rating))
+            if (!(this as Entities.Common.TPDM.IEvaluationRatingResult).Rating.Equals(compareTo.Rating))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IEvaluationRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationRatingResult).RatingResultTitle, compareTo.RatingResultTitle))
                 return false;
 
 
@@ -16591,12 +16591,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IEvaluationRatingReviewer).FirstName.Equals(compareTo.FirstName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationRatingReviewer).FirstName, compareTo.FirstName))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IEvaluationRatingReviewer).LastSurname.Equals(compareTo.LastSurname))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IEvaluationRatingReviewer).LastSurname, compareTo.LastSurname))
                 return false;
 
 
@@ -18082,17 +18082,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IFinancialAid).AidTypeDescriptor.Equals(compareTo.AidTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IFinancialAid).AidTypeDescriptor, compareTo.AidTypeDescriptor))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IFinancialAid).BeginDate.Equals(compareTo.BeginDate))
+            if (!(this as Entities.Common.TPDM.IFinancialAid).BeginDate.Equals(compareTo.BeginDate))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IFinancialAid).StudentUniqueId.Equals(compareTo.StudentUniqueId))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IFinancialAid).StudentUniqueId, compareTo.StudentUniqueId))
                 return false;
 
 
@@ -19140,17 +19140,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IPerformanceEvaluation).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IPerformanceEvaluation).EvaluationPeriodDescriptor, compareTo.EvaluationPeriodDescriptor))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTitle, compareTo.PerformanceEvaluationTitle))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTypeDescriptor, compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
 
 
@@ -19160,7 +19160,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IPerformanceEvaluation).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IPerformanceEvaluation).TermDescriptor, compareTo.TermDescriptor))
                 return false;
 
 
@@ -19568,7 +19568,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IPerformanceEvaluationGradeLevel).GradeLevelDescriptor.Equals(compareTo.GradeLevelDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IPerformanceEvaluationGradeLevel).GradeLevelDescriptor, compareTo.GradeLevelDescriptor))
                 return false;
 
 
@@ -19790,7 +19790,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevel).EvaluationRatingLevelDescriptor, compareTo.EvaluationRatingLevelDescriptor))
                 return false;
 
 
@@ -20369,22 +20369,22 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IPerformanceEvaluationRating).EvaluationPeriodDescriptor, compareTo.EvaluationPeriodDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTitle, compareTo.PerformanceEvaluationTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTypeDescriptor, compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).PersonId.Equals(compareTo.PersonId))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IPerformanceEvaluationRating).PersonId, compareTo.PersonId))
                 return false;
 
 
@@ -20394,12 +20394,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IPerformanceEvaluationRating).SourceSystemDescriptor, compareTo.SourceSystemDescriptor))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IPerformanceEvaluationRating).TermDescriptor, compareTo.TermDescriptor))
                 return false;
 
 
@@ -20882,12 +20882,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).Rating.Equals(compareTo.Rating))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).Rating.Equals(compareTo.Rating))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).RatingResultTitle, compareTo.RatingResultTitle))
                 return false;
 
 
@@ -21168,12 +21168,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).FirstName.Equals(compareTo.FirstName))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).FirstName, compareTo.FirstName))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).LastSurname.Equals(compareTo.LastSurname))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).LastSurname, compareTo.LastSurname))
                 return false;
 
 
@@ -22598,37 +22598,37 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IRubricDimension).EvaluationElementTitle.Equals(compareTo.EvaluationElementTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IRubricDimension).EvaluationElementTitle, compareTo.EvaluationElementTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IRubricDimension).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IRubricDimension).EvaluationObjectiveTitle, compareTo.EvaluationObjectiveTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IRubricDimension).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IRubricDimension).EvaluationPeriodDescriptor, compareTo.EvaluationPeriodDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IRubricDimension).EvaluationTitle.Equals(compareTo.EvaluationTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IRubricDimension).EvaluationTitle, compareTo.EvaluationTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTitle, compareTo.PerformanceEvaluationTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTypeDescriptor, compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.TPDM.IRubricDimension).RubricRating.Equals(compareTo.RubricRating))
+            if (!(this as Entities.Common.TPDM.IRubricDimension).RubricRating.Equals(compareTo.RubricRating))
                 return false;
 
 
@@ -22638,7 +22638,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.IRubricDimension).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.IRubricDimension).TermDescriptor, compareTo.TermDescriptor))
                 return false;
 
 
@@ -24065,27 +24065,27 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).Namespace.Equals(compareTo.Namespace))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).Namespace, compareTo.Namespace))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).PersonId.Equals(compareTo.PersonId))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).PersonId, compareTo.PersonId))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SourceSystemDescriptor, compareTo.SourceSystemDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyIdentifier.Equals(compareTo.SurveyIdentifier))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyIdentifier, compareTo.SurveyIdentifier))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyResponseIdentifier.Equals(compareTo.SurveyResponseIdentifier))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyResponseIdentifier, compareTo.SurveyResponseIdentifier))
                 return false;
 
 
@@ -24640,32 +24640,32 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).Namespace.Equals(compareTo.Namespace))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).Namespace, compareTo.Namespace))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).PersonId.Equals(compareTo.PersonId))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).PersonId, compareTo.PersonId))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SourceSystemDescriptor, compareTo.SourceSystemDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyIdentifier.Equals(compareTo.SurveyIdentifier))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyIdentifier, compareTo.SurveyIdentifier))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyResponseIdentifier.Equals(compareTo.SurveyResponseIdentifier))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyResponseIdentifier, compareTo.SurveyResponseIdentifier))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveySectionTitle.Equals(compareTo.SurveySectionTitle))
+            if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveySectionTitle, compareTo.SurveySectionTitle))
                 return false;
 
 

@@ -679,7 +679,7 @@ namespace {{ResourceClassesNamespace}}
                 return false;
             {{/IsNullable}}
             {{^IsNullable}}
-            if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
+            if (!((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}})))
                 return false;
             {{/IsNullable}}
             {{/Property}}
@@ -690,11 +690,21 @@ namespace {{ResourceClassesNamespace}}
             // Standard Property
             {{#IsNullable}}
             if ((this as {{NamespacePrefix}}I{{ClassName}}).{{CSharpSafePropertyName}} == null
+                {{^StringComparer}}
                 || !(this as {{NamespacePrefix}}I{{ClassName}}).{{CSharpSafePropertyName}}.Equals(compareTo.{{CSharpSafePropertyName}}))
+                {{/StringComparer}}
+                {{#StringComparer}}
+                || !{{StringComparer}}.Equals((this as {{NamespacePrefix}}I{{ClassName}}).{{CSharpSafePropertyName}}, compareTo.{{CSharpSafePropertyName}}))
+                {{/StringComparer}}
                 return false;
             {{/IsNullable}}
             {{^IsNullable}}
-             if ((this as {{NamespacePrefix}}I{{ClassName}}).{{CSharpSafePropertyName}}.Equals(compareTo.{{CSharpSafePropertyName}}))
+                {{^StringComparer}}
+            if (!(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{CSharpSafePropertyName}}))
+                {{/StringComparer}}
+                {{#StringComparer}}
+            if (!{{StringComparer}}.Equals((this as {{NamespacePrefix}}I{{ClassName}}).{{CSharpSafePropertyName}}, compareTo.{{CSharpSafePropertyName}}))
+                {{/StringComparer}}
                 return false;
             {{/IsNullable}}
 
@@ -706,11 +716,21 @@ namespace {{ResourceClassesNamespace}}
             // Referenced Property
             {{#IsNullable}}
             if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} == null
+                {{^StringComparer}}
                 || !(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
+                {{/StringComparer}}
+                {{#StringComparer}}
+                || !{{StringComparer}}.Equals((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}, compareTo.{{PropertyName}}))
+                {{/StringComparer}}
                 return false;
             {{/IsNullable}}
             {{^IsNullable}}
+                {{^StringComparer}}
             if (!(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
+                {{/StringComparer}}
+                {{#StringComparer}}
+            if (!{{StringComparer}}.Equals((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}, compareTo.{{PropertyName}}))
+                {{/StringComparer}}
                 return false;
             {{/IsNullable}}
 
@@ -722,11 +742,22 @@ namespace {{ResourceClassesNamespace}}
             // Unified Type Property
             {{#IsNullable}}
             if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} == null
-                ||!(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
+                {{^StringComparer}}
+                || !(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
+                {{/StringComparer}}
+                {{#StringComparer}}
+                || !{{StringComparer}}.Equals((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}, compareTo.{{PropertyName}}))
+                {{/StringComparer}}
                 return false;
             {{/IsNullable}}
             {{^IsNullable}}
+                {{^StringComparer}}
             if (!(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
+                return false;
+                {{/StringComparer}}
+                {{#StringComparer}}
+            if (!{{StringComparer}}.Equals((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}, compareTo.{{PropertyName}}))
+                {{/StringComparer}}
                 return false;
             {{/IsNullable}}
 
@@ -738,11 +769,21 @@ namespace {{ResourceClassesNamespace}}
             // Derived Property
             {{#IsNullable}}
             if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} == null
+                {{^StringComparer}}
                 || !(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
+                {{/StringComparer}}
+                {{#StringComparer}}
+                || !{{StringComparer}}.Equals((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}, compareTo.{{PropertyName}}))
+                {{/StringComparer}}
                 return false;
             {{/IsNullable}}
             {{^IsNullable}}
+                {{^StringComparer}}
             if (!(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
+                {{/StringComparer}}
+                {{#StringComparer}}
+            if (!{{StringComparer}}.Equals((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}, compareTo.{{PropertyName}}))
+                {{/StringComparer}}
                 return false;
             {{/IsNullable}}
 
