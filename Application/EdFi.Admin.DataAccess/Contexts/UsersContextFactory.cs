@@ -66,7 +66,7 @@ namespace EdFi.Admin.DataAccess.Contexts
             }
 
             throw new InvalidOperationException(
-                $"Cannot create an SecurityContext for database type {_databaseEngine.DisplayName}");
+                $"Cannot create an IUsersContext for database type {_databaseEngine.DisplayName}");
         }
     }
 }
