@@ -7,28 +7,24 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
-using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
-using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security;
+using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Security.DataAccess.Repositories;
-using NHibernate;
 
 namespace EdFi.Ods.Api.Security.Authorization.Repositories
 {
     /// <summary>
     /// Authorizes calls to the "GetByKey" repository method.
     /// </summary>
-    /// <typeparam name="T">The <see cref="Type"/> of entity being queried.</typeparam>
-    public class GetEntityByKeyAuthorizationDecorator<T>
-        : RepositoryOperationAuthorizationDecoratorBase<T>, IGetEntityByKey<T>
-        where T : class, IHasIdentifier, IDateVersionedEntity
+    /// <typeparam name="TEntity">The <see cref="Type"/> of entity being queried.</typeparam>
+    public class GetEntityByKeyAuthorizationDecorator<TEntity>
+        : RepositoryOperationAuthorizationDecoratorBase<TEntity>, IGetEntityByKey<TEntity>
+        where TEntity : class, IHasIdentifier, IDateVersionedEntity
     {
-        private readonly IGetEntityByKey<T> _next;
-        private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
+        private readonly IGetEntityByKey<TEntity> _next;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetEntityByKeyAuthorizationDecorator{T}"/> class. 
@@ -36,40 +32,27 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="next">The decorated instance for which authorization is being performed.</param>
         /// <param name="authorizationContextProvider">Provides access to the authorization context, such as the resource and action.</param>
         /// <param name="authorizationFilteringProvider"></param>
-        /// <param name="authorizationFilterDefinitionProvider"></param>
-        /// <param name="explicitObjectValidators"></param>
         /// <param name="authorizationBasisMetadataSelector"></param>
-        /// <param name="securityRepository"></param>
-        /// <param name="sessionFactory"></param>
         /// <param name="apiClientContextProvider"></param>
-        /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
         /// <param name="dataManagementResourceContextProvider"></param>
+        /// <param name="entityAuthorizer"></param>
         public GetEntityByKeyAuthorizationDecorator(
-            IGetEntityByKey<T> next,
+            IGetEntityByKey<TEntity> next,
             IAuthorizationContextProvider authorizationContextProvider,
             IAuthorizationFilteringProvider authorizationFilteringProvider,
-            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
-            IExplicitObjectValidator[] explicitObjectValidators,
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
-            ISecurityRepository securityRepository,
-            ISessionFactory sessionFactory,
             IApiClientContextProvider apiClientContextProvider,
-            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            IEntityAuthorizer entityAuthorizer)
             : base(
                 authorizationContextProvider,
                 authorizationFilteringProvider,
-                authorizationFilterDefinitionProvider,
-                explicitObjectValidators,
                 authorizationBasisMetadataSelector,
-                securityRepository,
-                sessionFactory,
                 apiClientContextProvider,
-                viewBasedSingleItemAuthorizationQuerySupport,
-                dataManagementResourceContextProvider)
+                dataManagementResourceContextProvider,
+                entityAuthorizer)
         {
             _next = next;
-            _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
         }
 
         /// <summary>
@@ -77,7 +60,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// </summary>
         /// <param name="specification">An entity instance that has all the primary key properties assigned with values.</param>
         /// <returns>The specified entity if found; otherwise null.</returns>
-        public async Task<T> GetByKeyAsync(T specification, CancellationToken cancellationToken)
+        public async Task<TEntity> GetByKeyAsync(TEntity specification, CancellationToken cancellationToken)
         {
             // Pass the call through to the decorated repository method to get the entity
             // to allow the 404 "Not Found" exception to be detected prior to an authorization

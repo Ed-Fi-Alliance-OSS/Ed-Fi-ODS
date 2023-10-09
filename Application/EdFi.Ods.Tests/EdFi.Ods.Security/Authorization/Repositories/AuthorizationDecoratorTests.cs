@@ -18,6 +18,7 @@ using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security;
+using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi;
 using EdFi.Ods.Tests._Extensions;
@@ -88,30 +89,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                         Given<IAuthorizationContextProvider>().GetAction())
                     .Returns("Action");
 
-                A.CallTo(() =>
-                        Given<IAuthorizationContextProvider>().GetResourceUris())
-                    .Returns(new[] {"Resource"});
-
-                var claimsIdentityProvider = new ClaimsIdentityProvider(
-                    new ApiClientContextProvider(new CallContextStorage()),
-                    new StubSecurityRepository());
-
-                var apiClientDetails = new ApiClientDetails
-                {
-                    ApiKey = Guid.NewGuid()
-                        .ToString("n"),
-                    ClaimSetName = "SomeClaimSet",
-                    NamespacePrefixes = new [] {"Namespace"},
-                    EducationOrganizationIds = new []
-                    {
-                        123L,
-                        234L
-                    },
-                    OwnershipTokenIds = new short[] { 1 }
-                };
-
-                var claimsIdentity = claimsIdentityProvider.GetClaimsIdentity(apiClientDetails.ClaimSetName);
-                ClaimsPrincipal.ClaimsPrincipalSelector = () => new ClaimsPrincipal(claimsIdentity);
+                Given<IEntityAuthorizer>();
             }
 
             /// <summary>
@@ -125,10 +103,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
             [Assert]
             public void Should_invoke_authorization_on_the_item()
             {
-                A.CallTo(() =>
-                        Given<IAuthorizationFilteringProvider>()
-                            .GetAuthorizationFiltering(A<EdFiAuthorizationContext>.That.Matches(ctx => CompareContexts(ctx)), A<AuthorizationBasisMetadata>.Ignored))
-                    .MustHaveHappened();
+                A.CallTo(
+                    () => Given<IEntityAuthorizer>()
+                        .AuthorizeEntityAsync(Supplied<Student>(), "Action", A<CancellationToken>.Ignored)).MustHaveHappenedOnceExactly();
             }
 
             [Assert]

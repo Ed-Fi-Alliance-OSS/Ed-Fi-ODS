@@ -6,28 +6,25 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
-using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Security.DataAccess.Repositories;
-using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security;
-using NHibernate;
+using EdFi.Ods.Common.Security.Authorization;
 
 namespace EdFi.Ods.Api.Security.Authorization.Repositories
 {
     /// <summary>
     /// Authorizes calls to the "CreateEntity" repository method.
     /// </summary>
-    /// <typeparam name="T">The Type of entity being created.</typeparam>
-    public class CreateEntityAuthorizationDecorator<T>
-        : RepositoryOperationAuthorizationDecoratorBase<T>, ICreateEntity<T>
-        where T : AggregateRootWithCompositeKey
+    /// <typeparam name="TEntity">The Type of entity being created.</typeparam>
+    public class CreateEntityAuthorizationDecorator<TEntity>
+        : RepositoryOperationAuthorizationDecoratorBase<TEntity>, ICreateEntity<TEntity>
+        where TEntity : AggregateRootWithCompositeKey
     {
-        private readonly ICreateEntity<T> _next;
+        private readonly ICreateEntity<TEntity> _next;
         private readonly ISecurityRepository _securityRepository;
 
         /// <summary>
@@ -37,36 +34,26 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="securityRepository">Provides access to the repository where the claims/actions are stored.</param>
         /// <param name="authorizationContextProvider">Provides access to the authorization context, such as the resource and action.</param>
         /// <param name="authorizationFilteringProvider"></param>
-        /// <param name="authorizationFilterDefinitionProvider"></param>
-        /// <param name="explicitObjectValidators"></param>
         /// <param name="authorizationBasisMetadataSelector"></param>
-        /// <param name="sessionFactory"></param>
         /// <param name="apiClientContextProvider"></param>
-        /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
         /// <param name="dataManagementResourceContextProvider"></param>
+        /// <param name="entityAuthorizer"></param>
         public CreateEntityAuthorizationDecorator(
-            ICreateEntity<T> next,
+            ICreateEntity<TEntity> next,
             ISecurityRepository securityRepository,
             IAuthorizationContextProvider authorizationContextProvider,
             IAuthorizationFilteringProvider authorizationFilteringProvider,
-            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
-            IExplicitObjectValidator[] explicitObjectValidators,
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
-            ISessionFactory sessionFactory,
             IApiClientContextProvider apiClientContextProvider,
-            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            IEntityAuthorizer entityAuthorizer)
             : base(
                 authorizationContextProvider,
                 authorizationFilteringProvider,
-                authorizationFilterDefinitionProvider,
-                explicitObjectValidators,
                 authorizationBasisMetadataSelector,
-                securityRepository,
-                sessionFactory,
                 apiClientContextProvider,
-                viewBasedSingleItemAuthorizationQuerySupport,
-                dataManagementResourceContextProvider)
+                dataManagementResourceContextProvider,
+                entityAuthorizer)
         {
             _next = next;
             _securityRepository = securityRepository;
@@ -78,7 +65,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="entity">An entity instance that has all the primary key properties assigned with values.</param>
         /// <param name="enforceOptimisticLock"></param>
         /// <returns>The specified entity if found; otherwise null.</returns>
-        public async Task CreateAsync(T entity, bool enforceOptimisticLock, CancellationToken cancellationToken)
+        public async Task CreateAsync(TEntity entity, bool enforceOptimisticLock, CancellationToken cancellationToken)
         {
             // POST comes in as an "Upsert", but at this point we know it's actually about to create an entity,
             // so we'll use the more explicit action for authorization.

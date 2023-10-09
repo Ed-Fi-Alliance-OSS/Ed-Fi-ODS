@@ -13,6 +13,7 @@ using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.Authorization.Pipeline;
+using EdFi.Ods.Api.Security.Authorization.Repositories;
 using EdFi.Ods.Api.Security.AuthorizationStrategies;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Api.Security.Claims;
@@ -45,6 +46,10 @@ namespace EdFi.Ods.Api.Security.Container.Modules
             builder.RegisterType<ResourceAuthorizationMetadataProvider>()
                 .As<IResourceAuthorizationMetadataProvider>()
                 .EnableInterfaceInterceptors()
+                .SingleInstance();
+
+            builder.RegisterType<EntityAuthorizer>()
+                .As<IEntityAuthorizer>()
                 .SingleInstance();
 
             var assembly = typeof(Marker_EdFi_Ods_Api).Assembly;

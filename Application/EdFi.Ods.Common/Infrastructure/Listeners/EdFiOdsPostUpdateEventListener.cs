@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Security.Authorization;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Validation;
 using NHibernate;
 using NHibernate.Event;
@@ -22,23 +24,31 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
     public class EdFiOdsPostUpdateEventListener : IPostUpdateEventListener
     {
         private readonly IEnumerable<IEntityValidator> _entityValidators;
+        private readonly Lazy<IEntityAuthorizer> _entityAuthorizer;
+        private readonly IAuthorizationContextProvider _authorizationContextProvider;
 
-        public EdFiOdsPostUpdateEventListener(IEnumerable<IEntityValidator> entityValidators)
+        public EdFiOdsPostUpdateEventListener(
+            IEnumerable<IEntityValidator> entityValidators,
+            Func<IEntityAuthorizer> entityAuthorizerResolver,
+            IAuthorizationContextProvider authorizationContextProvider)
         {
             _entityValidators = entityValidators;
+            _authorizationContextProvider = authorizationContextProvider;
+            
+            _entityAuthorizer = new Lazy<IEntityAuthorizer>(entityAuthorizerResolver);
         }
 
-        public Task OnPostUpdateAsync(PostUpdateEvent @event, CancellationToken cancellationToken)
+        public async Task OnPostUpdateAsync(PostUpdateEvent @event, CancellationToken cancellationToken)
         {
-            return Task.Run(() => OnPostUpdate(@event), cancellationToken);
+            await ProcessCascadingKeyValuesAsync(@event, cancellationToken);
         }
 
         public void OnPostUpdate(PostUpdateEvent @event)
         {
-            ProcessCascadingKeyValues(@event);
+            ProcessCascadingKeyValuesAsync(@event, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
-        private void ProcessCascadingKeyValues(PostUpdateEvent @event)
+        private async Task ProcessCascadingKeyValuesAsync(PostUpdateEvent @event, CancellationToken cancellationToken)
         {
             // Quit if this is not an entity that supports cascading updates
             var cascadableEntity = @event.Entity as IHasCascadableKeyValues;
@@ -67,7 +77,13 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
 
             // Apply the new key values to the entity and then perform validation before proceeding
             ApplyNewKeyValuesToEntity();
+
+            // Validate the entity with its new key values applied
             ValidateEntity();
+
+            // Authorize the entity
+            var action = _authorizationContextProvider.GetAction();
+            await _entityAuthorizer.Value.AuthorizeEntityAsync(@event.Entity, action, cancellationToken);
 
             string tableName;
             string[] updateTargetColumnNames;
@@ -100,7 +116,7 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
                 newKeyValues);
 
             // Execute the update of the primary key
-            query.ExecuteUpdate();
+            await query.ExecuteUpdateAsync();
 
             void ApplyNewKeyValuesToEntity()
             {
