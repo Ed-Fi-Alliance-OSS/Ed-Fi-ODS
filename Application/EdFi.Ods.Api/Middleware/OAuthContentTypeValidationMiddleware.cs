@@ -5,18 +5,16 @@
 
 using System;
 using System.Threading.Tasks;
-using log4net;
 using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Api.Middleware
 {
     public class OAuthContentTypeValidationMiddleware : IMiddleware
     {
-        private readonly ILog _logger = LogManager.GetLogger(typeof(OAuthContentTypeValidationMiddleware));
-
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            if (context.Request.Path.ToString().Contains("oauth", StringComparison.OrdinalIgnoreCase))
+            if (context.Request.Path.ToString().Contains("oauth", StringComparison.OrdinalIgnoreCase) &&
+                context.Request.Method == HttpMethods.Post)
             {
                 if (!context.Request.Headers.ContainsKey("Content-Type"))
                 {
