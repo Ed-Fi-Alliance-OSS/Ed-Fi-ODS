@@ -38,12 +38,12 @@ jobs:
        ExtensionVersions: ${{ steps.Set_ExtensionVersions.outputs.ExtensionVersions }}
      steps:
      - name: Checkout Ed-Fi-ODS
-       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
        with:
            repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
            path: Ed-Fi-ODS/
      - name: Checkout Ed-Fi-Extensions
-       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
        with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
           path: Ed-Fi-Extensions/
@@ -91,7 +91,7 @@ jobs:
     - name: Support longpaths
       run: git config --system core.longpaths true
     - name: Checkout Ed-Fi-ODS
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
@@ -101,7 +101,7 @@ jobs:
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
     - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
