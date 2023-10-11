@@ -24,7 +24,7 @@ jobs:
           exit 1 
       - name: Check out code
         if: ${{ env.GH_TOKEN != '' }}
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b  # v3.0.2
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - name: Cleanup
         run: |
           gh extension install actions/gh-actions-cache
