@@ -31,19 +31,19 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b  # v3.0.2
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - name: Checkout Ed-Fi-Extensions
-        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
         with:
             repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
             path: Ed-Fi-Extensions/
       - name: Checkout Ed-Fi-ODS-Implementation
-        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
         with:
             repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
             path: Ed-Fi-ODS-Implementation/
       - name: Checkout Ed-Fi-ODS
-        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
         with:
             repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
             path: Ed-Fi-ODS/

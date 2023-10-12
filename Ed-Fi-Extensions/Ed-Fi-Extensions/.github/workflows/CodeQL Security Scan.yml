@@ -22,17 +22,17 @@ jobs:
       ExtensionVersions: ${{ steps.Set_ExtensionVersions.outputs.ExtensionVersions }}
     steps:
     - name: Checkout Ed-Fi-Extensions
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
           path: Ed-Fi-Extensions/    
     - name: Checkout Ed-Fi-ODS
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
     - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/          
@@ -78,23 +78,23 @@ jobs:
         with:
           dotnet-version: 6.0.x
       - name: Checkout code
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b  # v3.0.2
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@1fae5bf71b0ecdc7d0a2ef0d0c28409d99693966  # v2.9.2
+        uses: github/codeql-action/init@896079047b4bb059ba6f150a5d87d47dde99e6e5  # codeql-bundle-20221211
         with:
           languages: 'csharp'
       - name: Checkout Ed-Fi-Extensions
-        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
         with:
             repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
             path: Ed-Fi-Extensions/
       - name: Checkout Ed-Fi-ODS-Implementation
-        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
         with:
             repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
             path: Ed-Fi-ODS-Implementation/
       - name: Checkout Ed-Fi-ODS
-        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
         with:
             repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
             path: Ed-Fi-ODS/
@@ -148,4 +148,4 @@ jobs:
              .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj" -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
              .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Profiles.Sample/EdFi.Ods.Profiles.Sample.csproj" -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@1fae5bf71b0ecdc7d0a2ef0d0c28409d99693966  # v2.9.2
+        uses: github/codeql-action/analyze@896079047b4bb059ba6f150a5d87d47dde99e6e5  # codeql-bundle-20221211
