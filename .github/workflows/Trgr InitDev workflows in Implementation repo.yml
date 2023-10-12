@@ -66,7 +66,7 @@ jobs:
         ref: ${{  env.current_branch  }}
         repo:  Ed-Fi-ODS-Implementation
         owner: ${{ github.repository_owner }}
-        workflow: InitDev (Postgres), MultiTenancy.yml
+        workflow: InitDev Postgres, MultiTenancy.yml
         workflow_timeout_seconds: 4800
     - name: Await to complete the execution for InitDev (Postgres), MultiTenancy RunID ${{ steps.return_dispatch_InitDevPostgresMultitenancy.outputs.run_id }}
       uses: codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
