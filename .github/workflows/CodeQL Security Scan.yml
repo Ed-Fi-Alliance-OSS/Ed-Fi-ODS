@@ -8,6 +8,7 @@ name: CodeQL Security Scan Schedule
 on:
   schedule:
     - cron: '0 0 * * *'
+
 env:
   INFORMATIONAL_VERSION: "7.1"
   BUILD_INCREMENTER: "1"
@@ -76,9 +77,9 @@ jobs:
       security-events: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b  # v3.0.2
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@1fae5bf71b0ecdc7d0a2ef0d0c28409d99693966  # v2.9.2
+        uses: github/codeql-action/init@896079047b4bb059ba6f150a5d87d47dde99e6e5  # codeql-bundle-20221211
         with:
           languages: 'csharp'
       - name: Checkout Ed-Fi-ODS-Implementation
@@ -127,4 +128,4 @@ jobs:
         run: |
              .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln" -StandardVersion ${{ matrix.StandardVersion }}
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@1fae5bf71b0ecdc7d0a2ef0d0c28409d99693966  # v2.9.2
+        uses: github/codeql-action/analyze@896079047b4bb059ba6f150a5d87d47dde99e6e5  # codeql-bundle-20221211
