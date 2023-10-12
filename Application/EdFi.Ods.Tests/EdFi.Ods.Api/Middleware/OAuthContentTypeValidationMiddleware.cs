@@ -25,11 +25,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
         }
 
         [Test]
-        public async Task Middleware_Returns_BadRequest_When_Content_Type_Is_Missing_For_OAuth_Request()
+        public async Task Middleware_Returns_BadRequest_When_Content_Type_Is_Missing_For_OAuth_Post_Request()
         {
             // Arrange
             var context = new DefaultHttpContext();
             context.Request.Path = "/oauth/token";
+            context.Request.Method = HttpMethods.Post;
             context.Response.Body = new MemoryStream();
             var next = A.Fake<RequestDelegate>();
 
@@ -45,11 +46,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
         }
 
         [Test]
-        public async Task Middleware_Passes_Through_When_Content_Type_Is_Present_For_OAuth_Request()
+        public async Task Middleware_Passes_Through_When_Content_Type_Is_Present_For_OAuth_Post_Request()
         {
             // Arrange
             var context = new DefaultHttpContext();
             context.Request.Path = "/oauth/token";
+            context.Request.Method = HttpMethods.Post;
             context.Request.ContentType = "application/json";
             var next = A.Fake<RequestDelegate>();
 
@@ -61,11 +63,28 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
         }
 
         [Test]
-        public async Task Middleware_Passes_Through_For_Non_OAuth_Request()
+        public async Task Middleware_Passes_Through_For_Non_OAuth_Post_Request()
         {
             // Arrange
             var context = new DefaultHttpContext();
             context.Request.Path = "/data/v3/ed-fi/localEducationAgencies";
+            context.Request.Method = HttpMethods.Post;
+            var next = A.Fake<RequestDelegate>();
+
+            // Act
+            await _middleware.InvokeAsync(context, next);
+
+            // Assert
+            A.CallTo(() => next(context)).MustHaveHappened();
+        }
+
+        [Test]
+        public async Task Middleware_Passes_Through_For_NonPost_OAuth_Request()
+        {
+            // Arrange
+            var context = new DefaultHttpContext();
+            context.Request.Path = "/data/v3/ed-fi/localEducationAgencies";
+            context.Request.Method = HttpMethods.Options;
             var next = A.Fake<RequestDelegate>();
 
             // Act
