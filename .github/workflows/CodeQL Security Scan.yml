@@ -8,6 +8,9 @@ name: CodeQL Security Scan Schedule
 on:
   schedule:
     - cron: '0 0 * * *'
+  pull_request:
+    branches: [main]
+
 env:
   INFORMATIONAL_VERSION: "7.1"
   BUILD_INCREMENTER: "1"
