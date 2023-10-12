@@ -81,7 +81,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@1fae5bf71b0ecdc7d0a2ef0d0c28409d99693966  # v2.9.2
+        uses: github/codeql-action/init@d90b8d79de6dc1f58e83a1499aa58d6c93dc28de  # v2.22.2
         with:
           languages: 'csharp'
       - name: Checkout Ed-Fi-ODS-Implementation
@@ -130,4 +130,4 @@ jobs:
         run: |
              .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln" -StandardVersion ${{ matrix.StandardVersion }}
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@1fae5bf71b0ecdc7d0a2ef0d0c28409d99693966  # v2.9.2
+        uses: github/codeql-action/analyze@d90b8d79de6dc1f58e83a1499aa58d6c93dc28de  # v2.22.2
