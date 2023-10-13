@@ -6,16 +6,21 @@
 using System;
 using System.Net;
 using EdFi.Ods.Common.Exceptions;
+using log4net;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators
 {
     public class TypeBasedInternalServerErrorExceptionTranslator : TypeBasedExceptionTranslatorBase
     {
+        private readonly ILog _logger = LogManager.GetLogger(typeof(TypeBasedInternalServerErrorExceptionTranslator));
+        
         // Exception types to be translated to a 500 status response with the error message intact.
-        private readonly Type[] _exceptionTypes =
+        private static readonly Type[] _exceptionTypes;
+
+        static TypeBasedInternalServerErrorExceptionTranslator()
         {
-            typeof(ApiSecurityConfigurationException)
-        };
+            _exceptionTypes = new[] { typeof(ApiSecurityConfigurationException) };
+        }
 
         protected override Type[] ExceptionTypes
         {
@@ -25,6 +30,13 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
         protected override HttpStatusCode ResponseCode
         {
             get => HttpStatusCode.InternalServerError;
+        }
+
+        protected override string GetMessage(Exception ex)
+        {
+            _logger.Error(ex);
+
+            return "The request cannot be authorized due to a security misconfiguration.";
         }
     }
 }
