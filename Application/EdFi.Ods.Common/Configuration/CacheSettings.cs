@@ -3,24 +3,51 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.Ods.Common.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EdFi.Ods.Common.Configuration
 {
     public class CacheSettings
     {
-        public string ExternalCacheProvider { get; set; }
+        public const string ProviderNameRedis = "Redis";
+        private readonly List<string> _availableExternalProviders = new() { ProviderNameRedis };
+
+        public string ExternalCacheProvider { get; set; } = string.Empty;
         public RedisCacheSettings Redis { get; set; }
-        public SqlServerCacheSettings SQLServer { get; set; }
         public DescriptorsCacheConfiguration Descriptors { get; set; } = new();
         public PersonUniqueIdToUsiCacheConfiguration PersonUniqueIdToUsi { get; set; } = new();
         public ApiClientDetailsConfiguration ApiClientDetails { get; set; } = new();
         public SecurityCacheConfiguration Security { get; set; } = new();
         public ProfilesCacheConfiguration Profiles { get; set; } = new();
         public OdsInstancesCacheConfiguration OdsInstances { get; set; } = new();
-        
+
         public TenantsCacheConfiguration Tenants { get; set; } = new();
+
+        /// <summary>
+        /// Validates the `ExternalCacheProvider` setting when any of the "use
+        /// cache" settings are true.
+        /// </summary>
+        /// <exception cref="InvalidConfigurationException" />
+        public void Validate()
+        {
+            var usingExternalCache = Descriptors.UseExternalCache || PersonUniqueIdToUsi.UseExternalCache || ApiClientDetails.UseExternalCache;
+            var externalProviderIsValid = _availableExternalProviders.Where(x => string.Equals(x, ExternalCacheProvider, StringComparison.OrdinalIgnoreCase)).Any();
+
+            if (usingExternalCache & !externalProviderIsValid)
+            {
+                throw new InvalidConfigurationException($"External caching has been enabled, but the specified cache provider \"{ExternalCacheProvider}\" is not valid.");
+            }
+
+            var cacheProviderIsRedis = string.Equals(ProviderNameRedis, ExternalCacheProvider, StringComparison.OrdinalIgnoreCase);
+            var redisConfigNotProvider = string.IsNullOrWhiteSpace(Redis.Configuration);
+            if (usingExternalCache && cacheProviderIsRedis && redisConfigNotProvider)
+            {
+                throw new InvalidConfigurationException($"External caching has been enabled with Redis, but the Redis configuration string has not been provided.");
+            }
+        }
 
         public class DescriptorsCacheConfiguration
         {
@@ -40,7 +67,7 @@ namespace EdFi.Ods.Common.Configuration
         public class ApiClientDetailsConfiguration
         {
             public bool UseExternalCache { get; set; }
-            public int AbsoluteExpirationSeconds { get; set; } = (int) TimeSpan.FromMinutes(15).TotalSeconds;
+            public int AbsoluteExpirationSeconds { get; set; } = (int)TimeSpan.FromMinutes(15).TotalSeconds;
         }
 
         public class SecurityCacheConfiguration
@@ -53,12 +80,6 @@ namespace EdFi.Ods.Common.Configuration
             public string Configuration { get; set; }
             public string Password { get; set; }
 
-        }
-        public class SqlServerCacheSettings
-        {
-            public string ConnectionString { get; set; }
-            public string SchemaName { get; set; }
-            public string TableName { get; set; }
         }
 
         public class ProfilesCacheConfiguration

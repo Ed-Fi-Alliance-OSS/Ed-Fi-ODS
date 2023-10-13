@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Features.ExternalCache
 {
@@ -13,7 +12,7 @@ namespace EdFi.Ods.Features.ExternalCache
         void RegisterProvider(ContainerBuilder builder);
         void RegisterDistributedCache(ContainerBuilder builder);
         string ExternalCacheProvider { get; }
-        bool IsProviderSelected(string externalCacheProvider);
+        bool IsProviderSelected();
         void OverrideApiClientDetailsCache(ContainerBuilder builder);
         void OverrideDescriptorsCache(ContainerBuilder builder);
         void OverridePersonUniqueIdToUsiCache(ContainerBuilder builder);
