@@ -71,21 +71,6 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
     private void PopulateServersConfiguration(ref OpenApiDocument openApiDocument)
     {
         openApiDocument.Servers.Clear();
-        openApiDocument.Components.SecuritySchemes.Add("oauth2", new OpenApiSecurityScheme()
-        {
-            Type = SecuritySchemeType.OAuth2,
-            Flows = new OpenApiOAuthFlows()
-            {
-                AuthorizationCode = new OpenApiOAuthFlow()
-                {
-                    AuthorizationUrl = new Uri($"{_httpContextAccessor.HttpContext?.Request.RootUrl(this._reverseProxySettings)}/oauth2/authorize"),
-                    Scopes = new Dictionary<string, string>()
-                    {
-                        { "openid", "OpenID Connect scope" }
-                    }
-                }
-            }
-        });
         
         if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
         {

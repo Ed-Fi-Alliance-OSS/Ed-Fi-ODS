@@ -66,7 +66,7 @@ namespace EdFi.Ods.Api.Controllers
                 {
                     if (HttpContext.Request.RouteValues.TryGetValue("tenantIdentifier", out object tenantIdentifier))
                     {
-                        rootUrl = $"{rootUrl}";
+                        rootUrl = $"{rootUrl}/{tenantIdentifier}";
                     }
                     else
                     {
