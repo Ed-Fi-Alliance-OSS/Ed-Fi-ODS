@@ -53,7 +53,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Environment = NHibernate.Cfg.Environment;
 
 namespace EdFi.Ods.Api.Startup
 {
@@ -98,6 +97,7 @@ namespace EdFi.Ods.Api.Startup
 
             _apiSettings = new ApiSettings();
             Configuration.Bind("ApiSettings", _apiSettings);
+            _apiSettings.Validate();
             
             var pluginSettings = new Plugin();
             Configuration.Bind("Plugin", pluginSettings);

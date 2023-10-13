@@ -13,14 +13,15 @@ namespace EdFi.Ods.Features.Redis
 {
     public class OverrideRedisExternalCacheModule : ExternalCacheModule
     {
-        public override string ExternalCacheProvider => "Redis";
+
+        public override string ExternalCacheProvider => CacheSettings.ProviderNameRedis;
 
         public OverrideRedisExternalCacheModule(ApiSettings apiSettings)
             : base(apiSettings, nameof(OverrideRedisExternalCacheModule)) { }
 
         public override void RegisterDistributedCache(ContainerBuilder builder)
         {
-            if (!IsProviderSelected(ApiSettings.Caching.ExternalCacheProvider))
+            if (!IsProviderSelected())
             {
                 return;
             }

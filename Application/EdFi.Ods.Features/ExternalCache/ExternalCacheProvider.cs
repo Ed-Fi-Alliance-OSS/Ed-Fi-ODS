@@ -6,7 +6,6 @@
 using System;
 using System.Globalization;
 using EdFi.Common.Security;
-using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Exceptions;
 using log4net;
@@ -170,20 +169,6 @@ namespace EdFi.Ods.Features.ExternalCache
                 _logger.Warn($"Exception during deserialization of the string \"{@string}\". Message: \"{e.Message}\"");
                 return null;
             }
-        }
-
-        private static TimeSpan DetermineEarlier(DateTime absoluteExpiration, TimeSpan slidingExpiration)
-        {
-            TimeSpan timeUntilAbsolute = absoluteExpiration.Subtract(DateTime.Now);
-
-            if (slidingExpiration <= TimeSpan.Zero)
-            {
-                return timeUntilAbsolute;
-            }
-
-            return timeUntilAbsolute < slidingExpiration
-                ? timeUntilAbsolute
-                : slidingExpiration;
         }
     }
 }

@@ -50,9 +50,9 @@ namespace EdFi.Ods.Features.ExternalCache
 
         public abstract string ExternalCacheProvider { get; }
 
-        public bool IsProviderSelected(string externalCacheProvider)
+        public bool IsProviderSelected()
         {
-            return ExternalCacheProvider == externalCacheProvider;
+            return string.Equals(ExternalCacheProvider, ApiSettings.Caching.ExternalCacheProvider, StringComparison.OrdinalIgnoreCase);
         }
 
         public void RegisterProvider(ContainerBuilder builder)
@@ -60,13 +60,13 @@ namespace EdFi.Ods.Features.ExternalCache
             builder.RegisterType<ExternalCacheProvider<string>>()
                 .WithParameter(
                     new ResolvedParameter(
-                        (p, c) => p.ParameterType == typeof(TimeSpan),
-                        (p, c) => GetDefaultExpiration(c)))
+                        (p, _) => p.ParameterType == typeof(TimeSpan),
+                        (_, _) => GetDefaultExpiration()))
                 .As<IExternalCacheProvider<string>>()
                 .SingleInstance();
         }
 
-        private TimeSpan GetDefaultExpiration(IComponentContext componentContext)
+        private static TimeSpan GetDefaultExpiration()
         {
             return TimeSpan.FromSeconds(1800);
         }
@@ -113,7 +113,7 @@ namespace EdFi.Ods.Features.ExternalCache
 
         public void OverridePersonUniqueIdToUsiCache(ContainerBuilder builder)
         {
-            if (IsProviderSelected("Redis"))
+            if (IsProviderSelected())
             {
                 builder.RegisterType<RedisUsiByUniqueIdMapCache>()
                     .WithParameter(

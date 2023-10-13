@@ -8,37 +8,23 @@ using System.Runtime.Serialization;
 
 namespace EdFi.Ods.Common.Exceptions
 {
-    /// <summary>
-    ///     Indicates that a resource or persistent model identified for an operation was not found.
-    /// </summary>
     [Serializable]
-    public class NotFoundException : Exception
+    public class InvalidConfigurationException : Exception
     {
         // For guidelines regarding the creation of new exception types, see
         //    https://learn.microsoft.com/en-us/dotnet/standard/exceptions/best-practices-for-exceptions
 
-        public NotFoundException() { }
+        public InvalidConfigurationException() { }
 
-        public NotFoundException(string message)
+        public InvalidConfigurationException(string message)
             : base(message) { }
 
-        public NotFoundException(string message, string typeName, string identifier)
-            : base(message)
-        {
-            TypeName = typeName;
-            Identifier = identifier;
-        }
-
-        public NotFoundException(string message, Exception inner)
+        public InvalidConfigurationException(string message, Exception inner)
             : base(message, inner) { }
 
-        protected NotFoundException(
+        protected InvalidConfigurationException(
             SerializationInfo info,
             StreamingContext context)
             : base(info, context) { }
-
-        public string TypeName { get; set; }
-
-        public string Identifier { get; set; }
     }
 }
