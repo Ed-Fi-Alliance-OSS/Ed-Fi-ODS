@@ -36,8 +36,8 @@ namespace EdFi.Ods.Features.Controllers
     [ApiController]
     [Produces("application/json")]
     [AllowAnonymous]
-    [ApplyOdsRouteRootTemplate]
     [Route("metadata/{version?}")]
+    [Route("{tenant}/metadata/{version?}")]
     public class OpenApiMetadataController : ControllerBase
     {
         private readonly bool _isEnabled;
@@ -56,7 +56,7 @@ namespace EdFi.Ods.Features.Controllers
         
         
         [HttpGet]
-        public IActionResult Get([FromRoute] OpenApiMetadataSectionRequest request)
+        public IActionResult Get([FromRoute] OpenApiMetadataSectionRequest request, [FromQuery(Name = "v")] int version = 3)
         {
             if (!IsFeatureEnabled())
             {

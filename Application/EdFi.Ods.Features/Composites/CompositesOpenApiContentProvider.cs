@@ -18,6 +18,7 @@ using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
+using Microsoft.OpenApi;
 
 namespace EdFi.Ods.Features.Composites
 {
@@ -61,7 +62,8 @@ namespace EdFi.Ods.Features.Composites
                         new OpenApiContent(
                             OpenApiMetadataSections.Composites,
                             c.CompositeContext.CategoryName,
-                            new Lazy<string>(() => _openApiMetadataDocumentFactory.Create(openApiStrategy, c)),
+                            new Lazy<string>(() => _openApiMetadataDocumentFactory.Create(openApiStrategy, c, OpenApiSpecVersion.OpenApi2_0)),
+                            new Lazy<string>(() => _openApiMetadataDocumentFactory.Create(openApiStrategy, c, OpenApiSpecVersion.OpenApi3_0)),
                             $"{OpenApiMetadataSections.Composites.ToLowerInvariant()}/v{CompositesConstants.FeatureVersion}",
                             $"{c.CompositeContext.OrganizationCode}/{c.CompositeContext.CategoryName}"));
         }

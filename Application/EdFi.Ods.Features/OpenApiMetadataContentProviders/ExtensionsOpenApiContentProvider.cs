@@ -18,6 +18,7 @@ using EdFi.Ods.Common.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
+using Microsoft.OpenApi;
 using OpenApiMetadataSections = EdFi.Ods.Api.Constants.OpenApiMetadataSections;
 
 namespace EdFi.Ods.Features.Extensions
@@ -64,7 +65,16 @@ namespace EdFi.Ods.Features.Extensions
                                     RenderType = RenderType.ExtensionArtifactsOnly,
                                     IsIncludedExtension = r => r.FullName.Schema.Equals(
                                         _schemaNameMapProvider.GetSchemaMapByUriSegment(sf.UriSegment).PhysicalName)
-                                })),
+                                }, OpenApiSpecVersion.OpenApi2_0)),
+                        new Lazy<string>(
+                            () => sf.Factory.Create(
+                                new SdkGenExtensionResourceStrategy(),
+                                new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())
+                                {
+                                    RenderType = RenderType.ExtensionArtifactsOnly,
+                                    IsIncludedExtension = r => r.FullName.Schema.Equals(
+                                        _schemaNameMapProvider.GetSchemaMapByUriSegment(sf.UriSegment).PhysicalName)
+                                }, OpenApiSpecVersion.OpenApi3_0)),
                         RouteConstants.DataManagementRoutePrefix));
     }
 }

@@ -56,7 +56,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             _odsContextRoutePath = apiSettings.GetOdsContextRoutePath() ?? string.Empty;
         }
 
-        public bool TryGetSwaggerDocument(HttpRequest request, out string document, bool upcastToV30 = false)
+        public bool TryGetSwaggerDocument(HttpRequest request, out string document, OpenApiSpecVersion openApiSpecVersion)
         {
             document = null;
 
@@ -69,84 +69,40 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                 _logger.Debug($"Unable to locate swagger document for {openApiMetadataRequest.GetFeedName()}");
                 return false;
             }
-
-            document = GetMetadataForContent(openApiContent, request, openApiMetadataRequest.OdsContext, openApiMetadataRequest.InstanceId, openApiMetadataRequest.TenantIdentifierFromRoute);
-
-            if (upcastToV30)
-            {
-                document = UpcastOasJsonToV3(document);
-            }
+            
+            document = GetMetadataForContent(
+                openApiContent, request, openApiMetadataRequest.OdsContext, openApiMetadataRequest.InstanceId,
+                openApiMetadataRequest.TenantIdentifierFromRoute, openApiSpecVersion);
+            
             return true;
-            
-            string UpcastOasJsonToV3(string json)
-            {
-                var openApiDocument = new OpenApiStringReader().Read(json, out _);
-                TranformServersConfiguration(ref openApiDocument);
-                return openApiDocument.Serialize(OpenApiSpecVersion.OpenApi3_0, OpenApiFormat.Json);
-            }
         }
 
-        private OpenApiDocument TranformServersConfiguration(ref OpenApiDocument openApiDocument)
+        private string GetMetadataForContent(OpenApiContent content, HttpRequest request, string odsContextName,
+            string instanceId, string tenantIdentifier, OpenApiSpecVersion openApiSpecVersion)
         {
-            var request = new HttpContextAccessor()?.HttpContext?.Request;
-            
-            openApiDocument.Servers.Clear();
+            var odsContextRouteValue = string.IsNullOrEmpty(odsContextName)
+                ? string.Empty
+                : $"{odsContextName}/";
 
-            var rootUrl = request.RootUrl(this._reverseProxySettings);
+            var instanceIdRouteValue = string.IsNullOrEmpty(instanceId)
+                ? string.Empty
+                : $"{instanceId}/";
 
-            openApiDocument.Servers.Add(
-                new OpenApiServer()
-                {
-                    Url = $"{rootUrl}/{{tenant}}/{{schoolYear}}",
-                    Variables = new Dictionary<string, OpenApiServerVariable>()
-                    {
-                        {
-                            "tenant", new OpenApiServerVariable()
-                            {
-                                Enum = new List<string>()
-                                {
-                                    "tenant1",
-                                    "tenant2",
-                                    "tenant3"
-                                },
-                                Default = "tenant1"
-                            }
-                        },
-                        {
-                            "schoolYear", new OpenApiServerVariable()
-                            {
-                                Enum = new List<string>()
-                                {
-                                    "2020",
-                                    "2021",
-                                    "2022",
-                                    "2023",
-                                    "2024"
-                                },
-                                Default = "2024"
-                            }
-                        }
-                    }
-                });
+            var tenantIdentifierRouteValue = string.IsNullOrEmpty(tenantIdentifier)
+                ? string.Empty
+                : $"{tenantIdentifier}/";
 
-            return openApiDocument;
-        }
+            string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + tenantIdentifierRouteValue +
+                              odsContextRouteValue + content.BasePath.EnsureSuffixApplied("/") + instanceIdRouteValue;
 
-        private string GetMetadataForContent(OpenApiContent content, HttpRequest request, string odsContextName, string instanceId, string tenantIdentifier)
-        {
-            var odsContextRouteValue = string.IsNullOrEmpty(odsContextName) ? string.Empty : $"{odsContextName}/";
-            var instanceIdRouteValue = string.IsNullOrEmpty(instanceId) ? string.Empty : $"{instanceId}/";
-            var tenantIdentifierRouteValue = string.IsNullOrEmpty(tenantIdentifier) ? string.Empty : $"{tenantIdentifier}/";
-
-            string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + tenantIdentifierRouteValue + odsContextRouteValue + content.BasePath.EnsureSuffixApplied("/") + instanceIdRouteValue;
- 
-            return content.Metadata
+            return content.Metadata(openApiSpecVersion)
                 .Replace("%HOST%", Host())
                 .Replace("%TOKEN_URL%", TokenUrl())
                 .Replace("%BASE_PATH%", basePath)
                 .Replace("%SCHEME%", request.Scheme(this._reverseProxySettings));
 
-            string TokenUrl() {
+            string TokenUrl()
+            {
                 var rootUrl = request.RootUrl(this._reverseProxySettings);
                 return $"{rootUrl}/" + tenantIdentifierRouteValue + odsContextRouteValue + $"{instanceId}oauth/token";
             }
@@ -233,9 +189,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                             .ToString();
                     }
 
-                    if(values.ContainsKey("tenantIdentifier"))
+                    if (values.ContainsKey("tenantIdentifier"))
                     {
-                        openApiMetadataRequest.TenantIdentifierFromRoute = values["tenantIdentifier"]                            
+                        openApiMetadataRequest.TenantIdentifierFromRoute = values["tenantIdentifier"]
                             .ToString();
                     }
                 }

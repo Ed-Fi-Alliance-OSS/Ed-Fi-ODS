@@ -11,8 +11,10 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
+using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
 using log4net;
+using Microsoft.OpenApi;
 using Newtonsoft.Json;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Factories
@@ -23,16 +25,18 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private readonly ApiSettings _apiSettings;
         private readonly IDefaultPageSizeLimitProvider _defaultPageSizeLimitProvider;
         private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
+        private readonly IOpenApiUpconversionProvider _openApiV3UpconversionProvider;
 
-        public OpenApiMetadataDocumentFactory(ApiSettings apiSettings, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
+        public OpenApiMetadataDocumentFactory(ApiSettings apiSettings, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, IOpenApiUpconversionProvider openApiV3UpconversionProvider,
             ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider = null)
         {
             _apiSettings = apiSettings;
             _defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
             _trackedChangesIdentifierProjectionsProvider = trackedChangesIdentifierProjectionsProvider;
+            _openApiV3UpconversionProvider = openApiV3UpconversionProvider;
         }
 
-        public string Create(IOpenApiMetadataResourceStrategy resourceStrategy, OpenApiMetadataDocumentContext documentContext)
+        public string Create(IOpenApiMetadataResourceStrategy resourceStrategy, OpenApiMetadataDocumentContext documentContext, OpenApiSpecVersion openApiSpecVersion)
         {
             try
             {
@@ -98,10 +102,17 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     parameters = parametersFactory.Create(documentContext.IsCompositeContext),
                     responses = responsesFactory.Create()
                 };
-
-                return JsonConvert.SerializeObject(
+    
+                var jsonString = JsonConvert.SerializeObject(
                     openApiMetadataDocument,
                     new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore});
+
+                if (openApiSpecVersion == OpenApiSpecVersion.OpenApi3_0)
+                {
+                    jsonString = _openApiV3UpconversionProvider.GetUpconvertedOpenApiJson(jsonString);
+                }
+
+                return jsonString;
             }
             catch (Exception ex)
             {

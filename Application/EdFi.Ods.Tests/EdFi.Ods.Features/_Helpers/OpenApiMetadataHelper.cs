@@ -94,7 +94,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers
                     }";
 
             return new OpenApiContent(
-                "Other", "identity", new Lazy<string>(() => identityJson), IdentityManagementConstants.IdentityRoutePrefix);
+                "Other", "identity", new Lazy<string>(() => identityJson), new Lazy<string>(() => identityJson), IdentityManagementConstants.IdentityRoutePrefix);
         }
     }
 }

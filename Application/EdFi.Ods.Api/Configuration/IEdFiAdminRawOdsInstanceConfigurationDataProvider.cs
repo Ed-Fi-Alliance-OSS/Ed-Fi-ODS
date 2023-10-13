@@ -18,4 +18,6 @@ public interface IEdFiAdminRawOdsInstanceConfigurationDataProvider
     /// <param name="odsInstanceId">The tenant-specific ODS identifier.</param>
     /// <returns>The raw data containing the ODS instance configuration details.</returns>
     Task<RawOdsInstanceConfigurationDataRow[]> GetByIdAsync(int odsInstanceId);
+
+    Task<string[]> GetDistinctOdsInstanceContextValuesAsync(string odsContextKey);
 }

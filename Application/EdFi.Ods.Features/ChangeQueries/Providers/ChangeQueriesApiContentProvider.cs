@@ -10,12 +10,19 @@ using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Utils.Extensions;
+using EdFi.Ods.Features.OpenApiMetadata.Providers;
 
 namespace EdFi.Ods.Features.ChangeQueries.Providers
 {
     public class ChangeQueriesOpenApiContentProvider : IOpenApiContentProvider
     {
         private const string Name = "ChangeQueries";
+        private readonly IOpenApiUpconversionProvider _openApiV3UpconversionProvider;
+        
+        public ChangeQueriesOpenApiContentProvider(IOpenApiUpconversionProvider openApiUpconversionProvider)
+        {
+            _openApiV3UpconversionProvider = openApiUpconversionProvider;
+        }
 
         public string RouteName
         {
@@ -34,6 +41,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Providers
                     x => new OpenApiContent(
                         OpenApiMetadataSections.Other, Name,
                         new Lazy<string>(() => assembly.ReadResource(x)),
+                        new Lazy<string>(() => _openApiV3UpconversionProvider.GetUpconvertedOpenApiJson(assembly.ReadResource(x))),
                         $"{Name}/v{ChangeQueriesConstants.FeatureVersion}", string.Empty));
         }
     }

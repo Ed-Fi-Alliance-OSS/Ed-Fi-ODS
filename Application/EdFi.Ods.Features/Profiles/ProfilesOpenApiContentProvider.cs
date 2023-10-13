@@ -18,6 +18,7 @@ using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
+using Microsoft.OpenApi;
 
 namespace EdFi.Ods.Features.Profiles
 {
@@ -68,7 +69,8 @@ namespace EdFi.Ods.Features.Profiles
                         new OpenApiContent(
                             OpenApiMetadataSections.Profiles,
                             c.ProfileContext.ProfileName,
-                            new Lazy<string>(() => _openApiMetadataDocumentFactory.Create(openApiStrategy, c)),
+                            new Lazy<string>(() => _openApiMetadataDocumentFactory.Create(openApiStrategy, c, OpenApiSpecVersion.OpenApi2_0)),
+                            new Lazy<string>(() => _openApiMetadataDocumentFactory.Create(openApiStrategy, c, OpenApiSpecVersion.OpenApi3_0)),
                             RouteConstants.DataManagementRoutePrefix,
                             $"{OpenApiMetadataSections.Profiles}/{c.ProfileContext.ProfileName}"));
         }

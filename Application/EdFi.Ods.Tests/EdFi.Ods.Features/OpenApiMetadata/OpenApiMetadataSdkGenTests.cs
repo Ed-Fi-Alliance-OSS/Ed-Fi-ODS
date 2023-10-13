@@ -17,10 +17,13 @@ using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
+using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
 using EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers;
 using EdFi.TestFixture;
+using FakeItEasy;
 using Microsoft.Extensions.Configuration;
+using Microsoft.OpenApi;
 using NUnit.Framework;
 using Test.Common;
 using EdFiSchema = EdFi.Ods.Common.Models.Domain.Schema;
@@ -96,8 +99,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
+                var upconversionProvider = A.Fake<IOpenApiUpconversionProvider>();
+                A.CallTo(() => upconversionProvider.GetUpconvertedOpenApiJson(A<string>._)).ReturnsLazily(x => x.Arguments.Get<string>(0));
+
                 _extensionOnlyOpenApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSieLimitProvider,
+                    upconversionProvider,
                     new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
 
                 _resourceStrategy = new SdkGenExtensionResourceStrategy();
@@ -112,7 +119,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                     {
                         RenderType = RenderType.ExtensionArtifactsOnly,
                         IsIncludedExtension = r => r.FullName.Schema.Equals(_schemaDefinition.PhysicalName)
-                    });
+                    },
+                    OpenApiSpecVersion.OpenApi3_0);
 
                 _actualMetadataObject = OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(_actualMetadataText);
             }
@@ -207,8 +215,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
+                var upconversionProvider = A.Fake<IOpenApiUpconversionProvider>();
+                A.CallTo(() => upconversionProvider.GetUpconvertedOpenApiJson(A<string>._)).ReturnsLazily(x => x.Arguments.Get<string>(0));
+
                 _extensionOnlyOpenApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSieLimitProvider,
+                    upconversionProvider,
                     new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
 
                 _resourceStrategy = new SdkGenExtensionResourceStrategy();
@@ -223,7 +235,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                     {
                         RenderType = RenderType.ExtensionArtifactsOnly,
                         IsIncludedExtension = r => r.FullName.Schema.Equals(requestedExtensionPhysicalName)
-                    });
+                    },
+                    OpenApiSpecVersion.OpenApi3_0);
 
                 _actualMetadataObject = OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(_actualMetadataText);
             }

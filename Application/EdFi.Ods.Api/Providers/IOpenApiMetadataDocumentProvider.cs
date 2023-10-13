@@ -4,11 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Microsoft.AspNetCore.Http;
+using Microsoft.OpenApi;
 
 namespace EdFi.Ods.Api.Providers
 {
     public interface IOpenApiMetadataDocumentProvider
     {
-        bool TryGetSwaggerDocument(HttpRequest request, out string document, bool upcastToV30 = false);
+        bool TryGetSwaggerDocument(HttpRequest request, out string document, OpenApiSpecVersion openApiSpecVersion);
     }
 }

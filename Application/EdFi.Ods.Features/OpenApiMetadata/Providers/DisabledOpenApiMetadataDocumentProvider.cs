@@ -5,15 +5,17 @@
 
 using Microsoft.AspNetCore.Http;
 using EdFi.Ods.Api.Providers;
+using Microsoft.OpenApi;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 {
     public class DisabledOpenApiMetadataDocumentProvider : IOpenApiMetadataDocumentProvider
     {
-        public bool TryGetSwaggerDocument(HttpRequest request, out string document, bool upcastToV30 = false)
+        public bool TryGetSwaggerDocument(HttpRequest request, out string document, OpenApiSpecVersion openApiSpecVersion)
         {
             document = null;
             return false;
         }
+        
     }
 }

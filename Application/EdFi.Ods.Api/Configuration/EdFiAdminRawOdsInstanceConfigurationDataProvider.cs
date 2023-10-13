@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +21,8 @@ public class EdFiAdminRawOdsInstanceConfigurationDataProvider : IEdFiAdminRawOds
     private readonly IAdminDatabaseConnectionStringProvider _adminDatabaseConnectionStringProvider;
 
     private const string GetOdsConfigurationByIdSql = "SELECT OdsInstanceId, ConnectionString, ContextKey, ContextValue, DerivativeType, ConnectionStringByDerivativeType FROM dbo.GetOdsInstanceConfigurationById(@OdsInstanceId);";
+
+    private const string GetDistinctOdsContextValuesSql = "SELECT ContextValue FROM dbo.GetDistinctOdsInstanceContextValues(@OdsContextKey);";
 
     public EdFiAdminRawOdsInstanceConfigurationDataProvider(
         IAdminDatabaseConnectionStringProvider adminDatabaseConnectionStringProvider,
@@ -40,6 +43,27 @@ public class EdFiAdminRawOdsInstanceConfigurationDataProvider : IEdFiAdminRawOds
             .ToArray();
 
         return rawDataRows;
+        
+        DbConnection CreateConnectionAsync()
+        {
+            var newConnection = _dbProviderFactory.CreateConnection();
+            newConnection.ConnectionString = _adminDatabaseConnectionStringProvider.GetConnectionString();
+            
+            return newConnection;
+        }
+    }
+    
+    public async Task<string[]> GetDistinctOdsInstanceContextValuesAsync(string odsContextKey)
+    {
+        await using var connection = CreateConnectionAsync();
+
+        var contextValues = (await connection.QueryAsync<string>(
+                GetDistinctOdsContextValuesSql,
+                new { OdsContextKey =  odsContextKey}))
+            .ToArray();
+
+
+        return contextValues;
         
         DbConnection CreateConnectionAsync()
         {
