@@ -68,6 +68,26 @@ jobs:
         owner: ${{ github.repository_owner }}
         workflow: InitDev, MultiTenancy.yml
         workflow_timeout_seconds: 4800
+    - name: Dispatch InitDev, Smoke Tests workflow
+      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      id: return_dispatch_InitDevSmokeTests
+      with:
+        token: ${{ env.EDFI_ODS_IMP_TOKEN }}
+        ref: ${{  env.current_branch  }}
+        repo:  Ed-Fi-ODS-Implementation
+        owner: ${{ github.repository_owner }}
+        workflow: InitDev, Smoke Tests.yml
+        workflow_timeout_seconds: 4800
+    - name: Dispatch InitDev, Unit tests, Integration tests, Package workflow
+      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      id: return_dispatch_InitDevUnittestsIntegrationtestsPackage
+      with:
+        token: ${{ env.EDFI_ODS_IMP_TOKEN }}
+        ref: ${{  env.current_branch  }}
+        repo:  Ed-Fi-ODS-Implementation
+        owner: ${{ github.repository_owner }}
+        workflow: InitDev, Unit tests, Integration tests, Package.yml
+        workflow_timeout_seconds: 4800
     - name: Await to complete the execution for InitDev , MultiTenancy RunID ${{ steps.return_dispatch_InitDevMultitenancy.outputs.run_id }}
       uses: codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
       with:
@@ -77,3 +97,21 @@ jobs:
         run_id: ${{ steps.return_dispatch_InitDevMultitenancy.outputs.run_id }}
         run_timeout_seconds: 4800
         poll_interval_ms: 5000
+    - name: Await to complete the execution for InitDev, Smoke Tests RunID ${{ steps.return_dispatch_InitDevSmokeTests.outputs.run_id }}
+      uses: codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
+      with:
+        token: ${{ env.EDFI_ODS_IMP_TOKEN }}
+        repo: Ed-Fi-ODS-Implementation
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_InitDevSmokeTests.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000
+    - name: Await to complete the execution for InitDev, Unit tests, Integration tests, Package RunID ${{ steps.return_dispatch_InitDevUnittestsIntegrationtestsPackage.outputs.run_id }}
+      uses: codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
+      with:
+        token: ${{ env.EDFI_ODS_IMP_TOKEN }}
+        repo: Ed-Fi-ODS-Implementation
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_InitDevUnittestsIntegrationtestsPackage.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000        
