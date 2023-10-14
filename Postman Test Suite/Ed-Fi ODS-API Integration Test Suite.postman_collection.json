@@ -8752,66 +8752,535 @@
 			"name": "Duplicate collection items",
 			"item": [
 				{
-					"name": "Create assessment with duplicate items",
-					"event": [
+					"name": "Standard collections",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response code is 400\", () => {\r",
-									"  pm.expect(pm.response.code).to.equal(400);\r",
-									"});\r",
-									"\r",
-									"const error = pm.response.json();\r",
-									"\r",
-									"pm.test(\"Message should indicate the request is invalid.\", () => {\r",
-									"  pm.expect(error.message).to.equal(\"The request is invalid.\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Model state should include validation messages for duplicate items in collections.\", () => {\r",
-									"  pm.expect(error.modelState).to.deep.include({\r",
-									"    \"request.AssessmentScores\": [\r",
-									"      \"The 2nd item of the AssessmentScores collection is a duplicate.\"\r",
-									"    ],\r",
-									"    \"request.AssessmentAcademicSubjects\": [\r",
-									"      \"The 3rd item of the AssessmentAcademicSubjects collection is a duplicate.\"\r",
-									"    ],\r",
-									"    \"request.AssessmentAssessedGradeLevels\": [\r",
-									"      \"The 3rd item of the AssessmentAssessedGradeLevels collection is a duplicate.\"\r",
-									"    ]\r",
-									"  });\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"assessmentIdentifier\": \"{{$guid}}\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{$randomCompanyName}}\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n    },\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    },\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n    }\r\n  ],\r\n  \"assessedGradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Third grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n    }\r\n  ],\r\n  \"identificationCodes\": [\r\n    {\r\n      \"assessmentIdentificationSystemDescriptor\": \"uri://ed-fi.org/AssessmentIdentificationSystemDescriptor#Test Contractor\",\r\n      \"identificationCode\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\"\r\n    }\r\n  ],\r\n  \"languages\": [\r\n    {\r\n      \"languageDescriptor\": \"uri://ed-fi.org/LanguageDescriptor#eng\"\r\n    }\r\n  ],\r\n  \"performanceLevels\": [],\r\n  \"periods\": [],\r\n  \"platformTypes\": [],\r\n  \"programs\": [],\r\n  \"scores\": [\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"10\",\r\n      \"minimumScore\": \"0\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    },\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"5\",\r\n      \"minimumScore\": \"0\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    }\r\n  ],\r\n  \"sections\": [],\r\n    \"contentStandard\": {\r\n    \"title\": \"State Essential Knowledge and Skills\",\r\n    \"authors\": []\r\n  }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"name": "Create assessment with duplicate items",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"const error = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Message should indicate the request is invalid.\", () => {\r",
+											"  pm.expect(error.message).to.equal(\"The request is invalid.\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Model state should include validation messages for duplicate items in collections.\", () => {\r",
+											"  pm.expect(error.modelState).to.deep.include({\r",
+											"    \"request.AssessmentScores\": [\r",
+											"      \"The 2nd item of the AssessmentScores collection is a duplicate.\"\r",
+											"    ],\r",
+											"    \"request.AssessmentAcademicSubjects\": [\r",
+											"      \"The 3rd item of the AssessmentAcademicSubjects collection is a duplicate.\"\r",
+											"    ],\r",
+											"    \"request.AssessmentAssessedGradeLevels\": [\r",
+											"      \"The 3rd item of the AssessmentAssessedGradeLevels collection is a duplicate.\"\r",
+											"    ]\r",
+											"  });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
 								}
-							}
-						},
-						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments",
-							"host": [
-								"{{ApiBaseUrl}}"
 							],
-							"path": [
-								"data",
-								"v3",
-								"ed-fi",
-								"assessments"
-							]
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"assessmentIdentifier\": \"ASSESSMENT-DUPLICATE-TEST\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{$randomCompanyName}}\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n    },\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    },\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n    }\r\n  ],\r\n  \"assessedGradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Third grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n    }\r\n  ],\r\n  \"identificationCodes\": [\r\n    {\r\n      \"assessmentIdentificationSystemDescriptor\": \"uri://ed-fi.org/AssessmentIdentificationSystemDescriptor#Test Contractor\",\r\n      \"identificationCode\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\"\r\n    }\r\n  ],\r\n  \"languages\": [\r\n    {\r\n      \"languageDescriptor\": \"uri://ed-fi.org/LanguageDescriptor#eng\"\r\n    }\r\n  ],\r\n  \"performanceLevels\": [],\r\n  \"periods\": [],\r\n  \"platformTypes\": [],\r\n  \"programs\": [],\r\n  \"scores\": [\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"10\",\r\n      \"minimumScore\": \"0\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    },\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"5\",\r\n      \"minimumScore\": \"0\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    }\r\n  ],\r\n  \"sections\": [],\r\n    \"contentStandard\": {\r\n    \"title\": \"State Essential Knowledge and Skills\",\r\n    \"authors\": []\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"assessments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create assessment without duplicate items",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:assessment:id',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"assessmentIdentifier\": \"ASSESSMENT-DUPLICATE-TEST\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{$randomCompanyName}}\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n    },\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ],\r\n  \"assessedGradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Third grade\"\r\n    }\r\n  ],\r\n  \"identificationCodes\": [\r\n    {\r\n      \"assessmentIdentificationSystemDescriptor\": \"uri://ed-fi.org/AssessmentIdentificationSystemDescriptor#Test Contractor\",\r\n      \"identificationCode\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\"\r\n    }\r\n  ],\r\n  \"languages\": [\r\n    {\r\n      \"languageDescriptor\": \"uri://ed-fi.org/LanguageDescriptor#eng\"\r\n    }\r\n  ],\r\n  \"performanceLevels\": [],\r\n  \"periods\": [],\r\n  \"platformTypes\": [],\r\n  \"programs\": [],\r\n  \"scores\": [\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"10\",\r\n      \"minimumScore\": \"0\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    }\r\n  ],\r\n  \"sections\": [],\r\n    \"contentStandard\": {\r\n    \"title\": \"State Essential Knowledge and Skills\",\r\n    \"authors\": []\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"assessments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update assessment adding duplicate items",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"const error = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Message should indicate the request is invalid.\", () => {\r",
+											"  pm.expect(error.message).to.equal(\"The request is invalid.\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Model state should include validation messages for duplicate items in collections.\", () => {\r",
+											"  pm.expect(error.modelState).to.deep.include({\r",
+											"    \"request.AssessmentScores\": [\r",
+											"      \"The 2nd item of the AssessmentScores collection is a duplicate.\"\r",
+											"    ],\r",
+											"    \"request.AssessmentAcademicSubjects\": [\r",
+											"      \"The 3rd item of the AssessmentAcademicSubjects collection is a duplicate.\"\r",
+											"    ],\r",
+											"    \"request.AssessmentAssessedGradeLevels\": [\r",
+											"      \"The 3rd item of the AssessmentAssessedGradeLevels collection is a duplicate.\"\r",
+											"    ]\r",
+											"  });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"assessmentIdentifier\": \"ASSESSMENT-DUPLICATE-TEST\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{$randomCompanyName}}\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n    },\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    },\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n    }\r\n  ],\r\n  \"assessedGradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Third grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n    }\r\n  ],\r\n  \"identificationCodes\": [\r\n    {\r\n      \"assessmentIdentificationSystemDescriptor\": \"uri://ed-fi.org/AssessmentIdentificationSystemDescriptor#Test Contractor\",\r\n      \"identificationCode\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\"\r\n    }\r\n  ],\r\n  \"languages\": [\r\n    {\r\n      \"languageDescriptor\": \"uri://ed-fi.org/LanguageDescriptor#eng\"\r\n    }\r\n  ],\r\n  \"performanceLevels\": [],\r\n  \"periods\": [],\r\n  \"platformTypes\": [],\r\n  \"programs\": [],\r\n  \"scores\": [\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"10\",\r\n      \"minimumScore\": \"0\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    },\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"5\",\r\n      \"minimumScore\": \"0\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    }\r\n  ],\r\n  \"sections\": [],\r\n    \"contentStandard\": {\r\n    \"title\": \"State Essential Knowledge and Skills\",\r\n    \"authors\": []\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"assessments"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				},
+				{
+					"name": "Extension collections",
+					"item": [
+						{
+							"name": "Create staff with duplicate extension items",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"const error = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Message should indicate that validation of the Extensions failed.\", () => {\r",
+											"  pm.expect(error.modelState[\"request.Extensions\"][0]).to.contain(\"Validation of 'Extensions' failed.\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Message should indicate that validation of the Sample StaffExtension failed.\", () => {\r",
+											"  pm.expect(error.modelState[\"request.Extensions\"][0]).to.contain(\"StaffExtension (Sample):\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Messages should indicate the extension collection has a duplicate at item 4 in collection.\", () => {\r",
+											"  pm.expect(error.modelState[\"request.Extensions\"][0]).to.contain(\"The 4th item of the StaffPets collection is a duplicate.\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"staffUniqueId\": \"TEST-{{$randomInt}}\",\r\n  \"firstName\": \"{{$randomFirstName}}\",\r\n  \"lastSurname\": \"{{$randomLastName}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Sparky\",\r\n          \"isFixed\": true\r\n        },\r\n        {\r\n          \"petName\": \"Spot\",\r\n          \"isFixed\": true\r\n        },\r\n        {\r\n          \"petName\": \"Whiskers\",\r\n          \"isFixed\": true\r\n        },\r\n        {\r\n          \"petName\": \"Sparky\",\r\n          \"isFixed\": false\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"staffs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create staff without duplicate extension items",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:staff:id',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"staffUniqueId\": \"TEST-DUPLICATE-TEST\",\r\n  \"firstName\": \"{{$randomFirstName}}\",\r\n  \"lastSurname\": \"{{$randomLastName}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Sparky\",\r\n          \"isFixed\": true\r\n        },\r\n        {\r\n          \"petName\": \"Spot\",\r\n          \"isFixed\": true\r\n        },\r\n        {\r\n          \"petName\": \"Whiskers\",\r\n          \"isFixed\": true\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"staffs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Initialize staff employment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"  pm.expect(pm.response.code).to.equal(201);",
+											"});",
+											"",
+											"pm.environment.set('known:staffEmployment:id',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"255901\"\r\n  },\r\n  \"staffReference\": {\r\n    \"staffUniqueId\": \"TEST-DUPLICATE-TEST\"\r\n  },\r\n  \"employmentStatusDescriptor\": \"uri://ed-fi.org/EmploymentStatusDescriptor#Tenured or permanent\",\r\n  \"hireDate\": \"2020-07-04\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StaffEducationOrganizationEmploymentAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"StaffEducationOrganizationEmploymentAssociations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update staff with duplicate extension items",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"const error = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Message should indicate that the request is invalid.\", () => {\r",
+											"  pm.expect(error.message).to.contain(\"The request is invalid.\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Message should indicate that validation of the Extensions failed.\", () => {\r",
+											"  pm.expect(error.modelState[\"request.Extensions\"][0]).to.contain(\"Validation of 'Extensions' failed.\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Message should indicate that validation of the Sample StaffExtension failed.\", () => {\r",
+											"  pm.expect(error.modelState[\"request.Extensions\"][0]).to.contain(\"StaffExtension (Sample)\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Messages should indicate the extension collection has a duplicate at item 4 in collection.\", () => {\r",
+											"  pm.expect(error.modelState[\"request.Extensions\"][0]).to.contain(\"The 4th item of the StaffPets collection is a duplicate.\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"staffUniqueId\": \"TEST-DUPLICATE-TEST\",\r\n  \"firstName\": \"{{$randomFirstName}}\",\r\n  \"lastSurname\": \"{{$randomLastName}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Sparky\",\r\n          \"isFixed\": true\r\n        },\r\n        {\r\n          \"petName\": \"Spot\",\r\n          \"isFixed\": true\r\n        },\r\n        {\r\n          \"petName\": \"Whiskers\",\r\n          \"isFixed\": true\r\n        },\r\n        {\r\n          \"petName\": \"Sparky\",\r\n          \"isFixed\": false\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"staffs"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Teardown",
+					"item": [
+						{
+							"name": "Delete staff employment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffEducationOrganizationEmploymentAssociations/{{known:staffEmployment:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"staffEducationOrganizationEmploymentAssociations",
+										"{{known:staffEmployment:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete staff",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs/{{known:staff:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"staffs",
+										"{{known:staff:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete assessment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments/{{known:assessment:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"assessments",
+										"{{known:assessment:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Clean up Environment Variables",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+											"_.chain(_.keys(pm.environment.toObject()))\r",
+											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+											"  .each(k => pm.environment.unset(k)).value();"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
