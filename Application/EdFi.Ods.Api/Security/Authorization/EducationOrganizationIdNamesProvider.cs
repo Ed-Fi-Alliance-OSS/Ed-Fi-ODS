@@ -57,7 +57,14 @@ namespace EdFi.Ods.Api.Security.Authorization
         /// <inheritdoc cref="IEducationOrganizationIdNamesProvider.IsEducationOrganizationIdName" />
         public bool IsEducationOrganizationIdName(string candidateName)
         {
-            return _sortedEducationOrganizationIdNames.Value.BinarySearch(candidateName) >= 0;
+            // First look for an exact match (no role name)
+            if (_sortedEducationOrganizationIdNames.Value.BinarySearch(candidateName) >= 0)
+            {
+                return true;
+            }
+
+            // Now check iteratively through known names as a matching suffix on the property name (allowing for a role name)
+            return _sortedEducationOrganizationIdNames.Value.Any(candidateName.EndsWith);
         }
     }
 }

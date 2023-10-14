@@ -21,6 +21,8 @@ namespace EdFi.Ods.Common.Specifications
                 Staff, Student, Parent
             };
 
+        private static readonly string[] _suffixes = { UniqueIdSpecification.USI, UniqueIdSpecification.UniqueId };
+
         /// <summary>
         /// Indicates whether the specified <see cref="Type"/> represents a type of person.
         /// </summary>
@@ -42,39 +44,42 @@ namespace EdFi.Ods.Common.Specifications
         }
 
         /// <summary>
-        /// Indicates whether the specified property name is an identifier for a person.
-        /// </summary>
-        /// <param name="propertyName">The name of the property to be evaluated.</param>
-        /// <returns><b>true</b> if the property is an identifier for a type of person; otherwise <b>false</b>.</returns>
-        public static bool IsPersonIdentifier(string propertyName)
-        {
-            return IsPersonIdentifier(propertyName, null);
-        }
-
-        /// <summary>
         /// Indicates whether the specified property name is an identifier for the specified person type.
         /// </summary>
         /// <param name="propertyName">The name of the property to be evaluated.</param>
-        /// <param name="personType">A specific type of person.</param>
+        /// <param name="personType">A specific type of person; or <b>null</b> for any type.</param>
         /// <returns><b>true</b> if the property is an identifier for the specified type of person; otherwise <b>false</b>.</returns>
-        public static bool IsPersonIdentifier(string propertyName, string personType)
+        public static bool IsPersonIdentifier(string propertyName, string personType = null)
         {
             if (personType != null && !ValidPersonTypes.Any(pt => pt.EqualsIgnoreCase(personType)))
             {
                 throw new ArgumentException("'{0}' is not a supported person type.");
             }
 
-            string entityName;
-
             // TODO: Embedded convention (Person identifiers can end with "USI" or "UniqueId")
-            if (propertyName.TryTrimSuffix("UniqueId", out entityName)
-                || propertyName.TryTrimSuffix("USI", out entityName))
-            {
-                return IsPersonEntity(entityName)
-                       && (personType == null || entityName.EqualsIgnoreCase(personType));
-            }
+            return _suffixes.Any(
+                s => propertyName.EndsWith(s) 
+                    && ValidPersonTypes.Any(
+                        pt => 
+                            // Person type was either not specified, or current person type matches what was specified
+                            (personType == null || personType == pt) 
+                            && PersonTypeAppearsImmediatelyBeforeSuffix(pt, s)));
 
-            return false;
+            bool PersonTypeAppearsImmediatelyBeforeSuffix(string pt, string suffix)
+            {
+                int lastIndexOfPersonType = propertyName.LastIndexOf(pt, StringComparison.Ordinal);
+
+                if (lastIndexOfPersonType < 0)
+                {
+                    // Person type is not in the property name
+                    return false;
+                }
+                
+                // Identify expected location of the person type in the property name
+                int expectedLastIndexOfPersonType = propertyName.Length - (pt.Length + suffix.Length);
+
+                return lastIndexOfPersonType == expectedLastIndexOfPersonType;
+            }
         }
     }
 }
