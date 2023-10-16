@@ -76,7 +76,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
             $"{_httpContextAccessor.HttpContext?.Request.Scheme(this._reverseProxySettings)}://{_httpContextAccessor.HttpContext?.Request.Host(this._reverseProxySettings)}:{_httpContextAccessor.HttpContext?.Request.Port(this._reverseProxySettings)}";
 
         var routeContextSegment = "";
-        
+
         if (!string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
         {
             routeContextSegment = $"/{{{string.Join("}/{", _apiSettings.GetOdsContextRouteTemplateKeys())}}}";
@@ -99,17 +99,18 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
         {
             var odsServer = new OpenApiServer()
             {
-                Url = $"{uriBase}{routeContextSegment}/data/v{ApiVersionConstants.Ods}/",                Variables = new Dictionary<string, OpenApiServerVariable>()
+                Url = $"{uriBase}{routeContextSegment}/data/v{ApiVersionConstants.Ods}/",
+                Variables = new Dictionary<string, OpenApiServerVariable>()
             };
 
             openApiDocument.Servers.Add(odsServer);
         }
 
-        if (!string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
+        try
         {
-            try
+            foreach (var server in openApiDocument.Servers)
             {
-                foreach (var server in openApiDocument.Servers)
+                if (!string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
                 {
                     foreach (var contextRouteTemplateKey in _apiSettings.GetOdsContextRouteTemplateKeys())
                     {
@@ -126,12 +127,18 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
                                 Default = routeContextValues
                                     .Result.ToList().Last()
                             });
+
                         openApiDocument.Components.SecuritySchemes.Single().Value.Flows.ClientCredentials.TokenUrl = new Uri(
                             $"{uriBase}/{routeContextValues.Result.ToList().Last()}/oauth/token");
                     }
                 }
+                else
+                {
+                    openApiDocument.Components.SecuritySchemes.Single().Value.Flows.ClientCredentials.TokenUrl = new Uri(
+                        $"{uriBase}/oauth/token");
+                }
             }
-            catch { }
         }
+        catch { }
     }
 }

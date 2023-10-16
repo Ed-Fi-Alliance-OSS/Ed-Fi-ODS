@@ -6,6 +6,7 @@
 using System;
 using System.Linq;
 using System.Net;
+using System.Web;
 using EdFi.Common.Extensions;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Attributes;
@@ -98,7 +99,7 @@ namespace EdFi.Ods.Features.Controllers
 
                 return new OpenApiMetadataSectionDetails
                 {
-                    EndpointUri = url.AbsoluteUri,
+                    EndpointUri = url.AbsoluteUri.Replace("%7B","{").Replace("%7D","}"),
                     Name = apiContent.Name.NormalizeCompositeTermForDisplay('-')
                         .Replace(" ", "-"),
                     Prefix =
