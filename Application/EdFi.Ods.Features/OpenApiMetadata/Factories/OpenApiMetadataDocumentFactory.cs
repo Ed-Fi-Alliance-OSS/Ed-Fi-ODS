@@ -25,15 +25,15 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private readonly ApiSettings _apiSettings;
         private readonly IDefaultPageSizeLimitProvider _defaultPageSizeLimitProvider;
         private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
-        private readonly IOpenApiUpconversionProvider _openApiV3UpconversionProvider;
+        private readonly IOpenApiUpconversionProvider _openApiUpconversionProvider;
 
-        public OpenApiMetadataDocumentFactory(ApiSettings apiSettings, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, IOpenApiUpconversionProvider openApiV3UpconversionProvider,
+        public OpenApiMetadataDocumentFactory(ApiSettings apiSettings, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, IOpenApiUpconversionProvider openApiUpconversionProvider,
             ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider = null)
         {
             _apiSettings = apiSettings;
             _defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
             _trackedChangesIdentifierProjectionsProvider = trackedChangesIdentifierProjectionsProvider;
-            _openApiV3UpconversionProvider = openApiV3UpconversionProvider;
+            _openApiUpconversionProvider = openApiUpconversionProvider;
         }
 
         public string Create(IOpenApiMetadataResourceStrategy resourceStrategy, OpenApiMetadataDocumentContext documentContext, OpenApiSpecVersion openApiSpecVersion)
@@ -109,7 +109,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 if (openApiSpecVersion == OpenApiSpecVersion.OpenApi3_0)
                 {
-                    jsonString = _openApiV3UpconversionProvider.GetUpconvertedOpenApiJson(jsonString);
+                    jsonString = _openApiUpconversionProvider.GetUpconvertedOpenApiJson(jsonString);
                 }
 
                 return jsonString;

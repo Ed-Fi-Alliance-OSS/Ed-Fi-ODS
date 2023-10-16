@@ -12,17 +12,21 @@ using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Utils.Extensions;
 using EdFi.Ods.Features.IdentityManagement;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
+using Microsoft.OpenApi;
+using Microsoft.OpenApi.Extensions;
+using Microsoft.OpenApi.Readers;
 
 namespace EdFi.Ods.Features.OpenApiMetadataContentProviders
 {
     public class IdentityOpenApiContentProvider : IOpenApiContentProvider
     {
         private readonly IOpenApiUpconversionProvider _openApiV3UpconversionProvider;
-        
+
         public IdentityOpenApiContentProvider(IOpenApiUpconversionProvider openApiUpconversionProvider)
         {
             _openApiV3UpconversionProvider = openApiUpconversionProvider;
         }
+
         public string RouteName
         {
             get => IdentityManagementConstants.IdentityMetadataRouteName;
@@ -39,8 +43,12 @@ namespace EdFi.Ods.Features.OpenApiMetadataContentProviders
                     x => new OpenApiContent(
                         OpenApiMetadataSections.Other,
                         IdentityManagementConstants.DeprecatedFeatureName,
-                        new Lazy<string>(() => assembly.ReadResource(x)),
-                        new Lazy<string>(() => _openApiV3UpconversionProvider.GetUpconvertedOpenApiJson(assembly.ReadResource(x))),
+                        new Lazy<string>(
+                            () => assembly.ReadResource(x)),
+                        new Lazy<string>(
+                            () => new OpenApiStringReader()
+                                .Read(assembly.ReadResource(x), out _)
+                                .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0)),
                         IdentityManagementConstants.IdentityRoutePrefix,
                         string.Empty));
         }

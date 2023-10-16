@@ -19,6 +19,8 @@ using EdFi.TestFixture;
 using FakeItEasy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi;
+using Microsoft.OpenApi.Extensions;
+using Microsoft.OpenApi.Readers;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Test.Common;
@@ -28,6 +30,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
     [TestFixture]
     public class OpenApiMetadataDocumentFactoryTests
     {
+        protected static IOpenApiUpconversionProvider OpenApiV3UpconversionProvider = A.Fake<IOpenApiUpconversionProvider>();
+
         protected static IResourceModelProvider
             ResourceModelProvider = DomainModelDefinitionsProviderHelper.ResourceModelProvider;
 
@@ -89,6 +93,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             protected override void Arrange()
             {
                 _openApiMetadataDocumentContext = DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext;
+                
+                A.CallTo(() => OpenApiV3UpconversionProvider.GetUpconvertedOpenApiJson(A<string>._))
+                    .ReturnsLazily(x => (new OpenApiStringReader().Read(x.Arguments.Get<string>(0), out _))
+                        .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0)); 
 
                 var openApiMetadataResources = _openApiMetadataDocumentContext.ResourceModel.GetAllResources()
                     .Select(r => new OpenApiMetadataResource(r))
@@ -100,20 +108,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                     .Returns(openApiMetadataResources);
 
                 var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
-
-                var upconversionProvider = A.Fake<IOpenApiUpconversionProvider>();
-                A.CallTo(() => upconversionProvider.GetUpconvertedOpenApiJson(A<string>._)).ReturnsLazily(x => x.Arguments.Get<string>(0));
-
+                
                 _openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
-                    CreateApiSettings(), defaultPageSizeLimitProvider,
-                    upconversionProvider,
+                    CreateApiSettings(), defaultPageSizeLimitProvider, OpenApiV3UpconversionProvider,
                     new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
             }
 
             protected override void Act()
             {
                 _actualJson = _openApiMetadataDocumentFactory
-                    .Create(_stubbedOpenApiMetadataResourceStrategy, _openApiMetadataDocumentContext, OpenApiSpecVersion.OpenApi3_0);
+                    .Create(_stubbedOpenApiMetadataResourceStrategy, _openApiMetadataDocumentContext, OpenApiSpecVersion.OpenApi2_0);
 
                 _openApiMetadataDoc = JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
                     _actualJson,
@@ -217,12 +221,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
-                var upconversionProvider = A.Fake<IOpenApiUpconversionProvider>();
-                A.CallTo(() => upconversionProvider.GetUpconvertedOpenApiJson(A<string>._)).ReturnsLazily(x => x.Arguments.Get<string>(0));
-
                 _openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSizeLimitProvider,
-                    upconversionProvider,
+                    OpenApiV3UpconversionProvider,
                     new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
             }
 
@@ -230,7 +231,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             {
                 _actualJson = _openApiMetadataDocumentFactory.Create(
                     _stubbedOpenApiMetadataResourceStrategy, _openApiMetadataDocumentContext,
-                    OpenApiSpecVersion.OpenApi3_0);
+                    OpenApiSpecVersion.OpenApi2_0);
 
                 _openApiMetadataDoc = JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
                     _actualJson,

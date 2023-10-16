@@ -15,7 +15,6 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Metadata.Composites;
 using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Common.Metadata.StreamProviders.Composites;
@@ -30,13 +29,14 @@ using EdFi.Ods.Features.IdentityManagement;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Features.OpenApiMetadataContentProviders;
-using EdFi.Ods.Features.Profiles;
 using EdFi.Ods.Features.RouteInformations;
 using EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers;
 using EdFi.TestFixture;
 using FakeItEasy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi;
+using Microsoft.OpenApi.Extensions;
+using Microsoft.OpenApi.Readers;
 using NUnit.Framework;
 using Test.Common;
 
@@ -45,7 +45,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
     [TestFixture]
     public class OpenApiMetadataCacheProviderTests
     {
-        protected static IOpenApiUpconversionProvider OpenApiV3UpconversionProvider = A.Fake<IOpenApiUpconversionProvider>();         
+        protected static IOpenApiUpconversionProvider OpenApiV3UpconversionProvider = A.Fake<IOpenApiUpconversionProvider>();
+               
         protected static IDomainModelProvider DomainModelProvider = DomainModelDefinitionsProviderHelper.DomainModelProvider;
         protected static IResourceModelProvider
             ResourceModelProvider = DomainModelDefinitionsProviderHelper.ResourceModelProvider;
@@ -121,6 +122,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             protected override void Arrange()
             {
                 var apiSettings = CreateApiSettings();
+                
+                A.CallTo(() => OpenApiV3UpconversionProvider.GetUpconvertedOpenApiJson(A<string>._))
+                    .ReturnsLazily(x => (new OpenApiStringReader().Read(x.Arguments.Get<string>(0), out _))
+                        .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0)); 
 
                 AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Composites_Test>();
 
@@ -140,13 +145,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var compositesMetadataProvider = new CompositesMetadataProvider(compositesMetadataStreamsProviders);
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
-
-                var upconversionProvider = A.Fake<IOpenApiUpconversionProvider>();
-                A.CallTo(() => upconversionProvider.GetUpconvertedOpenApiJson(A<string>._)).ReturnsLazily(x => x.Arguments.Get<string>(0));
-
+                
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
-                    upconversionProvider,
+                    OpenApiV3UpconversionProvider,
                     new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
 
                 var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(
@@ -155,7 +157,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var extensionsOpenApiContentProvider = new ExtensionsOpenApiContentProvider(
                     DomainModelProvider, ResourceModelProvider, SchemaNameMapProvider, openApiMetadataDocumentFactory);
 
-                var identityProvider = new IdentityOpenApiContentProvider(upconversionProvider);
+                var identityProvider = new IdentityOpenApiContentProvider(OpenApiV3UpconversionProvider);
 
                 openApiContentProviders.Add(identityProvider);
 
@@ -243,13 +245,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataRouteInformation = new List<IOpenApiMetadataRouteInformation>();
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
-
-                var upconversionProvider = A.Fake<IOpenApiUpconversionProvider>();
-                A.CallTo(() => upconversionProvider.GetUpconvertedOpenApiJson(A<string>._)).ReturnsLazily(x => x.Arguments.Get<string>(0));
-
+                
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
-                    upconversionProvider,
+                    OpenApiV3UpconversionProvider,
                     new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
@@ -306,12 +305,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             {
                 _compositesMetadataProvider = Stub<ICompositesMetadataProvider>();
 
-                A.CallTo(() => _compositesMetadataProvider.GetAllCategories())
-                    .Returns(new List<CompositeCategory>());
-
                 _profileResourceModelProvider = Stub<IProfileResourceModelProvider>();
 
                 _profileResourceNamesProvider = Stub<IProfileResourceNamesProvider>();
+                
+                A.CallTo(() => _compositesMetadataProvider.GetAllCategories())
+                    .Returns(new List<CompositeCategory>());
 
                 A.CallTo(() => _profileResourceNamesProvider.GetProfileResourceNames())
                     .Returns(new List<ProfileAndResourceNames>());
@@ -322,12 +321,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
-                var upconversionProvider = A.Fake<IOpenApiUpconversionProvider>();
-                A.CallTo(() => upconversionProvider.GetUpconvertedOpenApiJson(A<string>._)).ReturnsLazily(x => x.Arguments.Get<string>(0));
-
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSieLimitProvider,
-                    upconversionProvider,
+                    OpenApiV3UpconversionProvider,
                     new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
 
                 var openApiMetadataRouteInformation = new List<IOpenApiMetadataRouteInformation>();
@@ -361,10 +357,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             }
 
             [Test]
-            public void Should_be_a_valid_swagger_document_for_each_entry()
+            public void Should_be_a_valid_v2_swagger_document_for_each_entry()
             {
                 AssertHelper.All(
-                    _actualMetadata.Select(m => OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(m.Metadata(OpenApiSpecVersion.OpenApi3_0)))
+                    _actualMetadata.Select(m => OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(m.Metadata(OpenApiSpecVersion.OpenApi2_0)))
+                        .Select(
+                            swaggerDocument => (Action)(() => Assert.That(swaggerDocument, Is.Not.Null)))
+                        .ToArray());
+            }
+            
+            [Test]
+            public void Should_be_a_valid_v3_swagger_document_for_each_entry()
+            {
+                AssertHelper.All(
+                    _actualMetadata.Select(m => new OpenApiStringReader().Read(m.Metadata(OpenApiSpecVersion.OpenApi3_0), out _))
                         .Select(
                             swaggerDocument => (Action)(() => Assert.That(swaggerDocument, Is.Not.Null)))
                         .ToArray());
@@ -383,6 +389,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             protected override void Arrange()
             {
                 _compositesMetadataProvider = Stub<ICompositesMetadataProvider>();
+                
+                A.CallTo(() => OpenApiV3UpconversionProvider.GetUpconvertedOpenApiJson(A<string>._))
+                    .ReturnsLazily(x => (new OpenApiStringReader().Read(x.Arguments.Get<string>(0), out _))
+                        .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0)); 
 
                 A.CallTo(() => _compositesMetadataProvider.GetAllCategories())
                     .Returns(new List<CompositeCategory>());
@@ -418,13 +428,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataRouteInformation = new List<IOpenApiMetadataRouteInformation>();
 
                 var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
-
-                var upconversionProvider = A.Fake<IOpenApiUpconversionProvider>();
-                A.CallTo(() => upconversionProvider.GetUpconvertedOpenApiJson(A<string>._)).ReturnsLazily(x => x.Arguments.Get<string>(0));
                 
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSizeLimitProvider,
-                    upconversionProvider,
+                    OpenApiV3UpconversionProvider,
                     new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
@@ -496,6 +503,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 ICompositesMetadataStreamsProvider[] compositesMetadataStreamsProviders =
                     { new AppDomainEmbeddedResourcesCompositesMetadataStreamsProvider() };
                 
+                A.CallTo(() => OpenApiV3UpconversionProvider.GetUpconvertedOpenApiJson(A<string>._))
+                    .ReturnsLazily(x => (new OpenApiStringReader().Read(x.Arguments.Get<string>(0), out _))
+                        .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0)); 
+                
                 _compositesMetadataProvider = new CompositesMetadataProvider(compositesMetadataStreamsProviders);
 
                 var apiSettings = CreateApiSettings();
@@ -517,13 +528,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var compositemetadataprovider = new CompositesMetadataProvider(compositesMetadataStreamsProviders);
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
-
-                var upconversionProvider = A.Fake<IOpenApiUpconversionProvider>();
-                A.CallTo(() => upconversionProvider.GetUpconvertedOpenApiJson(A<string>._)).ReturnsLazily(x => x.Arguments.Get<string>(0));
                 
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
-                    upconversionProvider,
+                    OpenApiV3UpconversionProvider,
                     new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
 
                 var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(
@@ -532,7 +540,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var extensionsOpenApiContentProvider = new ExtensionsOpenApiContentProvider(
                     DomainModelProvider, ResourceModelProvider, SchemaNameMapProvider, openApiMetadataDocumentFactory);
 
-                var identityprovider = new IdentityOpenApiContentProvider(upconversionProvider);
+                var identityprovider = new IdentityOpenApiContentProvider(OpenApiV3UpconversionProvider);
 
                 openapicontentproviderlist.Add(identityprovider);
 
@@ -564,18 +572,28 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             }
 
             [Test]
-            public void Should_be_a_valid_swagger_document_for_each_entry()
+            public void Should_be_a_valid_v2_swagger_document_for_each_entry()
             {
                 AssertHelper.All(
                     _actualMetadata.Select(
                             m => new
                             {
                                 ApiContent = m,
-                                SwaggerDocument = OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(m.Metadata(OpenApiSpecVersion.OpenApi3_0))
+                                SwaggerDocument = OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(m.Metadata(OpenApiSpecVersion.OpenApi2_0))
                             })
                         .Select(
                             d => (Action)(() => Assert.That(
                                d.SwaggerDocument, Is.Not.Null, $"ApiContent Name: {d.ApiContent.Name}")))
+                        .ToArray());
+            }
+            
+            [Test]
+            public void Should_be_a_valid_v3_swagger_document_for_each_entry()
+            {
+                AssertHelper.All(
+                    _actualMetadata.Select(m => new OpenApiStringReader().Read(m.Metadata(OpenApiSpecVersion.OpenApi3_0), out _))
+                        .Select(
+                            swaggerDocument => (Action)(() => Assert.That(swaggerDocument, Is.Not.Null)))
                         .ToArray());
             }
 
@@ -608,6 +626,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                             .Schemas);
 
                 var apiSettings = CreateApiSettings();
+                
+                A.CallTo(() => OpenApiV3UpconversionProvider.GetUpconvertedOpenApiJson(A<string>._))
+                    .ReturnsLazily(x => (new OpenApiStringReader().Read(x.Arguments.Get<string>(0), out _))
+                        .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0)); 
 
                 AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Composites_Test>();
 
@@ -628,12 +650,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
-                var upconversionProvider = A.Fake<IOpenApiUpconversionProvider>();
-                A.CallTo(() => upconversionProvider.GetUpconvertedOpenApiJson(A<string>._)).ReturnsLazily(x => x.Arguments.Get<string>(0));
-
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
-                    upconversionProvider,
+                    OpenApiV3UpconversionProvider,
                     new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
 
                 var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(
@@ -642,7 +661,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var extensionsOpenApiContentProvider = new ExtensionsOpenApiContentProvider(
                     DomainModelProvider, ResourceModelProvider, SchemaNameMapProvider, openApiMetadataDocumentFactory);
 
-                var identityprovider = new IdentityOpenApiContentProvider(upconversionProvider);
+                var identityprovider = new IdentityOpenApiContentProvider(OpenApiV3UpconversionProvider);
 
                 openapicontentproviderlist.Add(identityprovider);
 
@@ -677,7 +696,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             public void Should_be_a_valid_swagger_document_for_each_entry()
             {
                 AssertHelper.All(
-                    _actualMetadata.Select(m => OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(m.Metadata(OpenApiSpecVersion.OpenApi3_0)))
+                    _actualMetadata.Select(m => OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(m.Metadata(OpenApiSpecVersion.OpenApi2_0)))
                         .Select(
                             swaggerDocument => (Action)(() => Assert.That(swaggerDocument, Is.Not.Null)))
                         .ToArray());
@@ -709,15 +728,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var _openAPIMetadataRouteInformation = Stub<IList<IOpenApiMetadataRouteInformation>>();
 
                 var _openApiContentProviders = Stub<IList<IOpenApiContentProvider>>();
+                
+                A.CallTo(() => OpenApiV3UpconversionProvider.GetUpconvertedOpenApiJson(A<string>._))
+                    .ReturnsLazily(x => (new OpenApiStringReader().Read(x.Arguments.Get<string>(0), out _))
+                        .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0)); 
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
-
-                var upconversionProvider = A.Fake<IOpenApiUpconversionProvider>();
-                A.CallTo(() => upconversionProvider.GetUpconvertedOpenApiJson(A<string>._)).ReturnsLazily(x => x.Arguments.Get<string>(0));
-
+                
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSieLimitProvider,
-                    upconversionProvider,
+                    OpenApiV3UpconversionProvider,
                     new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
