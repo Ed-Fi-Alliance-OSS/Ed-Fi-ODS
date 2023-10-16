@@ -208,11 +208,9 @@ namespace EdFi.Ods.Api.Startup
                     });
             }
 
-            services.AddHealthCheck(Configuration.GetConnectionString("EdFi_Admin"), IsSqlServer(_apiSettings.Engine));
+            services.AddHealthCheck(Configuration, _apiSettings);
             services.AddScheduledJobs();
         }
-
-        private static bool IsSqlServer(string databaseEngine) => "SQLServer".Equals(databaseEngine, StringComparison.OrdinalIgnoreCase);
 
         // This method gets called by the runtime. Use this method to add services to the container.
 
