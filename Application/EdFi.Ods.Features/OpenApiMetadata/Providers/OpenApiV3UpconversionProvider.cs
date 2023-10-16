@@ -71,14 +71,24 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
     private void PopulateServersConfiguration(ref OpenApiDocument openApiDocument)
     {
         openApiDocument.Servers.Clear();
+
+        var uriBase =
+            $"{_httpContextAccessor.HttpContext?.Request.Scheme(this._reverseProxySettings)}://{_httpContextAccessor.HttpContext?.Request.Host(this._reverseProxySettings)}:{_httpContextAccessor.HttpContext?.Request.Port(this._reverseProxySettings)}";
+
+        var routeContextSegment = "";
         
+        if (!string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
+        {
+            routeContextSegment = $"/{{{string.Join("}/{", _apiSettings.GetOdsContextRouteTemplateKeys())}}}";
+        }
+
         if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
         {
             foreach (var tenant in _tenantsConfigurationOptions.CurrentValue.Tenants.Keys)
             {
                 var odsServer = new OpenApiServer()
                 {
-                    Url = $"{_httpContextAccessor.HttpContext?.Request.RootUrl(this._reverseProxySettings)}/{tenant}",
+                    Url = $"{uriBase}{routeContextSegment}/{tenant}/data/v{ApiVersionConstants.Ods}/",
                     Variables = new Dictionary<string, OpenApiServerVariable>()
                 };
 
@@ -89,39 +99,39 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
         {
             var odsServer = new OpenApiServer()
             {
-                Url = $"{_httpContextAccessor.HttpContext?.Request.RootUrl(this._reverseProxySettings)}",
-                Variables = new Dictionary<string, OpenApiServerVariable>()
+                Url = $"{uriBase}{routeContextSegment}/data/v{ApiVersionConstants.Ods}/",                Variables = new Dictionary<string, OpenApiServerVariable>()
             };
+
             openApiDocument.Servers.Add(odsServer);
         }
 
         if (!string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
         {
-            foreach (var contextRouteTemplateKey in _apiSettings.GetOdsContextRouteTemplateKeys())
+            try
             {
-                try
+                foreach (var server in openApiDocument.Servers)
                 {
-                    var routeContextValues =
-                        _IEdFiAdminRawOdsInstanceConfigurationDataProvider.GetDistinctOdsInstanceContextValuesAsync(
-                            contextRouteTemplateKey);
-
-                    foreach (var server in openApiDocument.Servers)
+                    foreach (var contextRouteTemplateKey in _apiSettings.GetOdsContextRouteTemplateKeys())
                     {
+                        var routeContextValues =
+                            _IEdFiAdminRawOdsInstanceConfigurationDataProvider.GetDistinctOdsInstanceContextValuesAsync(
+                                contextRouteTemplateKey);
+
                         server.Variables.Add(
                             contextRouteTemplateKey,
                             new OpenApiServerVariable()
                             {
                                 Enum = routeContextValues
-                                    .Result.ToList()
+                                    .Result.ToList(),
+                                Default = routeContextValues
+                                    .Result.ToList().Last()
                             });
-
-                        server.Url = $"{server.Url}/{{{contextRouteTemplateKey}}}";
+                        openApiDocument.Components.SecuritySchemes.Single().Value.Flows.ClientCredentials.TokenUrl = new Uri(
+                            $"{uriBase}/{routeContextValues.Result.ToList().Last()}/oauth/token");
                     }
                 }
-                catch { }
             }
+            catch { }
         }
-
-        
     }
 }

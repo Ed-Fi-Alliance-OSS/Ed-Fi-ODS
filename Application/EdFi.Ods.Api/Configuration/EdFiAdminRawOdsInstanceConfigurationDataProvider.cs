@@ -22,7 +22,7 @@ public class EdFiAdminRawOdsInstanceConfigurationDataProvider : IEdFiAdminRawOds
 
     private const string GetOdsConfigurationByIdSql = "SELECT OdsInstanceId, ConnectionString, ContextKey, ContextValue, DerivativeType, ConnectionStringByDerivativeType FROM dbo.GetOdsInstanceConfigurationById(@OdsInstanceId);";
 
-    private const string GetDistinctOdsContextValuesSql = "SELECT ContextValue FROM dbo.GetDistinctOdsInstanceContextValues(@OdsContextKey);";
+    private const string GetDistinctOdsContextValuesSql = "SELECT ContextValue FROM dbo.GetOdsInstanceContextValues(@OdsContextKey);";
 
     public EdFiAdminRawOdsInstanceConfigurationDataProvider(
         IAdminDatabaseConnectionStringProvider adminDatabaseConnectionStringProvider,

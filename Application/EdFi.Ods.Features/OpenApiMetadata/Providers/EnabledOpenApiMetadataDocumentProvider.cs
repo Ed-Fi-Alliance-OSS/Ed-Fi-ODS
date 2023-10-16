@@ -97,15 +97,15 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 
             return content.Metadata(openApiSpecVersion)
                 .Replace("%HOST%", Host())
-                .Replace("%TOKEN_URL%", TokenUrl())
+                //.Replace("%TOKEN_URL%", TokenUrl())
                 .Replace("%BASE_PATH%", basePath)
                 .Replace("%SCHEME%", request.Scheme(this._reverseProxySettings));
 
-            string TokenUrl()
-            {
-                var rootUrl = request.RootUrl(this._reverseProxySettings);
-                return $"{rootUrl}/" + tenantIdentifierRouteValue + odsContextRouteValue + $"{instanceId}oauth/token";
-            }
+            // string TokenUrl()
+            // {
+            //     var rootUrl = request.RootUrl(this._reverseProxySettings);
+            //     return $"{rootUrl}/" + tenantIdentifierRouteValue + odsContextRouteValue + $"{instanceId}oauth/token";
+            // }
 
             string Host() => $"{request.Host(this._reverseProxySettings)}:{request.Port(this._reverseProxySettings)}";
         }
