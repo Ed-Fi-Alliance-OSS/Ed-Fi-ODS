@@ -6,9 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Models;
@@ -22,9 +20,6 @@ using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.OpenApi;
-using Microsoft.OpenApi.Extensions;
-using Microsoft.OpenApi.Models;
-using Microsoft.OpenApi.Readers;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 {

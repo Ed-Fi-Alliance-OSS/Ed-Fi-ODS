@@ -6,35 +6,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Net.Http;
-using Autofac.Core.Activators.Delegate;
-using Azure.Core.Pipeline;
-using EdFi.Admin.DataAccess.Models;
-using EdFi.Common.Security;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;
-using EdFi.Ods.Api.Middleware;
-using EdFi.Ods.Api.Models;
-using EdFi.Ods.Api.Security.Authentication;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Configuration.Sections;
-using EdFi.Ods.Common.Constants;
-using EdFi.Ods.Common.Context;
-using EdFi.Ods.Common.Security;
-using EdFi.Ods.Features.MultiTenancy;
-using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Extensions;
 using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Readers;
-using Microsoft.VisualBasic;
-using NHibernate.MultiTenancy;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Providers;
 

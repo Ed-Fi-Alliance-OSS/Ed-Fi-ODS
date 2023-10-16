@@ -78,7 +78,7 @@ namespace EdFi.Ods.Api.Controllers
                 {
                     string odsContextUriTemplatePath = _apiSettings.GetOdsContextRoutePath();
                     string[] odsContextRouteKeys = _apiSettings.GetOdsContextRouteTemplateKeys();
-                
+
                     // Perform URI template replacements from route values, if available on current request
                     foreach (string odsContextRouteKey in odsContextRouteKeys)
                     {
@@ -126,7 +126,7 @@ namespace EdFi.Ods.Api.Controllers
                 {
                     urlsByName["identity"] = $"{rootUrl}/identity/v{ApiVersionConstants.Identity}/";
                 }
-                
+
                 return urlsByName;
             }
         }
