@@ -95,17 +95,23 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + tenantIdentifierRouteValue +
                               odsContextRouteValue + content.BasePath.EnsureSuffixApplied("/") + instanceIdRouteValue;
 
-            return content.Metadata(openApiSpecVersion)
+            string document = content.Metadata(openApiSpecVersion)
                 .Replace("%HOST%", Host())
-                //.Replace("%TOKEN_URL%", TokenUrl())
+                .Replace("%TOKEN_URL%", TokenUrl())
                 .Replace("%BASE_PATH%", basePath)
                 .Replace("%SCHEME%", request.Scheme(this._reverseProxySettings));
 
-            // string TokenUrl()
-            // {
-            //     var rootUrl = request.RootUrl(this._reverseProxySettings);
-            //     return $"{rootUrl}/" + tenantIdentifierRouteValue + odsContextRouteValue + $"{instanceId}oauth/token";
-            // }
+            document = document.Replace("{currentTenant}", openApiSpecVersion == OpenApiSpecVersion.OpenApi3_0
+                ? $"/{tenantIdentifierRouteValue}".TrimEnd('/')
+                : "");
+
+            return document;
+
+            string TokenUrl()
+            {
+                var rootUrl = request.RootUrl(this._reverseProxySettings);
+                return $"{rootUrl}/" + tenantIdentifierRouteValue + odsContextRouteValue + $"{instanceId}oauth/token";
+            }
 
             string Host() => $"{request.Host(this._reverseProxySettings)}:{request.Port(this._reverseProxySettings)}";
         }

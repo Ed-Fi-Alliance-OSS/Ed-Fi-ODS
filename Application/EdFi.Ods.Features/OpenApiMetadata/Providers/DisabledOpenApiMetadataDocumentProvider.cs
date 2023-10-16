@@ -16,6 +16,5 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             document = null;
             return false;
         }
-        
     }
 }

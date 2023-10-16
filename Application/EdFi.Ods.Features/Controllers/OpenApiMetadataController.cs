@@ -6,7 +6,6 @@
 using System;
 using System.Linq;
 using System.Net;
-using System.Web;
 using EdFi.Common.Extensions;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Attributes;
@@ -37,6 +36,7 @@ namespace EdFi.Ods.Features.Controllers
     [ApiController]
     [Produces("application/json")]
     [AllowAnonymous]
+    [ApplyOdsRouteRootTemplate]
     [Route("metadata/{version?}")]
     [Route("{tenant}/metadata/{version?}")]
     public class OpenApiMetadataController : ControllerBase

@@ -82,29 +82,13 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
             routeContextSegment = $"/{{{string.Join("}/{", _apiSettings.GetOdsContextRouteTemplateKeys())}}}";
         }
 
-        if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
+        var odsServer = new OpenApiServer()
         {
-            foreach (var tenant in _tenantsConfigurationOptions.CurrentValue.Tenants.Keys)
-            {
-                var odsServer = new OpenApiServer()
-                {
-                    Url = $"{uriBase}{routeContextSegment}/{tenant}/data/v{ApiVersionConstants.Ods}/",
-                    Variables = new Dictionary<string, OpenApiServerVariable>()
-                };
+            Url = $"{uriBase}{{currentTenant}}{routeContextSegment}/data/v{ApiVersionConstants.Ods}/",
+            Variables = new Dictionary<string, OpenApiServerVariable>()
+        };
 
-                openApiDocument.Servers.Add(odsServer);
-            }
-        }
-        else
-        {
-            var odsServer = new OpenApiServer()
-            {
-                Url = $"{uriBase}{routeContextSegment}/data/v{ApiVersionConstants.Ods}/",
-                Variables = new Dictionary<string, OpenApiServerVariable>()
-            };
-
-            openApiDocument.Servers.Add(odsServer);
-        }
+        openApiDocument.Servers.Add(odsServer);
 
         try
         {
@@ -129,13 +113,13 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
                             });
 
                         openApiDocument.Components.SecuritySchemes.Single().Value.Flows.ClientCredentials.TokenUrl = new Uri(
-                            $"{uriBase}/{routeContextValues.Result.ToList().Last()}/oauth/token");
+                            $"{uriBase}/{routeContextValues.Result.ToList().Last()}{{currentTenant}}/oauth/token");
                     }
                 }
                 else
                 {
                     openApiDocument.Components.SecuritySchemes.Single().Value.Flows.ClientCredentials.TokenUrl = new Uri(
-                        $"{uriBase}/oauth/token");
+                        $"{uriBase}{{currentTenant}}/oauth/token");
                 }
             }
         }
