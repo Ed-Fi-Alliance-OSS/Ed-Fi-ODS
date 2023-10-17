@@ -1991,10 +1991,10 @@ BEGIN
     SELECT INTO dj2 * FROM edfi.student j2 WHERE studentusi = old.studentusi;
 
     INSERT INTO tracked_changes_edfi.grade(
-        oldbegindate, oldgradetypedescriptorid, oldgradetypedescriptornamespace, oldgradetypedescriptorcodevalue, oldgradingperioddescriptorid, oldgradingperioddescriptornamespace, oldgradingperioddescriptorcodevalue, oldgradingperiodsequence, oldgradingperiodschoolyear, oldlocalcoursecode, oldschoolid, oldschoolyear, oldsectionidentifier, oldsessionname, oldstudentusi, oldstudentuniqueid,
+        oldbegindate, oldgradetypedescriptorid, oldgradetypedescriptornamespace, oldgradetypedescriptorcodevalue, oldgradingperioddescriptorid, oldgradingperioddescriptornamespace, oldgradingperioddescriptorcodevalue, oldgradingperiodname, oldgradingperiodschoolyear, oldlocalcoursecode, oldschoolid, oldschoolyear, oldsectionidentifier, oldsessionname, oldstudentusi, oldstudentuniqueid,
         id, discriminator, changeversion)
     VALUES (
-        OLD.begindate, OLD.gradetypedescriptorid, dj0.namespace, dj0.codevalue, OLD.gradingperioddescriptorid, dj1.namespace, dj1.codevalue, OLD.gradingperiodsequence, OLD.gradingperiodschoolyear, OLD.localcoursecode, OLD.schoolid, OLD.schoolyear, OLD.sectionidentifier, OLD.sessionname, OLD.studentusi, dj2.studentuniqueid, 
+        OLD.begindate, OLD.gradetypedescriptorid, dj0.namespace, dj0.codevalue, OLD.gradingperioddescriptorid, dj1.namespace, dj1.codevalue, OLD.gradingperiodname, OLD.gradingperiodschoolyear, OLD.localcoursecode, OLD.schoolid, OLD.schoolyear, OLD.sectionidentifier, OLD.sessionname, OLD.studentusi, dj2.studentuniqueid, 
         OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
 
     RETURN NULL;
@@ -2103,10 +2103,10 @@ BEGIN
     SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.gradingperioddescriptorid;
 
     INSERT INTO tracked_changes_edfi.gradingperiod(
-        oldgradingperioddescriptorid, oldgradingperioddescriptornamespace, oldgradingperioddescriptorcodevalue, oldperiodsequence, oldschoolid, oldschoolyear,
+        oldgradingperioddescriptorid, oldgradingperioddescriptornamespace, oldgradingperioddescriptorcodevalue, oldgradingperiodname, oldschoolid, oldschoolyear,
         id, discriminator, changeversion)
     VALUES (
-        OLD.gradingperioddescriptorid, dj0.namespace, dj0.codevalue, OLD.periodsequence, OLD.schoolid, OLD.schoolyear, 
+        OLD.gradingperioddescriptorid, dj0.namespace, dj0.codevalue, OLD.gradingperiodname, OLD.schoolid, OLD.schoolyear, 
         OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
 
     RETURN NULL;
@@ -3962,10 +3962,10 @@ BEGIN
     SELECT INTO dj1 * FROM edfi.student j1 WHERE studentusi = old.studentusi;
 
     INSERT INTO tracked_changes_edfi.reportcard(
-        oldeducationorganizationid, oldgradingperioddescriptorid, oldgradingperioddescriptornamespace, oldgradingperioddescriptorcodevalue, oldgradingperiodsequence, oldgradingperiodschoolid, oldgradingperiodschoolyear, oldstudentusi, oldstudentuniqueid,
+        oldeducationorganizationid, oldgradingperioddescriptorid, oldgradingperioddescriptornamespace, oldgradingperioddescriptorcodevalue, oldgradingperiodname, oldgradingperiodschoolid, oldgradingperiodschoolyear, oldstudentusi, oldstudentuniqueid,
         id, discriminator, changeversion)
     VALUES (
-        OLD.educationorganizationid, OLD.gradingperioddescriptorid, dj0.namespace, dj0.codevalue, OLD.gradingperiodsequence, OLD.gradingperiodschoolid, OLD.gradingperiodschoolyear, OLD.studentusi, dj1.studentuniqueid, 
+        OLD.educationorganizationid, OLD.gradingperioddescriptorid, dj0.namespace, dj0.codevalue, OLD.gradingperiodname, OLD.gradingperiodschoolid, OLD.gradingperiodschoolyear, OLD.studentusi, dj1.studentuniqueid, 
         OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
 
     RETURN NULL;
@@ -4297,6 +4297,23 @@ $BODY$ LANGUAGE plpgsql;
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'sectioncharacteristicdescriptor') THEN
 CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.sectioncharacteristicdescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.sectioncharacteristicdescriptor_deleted();
+END IF;
+
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.sectiontypedescriptor_deleted()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
+    SELECT OLD.SectionTypeDescriptorId, b.codevalue, b.namespace, b.id, 'edfi.SectionTypeDescriptor', nextval('changes.ChangeVersionSequence')
+    FROM edfi.descriptor b WHERE old.SectionTypeDescriptorId = b.descriptorid ;
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'sectiontypedescriptor') THEN
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.sectiontypedescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.sectiontypedescriptor_deleted();
 END IF;
 
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.separationdescriptor_deleted()
@@ -4958,10 +4975,10 @@ BEGIN
     SELECT INTO dj2 * FROM edfi.student j2 WHERE studentusi = old.studentusi;
 
     INSERT INTO tracked_changes_edfi.studentcompetencyobjective(
-        oldgradingperioddescriptorid, oldgradingperioddescriptornamespace, oldgradingperioddescriptorcodevalue, oldgradingperiodsequence, oldgradingperiodschoolid, oldgradingperiodschoolyear, oldobjectiveeducationorganizationid, oldobjective, oldobjectivegradeleveldescriptorid, oldobjectivegradeleveldescriptornamespace, oldobjectivegradeleveldescriptorcodevalue, oldstudentusi, oldstudentuniqueid,
+        oldgradingperioddescriptorid, oldgradingperioddescriptornamespace, oldgradingperioddescriptorcodevalue, oldgradingperiodname, oldgradingperiodschoolid, oldgradingperiodschoolyear, oldobjectiveeducationorganizationid, oldobjective, oldobjectivegradeleveldescriptorid, oldobjectivegradeleveldescriptornamespace, oldobjectivegradeleveldescriptorcodevalue, oldstudentusi, oldstudentuniqueid,
         id, discriminator, changeversion)
     VALUES (
-        OLD.gradingperioddescriptorid, dj0.namespace, dj0.codevalue, OLD.gradingperiodsequence, OLD.gradingperiodschoolid, OLD.gradingperiodschoolyear, OLD.objectiveeducationorganizationid, OLD.objective, OLD.objectivegradeleveldescriptorid, dj1.namespace, dj1.codevalue, OLD.studentusi, dj2.studentuniqueid, 
+        OLD.gradingperioddescriptorid, dj0.namespace, dj0.codevalue, OLD.gradingperiodname, OLD.gradingperiodschoolid, OLD.gradingperiodschoolyear, OLD.objectiveeducationorganizationid, OLD.objective, OLD.objectivegradeleveldescriptorid, dj1.namespace, dj1.codevalue, OLD.studentusi, dj2.studentuniqueid, 
         OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
 
     RETURN NULL;
@@ -5418,6 +5435,23 @@ $BODY$ LANGUAGE plpgsql;
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'submissionstatusdescriptor') THEN
 CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.submissionstatusdescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.submissionstatusdescriptor_deleted();
+END IF;
+
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.supportermilitaryconnectiondescriptor_deleted()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
+    SELECT OLD.SupporterMilitaryConnectionDescriptorId, b.codevalue, b.namespace, b.id, 'edfi.SupporterMilitaryConnectionDescriptor', nextval('changes.ChangeVersionSequence')
+    FROM edfi.descriptor b WHERE old.SupporterMilitaryConnectionDescriptorId = b.descriptorid ;
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'supportermilitaryconnectiondescriptor') THEN
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.supportermilitaryconnectiondescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.supportermilitaryconnectiondescriptor_deleted();
 END IF;
 
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.survey_deleted()

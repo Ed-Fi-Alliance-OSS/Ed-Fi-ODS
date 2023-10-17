@@ -1139,6 +1139,7 @@ CREATE TABLE [edfi].[Contact] (
     [ContactUSI] [INT] IDENTITY(1,1) NOT NULL,
     [ContactUniqueId] [NVARCHAR](32) NOT NULL,
     [FirstName] [NVARCHAR](75) NOT NULL,
+    [GenderIdentity] [NVARCHAR](60) NULL,
     [GenerationCodeSuffix] [NVARCHAR](10) NULL,
     [HighestCompletedLevelOfEducationDescriptorId] [INT] NULL,
     [LastSurname] [NVARCHAR](75) NOT NULL,
@@ -1706,6 +1707,7 @@ CREATE TABLE [edfi].[CourseTranscript] (
     [FinalLetterGradeEarned] [NVARCHAR](20) NULL,
     [FinalNumericGradeEarned] [DECIMAL](9, 2) NULL,
     [MethodCreditEarnedDescriptorId] [INT] NULL,
+    [ResponsibleTeacherStaffUSI] [INT] NULL,
     [WhenTakenGradeLevelDescriptorId] [INT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -1865,6 +1867,66 @@ CREATE TABLE [edfi].[CourseTranscriptPartialCourseTranscriptAwards] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [edfi].[CourseTranscriptPartialCourseTranscriptAwards] ADD CONSTRAINT [CourseTranscriptPartialCourseTranscriptAwards_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[CourseTranscriptProgram] --
+CREATE TABLE [edfi].[CourseTranscriptProgram] (
+    [CourseAttemptResultDescriptorId] [INT] NOT NULL,
+    [CourseCode] [NVARCHAR](60) NOT NULL,
+    [CourseEducationOrganizationId] [BIGINT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [SchoolYear] [SMALLINT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [ProgramName] [NVARCHAR](60) NOT NULL,
+    [ProgramTypeDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [CourseTranscriptProgram_PK] PRIMARY KEY CLUSTERED (
+        [CourseAttemptResultDescriptorId] ASC,
+        [CourseCode] ASC,
+        [CourseEducationOrganizationId] ASC,
+        [EducationOrganizationId] ASC,
+        [SchoolYear] ASC,
+        [StudentUSI] ASC,
+        [TermDescriptorId] ASC,
+        [ProgramName] ASC,
+        [ProgramTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[CourseTranscriptProgram] ADD CONSTRAINT [CourseTranscriptProgram_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[CourseTranscriptSection] --
+CREATE TABLE [edfi].[CourseTranscriptSection] (
+    [CourseAttemptResultDescriptorId] [INT] NOT NULL,
+    [CourseCode] [NVARCHAR](60) NOT NULL,
+    [CourseEducationOrganizationId] [BIGINT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [SchoolYear] [SMALLINT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
+    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
+    [SessionName] [NVARCHAR](60) NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [CourseTranscriptSection_PK] PRIMARY KEY CLUSTERED (
+        [CourseAttemptResultDescriptorId] ASC,
+        [CourseCode] ASC,
+        [CourseEducationOrganizationId] ASC,
+        [EducationOrganizationId] ASC,
+        [SchoolYear] ASC,
+        [StudentUSI] ASC,
+        [TermDescriptorId] ASC,
+        [LocalCourseCode] ASC,
+        [SchoolId] ASC,
+        [SectionIdentifier] ASC,
+        [SessionName] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[CourseTranscriptSection] ADD CONSTRAINT [CourseTranscriptSection_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[Credential] --
@@ -3086,7 +3148,7 @@ CREATE TABLE [edfi].[Grade] (
     [BeginDate] [DATE] NOT NULL,
     [GradeTypeDescriptorId] [INT] NOT NULL,
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [GradingPeriodSequence] [INT] NOT NULL,
+    [GradingPeriodName] [NVARCHAR](60) NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
     [SchoolId] [BIGINT] NOT NULL,
@@ -3109,7 +3171,7 @@ CREATE TABLE [edfi].[Grade] (
         [BeginDate] ASC,
         [GradeTypeDescriptorId] ASC,
         [GradingPeriodDescriptorId] ASC,
-        [GradingPeriodSequence] ASC,
+        [GradingPeriodName] ASC,
         [GradingPeriodSchoolYear] ASC,
         [LocalCourseCode] ASC,
         [SchoolId] ASC,
@@ -3137,9 +3199,9 @@ CREATE TABLE [edfi].[GradebookEntry] (
     [DueTime] [TIME](7) NULL,
     [GradebookEntryTypeDescriptorId] [INT] NULL,
     [GradingPeriodDescriptorId] [INT] NULL,
+    [GradingPeriodName] [NVARCHAR](60) NULL,
     [LocalCourseCode] [NVARCHAR](60) NULL,
     [MaxPoints] [DECIMAL](9, 2) NULL,
-    [PeriodSequence] [INT] NULL,
     [SchoolId] [BIGINT] NULL,
     [SchoolYear] [SMALLINT] NULL,
     [SectionIdentifier] [NVARCHAR](255) NULL,
@@ -3193,7 +3255,7 @@ CREATE TABLE [edfi].[GradeLearningStandardGrade] (
     [BeginDate] [DATE] NOT NULL,
     [GradeTypeDescriptorId] [INT] NOT NULL,
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [GradingPeriodSequence] [INT] NOT NULL,
+    [GradingPeriodName] [NVARCHAR](60) NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
     [SchoolId] [BIGINT] NOT NULL,
@@ -3211,7 +3273,7 @@ CREATE TABLE [edfi].[GradeLearningStandardGrade] (
         [BeginDate] ASC,
         [GradeTypeDescriptorId] ASC,
         [GradingPeriodDescriptorId] ASC,
-        [GradingPeriodSequence] ASC,
+        [GradingPeriodName] ASC,
         [GradingPeriodSchoolYear] ASC,
         [LocalCourseCode] ASC,
         [SchoolId] ASC,
@@ -3256,11 +3318,12 @@ GO
 -- Table [edfi].[GradingPeriod] --
 CREATE TABLE [edfi].[GradingPeriod] (
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [PeriodSequence] [INT] NOT NULL,
+    [GradingPeriodName] [NVARCHAR](60) NOT NULL,
     [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [BeginDate] [DATE] NOT NULL,
     [EndDate] [DATE] NOT NULL,
+    [PeriodSequence] [INT] NULL,
     [TotalInstructionalDays] [INT] NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -3268,7 +3331,7 @@ CREATE TABLE [edfi].[GradingPeriod] (
     [Id] [UNIQUEIDENTIFIER] NOT NULL,
     CONSTRAINT [GradingPeriod_PK] PRIMARY KEY CLUSTERED (
         [GradingPeriodDescriptorId] ASC,
-        [PeriodSequence] ASC,
+        [GradingPeriodName] ASC,
         [SchoolId] ASC,
         [SchoolYear] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -5692,7 +5755,7 @@ GO
 CREATE TABLE [edfi].[ReportCard] (
     [EducationOrganizationId] [BIGINT] NOT NULL,
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [GradingPeriodSequence] [INT] NOT NULL,
+    [GradingPeriodName] [NVARCHAR](60) NOT NULL,
     [GradingPeriodSchoolId] [BIGINT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -5706,7 +5769,7 @@ CREATE TABLE [edfi].[ReportCard] (
     CONSTRAINT [ReportCard_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,
         [GradingPeriodDescriptorId] ASC,
-        [GradingPeriodSequence] ASC,
+        [GradingPeriodName] ASC,
         [GradingPeriodSchoolId] ASC,
         [GradingPeriodSchoolYear] ASC,
         [StudentUSI] ASC
@@ -5724,7 +5787,7 @@ GO
 CREATE TABLE [edfi].[ReportCardGrade] (
     [EducationOrganizationId] [BIGINT] NOT NULL,
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [GradingPeriodSequence] [INT] NOT NULL,
+    [GradingPeriodName] [NVARCHAR](60) NOT NULL,
     [GradingPeriodSchoolId] [BIGINT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -5739,7 +5802,7 @@ CREATE TABLE [edfi].[ReportCardGrade] (
     CONSTRAINT [ReportCardGrade_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,
         [GradingPeriodDescriptorId] ASC,
-        [GradingPeriodSequence] ASC,
+        [GradingPeriodName] ASC,
         [GradingPeriodSchoolId] ASC,
         [GradingPeriodSchoolYear] ASC,
         [StudentUSI] ASC,
@@ -5760,7 +5823,7 @@ GO
 CREATE TABLE [edfi].[ReportCardGradePointAverage] (
     [EducationOrganizationId] [BIGINT] NOT NULL,
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [GradingPeriodSequence] [INT] NOT NULL,
+    [GradingPeriodName] [NVARCHAR](60) NOT NULL,
     [GradingPeriodSchoolId] [BIGINT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -5772,7 +5835,7 @@ CREATE TABLE [edfi].[ReportCardGradePointAverage] (
     CONSTRAINT [ReportCardGradePointAverage_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,
         [GradingPeriodDescriptorId] ASC,
-        [GradingPeriodSequence] ASC,
+        [GradingPeriodName] ASC,
         [GradingPeriodSchoolId] ASC,
         [GradingPeriodSchoolYear] ASC,
         [StudentUSI] ASC,
@@ -5787,7 +5850,7 @@ GO
 CREATE TABLE [edfi].[ReportCardStudentCompetencyObjective] (
     [EducationOrganizationId] [BIGINT] NOT NULL,
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [GradingPeriodSequence] [INT] NOT NULL,
+    [GradingPeriodName] [NVARCHAR](60) NOT NULL,
     [GradingPeriodSchoolId] [BIGINT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -5798,7 +5861,7 @@ CREATE TABLE [edfi].[ReportCardStudentCompetencyObjective] (
     CONSTRAINT [ReportCardStudentCompetencyObjective_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,
         [GradingPeriodDescriptorId] ASC,
-        [GradingPeriodSequence] ASC,
+        [GradingPeriodName] ASC,
         [GradingPeriodSchoolId] ASC,
         [GradingPeriodSchoolYear] ASC,
         [StudentUSI] ASC,
@@ -6077,6 +6140,7 @@ CREATE TABLE [edfi].[Section] (
     [OfficialAttendancePeriod] [BIT] NULL,
     [PopulationServedDescriptorId] [INT] NULL,
     [SectionName] [NVARCHAR](100) NULL,
+    [SectionTypeDescriptorId] [INT] NULL,
     [SequenceOfCourse] [INT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -6254,6 +6318,15 @@ GO
 ALTER TABLE [edfi].[SectionProgram] ADD CONSTRAINT [SectionProgram_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [edfi].[SectionTypeDescriptor] --
+CREATE TABLE [edfi].[SectionTypeDescriptor] (
+    [SectionTypeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [SectionTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [SectionTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [edfi].[SeparationDescriptor] --
 CREATE TABLE [edfi].[SeparationDescriptor] (
     [SeparationDescriptorId] [INT] NOT NULL,
@@ -6332,14 +6405,14 @@ CREATE TABLE [edfi].[SessionGradingPeriod] (
     [SchoolYear] [SMALLINT] NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [PeriodSequence] [INT] NOT NULL,
+    [GradingPeriodName] [NVARCHAR](60) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [SessionGradingPeriod_PK] PRIMARY KEY CLUSTERED (
         [SchoolId] ASC,
         [SchoolYear] ASC,
         [SessionName] ASC,
         [GradingPeriodDescriptorId] ASC,
-        [PeriodSequence] ASC
+        [GradingPeriodName] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -6426,6 +6499,7 @@ CREATE TABLE [edfi].[Staff] (
     [BirthDate] [DATE] NULL,
     [CitizenshipStatusDescriptorId] [INT] NULL,
     [FirstName] [NVARCHAR](75) NOT NULL,
+    [GenderIdentity] [NVARCHAR](60) NULL,
     [GenerationCodeSuffix] [NVARCHAR](10) NULL,
     [HighestCompletedLevelOfEducationDescriptorId] [INT] NULL,
     [HighlyQualifiedTeacher] [BIT] NULL,
@@ -6788,6 +6862,7 @@ CREATE TABLE [edfi].[StaffEducationOrganizationEmploymentAssociation] (
     [EmploymentStatusDescriptorId] [INT] NOT NULL,
     [HireDate] [DATE] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
+    [AnnualWage] [MONEY] NULL,
     [CredentialIdentifier] [NVARCHAR](60) NULL,
     [Department] [NVARCHAR](60) NULL,
     [EndDate] [DATE] NULL,
@@ -7501,7 +7576,7 @@ CREATE TABLE [edfi].[StudentAcademicRecordReportCard] (
     [StudentUSI] [INT] NOT NULL,
     [TermDescriptorId] [INT] NOT NULL,
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [GradingPeriodSequence] [INT] NOT NULL,
+    [GradingPeriodName] [NVARCHAR](60) NOT NULL,
     [GradingPeriodSchoolId] [BIGINT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -7511,7 +7586,7 @@ CREATE TABLE [edfi].[StudentAcademicRecordReportCard] (
         [StudentUSI] ASC,
         [TermDescriptorId] ASC,
         [GradingPeriodDescriptorId] ASC,
-        [GradingPeriodSequence] ASC,
+        [GradingPeriodName] ASC,
         [GradingPeriodSchoolId] ASC,
         [GradingPeriodSchoolYear] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -7841,7 +7916,7 @@ GO
 -- Table [edfi].[StudentCompetencyObjective] --
 CREATE TABLE [edfi].[StudentCompetencyObjective] (
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [GradingPeriodSequence] [INT] NOT NULL,
+    [GradingPeriodName] [NVARCHAR](60) NOT NULL,
     [GradingPeriodSchoolId] [BIGINT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [ObjectiveEducationOrganizationId] [BIGINT] NOT NULL,
@@ -7856,7 +7931,7 @@ CREATE TABLE [edfi].[StudentCompetencyObjective] (
     [Id] [UNIQUEIDENTIFIER] NOT NULL,
     CONSTRAINT [StudentCompetencyObjective_PK] PRIMARY KEY CLUSTERED (
         [GradingPeriodDescriptorId] ASC,
-        [GradingPeriodSequence] ASC,
+        [GradingPeriodName] ASC,
         [GradingPeriodSchoolId] ASC,
         [GradingPeriodSchoolYear] ASC,
         [ObjectiveEducationOrganizationId] ASC,
@@ -7876,7 +7951,7 @@ GO
 -- Table [edfi].[StudentCompetencyObjectiveGeneralStudentProgramAssociation] --
 CREATE TABLE [edfi].[StudentCompetencyObjectiveGeneralStudentProgramAssociation] (
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [GradingPeriodSequence] [INT] NOT NULL,
+    [GradingPeriodName] [NVARCHAR](60) NOT NULL,
     [GradingPeriodSchoolId] [BIGINT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [ObjectiveEducationOrganizationId] [BIGINT] NOT NULL,
@@ -7891,7 +7966,7 @@ CREATE TABLE [edfi].[StudentCompetencyObjectiveGeneralStudentProgramAssociation]
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentCompetencyObjectiveGeneralStudentProgramAssociation_PK] PRIMARY KEY CLUSTERED (
         [GradingPeriodDescriptorId] ASC,
-        [GradingPeriodSequence] ASC,
+        [GradingPeriodName] ASC,
         [GradingPeriodSchoolId] ASC,
         [GradingPeriodSchoolYear] ASC,
         [ObjectiveEducationOrganizationId] ASC,
@@ -7912,7 +7987,7 @@ GO
 -- Table [edfi].[StudentCompetencyObjectiveStudentSectionAssociation] --
 CREATE TABLE [edfi].[StudentCompetencyObjectiveStudentSectionAssociation] (
     [GradingPeriodDescriptorId] [INT] NOT NULL,
-    [GradingPeriodSequence] [INT] NOT NULL,
+    [GradingPeriodName] [NVARCHAR](60) NOT NULL,
     [GradingPeriodSchoolId] [BIGINT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [ObjectiveEducationOrganizationId] [BIGINT] NOT NULL,
@@ -7928,7 +8003,7 @@ CREATE TABLE [edfi].[StudentCompetencyObjectiveStudentSectionAssociation] (
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentCompetencyObjectiveStudentSectionAssociation_PK] PRIMARY KEY CLUSTERED (
         [GradingPeriodDescriptorId] ASC,
-        [GradingPeriodSequence] ASC,
+        [GradingPeriodName] ASC,
         [GradingPeriodSchoolId] ASC,
         [GradingPeriodSchoolYear] ASC,
         [ObjectiveEducationOrganizationId] ASC,
@@ -8117,6 +8192,7 @@ CREATE TABLE [edfi].[StudentEducationOrganizationAssociation] (
     [EducationOrganizationId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [BarrierToInternetAccessInResidenceDescriptorId] [INT] NULL,
+    [GenderIdentity] [NVARCHAR](60) NULL,
     [HispanicLatinoEthnicity] [BIT] NULL,
     [InternetAccessInResidence] [BIT] NULL,
     [InternetAccessTypeInResidenceDescriptorId] [INT] NULL,
@@ -8127,7 +8203,8 @@ CREATE TABLE [edfi].[StudentEducationOrganizationAssociation] (
     [PrimaryLearningDeviceAwayFromSchoolDescriptorId] [INT] NULL,
     [PrimaryLearningDeviceProviderDescriptorId] [INT] NULL,
     [ProfileThumbnail] [NVARCHAR](255) NULL,
-    [SexDescriptorId] [INT] NOT NULL,
+    [SexDescriptorId] [INT] NULL,
+    [SupporterMilitaryConnectionDescriptorId] [INT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
@@ -9362,6 +9439,36 @@ GO
 ALTER TABLE [edfi].[StudentSectionAssociation] ADD CONSTRAINT [StudentSectionAssociation_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
+-- Table [edfi].[StudentSectionAssociationProgram] --
+CREATE TABLE [edfi].[StudentSectionAssociationProgram] (
+    [BeginDate] [DATE] NOT NULL,
+    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
+    [SchoolId] [BIGINT] NOT NULL,
+    [SchoolYear] [SMALLINT] NOT NULL,
+    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
+    [SessionName] [NVARCHAR](60) NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramName] [NVARCHAR](60) NOT NULL,
+    [ProgramTypeDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentSectionAssociationProgram_PK] PRIMARY KEY CLUSTERED (
+        [BeginDate] ASC,
+        [LocalCourseCode] ASC,
+        [SchoolId] ASC,
+        [SchoolYear] ASC,
+        [SectionIdentifier] ASC,
+        [SessionName] ASC,
+        [StudentUSI] ASC,
+        [EducationOrganizationId] ASC,
+        [ProgramName] ASC,
+        [ProgramTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentSectionAssociationProgram] ADD CONSTRAINT [StudentSectionAssociationProgram_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
 -- Table [edfi].[StudentSectionAttendanceEvent] --
 CREATE TABLE [edfi].[StudentSectionAttendanceEvent] (
     [AttendanceEventCategoryDescriptorId] [INT] NOT NULL,
@@ -9697,6 +9804,15 @@ CREATE TABLE [edfi].[SubmissionStatusDescriptor] (
     [SubmissionStatusDescriptorId] [INT] NOT NULL,
     CONSTRAINT [SubmissionStatusDescriptor_PK] PRIMARY KEY CLUSTERED (
         [SubmissionStatusDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [edfi].[SupporterMilitaryConnectionDescriptor] --
+CREATE TABLE [edfi].[SupporterMilitaryConnectionDescriptor] (
+    [SupporterMilitaryConnectionDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [SupporterMilitaryConnectionDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [SupporterMilitaryConnectionDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO

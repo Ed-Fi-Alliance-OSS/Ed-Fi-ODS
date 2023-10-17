@@ -270,12 +270,12 @@ BEGIN
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.grade(
-        oldbegindate, oldgradetypedescriptorid, oldgradetypedescriptornamespace, oldgradetypedescriptorcodevalue, oldgradingperioddescriptorid, oldgradingperioddescriptornamespace, oldgradingperioddescriptorcodevalue, oldgradingperiodsequence, oldgradingperiodschoolyear, oldlocalcoursecode, oldschoolid, oldschoolyear, oldsectionidentifier, oldsessionname, oldstudentusi, oldstudentuniqueid, 
-        newbegindate, newgradetypedescriptorid, newgradetypedescriptornamespace, newgradetypedescriptorcodevalue, newgradingperioddescriptorid, newgradingperioddescriptornamespace, newgradingperioddescriptorcodevalue, newgradingperiodsequence, newgradingperiodschoolyear, newlocalcoursecode, newschoolid, newschoolyear, newsectionidentifier, newsessionname, newstudentusi, newstudentuniqueid, 
+        oldbegindate, oldgradetypedescriptorid, oldgradetypedescriptornamespace, oldgradetypedescriptorcodevalue, oldgradingperioddescriptorid, oldgradingperioddescriptornamespace, oldgradingperioddescriptorcodevalue, oldgradingperiodname, oldgradingperiodschoolyear, oldlocalcoursecode, oldschoolid, oldschoolyear, oldsectionidentifier, oldsessionname, oldstudentusi, oldstudentuniqueid, 
+        newbegindate, newgradetypedescriptorid, newgradetypedescriptornamespace, newgradetypedescriptorcodevalue, newgradingperioddescriptorid, newgradingperioddescriptornamespace, newgradingperioddescriptorcodevalue, newgradingperiodname, newgradingperiodschoolyear, newlocalcoursecode, newschoolid, newschoolyear, newsectionidentifier, newsessionname, newstudentusi, newstudentuniqueid, 
         id, changeversion)
     VALUES (
-        old.begindate, old.gradetypedescriptorid, dj0.namespace, dj0.codevalue, old.gradingperioddescriptorid, dj1.namespace, dj1.codevalue, old.gradingperiodsequence, old.gradingperiodschoolyear, old.localcoursecode, old.schoolid, old.schoolyear, old.sectionidentifier, old.sessionname, old.studentusi, dj2.studentuniqueid, 
-        new.begindate, new.gradetypedescriptorid, ij0.namespace, ij0.codevalue, new.gradingperioddescriptorid, ij1.namespace, ij1.codevalue, new.gradingperiodsequence, new.gradingperiodschoolyear, new.localcoursecode, new.schoolid, new.schoolyear, new.sectionidentifier, new.sessionname, new.studentusi, ij2.studentuniqueid, 
+        old.begindate, old.gradetypedescriptorid, dj0.namespace, dj0.codevalue, old.gradingperioddescriptorid, dj1.namespace, dj1.codevalue, old.gradingperiodname, old.gradingperiodschoolyear, old.localcoursecode, old.schoolid, old.schoolyear, old.sectionidentifier, old.sessionname, old.studentusi, dj2.studentuniqueid, 
+        new.begindate, new.gradetypedescriptorid, ij0.namespace, ij0.codevalue, new.gradingperioddescriptorid, ij1.namespace, ij1.codevalue, new.gradingperiodname, new.gradingperiodschoolyear, new.localcoursecode, new.schoolid, new.schoolyear, new.sectionidentifier, new.sessionname, new.studentusi, ij2.studentuniqueid, 
         old.id, (nextval('changes.changeversionsequence')));
 
     RETURN null;
@@ -283,7 +283,7 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'grade') THEN
-    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF begindate, gradetypedescriptorid, gradingperioddescriptorid, gradingperiodsequence, gradingperiodschoolyear, localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname, studentusi ON edfi.grade
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF begindate, gradetypedescriptorid, gradingperioddescriptorid, gradingperiodname, gradingperiodschoolyear, localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname, studentusi ON edfi.grade
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.grade_keychg();
 END IF;
 
