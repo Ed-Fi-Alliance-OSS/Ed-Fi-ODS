@@ -9081,7 +9081,7 @@
 											"    .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
 											"\r",
 											"function getPrimaryKeys(resource) {\r",
-											"    const resourceProperties = pm.response.json().definitions[resource].properties;\r",
+											"    const resourceProperties = pm.response.json().components.schemas[resource].properties;\r",
 											"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id', '_ext');\r",
 											"}"
 										],
@@ -9943,7 +9943,7 @@
 													"    .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
 													"\r",
 													"function getPrimaryKeys(resource) {\r",
-													"    const resourceProperties = pm.response.json().definitions[resource].properties;\r",
+													"    const resourceProperties = pm.response.json().components.schemas[resource].properties;\r",
 													"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id');\r",
 													"}"
 												],
@@ -10767,7 +10767,7 @@
 													"    .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
 													"\r",
 													"function getPrimaryKeys(resource) {\r",
-													"    const resourceProperties = pm.response.json().definitions[resource].properties;\r",
+													"    const resourceProperties = pm.response.json().components.schemas[resource].properties;\r",
 													"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id');\r",
 													"}"
 												],
@@ -11623,7 +11623,7 @@
 													"    .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
 													"\r",
 													"function getPrimaryKeys(resource) {\r",
-													"    const resourceProperties = pm.response.json().definitions[resource].properties;\r",
+													"    const resourceProperties = pm.response.json().components.schemas[resource].properties;\r",
 													"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id');\r",
 													"}"
 												],
@@ -12048,7 +12048,7 @@
 													"    .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
 													"\r",
 													"function getPrimaryKeys(resource) {\r",
-													"    const resourceProperties = pm.response.json().definitions[resource].properties;\r",
+													"    const resourceProperties = pm.response.json().components.schemas[resource].properties;\r",
 													"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id');\r",
 													"}"
 												],
@@ -12465,7 +12465,7 @@
 											"pm.environment.set(\"known:educationOrganizationAddress:PrimaryKeys\", getPrimaryKeys(\"edFi_educationOrganizationAddress\"));\r",
 											"\r",
 											"function getPrimaryKeys(resource) {\r",
-											"    const resourceProperties = pm.response.json().definitions[resource].properties;\r",
+											"    const resourceProperties = pm.response.json().components.schemas[resource].properties;\r",
 											"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true);\r",
 											"}"
 										],

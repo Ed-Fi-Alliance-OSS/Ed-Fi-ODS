@@ -148,7 +148,7 @@
 							"name": "Resources",
 							"item": [
 								{
-									"name": "Tenant1",
+									"name": "Tenant1 OpenApi V2",
 									"event": [
 										{
 											"listen": "test",
@@ -160,8 +160,58 @@
 													"\r",
 													"const responseItem = pm.response.json();\r",
 													"\r",
-													"pm.test(\"BasePath should include Tenant1\", () => {\r",
+													"pm.test(\"BasePath in OpenApi v2 metadata should include Tenant1\", () => {\r",
 													"    pm.expect(responseItem.basePath).to.include('Tenant1');\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/Tenant1/metadata/data/v3/resources/swagger.json?v=2",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"Tenant1",
+												"metadata",
+												"data",
+												"v3",
+												"resources",
+												"swagger.json"
+											],
+											"query": [
+												{
+													"key": "v",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Tenant1 OpenApi v3",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const responseItem = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Server Url in OpenApi v3 metadata should include Tenant1\", () => {\r",
+													"    pm.expect(responseItem.servers[0].url).to.include('Tenant1');\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -192,7 +242,7 @@
 									"response": []
 								},
 								{
-									"name": "Tenant2",
+									"name": "Tenant2 OpenApi v2",
 									"event": [
 										{
 											"listen": "test",
@@ -204,8 +254,58 @@
 													"\r",
 													"const responseItem = pm.response.json();\r",
 													"\r",
-													"pm.test(\"BasePath should include Tenant2\", () => {\r",
+													"pm.test(\"BasePath in OpenApi v2 metadata should include Tenant2\", () => {\r",
 													"    pm.expect(responseItem.basePath).to.include('Tenant2');\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/Tenant2/metadata/data/v3/resources/swagger.json?v=2",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"Tenant2",
+												"metadata",
+												"data",
+												"v3",
+												"resources",
+												"swagger.json"
+											],
+											"query": [
+												{
+													"key": "v",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Tenant2 OpenApi v3",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const responseItem = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Server Url in OpenApi v3 metadata should include Tenant2\", () => {\r",
+													"    pm.expect(responseItem.servers[0].url).to.include('Tenant2');\r",
 													"});"
 												],
 												"type": "text/javascript"
