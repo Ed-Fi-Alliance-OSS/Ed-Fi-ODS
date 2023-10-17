@@ -13,8 +13,6 @@ using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi;
-using Microsoft.OpenApi.Extensions;
-using Microsoft.OpenApi.Readers;
 
 namespace EdFi.Ods.Api.Middleware
 {

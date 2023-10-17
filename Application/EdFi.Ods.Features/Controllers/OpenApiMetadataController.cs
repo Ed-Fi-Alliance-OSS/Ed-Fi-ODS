@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
+using Microsoft.OpenApi;
 using Newtonsoft.Json;
 
 namespace EdFi.Ods.Features.Controllers
@@ -47,21 +48,19 @@ namespace EdFi.Ods.Features.Controllers
             _reverseProxySettings = apiSettings.GetReverseProxySettings();
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.OpenApiMetadata.GetConfigKeyName());
         }
-        
-        
+
         [HttpGet]
-        public IActionResult Get([FromRoute] OpenApiMetadataSectionRequest request, [FromQuery(Name = "v")] int version = 3)
+        public IActionResult Get([FromRoute] OpenApiMetadataSectionRequest request, [FromQuery(Name = "v")] int? version = null)
         {
             if (!IsFeatureEnabled())
             {
                 return NotFound();
             }
-           
+
             var content = _openApiMetadataCacheProvider.GetAllSectionDocuments(request.Sdk)
                 .OrderBy(x => x.Section)
                 .ThenBy(x => x.Name)
-                .Select(GetSwaggerSectionDetailsForCacheItem)
-                
+                .Select(x => GetSwaggerSectionDetailsForCacheItem(x, version == 2 ? OpenApiSpecVersion.OpenApi2_0 : OpenApiSpecVersion.OpenApi3_0))
                 .ToList();
 
             var eTag = HashHelper.GetSha256Hash(JsonConvert.SerializeObject(content))
@@ -72,7 +71,7 @@ namespace EdFi.Ods.Features.Controllers
             {
                 if (headerValue.EqualsIgnoreCase(eTag))
                 {
-                    return StatusCode((int) HttpStatusCode.NotModified);
+                    return StatusCode((int)HttpStatusCode.NotModified);
                 }
             }
 
@@ -80,7 +79,8 @@ namespace EdFi.Ods.Features.Controllers
 
             return Ok(content);
 
-            OpenApiMetadataSectionDetails GetSwaggerSectionDetailsForCacheItem(OpenApiContent apiContent)
+            OpenApiMetadataSectionDetails GetSwaggerSectionDetailsForCacheItem(OpenApiContent apiContent,
+                OpenApiSpecVersion openApiSpecVersion)
             {
                 var rootUrl = Request.ResourceUri(this._reverseProxySettings);
 
@@ -92,7 +92,8 @@ namespace EdFi.Ods.Features.Controllers
 
                 return new OpenApiMetadataSectionDetails
                 {
-                    EndpointUri = url.AbsoluteUri.Replace("%7B","{").Replace("%7D","}"),
+                    EndpointUri =
+                        $"{url.AbsoluteUri.Replace("%7B", "{").Replace("%7D", "}")}{(openApiSpecVersion == OpenApiSpecVersion.OpenApi2_0 ? "?v=2" : "")}",
                     Name = apiContent.Name.NormalizeCompositeTermForDisplay('-')
                         .Replace(" ", "-"),
                     Prefix =
