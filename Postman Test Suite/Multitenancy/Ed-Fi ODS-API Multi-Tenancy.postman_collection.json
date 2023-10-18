@@ -88,7 +88,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/Tenant1/metadata",
+											"raw": "{{ApiBaseUrl}}/Tenant1/metadata?version=3",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -130,7 +130,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/Tenant2/metadata",
+											"raw": "{{ApiBaseUrl}}/Tenant2/metadata?version=3",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -175,7 +175,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/Tenant1/metadata/data/v3/resources/swagger.json?v=2",
+											"raw": "{{ApiBaseUrl}}/Tenant1/metadata/data/v3/resources/swagger.json",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -225,7 +225,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/Tenant1/metadata/data/v3/resources/swagger.json",
+											"raw": "{{ApiBaseUrl}}/Tenant1/metadata/data/v3/resources/swagger.json?version=3",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -269,7 +269,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/Tenant2/metadata/data/v3/resources/swagger.json?v=2",
+											"raw": "{{ApiBaseUrl}}/Tenant2/metadata/data/v3/resources/swagger.json",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -319,7 +319,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/Tenant2/metadata/data/v3/resources/swagger.json",
+											"raw": "{{ApiBaseUrl}}/Tenant2/metadata/data/v3/resources/swagger.json?version=3",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
