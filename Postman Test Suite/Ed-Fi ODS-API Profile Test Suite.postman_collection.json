@@ -9093,7 +9093,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json",
+									"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json?version=3",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -9102,7 +9102,13 @@
 										"data",
 										"v3",
 										"resources",
-										"swagger.json?version=3"
+										"swagger.json"
+									],
+									"query": [
+										{
+											"key": "version",
+											"value": "3"
+										}
 									]
 								}
 							},
@@ -9955,7 +9961,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json",
+											"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json?version=3",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -10785,7 +10791,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json",
+											"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json?version=3",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -11647,7 +11653,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json",
+											"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json?version=3",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -12078,7 +12084,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json",
+											"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json?version=3",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -12501,7 +12507,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json",
+									"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json?version=3",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
