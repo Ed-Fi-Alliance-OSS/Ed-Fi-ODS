@@ -33,6 +33,7 @@ using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Descriptors;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Models;
@@ -97,8 +98,16 @@ namespace EdFi.Ods.Api.Startup
 
             _apiSettings = new ApiSettings();
             Configuration.Bind("ApiSettings", _apiSettings);
-            _apiSettings.Validate();
-            
+
+            try
+            {
+                _apiSettings.Validate();
+            } catch (InvalidConfigurationException invalidConfiguration)
+            {
+                _logger.Error(invalidConfiguration);
+                Environment.Exit(1);
+            }
+
             var pluginSettings = new Plugin();
             Configuration.Bind("Plugin", pluginSettings);
             
@@ -255,7 +264,6 @@ namespace EdFi.Ods.Api.Startup
         public void Configure(
             IApplicationBuilder app,
             IWebHostEnvironment env,
-            ILoggerFactory loggerFactory,
             IOptions<ApiSettings> apiSettingsOptions,
             IApplicationConfigurationActivity[] configurationActivities)
         {
