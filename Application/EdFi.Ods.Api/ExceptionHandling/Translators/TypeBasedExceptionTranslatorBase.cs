@@ -32,7 +32,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
 
             webServiceError = new RESTError
             {
-                Code = (int) ResponseCode,
+                Code = (int)ResponseCode,
                 Type = ResponseCode.ToString().NormalizeCompositeTermForDisplay(),
                 Message = GetMessage(ex)
             };

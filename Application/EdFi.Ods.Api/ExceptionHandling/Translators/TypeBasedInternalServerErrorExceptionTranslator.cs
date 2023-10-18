@@ -13,7 +13,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
     public class TypeBasedInternalServerErrorExceptionTranslator : TypeBasedExceptionTranslatorBase
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(TypeBasedInternalServerErrorExceptionTranslator));
-        
+
         // Exception types to be translated to a 500 status response with the error message intact.
         private static readonly Type[] _exceptionTypes;
 
