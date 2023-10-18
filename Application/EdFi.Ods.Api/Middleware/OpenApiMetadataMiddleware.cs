@@ -37,7 +37,7 @@ namespace EdFi.Ods.Api.Middleware
 
             context.Request.Query.TryGetValue("version", out var version);
             
-            if (!_metadataDocumentProvider.TryGetSwaggerDocument(context.Request, out string document, version == "2" ? OpenApiSpecVersion.OpenApi2_0 : OpenApiSpecVersion.OpenApi3_0))
+            if (!_metadataDocumentProvider.TryGetSwaggerDocument(context.Request, out string document, version == "3" ? OpenApiSpecVersion.OpenApi3_0 : OpenApiSpecVersion.OpenApi2_0))
             {
                 await next(context);
                 return;
