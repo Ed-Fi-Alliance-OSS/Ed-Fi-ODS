@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "921fa04a-2f2d-42f9-a09b-28a96e195bcc",
+		"_postman_id": "7cb234f7-8ee4-4d00-b45b-35a6cf653730",
 		"name": "Ed-Fi ODS/API Profile Test Suite",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "25385542"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -9094,7 +9093,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json?version=3",
+									"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -9956,7 +9955,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json?version=3",
+											"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -10786,7 +10785,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json?version=3",
+											"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -11648,7 +11647,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json?version=3",
+											"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -12079,7 +12078,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json?version=3",
+											"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -12502,7 +12501,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json?version=3",
+									"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
