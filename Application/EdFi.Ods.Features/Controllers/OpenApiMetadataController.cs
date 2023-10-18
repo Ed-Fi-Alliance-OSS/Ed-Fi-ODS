@@ -50,7 +50,7 @@ namespace EdFi.Ods.Features.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get([FromRoute] OpenApiMetadataSectionRequest request, [FromQuery(Name = "v")] int? version = null)
+        public IActionResult Get([FromRoute] OpenApiMetadataSectionRequest request, [FromQuery(Name = "version")] string version = null)
         {
             if (!IsFeatureEnabled())
             {
@@ -60,7 +60,7 @@ namespace EdFi.Ods.Features.Controllers
             var content = _openApiMetadataCacheProvider.GetAllSectionDocuments(request.Sdk)
                 .OrderBy(x => x.Section)
                 .ThenBy(x => x.Name)
-                .Select(x => GetSwaggerSectionDetailsForCacheItem(x, version == 2 ? OpenApiSpecVersion.OpenApi2_0 : OpenApiSpecVersion.OpenApi3_0))
+                .Select(x => GetSwaggerSectionDetailsForCacheItem(x, version == "2" ? OpenApiSpecVersion.OpenApi2_0 : OpenApiSpecVersion.OpenApi3_0))
                 .ToList();
 
             var eTag = HashHelper.GetSha256Hash(JsonConvert.SerializeObject(content))

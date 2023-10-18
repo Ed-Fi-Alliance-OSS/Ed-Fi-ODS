@@ -96,7 +96,7 @@ namespace EdFi.LoadTools.BulkLoadClient
             if (string.IsNullOrWhiteSpace(configuration.GetValue<string>("OdsApi:MetadataUrl"))
                 && odsVersionInformation.Urls.TryGetValue("openApiMetadata", out string openApiMetadata))
             {
-                configuration["OdsApi:MetadataUrl"] = openApiMetadata;
+                configuration["OdsApi:MetadataUrl"] = $"{openApiMetadata}?version=2";
             }
 
             if (string.IsNullOrWhiteSpace(configuration.GetValue<string>("OdsApi:OAuthUrl"))
