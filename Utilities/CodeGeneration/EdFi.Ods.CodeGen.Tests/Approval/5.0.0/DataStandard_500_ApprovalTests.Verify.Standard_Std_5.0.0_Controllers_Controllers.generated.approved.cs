@@ -1618,6 +1618,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Contacts.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.ContactUniqueId = request.ContactUniqueId;
             specification.FirstName = request.FirstName;
+            specification.GenderIdentity = request.GenderIdentity;
             specification.GenerationCodeSuffix = request.GenerationCodeSuffix;
             specification.HighestCompletedLevelOfEducationDescriptor = request.HighestCompletedLevelOfEducationDescriptor;
             specification.Id = request.Id;
@@ -2097,6 +2098,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseTranscripts.EdFi
             specification.FinalNumericGradeEarned = request.FinalNumericGradeEarned;
             specification.Id = request.Id;
             specification.MethodCreditEarnedDescriptor = request.MethodCreditEarnedDescriptor;
+            specification.ResponsibleTeacherStaffUniqueId = request.ResponsibleTeacherStaffUniqueId;
             specification.SchoolYear = request.SchoolYear;
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.TermDescriptor = request.TermDescriptor;
@@ -3604,8 +3606,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Grades.EdFi
             specification.GradeEarnedDescription = request.GradeEarnedDescription;
             specification.GradeTypeDescriptor = request.GradeTypeDescriptor;
             specification.GradingPeriodDescriptor = request.GradingPeriodDescriptor;
+            specification.GradingPeriodName = request.GradingPeriodName;
             specification.GradingPeriodSchoolYear = request.GradingPeriodSchoolYear;
-            specification.GradingPeriodSequence = request.GradingPeriodSequence;
             specification.Id = request.Id;
             specification.LetterGradeEarned = request.LetterGradeEarned;
             specification.LocalCourseCode = request.LocalCourseCode;
@@ -3652,11 +3654,11 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntries.EdFi
             specification.GradebookEntryIdentifier = request.GradebookEntryIdentifier;
             specification.GradebookEntryTypeDescriptor = request.GradebookEntryTypeDescriptor;
             specification.GradingPeriodDescriptor = request.GradingPeriodDescriptor;
+            specification.GradingPeriodName = request.GradingPeriodName;
             specification.Id = request.Id;
             specification.LocalCourseCode = request.LocalCourseCode;
             specification.MaxPoints = request.MaxPoints;
             specification.Namespace = request.Namespace;
-            specification.PeriodSequence = request.PeriodSequence;
             specification.SchoolId = request.SchoolId;
             specification.SchoolYear = request.SchoolYear;
             specification.SectionIdentifier = request.SectionIdentifier;
@@ -3815,6 +3817,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriods.EdFi
             specification.BeginDate = request.BeginDate;
             specification.EndDate = request.EndDate;
             specification.GradingPeriodDescriptor = request.GradingPeriodDescriptor;
+            specification.GradingPeriodName = request.GradingPeriodName;
             specification.Id = request.Id;
             specification.PeriodSequence = request.PeriodSequence;
             specification.SchoolId = request.SchoolId;
@@ -7110,9 +7113,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ReportCards.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.GradingPeriodDescriptor = request.GradingPeriodDescriptor;
+            specification.GradingPeriodName = request.GradingPeriodName;
             specification.GradingPeriodSchoolId = request.GradingPeriodSchoolId;
             specification.GradingPeriodSchoolYear = request.GradingPeriodSchoolYear;
-            specification.GradingPeriodSequence = request.GradingPeriodSequence;
             specification.Id = request.Id;
             specification.NumberOfDaysAbsent = request.NumberOfDaysAbsent;
             specification.NumberOfDaysInAttendance = request.NumberOfDaysInAttendance;
@@ -7660,6 +7663,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sections.EdFi
             specification.SchoolYear = request.SchoolYear;
             specification.SectionIdentifier = request.SectionIdentifier;
             specification.SectionName = request.SectionName;
+            specification.SectionTypeDescriptor = request.SectionTypeDescriptor;
             specification.SequenceOfCourse = request.SequenceOfCourse;
             specification.SessionName = request.SessionName;
         }
@@ -7731,6 +7735,36 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionCharacteristicDescriptors.EdF
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SectionCharacteristicDescriptorId = request.SectionCharacteristicDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.SectionTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/sectionTypeDescriptors")]
+    public partial class SectionTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.SectionTypeDescriptor.EdFi.SectionTypeDescriptor,
+        Entities.Common.EdFi.ISectionTypeDescriptor,
+        Entities.NHibernate.SectionTypeDescriptorAggregate.EdFi.SectionTypeDescriptor,
+        Api.Common.Models.Requests.SectionTypeDescriptors.EdFi.SectionTypeDescriptorPut,
+        Api.Common.Models.Requests.SectionTypeDescriptors.EdFi.SectionTypeDescriptorPost,
+        Api.Common.Models.Requests.SectionTypeDescriptors.EdFi.SectionTypeDescriptorDelete,
+        Api.Common.Models.Requests.SectionTypeDescriptors.EdFi.SectionTypeDescriptorGetByExample>
+    {
+        public SectionTypeDescriptorsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.SectionTypeDescriptors.EdFi.SectionTypeDescriptorGetByExample request, Entities.Common.EdFi.ISectionTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.SectionTypeDescriptorId = request.SectionTypeDescriptorId;
         }
     }
 }
@@ -8043,6 +8077,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi
             specification.BirthDate = request.BirthDate;
             specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
             specification.FirstName = request.FirstName;
+            specification.GenderIdentity = request.GenderIdentity;
             specification.GenerationCodeSuffix = request.GenerationCodeSuffix;
             specification.HighestCompletedLevelOfEducationDescriptor = request.HighestCompletedLevelOfEducationDescriptor;
             specification.HighlyQualifiedTeacher = request.HighlyQualifiedTeacher;
@@ -8302,6 +8337,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationEmployment
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.AnnualWage = request.AnnualWage;
             specification.CredentialIdentifier = request.CredentialIdentifier;
             specification.Department = request.Department;
             specification.EducationOrganizationId = request.EducationOrganizationId;
@@ -8866,9 +8902,9 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCompetencyObjectives.EdFi
             specification.CompetencyLevelDescriptor = request.CompetencyLevelDescriptor;
             specification.DiagnosticStatement = request.DiagnosticStatement;
             specification.GradingPeriodDescriptor = request.GradingPeriodDescriptor;
+            specification.GradingPeriodName = request.GradingPeriodName;
             specification.GradingPeriodSchoolId = request.GradingPeriodSchoolId;
             specification.GradingPeriodSchoolYear = request.GradingPeriodSchoolYear;
-            specification.GradingPeriodSequence = request.GradingPeriodSequence;
             specification.Id = request.Id;
             specification.Objective = request.Objective;
             specification.ObjectiveEducationOrganizationId = request.ObjectiveEducationOrganizationId;
@@ -9050,6 +9086,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
             specification.SuspendReferenceAssignmentCheck();
             specification.BarrierToInternetAccessInResidenceDescriptor = request.BarrierToInternetAccessInResidenceDescriptor;
             specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.GenderIdentity = request.GenderIdentity;
             specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
             specification.Id = request.Id;
             specification.InternetAccessInResidence = request.InternetAccessInResidence;
@@ -9063,6 +9100,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
             specification.ProfileThumbnail = request.ProfileThumbnail;
             specification.SexDescriptor = request.SexDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
+            specification.SupporterMilitaryConnectionDescriptor = request.SupporterMilitaryConnectionDescriptor;
         }
     }
 }
@@ -9933,6 +9971,36 @@ namespace EdFi.Ods.Api.Services.Controllers.SubmissionStatusDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SubmissionStatusDescriptorId = request.SubmissionStatusDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.SupporterMilitaryConnectionDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/supporterMilitaryConnectionDescriptors")]
+    public partial class SupporterMilitaryConnectionDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.SupporterMilitaryConnectionDescriptor.EdFi.SupporterMilitaryConnectionDescriptor,
+        Entities.Common.EdFi.ISupporterMilitaryConnectionDescriptor,
+        Entities.NHibernate.SupporterMilitaryConnectionDescriptorAggregate.EdFi.SupporterMilitaryConnectionDescriptor,
+        Api.Common.Models.Requests.SupporterMilitaryConnectionDescriptors.EdFi.SupporterMilitaryConnectionDescriptorPut,
+        Api.Common.Models.Requests.SupporterMilitaryConnectionDescriptors.EdFi.SupporterMilitaryConnectionDescriptorPost,
+        Api.Common.Models.Requests.SupporterMilitaryConnectionDescriptors.EdFi.SupporterMilitaryConnectionDescriptorDelete,
+        Api.Common.Models.Requests.SupporterMilitaryConnectionDescriptors.EdFi.SupporterMilitaryConnectionDescriptorGetByExample>
+    {
+        public SupporterMilitaryConnectionDescriptorsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.SupporterMilitaryConnectionDescriptors.EdFi.SupporterMilitaryConnectionDescriptorGetByExample request, Entities.Common.EdFi.ISupporterMilitaryConnectionDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.SupporterMilitaryConnectionDescriptorId = request.SupporterMilitaryConnectionDescriptorId;
         }
     }
 }

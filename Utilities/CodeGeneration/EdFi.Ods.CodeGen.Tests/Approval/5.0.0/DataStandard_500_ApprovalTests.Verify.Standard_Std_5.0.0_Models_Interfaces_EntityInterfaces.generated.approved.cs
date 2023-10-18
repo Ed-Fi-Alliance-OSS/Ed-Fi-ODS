@@ -5537,6 +5537,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Non-PK properties
         string FirstName { get; set; }
+        string GenderIdentity { get; set; }
         string GenerationCodeSuffix { get; set; }
         string HighestCompletedLevelOfEducationDescriptor { get; set; }
         string LastSurname { get; set; }
@@ -5582,6 +5583,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isContactTelephonesSupported,
             bool isContactUniqueIdSupported,
             bool isFirstNameSupported,
+            bool isGenderIdentitySupported,
             bool isGenerationCodeSuffixSupported,
             bool isHighestCompletedLevelOfEducationDescriptorSupported,
             bool isLastSurnameSupported,
@@ -5613,6 +5615,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsContactTelephonesSupported = isContactTelephonesSupported;
             IsContactUniqueIdSupported = isContactUniqueIdSupported;
             IsFirstNameSupported = isFirstNameSupported;
+            IsGenderIdentitySupported = isGenderIdentitySupported;
             IsGenerationCodeSuffixSupported = isGenerationCodeSuffixSupported;
             IsHighestCompletedLevelOfEducationDescriptorSupported = isHighestCompletedLevelOfEducationDescriptorSupported;
             IsLastSurnameSupported = isLastSurnameSupported;
@@ -5644,6 +5647,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsContactTelephonesSupported { get; }
         public bool IsContactUniqueIdSupported { get; }
         public bool IsFirstNameSupported { get; }
+        public bool IsGenderIdentitySupported { get; }
         public bool IsGenerationCodeSuffixSupported { get; }
         public bool IsHighestCompletedLevelOfEducationDescriptorSupported { get; }
         public bool IsLastSurnameSupported { get; }
@@ -5686,6 +5690,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsContactUniqueIdSupported;
                 case "FirstName":
                     return IsFirstNameSupported;
+                case "GenderIdentity":
+                    return IsGenderIdentitySupported;
                 case "GenerationCodeSuffix":
                     return IsGenerationCodeSuffixSupported;
                 case "HighestCompletedLevelOfEducationDescriptor":
@@ -8085,6 +8091,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string FinalLetterGradeEarned { get; set; }
         decimal? FinalNumericGradeEarned { get; set; }
         string MethodCreditEarnedDescriptor { get; set; }
+        string ResponsibleTeacherStaffUniqueId { get; set; }
         string WhenTakenGradeLevelDescriptor { get; set; }
 
         // One-to-one relationships
@@ -8095,12 +8102,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
         ICollection<ICourseTranscriptCreditCategory> CourseTranscriptCreditCategories { get; set; }
         ICollection<ICourseTranscriptEarnedAdditionalCredits> CourseTranscriptEarnedAdditionalCredits { get; set; }
         ICollection<ICourseTranscriptPartialCourseTranscriptAwards> CourseTranscriptPartialCourseTranscriptAwards { get; set; }
+        ICollection<ICourseTranscriptProgram> CourseTranscriptPrograms { get; set; }
+        ICollection<ICourseTranscriptSection> CourseTranscriptSections { get; set; }
 
         // Resource reference data
         Guid? CourseResourceId { get; set; }
         string CourseDiscriminator { get; set; }
         Guid? ExternalEducationOrganizationResourceId { get; set; }
         string ExternalEducationOrganizationDiscriminator { get; set; }
+        Guid? ResponsibleTeacherStaffResourceId { get; set; }
+        string ResponsibleTeacherStaffDiscriminator { get; set; }
         Guid? StudentAcademicRecordResourceId { get; set; }
         string StudentAcademicRecordDiscriminator { get; set; }
     }
@@ -8125,6 +8136,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isCourseTranscriptCreditCategoriesSupported,
             bool isCourseTranscriptEarnedAdditionalCreditsSupported,
             bool isCourseTranscriptPartialCourseTranscriptAwardsSupported,
+            bool isCourseTranscriptProgramsSupported,
+            bool isCourseTranscriptSectionsSupported,
             bool isEarnedCreditConversionSupported,
             bool isEarnedCreditsSupported,
             bool isEarnedCreditTypeDescriptorSupported,
@@ -8133,12 +8146,15 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isFinalLetterGradeEarnedSupported,
             bool isFinalNumericGradeEarnedSupported,
             bool isMethodCreditEarnedDescriptorSupported,
+            bool isResponsibleTeacherStaffUniqueIdSupported,
             bool isWhenTakenGradeLevelDescriptorSupported,
             Func<ICourseTranscriptAcademicSubject, bool> isCourseTranscriptAcademicSubjectIncluded,
             Func<ICourseTranscriptAlternativeCourseIdentificationCode, bool> isCourseTranscriptAlternativeCourseIdentificationCodeIncluded,
             Func<ICourseTranscriptCreditCategory, bool> isCourseTranscriptCreditCategoryIncluded,
             Func<ICourseTranscriptEarnedAdditionalCredits, bool> isCourseTranscriptEarnedAdditionalCreditsIncluded,
             Func<ICourseTranscriptPartialCourseTranscriptAwards, bool> isCourseTranscriptPartialCourseTranscriptAwardsIncluded,
+            Func<ICourseTranscriptProgram, bool> isCourseTranscriptProgramIncluded,
+            Func<ICourseTranscriptSection, bool> isCourseTranscriptSectionIncluded,
             IReadOnlyList<string> supportedExtensions
             )
         {
@@ -8155,6 +8171,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsCourseTranscriptCreditCategoriesSupported = isCourseTranscriptCreditCategoriesSupported;
             IsCourseTranscriptEarnedAdditionalCreditsSupported = isCourseTranscriptEarnedAdditionalCreditsSupported;
             IsCourseTranscriptPartialCourseTranscriptAwardsSupported = isCourseTranscriptPartialCourseTranscriptAwardsSupported;
+            IsCourseTranscriptProgramsSupported = isCourseTranscriptProgramsSupported;
+            IsCourseTranscriptSectionsSupported = isCourseTranscriptSectionsSupported;
             IsEarnedCreditConversionSupported = isEarnedCreditConversionSupported;
             IsEarnedCreditsSupported = isEarnedCreditsSupported;
             IsEarnedCreditTypeDescriptorSupported = isEarnedCreditTypeDescriptorSupported;
@@ -8163,12 +8181,15 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsFinalLetterGradeEarnedSupported = isFinalLetterGradeEarnedSupported;
             IsFinalNumericGradeEarnedSupported = isFinalNumericGradeEarnedSupported;
             IsMethodCreditEarnedDescriptorSupported = isMethodCreditEarnedDescriptorSupported;
+            IsResponsibleTeacherStaffUniqueIdSupported = isResponsibleTeacherStaffUniqueIdSupported;
             IsWhenTakenGradeLevelDescriptorSupported = isWhenTakenGradeLevelDescriptorSupported;
             IsCourseTranscriptAcademicSubjectIncluded = isCourseTranscriptAcademicSubjectIncluded;
             IsCourseTranscriptAlternativeCourseIdentificationCodeIncluded = isCourseTranscriptAlternativeCourseIdentificationCodeIncluded;
             IsCourseTranscriptCreditCategoryIncluded = isCourseTranscriptCreditCategoryIncluded;
             IsCourseTranscriptEarnedAdditionalCreditsIncluded = isCourseTranscriptEarnedAdditionalCreditsIncluded;
             IsCourseTranscriptPartialCourseTranscriptAwardsIncluded = isCourseTranscriptPartialCourseTranscriptAwardsIncluded;
+            IsCourseTranscriptProgramIncluded = isCourseTranscriptProgramIncluded;
+            IsCourseTranscriptSectionIncluded = isCourseTranscriptSectionIncluded;
             SupportedExtensions = supportedExtensions;
         }
 
@@ -8185,6 +8206,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsCourseTranscriptCreditCategoriesSupported { get; }
         public bool IsCourseTranscriptEarnedAdditionalCreditsSupported { get; }
         public bool IsCourseTranscriptPartialCourseTranscriptAwardsSupported { get; }
+        public bool IsCourseTranscriptProgramsSupported { get; }
+        public bool IsCourseTranscriptSectionsSupported { get; }
         public bool IsEarnedCreditConversionSupported { get; }
         public bool IsEarnedCreditsSupported { get; }
         public bool IsEarnedCreditTypeDescriptorSupported { get; }
@@ -8193,12 +8216,15 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsFinalLetterGradeEarnedSupported { get; }
         public bool IsFinalNumericGradeEarnedSupported { get; }
         public bool IsMethodCreditEarnedDescriptorSupported { get; }
+        public bool IsResponsibleTeacherStaffUniqueIdSupported { get; }
         public bool IsWhenTakenGradeLevelDescriptorSupported { get; }
         public Func<ICourseTranscriptAcademicSubject, bool> IsCourseTranscriptAcademicSubjectIncluded { get; }
         public Func<ICourseTranscriptAlternativeCourseIdentificationCode, bool> IsCourseTranscriptAlternativeCourseIdentificationCodeIncluded { get; }
         public Func<ICourseTranscriptCreditCategory, bool> IsCourseTranscriptCreditCategoryIncluded { get; }
         public Func<ICourseTranscriptEarnedAdditionalCredits, bool> IsCourseTranscriptEarnedAdditionalCreditsIncluded { get; }
         public Func<ICourseTranscriptPartialCourseTranscriptAwards, bool> IsCourseTranscriptPartialCourseTranscriptAwardsIncluded { get; }
+        public Func<ICourseTranscriptProgram, bool> IsCourseTranscriptProgramIncluded { get; }
+        public Func<ICourseTranscriptSection, bool> IsCourseTranscriptSectionIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -8230,6 +8256,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCourseTranscriptEarnedAdditionalCreditsSupported;
                 case "CourseTranscriptPartialCourseTranscriptAwards":
                     return IsCourseTranscriptPartialCourseTranscriptAwardsSupported;
+                case "CourseTranscriptPrograms":
+                    return IsCourseTranscriptProgramsSupported;
+                case "CourseTranscriptSections":
+                    return IsCourseTranscriptSectionsSupported;
                 case "EarnedCreditConversion":
                     return IsEarnedCreditConversionSupported;
                 case "EarnedCredits":
@@ -8246,6 +8276,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsFinalNumericGradeEarnedSupported;
                 case "MethodCreditEarnedDescriptor":
                     return IsMethodCreditEarnedDescriptorSupported;
+                case "ResponsibleTeacherStaffUniqueId":
+                    return IsResponsibleTeacherStaffUniqueIdSupported;
                 case "WhenTakenGradeLevelDescriptor":
                     return IsWhenTakenGradeLevelDescriptorSupported;
                 default:
@@ -8551,6 +8583,120 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsMethodCreditEarnedDescriptorSupported;
                 case "NumericGradeEarned":
                     return IsNumericGradeEarnedSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CourseTranscriptProgram model.
+    /// </summary>
+    public interface ICourseTranscriptProgram : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICourseTranscript CourseTranscript { get; set; }
+        [NaturalKeyMember]
+        string ProgramName { get; set; }
+        [NaturalKeyMember]
+        string ProgramTypeDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? ProgramResourceId { get; set; }
+        string ProgramDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class CourseTranscriptProgramMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public CourseTranscriptProgramMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CourseTranscriptSection model.
+    /// </summary>
+    public interface ICourseTranscriptSection : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICourseTranscript CourseTranscript { get; set; }
+        [NaturalKeyMember]
+        string LocalCourseCode { get; set; }
+        [NaturalKeyMember]
+        long SchoolId { get; set; }
+        [NaturalKeyMember]
+        string SectionIdentifier { get; set; }
+        [NaturalKeyMember]
+        string SessionName { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? SectionResourceId { get; set; }
+        string SectionDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class CourseTranscriptSectionMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public CourseTranscriptSectionMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -14317,9 +14463,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string GradingPeriodDescriptor { get; set; }
         [NaturalKeyMember]
-        short GradingPeriodSchoolYear { get; set; }
+        string GradingPeriodName { get; set; }
         [NaturalKeyMember]
-        int GradingPeriodSequence { get; set; }
+        short GradingPeriodSchoolYear { get; set; }
         [NaturalKeyMember]
         string LocalCourseCode { get; set; }
         [NaturalKeyMember]
@@ -14446,9 +14592,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
         TimeSpan? DueTime { get; set; }
         string GradebookEntryTypeDescriptor { get; set; }
         string GradingPeriodDescriptor { get; set; }
+        string GradingPeriodName { get; set; }
         string LocalCourseCode { get; set; }
         decimal? MaxPoints { get; set; }
-        int? PeriodSequence { get; set; }
         long? SchoolId { get; set; }
         short? SchoolYear { get; set; }
         string SectionIdentifier { get; set; }
@@ -14482,9 +14628,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isGradebookEntryLearningStandardsSupported,
             bool isGradebookEntryTypeDescriptorSupported,
             bool isGradingPeriodDescriptorSupported,
+            bool isGradingPeriodNameSupported,
             bool isLocalCourseCodeSupported,
             bool isMaxPointsSupported,
-            bool isPeriodSequenceSupported,
             bool isSchoolIdSupported,
             bool isSchoolYearSupported,
             bool isSectionIdentifierSupported,
@@ -14502,9 +14648,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsGradebookEntryLearningStandardsSupported = isGradebookEntryLearningStandardsSupported;
             IsGradebookEntryTypeDescriptorSupported = isGradebookEntryTypeDescriptorSupported;
             IsGradingPeriodDescriptorSupported = isGradingPeriodDescriptorSupported;
+            IsGradingPeriodNameSupported = isGradingPeriodNameSupported;
             IsLocalCourseCodeSupported = isLocalCourseCodeSupported;
             IsMaxPointsSupported = isMaxPointsSupported;
-            IsPeriodSequenceSupported = isPeriodSequenceSupported;
             IsSchoolIdSupported = isSchoolIdSupported;
             IsSchoolYearSupported = isSchoolYearSupported;
             IsSectionIdentifierSupported = isSectionIdentifierSupported;
@@ -14522,9 +14668,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsGradebookEntryLearningStandardsSupported { get; }
         public bool IsGradebookEntryTypeDescriptorSupported { get; }
         public bool IsGradingPeriodDescriptorSupported { get; }
+        public bool IsGradingPeriodNameSupported { get; }
         public bool IsLocalCourseCodeSupported { get; }
         public bool IsMaxPointsSupported { get; }
-        public bool IsPeriodSequenceSupported { get; }
         public bool IsSchoolIdSupported { get; }
         public bool IsSchoolYearSupported { get; }
         public bool IsSectionIdentifierSupported { get; }
@@ -14551,12 +14697,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsGradebookEntryTypeDescriptorSupported;
                 case "GradingPeriodDescriptor":
                     return IsGradingPeriodDescriptorSupported;
+                case "GradingPeriodName":
+                    return IsGradingPeriodNameSupported;
                 case "LocalCourseCode":
                     return IsLocalCourseCodeSupported;
                 case "MaxPoints":
                     return IsMaxPointsSupported;
-                case "PeriodSequence":
-                    return IsPeriodSequenceSupported;
                 case "SchoolId":
                     return IsSchoolIdSupported;
                 case "SchoolYear":
@@ -15025,7 +15171,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string GradingPeriodDescriptor { get; set; }
         [NaturalKeyMember]
-        int PeriodSequence { get; set; }
+        string GradingPeriodName { get; set; }
         [NaturalKeyMember]
         long SchoolId { get; set; }
         [NaturalKeyMember]
@@ -15034,6 +15180,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Non-PK properties
         DateTime BeginDate { get; set; }
         DateTime EndDate { get; set; }
+        int? PeriodSequence { get; set; }
         int TotalInstructionalDays { get; set; }
 
         // One-to-one relationships
@@ -15054,18 +15201,21 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public GradingPeriodMappingContract(
             bool isBeginDateSupported,
             bool isEndDateSupported,
+            bool isPeriodSequenceSupported,
             bool isTotalInstructionalDaysSupported,
             IReadOnlyList<string> supportedExtensions
             )
         {
             IsBeginDateSupported = isBeginDateSupported;
             IsEndDateSupported = isEndDateSupported;
+            IsPeriodSequenceSupported = isPeriodSequenceSupported;
             IsTotalInstructionalDaysSupported = isTotalInstructionalDaysSupported;
             SupportedExtensions = supportedExtensions;
         }
 
         public bool IsBeginDateSupported { get; }
         public bool IsEndDateSupported { get; }
+        public bool IsPeriodSequenceSupported { get; }
         public bool IsTotalInstructionalDaysSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -15076,6 +15226,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsBeginDateSupported;
                 case "EndDate":
                     return IsEndDateSupported;
+                case "PeriodSequence":
+                    return IsPeriodSequenceSupported;
                 case "TotalInstructionalDays":
                     return IsTotalInstructionalDaysSupported;
                 default:
@@ -26853,11 +27005,11 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string GradingPeriodDescriptor { get; set; }
         [NaturalKeyMember]
+        string GradingPeriodName { get; set; }
+        [NaturalKeyMember]
         long GradingPeriodSchoolId { get; set; }
         [NaturalKeyMember]
         short GradingPeriodSchoolYear { get; set; }
-        [NaturalKeyMember]
-        int GradingPeriodSequence { get; set; }
         [NaturalKeyMember]
         string StudentUniqueId { get; set; }
 
@@ -28708,6 +28860,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         bool? OfficialAttendancePeriod { get; set; }
         string PopulationServedDescriptor { get; set; }
         string SectionName { get; set; }
+        string SectionTypeDescriptor { get; set; }
         int? SequenceOfCourse { get; set; }
 
         // One-to-one relationships
@@ -28750,6 +28903,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isSectionNameSupported,
             bool isSectionOfferedGradeLevelsSupported,
             bool isSectionProgramsSupported,
+            bool isSectionTypeDescriptorSupported,
             bool isSequenceOfCourseSupported,
             Func<ISectionCharacteristic, bool> isSectionCharacteristicIncluded,
             Func<ISectionClassPeriod, bool> isSectionClassPeriodIncluded,
@@ -28775,6 +28929,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsSectionNameSupported = isSectionNameSupported;
             IsSectionOfferedGradeLevelsSupported = isSectionOfferedGradeLevelsSupported;
             IsSectionProgramsSupported = isSectionProgramsSupported;
+            IsSectionTypeDescriptorSupported = isSectionTypeDescriptorSupported;
             IsSequenceOfCourseSupported = isSequenceOfCourseSupported;
             IsSectionCharacteristicIncluded = isSectionCharacteristicIncluded;
             IsSectionClassPeriodIncluded = isSectionClassPeriodIncluded;
@@ -28800,6 +28955,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsSectionNameSupported { get; }
         public bool IsSectionOfferedGradeLevelsSupported { get; }
         public bool IsSectionProgramsSupported { get; }
+        public bool IsSectionTypeDescriptorSupported { get; }
         public bool IsSequenceOfCourseSupported { get; }
         public Func<ISectionCharacteristic, bool> IsSectionCharacteristicIncluded { get; }
         public Func<ISectionClassPeriod, bool> IsSectionClassPeriodIncluded { get; }
@@ -28843,6 +28999,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSectionOfferedGradeLevelsSupported;
                 case "SectionPrograms":
                     return IsSectionProgramsSupported;
+                case "SectionTypeDescriptor":
+                    return IsSectionTypeDescriptorSupported;
                 case "SequenceOfCourse":
                     return IsSequenceOfCourseSupported;
                 default:
@@ -29277,6 +29435,82 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the SectionTypeDescriptor model.
+    /// </summary>
+    public interface ISectionTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int SectionTypeDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class SectionTypeDescriptorMappingContract : IMappingContract
+    {
+        public SectionTypeDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isPriorDescriptorIdSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsPriorDescriptorIdSupported = isPriorDescriptorIdSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsPriorDescriptorIdSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "PriorDescriptorId":
+                    return IsPriorDescriptorIdSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the SeparationDescriptor model.
     /// </summary>
     public interface ISeparationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
@@ -29665,7 +29899,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string GradingPeriodDescriptor { get; set; }
         [NaturalKeyMember]
-        int PeriodSequence { get; set; }
+        string GradingPeriodName { get; set; }
 
         // Non-PK properties
 
@@ -30143,6 +30377,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         DateTime? BirthDate { get; set; }
         string CitizenshipStatusDescriptor { get; set; }
         string FirstName { get; set; }
+        string GenderIdentity { get; set; }
         string GenerationCodeSuffix { get; set; }
         string HighestCompletedLevelOfEducationDescriptor { get; set; }
         bool? HighlyQualifiedTeacher { get; set; }
@@ -30194,6 +30429,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isBirthDateSupported,
             bool isCitizenshipStatusDescriptorSupported,
             bool isFirstNameSupported,
+            bool isGenderIdentitySupported,
             bool isGenerationCodeSuffixSupported,
             bool isHighestCompletedLevelOfEducationDescriptorSupported,
             bool isHighlyQualifiedTeacherSupported,
@@ -30247,6 +30483,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsBirthDateSupported = isBirthDateSupported;
             IsCitizenshipStatusDescriptorSupported = isCitizenshipStatusDescriptorSupported;
             IsFirstNameSupported = isFirstNameSupported;
+            IsGenderIdentitySupported = isGenderIdentitySupported;
             IsGenerationCodeSuffixSupported = isGenerationCodeSuffixSupported;
             IsHighestCompletedLevelOfEducationDescriptorSupported = isHighestCompletedLevelOfEducationDescriptorSupported;
             IsHighlyQualifiedTeacherSupported = isHighlyQualifiedTeacherSupported;
@@ -30300,6 +30537,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsBirthDateSupported { get; }
         public bool IsCitizenshipStatusDescriptorSupported { get; }
         public bool IsFirstNameSupported { get; }
+        public bool IsGenderIdentitySupported { get; }
         public bool IsGenerationCodeSuffixSupported { get; }
         public bool IsHighestCompletedLevelOfEducationDescriptorSupported { get; }
         public bool IsHighlyQualifiedTeacherSupported { get; }
@@ -30358,6 +30596,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCitizenshipStatusDescriptorSupported;
                 case "FirstName":
                     return IsFirstNameSupported;
+                case "GenderIdentity":
+                    return IsGenderIdentitySupported;
                 case "GenerationCodeSuffix":
                     return IsGenerationCodeSuffixSupported;
                 case "HighestCompletedLevelOfEducationDescriptor":
@@ -31539,6 +31779,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string StaffUniqueId { get; set; }
 
         // Non-PK properties
+        decimal? AnnualWage { get; set; }
         string CredentialIdentifier { get; set; }
         string Department { get; set; }
         DateTime? EndDate { get; set; }
@@ -31569,6 +31810,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     public class StaffEducationOrganizationEmploymentAssociationMappingContract : IMappingContract, IExtensionsMappingContract
     {
         public StaffEducationOrganizationEmploymentAssociationMappingContract(
+            bool isAnnualWageSupported,
             bool isCredentialIdentifierSupported,
             bool isDepartmentSupported,
             bool isEndDateSupported,
@@ -31581,6 +31823,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IReadOnlyList<string> supportedExtensions
             )
         {
+            IsAnnualWageSupported = isAnnualWageSupported;
             IsCredentialIdentifierSupported = isCredentialIdentifierSupported;
             IsDepartmentSupported = isDepartmentSupported;
             IsEndDateSupported = isEndDateSupported;
@@ -31593,6 +31836,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             SupportedExtensions = supportedExtensions;
         }
 
+        public bool IsAnnualWageSupported { get; }
         public bool IsCredentialIdentifierSupported { get; }
         public bool IsDepartmentSupported { get; }
         public bool IsEndDateSupported { get; }
@@ -31607,6 +31851,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "AnnualWage":
+                    return IsAnnualWageSupported;
                 case "CredentialIdentifier":
                     return IsCredentialIdentifierSupported;
                 case "Department":
@@ -34412,11 +34658,11 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string GradingPeriodDescriptor { get; set; }
         [NaturalKeyMember]
+        string GradingPeriodName { get; set; }
+        [NaturalKeyMember]
         long GradingPeriodSchoolId { get; set; }
         [NaturalKeyMember]
         short GradingPeriodSchoolYear { get; set; }
-        [NaturalKeyMember]
-        int GradingPeriodSequence { get; set; }
 
         // Non-PK properties
 
@@ -35499,11 +35745,11 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string GradingPeriodDescriptor { get; set; }
         [NaturalKeyMember]
+        string GradingPeriodName { get; set; }
+        [NaturalKeyMember]
         long GradingPeriodSchoolId { get; set; }
         [NaturalKeyMember]
         short GradingPeriodSchoolYear { get; set; }
-        [NaturalKeyMember]
-        int GradingPeriodSequence { get; set; }
         [NaturalKeyMember]
         string Objective { get; set; }
         [NaturalKeyMember]
@@ -36237,6 +36483,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Non-PK properties
         string BarrierToInternetAccessInResidenceDescriptor { get; set; }
+        string GenderIdentity { get; set; }
         bool? HispanicLatinoEthnicity { get; set; }
         bool? InternetAccessInResidence { get; set; }
         string InternetAccessTypeInResidenceDescriptor { get; set; }
@@ -36248,6 +36495,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string PrimaryLearningDeviceProviderDescriptor { get; set; }
         string ProfileThumbnail { get; set; }
         string SexDescriptor { get; set; }
+        string SupporterMilitaryConnectionDescriptor { get; set; }
 
         // One-to-one relationships
 
@@ -36281,6 +36529,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         public StudentEducationOrganizationAssociationMappingContract(
             bool isBarrierToInternetAccessInResidenceDescriptorSupported,
+            bool isGenderIdentitySupported,
             bool isHispanicLatinoEthnicitySupported,
             bool isInternetAccessInResidenceSupported,
             bool isInternetAccessTypeInResidenceDescriptorSupported,
@@ -36305,6 +36554,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isStudentEducationOrganizationAssociationStudentIndicatorsSupported,
             bool isStudentEducationOrganizationAssociationTelephonesSupported,
             bool isStudentEducationOrganizationAssociationTribalAffiliationsSupported,
+            bool isSupporterMilitaryConnectionDescriptorSupported,
             Func<IStudentEducationOrganizationAssociationAddress, bool> isStudentEducationOrganizationAssociationAddressIncluded,
             Func<IStudentEducationOrganizationAssociationAncestryEthnicOrigin, bool> isStudentEducationOrganizationAssociationAncestryEthnicOriginIncluded,
             Func<IStudentEducationOrganizationAssociationCohortYear, bool> isStudentEducationOrganizationAssociationCohortYearIncluded,
@@ -36322,6 +36572,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             )
         {
             IsBarrierToInternetAccessInResidenceDescriptorSupported = isBarrierToInternetAccessInResidenceDescriptorSupported;
+            IsGenderIdentitySupported = isGenderIdentitySupported;
             IsHispanicLatinoEthnicitySupported = isHispanicLatinoEthnicitySupported;
             IsInternetAccessInResidenceSupported = isInternetAccessInResidenceSupported;
             IsInternetAccessTypeInResidenceDescriptorSupported = isInternetAccessTypeInResidenceDescriptorSupported;
@@ -36346,6 +36597,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsStudentEducationOrganizationAssociationStudentIndicatorsSupported = isStudentEducationOrganizationAssociationStudentIndicatorsSupported;
             IsStudentEducationOrganizationAssociationTelephonesSupported = isStudentEducationOrganizationAssociationTelephonesSupported;
             IsStudentEducationOrganizationAssociationTribalAffiliationsSupported = isStudentEducationOrganizationAssociationTribalAffiliationsSupported;
+            IsSupporterMilitaryConnectionDescriptorSupported = isSupporterMilitaryConnectionDescriptorSupported;
             IsStudentEducationOrganizationAssociationAddressIncluded = isStudentEducationOrganizationAssociationAddressIncluded;
             IsStudentEducationOrganizationAssociationAncestryEthnicOriginIncluded = isStudentEducationOrganizationAssociationAncestryEthnicOriginIncluded;
             IsStudentEducationOrganizationAssociationCohortYearIncluded = isStudentEducationOrganizationAssociationCohortYearIncluded;
@@ -36363,6 +36615,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         }
 
         public bool IsBarrierToInternetAccessInResidenceDescriptorSupported { get; }
+        public bool IsGenderIdentitySupported { get; }
         public bool IsHispanicLatinoEthnicitySupported { get; }
         public bool IsInternetAccessInResidenceSupported { get; }
         public bool IsInternetAccessTypeInResidenceDescriptorSupported { get; }
@@ -36387,6 +36640,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsStudentEducationOrganizationAssociationStudentIndicatorsSupported { get; }
         public bool IsStudentEducationOrganizationAssociationTelephonesSupported { get; }
         public bool IsStudentEducationOrganizationAssociationTribalAffiliationsSupported { get; }
+        public bool IsSupporterMilitaryConnectionDescriptorSupported { get; }
         public Func<IStudentEducationOrganizationAssociationAddress, bool> IsStudentEducationOrganizationAssociationAddressIncluded { get; }
         public Func<IStudentEducationOrganizationAssociationAncestryEthnicOrigin, bool> IsStudentEducationOrganizationAssociationAncestryEthnicOriginIncluded { get; }
         public Func<IStudentEducationOrganizationAssociationCohortYear, bool> IsStudentEducationOrganizationAssociationCohortYearIncluded { get; }
@@ -36407,6 +36661,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "BarrierToInternetAccessInResidenceDescriptor":
                     return IsBarrierToInternetAccessInResidenceDescriptorSupported;
+                case "GenderIdentity":
+                    return IsGenderIdentitySupported;
                 case "HispanicLatinoEthnicity":
                     return IsHispanicLatinoEthnicitySupported;
                 case "InternetAccessInResidence":
@@ -36455,6 +36711,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentEducationOrganizationAssociationTelephonesSupported;
                 case "StudentEducationOrganizationAssociationTribalAffiliations":
                     return IsStudentEducationOrganizationAssociationTribalAffiliationsSupported;
+                case "SupporterMilitaryConnectionDescriptor":
+                    return IsSupporterMilitaryConnectionDescriptorSupported;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -40422,6 +40680,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // One-to-one relationships
 
         // Lists
+        ICollection<IStudentSectionAssociationProgram> StudentSectionAssociationPrograms { get; set; }
 
         // Resource reference data
         Guid? SectionResourceId { get; set; }
@@ -40441,7 +40700,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isEndDateSupported,
             bool isHomeroomIndicatorSupported,
             bool isRepeatIdentifierDescriptorSupported,
+            bool isStudentSectionAssociationProgramsSupported,
             bool isTeacherStudentDataLinkExclusionSupported,
+            Func<IStudentSectionAssociationProgram, bool> isStudentSectionAssociationProgramIncluded,
             IReadOnlyList<string> supportedExtensions
             )
         {
@@ -40449,7 +40710,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsEndDateSupported = isEndDateSupported;
             IsHomeroomIndicatorSupported = isHomeroomIndicatorSupported;
             IsRepeatIdentifierDescriptorSupported = isRepeatIdentifierDescriptorSupported;
+            IsStudentSectionAssociationProgramsSupported = isStudentSectionAssociationProgramsSupported;
             IsTeacherStudentDataLinkExclusionSupported = isTeacherStudentDataLinkExclusionSupported;
+            IsStudentSectionAssociationProgramIncluded = isStudentSectionAssociationProgramIncluded;
             SupportedExtensions = supportedExtensions;
         }
 
@@ -40457,7 +40720,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsEndDateSupported { get; }
         public bool IsHomeroomIndicatorSupported { get; }
         public bool IsRepeatIdentifierDescriptorSupported { get; }
+        public bool IsStudentSectionAssociationProgramsSupported { get; }
         public bool IsTeacherStudentDataLinkExclusionSupported { get; }
+        public Func<IStudentSectionAssociationProgram, bool> IsStudentSectionAssociationProgramIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -40471,8 +40736,67 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsHomeroomIndicatorSupported;
                 case "RepeatIdentifierDescriptor":
                     return IsRepeatIdentifierDescriptorSupported;
+                case "StudentSectionAssociationPrograms":
+                    return IsStudentSectionAssociationProgramsSupported;
                 case "TeacherStudentDataLinkExclusion":
                     return IsTeacherStudentDataLinkExclusionSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentSectionAssociationProgram model.
+    /// </summary>
+    public interface IStudentSectionAssociationProgram : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IStudentSectionAssociation StudentSectionAssociation { get; set; }
+        [NaturalKeyMember]
+        long EducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        string ProgramName { get; set; }
+        [NaturalKeyMember]
+        string ProgramTypeDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? ProgramResourceId { get; set; }
+        string ProgramDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentSectionAssociationProgramMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentSectionAssociationProgramMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -41510,6 +41834,82 @@ namespace EdFi.Ods.Entities.Common.EdFi
     public class SubmissionStatusDescriptorMappingContract : IMappingContract
     {
         public SubmissionStatusDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isPriorDescriptorIdSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsPriorDescriptorIdSupported = isPriorDescriptorIdSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsPriorDescriptorIdSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "PriorDescriptorId":
+                    return IsPriorDescriptorIdSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the SupporterMilitaryConnectionDescriptor model.
+    /// </summary>
+    public interface ISupporterMilitaryConnectionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int SupporterMilitaryConnectionDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class SupporterMilitaryConnectionDescriptorMappingContract : IMappingContract
+    {
+        public SupporterMilitaryConnectionDescriptorMappingContract(
             bool isCodeValueSupported,
             bool isDescriptionSupported,
             bool isEffectiveBeginDateSupported,

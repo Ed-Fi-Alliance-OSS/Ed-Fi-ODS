@@ -2369,6 +2369,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Contacts.EdFi
     {
         public string ContactUniqueId { get; set; }
         public string FirstName { get; set; }
+        public string GenderIdentity { get; set; }
         public string GenerationCodeSuffix { get; set; }
         public string HighestCompletedLevelOfEducationDescriptor { get; set; }
         public Guid Id { get; set; }
@@ -3072,6 +3073,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CourseTranscripts.EdFi
         public decimal FinalNumericGradeEarned { get; set; }
         public Guid Id { get; set; }
         public string MethodCreditEarnedDescriptor { get; set; }
+        public string ResponsibleTeacherStaffUniqueId { get; set; }
         public short SchoolYear { get; set; }
         public string StudentUniqueId { get; set; }
         public string TermDescriptor { get; set; }
@@ -5331,8 +5333,8 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Grades.EdFi
         public string GradeEarnedDescription { get; set; }
         public string GradeTypeDescriptor { get; set; }
         public string GradingPeriodDescriptor { get; set; }
+        public string GradingPeriodName { get; set; }
         public short GradingPeriodSchoolYear { get; set; }
-        public int GradingPeriodSequence { get; set; }
         public Guid Id { get; set; }
         public string LetterGradeEarned { get; set; }
         public string LocalCourseCode { get; set; }
@@ -5395,11 +5397,11 @@ namespace EdFi.Ods.Api.Common.Models.Requests.GradebookEntries.EdFi
         public string GradebookEntryIdentifier { get; set; }
         public string GradebookEntryTypeDescriptor { get; set; }
         public string GradingPeriodDescriptor { get; set; }
+        public string GradingPeriodName { get; set; }
         public Guid Id { get; set; }
         public string LocalCourseCode { get; set; }
         public decimal MaxPoints { get; set; }
         public string Namespace { get; set; }
-        public int PeriodSequence { get; set; }
         public long SchoolId { get; set; }
         public short SchoolYear { get; set; }
         public string SectionIdentifier { get; set; }
@@ -5638,6 +5640,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.GradingPeriods.EdFi
         public DateTime BeginDate { get; set; }
         public DateTime EndDate { get; set; }
         public string GradingPeriodDescriptor { get; set; }
+        public string GradingPeriodName { get; set; }
         public Guid Id { get; set; }
         public int PeriodSequence { get; set; }
         public long SchoolId { get; set; }
@@ -10597,9 +10600,9 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ReportCards.EdFi
     {
         public long EducationOrganizationId { get; set; }
         public string GradingPeriodDescriptor { get; set; }
+        public string GradingPeriodName { get; set; }
         public long GradingPeriodSchoolId { get; set; }
         public short GradingPeriodSchoolYear { get; set; }
-        public int GradingPeriodSequence { get; set; }
         public Guid Id { get; set; }
         public decimal NumberOfDaysAbsent { get; set; }
         public decimal NumberOfDaysInAttendance { get; set; }
@@ -11419,6 +11422,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Sections.EdFi
         public short SchoolYear { get; set; }
         public string SectionIdentifier { get; set; }
         public string SectionName { get; set; }
+        public string SectionTypeDescriptor { get; set; }
         public int SequenceOfCourse { get; set; }
         public string SessionName { get; set; }
     }
@@ -11553,6 +11557,52 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SectionCharacteristicDescriptors.E
         public SectionCharacteristicDescriptorDelete() { }
 
         public SectionCharacteristicDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.SectionTypeDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class SectionTypeDescriptorGetByExample
+    {
+        public int SectionTypeDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SectionTypeDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public SectionTypeDescriptorGetByIds() { }
+
+        public SectionTypeDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SectionTypeDescriptorPost : Resources.SectionTypeDescriptor.EdFi.SectionTypeDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SectionTypeDescriptorPut : Resources.SectionTypeDescriptor.EdFi.SectionTypeDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SectionTypeDescriptorDelete : IHasIdentifier
+    {
+        public SectionTypeDescriptorDelete() { }
+
+        public SectionTypeDescriptorDelete(Guid id)
         {
             Id = id;
         }
@@ -11994,6 +12044,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Staffs.EdFi
         public DateTime BirthDate { get; set; }
         public string CitizenshipStatusDescriptor { get; set; }
         public string FirstName { get; set; }
+        public string GenderIdentity { get; set; }
         public string GenerationCodeSuffix { get; set; }
         public string HighestCompletedLevelOfEducationDescriptor { get; set; }
         public bool HighlyQualifiedTeacher { get; set; }
@@ -12365,6 +12416,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StaffEducationOrganizationEmployme
     [ExcludeFromCodeCoverage]
     public class StaffEducationOrganizationEmploymentAssociationGetByExample
     {
+        public decimal AnnualWage { get; set; }
         public string CredentialIdentifier { get; set; }
         public string Department { get; set; }
         public long EducationOrganizationId { get; set; }
@@ -13169,9 +13221,9 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentCompetencyObjectives.EdFi
         public string CompetencyLevelDescriptor { get; set; }
         public string DiagnosticStatement { get; set; }
         public string GradingPeriodDescriptor { get; set; }
+        public string GradingPeriodName { get; set; }
         public long GradingPeriodSchoolId { get; set; }
         public short GradingPeriodSchoolYear { get; set; }
-        public int GradingPeriodSequence { get; set; }
         public Guid Id { get; set; }
         public string Objective { get; set; }
         public long ObjectiveEducationOrganizationId { get; set; }
@@ -13433,6 +13485,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentEducationOrganizationAssoci
     {
         public string BarrierToInternetAccessInResidenceDescriptor { get; set; }
         public long EducationOrganizationId { get; set; }
+        public string GenderIdentity { get; set; }
         public bool HispanicLatinoEthnicity { get; set; }
         public Guid Id { get; set; }
         public bool InternetAccessInResidence { get; set; }
@@ -13446,6 +13499,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentEducationOrganizationAssoci
         public string ProfileThumbnail { get; set; }
         public string SexDescriptor { get; set; }
         public string StudentUniqueId { get; set; }
+        public string SupporterMilitaryConnectionDescriptor { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -14699,6 +14753,52 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SubmissionStatusDescriptors.EdFi
         public SubmissionStatusDescriptorDelete() { }
 
         public SubmissionStatusDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.SupporterMilitaryConnectionDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class SupporterMilitaryConnectionDescriptorGetByExample
+    {
+        public int SupporterMilitaryConnectionDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SupporterMilitaryConnectionDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public SupporterMilitaryConnectionDescriptorGetByIds() { }
+
+        public SupporterMilitaryConnectionDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SupporterMilitaryConnectionDescriptorPost : Resources.SupporterMilitaryConnectionDescriptor.EdFi.SupporterMilitaryConnectionDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SupporterMilitaryConnectionDescriptorPut : Resources.SupporterMilitaryConnectionDescriptor.EdFi.SupporterMilitaryConnectionDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SupporterMilitaryConnectionDescriptorDelete : IHasIdentifier
+    {
+        public SupporterMilitaryConnectionDescriptorDelete() { }
+
+        public SupporterMilitaryConnectionDescriptorDelete(Guid id)
         {
             Id = id;
         }
