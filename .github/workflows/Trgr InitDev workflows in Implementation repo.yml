@@ -8,6 +8,9 @@ on:
 env:
   EDFI_ODS_IMP_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
+  HEAD_REF:  ${{ GITHUB.HEAD_REF }}
+  REF_NAME:  ${{ GITHUB.REF_NAME }}
+  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}  
 
 jobs:
   build:
@@ -20,11 +23,152 @@ jobs:
       run: | 
         echo "::error::Missing GitHub Token"
         exit 1
-    - name: Dispatch to Implementation repo
-      if: ${{ env.EDFI_ODS_IMP_TOKEN != '' }}
-      uses: peter-evans/repository-dispatch@11ba7d3f32dc7cc919d1c43f1fec1c05260c26b5 # v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # 2.1.0
+      with:
+        dotnet-version: 6.0.x
+    - name: Checkout Ed-Fi-ODS
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+          path: Ed-Fi-ODS/
+          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
+    - name: Is pull request branch exists in Ed-Fi-ODS
+      working-directory: ./Ed-Fi-ODS/
+      shell: pwsh
+      run: |
+           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."        
+    - name: Checkout Ed-Fi-ODS-Implementation
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+          path: Ed-Fi-ODS-Implementation/
+          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
+    - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+      working-directory: ./Ed-Fi-ODS/
+      shell: pwsh
+      run: |
+            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
+    - name: Set Current Branch Environment Variable
+      shell: pwsh
+      run: |
+        $current_branch = '${{env.REF_NAME}}'
+        if ($current_branch -like "*/merge"){
+          $current_branch = '${{env.HEAD_REF}}'
+        }
+        Write-Host "Current Branch: $current_branch"   
+        echo "current_branch=$current_branch" >> $Env:GITHUB_ENV                   
+    - name: Dispatch InitDev , Multitenancy workflow
+      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      id: return_dispatch_InitDevMultitenancy
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
-        repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
-        event-type: triggered-from-ods-repo
-        client-payload: '{"branch": "${{ GITHUB.HEAD_REF }}"}'
+        ref: ${{  env.current_branch  }}
+        repo:  Ed-Fi-ODS-Implementation
+        owner: ${{ github.repository_owner }}
+        workflow: InitDev, MultiTenancy.yml
+        workflow_timeout_seconds: 4800
+    - name: Dispatch InitDev, Smoke Tests workflow
+      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      id: return_dispatch_InitDevSmokeTests
+      with:
+        token: ${{ env.EDFI_ODS_IMP_TOKEN }}
+        ref: ${{  env.current_branch  }}
+        repo:  Ed-Fi-ODS-Implementation
+        owner: ${{ github.repository_owner }}
+        workflow: InitDev, Smoke Tests.yml
+        workflow_timeout_seconds: 4800
+    - name: Dispatch InitDev, Unit tests, Integration tests, Package workflow
+      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      id: return_dispatch_InitDevUnittestsIntegrationtestsPackage
+      with:
+        token: ${{ env.EDFI_ODS_IMP_TOKEN }}
+        ref: ${{  env.current_branch  }}
+        repo:  Ed-Fi-ODS-Implementation
+        owner: ${{ github.repository_owner }}
+        workflow: InitDev, Unit tests, Integration tests, Package.yml
+        workflow_timeout_seconds: 4800
+    - name: Dispatch InitDev Postgres, Multitenancy workflow
+      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      id: return_dispatch_InitDevPostgresMultitenancy
+      with:
+        token: ${{ env.EDFI_ODS_IMP_TOKEN }}
+        ref: ${{  env.current_branch  }}
+        repo:  Ed-Fi-ODS-Implementation
+        owner: ${{ github.repository_owner }}
+        workflow: InitDev Postgres, MultiTenancy.yml
+        workflow_timeout_seconds: 4800  
+    - name: Dispatch InitDev Postgres, Smoke Tests workflow
+      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      id: return_dispatch_InitDevPostgresSmokeTests
+      with:
+        token: ${{ env.EDFI_ODS_IMP_TOKEN }}
+        ref: ${{  env.current_branch  }}
+        repo:  Ed-Fi-ODS-Implementation
+        owner: ${{ github.repository_owner }}
+        workflow: InitDev Postgres, Smoke Tests.yml
+        workflow_timeout_seconds: 4800     
+    - name: Dispatch InitDev Postgres, Unit tests, Integration tests workflow
+      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      id: return_dispatch_InitDevPostgresUnittestsIntegrationtests
+      with:
+        token: ${{ env.EDFI_ODS_IMP_TOKEN }}
+        ref: ${{  env.current_branch  }}
+        repo:  Ed-Fi-ODS-Implementation
+        owner: ${{ github.repository_owner }}
+        workflow: InitDev Postgres, Unit tests, Integration tests.yml
+        workflow_timeout_seconds: 4800                   
+    - name: Await to complete the execution for InitDev , MultiTenancy RunID ${{ steps.return_dispatch_InitDevMultitenancy.outputs.run_id }}
+      uses: codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
+      with:
+        token: ${{ env.EDFI_ODS_IMP_TOKEN }}
+        repo: Ed-Fi-ODS-Implementation
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_InitDevMultitenancy.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000
+    - name: Await to complete the execution for InitDev, Smoke Tests RunID ${{ steps.return_dispatch_InitDevSmokeTests.outputs.run_id }}
+      uses: codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
+      with:
+        token: ${{ env.EDFI_ODS_IMP_TOKEN }}
+        repo: Ed-Fi-ODS-Implementation
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_InitDevSmokeTests.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000
+    - name: Await to complete the execution for InitDev, Unit tests, Integration tests, Package RunID ${{ steps.return_dispatch_InitDevUnittestsIntegrationtestsPackage.outputs.run_id }}
+      uses: codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
+      with:
+        token: ${{ env.EDFI_ODS_IMP_TOKEN }}
+        repo: Ed-Fi-ODS-Implementation
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_InitDevUnittestsIntegrationtestsPackage.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000     
+    - name: Await to complete the execution for InitDev Postgres, MultiTenancy RunID ${{ steps.return_dispatch_InitDevPostgresMultitenancy.outputs.run_id }}
+      uses: codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
+      with:
+        token: ${{ env.EDFI_ODS_IMP_TOKEN }}
+        repo: Ed-Fi-ODS-Implementation
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_InitDevPostgresMultitenancy.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000
+    - name: Await to complete the execution for InitDev Postgres, Smoke Tests RunID ${{ steps.return_dispatch_InitDevPostgresSmokeTests.outputs.run_id }}
+      uses: codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
+      with:
+        token: ${{ env.EDFI_ODS_IMP_TOKEN }}
+        repo: Ed-Fi-ODS-Implementation
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_InitDevPostgresSmokeTests.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000
+    - name: Await to complete the execution for InitDev Postgres, Unit tests, Integration tests RunID ${{ steps.return_dispatch_InitDevPostgresUnittestsIntegrationtests.outputs.run_id }}
+      uses: codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
+      with:
+        token: ${{ env.EDFI_ODS_IMP_TOKEN }}
+        repo: Ed-Fi-ODS-Implementation
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_InitDevPostgresUnittestsIntegrationtests.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000                        
