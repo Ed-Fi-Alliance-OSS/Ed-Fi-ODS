@@ -31,8 +31,7 @@ namespace EdFi.Ods.Features.Controllers
     [Produces("application/json")]
     [AllowAnonymous]
     [ApplyOdsRouteRootTemplate]
-    [Route("metadata/{version?}")]
-    [Route("{tenant}/metadata/{version?}")]
+    [Route("metadata")]
     public class OpenApiMetadataController : ControllerBase
     {
         private readonly bool _isEnabled;
@@ -55,6 +54,14 @@ namespace EdFi.Ods.Features.Controllers
             if (!IsFeatureEnabled())
             {
                 return NotFound();
+            }
+            
+            if (Request.Query.ContainsKey("sdk"))
+            {
+                if (bool.TryParse(Request.Query["sdk"], out bool sdk))
+                {
+                    request.Sdk = sdk;
+                }
             }
 
             var content = _openApiMetadataCacheProvider.GetAllSectionDocuments(request.Sdk)
