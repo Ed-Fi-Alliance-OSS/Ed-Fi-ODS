@@ -60,7 +60,7 @@ namespace EdFi.Ods.Features.Controllers
             var content = _openApiMetadataCacheProvider.GetAllSectionDocuments(request.Sdk)
                 .OrderBy(x => x.Section)
                 .ThenBy(x => x.Name)
-                .Select(x => GetSwaggerSectionDetailsForCacheItem(x, version == "3" ? OpenApiSpecVersion.OpenApi3_0 : OpenApiSpecVersion.OpenApi2_0))
+                .Select(x => GetSwaggerSectionDetailsForCacheItem(x, version == "2" ? OpenApiSpecVersion.OpenApi2_0 : OpenApiSpecVersion.OpenApi3_0))
                 .ToList();
 
             var eTag = HashHelper.GetSha256Hash(JsonConvert.SerializeObject(content))
@@ -93,7 +93,7 @@ namespace EdFi.Ods.Features.Controllers
                 return new OpenApiMetadataSectionDetails
                 {
                     EndpointUri =
-                        $"{url.AbsoluteUri.Replace("%7B", "{").Replace("%7D", "}")}{(openApiSpecVersion == OpenApiSpecVersion.OpenApi3_0 ? "?version=3" : "")}",
+                        $"{url.AbsoluteUri.Replace("%7B", "{").Replace("%7D", "}")}{(openApiSpecVersion == OpenApiSpecVersion.OpenApi2_0 ? "?version=2" : "")}",
                     Name = apiContent.Name.NormalizeCompositeTermForDisplay('-')
                         .Replace(" ", "-"),
                     Prefix =
