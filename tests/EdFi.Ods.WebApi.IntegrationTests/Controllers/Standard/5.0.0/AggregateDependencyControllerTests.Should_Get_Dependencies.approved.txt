@@ -1352,6 +1352,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/sectionTypeDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/separationDescriptors",
     "order": 1,
     "operations": [
@@ -1465,6 +1473,14 @@
   },
   {
     "resource": "/ed-fi/submissionStatusDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/supporterMilitaryConnectionDescriptors",
     "order": 1,
     "operations": [
       "Create",
