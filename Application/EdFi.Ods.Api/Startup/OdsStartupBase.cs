@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Runtime.Loader;
@@ -96,15 +97,14 @@ namespace EdFi.Ods.Api.Startup
             services.Configure<TenantsSection>(Configuration);
             services.Configure<OdsInstancesSection>(Configuration);
 
-            _apiSettings = new ApiSettings();
-            Configuration.Bind("ApiSettings", _apiSettings);
-
             try
             {
+                _apiSettings = new ApiSettings();
+                Configuration.Bind("ApiSettings", _apiSettings);
                 _apiSettings.Validate();
-            } catch (InvalidConfigurationException invalidConfiguration)
+            } catch (ConfigurationException invalidConfiguration)
             {
-                _logger.Error(invalidConfiguration);
+                _logger.Fatal(invalidConfiguration);
                 Environment.Exit(1);
             }
 
