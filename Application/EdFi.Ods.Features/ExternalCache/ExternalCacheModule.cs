@@ -7,6 +7,7 @@ using System;
 using Autofac;
 using Autofac.Core;
 using Castle.DynamicProxy;
+using EdFi.Common.Extensions;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Common.Caching;
@@ -52,7 +53,7 @@ namespace EdFi.Ods.Features.ExternalCache
 
         public bool IsProviderSelected()
         {
-            return string.Equals(ExternalCacheProvider, ApiSettings.Caching.ExternalCacheProvider, StringComparison.OrdinalIgnoreCase);
+            return ExternalCacheProvider.EqualsIgnoreCase(ApiSettings.Caching.ExternalCacheProvider);
         }
 
         public void RegisterProvider(ContainerBuilder builder)
@@ -127,7 +128,7 @@ namespace EdFi.Ods.Features.ExternalCache
                             }))
                     .WithParameter(
                         new ResolvedParameter(
-                            (p, c) => p.Name.Equals("slidingExpirationPeriod", StringComparison.OrdinalIgnoreCase),
+                            (p, c) => p.Name.EqualsIgnoreCase("slidingExpirationPeriod"),
                             (p, c) =>
                             {
                                 var apiSettings = c.Resolve<ApiSettings>();
@@ -136,7 +137,7 @@ namespace EdFi.Ods.Features.ExternalCache
                             }))
                     .WithParameter(
                         new ResolvedParameter(
-                            (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.OrdinalIgnoreCase),
+                            (p, c) => p.Name.EqualsIgnoreCase("absoluteExpirationPeriod"),
                             (p, c) =>
                             {
                                 var apiSettings = c.Resolve<ApiSettings>();
@@ -158,7 +159,7 @@ namespace EdFi.Ods.Features.ExternalCache
                             }))
                     .WithParameter(
                         new ResolvedParameter(
-                            (p, c) => p.Name.Equals("slidingExpirationPeriod", StringComparison.OrdinalIgnoreCase),
+                            (p, c) => p.Name.EqualsIgnoreCase("slidingExpirationPeriod"),
                             (p, c) =>
                             {
                                 var apiSettings = c.Resolve<ApiSettings>();
@@ -167,7 +168,7 @@ namespace EdFi.Ods.Features.ExternalCache
                             }))
                     .WithParameter(
                         new ResolvedParameter(
-                            (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.OrdinalIgnoreCase),
+                            (p, c) => p.Name.EqualsIgnoreCase("absoluteExpirationPeriod"),
                             (p, c) =>
                             {
                                 var apiSettings = c.Resolve<ApiSettings>();
