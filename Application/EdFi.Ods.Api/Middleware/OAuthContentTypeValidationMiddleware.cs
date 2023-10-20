@@ -16,7 +16,7 @@ namespace EdFi.Ods.Api.Middleware
             if (context.Request.Path.ToString().Contains("oauth", StringComparison.OrdinalIgnoreCase) &&
                 context.Request.Method == HttpMethods.Post)
             {
-                if (context.Request.Method != HttpMethods.Options && !context.Request.Headers.ContainsKey("Content-Type"))
+                if (!context.Request.Headers.ContainsKey("Content-Type"))
                 {
                     context.Response.StatusCode = StatusCodes.Status415UnsupportedMediaType;
                     await context.Response.WriteAsync("Content-Type header is missing.");
