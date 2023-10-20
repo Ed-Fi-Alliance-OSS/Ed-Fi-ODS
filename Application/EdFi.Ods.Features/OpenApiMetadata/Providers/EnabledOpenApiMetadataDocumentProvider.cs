@@ -96,6 +96,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                 .Replace("%BASE_PATH%", basePath)
                 .Replace("%SCHEME%", request.Scheme(this._reverseProxySettings));
 
+            document = document.Replace("{apiDataPath}", content.BasePath);
+            
             document = document.Replace("{currentTenant}", openApiSpecVersion == OpenApiSpecVersion.OpenApi3_0
                 ? $"/{tenantIdentifierRouteValue}".TrimEnd('/')
                 : "");

@@ -55,7 +55,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
         openApiDocument.Servers.Clear();
 
         var uriBase =
-            $"{_httpContextAccessor.HttpContext?.Request.Scheme(this._reverseProxySettings)}://{_httpContextAccessor.HttpContext?.Request.Host(this._reverseProxySettings)}:{_httpContextAccessor.HttpContext?.Request.Port(this._reverseProxySettings)}";
+            $"{_httpContextAccessor.HttpContext?.Request.Scheme(this._reverseProxySettings)}://{_httpContextAccessor.HttpContext?.Request.Host(this._reverseProxySettings)}:{_httpContextAccessor.HttpContext?.Request.Port(this._reverseProxySettings)}/";
 
         var routeContextSegment = "";
 
@@ -66,7 +66,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
 
         var odsServer = new OpenApiServer()
         {
-            Url = $"{uriBase}{{currentTenant}}{routeContextSegment}/data/v{ApiVersionConstants.Ods}/",
+            Url = $"{uriBase}{{currentTenant}}{routeContextSegment}{{apiDataPath}}",
             Variables = new Dictionary<string, OpenApiServerVariable>()
         };
 
@@ -95,13 +95,13 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
                             });
 
                         openApiDocument.Components.SecuritySchemes.Single().Value.Flows.ClientCredentials.TokenUrl = new Uri(
-                            $"{uriBase}/{routeContextValues.Result.ToList().Last()}{{currentTenant}}/oauth/token");
+                            $"{uriBase}/{routeContextValues.Result.ToList().Last()}{{currentTenant}}oauth/token");
                     }
                 }
                 else
                 {
                     openApiDocument.Components.SecuritySchemes.Single().Value.Flows.ClientCredentials.TokenUrl = new Uri(
-                        $"{uriBase}{{currentTenant}}/oauth/token");
+                        $"{uriBase}{{currentTenant}}oauth/token");
                 }
             }
         }
