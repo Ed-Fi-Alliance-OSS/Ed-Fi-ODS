@@ -10331,79 +10331,6 @@
 									"response": []
 								},
 								{
-									"name": "Get HS Program",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response is 200\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(200);\r",
-													"});\r",
-													"\r",
-													"const responseItems = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Check if responseItems array has at least one item\", function () {\r",
-													"    pm.expect(responseItems.length).to.be.at.least(1);\r",
-													"});\r",
-													"\r",
-													"pm.environment.set('known:program:id', responseItems.programId);"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
-										"method": "GET",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs?programName=Bilingual&educationOrganizationId=255901001",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"programs"
-											],
-											"query": [
-												{
-													"key": "programName",
-													"value": "Bilingual"
-												},
-												{
-													"key": "educationOrganizationId",
-													"value": "255901001"
-												}
-											]
-										}
-									},
-									"response": []
-								},
-								{
 									"name": "Create HS Program",
 									"event": [
 										{
@@ -11163,7 +11090,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"schoolYearTypeReference\": {\r\n        \"schoolYear\": 2022\r\n    },\r\n    \"sessionName\": \"SESSION ONE\",\r\n    \"beginDate\": \"2021-08-23\",\r\n    \"endDate\": \"2021-12-17\",\r\n    \"termDescriptor\": \"uri://ed-fi.org/TermDescriptor#Fall Semester\",\r\n    \"totalInstructionalDays\": 81,\r\n    \"academicWeeks\": [],\r\n    \"gradingPeriods\": [\r\n        {\r\n            \"gradingPeriodReference\": {\r\n                \"schoolId\": 255901001,\r\n                \"schoolYear\": 2022,\r\n                \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#First Six Weeks\",\r\n                \"gradingPeriodName\": \"2021-2022 Fall Semester Exam 1\"\r\n            }\r\n        }\r\n    ]\r\n}\r\n",
+											"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"schoolYearTypeReference\": {\r\n        \"schoolYear\": 2022\r\n    },\r\n    \"sessionName\": \"SESSION ONE\",\r\n    \"beginDate\": \"2021-08-23\",\r\n    \"endDate\": \"2021-12-17\",\r\n    \"termDescriptor\": \"uri://ed-fi.org/TermDescriptor#Fall Semester\",\r\n    \"totalInstructionalDays\": 81,\r\n    \"academicWeeks\": [],\r\n    \"gradingPeriods\": [\r\n        {\r\n            \"gradingPeriodReference\": {\r\n                \"schoolId\": 255901001,\r\n                \"schoolYear\": 2022,\r\n                \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#First Six Weeks\",\r\n                \"gradingPeriodName\": \"2021-2022 Fall Semester Exam 1\",\r\n                \"PeriodSequence\":1\r\n            }\r\n        }\r\n    ]\r\n}\r\n",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -11236,7 +11163,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901044\r\n    },\r\n    \"schoolYearTypeReference\": {\r\n        \"schoolYear\": 2022\r\n    },\r\n    \"sessionName\": \"SESSION ONE\",\r\n    \"beginDate\": \"2021-08-23\",\r\n    \"endDate\": \"2021-12-17\",\r\n    \"termDescriptor\": \"uri://ed-fi.org/TermDescriptor#Fall Semester\",\r\n    \"totalInstructionalDays\": 81,\r\n    \"academicWeeks\": [],\r\n    \"gradingPeriods\": [\r\n        {\r\n            \"gradingPeriodReference\": {\r\n                \"schoolId\": 255901044,\r\n                \"schoolYear\": 2022,\r\n                \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#First Six Weeks\",\r\n                \"gradingPeriodName\": \"2021-2022 Fall Semester Exam 1\"\r\n            }\r\n        }\r\n    ]\r\n}\r\n",
+											"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901044\r\n    },\r\n    \"schoolYearTypeReference\": {\r\n        \"schoolYear\": 2022\r\n    },\r\n    \"sessionName\": \"SESSION ONE\",\r\n    \"beginDate\": \"2021-08-23\",\r\n    \"endDate\": \"2021-12-17\",\r\n    \"termDescriptor\": \"uri://ed-fi.org/TermDescriptor#Fall Semester\",\r\n    \"totalInstructionalDays\": 81,\r\n    \"academicWeeks\": [],\r\n    \"gradingPeriods\": [\r\n        {\r\n            \"gradingPeriodReference\": {\r\n                \"schoolId\": 255901044,\r\n                \"schoolYear\": 2022,\r\n                \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#First Six Weeks\",\r\n                \"gradingPeriodName\": \"2021-2022 Fall Semester Exam 1\",\r\n                \"PeriodSequence\":1\r\n            }\r\n        }\r\n    ]\r\n}\r\n",
 											"options": {
 												"raw": {
 													"language": "json"
