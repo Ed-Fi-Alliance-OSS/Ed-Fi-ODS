@@ -280,6 +280,11 @@
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
+          <xs:element name="GenderIdentity" type="GenderIdentity" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The gender the contact identifies themselves as.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
           <xs:element name="InternationalAddress" type="InternationalAddress" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation>The set of elements that describes an international address.</xs:documentation>
@@ -728,12 +733,17 @@
               <xs:documentation>A coding scheme that is used for identification and record-keeping purposes by schools, social services, or other agencies to refer to a student.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="Sex" type="SexDescriptorReferenceType">
+          <xs:element name="Sex" type="SexDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The student's gender as last reported to the education organization.</xs:documentation>
+              <xs:documentation>The student's birth sex as reported to the education organization.</xs:documentation>
               <xs:appinfo>
                 <ann:Descriptor>SexDescriptor</ann:Descriptor>
               </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="GenderIdentity" type="GenderIdentity" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The student's gender as last reported to the education organization.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="InternationalAddress" type="InternationalAddress" minOccurs="0" maxOccurs="unbounded">
@@ -868,6 +878,14 @@
               <xs:documentation>An indication of whether the student can complete the full range of learning activities, including video streaming and assignment upload, without interruptions caused by poor internet performance in their primary place of residence.</xs:documentation>
               <xs:appinfo>
                 <ann:Descriptor>InternetPerformanceInResidenceDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SupporterMilitaryConnection" type="SupporterMilitaryConnectionDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Military connection of the person/people whom the student is a dependent of.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>SupporterMilitaryConnectionDescriptor</ann:Descriptor>
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
