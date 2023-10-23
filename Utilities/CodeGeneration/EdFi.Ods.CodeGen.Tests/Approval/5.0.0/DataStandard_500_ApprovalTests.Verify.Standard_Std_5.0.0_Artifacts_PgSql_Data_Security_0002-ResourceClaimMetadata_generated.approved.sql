@@ -1234,6 +1234,11 @@ begin
     values ('sectionCharacteristicDescriptor', 'http://ed-fi.org/ods/identity/claims/sectionCharacteristicDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='sectionTypeDescriptor') THEN
+    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
+    values ('sectionTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/sectionTypeDescriptor', systemDescriptorsResourceClaimId);
+    END IF;
+
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='separationDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('separationDescriptor', 'http://ed-fi.org/ods/identity/claims/separationDescriptor', systemDescriptorsResourceClaimId);
@@ -1527,6 +1532,11 @@ begin
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='submissionStatusDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('submissionStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/submissionStatusDescriptor', systemDescriptorsResourceClaimId);
+    END IF;
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='supporterMilitaryConnectionDescriptor') THEN
+    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
+    values ('supporterMilitaryConnectionDescriptor', 'http://ed-fi.org/ods/identity/claims/supporterMilitaryConnectionDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='survey') THEN

@@ -1445,6 +1445,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class SectionTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.SectionTypeDescriptor.EdFi.SectionTypeDescriptor, Entities.NHibernate.SectionTypeDescriptorAggregate.EdFi.SectionTypeDescriptor>
+    {
+        public SectionTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class SeparationDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.SeparationDescriptor.EdFi.SeparationDescriptor, Entities.NHibernate.SeparationDescriptorAggregate.EdFi.SeparationDescriptor>
     {
         public SeparationDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -1796,6 +1802,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class SubmissionStatusDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.SubmissionStatusDescriptor.EdFi.SubmissionStatusDescriptor, Entities.NHibernate.SubmissionStatusDescriptorAggregate.EdFi.SubmissionStatusDescriptor>
     {
         public SubmissionStatusDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SupporterMilitaryConnectionDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.SupporterMilitaryConnectionDescriptor.EdFi.SupporterMilitaryConnectionDescriptor, Entities.NHibernate.SupporterMilitaryConnectionDescriptorAggregate.EdFi.SupporterMilitaryConnectionDescriptor>
+    {
+        public SupporterMilitaryConnectionDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]

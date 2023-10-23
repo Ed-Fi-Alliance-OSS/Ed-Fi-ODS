@@ -849,6 +849,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             // CourseEducationOrganizationId = entity.CourseEducationOrganizationId, // Primary key property, Role name applied
             contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // ExternalEducationOrganizationId = entity.ExternalEducationOrganizationId, // Role name applied and not part of primary key
+            // ResponsibleTeacherStaffUSI = entity.ResponsibleTeacherStaffUSI, // Not part of primary key
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
@@ -863,6 +864,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
                     // "CourseEducationOrganizationId",
                     "EducationOrganizationId",
                     // "ExternalEducationOrganizationId",
+                    // "ResponsibleTeacherStaffUSI",
                     "StudentUSI",
                 };
 

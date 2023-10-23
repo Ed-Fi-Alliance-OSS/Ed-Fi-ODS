@@ -2212,6 +2212,15 @@ BEGIN
 
 END
 
+IF NOT EXISTS(SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/sectionTypeDescriptor')
+BEGIN
+
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'sectionTypeDescriptor', N'http://ed-fi.org/ods/identity/claims/sectionTypeDescriptor',
+@systemDescriptorsResourceClaimId);
+
+END
+
 IF NOT EXISTS(SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/separationDescriptor')
 BEGIN
 
@@ -2739,6 +2748,15 @@ BEGIN
 
     INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
     VALUES (N'submissionStatusDescriptor', N'http://ed-fi.org/ods/identity/claims/submissionStatusDescriptor',
+@systemDescriptorsResourceClaimId);
+
+END
+
+IF NOT EXISTS(SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/supporterMilitaryConnectionDescriptor')
+BEGIN
+
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'supporterMilitaryConnectionDescriptor', N'http://ed-fi.org/ods/identity/claims/supporterMilitaryConnectionDescriptor',
 @systemDescriptorsResourceClaimId);
 
 END

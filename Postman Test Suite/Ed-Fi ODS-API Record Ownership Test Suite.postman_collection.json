@@ -3,7 +3,8 @@
 		"_postman_id": "b3df0f17-9180-40c9-be67-19c103a01468",
 		"name": "Ed-Fi ODS/API Record Ownership Test Suite",
 		"description": "Localhost integration testing using Postman Scripts",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26378282"
 	},
 	"item": [
 		{
@@ -1730,7 +1731,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n        \"schoolReference\": {\r\n            \"schoolId\": \"{{known:schoolId_9011}}\"\r\n        },\r\n        \"schoolYearTypeReference\": {\r\n            \"schoolYear\": 2022\r\n        },\r\n        \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#First Six Weeks\",\r\n        \"periodSequence\": 1,\r\n        \"beginDate\": \"2021-08-23\",\r\n        \"endDate\": \"2021-10-03\",\r\n        \"totalInstructionalDays\": 99\r\n    }"
+											"raw": "{\r\n        \"schoolReference\": {\r\n            \"schoolId\": \"{{known:schoolId_9011}}\"\r\n        },\r\n        \"schoolYearTypeReference\": {\r\n            \"schoolYear\": 2022\r\n        },\r\n        \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#First Six Weeks\",\r\n        \"gradingPeriodName\": \"2021-2022 Fall Semester Exam 1\",\r\n        \"PeriodSequence\": 1,\r\n        \"beginDate\": \"2021-08-23\",\r\n        \"endDate\": \"2021-10-03\",\r\n        \"totalInstructionalDays\": 99\r\n    }"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods",
@@ -1794,7 +1795,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n        \"schoolReference\": {\r\n            \"schoolId\": \"{{known:schoolId_9011}}\"\r\n        },\r\n        \"schoolYearTypeReference\": {\r\n            \"schoolYear\": 2022\r\n        },\r\n        \"sessionName\": \"2021-2022 Fall Semester Record Ownership\",\r\n        \"beginDate\": \"2021-08-23\",\r\n        \"endDate\": \"2021-12-17\",\r\n        \"termDescriptor\": \"uri://ed-fi.org/TermDescriptor#Fall Semester\",\r\n        \"totalInstructionalDays\": 81,\r\n        \"academicWeeks\": [],\r\n        \"gradingPeriods\": [\r\n            {\r\n                \"gradingPeriodReference\": {\r\n                    \"schoolId\": \"{{known:schoolId_9011}}\",\r\n                    \"schoolYear\": 2022,\r\n                    \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#First Six Weeks\",\r\n                    \"periodSequence\": 1\r\n                }\r\n            }\r\n        ]\r\n    }"
+											"raw": "{\r\n        \"schoolReference\": {\r\n            \"schoolId\": \"{{known:schoolId_9011}}\"\r\n        },\r\n        \"schoolYearTypeReference\": {\r\n            \"schoolYear\": 2022\r\n        },\r\n        \"sessionName\": \"2021-2022 Fall Semester Record Ownership\",\r\n        \"beginDate\": \"2021-08-23\",\r\n        \"endDate\": \"2021-12-17\",\r\n        \"termDescriptor\": \"uri://ed-fi.org/TermDescriptor#Fall Semester\",\r\n        \"totalInstructionalDays\": 81,\r\n        \"academicWeeks\": [],\r\n        \"gradingPeriods\": [\r\n            {\r\n                \"gradingPeriodReference\": {\r\n                    \"schoolId\": \"{{known:schoolId_9011}}\",\r\n                    \"schoolYear\": 2022,\r\n                    \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#First Six Weeks\",\r\n                    \"gradingPeriodName\": \"2021-2022 Fall Semester Exam 1\",\r\n                    \"PeriodSequence\": 1\r\n                }\r\n            }\r\n        ]\r\n    }"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sessions",
@@ -2374,7 +2375,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n        \"schoolReference\": {\r\n            \"schoolId\": \"{{known:schoolId_9021}}\"\r\n        },\r\n        \"schoolYearTypeReference\": {\r\n            \"schoolYear\": 2022\r\n        },\r\n        \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#First Six Weeks\",\r\n        \"periodSequence\": 1,\r\n        \"beginDate\": \"2021-08-23\",\r\n        \"endDate\": \"2021-10-03\",\r\n        \"totalInstructionalDays\": 99\r\n    }"
+											"raw": "{\r\n        \"schoolReference\": {\r\n            \"schoolId\": \"{{known:schoolId_9021}}\"\r\n        },\r\n        \"schoolYearTypeReference\": {\r\n            \"schoolYear\": 2022\r\n        },\r\n        \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#First Six Weeks\",\r\n        \"gradingPeriodName\": \"2021-2022 Fall Semester Exam 1\",\r\n        \"PeriodSequence\": 1,        \r\n        \"beginDate\": \"2021-08-23\",\r\n        \"endDate\": \"2021-10-03\",\r\n        \"totalInstructionalDays\": 99\r\n    }"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods",
@@ -2438,7 +2439,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n        \"schoolReference\": {\r\n            \"schoolId\": \"{{known:schoolId_9021}}\"\r\n        },\r\n        \"schoolYearTypeReference\": {\r\n            \"schoolYear\": 2022\r\n        },\r\n        \"sessionName\": \"2021-2022 Fall Semester Record Ownership\",\r\n        \"beginDate\": \"2021-08-23\",\r\n        \"endDate\": \"2021-12-17\",\r\n        \"termDescriptor\": \"uri://ed-fi.org/TermDescriptor#Fall Semester\",\r\n        \"totalInstructionalDays\": 81,\r\n        \"academicWeeks\": [],\r\n        \"gradingPeriods\": [\r\n            {\r\n                \"gradingPeriodReference\": {\r\n                    \"schoolId\": \"{{known:schoolId_9021}}\",\r\n                    \"schoolYear\": 2022,\r\n                    \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#First Six Weeks\",\r\n                    \"periodSequence\": 1\r\n                }\r\n            }\r\n        ]\r\n    }"
+											"raw": "{\r\n        \"schoolReference\": {\r\n            \"schoolId\": \"{{known:schoolId_9021}}\"\r\n        },\r\n        \"schoolYearTypeReference\": {\r\n            \"schoolYear\": 2022\r\n        },\r\n        \"sessionName\": \"2021-2022 Fall Semester Record Ownership\",\r\n        \"beginDate\": \"2021-08-23\",\r\n        \"endDate\": \"2021-12-17\",\r\n        \"termDescriptor\": \"uri://ed-fi.org/TermDescriptor#Fall Semester\",\r\n        \"totalInstructionalDays\": 81,\r\n        \"academicWeeks\": [],\r\n        \"gradingPeriods\": [\r\n            {\r\n                \"gradingPeriodReference\": {\r\n                    \"schoolId\": \"{{known:schoolId_9021}}\",\r\n                    \"schoolYear\": 2022,\r\n                    \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#First Six Weeks\",\r\n                    \"gradingPeriodName\": \"2021-2022 Fall Semester Exam 1\",\r\n                    \"PeriodSequence\": 1\r\n                }\r\n            }\r\n        ]\r\n    }"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sessions",

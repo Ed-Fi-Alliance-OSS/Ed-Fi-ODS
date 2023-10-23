@@ -10277,6 +10277,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ContactAggregate
                 isModified = true;
             }
 
+            if ((mappingContract?.IsGenderIdentitySupported != false)
+                && target.GenderIdentity != source.GenderIdentity)
+            {
+                target.GenderIdentity = source.GenderIdentity;
+                isModified = true;
+            }
+
             if ((mappingContract?.IsGenerationCodeSuffixSupported != false)
                 && target.GenerationCodeSuffix != source.GenerationCodeSuffix)
             {
@@ -10473,6 +10480,9 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ContactAggregate
 
             if (mappingContract?.IsFirstNameSupported != false)
                 target.FirstName = source.FirstName;
+
+            if (mappingContract?.IsGenderIdentitySupported != false)
+                target.GenderIdentity = source.GenderIdentity;
 
             if (mappingContract?.IsGenerationCodeSuffixSupported != false)
                 target.GenerationCodeSuffix = source.GenerationCodeSuffix;
@@ -14738,6 +14748,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseTranscriptAggregate
                 isModified = true;
             }
 
+            if ((mappingContract?.IsResponsibleTeacherStaffUniqueIdSupported != false)
+                && target.ResponsibleTeacherStaffUniqueId != source.ResponsibleTeacherStaffUniqueId)
+            {
+                target.ResponsibleTeacherStaffUniqueId = source.ResponsibleTeacherStaffUniqueId;
+                isModified = true;
+            }
+
             if ((mappingContract?.IsWhenTakenGradeLevelDescriptorSupported != false)
                 && target.WhenTakenGradeLevelDescriptor != source.WhenTakenGradeLevelDescriptor)
             {
@@ -14805,6 +14822,30 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseTranscriptAggregate
                                 child.CourseTranscript = target;
                             },
                         includeItem: item => mappingContract?.IsCourseTranscriptPartialCourseTranscriptAwardsIncluded?.Invoke(item) ?? true);
+            }
+
+            if (mappingContract?.IsCourseTranscriptProgramsSupported ?? true)
+            {
+                isModified |=
+                    source.CourseTranscriptPrograms.SynchronizeCollectionTo(
+                        target.CourseTranscriptPrograms,
+                        onChildAdded: child =>
+                            {
+                                child.CourseTranscript = target;
+                            },
+                        includeItem: item => mappingContract?.IsCourseTranscriptProgramIncluded?.Invoke(item) ?? true);
+            }
+
+            if (mappingContract?.IsCourseTranscriptSectionsSupported ?? true)
+            {
+                isModified |=
+                    source.CourseTranscriptSections.SynchronizeCollectionTo(
+                        target.CourseTranscriptSections,
+                        onChildAdded: child =>
+                            {
+                                child.CourseTranscript = target;
+                            },
+                        includeItem: item => mappingContract?.IsCourseTranscriptSectionIncluded?.Invoke(item) ?? true);
             }
 
             // Sync extensions
@@ -14882,6 +14923,9 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseTranscriptAggregate
             if (mappingContract?.IsMethodCreditEarnedDescriptorSupported != false)
                 target.MethodCreditEarnedDescriptor = source.MethodCreditEarnedDescriptor;
 
+            if (mappingContract?.IsResponsibleTeacherStaffUniqueIdSupported != false)
+                target.ResponsibleTeacherStaffUniqueId = source.ResponsibleTeacherStaffUniqueId;
+
             if (mappingContract?.IsWhenTakenGradeLevelDescriptorSupported != false)
                 target.WhenTakenGradeLevelDescriptor = source.WhenTakenGradeLevelDescriptor;
 
@@ -14893,6 +14937,8 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseTranscriptAggregate
                 target.CourseDiscriminator = source.CourseDiscriminator;
                 target.ExternalEducationOrganizationResourceId = source.ExternalEducationOrganizationResourceId;
                 target.ExternalEducationOrganizationDiscriminator = source.ExternalEducationOrganizationDiscriminator;
+                target.ResponsibleTeacherStaffResourceId = source.ResponsibleTeacherStaffResourceId;
+                target.ResponsibleTeacherStaffDiscriminator = source.ResponsibleTeacherStaffDiscriminator;
                 target.StudentAcademicRecordResourceId = source.StudentAcademicRecordResourceId;
                 target.StudentAcademicRecordDiscriminator = source.StudentAcademicRecordDiscriminator;
             }
@@ -14928,6 +14974,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseTranscriptAggregate
             if (mappingContract?.IsCourseTranscriptPartialCourseTranscriptAwardsSupported != false)
             {
                 source.CourseTranscriptPartialCourseTranscriptAwards.MapCollectionTo(target.CourseTranscriptPartialCourseTranscriptAwards, target, mappingContract?.IsCourseTranscriptPartialCourseTranscriptAwardsIncluded);
+            }
+
+            if (mappingContract?.IsCourseTranscriptProgramsSupported != false)
+            {
+                source.CourseTranscriptPrograms.MapCollectionTo(target.CourseTranscriptPrograms, target, mappingContract?.IsCourseTranscriptProgramIncluded);
+            }
+
+            if (mappingContract?.IsCourseTranscriptSectionsSupported != false)
+            {
+                source.CourseTranscriptSections.MapCollectionTo(target.CourseTranscriptSections, target, mappingContract?.IsCourseTranscriptSectionIncluded);
             }
 
             // Map extensions
@@ -15352,6 +15408,164 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseTranscriptAggregate
                 target.NumericGradeEarned = source.NumericGradeEarned;
 
             // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class CourseTranscriptProgramMapper
+    {
+        private static readonly FullName _fullName_edfi_CourseTranscriptProgram = new FullName("edfi", "CourseTranscriptProgram");
+    
+        public static bool SynchronizeTo(this ICourseTranscriptProgram source, ICourseTranscriptProgram target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CourseTranscriptProgramMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_CourseTranscriptProgram);
+
+
+            // Copy non-PK properties
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this ICourseTranscriptProgram source, ICourseTranscriptProgram target, Action<ICourseTranscriptProgram, ICourseTranscriptProgram> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CourseTranscriptProgramMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_CourseTranscriptProgram);
+    
+            // Copy contextual primary key values
+            target.ProgramName = source.ProgramName;
+            target.ProgramTypeDescriptor = source.ProgramTypeDescriptor;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.ProgramResourceId = source.ProgramResourceId;
+                target.ProgramDiscriminator = source.ProgramDiscriminator;
+            }
+
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class CourseTranscriptSectionMapper
+    {
+        private static readonly FullName _fullName_edfi_CourseTranscriptSection = new FullName("edfi", "CourseTranscriptSection");
+    
+        public static bool SynchronizeTo(this ICourseTranscriptSection source, ICourseTranscriptSection target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CourseTranscriptSectionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_CourseTranscriptSection);
+
+
+            // Copy non-PK properties
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this ICourseTranscriptSection source, ICourseTranscriptSection target, Action<ICourseTranscriptSection, ICourseTranscriptSection> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CourseTranscriptSectionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_CourseTranscriptSection);
+    
+            // Copy contextual primary key values
+            target.LocalCourseCode = source.LocalCourseCode;
+            target.SchoolId = source.SchoolId;
+            target.SectionIdentifier = source.SectionIdentifier;
+            target.SessionName = source.SessionName;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.SectionResourceId = source.SectionResourceId;
+                target.SectionDiscriminator = source.SectionDiscriminator;
+            }
+
 
 
             // ----------------------------------
@@ -25564,8 +25778,8 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradeAggregate
                  (target.BeginDate != source.BeginDate)
                 || !string.Equals(target.GradeTypeDescriptor, source.GradeTypeDescriptor, StringComparison.OrdinalIgnoreCase)
                 || !string.Equals(target.GradingPeriodDescriptor, source.GradingPeriodDescriptor, StringComparison.OrdinalIgnoreCase)
+                || (!keyStringComparer.Equals(target.GradingPeriodName, source.GradingPeriodName))
                 || (target.GradingPeriodSchoolYear != source.GradingPeriodSchoolYear)
-                || (target.GradingPeriodSequence != source.GradingPeriodSequence)
                 || (!keyStringComparer.Equals(target.LocalCourseCode, source.LocalCourseCode))
                 || (target.SchoolId != source.SchoolId)
                 || (target.SchoolYear != source.SchoolYear)
@@ -25599,13 +25813,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradeAggregate
                 {
                     source.GradingPeriodDescriptor = target.GradingPeriodDescriptor;
                 }
+                if (source.GradingPeriodName != target.GradingPeriodName)
+                {
+                    source.GradingPeriodName = target.GradingPeriodName;
+                }
                 if (source.GradingPeriodSchoolYear != target.GradingPeriodSchoolYear)
                 {
                     source.GradingPeriodSchoolYear = target.GradingPeriodSchoolYear;
-                }
-                if (source.GradingPeriodSequence != target.GradingPeriodSequence)
-                {
-                    source.GradingPeriodSequence = target.GradingPeriodSequence;
                 }
                 if (source.LocalCourseCode != target.LocalCourseCode)
                 {
@@ -25719,8 +25933,8 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradeAggregate
             target.BeginDate = source.BeginDate;
             target.GradeTypeDescriptor = source.GradeTypeDescriptor;
             target.GradingPeriodDescriptor = source.GradingPeriodDescriptor;
+            target.GradingPeriodName = source.GradingPeriodName;
             target.GradingPeriodSchoolYear = source.GradingPeriodSchoolYear;
-            target.GradingPeriodSequence = source.GradingPeriodSequence;
             target.LocalCourseCode = source.LocalCourseCode;
             target.SchoolId = source.SchoolId;
             target.SchoolYear = source.SchoolYear;
@@ -26010,6 +26224,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradebookEntryAggregate
                 isModified = true;
             }
 
+            if ((mappingContract?.IsGradingPeriodNameSupported != false)
+                && target.GradingPeriodName != source.GradingPeriodName)
+            {
+                target.GradingPeriodName = source.GradingPeriodName;
+                isModified = true;
+            }
+
             if ((mappingContract?.IsLocalCourseCodeSupported != false)
                 && target.LocalCourseCode != source.LocalCourseCode)
             {
@@ -26021,13 +26242,6 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradebookEntryAggregate
                 && target.MaxPoints != source.MaxPoints)
             {
                 target.MaxPoints = source.MaxPoints;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsPeriodSequenceSupported != false)
-                && target.PeriodSequence != source.PeriodSequence)
-            {
-                target.PeriodSequence = source.PeriodSequence;
                 isModified = true;
             }
 
@@ -26127,14 +26341,14 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradebookEntryAggregate
             if (mappingContract?.IsGradingPeriodDescriptorSupported != false)
                 target.GradingPeriodDescriptor = source.GradingPeriodDescriptor;
 
+            if (mappingContract?.IsGradingPeriodNameSupported != false)
+                target.GradingPeriodName = source.GradingPeriodName;
+
             if (mappingContract?.IsLocalCourseCodeSupported != false)
                 target.LocalCourseCode = source.LocalCourseCode;
 
             if (mappingContract?.IsMaxPointsSupported != false)
                 target.MaxPoints = source.MaxPoints;
-
-            if (mappingContract?.IsPeriodSequenceSupported != false)
-                target.PeriodSequence = source.PeriodSequence;
 
             if (mappingContract?.IsSchoolIdSupported != false)
                 target.SchoolId = source.SchoolId;
@@ -26941,10 +27155,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradingPeriodAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_GradingPeriod);
 
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  !string.Equals(target.GradingPeriodDescriptor, source.GradingPeriodDescriptor, StringComparison.OrdinalIgnoreCase)
-                || (target.PeriodSequence != source.PeriodSequence)
+                || (!keyStringComparer.Equals(target.GradingPeriodName, source.GradingPeriodName))
                 || (target.SchoolId != source.SchoolId)
                 || (target.SchoolYear != source.SchoolYear))
             {
@@ -26966,6 +27182,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradingPeriodAggregate
                 && target.EndDate != source.EndDate)
             {
                 target.EndDate = source.EndDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsPeriodSequenceSupported != false)
+                && target.PeriodSequence != source.PeriodSequence)
+            {
+                target.PeriodSequence = source.PeriodSequence;
                 isModified = true;
             }
 
@@ -26996,7 +27219,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradingPeriodAggregate
 
             // Copy contextual primary key values
             target.GradingPeriodDescriptor = source.GradingPeriodDescriptor;
-            target.PeriodSequence = source.PeriodSequence;
+            target.GradingPeriodName = source.GradingPeriodName;
             target.SchoolId = source.SchoolId;
             target.SchoolYear = source.SchoolYear;
 
@@ -27007,6 +27230,9 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradingPeriodAggregate
 
             if (mappingContract?.IsEndDateSupported != false)
                 target.EndDate = source.EndDate;
+
+            if (mappingContract?.IsPeriodSequenceSupported != false)
+                target.PeriodSequence = source.PeriodSequence;
 
             if (mappingContract?.IsTotalInstructionalDaysSupported != false)
                 target.TotalInstructionalDays = source.TotalInstructionalDays;
@@ -48838,13 +49064,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ReportCardAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_edfi_ReportCard);
 
+            var keyStringComparer = GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer;
+
             // Detect primary key changes
             if (
                  (target.EducationOrganizationId != source.EducationOrganizationId)
                 || !string.Equals(target.GradingPeriodDescriptor, source.GradingPeriodDescriptor, StringComparison.OrdinalIgnoreCase)
+                || (!keyStringComparer.Equals(target.GradingPeriodName, source.GradingPeriodName))
                 || (target.GradingPeriodSchoolId != source.GradingPeriodSchoolId)
                 || (target.GradingPeriodSchoolYear != source.GradingPeriodSchoolYear)
-                || (target.GradingPeriodSequence != source.GradingPeriodSequence)
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on ReportCard
@@ -48932,9 +49160,9 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ReportCardAggregate
             // Copy contextual primary key values
             target.EducationOrganizationId = source.EducationOrganizationId;
             target.GradingPeriodDescriptor = source.GradingPeriodDescriptor;
+            target.GradingPeriodName = source.GradingPeriodName;
             target.GradingPeriodSchoolId = source.GradingPeriodSchoolId;
             target.GradingPeriodSchoolYear = source.GradingPeriodSchoolYear;
-            target.GradingPeriodSequence = source.GradingPeriodSequence;
             target.StudentUniqueId = source.StudentUniqueId;
 
             // Copy non-PK properties
@@ -52406,6 +52634,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SectionAggregate
                 isModified = true;
             }
 
+            if ((mappingContract?.IsSectionTypeDescriptorSupported != false)
+                && target.SectionTypeDescriptor != source.SectionTypeDescriptor)
+            {
+                target.SectionTypeDescriptor = source.SectionTypeDescriptor;
+                isModified = true;
+            }
+
             if ((mappingContract?.IsSequenceOfCourseSupported != false)
                 && target.SequenceOfCourse != source.SequenceOfCourse)
             {
@@ -52532,6 +52767,9 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SectionAggregate
 
             if (mappingContract?.IsSectionNameSupported != false)
                 target.SectionName = source.SectionName;
+
+            if (mappingContract?.IsSectionTypeDescriptorSupported != false)
+                target.SectionTypeDescriptor = source.SectionTypeDescriptor;
 
             if (mappingContract?.IsSequenceOfCourseSupported != false)
                 target.SequenceOfCourse = source.SequenceOfCourse;
@@ -53203,6 +53441,167 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SectionCharacteristicDescriptorAggreg
 
             // Copy contextual primary key values
             target.SectionCharacteristicDescriptorId = source.SectionCharacteristicDescriptorId;
+
+            // Copy inherited non-PK properties
+
+            if (mappingContract?.IsCodeValueSupported != false)
+                target.CodeValue = source.CodeValue;
+
+            if (mappingContract?.IsDescriptionSupported != false)
+                target.Description = source.Description;
+
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
+                target.EffectiveEndDate = source.EffectiveEndDate;
+
+            if (mappingContract?.IsNamespaceSupported != false)
+                target.Namespace = source.Namespace;
+
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
+                target.PriorDescriptorId = source.PriorDescriptorId;
+
+            if (mappingContract?.IsShortDescriptionSupported != false)
+                target.ShortDescription = source.ShortDescription;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map inherited lists
+
+            // Map lists
+
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+}
+// Aggregate: SectionTypeDescriptor
+
+namespace EdFi.Ods.Entities.Common.EdFi //.SectionTypeDescriptorAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class SectionTypeDescriptorMapper
+    {
+        private static readonly FullName _fullName_edfi_SectionTypeDescriptor = new FullName("edfi", "SectionTypeDescriptor");
+    
+        public static bool SynchronizeTo(this ISectionTypeDescriptor source, ISectionTypeDescriptor target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (SectionTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_SectionTypeDescriptor);
+
+            // Detect primary key changes
+            if (
+                 (target.SectionTypeDescriptorId != source.SectionTypeDescriptorId))
+            {
+                // Disallow PK column updates on SectionTypeDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
+
+
+            // Copy inherited non-PK properties
+
+
+            if ((mappingContract?.IsCodeValueSupported != false)
+                && target.CodeValue != source.CodeValue)
+            {
+                target.CodeValue = source.CodeValue;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsDescriptionSupported != false)
+                && target.Description != source.Description)
+            {
+                target.Description = source.Description;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
+                && target.EffectiveBeginDate != source.EffectiveBeginDate)
+            {
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
+                && target.EffectiveEndDate != source.EffectiveEndDate)
+            {
+                target.EffectiveEndDate = source.EffectiveEndDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsNamespaceSupported != false)
+                && target.Namespace != source.Namespace)
+            {
+                target.Namespace = source.Namespace;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
+                && target.PriorDescriptorId != source.PriorDescriptorId)
+            {
+                target.PriorDescriptorId = source.PriorDescriptorId;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsShortDescriptionSupported != false)
+                && target.ShortDescription != source.ShortDescription)
+            {
+                target.ShortDescription = source.ShortDescription;
+                isModified = true;
+            }
+
+            // Copy non-PK properties
+
+
+            // Synch inherited lists
+
+            // Sync lists
+
+            return isModified;
+        }
+
+        public static void MapTo(this ISectionTypeDescriptor source, ISectionTypeDescriptor target, Action<ISectionTypeDescriptor, ISectionTypeDescriptor> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (SectionTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_SectionTypeDescriptor);
+    
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.SectionTypeDescriptorId = source.SectionTypeDescriptorId;
 
             // Copy inherited non-PK properties
 
@@ -54053,7 +54452,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SessionAggregate
     
             // Copy contextual primary key values
             target.GradingPeriodDescriptor = source.GradingPeriodDescriptor;
-            target.PeriodSequence = source.PeriodSequence;
+            target.GradingPeriodName = source.GradingPeriodName;
 
             // Copy non-PK properties
 
@@ -54979,6 +55378,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
                 isModified = true;
             }
 
+            if ((mappingContract?.IsGenderIdentitySupported != false)
+                && target.GenderIdentity != source.GenderIdentity)
+            {
+                target.GenderIdentity = source.GenderIdentity;
+                isModified = true;
+            }
+
             if ((mappingContract?.IsGenerationCodeSuffixSupported != false)
                 && target.GenerationCodeSuffix != source.GenerationCodeSuffix)
             {
@@ -55309,6 +55715,9 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
 
             if (mappingContract?.IsFirstNameSupported != false)
                 target.FirstName = source.FirstName;
+
+            if (mappingContract?.IsGenderIdentitySupported != false)
+                target.GenderIdentity = source.GenderIdentity;
 
             if (mappingContract?.IsGenerationCodeSuffixSupported != false)
                 target.GenerationCodeSuffix = source.GenerationCodeSuffix;
@@ -58660,6 +59069,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffEducationOrganizationEmploymentA
 
             // Copy non-PK properties
 
+            if ((mappingContract?.IsAnnualWageSupported != false)
+                && target.AnnualWage != source.AnnualWage)
+            {
+                target.AnnualWage = source.AnnualWage;
+                isModified = true;
+            }
+
             if ((mappingContract?.IsCredentialIdentifierSupported != false)
                 && target.CredentialIdentifier != source.CredentialIdentifier)
             {
@@ -58748,6 +59164,9 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffEducationOrganizationEmploymentA
             target.StaffUniqueId = source.StaffUniqueId;
 
             // Copy non-PK properties
+
+            if (mappingContract?.IsAnnualWageSupported != false)
+                target.AnnualWage = source.AnnualWage;
 
             if (mappingContract?.IsCredentialIdentifierSupported != false)
                 target.CredentialIdentifier = source.CredentialIdentifier;
@@ -62413,9 +62832,9 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAcademicRecordAggregate
     
             // Copy contextual primary key values
             target.GradingPeriodDescriptor = source.GradingPeriodDescriptor;
+            target.GradingPeriodName = source.GradingPeriodName;
             target.GradingPeriodSchoolId = source.GradingPeriodSchoolId;
             target.GradingPeriodSchoolYear = source.GradingPeriodSchoolYear;
-            target.GradingPeriodSequence = source.GradingPeriodSequence;
 
             // Copy non-PK properties
 
@@ -64164,9 +64583,9 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCompetencyObjectiveAggregate
             // Detect primary key changes
             if (
                  !string.Equals(target.GradingPeriodDescriptor, source.GradingPeriodDescriptor, StringComparison.OrdinalIgnoreCase)
+                || (!keyStringComparer.Equals(target.GradingPeriodName, source.GradingPeriodName))
                 || (target.GradingPeriodSchoolId != source.GradingPeriodSchoolId)
                 || (target.GradingPeriodSchoolYear != source.GradingPeriodSchoolYear)
-                || (target.GradingPeriodSequence != source.GradingPeriodSequence)
                 || (!keyStringComparer.Equals(target.Objective, source.Objective))
                 || (target.ObjectiveEducationOrganizationId != source.ObjectiveEducationOrganizationId)
                 || !string.Equals(target.ObjectiveGradeLevelDescriptor, source.ObjectiveGradeLevelDescriptor, StringComparison.OrdinalIgnoreCase)
@@ -64237,9 +64656,9 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCompetencyObjectiveAggregate
 
             // Copy contextual primary key values
             target.GradingPeriodDescriptor = source.GradingPeriodDescriptor;
+            target.GradingPeriodName = source.GradingPeriodName;
             target.GradingPeriodSchoolId = source.GradingPeriodSchoolId;
             target.GradingPeriodSchoolYear = source.GradingPeriodSchoolYear;
-            target.GradingPeriodSequence = source.GradingPeriodSequence;
             target.Objective = source.Objective;
             target.ObjectiveEducationOrganizationId = source.ObjectiveEducationOrganizationId;
             target.ObjectiveGradeLevelDescriptor = source.ObjectiveGradeLevelDescriptor;
@@ -65382,6 +65801,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
                 isModified = true;
             }
 
+            if ((mappingContract?.IsGenderIdentitySupported != false)
+                && target.GenderIdentity != source.GenderIdentity)
+            {
+                target.GenderIdentity = source.GenderIdentity;
+                isModified = true;
+            }
+
             if ((mappingContract?.IsHispanicLatinoEthnicitySupported != false)
                 && target.HispanicLatinoEthnicity != source.HispanicLatinoEthnicity)
             {
@@ -65456,6 +65882,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
                 && target.SexDescriptor != source.SexDescriptor)
             {
                 target.SexDescriptor = source.SexDescriptor;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsSupporterMilitaryConnectionDescriptorSupported != false)
+                && target.SupporterMilitaryConnectionDescriptor != source.SupporterMilitaryConnectionDescriptor)
+            {
+                target.SupporterMilitaryConnectionDescriptor = source.SupporterMilitaryConnectionDescriptor;
                 isModified = true;
             }
 
@@ -65642,6 +66075,9 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             if (mappingContract?.IsBarrierToInternetAccessInResidenceDescriptorSupported != false)
                 target.BarrierToInternetAccessInResidenceDescriptor = source.BarrierToInternetAccessInResidenceDescriptor;
 
+            if (mappingContract?.IsGenderIdentitySupported != false)
+                target.GenderIdentity = source.GenderIdentity;
+
             if (mappingContract?.IsHispanicLatinoEthnicitySupported != false)
                 target.HispanicLatinoEthnicity = source.HispanicLatinoEthnicity;
 
@@ -65674,6 +66110,9 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
 
             if (mappingContract?.IsSexDescriptorSupported != false)
                 target.SexDescriptor = source.SexDescriptor;
+
+            if (mappingContract?.IsSupporterMilitaryConnectionDescriptorSupported != false)
+                target.SupporterMilitaryConnectionDescriptor = source.SupporterMilitaryConnectionDescriptor;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -71965,6 +72404,18 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSectionAssociationAggregate
 
 
             // Sync lists
+            if (mappingContract?.IsStudentSectionAssociationProgramsSupported ?? true)
+            {
+                isModified |=
+                    source.StudentSectionAssociationPrograms.SynchronizeCollectionTo(
+                        target.StudentSectionAssociationPrograms,
+                        onChildAdded: child =>
+                            {
+                                child.StudentSectionAssociation = target;
+                            },
+                        includeItem: item => mappingContract?.IsStudentSectionAssociationProgramIncluded?.Invoke(item) ?? true);
+            }
+
             // Sync extensions
             isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
 
@@ -72015,6 +72466,90 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSectionAssociationAggregate
                 target.SectionDiscriminator = source.SectionDiscriminator;
                 target.StudentResourceId = source.StudentResourceId;
                 target.StudentDiscriminator = source.StudentDiscriminator;
+            }
+
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            if (mappingContract?.IsStudentSectionAssociationProgramsSupported != false)
+            {
+                source.StudentSectionAssociationPrograms.MapCollectionTo(target.StudentSectionAssociationPrograms, target, mappingContract?.IsStudentSectionAssociationProgramIncluded);
+            }
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class StudentSectionAssociationProgramMapper
+    {
+        private static readonly FullName _fullName_edfi_StudentSectionAssociationProgram = new FullName("edfi", "StudentSectionAssociationProgram");
+    
+        public static bool SynchronizeTo(this IStudentSectionAssociationProgram source, IStudentSectionAssociationProgram target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentSectionAssociationProgramMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentSectionAssociationProgram);
+
+
+            // Copy non-PK properties
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this IStudentSectionAssociationProgram source, IStudentSectionAssociationProgram target, Action<IStudentSectionAssociationProgram, IStudentSectionAssociationProgram> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentSectionAssociationProgramMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentSectionAssociationProgram);
+    
+            // Copy contextual primary key values
+            target.EducationOrganizationId = source.EducationOrganizationId;
+            target.ProgramName = source.ProgramName;
+            target.ProgramTypeDescriptor = source.ProgramTypeDescriptor;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.ProgramResourceId = source.ProgramResourceId;
+                target.ProgramDiscriminator = source.ProgramDiscriminator;
             }
 
 
@@ -73743,6 +74278,167 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SubmissionStatusDescriptorAggregate
 
             // Copy contextual primary key values
             target.SubmissionStatusDescriptorId = source.SubmissionStatusDescriptorId;
+
+            // Copy inherited non-PK properties
+
+            if (mappingContract?.IsCodeValueSupported != false)
+                target.CodeValue = source.CodeValue;
+
+            if (mappingContract?.IsDescriptionSupported != false)
+                target.Description = source.Description;
+
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
+                target.EffectiveEndDate = source.EffectiveEndDate;
+
+            if (mappingContract?.IsNamespaceSupported != false)
+                target.Namespace = source.Namespace;
+
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
+                target.PriorDescriptorId = source.PriorDescriptorId;
+
+            if (mappingContract?.IsShortDescriptionSupported != false)
+                target.ShortDescription = source.ShortDescription;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map inherited lists
+
+            // Map lists
+
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+}
+// Aggregate: SupporterMilitaryConnectionDescriptor
+
+namespace EdFi.Ods.Entities.Common.EdFi //.SupporterMilitaryConnectionDescriptorAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class SupporterMilitaryConnectionDescriptorMapper
+    {
+        private static readonly FullName _fullName_edfi_SupporterMilitaryConnectionDescriptor = new FullName("edfi", "SupporterMilitaryConnectionDescriptor");
+    
+        public static bool SynchronizeTo(this ISupporterMilitaryConnectionDescriptor source, ISupporterMilitaryConnectionDescriptor target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (SupporterMilitaryConnectionDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_SupporterMilitaryConnectionDescriptor);
+
+            // Detect primary key changes
+            if (
+                 (target.SupporterMilitaryConnectionDescriptorId != source.SupporterMilitaryConnectionDescriptorId))
+            {
+                // Disallow PK column updates on SupporterMilitaryConnectionDescriptor
+                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+            }
+
+
+            // Copy inherited non-PK properties
+
+
+            if ((mappingContract?.IsCodeValueSupported != false)
+                && target.CodeValue != source.CodeValue)
+            {
+                target.CodeValue = source.CodeValue;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsDescriptionSupported != false)
+                && target.Description != source.Description)
+            {
+                target.Description = source.Description;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
+                && target.EffectiveBeginDate != source.EffectiveBeginDate)
+            {
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
+                && target.EffectiveEndDate != source.EffectiveEndDate)
+            {
+                target.EffectiveEndDate = source.EffectiveEndDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsNamespaceSupported != false)
+                && target.Namespace != source.Namespace)
+            {
+                target.Namespace = source.Namespace;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
+                && target.PriorDescriptorId != source.PriorDescriptorId)
+            {
+                target.PriorDescriptorId = source.PriorDescriptorId;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsShortDescriptionSupported != false)
+                && target.ShortDescription != source.ShortDescription)
+            {
+                target.ShortDescription = source.ShortDescription;
+                isModified = true;
+            }
+
+            // Copy non-PK properties
+
+
+            // Synch inherited lists
+
+            // Sync lists
+
+            return isModified;
+        }
+
+        public static void MapTo(this ISupporterMilitaryConnectionDescriptor source, ISupporterMilitaryConnectionDescriptor target, Action<ISupporterMilitaryConnectionDescriptor, ISupporterMilitaryConnectionDescriptor> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (SupporterMilitaryConnectionDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_SupporterMilitaryConnectionDescriptor);
+    
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.SupporterMilitaryConnectionDescriptorId = source.SupporterMilitaryConnectionDescriptorId;
 
             // Copy inherited non-PK properties
 
