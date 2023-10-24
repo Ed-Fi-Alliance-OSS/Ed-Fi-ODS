@@ -14,6 +14,7 @@ namespace EdFi.Ods.Common.Models.Resource
     public class Resource : ResourceClassBase
     {
         private readonly Lazy<IReadOnlyDictionary<string, LinkedCollection>> _linkedCollectionByName;
+        private readonly Lazy<IReadOnlyDictionary<string, ResourceClassBase>> _containedItemTypeByName;
         private readonly Lazy<IReadOnlyList<LinkedCollection>> _linkedCollections;
 
         internal Resource(IResourceModel resourceModel, Entity entity)
@@ -21,6 +22,7 @@ namespace EdFi.Ods.Common.Models.Resource
         {
             _linkedCollections = LazyInitializeLinkedCollections(entity);
             _linkedCollectionByName = LazyInitializeLinkedCollectionByName();
+            _containedItemTypeByName = LazyInitializeContainedItemTypeByName();
         }
 
         internal Resource(IResourceModel resourceModel, Entity entity, FilterContext filterContext)
@@ -28,6 +30,7 @@ namespace EdFi.Ods.Common.Models.Resource
         {
             _linkedCollections = LazyInitializeLinkedCollections(entity);
             _linkedCollectionByName = LazyInitializeLinkedCollectionByName();
+            _containedItemTypeByName = LazyInitializeContainedItemTypeByName();
         }
 
         internal Resource(Resource[] resources)
@@ -41,6 +44,7 @@ namespace EdFi.Ods.Common.Models.Resource
 
             _linkedCollections = LazyInitializeLinkedCollections(entity);
             _linkedCollectionByName = LazyInitializeLinkedCollectionByName();
+            _containedItemTypeByName = LazyInitializeContainedItemTypeByName();
         }
 
         /// <summary>
@@ -58,6 +62,8 @@ namespace EdFi.Ods.Common.Models.Resource
             _linkedCollectionByName = new Lazy<IReadOnlyDictionary<string, LinkedCollection>>(
                 () =>
                     new Dictionary<string, LinkedCollection>());
+
+            _containedItemTypeByName = LazyInitializeContainedItemTypeByName();
         }
 
         public bool IsEdFiCore { get; set; }
@@ -95,6 +101,11 @@ namespace EdFi.Ods.Common.Models.Resource
             => new ResourceClassBase[] { this }.Concat(ContainedItemTypes).ToArray();
 
         /// <summary>
+        /// Gets a dictionary containing all the resource classes contained by the Resource, keyed by class name.
+        /// </summary>
+        public IReadOnlyDictionary<string, ResourceClassBase> ContainedItemTypeByName => _containedItemTypeByName.Value;
+
+        /// <summary>
         /// Returns all the references contained within the resource.
         /// </summary>
         public IReadOnlyList<Reference> AllContainedReferences => ContainedReferences;
@@ -103,7 +114,14 @@ namespace EdFi.Ods.Common.Models.Resource
         {
             return new Lazy<IReadOnlyDictionary<string, LinkedCollection>>(
                 () =>
-                    LinkedCollections.ToDictionary(x => x.Name, x => x, StringComparer.InvariantCultureIgnoreCase));
+                    LinkedCollections.ToDictionary(x => x.Name, x => x, StringComparer.OrdinalIgnoreCase));
+        }
+
+        private Lazy<IReadOnlyDictionary<string, ResourceClassBase>> LazyInitializeContainedItemTypeByName()
+        {
+            return new Lazy<IReadOnlyDictionary<string, ResourceClassBase>>(
+                () =>
+                    AllContainedItemTypesOrSelf.ToDictionary(x => x.Name, x => x, StringComparer.OrdinalIgnoreCase));
         }
 
         private Lazy<IReadOnlyList<LinkedCollection>> LazyInitializeLinkedCollections(Entity entity)
