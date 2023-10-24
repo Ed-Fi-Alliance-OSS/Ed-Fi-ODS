@@ -58,6 +58,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     .Select(
                         x => new {Namespace = EdFiConventions.BuildNamespace(Namespaces.Entities.Common.BaseNamespace, x)}),
                 ProperCaseName = TemplateContext.SchemaProperCaseName,
+                SchemaName = TemplateContext.SchemaPhysicalName,
                 IsExtensionContext = TemplateContext.IsExtension
             };
         }
@@ -250,75 +251,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 : ResourceRenderer.DoNotRenderProperty;
         }
 
-        private object CreateContextSpecificResourceReferences(ResourceClassBase resource)
-        {
-            if (resource.IsAggregateRoot() || !resource.HasBackReferences())
-            {
-                return ResourceRenderer.DoNotRenderProperty;
-            }
-
-            var externalAssociations = resource.ExternalReferenceAssociations()
-                .ToList();
-
-            var refs = externalAssociations.Select(
-                    av => new
-                    {
-                        ContextSpecificResourceReference = new
-                        {
-                            NamespacePrefix = resource.GetNamespacePrefix(),
-                            ReferenceName = string.Format(
-                                "{0}To{1}",
-                                av.ThisEntity.Name,
-                                av.OtherEntity.Name),
-                            // Leaving this member definition inline as this entire method
-                            // is to be deprecated in the future.
-                            ContextualReferenceIdentifier =
-                                av.ThisProperties
-                                    .Where(p => (p.IsUnified && p.IsIdentifying))
-                                    .Select(
-                                        p =>
-                                            av.PropertyMappingByThisName[p.PropertyName]
-                                                .OtherProperty
-                                                .ToResourceProperty(resource))
-                                    .OrderBy(p => p.PropertyName)
-                                    .Select(p => new
-                                    {
-                                        PropertyName = p.PropertyName,
-                                        JsonPropertyName = p.JsonPropertyName,
-                                        PropertyType = p.PropertyType.ToCSharp(),
-                                        // Use GetLineage to build the property path, in reverse order, skipping the first since that's the BackReference itself
-                                        PropertyPathToRoot = "BackReference." +
-                                            string.Join(".", ((ResourceChildItem)resource).GetLineage().Reverse().Skip(1).Select(l => l.Name)),
-                                        IsUniqueId = UniqueIdConventions.IsUniqueId(p.PropertyName),
-                                        UniqueIdPersonType = UniqueIdConventions.IsUniqueId(p.PropertyName) 
-                                            ? PersonEntitySpecification.GetUniqueIdPersonType(p.PropertyName)
-                                            : null
-                                    }),
-                            ReferenceIdentifiers =
-                                _resourcePropertyRenderer.AssembleIdentifiers(
-                                    resource,
-                                    av),
-                            Href = AssembleHref(resource, av),
-                            HasDiscriminator = av.OtherEntity.HasDiscriminator(),
-                            ThisEntityName = av.ThisEntity.Name,
-                            OtherEntityName = av.OtherEntity.Name,
-                            BackReference =
-                                string.Format(
-                                    "backreference.{0}.",
-                                    (resource as ResourceChildItem)?.Parent.Name),
-                            ReferenceFullyDefined =
-                                _resourcePropertyRenderer
-                                    .AssembleReferenceFullyDefined(
-                                        resource,
-                                        av)
-                        }
-                    }
-                )
-                .ToList();
-
-            return refs;
-        }
-
         private ResourceClassBase GetContextualParent(ResourceChildItem resourceChildItem)
         {
             if (resourceChildItem == null)
@@ -383,7 +315,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         Href = AssembleHref(resourceClass)
                     }
                     : ResourceRenderer.DoNotRenderProperty,
-                ContextSpecificResourceReferences = CreateContextSpecificResourceReferences(resourceClass),
                 ClassName = resourceClass.Name,
                 EntityName = resourceClass.Name,
                 Constructor = AssembleConstructor(resourceClass),

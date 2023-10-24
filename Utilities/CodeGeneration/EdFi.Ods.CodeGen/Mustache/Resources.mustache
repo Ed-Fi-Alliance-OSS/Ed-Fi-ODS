@@ -36,7 +36,7 @@ namespace {{ResourceClassesNamespace}}
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class {{ReferenceName}}Reference
+    public class {{ReferenceName}}Reference : IResourceReference
     {
         {{#ReferenceIdentifiers}}
         [DataMember(Name="{{JsonPropertyName}}"), NaturalKeyMember]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
@@ -99,6 +99,17 @@ namespace {{ResourceClassesNamespace}}
             return {{#ReferenceIdentifiers}}{{#IsFirstProperty}}{{PropertyName}} != default({{PropertyType}}){{/IsFirstProperty}}{{^IsFirstProperty}} && {{PropertyName}} != default({{PropertyType}}){{/IsFirstProperty}}{{/ReferenceIdentifiers}};
         }
 
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            {{#ReferenceIdentifiers}}
+            if ({{PropertyName}} == default)
+            {
+                yield return "{{PropertyName}}";
+            }
+
+            {{/ReferenceIdentifiers}}
+        }
+
         {{#HRef}}
         private Link CreateLink()
         {
@@ -142,164 +153,6 @@ namespace {{ResourceClassesNamespace}}
     } // Aggregate reference
 
     {{/ResourceReference}}
-    {{#ContextSpecificResourceReferences}}
-    {{#ContextSpecificResourceReference}}
-    /// <summary>
-    /// Represents a reference from the {{ThisEntityName}} entity to the {{OtherEntityName}} resource.
-    /// </summary>
-    [DataContract]
-    [ExcludeFromCodeCoverage]
-    public class {{ReferenceName}}Reference
-    {
-        private {{NamespacePrefix}}I{{ThisEntityName}} backReference;
-
-        // Parameterless constructor for deserialization
-        public {{ReferenceName}}Reference() { }
-
-        // Constructor for inline initialization in parent
-        public {{ReferenceName}}Reference({{NamespacePrefix}}I{{ThisEntityName}} backReference)
-        {
-            this.backReference = backReference;
-        }
-
-        // Expose back reference internally for access after JSON deserialization to enable link generation
-        internal {{NamespacePrefix}}I{{ThisEntityName}} BackReference
-        {
-            get { return backReference; }
-            set { backReference = value; }
-        }
-
-        {{#ContextualReferenceIdentifier}}
-        private {{PropertyType}} _{{JsonPropertyName}};
-
-        [DataMember(Name="{{JsonPropertyName}}"), NaturalKeyMember]
-        public {{PropertyType}} {{PropertyName}}
-        {
-            get => _{{JsonPropertyName}} == default({{PropertyType}})
-                    ? {{PropertyPathToRoot}}.{{PropertyName}}
-                    : _{{JsonPropertyName}};
-            {{#IsUniqueId}}
-            set
-            {
-                _{{JsonPropertyName}} = value;
-                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("{{UniqueIdPersonType}}", value);
-            }
-            {{/IsUniqueId}}
-            {{^IsUniqueId}}
-            set => _{{JsonPropertyName}} = value;
-            {{/IsUniqueId}}
-        }
-
-        {{/ContextualReferenceIdentifier}}
-        {{#ReferenceIdentifiers}}
-        [DataMember(Name="{{JsonPropertyName}}"), NaturalKeyMember]
-        {{^IsUniqueId}}
-        public {{PropertyType}} {{PropertyName}} { get; set; }
-        {{/IsUniqueId}}
-        {{#IsUniqueId}}
-        public {{PropertyType}} {{PropertyName}} 
-        {
-            get => _{{PropertyFieldName}};
-            set
-            {
-                _{{PropertyFieldName}} = value;
-                GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().AddLookup("{{UniqueIdPersonType}}", value);
-            }
-        }
-        private {{PropertyType}} _{{PropertyFieldName}};
-        {{/IsUniqueId}}
-
-        {{/ReferenceIdentifiers}}
-        /// <summary>
-        /// Gets or sets the referenced resource's identifier (i.e. "id" property).
-        /// </summary>
-        public Guid ResourceId { get; set; }
-
-        {{#HasDiscriminator}}
-        /// <summary>
-        /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
-        /// when a resource has been derived; otherwise <b>null</b>.
-        /// </summary>
-        public string Discriminator { get; set; }
-
-        {{/HasDiscriminator}}
-        {{#HRef}}private Link _link;
-
-        [DataMember(Name="link")]
-        public Link Link
-        {
-            get
-            {
-                if (_link == null)
-                {
-                    // Can't generate a link without the back reference
-                    if (backReference == null)
-                        return null;
-
-                    // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
-                        _link = CreateLink();
-                }
-
-                return _link;
-            }
-        }{{/HRef}}
-
-        /// <summary>
-        /// Indicates whether the reference has been fully defined (all key values are currently assigned non-default values).
-        /// </summary>
-        /// <returns><b>true</b> if the reference's properties are all set to non-default values; otherwise <b>false</b>.</returns>
-        public bool IsReferenceFullyDefined()
-        {
-            return {{#ReferenceIdentifiers}}{{#IsFirstProperty}}{{{PropertyName}}} != default({{PropertyType}}){{/IsFirstProperty}}{{^IsFirstProperty}}
-                && {{{PropertyName}}} != default({{PropertyType}}){{/IsFirstProperty}}{{/ReferenceIdentifiers}}{{^ReferenceIdentifiers}}true{{/ReferenceIdentifiers}}
-                ;
-        }
-
-        {{#HRef}}
-        private Link CreateLink()
-        {
-            {{#StandardLink}}
-            var link = new Link
-            {
-                Rel = "{{OtherEntityName}}",
-                Href = $"{{ResourceBaseRoute}}/{ResourceId:n}"
-            };
-            {{/StandardLink}}
-
-            {{^HasDiscriminator}}
-            return link;
-            {{/HasDiscriminator}}
-            {{#HasDiscriminator}}
-            if (string.IsNullOrEmpty(Discriminator))
-                return link;
-
-            string[] linkParts = Discriminator.Split('.');
-
-            if (linkParts.Length < 2)
-                return link;
-
-            var resource = GeneratedArtifactStaticDependencies.ResourceModelProvider.GetResourceModel()
-                .GetResourceByFullName(new FullName(linkParts[0], linkParts[1]));
-
-            // return the default link if the relationship is already correct, and/or if the resource is not found.
-            if (resource == null || link.Rel == resource.Name)
-                return link;
-
-            {{#StandardLink}}
-            return new Link
-            {
-                Rel = resource.Name,
-                Href = $"/{resource.SchemaUriSegment()}/{resource.PluralName.ToCamelCase()}/{ResourceId:n}"
-            };
-            {{/StandardLink}}
-            {{/HasDiscriminator}}
-        }
-        {{/HRef}}
-    }
-
-    {{/ContextSpecificResourceReference}}
-    {{/ContextSpecificResourceReferences}}
     {{#ShouldRenderClass}}
     /// <summary>
     /// A class which represents the {{FQName}} table of the {{ResourceName}} aggregate in the ODS Database.
@@ -376,6 +229,7 @@ namespace {{ResourceClassesNamespace}}
         }
 
         [DataMember(Name="{{JsonPropertyName}}")]{{#IsIdentifying}}[NaturalKeyMember]{{/IsIdentifying}}
+        [FullyDefinedReference]{{#IsRequired}}[RequiredReference({{#IsIdentifying}}isIdentifying: true{{/IsIdentifying}}{{^IsIdentifying}}"{{SchemaName}}", "{{ResourceName}}"{{/IsIdentifying}})]{{/IsRequired}}
         public {{ReferenceTypeName}} {{PropertyName}}
         {
             get
@@ -395,43 +249,6 @@ namespace {{ResourceClassesNamespace}}
         }
         {{/Reference}}
         {{/Standard}}
-        {{#Backref}}
-        {{#Reference}}
-        private bool _{{PropertyFieldName}}ExplicitlyAssigned;
-        private {{BackReferenceType}} _{{PropertyFieldName}};
-        private {{BackReferenceType}} Implicit{{PropertyName}}
-        {
-            get
-            {
-                // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
-                if (_{{PropertyFieldName}} == null && !_{{PropertyFieldName}}ExplicitlyAssigned)
-                    _{{PropertyFieldName}} = new {{BackReferenceType}}(this);
-
-                return _{{PropertyFieldName}};
-            }
-        }
-
-        [DataMember(Name="{{JsonPropertyName}}")]{{#IsIdentifying}}[NaturalKeyMember]{{/IsIdentifying}}
-        public {{BackReferenceType}} {{PropertyName}}
-        {
-            get
-            {
-                // Only return the reference if it's non-null, and all its properties have non-default values assigned
-                if (Implicit{{PropertyName}} != null
-                    && (_{{PropertyFieldName}}ExplicitlyAssigned || _SuspendReferenceAssignmentCheck || Implicit{{PropertyName}}.IsReferenceFullyDefined()))
-                    return Implicit{{PropertyName}};
-
-                return null;
-            }
-            set
-            {
-                _{{PropertyFieldName}}ExplicitlyAssigned = true;
-                _{{PropertyFieldName}} = value;
-                _{{PropertyFieldName}}.BackReference = this;
-            }
-        }
-        {{/Reference}}
-        {{/Backref}}
         {{/Collections}}
         {{/References}}
         // -------------------------------------------------------------
@@ -1219,12 +1036,6 @@ namespace {{ResourceClassesNamespace}}
         internal void OnDeserialized(StreamingContext context)
         {
             // Reconnect collection item parent references on deserialization
-            {{#BackRef}}
-            {{#BackRefCollections}}
-            if (_{{PropertyFieldName}} != null)
-                _{{PropertyFieldName}}.BackReference = this;
-            {{/BackRefCollections}}
-            {{/BackRef}}
             {{#Inherited}}
             {{#InheritedCollections}}
             if (_{{PropertyFieldName}} != null) foreach (var item in _{{PropertyFieldName}})

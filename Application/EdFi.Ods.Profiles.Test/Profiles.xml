@@ -880,4 +880,12 @@
       </ReadContentType>
     </Resource>
   </Profile>
+
+  <Profile name="Resource-with-excluded-required-reference">
+    <Resource name="CourseOffering">
+      <WriteContentType memberSelection="ExcludeOnly">
+        <Property name="CourseReference" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
 </Profiles>
