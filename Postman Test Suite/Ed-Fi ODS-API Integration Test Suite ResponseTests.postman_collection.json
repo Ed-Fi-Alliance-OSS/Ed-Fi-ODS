@@ -5250,6 +5250,125 @@
 									]
 								}
 							]
+						},
+						{
+							"name": "when_posting_an_association_where_resource_does_not_exist",
+							"item": [
+								{
+									"name": "api_should_fail_with_403_code",
+									"item": [
+										{
+											"name": "api_should_fail_with_403_forbidden",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(403);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should return a message indicating that authorization was denied, staff was not found.\", () => {\r",
+															"    const responseItem = pm.response.json();\r",
+															"     pm.expect(responseItem).to.deep.include({\r",
+															"      \"message\": \"Authorization denied. Either referenced \\'Staff\\' was not found or no relationships have been established between the caller\\'s education organization id claims (255901) and the referenced \\'Staff\\'.\",\r",
+															"      \"correlationId\": pm.environment.get('correlationId')\r",
+															"    });\r",
+															"});\r",
+															"\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{    \r\n    \"staffReference\": {\r\n      \"staffUniqueId\": \"999999\"\r\n    },\r\n    \"beginDate\": \"2022-08-26\",\r\n    \"staffLeaveEventCategoryDescriptor\": \"uri://ed-fi.org/StaffLeaveEventCategoryDescriptor#Personal\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffLeaves",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"staffLeaves"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "api_should_fail_with_409_code",
+									"item": [
+										{
+											"name": "api_should_fail_with_409_conflict",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 409\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(409);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should return a message indicating that access was denied, student was not found.\", () => {\r",
+															"    const responseItem = pm.response.json();\r",
+															"     pm.expect(responseItem).to.deep.include({\r",
+															"      \"message\": \"Access to the resource item could not be authorized because the \\'Student\\' was not found.\",\r",
+															"      \"correlationId\": pm.environment.get('correlationId')\r",
+															"    });\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{    \r\n    \"schoolReference\": {\r\n      \"schoolId\": \"255901001\"\r\n    },\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"999999\"\r\n    },\r\n    \"entryDate\": \"2021-08-23\",\r\n    \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Ninth grade\"\r\n  }"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSchoolAssociations"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
 						}
 					]
 				},

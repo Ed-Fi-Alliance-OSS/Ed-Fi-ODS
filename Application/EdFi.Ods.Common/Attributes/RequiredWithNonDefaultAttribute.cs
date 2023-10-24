@@ -5,6 +5,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Security;
 
 namespace EdFi.Ods.Common.Attributes
 {
@@ -53,11 +54,12 @@ namespace EdFi.Ods.Common.Attributes
                 return ValidationResult.Success;
             }
 
-            var validationMessage = _referenceName != null
-                ? $"{_referenceName} reference could not be resolved."
-                : $"{validationContext.DisplayName} is required.";
+            if (_referenceName != null)
+            {
+                throw new EdFiSecurityConflictException($"Access to the resource item could not be authorized because the '{_referenceName}' was not found.");
+            }
 
-            return new ValidationResult(validationMessage);
+            return new ValidationResult($"{validationContext.DisplayName} is required.");
         }
     }
 }
