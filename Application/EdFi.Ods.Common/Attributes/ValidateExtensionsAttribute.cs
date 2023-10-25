@@ -30,7 +30,7 @@ namespace EdFi.Ods.Common.Attributes
 
             foreach (DictionaryEntry entry in dictionary)
             {
-                var @object = (entry.Value as IList)?[0];
+                var @object = (entry.Value as IList)?[0] ?? entry.Value;
 
                 if (@object == null)
                 {
@@ -62,7 +62,7 @@ namespace EdFi.Ods.Common.Attributes
             }
 
             return compositeResults.Results.Any()
-                ? compositeResults
+                ? new ValidationResult(compositeResults.GetAllMessages())
                 : ValidationResult.Success;
         }
     }

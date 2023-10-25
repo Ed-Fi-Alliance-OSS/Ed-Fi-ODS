@@ -47,7 +47,7 @@ namespace EdFi.Ods.Common.Attributes
             }
 
             return compositeResults.Results.Any()
-                ? compositeResults
+                ? new ValidationResult(compositeResults.GetAllMessages())
                 : ValidationResult.Success;
 
             // If we're still here, validation was successful

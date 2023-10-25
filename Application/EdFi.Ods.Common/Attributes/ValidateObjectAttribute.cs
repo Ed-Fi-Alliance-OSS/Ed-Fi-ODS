@@ -39,7 +39,7 @@ namespace EdFi.Ods.Common.Attributes
             }
 
             return compositeResults.Results.Any()
-                ? compositeResults
+                ? new ValidationResult(compositeResults.GetAllMessages())
                 : ValidationResult.Success;
         }
     }
