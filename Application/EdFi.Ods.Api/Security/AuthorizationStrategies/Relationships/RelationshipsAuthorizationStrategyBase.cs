@@ -9,10 +9,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-using System.Security.Claims;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Attributes;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security.Authorization;
@@ -87,6 +87,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             // ---------------------------------------------------------------------
             
             var authorizationSubjectEndpoints = GetAuthorizationSubjectEndpoints(authorizationContextTuples);
+
+            if (!authorizationSubjectEndpoints.Any())
+            {
+                throw new
+                    ApiSecurityConfigurationException($"Authorization strategy '{_authorizationStrategyName.Value}' processed the authorization context names '{string.Join("', '", authorizationContextTuples.Select(t => t.name))}' and produced no authorization subjects, meaning no authorization filtering will be performed. Are you using the correct authorization strategy for this resource?");
+            }
 
             var filters = authorizationSubjectEndpoints
                 .Select(subjectEndpoint =>

@@ -9,7 +9,6 @@ using System.Net;
 using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Models;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators
@@ -33,12 +32,14 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
 
             webServiceError = new RESTError
             {
-                Code = (int) ResponseCode,
+                Code = (int)ResponseCode,
                 Type = ResponseCode.ToString().NormalizeCompositeTermForDisplay(),
-                Message = ex.GetAllMessages()
+                Message = GetMessage(ex)
             };
 
             return true;
         }
+
+        protected virtual string GetMessage(Exception ex) => ex.GetAllMessages();
     }
 }
