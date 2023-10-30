@@ -5,7 +5,9 @@
 
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Logging;
+using EdFi.Ods.Common.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -14,17 +16,25 @@ namespace EdFi.Ods.Api.Startup;
 public class ApiBehaviorOptionsConfigurator : IConfigureOptions<ApiBehaviorOptions>
 {
     private readonly ILogContextAccessor _logContextAccessor;
+    private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+    private readonly ErrorTranslator _errorTranslator;
 
-    public ApiBehaviorOptionsConfigurator(ILogContextAccessor logContextAccessor)
+    public ApiBehaviorOptionsConfigurator(ILogContextAccessor logContextAccessor,
+        IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+        ErrorTranslator errorTranslator)
     {
         _logContextAccessor = logContextAccessor;
+        _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+        _errorTranslator = errorTranslator;
     }
 
     public void Configure(ApiBehaviorOptions options)
     {
         options.InvalidModelStateResponseFactory = actionContext => 
             new BadRequestObjectResult(
-                ErrorTranslator.GetErrorMessage(actionContext.ModelState, 
+                _errorTranslator.GetErrorMessage(
+                    _dataManagementResourceContextProvider.Get().Resource,
+                    actionContext.ModelState, 
                 (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
     }
 }

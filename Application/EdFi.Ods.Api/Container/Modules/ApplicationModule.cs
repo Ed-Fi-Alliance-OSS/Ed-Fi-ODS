@@ -497,6 +497,14 @@ namespace EdFi.Ods.Api.Container.Modules
                 builder.RegisterType<OdsInstanceSelector>()
                     .As<IOdsInstanceSelector>()
                     .SingleInstance();
+
+                builder.RegisterType<ErrorTranslator>().SingleInstance();
+                builder.RegisterType<ModelStateKeyConverter>().EnableClassInterceptors().SingleInstance();
+
+                builder.RegisterType<CachingInterceptor>()
+                    .Named<IInterceptor>("cache-model-state-key")
+                    .WithParameter(ctx => (ICacheProvider<ulong>) new ConcurrentDictionaryCacheProvider<ulong>())
+                    .SingleInstance();
             }
         }
     }
