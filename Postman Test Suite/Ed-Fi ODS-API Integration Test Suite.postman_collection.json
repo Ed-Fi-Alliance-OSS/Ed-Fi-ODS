@@ -8925,6 +8925,70 @@
 					]
 				},
 				{
+					"name": "Derived resource collections",
+					"item": [
+						{
+							"name": "Create School with duplicates",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Base type collection duplicates should be detected\", () => {\r",
+											"  pm.expect(pm.response.json().modelState).to.deep.contain({\r",
+											"    \"request.EducationOrganizationCategories\": [\r",
+											"      \"The 2nd item of the EducationOrganizationCategories collection is a duplicate.\"\r",
+											"    ]\r",
+											"  });\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Derived type collection duplicates should be detected\", () => {\r",
+											"  pm.expect(pm.response.json().modelState).to.deep.contain({\r",
+											"    \"request.SchoolGradeLevels\": [\r",
+											"      \"The 2nd item of the SchoolGradeLevels collection is a duplicate.\"\r",
+											"    ]\r",
+											"  });\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n    \"schoolId\": {{$randomInt}},\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"addresses\": [],\r\n    \"educationOrganizationCategories\": [\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#Educator Preparation Provider\"\r\n      },\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#Educator Preparation Provider\"\r\n      }\r\n    ],\r\n    \"identificationCodes\": [],\r\n    \"indicators\": [],\r\n    \"institutionTelephones\": [],\r\n    \"internationalAddresses\": [],\r\n    \"schoolCategories\": [],\r\n    \"gradeLevels\": [\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n      },\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n      }\r\n    ]\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Extension collections",
 					"item": [
 						{
