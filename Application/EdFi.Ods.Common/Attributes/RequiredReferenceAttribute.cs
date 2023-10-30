@@ -28,7 +28,7 @@ public class RequiredReferenceAttribute : ValidationAttribute
         _resourceName = resourceName;
     }
 
-    private ConcurrentDictionary<string, string> _itemTypeNameByRequestTypeName = new();
+    private readonly ConcurrentDictionary<string, string> _itemTypeNameByRequestTypeName = new();
 
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
