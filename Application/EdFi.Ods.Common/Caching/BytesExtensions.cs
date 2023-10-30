@@ -17,7 +17,7 @@ public static class BytesExtensions
 {
     private static readonly byte[] _enumerableItemDelimiter = { 0 };
 
-    private static readonly byte[] _null = { 0 };
+    private static readonly byte[] _nullBytes = { 0 };
 
     private static readonly ILog _logger = LogManager.GetLogger(typeof(BytesExtensions));
 
@@ -55,13 +55,35 @@ public static class BytesExtensions
 
         if (value == null)
         {
-            return _null;
+            return _nullBytes;
         }
 
-        // If debug enabled, log a warning. Argument's ToString() must be overidden to provide instance-specific output.
+        string toStringValue = value.ToString();
+        
+        // If debug logging enabled. Argument's ToString() must be overidden to provide instance-specific output.
         if (_logger.IsDebugEnabled)
         {
-            _logger.Debug($"WARNING: {nameof(GetBytes)} is resorting to using 'ToString()' to obtain bytes, which may not represent the specific instance.");
+            Type valueType = value.GetType();
+
+            if (valueType.IsGenericType)
+            {
+                var toStringSpan = toStringValue.AsSpan();
+                var fullNameSpan = valueType.FullName.AsSpan();
+
+                var toStringSlice = toStringSpan.Slice(0, toStringSpan.IndexOf('['));
+                var fullNameSlice = fullNameSpan.Slice(0, fullNameSpan.IndexOf('['));
+
+                if (toStringSlice.SequenceEqual(fullNameSlice))
+                {
+                    throw new NotSupportedException(
+                        $"The ToString method on the supplied object of type '{value.GetType().FullName}' must be overridden to be suitable for use with {nameof(GetBytes)}.");
+                }
+            }
+            else if (toStringValue == value.GetType().FullName)
+            {
+                throw new NotSupportedException(
+                    $"The ToString method on the supplied object of type '{value.GetType().FullName}' must be overridden to be suitable for use with {nameof(GetBytes)}.");
+            }
         }
 
         return Encoding.UTF8.GetBytes(value.ToString());
