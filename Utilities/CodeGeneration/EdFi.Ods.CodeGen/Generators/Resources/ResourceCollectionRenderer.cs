@@ -386,8 +386,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         .Select(
                             x => new
                             {
-                                PropertyFieldName =
-                                    x.ItemType.PluralName.ToCamelCase()
+                                PropertyFieldName = x.ItemType.PluralName.ToCamelCase(),
+                                ParentName = x.Parent.Entity.BaseEntity.Name,
                             })
                         .ToList(),
                     Standard = resource.Collections.Any(x => !x.IsInherited)
