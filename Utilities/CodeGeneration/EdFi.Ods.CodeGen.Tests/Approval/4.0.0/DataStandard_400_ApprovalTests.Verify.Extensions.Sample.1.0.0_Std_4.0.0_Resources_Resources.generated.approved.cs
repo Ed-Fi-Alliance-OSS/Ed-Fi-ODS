@@ -1242,7 +1242,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_busRouteBusYears != null) foreach (var item in _busRouteBusYears)
             {
                 item.BusRoute = this;
@@ -1504,7 +1504,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
             set { SetBusRoute(value); }
         }
 
-        internal Entities.Common.Sample.IBusRoute BusRoute
+        public Entities.Common.Sample.IBusRoute BusRoute
         {
             set { SetBusRoute(value); }
         }
@@ -1759,7 +1759,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
             set { SetBusRoute(value); }
         }
 
-        internal Entities.Common.Sample.IBusRoute BusRoute
+        public Entities.Common.Sample.IBusRoute BusRoute
         {
             set { SetBusRoute(value); }
         }
@@ -2075,7 +2075,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
             set { SetBusRoute(value); }
         }
 
-        internal Entities.Common.Sample.IBusRoute BusRoute
+        public Entities.Common.Sample.IBusRoute BusRoute
         {
             set { SetBusRoute(value); }
         }
@@ -2297,7 +2297,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
             set { SetBusRoute(value); }
         }
 
-        internal Entities.Common.Sample.IBusRoute BusRoute
+        public Entities.Common.Sample.IBusRoute BusRoute
         {
             set { SetBusRoute(value); }
         }
@@ -2519,7 +2519,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
             set { SetBusRoute(value); }
         }
 
-        internal Entities.Common.Sample.IBusRoute BusRoute
+        public Entities.Common.Sample.IBusRoute BusRoute
         {
             set { SetBusRoute(value); }
         }
@@ -3331,7 +3331,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             set { SetParentAddress(value); }
         }
 
-        internal Entities.Common.EdFi.IParentAddress ParentAddress
+        public Entities.Common.EdFi.IParentAddress ParentAddress
         {
             set { SetParentAddress(value); }
         }
@@ -3530,7 +3530,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_parentAddressSchoolDistricts != null) foreach (var item in _parentAddressSchoolDistricts)
             {
                 item.ParentAddressExtension = this;
@@ -3705,7 +3705,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             set { SetParentAddressExtension(value); }
         }
 
-        internal Entities.Common.Sample.IParentAddressExtension ParentAddressExtension
+        public Entities.Common.Sample.IParentAddressExtension ParentAddressExtension
         {
             set { SetParentAddressExtension(value); }
         }
@@ -3927,7 +3927,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             set { SetParentAddressExtension(value); }
         }
 
-        internal Entities.Common.Sample.IParentAddressExtension ParentAddressExtension
+        public Entities.Common.Sample.IParentAddressExtension ParentAddressExtension
         {
             set { SetParentAddressExtension(value); }
         }
@@ -4149,7 +4149,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             set { SetParentExtension(value); }
         }
 
-        internal Entities.Common.Sample.IParentExtension ParentExtension
+        public Entities.Common.Sample.IParentExtension ParentExtension
         {
             set { SetParentExtension(value); }
         }
@@ -4372,7 +4372,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             set { SetParentExtension(value); }
         }
 
-        internal Entities.Common.Sample.IParentExtension ParentExtension
+        public Entities.Common.Sample.IParentExtension ParentExtension
         {
             set { SetParentExtension(value); }
         }
@@ -4614,7 +4614,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             set { SetParentExtension(value); }
         }
 
-        internal Entities.Common.Sample.IParentExtension ParentExtension
+        public Entities.Common.Sample.IParentExtension ParentExtension
         {
             set { SetParentExtension(value); }
         }
@@ -4881,7 +4881,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             set { SetParentExtension(value); }
         }
 
-        internal Entities.Common.Sample.IParentExtension ParentExtension
+        public Entities.Common.Sample.IParentExtension ParentExtension
         {
             set { SetParentExtension(value); }
         }
@@ -5143,7 +5143,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             set { SetParent(value); }
         }
 
-        internal Entities.Common.EdFi.IParent Parent
+        public Entities.Common.EdFi.IParent Parent
         {
             set { SetParent(value); }
         }
@@ -5516,7 +5516,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_parentAuthors != null) foreach (var item in _parentAuthors)
             {
                 item.ParentExtension = this;
@@ -5769,7 +5769,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             set { SetParentExtension(value); }
         }
 
-        internal Entities.Common.Sample.IParentExtension ParentExtension
+        public Entities.Common.Sample.IParentExtension ParentExtension
         {
             set { SetParentExtension(value); }
         }
@@ -6024,7 +6024,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             set { SetParentExtension(value); }
         }
 
-        internal Entities.Common.Sample.IParentExtension ParentExtension
+        public Entities.Common.Sample.IParentExtension ParentExtension
         {
             set { SetParentExtension(value); }
         }
@@ -6433,7 +6433,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             set { SetParentExtension(value); }
         }
 
-        internal Entities.Common.Sample.IParentExtension ParentExtension
+        public Entities.Common.Sample.IParentExtension ParentExtension
         {
             set { SetParentExtension(value); }
         }
@@ -6665,7 +6665,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
             set { SetSchoolExtension(value); }
         }
 
-        internal Entities.Common.Sample.ISchoolExtension SchoolExtension
+        public Entities.Common.Sample.ISchoolExtension SchoolExtension
         {
             set { SetSchoolExtension(value); }
         }
@@ -6932,7 +6932,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
             set { SetSchoolExtension(value); }
         }
 
-        internal Entities.Common.Sample.ISchoolExtension SchoolExtension
+        public Entities.Common.Sample.ISchoolExtension SchoolExtension
         {
             set { SetSchoolExtension(value); }
         }
@@ -7189,7 +7189,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
             set { SetSchool(value); }
         }
 
-        internal Entities.Common.EdFi.ISchool School
+        public Entities.Common.EdFi.ISchool School
         {
             set { SetSchool(value); }
         }
@@ -7344,7 +7344,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_schoolDirectlyOwnedBuses != null) foreach (var item in _schoolDirectlyOwnedBuses)
             {
                 item.SchoolExtension = this;
@@ -7502,7 +7502,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
             set { SetStaff(value); }
         }
 
-        internal Entities.Common.EdFi.IStaff Staff
+        public Entities.Common.EdFi.IStaff Staff
         {
             set { SetStaff(value); }
         }
@@ -7657,7 +7657,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_staffPets != null) foreach (var item in _staffPets)
             {
                 item.StaffExtension = this;
@@ -7806,7 +7806,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
             set { SetStaffExtension(value); }
         }
 
-        internal Entities.Common.Sample.IStaffExtension StaffExtension
+        public Entities.Common.Sample.IStaffExtension StaffExtension
         {
             set { SetStaffExtension(value); }
         }
@@ -8036,7 +8036,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
             set { SetStaffExtension(value); }
         }
 
-        internal Entities.Common.Sample.IStaffExtension StaffExtension
+        public Entities.Common.Sample.IStaffExtension StaffExtension
         {
             set { SetStaffExtension(value); }
         }
@@ -8298,7 +8298,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             set { SetStudentExtension(value); }
         }
 
-        internal Entities.Common.Sample.IStudentExtension StudentExtension
+        public Entities.Common.Sample.IStudentExtension StudentExtension
         {
             set { SetStudentExtension(value); }
         }
@@ -8569,7 +8569,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             set { SetStudent(value); }
         }
 
-        internal Entities.Common.EdFi.IStudent Student
+        public Entities.Common.EdFi.IStudent Student
         {
             set { SetStudent(value); }
         }
@@ -8775,7 +8775,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_studentAquaticPets != null) foreach (var item in _studentAquaticPets)
             {
                 item.StudentExtension = this;
@@ -8980,7 +8980,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             set { SetStudentExtension(value); }
         }
 
-        internal Entities.Common.Sample.IStudentExtension StudentExtension
+        public Entities.Common.Sample.IStudentExtension StudentExtension
         {
             set { SetStudentExtension(value); }
         }
@@ -9139,7 +9139,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_studentFavoriteBookArtMedia != null) foreach (var item in _studentFavoriteBookArtMedia)
             {
                 item.StudentFavoriteBook = this;
@@ -9283,7 +9283,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             set { SetStudentFavoriteBook(value); }
         }
 
-        internal Entities.Common.Sample.IStudentFavoriteBook StudentFavoriteBook
+        public Entities.Common.Sample.IStudentFavoriteBook StudentFavoriteBook
         {
             set { SetStudentFavoriteBook(value); }
         }
@@ -9512,7 +9512,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             set { SetStudentExtension(value); }
         }
 
-        internal Entities.Common.Sample.IStudentExtension StudentExtension
+        public Entities.Common.Sample.IStudentExtension StudentExtension
         {
             set { SetStudentExtension(value); }
         }
@@ -9742,7 +9742,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             set { SetStudentExtension(value); }
         }
 
-        internal Entities.Common.Sample.IStudentExtension StudentExtension
+        public Entities.Common.Sample.IStudentExtension StudentExtension
         {
             set { SetStudentExtension(value); }
         }
@@ -10731,8 +10731,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
-            // _generalStudentProgramAssociationProgramParticipationStatuses
+            // Reconnect collection item parent references on deserialization
+            if (_generalStudentProgramAssociationProgramParticipationStatuses != null) foreach (var item in _generalStudentProgramAssociationProgramParticipationStatuses)
+            {
+                item.GeneralStudentProgramAssociation = this;
+            }
+
             if (_studentArtProgramAssociationArtMedia != null) foreach (var item in _studentArtProgramAssociationArtMedia)
             {
                 item.StudentArtProgramAssociation = this;
@@ -11017,7 +11021,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
             set { SetStudentArtProgramAssociation(value); }
         }
 
-        internal Entities.Common.Sample.IStudentArtProgramAssociation StudentArtProgramAssociation
+        public Entities.Common.Sample.IStudentArtProgramAssociation StudentArtProgramAssociation
         {
             set { SetStudentArtProgramAssociation(value); }
         }
@@ -11240,7 +11244,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
             set { SetStudentArtProgramAssociation(value); }
         }
 
-        internal Entities.Common.Sample.IStudentArtProgramAssociation StudentArtProgramAssociation
+        public Entities.Common.Sample.IStudentArtProgramAssociation StudentArtProgramAssociation
         {
             set { SetStudentArtProgramAssociation(value); }
         }
@@ -11482,7 +11486,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
             set { SetStudentArtProgramAssociation(value); }
         }
 
-        internal Entities.Common.Sample.IStudentArtProgramAssociation StudentArtProgramAssociation
+        public Entities.Common.Sample.IStudentArtProgramAssociation StudentArtProgramAssociation
         {
             set { SetStudentArtProgramAssociation(value); }
         }
@@ -11725,7 +11729,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
             set { SetStudentArtProgramAssociation(value); }
         }
 
-        internal Entities.Common.Sample.IStudentArtProgramAssociation StudentArtProgramAssociation
+        public Entities.Common.Sample.IStudentArtProgramAssociation StudentArtProgramAssociation
         {
             set { SetStudentArtProgramAssociation(value); }
         }
@@ -11952,7 +11956,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi
             set { SetStudentCTEProgramAssociation(value); }
         }
 
-        internal Entities.Common.EdFi.IStudentCTEProgramAssociation StudentCTEProgramAssociation
+        public Entities.Common.EdFi.IStudentCTEProgramAssociation StudentCTEProgramAssociation
         {
             set { SetStudentCTEProgramAssociation(value); }
         }
@@ -12188,7 +12192,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             set { SetStudentEducationOrganizationAssociationAddress(value); }
         }
 
-        internal Entities.Common.EdFi.IStudentEducationOrganizationAssociationAddress StudentEducationOrganizationAssociationAddress
+        public Entities.Common.EdFi.IStudentEducationOrganizationAssociationAddress StudentEducationOrganizationAssociationAddress
         {
             set { SetStudentEducationOrganizationAssociationAddress(value); }
         }
@@ -12387,7 +12391,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_studentEducationOrganizationAssociationAddressSchoolDistricts != null) foreach (var item in _studentEducationOrganizationAssociationAddressSchoolDistricts)
             {
                 item.StudentEducationOrganizationAssociationAddressExtension = this;
@@ -12562,7 +12566,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             set { SetStudentEducationOrganizationAssociationAddressExtension(value); }
         }
 
-        internal Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension StudentEducationOrganizationAssociationAddressExtension
+        public Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension StudentEducationOrganizationAssociationAddressExtension
         {
             set { SetStudentEducationOrganizationAssociationAddressExtension(value); }
         }
@@ -12784,7 +12788,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             set { SetStudentEducationOrganizationAssociationAddressExtension(value); }
         }
 
-        internal Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension StudentEducationOrganizationAssociationAddressExtension
+        public Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension StudentEducationOrganizationAssociationAddressExtension
         {
             set { SetStudentEducationOrganizationAssociationAddressExtension(value); }
         }
@@ -13157,7 +13161,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             set { SetStudentEducationOrganizationAssociation(value); }
         }
 
-        internal Entities.Common.EdFi.IStudentEducationOrganizationAssociation StudentEducationOrganizationAssociation
+        public Entities.Common.EdFi.IStudentEducationOrganizationAssociation StudentEducationOrganizationAssociation
         {
             set { SetStudentEducationOrganizationAssociation(value); }
         }
@@ -13320,7 +13324,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_favoriteProgramReference != null)
                 _favoriteProgramReference.BackReference = this;
         }
@@ -13472,7 +13476,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             set { SetStudentEducationOrganizationAssociationStudentCharacteristic(value); }
         }
 
-        internal Entities.Common.EdFi.IStudentEducationOrganizationAssociationStudentCharacteristic StudentEducationOrganizationAssociationStudentCharacteristic
+        public Entities.Common.EdFi.IStudentEducationOrganizationAssociationStudentCharacteristic StudentEducationOrganizationAssociationStudentCharacteristic
         {
             set { SetStudentEducationOrganizationAssociationStudentCharacteristic(value); }
         }
@@ -13608,7 +13612,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_studentEducationOrganizationAssociationStudentCharacteristicStudentNeeds != null) foreach (var item in _studentEducationOrganizationAssociationStudentCharacteristicStudentNeeds)
             {
                 item.StudentEducationOrganizationAssociationStudentCharacteristicExtension = this;
@@ -13757,7 +13761,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             set { SetStudentEducationOrganizationAssociationStudentCharacteristicExtension(value); }
         }
 
-        internal Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicExtension StudentEducationOrganizationAssociationStudentCharacteristicExtension
+        public Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicExtension StudentEducationOrganizationAssociationStudentCharacteristicExtension
         {
             set { SetStudentEducationOrganizationAssociationStudentCharacteristicExtension(value); }
         }
@@ -14765,7 +14769,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_studentGraduationPlanAssociationAcademicSubjects != null) foreach (var item in _studentGraduationPlanAssociationAcademicSubjects)
             {
                 item.StudentGraduationPlanAssociation = this;
@@ -15107,7 +15111,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             set { SetStudentGraduationPlanAssociation(value); }
         }
 
-        internal Entities.Common.Sample.IStudentGraduationPlanAssociation StudentGraduationPlanAssociation
+        public Entities.Common.Sample.IStudentGraduationPlanAssociation StudentGraduationPlanAssociation
         {
             set { SetStudentGraduationPlanAssociation(value); }
         }
@@ -15330,7 +15334,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             set { SetStudentGraduationPlanAssociation(value); }
         }
 
-        internal Entities.Common.Sample.IStudentGraduationPlanAssociation StudentGraduationPlanAssociation
+        public Entities.Common.Sample.IStudentGraduationPlanAssociation StudentGraduationPlanAssociation
         {
             set { SetStudentGraduationPlanAssociation(value); }
         }
@@ -15572,7 +15576,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             set { SetStudentGraduationPlanAssociation(value); }
         }
 
-        internal Entities.Common.Sample.IStudentGraduationPlanAssociation StudentGraduationPlanAssociation
+        public Entities.Common.Sample.IStudentGraduationPlanAssociation StudentGraduationPlanAssociation
         {
             set { SetStudentGraduationPlanAssociation(value); }
         }
@@ -15806,7 +15810,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             set { SetStudentGraduationPlanAssociation(value); }
         }
 
-        internal Entities.Common.Sample.IStudentGraduationPlanAssociation StudentGraduationPlanAssociation
+        public Entities.Common.Sample.IStudentGraduationPlanAssociation StudentGraduationPlanAssociation
         {
             set { SetStudentGraduationPlanAssociation(value); }
         }
@@ -16028,7 +16032,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             set { SetStudentGraduationPlanAssociation(value); }
         }
 
-        internal Entities.Common.Sample.IStudentGraduationPlanAssociation StudentGraduationPlanAssociation
+        public Entities.Common.Sample.IStudentGraduationPlanAssociation StudentGraduationPlanAssociation
         {
             set { SetStudentGraduationPlanAssociation(value); }
         }
@@ -16250,7 +16254,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             set { SetStudentGraduationPlanAssociation(value); }
         }
 
-        internal Entities.Common.Sample.IStudentGraduationPlanAssociation StudentGraduationPlanAssociation
+        public Entities.Common.Sample.IStudentGraduationPlanAssociation StudentGraduationPlanAssociation
         {
             set { SetStudentGraduationPlanAssociation(value); }
         }
@@ -16632,7 +16636,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             set { SetStudentGraduationPlanAssociation(value); }
         }
 
-        internal Entities.Common.Sample.IStudentGraduationPlanAssociation StudentGraduationPlanAssociation
+        public Entities.Common.Sample.IStudentGraduationPlanAssociation StudentGraduationPlanAssociation
         {
             set { SetStudentGraduationPlanAssociation(value); }
         }
@@ -16779,7 +16783,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_studentParentAssociationReference != null)
                 _studentParentAssociationReference.BackReference = this;
         }
@@ -16923,7 +16927,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             set { SetStudentGraduationPlanAssociation(value); }
         }
 
-        internal Entities.Common.Sample.IStudentGraduationPlanAssociation StudentGraduationPlanAssociation
+        public Entities.Common.Sample.IStudentGraduationPlanAssociation StudentGraduationPlanAssociation
         {
             set { SetStudentGraduationPlanAssociation(value); }
         }
@@ -17170,7 +17174,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             set { SetStudentParentAssociationExtension(value); }
         }
 
-        internal Entities.Common.Sample.IStudentParentAssociationExtension StudentParentAssociationExtension
+        public Entities.Common.Sample.IStudentParentAssociationExtension StudentParentAssociationExtension
         {
             set { SetStudentParentAssociationExtension(value); }
         }
@@ -17434,7 +17438,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             set { SetStudentParentAssociation(value); }
         }
 
-        internal Entities.Common.EdFi.IStudentParentAssociation StudentParentAssociation
+        public Entities.Common.EdFi.IStudentParentAssociation StudentParentAssociation
         {
             set { SetStudentParentAssociation(value); }
         }
@@ -17849,7 +17853,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_studentParentAssociationDisciplines != null) foreach (var item in _studentParentAssociationDisciplines)
             {
                 item.StudentParentAssociationExtension = this;
@@ -18116,7 +18120,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             set { SetStudentParentAssociationExtension(value); }
         }
 
-        internal Entities.Common.Sample.IStudentParentAssociationExtension StudentParentAssociationExtension
+        public Entities.Common.Sample.IStudentParentAssociationExtension StudentParentAssociationExtension
         {
             set { SetStudentParentAssociationExtension(value); }
         }
@@ -18339,7 +18343,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             set { SetStudentParentAssociationExtension(value); }
         }
 
-        internal Entities.Common.Sample.IStudentParentAssociationExtension StudentParentAssociationExtension
+        public Entities.Common.Sample.IStudentParentAssociationExtension StudentParentAssociationExtension
         {
             set { SetStudentParentAssociationExtension(value); }
         }
@@ -18582,7 +18586,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             set { SetStudentParentAssociationExtension(value); }
         }
 
-        internal Entities.Common.Sample.IStudentParentAssociationExtension StudentParentAssociationExtension
+        public Entities.Common.Sample.IStudentParentAssociationExtension StudentParentAssociationExtension
         {
             set { SetStudentParentAssociationExtension(value); }
         }
@@ -18857,7 +18861,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             set { SetStudentParentAssociationExtension(value); }
         }
 
-        internal Entities.Common.Sample.IStudentParentAssociationExtension StudentParentAssociationExtension
+        public Entities.Common.Sample.IStudentParentAssociationExtension StudentParentAssociationExtension
         {
             set { SetStudentParentAssociationExtension(value); }
         }
@@ -19207,7 +19211,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             set { SetStudentParentAssociationExtension(value); }
         }
 
-        internal Entities.Common.Sample.IStudentParentAssociationExtension StudentParentAssociationExtension
+        public Entities.Common.Sample.IStudentParentAssociationExtension StudentParentAssociationExtension
         {
             set { SetStudentParentAssociationExtension(value); }
         }
@@ -19453,7 +19457,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.Ext
             set { SetStudentSchoolAssociation(value); }
         }
 
-        internal Entities.Common.EdFi.IStudentSchoolAssociation StudentSchoolAssociation
+        public Entities.Common.EdFi.IStudentSchoolAssociation StudentSchoolAssociation
         {
             set { SetStudentSchoolAssociation(value); }
         }
@@ -19680,7 +19684,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
             set { SetStudentSectionAssociation(value); }
         }
 
-        internal Entities.Common.EdFi.IStudentSectionAssociation StudentSectionAssociation
+        public Entities.Common.EdFi.IStudentSectionAssociation StudentSectionAssociation
         {
             set { SetStudentSectionAssociation(value); }
         }
@@ -19816,7 +19820,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_studentSectionAssociationRelatedGeneralStudentProgramAssociations != null) foreach (var item in _studentSectionAssociationRelatedGeneralStudentProgramAssociations)
             {
                 item.StudentSectionAssociationExtension = this;
@@ -20132,7 +20136,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
             set { SetStudentSectionAssociationExtension(value); }
         }
 
-        internal Entities.Common.Sample.IStudentSectionAssociationExtension StudentSectionAssociationExtension
+        public Entities.Common.Sample.IStudentSectionAssociationExtension StudentSectionAssociationExtension
         {
             set { SetStudentSectionAssociationExtension(value); }
         }
@@ -20407,7 +20411,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_relatedGeneralStudentProgramAssociationReference != null)
                 _relatedGeneralStudentProgramAssociationReference.BackReference = this;
         }
