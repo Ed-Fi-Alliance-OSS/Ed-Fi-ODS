@@ -26,7 +26,7 @@ namespace EdFi.Ods.Api.Models
         public string CorrelationId { get; set; }
 
         // See ErrorTranslator.GetErrorMessage
-        [DataMember(Name = "modelState")]
-        public Dictionary<string, string[]> ModelState { get; set; }
+        [DataMember(Name = "validationErrors")]
+        public Dictionary<string, string[]> ValidationErrors { get; set; }
     }
 }

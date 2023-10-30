@@ -8,6 +8,7 @@ using System.Buffers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using log4net;
 using Standart.Hash.xxHash;
 
 namespace EdFi.Ods.Common.Caching;
@@ -15,6 +16,10 @@ namespace EdFi.Ods.Common.Caching;
 public static class BytesExtensions
 {
     private static readonly byte[] _enumerableItemDelimiter = { 0 };
+
+    private static readonly byte[] _null = { 0 };
+
+    private static readonly ILog _logger = LogManager.GetLogger(typeof(BytesExtensions));
 
     public static byte[] GetBytes(this byte[] bytesValue)
     {
@@ -47,8 +52,19 @@ public static class BytesExtensions
         {
             return GetBytes(stringListValue);
         }
-        
-        throw new NotImplementedException($"Support for extracting bytes from type '{typeof(T)}' has not been implemented.");
+
+        if (value == null)
+        {
+            return _null;
+        }
+
+        // If debug enabled, log a warning. Argument's ToString() must be overidden to provide instance-specific output.
+        if (_logger.IsDebugEnabled)
+        {
+            _logger.Debug($"WARNING: {nameof(GetBytes)} is resorting to using 'ToString()' to obtain bytes, which may not represent the specific instance.");
+        }
+
+        return Encoding.UTF8.GetBytes(value.ToString());
     }
 
     private static byte[] GetBytes(this IList<string> value)
