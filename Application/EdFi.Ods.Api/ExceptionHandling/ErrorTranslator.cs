@@ -32,6 +32,7 @@ namespace EdFi.Ods.Api.ExceptionHandling
             }
 
             var validationErrors = modelState
+                .Where(e => e.Value.ValidationState == ModelValidationState.Invalid)
                 .ToDictionary(
                     kvp => _modelStateKeyConverter.GetJsonPath(resource, kvp.Key),
                     kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
