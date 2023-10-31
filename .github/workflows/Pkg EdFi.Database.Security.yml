@@ -120,10 +120,14 @@ jobs:
           $confPath = "C:\Program Files\PostgreSQL\13\data\pg_hba.conf"
           Get-Content -Path $confPath
           Restart-Service postgresql-x64-13
-    - name: Change directory
-      run: Set-Location -Path path/to/pgpass.conf
     - name: Print pgpass.conf
-      run: Get-Content .\pgpass.conf
+      run: |
+        $pgpassPath = "$env:USERPROFILE\AppData\Roaming\postgresql\pgpass.conf"
+        if (Test-Path -Path $pgpassPath) {
+          Get-Content $pgpassPath
+        } else {
+          Write-Host "pgpass.conf not found at $pgpassPath"
+        }
     - name: Create Security Database 
       shell: powershell
       run: |
