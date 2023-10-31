@@ -137,6 +137,16 @@ jobs:
             } else {
             Write-Host "pgpass.conf not found in any subdirectories of $rootDirectory"
             }
+    - name: Create pgpass.conf and append
+      run: |
+        $pgpassPath = "$env:USERPROFILE\AppData\Roaming\postgresql\pgpass.conf"
+        $contentToAppend = "localhost:5432:*:postgres:postgres"
+        # Check if the file exists, and if not, create it
+        if (-not (Test-Path -Path $pgpassPath)) {
+            New-Item -Path $pgpassPath -ItemType File
+        }
+        # Append the content to the file
+        $contentToAppend | Out-File -Append -FilePath $pgpassPath
     - name: Print pgpass.conf
       run: |
 
