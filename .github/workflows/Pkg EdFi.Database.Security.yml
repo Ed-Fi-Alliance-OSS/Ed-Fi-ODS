@@ -120,6 +120,7 @@ jobs:
           $confPath = "C:\Program Files\PostgreSQL\13\data\pg_hba.conf"
           Get-Content -Path $confPath
           Restart-Service postgresql-x64-13
+          Get-Content $env:USERPROFILE\pgpass.conf
     - name: Create Security Database 
       shell: powershell
       run: |
