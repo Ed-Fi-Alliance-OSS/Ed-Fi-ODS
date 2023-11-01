@@ -168,6 +168,8 @@ jobs:
         } else {
           Write-Host "pgpass.conf not found at $pgpassPath"
         }
+        $env:PGPASSFILE = $pgpassPath
+
     - name: Create Security Database 
       shell: powershell
       run: |
