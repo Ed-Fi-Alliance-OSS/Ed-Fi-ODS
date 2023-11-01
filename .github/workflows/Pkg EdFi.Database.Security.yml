@@ -121,7 +121,7 @@ jobs:
           Get-Content -Path $confPath
           Restart-Service postgresql-x64-13
 
-    - name: Create pgpass.conf and append
+    - name: Create pgpass.conf 
       shell: powershell
       run: |
         $subDirectory = "$env:USERPROFILE\AppData\Roaming\"
@@ -143,12 +143,10 @@ jobs:
             Write-Host "file is not exists here in $pgpassPath"
         }
         $contentToAppend = "localhost:5432:*:postgres:postgres"
-        # Append the content to the file
         $contentToAppend | Out-File -Append -FilePath $pgpassPath
     - name: Print pgpass.conf
       shell: powershell
       run: |
-
         $pgpassPath = "$env:USERPROFILE\AppData\Roaming\postgresql\pgpass.conf"
         if (Test-Path -Path $pgpassPath) {
           Get-Content $pgpassPath
