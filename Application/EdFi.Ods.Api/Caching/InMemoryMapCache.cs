@@ -5,10 +5,8 @@
 
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using EdFi.Common.Utils.Extensions;
-using EdFi.Ods.Common.Caching;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace EdFi.Ods.Api.Caching;
@@ -40,11 +38,15 @@ public class InMemoryMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKe
         }
 
         _memoryCache = memoryCache;
-        
+
         _memoryCacheEntryOptions = new MemoryCacheEntryOptions
         {
-            AbsoluteExpirationRelativeToNow = absoluteExpirationPeriod <= TimeSpan.Zero ? null : absoluteExpirationPeriod,
-            SlidingExpiration = slidingExpiration <= TimeSpan.Zero ? null : slidingExpiration,
+            SlidingExpiration = slidingExpiration == TimeSpan.Zero
+                ? null
+                : slidingExpiration,
+            AbsoluteExpirationRelativeToNow = slidingExpiration > TimeSpan.Zero || absoluteExpirationPeriod == TimeSpan.Zero
+                ? null
+                : absoluteExpirationPeriod,
         };
     }
 

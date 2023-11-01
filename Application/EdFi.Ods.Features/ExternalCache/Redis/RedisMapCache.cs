@@ -139,27 +139,30 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
     {
         long expirationMs = 0;
         
-        if (_absoluteExpirationPeriod is { TotalMilliseconds: > 0 })
-        {
-            expirationMs = (long) _absoluteExpirationPeriod.Value.TotalMilliseconds;
-        }
-        else if (_slidingExpirationPeriod is { TotalMilliseconds: > 0})
+        if (_slidingExpirationPeriod is { TotalMilliseconds: > 0})
         {
             // Set the initial expiration using the sliding expiration period
             expirationMs = (long) _slidingExpirationPeriod.Value.TotalMilliseconds;
         }
-        
-        // Set initial absolute expiration for the key
-        var result = await _cache.ExecuteAsync(
-            $"PEXPIRE",
-            new object[]
-            {
+        else if (_absoluteExpirationPeriod is { TotalMilliseconds: > 0 })
+        {
+            // Set the initial expiration using the absolute expiration period
+            expirationMs = (long) _absoluteExpirationPeriod.Value.TotalMilliseconds;
+        }
+
+        if (expirationMs > 0)
+        {
+            // Set initial absolute expiration for the key
+            var result = await _cache.ExecuteAsync(
+                $"PEXPIRE",
                 cacheKey,
                 expirationMs,
-                "NX"
-            });
+                "NX");
 
-        return (int) result == 1;
+            return (int) result == 1;
+        }
+
+        return true;
     }
 
     private void ApplySlidingExpiration(string cacheKey)
@@ -172,8 +175,7 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
                 new object[]
                 {
                     cacheKey,
-                    (long) _slidingExpirationPeriod.Value.TotalMilliseconds,
-                    "GT"
+                    (long) _slidingExpirationPeriod.Value.TotalMilliseconds
                 },
                 CommandFlags.FireAndForget);
         }

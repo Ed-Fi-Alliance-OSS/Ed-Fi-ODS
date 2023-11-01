@@ -234,9 +234,9 @@ namespace EdFi.Ods.Api.Container.Modules
                         {
                             var apiSettings = c.Resolve<ApiSettings>();
 
-                            int period = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
+                            int slidingExpirationSeconds = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
 
-                            return TimeSpan.FromSeconds(period);
+                            return TimeSpan.FromSeconds(slidingExpirationSeconds);
                         }))
                 .WithParameter(
                     new ResolvedParameter(
@@ -245,9 +245,10 @@ namespace EdFi.Ods.Api.Container.Modules
                         {
                             var apiSettings = c.Resolve<ApiSettings>();
 
-                            int period = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
+                            int slidingExpirationSeconds = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
+                            int absoluteExpirationSeconds = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
 
-                            return TimeSpan.FromSeconds(period);
+                            return slidingExpirationSeconds <= 0 ? TimeSpan.FromSeconds(absoluteExpirationSeconds) : 0;
                         }))
                 .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int>>()
                 .SingleInstance();
@@ -260,9 +261,9 @@ namespace EdFi.Ods.Api.Container.Modules
                         {
                             var apiSettings = c.Resolve<ApiSettings>();
 
-                            int period = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
+                            int slidingExpirationSeconds = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
 
-                            return TimeSpan.FromSeconds(period);
+                            return TimeSpan.FromSeconds(slidingExpirationSeconds);
                         }))
                 .WithParameter(
                     new ResolvedParameter(
@@ -271,9 +272,10 @@ namespace EdFi.Ods.Api.Container.Modules
                         {
                             var apiSettings = c.Resolve<ApiSettings>();
 
-                            int period = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
+                            int slidingExpirationSeconds = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
+                            int absoluteExpirationSeconds = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
 
-                            return TimeSpan.FromSeconds(period);
+                            return slidingExpirationSeconds <= 0 ? TimeSpan.FromSeconds(absoluteExpirationSeconds) : 0;
                         }))
                 .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
                 .SingleInstance();
