@@ -123,25 +123,27 @@ jobs:
 
     - name: Create pgpass.conf and append
       run: |
-        $fullPath = "$env:USERPROFILE\AppData\Roaming\"
-
-        # Check if the subdirectory already exists
-        if (-not (Test-Path $fullPath -PathType Container)) {
+        $subDirectory = "$env:USERPROFILE\AppData\Roaming\"
+        if (-not (Test-Path $subDirectory -PathType Container)) {
             # If it doesn't exist, create the subdirectory
-            New-Item -Path $fullPath -ItemType Directory
-            $fullPath += "\postgresql\"
-             New-Item -Path $fullPath -ItemType Directory
-            Write-Host "Subdirectory '$subdirectoryName' created in '$parentDirectory'"
+            New-Item -Path $subDirectory -ItemType Directory
+            Write-Host "Subdirectory  created in $subDirectory"
+            $subDirectory = "$env:USERPROFILE\AppData\Roaming\postgresql\"
+            if (-not (Test-Path $subDirectory -PathType Container)) {
+             New-Item -Path $subDirectory -ItemType Directory
+             Write-Host "Subdirectory  created in $subDirectory"
+            }
         } else {
-            Write-Host "Subdirectory '$subdirectoryName' already exists in '$parentDirectory'"
+            Write-Host "Subdirectory already exists in $subDirectory"
         }
-
         $pgpassPath = "$env:USERPROFILE\AppData\Roaming\postgresql\pgpass.conf"
-        $contentToAppend = "localhost:5432:*:postgres:postgres"
+        
         # Check if the file exists, and if not, create it
         if (-not (Test-Path -Path $pgpassPath)) {
             New-Item -Path $pgpassPath -ItemType File
+            Write-Host "file is not exists here in $pgpassPath"
         }
+        $contentToAppend = "localhost:5432:*:postgres:postgres"
         # Append the content to the file
         $contentToAppend | Out-File -Append -FilePath $pgpassPath
     - name: Print pgpass.conf
