@@ -122,23 +122,22 @@ jobs:
           Restart-Service postgresql-x64-13
 
     - name: Create pgpass.conf and append
+      shell: powershell
       run: |
         $subDirectory = "$env:USERPROFILE\AppData\Roaming\"
         if (-not (Test-Path $subDirectory -PathType Container)) {
-            # If it doesn't exist, create the subdirectory
+           New-Item -Path $subDirectory -ItemType Directory
+           Write-Host "Subdirectory  created in $subDirectory"
+        }
+
+        $subDirectory = "$env:USERPROFILE\AppData\Roaming\postgresql\"
+        if (-not (Test-Path $subDirectory -PathType Container)) {
             New-Item -Path $subDirectory -ItemType Directory
             Write-Host "Subdirectory  created in $subDirectory"
-            $subDirectory = "$env:USERPROFILE\AppData\Roaming\postgresql\"
-            if (-not (Test-Path $subDirectory -PathType Container)) {
-             New-Item -Path $subDirectory -ItemType Directory
-             Write-Host "Subdirectory  created in $subDirectory"
-            }
-        } else {
-            Write-Host "Subdirectory already exists in $subDirectory"
         }
+
         $pgpassPath = "$env:USERPROFILE\AppData\Roaming\postgresql\pgpass.conf"
         
-        # Check if the file exists, and if not, create it
         if (-not (Test-Path -Path $pgpassPath)) {
             New-Item -Path $pgpassPath -ItemType File
             Write-Host "file is not exists here in $pgpassPath"
@@ -147,6 +146,7 @@ jobs:
         # Append the content to the file
         $contentToAppend | Out-File -Append -FilePath $pgpassPath
     - name: Print pgpass.conf
+      shell: powershell
       run: |
 
         $pgpassPath = "$env:USERPROFILE\AppData\Roaming\postgresql\pgpass.conf"
