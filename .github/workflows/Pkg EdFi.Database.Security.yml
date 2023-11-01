@@ -132,13 +132,17 @@ jobs:
         }
 
         $pgpassPath = "$env:USERPROFILE\AppData\Roaming\postgresql\.pgpass"
-        
+        $pgpassContent = "localhost:5432:*:postgres:postgres"
         if (-not (Test-Path -Path $pgpassPath)) {
-            New-Item -Path $pgpassPath -ItemType File
+            New-Item -Path $pgpassPath -ItemType File -Value $pgpassContent
             Write-Host "file  $pgpassPath Created"
         }
-        $contentToAppend = "localhost:5432:*:postgres:postgres"
-        $contentToAppend | Out-File -Append -FilePath $pgpassPath
+        
+        $acl = Get-Acl $pgpassPath
+        $permission = New-Object System.Security.AccessControl.FileSystemAccessRule("Everyone", "Read", "Allow")
+        $acl.SetAccessRule($permission)
+        Set-Acl $pgpassPath $acl
+
         Get-Content $pgpassPath
         $env:PGPASSFILE = $pgpassPath
         Write-Host "PGPASSFILE Value $env:PGPASSFILE"
