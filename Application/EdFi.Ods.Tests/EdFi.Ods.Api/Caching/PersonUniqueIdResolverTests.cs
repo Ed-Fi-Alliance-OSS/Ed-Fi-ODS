@@ -72,7 +72,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakeOdsInstanceConfigurationContextProvider,
                 _fakeMapCache,
                 _fakeReverseMapCache,
-                _fakeCacheSuppressionByPersonType);
+                new UsiCacheInitializationMarkerKeyProvider(),
+                new UniqueIdCacheInitializationMarkerKeyProvider(),
+                _fakeCacheSuppressionByPersonType,
+                performBackgroundInitialization: true);
 
             // Act
             await resolver.ResolveUniqueIdsAsync(personType, lookups);
@@ -131,7 +134,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakeOdsInstanceConfigurationContextProvider,
                 _fakeMapCache,
                 _fakeReverseMapCache,
-                _fakeCacheSuppressionByPersonType);
+                new UsiCacheInitializationMarkerKeyProvider(),
+                new UniqueIdCacheInitializationMarkerKeyProvider(),
+                _fakeCacheSuppressionByPersonType,
+                performBackgroundInitialization: true);
 
             // Act
             await resolver.ResolveUniqueIdsAsync(personType, lookups);
@@ -180,7 +186,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 A<int[]>.That.Matches(x => x.Length == 2 && x[0] == 1 && x[1] == 2)))
                 .Returns(new string[2]);
 
-            A.CallTo(() => _fakePersonMapCacheInitializer.EnsurePersonMapsInitialized(
+            A.CallTo(() => _fakePersonMapCacheInitializer.InitializePersonMapAsync(
                 123456UL, personType))
                 .Returns(Task.FromException(new Exception("Cache initialization failed")));
 
@@ -199,7 +205,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakeOdsInstanceConfigurationContextProvider,
                 _fakeMapCache,
                 _fakeReverseMapCache,
-                _fakeCacheSuppressionByPersonType);
+                new UsiCacheInitializationMarkerKeyProvider(),
+                new UniqueIdCacheInitializationMarkerKeyProvider(),
+                _fakeCacheSuppressionByPersonType,
+                performBackgroundInitialization: true);
 
             // Act
             await resolver.ResolveUniqueIdsAsync(personType, lookups);
@@ -239,7 +248,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 A<int[]>.That.Matches(x => x.Length == 2 && x[0] == 1 && x[1] == 2)))
                 .Returns(new string[2]);
 
-            A.CallTo(() => _fakePersonMapCacheInitializer.EnsurePersonMapsInitialized(
+            A.CallTo(() => _fakePersonMapCacheInitializer.InitializePersonMapAsync(
                 123456UL, personType))
                 .Returns(Task.Delay(100));
 
@@ -249,7 +258,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakeOdsInstanceConfigurationContextProvider,
                 _fakeMapCache,
                 _fakeReverseMapCache,
-                _fakeCacheSuppressionByPersonType);
+                new UsiCacheInitializationMarkerKeyProvider(),
+                new UniqueIdCacheInitializationMarkerKeyProvider(),
+                _fakeCacheSuppressionByPersonType,
+                performBackgroundInitialization: true);
 
             // Act
             await resolver.ResolveUniqueIdsAsync(personType, lookups);
@@ -281,7 +293,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 _fakeOdsInstanceConfigurationContextProvider,
                 _fakeMapCache,
                 _fakeReverseMapCache,
-                _fakeCacheSuppressionByPersonType);
+                new UsiCacheInitializationMarkerKeyProvider(),
+                new UniqueIdCacheInitializationMarkerKeyProvider(),
+                _fakeCacheSuppressionByPersonType,
+                performBackgroundInitialization: true);
 
             // Act
             await resolver.ResolveUniqueIdsAsync(personType, lookups);

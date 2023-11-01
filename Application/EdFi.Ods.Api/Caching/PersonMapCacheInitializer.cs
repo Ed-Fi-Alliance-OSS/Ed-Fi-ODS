@@ -3,7 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.IdentityValueMappers;
@@ -17,11 +18,8 @@ public class PersonMapCacheInitializer : IPersonMapCacheInitializer
     private readonly IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int> _usiByUniqueIdMapCache;
     private readonly IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string> _uniqueIdByUsiMapCache;
 
-    private readonly ConcurrentDictionary<(ulong odsInstanceHashId, string personType), Task>
-        _initializationTaskByOdsPersonType = new();
-
     private readonly ILog _logger = LogManager.GetLogger(typeof(PersonMapCacheInitializer));
-    
+
     public PersonMapCacheInitializer(
         IPersonIdentifiersProvider personIdentifiersProvider,
         IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string> uniqueIdByUsiMapCache,
@@ -32,48 +30,88 @@ public class PersonMapCacheInitializer : IPersonMapCacheInitializer
         _uniqueIdByUsiMapCache = uniqueIdByUsiMapCache;
     }
 
-    /// <inheritdoc cref="IPersonMapCacheInitializer.EnsurePersonMapsInitialized" />
-    public Task EnsurePersonMapsInitialized(ulong odsInstanceHashId, string personType)
+    /// <inheritdoc cref="IPersonMapCacheInitializer.InitializePersonMapAsync" />
+    public Task InitializePersonMapAsync(ulong odsInstanceHashId, string personType)
     {
-        var initializationTask = _initializationTaskByOdsPersonType.GetOrAdd(
-            (odsInstanceHashId, personType),
-            key =>
+        Stopwatch sw = null;
+
+        return Task.Run(async () =>
             {
-                var (hashId, pt) = key;
-                
-                return Task.Run(async () => await _personIdentifiersProvider.GetAllPersonIdentifiersAsync(pt))
-                    .ContinueWith(
-                        async t =>
+                if (_logger.IsDebugEnabled)
+                {
+                    _logger.Debug($"Starting '{personType}' cache initialization for ODS instance '{odsInstanceHashId}'...");
+
+                    sw = new Stopwatch();
+                    sw.Start();
+                }
+
+                var result = await _personIdentifiersProvider.GetAllPersonIdentifiersAsync(personType);
+
+                if (_logger.IsDebugEnabled)
+                {
+                    if (result is ICollection<PersonIdentifiersValueMap> countableResult)
+                    {
+                        _logger.Debug($"Obtained {countableResult.Count:N0} '{personType}' identifiers after {sw.ElapsedMilliseconds:N0} ms...");
+                    }
+                    else
+                    {
+                        _logger.Debug($"Obtained all '{personType}' identifiers after {sw.ElapsedMilliseconds:N0} ms...");
+                    }
+                }
+
+                return result;
+            })
+            .ContinueWith(
+                async t =>
+                {
+                    if (t.IsFaulted)
+                    {
+                        _logger.Error(
+                            $"Unable to load '{personType}' mappings from ODS (with OdsInstanceHashId '{odsInstanceHashId}').",
+                            t.Exception);
+                    }
+                    else if (t.IsCompletedSuccessfully)
+                    {
+                        if (_logger.IsDebugEnabled)
                         {
-                            if (t.IsFaulted)
-                            {
-                                _logger.Error($"Unable to load '{personType}' mappings from ODS (with OdsInstanceHashId '{hashId}').", t.Exception);
-                            }
-                            else if (t.IsCompletedSuccessfully)
-                            {
-                                var uniqueIdByUsiCacheEntries = t.Result
-                                    .Select(v => (v.Usi, v.UniqueId))
-                                    .ToArray();
+                            _logger.Debug($"Setting '{personType}' map entries into cache for ODS instance '{odsInstanceHashId}'...");
+                        }
 
-                                var usiByUniqueIdCacheEntries = t.Result
-                                    .Select(v => (v.UniqueId, v.Usi))
-                                    .ToArray();
+                        var uniqueIdByUsiCacheEntries = t.Result.Select(v => (v.Usi, v.UniqueId))
+                            .Concat(
+                                new[]
+                                {
+                                    (InitializedReservedKeyForUsi: CacheInitializationConstants.InitializationMarkerKeyForUsi,
+                                        InitializedKeyForUniqueId: CacheInitializationConstants
+                                            .InitializationMarkerKeyForUniqueId)
+                                })
+                            .ToArray();
 
-                                // Set the retrieved tuples into the cache
-                                await _uniqueIdByUsiMapCache.SetMapEntriesAsync((key.odsInstanceHashId, key.personType, PersonMapType.UniqueIdByUsi), uniqueIdByUsiCacheEntries);
-                                await _usiByUniqueIdMapCache.SetMapEntriesAsync((key.odsInstanceHashId, key.personType, PersonMapType.UsiByUniqueId), usiByUniqueIdCacheEntries);
-                            }
-                        });
-            });
+                        var usiByUniqueIdCacheEntries = t.Result.Select(v => (v.UniqueId, v.Usi))
+                            .Concat(
+                                new[]
+                                {
+                                    (InitializedKeyForUniqueId: CacheInitializationConstants.InitializationMarkerKeyForUniqueId,
+                                        InitializedReservedKeyForUsi: CacheInitializationConstants.InitializationMarkerKeyForUsi)
+                                })
+                            .ToArray();
 
-        // If the task was found as completed, release the reference so it can garbage collected
-        if (initializationTask?.IsCompleted == true)
-        {
-            _initializationTaskByOdsPersonType.TryUpdate((odsInstanceHashId, personType), null, initializationTask);
+                        // Set the retrieved tuples into the cache
+                        await Task.WhenAll(
+                            _uniqueIdByUsiMapCache.SetMapEntriesAsync(
+                                (odsInstanceHashId, personType, PersonMapType.UniqueIdByUsi),
+                                uniqueIdByUsiCacheEntries),
+                            _usiByUniqueIdMapCache.SetMapEntriesAsync(
+                                (odsInstanceHashId, personType, PersonMapType.UsiByUniqueId),
+                                usiByUniqueIdCacheEntries));
 
-            return null;
-        }
-
-        return initializationTask;
+                        if (_logger.IsDebugEnabled)
+                        {
+                            sw.Stop();
+                            
+                            _logger.Debug($"Completed background cache initialization of {uniqueIdByUsiCacheEntries.Length:N0} {personType} entries for ODS instance '{odsInstanceHashId}' in {sw.ElapsedMilliseconds:N0} ms...");
+                        }
+                    }
+                });
     } 
 }

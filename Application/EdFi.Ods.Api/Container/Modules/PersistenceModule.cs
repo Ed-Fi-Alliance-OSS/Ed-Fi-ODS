@@ -280,6 +280,14 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<PersonMapCacheInitializer>().As<IPersonMapCacheInitializer>().SingleInstance();
 
+            builder.RegisterType<UsiCacheInitializationMarkerKeyProvider>()
+                .As<ICacheInitializationMarkerKeyProvider<int>>()
+                .SingleInstance();
+
+            builder.RegisterType<UniqueIdCacheInitializationMarkerKeyProvider>()
+                .As<ICacheInitializationMarkerKeyProvider<string>>()
+                .SingleInstance();
+            
             builder.RegisterType<PersonUniqueIdResolver>()
                 .WithParameter(
                     new ResolvedParameter(
@@ -289,6 +297,15 @@ namespace EdFi.Ods.Api.Container.Modules
                             var apiSettings = c.Resolve<ApiSettings>();
 
                             return apiSettings.Caching.PersonUniqueIdToUsi.CacheSuppression;
+                        }))
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.EqualsIgnoreCase("performBackgroundInitialization"),
+                        (p, c) =>
+                        {
+                            var apiSettings = c.Resolve<ApiSettings>();
+
+                            return apiSettings.Caching.PersonUniqueIdToUsi.PerformBackgroundInitialization;
                         }))
                 .As<IPersonUniqueIdResolver>()
                 .SingleInstance();
@@ -302,6 +319,15 @@ namespace EdFi.Ods.Api.Container.Modules
                             var apiSettings = c.Resolve<ApiSettings>();
 
                             return apiSettings.Caching.PersonUniqueIdToUsi.CacheSuppression;
+                        }))
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.EqualsIgnoreCase("performBackgroundInitialization"),
+                        (p, c) =>
+                        {
+                            var apiSettings = c.Resolve<ApiSettings>();
+
+                            return apiSettings.Caching.PersonUniqueIdToUsi.PerformBackgroundInitialization;
                         }))
                 .As<IPersonUsiResolver>()
                 .SingleInstance();

@@ -44,7 +44,7 @@ public class PersonMapCacheInitializerTests
             fakeUsiByUniqueIdMapCache);
 
         // Act
-        var initializationTask = initializer.EnsurePersonMapsInitialized(odsInstanceHashId, personType);
+        var initializationTask = initializer.InitializePersonMapAsync(odsInstanceHashId, personType);
         initializationTask?.ConfigureAwait(false).GetAwaiter().GetResult(); 
         
         // Assert
@@ -105,11 +105,11 @@ public class PersonMapCacheInitializerTests
             fakeUsiByUniqueIdMapCache);
     
         // Act
-        var initializationTask = initializer.EnsurePersonMapsInitialized(odsInstanceHashId, personType);
+        var initializationTask = initializer.InitializePersonMapAsync(odsInstanceHashId, personType);
         initializationTask.ConfigureAwait(false).GetAwaiter().GetResult();
 
         // Repeat the same initialization
-        var initializationTask2 = initializer.EnsurePersonMapsInitialized(odsInstanceHashId, personType);
+        var initializationTask2 = initializer.InitializePersonMapAsync(odsInstanceHashId, personType);
         
         // Task should be set to null once it's completed from previous initialization
         initializationTask2.ShouldBeNull();

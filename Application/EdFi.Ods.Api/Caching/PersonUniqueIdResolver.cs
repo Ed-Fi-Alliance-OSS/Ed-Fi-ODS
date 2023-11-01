@@ -26,8 +26,19 @@ public class PersonUniqueIdResolver : PersonIdentifierResolverBase<int, string>,
         IContextProvider<OdsInstanceConfiguration> odsInstanceConfigurationContextProvider,
         IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string> mapCache,
         IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int> reverseMapCache,
-        Dictionary<string, bool> cacheSuppressionByPersonType)
-        : base(personMapCacheInitializer, odsInstanceConfigurationContextProvider, mapCache, reverseMapCache, cacheSuppressionByPersonType)
+        ICacheInitializationMarkerKeyProvider<int> cacheInitializationMarkerKeyForLookupProvider, 
+        ICacheInitializationMarkerKeyProvider<string> cacheInitializationMarkerKeyForResolvedProvider, 
+        Dictionary<string, bool> cacheSuppressionByPersonType,
+        bool performBackgroundInitialization)
+        : base(
+            personMapCacheInitializer,
+            odsInstanceConfigurationContextProvider,
+            mapCache,
+            reverseMapCache,
+            cacheInitializationMarkerKeyForLookupProvider,
+            cacheInitializationMarkerKeyForResolvedProvider,
+            cacheSuppressionByPersonType,
+            performBackgroundInitialization)
     {
         _personIdentifiersProvider = personIdentifiersProvider;
     }

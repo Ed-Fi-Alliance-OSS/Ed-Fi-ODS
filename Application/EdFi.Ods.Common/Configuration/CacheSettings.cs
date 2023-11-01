@@ -57,7 +57,9 @@ namespace EdFi.Ods.Common.Configuration
         {
             public bool UseExternalCache { get; set; }
             public int AbsoluteExpirationSeconds { get; set; } = 0; //Will be set to 0 during instantiation of PersonUniqueIdToUsiCache if SlidingExpirationSeconds > 0
-            public int SlidingExpirationSeconds { get; set; } = 14400;
+            public int SlidingExpirationSeconds { get; set; } = (int) TimeSpan.FromHours(4).TotalSeconds;
+
+            public bool PerformBackgroundInitialization { get; set; } = true;
 
             public Dictionary<string, bool> CacheSuppression { get; set; } = new(StringComparer.OrdinalIgnoreCase);
         }
