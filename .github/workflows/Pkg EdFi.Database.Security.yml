@@ -121,7 +121,7 @@ jobs:
           $confPath = "C:\Program Files\PostgreSQL\13\data\pg_hba.conf"
           Get-Content -Path $confPath
           Restart-Service postgresql-x64-13
-    - name: Create pgpass.conf
+    - name: Move pgpass.conf
       shell: powershell
       run: |
         $subDirectory = "$env:USERPROFILE\AppData\Roaming\"
@@ -132,12 +132,17 @@ jobs:
             Write-Host "Subdirectory  created in $subDirectory"
         }
 
-        $pgpassPath = "$env:USERPROFILE\AppData\Roaming\postgresql\pgpass.conf"
-        $pgpassContent = "localhost:5432:*:postgres:postgres"
-        if (-not (Test-Path -Path $pgpassPath)) {
-            New-Item -Path $pgpassPath -ItemType File -Value $pgpassContent
-            Write-Host "file  $pgpassPath Created"
+        # Define the source and destination paths
+        $sourcePath = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS\.github\workflows\pgpass.conf"
+        $pgpassPath = Join-Path $env:USERPROFILE "AppData\Roaming\postgresql\pgpass.conf"
+
+        # Check if the destination directory exists, and if not, create it
+        if (-not (Test-Path (Split-Path $destinationPath))) {
+            New-Item -ItemType Directory -Path (Split-Path $destinationPath) -Force
         }
+
+        # Move the file to the destination
+        Move-Item -Path $sourcePath -Destination $destinationPath -Force
         
         Write-Host "GitHub Actions is running as user $env:USERNAME"
         $acl = Get-Acl $pgpassPath
