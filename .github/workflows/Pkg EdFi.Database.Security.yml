@@ -138,6 +138,7 @@ jobs:
             Write-Host "file  $pgpassPath Created"
         }
         
+        Write-Host "GitHub Actions is running as user $env:USERNAME"
         $acl = Get-Acl $pgpassPath
         $permission = New-Object System.Security.AccessControl.FileSystemAccessRule("Everyone", "Read", "Allow")
         $acl.SetAccessRule($permission)
