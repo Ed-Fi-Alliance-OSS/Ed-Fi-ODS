@@ -573,7 +573,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class PostSecondaryOrganizationReference : IResourceReference
+    public class PostSecondaryOrganizationReference
     {
         [DataMember(Name="nameOfInstitution"), NaturalKeyMember]
         public string NameOfInstitution { get; set; }
@@ -615,15 +615,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         public bool IsReferenceFullyDefined()
         {
             return NameOfInstitution != default(string);
-        }
-
-        IEnumerable<string> IResourceReference.GetUndefinedProperties()
-        {
-            if (NameOfInstitution == default)
-            {
-                yield return "NameOfInstitution";
-            }
-
         }
 
         private Link CreateLink()
@@ -1446,7 +1437,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
         }
 
         [DataMember(Name="postSecondaryOrganizationReference")]
-        [FullyDefinedReference]
         public PostSecondaryOrganization.SampleStudentTranscript.PostSecondaryOrganizationReference PostSecondaryOrganizationReference
         {
             get
