@@ -129,7 +129,7 @@ jobs:
         if (-not (Test-Path $fullPath -PathType Container)) {
             # If it doesn't exist, create the subdirectory
             New-Item -Path $fullPath -ItemType Directory
-            $fullPath + = "\postgresql\"
+            $fullPath += "\postgresql\"
              New-Item -Path $fullPath -ItemType Directory
             Write-Host "Subdirectory '$subdirectoryName' created in '$parentDirectory'"
         } else {
