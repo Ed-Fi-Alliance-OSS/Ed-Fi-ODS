@@ -31,7 +31,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class ContactReference
+    public class ContactReference : IResourceReference
     {
         [DataMember(Name="contactFirstName"), NaturalKeyMember]
         public string ContactFirstName { get; set; }
@@ -76,6 +76,20 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
         public bool IsReferenceFullyDefined()
         {
             return ContactFirstName != default(string) && ContactLastSurname != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (ContactFirstName == default)
+            {
+                yield return "ContactFirstName";
+            }
+
+            if (ContactLastSurname == default)
+            {
+                yield return "ContactLastSurname";
+            }
+
         }
 
         private Link CreateLink()
@@ -163,6 +177,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
         }
 
         [DataMember(Name="contactNameReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Name.Homograph.NameReference ContactNameReference
         {
             get
@@ -815,6 +830,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
         }
 
         [DataMember(Name="studentSchoolAssociationReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public StudentSchoolAssociation.Homograph.StudentSchoolAssociationReference StudentSchoolAssociationReference
         {
             get
@@ -1135,7 +1151,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class NameReference
+    public class NameReference : IResourceReference
     {
         [DataMember(Name="firstName"), NaturalKeyMember]
         public string FirstName { get; set; }
@@ -1180,6 +1196,20 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
         public bool IsReferenceFullyDefined()
         {
             return FirstName != default(string) && LastSurname != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (FirstName == default)
+            {
+                yield return "FirstName";
+            }
+
+            if (LastSurname == default)
+            {
+                yield return "LastSurname";
+            }
+
         }
 
         private Link CreateLink()
@@ -1450,7 +1480,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class SchoolReference
+    public class SchoolReference : IResourceReference
     {
         [DataMember(Name="schoolName"), NaturalKeyMember]
         public string SchoolName { get; set; }
@@ -1492,6 +1522,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         public bool IsReferenceFullyDefined()
         {
             return SchoolName != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (SchoolName == default)
+            {
+                yield return "SchoolName";
+            }
+
         }
 
         private Link CreateLink()
@@ -1574,6 +1613,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         }
 
         [DataMember(Name="schoolYearTypeReference")]
+        [FullyDefinedReference]
         public SchoolYearType.Homograph.SchoolYearTypeReference SchoolYearTypeReference
         {
             get
@@ -2045,7 +2085,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class SchoolYearTypeReference
+    public class SchoolYearTypeReference : IResourceReference
     {
         [DataMember(Name="schoolYear"), NaturalKeyMember]
         public string SchoolYear { get; set; }
@@ -2087,6 +2127,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
         public bool IsReferenceFullyDefined()
         {
             return SchoolYear != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (SchoolYear == default)
+            {
+                yield return "SchoolYear";
+            }
+
         }
 
         private Link CreateLink()
@@ -2341,7 +2390,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class StaffReference
+    public class StaffReference : IResourceReference
     {
         [DataMember(Name="staffFirstName"), NaturalKeyMember]
         public string StaffFirstName { get; set; }
@@ -2386,6 +2435,20 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         public bool IsReferenceFullyDefined()
         {
             return StaffFirstName != default(string) && StaffLastSurname != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (StaffFirstName == default)
+            {
+                yield return "StaffFirstName";
+            }
+
+            if (StaffLastSurname == default)
+            {
+                yield return "StaffLastSurname";
+            }
+
         }
 
         private Link CreateLink()
@@ -2473,6 +2536,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         }
 
         [DataMember(Name="staffNameReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Name.Homograph.NameReference StaffNameReference
         {
             get
@@ -3125,6 +3189,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         }
 
         [DataMember(Name="studentSchoolAssociationReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public StudentSchoolAssociation.Homograph.StudentSchoolAssociationReference StudentSchoolAssociationReference
         {
             get
@@ -3445,7 +3510,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentReference
+    public class StudentReference : IResourceReference
     {
         [DataMember(Name="studentFirstName"), NaturalKeyMember]
         public string StudentFirstName { get; set; }
@@ -3490,6 +3555,20 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         public bool IsReferenceFullyDefined()
         {
             return StudentFirstName != default(string) && StudentLastSurname != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (StudentFirstName == default)
+            {
+                yield return "StudentFirstName";
+            }
+
+            if (StudentLastSurname == default)
+            {
+                yield return "StudentLastSurname";
+            }
+
         }
 
         private Link CreateLink()
@@ -3572,6 +3651,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         }
 
         [DataMember(Name="schoolYearTypeReference")]
+        [FullyDefinedReference][RequiredReference("homograph", "Student")]
         public SchoolYearType.Homograph.SchoolYearTypeReference SchoolYearTypeReference
         {
             get
@@ -3604,6 +3684,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         }
 
         [DataMember(Name="studentNameReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Name.Homograph.NameReference StudentNameReference
         {
             get
@@ -4148,7 +4229,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentSchoolAssociationReference
+    public class StudentSchoolAssociationReference : IResourceReference
     {
         [DataMember(Name="schoolName"), NaturalKeyMember]
         public string SchoolName { get; set; }
@@ -4196,6 +4277,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
         public bool IsReferenceFullyDefined()
         {
             return SchoolName != default(string) && StudentFirstName != default(string) && StudentLastSurname != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (SchoolName == default)
+            {
+                yield return "SchoolName";
+            }
+
+            if (StudentFirstName == default)
+            {
+                yield return "StudentFirstName";
+            }
+
+            if (StudentLastSurname == default)
+            {
+                yield return "StudentLastSurname";
+            }
+
         }
 
         private Link CreateLink()
@@ -4278,6 +4378,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
         }
 
         [DataMember(Name="schoolReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public School.Homograph.SchoolReference SchoolReference
         {
             get
@@ -4310,6 +4411,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
         }
 
         [DataMember(Name="studentReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Student.Homograph.StudentReference StudentReference
         {
             get

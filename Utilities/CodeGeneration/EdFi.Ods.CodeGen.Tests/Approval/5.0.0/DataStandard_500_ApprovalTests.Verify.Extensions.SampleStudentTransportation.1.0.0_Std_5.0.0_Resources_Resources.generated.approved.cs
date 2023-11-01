@@ -30,7 +30,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentTransportationReference
+    public class StudentTransportationReference : IResourceReference
     {
         [DataMember(Name="amBusNumber"), NaturalKeyMember]
         public string AMBusNumber { get; set; }
@@ -90,6 +90,30 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
         public bool IsReferenceFullyDefined()
         {
             return AMBusNumber != default(string) && PMBusNumber != default(string) && SchoolId != default(long) && StudentUniqueId != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (AMBusNumber == default)
+            {
+                yield return "AMBusNumber";
+            }
+
+            if (PMBusNumber == default)
+            {
+                yield return "PMBusNumber";
+            }
+
+            if (SchoolId == default)
+            {
+                yield return "SchoolId";
+            }
+
+            if (StudentUniqueId == default)
+            {
+                yield return "StudentUniqueId";
+            }
+
         }
 
         private Link CreateLink()
@@ -173,6 +197,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
         }
 
         [DataMember(Name="schoolReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public School.EdFi.SchoolReference SchoolReference
         {
             get
@@ -205,6 +230,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
         }
 
         [DataMember(Name="studentReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Student.EdFi.StudentReference StudentReference
         {
             get

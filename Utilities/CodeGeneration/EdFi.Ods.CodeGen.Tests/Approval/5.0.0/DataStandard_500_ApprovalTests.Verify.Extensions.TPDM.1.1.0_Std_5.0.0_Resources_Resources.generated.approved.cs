@@ -573,7 +573,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateReference
+    public class CandidateReference : IResourceReference
     {
         [DataMember(Name="candidateIdentifier"), NaturalKeyMember]
         public string CandidateIdentifier { get; set; }
@@ -615,6 +615,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         public bool IsReferenceFullyDefined()
         {
             return CandidateIdentifier != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (CandidateIdentifier == default)
+            {
+                yield return "CandidateIdentifier";
+            }
+
         }
 
         private Link CreateLink()
@@ -708,6 +717,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         }
 
         [DataMember(Name="personReference")]
+        [FullyDefinedReference]
         public Person.EdFi.PersonReference PersonReference
         {
             get
@@ -4588,7 +4598,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateEducatorPreparationProgramAssociationReference
+    public class CandidateEducatorPreparationProgramAssociationReference : IResourceReference
     {
         [DataMember(Name="beginDate"), NaturalKeyMember][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
         public DateTime BeginDate { get; set; }
@@ -4642,6 +4652,35 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         public bool IsReferenceFullyDefined()
         {
             return BeginDate != default(DateTime) && CandidateIdentifier != default(string) && EducationOrganizationId != default(long) && ProgramName != default(string) && ProgramTypeDescriptor != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (BeginDate == default)
+            {
+                yield return "BeginDate";
+            }
+
+            if (CandidateIdentifier == default)
+            {
+                yield return "CandidateIdentifier";
+            }
+
+            if (EducationOrganizationId == default)
+            {
+                yield return "EducationOrganizationId";
+            }
+
+            if (ProgramName == default)
+            {
+                yield return "ProgramName";
+            }
+
+            if (ProgramTypeDescriptor == default)
+            {
+                yield return "ProgramTypeDescriptor";
+            }
+
         }
 
         private Link CreateLink()
@@ -4729,6 +4768,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         }
 
         [DataMember(Name="candidateReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Candidate.TPDM.CandidateReference CandidateReference
         {
             get
@@ -4761,6 +4801,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         }
 
         [DataMember(Name="educatorPreparationProgramReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EducatorPreparationProgram.TPDM.EducatorPreparationProgramReference EducatorPreparationProgramReference
         {
             get
@@ -5305,6 +5346,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         }
 
         [DataMember(Name="schoolYearTypeReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public SchoolYearType.EdFi.SchoolYearTypeReference SchoolYearTypeReference
         {
             get
@@ -6394,6 +6436,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         }
 
         [DataMember(Name="personReference")]
+        [FullyDefinedReference]
         public Person.EdFi.PersonReference PersonReference
         {
             get
@@ -6818,6 +6861,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         }
 
         [DataMember(Name="studentAcademicRecordReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public StudentAcademicRecord.EdFi.StudentAcademicRecordReference StudentAcademicRecordReference
         {
             get
@@ -7440,7 +7484,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class EducatorPreparationProgramReference
+    public class EducatorPreparationProgramReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
         public long EducationOrganizationId { get; set; }
@@ -7488,6 +7532,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         public bool IsReferenceFullyDefined()
         {
             return EducationOrganizationId != default(long) && ProgramName != default(string) && ProgramTypeDescriptor != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (EducationOrganizationId == default)
+            {
+                yield return "EducationOrganizationId";
+            }
+
+            if (ProgramName == default)
+            {
+                yield return "ProgramName";
+            }
+
+            if (ProgramTypeDescriptor == default)
+            {
+                yield return "ProgramTypeDescriptor";
+            }
+
         }
 
         private Link CreateLink()
@@ -7574,6 +7637,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         }
 
         [DataMember(Name="educationOrganizationReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EducationOrganization.EdFi.EducationOrganizationReference EducationOrganizationReference
         {
             get
@@ -8965,7 +9029,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationReference
+    public class EvaluationReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
         public long EducationOrganizationId { get; set; }
@@ -9025,6 +9089,45 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         public bool IsReferenceFullyDefined()
         {
             return EducationOrganizationId != default(long) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && SchoolYear != default(short) && TermDescriptor != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (EducationOrganizationId == default)
+            {
+                yield return "EducationOrganizationId";
+            }
+
+            if (EvaluationPeriodDescriptor == default)
+            {
+                yield return "EvaluationPeriodDescriptor";
+            }
+
+            if (EvaluationTitle == default)
+            {
+                yield return "EvaluationTitle";
+            }
+
+            if (PerformanceEvaluationTitle == default)
+            {
+                yield return "PerformanceEvaluationTitle";
+            }
+
+            if (PerformanceEvaluationTypeDescriptor == default)
+            {
+                yield return "PerformanceEvaluationTypeDescriptor";
+            }
+
+            if (SchoolYear == default)
+            {
+                yield return "SchoolYear";
+            }
+
+            if (TermDescriptor == default)
+            {
+                yield return "TermDescriptor";
+            }
+
         }
 
         private Link CreateLink()
@@ -9111,6 +9214,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         }
 
         [DataMember(Name="performanceEvaluationReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public PerformanceEvaluation.TPDM.PerformanceEvaluationReference PerformanceEvaluationReference
         {
             get
@@ -9864,7 +9968,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationElementReference
+    public class EvaluationElementReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
         public long EducationOrganizationId { get; set; }
@@ -9930,6 +10034,55 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         public bool IsReferenceFullyDefined()
         {
             return EducationOrganizationId != default(long) && EvaluationElementTitle != default(string) && EvaluationObjectiveTitle != default(string) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && SchoolYear != default(short) && TermDescriptor != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (EducationOrganizationId == default)
+            {
+                yield return "EducationOrganizationId";
+            }
+
+            if (EvaluationElementTitle == default)
+            {
+                yield return "EvaluationElementTitle";
+            }
+
+            if (EvaluationObjectiveTitle == default)
+            {
+                yield return "EvaluationObjectiveTitle";
+            }
+
+            if (EvaluationPeriodDescriptor == default)
+            {
+                yield return "EvaluationPeriodDescriptor";
+            }
+
+            if (EvaluationTitle == default)
+            {
+                yield return "EvaluationTitle";
+            }
+
+            if (PerformanceEvaluationTitle == default)
+            {
+                yield return "PerformanceEvaluationTitle";
+            }
+
+            if (PerformanceEvaluationTypeDescriptor == default)
+            {
+                yield return "PerformanceEvaluationTypeDescriptor";
+            }
+
+            if (SchoolYear == default)
+            {
+                yield return "SchoolYear";
+            }
+
+            if (TermDescriptor == default)
+            {
+                yield return "TermDescriptor";
+            }
+
         }
 
         private Link CreateLink()
@@ -10016,6 +10169,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         }
 
         [DataMember(Name="evaluationObjectiveReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EvaluationObjective.TPDM.EvaluationObjectiveReference EvaluationObjectiveReference
         {
             get
@@ -10828,7 +10982,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationElementRatingReference
+    public class EvaluationElementRatingReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
         public long EducationOrganizationId { get; set; }
@@ -10903,6 +11057,70 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         public bool IsReferenceFullyDefined()
         {
             return EducationOrganizationId != default(long) && EvaluationDate != default(DateTime) && EvaluationElementTitle != default(string) && EvaluationObjectiveTitle != default(string) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && PersonId != default(string) && SchoolYear != default(short) && SourceSystemDescriptor != default(string) && TermDescriptor != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (EducationOrganizationId == default)
+            {
+                yield return "EducationOrganizationId";
+            }
+
+            if (EvaluationDate == default)
+            {
+                yield return "EvaluationDate";
+            }
+
+            if (EvaluationElementTitle == default)
+            {
+                yield return "EvaluationElementTitle";
+            }
+
+            if (EvaluationObjectiveTitle == default)
+            {
+                yield return "EvaluationObjectiveTitle";
+            }
+
+            if (EvaluationPeriodDescriptor == default)
+            {
+                yield return "EvaluationPeriodDescriptor";
+            }
+
+            if (EvaluationTitle == default)
+            {
+                yield return "EvaluationTitle";
+            }
+
+            if (PerformanceEvaluationTitle == default)
+            {
+                yield return "PerformanceEvaluationTitle";
+            }
+
+            if (PerformanceEvaluationTypeDescriptor == default)
+            {
+                yield return "PerformanceEvaluationTypeDescriptor";
+            }
+
+            if (PersonId == default)
+            {
+                yield return "PersonId";
+            }
+
+            if (SchoolYear == default)
+            {
+                yield return "SchoolYear";
+            }
+
+            if (SourceSystemDescriptor == default)
+            {
+                yield return "SourceSystemDescriptor";
+            }
+
+            if (TermDescriptor == default)
+            {
+                yield return "TermDescriptor";
+            }
+
         }
 
         private Link CreateLink()
@@ -10989,6 +11207,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         }
 
         [DataMember(Name="evaluationElementReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EvaluationElement.TPDM.EvaluationElementReference EvaluationElementReference
         {
             get
@@ -11021,6 +11240,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         }
 
         [DataMember(Name="evaluationObjectiveRatingReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EvaluationObjectiveRating.TPDM.EvaluationObjectiveRatingReference EvaluationObjectiveRatingReference
         {
             get
@@ -12507,7 +12727,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationObjectiveReference
+    public class EvaluationObjectiveReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
         public long EducationOrganizationId { get; set; }
@@ -12570,6 +12790,50 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         public bool IsReferenceFullyDefined()
         {
             return EducationOrganizationId != default(long) && EvaluationObjectiveTitle != default(string) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && SchoolYear != default(short) && TermDescriptor != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (EducationOrganizationId == default)
+            {
+                yield return "EducationOrganizationId";
+            }
+
+            if (EvaluationObjectiveTitle == default)
+            {
+                yield return "EvaluationObjectiveTitle";
+            }
+
+            if (EvaluationPeriodDescriptor == default)
+            {
+                yield return "EvaluationPeriodDescriptor";
+            }
+
+            if (EvaluationTitle == default)
+            {
+                yield return "EvaluationTitle";
+            }
+
+            if (PerformanceEvaluationTitle == default)
+            {
+                yield return "PerformanceEvaluationTitle";
+            }
+
+            if (PerformanceEvaluationTypeDescriptor == default)
+            {
+                yield return "PerformanceEvaluationTypeDescriptor";
+            }
+
+            if (SchoolYear == default)
+            {
+                yield return "SchoolYear";
+            }
+
+            if (TermDescriptor == default)
+            {
+                yield return "TermDescriptor";
+            }
+
         }
 
         private Link CreateLink()
@@ -12656,6 +12920,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         }
 
         [DataMember(Name="evaluationReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Evaluation.TPDM.EvaluationReference EvaluationReference
         {
             get
@@ -13442,7 +13707,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationObjectiveRatingReference
+    public class EvaluationObjectiveRatingReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
         public long EducationOrganizationId { get; set; }
@@ -13514,6 +13779,65 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         public bool IsReferenceFullyDefined()
         {
             return EducationOrganizationId != default(long) && EvaluationDate != default(DateTime) && EvaluationObjectiveTitle != default(string) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && PersonId != default(string) && SchoolYear != default(short) && SourceSystemDescriptor != default(string) && TermDescriptor != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (EducationOrganizationId == default)
+            {
+                yield return "EducationOrganizationId";
+            }
+
+            if (EvaluationDate == default)
+            {
+                yield return "EvaluationDate";
+            }
+
+            if (EvaluationObjectiveTitle == default)
+            {
+                yield return "EvaluationObjectiveTitle";
+            }
+
+            if (EvaluationPeriodDescriptor == default)
+            {
+                yield return "EvaluationPeriodDescriptor";
+            }
+
+            if (EvaluationTitle == default)
+            {
+                yield return "EvaluationTitle";
+            }
+
+            if (PerformanceEvaluationTitle == default)
+            {
+                yield return "PerformanceEvaluationTitle";
+            }
+
+            if (PerformanceEvaluationTypeDescriptor == default)
+            {
+                yield return "PerformanceEvaluationTypeDescriptor";
+            }
+
+            if (PersonId == default)
+            {
+                yield return "PersonId";
+            }
+
+            if (SchoolYear == default)
+            {
+                yield return "SchoolYear";
+            }
+
+            if (SourceSystemDescriptor == default)
+            {
+                yield return "SourceSystemDescriptor";
+            }
+
+            if (TermDescriptor == default)
+            {
+                yield return "TermDescriptor";
+            }
+
         }
 
         private Link CreateLink()
@@ -13600,6 +13924,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         }
 
         [DataMember(Name="evaluationObjectiveReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EvaluationObjective.TPDM.EvaluationObjectiveReference EvaluationObjectiveReference
         {
             get
@@ -13632,6 +13957,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         }
 
         [DataMember(Name="evaluationRatingReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EvaluationRating.TPDM.EvaluationRatingReference EvaluationRatingReference
         {
             get
@@ -15033,7 +15359,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingReference
+    public class EvaluationRatingReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
         public long EducationOrganizationId { get; set; }
@@ -15102,6 +15428,60 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         public bool IsReferenceFullyDefined()
         {
             return EducationOrganizationId != default(long) && EvaluationDate != default(DateTime) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && PersonId != default(string) && SchoolYear != default(short) && SourceSystemDescriptor != default(string) && TermDescriptor != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (EducationOrganizationId == default)
+            {
+                yield return "EducationOrganizationId";
+            }
+
+            if (EvaluationDate == default)
+            {
+                yield return "EvaluationDate";
+            }
+
+            if (EvaluationPeriodDescriptor == default)
+            {
+                yield return "EvaluationPeriodDescriptor";
+            }
+
+            if (EvaluationTitle == default)
+            {
+                yield return "EvaluationTitle";
+            }
+
+            if (PerformanceEvaluationTitle == default)
+            {
+                yield return "PerformanceEvaluationTitle";
+            }
+
+            if (PerformanceEvaluationTypeDescriptor == default)
+            {
+                yield return "PerformanceEvaluationTypeDescriptor";
+            }
+
+            if (PersonId == default)
+            {
+                yield return "PersonId";
+            }
+
+            if (SchoolYear == default)
+            {
+                yield return "SchoolYear";
+            }
+
+            if (SourceSystemDescriptor == default)
+            {
+                yield return "SourceSystemDescriptor";
+            }
+
+            if (TermDescriptor == default)
+            {
+                yield return "TermDescriptor";
+            }
+
         }
 
         private Link CreateLink()
@@ -15189,6 +15569,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         }
 
         [DataMember(Name="evaluationReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Evaluation.TPDM.EvaluationReference EvaluationReference
         {
             get
@@ -15221,6 +15602,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         }
 
         [DataMember(Name="performanceEvaluationRatingReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public PerformanceEvaluationRating.TPDM.PerformanceEvaluationRatingReference PerformanceEvaluationRatingReference
         {
             get
@@ -15253,6 +15635,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         }
 
         [DataMember(Name="sectionReference")]
+        [FullyDefinedReference]
         public Section.EdFi.SectionReference SectionReference
         {
             get
@@ -16523,6 +16906,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         }
 
         [DataMember(Name="reviewerPersonReference")]
+        [FullyDefinedReference]
         public Person.EdFi.PersonReference ReviewerPersonReference
         {
             get
@@ -17871,7 +18255,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class FinancialAidReference
+    public class FinancialAidReference : IResourceReference
     {
         [DataMember(Name="aidTypeDescriptor"), NaturalKeyMember]
         public string AidTypeDescriptor { get; set; }
@@ -17928,6 +18312,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         public bool IsReferenceFullyDefined()
         {
             return AidTypeDescriptor != default(string) && BeginDate != default(DateTime) && StudentUniqueId != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (AidTypeDescriptor == default)
+            {
+                yield return "AidTypeDescriptor";
+            }
+
+            if (BeginDate == default)
+            {
+                yield return "BeginDate";
+            }
+
+            if (StudentUniqueId == default)
+            {
+                yield return "StudentUniqueId";
+            }
+
         }
 
         private Link CreateLink()
@@ -18010,6 +18413,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         }
 
         [DataMember(Name="studentReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Student.EdFi.StudentReference StudentReference
         {
             get
@@ -18849,7 +19253,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationReference
+    public class PerformanceEvaluationReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
         public long EducationOrganizationId { get; set; }
@@ -18906,6 +19310,40 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         public bool IsReferenceFullyDefined()
         {
             return EducationOrganizationId != default(long) && EvaluationPeriodDescriptor != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && SchoolYear != default(short) && TermDescriptor != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (EducationOrganizationId == default)
+            {
+                yield return "EducationOrganizationId";
+            }
+
+            if (EvaluationPeriodDescriptor == default)
+            {
+                yield return "EvaluationPeriodDescriptor";
+            }
+
+            if (PerformanceEvaluationTitle == default)
+            {
+                yield return "PerformanceEvaluationTitle";
+            }
+
+            if (PerformanceEvaluationTypeDescriptor == default)
+            {
+                yield return "PerformanceEvaluationTypeDescriptor";
+            }
+
+            if (SchoolYear == default)
+            {
+                yield return "SchoolYear";
+            }
+
+            if (TermDescriptor == default)
+            {
+                yield return "TermDescriptor";
+            }
+
         }
 
         private Link CreateLink()
@@ -18993,6 +19431,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         }
 
         [DataMember(Name="educationOrganizationReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EducationOrganization.EdFi.EducationOrganizationReference EducationOrganizationReference
         {
             get
@@ -19025,6 +19464,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         }
 
         [DataMember(Name="schoolYearTypeReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public SchoolYearType.EdFi.SchoolYearTypeReference SchoolYearTypeReference
         {
             get
@@ -19966,7 +20406,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRatingReference
+    public class PerformanceEvaluationRatingReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
         public long EducationOrganizationId { get; set; }
@@ -20029,6 +20469,50 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         public bool IsReferenceFullyDefined()
         {
             return EducationOrganizationId != default(long) && EvaluationPeriodDescriptor != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && PersonId != default(string) && SchoolYear != default(short) && SourceSystemDescriptor != default(string) && TermDescriptor != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (EducationOrganizationId == default)
+            {
+                yield return "EducationOrganizationId";
+            }
+
+            if (EvaluationPeriodDescriptor == default)
+            {
+                yield return "EvaluationPeriodDescriptor";
+            }
+
+            if (PerformanceEvaluationTitle == default)
+            {
+                yield return "PerformanceEvaluationTitle";
+            }
+
+            if (PerformanceEvaluationTypeDescriptor == default)
+            {
+                yield return "PerformanceEvaluationTypeDescriptor";
+            }
+
+            if (PersonId == default)
+            {
+                yield return "PersonId";
+            }
+
+            if (SchoolYear == default)
+            {
+                yield return "SchoolYear";
+            }
+
+            if (SourceSystemDescriptor == default)
+            {
+                yield return "SourceSystemDescriptor";
+            }
+
+            if (TermDescriptor == default)
+            {
+                yield return "TermDescriptor";
+            }
+
         }
 
         private Link CreateLink()
@@ -20116,6 +20600,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         }
 
         [DataMember(Name="performanceEvaluationReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public PerformanceEvaluation.TPDM.PerformanceEvaluationReference PerformanceEvaluationReference
         {
             get
@@ -20148,6 +20633,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         }
 
         [DataMember(Name="personReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Person.EdFi.PersonReference PersonReference
         {
             get
@@ -21100,6 +21586,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         }
 
         [DataMember(Name="reviewerPersonReference")]
+        [FullyDefinedReference]
         public Person.EdFi.PersonReference ReviewerPersonReference
         {
             get
@@ -22177,7 +22664,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class RubricDimensionReference
+    public class RubricDimensionReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
         public long EducationOrganizationId { get; set; }
@@ -22246,6 +22733,60 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
         public bool IsReferenceFullyDefined()
         {
             return EducationOrganizationId != default(long) && EvaluationElementTitle != default(string) && EvaluationObjectiveTitle != default(string) && EvaluationPeriodDescriptor != default(string) && EvaluationTitle != default(string) && PerformanceEvaluationTitle != default(string) && PerformanceEvaluationTypeDescriptor != default(string) && RubricRating != default(int) && SchoolYear != default(short) && TermDescriptor != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (EducationOrganizationId == default)
+            {
+                yield return "EducationOrganizationId";
+            }
+
+            if (EvaluationElementTitle == default)
+            {
+                yield return "EvaluationElementTitle";
+            }
+
+            if (EvaluationObjectiveTitle == default)
+            {
+                yield return "EvaluationObjectiveTitle";
+            }
+
+            if (EvaluationPeriodDescriptor == default)
+            {
+                yield return "EvaluationPeriodDescriptor";
+            }
+
+            if (EvaluationTitle == default)
+            {
+                yield return "EvaluationTitle";
+            }
+
+            if (PerformanceEvaluationTitle == default)
+            {
+                yield return "PerformanceEvaluationTitle";
+            }
+
+            if (PerformanceEvaluationTypeDescriptor == default)
+            {
+                yield return "PerformanceEvaluationTypeDescriptor";
+            }
+
+            if (RubricRating == default)
+            {
+                yield return "RubricRating";
+            }
+
+            if (SchoolYear == default)
+            {
+                yield return "SchoolYear";
+            }
+
+            if (TermDescriptor == default)
+            {
+                yield return "TermDescriptor";
+            }
+
         }
 
         private Link CreateLink()
@@ -22329,6 +22870,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
         }
 
         [DataMember(Name="evaluationElementReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EvaluationElement.TPDM.EvaluationElementReference EvaluationElementReference
         {
             get
@@ -23185,6 +23727,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
         }
 
         [DataMember(Name="postSecondaryInstitutionReference")]
+        [FullyDefinedReference]
         public PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference PostSecondaryInstitutionReference
         {
             get
@@ -23468,6 +24011,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.TP
         }
 
         [DataMember(Name="personReference")]
+        [FullyDefinedReference]
         public Person.EdFi.PersonReference PersonReference
         {
             get
@@ -23744,7 +24288,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class SurveyResponsePersonTargetAssociationReference
+    public class SurveyResponsePersonTargetAssociationReference : IResourceReference
     {
         [DataMember(Name="namespace"), NaturalKeyMember]
         public string Namespace { get; set; }
@@ -23798,6 +24342,35 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         public bool IsReferenceFullyDefined()
         {
             return Namespace != default(string) && PersonId != default(string) && SourceSystemDescriptor != default(string) && SurveyIdentifier != default(string) && SurveyResponseIdentifier != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (Namespace == default)
+            {
+                yield return "Namespace";
+            }
+
+            if (PersonId == default)
+            {
+                yield return "PersonId";
+            }
+
+            if (SourceSystemDescriptor == default)
+            {
+                yield return "SourceSystemDescriptor";
+            }
+
+            if (SurveyIdentifier == default)
+            {
+                yield return "SurveyIdentifier";
+            }
+
+            if (SurveyResponseIdentifier == default)
+            {
+                yield return "SurveyResponseIdentifier";
+            }
+
         }
 
         private Link CreateLink()
@@ -23880,6 +24453,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         }
 
         [DataMember(Name="personReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Person.EdFi.PersonReference PersonReference
         {
             get
@@ -23912,6 +24486,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         }
 
         [DataMember(Name="surveyResponseReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public SurveyResponse.EdFi.SurveyResponseReference SurveyResponseReference
         {
             get
@@ -24291,7 +24866,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class SurveySectionResponsePersonTargetAssociationReference
+    public class SurveySectionResponsePersonTargetAssociationReference : IResourceReference
     {
         [DataMember(Name="namespace"), NaturalKeyMember]
         public string Namespace { get; set; }
@@ -24348,6 +24923,40 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         public bool IsReferenceFullyDefined()
         {
             return Namespace != default(string) && PersonId != default(string) && SourceSystemDescriptor != default(string) && SurveyIdentifier != default(string) && SurveyResponseIdentifier != default(string) && SurveySectionTitle != default(string);
+        }
+
+        IEnumerable<string> IResourceReference.GetUndefinedProperties()
+        {
+            if (Namespace == default)
+            {
+                yield return "Namespace";
+            }
+
+            if (PersonId == default)
+            {
+                yield return "PersonId";
+            }
+
+            if (SourceSystemDescriptor == default)
+            {
+                yield return "SourceSystemDescriptor";
+            }
+
+            if (SurveyIdentifier == default)
+            {
+                yield return "SurveyIdentifier";
+            }
+
+            if (SurveyResponseIdentifier == default)
+            {
+                yield return "SurveyResponseIdentifier";
+            }
+
+            if (SurveySectionTitle == default)
+            {
+                yield return "SurveySectionTitle";
+            }
+
         }
 
         private Link CreateLink()
@@ -24430,6 +25039,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         }
 
         [DataMember(Name="personReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Person.EdFi.PersonReference PersonReference
         {
             get
@@ -24462,6 +25072,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         }
 
         [DataMember(Name="surveySectionResponseReference")][NaturalKeyMember]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public SurveySectionResponse.EdFi.SurveySectionResponseReference SurveySectionResponseReference
         {
             get
