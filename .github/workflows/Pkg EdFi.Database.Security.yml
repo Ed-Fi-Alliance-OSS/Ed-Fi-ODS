@@ -120,25 +120,22 @@ jobs:
           $confPath = "C:\Program Files\PostgreSQL\13\data\pg_hba.conf"
           Get-Content -Path $confPath
           Restart-Service postgresql-x64-13
-    - name: Search pgpass.conf
-      run: |
-            # Define the root directory where you want to search for pgpass.conf
-            $rootDirectory = "$env:GITHUB_WORKSPACE"
-            $filename = "pgpass.conf"
 
-            # Search for the file in all subdirectories
-            $files = Get-ChildItem -Path $rootDirectory -Filter $filename -File -Recurse
-
-            if ($files.Count -gt 0) {
-            Write-Host "pgpass.conf exists in the following locations:"
-            foreach ($file in $files) {
-                Write-Host $file.FullName
-            }
-            } else {
-            Write-Host "pgpass.conf not found in any subdirectories of $rootDirectory"
-            }
     - name: Create pgpass.conf and append
       run: |
+        $fullPath = "$env:USERPROFILE\AppData\Roaming\"
+
+        # Check if the subdirectory already exists
+        if (-not (Test-Path $fullPath -PathType Container)) {
+            # If it doesn't exist, create the subdirectory
+            New-Item -Path $fullPath -ItemType Directory
+            $fullPath + = "\postgresql\"
+             New-Item -Path $fullPath -ItemType Directory
+            Write-Host "Subdirectory '$subdirectoryName' created in '$parentDirectory'"
+        } else {
+            Write-Host "Subdirectory '$subdirectoryName' already exists in '$parentDirectory'"
+        }
+
         $pgpassPath = "$env:USERPROFILE\AppData\Roaming\postgresql\pgpass.conf"
         $contentToAppend = "localhost:5432:*:postgres:postgres"
         # Check if the file exists, and if not, create it
@@ -149,7 +146,6 @@ jobs:
         $contentToAppend | Out-File -Append -FilePath $pgpassPath
     - name: Print pgpass.conf
       run: |
-
 
         $pgpassPath = "$env:USERPROFILE\AppData\Roaming\postgresql\pgpass.conf"
         if (Test-Path -Path $pgpassPath) {
