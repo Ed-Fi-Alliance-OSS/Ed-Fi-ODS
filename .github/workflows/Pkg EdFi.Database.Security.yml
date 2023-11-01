@@ -120,22 +120,6 @@ jobs:
           $confPath = "C:\Program Files\PostgreSQL\13\data\pg_hba.conf"
           Get-Content -Path $confPath
           Restart-Service postgresql-x64-13
-    - name: find postgres13 installation directories
-      shell: powershell
-      run: |
-            # Search for postgres.exe on the C: drive and its subdirectories
-            $results = Get-ChildItem -Path "$env:GITHUB_WORKSPACE\*" -Filter "postgres.exe" -File -Recurse
-
-            if ($results.Count -gt 0) {
-                $installationDirectories = $results | ForEach-Object { $_.DirectoryName }
-    
-                Write-Host "PostgreSQL installation directories found:"
-                $installationDirectories | ForEach-Object {
-                    Write-Host $_
-                }
-            } else {
-                Write-Host "No PostgreSQL installation directories found."
-            }
     - name: Create pgpass.conf 
       shell: powershell
       run: |
@@ -159,17 +143,8 @@ jobs:
         }
         $contentToAppend = "localhost:5432:*:postgres:postgres"
         $contentToAppend | Out-File -Append -FilePath $pgpassPath
-    - name: Print pgpass.conf
-      shell: powershell
-      run: |
-        $pgpassPath = "$env:USERPROFILE\AppData\Roaming\postgresql\pgpass.conf"
-        if (Test-Path -Path $pgpassPath) {
-          Get-Content $pgpassPath
-        } else {
-          Write-Host "pgpass.conf not found at $pgpassPath"
-        }
+        Get-Content $pgpassPath
         $env:PGPASSFILE = $pgpassPath
-
     - name: Create Security Database 
       shell: powershell
       run: |
