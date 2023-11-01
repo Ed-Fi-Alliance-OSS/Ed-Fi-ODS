@@ -146,7 +146,7 @@ jobs:
         Get-Content $pgpassPath
         $env:PGPASSFILE = $pgpassPath
         Write-Host "PGPASSFILE Value $env:PGPASSFILE"
-
+        Restart-Service postgresql-x64-13
     - name: Create Security Database 
       shell: powershell
       run: |
