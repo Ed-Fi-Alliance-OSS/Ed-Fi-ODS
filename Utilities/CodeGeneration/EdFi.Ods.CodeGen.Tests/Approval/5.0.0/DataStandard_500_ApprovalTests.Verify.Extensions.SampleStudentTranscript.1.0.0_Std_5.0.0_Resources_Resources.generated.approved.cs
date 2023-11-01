@@ -1217,7 +1217,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
             set { SetStudentAcademicRecordClassRanking(value); }
         }
 
-        internal Entities.Common.EdFi.IStudentAcademicRecordClassRanking StudentAcademicRecordClassRanking
+        public Entities.Common.EdFi.IStudentAcademicRecordClassRanking StudentAcademicRecordClassRanking
         {
             set { SetStudentAcademicRecordClassRanking(value); }
         }
@@ -1468,7 +1468,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
             set { SetStudentAcademicRecord(value); }
         }
 
-        internal Entities.Common.EdFi.IStudentAcademicRecord StudentAcademicRecord
+        public Entities.Common.EdFi.IStudentAcademicRecord StudentAcademicRecord
         {
             set { SetStudentAcademicRecord(value); }
         }

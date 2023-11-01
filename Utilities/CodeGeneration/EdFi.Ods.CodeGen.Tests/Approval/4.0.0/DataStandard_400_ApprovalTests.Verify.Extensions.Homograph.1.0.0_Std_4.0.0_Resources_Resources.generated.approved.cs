@@ -722,7 +722,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_parentAddresses != null) foreach (var item in _parentAddresses)
             {
                 item.Parent = this;
@@ -906,7 +906,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
             set { SetParent(value); }
         }
 
-        internal Entities.Common.Homograph.IParent Parent
+        public Entities.Common.Homograph.IParent Parent
         {
             set { SetParent(value); }
         }
@@ -1161,7 +1161,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
             set { SetParent(value); }
         }
 
-        internal Entities.Common.Homograph.IParent Parent
+        public Entities.Common.Homograph.IParent Parent
         {
             set { SetParent(value); }
         }
@@ -1862,7 +1862,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
             set { SetSchool(value); }
         }
 
-        internal Entities.Common.Homograph.ISchool School
+        public Entities.Common.Homograph.ISchool School
         {
             set { SetSchool(value); }
         }
@@ -2717,7 +2717,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_staffAddresses != null) foreach (var item in _staffAddresses)
             {
                 item.Staff = this;
@@ -2901,7 +2901,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
             set { SetStaff(value); }
         }
 
-        internal Entities.Common.Homograph.IStaff Staff
+        public Entities.Common.Homograph.IStaff Staff
         {
             set { SetStaff(value); }
         }
@@ -3156,7 +3156,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
             set { SetStaff(value); }
         }
 
-        internal Entities.Common.Homograph.IStaff Staff
+        public Entities.Common.Homograph.IStaff Staff
         {
             set { SetStaff(value); }
         }
@@ -3956,7 +3956,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
             set { SetStudent(value); }
         }
 
-        internal Entities.Common.Homograph.IStudent Student
+        public Entities.Common.Homograph.IStudent Student
         {
             set { SetStudent(value); }
         }

@@ -452,7 +452,7 @@ namespace {{ResourceClassesNamespace}}
             set { Set{{ParentName}}(value); }
         }
 
-        internal {{ParentNamespacePrefix}}I{{ParentName}} {{ParentName}}
+        public {{ParentNamespacePrefix}}I{{ParentName}} {{ParentName}}
         {
             set { Set{{ParentName}}(value); }
         }
@@ -1218,7 +1218,7 @@ namespace {{ResourceClassesNamespace}}
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             {{#BackRef}}
             {{#BackRefCollections}}
             if (_{{PropertyFieldName}} != null)
@@ -1227,7 +1227,11 @@ namespace {{ResourceClassesNamespace}}
             {{/BackRef}}
             {{#Inherited}}
             {{#InheritedCollections}}
-            // _{{PropertyFieldName}}
+            if (_{{PropertyFieldName}} != null) foreach (var item in _{{PropertyFieldName}})
+            {
+                item.{{ParentName}} = this;
+            }
+
             {{/InheritedCollections}}
             {{/Inherited}}
             {{#Standard}}

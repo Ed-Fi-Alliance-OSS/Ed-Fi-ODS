@@ -1294,7 +1294,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_candidateAddresses != null) foreach (var item in _candidateAddresses)
             {
                 item.Candidate = this;
@@ -1638,7 +1638,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidate(value); }
         }
 
-        internal Entities.Common.TPDM.ICandidate Candidate
+        public Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
         }
@@ -1917,7 +1917,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_candidateAddressPeriods != null) foreach (var item in _candidateAddressPeriods)
             {
                 item.CandidateAddress = this;
@@ -2061,7 +2061,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidateAddress(value); }
         }
 
-        internal Entities.Common.TPDM.ICandidateAddress CandidateAddress
+        public Entities.Common.TPDM.ICandidateAddress CandidateAddress
         {
             set { SetCandidateAddress(value); }
         }
@@ -2294,7 +2294,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidate(value); }
         }
 
-        internal Entities.Common.TPDM.ICandidate Candidate
+        public Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
         }
@@ -2467,7 +2467,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_candidateDisabilityDesignations != null) foreach (var item in _candidateDisabilityDesignations)
             {
                 item.CandidateDisability = this;
@@ -2611,7 +2611,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidateDisability(value); }
         }
 
-        internal Entities.Common.TPDM.ICandidateDisability CandidateDisability
+        public Entities.Common.TPDM.ICandidateDisability CandidateDisability
         {
             set { SetCandidateDisability(value); }
         }
@@ -2833,7 +2833,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidate(value); }
         }
 
-        internal Entities.Common.TPDM.ICandidate Candidate
+        public Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
         }
@@ -3089,7 +3089,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidate(value); }
         }
 
-        internal Entities.Common.TPDM.ICandidate Candidate
+        public Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
         }
@@ -3241,7 +3241,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_candidateLanguageUses != null) foreach (var item in _candidateLanguageUses)
             {
                 item.CandidateLanguage = this;
@@ -3385,7 +3385,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidateLanguage(value); }
         }
 
-        internal Entities.Common.TPDM.ICandidateLanguage CandidateLanguage
+        public Entities.Common.TPDM.ICandidateLanguage CandidateLanguage
         {
             set { SetCandidateLanguage(value); }
         }
@@ -3607,7 +3607,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidate(value); }
         }
 
-        internal Entities.Common.TPDM.ICandidate Candidate
+        public Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
         }
@@ -3864,7 +3864,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidate(value); }
         }
 
-        internal Entities.Common.TPDM.ICandidate Candidate
+        public Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
         }
@@ -4137,7 +4137,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidate(value); }
         }
 
-        internal Entities.Common.TPDM.ICandidate Candidate
+        public Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
         }
@@ -4359,7 +4359,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidate(value); }
         }
 
-        internal Entities.Common.TPDM.ICandidate Candidate
+        public Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
         }
@@ -5105,7 +5105,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_candidateEducatorPreparationProgramAssociationCohortYears != null) foreach (var item in _candidateEducatorPreparationProgramAssociationCohortYears)
             {
                 item.CandidateEducatorPreparationProgramAssociation = this;
@@ -5336,7 +5336,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
             set { SetCandidateEducatorPreparationProgramAssociation(value); }
         }
 
-        internal Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation
+        public Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation
         {
             set { SetCandidateEducatorPreparationProgramAssociation(value); }
         }
@@ -5605,7 +5605,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
             set { SetCandidateEducatorPreparationProgramAssociation(value); }
         }
 
-        internal Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation
+        public Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation
         {
             set { SetCandidateEducatorPreparationProgramAssociation(value); }
         }
@@ -6425,7 +6425,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
             set { SetCredential(value); }
         }
 
-        internal Entities.Common.EdFi.ICredential Credential
+        public Entities.Common.EdFi.ICredential Credential
         {
             set { SetCredential(value); }
         }
@@ -6653,7 +6653,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_credentialStudentAcademicRecords != null) foreach (var item in _credentialStudentAcademicRecords)
             {
                 item.CredentialExtension = this;
@@ -6849,7 +6849,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
             set { SetCredentialExtension(value); }
         }
 
-        internal Entities.Common.TPDM.ICredentialExtension CredentialExtension
+        public Entities.Common.TPDM.ICredentialExtension CredentialExtension
         {
             set { SetCredentialExtension(value); }
         }
@@ -7802,7 +7802,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_educatorPreparationProgramGradeLevels != null) foreach (var item in _educatorPreparationProgramGradeLevels)
             {
                 item.EducatorPreparationProgram = this;
@@ -7960,7 +7960,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
             set { SetEducatorPreparationProgram(value); }
         }
 
-        internal Entities.Common.TPDM.IEducatorPreparationProgram EducatorPreparationProgram
+        public Entities.Common.TPDM.IEducatorPreparationProgram EducatorPreparationProgram
         {
             set { SetEducatorPreparationProgram(value); }
         }
@@ -9500,7 +9500,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_evaluationRatingLevels != null) foreach (var item in _evaluationRatingLevels)
             {
                 item.Evaluation = this;
@@ -9658,7 +9658,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
             set { SetEvaluation(value); }
         }
 
-        internal Entities.Common.TPDM.IEvaluation Evaluation
+        public Entities.Common.TPDM.IEvaluation Evaluation
         {
             set { SetEvaluation(value); }
         }
@@ -10464,7 +10464,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_evaluationElementRatingLevels != null) foreach (var item in _evaluationElementRatingLevels)
             {
                 item.EvaluationElement = this;
@@ -10622,7 +10622,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
             set { SetEvaluationElement(value); }
         }
 
-        internal Entities.Common.TPDM.IEvaluationElement EvaluationElement
+        public Entities.Common.TPDM.IEvaluationElement EvaluationElement
         {
             set { SetEvaluationElement(value); }
         }
@@ -11612,7 +11612,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_evaluationElementRatingResults != null) foreach (var item in _evaluationElementRatingResults)
             {
                 item.EvaluationElementRating = this;
@@ -12001,7 +12001,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
             set { SetEvaluationElementRating(value); }
         }
 
-        internal Entities.Common.TPDM.IEvaluationElementRating EvaluationElementRating
+        public Entities.Common.TPDM.IEvaluationElementRating EvaluationElementRating
         {
             set { SetEvaluationElementRating(value); }
         }
@@ -13078,7 +13078,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_evaluationObjectiveRatingLevels != null) foreach (var item in _evaluationObjectiveRatingLevels)
             {
                 item.EvaluationObjective = this;
@@ -13236,7 +13236,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
             set { SetEvaluationObjective(value); }
         }
 
-        internal Entities.Common.TPDM.IEvaluationObjective EvaluationObjective
+        public Entities.Common.TPDM.IEvaluationObjective EvaluationObjective
         {
             set { SetEvaluationObjective(value); }
         }
@@ -14165,7 +14165,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_evaluationObjectiveRatingResults != null) foreach (var item in _evaluationObjectiveRatingResults)
             {
                 item.EvaluationObjectiveRating = this;
@@ -14527,7 +14527,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
             set { SetEvaluationObjectiveRating(value); }
         }
 
-        internal Entities.Common.TPDM.IEvaluationObjectiveRating EvaluationObjectiveRating
+        public Entities.Common.TPDM.IEvaluationObjectiveRating EvaluationObjectiveRating
         {
             set { SetEvaluationObjectiveRating(value); }
         }
@@ -15873,7 +15873,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_evaluationRatingResults != null) foreach (var item in _evaluationRatingResults)
             {
                 item.EvaluationRating = this;
@@ -16256,7 +16256,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
             set { SetEvaluationRating(value); }
         }
 
-        internal Entities.Common.TPDM.IEvaluationRating EvaluationRating
+        public Entities.Common.TPDM.IEvaluationRating EvaluationRating
         {
             set { SetEvaluationRating(value); }
         }
@@ -16554,7 +16554,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
             set { SetEvaluationRating(value); }
         }
 
-        internal Entities.Common.TPDM.IEvaluationRating EvaluationRating
+        public Entities.Common.TPDM.IEvaluationRating EvaluationRating
         {
             set { SetEvaluationRating(value); }
         }
@@ -16868,7 +16868,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
             set { SetEvaluationRatingReviewer(value); }
         }
 
-        internal Entities.Common.TPDM.IEvaluationRatingReviewer EvaluationRatingReviewer
+        public Entities.Common.TPDM.IEvaluationRatingReviewer EvaluationRatingReviewer
         {
             set { SetEvaluationRatingReviewer(value); }
         }
@@ -19347,7 +19347,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_performanceEvaluationGradeLevels != null) foreach (var item in _performanceEvaluationGradeLevels)
             {
                 item.PerformanceEvaluation = this;
@@ -19538,7 +19538,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
             set { SetPerformanceEvaluation(value); }
         }
 
-        internal Entities.Common.TPDM.IPerformanceEvaluation PerformanceEvaluation
+        public Entities.Common.TPDM.IPerformanceEvaluation PerformanceEvaluation
         {
             set { SetPerformanceEvaluation(value); }
         }
@@ -19760,7 +19760,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
             set { SetPerformanceEvaluation(value); }
         }
 
-        internal Entities.Common.TPDM.IPerformanceEvaluation PerformanceEvaluation
+        public Entities.Common.TPDM.IPerformanceEvaluation PerformanceEvaluation
         {
             set { SetPerformanceEvaluation(value); }
         }
@@ -20634,7 +20634,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // Reconnect external inbound references on deserialization
+            // Reconnect collection item parent references on deserialization
             if (_performanceEvaluationRatingResults != null) foreach (var item in _performanceEvaluationRatingResults)
             {
                 item.PerformanceEvaluationRating = this;
@@ -20833,7 +20833,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
             set { SetPerformanceEvaluationRating(value); }
         }
 
-        internal Entities.Common.TPDM.IPerformanceEvaluationRating PerformanceEvaluationRating
+        public Entities.Common.TPDM.IPerformanceEvaluationRating PerformanceEvaluationRating
         {
             set { SetPerformanceEvaluationRating(value); }
         }
@@ -21131,7 +21131,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
             set { SetPerformanceEvaluationRating(value); }
         }
 
-        internal Entities.Common.TPDM.IPerformanceEvaluationRating PerformanceEvaluationRating
+        public Entities.Common.TPDM.IPerformanceEvaluationRating PerformanceEvaluationRating
         {
             set { SetPerformanceEvaluationRating(value); }
         }
@@ -21445,7 +21445,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
             set { SetPerformanceEvaluationRatingReviewer(value); }
         }
 
-        internal Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer PerformanceEvaluationRatingReviewer
+        public Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer PerformanceEvaluationRatingReviewer
         {
             set { SetPerformanceEvaluationRatingReviewer(value); }
         }
@@ -23216,7 +23216,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
             set { SetSchool(value); }
         }
 
-        internal Entities.Common.EdFi.ISchool School
+        public Entities.Common.EdFi.ISchool School
         {
             set { SetSchool(value); }
         }
@@ -23499,7 +23499,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.TP
             set { SetSurveyResponse(value); }
         }
 
-        internal Entities.Common.EdFi.ISurveyResponse SurveyResponse
+        public Entities.Common.EdFi.ISurveyResponse SurveyResponse
         {
             set { SetSurveyResponse(value); }
         }
