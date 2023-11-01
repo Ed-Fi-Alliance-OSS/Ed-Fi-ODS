@@ -174,7 +174,7 @@ namespace EdFi.Ods.Api.Middleware.Tests
 
         [TestCase("2022", "NoMatch")]
         [TestCase("2024", "Abc")]
-        public async Task GetOdsInstanceAsync_ReturnsNotFoundException_WhenApiClientContextHasMultipleOdsInstanceIds_AndNoneMatchingAllContextValues(
+        public void GetOdsInstanceAsync_ReturnsNotFoundException_WhenApiClientContextHasMultipleOdsInstanceIds_AndNoneMatchingAllContextValues(
             string schoolYearRouteValue, string secondKeyRouteValue)
         {
             // Arrange
@@ -216,7 +216,7 @@ namespace EdFi.Ods.Api.Middleware.Tests
         }
 
         [Test]
-        public async Task GetOdsInstanceAsync_ReturnsNotFoundException_WhenApiClientContextHasOneOdsInstanceId_AndNoneMatchingAllContextValues()
+        public void GetOdsInstanceAsync_ReturnsNotFoundException_WhenApiClientContextHasOneOdsInstanceId_AndNoneMatchingAllContextValues()
         {
             // Arrange
             var odsInstanceId = 1;
