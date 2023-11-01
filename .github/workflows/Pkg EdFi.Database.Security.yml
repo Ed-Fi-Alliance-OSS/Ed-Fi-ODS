@@ -136,13 +136,8 @@ jobs:
         $sourcePath = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS\.github\workflows\pgpass.conf"
         $pgpassPath = Join-Path $env:USERPROFILE "AppData\Roaming\postgresql\pgpass.conf"
 
-        # Check if the destination directory exists, and if not, create it
-        if (-not (Test-Path (Split-Path $destinationPath))) {
-            New-Item -ItemType Directory -Path (Split-Path $destinationPath) -Force
-        }
-
         # Move the file to the destination
-        Move-Item -Path $sourcePath -Destination $destinationPath -Force
+        Move-Item -Path $sourcePath -Destination $pgpassPath -Force
         
         Write-Host "GitHub Actions is running as user $env:USERNAME"
         $acl = Get-Acl $pgpassPath
