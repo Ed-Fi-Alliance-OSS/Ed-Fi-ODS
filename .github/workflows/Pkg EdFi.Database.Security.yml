@@ -120,7 +120,7 @@ jobs:
           $confPath = "C:\Program Files\PostgreSQL\13\data\pg_hba.conf"
           Get-Content -Path $confPath
           Restart-Service postgresql-x64-13
-    - name: Create .pgpass
+    - name: Create pgpass.conf
       shell: powershell
       run: |
         $subDirectory = "$env:USERPROFILE\AppData\Roaming\"
@@ -131,7 +131,7 @@ jobs:
             Write-Host "Subdirectory  created in $subDirectory"
         }
 
-        $pgpassPath = "$env:USERPROFILE\AppData\Roaming\postgresql\.pgpass"
+        $pgpassPath = "$env:USERPROFILE\AppData\Roaming\postgresql\pgpass.conf"
         $pgpassContent = "localhost:5432:*:postgres:postgres"
         if (-not (Test-Path -Path $pgpassPath)) {
             New-Item -Path $pgpassPath -ItemType File -Value $pgpassContent
