@@ -11,6 +11,7 @@ using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Database;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Caching.Person;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common;
@@ -302,12 +303,12 @@ namespace EdFi.Ods.Api.Container.Modules
                         }))
                 .WithParameter(
                     new ResolvedParameter(
-                        (p, c) => p.Name.EqualsIgnoreCase("performBackgroundInitialization"),
+                        (p, c) => p.Name.EqualsIgnoreCase("useProgressiveLoading"),
                         (p, c) =>
                         {
                             var apiSettings = c.Resolve<ApiSettings>();
 
-                            return apiSettings.Caching.PersonUniqueIdToUsi.PerformBackgroundInitialization;
+                            return apiSettings.Caching.PersonUniqueIdToUsi.UseProgressiveLoading;
                         }))
                 .As<IPersonUniqueIdResolver>()
                 .SingleInstance();
@@ -324,12 +325,12 @@ namespace EdFi.Ods.Api.Container.Modules
                         }))
                 .WithParameter(
                     new ResolvedParameter(
-                        (p, c) => p.Name.EqualsIgnoreCase("performBackgroundInitialization"),
+                        (p, c) => p.Name.EqualsIgnoreCase("useProgressiveLoading"),
                         (p, c) =>
                         {
                             var apiSettings = c.Resolve<ApiSettings>();
 
-                            return apiSettings.Caching.PersonUniqueIdToUsi.PerformBackgroundInitialization;
+                            return apiSettings.Caching.PersonUniqueIdToUsi.UseProgressiveLoading;
                         }))
                 .As<IPersonUsiResolver>()
                 .SingleInstance();

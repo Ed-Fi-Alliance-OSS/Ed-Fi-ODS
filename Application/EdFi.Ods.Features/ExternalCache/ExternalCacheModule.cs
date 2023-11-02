@@ -10,6 +10,7 @@ using Castle.DynamicProxy;
 using EdFi.Common.Extensions;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Caching.Person;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;

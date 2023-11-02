@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-namespace EdFi.Ods.Api.Caching;
+namespace EdFi.Ods.Api.Caching.Person;
 
 /// <summary>
 /// Defines a method for obtaining the cache entry key for denoting the initiation of the background cache initialization.
@@ -15,5 +15,5 @@ public interface ICacheInitializationMarkerKeyProvider<out TKey>
     /// Gets the cache entry key for denoting the initiation of the background cache initialization.
     /// </summary>
     /// <returns>The cache key.</returns>
-    TKey GetKey();
+    TKey CacheKey { get; }
 }

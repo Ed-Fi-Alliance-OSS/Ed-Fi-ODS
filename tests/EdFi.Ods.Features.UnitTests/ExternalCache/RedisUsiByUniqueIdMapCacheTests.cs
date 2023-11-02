@@ -5,6 +5,7 @@
 
 using System.Diagnostics;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Caching.Person;
 using EdFi.Ods.Features.ExternalCache.Redis;
 using NUnit.Framework;
 using Shouldly;

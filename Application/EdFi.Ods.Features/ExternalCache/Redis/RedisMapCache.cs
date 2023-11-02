@@ -30,8 +30,6 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
     private readonly SemaphoreSlim _connectionLock = new(initialCount: 1, maxCount: 1);
     private IDatabase _cache;
 
-    private readonly ILog _logger = LogManager.GetLogger(typeof(RedisMapCache<TKey, TMapKey, TMapValue>));
-
     public RedisMapCache(string configuration, TimeSpan? absoluteExpirationPeriod, TimeSpan? slidingExpirationPeriod)
     {
         ArgumentNullException.ThrowIfNull(configuration, nameof(configuration));

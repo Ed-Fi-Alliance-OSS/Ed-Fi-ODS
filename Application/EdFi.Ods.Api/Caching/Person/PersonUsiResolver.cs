@@ -11,7 +11,7 @@ using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 
-namespace EdFi.Ods.Api.Caching;
+namespace EdFi.Ods.Api.Caching.Person;
 
 /// <summary>
 /// Resolves USIs for supplied UniqueIds.

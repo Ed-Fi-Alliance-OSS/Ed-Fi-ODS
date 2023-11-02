@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Caching.Person;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;

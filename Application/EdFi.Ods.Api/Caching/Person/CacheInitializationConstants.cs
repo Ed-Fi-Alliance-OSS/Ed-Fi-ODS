@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-namespace EdFi.Ods.Api.Caching;
+namespace EdFi.Ods.Api.Caching.Person;
 
 /// <summary>
 /// Defines constants for cache keys for entries added to track the initiation of background cache initialization.

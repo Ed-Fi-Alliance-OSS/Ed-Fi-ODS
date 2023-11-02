@@ -5,7 +5,7 @@
 
 using System;
 
-namespace EdFi.Ods.Api.Caching;
+namespace EdFi.Ods.Api.Caching.Person;
 
 /// <summary>
 /// Identifies the type of person map for a cache key to delineate entries for the same ODS instance and person type.

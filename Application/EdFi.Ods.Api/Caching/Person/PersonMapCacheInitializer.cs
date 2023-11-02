@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 using EdFi.Ods.Api.IdentityValueMappers;
 using log4net;
 
-namespace EdFi.Ods.Api.Caching;
+namespace EdFi.Ods.Api.Caching.Person;
 
 public class PersonMapCacheInitializer : IPersonMapCacheInitializer
 {
@@ -82,8 +83,7 @@ public class PersonMapCacheInitializer : IPersonMapCacheInitializer
                                 new[]
                                 {
                                     (InitializedReservedKeyForUsi: CacheInitializationConstants.InitializationMarkerKeyForUsi,
-                                        InitializedKeyForUniqueId: CacheInitializationConstants
-                                            .InitializationMarkerKeyForUniqueId)
+                                        InitializedKeyForUniqueId: CacheInitializationConstants.InitializationMarkerKeyForUniqueId)
                                 })
                             .ToArray();
 
@@ -97,13 +97,20 @@ public class PersonMapCacheInitializer : IPersonMapCacheInitializer
                             .ToArray();
 
                         // Set the retrieved tuples into the cache
-                        await Task.WhenAll(
-                            _uniqueIdByUsiMapCache.SetMapEntriesAsync(
-                                (odsInstanceHashId, personType, PersonMapType.UniqueIdByUsi),
-                                uniqueIdByUsiCacheEntries),
-                            _usiByUniqueIdMapCache.SetMapEntriesAsync(
-                                (odsInstanceHashId, personType, PersonMapType.UsiByUniqueId),
-                                usiByUniqueIdCacheEntries));
+                        try
+                        {
+                            await Task.WhenAll(
+                                _uniqueIdByUsiMapCache.SetMapEntriesAsync(
+                                    (odsInstanceHashId, personType, PersonMapType.UniqueIdByUsi),
+                                    uniqueIdByUsiCacheEntries),
+                                _usiByUniqueIdMapCache.SetMapEntriesAsync(
+                                    (odsInstanceHashId, personType, PersonMapType.UsiByUniqueId),
+                                    usiByUniqueIdCacheEntries));
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.Error("An error occurred while setting UniqueId/USI entries into the cache.", ex);
+                        }
 
                         if (_logger.IsDebugEnabled)
                         {

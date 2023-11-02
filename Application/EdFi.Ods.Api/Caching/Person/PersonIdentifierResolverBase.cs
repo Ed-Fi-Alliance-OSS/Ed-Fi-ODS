@@ -14,7 +14,7 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using log4net;
 
-namespace EdFi.Ods.Api.Caching;
+namespace EdFi.Ods.Api.Caching.Person;
 
 /// <summary>
 /// Provides a base class for common behavior needed for person identifier resolution (see <see cref="IPersonUniqueIdResolver"/>
@@ -46,7 +46,7 @@ public abstract class PersonIdentifierResolverBase<TLookup, TResolved>
         ICacheInitializationMarkerKeyProvider<TLookup> cacheInitializationMarkerKeyForLookupProvider, 
         ICacheInitializationMarkerKeyProvider<TResolved> cacheInitializationMarkerKeyForResolvedProvider, 
         Dictionary<string, bool> cacheSuppressionByPersonType,
-        bool performBackgroundInitialization)
+        bool useProgressiveLoading)
     {
         _logger = LogManager.GetLogger(GetType());
 
@@ -56,10 +56,10 @@ public abstract class PersonIdentifierResolverBase<TLookup, TResolved>
         _reverseMapCache = reverseMapCache;
         _cacheSuppressionByPersonType = cacheSuppressionByPersonType;
 
-        _performBackgroundInitialization = performBackgroundInitialization;
+        _performBackgroundInitialization = !useProgressiveLoading;
         
-        _cacheInitializationMarkerKeyForLookup = new[] { cacheInitializationMarkerKeyForLookupProvider.GetKey() };
-        _cacheInitializationMarkerKeyForResolved = new [] { cacheInitializationMarkerKeyForResolvedProvider.GetKey() };
+        _cacheInitializationMarkerKeyForLookup = new[] { cacheInitializationMarkerKeyForLookupProvider.CacheKey };
+        _cacheInitializationMarkerKeyForResolved = new [] { cacheInitializationMarkerKeyForResolvedProvider.CacheKey };
     }
 
     protected abstract PersonMapType MapType { get; }
@@ -91,14 +91,16 @@ public abstract class PersonIdentifierResolverBase<TLookup, TResolved>
             ulong odsInstanceHashId = _odsInstanceConfigurationContextProvider.Get().OdsInstanceHashId;
 
             await Task.WhenAll(
-                _mapCache.SetMapEntriesAsync((odsInstanceHashId, personType, MapType), loadedIdentifierMappings),
+                _mapCache.SetMapEntriesAsync(
+                    (odsInstanceHashId, personType, MapType),
+                    loadedIdentifierMappings),
 
                 _reverseMapCache.SetMapEntriesAsync(
                     (odsInstanceHashId, personType, MapType.Inverse()),
                     loadedIdentifierMappings.Select(x => (x.value, x.key)).ToArray()));
 
-            // Note: We may want to validate that all values have been resolved, though the behavior of the API when the
-            // resolution fails (primarily for UniqueId values passed in PUT/POST requests) is appropriate without this extra validation. 
+            // Note: While we may want to validate that all values have been resolved, the behavior of the API when the resolution
+            // fails (primarily for UniqueId values passed in PUT/POST requests) is appropriate without this extra validation. 
         }
 
         async Task<ICollection<TLookup>> ResolveIdentifiersFromCache()
@@ -124,7 +126,7 @@ public abstract class PersonIdentifierResolverBase<TLookup, TResolved>
                 (resolvedIdentifier, i, args) =>
                 {
                     // The last entry is always the check to see if cache value has been background initialized -- don't process that entry normally
-                    if (_performBackgroundInitialization && i == args.resolvedIdentifiersLength - 1)
+                    if (args.performBackgroundInitialization && i == args.resolvedIdentifiersLength - 1)
                     {
                         return;
                     }
@@ -146,7 +148,12 @@ public abstract class PersonIdentifierResolverBase<TLookup, TResolved>
                         identifiersToLoad.Add(lookupValue);
                     }
                 },
-                (cacheLookupIdentifiers, lookups, identifiersToLoad, resolvedIdentifiersLength: resolvedIdentifiers.Length));
+                // Args to avoid closure
+                (cacheLookupIdentifiers, 
+                    lookups, 
+                    identifiersToLoad, 
+                    resolvedIdentifiersLength: resolvedIdentifiers.Length,
+                    performBackgroundInitialization: _performBackgroundInitialization));
 
             // Check to see if cache needs to be initialized by checking the resolution of the marker value
             if (_performBackgroundInitialization && resolvedIdentifiers[^1] == null)

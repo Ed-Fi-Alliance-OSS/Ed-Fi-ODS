@@ -15,7 +15,7 @@ using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
 
-namespace EdFi.Ods.Api.Caching;
+namespace EdFi.Ods.Api.Caching.Person;
 
 /// <summary>
 /// Implements a decorator around the delete operation that removes the associated UniqueId/USI cache entries
