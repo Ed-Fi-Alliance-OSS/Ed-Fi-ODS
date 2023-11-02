@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "bdcadf58-03d3-49c9-9d32-a9b12edfc65e",
+		"_postman_id": "17588d9d-936f-4ddd-ad10-a65bda915841",
 		"name": "Ed-Fi ODS/API Integration Test Suite AuthorizationTests",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "26382147"
+		"_exporter_id": "7275232"
 	},
 	"item": [
 		{
@@ -2254,6 +2254,38 @@
 					"name": "ProgramRoleNamedTests",
 					"item": [
 						{
+							"name": "Get StandardVersion",
+							"item": [
+								{
+									"name": "Get StandardVersion",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var response = pm.response.json();\r",
+													"var standardVersion = response[\"dataModels\"].filter(dm => dm.name === 'Ed-Fi').map(dm => dm.version);\r",
+													"pm.environment.set('known:standardVersion', standardVersion);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "GetAll_program_role_named_resources",
 							"item": [
 								{
@@ -2263,14 +2295,17 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 200\", () => {\r",
-													"    pm.expect(pm.response.code).to.equal(200);\r",
-													"});\r",
+													"// 4.0.0 does not include this resource\r",
+													"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+													"    pm.test(\"Status code is 200\", () => {\r",
+													"        pm.expect(pm.response.code).to.equal(200);\r",
+													"    });\r",
 													"\r",
-													"pm.test(\"Should return some rows\", () => {\r",
-													"    const responseItems = pm.response.json();\r",
-													"    pm.expect(responseItems.length).to.be.greaterThan(0);\r",
-													"});"
+													"     pm.test(\"Should return some rows\", () => {\r",
+													"         const responseItems = pm.response.json();\r",
+													"         pm.expect(responseItems.length).to.be.greaterThan(0);\r",
+													"    });\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -2301,14 +2336,17 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 200\", () => {\r",
-													"    pm.expect(pm.response.code).to.equal(200);\r",
-													"});\r",
+													"// 4.0.0 does not include this resource\r",
+													"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+													"    pm.test(\"Status code is 200\", () => {\r",
+													"        pm.expect(pm.response.code).to.equal(200);\r",
+													"    });\r",
 													"\r",
-													"pm.test(\"Should return some rows\", () => {\r",
-													"    const responseItems = pm.response.json();\r",
-													"    pm.expect(responseItems.length).to.be.greaterThan(0);\r",
-													"});"
+													"     pm.test(\"Should return some rows\", () => {\r",
+													"         const responseItems = pm.response.json();\r",
+													"         pm.expect(responseItems.length).to.be.greaterThan(0);\r",
+													"    });\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -2339,14 +2377,17 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 200\", () => {\r",
-													"    pm.expect(pm.response.code).to.equal(200);\r",
-													"});\r",
+													"// 4.0.0 does not include this resource\r",
+													"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+													"    pm.test(\"Status code is 200\", () => {\r",
+													"        pm.expect(pm.response.code).to.equal(200);\r",
+													"    });\r",
 													"\r",
-													"pm.test(\"Should return some rows\", () => {\r",
-													"    const responseItems = pm.response.json();\r",
-													"    pm.expect(responseItems.length).to.be.greaterThan(0);\r",
-													"});"
+													"     pm.test(\"Should return some rows\", () => {\r",
+													"         const responseItems = pm.response.json();\r",
+													"         pm.expect(responseItems.length).to.be.greaterThan(0);\r",
+													"    });\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -2377,14 +2418,17 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 200\", () => {\r",
-													"    pm.expect(pm.response.code).to.equal(200);\r",
-													"});\r",
+													"// 4.0.0 does not include this resource\r",
+													"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+													"    pm.test(\"Status code is 200\", () => {\r",
+													"        pm.expect(pm.response.code).to.equal(200);\r",
+													"    });\r",
 													"\r",
-													"pm.test(\"Should return some rows\", () => {\r",
-													"    const responseItems = pm.response.json();\r",
-													"    pm.expect(responseItems.length).to.be.greaterThan(0);\r",
-													"});"
+													"     pm.test(\"Should return some rows\", () => {\r",
+													"         const responseItems = pm.response.json();\r",
+													"         pm.expect(responseItems.length).to.be.greaterThan(0);\r",
+													"    });\r",
+													"}"
 												],
 												"type": "text/javascript"
 											}
@@ -2403,6 +2447,36 @@
 												"v3",
 												"ed-fi",
 												"programEvaluationObjectives"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Clean StandardVersion",
+							"item": [
+								{
+									"name": "Clean Test Data",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.unset('known:standardVersion')"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
 											]
 										}
 									},
