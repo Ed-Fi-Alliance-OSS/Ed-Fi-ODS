@@ -5,7 +5,6 @@
 
 using System.Collections.Generic;
 using EdFi.Ods.Api.Models;
-using Microsoft.OpenApi;
 
 namespace EdFi.Ods.Api.Providers
 {

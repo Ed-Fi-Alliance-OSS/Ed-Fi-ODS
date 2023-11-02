@@ -74,8 +74,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                     { All, new SdkGenAllResourceStrategy() }
                 };
 
-            _openApiMetadataMetadataCache =
-                new Lazy<ConcurrentDictionary<string, OpenApiContent>>();
+            _openApiMetadataMetadataCache = new Lazy<ConcurrentDictionary<string, OpenApiContent>>();
 
             _openApiMetadataDocumentFactory = openApiMetadataDocumentFactory;
         }
@@ -112,8 +111,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
         public void ResetCacheInitialization()
         {
             // Reset the underlying cache
-            _openApiMetadataMetadataCache =
-                new Lazy<ConcurrentDictionary<string, OpenApiContent>>(LazyInitializeCache);
+            _openApiMetadataMetadataCache = new Lazy<ConcurrentDictionary<string, OpenApiContent>>(LazyInitializeCache);
         }
 
         private ConcurrentDictionary<string, OpenApiContent> LazyInitializeCache()

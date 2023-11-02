@@ -48,7 +48,6 @@ namespace EdFi.Ods.Api.Middleware
                 var etag = HashHelper.GetSha256Hash(document)
                     .ToHexString()
                     .DoubleQuoted();
-                
                 if (context.Request.TryGetRequestHeader(HeaderConstants.IfNoneMatch, out string headerValue))
                 {
                     if (headerValue.EqualsIgnoreCase(etag))
@@ -64,7 +63,6 @@ namespace EdFi.Ods.Api.Middleware
                     context.Response.GetTypedHeaders().ETag = new EntityTagHeaderValue(etag);
                     context.Response.StatusCode = StatusCodes.Status200OK;
                     context.Response.ContentType = GetContentType();
-                    
                     await context.Response.WriteAsync(document);
                 }
             }

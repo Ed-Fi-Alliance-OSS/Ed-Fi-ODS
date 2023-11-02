@@ -24,7 +24,6 @@ namespace EdFi.Ods.Features.Composites
         private readonly ICompositesMetadataProvider _compositesMetadataProvider;
         private readonly IResourceModelProvider _resourceModelProvider;
         private readonly IOpenApiMetadataDocumentFactory _openApiMetadataDocumentFactory;
-        
         public CompositesOpenApiContentProvider(ICompositesMetadataProvider compositesMetadataProvider,
             IResourceModelProvider resourceModelProvider, IOpenApiMetadataDocumentFactory openApiMetadataDocumentFactory)
         {

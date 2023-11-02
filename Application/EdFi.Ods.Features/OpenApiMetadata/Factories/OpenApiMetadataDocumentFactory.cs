@@ -102,7 +102,6 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     parameters = parametersFactory.Create(documentContext.IsCompositeContext),
                     responses = responsesFactory.Create()
                 };
-    
                 var jsonString = JsonConvert.SerializeObject(
                     openApiMetadataDocument,
                     new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore});

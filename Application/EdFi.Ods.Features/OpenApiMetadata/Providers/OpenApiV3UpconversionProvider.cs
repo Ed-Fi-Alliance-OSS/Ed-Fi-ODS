@@ -71,40 +71,36 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
         };
 
         openApiDocument.Servers.Add(odsServer);
-
-        try
+        
+        foreach (var server in openApiDocument.Servers)
         {
-            foreach (var server in openApiDocument.Servers)
+            if (!string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
             {
-                if (!string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
+                foreach (var contextRouteTemplateKey in _apiSettings.GetOdsContextRouteTemplateKeys())
                 {
-                    foreach (var contextRouteTemplateKey in _apiSettings.GetOdsContextRouteTemplateKeys())
-                    {
-                        var routeContextValues =
-                            _IEdFiAdminRawOdsInstanceConfigurationDataProvider.GetDistinctOdsInstanceContextValuesAsync(
-                                contextRouteTemplateKey);
+                    var routeContextValues =
+                        _IEdFiAdminRawOdsInstanceConfigurationDataProvider.GetDistinctOdsInstanceContextValuesAsync(
+                            contextRouteTemplateKey);
 
-                        server.Variables.Add(
-                            contextRouteTemplateKey,
-                            new OpenApiServerVariable()
-                            {
-                                Enum = routeContextValues
-                                    .Result.ToList(),
-                                Default = routeContextValues
-                                    .Result.ToList().Last()
-                            });
+                    server.Variables.Add(
+                        contextRouteTemplateKey,
+                        new OpenApiServerVariable()
+                        {
+                            Enum = routeContextValues
+                                .Result.ToList(),
+                            Default = routeContextValues
+                                .Result.ToList().Last()
+                        });
 
-                        openApiDocument.Components.SecuritySchemes.Single().Value.Flows.ClientCredentials.TokenUrl = new Uri(
-                            $"{uriBase}/{routeContextValues.Result.ToList().Last()}{{currentTenant}}oauth/token");
-                    }
-                }
-                else
-                {
                     openApiDocument.Components.SecuritySchemes.Single().Value.Flows.ClientCredentials.TokenUrl = new Uri(
-                        $"{uriBase}{{currentTenant}}oauth/token");
+                        $"{uriBase}/{routeContextValues.Result.ToList().Last()}{{currentTenant}}oauth/token");
                 }
             }
+            else
+            {
+                openApiDocument.Components.SecuritySchemes.Single().Value.Flows.ClientCredentials.TokenUrl = new Uri(
+                    $"{uriBase}{{currentTenant}}oauth/token");
+            }
         }
-        catch { }
     }
 }
