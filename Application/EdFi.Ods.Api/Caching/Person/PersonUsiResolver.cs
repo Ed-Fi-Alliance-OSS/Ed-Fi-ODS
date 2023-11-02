@@ -29,7 +29,7 @@ public class PersonUsiResolver : PersonIdentifierResolverBase<string, int>, IPer
         ICacheInitializationMarkerKeyProvider<string> cacheInitializationMarkerKeyForLookupProvider,
         ICacheInitializationMarkerKeyProvider<int> cacheInitializationMarkerKeyForResolvedProvider,
         Dictionary<string, bool> cacheSuppressionByPersonType,
-        bool performBackgroundInitialization)
+        bool useProgressiveLoading)
         : base(
             personMapCacheInitializer,
             odsInstanceConfigurationContextProvider,
@@ -38,7 +38,7 @@ public class PersonUsiResolver : PersonIdentifierResolverBase<string, int>, IPer
             cacheInitializationMarkerKeyForLookupProvider,
             cacheInitializationMarkerKeyForResolvedProvider,
             cacheSuppressionByPersonType,
-            performBackgroundInitialization)
+            useProgressiveLoading)
     {
         _personIdentifiersProvider = personIdentifiersProvider;
     }
