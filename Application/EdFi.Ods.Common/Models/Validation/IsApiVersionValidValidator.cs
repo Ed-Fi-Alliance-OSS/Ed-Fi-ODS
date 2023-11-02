@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -39,7 +40,12 @@ namespace EdFi.Ods.Common.Models.Validation
 
         private bool IsValidApiVersion(string apiModelFile)
         {
-            var domainModelDefinitions = JsonConvert.DeserializeObject<DomainModelDefinitions>(File.ReadAllText(apiModelFile));
+            var domainModelDefinitions = JsonConvert.DeserializeObject<DomainModelDefinitions>(File.ReadAllText(apiModelFile),
+                new JsonSerializerSettings
+                {
+                    Error = (sender, args) => throw new Exception(
+                        $"Unable to deserialize Domain Model Definitions from path \"{apiModelFile}\".  Unable to load domain model definitions.")
+                });
 
             return _apiVersion.Equals(domainModelDefinitions.OdsApiVersion);
         }

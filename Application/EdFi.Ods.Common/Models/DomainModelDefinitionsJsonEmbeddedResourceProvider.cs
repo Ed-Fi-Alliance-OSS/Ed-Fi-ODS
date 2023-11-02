@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using EdFi.Ods.Common.Models.Definitions;
 using Newtonsoft.Json;
+using ErrorEventArgs = Newtonsoft.Json.Serialization.ErrorEventArgs;
 
 namespace EdFi.Ods.Common.Models
 {
@@ -42,12 +43,13 @@ namespace EdFi.Ods.Common.Models
                 }
             }
 
-            var domainModelDefinitions = JsonConvert.DeserializeObject<DomainModelDefinitions>(json);
-
-            if (domainModelDefinitions == null)
-            {
-                throw new Exception("Unable to deserialize Domain Model from embedded resource.  Unable to load domain model definitions.");
-            }
+            var domainModelDefinitions = JsonConvert.DeserializeObject<DomainModelDefinitions>(
+                json,
+                new JsonSerializerSettings
+                {
+                    Error = (sender, args) => throw new Exception(
+                        "Unable to deserialize Domain Model from embedded resource.  Unable to load domain model definitions.")
+                });
 
             return domainModelDefinitions;
         }

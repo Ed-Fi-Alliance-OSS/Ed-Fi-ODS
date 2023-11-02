@@ -21,12 +21,13 @@ namespace EdFi.Ods.Common.Models
 
         public DomainModelDefinitions GetDomainModelDefinitions()
         {
-            var domainModelDefinitions = JsonConvert.DeserializeObject<DomainModelDefinitions>(File.ReadAllText(_jsonPath));
-
-            if (domainModelDefinitions == null)
-            {
-                throw new Exception($"Unable to deserialize Domain Model from path \"{_jsonPath}\".  Unable to load domain model definitions.");
-            }
+            var domainModelDefinitions = JsonConvert.DeserializeObject<DomainModelDefinitions>(
+                File.ReadAllText(_jsonPath),
+                new JsonSerializerSettings
+                {
+                    Error = (sender, args) => throw new Exception(
+                        $"Unable to deserialize Domain Model from path \"{_jsonPath}\".  Unable to load domain model definitions.")
+                });
 
             return domainModelDefinitions;
         }

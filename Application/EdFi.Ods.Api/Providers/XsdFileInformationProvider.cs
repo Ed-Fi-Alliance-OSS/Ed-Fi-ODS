@@ -14,6 +14,7 @@ using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using log4net;
 using Newtonsoft.Json;
+using ErrorEventArgs = Newtonsoft.Json.Serialization.ErrorEventArgs;
 
 namespace EdFi.Ods.Api.Providers
 {
@@ -67,13 +68,18 @@ namespace EdFi.Ods.Api.Providers
                     continue;
                 }
 
-                _logger.Debug($"Assembly '{assemblyName} has an 'ApiModel.json'");
+                _logger.Debug($"Assembly '{assemblyName}' has an 'ApiModel.json'");
 
                 var stream = manifestResourceNames.Any(x => x.ContainsIgnoreCase(apiModelFileName))
                     ? new StreamReader(assembly.GetManifestResourceStream(apiModelFileName))
                     : new StreamReader(assembly.GetManifestResourceStream(extensionApiModelFileName));
 
-                var apiModel = JsonConvert.DeserializeObject<Dictionary<string, object>>(stream.ReadToEnd());
+                var apiModel = JsonConvert.DeserializeObject<Dictionary<string, object>>(stream.ReadToEnd(),
+                    new JsonSerializerSettings
+                    {
+                        Error = (sender, args) => throw new Exception(
+                            $"Unable to deserialize api model from assembly '{assemblyName}'.")
+                    });
 
                 var schemaInfo = apiModel["schemaDefinition"].ToDictionary();
 
