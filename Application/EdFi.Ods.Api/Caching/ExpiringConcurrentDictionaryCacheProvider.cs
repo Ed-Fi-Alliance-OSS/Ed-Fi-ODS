@@ -90,7 +90,12 @@ namespace EdFi.Ods.Api.Caching
                 if (_logger.IsDebugEnabled)
                 {
                     _misses++;
-                    _logger.Debug($"{nameof(ExpiringConcurrentDictionaryCacheProvider<TKey>)} cache '{_description}' MISS ({_hits} hits, {_misses} misses).");
+
+                    if (_misses < 50 || _misses % 100 == 0)
+                    {
+                        _logger.Debug(
+                            $"{nameof(ExpiringConcurrentDictionaryCacheProvider<TKey>)} cache '{_description}' MISS ({_hits} hits, {_misses} misses).");
+                    }
                 }
             }
 

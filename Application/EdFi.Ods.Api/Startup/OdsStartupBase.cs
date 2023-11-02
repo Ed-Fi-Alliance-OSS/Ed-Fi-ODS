@@ -342,6 +342,7 @@ namespace EdFi.Ods.Api.Startup
             {
                 // Make this dependency available to generated artifacts
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IResourceModelProvider>());
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IProfileResourceModelProvider>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IDomainModelProvider>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IAuthorizationContextProvider>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IETagProvider>());

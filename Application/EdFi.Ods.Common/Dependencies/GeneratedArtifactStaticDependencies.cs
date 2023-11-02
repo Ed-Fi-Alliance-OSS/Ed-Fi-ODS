@@ -22,6 +22,7 @@ namespace EdFi.Ods.Common.Dependencies
     {
         private static Lazy<IAuthorizationContextProvider> _authorizationContextProvider;
         private static Lazy<IResourceModelProvider> _resourceModelProvider;
+        private static Lazy<IProfileResourceModelProvider> _profileResourceModelProvider;
         private static Lazy<IDomainModelProvider> _domainModelProvider;
         private static Lazy<IETagProvider> _etagProvider;
         private static Lazy<IMappingContractProvider> _mappingContractProvider;
@@ -33,6 +34,7 @@ namespace EdFi.Ods.Common.Dependencies
 
         public static IAuthorizationContextProvider AuthorizationContextProvider => _authorizationContextProvider?.Value;
         public static IResourceModelProvider ResourceModelProvider => _resourceModelProvider?.Value;
+        public static IProfileResourceModelProvider ProfileResourceModelProvider => _profileResourceModelProvider?.Value;
         public static IDomainModelProvider DomainModelProvider => _domainModelProvider?.Value;
         public static IETagProvider ETagProvider => _etagProvider?.Value;
         public static IMappingContractProvider MappingContractProvider => _mappingContractProvider?.Value;
@@ -56,6 +58,11 @@ namespace EdFi.Ods.Common.Dependencies
             public static void Set(Func<IResourceModelProvider> resolver)
             {
                 _resourceModelProvider = new Lazy<IResourceModelProvider>(resolver);
+            }
+
+            public static void Set(Func<IProfileResourceModelProvider> resolver)
+            {
+                _profileResourceModelProvider = new Lazy<IProfileResourceModelProvider>(resolver);
             }
 
             public static void Set(Func<IDomainModelProvider> resolver)

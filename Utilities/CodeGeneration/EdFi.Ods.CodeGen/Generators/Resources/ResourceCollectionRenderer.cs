@@ -279,87 +279,56 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 return ResourceRenderer.DoNotRenderProperty;
             }
 
-            if (resource.IsAggregateRoot() || !resource.HasBackReferences())
-            {
-                return new
-                {
-                    Collections = references
-                        .OrderBy(x => x.PropertyName)
-                        .Select(
-                            x =>
-                            {
-                                bool renderNamespace =
-                                    !(x.Association.IsSelfReferencing
-                                        || x.Association.IsSelfReferencingManyToMany)
-                                    || x.Association.OtherEntity.IsAbstract
-                                    || !x.Association.OtherEntity.IsSameAggregate(
-                                        resource.Entity);
-
-                                string referenceName = !renderNamespace
-                                    ? x.ReferenceTypeName
-                                    : $"{x.ReferencedResourceName}.{x.ReferencedResource.Entity.SchemaProperCaseName()}.{x.ReferenceTypeName}";
-
-                                return new
-                                {
-                                    Reference = new
-                                    {
-                                        ReferencedResourceName = x.ReferencedResourceName,
-                                        ReferenceTypeName =
-                                            !x.ReferencedResource.Entity
-                                                .IsExtensionEntity
-                                            && !x.ReferenceTypeName.Replace("Reference", string.Empty)
-                                                .Equals(resource.Name)
-                                            && !x.ReferenceTypeName.Replace("Reference", string.Empty)
-                                                .Equals((resource as ResourceChildItem)?.Parent.Name)
-                                                ? $"{x.ReferencedResourceName}.{EdFiConventions.ProperCaseName}.{x.ReferenceTypeName}"
-                                                : referenceName,
-                                        Name = x.ParentFullName.Name,
-
-                                        // using the property name so we do not break the data member contract
-                                        // from the original template.
-                                        JsonPropertyName = x.PropertyName.ToCamelCase(),
-                                        PropertyName = x.PropertyName,
-                                        PropertyFieldName = x.PropertyName.ToCamelCase(),
-                                        IsRequired = x.IsRequired,
-                                        IsIdentifying = x.Association.IsIdentifying,
-                                    },
-                                    Standard = ResourceRenderer.DoRenderProperty
-                                };
-                            }
-                        )
-                        .ToList()
-                };
-            }
-
             return new
             {
-                Collections = resource.References
+                Collections = references
                     .OrderBy(x => x.PropertyName)
                     .Select(
-                        x => new
+                        x =>
                         {
-                            Reference = new
+                            bool renderNamespace =
+                                !(x.Association.IsSelfReferencing
+                                    || x.Association.IsSelfReferencingManyToMany)
+                                || x.Association.OtherEntity.IsAbstract
+                                || !x.Association.OtherEntity.IsSameAggregate(
+                                    resource.Entity);
+
+                            string referenceName = !renderNamespace
+                                ? x.ReferenceTypeName
+                                : $"{x.ReferencedResourceName}.{x.ReferencedResource.Entity.SchemaProperCaseName()}.{x.ReferenceTypeName}";
+
+                            return new
                             {
-                                ReferencedResourceName = x.ReferencedResourceName,
-                                ReferenceTypeName = x.ReferenceTypeName,
-                                Name = x.ParentFullName.Name,
-                                JsonPropertyName = x.JsonPropertyName,
-                                PropertyName = x.PropertyName,
-                                PropertyFieldName = x.PropertyName.ToCamelCase(),
-                                IsRequired = x.IsRequired,
-                                IsIdentifying = x.Association.IsIdentifying,
-                                BackReferenceType =
-                                    string.Format(
-                                        "{0}To{1}Reference",
-                                        x.Association.ThisEntity.Name,
-                                        x.Association.OtherEntity.Name)
-                            },
-                            Backref = ResourceRenderer.DoRenderProperty
+                                Reference = new
+                                {
+                                    ReferencedResourceName = x.ReferencedResourceName,
+                                    ReferenceTypeName =
+                                        !x.ReferencedResource.Entity
+                                            .IsExtensionEntity
+                                        && !x.ReferenceTypeName.Replace("Reference", string.Empty)
+                                            .Equals(resource.Name)
+                                        && !x.ReferenceTypeName.Replace("Reference", string.Empty)
+                                            .Equals((resource as ResourceChildItem)?.Parent.Name)
+                                            ? $"{x.ReferencedResourceName}.{EdFiConventions.ProperCaseName}.{x.ReferenceTypeName}"
+                                            : referenceName,
+                                    Name = x.ParentFullName.Name,
+
+                                    // using the property name so we do not break the data member contract
+                                    // from the original template.
+                                    JsonPropertyName = x.PropertyName.ToCamelCase(),
+                                    PropertyName = x.PropertyName,
+                                    PropertyFieldName = x.PropertyName.ToCamelCase(),
+                                    IsRequired = x.IsRequired,
+                                    IsIdentifying = x.Association.IsIdentifying,
+                                },
+                                Standard = ResourceRenderer.DoRenderProperty
+                            };
                         }
                     )
                     .ToList()
             };
         }
+
         public object OnDeserialize(ResourceData data, ResourceClassBase resource, TemplateContext TemplateContext)
         {
             bool shouldRender = !(!data.HasNavigableChildren(resource));

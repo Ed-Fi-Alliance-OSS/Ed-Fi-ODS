@@ -4736,7 +4736,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"gradingPeriodReference\": {\r\n    \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#First Six Weeks\",\r\n    \"periodSequence\": 1,\r\n    \"schoolId\": 777,\r\n    \"schoolYear\": 2011\r\n  },\r\n  \"studentSectionAssociationReference\": {\r\n    \"beginDate\": \"2010-08-23\",\r\n    \"localCourseCode\": \"ALG-1\",\r\n    \"schoolId\": 888,\r\n    \"schoolYear\": 2011,\r\n    \"sectionIdentifier\": \"25590100102Trad220ALG112011\",\r\n    \"sessionName\": \"2010-2011 Fall Semester\",\r\n    \"studentUniqueId\": \"604822\"\r\n  },\r\n  \"gradeTypeDescriptor\": \"uri://ed-fi.org/GradeTypeDescriptor#Grading Period\",\r\n  \"numericGradeEarned\": 63,\r\n  \"learningStandardGrades\": [\r\n    {\r\n      \"learningStandardReference\": {\r\n        \"learningStandardId\": \"111.32.NA.A.1.D\"\r\n      },\r\n      \"numericGradeEarned\": 63\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"gradingPeriodReference\": {\r\n    \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#First Six Weeks\",\r\n    \"periodSequence\": 1,\r\n    \"schoolId\": 777,\r\n    \"schoolYear\": 2011,\r\n    \"gradingPeriodName\": \"2021-2022 Fall Semester Exam 1\"\r\n  },\r\n  \"studentSectionAssociationReference\": {\r\n    \"beginDate\": \"2010-08-23\",\r\n    \"localCourseCode\": \"ALG-1\",\r\n    \"schoolId\": 888,\r\n    \"schoolYear\": 2011,\r\n    \"sectionIdentifier\": \"25590100102Trad220ALG112011\",\r\n    \"sessionName\": \"2010-2011 Fall Semester\",\r\n    \"studentUniqueId\": \"604822\"\r\n  },\r\n  \"gradeTypeDescriptor\": \"uri://ed-fi.org/GradeTypeDescriptor#Grading Period\",\r\n  \"numericGradeEarned\": 63,\r\n  \"learningStandardGrades\": [\r\n    {\r\n      \"learningStandardReference\": {\r\n        \"learningStandardId\": \"111.32.NA.A.1.D\"\r\n      },\r\n      \"numericGradeEarned\": 63\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -4877,19 +4877,29 @@
 							]
 						},
 						{
-							"name": "when_posting_a_resource_with_contextual_unified_keys_without_a_value",
+							"name": "when_posting_a_resource_with_contextual_unified_keys_without_the_contextual_value",
 							"item": [
 								{
-									"name": "api_should_indicate_success",
+									"name": "api_should_indicate_failure",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 200/201\", () => {",
-													"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+													"pm.test(\"Status code is 400\", () => {",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
-													""
+													"",
+													"pm.test(\"Response should indicate that the contextual value was not supplied.\", () => {",
+													"  pm.expect(pm.response.json().modelState).to.deep.equal({",
+													"    \"request.BellScheduleClassPeriods[0].ClassPeriodReference\": [",
+													"      \"ClassPeriodReference is missing the following properties: SchoolId\"",
+													"    ],",
+													"    \"request.BellScheduleClassPeriods[2].ClassPeriodReference\": [",
+													"      \"ClassPeriodReference is missing the following properties: SchoolId\"",
+													"    ]",
+													"  });",
+													"});"
 												],
 												"type": "text/javascript"
 											}
@@ -4907,7 +4917,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": {{known:schoolId}}\r\n  },\r\n  \"bellScheduleName\": \"Normal Schedule\",\r\n  \"endTime\": \"16:00:00\",\r\n  \"startTime\": \"08:15:00\",\r\n  \"totalInstructionalTime\": 325,\r\n  \"classPeriods\": [\r\n    {\r\n      \"classPeriodReference\": {\r\n        \"classPeriodName\": \"01 - Traditional\"\r\n      }\r\n    },\r\n    {\r\n      \"classPeriodReference\": {\r\n        \"classPeriodName\": \"02 - Traditional\"\r\n      }\r\n    },\r\n    {\r\n      \"classPeriodReference\": {\r\n        \"classPeriodName\": \"03 - Traditional\"\r\n      }\r\n    },\r\n    {\r\n      \"classPeriodReference\": {\r\n        \"classPeriodName\": \"04 - Traditional\"\r\n      }\r\n    },\r\n    {\r\n      \"classPeriodReference\": {\r\n        \"classPeriodName\": \"05 - Traditional\"\r\n      }\r\n    },\r\n    {\r\n      \"classPeriodReference\": {\r\n        \"classPeriodName\": \"06 - Traditional\"\r\n      }\r\n    },\r\n    {\r\n      \"classPeriodReference\": {\r\n        \"classPeriodName\": \"07 - Traditional\"\r\n      }\r\n    }\r\n  ],\r\n  \"dates\": [],\r\n  \"gradeLevels\": []\r\n}",
+											"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": {{known:schoolId}}\r\n  },\r\n  \"bellScheduleName\": \"Normal Schedule\",\r\n  \"endTime\": \"16:00:00\",\r\n  \"startTime\": \"08:15:00\",\r\n  \"totalInstructionalTime\": 325,\r\n  \"classPeriods\": [\r\n    {\r\n      \"classPeriodReference\": {\r\n        \"classPeriodName\": \"01 - Traditional\"\r\n      }\r\n    },\r\n    {\r\n      \"classPeriodReference\": {\r\n        \"classPeriodName\": \"02 - Traditional\",\r\n        \"schoolId\": {{known:schoolId}}\r\n      }\r\n    },\r\n    {\r\n      \"classPeriodReference\": {\r\n        \"classPeriodName\": \"03 - Traditional\"\r\n      }\r\n    },\r\n    {\r\n      \"classPeriodReference\": {\r\n        \"classPeriodName\": \"04 - Traditional\",\r\n        \"schoolId\": {{known:schoolId}}\r\n      }\r\n    },\r\n    {\r\n      \"classPeriodReference\": {\r\n        \"classPeriodName\": \"05 - Traditional\",\r\n        \"schoolId\": {{known:schoolId}}\r\n      }\r\n    },\r\n    {\r\n      \"classPeriodReference\": {\r\n        \"classPeriodName\": \"06 - Traditional\",\r\n        \"schoolId\": {{known:schoolId}}\r\n      }\r\n    },\r\n    {\r\n      \"classPeriodReference\": {\r\n        \"classPeriodName\": \"07 - Traditional\",\r\n        \"schoolId\": {{known:schoolId}}\r\n      }\r\n    }\r\n  ],\r\n  \"dates\": [],\r\n  \"gradeLevels\": []\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5080,19 +5090,23 @@
 									"response": []
 								},
 								{
-									"name": "api_should_indicate_success_when_saving_resource_with_partially_formed_optional_reference",
+									"name": "api_should_indicate_failure_when_saving_resource_with_partially_formed_optional_reference",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 200/201 indicating success with saving resource with partially formed optional reference\", () => {",
-													"    // NOTE: This behavior will change in future version of the API, becoming a 400 Bad Request with partially formed references",
-													"    pm.expect(pm.response.code).to.oneOf([200, 201]);",
+													"pm.test(\"Status code is 400\", () => {",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
-													"const scenarioId = pm.environment.get('scenarioId');",
-													"pm.environment.set('known:'+scenarioId+':staffSchoolAssociationGuid', pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"pm.test(\"Response should indicate that the contextual value was not supplied.\", () => {",
+													"  pm.expect(pm.response.json().modelState).to.deep.equal({",
+													"    \"request.CalendarReference\": [",
+													"      \"CalendarReference is missing the following properties: SchoolId\"",
+													"    ]",
+													"  });",
+													"});",
 													""
 												],
 												"type": "text/javascript"
@@ -5128,63 +5142,6 @@
 												"v3",
 												"ed-fi",
 												"staffSchoolAssociations"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "api_should_not_save_partially_formed_references",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 200\", () => {",
-													"    pm.expect(pm.response.code).to.equal(200);",
-													"});",
-													"",
-													"pm.test(\"Should not return the partially formed reference\", () => {",
-													"   pm.expect(pm.response.json().calendarReference).to.equal(undefined);",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffSchoolAssociations/{{known:{{scenarioId}}:staffSchoolAssociationGuid}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"staffSchoolAssociations",
-												"{{known:{{scenarioId}}:staffSchoolAssociationGuid}}"
 											]
 										}
 									},
