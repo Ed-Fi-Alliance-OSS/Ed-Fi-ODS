@@ -249,7 +249,7 @@ namespace EdFi.Ods.Api.Container.Modules
                             int slidingExpirationSeconds = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
                             int absoluteExpirationSeconds = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
 
-                            return slidingExpirationSeconds <= 0 ? TimeSpan.FromSeconds(absoluteExpirationSeconds) : 0;
+                            return slidingExpirationSeconds <= 0 ? TimeSpan.FromSeconds(absoluteExpirationSeconds) : TimeSpan.Zero;
                         }))
                 .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int>>()
                 .SingleInstance();
@@ -276,7 +276,7 @@ namespace EdFi.Ods.Api.Container.Modules
                             int slidingExpirationSeconds = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
                             int absoluteExpirationSeconds = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
 
-                            return slidingExpirationSeconds <= 0 ? TimeSpan.FromSeconds(absoluteExpirationSeconds) : 0;
+                            return slidingExpirationSeconds <= 0 ? TimeSpan.FromSeconds(absoluteExpirationSeconds) : TimeSpan.Zero;
                         }))
                 .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
                 .SingleInstance();
