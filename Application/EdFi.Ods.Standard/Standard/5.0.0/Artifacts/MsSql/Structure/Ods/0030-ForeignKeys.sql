@@ -3833,17 +3833,30 @@ CREATE NONCLUSTERED INDEX [FK_ProgramEvaluationElement_ProgramEvaluationObjectiv
 ON [edfi].[ProgramEvaluationElement] ([ProgramEducationOrganizationId] ASC, [ProgramEvaluationObjectiveTitle] ASC, [ProgramEvaluationPeriodDescriptorId] ASC, [ProgramEvaluationTitle] ASC, [ProgramEvaluationTypeDescriptorId] ASC, [ProgramName] ASC, [ProgramTypeDescriptorId] ASC)
 GO
 
-ALTER TABLE [edfi].[ProgramEvaluationElementRatingLevel] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationElementRatingLevel_ProgramEvaluationElement] FOREIGN KEY ([ProgramEducationOrganizationId], [ProgramEvaluationElementTitle], [ProgramEvaluationPeriodDescriptorId], [ProgramEvaluationTitle], [ProgramEvaluationTypeDescriptorId], [ProgramName], [ProgramTypeDescriptorId])
+ALTER TABLE [edfi].[ProgramEvaluationElementProgramEvaluationLevel] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationElementProgramEvaluationLevel_ProgramEvaluationElement] FOREIGN KEY ([ProgramEducationOrganizationId], [ProgramEvaluationElementTitle], [ProgramEvaluationPeriodDescriptorId], [ProgramEvaluationTitle], [ProgramEvaluationTypeDescriptorId], [ProgramName], [ProgramTypeDescriptorId])
 REFERENCES [edfi].[ProgramEvaluationElement] ([ProgramEducationOrganizationId], [ProgramEvaluationElementTitle], [ProgramEvaluationPeriodDescriptorId], [ProgramEvaluationTitle], [ProgramEvaluationTypeDescriptorId], [ProgramName], [ProgramTypeDescriptorId])
 ON DELETE CASCADE
 GO
 
-ALTER TABLE [edfi].[ProgramEvaluationElementRatingLevel] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationElementRatingLevel_RatingLevelDescriptor] FOREIGN KEY ([RatingLevelDescriptorId])
+ALTER TABLE [edfi].[ProgramEvaluationElementProgramEvaluationLevel] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationElementProgramEvaluationLevel_RatingLevelDescriptor] FOREIGN KEY ([RatingLevelDescriptorId])
 REFERENCES [edfi].[RatingLevelDescriptor] ([RatingLevelDescriptorId])
 GO
 
-CREATE NONCLUSTERED INDEX [FK_ProgramEvaluationElementRatingLevel_RatingLevelDescriptor]
-ON [edfi].[ProgramEvaluationElementRatingLevel] ([RatingLevelDescriptorId] ASC)
+CREATE NONCLUSTERED INDEX [FK_ProgramEvaluationElementProgramEvaluationLevel_RatingLevelDescriptor]
+ON [edfi].[ProgramEvaluationElementProgramEvaluationLevel] ([RatingLevelDescriptorId] ASC)
+GO
+
+ALTER TABLE [edfi].[ProgramEvaluationLevel] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationLevel_ProgramEvaluation] FOREIGN KEY ([ProgramEducationOrganizationId], [ProgramEvaluationPeriodDescriptorId], [ProgramEvaluationTitle], [ProgramEvaluationTypeDescriptorId], [ProgramName], [ProgramTypeDescriptorId])
+REFERENCES [edfi].[ProgramEvaluation] ([ProgramEducationOrganizationId], [ProgramEvaluationPeriodDescriptorId], [ProgramEvaluationTitle], [ProgramEvaluationTypeDescriptorId], [ProgramName], [ProgramTypeDescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [edfi].[ProgramEvaluationLevel] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationLevel_RatingLevelDescriptor] FOREIGN KEY ([RatingLevelDescriptorId])
+REFERENCES [edfi].[RatingLevelDescriptor] ([RatingLevelDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_ProgramEvaluationLevel_RatingLevelDescriptor]
+ON [edfi].[ProgramEvaluationLevel] ([RatingLevelDescriptorId] ASC)
 GO
 
 ALTER TABLE [edfi].[ProgramEvaluationObjective] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationObjective_ProgramEvaluation] FOREIGN KEY ([ProgramEducationOrganizationId], [ProgramEvaluationPeriodDescriptorId], [ProgramEvaluationTitle], [ProgramEvaluationTypeDescriptorId], [ProgramName], [ProgramTypeDescriptorId])
@@ -3854,35 +3867,22 @@ CREATE NONCLUSTERED INDEX [FK_ProgramEvaluationObjective_ProgramEvaluation]
 ON [edfi].[ProgramEvaluationObjective] ([ProgramEducationOrganizationId] ASC, [ProgramEvaluationPeriodDescriptorId] ASC, [ProgramEvaluationTitle] ASC, [ProgramEvaluationTypeDescriptorId] ASC, [ProgramName] ASC, [ProgramTypeDescriptorId] ASC)
 GO
 
-ALTER TABLE [edfi].[ProgramEvaluationObjectiveRatingLevel] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationObjectiveRatingLevel_ProgramEvaluationObjective] FOREIGN KEY ([ProgramEducationOrganizationId], [ProgramEvaluationObjectiveTitle], [ProgramEvaluationPeriodDescriptorId], [ProgramEvaluationTitle], [ProgramEvaluationTypeDescriptorId], [ProgramName], [ProgramTypeDescriptorId])
+ALTER TABLE [edfi].[ProgramEvaluationObjectiveProgramEvaluationLevel] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationObjectiveProgramEvaluationLevel_ProgramEvaluationObjective] FOREIGN KEY ([ProgramEducationOrganizationId], [ProgramEvaluationObjectiveTitle], [ProgramEvaluationPeriodDescriptorId], [ProgramEvaluationTitle], [ProgramEvaluationTypeDescriptorId], [ProgramName], [ProgramTypeDescriptorId])
 REFERENCES [edfi].[ProgramEvaluationObjective] ([ProgramEducationOrganizationId], [ProgramEvaluationObjectiveTitle], [ProgramEvaluationPeriodDescriptorId], [ProgramEvaluationTitle], [ProgramEvaluationTypeDescriptorId], [ProgramName], [ProgramTypeDescriptorId])
 ON DELETE CASCADE
 GO
 
-ALTER TABLE [edfi].[ProgramEvaluationObjectiveRatingLevel] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationObjectiveRatingLevel_RatingLevelDescriptor] FOREIGN KEY ([RatingLevelDescriptorId])
+ALTER TABLE [edfi].[ProgramEvaluationObjectiveProgramEvaluationLevel] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationObjectiveProgramEvaluationLevel_RatingLevelDescriptor] FOREIGN KEY ([RatingLevelDescriptorId])
 REFERENCES [edfi].[RatingLevelDescriptor] ([RatingLevelDescriptorId])
 GO
 
-CREATE NONCLUSTERED INDEX [FK_ProgramEvaluationObjectiveRatingLevel_RatingLevelDescriptor]
-ON [edfi].[ProgramEvaluationObjectiveRatingLevel] ([RatingLevelDescriptorId] ASC)
+CREATE NONCLUSTERED INDEX [FK_ProgramEvaluationObjectiveProgramEvaluationLevel_RatingLevelDescriptor]
+ON [edfi].[ProgramEvaluationObjectiveProgramEvaluationLevel] ([RatingLevelDescriptorId] ASC)
 GO
 
 ALTER TABLE [edfi].[ProgramEvaluationPeriodDescriptor] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationPeriodDescriptor_Descriptor] FOREIGN KEY ([ProgramEvaluationPeriodDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
-GO
-
-ALTER TABLE [edfi].[ProgramEvaluationRatingLevel] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationRatingLevel_ProgramEvaluation] FOREIGN KEY ([ProgramEducationOrganizationId], [ProgramEvaluationPeriodDescriptorId], [ProgramEvaluationTitle], [ProgramEvaluationTypeDescriptorId], [ProgramName], [ProgramTypeDescriptorId])
-REFERENCES [edfi].[ProgramEvaluation] ([ProgramEducationOrganizationId], [ProgramEvaluationPeriodDescriptorId], [ProgramEvaluationTitle], [ProgramEvaluationTypeDescriptorId], [ProgramName], [ProgramTypeDescriptorId])
-ON DELETE CASCADE
-GO
-
-ALTER TABLE [edfi].[ProgramEvaluationRatingLevel] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationRatingLevel_RatingLevelDescriptor] FOREIGN KEY ([RatingLevelDescriptorId])
-REFERENCES [edfi].[RatingLevelDescriptor] ([RatingLevelDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_ProgramEvaluationRatingLevel_RatingLevelDescriptor]
-ON [edfi].[ProgramEvaluationRatingLevel] ([RatingLevelDescriptorId] ASC)
 GO
 
 ALTER TABLE [edfi].[ProgramEvaluationTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_ProgramEvaluationTypeDescriptor_Descriptor] FOREIGN KEY ([ProgramEvaluationTypeDescriptorId])
@@ -4557,6 +4557,11 @@ ON DELETE CASCADE
 GO
 
 ALTER TABLE [edfi].[SourceSystemDescriptor] WITH CHECK ADD CONSTRAINT [FK_SourceSystemDescriptor_Descriptor] FOREIGN KEY ([SourceSystemDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [edfi].[SpecialEducationExitReasonDescriptor] WITH CHECK ADD CONSTRAINT [FK_SpecialEducationExitReasonDescriptor_Descriptor] FOREIGN KEY ([SpecialEducationExitReasonDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
@@ -7138,6 +7143,14 @@ GO
 ALTER TABLE [edfi].[StudentSpecialEducationProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociation_GeneralStudentProgramAssociation] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 REFERENCES [edfi].[GeneralStudentProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 ON DELETE CASCADE
+GO
+
+ALTER TABLE [edfi].[StudentSpecialEducationProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociation_SpecialEducationExitReasonDescriptor] FOREIGN KEY ([SpecialEducationExitReasonDescriptorId])
+REFERENCES [edfi].[SpecialEducationExitReasonDescriptor] ([SpecialEducationExitReasonDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentSpecialEducationProgramAssociation_SpecialEducationExitReasonDescriptor]
+ON [edfi].[StudentSpecialEducationProgramAssociation] ([SpecialEducationExitReasonDescriptorId] ASC)
 GO
 
 ALTER TABLE [edfi].[StudentSpecialEducationProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociation_SpecialEducationSettingDescriptor] FOREIGN KEY ([SpecialEducationSettingDescriptorId])

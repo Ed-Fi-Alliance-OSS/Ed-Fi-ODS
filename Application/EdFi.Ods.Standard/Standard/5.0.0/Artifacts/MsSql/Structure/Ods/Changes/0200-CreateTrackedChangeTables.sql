@@ -1385,6 +1385,7 @@ CREATE TABLE [tracked_changes_edfi].[StaffSchoolAssociation]
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StaffSectionAssociation]'))
 CREATE TABLE [tracked_changes_edfi].[StaffSectionAssociation]
 (
+       OldBeginDate [DATE] NOT NULL,
        OldLocalCourseCode [NVARCHAR](60) NOT NULL,
        OldSchoolId [BIGINT] NOT NULL,
        OldSchoolYear [SMALLINT] NOT NULL,
@@ -1392,6 +1393,7 @@ CREATE TABLE [tracked_changes_edfi].[StaffSectionAssociation]
        OldSessionName [NVARCHAR](60) NOT NULL,
        OldStaffUSI [INT] NOT NULL,
        OldStaffUniqueId [NVARCHAR](32) NOT NULL,
+       NewBeginDate [DATE] NULL,
        NewLocalCourseCode [NVARCHAR](60) NULL,
        NewSchoolId [BIGINT] NULL,
        NewSchoolYear [SMALLINT] NULL,

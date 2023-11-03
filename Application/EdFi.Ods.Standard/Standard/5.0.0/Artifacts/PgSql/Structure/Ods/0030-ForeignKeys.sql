@@ -3527,17 +3527,29 @@ REFERENCES edfi.ProgramEvaluationObjective (ProgramEducationOrganizationId, Prog
 CREATE INDEX FK_784616_ProgramEvaluationObjective
 ON edfi.ProgramEvaluationElement (ProgramEducationOrganizationId ASC, ProgramEvaluationObjectiveTitle ASC, ProgramEvaluationPeriodDescriptorId ASC, ProgramEvaluationTitle ASC, ProgramEvaluationTypeDescriptorId ASC, ProgramName ASC, ProgramTypeDescriptorId ASC);
 
-ALTER TABLE edfi.ProgramEvaluationElementRatingLevel ADD CONSTRAINT FK_3b2082_ProgramEvaluationElement FOREIGN KEY (ProgramEducationOrganizationId, ProgramEvaluationElementTitle, ProgramEvaluationPeriodDescriptorId, ProgramEvaluationTitle, ProgramEvaluationTypeDescriptorId, ProgramName, ProgramTypeDescriptorId)
+ALTER TABLE edfi.ProgramEvaluationElementProgramEvaluationLevel ADD CONSTRAINT FK_01bfbb_ProgramEvaluationElement FOREIGN KEY (ProgramEducationOrganizationId, ProgramEvaluationElementTitle, ProgramEvaluationPeriodDescriptorId, ProgramEvaluationTitle, ProgramEvaluationTypeDescriptorId, ProgramName, ProgramTypeDescriptorId)
 REFERENCES edfi.ProgramEvaluationElement (ProgramEducationOrganizationId, ProgramEvaluationElementTitle, ProgramEvaluationPeriodDescriptorId, ProgramEvaluationTitle, ProgramEvaluationTypeDescriptorId, ProgramName, ProgramTypeDescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE edfi.ProgramEvaluationElementRatingLevel ADD CONSTRAINT FK_3b2082_RatingLevelDescriptor FOREIGN KEY (RatingLevelDescriptorId)
+ALTER TABLE edfi.ProgramEvaluationElementProgramEvaluationLevel ADD CONSTRAINT FK_01bfbb_RatingLevelDescriptor FOREIGN KEY (RatingLevelDescriptorId)
 REFERENCES edfi.RatingLevelDescriptor (RatingLevelDescriptorId)
 ;
 
-CREATE INDEX FK_3b2082_RatingLevelDescriptor
-ON edfi.ProgramEvaluationElementRatingLevel (RatingLevelDescriptorId ASC);
+CREATE INDEX FK_01bfbb_RatingLevelDescriptor
+ON edfi.ProgramEvaluationElementProgramEvaluationLevel (RatingLevelDescriptorId ASC);
+
+ALTER TABLE edfi.ProgramEvaluationLevel ADD CONSTRAINT FK_e78c97_ProgramEvaluation FOREIGN KEY (ProgramEducationOrganizationId, ProgramEvaluationPeriodDescriptorId, ProgramEvaluationTitle, ProgramEvaluationTypeDescriptorId, ProgramName, ProgramTypeDescriptorId)
+REFERENCES edfi.ProgramEvaluation (ProgramEducationOrganizationId, ProgramEvaluationPeriodDescriptorId, ProgramEvaluationTitle, ProgramEvaluationTypeDescriptorId, ProgramName, ProgramTypeDescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.ProgramEvaluationLevel ADD CONSTRAINT FK_e78c97_RatingLevelDescriptor FOREIGN KEY (RatingLevelDescriptorId)
+REFERENCES edfi.RatingLevelDescriptor (RatingLevelDescriptorId)
+;
+
+CREATE INDEX FK_e78c97_RatingLevelDescriptor
+ON edfi.ProgramEvaluationLevel (RatingLevelDescriptorId ASC);
 
 ALTER TABLE edfi.ProgramEvaluationObjective ADD CONSTRAINT FK_a53c6c_ProgramEvaluation FOREIGN KEY (ProgramEducationOrganizationId, ProgramEvaluationPeriodDescriptorId, ProgramEvaluationTitle, ProgramEvaluationTypeDescriptorId, ProgramName, ProgramTypeDescriptorId)
 REFERENCES edfi.ProgramEvaluation (ProgramEducationOrganizationId, ProgramEvaluationPeriodDescriptorId, ProgramEvaluationTitle, ProgramEvaluationTypeDescriptorId, ProgramName, ProgramTypeDescriptorId)
@@ -3546,34 +3558,22 @@ REFERENCES edfi.ProgramEvaluation (ProgramEducationOrganizationId, ProgramEvalua
 CREATE INDEX FK_a53c6c_ProgramEvaluation
 ON edfi.ProgramEvaluationObjective (ProgramEducationOrganizationId ASC, ProgramEvaluationPeriodDescriptorId ASC, ProgramEvaluationTitle ASC, ProgramEvaluationTypeDescriptorId ASC, ProgramName ASC, ProgramTypeDescriptorId ASC);
 
-ALTER TABLE edfi.ProgramEvaluationObjectiveRatingLevel ADD CONSTRAINT FK_ffb8a9_ProgramEvaluationObjective FOREIGN KEY (ProgramEducationOrganizationId, ProgramEvaluationObjectiveTitle, ProgramEvaluationPeriodDescriptorId, ProgramEvaluationTitle, ProgramEvaluationTypeDescriptorId, ProgramName, ProgramTypeDescriptorId)
+ALTER TABLE edfi.ProgramEvaluationObjectiveProgramEvaluationLevel ADD CONSTRAINT FK_d2730d_ProgramEvaluationObjective FOREIGN KEY (ProgramEducationOrganizationId, ProgramEvaluationObjectiveTitle, ProgramEvaluationPeriodDescriptorId, ProgramEvaluationTitle, ProgramEvaluationTypeDescriptorId, ProgramName, ProgramTypeDescriptorId)
 REFERENCES edfi.ProgramEvaluationObjective (ProgramEducationOrganizationId, ProgramEvaluationObjectiveTitle, ProgramEvaluationPeriodDescriptorId, ProgramEvaluationTitle, ProgramEvaluationTypeDescriptorId, ProgramName, ProgramTypeDescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE edfi.ProgramEvaluationObjectiveRatingLevel ADD CONSTRAINT FK_ffb8a9_RatingLevelDescriptor FOREIGN KEY (RatingLevelDescriptorId)
+ALTER TABLE edfi.ProgramEvaluationObjectiveProgramEvaluationLevel ADD CONSTRAINT FK_d2730d_RatingLevelDescriptor FOREIGN KEY (RatingLevelDescriptorId)
 REFERENCES edfi.RatingLevelDescriptor (RatingLevelDescriptorId)
 ;
 
-CREATE INDEX FK_ffb8a9_RatingLevelDescriptor
-ON edfi.ProgramEvaluationObjectiveRatingLevel (RatingLevelDescriptorId ASC);
+CREATE INDEX FK_d2730d_RatingLevelDescriptor
+ON edfi.ProgramEvaluationObjectiveProgramEvaluationLevel (RatingLevelDescriptorId ASC);
 
 ALTER TABLE edfi.ProgramEvaluationPeriodDescriptor ADD CONSTRAINT FK_9f3c51_Descriptor FOREIGN KEY (ProgramEvaluationPeriodDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
-
-ALTER TABLE edfi.ProgramEvaluationRatingLevel ADD CONSTRAINT FK_e71055_ProgramEvaluation FOREIGN KEY (ProgramEducationOrganizationId, ProgramEvaluationPeriodDescriptorId, ProgramEvaluationTitle, ProgramEvaluationTypeDescriptorId, ProgramName, ProgramTypeDescriptorId)
-REFERENCES edfi.ProgramEvaluation (ProgramEducationOrganizationId, ProgramEvaluationPeriodDescriptorId, ProgramEvaluationTitle, ProgramEvaluationTypeDescriptorId, ProgramName, ProgramTypeDescriptorId)
-ON DELETE CASCADE
-;
-
-ALTER TABLE edfi.ProgramEvaluationRatingLevel ADD CONSTRAINT FK_e71055_RatingLevelDescriptor FOREIGN KEY (RatingLevelDescriptorId)
-REFERENCES edfi.RatingLevelDescriptor (RatingLevelDescriptorId)
-;
-
-CREATE INDEX FK_e71055_RatingLevelDescriptor
-ON edfi.ProgramEvaluationRatingLevel (RatingLevelDescriptorId ASC);
 
 ALTER TABLE edfi.ProgramEvaluationTypeDescriptor ADD CONSTRAINT FK_fb3d63_Descriptor FOREIGN KEY (ProgramEvaluationTypeDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
@@ -4199,6 +4199,11 @@ ON DELETE CASCADE
 ;
 
 ALTER TABLE edfi.SourceSystemDescriptor ADD CONSTRAINT FK_f71783_Descriptor FOREIGN KEY (SourceSystemDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.SpecialEducationExitReasonDescriptor ADD CONSTRAINT FK_131a5d_Descriptor FOREIGN KEY (SpecialEducationExitReasonDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
@@ -6522,6 +6527,13 @@ ALTER TABLE edfi.StudentSpecialEducationProgramAssociation ADD CONSTRAINT FK_f86
 REFERENCES edfi.GeneralStudentProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ON DELETE CASCADE
 ;
+
+ALTER TABLE edfi.StudentSpecialEducationProgramAssociation ADD CONSTRAINT FK_f86fd9_SpecialEducationExitReasonDescriptor FOREIGN KEY (SpecialEducationExitReasonDescriptorId)
+REFERENCES edfi.SpecialEducationExitReasonDescriptor (SpecialEducationExitReasonDescriptorId)
+;
+
+CREATE INDEX FK_f86fd9_SpecialEducationExitReasonDescriptor
+ON edfi.StudentSpecialEducationProgramAssociation (SpecialEducationExitReasonDescriptorId ASC);
 
 ALTER TABLE edfi.StudentSpecialEducationProgramAssociation ADD CONSTRAINT FK_f86fd9_SpecialEducationSettingDescriptor FOREIGN KEY (SpecialEducationSettingDescriptorId)
 REFERENCES edfi.SpecialEducationSettingDescriptor (SpecialEducationSettingDescriptorId)

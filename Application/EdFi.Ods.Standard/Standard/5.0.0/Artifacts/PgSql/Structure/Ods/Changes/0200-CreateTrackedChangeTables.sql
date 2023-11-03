@@ -1544,6 +1544,7 @@ END IF;
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'staffsectionassociation') THEN
 CREATE TABLE tracked_changes_edfi.staffsectionassociation
 (
+       oldbegindate DATE NOT NULL,
        oldlocalcoursecode VARCHAR(60) NOT NULL,
        oldschoolid BIGINT NOT NULL,
        oldschoolyear SMALLINT NOT NULL,
@@ -1551,6 +1552,7 @@ CREATE TABLE tracked_changes_edfi.staffsectionassociation
        oldsessionname VARCHAR(60) NOT NULL,
        oldstaffusi INT NOT NULL,
        oldstaffuniqueid VARCHAR(32) NOT NULL,
+       newbegindate DATE NULL,
        newlocalcoursecode VARCHAR(60) NULL,
        newschoolid BIGINT NULL,
        newschoolyear SMALLINT NULL,

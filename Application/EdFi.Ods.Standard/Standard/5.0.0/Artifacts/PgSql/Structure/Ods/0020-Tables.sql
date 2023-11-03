@@ -3603,8 +3603,8 @@ ALTER TABLE edfi.ProgramEvaluationElement ALTER COLUMN CreateDate SET DEFAULT cu
 ALTER TABLE edfi.ProgramEvaluationElement ALTER COLUMN Id SET DEFAULT gen_random_uuid();
 ALTER TABLE edfi.ProgramEvaluationElement ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
--- Table edfi.ProgramEvaluationElementRatingLevel --
-CREATE TABLE edfi.ProgramEvaluationElementRatingLevel (
+-- Table edfi.ProgramEvaluationElementProgramEvaluationLevel --
+CREATE TABLE edfi.ProgramEvaluationElementProgramEvaluationLevel (
     ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramEvaluationElementTitle VARCHAR(50) NOT NULL,
     ProgramEvaluationPeriodDescriptorId INT NOT NULL,
@@ -3616,9 +3616,25 @@ CREATE TABLE edfi.ProgramEvaluationElementRatingLevel (
     MaxNumericRating DECIMAL(6, 3) NULL,
     MinNumericRating DECIMAL(6, 3) NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT ProgramEvaluationElementRatingLevel_PK PRIMARY KEY (ProgramEducationOrganizationId, ProgramEvaluationElementTitle, ProgramEvaluationPeriodDescriptorId, ProgramEvaluationTitle, ProgramEvaluationTypeDescriptorId, ProgramName, ProgramTypeDescriptorId, RatingLevelDescriptorId)
+    CONSTRAINT ProgramEvaluationElementProgramEvaluationLevel_PK PRIMARY KEY (ProgramEducationOrganizationId, ProgramEvaluationElementTitle, ProgramEvaluationPeriodDescriptorId, ProgramEvaluationTitle, ProgramEvaluationTypeDescriptorId, ProgramName, ProgramTypeDescriptorId, RatingLevelDescriptorId)
 );
-ALTER TABLE edfi.ProgramEvaluationElementRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.ProgramEvaluationElementProgramEvaluationLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.ProgramEvaluationLevel --
+CREATE TABLE edfi.ProgramEvaluationLevel (
+    ProgramEducationOrganizationId BIGINT NOT NULL,
+    ProgramEvaluationPeriodDescriptorId INT NOT NULL,
+    ProgramEvaluationTitle VARCHAR(50) NOT NULL,
+    ProgramEvaluationTypeDescriptorId INT NOT NULL,
+    ProgramName VARCHAR(60) NOT NULL,
+    ProgramTypeDescriptorId INT NOT NULL,
+    RatingLevelDescriptorId INT NOT NULL,
+    MaxNumericRating DECIMAL(6, 3) NULL,
+    MinNumericRating DECIMAL(6, 3) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT ProgramEvaluationLevel_PK PRIMARY KEY (ProgramEducationOrganizationId, ProgramEvaluationPeriodDescriptorId, ProgramEvaluationTitle, ProgramEvaluationTypeDescriptorId, ProgramName, ProgramTypeDescriptorId, RatingLevelDescriptorId)
+);
+ALTER TABLE edfi.ProgramEvaluationLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table edfi.ProgramEvaluationObjective --
 CREATE TABLE edfi.ProgramEvaluationObjective (
@@ -3643,8 +3659,8 @@ ALTER TABLE edfi.ProgramEvaluationObjective ALTER COLUMN CreateDate SET DEFAULT 
 ALTER TABLE edfi.ProgramEvaluationObjective ALTER COLUMN Id SET DEFAULT gen_random_uuid();
 ALTER TABLE edfi.ProgramEvaluationObjective ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
--- Table edfi.ProgramEvaluationObjectiveRatingLevel --
-CREATE TABLE edfi.ProgramEvaluationObjectiveRatingLevel (
+-- Table edfi.ProgramEvaluationObjectiveProgramEvaluationLevel --
+CREATE TABLE edfi.ProgramEvaluationObjectiveProgramEvaluationLevel (
     ProgramEducationOrganizationId BIGINT NOT NULL,
     ProgramEvaluationObjectiveTitle VARCHAR(50) NOT NULL,
     ProgramEvaluationPeriodDescriptorId INT NOT NULL,
@@ -3656,31 +3672,15 @@ CREATE TABLE edfi.ProgramEvaluationObjectiveRatingLevel (
     MaxNumericRating DECIMAL(6, 3) NULL,
     MinNumericRating DECIMAL(6, 3) NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT ProgramEvaluationObjectiveRatingLevel_PK PRIMARY KEY (ProgramEducationOrganizationId, ProgramEvaluationObjectiveTitle, ProgramEvaluationPeriodDescriptorId, ProgramEvaluationTitle, ProgramEvaluationTypeDescriptorId, ProgramName, ProgramTypeDescriptorId, RatingLevelDescriptorId)
+    CONSTRAINT ProgramEvaluationObjectiveProgramEvaluationLevel_PK PRIMARY KEY (ProgramEducationOrganizationId, ProgramEvaluationObjectiveTitle, ProgramEvaluationPeriodDescriptorId, ProgramEvaluationTitle, ProgramEvaluationTypeDescriptorId, ProgramName, ProgramTypeDescriptorId, RatingLevelDescriptorId)
 );
-ALTER TABLE edfi.ProgramEvaluationObjectiveRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.ProgramEvaluationObjectiveProgramEvaluationLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table edfi.ProgramEvaluationPeriodDescriptor --
 CREATE TABLE edfi.ProgramEvaluationPeriodDescriptor (
     ProgramEvaluationPeriodDescriptorId INT NOT NULL,
     CONSTRAINT ProgramEvaluationPeriodDescriptor_PK PRIMARY KEY (ProgramEvaluationPeriodDescriptorId)
 );
-
--- Table edfi.ProgramEvaluationRatingLevel --
-CREATE TABLE edfi.ProgramEvaluationRatingLevel (
-    ProgramEducationOrganizationId BIGINT NOT NULL,
-    ProgramEvaluationPeriodDescriptorId INT NOT NULL,
-    ProgramEvaluationTitle VARCHAR(50) NOT NULL,
-    ProgramEvaluationTypeDescriptorId INT NOT NULL,
-    ProgramName VARCHAR(60) NOT NULL,
-    ProgramTypeDescriptorId INT NOT NULL,
-    RatingLevelDescriptorId INT NOT NULL,
-    MaxNumericRating DECIMAL(6, 3) NULL,
-    MinNumericRating DECIMAL(6, 3) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT ProgramEvaluationRatingLevel_PK PRIMARY KEY (ProgramEducationOrganizationId, ProgramEvaluationPeriodDescriptorId, ProgramEvaluationTitle, ProgramEvaluationTypeDescriptorId, ProgramName, ProgramTypeDescriptorId, RatingLevelDescriptorId)
-);
-ALTER TABLE edfi.ProgramEvaluationRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table edfi.ProgramEvaluationTypeDescriptor --
 CREATE TABLE edfi.ProgramEvaluationTypeDescriptor (
@@ -4298,6 +4298,12 @@ CREATE TABLE edfi.SourceSystemDescriptor (
     CONSTRAINT SourceSystemDescriptor_PK PRIMARY KEY (SourceSystemDescriptorId)
 );
 
+-- Table edfi.SpecialEducationExitReasonDescriptor --
+CREATE TABLE edfi.SpecialEducationExitReasonDescriptor (
+    SpecialEducationExitReasonDescriptorId INT NOT NULL,
+    CONSTRAINT SpecialEducationExitReasonDescriptor_PK PRIMARY KEY (SpecialEducationExitReasonDescriptorId)
+);
+
 -- Table edfi.SpecialEducationProgramServiceDescriptor --
 CREATE TABLE edfi.SpecialEducationProgramServiceDescriptor (
     SpecialEducationProgramServiceDescriptorId INT NOT NULL,
@@ -4811,13 +4817,13 @@ ALTER TABLE edfi.StaffSchoolAssociationGradeLevel ALTER COLUMN CreateDate SET DE
 
 -- Table edfi.StaffSectionAssociation --
 CREATE TABLE edfi.StaffSectionAssociation (
+    BeginDate DATE NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
     SchoolId BIGINT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
     StaffUSI INT NOT NULL,
-    BeginDate DATE NULL,
     ClassroomPositionDescriptorId INT NOT NULL,
     EndDate DATE NULL,
     HighlyQualifiedTeacher BOOLEAN NULL,
@@ -4827,7 +4833,7 @@ CREATE TABLE edfi.StaffSectionAssociation (
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
     Id UUID NOT NULL,
-    CONSTRAINT StaffSectionAssociation_PK PRIMARY KEY (LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StaffUSI)
+    CONSTRAINT StaffSectionAssociation_PK PRIMARY KEY (BeginDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StaffUSI)
 );
 ALTER TABLE edfi.StaffSectionAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 ALTER TABLE edfi.StaffSectionAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
@@ -6358,6 +6364,9 @@ CREATE TABLE edfi.StudentSpecialEducationProgramAssociation (
     MedicallyFragile BOOLEAN NULL,
     MultiplyDisabled BOOLEAN NULL,
     SchoolHoursPerWeek DECIMAL(5, 2) NULL,
+    SpecialEducationExitDate DATE NULL,
+    SpecialEducationExitExplained VARCHAR(1024) NULL,
+    SpecialEducationExitReasonDescriptorId INT NULL,
     SpecialEducationHoursPerWeek DECIMAL(5, 2) NULL,
     SpecialEducationSettingDescriptorId INT NULL,
     CONSTRAINT StudentSpecialEducationProgramAssociation_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
@@ -6451,6 +6460,7 @@ CREATE TABLE edfi.StudentSpecialEducationProgramEligibilityAssociation (
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
     ConsentToEvaluationDate DATE NULL,
+    EligibilityConferenceDate DATE NULL,
     EligibilityDelayReasonDescriptorId INT NULL,
     EligibilityDeterminationDate DATE NULL,
     EligibilityEvaluationDate DATE NULL,

@@ -4441,6 +4441,23 @@ CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.sourcesystemdescriptor
     FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.sourcesystemdescriptor_deleted();
 END IF;
 
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.specialeducationexitreasondescriptor_deleted()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
+    SELECT OLD.SpecialEducationExitReasonDescriptorId, b.codevalue, b.namespace, b.id, 'edfi.SpecialEducationExitReasonDescriptor', nextval('changes.ChangeVersionSequence')
+    FROM edfi.descriptor b WHERE old.SpecialEducationExitReasonDescriptorId = b.descriptorid ;
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'specialeducationexitreasondescriptor') THEN
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.specialeducationexitreasondescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.specialeducationexitreasondescriptor_deleted();
+END IF;
+
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.specialeducationprogramservicedescriptor_deleted()
     RETURNS trigger AS
 $BODY$
@@ -4789,10 +4806,10 @@ BEGIN
     SELECT INTO dj0 * FROM edfi.staff j0 WHERE staffusi = old.staffusi;
 
     INSERT INTO tracked_changes_edfi.staffsectionassociation(
-        oldlocalcoursecode, oldschoolid, oldschoolyear, oldsectionidentifier, oldsessionname, oldstaffusi, oldstaffuniqueid,
+        oldbegindate, oldlocalcoursecode, oldschoolid, oldschoolyear, oldsectionidentifier, oldsessionname, oldstaffusi, oldstaffuniqueid,
         id, discriminator, changeversion)
     VALUES (
-        OLD.localcoursecode, OLD.schoolid, OLD.schoolyear, OLD.sectionidentifier, OLD.sessionname, OLD.staffusi, dj0.staffuniqueid, 
+        OLD.begindate, OLD.localcoursecode, OLD.schoolid, OLD.schoolyear, OLD.sectionidentifier, OLD.sessionname, OLD.staffusi, dj0.staffuniqueid, 
         OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
 
     RETURN NULL;

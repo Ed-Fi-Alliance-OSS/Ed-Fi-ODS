@@ -3846,7 +3846,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The formal nam
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElement', @level2type=N'COLUMN', @level2name=N'ProgramTypeDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'	The maximum summary numerical rating or score for the program evaluation element.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElement', @level2type=N'COLUMN', @level2name=N'ElementMaxNumericRating'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The maximum summary numerical rating or score for the program evaluation element.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElement', @level2type=N'COLUMN', @level2name=N'ElementMaxNumericRating'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The minimum summary numerical rating or score for the program evaluation element. If omitted, assumed to be 0.0.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElement', @level2type=N'COLUMN', @level2name=N'ElementMinNumericRating'
 GO
@@ -3857,28 +3857,50 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the program evaluation objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElement', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationObjectiveTitle'
 GO
 
--- Extended Properties [edfi].[ProgramEvaluationElementRatingLevel] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptive level(s) of ratings (cut scores) for the program evaluation element.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementRatingLevel'
+-- Extended Properties [edfi].[ProgramEvaluationElementProgramEvaluationLevel] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptive level(s) of ratings (cut scores) for the program evaluation element.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementProgramEvaluationLevel'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramEducationOrganizationId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramEducationOrganizationId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the program evaluation element.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationElementTitle'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the program evaluation element.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationElementTitle'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the period for the program evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationPeriodDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the period for the program evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationPeriodDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the student program evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationTitle'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the student program evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationTitle'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationTypeDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationTypeDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramName'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramName'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramTypeDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramTypeDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title for a level of rating or evaluation band (e.g., Excellent, Acceptable, Needs Improvement, Unacceptable).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementRatingLevel', @level2type=N'COLUMN', @level2name=N'RatingLevelDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title for a level of rating or evaluation band (e.g., Excellent, Acceptable, Needs Improvement, Unacceptable).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'RatingLevelDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The maximum numerical rating or score to achieve the evaluation rating level.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementRatingLevel', @level2type=N'COLUMN', @level2name=N'MaxNumericRating'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The maximum numerical rating or score to achieve the evaluation rating level.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'MaxNumericRating'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The minimum numerical rating or score to achieve the evaluation rating level.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementRatingLevel', @level2type=N'COLUMN', @level2name=N'MinNumericRating'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The minimum numerical rating or score to achieve the evaluation rating level.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationElementProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'MinNumericRating'
+GO
+
+-- Extended Properties [edfi].[ProgramEvaluationLevel] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptive level(s) of ratings (cut scores) for the program evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationLevel'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramEducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the period for the program evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationPeriodDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the student program evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title for a level of rating or evaluation band (e.g., Excellent, Acceptable, Needs Improvement, Unacceptable).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'RatingLevelDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The maximum numerical rating or score to achieve the evaluation rating level.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'MaxNumericRating'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The minimum numerical rating or score to achieve the evaluation rating level.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'MinNumericRating'
 GO
 
 -- Extended Properties [edfi].[ProgramEvaluationObjective] --
@@ -3907,56 +3929,34 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The long description of the program evaluation objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjective', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationObjectiveDescription'
 GO
 
--- Extended Properties [edfi].[ProgramEvaluationObjectiveRatingLevel] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptive level(s) of ratings (cut scores) for the program evaluation objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveRatingLevel'
+-- Extended Properties [edfi].[ProgramEvaluationObjectiveProgramEvaluationLevel] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptive level(s) of ratings (cut scores) for the program evaluation objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveProgramEvaluationLevel'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramEducationOrganizationId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramEducationOrganizationId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the program evaluation objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationObjectiveTitle'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the program evaluation objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationObjectiveTitle'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the period for the program evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationPeriodDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the period for the program evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationPeriodDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the student program evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationTitle'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the student program evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationTitle'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationTypeDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationTypeDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramName'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramName'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramTypeDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'ProgramTypeDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title for a level of rating or evaluation band (e.g., Excellent, Acceptable, Needs Improvement, Unacceptable).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveRatingLevel', @level2type=N'COLUMN', @level2name=N'RatingLevelDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title for a level of rating or evaluation band (e.g., Excellent, Acceptable, Needs Improvement, Unacceptable).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'RatingLevelDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The maximum numerical rating or score to achieve the evaluation rating level.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveRatingLevel', @level2type=N'COLUMN', @level2name=N'MaxNumericRating'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The maximum numerical rating or score to achieve the evaluation rating level.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'MaxNumericRating'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The minimum numerical rating or score to achieve the evaluation rating level.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveRatingLevel', @level2type=N'COLUMN', @level2name=N'MinNumericRating'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The minimum numerical rating or score to achieve the evaluation rating level.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationObjectiveProgramEvaluationLevel', @level2type=N'COLUMN', @level2name=N'MinNumericRating'
 GO
 
 -- Extended Properties [edfi].[ProgramEvaluationPeriodDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationPeriodDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationPeriodDescriptor', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationPeriodDescriptorId'
-GO
-
--- Extended Properties [edfi].[ProgramEvaluationRatingLevel] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptive level(s) of ratings (cut scores) for the program evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationRatingLevel'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramEducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the period for the program evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationPeriodDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the student program evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationTitle'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramEvaluationTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramName'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'ProgramTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title for a level of rating or evaluation band (e.g., Excellent, Acceptable, Needs Improvement, Unacceptable).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'RatingLevelDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The maximum numerical rating or score to achieve the evaluation rating level.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'MaxNumericRating'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The minimum numerical rating or score to achieve the evaluation rating level.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramEvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'MinNumericRating'
 GO
 
 -- Extended Properties [edfi].[ProgramEvaluationTypeDescriptor] --
@@ -4625,6 +4625,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SourceSystemDescriptor', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
 GO
 
+-- Extended Properties [edfi].[SpecialEducationExitReasonDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The reason why a person stops receiving special education services.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SpecialEducationExitReasonDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SpecialEducationExitReasonDescriptor', @level2type=N'COLUMN', @level2name=N'SpecialEducationExitReasonDescriptorId'
+GO
+
 -- Extended Properties [edfi].[SpecialEducationProgramServiceDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the services provided by an education organization to populations of students associated with a special education program.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SpecialEducationProgramServiceDescriptor'
 GO
@@ -5220,6 +5226,8 @@ GO
 -- Extended Properties [edfi].[StaffSectionAssociation] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This association indicates the class sections to which a staff member is assigned.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffSectionAssociation'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Month, day, and year of a teacher''s assignment to the section.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffSectionAssociation', @level2type=N'COLUMN', @level2name=N'BeginDate'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local code assigned by the School that identifies the course offering provided for the instruction of students.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffSectionAssociation', @level2type=N'COLUMN', @level2name=N'LocalCourseCode'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffSectionAssociation', @level2type=N'COLUMN', @level2name=N'SchoolId'
@@ -5231,8 +5239,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the calendar for the academic session.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffSectionAssociation', @level2type=N'COLUMN', @level2name=N'SessionName'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffSectionAssociation', @level2type=N'COLUMN', @level2name=N'StaffUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Month, day, and year of a teacher''s assignment to the section. If blank, defaults to the first day of the first grading period for the section.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffSectionAssociation', @level2type=N'COLUMN', @level2name=N'BeginDate'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of position the staff member holds in the specific class/section.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffSectionAssociation', @level2type=N'COLUMN', @level2name=N'ClassroomPositionDescriptorId'
 GO
@@ -7231,6 +7237,12 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates whet
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicate the total number of hours of instructional time per week for the school that the student attends.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociation', @level2type=N'COLUMN', @level2name=N'SchoolHoursPerWeek'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The  month, day and year on which a person stops receiving special education services.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociation', @level2type=N'COLUMN', @level2name=N'SpecialEducationExitDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Explanation on why a person stops receiving special education services.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociation', @level2type=N'COLUMN', @level2name=N'SpecialEducationExitExplained'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The reason why a person stops receiving special education services.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociation', @level2type=N'COLUMN', @level2name=N'SpecialEducationExitReasonDescriptorId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of hours per week for special education instruction and therapy.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociation', @level2type=N'COLUMN', @level2name=N'SpecialEducationHoursPerWeek'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The major instructional setting (more than 50 percent of a student''s special education program).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociation', @level2type=N'COLUMN', @level2name=N'SpecialEducationSettingDescriptorId'
@@ -7361,6 +7373,8 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alpha
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date on which the student''s parent gave a consent (Parent Consent Date).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramEligibilityAssociation', @level2type=N'COLUMN', @level2name=N'ConsentToEvaluationDate'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year when the eligibility conference is held between the parent(s)/guardian(s) and the educational organization responsible staff member(s) to review and make decision on special education related services eligibility.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramEligibilityAssociation', @level2type=N'COLUMN', @level2name=N'EligibilityConferenceDate'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The reason why the eligibility determination was completed beyond the required timeframe.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramEligibilityAssociation', @level2type=N'COLUMN', @level2name=N'EligibilityDelayReasonDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the month, day, and year the local education agency (LEA) held the admission, review, and dismissal committee meeting regarding the child''s eligibility determination for special education and related services. An individualized education plan (IEP) would be developed and implemented for a child admitted into special education on this same date.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramEligibilityAssociation', @level2type=N'COLUMN', @level2name=N'EligibilityDeterminationDate'
@@ -7377,7 +7391,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Refers to the 
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Refers to additional information for delay in doing the evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramEligibilityAssociation', @level2type=N'COLUMN', @level2name=N'EvaluationLateReason'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates whether or not the student was determined eligible and enrolled in special education and related services as a result of the evaluation report and the admission, review, and dismissal committee meeting decision.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramEligibilityAssociation', @level2type=N'COLUMN', @level2name=N'IDEAIndicator'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates whether or not the student was determined eligible as a result of an evaluation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramEligibilityAssociation', @level2type=N'COLUMN', @level2name=N'IDEAIndicator'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates if the evaluation is done under Part B IDEA or Part C IDEA.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramEligibilityAssociation', @level2type=N'COLUMN', @level2name=N'IDEAPartDescriptorId'
 GO
