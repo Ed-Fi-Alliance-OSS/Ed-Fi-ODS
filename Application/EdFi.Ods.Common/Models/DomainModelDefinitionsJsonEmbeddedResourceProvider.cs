@@ -9,7 +9,6 @@ using System.Linq;
 using System.Reflection;
 using EdFi.Ods.Common.Models.Definitions;
 using Newtonsoft.Json;
-using ErrorEventArgs = Newtonsoft.Json.Serialization.ErrorEventArgs;
 
 namespace EdFi.Ods.Common.Models
 {

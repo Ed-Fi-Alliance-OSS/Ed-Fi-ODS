@@ -14,7 +14,6 @@ using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using log4net;
 using Newtonsoft.Json;
-using ErrorEventArgs = Newtonsoft.Json.Serialization.ErrorEventArgs;
 
 namespace EdFi.Ods.Api.Providers
 {
