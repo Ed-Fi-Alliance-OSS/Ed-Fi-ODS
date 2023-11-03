@@ -56,7 +56,7 @@ public class PersonMapCacheInitializerTests
                 entries.Count() == 3
                 && entries[0].Item1 == 1 && entries[0].Item2 == "UniqueId1"
                 && entries[1].Item1 == 2 && entries[1].Item2 == "UniqueId2"
-                // Cache initialization marker entry is present at the end
+                // Ensure that cache initialization marker entry is present at the end of the array
                 && entries[2].Item1 == CacheInitializationConstants.InitializationMarkerKeyForUsi 
                 && entries[2].Item2 == CacheInitializationConstants.InitializationMarkerKeyForUniqueId)))
             .MustHaveHappenedOnceExactly();
@@ -69,7 +69,7 @@ public class PersonMapCacheInitializerTests
                 entries.Count() == 3
                 && entries[0].Item1 == "UniqueId1" && entries[0].Item2 == 1 
                 && entries[1].Item1 == "UniqueId2" && entries[1].Item2 == 2
-                // Cache initialization marker entry is present at the end
+                // Ensure that cache initialization marker entry is present at the end of the array
                 && entries[2].Item1 == CacheInitializationConstants.InitializationMarkerKeyForUniqueId 
                 && entries[2].Item2 == CacheInitializationConstants.InitializationMarkerKeyForUsi)))
             .MustHaveHappenedOnceExactly();

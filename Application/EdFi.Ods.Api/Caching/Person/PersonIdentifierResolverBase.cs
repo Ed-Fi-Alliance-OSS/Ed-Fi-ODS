@@ -174,11 +174,11 @@ public abstract class PersonIdentifierResolverBase<TLookup, TResolved>
                     _logger.Error("An error occurred while attempting to add the 'initialization' marker cache entry to the cache.", ex);
                 }
 
+                // NOTE: Do NOT await this Task -- let it run in the background
+                #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                 // Initiate cache initialization of the entire UniqueId/USI map for the ODS
-                // NOTE: Do NOT await this here, let it run in the background
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                 _personMapCacheInitializer.InitializePersonMapAsync(odsInstanceHashId, personType);
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             }
 
             return identifiersToLoad;

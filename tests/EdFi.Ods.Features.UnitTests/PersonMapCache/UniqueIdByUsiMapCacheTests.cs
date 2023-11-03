@@ -6,7 +6,6 @@
 using System.Diagnostics;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Caching.Person;
-using EdFi.Ods.Features.ExternalCache.Redis;
 using NUnit.Framework;
 using Shouldly;
 
@@ -16,28 +15,34 @@ using Shouldly;
 // docker run --name my-redis -d -p 6379:6379 redis:alpine
 // ---------------------------------------------------------------
 
-namespace EdFi.Ods.Features.UnitTests.ExternalCache;
+namespace EdFi.Ods.Features.UnitTests.PersonMapCache;
 
 [TestFixture]
-public class RedisUniqueIdByUsiMapCacheTests
+public class UniqueIdByUsiMapCacheTests
 {
-    [TestFixture, Explicit]
+    [TestFixtureSource(nameof(MapCaches))]
     public class BothAbsoluteAndSlidingExpirationTests
     {
-        private RedisUniqueIdByUsiMapCache? _mapCache;
+        private IMapCache<(ulong, string, PersonMapType), int, string>? _mapCache;
+
         private (ulong, string, PersonMapType UsiByUniqueId) _cacheKey;
 
         private const int AbsoluteExpirationMs = 50;
         private const int SlidingExpirationMs = 100;
 
+        public BothAbsoluteAndSlidingExpirationTests(IMapCache<(ulong, string, PersonMapType), int, string> mapCache)
+        {
+            _mapCache = mapCache;
+        }
+
+        private static IMapCache<(ulong, string, PersonMapType), int, string>[] MapCaches
+        {
+            get => MapCacheTestHelper.GetUniqueIdByUsiMapCaches(AbsoluteExpirationMs, SlidingExpirationMs).ToArray();
+        }
+
         [OneTimeSetUp]
         public void SetUp()
         {
-            _mapCache = new RedisUniqueIdByUsiMapCache(
-                "localhost:6379",
-                absoluteExpirationPeriod: TimeSpan.FromMilliseconds(AbsoluteExpirationMs),
-                slidingExpirationPeriod: TimeSpan.FromMilliseconds(SlidingExpirationMs));
-
             _cacheKey = (123456UL, "Student", PersonMapType.UniqueIdByUsi);
         }
 
@@ -100,10 +105,11 @@ public class RedisUniqueIdByUsiMapCacheTests
         }
     }
 
-    [TestFixture, Explicit]
+    [TestFixtureSource(nameof(MapCaches))]
     public class OnlyAbsoluteExpirationTests
     {
-        private RedisUniqueIdByUsiMapCache? _mapCache;
+        private IMapCache<(ulong, string, PersonMapType), int, string>? _mapCache;
+
         private (ulong, string, PersonMapType UsiByUniqueId) _cacheKey;
 
         private const int AbsoluteExpirationMs = 200;
@@ -111,14 +117,19 @@ public class RedisUniqueIdByUsiMapCacheTests
         // No sliding expiration
         private const int SlidingExpirationMs = 0;
 
+        public OnlyAbsoluteExpirationTests(IMapCache<(ulong, string, PersonMapType), int, string> mapCache)
+        {
+            _mapCache = mapCache;
+        }
+
+        private static IMapCache<(ulong, string, PersonMapType), int, string>[] MapCaches
+        {
+            get => MapCacheTestHelper.GetUniqueIdByUsiMapCaches(AbsoluteExpirationMs, SlidingExpirationMs).ToArray();
+        }
+
         [OneTimeSetUp]
         public void SetUp()
         {
-            _mapCache = new RedisUniqueIdByUsiMapCache(
-                "localhost:6379",
-                absoluteExpirationPeriod: TimeSpan.FromMilliseconds(AbsoluteExpirationMs),
-                slidingExpirationPeriod: TimeSpan.FromMilliseconds(SlidingExpirationMs));
-
             _cacheKey = (123456UL, "Student", PersonMapType.UniqueIdByUsi);
         }
 
@@ -146,6 +157,9 @@ public class RedisUniqueIdByUsiMapCacheTests
                 Thread.Sleep(20);
             }
 
+            // Put a slight delay before final call
+            Thread.Sleep(10);
+
             // Act II
             var retrievedValues2 = await _mapCache.GetMapEntriesAsync(_cacheKey, new[] { 1, 2, 3 });
 
@@ -154,24 +168,29 @@ public class RedisUniqueIdByUsiMapCacheTests
         }
     }
 
-    [TestFixture, Explicit]
+    [TestFixtureSource(nameof(MapCaches))]
     public class OnlySlidingExpirationTests
     {
-        private RedisUniqueIdByUsiMapCache? _mapCache;
+        private readonly IMapCache<(ulong, string, PersonMapType), int, string>? _mapCache;
         private (ulong, string, PersonMapType UsiByUniqueId) _cacheKey;
 
         // No absolute expiration
         private const int AbsoluteExpirationMs = 0;
         private const int SlidingExpirationMs = 50;
 
+        public OnlySlidingExpirationTests(IMapCache<(ulong, string, PersonMapType), int, string> mapCache)
+        {
+            _mapCache = mapCache;
+        }
+
+        private static IMapCache<(ulong, string, PersonMapType), int, string>[] MapCaches
+        {
+            get => MapCacheTestHelper.GetUniqueIdByUsiMapCaches(AbsoluteExpirationMs, SlidingExpirationMs).ToArray();
+        }
+
         [OneTimeSetUp]
         public void SetUp()
         {
-            _mapCache = new RedisUniqueIdByUsiMapCache(
-                "localhost:6379",
-                absoluteExpirationPeriod: TimeSpan.FromMilliseconds(AbsoluteExpirationMs),
-                slidingExpirationPeriod: TimeSpan.FromMilliseconds(SlidingExpirationMs));
-
             _cacheKey = (123456UL, "Student", PersonMapType.UniqueIdByUsi);
         }
 

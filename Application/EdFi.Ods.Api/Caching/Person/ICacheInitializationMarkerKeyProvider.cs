@@ -6,7 +6,7 @@
 namespace EdFi.Ods.Api.Caching.Person;
 
 /// <summary>
-/// Defines a method for obtaining the cache entry key for denoting the initiation of the background cache initialization.
+/// Defines a property for obtaining the typed cache entry key for denoting the initiation of the background cache initialization.
 /// </summary>
 /// <typeparam name="TKey"></typeparam>
 public interface ICacheInitializationMarkerKeyProvider<out TKey>
