@@ -72,11 +72,7 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
         await _cache.HashSetAsync(cacheKey, hashEntries);
 
         // Handle initial expiration
-        if (!await ApplyInitialExpirationAsync(cacheKey))
-        {
-            // Handle sliding expiration refresh of the cache entry
-            ApplySlidingExpiration(cacheKey);
-        }
+        ApplyInitialExpirationAsync(cacheKey);
     }
 
     public async Task<TMapValue[]> GetMapEntriesAsync(TKey key, TMapKey[] mapKeys)
@@ -133,34 +129,45 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
         return deleteResult;
     }
 
-    private async Task<bool> ApplyInitialExpirationAsync(string cacheKey)
+    private void ApplyInitialExpirationAsync(string cacheKey)
     {
-        long expirationMs = 0;
-        
         if (_slidingExpirationPeriod is { TotalMilliseconds: > 0})
         {
             // Set the initial expiration using the sliding expiration period
-            expirationMs = (long) _slidingExpirationPeriod.Value.TotalMilliseconds;
+            long slidingExpirationMs = (long) _slidingExpirationPeriod.Value.TotalMilliseconds;
+            
+            if (slidingExpirationMs > 0)
+            {
+                // Set initial sliding expiration for the key
+                _cache.ExecuteAsync(
+                    $"PEXPIRE",
+                    new object[]
+                    {
+                        cacheKey,
+                        slidingExpirationMs
+                    },
+                    CommandFlags.FireAndForget);
+            }
         }
         else if (_absoluteExpirationPeriod is { TotalMilliseconds: > 0 })
         {
             // Set the initial expiration using the absolute expiration period
-            expirationMs = (long) _absoluteExpirationPeriod.Value.TotalMilliseconds;
+            long absoluteExpirationMs = (long) _absoluteExpirationPeriod.Value.TotalMilliseconds;
+            
+            if (absoluteExpirationMs > 0)
+            {
+                // Set initial absolute expiration for the key (but only if expiration hasn't been set yet)
+                _cache.Execute(
+                    $"PEXPIRE",
+                    new object[]
+                    {
+                        cacheKey,
+                        absoluteExpirationMs,
+                        "NX"
+                    },
+                    CommandFlags.FireAndForget);
+            }
         }
-
-        if (expirationMs > 0)
-        {
-            // Set initial absolute expiration for the key
-            var result = await _cache.ExecuteAsync(
-                $"PEXPIRE",
-                cacheKey,
-                expirationMs,
-                "NX");
-
-            return (int) result == 1;
-        }
-
-        return true;
     }
 
     private void ApplySlidingExpiration(string cacheKey)

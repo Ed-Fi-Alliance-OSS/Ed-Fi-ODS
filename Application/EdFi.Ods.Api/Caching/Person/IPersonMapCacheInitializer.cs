@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace EdFi.Ods.Api.Caching.Person;
 
 /// <summary>
-/// Defines a method for ensuring that the person UniqueId/USI map cache has been initiated for the specified ODS.
+/// Defines a method for initiating the background initialization of the person UniqueId/USI map cache for a specific ODS.
 /// </summary>
 public interface IPersonMapCacheInitializer
 {
