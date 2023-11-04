@@ -67,13 +67,18 @@ namespace EdFi.Ods.Api.Providers
                     continue;
                 }
 
-                _logger.Debug($"Assembly '{assemblyName} has an 'ApiModel.json'");
+                _logger.Debug($"Assembly '{assemblyName}' has an 'ApiModel.json'");
 
                 var stream = manifestResourceNames.Any(x => x.ContainsIgnoreCase(apiModelFileName))
                     ? new StreamReader(assembly.GetManifestResourceStream(apiModelFileName))
                     : new StreamReader(assembly.GetManifestResourceStream(extensionApiModelFileName));
 
-                var apiModel = JsonConvert.DeserializeObject<Dictionary<string, object>>(stream.ReadToEnd());
+                var apiModel = JsonConvert.DeserializeObject<Dictionary<string, object>>(stream.ReadToEnd(),
+                    new JsonSerializerSettings
+                    {
+                        Error = (sender, args) => throw new Exception(
+                            $"Unable to deserialize api model from assembly '{assemblyName}'.")
+                    });
 
                 var schemaInfo = apiModel["schemaDefinition"].ToDictionary();
 

@@ -306,7 +306,12 @@ namespace EdFi.Ods.Api.Helpers
 
             _logger.Debug($"Deserializing object type '{typeof(AssemblyMetadata)}' from embedded resource '{resourceName}'.");
 
-            assemblyMetadata =  JsonConvert.DeserializeObject<AssemblyMetadata>(jsonFile);
+            assemblyMetadata =  JsonConvert.DeserializeObject<AssemblyMetadata>(jsonFile,
+                new JsonSerializerSettings
+                {
+                    Error = (sender, args) => throw new Exception(
+                        $"Unable to deserialize '{typeof(AssemblyMetadata)}' from embedded resource '{resourceName}'.")
+                });
 
             return true;
         }
