@@ -68,13 +68,20 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                 using (var context = GetUsersContextTest())
                 {
                     //Arrange
-                    var lea = new ApplicationEducationOrganization { EducationOrganizationId = leaId };
+                    var vendor = new Vendor { VendorName = "test vendor"};
+                    vendor.VendorNamespacePrefixes.Add( new VendorNamespacePrefix { NamespacePrefix = "uri://example.com" } );
 
                     var client = new ApiClient(true) { Name = clientName };
+ 
+                    var application = new Application { ApplicationName = "test", Vendor = vendor, OperationalContextUri ="uri://example.com" };
+                    application.ApiClients.Add(client);
 
+                    var lea = new ApplicationEducationOrganization { EducationOrganizationId = leaId, Application = application};
                     client.ApplicationEducationOrganizations.Add(lea);
 
                     //Act
+                    context.Vendors.Add(vendor);
+                    context.Applications.Add(application);
                     context.ApiClients.Add(client);
                     context.SaveChangesForTest();
 
