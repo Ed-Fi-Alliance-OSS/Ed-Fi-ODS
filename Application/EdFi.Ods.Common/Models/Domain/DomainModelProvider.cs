@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Models.Definitions;
+using EdFi.Ods.Common.Models.Definitions.Transformers;
 
 namespace EdFi.Ods.Common.Models.Domain
 {

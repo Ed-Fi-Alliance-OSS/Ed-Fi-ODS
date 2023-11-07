@@ -40,6 +40,7 @@ using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.IO;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Definitions.Transformers;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Providers;
@@ -112,6 +113,11 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<DomainModelProvider>()
                 .As<IDomainModelProvider>()
+                .SingleInstance();
+
+            // Domain model transformers
+            builder.RegisterType<PriorDescriptorIdRemover>()
+                .As<IDomainModelDefinitionsTransformer>()
                 .SingleInstance();
 
             // Schemas

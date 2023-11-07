@@ -10,6 +10,7 @@ using System.Reflection;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Definitions.Transformers;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Tests.TestExtension;
 using EdFi.TestFixture;
