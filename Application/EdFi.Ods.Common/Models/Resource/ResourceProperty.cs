@@ -73,6 +73,9 @@ namespace EdFi.Ods.Common.Models.Resource
                     && entityProperty.Entity.IsPersonEntity()
                     && UniqueIdConventions.IsUniqueId(entityProperty.PropertyName, entityProperty.Entity.Name));
 
+            // Concrete DescriptorId properties should not be exposed over JSON or API metadata
+            JsonIgnore = entityProperty.Entity.IsDescriptorEntity && entityProperty.IsIdentifying;
+
             IsLocallyDefined = entityProperty.IsLocallyDefined;
             IsServerAssigned = entityProperty.IsServerAssigned;
 
@@ -275,6 +278,12 @@ namespace EdFi.Ods.Common.Models.Resource
                     && UniqueIdConventions.IsUniqueId(PropertyName)
                     && property.DefiningProperty.Entity.IsPersonEntity();
         }
+
+        /// <summary>
+        /// Indicates whether the property should be excluded from the JSON representation of the resource
+        /// and corresponding Open API metadata.
+        /// </summary>
+        public bool JsonIgnore { get; }
 
         /// <inheritdoc cref="ResourceMemberBase.JsonPath" />
         public override string JsonPath
