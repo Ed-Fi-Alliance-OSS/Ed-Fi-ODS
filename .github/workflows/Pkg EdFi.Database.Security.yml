@@ -6,10 +6,6 @@
 name: Pkg EdFi.Database.Security
 
 on:
-  pull_request:
-    branches: [main, 'ODS-*']
-    paths:
-      - '**.sql'
   push:
     branches:
       - main
