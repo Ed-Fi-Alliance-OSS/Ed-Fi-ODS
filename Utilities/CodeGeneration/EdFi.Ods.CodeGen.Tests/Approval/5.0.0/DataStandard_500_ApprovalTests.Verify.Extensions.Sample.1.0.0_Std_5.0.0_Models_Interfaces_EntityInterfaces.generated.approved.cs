@@ -43,7 +43,6 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isEffectiveBeginDateSupported,
             bool isEffectiveEndDateSupported,
             bool isNamespaceSupported,
-            bool isPriorDescriptorIdSupported,
             bool isShortDescriptionSupported
             )
         {
@@ -52,7 +51,6 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
             IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
             IsNamespaceSupported = isNamespaceSupported;
-            IsPriorDescriptorIdSupported = isPriorDescriptorIdSupported;
             IsShortDescriptionSupported = isShortDescriptionSupported;
         }
 
@@ -61,7 +59,6 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsEffectiveBeginDateSupported { get; }
         public bool IsEffectiveEndDateSupported { get; }
         public bool IsNamespaceSupported { get; }
-        public bool IsPriorDescriptorIdSupported { get; }
         public bool IsShortDescriptionSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -78,8 +75,6 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsEffectiveEndDateSupported;
                 case "Namespace":
                     return IsNamespaceSupported;
-                case "PriorDescriptorId":
-                    return IsPriorDescriptorIdSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
                 default:
@@ -1250,7 +1245,6 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isEffectiveBeginDateSupported,
             bool isEffectiveEndDateSupported,
             bool isNamespaceSupported,
-            bool isPriorDescriptorIdSupported,
             bool isShortDescriptionSupported
             )
         {
@@ -1259,7 +1253,6 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
             IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
             IsNamespaceSupported = isNamespaceSupported;
-            IsPriorDescriptorIdSupported = isPriorDescriptorIdSupported;
             IsShortDescriptionSupported = isShortDescriptionSupported;
         }
 
@@ -1268,7 +1261,6 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsEffectiveBeginDateSupported { get; }
         public bool IsEffectiveEndDateSupported { get; }
         public bool IsNamespaceSupported { get; }
-        public bool IsPriorDescriptorIdSupported { get; }
         public bool IsShortDescriptionSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -1285,8 +1277,6 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsEffectiveEndDateSupported;
                 case "Namespace":
                     return IsNamespaceSupported;
-                case "PriorDescriptorId":
-                    return IsPriorDescriptorIdSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
                 default:
@@ -1326,7 +1316,6 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isEffectiveBeginDateSupported,
             bool isEffectiveEndDateSupported,
             bool isNamespaceSupported,
-            bool isPriorDescriptorIdSupported,
             bool isShortDescriptionSupported
             )
         {
@@ -1335,7 +1324,6 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
             IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
             IsNamespaceSupported = isNamespaceSupported;
-            IsPriorDescriptorIdSupported = isPriorDescriptorIdSupported;
             IsShortDescriptionSupported = isShortDescriptionSupported;
         }
 
@@ -1344,7 +1332,6 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsEffectiveBeginDateSupported { get; }
         public bool IsEffectiveEndDateSupported { get; }
         public bool IsNamespaceSupported { get; }
-        public bool IsPriorDescriptorIdSupported { get; }
         public bool IsShortDescriptionSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -1361,8 +1348,6 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsEffectiveEndDateSupported;
                 case "Namespace":
                     return IsNamespaceSupported;
-                case "PriorDescriptorId":
-                    return IsPriorDescriptorIdSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
                 default:

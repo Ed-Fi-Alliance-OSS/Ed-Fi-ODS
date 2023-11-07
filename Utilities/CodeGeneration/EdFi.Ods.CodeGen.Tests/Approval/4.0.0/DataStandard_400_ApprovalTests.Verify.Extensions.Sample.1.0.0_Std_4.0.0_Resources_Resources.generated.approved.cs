@@ -165,13 +165,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
         public string Namespace { get; set; }
 
         /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
-
-        /// <summary>
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
@@ -2907,13 +2900,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
         public string Namespace { get; set; }
 
         /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
-
-        /// <summary>
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
@@ -3176,13 +3162,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
-
-        /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
 
         /// <summary>
         /// A shortened description for the descriptor.

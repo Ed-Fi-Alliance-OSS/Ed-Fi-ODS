@@ -77,13 +77,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ArtMediumDescriptorAggregate
                 isModified = true;
             }
 
-            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
-                && target.PriorDescriptorId != source.PriorDescriptorId)
-            {
-                target.PriorDescriptorId = source.PriorDescriptorId;
-                isModified = true;
-            }
-
             if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
@@ -130,9 +123,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ArtMediumDescriptorAggregate
 
             if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-
-            if (mappingContract?.IsPriorDescriptorIdSupported != false)
-                target.PriorDescriptorId = source.PriorDescriptorId;
 
             if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
@@ -2193,13 +2183,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.FavoriteBookCategoryDescriptorAggre
                 isModified = true;
             }
 
-            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
-                && target.PriorDescriptorId != source.PriorDescriptorId)
-            {
-                target.PriorDescriptorId = source.PriorDescriptorId;
-                isModified = true;
-            }
-
             if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
@@ -2246,9 +2229,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.FavoriteBookCategoryDescriptorAggre
 
             if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-
-            if (mappingContract?.IsPriorDescriptorIdSupported != false)
-                target.PriorDescriptorId = source.PriorDescriptorId;
 
             if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
@@ -2354,13 +2334,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.MembershipTypeDescriptorAggregate
                 isModified = true;
             }
 
-            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
-                && target.PriorDescriptorId != source.PriorDescriptorId)
-            {
-                target.PriorDescriptorId = source.PriorDescriptorId;
-                isModified = true;
-            }
-
             if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
@@ -2407,9 +2380,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.MembershipTypeDescriptorAggregate
 
             if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-
-            if (mappingContract?.IsPriorDescriptorIdSupported != false)
-                target.PriorDescriptorId = source.PriorDescriptorId;
 
             if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;

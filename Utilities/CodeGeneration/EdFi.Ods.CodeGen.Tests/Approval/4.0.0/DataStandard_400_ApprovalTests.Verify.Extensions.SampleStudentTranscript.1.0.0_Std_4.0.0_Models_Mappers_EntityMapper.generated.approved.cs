@@ -77,13 +77,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.InstitutionControl
                 isModified = true;
             }
 
-            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
-                && target.PriorDescriptorId != source.PriorDescriptorId)
-            {
-                target.PriorDescriptorId = source.PriorDescriptorId;
-                isModified = true;
-            }
-
             if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
@@ -130,9 +123,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.InstitutionControl
 
             if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-
-            if (mappingContract?.IsPriorDescriptorIdSupported != false)
-                target.PriorDescriptorId = source.PriorDescriptorId;
 
             if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
@@ -238,13 +228,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.InstitutionLevelDe
                 isModified = true;
             }
 
-            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
-                && target.PriorDescriptorId != source.PriorDescriptorId)
-            {
-                target.PriorDescriptorId = source.PriorDescriptorId;
-                isModified = true;
-            }
-
             if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
@@ -291,9 +274,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.InstitutionLevelDe
 
             if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-
-            if (mappingContract?.IsPriorDescriptorIdSupported != false)
-                target.PriorDescriptorId = source.PriorDescriptorId;
 
             if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
@@ -513,13 +493,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.SpecialEducationGr
                 isModified = true;
             }
 
-            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
-                && target.PriorDescriptorId != source.PriorDescriptorId)
-            {
-                target.PriorDescriptorId = source.PriorDescriptorId;
-                isModified = true;
-            }
-
             if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
@@ -566,9 +539,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.SpecialEducationGr
 
             if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-
-            if (mappingContract?.IsPriorDescriptorIdSupported != false)
-                target.PriorDescriptorId = source.PriorDescriptorId;
 
             if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
@@ -846,13 +816,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.SubmissionCertific
                 isModified = true;
             }
 
-            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
-                && target.PriorDescriptorId != source.PriorDescriptorId)
-            {
-                target.PriorDescriptorId = source.PriorDescriptorId;
-                isModified = true;
-            }
-
             if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
@@ -899,9 +862,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.SubmissionCertific
 
             if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-
-            if (mappingContract?.IsPriorDescriptorIdSupported != false)
-                target.PriorDescriptorId = source.PriorDescriptorId;
 
             if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;

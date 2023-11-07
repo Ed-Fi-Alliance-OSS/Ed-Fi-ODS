@@ -165,13 +165,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
         public string Namespace { get; set; }
 
         /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
-
-        /// <summary>
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
@@ -434,13 +427,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
-
-        /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
 
         /// <summary>
         /// A shortened description for the descriptor.
@@ -5987,13 +5973,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
         public string Namespace { get; set; }
 
         /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
-
-        /// <summary>
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
@@ -6256,13 +6235,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
-
-        /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
 
         /// <summary>
         /// A shortened description for the descriptor.
@@ -7347,13 +7319,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
         public string Namespace { get; set; }
 
         /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
-
-        /// <summary>
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
@@ -8350,13 +8315,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
         public string Namespace { get; set; }
 
         /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
-
-        /// <summary>
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
@@ -8621,13 +8579,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
         public string Namespace { get; set; }
 
         /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
-
-        /// <summary>
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
@@ -8890,13 +8841,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
-
-        /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
 
         /// <summary>
         /// A shortened description for the descriptor.
@@ -12590,13 +12534,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
         public string Namespace { get; set; }
 
         /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
-
-        /// <summary>
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
@@ -15222,13 +15159,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
         public string Namespace { get; set; }
 
         /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
-
-        /// <summary>
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
@@ -17576,13 +17506,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
         public string Namespace { get; set; }
 
         /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
-
-        /// <summary>
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
@@ -17847,13 +17770,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
         public string Namespace { get; set; }
 
         /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
-
-        /// <summary>
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
@@ -18116,13 +18032,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
-
-        /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
 
         /// <summary>
         /// A shortened description for the descriptor.
@@ -18845,13 +18754,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
         public string Namespace { get; set; }
 
         /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
-
-        /// <summary>
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
@@ -19114,13 +19016,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
-
-        /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
 
         /// <summary>
         /// A shortened description for the descriptor.
@@ -22256,13 +22151,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
         public string Namespace { get; set; }
 
         /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
-
-        /// <summary>
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
@@ -22525,13 +22413,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
-
-        /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
 
         /// <summary>
         /// A shortened description for the descriptor.
@@ -23551,13 +23432,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
-
-        /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
 
         /// <summary>
         /// A shortened description for the descriptor.

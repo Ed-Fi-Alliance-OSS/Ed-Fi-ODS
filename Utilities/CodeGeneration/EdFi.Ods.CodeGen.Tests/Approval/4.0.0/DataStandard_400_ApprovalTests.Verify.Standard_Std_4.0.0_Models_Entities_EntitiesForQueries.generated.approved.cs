@@ -5497,7 +5497,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DescriptorAggregate.EdFi
         public virtual DateTime? EffectiveBeginDate  { get; set; }
         public virtual DateTime? EffectiveEndDate  { get; set; }
         public virtual string Namespace  { get; set; }
-        public virtual int? PriorDescriptorId  { get; set; }
         public virtual string ShortDescription  { get; set; }
         // -------------------------------------------------------------
 

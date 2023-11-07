@@ -77,11 +77,6 @@ namespace EdFi.Ods.Entities.NHibernate.AccreditationStatusDescriptorAggregate.TP
             get { return Namespace; }
             set { Namespace = value; }
         }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
-        }
         string IDescriptor.ShortDescription
         {
             get { return ShortDescription; }
@@ -260,11 +255,6 @@ namespace EdFi.Ods.Entities.NHibernate.AidTypeDescriptorAggregate.TPDM
         {
             get { return Namespace; }
             set { Namespace = value; }
-        }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
         }
         string IDescriptor.ShortDescription
         {
@@ -4882,11 +4872,6 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationRouteDescriptorAggregate.TPD
             get { return Namespace; }
             set { Namespace = value; }
         }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
-        }
         string IDescriptor.ShortDescription
         {
             get { return ShortDescription; }
@@ -5065,11 +5050,6 @@ namespace EdFi.Ods.Entities.NHibernate.CoteachingStyleObservedDescriptorAggregat
         {
             get { return Namespace; }
             set { Namespace = value; }
-        }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
         }
         string IDescriptor.ShortDescription
         {
@@ -5892,11 +5872,6 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialStatusDescriptorAggregate.TPDM
             get { return Namespace; }
             set { Namespace = value; }
         }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
-        }
         string IDescriptor.ShortDescription
         {
             get { return ShortDescription; }
@@ -6647,11 +6622,6 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorRoleDescriptorAggregate.TPDM
             get { return Namespace; }
             set { Namespace = value; }
         }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
-        }
         string IDescriptor.ShortDescription
         {
             get { return ShortDescription; }
@@ -6831,11 +6801,6 @@ namespace EdFi.Ods.Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.TP
             get { return Namespace; }
             set { Namespace = value; }
         }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
-        }
         string IDescriptor.ShortDescription
         {
             get { return ShortDescription; }
@@ -7014,11 +6979,6 @@ namespace EdFi.Ods.Entities.NHibernate.EPPProgramPathwayDescriptorAggregate.TPDM
         {
             get { return Namespace; }
             set { Namespace = value; }
-        }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
         }
         string IDescriptor.ShortDescription
         {
@@ -9316,11 +9276,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingLevelDescriptorAgg
             get { return Namespace; }
             set { Namespace = value; }
         }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
-        }
         string IDescriptor.ShortDescription
         {
             get { return ShortDescription; }
@@ -10933,11 +10888,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationPeriodDescriptorAggregate.TPDM
             get { return Namespace; }
             set { Namespace = value; }
         }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
-        }
         string IDescriptor.ShortDescription
         {
             get { return ShortDescription; }
@@ -12442,11 +12392,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.
             get { return Namespace; }
             set { Namespace = value; }
         }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
-        }
         string IDescriptor.ShortDescription
         {
             get { return ShortDescription; }
@@ -12626,11 +12571,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingStatusDescriptorAggregate
             get { return Namespace; }
             set { Namespace = value; }
         }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
-        }
         string IDescriptor.ShortDescription
         {
             get { return ShortDescription; }
@@ -12809,11 +12749,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationTypeDescriptorAggregate.TPDM
         {
             get { return Namespace; }
             set { Namespace = value; }
-        }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
         }
         string IDescriptor.ShortDescription
         {
@@ -13365,11 +13300,6 @@ namespace EdFi.Ods.Entities.NHibernate.GenderDescriptorAggregate.TPDM
             get { return Namespace; }
             set { Namespace = value; }
         }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
-        }
         string IDescriptor.ShortDescription
         {
             get { return ShortDescription; }
@@ -13548,11 +13478,6 @@ namespace EdFi.Ods.Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.T
         {
             get { return Namespace; }
             set { Namespace = value; }
-        }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
         }
         string IDescriptor.ShortDescription
         {
@@ -15955,11 +15880,6 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingLevelDescripto
             get { return Namespace; }
             set { Namespace = value; }
         }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
-        }
         string IDescriptor.ShortDescription
         {
             get { return ShortDescription; }
@@ -16138,11 +16058,6 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggreg
         {
             get { return Namespace; }
             set { Namespace = value; }
-        }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
         }
         string IDescriptor.ShortDescription
         {
@@ -16754,11 +16669,6 @@ namespace EdFi.Ods.Entities.NHibernate.RubricRatingLevelDescriptorAggregate.TPDM
         {
             get { return Namespace; }
             set { Namespace = value; }
-        }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
         }
         string IDescriptor.ShortDescription
         {
