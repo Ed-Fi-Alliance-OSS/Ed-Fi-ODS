@@ -41,9 +41,15 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
                 {{/AnnotatedLocalPrimaryKeyHasStrings}}
             // Detect primary key changes
             if (
-                {{#AnnotatedLocalPrimaryKeyList}}
+                {{#IsDescriptorEntity}}
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
+                {{/IsDescriptorEntity}}
+                {{^IsDescriptorEntity}}
+                    {{#AnnotatedLocalPrimaryKeyList}}
                 {{^IsFirst}}||{{/IsFirst}} {{#IsDescriptorUsage}}!string.Equals(target.{{PrimaryKeyName}}, source.{{PrimaryKeyName}}, StringComparison.OrdinalIgnoreCase){{/IsDescriptorUsage}}{{#IsString}}(!keyStringComparer.Equals(target.{{PrimaryKeyName}}, source.{{PrimaryKeyName}})){{/IsString}}{{^IsString}}{{^IsDescriptorUsage}}(target.{{PrimaryKeyName}} != source.{{PrimaryKeyName}}){{/IsDescriptorUsage}}{{/IsString}}{{#IsLast}}){{/IsLast}}
-                {{/AnnotatedLocalPrimaryKeyList}}
+                    {{/AnnotatedLocalPrimaryKeyList}}
+                {{/IsDescriptorEntity}}
             {
                 {{#AllowPrimaryKeyUpdates}}
                 // Allow PK column updates on {{ModelName}}
