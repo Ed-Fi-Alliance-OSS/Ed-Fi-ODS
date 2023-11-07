@@ -58,6 +58,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <SubType>Designer</SubType>
+	  <LogicalName>$(RootNamespace).$([System.String]::Copy('%(RecursiveDir)').Replace('/', '.').Replace('\', '.'))%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="assemblyMetadata.json" />
   </ItemGroup>
