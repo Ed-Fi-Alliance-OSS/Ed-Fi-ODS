@@ -6,10 +6,6 @@
 name: Pkg EdFi.Database.Admin
 
 on:
-  pull_request:
-    branches: [main, 'ODS-*']
-    paths:
-      - '**.sql'
   push:
     branches:
       - main
