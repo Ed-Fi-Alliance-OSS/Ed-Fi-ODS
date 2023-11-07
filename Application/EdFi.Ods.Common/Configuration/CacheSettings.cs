@@ -16,7 +16,7 @@ namespace EdFi.Ods.Common.Configuration
         private readonly List<string> _availableExternalProviders = new() { ProviderNameRedis };
 
         public string ExternalCacheProvider { get; set; } = string.Empty;
-        public RedisCacheSettings Redis { get; set; }
+        public RedisCacheSettings Redis { get; set; } = new();
         public DescriptorsCacheConfiguration Descriptors { get; set; } = new();
         public PersonUniqueIdToUsiCacheConfiguration PersonUniqueIdToUsi { get; set; } = new();
         public ApiClientDetailsConfiguration ApiClientDetails { get; set; } = new();
