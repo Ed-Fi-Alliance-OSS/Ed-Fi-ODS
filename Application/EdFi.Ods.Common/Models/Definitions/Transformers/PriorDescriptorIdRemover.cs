@@ -22,7 +22,7 @@ public class PriorDescriptorIdRemover : IDomainModelDefinitionsTransformer
         foreach (DomainModelDefinitions domainModelDefinitions in definitions)
         {
             // Look for the edfi.Descriptor entity definition
-            var entityDefinition = domainModelDefinitions.EntityDefinitions.FirstOrDefault(
+            var entityDefinition = domainModelDefinitions.EntityDefinitions?.FirstOrDefault(
                 ed => new FullName(ed.Schema, ed.Name) == EdFiConventions.DescriptorFullName);
 
             if (entityDefinition != null)
