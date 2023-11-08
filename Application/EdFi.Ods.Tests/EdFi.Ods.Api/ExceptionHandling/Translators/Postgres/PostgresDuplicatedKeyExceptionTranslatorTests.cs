@@ -4,11 +4,22 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Data;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using EdFi.Ods.Api.ExceptionHandling.Translators.Postgres;
 using EdFi.Ods.Api.Models;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Definitions;
+using EdFi.Ods.Common.Models.Definitions.Transformers;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Tests._Builders;
+using EdFi.Ods.Tests.TestExtension;
 using EdFi.TestFixture;
+using FakeItEasy;
 using NHibernate.Exceptions;
 using NUnit.Framework;
 using Shouldly;
@@ -17,6 +28,7 @@ using Test.Common;
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [TestFixture]
     public class PostgresDuplicatedKeyExceptionTranslatorTests
     {
         private const string GenericSqlExceptionMessage = "Generic Sql exception message.";
@@ -26,15 +38,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private Exception exception;
             private bool result;
             private RESTError actualError;
+            private IContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
             {
                 exception = new Exception();
+                _contextProvider = Stub<IContextProvider<DataManagementResourceContext>>();
             }
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicatedKeyExceptionTranslator();
+                var translator = new PostgresDuplicatedKeyExceptionTranslator(_contextProvider);
                 result = translator.TryTranslateMessage(exception, out actualError);
             }
 
@@ -57,15 +71,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private Exception exception;
             private bool wasHandled;
             private RESTError actualError;
+            private IContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
             {
                 exception = new GenericADOException(GenericSqlExceptionMessage, null);
+                _contextProvider = Stub<IContextProvider<DataManagementResourceContext>>();
             }
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicatedKeyExceptionTranslator();
+                var translator = new PostgresDuplicatedKeyExceptionTranslator(_contextProvider);
                 wasHandled = translator.TryTranslateMessage(exception, out actualError);
             }
 
@@ -88,6 +104,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private Exception exception;
             private bool wasHandled;
             private RESTError actualError;
+            private IContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
             {
@@ -100,11 +117,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                     null,
                     null,
                     null);
+                
+                _contextProvider = Stub<IContextProvider<DataManagementResourceContext>>();
             }
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicatedKeyExceptionTranslator();
+                var translator = new PostgresDuplicatedKeyExceptionTranslator(_contextProvider);
                 wasHandled = translator.TryTranslateMessage(exception, out actualError);
             }
 
@@ -121,15 +140,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             }
         }
 
-        public class When_an_insert_conflicts_with_a_unique_index_with_a_simple_key_constraint : TestFixtureBase
+        public class When_an_insert_or_update_conflicts_with_the_unique_index_on_a_single_column_primary_key : TestFixtureBase
         {
             private Exception exception;
             private bool wasHandled;
             private RESTError actualError;
+            private IContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
             {
-                const string message = "duplicate key value violates unique constraint \"PK_ApplicationId\"";
+                const string message = "duplicate key value violates unique constraint \"Something_PK\"";
 
                 exception = NHibernateExceptionBuilder.CreateWrappedPostgresException(
                     GenericSqlExceptionMessage,
@@ -138,11 +158,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                     null,
                     null,
                     null);
+
+                _contextProvider = Stub<IContextProvider<DataManagementResourceContext>>();
+                var resource = PrepareTestResource(isCompositePrimaryKey: false);
+                A.CallTo(() => _contextProvider.Get()).Returns(new DataManagementResourceContext(resource));
             }
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicatedKeyExceptionTranslator();
+                var translator = new PostgresDuplicatedKeyExceptionTranslator(_contextProvider);
                 wasHandled = translator.TryTranslateMessage(exception, out actualError);
             }
 
@@ -157,21 +181,23 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             {
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
-                    () => actualError.Code = 409,
-                    () => actualError.Type = "Conflict"
+                    () => actualError.Code.ShouldBe(409),
+                    () => actualError.Type.ShouldBe("Conflict"),
+                    () => actualError.Message.ShouldBe("The value supplied for property 'Property1' of entity 'Something' is not unique.") 
                 );
             }
         }
 
-        public class When_an_insert_conflicts_with_a_unique_index_with_a_composed_key_constraint : TestFixtureBase
+        public class When_an_insert_or_update_conflicts_with_the_unique_index_on_a_composite_primary_key : TestFixtureBase
         {
             private Exception exception;
             private bool wasHandled;
             private RESTError actualError;
+            private IContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
             {
-                const string message = "duplicate key value violates unique constraint \"PK_ApplicationId\"";
+                const string message = "duplicate key value violates unique constraint \"Something_PK\"";
 
                 exception = NHibernateExceptionBuilder.CreateWrappedPostgresException(
                     GenericSqlExceptionMessage,
@@ -180,11 +206,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                     null,
                     null,
                     null);
+
+                _contextProvider = Stub<IContextProvider<DataManagementResourceContext>>();
+                var resource = PrepareTestResource(isCompositePrimaryKey: true);
+                A.CallTo(() => _contextProvider.Get()).Returns(new DataManagementResourceContext(resource));
+
             }
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicatedKeyExceptionTranslator();
+                var translator = new PostgresDuplicatedKeyExceptionTranslator(_contextProvider);
                 wasHandled = translator.TryTranslateMessage(exception, out actualError);
             }
 
@@ -199,8 +230,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             {
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
-                    () => actualError.Code = 409,
-                    () => actualError.Type = "Conflict"
+                    () => actualError.Code.ShouldBe(409),
+                    () => actualError.Type.ShouldBe("Conflict"),
+                    () => actualError.Message.ShouldBe("The values supplied for properties 'Property1, Property2' of entity 'Something' are not unique.") 
                 );
             }
         }
@@ -210,10 +242,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private Exception exception;
             private bool wasHandled;
             private RESTError actualError;
+            private IContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
             {
-                const string message = "duplicate key value violates unique constraint \"PK_ApplicationId\"";
+                const string message = "duplicate key value violates unique constraint \"UX_Something_Property1\"";
 
                 exception = NHibernateExceptionBuilder.CreateWrappedPostgresException(
                     GenericSqlExceptionMessage,
@@ -222,11 +255,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                     null,
                     null,
                     null);
+                
+                _contextProvider = Stub<IContextProvider<DataManagementResourceContext>>();
             }
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicatedKeyExceptionTranslator();
+                var translator = new PostgresDuplicatedKeyExceptionTranslator(_contextProvider);
                 wasHandled = translator.TryTranslateMessage(exception, out actualError);
             }
 
@@ -241,10 +276,54 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             {
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
-                    () => actualError.Code = 409,
-                    () => actualError.Type = "Conflict"
+                    () => actualError.Code.ShouldBe(409),
+                    () => actualError.Type.ShouldBe("Conflict"),
+                    () => actualError.Message.ShouldBe("The value(s) supplied for the resource are not unique.")
                 );
             }
+        }
+        
+        private static Resource PrepareTestResource(bool isCompositePrimaryKey)
+        {
+            var definitions = new DomainModelDefinitions(
+                new SchemaDefinition("Ed-Fi", "edfi"),
+                new AggregateDefinition[] { new("edfi.Something", new FullName[] { new("edfi.Something") }) },
+                new EntityDefinition[]
+                {
+                    new(
+                        "edfi",
+                        "Something",
+                        new EntityPropertyDefinition[]
+                        {
+                            new("Property1", new PropertyType(DbType.String), isIdentifying: true),
+                            new("Property2", new PropertyType(DbType.String), isIdentifying: isCompositePrimaryKey),
+                            new("Property3", new PropertyType(DbType.String)),
+                        },
+                        new EntityIdentifierDefinition[]
+                        {
+                            new(
+                                "Something_PK",
+                                isCompositePrimaryKey 
+                                    ? new[] { "Property1", "Property2" }
+                                    : new[] { "Property1" }
+                                ,
+                                isPrimary: true)
+                        }),
+                },
+                Array.Empty<AssociationDefinition>(),
+                Array.Empty<AggregateExtensionDefinition>());
+
+            var definitionsProvider = A.Fake<IDomainModelDefinitionsProvider>();
+            A.CallTo(() => definitionsProvider.GetDomainModelDefinitions()).Returns(definitions);
+
+            var domainModelProvider = new DomainModelProvider(
+                new[] { definitionsProvider },
+                Array.Empty<IDomainModelDefinitionsTransformer>());
+
+            var resourceModel = new ResourceModel(domainModelProvider.GetDomainModel());
+            var resource = resourceModel.GetAllResources().Single();
+
+            return resource;
         }
     }
 }

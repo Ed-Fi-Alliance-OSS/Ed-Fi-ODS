@@ -4,9 +4,15 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using EdFi.Ods.Api.Models;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Security.Claims;
 using NHibernate.Exceptions;
 using Npgsql;
 
@@ -14,10 +20,23 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 {
     public class PostgresDuplicatedKeyExceptionTranslator : IExceptionTranslator
     {
-        private static readonly Regex _expression = new Regex(@"(?<ErrorCode>\d*): duplicate key value violates unique constraint ""(?<ConstraintName>.*?)""");
-        private static readonly Regex _detailExpression = new Regex(@"Key \((?<KeyColumns>.*?)\)=\((?<KeyValues>.*?)\) (?<ConstraintType>already exists).");
-        private const string SimpleKeyMessageFormat = "The value {0} supplied for property '{1}' of entity '{2}' is not unique.";
-        private const string ComposedKeyMessageFormat = "The values {0} supplied for properties '{1}' of entity '{2}' are not unique.";
+        private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+
+        private static readonly Regex _expression = new(@"(?<ErrorCode>\d*): duplicate key value violates unique constraint ""(?<ConstraintName>.*?)""");
+        private static readonly Regex _detailExpression = new(@"Key \((?<KeyColumns>.*?)\)=\((?<KeyValues>.*?)\) (?<ConstraintType>already exists).");
+
+        private const string GenericMessage = "The value(s) supplied for the resource are not unique.";
+        
+        private const string SimpleKeyMessageFormat = "The value supplied for property '{0}' of entity '{1}' is not unique.";
+        private const string ComposedKeyMessageFormat = "The values supplied for properties '{0}' of entity '{1}' are not unique.";
+
+        private const string PrimaryKeyNameSuffix = "_PK";
+
+        public PostgresDuplicatedKeyExceptionTranslator(
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+        {
+            _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+        }
 
         public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
         {
@@ -33,20 +52,65 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
                 if (match.Success)
                 {
-                    var exceptionInfo = new PostgresExceptionInfo(postgresException, _detailExpression);
+                    var constraintName = match.Groups["ConstraintName"].ValueSpan;
 
-                    string message = string.Format(exceptionInfo.IsComposedKeyConstraint
-                        ? ComposedKeyMessageFormat
-                        : SimpleKeyMessageFormat, exceptionInfo.Values, exceptionInfo.ColumnNames, exceptionInfo.TableName);
+                    string message = GetMessageUsingRequestContext(constraintName);
+
+                    if (message == null)
+                    {
+                        var exceptionInfo = new PostgresExceptionInfo(postgresException, _detailExpression);
+
+                        // Column names will only be available form Postgres if a special argument is added to the connection string
+                        if (exceptionInfo.ColumnNames.Length > 0 && exceptionInfo.ColumnNames != PostgresExceptionInfo.UnknownValue)
+                        {
+                            message = string.Format(
+                                exceptionInfo.IsComposedKeyConstraint
+                                    ? ComposedKeyMessageFormat
+                                    : SimpleKeyMessageFormat,
+                                exceptionInfo.ColumnNames,
+                                exceptionInfo.TableName);
+                        }
+                        else
+                        {
+                            message = GenericMessage;
+                        }
+                    }
 
                     webServiceError = new RESTError
-                    {
-                        Code = (int)HttpStatusCode.Conflict,
-                        Type = "Conflict",
-                        Message = message
-                    };
+                        {
+                            Code = (int) HttpStatusCode.Conflict,
+                            Type = "Conflict",
+                            Message = message
+                        };
 
                     return true;
+                }
+
+                string GetMessageUsingRequestContext(ReadOnlySpan<char> constraintName)
+                {
+                    // Rely on PK suffix naming convention to identify PK constraint violation (which covers almost all scenarios for this violation)
+                    if (constraintName.EndsWith(PrimaryKeyNameSuffix))
+                    {
+                        var tableName = constraintName.Slice(0, constraintName.Length - PrimaryKeyNameSuffix.Length).ToString();
+
+                        // var domainModel = _domainModelProvider.GetDomainModel();
+
+                        // Look for matching class in the request's targeted resource
+                        if (_dataManagementResourceContextProvider.Get()?.Resource?
+                                .ContainedItemTypeByName.TryGetValue(tableName, out var resourceClass) ?? false)
+                        {
+                            var pkPropertyNames = resourceClass.IdentifyingProperties.Select(p => p.PropertyName).ToArray();
+
+                            return  string.Format(
+                                (pkPropertyNames.Length > 1)
+                                    ? ComposedKeyMessageFormat
+                                    : SimpleKeyMessageFormat,
+                                string.Join(", ", pkPropertyNames),
+                                tableName);
+                        }
+                    }
+
+                    return null;
                 }
             }
 
