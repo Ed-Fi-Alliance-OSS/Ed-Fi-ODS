@@ -61,28 +61,40 @@ jobs:
     - name: Check Ed-Fi-ODS-Implementation Repo PR exists or not
       shell: pwsh
       run: |
-        $accessToken = "${{ env.EDFI_ODS_IMP_TOKEN  }}"
-        $repositoryName ="Ed-Fi-ODS-Implementation"
-        $apiUrl = "https://api.github.com/repos/${{env.REPOSITORY_OWNER}}/$repositoryName/pulls?state=open&head=${{env.REPOSITORY_OWNER}}:${{env.current_branch}}"
+        $accessToken = "${{ env.EDFI_ODS_IMP_TOKEN }}"
+        $repositoryName = "Ed-Fi-ODS-Implementation"
+        $apiUrl = "https://api.github.com/repos/${{ env.REPOSITORY_OWNER }}/$repositoryName/pulls?state=open&head=${{ env.REPOSITORY_OWNER }}:${{ env.current_branch }}"
         $headers = @{
             Authorization = "Bearer $accessToken"
             Accept = "application/vnd.github.v3+json"
         }
-        $response = Invoke-RestMethod -Uri $apiUrl -Headers $headers
+        $response = Invoke-WebRequest -Uri $apiUrl -Headers $headers
+
         # Access x-ratelimit-limit and x-ratelimit-remaining from response headers
-        $rateLimitLimit = $response.Headers['x-ratelimit-limit']
-        $rateLimitRemaining = $response.Headers['x-ratelimit-remaining']
+        $rateLimitLimit = $response.Headers['X-RateLimit-Limit']
+        $rateLimitRemaining = $response.Headers['X-RateLimit-Remaining']
+
+
         Write-Host "x-ratelimit-limit: $rateLimitLimit"
-        Write-Host "x-ratelimit-remaining: $rateLimitRemaining"              
-        foreach ($pr in $response) {
-         Write-Host "current branch: ${{env.current_branch}}"
-         Write-Host "ref: $($pr.head.ref)"
-          if ($pr.head.ref -eq "${{ env.current_branch }}") 
-          {
-            Write-Host "PR #$($pr.number): $($pr.head.label)"
-            echo "EXIT_STEP=true" >> $Env:GITHUB_ENV
-          }
+        Write-Host "x-ratelimit-remaining: $rateLimitRemaining"
+
+        $jsonResponse = $response | ConvertFrom-Json
+
+        foreach ($pr in $jsonResponse) {
+            Write-Host "current branch: ${{ env.current_branch }}"
+            Write-Host "ref: $($pr.head.ref)"
+            if ($pr.head.ref -eq "${{ env.current_branch }}") 
+            {
+                Write-Host "PR #$($pr.number): $($pr.head.label)"
+                echo "EXIT_STEP=true" >> $Env:GITHUB_ENV
+            }
         }
+
+        if (${{env.EXIT_STEP }}) 
+        {
+          echo "::notice::Ed-Fi-ODS-Implementation already have same branch ${{ env.current_branch }} running all Initdev builds ,so Skipping this build"
+        }
+      
     - name: Dispatch InitDev , Multitenancy workflow
       if: env.EXIT_STEP != 'true'
       uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
