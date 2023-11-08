@@ -559,7 +559,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
     /// </summary>
     [DataContract]
     [ExcludeFromCodeCoverage]
-    public class PostSecondaryOrganizationReference : IResourceReference
+    public class PostSecondaryOrganizationReference
     {
         [DataMember(Name="nameOfInstitution"), NaturalKeyMember]
         public string NameOfInstitution { get; set; }
@@ -601,15 +601,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         public bool IsReferenceFullyDefined()
         {
             return NameOfInstitution != default(string);
-        }
-
-        IEnumerable<string> IResourceReference.GetUndefinedProperties()
-        {
-            if (NameOfInstitution == default)
-            {
-                yield return "NameOfInstitution";
-            }
-
         }
 
         private Link CreateLink()
@@ -1205,7 +1196,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
             set { SetStudentAcademicRecordClassRanking(value); }
         }
 
-        public Entities.Common.EdFi.IStudentAcademicRecordClassRanking StudentAcademicRecordClassRanking
+        internal Entities.Common.EdFi.IStudentAcademicRecordClassRanking StudentAcademicRecordClassRanking
         {
             set { SetStudentAcademicRecordClassRanking(value); }
         }
@@ -1425,7 +1416,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
         }
 
         [DataMember(Name="postSecondaryOrganizationReference")]
-        [FullyDefinedReference]
         public PostSecondaryOrganization.SampleStudentTranscript.PostSecondaryOrganizationReference PostSecondaryOrganizationReference
         {
             get
@@ -1457,7 +1447,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
             set { SetStudentAcademicRecord(value); }
         }
 
-        public Entities.Common.EdFi.IStudentAcademicRecord StudentAcademicRecord
+        internal Entities.Common.EdFi.IStudentAcademicRecord StudentAcademicRecord
         {
             set { SetStudentAcademicRecord(value); }
         }
