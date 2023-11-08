@@ -89,14 +89,10 @@ jobs:
                 echo "EXIT_STEP=true">> $env:GITHUB_ENV
             }
         }
-
-        Write-Host "EXIT_STEP Value: ${{ env.EXIT_STEP }}"
-        
-        if (${{env.EXIT_STEP }} -eq $true) 
-        {
-          echo "::notice::Ed-Fi-ODS-Implementation already have same branch ${{ env.current_branch }} running all Initdev builds ,so Skipping this build"
-        }
-      
+    - name: Check for EXIT_STEP Status
+      if: env.EXIT_STEP == 'true'
+      run: | 
+           echo "::notice::Ed-Fi-ODS-Implementation already have same branch ${{ env.current_branch }} running all Initdev builds ,so Skipping this build"
     - name: Dispatch InitDev , Multitenancy workflow
       if: env.EXIT_STEP != 'true'
       uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
