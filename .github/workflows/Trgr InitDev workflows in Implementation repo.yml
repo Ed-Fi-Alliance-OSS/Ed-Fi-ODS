@@ -69,9 +69,11 @@ jobs:
             Accept = "application/vnd.github.v3+json"
         }
         $response = Invoke-RestMethod -Uri $apiUrl -Headers $headers
-        # Print x-ratelimit-limit and x-ratelimit-remaining headers
-        Write-Host "x-ratelimit-limit: $($response.Headers['x-ratelimit-limit'])"
-        Write-Host "x-ratelimit-remaining: $($response.Headers['x-ratelimit-remaining'])"
+        # Access x-ratelimit-limit and x-ratelimit-remaining from response headers
+        $rateLimitLimit = $response.Headers['x-ratelimit-limit']
+        $rateLimitRemaining = $response.Headers['x-ratelimit-remaining']
+        Write-Host "x-ratelimit-limit: $rateLimitLimit"
+        Write-Host "x-ratelimit-remaining: $rateLimitRemaining"              
         foreach ($pr in $response) {
          Write-Host "current branch: ${{env.current_branch}}"
          Write-Host "ref: $($pr.head.ref)"
