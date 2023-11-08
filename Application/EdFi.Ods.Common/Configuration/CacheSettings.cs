@@ -24,8 +24,6 @@ namespace EdFi.Ods.Common.Configuration
         public ProfilesCacheConfiguration Profiles { get; set; } = new();
         public OdsInstancesCacheConfiguration OdsInstances { get; set; } = new();
 
-        public TenantsCacheConfiguration Tenants { get; set; } = new();
-
         /// <summary>
         /// Validates the `ExternalCacheProvider` setting when any of the "use
         /// cache" settings are true.
@@ -78,7 +76,6 @@ namespace EdFi.Ods.Common.Configuration
         public class RedisCacheSettings
         {
             public string Configuration { get; set; }
-            public string Password { get; set; }
 
         }
 
@@ -90,11 +87,6 @@ namespace EdFi.Ods.Common.Configuration
         public class OdsInstancesCacheConfiguration
         {
             public int AbsoluteExpirationSeconds { get; set; } = 300;
-        }
-
-        public class TenantsCacheConfiguration
-        {
-            public int AbsoluteExpirationSeconds { get; set; } = 0; // No expiration by default (tenants are defined in static configuration)
         }
     }
 }
