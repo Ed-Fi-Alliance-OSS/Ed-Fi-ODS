@@ -32,7 +32,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AccreditationStatusDescriptorAggregat
 
             // Detect primary key changes
             if (
-                 (target.AccreditationStatusDescriptorId != source.AccreditationStatusDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AccreditationStatusDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -183,7 +184,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AidTypeDescriptorAggregate
 
             // Detect primary key changes
             if (
-                 (target.AidTypeDescriptorId != source.AidTypeDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AidTypeDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -2219,7 +2221,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CertificationRouteDescriptorAggregate
 
             // Detect primary key changes
             if (
-                 (target.CertificationRouteDescriptorId != source.CertificationRouteDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CertificationRouteDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -2370,7 +2373,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CoteachingStyleObservedDescriptorAggr
 
             // Detect primary key changes
             if (
-                 (target.CoteachingStyleObservedDescriptorId != source.CoteachingStyleObservedDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CoteachingStyleObservedDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -2774,7 +2778,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialStatusDescriptorAggregate
 
             // Detect primary key changes
             if (
-                 (target.CredentialStatusDescriptorId != source.CredentialStatusDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CredentialStatusDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -3123,7 +3128,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorRoleDescriptorAggregate
 
             // Detect primary key changes
             if (
-                 (target.EducatorRoleDescriptorId != source.EducatorRoleDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EducatorRoleDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -3274,7 +3280,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EnglishLanguageExamDescriptorAggregat
 
             // Detect primary key changes
             if (
-                 (target.EnglishLanguageExamDescriptorId != source.EnglishLanguageExamDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EnglishLanguageExamDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -3425,7 +3432,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EPPProgramPathwayDescriptorAggregate
 
             // Detect primary key changes
             if (
-                 (target.EPPProgramPathwayDescriptorId != source.EPPProgramPathwayDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EPPProgramPathwayDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -4341,7 +4349,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingLevelDescripto
 
             // Detect primary key changes
             if (
-                 (target.EvaluationElementRatingLevelDescriptorId != source.EvaluationElementRatingLevelDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EvaluationElementRatingLevelDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -4977,7 +4986,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationPeriodDescriptorAggregate
 
             // Detect primary key changes
             if (
-                 (target.EvaluationPeriodDescriptorId != source.EvaluationPeriodDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EvaluationPeriodDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -5643,7 +5653,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingLevelDescriptorAggreg
 
             // Detect primary key changes
             if (
-                 (target.EvaluationRatingLevelDescriptorId != source.EvaluationRatingLevelDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EvaluationRatingLevelDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -5794,7 +5805,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingStatusDescriptorAggre
 
             // Detect primary key changes
             if (
-                 (target.EvaluationRatingStatusDescriptorId != source.EvaluationRatingStatusDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EvaluationRatingStatusDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -5945,7 +5957,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationTypeDescriptorAggregate
 
             // Detect primary key changes
             if (
-                 (target.EvaluationTypeDescriptorId != source.EvaluationTypeDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EvaluationTypeDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -6229,7 +6242,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.GenderDescriptorAggregate
 
             // Detect primary key changes
             if (
-                 (target.GenderDescriptorId != source.GenderDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on GenderDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -6380,7 +6394,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.ObjectiveRatingLevelDescriptorAggrega
 
             // Detect primary key changes
             if (
-                 (target.ObjectiveRatingLevelDescriptorId != source.ObjectiveRatingLevelDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ObjectiveRatingLevelDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -7368,7 +7383,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingLevelDescr
 
             // Detect primary key changes
             if (
-                 (target.PerformanceEvaluationRatingLevelDescriptorId != source.PerformanceEvaluationRatingLevelDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on PerformanceEvaluationRatingLevelDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -7519,7 +7535,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationTypeDescriptorAg
 
             // Detect primary key changes
             if (
-                 (target.PerformanceEvaluationTypeDescriptorId != source.PerformanceEvaluationTypeDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on PerformanceEvaluationTypeDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -7809,7 +7826,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricRatingLevelDescriptorAggregate
 
             // Detect primary key changes
             if (
-                 (target.RubricRatingLevelDescriptorId != source.RubricRatingLevelDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on RubricRatingLevelDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
