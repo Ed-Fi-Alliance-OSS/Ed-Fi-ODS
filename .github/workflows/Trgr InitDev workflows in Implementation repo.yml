@@ -68,11 +68,11 @@ jobs:
             Authorization = "Bearer $accessToken"
             Accept = "application/vnd.github.v3+json"
         }
-        $prList = Invoke-RestMethod -Uri $apiUrl -Headers $headers
+        $response = Invoke-RestMethod -Uri $apiUrl -Headers $headers
         # Print x-ratelimit-limit and x-ratelimit-remaining headers
         Write-Host "x-ratelimit-limit: $($response.Headers['x-ratelimit-limit'])"
         Write-Host "x-ratelimit-remaining: $($response.Headers['x-ratelimit-remaining'])"
-        foreach ($pr in $prList) {
+        foreach ($pr in $response) {
          Write-Host "current branch: ${{env.current_branch}}"
          Write-Host "ref: $($pr.head.ref)"
           if ($pr.head.ref -eq "${{ env.current_branch }}") 
