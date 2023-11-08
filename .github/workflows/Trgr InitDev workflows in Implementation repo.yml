@@ -28,7 +28,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Checkout Ed-Fi-ODS
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
@@ -39,7 +39,7 @@ jobs:
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."        
     - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
@@ -57,8 +57,29 @@ jobs:
           $current_branch = '${{env.HEAD_REF}}'
         }
         Write-Host "Current Branch: $current_branch"   
-        echo "current_branch=$current_branch" >> $Env:GITHUB_ENV                   
+        echo "current_branch=$current_branch" >> $Env:GITHUB_ENV
+    - name: Check Ed-Fi-ODS-Implementation Repo PR exists or not
+      shell: pwsh
+      run: |
+        $accessToken = "${{ env.EDFI_ODS_IMP_TOKEN  }}"
+        $apiUrl = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/pulls?state=open&head=Ed-Fi-Alliance-OSS:${{env.current_branch}}"
+        $headers = @{
+            Authorization = "Bearer $accessToken"
+            Accept = "application/vnd.github.v3+json"
+        }
+        $prList = Invoke-RestMethod -Uri $apiUrl -Headers $headers
+
+        foreach ($pr in $prList) {
+         Write-Host "current branch: ${{env.current_branch}}"
+         Write-Host "ref: $($pr.head.ref)"
+          if ($pr.head.ref -eq "${{ env.current_branch }}") 
+          {
+            Write-Host "PR #$($pr.number): $($pr.head.label)"
+            echo "EXIT_STEP=true" >> $Env:GITHUB_ENV
+          }
+        }
     - name: Dispatch InitDev , Multitenancy workflow
+      if: env.EXIT_STEP != 'true'
       uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
       id: return_dispatch_InitDevMultitenancy
       with:
@@ -69,6 +90,7 @@ jobs:
         workflow: InitDev, MultiTenancy.yml
         workflow_timeout_seconds: 4800
     - name: Dispatch InitDev, Smoke Tests workflow
+      if: env.EXIT_STEP != 'true'    
       uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
       id: return_dispatch_InitDevSmokeTests
       with:
@@ -79,6 +101,7 @@ jobs:
         workflow: InitDev, Smoke Tests.yml
         workflow_timeout_seconds: 4800
     - name: Dispatch InitDev, Unit tests, Integration tests, Package workflow
+      if: env.EXIT_STEP != 'true'    
       uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
       id: return_dispatch_InitDevUnittestsIntegrationtestsPackage
       with:
@@ -89,6 +112,7 @@ jobs:
         workflow: InitDev, Unit tests, Integration tests, Package.yml
         workflow_timeout_seconds: 4800
     - name: Dispatch InitDev Postgres, Multitenancy workflow
+      if: env.EXIT_STEP != 'true'    
       uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
       id: return_dispatch_InitDevPostgresMultitenancy
       with:
@@ -99,6 +123,7 @@ jobs:
         workflow: InitDev Postgres, MultiTenancy.yml
         workflow_timeout_seconds: 4800  
     - name: Dispatch InitDev Postgres, Smoke Tests workflow
+      if: env.EXIT_STEP != 'true'    
       uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
       id: return_dispatch_InitDevPostgresSmokeTests
       with:
@@ -109,6 +134,7 @@ jobs:
         workflow: InitDev Postgres, Smoke Tests.yml
         workflow_timeout_seconds: 4800     
     - name: Dispatch InitDev Postgres, Unit tests, Integration tests workflow
+      if: env.EXIT_STEP != 'true'    
       uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
       id: return_dispatch_InitDevPostgresUnittestsIntegrationtests
       with:
@@ -119,6 +145,7 @@ jobs:
         workflow: InitDev Postgres, Unit tests, Integration tests.yml
         workflow_timeout_seconds: 4800                   
     - name: Await to complete the execution for InitDev , MultiTenancy RunID ${{ steps.return_dispatch_InitDevMultitenancy.outputs.run_id }}
+      if: env.EXIT_STEP != 'true'    
       uses: codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
@@ -128,6 +155,7 @@ jobs:
         run_timeout_seconds: 4800
         poll_interval_ms: 5000
     - name: Await to complete the execution for InitDev, Smoke Tests RunID ${{ steps.return_dispatch_InitDevSmokeTests.outputs.run_id }}
+      if: env.EXIT_STEP != 'true'    
       uses: codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
@@ -137,6 +165,7 @@ jobs:
         run_timeout_seconds: 4800
         poll_interval_ms: 5000
     - name: Await to complete the execution for InitDev, Unit tests, Integration tests, Package RunID ${{ steps.return_dispatch_InitDevUnittestsIntegrationtestsPackage.outputs.run_id }}
+      if: env.EXIT_STEP != 'true'    
       uses: codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
@@ -146,6 +175,7 @@ jobs:
         run_timeout_seconds: 4800
         poll_interval_ms: 5000     
     - name: Await to complete the execution for InitDev Postgres, MultiTenancy RunID ${{ steps.return_dispatch_InitDevPostgresMultitenancy.outputs.run_id }}
+      if: env.EXIT_STEP != 'true'    
       uses: codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
@@ -155,6 +185,7 @@ jobs:
         run_timeout_seconds: 4800
         poll_interval_ms: 5000
     - name: Await to complete the execution for InitDev Postgres, Smoke Tests RunID ${{ steps.return_dispatch_InitDevPostgresSmokeTests.outputs.run_id }}
+      if: env.EXIT_STEP != 'true'    
       uses: codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
@@ -164,6 +195,7 @@ jobs:
         run_timeout_seconds: 4800
         poll_interval_ms: 5000
     - name: Await to complete the execution for InitDev Postgres, Unit tests, Integration tests RunID ${{ steps.return_dispatch_InitDevPostgresUnittestsIntegrationtests.outputs.run_id }}
+      if: env.EXIT_STEP != 'true'    
       uses: codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
