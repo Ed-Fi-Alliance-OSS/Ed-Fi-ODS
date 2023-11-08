@@ -62,13 +62,16 @@ jobs:
       shell: pwsh
       run: |
         $accessToken = "${{ env.EDFI_ODS_IMP_TOKEN  }}"
-        $apiUrl = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/pulls?state=open&head=Ed-Fi-Alliance-OSS:${{env.current_branch}}"
+        $repositoryName ="Ed-Fi-ODS-Implementation"
+        $apiUrl = "https://api.github.com/repos/${{env.REPOSITORY_OWNER}}/$repositoryName/pulls?state=open&head=${{env.REPOSITORY_OWNER}}:${{env.current_branch}}"
         $headers = @{
             Authorization = "Bearer $accessToken"
             Accept = "application/vnd.github.v3+json"
         }
         $prList = Invoke-RestMethod -Uri $apiUrl -Headers $headers
-
+        # Print x-ratelimit-limit and x-ratelimit-remaining headers
+        Write-Host "x-ratelimit-limit: $($response.Headers['x-ratelimit-limit'])"
+        Write-Host "x-ratelimit-remaining: $($response.Headers['x-ratelimit-remaining'])"
         foreach ($pr in $prList) {
          Write-Host "current branch: ${{env.current_branch}}"
          Write-Host "ref: $($pr.head.ref)"
