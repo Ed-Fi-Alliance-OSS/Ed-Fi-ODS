@@ -70,8 +70,9 @@ jobs:
         }
         $response = Invoke-RestMethod -Uri $apiUrl -Headers $headers
         # Access x-ratelimit-limit and x-ratelimit-remaining from response headers
-        $rateLimitLimit = $response.Headers['x-ratelimit-limit']
-        $rateLimitRemaining = $response.Headers['x-ratelimit-remaining']
+        $rateLimitLimit = $response.Headers['X-RateLimit-Limit']
+        $rateLimitRemaining = $response.Headers['X-RateLimit-Remaining']
+        
         Write-Host "x-ratelimit-limit: $rateLimitLimit"
         Write-Host "x-ratelimit-remaining: $rateLimitRemaining"              
         foreach ($pr in $response) {
