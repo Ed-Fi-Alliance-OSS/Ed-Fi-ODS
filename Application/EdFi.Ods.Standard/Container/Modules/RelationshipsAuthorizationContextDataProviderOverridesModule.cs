@@ -4,8 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
+using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.Ods.Standard.Security.Authorization.Overrides;
 
 namespace EdFi.Ods.Standard.Container.Modules
@@ -30,12 +30,6 @@ namespace EdFi.Ods.Standard.Container.Modules
             // using the default convention (only StudentUSI)
             builder.RegisterType<StudentAssessmentRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>>()
                 .As<IRelationshipsAuthorizationContextDataProvider<IStudentAssessment, RelationshipsAuthorizationContextData>>()
-                .SingleInstance();
-
-            // Establish authorization context for EducationOrganizationNetworkAssociation using the MemberEducationOrganizationId rather than
-            // using the default behavior (EducationOrganizationNetworkId)
-            builder.RegisterType<EducationOrganizationNetworkAssociationRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>>()
-                .As<IRelationshipsAuthorizationContextDataProvider<IEducationOrganizationNetworkAssociation, RelationshipsAuthorizationContextData>>()
                 .SingleInstance();
         }
     }
