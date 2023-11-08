@@ -86,11 +86,13 @@ jobs:
             if ($pr.head.ref -eq "${{ env.current_branch }}") 
             {
                 Write-Host "PR #$($pr.number): $($pr.head.label)"
-                echo "EXIT_STEP=true" >> $Env:GITHUB_ENV
+                echo "EXIT_STEP=true">> $env:GITHUB_ENV
             }
         }
 
-        if (${{env.EXIT_STEP }}) 
+        Write-Host "EXIT_STEP Value: ${{ env.EXIT_STEP }}"
+        
+        if (${{env.EXIT_STEP }} -eq $true) 
         {
           echo "::notice::Ed-Fi-ODS-Implementation already have same branch ${{ env.current_branch }} running all Initdev builds ,so Skipping this build"
         }
