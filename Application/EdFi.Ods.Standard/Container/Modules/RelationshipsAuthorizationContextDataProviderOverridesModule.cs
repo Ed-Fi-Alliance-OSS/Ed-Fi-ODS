@@ -31,6 +31,12 @@ namespace EdFi.Ods.Standard.Container.Modules
             builder.RegisterType<StudentAssessmentRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>>()
                 .As<IRelationshipsAuthorizationContextDataProvider<IStudentAssessment, RelationshipsAuthorizationContextData>>()
                 .SingleInstance();
+
+            // Establish authorization context for EducationOrganizationNetworkAssociation using the MemberEducationOrganizationId rather than
+            // using the default behavior (EducationOrganizationNetworkId)
+            builder.RegisterType<EducationOrganizationNetworkAssociationRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>>()
+                .As<IRelationshipsAuthorizationContextDataProvider<IEducationOrganizationNetworkAssociation, RelationshipsAuthorizationContextData>>()
+                .SingleInstance();
         }
     }
 }
