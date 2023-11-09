@@ -210,7 +210,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                 _contextProvider = Stub<IContextProvider<DataManagementResourceContext>>();
                 var resource = PrepareTestResource(isCompositePrimaryKey: true);
                 A.CallTo(() => _contextProvider.Get()).Returns(new DataManagementResourceContext(resource));
-
             }
 
             protected override void Act()

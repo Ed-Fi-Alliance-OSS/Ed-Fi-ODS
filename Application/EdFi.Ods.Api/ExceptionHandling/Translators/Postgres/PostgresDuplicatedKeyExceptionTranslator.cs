@@ -25,7 +25,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
         private const string GenericMessage = "The value(s) supplied for the resource are not unique.";
         
         private const string SimpleKeyMessageFormat = "The value supplied for property '{0}' of entity '{1}' is not unique.";
-        private const string ComposedKeyMessageFormat = "The values supplied for properties '{0}' of entity '{1}' are not unique.";
+        private const string CompositeKeyMessageFormat = "The values supplied for properties '{0}' of entity '{1}' are not unique.";
 
         private const string PrimaryKeyNameSuffix = "_pk";
 
@@ -51,27 +51,8 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 {
                     var constraintName = match.Groups["ConstraintName"].ValueSpan;
 
-                    string message = GetMessageUsingRequestContext(constraintName);
-
-                    if (message == null)
-                    {
-                        var exceptionInfo = new PostgresExceptionInfo(postgresException, _detailExpression);
-
-                        // Column names will only be available form Postgres if a special argument is added to the connection string
-                        if (exceptionInfo.ColumnNames.Length > 0 && exceptionInfo.ColumnNames != PostgresExceptionInfo.UnknownValue)
-                        {
-                            message = string.Format(
-                                exceptionInfo.IsComposedKeyConstraint
-                                    ? ComposedKeyMessageFormat
-                                    : SimpleKeyMessageFormat,
-                                exceptionInfo.ColumnNames,
-                                exceptionInfo.TableName);
-                        }
-                        else
-                        {
-                            message = GenericMessage;
-                        }
-                    }
+                    string message = GetMessageUsingRequestContext(constraintName)
+                        ?? GetMessageUsingPostgresException();
 
                     webServiceError = new RESTError
                         {
@@ -90,8 +71,6 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                     {
                         var tableName = constraintName.Slice(0, constraintName.Length - PrimaryKeyNameSuffix.Length).ToString();
 
-                        // var domainModel = _domainModelProvider.GetDomainModel();
-
                         // Look for matching class in the request's targeted resource
                         if (_dataManagementResourceContextProvider.Get()?.Resource?
                                 .ContainedItemTypeByName.TryGetValue(tableName, out var resourceClass) ?? false)
@@ -100,7 +79,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
                             return  string.Format(
                                 (pkPropertyNames.Length > 1)
-                                    ? ComposedKeyMessageFormat
+                                    ? CompositeKeyMessageFormat
                                     : SimpleKeyMessageFormat,
                                 string.Join(", ", pkPropertyNames),
                                 resourceClass.Name);
@@ -108,6 +87,29 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                     }
 
                     return null;
+                }
+
+                string GetMessageUsingPostgresException()
+                {
+                    string message;
+                    var exceptionInfo = new PostgresExceptionInfo(postgresException, _detailExpression);
+
+                    // Column names will only be available form Postgres if a special argument is added to the connection string
+                    if (exceptionInfo.ColumnNames.Length > 0 && exceptionInfo.ColumnNames != PostgresExceptionInfo.UnknownValue)
+                    {
+                        message = string.Format(
+                            exceptionInfo.IsComposedKeyConstraint
+                                ? CompositeKeyMessageFormat
+                                : SimpleKeyMessageFormat,
+                            exceptionInfo.ColumnNames,
+                            exceptionInfo.TableName);
+                    }
+                    else
+                    {
+                        message = GenericMessage;
+                    }
+
+                    return message;
                 }
             }
 
