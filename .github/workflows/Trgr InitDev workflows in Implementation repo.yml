@@ -93,6 +93,7 @@ jobs:
       if: env.EXIT_STEP == 'true'
       run: | 
            echo "::notice::Ed-Fi-ODS-Implementation already have same branch ${{ env.current_branch }} running all Initdev builds ,so Skipping this build"
+           echo "EXIT_STEP value is ${{ env.EXIT_STEP }}"
     - name: Dispatch InitDev , Multitenancy workflow
       if: env.EXIT_STEP != 'true'
       uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
