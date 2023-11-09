@@ -447,7 +447,7 @@ namespace {{ResourceClassesNamespace}}
         /// {{{Description}}}
         /// </summary>
         {{{Misc}}}
-        [DataMember(Name="{{JsonPropertyName}}"), NaturalKeyMember]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        [{{^JsonIgnore}}DataMember(Name="{{JsonPropertyName}}"){{/JsonIgnore}}{{#JsonIgnore}}JsonIgnore{{/JsonIgnore}}, NaturalKeyMember]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{PropertyName}} { get; set; }
 
         {{PropertyType}} I{{DerivedName}}.{{DerivedName}}Id

@@ -11,6 +11,7 @@ using System.Linq;
 using System.Xml.Linq;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
+using EdFi.Ods.Common.Models.Definitions.Transformers;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Models.Validation;

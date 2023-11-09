@@ -77,11 +77,6 @@ namespace EdFi.Ods.Entities.NHibernate.ArtMediumDescriptorAggregate.Sample
             get { return Namespace; }
             set { Namespace = value; }
         }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
-        }
         string IDescriptor.ShortDescription
         {
             get { return ShortDescription; }
@@ -4347,11 +4342,6 @@ namespace EdFi.Ods.Entities.NHibernate.FavoriteBookCategoryDescriptorAggregate.S
             get { return Namespace; }
             set { Namespace = value; }
         }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
-        }
         string IDescriptor.ShortDescription
         {
             get { return ShortDescription; }
@@ -4530,11 +4520,6 @@ namespace EdFi.Ods.Entities.NHibernate.MembershipTypeDescriptorAggregate.Sample
         {
             get { return Namespace; }
             set { Namespace = value; }
-        }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
         }
         string IDescriptor.ShortDescription
         {

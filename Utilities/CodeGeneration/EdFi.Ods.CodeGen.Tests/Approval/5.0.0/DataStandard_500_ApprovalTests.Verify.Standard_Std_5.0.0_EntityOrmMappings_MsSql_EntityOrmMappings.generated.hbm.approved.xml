@@ -3069,7 +3069,6 @@
     <property name="EffectiveBeginDate" column="EffectiveBeginDate" type="date" />
     <property name="EffectiveEndDate" column="EffectiveEndDate" type="date" />
     <property name="Namespace" column="Namespace" type="string" length="255" not-null="true" />
-    <property name="PriorDescriptorId" column="PriorDescriptorId" type="int" />
     <property name="ShortDescription" column="ShortDescription" type="string" length="75" not-null="true" />
 
     <!-- Aggregate references -->

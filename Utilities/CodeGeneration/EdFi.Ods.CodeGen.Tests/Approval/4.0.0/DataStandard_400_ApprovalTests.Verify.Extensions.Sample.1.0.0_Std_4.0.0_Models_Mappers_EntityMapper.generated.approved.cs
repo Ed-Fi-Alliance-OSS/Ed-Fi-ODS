@@ -32,7 +32,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.ArtMediumDescriptorAggregate
 
             // Detect primary key changes
             if (
-                 (target.ArtMediumDescriptorId != source.ArtMediumDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ArtMediumDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -74,13 +75,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ArtMediumDescriptorAggregate
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
-                && target.PriorDescriptorId != source.PriorDescriptorId)
-            {
-                target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
@@ -130,9 +124,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ArtMediumDescriptorAggregate
 
             if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-
-            if (mappingContract?.IsPriorDescriptorIdSupported != false)
-                target.PriorDescriptorId = source.PriorDescriptorId;
 
             if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
@@ -965,7 +956,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.FavoriteBookCategoryDescriptorAggre
 
             // Detect primary key changes
             if (
-                 (target.FavoriteBookCategoryDescriptorId != source.FavoriteBookCategoryDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on FavoriteBookCategoryDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -1007,13 +999,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.FavoriteBookCategoryDescriptorAggre
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
-                && target.PriorDescriptorId != source.PriorDescriptorId)
-            {
-                target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
@@ -1063,9 +1048,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.FavoriteBookCategoryDescriptorAggre
 
             if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-
-            if (mappingContract?.IsPriorDescriptorIdSupported != false)
-                target.PriorDescriptorId = source.PriorDescriptorId;
 
             if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
@@ -1126,7 +1108,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.MembershipTypeDescriptorAggregate
 
             // Detect primary key changes
             if (
-                 (target.MembershipTypeDescriptorId != source.MembershipTypeDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on MembershipTypeDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -1168,13 +1151,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.MembershipTypeDescriptorAggregate
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
-                && target.PriorDescriptorId != source.PriorDescriptorId)
-            {
-                target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
@@ -1224,9 +1200,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.MembershipTypeDescriptorAggregate
 
             if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-
-            if (mappingContract?.IsPriorDescriptorIdSupported != false)
-                target.PriorDescriptorId = source.PriorDescriptorId;
 
             if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;

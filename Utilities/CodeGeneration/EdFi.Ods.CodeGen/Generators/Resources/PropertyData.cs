@@ -133,6 +133,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 Misc = this[ResourceRenderer.MiscellaneousComment],
                 StringComparer = this[ResourceRenderer.StringComparer],
                 JsonPropertyName = Property.JsonPropertyName,
+                JsonIgnore = Property.JsonIgnore,
                 PropertyName = propertyName,
                 CSharpSafePropertyName = Property.PropertyName.MakeSafeForCSharpClass(Property.ParentFullName.Name),
                 ParentName = parentName,

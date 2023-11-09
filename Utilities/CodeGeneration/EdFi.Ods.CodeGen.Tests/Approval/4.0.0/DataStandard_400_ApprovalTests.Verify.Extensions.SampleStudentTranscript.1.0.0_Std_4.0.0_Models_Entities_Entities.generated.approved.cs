@@ -77,11 +77,6 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionControlDescriptorAggregate.Sam
             get { return Namespace; }
             set { Namespace = value; }
         }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
-        }
         string IDescriptor.ShortDescription
         {
             get { return ShortDescription; }
@@ -260,11 +255,6 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionLevelDescriptorAggregate.Sampl
         {
             get { return Namespace; }
             set { Namespace = value; }
-        }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
         }
         string IDescriptor.ShortDescription
         {
@@ -744,11 +734,6 @@ namespace EdFi.Ods.Entities.NHibernate.SpecialEducationGraduationStatusDescripto
         {
             get { return Namespace; }
             set { Namespace = value; }
-        }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
         }
         string IDescriptor.ShortDescription
         {
@@ -1338,11 +1323,6 @@ namespace EdFi.Ods.Entities.NHibernate.SubmissionCertificationDescriptorAggregat
         {
             get { return Namespace; }
             set { Namespace = value; }
-        }
-        int? IDescriptor.PriorDescriptorId
-        {
-            get { return PriorDescriptorId; }
-            set { PriorDescriptorId = value; }
         }
         string IDescriptor.ShortDescription
         {

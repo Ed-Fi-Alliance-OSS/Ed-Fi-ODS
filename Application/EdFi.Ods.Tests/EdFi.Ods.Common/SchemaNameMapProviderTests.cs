@@ -7,6 +7,7 @@ using System;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
+using EdFi.Ods.Common.Models.Definitions.Transformers;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Tests._Extensions;
 using EdFi.TestFixture;

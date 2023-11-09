@@ -69,7 +69,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="institutionControlDescriptorId"), NaturalKeyMember]
+        [JsonIgnore, NaturalKeyMember]
         public int InstitutionControlDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -163,13 +163,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
-
-        /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
 
         /// <summary>
         /// A shortened description for the descriptor.
@@ -340,7 +333,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="institutionLevelDescriptorId"), NaturalKeyMember]
+        [JsonIgnore, NaturalKeyMember]
         public int InstitutionLevelDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -434,13 +427,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
-
-        /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
 
         /// <summary>
         /// A shortened description for the descriptor.
@@ -958,7 +944,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="specialEducationGraduationStatusDescriptorId"), NaturalKeyMember]
+        [JsonIgnore, NaturalKeyMember]
         public int SpecialEducationGraduationStatusDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -1052,13 +1038,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
-
-        /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
 
         /// <summary>
         /// A shortened description for the descriptor.
@@ -1745,7 +1724,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="submissionCertificationDescriptorId"), NaturalKeyMember]
+        [JsonIgnore, NaturalKeyMember]
         public int SubmissionCertificationDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -1839,13 +1818,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
-
-        /// <summary>
-        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
-        /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="priorDescriptorId")]
-        public int? PriorDescriptorId { get; set; }
 
         /// <summary>
         /// A shortened description for the descriptor.

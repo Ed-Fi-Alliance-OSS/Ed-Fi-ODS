@@ -32,7 +32,8 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.InstitutionControl
 
             // Detect primary key changes
             if (
-                 (target.InstitutionControlDescriptorId != source.InstitutionControlDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on InstitutionControlDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -74,13 +75,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.InstitutionControl
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
-                && target.PriorDescriptorId != source.PriorDescriptorId)
-            {
-                target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
@@ -130,9 +124,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.InstitutionControl
 
             if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-
-            if (mappingContract?.IsPriorDescriptorIdSupported != false)
-                target.PriorDescriptorId = source.PriorDescriptorId;
 
             if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
@@ -193,7 +184,8 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.InstitutionLevelDe
 
             // Detect primary key changes
             if (
-                 (target.InstitutionLevelDescriptorId != source.InstitutionLevelDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on InstitutionLevelDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -235,13 +227,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.InstitutionLevelDe
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
-                && target.PriorDescriptorId != source.PriorDescriptorId)
-            {
-                target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
@@ -291,9 +276,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.InstitutionLevelDe
 
             if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-
-            if (mappingContract?.IsPriorDescriptorIdSupported != false)
-                target.PriorDescriptorId = source.PriorDescriptorId;
 
             if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
@@ -468,7 +450,8 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.SpecialEducationGr
 
             // Detect primary key changes
             if (
-                 (target.SpecialEducationGraduationStatusDescriptorId != source.SpecialEducationGraduationStatusDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SpecialEducationGraduationStatusDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -510,13 +493,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.SpecialEducationGr
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
-                && target.PriorDescriptorId != source.PriorDescriptorId)
-            {
-                target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
@@ -566,9 +542,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.SpecialEducationGr
 
             if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-
-            if (mappingContract?.IsPriorDescriptorIdSupported != false)
-                target.PriorDescriptorId = source.PriorDescriptorId;
 
             if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
@@ -801,7 +774,8 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.SubmissionCertific
 
             // Detect primary key changes
             if (
-                 (target.SubmissionCertificationDescriptorId != source.SubmissionCertificationDescriptorId))
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SubmissionCertificationDescriptor
                 throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
@@ -843,13 +817,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.SubmissionCertific
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
-                && target.PriorDescriptorId != source.PriorDescriptorId)
-            {
-                target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
@@ -899,9 +866,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.SubmissionCertific
 
             if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-
-            if (mappingContract?.IsPriorDescriptorIdSupported != false)
-                target.PriorDescriptorId = source.PriorDescriptorId;
 
             if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
