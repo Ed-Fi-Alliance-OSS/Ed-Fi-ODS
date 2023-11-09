@@ -149,7 +149,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Arrange()
             {
-                const string message = "duplicate key value violates unique constraint \"Something_PK\"";
+                const string message = "duplicate key value violates unique constraint \"something_pk\"";
 
                 exception = NHibernateExceptionBuilder.CreateWrappedPostgresException(
                     GenericSqlExceptionMessage,
@@ -237,7 +237,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             }
         }
 
-        public class When_an_insert_conflicts_with_a_unique_index_and_metadata_is_not_provided : TestFixtureBase
+        public class When_an_insert_or_update_conflicts_with_a_non_pk_unique_index_and_details_are_not_available : TestFixtureBase
         {
             private Exception exception;
             private bool wasHandled;
@@ -246,7 +246,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Arrange()
             {
-                const string message = "duplicate key value violates unique constraint \"UX_Something_Property1\"";
+                const string message = "duplicate key value violates unique constraint \"ux_something_property1\"";
 
                 exception = NHibernateExceptionBuilder.CreateWrappedPostgresException(
                     GenericSqlExceptionMessage,
@@ -279,6 +279,56 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                     () => actualError.Code.ShouldBe(409),
                     () => actualError.Type.ShouldBe("Conflict"),
                     () => actualError.Message.ShouldBe("The value(s) supplied for the resource are not unique.")
+                );
+            }
+        }
+        
+        public class When_an_insert_or_update_conflicts_with_a_non_pk_unique_index_and_details_are_available : TestFixtureBase
+        {
+            private Exception exception;
+            private bool wasHandled;
+            private RESTError actualError;
+            private IContextProvider<DataManagementResourceContext> _contextProvider;
+
+            protected override void Arrange()
+            {
+                const string message = "duplicate key value violates unique constraint \"ux_something_property1\"";
+
+                const string details =
+                "Key (property1, property2, property3)=(VAL-1, 2, It was three) already exists.";
+
+                exception = NHibernateExceptionBuilder.CreateWrappedPostgresException(
+                    GenericSqlExceptionMessage,
+                    message,
+                    PostgresSqlStates.UniqueViolation,
+                    null,
+                    "something",
+                    null,
+                    details);
+                
+                _contextProvider = Stub<IContextProvider<DataManagementResourceContext>>();
+            }
+
+            protected override void Act()
+            {
+                var translator = new PostgresDuplicatedKeyExceptionTranslator(_contextProvider);
+                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+            }
+
+            [Test]
+            public void Should_handle_exception()
+            {
+                wasHandled.ShouldBeTrue();
+            }
+
+            [Test]
+            public void Should_RestError_show_unknown_value_message()
+            {
+                AssertHelper.All(
+                    () => actualError.ShouldNotBeNull(),
+                    () => actualError.Code.ShouldBe(409),
+                    () => actualError.Type.ShouldBe("Conflict"),
+                    () => actualError.Message.ShouldBe("The values supplied for properties 'property1, property2, property3' of entity 'something' are not unique.")
                 );
             }
         }

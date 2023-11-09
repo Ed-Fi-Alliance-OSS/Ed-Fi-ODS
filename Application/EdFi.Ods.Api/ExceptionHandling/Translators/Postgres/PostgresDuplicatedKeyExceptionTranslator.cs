@@ -9,9 +9,6 @@ using System.Net;
 using System.Text.RegularExpressions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Context;
-using EdFi.Ods.Common.Conventions;
-using EdFi.Ods.Common.Models;
-using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security.Claims;
 using NHibernate.Exceptions;
 using Npgsql;
@@ -30,7 +27,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
         private const string SimpleKeyMessageFormat = "The value supplied for property '{0}' of entity '{1}' is not unique.";
         private const string ComposedKeyMessageFormat = "The values supplied for properties '{0}' of entity '{1}' are not unique.";
 
-        private const string PrimaryKeyNameSuffix = "_PK";
+        private const string PrimaryKeyNameSuffix = "_pk";
 
         public PostgresDuplicatedKeyExceptionTranslator(
             IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
@@ -89,7 +86,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 string GetMessageUsingRequestContext(ReadOnlySpan<char> constraintName)
                 {
                     // Rely on PK suffix naming convention to identify PK constraint violation (which covers almost all scenarios for this violation)
-                    if (constraintName.EndsWith(PrimaryKeyNameSuffix))
+                    if (constraintName.EndsWith(PrimaryKeyNameSuffix, StringComparison.OrdinalIgnoreCase))
                     {
                         var tableName = constraintName.Slice(0, constraintName.Length - PrimaryKeyNameSuffix.Length).ToString();
 
@@ -106,7 +103,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                                     ? ComposedKeyMessageFormat
                                     : SimpleKeyMessageFormat,
                                 string.Join(", ", pkPropertyNames),
-                                tableName);
+                                resourceClass.Name);
                         }
                     }
 
