@@ -6,48 +6,38 @@
 using System;
 using System.Linq;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 
-namespace EdFi.Ods.Common.Specifications
+namespace EdFi.Ods.Common.Specifications;
+
+public class EducationOrganizationEntitySpecification : IEducationOrganizationEntitySpecification
 {
-    // NOTE: This class should be deprecated in factor of a model-driven approach.
-    public class EducationOrganizationEntitySpecification
+    private readonly IEducationOrganizationTypesProvider _educationOrganizationTypesProvider;
+
+    public EducationOrganizationEntitySpecification(IEducationOrganizationTypesProvider educationOrganizationTypesProvider)
     {
-        private const string EducationOrganizationBaseTypeName = "EducationOrganization";
+        _educationOrganizationTypesProvider = educationOrganizationTypesProvider;
+    }
 
-        public static string[] ValidEducationOrganizationTypes { get; } =
-            {
-                "EducationOrganization", // Abstract base type
-                "StateEducationAgency",
-                "EducationServiceCenter",
-                "EducationOrganizationNetwork",
-                "LocalEducationAgency",
-                "School",
-                "CommunityOrganization",
-                "CommunityProvider",
-                "PostSecondaryInstitution",
-                "EducationOrganizationNetworkAssociation",
-                "OrganizationDepartment"
-            };
+    public bool IsEducationOrganizationEntity(Type type) => IsEducationOrganizationEntity(type.Name);
 
-        public static bool IsEducationOrganizationEntity(Type type) => IsEducationOrganizationEntity(type.Name);
+    public bool IsEducationOrganizationEntity(string typeName)
+        => _educationOrganizationTypesProvider.EducationOrganizationTypes.Contains(typeName, StringComparer.InvariantCultureIgnoreCase);
 
-        public static bool IsEducationOrganizationEntity(string typeName)
-            => ValidEducationOrganizationTypes.Contains(typeName, StringComparer.InvariantCultureIgnoreCase);
+    public bool IsEducationOrganizationBaseEntity(string typeName)
+        => typeName == EdFiConventions.EducationOrganizationFullName.Name;
 
-        public static bool IsEducationOrganizationBaseEntity(string typeName) => typeName == EducationOrganizationBaseTypeName;
+    public bool IsEducationOrganizationIdentifier(string propertyName)
+    {
+        string entityName;
 
-        public static bool IsEducationOrganizationIdentifier(string propertyName)
+        // TODO: Embedded convention (EdOrg identifiers ends with "Id")
+        if (propertyName.TryTrimSuffix("Id", out entityName))
         {
-            string entityName;
-
-            // TODO: Embedded convention (EdOrg identifiers ends with "Id")
-            if (propertyName.TryTrimSuffix("Id", out entityName))
-            {
-                return IsEducationOrganizationEntity(entityName);
-            }
-
-            return false;
+            return IsEducationOrganizationEntity(entityName);
         }
+
+        return false;
     }
 }

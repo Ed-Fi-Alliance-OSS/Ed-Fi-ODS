@@ -5,21 +5,10 @@
 
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Common.Specifications;
-using EdFi.Ods.Entities.NHibernate.CommunityOrganizationAggregate.EdFi;
-using EdFi.Ods.Entities.NHibernate.CommunityProviderAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi;
-using EdFi.Ods.Entities.NHibernate.EducationOrganizationNetworkAggregate.EdFi;
-using EdFi.Ods.Entities.NHibernate.EducationOrganizationNetworkAssociationAggregate.EdFi;
-using EdFi.Ods.Entities.NHibernate.EducationServiceCenterAggregate.EdFi;
-using EdFi.Ods.Entities.NHibernate.LocalEducationAgencyAggregate.EdFi;
-using EdFi.Ods.Entities.NHibernate.PostSecondaryInstitutionAggregate.EdFi;
-using EdFi.Ods.Entities.NHibernate.SchoolAggregate.EdFi;
-using EdFi.Ods.Entities.NHibernate.StateEducationAgencyAggregate.EdFi;
-using EdFi.TestFixture;
+using FakeItEasy;
 using NUnit.Framework;
-using Test.Common;
-using NHibernateEntities = EdFi.Ods.Entities.NHibernate;
-using ModelResources = EdFi.Ods.Api.Common.Models.Resources;
+using Shouldly;
 
 namespace EdFi.Ods.Tests.EdFi.Common.Specifications
 {
@@ -27,263 +16,124 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class EducationOrganizationEntitySpecificationTests
     {
-        public class When_determining_if_an_entity_or_resource_is_a_educationOrganization : TestFixtureBase
+        public class EdOrgType1 { }
+
+        public class NotEdOrgType { }
+
+        private IEducationOrganizationTypesProvider _educationOrganizationTypesProvider;
+        private EducationOrganizationEntitySpecification _educationOrganizationEntitySpecification;
+
+        [SetUp]
+        public void SetUp()
         {
-            [Assert]
-            public void Should_return_true_for_stateEducationAgency_entity()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(StateEducationAgency)), Is.True),
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(StateEducationAgency)), Is.True)
-                );
-            }
+            _educationOrganizationTypesProvider = GetEducationOrganizationTypesProvider();
+            _educationOrganizationEntitySpecification = new EducationOrganizationEntitySpecification(_educationOrganizationTypesProvider);
 
-            [Assert]
-            public void Should_return_true_for_stateEducationAgency_resource()
+            static IEducationOrganizationTypesProvider GetEducationOrganizationTypesProvider()
             {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(Api.Common.Models.Resources.StateEducationAgency.EdFi.StateEducationAgency)), Is.True),
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(Api.Common.Models.Resources.StateEducationAgency.EdFi.StateEducationAgency)), Is.True)
-                );
-            }
+                var educationOrganizationTypesProvider = A.Fake<IEducationOrganizationTypesProvider>();
 
-            [Assert]
-            public void Should_return_true_for_educationServiceCenter_entity()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(EducationServiceCenter)), Is.True),
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(EducationServiceCenter)), Is.True)
-                );
-            }
+                A.CallTo(() => educationOrganizationTypesProvider.EducationOrganizationTypes)
+                    .Returns(
+                        new[]
+                        {
+                            "EdOrgType1",
+                            "EdOrgType2"
+                        });
 
-            [Assert]
-            public void Should_return_true_for_educationServiceCenter_resource()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(Api.Common.Models.Resources.EducationServiceCenter.EdFi.EducationServiceCenter)), Is.True),
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(Api.Common.Models.Resources.EducationServiceCenter.EdFi.EducationServiceCenter)), Is.True)
-                );
+                return educationOrganizationTypesProvider;
             }
+        }
 
-            [Assert]
-            public void Should_return_true_for_educationOrganizationNetwork_entity()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(EducationOrganizationNetwork)), Is.True),
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(EducationOrganizationNetwork)), Is.True)
-                );
-            }
+        [Test]
+        public void IsEducationOrganizationEntity_ShouldReturnTrue_WhenEdOrgTypeNameExists()
+        {
+            // Arrange
 
-            [Assert]
-            public void Should_return_true_for_educationOrganizationNetwork_resource()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(Api.Common.Models.Resources.EducationOrganizationNetwork.EdFi.EducationOrganizationNetwork)), Is.True),
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(Api.Common.Models.Resources.EducationOrganizationNetwork.EdFi.EducationOrganizationNetwork)), Is.True)
-                );
-            }
+            // Act
+            var isEducationOrganizationEntity = 
+                _educationOrganizationEntitySpecification.IsEducationOrganizationEntity(nameof(EdOrgType1));
 
-            [Assert]
-            public void Should_return_true_for_localEducationAgency_entity()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(LocalEducationAgency)), Is.True),
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(LocalEducationAgency)), Is.True)
-                );
-            }
+            // Assert
+            isEducationOrganizationEntity.ShouldBeTrue();
+        }
 
-            [Assert]
-            public void Should_return_true_for_localEducationAgency_resource()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(Api.Common.Models.Resources.LocalEducationAgency.EdFi.LocalEducationAgency)), Is.True),
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(Api.Common.Models.Resources.LocalEducationAgency.EdFi.LocalEducationAgency)), Is.True)
-                );
-            }
+        [Test]
+        public void IsEducationOrganizationEntity_ShouldReturnTrue_WhenEdOrgTypeExists()
+        {
+            // Arrange
 
-            [Assert]
-            public void Should_return_true_for_school_entity()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(School)), Is.True),
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(School)), Is.True)
-                );
-            }
+            // Act
+            var isEducationOrganizationEntity =
+                _educationOrganizationEntitySpecification.IsEducationOrganizationEntity(typeof(EdOrgType1));
 
-            [Assert]
-            public void Should_return_true_for_school_resource()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(Api.Common.Models.Resources.School.EdFi.School)), Is.True),
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(Api.Common.Models.Resources.School.EdFi.School)), Is.True)
-                );
-            }
+            // Assert
+            isEducationOrganizationEntity.ShouldBeTrue();
+        }
 
-            [Assert]
-            public void Should_return_true_for_communityOrganization_entity()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(CommunityOrganization)), Is.True),
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(CommunityOrganization)), Is.True)
-                );
-            }
+        [Test]
+        public void IsEducationOrganizationEntity_ShouldReturnFalse_WhenEdOrgTypeNameDoesNotExists()
+        {
+            // Arrange
 
-            [Assert]
-            public void Should_return_true_for_communityOrganization_resource()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(Api.Common.Models.Resources.CommunityOrganization.EdFi.CommunityOrganization)), Is.True),
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(Api.Common.Models.Resources.CommunityOrganization.EdFi.CommunityOrganization)), Is.True)
-                );
-            }
+            // Act
+            var isEducationOrganizationEntity =
+                _educationOrganizationEntitySpecification.IsEducationOrganizationEntity(nameof(NotEdOrgType));
 
-            [Assert]
-            public void Should_return_true_for_communityProvider_entity()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(CommunityProvider)), Is.True),
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(CommunityProvider)), Is.True)
-                );
-            }
+            // Assert
+            isEducationOrganizationEntity.ShouldBeFalse();
+        }
 
-            [Assert]
-            public void Should_return_true_for_communityProvider_resource()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(Api.Common.Models.Resources.CommunityProvider.EdFi.CommunityProvider)), Is.True),
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(Api.Common.Models.Resources.CommunityProvider.EdFi.CommunityProvider)), Is.True)
-                );
-            }
+        [Test]
+        public void IsEducationOrganizationEntity_ShouldReturnFalse_WhenEdOrgTypeDoesNotExists()
+        {
+            // Arrange
 
-            [Assert]
-            public void Should_return_true_for_postSecondaryInstitution_entity()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(PostSecondaryInstitution)), Is.True),
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(PostSecondaryInstitution)), Is.True)
-                );
-            }
+            // Act
+            var isEducationOrganizationEntity =
+                _educationOrganizationEntitySpecification.IsEducationOrganizationEntity(typeof(NotEdOrgType));
 
-            [Assert]
-            public void Should_return_true_for_postSecondaryInstitution_resource()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(Api.Common.Models.Resources.PostSecondaryInstitution.EdFi.PostSecondaryInstitution)), Is.True),
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(Api.Common.Models.Resources.PostSecondaryInstitution.EdFi.PostSecondaryInstitution)), Is.True)
-                );
-            }
+            // Assert
+            isEducationOrganizationEntity.ShouldBeFalse();
+        }
 
-            [Assert]
-            public void Should_return_true_for_educationOrganizationNetworkAssociation_entity()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(EducationOrganizationNetworkAssociation)),
-                        Is.True),
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(EducationOrganizationNetworkAssociation)),
-                        Is.True)
-                );
-            }
+        [Test]
+        public void IsEducationOrganizationIdentifier_ShouldReturnTrue_WhenPropertyNameMatchesConvention()
+        {
+            // Arrange
 
-            [Assert]
-            public void Should_return_true_for_educationOrganizationNetworkAssociation_resource()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(Api.Common.Models.Resources.EducationOrganizationNetworkAssociation.EdFi.EducationOrganizationNetworkAssociation)), Is.True),
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(Api.Common.Models.Resources.EducationOrganizationNetworkAssociation.EdFi.EducationOrganizationNetworkAssociation)), Is.True)
-                );
-            }
+            // Act
+            var isEducationOrganizationIdentifier = _educationOrganizationEntitySpecification.IsEducationOrganizationIdentifier("EdOrgType2Id");
 
-            [Assert]
-            public void Should_return_true_for_educationOrganization_base_entity()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationBaseEntity(
-                            nameof(EducationOrganization)), Is.True)
-                );
-            }
+            // Assert
+            isEducationOrganizationIdentifier.ShouldBeTrue();
+        }
 
-            [Assert]
-            public void Should_return_true_for_educationOrganization_Identifier_property()
-            {
-                AssertHelper.All(
-                    () => Assert.That(
-                        EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(
-                            nameof(EducationOrganization.EducationOrganizationId)), Is.True)
-                );
-            }
+        [TestCase("NotAnEdOrgId")]
+        [TestCase("SomethingElseCompletely")]
+        public void IsEducationOrganizationIdentifier_ShouldReturnFalse_WhenPropertyNameDoesNotMatchConvention(string propertyName)
+        {
+            // Arrange
+
+            // Act
+            var isEducationOrganizationIdentifier = 
+                _educationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(propertyName);
+
+            // Assert
+            isEducationOrganizationIdentifier.ShouldBeFalse();
+        }
+
+        [Test]
+        public void IsEducationOrganizationBaseEntity_Should_return_true_for_educationOrganization_base_entity()
+        {
+            // Arrange
+
+            // Act
+            var isIsEducationOrganizationBaseEntity = 
+                _educationOrganizationEntitySpecification.IsEducationOrganizationBaseEntity(nameof(EducationOrganization));
+
+            // Assert
+            isIsEducationOrganizationBaseEntity.ShouldBeTrue();
         }
     }
 }

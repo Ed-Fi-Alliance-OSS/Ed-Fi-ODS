@@ -486,7 +486,7 @@ begin
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='educationOrganizationNetworkAssociation') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('educationOrganizationNetworkAssociation', 'http://ed-fi.org/ods/identity/claims/educationOrganizationNetworkAssociation', educationOrganizationsResourceClaimId);
+    values ('educationOrganizationNetworkAssociation', 'http://ed-fi.org/ods/identity/claims/educationOrganizationNetworkAssociation', relationshipBasedDataResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='educationOrganizationPeerAssociation') THEN

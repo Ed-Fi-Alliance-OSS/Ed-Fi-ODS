@@ -867,7 +867,7 @@ BEGIN
 
     INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
     VALUES (N'educationOrganizationNetworkAssociation', N'http://ed-fi.org/ods/identity/claims/educationOrganizationNetworkAssociation',
-@educationOrganizationsResourceClaimId);
+@relationshipBasedDataResourceClaimId);
 
 END
 

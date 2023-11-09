@@ -15,6 +15,7 @@ namespace EdFi.Ods.CodeGen.Generators
     public class ResourceClaimMetadata : GeneratorBase
     {
         private IPersonEntitySpecification _personEntitySpecification;
+        private IEducationOrganizationEntitySpecification _educationOrganizationEntitySpecification;
 
         protected override object Build()
         {
@@ -23,6 +24,11 @@ namespace EdFi.Ods.CodeGen.Generators
             _personEntitySpecification = 
                 new PersonEntitySpecification(
                     new PersonTypesProvider(
+                        new SuppliedDomainModelProvider(domainModel)));
+
+            _educationOrganizationEntitySpecification =
+                new EducationOrganizationEntitySpecification(
+                    new EducationOrganizationTypesProvider(
                         new SuppliedDomainModelProvider(domainModel)));
 
             var orderedAggregates = domainModel
@@ -58,7 +64,7 @@ namespace EdFi.Ods.CodeGen.Generators
                     : "systemDescriptors";
             }
 
-            if (EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(resourceName))
+            if (_educationOrganizationEntitySpecification.IsEducationOrganizationEntity(resourceName))
             {
                 return "educationOrganizations";
             }
