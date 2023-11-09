@@ -12,6 +12,8 @@ namespace EdFi.Admin.DataAccess.Models
 {
     public class ApplicationEducationOrganization
     {
+        private Application _application;
+
         public ApplicationEducationOrganization()
         {
             ApiClients = new Collection<ApiClient>();
@@ -21,7 +23,17 @@ namespace EdFi.Admin.DataAccess.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ApplicationEducationOrganizationId { get; set; }
 
-        public virtual Application Application { get; set; }
+        public virtual Application Application
+        {
+            // Setting <Nullable>enable</Nullable> in the csproj file would achieve the desired aim: do 
+            // not allow this value to be null. However, that could have other ramifications that need
+            // to be studied before going there.
+            get { return _application; }
+            set
+            {
+                _application = value ?? throw new System.InvalidOperationException("Application cannot be null");
+            }
+        }
 
         public long EducationOrganizationId { get; set; }
 
