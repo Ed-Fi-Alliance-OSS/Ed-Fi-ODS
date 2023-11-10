@@ -1204,6 +1204,22 @@ CREATE TABLE edfi.CourseTranscriptAlternativeCourseIdentificationCode (
 );
 ALTER TABLE edfi.CourseTranscriptAlternativeCourseIdentificationCode ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table edfi.CourseTranscriptCourseProgram --
+CREATE TABLE edfi.CourseTranscriptCourseProgram (
+    CourseAttemptResultDescriptorId INT NOT NULL,
+    CourseCode VARCHAR(60) NOT NULL,
+    CourseEducationOrganizationId BIGINT NOT NULL,
+    EducationOrganizationId BIGINT NOT NULL,
+    SchoolYear SMALLINT NOT NULL,
+    StudentUSI INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    CourseProgramName VARCHAR(60) NOT NULL,
+    CourseProgramTypeDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT CourseTranscriptCourseProgram_PK PRIMARY KEY (CourseAttemptResultDescriptorId, CourseCode, CourseEducationOrganizationId, EducationOrganizationId, SchoolYear, StudentUSI, TermDescriptorId, CourseProgramName, CourseProgramTypeDescriptorId)
+);
+ALTER TABLE edfi.CourseTranscriptCourseProgram ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
 -- Table edfi.CourseTranscriptCreditCategory --
 CREATE TABLE edfi.CourseTranscriptCreditCategory (
     CourseAttemptResultDescriptorId INT NOT NULL,
@@ -1253,22 +1269,6 @@ CREATE TABLE edfi.CourseTranscriptPartialCourseTranscriptAwards (
     CONSTRAINT CourseTranscriptPartialCourseTranscriptAwards_PK PRIMARY KEY (CourseAttemptResultDescriptorId, CourseCode, CourseEducationOrganizationId, EducationOrganizationId, SchoolYear, StudentUSI, TermDescriptorId, AwardDate)
 );
 ALTER TABLE edfi.CourseTranscriptPartialCourseTranscriptAwards ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table edfi.CourseTranscriptProgram --
-CREATE TABLE edfi.CourseTranscriptProgram (
-    CourseAttemptResultDescriptorId INT NOT NULL,
-    CourseCode VARCHAR(60) NOT NULL,
-    CourseEducationOrganizationId BIGINT NOT NULL,
-    EducationOrganizationId BIGINT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    StudentUSI INT NOT NULL,
-    TermDescriptorId INT NOT NULL,
-    ProgramName VARCHAR(60) NOT NULL,
-    ProgramTypeDescriptorId INT NOT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseTranscriptProgram_PK PRIMARY KEY (CourseAttemptResultDescriptorId, CourseCode, CourseEducationOrganizationId, EducationOrganizationId, SchoolYear, StudentUSI, TermDescriptorId, ProgramName, ProgramTypeDescriptorId)
-);
-ALTER TABLE edfi.CourseTranscriptProgram ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table edfi.CourseTranscriptSection --
 CREATE TABLE edfi.CourseTranscriptSection (

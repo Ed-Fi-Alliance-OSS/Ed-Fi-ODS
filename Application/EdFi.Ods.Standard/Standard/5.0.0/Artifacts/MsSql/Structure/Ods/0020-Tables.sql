@@ -1786,6 +1786,34 @@ GO
 ALTER TABLE [edfi].[CourseTranscriptAlternativeCourseIdentificationCode] ADD CONSTRAINT [CourseTranscriptAlternativeCourseIdentificationCode_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [edfi].[CourseTranscriptCourseProgram] --
+CREATE TABLE [edfi].[CourseTranscriptCourseProgram] (
+    [CourseAttemptResultDescriptorId] [INT] NOT NULL,
+    [CourseCode] [NVARCHAR](60) NOT NULL,
+    [CourseEducationOrganizationId] [BIGINT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [SchoolYear] [SMALLINT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [CourseProgramName] [NVARCHAR](60) NOT NULL,
+    [CourseProgramTypeDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [CourseTranscriptCourseProgram_PK] PRIMARY KEY CLUSTERED (
+        [CourseAttemptResultDescriptorId] ASC,
+        [CourseCode] ASC,
+        [CourseEducationOrganizationId] ASC,
+        [EducationOrganizationId] ASC,
+        [SchoolYear] ASC,
+        [StudentUSI] ASC,
+        [TermDescriptorId] ASC,
+        [CourseProgramName] ASC,
+        [CourseProgramTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[CourseTranscriptCourseProgram] ADD CONSTRAINT [CourseTranscriptCourseProgram_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
 -- Table [edfi].[CourseTranscriptCreditCategory] --
 CREATE TABLE [edfi].[CourseTranscriptCreditCategory] (
     [CourseAttemptResultDescriptorId] [INT] NOT NULL,
@@ -1867,34 +1895,6 @@ CREATE TABLE [edfi].[CourseTranscriptPartialCourseTranscriptAwards] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [edfi].[CourseTranscriptPartialCourseTranscriptAwards] ADD CONSTRAINT [CourseTranscriptPartialCourseTranscriptAwards_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [edfi].[CourseTranscriptProgram] --
-CREATE TABLE [edfi].[CourseTranscriptProgram] (
-    [CourseAttemptResultDescriptorId] [INT] NOT NULL,
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [CourseEducationOrganizationId] [BIGINT] NOT NULL,
-    [EducationOrganizationId] [BIGINT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [StudentUSI] [INT] NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [ProgramName] [NVARCHAR](60) NOT NULL,
-    [ProgramTypeDescriptorId] [INT] NOT NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseTranscriptProgram_PK] PRIMARY KEY CLUSTERED (
-        [CourseAttemptResultDescriptorId] ASC,
-        [CourseCode] ASC,
-        [CourseEducationOrganizationId] ASC,
-        [EducationOrganizationId] ASC,
-        [SchoolYear] ASC,
-        [StudentUSI] ASC,
-        [TermDescriptorId] ASC,
-        [ProgramName] ASC,
-        [ProgramTypeDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[CourseTranscriptProgram] ADD CONSTRAINT [CourseTranscriptProgram_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[CourseTranscriptSection] --

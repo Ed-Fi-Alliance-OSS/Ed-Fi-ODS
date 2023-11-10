@@ -1332,6 +1332,28 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique number or alphanumeric code assigned to a course by a school, school system, state, or other agency or entity. For multi-part course codes, concatenate the parts separated by a "/". For example, consider the following SCED code-    subject = 20 Math    course = 272 Geometry    level = G General    credits = 1.00   course sequence 1 of 1- would be entered as 20/272/G/1.00/1 of 1.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptAlternativeCourseIdentificationCode', @level2type=N'COLUMN', @level2name=N'IdentificationCode'
 GO
 
+-- Extended Properties [edfi].[CourseTranscriptCourseProgram] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The program(s) that the student participated in the context of the course.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptCourseProgram'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The result from the student''s attempt to take the course.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptCourseProgram', @level2type=N'COLUMN', @level2name=N'CourseAttemptResultDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a course.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptCourseProgram', @level2type=N'COLUMN', @level2name=N'CourseCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptCourseProgram', @level2type=N'COLUMN', @level2name=N'CourseEducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptCourseProgram', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptCourseProgram', @level2type=N'COLUMN', @level2name=N'SchoolYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptCourseProgram', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptCourseProgram', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptCourseProgram', @level2type=N'COLUMN', @level2name=N'CourseProgramName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptCourseProgram', @level2type=N'COLUMN', @level2name=N'CourseProgramTypeDescriptorId'
+GO
+
 -- Extended Properties [edfi].[CourseTranscriptCreditCategory] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A categorization for the course transcript credits awarded in the course transcript.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptCreditCategory'
 GO
@@ -1400,28 +1422,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The method the credits were earned.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptPartialCourseTranscriptAwards', @level2type=N'COLUMN', @level2name=N'MethodCreditEarnedDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The indicator of student performance as submitted by the instructor.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptPartialCourseTranscriptAwards', @level2type=N'COLUMN', @level2name=N'NumericGradeEarned'
-GO
-
--- Extended Properties [edfi].[CourseTranscriptProgram] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The program(s) that the student participated in the context of the course.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptProgram'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The result from the student''s attempt to take the course.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptProgram', @level2type=N'COLUMN', @level2name=N'CourseAttemptResultDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a course.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptProgram', @level2type=N'COLUMN', @level2name=N'CourseCode'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptProgram', @level2type=N'COLUMN', @level2name=N'CourseEducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptProgram', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptProgram', @level2type=N'COLUMN', @level2name=N'SchoolYear'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptProgram', @level2type=N'COLUMN', @level2name=N'StudentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptProgram', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptProgram', @level2type=N'COLUMN', @level2name=N'ProgramName'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptProgram', @level2type=N'COLUMN', @level2name=N'ProgramTypeDescriptorId'
 GO
 
 -- Extended Properties [edfi].[CourseTranscriptSection] --

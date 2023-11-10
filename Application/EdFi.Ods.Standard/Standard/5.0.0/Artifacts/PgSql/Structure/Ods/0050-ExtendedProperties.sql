@@ -778,6 +778,18 @@ COMMENT ON COLUMN edfi.CourseTranscriptAlternativeCourseIdentificationCode.Assig
 COMMENT ON COLUMN edfi.CourseTranscriptAlternativeCourseIdentificationCode.CourseCatalogURL IS 'The URL for the course catalog that defines the course identification code.';
 COMMENT ON COLUMN edfi.CourseTranscriptAlternativeCourseIdentificationCode.IdentificationCode IS 'A unique number or alphanumeric code assigned to a course by a school, school system, state, or other agency or entity. For multi-part course codes, concatenate the parts separated by a "/". For example, consider the following SCED code-    subject = 20 Math    course = 272 Geometry    level = G General    credits = 1.00   course sequence 1 of 1- would be entered as 20/272/G/1.00/1 of 1.';
 
+-- Extended Properties [edfi].[CourseTranscriptCourseProgram] --
+COMMENT ON TABLE edfi.CourseTranscriptCourseProgram IS 'The program(s) that the student participated in the context of the course.';
+COMMENT ON COLUMN edfi.CourseTranscriptCourseProgram.CourseAttemptResultDescriptorId IS 'The result from the student''s attempt to take the course.';
+COMMENT ON COLUMN edfi.CourseTranscriptCourseProgram.CourseCode IS 'A unique alphanumeric code assigned to a course.';
+COMMENT ON COLUMN edfi.CourseTranscriptCourseProgram.CourseEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.CourseTranscriptCourseProgram.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.CourseTranscriptCourseProgram.SchoolYear IS 'The identifier for the school year.';
+COMMENT ON COLUMN edfi.CourseTranscriptCourseProgram.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.CourseTranscriptCourseProgram.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN edfi.CourseTranscriptCourseProgram.CourseProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.CourseTranscriptCourseProgram.CourseProgramTypeDescriptorId IS 'The type of program.';
+
 -- Extended Properties [edfi].[CourseTranscriptCreditCategory] --
 COMMENT ON TABLE edfi.CourseTranscriptCreditCategory IS 'A categorization for the course transcript credits awarded in the course transcript.';
 COMMENT ON COLUMN edfi.CourseTranscriptCreditCategory.CourseAttemptResultDescriptorId IS 'The result from the student''s attempt to take the course.';
@@ -815,18 +827,6 @@ COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.EarnedCredi
 COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.LetterGradeEarned IS 'The indicator of student performance as submitted by the instructor.';
 COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.MethodCreditEarnedDescriptorId IS 'The method the credits were earned.';
 COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.NumericGradeEarned IS 'The indicator of student performance as submitted by the instructor.';
-
--- Extended Properties [edfi].[CourseTranscriptProgram] --
-COMMENT ON TABLE edfi.CourseTranscriptProgram IS 'The program(s) that the student participated in the context of the course.';
-COMMENT ON COLUMN edfi.CourseTranscriptProgram.CourseAttemptResultDescriptorId IS 'The result from the student''s attempt to take the course.';
-COMMENT ON COLUMN edfi.CourseTranscriptProgram.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN edfi.CourseTranscriptProgram.CourseEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.CourseTranscriptProgram.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.CourseTranscriptProgram.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN edfi.CourseTranscriptProgram.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.CourseTranscriptProgram.TermDescriptorId IS 'The term for the session during the school year.';
-COMMENT ON COLUMN edfi.CourseTranscriptProgram.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
-COMMENT ON COLUMN edfi.CourseTranscriptProgram.ProgramTypeDescriptorId IS 'The type of program.';
 
 -- Extended Properties [edfi].[CourseTranscriptSection] --
 COMMENT ON TABLE edfi.CourseTranscriptSection IS 'The section(s) associated with the course transcript.';
