@@ -69,6 +69,10 @@ namespace EdFi.Ods.Features.Container.Modules
             builder.RegisterType<CompositesRouteConvention>()
                 .As<IApplicationModelConvention>()
                 .SingleInstance();
+
+            builder.RegisterType<OpenApiMetadataRouteConvention>()
+                .As<IApplicationModelConvention>()
+                .SingleInstance();
         }
     }
 }
