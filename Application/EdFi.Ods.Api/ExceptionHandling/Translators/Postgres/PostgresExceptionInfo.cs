@@ -18,7 +18,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
     public class PostgresExceptionInfo
     {
-        private const string UnknownValue = "unknown";
+        public const string UnknownValue = "unknown";
 
         public string TableName { get; }
         public string ColumnNames { get; }

@@ -18,9 +18,9 @@ namespace EdFi.Ods.Tests._Builders
         public static GenericADOException CreateException(string nHibernateMessage, string sqlMessage)
             => new GenericADOException(nHibernateMessage, CreateSqlServerException(sqlMessage, null));
 
-        public static GenericADOException CreateWrappedPostgresException(string nHibernateMessage, string sqlMessage, string sqlState, string schemaName, string tableName, string constraintName)
+        public static GenericADOException CreateWrappedPostgresException(string nHibernateMessage, string sqlMessage, string sqlState, string schemaName, string tableName, string constraintName, string details = null)
             => new(nHibernateMessage, new PostgresException(sqlMessage, "ERROR", "ERROR", sqlState,  
-                schemaName: schemaName, tableName: tableName, constraintName: constraintName));
+                schemaName: schemaName, tableName: tableName, constraintName: constraintName, detail: details));
 
         private static SqlException CreateSqlServerException(string message, Exception innerException)
         {

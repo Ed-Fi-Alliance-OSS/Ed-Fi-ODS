@@ -36,7 +36,7 @@ public class PersonMapCacheInitializerTests
         };
 
         A.CallTo(() => fakePersonIdentifiersProvider.GetAllPersonIdentifiersAsync(personType))
-            .Returns(TaskHelpers.FromResultWithDelay<IEnumerable<PersonIdentifiersValueMap>>(personIdentifiers, 25));
+            .Returns(TaskHelpers.FromResultWithDelay<IEnumerable<PersonIdentifiersValueMap>>(personIdentifiers, 100));
 
         var initializer = new PersonMapCacheInitializer(
             fakePersonIdentifiersProvider,
