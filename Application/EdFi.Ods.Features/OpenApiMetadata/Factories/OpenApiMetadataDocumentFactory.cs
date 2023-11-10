@@ -43,7 +43,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 var parametersFactory = new OpenApiMetadataParametersFactory(_defaultPageSizeLimitProvider);
 
                 var definitionsFactory =
-                    OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(documentContext, 
+                    OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(documentContext,
                         _trackedChangesIdentifierProjectionsProvider, _apiSettings);
 
                 var responsesFactory = new OpenApiMetadataResponsesFactory();
@@ -69,8 +69,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     },
                     host = "%HOST%",
                     basePath = "%BASE_PATH%",
-                    schemes = new string[]{ 
-                        "%SCHEME%" 
+                    schemes = new string[]{
+                        "%SCHEME%"
                     },
                     securityDefinitions =
                         new Dictionary<string, SecurityScheme>
@@ -104,7 +104,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 };
                 var jsonString = JsonConvert.SerializeObject(
                     openApiMetadataDocument,
-                    new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore});
+                    new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
 
                 if (openApiSpecVersion == OpenApiSpecVersion.OpenApi3_0)
                 {

@@ -93,10 +93,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             protected override void Arrange()
             {
                 _openApiMetadataDocumentContext = DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext;
-                
+
                 A.CallTo(() => OpenApiV3UpconversionProvider.GetUpconvertedOpenApiJson(A<string>._))
                     .ReturnsLazily(x => (new OpenApiStringReader().Read(x.Arguments.Get<string>(0), out _))
-                        .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0)); 
+                        .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0));
 
                 var openApiMetadataResources = _openApiMetadataDocumentContext.ResourceModel.GetAllResources()
                     .Select(r => new OpenApiMetadataResource(r))
@@ -120,7 +120,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 _openApiMetadataDoc = JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
                     _actualJson,
-                    new JsonSerializerSettings {MetadataPropertyHandling = MetadataPropertyHandling.Ignore});
+                    new JsonSerializerSettings { MetadataPropertyHandling = MetadataPropertyHandling.Ignore });
             }
 
             [Assert]
@@ -234,7 +234,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 _openApiMetadataDoc = JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
                     _actualJson,
-                    new JsonSerializerSettings {MetadataPropertyHandling = MetadataPropertyHandling.Ignore});
+                    new JsonSerializerSettings { MetadataPropertyHandling = MetadataPropertyHandling.Ignore });
             }
 
             [Assert]

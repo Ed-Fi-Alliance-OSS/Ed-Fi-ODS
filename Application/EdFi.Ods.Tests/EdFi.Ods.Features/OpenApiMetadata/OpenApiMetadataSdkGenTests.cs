@@ -11,7 +11,6 @@ using EdFi.Ods.Api.Database.NamingConventions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Conventions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
@@ -178,7 +177,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                                             x.Name)
                                         .ToUpperInvariant())
                             .Concat(
-                                new[] {"LINK"}));
+                                new[] { "LINK" }));
 
                 Assert.That(
                     entityDefinitions.Select(
@@ -266,7 +265,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                                             x.Name)
                                         .ToUpperInvariant())
                             .Concat(
-                                new[] {"LINK"}));
+                                new[] { "LINK" }));
 
                 Assert.That(
                     entityDefinitions.Select(
@@ -309,7 +308,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                                         x.Name)
                                     .ToUpperInvariant())
                             .Concat(
-                                new[] {"LINK"}));
+                                new[] { "LINK" }));
 
                 Assert.That(nonBelongingDefinitions, Is.Empty);
             }
@@ -365,7 +364,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                                 !d.StartsWithIgnoreCase(
                                     "TrackedChanges"))
                         .Except(
-                            new[] {"link"})
+                            new[] { "link" })
                         .Select(
                             d =>
                                 (Action)
@@ -462,7 +461,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                             !d.StartsWithIgnoreCase(
                                 "TrackedChanges"))
                     .Except(
-                        new[] {"link" })
+                        new[] { "link" })
                     .Select(
                         d => d.Split('_')
                             .First())

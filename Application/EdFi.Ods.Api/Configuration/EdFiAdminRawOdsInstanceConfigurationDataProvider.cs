@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,38 +37,38 @@ public class EdFiAdminRawOdsInstanceConfigurationDataProvider : IEdFiAdminRawOds
         await using var connection = CreateConnectionAsync();
 
         var rawDataRows = (await connection.QueryAsync<RawOdsInstanceConfigurationDataRow>(
-                GetOdsConfigurationByIdSql, 
+                GetOdsConfigurationByIdSql,
                 new { OdsInstanceId = odsInstanceId }))
             .ToArray();
 
         return rawDataRows;
-        
+
         DbConnection CreateConnectionAsync()
         {
             var newConnection = _dbProviderFactory.CreateConnection();
             newConnection.ConnectionString = _adminDatabaseConnectionStringProvider.GetConnectionString();
-            
+
             return newConnection;
         }
     }
-    
+
     public async Task<string[]> GetDistinctOdsInstanceContextValuesAsync(string odsContextKey)
     {
         await using var connection = CreateConnectionAsync();
 
         var contextValues = (await connection.QueryAsync<string>(
                 GetDistinctOdsContextValuesSql,
-                new { OdsContextKey =  odsContextKey}))
+                new { OdsContextKey = odsContextKey }))
             .ToArray();
 
 
         return contextValues;
-        
+
         DbConnection CreateConnectionAsync()
         {
             var newConnection = _dbProviderFactory.CreateConnection();
             newConnection.ConnectionString = _adminDatabaseConnectionStringProvider.GetConnectionString();
-            
+
             return newConnection;
         }
     }

@@ -68,7 +68,7 @@ namespace EdFi.Ods.Features.Controllers
             if (tokenInfoRequest == null || tokenInfoRequest.Token == null ||
                 !Guid.TryParse(tokenInfoRequest.Token, out Guid accessToken))
             {
-                return BadRequest(ErrorTranslator.GetErrorMessage("Invalid token", (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
+                return BadRequest(ErrorTranslator.GetErrorMessage("Invalid token", (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
             }
 
             var oAuthTokenClientDetails = await _apiClientDetailsProvider.GetApiClientDetailsForTokenAsync(accessToken.ToString("N"));

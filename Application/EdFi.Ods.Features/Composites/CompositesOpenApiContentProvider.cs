@@ -52,7 +52,7 @@ namespace EdFi.Ods.Features.Composites
                         OrganizationCode = x.OrganizationCode,
                         CategoryName = x.Name
                     })
-                .Select(x => new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()) {CompositeContext = x})
+                .Select(x => new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()) { CompositeContext = x })
                 .Select(
                     c =>
                         new OpenApiContent(

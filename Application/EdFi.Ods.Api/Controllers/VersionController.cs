@@ -85,13 +85,13 @@ namespace EdFi.Ods.Api.Controllers
                         {
                             odsContextUriTemplatePath = odsContextUriTemplatePath.Replace(
                                 $"{{{odsContextRouteKey}}}",
-                                (string) odsContextRouteValue);
+                                (string)odsContextRouteValue);
                         }
                     }
 
                     rootUrl = $"{rootUrl}/{odsContextUriTemplatePath}";
                 }
-                
+
                 if (_apiSettings.IsFeatureEnabled(ApiFeature.AggregateDependencies.GetConfigKeyName()))
                 {
                     urlsByName["dependencies"] = $"{rootUrl}/metadata/data/v{ApiVersionConstants.Ods}/dependencies";
