@@ -64,11 +64,11 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                 _logger.Debug($"Unable to locate swagger document for {openApiMetadataRequest.GetFeedName()}");
                 return false;
             }
-            
+
             document = GetMetadataForContent(
                 openApiContent, request, openApiMetadataRequest.OdsContext, openApiMetadataRequest.InstanceId,
                 openApiMetadataRequest.TenantIdentifierFromRoute, openApiSpecVersion);
-            
+
             return true;
         }
 
@@ -97,9 +97,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                 .Replace("%SCHEME%", request.Scheme(this._reverseProxySettings));
 
             document = document.Replace("{apiDataPath}", content.BasePath);
-            
+
             document = document.Replace("{currentTenant}", openApiSpecVersion == OpenApiSpecVersion.OpenApi3_0
-                ? $"/{tenantIdentifierRouteValue}".TrimEnd('/')
+                ? $"{tenantIdentifierRouteValue}"
                 : "");
 
             return document;
