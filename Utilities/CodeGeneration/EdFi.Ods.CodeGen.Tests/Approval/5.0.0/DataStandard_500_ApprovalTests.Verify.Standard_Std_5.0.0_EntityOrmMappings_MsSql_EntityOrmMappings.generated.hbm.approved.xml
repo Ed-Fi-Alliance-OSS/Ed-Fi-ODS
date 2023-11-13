@@ -2592,6 +2592,19 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.CourseTranscriptAggregate.EdFi.CourseTranscriptAlternativeCourseIdentificationCode" />
     </set>
 
+    <set name="CourseTranscriptCoursePrograms" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="CourseAttemptResultDescriptorId" />
+        <column name="CourseCode" />
+        <column name="CourseEducationOrganizationId" />
+        <column name="EducationOrganizationId" />
+        <column name="SchoolYear" />
+        <column name="StudentUSI" />
+        <column name="TermDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CourseTranscriptAggregate.EdFi.CourseTranscriptCourseProgram" />
+    </set>
+
     <set name="CourseTranscriptCreditCategories" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="CourseAttemptResultDescriptorId" />
@@ -2629,19 +2642,6 @@
         <column name="TermDescriptorId" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.CourseTranscriptAggregate.EdFi.CourseTranscriptPartialCourseTranscriptAwards" />
-    </set>
-
-    <set name="CourseTranscriptPrograms" cascade="all-delete-orphan" inverse="true" lazy="true">
-      <key>
-        <column name="CourseAttemptResultDescriptorId" />
-        <column name="CourseCode" />
-        <column name="CourseEducationOrganizationId" />
-        <column name="EducationOrganizationId" />
-        <column name="SchoolYear" />
-        <column name="StudentUSI" />
-        <column name="TermDescriptorId" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.CourseTranscriptAggregate.EdFi.CourseTranscriptProgram" />
     </set>
 
     <set name="CourseTranscriptSections" cascade="all-delete-orphan" inverse="true" lazy="true">
@@ -2716,6 +2716,42 @@
     <property name="IdentificationCode" column="IdentificationCode" type="string" length="60" not-null="true" />
 
     <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CourseTranscriptAggregate.EdFi.CourseTranscriptCourseProgram" table="CourseTranscriptCourseProgram" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="CourseProgramName" column="CourseProgramName" type="string" length="60" />
+      <key-property name="CourseProgramTypeDescriptorId" column="CourseProgramTypeDescriptorId" type="int" />
+      <key-many-to-one name="CourseTranscript">
+        <column name="CourseAttemptResultDescriptorId" />
+        <column name="CourseCode" />
+        <column name="CourseEducationOrganizationId" />
+        <column name="EducationOrganizationId" />
+        <column name="SchoolYear" />
+        <column name="StudentUSI" />
+        <column name="TermDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="CourseProgramReferenceData" class="EdFi.Ods.Entities.NHibernate.ProgramAggregate.EdFi.ProgramReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="CourseEducationOrganizationId" />
+      <column name="CourseProgramName" />
+      <column name="CourseProgramTypeDescriptorId" />
+    </many-to-one>
 
     <!-- Back references -->
 
@@ -2811,42 +2847,6 @@
     <property name="NumericGradeEarned" column="NumericGradeEarned" type="string" length="20" />
 
     <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CourseTranscriptAggregate.EdFi.CourseTranscriptProgram" table="CourseTranscriptProgram" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="ProgramName" column="ProgramName" type="string" length="60" />
-      <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" />
-      <key-many-to-one name="CourseTranscript">
-        <column name="CourseAttemptResultDescriptorId" />
-        <column name="CourseCode" />
-        <column name="CourseEducationOrganizationId" />
-        <column name="EducationOrganizationId" />
-        <column name="SchoolYear" />
-        <column name="StudentUSI" />
-        <column name="TermDescriptorId" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-    <many-to-one name="ProgramReferenceData" class="EdFi.Ods.Entities.NHibernate.ProgramAggregate.EdFi.ProgramReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="EducationOrganizationId" />
-      <column name="ProgramName" />
-      <column name="ProgramTypeDescriptorId" />
-    </many-to-one>
 
     <!-- Back references -->
 
@@ -5527,6 +5527,20 @@
 
           <!-- Collections -->
       </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.SpecialEducationExitReasonDescriptorAggregate.EdFi.SpecialEducationExitReasonDescriptor" table="SpecialEducationExitReasonDescriptor" lazy="false">
+          <key>
+            <column name="SpecialEducationExitReasonDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="SpecialEducationExitReasonDescriptorId" column="SpecialEducationExitReasonDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </joined-subclass>
     <joined-subclass name="EdFi.Ods.Entities.NHibernate.SpecialEducationProgramServiceDescriptorAggregate.EdFi.SpecialEducationProgramServiceDescriptor" table="SpecialEducationProgramServiceDescriptor" lazy="false">
           <key>
             <column name="SpecialEducationProgramServiceDescriptorId" />
@@ -7990,6 +8004,9 @@
           <property name="MedicallyFragile" column="MedicallyFragile" type="bool" />
           <property name="MultiplyDisabled" column="MultiplyDisabled" type="bool" />
           <property name="SchoolHoursPerWeek" column="SchoolHoursPerWeek" type="decimal" />
+          <property name="SpecialEducationExitDate" column="SpecialEducationExitDate" type="date" />
+          <property name="SpecialEducationExitExplained" column="SpecialEducationExitExplained" type="string" length="1024" />
+          <property name="SpecialEducationExitReasonDescriptorId" column="SpecialEducationExitReasonDescriptorId" type="int" />
           <property name="SpecialEducationHoursPerWeek" column="SpecialEducationHoursPerWeek" type="decimal" />
           <property name="SpecialEducationSettingDescriptorId" column="SpecialEducationSettingDescriptorId" type="int" />
 
@@ -11435,7 +11452,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="ProgramEvaluationRatingLevels" cascade="all-delete-orphan" inverse="true" lazy="true">
+    <set name="ProgramEvaluationLevels" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="ProgramEducationOrganizationId" />
         <column name="ProgramEvaluationPeriodDescriptorId" />
@@ -11444,7 +11461,7 @@
         <column name="ProgramName" />
         <column name="ProgramTypeDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.ProgramEvaluationAggregate.EdFi.ProgramEvaluationRatingLevel" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.ProgramEvaluationAggregate.EdFi.ProgramEvaluationLevel" />
     </set>
 
 </class>
@@ -11452,7 +11469,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.ProgramEvaluationAggregate.EdFi.ProgramEvaluationRatingLevel" table="ProgramEvaluationRatingLevel" lazy="false">
+  <class name="EdFi.Ods.Entities.NHibernate.ProgramEvaluationAggregate.EdFi.ProgramEvaluationLevel" table="ProgramEvaluationLevel" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="RatingLevelDescriptorId" column="RatingLevelDescriptorId" type="int" />
@@ -11554,7 +11571,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="ProgramEvaluationElementRatingLevels" cascade="all-delete-orphan" inverse="true" lazy="true">
+    <set name="ProgramEvaluationElementProgramEvaluationLevels" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="ProgramEducationOrganizationId" />
         <column name="ProgramEvaluationElementTitle" />
@@ -11564,7 +11581,7 @@
         <column name="ProgramName" />
         <column name="ProgramTypeDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElementRatingLevel" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElementProgramEvaluationLevel" />
     </set>
 
 </class>
@@ -11572,7 +11589,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElementRatingLevel" table="ProgramEvaluationElementRatingLevel" lazy="false">
+  <class name="EdFi.Ods.Entities.NHibernate.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElementProgramEvaluationLevel" table="ProgramEvaluationElementProgramEvaluationLevel" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="RatingLevelDescriptorId" column="RatingLevelDescriptorId" type="int" />
@@ -11665,7 +11682,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="ProgramEvaluationObjectiveRatingLevels" cascade="all-delete-orphan" inverse="true" lazy="true">
+    <set name="ProgramEvaluationObjectiveProgramEvaluationLevels" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="ProgramEducationOrganizationId" />
         <column name="ProgramEvaluationObjectiveTitle" />
@@ -11675,7 +11692,7 @@
         <column name="ProgramName" />
         <column name="ProgramTypeDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.ProgramEvaluationObjectiveAggregate.EdFi.ProgramEvaluationObjectiveRatingLevel" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.ProgramEvaluationObjectiveAggregate.EdFi.ProgramEvaluationObjectiveProgramEvaluationLevel" />
     </set>
 
 </class>
@@ -11683,7 +11700,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.ProgramEvaluationObjectiveAggregate.EdFi.ProgramEvaluationObjectiveRatingLevel" table="ProgramEvaluationObjectiveRatingLevel" lazy="false">
+  <class name="EdFi.Ods.Entities.NHibernate.ProgramEvaluationObjectiveAggregate.EdFi.ProgramEvaluationObjectiveProgramEvaluationLevel" table="ProgramEvaluationObjectiveProgramEvaluationLevel" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="RatingLevelDescriptorId" column="RatingLevelDescriptorId" type="int" />
@@ -14235,6 +14252,7 @@
     <class name="EdFi.Ods.Entities.NHibernate.StaffSectionAssociationAggregate.EdFi.StaffSectionAssociationReferenceData" table="StaffSectionAssociation" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
+            <key-property name="BeginDate" column="BeginDate" type="date"  />
             <key-property name="LocalCourseCode" column="LocalCourseCode" type="string"  length="60"  />
             <key-property name="SchoolId" column="SchoolId" type="long"  />
             <key-property name="SchoolYear" column="SchoolYear" type="short"  />
@@ -14253,6 +14271,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.StaffSectionAssociationAggregate.EdFi.StaffSectionAssociation" table="StaffSectionAssociation" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
+      <key-property name="BeginDate" column="BeginDate" type="date" />
       <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
       <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
@@ -14274,7 +14293,6 @@
     <property name="Id" column="Id" type="guid" not-null="true" />
 
     <!-- Properties -->
-    <property name="BeginDate" column="BeginDate" type="date" />
     <property name="ClassroomPositionDescriptorId" column="ClassroomPositionDescriptorId" type="int" not-null="true" />
     <property name="EndDate" column="EndDate" type="date" />
     <property name="HighlyQualifiedTeacher" column="HighlyQualifiedTeacher" type="bool" />
@@ -18182,6 +18200,7 @@
 
     <!-- Properties -->
     <property name="ConsentToEvaluationDate" column="ConsentToEvaluationDate" type="date" />
+    <property name="EligibilityConferenceDate" column="EligibilityConferenceDate" type="date" />
     <property name="EligibilityDelayReasonDescriptorId" column="EligibilityDelayReasonDescriptorId" type="int" />
     <property name="EligibilityDeterminationDate" column="EligibilityDeterminationDate" type="date" />
     <property name="EligibilityEvaluationDate" column="EligibilityEvaluationDate" type="date" />

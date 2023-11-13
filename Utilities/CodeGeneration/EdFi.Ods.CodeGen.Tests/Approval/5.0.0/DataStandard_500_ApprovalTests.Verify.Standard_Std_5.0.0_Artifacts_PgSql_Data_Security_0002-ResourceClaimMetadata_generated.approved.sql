@@ -1274,6 +1274,11 @@ begin
     values ('sourceSystemDescriptor', 'http://ed-fi.org/ods/identity/claims/sourceSystemDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='specialEducationExitReasonDescriptor') THEN
+    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
+    values ('specialEducationExitReasonDescriptor', 'http://ed-fi.org/ods/identity/claims/specialEducationExitReasonDescriptor', systemDescriptorsResourceClaimId);
+    END IF;
+
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='specialEducationProgramServiceDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('specialEducationProgramServiceDescriptor', 'http://ed-fi.org/ods/identity/claims/specialEducationProgramServiceDescriptor', systemDescriptorsResourceClaimId);

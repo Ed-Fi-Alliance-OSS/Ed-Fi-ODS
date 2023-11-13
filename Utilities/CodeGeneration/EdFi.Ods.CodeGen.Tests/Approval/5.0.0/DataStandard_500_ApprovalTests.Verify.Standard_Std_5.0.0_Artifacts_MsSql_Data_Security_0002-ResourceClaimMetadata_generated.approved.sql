@@ -2284,6 +2284,15 @@ BEGIN
 
 END
 
+IF NOT EXISTS(SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/specialEducationExitReasonDescriptor')
+BEGIN
+
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'specialEducationExitReasonDescriptor', N'http://ed-fi.org/ods/identity/claims/specialEducationExitReasonDescriptor',
+@systemDescriptorsResourceClaimId);
+
+END
+
 IF NOT EXISTS(SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/specialEducationProgramServiceDescriptor')
 BEGIN
 
