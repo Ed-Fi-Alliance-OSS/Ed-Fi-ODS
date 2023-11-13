@@ -198,9 +198,13 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
                     {
                         _connection = await ConnectionMultiplexer.ConnectAsync(_options.ConfigurationOptions).ConfigureAwait(false);
                     }
-                    else
+                    else if (!string.IsNullOrWhiteSpace(_options.Configuration))
                     {
                         _connection = await ConnectionMultiplexer.ConnectAsync(_options.Configuration).ConfigureAwait(false);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("External cache is enabled and configured for Redis, but neither a configuration string nor Redis configuration options have been provided in appsettings");
                     }
                 }
                 else

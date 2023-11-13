@@ -52,7 +52,7 @@ namespace EdFi.Ods.Common.Configuration
         public string PathBase { get; set; }
 
         public string OdsContextRouteTemplate { get; set; }
-        
+
         public CacheSettings Caching { get; set; } = new();
 
         public string OdsConnectionStringEncryptionKey
@@ -112,5 +112,16 @@ namespace EdFi.Ods.Common.Configuration
 
         public bool IsFeatureEnabled(string featureName)
             => Features.SingleOrDefault(x => x.Name.EqualsIgnoreCase(featureName) && x.IsEnabled) != null;
+
+        /// <summary>
+        /// Performs validation routines, for use after settings have been bound
+        /// to an instance. Warning: any unhandled exceptions will cause
+        /// application startup to fail, by design.
+        /// </summary>
+        /// <exception cref="Exceptions.InvalidConfigurationException" />
+        public void Validate()
+        {
+            Caching.Validate();
+        }
     }
 }

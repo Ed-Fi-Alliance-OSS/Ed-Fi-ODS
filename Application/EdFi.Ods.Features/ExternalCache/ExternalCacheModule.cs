@@ -7,6 +7,7 @@ using System;
 using Autofac;
 using Autofac.Core;
 using Castle.DynamicProxy;
+using EdFi.Common.Extensions;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Common.Caching;
@@ -50,9 +51,9 @@ namespace EdFi.Ods.Features.ExternalCache
 
         public abstract string ExternalCacheProvider { get; }
 
-        public bool IsProviderSelected(string externalCacheProvider)
+        public bool IsProviderSelected()
         {
-            return ExternalCacheProvider == externalCacheProvider;
+            return ExternalCacheProvider.EqualsIgnoreCase(ApiSettings.Caching.ExternalCacheProvider);
         }
 
         public void RegisterProvider(ContainerBuilder builder)
@@ -60,13 +61,13 @@ namespace EdFi.Ods.Features.ExternalCache
             builder.RegisterType<ExternalCacheProvider<string>>()
                 .WithParameter(
                     new ResolvedParameter(
-                        (p, c) => p.ParameterType == typeof(TimeSpan),
-                        (p, c) => GetDefaultExpiration(c)))
+                        (p, _) => p.ParameterType == typeof(TimeSpan),
+                        (_, _) => GetDefaultExpiration()))
                 .As<IExternalCacheProvider<string>>()
                 .SingleInstance();
         }
 
-        private TimeSpan GetDefaultExpiration(IComponentContext componentContext)
+        private static TimeSpan GetDefaultExpiration()
         {
             return TimeSpan.FromSeconds(1800);
         }
@@ -113,7 +114,7 @@ namespace EdFi.Ods.Features.ExternalCache
 
         public void OverridePersonUniqueIdToUsiCache(ContainerBuilder builder)
         {
-            if (IsProviderSelected("Redis"))
+            if (IsProviderSelected())
             {
                 builder.RegisterType<RedisUsiByUniqueIdMapCache>()
                     .WithParameter(
@@ -127,7 +128,7 @@ namespace EdFi.Ods.Features.ExternalCache
                             }))
                     .WithParameter(
                         new ResolvedParameter(
-                            (p, c) => p.Name.Equals("slidingExpirationPeriod", StringComparison.OrdinalIgnoreCase),
+                            (p, c) => p.Name.EqualsIgnoreCase("slidingExpirationPeriod"),
                             (p, c) =>
                             {
                                 var apiSettings = c.Resolve<ApiSettings>();
@@ -136,7 +137,7 @@ namespace EdFi.Ods.Features.ExternalCache
                             }))
                     .WithParameter(
                         new ResolvedParameter(
-                            (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.OrdinalIgnoreCase),
+                            (p, c) => p.Name.EqualsIgnoreCase("absoluteExpirationPeriod"),
                             (p, c) =>
                             {
                                 var apiSettings = c.Resolve<ApiSettings>();
@@ -158,7 +159,7 @@ namespace EdFi.Ods.Features.ExternalCache
                             }))
                     .WithParameter(
                         new ResolvedParameter(
-                            (p, c) => p.Name.Equals("slidingExpirationPeriod", StringComparison.OrdinalIgnoreCase),
+                            (p, c) => p.Name.EqualsIgnoreCase("slidingExpirationPeriod"),
                             (p, c) =>
                             {
                                 var apiSettings = c.Resolve<ApiSettings>();
@@ -167,7 +168,7 @@ namespace EdFi.Ods.Features.ExternalCache
                             }))
                     .WithParameter(
                         new ResolvedParameter(
-                            (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.OrdinalIgnoreCase),
+                            (p, c) => p.Name.EqualsIgnoreCase("absoluteExpirationPeriod"),
                             (p, c) =>
                             {
                                 var apiSettings = c.Resolve<ApiSettings>();

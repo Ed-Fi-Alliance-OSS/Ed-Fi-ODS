@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Runtime.Loader;
@@ -33,6 +34,7 @@ using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Descriptors;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Models;
@@ -53,7 +55,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Environment = NHibernate.Cfg.Environment;
 
 namespace EdFi.Ods.Api.Startup
 {
@@ -96,9 +97,17 @@ namespace EdFi.Ods.Api.Startup
             services.Configure<TenantsSection>(Configuration);
             services.Configure<OdsInstancesSection>(Configuration);
 
-            _apiSettings = new ApiSettings();
-            Configuration.Bind("ApiSettings", _apiSettings);
-            
+            try
+            {
+                _apiSettings = new ApiSettings();
+                Configuration.Bind("ApiSettings", _apiSettings);
+                _apiSettings.Validate();
+            } catch (ConfigurationException invalidConfiguration)
+            {
+                _logger.Fatal(invalidConfiguration);
+                Environment.Exit(1);
+            }
+
             var pluginSettings = new Plugin();
             Configuration.Bind("Plugin", pluginSettings);
             
@@ -255,7 +264,6 @@ namespace EdFi.Ods.Api.Startup
         public void Configure(
             IApplicationBuilder app,
             IWebHostEnvironment env,
-            ILoggerFactory loggerFactory,
             IOptions<ApiSettings> apiSettingsOptions,
             IApplicationConfigurationActivity[] configurationActivities)
         {
