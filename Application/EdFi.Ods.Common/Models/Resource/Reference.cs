@@ -13,7 +13,7 @@ namespace EdFi.Ods.Common.Models.Resource
 {
     public class Reference : ResourceMemberBase
     {
-        private readonly Lazy<IReadOnlyList<ResourceProperty>> _properties; 
+        private readonly Lazy<IReadOnlyList<ResourceProperty>> _abstractionProperties; 
         private readonly Lazy<IReadOnlyList<ResourceProperty>> _referenceTypeProperties;
         private readonly FullName _referencedResourceFullName;
 
@@ -30,7 +30,7 @@ namespace EdFi.Ods.Common.Models.Resource
             ReferenceTypeName = association.OtherEntity.Name + "Reference";
             _referencedResourceFullName = association.OtherEntity.FullName;
 
-            _properties = new Lazy<IReadOnlyList<ResourceProperty>>(
+            _abstractionProperties = new Lazy<IReadOnlyList<ResourceProperty>>(
                 () => association.ThisProperties
                     .Select(p => new ResourceProperty(this, resourceClass, p))
                     .ToList());
@@ -122,7 +122,7 @@ namespace EdFi.Ods.Common.Models.Resource
         /// </summary>
         public IEnumerable<ResourceProperty> AbstractionProperties
         {
-            get { return _properties.Value; }
+            get { return _abstractionProperties.Value; }
         }
     }
 }
