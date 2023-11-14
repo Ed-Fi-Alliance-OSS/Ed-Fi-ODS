@@ -66,7 +66,7 @@ namespace EdFi.Admin.DataAccess.Utils
                         {
                             var applicationEducationOrganization = application.CreateApplicationEducationOrganization(edOrgId);
                             application.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
-                            context.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
+                            context.ApplicationEducationOrganizations.Update(applicationEducationOrganization);
                         }
                     }
 
