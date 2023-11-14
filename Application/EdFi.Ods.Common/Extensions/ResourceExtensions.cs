@@ -87,21 +87,18 @@ namespace EdFi.Ods.Common.Extensions
         }
 
         /// <summary>
-        /// Contains all the properties for the resource excluding referenced properties (unless they are unified and locally defined).
+        /// Contains all the properties on the resource (excludes properties in references).
         /// </summary>
         /// <param name="resourceClassBase">Resource object</param>
         /// <returns></returns>
         public static IEnumerable<ResourceProperty> NonReferencedProperties(this ResourceClassBase resourceClassBase)
         {
-            var propertiesOfReferences = resourceClassBase.References
-                                    .SelectMany(r => r.Properties)
-                                    .Select(r => r.PropertyName)
-                                    .ToHashSet();
+            var properties = resourceClassBase.Properties
+                .Where(p => p.IsLocallyDefined || p.IsDirectDescriptorUsage
+                    || (p.EntityProperty.IsInheritedIdentifying
+                        && (p.EntityProperty.BaseProperty.IsLocallyDefined || p.EntityProperty.BaseProperty.IsDirectDescriptorUsage)));
 
-            return resourceClassBase.AllProperties
-                .Where(p => (p.IsUnified() && p.IsLocallyDefined && !p.PropertyType.IsNullable)
-                    || !propertiesOfReferences.Contains(p.PropertyName))
-                .Where(p => !p.JsonIgnore);
+            return properties;
         }
 
         /// <summary>
