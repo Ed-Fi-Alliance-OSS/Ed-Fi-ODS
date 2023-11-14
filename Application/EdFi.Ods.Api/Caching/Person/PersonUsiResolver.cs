@@ -11,7 +11,7 @@ using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 
-namespace EdFi.Ods.Api.Caching;
+namespace EdFi.Ods.Api.Caching.Person;
 
 /// <summary>
 /// Resolves USIs for supplied UniqueIds.
@@ -26,10 +26,26 @@ public class PersonUsiResolver : PersonIdentifierResolverBase<string, int>, IPer
         IContextProvider<OdsInstanceConfiguration> odsInstanceConfigurationContextProvider,
         IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int> mapCache,
         IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string> reverseMapCache,
-        Dictionary<string, bool> cacheSuppressionByPersonType)
-        : base(personMapCacheInitializer, odsInstanceConfigurationContextProvider, mapCache, reverseMapCache, cacheSuppressionByPersonType)
+        ICacheInitializationMarkerKeyProvider<string> cacheInitializationMarkerKeyForLookupProvider,
+        ICacheInitializationMarkerKeyProvider<int> cacheInitializationMarkerKeyForResolvedProvider,
+        Dictionary<string, bool> cacheSuppressionByPersonType,
+        bool useProgressiveLoading)
+        : base(
+            personMapCacheInitializer,
+            odsInstanceConfigurationContextProvider,
+            mapCache,
+            reverseMapCache,
+            cacheInitializationMarkerKeyForLookupProvider,
+            cacheInitializationMarkerKeyForResolvedProvider,
+            cacheSuppressionByPersonType,
+            useProgressiveLoading)
     {
         _personIdentifiersProvider = personIdentifiersProvider;
+    }
+
+    protected override PersonMapType MapType
+    {
+        get => PersonMapType.UsiByUniqueId;
     }
 
     /// <inheritdoc cref="IPersonUsiResolver.ResolveUsisAsync" />
@@ -43,11 +59,6 @@ public class PersonUsiResolver : PersonIdentifierResolverBase<string, int>, IPer
         ICollection<string> identifiersToLoad)
     {
         return await _personIdentifiersProvider.GetPersonUsisAsync(personType, identifiersToLoad.ToArray());
-    }
-
-    protected override PersonMapType MapType
-    {
-        get => PersonMapType.UsiByUniqueId;
     }
 
     protected override (string key, int value) ExtractKeyValueTuple(PersonIdentifiersValueMap personIdentifiers)

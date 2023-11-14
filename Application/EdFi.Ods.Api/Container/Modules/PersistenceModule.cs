@@ -11,6 +11,7 @@ using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Database;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Caching.Person;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common;
@@ -229,14 +230,14 @@ namespace EdFi.Ods.Api.Container.Modules
                 .RegisterType<InMemoryMapCache<(ulong odsInstanceHashId, string personType, PersonMapType personMapType), string, int>>()
                 .WithParameter(
                     new ResolvedParameter(
-                        (p, c) => p.Name.Equals("slidingExpiration", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) => p.Name.Equals("slidingExpirationPeriod", StringComparison.InvariantCultureIgnoreCase),
                         (p, c) =>
                         {
                             var apiSettings = c.Resolve<ApiSettings>();
 
-                            int period = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
+                            int slidingExpirationSeconds = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
 
-                            return TimeSpan.FromSeconds(period);
+                            return TimeSpan.FromSeconds(slidingExpirationSeconds);
                         }))
                 .WithParameter(
                     new ResolvedParameter(
@@ -245,9 +246,10 @@ namespace EdFi.Ods.Api.Container.Modules
                         {
                             var apiSettings = c.Resolve<ApiSettings>();
 
-                            int period = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
+                            int slidingExpirationSeconds = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
+                            int absoluteExpirationSeconds = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
 
-                            return TimeSpan.FromSeconds(period);
+                            return slidingExpirationSeconds <= 0 ? TimeSpan.FromSeconds(absoluteExpirationSeconds) : TimeSpan.Zero;
                         }))
                 .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int>>()
                 .SingleInstance();
@@ -255,14 +257,14 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<InMemoryMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
                 .WithParameter(
                     new ResolvedParameter(
-                        (p, c) => p.Name.Equals("slidingExpiration", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) => p.Name.Equals("slidingExpirationPeriod", StringComparison.InvariantCultureIgnoreCase),
                         (p, c) =>
                         {
                             var apiSettings = c.Resolve<ApiSettings>();
 
-                            int period = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
+                            int slidingExpirationSeconds = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
 
-                            return TimeSpan.FromSeconds(period);
+                            return TimeSpan.FromSeconds(slidingExpirationSeconds);
                         }))
                 .WithParameter(
                     new ResolvedParameter(
@@ -271,15 +273,24 @@ namespace EdFi.Ods.Api.Container.Modules
                         {
                             var apiSettings = c.Resolve<ApiSettings>();
 
-                            int period = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
+                            int slidingExpirationSeconds = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
+                            int absoluteExpirationSeconds = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
 
-                            return TimeSpan.FromSeconds(period);
+                            return slidingExpirationSeconds <= 0 ? TimeSpan.FromSeconds(absoluteExpirationSeconds) : TimeSpan.Zero;
                         }))
                 .As<IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string>>()
                 .SingleInstance();
 
             builder.RegisterType<PersonMapCacheInitializer>().As<IPersonMapCacheInitializer>().SingleInstance();
 
+            builder.RegisterType<UsiCacheInitializationMarkerKeyProvider>()
+                .As<ICacheInitializationMarkerKeyProvider<int>>()
+                .SingleInstance();
+
+            builder.RegisterType<UniqueIdCacheInitializationMarkerKeyProvider>()
+                .As<ICacheInitializationMarkerKeyProvider<string>>()
+                .SingleInstance();
+            
             builder.RegisterType<PersonUniqueIdResolver>()
                 .WithParameter(
                     new ResolvedParameter(
@@ -289,6 +300,15 @@ namespace EdFi.Ods.Api.Container.Modules
                             var apiSettings = c.Resolve<ApiSettings>();
 
                             return apiSettings.Caching.PersonUniqueIdToUsi.CacheSuppression;
+                        }))
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.EqualsIgnoreCase("useProgressiveLoading"),
+                        (p, c) =>
+                        {
+                            var apiSettings = c.Resolve<ApiSettings>();
+
+                            return apiSettings.Caching.PersonUniqueIdToUsi.UseProgressiveLoading;
                         }))
                 .As<IPersonUniqueIdResolver>()
                 .SingleInstance();
@@ -302,6 +322,15 @@ namespace EdFi.Ods.Api.Container.Modules
                             var apiSettings = c.Resolve<ApiSettings>();
 
                             return apiSettings.Caching.PersonUniqueIdToUsi.CacheSuppression;
+                        }))
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.EqualsIgnoreCase("useProgressiveLoading"),
+                        (p, c) =>
+                        {
+                            var apiSettings = c.Resolve<ApiSettings>();
+
+                            return apiSettings.Caching.PersonUniqueIdToUsi.UseProgressiveLoading;
                         }))
                 .As<IPersonUsiResolver>()
                 .SingleInstance();

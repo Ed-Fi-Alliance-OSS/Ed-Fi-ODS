@@ -9,9 +9,11 @@ using EdFi.Ods.Api.IdentityValueMappers;
 using NUnit.Framework;
 using FakeItEasy;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Caching.Person;
 using EdFi.Ods.Tests._Extensions;
-using Shouldly;
+using log4net;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching;
 
@@ -19,103 +21,86 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching;
 public class PersonMapCacheInitializerTests
 {
     [Test]
-    public void EnsurePersonMapsInitialized_ShouldInitializeCache_WhenNotAlreadyInitialized()
+    public async Task InitializePersonMapAsync_ShouldInitializeCache_WhenCalled()
     {
         // Arrange
-        var personType = "Student";
-        var odsInstanceHashId = 123456UL;
+        var personType = "TestPerson";
+        var odsInstanceHashId = 12345UL;
+        var personIdentifiersProvider = A.Fake<IPersonIdentifiersProvider>();
+        var usiByUniqueIdMapCache = A.Fake<IMapCache<(ulong, string, PersonMapType), int, string>>();
+        var uniqueIdByUsiMapCache = A.Fake<IMapCache<(ulong, string, PersonMapType), string, int>>();
 
-        var fakePersonIdentifiersProvider = A.Fake<IPersonIdentifiersProvider>();
-        var fakeUniqueIdByUsiMapCache = A.Fake<IMapCache<(ulong, string, PersonMapType), int, string>>();
-        var fakeUsiByUniqueIdMapCache = A.Fake<IMapCache<(ulong, string, PersonMapType), string, int>>();
+        A.CallTo(() => personIdentifiersProvider.GetAllPersonIdentifiersAsync(personType))
+            .Returns(new List<PersonIdentifiersValueMap>
+            {
+                new() { Usi = 1, UniqueId = "UniqueId1" },
+                new() { Usi = 2, UniqueId = "UniqueId2" }
+            });
 
-        var personIdentifiers = new List<PersonIdentifiersValueMap>
-        {
-            new() { Usi = 1, UniqueId = "UniqueId1" },
-            new() { Usi = 2, UniqueId = "UniqueId2" }
-        };
-
-        A.CallTo(() => fakePersonIdentifiersProvider.GetAllPersonIdentifiersAsync(personType))
-            .Returns(TaskHelpers.FromResultWithDelay<IEnumerable<PersonIdentifiersValueMap>>(personIdentifiers, 100));
-
-        var initializer = new PersonMapCacheInitializer(
-            fakePersonIdentifiersProvider,
-            fakeUniqueIdByUsiMapCache,
-            fakeUsiByUniqueIdMapCache);
+        var personMapCacheInitializer = new PersonMapCacheInitializer(
+            personIdentifiersProvider,
+            usiByUniqueIdMapCache,
+            uniqueIdByUsiMapCache);
 
         // Act
-        var initializationTask = initializer.EnsurePersonMapsInitialized(odsInstanceHashId, personType);
-        initializationTask?.ConfigureAwait(false).GetAwaiter().GetResult(); 
-        
-        // Assert
-        A.CallTo(() => fakePersonIdentifiersProvider.GetAllPersonIdentifiersAsync(personType))
-            .MustHaveHappenedOnceExactly();
+        await personMapCacheInitializer.InitializePersonMapAsync(odsInstanceHashId, personType);
 
+        // Assert
         var uniqueIdByUsiTuple = (odsInstanceHashId, personType, PersonMapType.UniqueIdByUsi);
         
-        A.CallTo(() => fakeUniqueIdByUsiMapCache.SetMapEntriesAsync(uniqueIdByUsiTuple,
-                A<(int, string)[]>.That.Matches(entries => TwoEntriesContainingUniqueId1And2(entries))))
+        A.CallTo(() => usiByUniqueIdMapCache.SetMapEntriesAsync(
+            uniqueIdByUsiTuple,
+            A<(int, string)[]>.That.Matches(entries => 
+                entries.Count() == 3
+                && entries[0].Item1 == 1 && entries[0].Item2 == "UniqueId1"
+                && entries[1].Item1 == 2 && entries[1].Item2 == "UniqueId2"
+                // Ensure that cache initialization marker entry is present at the end of the array
+                && entries[2].Item1 == CacheInitializationConstants.InitializationMarkerKeyForUsi 
+                && entries[2].Item2 == CacheInitializationConstants.InitializationMarkerKeyForUniqueId)))
             .MustHaveHappenedOnceExactly();
 
         var usiByUniqueIdTuple = (odsInstanceHashId, personType, PersonMapType.UsiByUniqueId);
-        
-        A.CallTo(() => fakeUsiByUniqueIdMapCache.SetMapEntriesAsync(usiByUniqueIdTuple,
-                A<(string, int)[]>.That.Matches(entries => TwoEntriesContainingUniqueId1And2(entries))))
-            .MustHaveHappenedOnceExactly();
 
-        // Task should be completed when not already initialized
-        initializationTask.Status.ShouldBe(TaskStatus.RanToCompletion);
+        A.CallTo(() => uniqueIdByUsiMapCache.SetMapEntriesAsync(
+            usiByUniqueIdTuple,
+            A<(string, int)[]>.That.Matches(entries => 
+                entries.Count() == 3
+                && entries[0].Item1 == "UniqueId1" && entries[0].Item2 == 1 
+                && entries[1].Item1 == "UniqueId2" && entries[1].Item2 == 2
+                // Ensure that cache initialization marker entry is present at the end of the array
+                && entries[2].Item1 == CacheInitializationConstants.InitializationMarkerKeyForUniqueId 
+                && entries[2].Item2 == CacheInitializationConstants.InitializationMarkerKeyForUsi)))
+            .MustHaveHappenedOnceExactly();
     }
 
-    private static bool TwoEntriesContainingUniqueId1And2((int, string)[] entries) => entries.Length == 2 && entries[0] == (1, "UniqueId1") && entries[1] == (2, "UniqueId2");
-    private static bool TwoEntriesContainingUniqueId1And2((string, int)[] entries) => entries.Length == 2 && entries[0] == ("UniqueId1", 1) && entries[1] == ("UniqueId2", 2);
-
     [Test]
-    public void EnsurePersonMapsInitialized_ShouldNotReinitializeCache_WhenAlreadyInitialized()
+    public async Task InitializePersonMapAsync_ShouldNotSetAnyCacheMapEntriesOrThrowException_WhenIdentifierProviderFails()
     {
         // Arrange
-        var personType = "Student";
-        var odsInstanceHashId = 123456UL;
-    
-        var fakePersonIdentifiersProvider = A.Fake<IPersonIdentifiersProvider>();
-        var fakeUniqueIdByUsiMapCache = A.Fake<IMapCache<(ulong, string, PersonMapType), int, string>>();
-        var fakeUsiByUniqueIdMapCache = A.Fake<IMapCache<(ulong, string, PersonMapType), string, int>>();
-    
-        A.CallTo(() => fakePersonIdentifiersProvider.GetAllPersonIdentifiersAsync(personType))
-            .Returns(TaskHelpers.FromResultWithDelay<IEnumerable<PersonIdentifiersValueMap>>(Array.Empty<PersonIdentifiersValueMap>(), 25));
+        var personType = "TestPerson";
+        var odsInstanceHashId = 12345UL;
+        var personIdentifiersProvider = A.Fake<IPersonIdentifiersProvider>();
+        var usiByUniqueIdMapCache = A.Fake<IMapCache<(ulong, string, PersonMapType), int, string>>();
+        var uniqueIdByUsiMapCache = A.Fake<IMapCache<(ulong, string, PersonMapType), string, int>>();
 
-        // Simulate that the cache is already initialized
-        var uniqueIdByUsiTuple = (odsInstanceHashId, personType, PersonMapType.UniqueIdByUsi);
-        
-        A.CallTo(() => fakeUniqueIdByUsiMapCache.SetMapEntriesAsync(
-                uniqueIdByUsiTuple,
-                A<(int, string)[]>.Ignored))
-            .DoesNothing();
+        A.CallTo(() => personIdentifiersProvider.GetAllPersonIdentifiersAsync(personType))
+            .Throws(new Exception("Failed to fetch identifiers"));
 
-        var usiByUniqueIdTuple = (odsInstanceHashId, personType, PersonMapType.UsiByUniqueId);
-        
-        A.CallTo(() => fakeUsiByUniqueIdMapCache.SetMapEntriesAsync(
-                usiByUniqueIdTuple,
-                A<(string, int)[]>.Ignored))
-            .DoesNothing();
-    
-        var initializer = new PersonMapCacheInitializer(
-            fakePersonIdentifiersProvider,
-            fakeUniqueIdByUsiMapCache,
-            fakeUsiByUniqueIdMapCache);
-    
+        var personMapCacheInitializer = new PersonMapCacheInitializer(
+            personIdentifiersProvider,
+            usiByUniqueIdMapCache,
+            uniqueIdByUsiMapCache);
+
         // Act
-        var initializationTask = initializer.EnsurePersonMapsInitialized(odsInstanceHashId, personType);
-        initializationTask.ConfigureAwait(false).GetAwaiter().GetResult();
+        await personMapCacheInitializer.InitializePersonMapAsync(odsInstanceHashId, personType);
 
-        // Repeat the same initialization
-        var initializationTask2 = initializer.EnsurePersonMapsInitialized(odsInstanceHashId, personType);
-        
-        // Task should be set to null once it's completed from previous initialization
-        initializationTask2.ShouldBeNull();
-        
         // Assert
-        A.CallTo(() => fakePersonIdentifiersProvider.GetAllPersonIdentifiersAsync(personType))
-            .MustHaveHappenedOnceExactly();
+        A.CallTo(() => uniqueIdByUsiMapCache.SetMapEntriesAsync(
+            A<(ulong, string, PersonMapType)>.Ignored, A<(string, int)[]>.Ignored))
+            .MustNotHaveHappened();
+        
+        A.CallTo(() => usiByUniqueIdMapCache.SetMapEntriesAsync(
+                A<(ulong, string, PersonMapType)>.Ignored, A<(int, string)[]>.Ignored))
+            .MustNotHaveHappened();
     }
 }

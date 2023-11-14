@@ -11,7 +11,7 @@ using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 
-namespace EdFi.Ods.Api.Caching;
+namespace EdFi.Ods.Api.Caching.Person;
 
 /// <summary>
 /// Resolves UniqueIds for supplied USIs.
@@ -26,8 +26,19 @@ public class PersonUniqueIdResolver : PersonIdentifierResolverBase<int, string>,
         IContextProvider<OdsInstanceConfiguration> odsInstanceConfigurationContextProvider,
         IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), int, string> mapCache,
         IMapCache<(ulong odsInstanceHashId, string personType, PersonMapType mapType), string, int> reverseMapCache,
-        Dictionary<string, bool> cacheSuppressionByPersonType)
-        : base(personMapCacheInitializer, odsInstanceConfigurationContextProvider, mapCache, reverseMapCache, cacheSuppressionByPersonType)
+        ICacheInitializationMarkerKeyProvider<int> cacheInitializationMarkerKeyForLookupProvider, 
+        ICacheInitializationMarkerKeyProvider<string> cacheInitializationMarkerKeyForResolvedProvider, 
+        Dictionary<string, bool> cacheSuppressionByPersonType,
+        bool useProgressiveLoading)
+        : base(
+            personMapCacheInitializer,
+            odsInstanceConfigurationContextProvider,
+            mapCache,
+            reverseMapCache,
+            cacheInitializationMarkerKeyForLookupProvider,
+            cacheInitializationMarkerKeyForResolvedProvider,
+            cacheSuppressionByPersonType,
+            useProgressiveLoading)
     {
         _personIdentifiersProvider = personIdentifiersProvider;
     }
