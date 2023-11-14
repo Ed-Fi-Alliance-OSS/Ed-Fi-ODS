@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.Common.Models.Resource
 {
@@ -35,8 +36,13 @@ namespace EdFi.Ods.Common.Models.Resource
                     .ToList());
 
             _referenceTypeProperties = new Lazy<IReadOnlyList<ResourceProperty>>(
-                () => resourceClass.ResourceModel.GetResourceByFullName(association.OtherEntity.FullName)
-                    .IdentifyingProperties);
+                () => association.OtherProperties
+                    .Join(resourceClass.ResourceModel.GetResourceByFullName(association.OtherEntity.FullName).IdentifyingProperties
+                        .Select(rp => new { EntityProperty = rp.EntityProperty, ResourceProperty = rp }),
+                        ep => ep.Entity.IsPersonEntity() ? UniqueIdConventions.GetUniqueIdPropertyName(ep.PropertyName) : ep.PropertyName,
+                        x => x.EntityProperty.PropertyName,
+                        (ep, x) => x.ResourceProperty)
+                    .ToList());
         }
 
         /// <summary>
@@ -112,9 +118,9 @@ namespace EdFi.Ods.Common.Models.Resource
         }
 
         /// <summary>
-        /// Get the properties for the current reference instance.
+        /// Get the properties for use in the resource-oriented "flattened" entity-level abstraction of the containing resource class.
         /// </summary>
-        public IEnumerable<ResourceProperty> Properties
+        public IEnumerable<ResourceProperty> AbstractionProperties
         {
             get { return _properties.Value; }
         }
