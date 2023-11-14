@@ -283,7 +283,7 @@ namespace {{ResourceClassesNamespace}}
             if (!_{{ReferenceFieldName}}ExplicitlyAssigned)
             {
                 {{#UnifiedKeyProperties}}
-                Implicit{{ReferencePropertyName}}.{{UnifiedKeyPropertyName}} = _{{ParentFieldName}}{{PropertyPath}}.{{UnifiedKeyPropertyName}};
+                Implicit{{ReferencePropertyName}}.{{ReferenceTypePropertyName}} = _{{ParentFieldName}}{{PropertyPath}}.{{UnifiedKeyPropertyName}};
                 {{/UnifiedKeyProperties}}
             }
             {{/ReferencesWithUnifiedKey}}
