@@ -30,14 +30,12 @@ public class PersonMapCacheInitializerTests
         var usiByUniqueIdMapCache = A.Fake<IMapCache<(ulong, string, PersonMapType), int, string>>();
         var uniqueIdByUsiMapCache = A.Fake<IMapCache<(ulong, string, PersonMapType), string, int>>();
 
-        var personIdentifiersValueMaps = new List<PersonIdentifiersValueMap>
-        {
-            new() { Usi = 1, UniqueId = "UniqueId1" },
-            new() { Usi = 2, UniqueId = "UniqueId2" }
-        };
-
         A.CallTo(() => personIdentifiersProvider.GetAllPersonIdentifiersAsync(personType))
-            .Returns(TaskHelpers.FromResultWithDelay<IEnumerable<PersonIdentifiersValueMap>>(personIdentifiersValueMaps, 100));
+            .Returns(new List<PersonIdentifiersValueMap>
+            {
+                new() { Usi = 1, UniqueId = "UniqueId1" },
+                new() { Usi = 2, UniqueId = "UniqueId2" }
+            });
 
         var personMapCacheInitializer = new PersonMapCacheInitializer(
             personIdentifiersProvider,
