@@ -65,7 +65,6 @@ select
 	comp_aaa.SchoolYear as PK1a_SchoolYear,
 	comp_aaa.SectionIdentifier as PK1a_SectionIdentifier,
 	comp_aaa.SessionName as PK1a_SessionName,
-	comp_aam.BeginDate as PK2b_BeginDate,
 	comp_aam.StaffUSI as PK2b_StaffUSI,
 	comp_aan.Id as id,
 	comp_aan.StaffUniqueId as staffUniqueId
@@ -85,7 +84,6 @@ order by comp_aaa.LocalCourseCode,
 	comp_aaa.SchoolYear,
 	comp_aaa.SectionIdentifier,
 	comp_aaa.SessionName,
-	comp_aam.BeginDate,
 	comp_aam.StaffUSI
 HQL:
 select 
