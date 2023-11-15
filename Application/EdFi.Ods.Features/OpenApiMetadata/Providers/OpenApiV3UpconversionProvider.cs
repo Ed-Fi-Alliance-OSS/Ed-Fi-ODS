@@ -140,7 +140,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
                 AddSecurityScheme(ref openApiDocument, singleValidContextValueForEachKey);
             }
 
-            serverVariable.Default = serverVariable.Enum.First();
+            serverVariable.Default = serverVariable.Enum.FirstOrDefault() ?? "";
 
             if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()) ||
                 !string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
@@ -188,7 +188,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
                     validRouteContextKeyValues.Select(
                         routeContextKey => _IEdFiAdminRawOdsInstanceConfigurationDataProvider
                             .GetDistinctOdsInstanceContextValuesAsync(routeContextKey, tenant?.AdminConnectionString).Result
-                            .First())).EnsureSuffixApplied("/");
+                            .FirstOrDefault() ?? "")).EnsureSuffixApplied("/");
             }
 
             string tenantSegment = tenant is null
