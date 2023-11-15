@@ -52,7 +52,7 @@ public class EdFiAdminRawOdsInstanceConfigurationDataProvider : IEdFiAdminRawOds
         }
     }
 
-    public async Task<string[]> GetDistinctOdsInstanceContextValuesAsync(string odsContextKey)
+    public async Task<string[]> GetDistinctOdsInstanceContextValuesAsync(string odsContextKey, string connectionStringOverride = null)
     {
         await using var connection = CreateConnectionAsync();
 
@@ -67,7 +67,7 @@ public class EdFiAdminRawOdsInstanceConfigurationDataProvider : IEdFiAdminRawOds
         DbConnection CreateConnectionAsync()
         {
             var newConnection = _dbProviderFactory.CreateConnection();
-            newConnection.ConnectionString = _adminDatabaseConnectionStringProvider.GetConnectionString();
+            newConnection.ConnectionString = connectionStringOverride ?? _adminDatabaseConnectionStringProvider.GetConnectionString();
 
             return newConnection;
         }

@@ -6,11 +6,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Autofac;
+using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Extensions;
+using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Configuration.Sections;
+using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Features.MultiTenancy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi;
@@ -29,18 +34,21 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
     private readonly ReverseProxySettings _reverseProxySettings;
     private readonly IEdFiAdminRawOdsInstanceConfigurationDataProvider _IEdFiAdminRawOdsInstanceConfigurationDataProvider;
     private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly IOptionsMonitor<TenantsSection> _tenantsConfigurationOptions;
+    private readonly IAdminDatabaseConnectionStringProvider _adminDatabaseConnectionStringProvider;
+    private readonly ITenantConfigurationMapProvider _tenantConfigurationMapProvider;
 
     public OpenApiV3UpconversionProvider(ApiSettings apiSettings,
         IEdFiAdminRawOdsInstanceConfigurationDataProvider IEdFiAdminRawOdsInstanceConfigurationDataProvider,
+        IAdminDatabaseConnectionStringProvider adminDatabaseConnectionStringProvider,
         IHttpContextAccessor httpContextAccessor,
-        IOptionsMonitor<TenantsSection> tenantsConfigurationOptions)
+        ITenantConfigurationMapProvider tenantConfigurationMapProvider = null)
     {
         _apiSettings = apiSettings;
         _reverseProxySettings = apiSettings.GetReverseProxySettings();
         _IEdFiAdminRawOdsInstanceConfigurationDataProvider = IEdFiAdminRawOdsInstanceConfigurationDataProvider;
+        _adminDatabaseConnectionStringProvider = adminDatabaseConnectionStringProvider;
         _httpContextAccessor = httpContextAccessor;
-        _tenantsConfigurationOptions = tenantsConfigurationOptions;
+        _tenantConfigurationMapProvider = tenantConfigurationMapProvider;
     }
 
     public string GetUpconvertedOpenApiJson(string openApiJson)
@@ -54,53 +62,154 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
     {
         openApiDocument.Servers.Clear();
 
-        var uriBase =
+        var baseServerUrl =
             $"{_httpContextAccessor.HttpContext?.Request.Scheme(this._reverseProxySettings)}://{_httpContextAccessor.HttpContext?.Request.Host(this._reverseProxySettings)}:{_httpContextAccessor.HttpContext?.Request.Port(this._reverseProxySettings)}";
 
-        var routeContextSegment = "";
+        var serverUrl = "";
 
-        if (!string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
+        if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()) ||
+            !string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
         {
-            routeContextSegment = $"{{{string.Join("}/{", _apiSettings.GetOdsContextRouteTemplateKeys())}}}".EnsureSuffixApplied("/");
+            serverUrl = $"{baseServerUrl}/{{ODS Selection}}";
+        }
+        else
+        {
+            serverUrl = baseServerUrl;
         }
 
         var odsServer = new OpenApiServer()
         {
-            Url = $"{uriBase}/{{currentTenant}}{routeContextSegment}{{apiDataPath}}",
+            Url = $"{serverUrl.EnsureSuffixApplied("/")}{{apiDataPath}}",
             Variables = new Dictionary<string, OpenApiServerVariable>()
         };
 
+        IDictionary<string, TenantConfiguration> tenantMap =
+            _tenantConfigurationMapProvider?.GetMap() ?? new Dictionary<string, TenantConfiguration>();
+
         openApiDocument.Servers.Add(odsServer);
+
+        OpenApiServerVariable serverVariable = new OpenApiServerVariable();
+        serverVariable.Description = "ODS Selection";
+
+        var odsRouteContextKeys = _apiSettings.GetOdsContextRouteTemplateKeys().ToList();
 
         foreach (var server in openApiDocument.Servers)
         {
-            if (!string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
             {
-                foreach (var contextRouteTemplateKey in _apiSettings.GetOdsContextRouteTemplateKeys())
+                foreach (var tenantMapEntry in tenantMap)
                 {
-                    var routeContextValues =
-                        _IEdFiAdminRawOdsInstanceConfigurationDataProvider.GetDistinctOdsInstanceContextValuesAsync(
-                            contextRouteTemplateKey);
+                    var connectionString = tenantMapEntry.Value.AdminConnectionString;
 
-                    server.Variables.Add(
-                        contextRouteTemplateKey,
-                        new OpenApiServerVariable()
-                        {
-                            Enum = routeContextValues
-                                .Result.ToList(),
-                            Default = routeContextValues
-                                .Result.ToList().Last()
-                        });
-
-                    openApiDocument.Components.SecuritySchemes.Single().Value.Flows.ClientCredentials.TokenUrl = new Uri(
-                        $"{uriBase}/{{currentTenant}}{routeContextValues.Result.ToList().Last()}/oauth/token");
+                    serverVariable.Enum.AddRange(
+                        GenerateContextValuePathCombinations(
+                            new List<string>() { $"{tenantMapEntry.Key}" }, odsRouteContextKeys.ToList(), connectionString));
                 }
             }
             else
             {
-                openApiDocument.Components.SecuritySchemes.Single().Value.Flows.ClientCredentials.TokenUrl = new Uri(
-                    $"{uriBase}/{{currentTenant}}oauth/token");
+                serverVariable.Enum.AddRange(
+                    GenerateContextValuePathCombinations(
+                        new List<string>() { $"" }, odsRouteContextKeys,
+                        _adminDatabaseConnectionStringProvider.GetConnectionString()));
             }
+
+            var routeContextKeys = _apiSettings.GetOdsContextRouteTemplateKeys().ToList();
+            
+            openApiDocument.Components.SecuritySchemes.Clear();
+            
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
+            {
+                foreach (KeyValuePair<string, TenantConfiguration> tenant in tenantMap)
+                {
+                    AddSecurityScheme(ref openApiDocument, routeContextKeys, tenant.Value);
+                }
+            }
+            else
+            {
+                var singleValidContextValueForEachKey = new List<string>();
+
+                if (routeContextKeys.Count > 0)
+                {
+                    singleValidContextValueForEachKey.AddRange(
+                        routeContextKeys.Select(
+                            routeContextKey => _IEdFiAdminRawOdsInstanceConfigurationDataProvider
+                                .GetDistinctOdsInstanceContextValuesAsync(routeContextKey).Result.First()));
+                }
+
+                AddSecurityScheme(ref openApiDocument, singleValidContextValueForEachKey);
+            }
+
+            serverVariable.Default = serverVariable.Enum.First();
+
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()) ||
+                !string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
+            {
+                server.Variables.Add("ODS Selection", serverVariable);
+            }
+        }
+
+        return;
+
+        // Recursively adds all combinations of valid route context values to the end of the strings in currentEnumValues
+        List<string> GenerateContextValuePathCombinations(List<string> currentEnumValues, List<string> routeContextKeys, string adminConnectionString)
+        {
+            var currentRouteContextKey = routeContextKeys.FirstOrDefault();
+
+            if (currentRouteContextKey is null)
+            {
+                return currentEnumValues;
+            }
+
+            var routeContextValuesForKey =
+                _IEdFiAdminRawOdsInstanceConfigurationDataProvider.GetDistinctOdsInstanceContextValuesAsync(
+                    currentRouteContextKey, adminConnectionString).Result;
+
+            List<string> newEnumValues = (from routeContextValue in routeContextValuesForKey
+                from enumValue in currentEnumValues
+                select $"{enumValue}/{routeContextValue}").ToList();
+
+            routeContextKeys.Remove(currentRouteContextKey);
+
+            return routeContextKeys.Count > 0
+                ? GenerateContextValuePathCombinations(newEnumValues, routeContextKeys, adminConnectionString)
+                : newEnumValues;
+        }
+
+        void AddSecurityScheme(ref OpenApiDocument openApiDocument, List<string> validRouteContextKeyValues,
+            TenantConfiguration tenant = null)
+        {
+            var routeContextValueSegment = "";
+
+            if (validRouteContextKeyValues.Count > 0)
+            {
+                routeContextValueSegment = string.Join(
+                    '/',
+                    validRouteContextKeyValues.Select(
+                        routeContextKey => _IEdFiAdminRawOdsInstanceConfigurationDataProvider
+                            .GetDistinctOdsInstanceContextValuesAsync(routeContextKey, tenant?.AdminConnectionString).Result
+                            .First())).EnsureSuffixApplied("/");
+            }
+
+            string tenantSegment = tenant is null
+                ? ""
+                : $"{tenant.TenantIdentifier}/";
+
+            OpenApiSecurityScheme securityScheme = new OpenApiSecurityScheme();
+
+            securityScheme.Type = SecuritySchemeType.OAuth2;
+            securityScheme.Description = "Ed-Fi ODS/API OAuth 2.0 Client Credentials Grant Type authorization";
+
+            securityScheme.Flows = new OpenApiOAuthFlows()
+            {
+                ClientCredentials = new OpenApiOAuthFlow
+                {
+                    TokenUrl = new Uri($"{baseServerUrl}/{tenantSegment}{routeContextValueSegment}oauth/token")
+                }
+            };
+
+            var tenantOauthSegment = tenant is null ? "" : $"{tenant.TenantIdentifier}_";
+            openApiDocument.Components.SecuritySchemes.Add($"{tenantOauthSegment}oauth2_client_credentials", securityScheme);
         }
     }
 }
