@@ -359,9 +359,6 @@ ALTER TABLE tpdm.EducatorPreparationProgram ADD CONSTRAINT FK_195935_EducationOr
 REFERENCES edfi.EducationOrganization (EducationOrganizationId)
 ;
 
-CREATE INDEX FK_195935_EducationOrganization
-ON tpdm.EducatorPreparationProgram (EducationOrganizationId ASC);
-
 ALTER TABLE tpdm.EducatorPreparationProgram ADD CONSTRAINT FK_195935_ProgramTypeDescriptor FOREIGN KEY (ProgramTypeDescriptorId)
 REFERENCES edfi.ProgramTypeDescriptor (ProgramTypeDescriptorId)
 ;
@@ -664,9 +661,6 @@ ON tpdm.PerformanceEvaluation (AcademicSubjectDescriptorId ASC);
 ALTER TABLE tpdm.PerformanceEvaluation ADD CONSTRAINT FK_15d685_EducationOrganization FOREIGN KEY (EducationOrganizationId)
 REFERENCES edfi.EducationOrganization (EducationOrganizationId)
 ;
-
-CREATE INDEX FK_15d685_EducationOrganization
-ON tpdm.PerformanceEvaluation (EducationOrganizationId ASC);
 
 ALTER TABLE tpdm.PerformanceEvaluation ADD CONSTRAINT FK_15d685_EvaluationPeriodDescriptor FOREIGN KEY (EvaluationPeriodDescriptorId)
 REFERENCES tpdm.EvaluationPeriodDescriptor (EvaluationPeriodDescriptorId)

@@ -395,10 +395,6 @@ ALTER TABLE [tpdm].[EducatorPreparationProgram] WITH CHECK ADD CONSTRAINT [FK_Ed
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
 
-CREATE NONCLUSTERED INDEX [FK_EducatorPreparationProgram_EducationOrganization]
-ON [tpdm].[EducatorPreparationProgram] ([EducationOrganizationId] ASC)
-GO
-
 ALTER TABLE [tpdm].[EducatorPreparationProgram] WITH CHECK ADD CONSTRAINT [FK_EducatorPreparationProgram_ProgramTypeDescriptor] FOREIGN KEY ([ProgramTypeDescriptorId])
 REFERENCES [edfi].[ProgramTypeDescriptor] ([ProgramTypeDescriptorId])
 GO
@@ -729,10 +725,6 @@ GO
 
 ALTER TABLE [tpdm].[PerformanceEvaluation] WITH CHECK ADD CONSTRAINT [FK_PerformanceEvaluation_EducationOrganization] FOREIGN KEY ([EducationOrganizationId])
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_PerformanceEvaluation_EducationOrganization]
-ON [tpdm].[PerformanceEvaluation] ([EducationOrganizationId] ASC)
 GO
 
 ALTER TABLE [tpdm].[PerformanceEvaluation] WITH CHECK ADD CONSTRAINT [FK_PerformanceEvaluation_EvaluationPeriodDescriptor] FOREIGN KEY ([EvaluationPeriodDescriptorId])
