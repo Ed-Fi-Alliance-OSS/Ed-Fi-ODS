@@ -55,12 +55,23 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
     {
         var openApiDocument = new OpenApiStringReader().Read(openApiJson, out _);
         PopulateServersConfiguration(ref openApiDocument);
+
+        foreach (var securityScheme in openApiDocument.Components.SecuritySchemes)
+        {
+            var securityRequirement = new OpenApiSecurityRequirement();
+            securityScheme.Value.Reference = new OpenApiReference() { Id = securityScheme.Key, Type =  ReferenceType.SecurityScheme};
+            securityRequirement.Add(securityScheme.Value, new List<string>());
+            openApiDocument.SecurityRequirements.Add(securityRequirement);
+        }
+        
         return openApiDocument.SerializeAsJson(OpenApiSpecVersion.OpenApi3_0);
     }
 
     private void PopulateServersConfiguration(ref OpenApiDocument openApiDocument)
     {
         openApiDocument.Servers.Clear();
+        openApiDocument.Components.SecuritySchemes.Clear();
+        openApiDocument.SecurityRequirements.Clear();
 
         var baseServerUrl =
             $"{_httpContextAccessor.HttpContext?.Request.Scheme(this._reverseProxySettings)}://{_httpContextAccessor.HttpContext?.Request.Host(this._reverseProxySettings)}:{_httpContextAccessor.HttpContext?.Request.Port(this._reverseProxySettings)}";
@@ -115,8 +126,6 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
             }
 
             var routeContextKeys = _apiSettings.GetOdsContextRouteTemplateKeys().ToList();
-            
-            openApiDocument.Components.SecuritySchemes.Clear();
             
             if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
             {
@@ -209,6 +218,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
             };
 
             var tenantOauthSegment = tenant is null ? "" : $"{tenant.TenantIdentifier}_";
+            securityScheme.Name = $"{tenantOauthSegment}oauth2_client_credentials";
             openApiDocument.Components.SecuritySchemes.Add($"{tenantOauthSegment}oauth2_client_credentials", securityScheme);
         }
     }
