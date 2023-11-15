@@ -5086,6 +5086,27 @@ ALTER TABLE [edfi].[SourceSystemDescriptor] ENABLE TRIGGER [edfi_SourceSystemDes
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_SpecialEducationExitReasonDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_SpecialEducationExitReasonDescriptor_TR_DeleteTracking] ON [edfi].[SpecialEducationExitReasonDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.SpecialEducationExitReasonDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.SpecialEducationExitReasonDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.SpecialEducationExitReasonDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[SpecialEducationExitReasonDescriptor] ENABLE TRIGGER [edfi_SpecialEducationExitReasonDescriptor_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_SpecialEducationProgramServiceDescriptor_TR_DeleteTracking]
 GO
 
@@ -5431,8 +5452,8 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_edfi].[StaffSectionAssociation](OldLocalCourseCode, OldSchoolId, OldSchoolYear, OldSectionIdentifier, OldSessionName, OldStaffUSI, OldStaffUniqueId, Id, Discriminator, ChangeVersion)
-    SELECT d.LocalCourseCode, d.SchoolId, d.SchoolYear, d.SectionIdentifier, d.SessionName, d.StaffUSI, j0.StaffUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_changes_edfi].[StaffSectionAssociation](OldBeginDate, OldLocalCourseCode, OldSchoolId, OldSchoolYear, OldSectionIdentifier, OldSessionName, OldStaffUSI, OldStaffUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.BeginDate, d.LocalCourseCode, d.SchoolId, d.SchoolYear, d.SectionIdentifier, d.SessionName, d.StaffUSI, j0.StaffUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
         INNER JOIN edfi.Staff j0
             ON d.StaffUSI = j0.StaffUSI

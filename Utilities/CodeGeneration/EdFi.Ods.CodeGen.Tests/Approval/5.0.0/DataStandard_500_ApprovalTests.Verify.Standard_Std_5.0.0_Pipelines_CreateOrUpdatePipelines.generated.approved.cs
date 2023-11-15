@@ -1493,6 +1493,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class SpecialEducationExitReasonDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.SpecialEducationExitReasonDescriptor.EdFi.SpecialEducationExitReasonDescriptor, Entities.NHibernate.SpecialEducationExitReasonDescriptorAggregate.EdFi.SpecialEducationExitReasonDescriptor>
+    {
+        public SpecialEducationExitReasonDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class SpecialEducationProgramServiceDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.SpecialEducationProgramServiceDescriptor.EdFi.SpecialEducationProgramServiceDescriptor, Entities.NHibernate.SpecialEducationProgramServiceDescriptorAggregate.EdFi.SpecialEducationProgramServiceDescriptor>
     {
         public SpecialEducationProgramServiceDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }

@@ -272,7 +272,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 ? property.EntityProperty.IncomingAssociations
                 : resource.References.Where(
                         r =>
-                            r.Properties.Contains(
+                            r.AbstractionProperties.Contains(
                                 property,
                                 ModelComparers.ResourcePropertyNameOnly))
                     .Select(r => r.Association)

@@ -674,12 +674,12 @@ BEGIN
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.staffsectionassociation(
-        oldlocalcoursecode, oldschoolid, oldschoolyear, oldsectionidentifier, oldsessionname, oldstaffusi, oldstaffuniqueid, 
-        newlocalcoursecode, newschoolid, newschoolyear, newsectionidentifier, newsessionname, newstaffusi, newstaffuniqueid, 
+        oldbegindate, oldlocalcoursecode, oldschoolid, oldschoolyear, oldsectionidentifier, oldsessionname, oldstaffusi, oldstaffuniqueid, 
+        newbegindate, newlocalcoursecode, newschoolid, newschoolyear, newsectionidentifier, newsessionname, newstaffusi, newstaffuniqueid, 
         id, changeversion)
     VALUES (
-        old.localcoursecode, old.schoolid, old.schoolyear, old.sectionidentifier, old.sessionname, old.staffusi, dj0.staffuniqueid, 
-        new.localcoursecode, new.schoolid, new.schoolyear, new.sectionidentifier, new.sessionname, new.staffusi, ij0.staffuniqueid, 
+        old.begindate, old.localcoursecode, old.schoolid, old.schoolyear, old.sectionidentifier, old.sessionname, old.staffusi, dj0.staffuniqueid, 
+        new.begindate, new.localcoursecode, new.schoolid, new.schoolyear, new.sectionidentifier, new.sessionname, new.staffusi, ij0.staffuniqueid, 
         old.id, (nextval('changes.changeversionsequence')));
 
     RETURN null;
@@ -687,7 +687,7 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'staffsectionassociation') THEN
-    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname, staffusi ON edfi.staffsectionassociation
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF begindate, localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname, staffusi ON edfi.staffsectionassociation
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.staffsectionassociation_keychg();
 END IF;
 

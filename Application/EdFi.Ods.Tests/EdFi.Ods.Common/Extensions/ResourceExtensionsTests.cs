@@ -161,7 +161,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Extensions
 
                 _expectedResourceProperties =
                     unifiedProperties.Where(
-                        p => !_resource.References.SelectMany(r => r.Properties)
+                        p => !_resource.References.SelectMany(r => r.AbstractionProperties)
                             .Contains(p));
             }
 

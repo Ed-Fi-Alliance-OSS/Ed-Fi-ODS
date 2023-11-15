@@ -30,12 +30,12 @@ namespace EdFi.Ods.CodeGen.Extensions
         public static bool IsExclusiveForIdentifyingColumns(this Reference reference)
         {
             var primaryKeysInReference = reference.Parent.AllProperties.Where(p => p.IsIdentifying)
-                .Intersect(reference.Properties);
+                .Intersect(reference.AbstractionProperties);
 
             var otherReferences = reference.Parent.References.Except(reference);
 
             var any = primaryKeysInReference
-                .Any(p => otherReferences.All(r => r.Properties.All(rp => !ModelComparers.ResourceProperty.Equals(rp, p))));
+                .Any(p => otherReferences.All(r => r.AbstractionProperties.All(rp => !ModelComparers.ResourceProperty.Equals(rp, p))));
 
             return any;
         }

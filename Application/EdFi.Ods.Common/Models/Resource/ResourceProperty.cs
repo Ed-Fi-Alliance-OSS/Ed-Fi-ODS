@@ -51,7 +51,6 @@ namespace EdFi.Ods.Common.Models.Resource
     public class ResourceProperty : ResourceMemberBase
     {
         private readonly ResourceMemberBase _containingMember;
-        private Lazy<IReadOnlyList<ResourceProperty>> _unifiedProperties;
         private Lazy<Resource> _descriptorResource;
 
         public ResourceProperty(ResourceClassBase resourceClass, EntityProperty entityProperty)
@@ -125,17 +124,6 @@ namespace EdFi.Ods.Common.Models.Resource
 
         private void InitializeLazyMembers()
         {
-            _unifiedProperties = new Lazy<IReadOnlyList<ResourceProperty>>(
-                () =>
-                {
-                    if (ResourceClass.UnifiedPropertiesByPropertyName.Value.TryGetValue(PropertyName, out var unifiedProperties))
-                    {
-                        return unifiedProperties.Except(new[] {this}).ToArray();
-                    }
-
-                    return Array.Empty<ResourceProperty>();
-                });
-
             _descriptorResource = new Lazy<Resource>(
                 () => EntityProperty.DescriptorEntity == null
                     ? null
@@ -297,16 +285,6 @@ namespace EdFi.Ods.Common.Models.Resource
 
                 return $"{_containingMember?.JsonPath ?? Parent.JsonPath}.{JsonPropertyName}";
             }
-        }
-
-        /// <summary>
-        /// Gets any other <see cref="ResourceProperty" /> instances present on other references
-        /// that are <em>unifying properties</em> -- properties whose values (if present) must all
-        /// match because they are unified into a single database column for persistence.
-        /// </summary>
-        public IReadOnlyList<ResourceProperty> UnifiedProperties 
-        {
-            get => _unifiedProperties.Value;
         }
     }
 }

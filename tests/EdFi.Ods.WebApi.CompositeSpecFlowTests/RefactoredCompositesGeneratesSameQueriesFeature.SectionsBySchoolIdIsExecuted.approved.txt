@@ -1,4 +1,4 @@
-HQL:
+﻿HQL:
 select 
 	comp_aaa.Id As __BaseEntityId__,
 	comp_aaa.LocalCourseCode as PK1a_LocalCourseCode,
@@ -64,6 +64,7 @@ select
 	comp_aaa.SchoolYear as PK1a_SchoolYear,
 	comp_aaa.SectionIdentifier as PK1a_SectionIdentifier,
 	comp_aaa.SessionName as PK1a_SessionName,
+	comp_aal.BeginDate as PK2b_BeginDate,
 	comp_aal.StaffUSI as PK2b_StaffUSI,
 	comp_aam.Id as id,
 	comp_aam.StaffUniqueId as staffUniqueId
@@ -83,6 +84,7 @@ order by comp_aaa.LocalCourseCode,
 	comp_aaa.SchoolYear,
 	comp_aaa.SectionIdentifier,
 	comp_aaa.SessionName,
+	comp_aal.BeginDate,
 	comp_aal.StaffUSI
 HQL:
 select 

@@ -7989,6 +7989,36 @@ namespace EdFi.Ods.Api.Services.Controllers.SourceSystemDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationExitReasonDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/specialEducationExitReasonDescriptors")]
+    public partial class SpecialEducationExitReasonDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.SpecialEducationExitReasonDescriptor.EdFi.SpecialEducationExitReasonDescriptor,
+        Entities.Common.EdFi.ISpecialEducationExitReasonDescriptor,
+        Entities.NHibernate.SpecialEducationExitReasonDescriptorAggregate.EdFi.SpecialEducationExitReasonDescriptor,
+        Api.Common.Models.Requests.SpecialEducationExitReasonDescriptors.EdFi.SpecialEducationExitReasonDescriptorPut,
+        Api.Common.Models.Requests.SpecialEducationExitReasonDescriptors.EdFi.SpecialEducationExitReasonDescriptorPost,
+        Api.Common.Models.Requests.SpecialEducationExitReasonDescriptors.EdFi.SpecialEducationExitReasonDescriptorDelete,
+        Api.Common.Models.Requests.SpecialEducationExitReasonDescriptors.EdFi.SpecialEducationExitReasonDescriptorGetByExample>
+    {
+        public SpecialEducationExitReasonDescriptorsController(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.SpecialEducationExitReasonDescriptors.EdFi.SpecialEducationExitReasonDescriptorGetByExample request, Entities.Common.EdFi.ISpecialEducationExitReasonDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.SpecialEducationExitReasonDescriptorId = request.SpecialEducationExitReasonDescriptorId;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationProgramServiceDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -9853,6 +9883,9 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.SchoolHoursPerWeek = request.SchoolHoursPerWeek;
+            specification.SpecialEducationExitDate = request.SpecialEducationExitDate;
+            specification.SpecialEducationExitExplained = request.SpecialEducationExitExplained;
+            specification.SpecialEducationExitReasonDescriptor = request.SpecialEducationExitReasonDescriptor;
             specification.SpecialEducationHoursPerWeek = request.SpecialEducationHoursPerWeek;
             specification.SpecialEducationSettingDescriptor = request.SpecialEducationSettingDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
@@ -9888,6 +9921,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramEligib
             specification.ConsentToEvaluationDate = request.ConsentToEvaluationDate;
             specification.ConsentToEvaluationReceivedDate = request.ConsentToEvaluationReceivedDate;
             specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EligibilityConferenceDate = request.EligibilityConferenceDate;
             specification.EligibilityDelayReasonDescriptor = request.EligibilityDelayReasonDescriptor;
             specification.EligibilityDeterminationDate = request.EligibilityDeterminationDate;
             specification.EligibilityEvaluationDate = request.EligibilityEvaluationDate;

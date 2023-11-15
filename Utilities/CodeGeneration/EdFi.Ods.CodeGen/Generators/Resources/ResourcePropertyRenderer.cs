@@ -72,13 +72,14 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                     templateContext.IsExtension),
                             ReferencesWithUnifiedKey =
                                 resourceClass.References
-                                    .Where(@ref => @ref.Properties.Any(rp => rp.IsUnified()))
+                                    .Where(@ref => @ref.AbstractionProperties.Any(rp => rp.IsUnified()))
                                     .Select(@ref => new
                                     {
                                         ReferencePropertyName = @ref.PropertyName,
                                         ReferenceFieldName = @ref.PropertyName.ToCamelCase(),
-                                        UnifiedKeyProperties = @ref.Properties
-                                            .Where(rp => rp.IsUnified())
+                                        UnifiedKeyProperties = @ref.AbstractionProperties
+                                            .Select((rp, i) => new { AbstractionProperty = rp, ReferenceTypePropertyName = @ref.ReferenceTypeProperties.ElementAt(i).PropertyName })
+                                            .Where(rp => rp.AbstractionProperty.IsUnified())
                                             .Select(rp => new
                                             {
                                                 PropertyPath = resourceChildItem is
@@ -91,7 +92,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                                         resourceChildItem.GetLineage().TakeWhile(l => !l.IsResourceExtension)
                                                             .Select(l => "." + l.Name))
                                                     : null,
-                                                UnifiedKeyPropertyName = rp.PropertyName
+                                                UnifiedKeyPropertyName = rp.AbstractionProperty.PropertyName,
+                                                ReferenceTypePropertyName = rp.ReferenceTypePropertyName
                                             })
                                     })
                         }

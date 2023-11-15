@@ -110,9 +110,7 @@ namespace EdFi.Ods.Common.Models.Resource
 
             public Resource GetByName(FullName fullName)
             {
-                return GetByName(fullName, model => model.ResourceByName)
-                    // No resources means there's no Profile in play so we should return the main ResourceModel's resource
-                    ??  UnderlyingResourceSelector.GetByName(fullName); 
+                return GetByName(fullName, model => model.ResourceByName); 
             }
 
             public Resource GetByApiCollectionName(string schemaUriSegment, string resourceCollectionName)
@@ -169,7 +167,8 @@ namespace EdFi.Ods.Common.Models.Resource
                     return new Resource(allProfileResources.Where(x => x != null).ToArray());
                 }
 
-                return null;
+                // No resources means there's no Profile in play so we should return the main ResourceModel's resource
+                return UnderlyingResourceSelector.GetByName(fullName);
             }
         }
 

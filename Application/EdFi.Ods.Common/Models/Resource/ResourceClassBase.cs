@@ -605,7 +605,7 @@ namespace EdFi.Ods.Common.Models.Resource
                             .OrderByDescending(
                                 r => (r.Association.IsIdentifying ? 100: 0)
                                     + (r.IsRequired ? 10 : 0))
-                            .SelectMany(r => r.Properties))
+                            .SelectMany(r => r.AbstractionProperties))
 
                     // Add non-identifying properties
                     .Concat(Properties.Where(p => !p.IsIdentifying))

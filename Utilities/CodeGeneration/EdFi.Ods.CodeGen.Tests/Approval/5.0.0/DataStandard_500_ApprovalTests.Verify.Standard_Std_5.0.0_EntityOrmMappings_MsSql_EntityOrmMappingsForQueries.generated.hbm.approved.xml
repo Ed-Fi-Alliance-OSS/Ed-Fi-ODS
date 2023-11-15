@@ -2793,6 +2793,19 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptAlternativeCourseIdentificationCodeQ" />
     </set>
 
+    <set name="CourseTranscriptCoursePrograms" cascade="none" lazy="true">
+      <key>
+        <column name="CourseAttemptResultDescriptorId" />
+        <column name="CourseCode" />
+        <column name="CourseEducationOrganizationId" />
+        <column name="EducationOrganizationId" />
+        <column name="SchoolYear" />
+        <column name="StudentUSI" />
+        <column name="TermDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptCourseProgramQ" />
+    </set>
+
     <set name="CourseTranscriptCreditCategories" cascade="none" lazy="true">
       <key>
         <column name="CourseAttemptResultDescriptorId" />
@@ -2830,19 +2843,6 @@
         <column name="TermDescriptorId" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptPartialCourseTranscriptAwardsQ" />
-    </set>
-
-    <set name="CourseTranscriptPrograms" cascade="none" lazy="true">
-      <key>
-        <column name="CourseAttemptResultDescriptorId" />
-        <column name="CourseCode" />
-        <column name="CourseEducationOrganizationId" />
-        <column name="EducationOrganizationId" />
-        <column name="SchoolYear" />
-        <column name="StudentUSI" />
-        <column name="TermDescriptorId" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptProgramQ" />
     </set>
 
     <set name="CourseTranscriptSections" cascade="none" lazy="true">
@@ -2924,6 +2924,42 @@
     <!-- Back references -->
     <many-to-one name="CourseIdentificationSystemDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.CourseIdentificationSystemDescriptorAggregate.EdFi.CourseIdentificationSystemDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="CourseIdentificationSystemDescriptorId" />
+    </many-to-one>
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptCourseProgramQ" table="CourseTranscriptCourseProgram" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="CourseProgramName" column="CourseProgramName" type="string" length="60" />
+      <key-property name="CourseProgramTypeDescriptorId" column="CourseProgramTypeDescriptorId" type="int" />
+      <key-many-to-one name="CourseTranscript">
+        <column name="CourseAttemptResultDescriptorId" />
+        <column name="CourseCode" />
+        <column name="CourseEducationOrganizationId" />
+        <column name="EducationOrganizationId" />
+        <column name="SchoolYear" />
+        <column name="StudentUSI" />
+        <column name="TermDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+    <many-to-one name="CourseProgram" class="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramAggregate.EdFi.ProgramQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="CourseEducationOrganizationId" />
+        <column name="CourseProgramName" />
+        <column name="CourseProgramTypeDescriptorId" />
     </many-to-one>
 
     <!-- Collections -->
@@ -3028,42 +3064,6 @@
     <!-- Back references -->
     <many-to-one name="MethodCreditEarnedDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.MethodCreditEarnedDescriptorAggregate.EdFi.MethodCreditEarnedDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="MethodCreditEarnedDescriptorId" />
-    </many-to-one>
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptProgramQ" table="CourseTranscriptProgram" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="ProgramName" column="ProgramName" type="string" length="60" />
-      <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" />
-      <key-many-to-one name="CourseTranscript">
-        <column name="CourseAttemptResultDescriptorId" />
-        <column name="CourseCode" />
-        <column name="CourseEducationOrganizationId" />
-        <column name="EducationOrganizationId" />
-        <column name="SchoolYear" />
-        <column name="StudentUSI" />
-        <column name="TermDescriptorId" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-    <many-to-one name="Program" class="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramAggregate.EdFi.ProgramQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="EducationOrganizationId" />
-        <column name="ProgramName" />
-        <column name="ProgramTypeDescriptorId" />
     </many-to-one>
 
     <!-- Collections -->
@@ -7568,25 +7568,25 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.EvaluationRubricDimensionAggregate.EdFi.EvaluationRubricDimensionQ" />
           </set>
 
-          <set name="ProgramEvaluationElementRatingLevels" cascade="none" lazy="true">
+          <set name="ProgramEvaluationElementProgramEvaluationLevels" cascade="none" lazy="true">
             <key>
               <column name="RatingLevelDescriptorId" />
             </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElementRatingLevelQ" />
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElementProgramEvaluationLevelQ" />
           </set>
 
-          <set name="ProgramEvaluationObjectiveRatingLevels" cascade="none" lazy="true">
+          <set name="ProgramEvaluationLevels" cascade="none" lazy="true">
             <key>
               <column name="RatingLevelDescriptorId" />
             </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationObjectiveAggregate.EdFi.ProgramEvaluationObjectiveRatingLevelQ" />
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationAggregate.EdFi.ProgramEvaluationLevelQ" />
           </set>
 
-          <set name="ProgramEvaluationRatingLevels" cascade="none" lazy="true">
+          <set name="ProgramEvaluationObjectiveProgramEvaluationLevels" cascade="none" lazy="true">
             <key>
               <column name="RatingLevelDescriptorId" />
             </key>
-            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationAggregate.EdFi.ProgramEvaluationRatingLevelQ" />
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationObjectiveAggregate.EdFi.ProgramEvaluationObjectiveProgramEvaluationLevelQ" />
           </set>
 
           <set name="StudentProgramEvaluations" cascade="none" lazy="true">
@@ -8301,6 +8301,27 @@
               <column name="SourceSystemDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.PersonAggregate.EdFi.PersonQ" />
+          </set>
+
+      </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.SpecialEducationExitReasonDescriptorAggregate.EdFi.SpecialEducationExitReasonDescriptorQ" table="SpecialEducationExitReasonDescriptor" lazy="false">
+          <key>
+            <column name="SpecialEducationExitReasonDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="SpecialEducationExitReasonDescriptorId" column="SpecialEducationExitReasonDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+          <set name="StudentSpecialEducationProgramAssociations" cascade="none" lazy="true">
+            <key>
+              <column name="SpecialEducationExitReasonDescriptorId" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationQ" />
           </set>
 
       </joined-subclass>
@@ -11577,12 +11598,18 @@
           <property name="MedicallyFragile" column="MedicallyFragile" type="bool" />
           <property name="MultiplyDisabled" column="MultiplyDisabled" type="bool" />
           <property name="SchoolHoursPerWeek" column="SchoolHoursPerWeek" type="decimal" />
+          <property name="SpecialEducationExitDate" column="SpecialEducationExitDate" type="date" />
+          <property name="SpecialEducationExitExplained" column="SpecialEducationExitExplained" type="string" length="1024" />
+          <property name="SpecialEducationExitReasonDescriptorId" column="SpecialEducationExitReasonDescriptorId" type="int" />
           <property name="SpecialEducationHoursPerWeek" column="SpecialEducationHoursPerWeek" type="decimal" />
           <property name="SpecialEducationSettingDescriptorId" column="SpecialEducationSettingDescriptorId" type="int" />
 
           <!-- Aggregate references -->
 
           <!-- Back references -->
+          <many-to-one name="SpecialEducationExitReasonDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.SpecialEducationExitReasonDescriptorAggregate.EdFi.SpecialEducationExitReasonDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+            <column name="SpecialEducationExitReasonDescriptorId" />
+          </many-to-one>
           <many-to-one name="SpecialEducationSettingDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.SpecialEducationSettingDescriptorAggregate.EdFi.SpecialEducationSettingDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
             <column name="SpecialEducationSettingDescriptorId" />
           </many-to-one>
@@ -15043,13 +15070,13 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CohortAggregate.EdFi.CohortProgramQ" />
     </set>
 
-    <set name="CourseTranscriptPrograms" cascade="none" lazy="true">
+    <set name="CourseTranscriptCoursePrograms" cascade="none" lazy="true">
       <key>
-        <column name="EducationOrganizationId" />
-        <column name="ProgramName" />
-        <column name="ProgramTypeDescriptorId" />
+        <column name="CourseEducationOrganizationId" />
+        <column name="CourseProgramName" />
+        <column name="CourseProgramTypeDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptProgramQ" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptCourseProgramQ" />
     </set>
 
     <set name="GeneralStudentProgramAssociations" cascade="none" lazy="true">
@@ -15388,6 +15415,18 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElementQ" />
     </set>
 
+    <set name="ProgramEvaluationLevels" cascade="none" lazy="true">
+      <key>
+        <column name="ProgramEducationOrganizationId" />
+        <column name="ProgramEvaluationPeriodDescriptorId" />
+        <column name="ProgramEvaluationTitle" />
+        <column name="ProgramEvaluationTypeDescriptorId" />
+        <column name="ProgramName" />
+        <column name="ProgramTypeDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationAggregate.EdFi.ProgramEvaluationLevelQ" />
+    </set>
+
     <set name="ProgramEvaluationObjectives" cascade="none" lazy="true">
       <key>
         <column name="ProgramEducationOrganizationId" />
@@ -15398,18 +15437,6 @@
         <column name="ProgramTypeDescriptorId" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationObjectiveAggregate.EdFi.ProgramEvaluationObjectiveQ" />
-    </set>
-
-    <set name="ProgramEvaluationRatingLevels" cascade="none" lazy="true">
-      <key>
-        <column name="ProgramEducationOrganizationId" />
-        <column name="ProgramEvaluationPeriodDescriptorId" />
-        <column name="ProgramEvaluationTitle" />
-        <column name="ProgramEvaluationTypeDescriptorId" />
-        <column name="ProgramName" />
-        <column name="ProgramTypeDescriptorId" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationAggregate.EdFi.ProgramEvaluationRatingLevelQ" />
     </set>
 
     <set name="StudentProgramEvaluations" cascade="none" lazy="true">
@@ -15429,7 +15456,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationAggregate.EdFi.ProgramEvaluationRatingLevelQ" table="ProgramEvaluationRatingLevel" lazy="false">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationAggregate.EdFi.ProgramEvaluationLevelQ" table="ProgramEvaluationLevel" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="RatingLevelDescriptorId" column="RatingLevelDescriptorId" type="int" />
@@ -15531,7 +15558,7 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.EvaluationRubricDimensionAggregate.EdFi.EvaluationRubricDimensionQ" />
     </set>
 
-    <set name="ProgramEvaluationElementRatingLevels" cascade="none" lazy="true">
+    <set name="ProgramEvaluationElementProgramEvaluationLevels" cascade="none" lazy="true">
       <key>
         <column name="ProgramEducationOrganizationId" />
         <column name="ProgramEvaluationElementTitle" />
@@ -15541,7 +15568,7 @@
         <column name="ProgramName" />
         <column name="ProgramTypeDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElementRatingLevelQ" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElementProgramEvaluationLevelQ" />
     </set>
 
     <set name="StudentProgramEvaluationStudentEvaluationElements" cascade="none" lazy="true">
@@ -15562,7 +15589,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElementRatingLevelQ" table="ProgramEvaluationElementRatingLevel" lazy="false">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElementProgramEvaluationLevelQ" table="ProgramEvaluationElementProgramEvaluationLevel" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="RatingLevelDescriptorId" column="RatingLevelDescriptorId" type="int" />
@@ -15655,7 +15682,7 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationElementAggregate.EdFi.ProgramEvaluationElementQ" />
     </set>
 
-    <set name="ProgramEvaluationObjectiveRatingLevels" cascade="none" lazy="true">
+    <set name="ProgramEvaluationObjectiveProgramEvaluationLevels" cascade="none" lazy="true">
       <key>
         <column name="ProgramEducationOrganizationId" />
         <column name="ProgramEvaluationObjectiveTitle" />
@@ -15665,7 +15692,7 @@
         <column name="ProgramName" />
         <column name="ProgramTypeDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationObjectiveAggregate.EdFi.ProgramEvaluationObjectiveRatingLevelQ" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationObjectiveAggregate.EdFi.ProgramEvaluationObjectiveProgramEvaluationLevelQ" />
     </set>
 
     <set name="StudentProgramEvaluationStudentEvaluationObjectives" cascade="none" lazy="true">
@@ -15686,7 +15713,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationObjectiveAggregate.EdFi.ProgramEvaluationObjectiveRatingLevelQ" table="ProgramEvaluationObjectiveRatingLevel" lazy="false">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramEvaluationObjectiveAggregate.EdFi.ProgramEvaluationObjectiveProgramEvaluationLevelQ" table="ProgramEvaluationObjectiveProgramEvaluationLevel" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="RatingLevelDescriptorId" column="RatingLevelDescriptorId" type="int" />
@@ -18624,6 +18651,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffSectionAssociationAggregate.EdFi.StaffSectionAssociationQ" table="StaffSectionAssociation" lazy="false" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
+      <key-property name="BeginDate" column="BeginDate" type="date" />
       <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
       <key-property name="SchoolId" column="SchoolId" type="long" />
       <key-property name="SchoolYear" column="SchoolYear" type="short" />
@@ -18647,7 +18675,6 @@
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
     <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
-    <property name="BeginDate" column="BeginDate" type="date" />
     <property name="ClassroomPositionDescriptorId" column="ClassroomPositionDescriptorId" type="int" not-null="true" />
     <property name="EndDate" column="EndDate" type="date" />
     <property name="HighlyQualifiedTeacher" column="HighlyQualifiedTeacher" type="bool" />
@@ -22871,6 +22898,7 @@
     <!-- Readonly property to surface the discriminator value -->
     <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
     <property name="ConsentToEvaluationDate" column="ConsentToEvaluationDate" type="date" />
+    <property name="EligibilityConferenceDate" column="EligibilityConferenceDate" type="date" />
     <property name="EligibilityDelayReasonDescriptorId" column="EligibilityDelayReasonDescriptorId" type="int" />
     <property name="EligibilityDeterminationDate" column="EligibilityDeterminationDate" type="date" />
     <property name="EligibilityEvaluationDate" column="EligibilityEvaluationDate" type="date" />

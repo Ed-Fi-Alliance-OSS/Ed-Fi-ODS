@@ -1400,6 +1400,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/specialEducationExitReasonDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/specialEducationProgramServiceDescriptors",
     "order": 1,
     "operations": [

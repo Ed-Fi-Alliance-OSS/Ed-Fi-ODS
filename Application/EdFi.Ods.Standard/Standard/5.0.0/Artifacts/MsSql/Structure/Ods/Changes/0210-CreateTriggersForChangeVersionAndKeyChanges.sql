@@ -1178,12 +1178,12 @@ BEGIN
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.StaffSectionAssociation(
-        OldLocalCourseCode, OldSchoolId, OldSchoolYear, OldSectionIdentifier, OldSessionName, OldStaffUSI, OldStaffUniqueId, 
-        NewLocalCourseCode, NewSchoolId, NewSchoolYear, NewSectionIdentifier, NewSessionName, NewStaffUSI, NewStaffUniqueId, 
+        OldBeginDate, OldLocalCourseCode, OldSchoolId, OldSchoolYear, OldSectionIdentifier, OldSessionName, OldStaffUSI, OldStaffUniqueId, 
+        NewBeginDate, NewLocalCourseCode, NewSchoolId, NewSchoolYear, NewSectionIdentifier, NewSessionName, NewStaffUSI, NewStaffUniqueId, 
         Id, ChangeVersion)
     SELECT
-        d.LocalCourseCode, d.SchoolId, d.SchoolYear, d.SectionIdentifier, d.SessionName, d.StaffUSI, dj0.StaffUniqueId, 
-        i.LocalCourseCode, i.SchoolId, i.SchoolYear, i.SectionIdentifier, i.SessionName, i.StaffUSI, ij0.StaffUniqueId, 
+        d.BeginDate, d.LocalCourseCode, d.SchoolId, d.SchoolYear, d.SectionIdentifier, d.SessionName, d.StaffUSI, dj0.StaffUniqueId, 
+        i.BeginDate, i.LocalCourseCode, i.SchoolId, i.SchoolYear, i.SectionIdentifier, i.SessionName, i.StaffUSI, ij0.StaffUniqueId, 
         d.Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM deleted d INNER JOIN inserted i ON d.Id = i.Id
         INNER JOIN edfi.Staff dj0
@@ -1192,7 +1192,7 @@ BEGIN
             ON i.StaffUSI = ij0.StaffUSI
 
     WHERE
-        d.LocalCourseCode <> i.LocalCourseCode OR d.SchoolId <> i.SchoolId OR d.SchoolYear <> i.SchoolYear OR d.SectionIdentifier <> i.SectionIdentifier OR d.SessionName <> i.SessionName OR d.StaffUSI <> i.StaffUSI;
+        d.BeginDate <> i.BeginDate OR d.LocalCourseCode <> i.LocalCourseCode OR d.SchoolId <> i.SchoolId OR d.SchoolYear <> i.SchoolYear OR d.SectionIdentifier <> i.SectionIdentifier OR d.SessionName <> i.SessionName OR d.StaffUSI <> i.StaffUSI;
 END	
 GO
 

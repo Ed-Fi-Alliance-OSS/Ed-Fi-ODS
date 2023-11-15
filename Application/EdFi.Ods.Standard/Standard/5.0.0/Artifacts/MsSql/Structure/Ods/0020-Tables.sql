@@ -1786,6 +1786,34 @@ GO
 ALTER TABLE [edfi].[CourseTranscriptAlternativeCourseIdentificationCode] ADD CONSTRAINT [CourseTranscriptAlternativeCourseIdentificationCode_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [edfi].[CourseTranscriptCourseProgram] --
+CREATE TABLE [edfi].[CourseTranscriptCourseProgram] (
+    [CourseAttemptResultDescriptorId] [INT] NOT NULL,
+    [CourseCode] [NVARCHAR](60) NOT NULL,
+    [CourseEducationOrganizationId] [BIGINT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [SchoolYear] [SMALLINT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [CourseProgramName] [NVARCHAR](60) NOT NULL,
+    [CourseProgramTypeDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [CourseTranscriptCourseProgram_PK] PRIMARY KEY CLUSTERED (
+        [CourseAttemptResultDescriptorId] ASC,
+        [CourseCode] ASC,
+        [CourseEducationOrganizationId] ASC,
+        [EducationOrganizationId] ASC,
+        [SchoolYear] ASC,
+        [StudentUSI] ASC,
+        [TermDescriptorId] ASC,
+        [CourseProgramName] ASC,
+        [CourseProgramTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[CourseTranscriptCourseProgram] ADD CONSTRAINT [CourseTranscriptCourseProgram_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
 -- Table [edfi].[CourseTranscriptCreditCategory] --
 CREATE TABLE [edfi].[CourseTranscriptCreditCategory] (
     [CourseAttemptResultDescriptorId] [INT] NOT NULL,
@@ -1867,34 +1895,6 @@ CREATE TABLE [edfi].[CourseTranscriptPartialCourseTranscriptAwards] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [edfi].[CourseTranscriptPartialCourseTranscriptAwards] ADD CONSTRAINT [CourseTranscriptPartialCourseTranscriptAwards_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [edfi].[CourseTranscriptProgram] --
-CREATE TABLE [edfi].[CourseTranscriptProgram] (
-    [CourseAttemptResultDescriptorId] [INT] NOT NULL,
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [CourseEducationOrganizationId] [BIGINT] NOT NULL,
-    [EducationOrganizationId] [BIGINT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [StudentUSI] [INT] NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [ProgramName] [NVARCHAR](60) NOT NULL,
-    [ProgramTypeDescriptorId] [INT] NOT NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseTranscriptProgram_PK] PRIMARY KEY CLUSTERED (
-        [CourseAttemptResultDescriptorId] ASC,
-        [CourseCode] ASC,
-        [CourseEducationOrganizationId] ASC,
-        [EducationOrganizationId] ASC,
-        [SchoolYear] ASC,
-        [StudentUSI] ASC,
-        [TermDescriptorId] ASC,
-        [ProgramName] ASC,
-        [ProgramTypeDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[CourseTranscriptProgram] ADD CONSTRAINT [CourseTranscriptProgram_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[CourseTranscriptSection] --
@@ -5398,8 +5398,8 @@ GO
 ALTER TABLE [edfi].[ProgramEvaluationElement] ADD CONSTRAINT [ProgramEvaluationElement_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
--- Table [edfi].[ProgramEvaluationElementRatingLevel] --
-CREATE TABLE [edfi].[ProgramEvaluationElementRatingLevel] (
+-- Table [edfi].[ProgramEvaluationElementProgramEvaluationLevel] --
+CREATE TABLE [edfi].[ProgramEvaluationElementProgramEvaluationLevel] (
     [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramEvaluationElementTitle] [NVARCHAR](50) NOT NULL,
     [ProgramEvaluationPeriodDescriptorId] [INT] NOT NULL,
@@ -5411,7 +5411,7 @@ CREATE TABLE [edfi].[ProgramEvaluationElementRatingLevel] (
     [MaxNumericRating] [DECIMAL](6, 3) NULL,
     [MinNumericRating] [DECIMAL](6, 3) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [ProgramEvaluationElementRatingLevel_PK] PRIMARY KEY CLUSTERED (
+    CONSTRAINT [ProgramEvaluationElementProgramEvaluationLevel_PK] PRIMARY KEY CLUSTERED (
         [ProgramEducationOrganizationId] ASC,
         [ProgramEvaluationElementTitle] ASC,
         [ProgramEvaluationPeriodDescriptorId] ASC,
@@ -5423,7 +5423,33 @@ CREATE TABLE [edfi].[ProgramEvaluationElementRatingLevel] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [edfi].[ProgramEvaluationElementRatingLevel] ADD CONSTRAINT [ProgramEvaluationElementRatingLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [edfi].[ProgramEvaluationElementProgramEvaluationLevel] ADD CONSTRAINT [ProgramEvaluationElementProgramEvaluationLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[ProgramEvaluationLevel] --
+CREATE TABLE [edfi].[ProgramEvaluationLevel] (
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEvaluationPeriodDescriptorId] [INT] NOT NULL,
+    [ProgramEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [ProgramEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [ProgramName] [NVARCHAR](60) NOT NULL,
+    [ProgramTypeDescriptorId] [INT] NOT NULL,
+    [RatingLevelDescriptorId] [INT] NOT NULL,
+    [MaxNumericRating] [DECIMAL](6, 3) NULL,
+    [MinNumericRating] [DECIMAL](6, 3) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [ProgramEvaluationLevel_PK] PRIMARY KEY CLUSTERED (
+        [ProgramEducationOrganizationId] ASC,
+        [ProgramEvaluationPeriodDescriptorId] ASC,
+        [ProgramEvaluationTitle] ASC,
+        [ProgramEvaluationTypeDescriptorId] ASC,
+        [ProgramName] ASC,
+        [ProgramTypeDescriptorId] ASC,
+        [RatingLevelDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ProgramEvaluationLevel] ADD CONSTRAINT [ProgramEvaluationLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[ProgramEvaluationObjective] --
@@ -5461,8 +5487,8 @@ GO
 ALTER TABLE [edfi].[ProgramEvaluationObjective] ADD CONSTRAINT [ProgramEvaluationObjective_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
--- Table [edfi].[ProgramEvaluationObjectiveRatingLevel] --
-CREATE TABLE [edfi].[ProgramEvaluationObjectiveRatingLevel] (
+-- Table [edfi].[ProgramEvaluationObjectiveProgramEvaluationLevel] --
+CREATE TABLE [edfi].[ProgramEvaluationObjectiveProgramEvaluationLevel] (
     [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
     [ProgramEvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
     [ProgramEvaluationPeriodDescriptorId] [INT] NOT NULL,
@@ -5474,7 +5500,7 @@ CREATE TABLE [edfi].[ProgramEvaluationObjectiveRatingLevel] (
     [MaxNumericRating] [DECIMAL](6, 3) NULL,
     [MinNumericRating] [DECIMAL](6, 3) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [ProgramEvaluationObjectiveRatingLevel_PK] PRIMARY KEY CLUSTERED (
+    CONSTRAINT [ProgramEvaluationObjectiveProgramEvaluationLevel_PK] PRIMARY KEY CLUSTERED (
         [ProgramEducationOrganizationId] ASC,
         [ProgramEvaluationObjectiveTitle] ASC,
         [ProgramEvaluationPeriodDescriptorId] ASC,
@@ -5486,7 +5512,7 @@ CREATE TABLE [edfi].[ProgramEvaluationObjectiveRatingLevel] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [edfi].[ProgramEvaluationObjectiveRatingLevel] ADD CONSTRAINT [ProgramEvaluationObjectiveRatingLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [edfi].[ProgramEvaluationObjectiveProgramEvaluationLevel] ADD CONSTRAINT [ProgramEvaluationObjectiveProgramEvaluationLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[ProgramEvaluationPeriodDescriptor] --
@@ -5496,32 +5522,6 @@ CREATE TABLE [edfi].[ProgramEvaluationPeriodDescriptor] (
         [ProgramEvaluationPeriodDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-GO
-
--- Table [edfi].[ProgramEvaluationRatingLevel] --
-CREATE TABLE [edfi].[ProgramEvaluationRatingLevel] (
-    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
-    [ProgramEvaluationPeriodDescriptorId] [INT] NOT NULL,
-    [ProgramEvaluationTitle] [NVARCHAR](50) NOT NULL,
-    [ProgramEvaluationTypeDescriptorId] [INT] NOT NULL,
-    [ProgramName] [NVARCHAR](60) NOT NULL,
-    [ProgramTypeDescriptorId] [INT] NOT NULL,
-    [RatingLevelDescriptorId] [INT] NOT NULL,
-    [MaxNumericRating] [DECIMAL](6, 3) NULL,
-    [MinNumericRating] [DECIMAL](6, 3) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [ProgramEvaluationRatingLevel_PK] PRIMARY KEY CLUSTERED (
-        [ProgramEducationOrganizationId] ASC,
-        [ProgramEvaluationPeriodDescriptorId] ASC,
-        [ProgramEvaluationTitle] ASC,
-        [ProgramEvaluationTypeDescriptorId] ASC,
-        [ProgramName] ASC,
-        [ProgramTypeDescriptorId] ASC,
-        [RatingLevelDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[ProgramEvaluationRatingLevel] ADD CONSTRAINT [ProgramEvaluationRatingLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[ProgramEvaluationTypeDescriptor] --
@@ -6475,6 +6475,15 @@ CREATE TABLE [edfi].[SourceSystemDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [edfi].[SpecialEducationExitReasonDescriptor] --
+CREATE TABLE [edfi].[SpecialEducationExitReasonDescriptor] (
+    [SpecialEducationExitReasonDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [SpecialEducationExitReasonDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [SpecialEducationExitReasonDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [edfi].[SpecialEducationProgramServiceDescriptor] --
 CREATE TABLE [edfi].[SpecialEducationProgramServiceDescriptor] (
     [SpecialEducationProgramServiceDescriptorId] [INT] NOT NULL,
@@ -7215,13 +7224,13 @@ GO
 
 -- Table [edfi].[StaffSectionAssociation] --
 CREATE TABLE [edfi].[StaffSectionAssociation] (
+    [BeginDate] [DATE] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
     [SchoolId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [SessionName] [NVARCHAR](60) NOT NULL,
     [StaffUSI] [INT] NOT NULL,
-    [BeginDate] [DATE] NULL,
     [ClassroomPositionDescriptorId] [INT] NOT NULL,
     [EndDate] [DATE] NULL,
     [HighlyQualifiedTeacher] [BIT] NULL,
@@ -7232,6 +7241,7 @@ CREATE TABLE [edfi].[StaffSectionAssociation] (
     [LastModifiedDate] [DATETIME2] NOT NULL,
     [Id] [UNIQUEIDENTIFIER] NOT NULL,
     CONSTRAINT [StaffSectionAssociation_PK] PRIMARY KEY CLUSTERED (
+        [BeginDate] ASC,
         [LocalCourseCode] ASC,
         [SchoolId] ASC,
         [SchoolYear] ASC,
@@ -9552,6 +9562,9 @@ CREATE TABLE [edfi].[StudentSpecialEducationProgramAssociation] (
     [MedicallyFragile] [BIT] NULL,
     [MultiplyDisabled] [BIT] NULL,
     [SchoolHoursPerWeek] [DECIMAL](5, 2) NULL,
+    [SpecialEducationExitDate] [DATE] NULL,
+    [SpecialEducationExitExplained] [NVARCHAR](1024) NULL,
+    [SpecialEducationExitReasonDescriptorId] [INT] NULL,
     [SpecialEducationHoursPerWeek] [DECIMAL](5, 2) NULL,
     [SpecialEducationSettingDescriptorId] [INT] NULL,
     CONSTRAINT [StudentSpecialEducationProgramAssociation_PK] PRIMARY KEY CLUSTERED (
@@ -9705,6 +9718,7 @@ CREATE TABLE [edfi].[StudentSpecialEducationProgramEligibilityAssociation] (
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [ConsentToEvaluationDate] [DATE] NULL,
+    [EligibilityConferenceDate] [DATE] NULL,
     [EligibilityDelayReasonDescriptorId] [INT] NULL,
     [EligibilityDeterminationDate] [DATE] NULL,
     [EligibilityEvaluationDate] [DATE] NULL,

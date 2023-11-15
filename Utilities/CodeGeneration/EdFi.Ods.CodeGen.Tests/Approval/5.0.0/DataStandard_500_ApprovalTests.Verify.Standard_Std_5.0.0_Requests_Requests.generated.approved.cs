@@ -11943,6 +11943,52 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SourceSystemDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Common.Models.Requests.SpecialEducationExitReasonDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class SpecialEducationExitReasonDescriptorGetByExample
+    {
+        public int SpecialEducationExitReasonDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SpecialEducationExitReasonDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public SpecialEducationExitReasonDescriptorGetByIds() { }
+
+        public SpecialEducationExitReasonDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SpecialEducationExitReasonDescriptorPost : Resources.SpecialEducationExitReasonDescriptor.EdFi.SpecialEducationExitReasonDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SpecialEducationExitReasonDescriptorPut : Resources.SpecialEducationExitReasonDescriptor.EdFi.SpecialEducationExitReasonDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SpecialEducationExitReasonDescriptorDelete : IHasIdentifier
+    {
+        public SpecialEducationExitReasonDescriptorDelete() { }
+
+        public SpecialEducationExitReasonDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Common.Models.Requests.SpecialEducationProgramServiceDescriptors.EdFi
 {
 
@@ -14556,6 +14602,9 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentSpecialEducationProgramAsso
         public string ProgramName { get; set; }
         public string ProgramTypeDescriptor { get; set; }
         public decimal SchoolHoursPerWeek { get; set; }
+        public DateTime SpecialEducationExitDate { get; set; }
+        public string SpecialEducationExitExplained { get; set; }
+        public string SpecialEducationExitReasonDescriptor { get; set; }
         public decimal SpecialEducationHoursPerWeek { get; set; }
         public string SpecialEducationSettingDescriptor { get; set; }
         public string StudentUniqueId { get; set; }
@@ -14607,6 +14656,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentSpecialEducationProgramElig
         public DateTime ConsentToEvaluationDate { get; set; }
         public DateTime ConsentToEvaluationReceivedDate { get; set; }
         public long EducationOrganizationId { get; set; }
+        public DateTime EligibilityConferenceDate { get; set; }
         public string EligibilityDelayReasonDescriptor { get; set; }
         public DateTime EligibilityDeterminationDate { get; set; }
         public DateTime EligibilityEvaluationDate { get; set; }

@@ -248,6 +248,7 @@
 <node id="/ed-fi/sexDescriptors"/>
 <node id="/ed-fi/sourceDimensions"/>
 <node id="/ed-fi/sourceSystemDescriptors"/>
+<node id="/ed-fi/specialEducationExitReasonDescriptors"/>
 <node id="/ed-fi/specialEducationProgramServiceDescriptors"/>
 <node id="/ed-fi/specialEducationSettingDescriptors"/>
 <node id="/ed-fi/staffAbsenceEvents"/>
@@ -1215,6 +1216,7 @@
 <edge source="/ed-fi/sexDescriptors" target="/ed-fi/students"/>
 <edge source="/ed-fi/sourceDimensions" target="/ed-fi/chartOfAccounts"/>
 <edge source="/ed-fi/sourceSystemDescriptors" target="/ed-fi/people"/>
+<edge source="/ed-fi/specialEducationExitReasonDescriptors" target="/ed-fi/studentSpecialEducationProgramAssociations"/>
 <edge source="/ed-fi/specialEducationProgramServiceDescriptors" target="/ed-fi/studentSpecialEducationProgramAssociations"/>
 <edge source="/ed-fi/specialEducationSettingDescriptors" target="/ed-fi/studentSpecialEducationProgramAssociations"/>
 <edge source="/ed-fi/staffClassificationDescriptors" target="/ed-fi/openStaffPositions"/>
