@@ -35,9 +35,16 @@ namespace EdFi.Ods.Common.Models.Resource
                     .Select(p => new ResourceProperty(this, resourceClass, p))
                     .ToList());
 
+            var otherProperties = resourceClass.ResourceModel.GetResourceByFullName(association.OtherEntity.FullName);
+
+            if (otherProperties == null)
+                throw new InvalidOperationException(
+                    "Current resource is detached from the resource model.  Unable to obtain the referenced resource.");
+
+
             _referenceTypeProperties = new Lazy<IReadOnlyList<ResourceProperty>>(
                 () => association.OtherProperties
-                    .Join(resourceClass.ResourceModel.GetResourceByFullName(association.OtherEntity.FullName).IdentifyingProperties
+                    .Join(otherProperties.IdentifyingProperties
                         .Select(rp => new { EntityProperty = rp.EntityProperty, ResourceProperty = rp }),
                         ep => ep.Entity.IsPersonEntity() ? UniqueIdConventions.GetUniqueIdPropertyName(ep.PropertyName) : ep.PropertyName,
                         x => x.EntityProperty.PropertyName,
