@@ -165,15 +165,15 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
         {
             var currentRouteContextKey = routeContextKeys.FirstOrDefault();
 
-            if (currentRouteContextKey is null)
-            {
-                return currentEnumValues;
-            }
-
             var routeContextValuesForKey =
                 _IEdFiAdminRawOdsInstanceConfigurationDataProvider.GetDistinctOdsInstanceContextValuesAsync(
-                    currentRouteContextKey, adminConnectionString).Result;
+                    currentRouteContextKey, adminConnectionString).Result.ToList();
 
+            if (!routeContextValuesForKey.Any())
+            {
+                routeContextValuesForKey.Add("");
+            }
+            
             List<string> newEnumValues = (from routeContextValue in routeContextValuesForKey
                 from enumValue in currentEnumValues
                 select $"{enumValue}/{routeContextValue}").ToList();
