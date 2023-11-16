@@ -38,8 +38,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
         public string Create(IOpenApiMetadataResourceStrategy resourceStrategy, OpenApiMetadataDocumentContext documentContext, OpenApiSpecVersion openApiSpecVersion)
         {
-            // try
-            // {
+            try
+            {
                 var parametersFactory = new OpenApiMetadataParametersFactory(_defaultPageSizeLimitProvider);
 
                 var definitionsFactory =
@@ -112,12 +112,12 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 }
 
                 return jsonString;
-            //}
-            // catch (Exception ex)
-            // {
-            //     _logger.Error(ex);
-            //     throw;
-            // }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw;
+            }
         }
     }
 }

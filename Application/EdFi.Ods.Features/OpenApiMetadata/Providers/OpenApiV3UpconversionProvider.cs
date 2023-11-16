@@ -6,18 +6,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Autofac;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Configuration.Sections;
 using EdFi.Ods.Common.Constants;
-using EdFi.Ods.Features.MultiTenancy;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Extensions;
 using Microsoft.OpenApi.Models;
@@ -54,32 +50,15 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
     public string GetUpconvertedOpenApiJson(string openApiJson)
     {
         var openApiDocument = new OpenApiStringReader().Read(openApiJson, out _);
-        PopulateServersConfiguration(ref openApiDocument);
-
-        foreach (var securityScheme in openApiDocument.Components.SecuritySchemes)
-        {
-            var securityRequirement = new OpenApiSecurityRequirement();
-            securityScheme.Value.Reference = new OpenApiReference() { Id = securityScheme.Key, Type =  ReferenceType.SecurityScheme};
-            securityRequirement.Add(securityScheme.Value, new List<string>());
-            openApiDocument.SecurityRequirements.Add(securityRequirement);
-        }
-        
-        return openApiDocument.SerializeAsJson(OpenApiSpecVersion.OpenApi3_0);
-    }
-
-    private void PopulateServersConfiguration(ref OpenApiDocument openApiDocument)
-    {
         openApiDocument.Servers.Clear();
         openApiDocument.Components.SecuritySchemes.Clear();
         openApiDocument.SecurityRequirements.Clear();
 
-        var baseServerUrl =
-            $"{_httpContextAccessor.HttpContext?.Request.Scheme(this._reverseProxySettings)}://{_httpContextAccessor.HttpContext?.Request.Host(this._reverseProxySettings)}:{_httpContextAccessor.HttpContext?.Request.Port(this._reverseProxySettings)}";
-
+        // Configure OpenAPI Servers array
+        var baseServerUrl = $"{_httpContextAccessor.HttpContext?.Request.Scheme(this._reverseProxySettings)}://{_httpContextAccessor.HttpContext?.Request.Host(this._reverseProxySettings)}:{_httpContextAccessor.HttpContext?.Request.Port(this._reverseProxySettings)}";
         var serverUrl = "";
 
-        if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()) ||
-            !string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
+        if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()) || !string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
         {
             serverUrl = $"{baseServerUrl}/{{ODS Selection}}";
         }
@@ -94,13 +73,11 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
             Variables = new Dictionary<string, OpenApiServerVariable>()
         };
 
-        IDictionary<string, TenantConfiguration> tenantMap =
-            _tenantConfigurationMapProvider?.GetMap() ?? new Dictionary<string, TenantConfiguration>();
-
-        openApiDocument.Servers.Add(odsServer);
-
+        IDictionary<string, TenantConfiguration> tenantMap = _tenantConfigurationMapProvider?.GetMap() ?? new Dictionary<string, TenantConfiguration>();
+        
         OpenApiServerVariable serverVariable = new OpenApiServerVariable();
         serverVariable.Description = "ODS Selection";
+        openApiDocument.Servers.Add(odsServer);
 
         var odsRouteContextKeys = _apiSettings.GetOdsContextRouteTemplateKeys().ToList();
 
@@ -157,8 +134,17 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
                 server.Variables.Add("ODS Selection", serverVariable);
             }
         }
-
-        return;
+        
+        // Configure OpenAPI SecuritySchemes array
+        foreach (var securityScheme in openApiDocument.Components.SecuritySchemes)
+        {
+            var securityRequirement = new OpenApiSecurityRequirement();
+            securityScheme.Value.Reference = new OpenApiReference() { Id = securityScheme.Key, Type =  ReferenceType.SecurityScheme};
+            securityRequirement.Add(securityScheme.Value, new List<string>());
+            openApiDocument.SecurityRequirements.Add(securityRequirement);
+        }
+        
+        return openApiDocument.SerializeAsJson(OpenApiSpecVersion.OpenApi3_0);
 
         // Recursively adds all combinations of valid route context values to the end of the strings in currentEnumValues
         List<string> GenerateContextValuePathCombinations(List<string> currentEnumValues, List<string> routeContextKeys, string adminConnectionString)
