@@ -211,7 +211,7 @@
 													"const responseItem = pm.response.json();\r",
 													"\r",
 													"pm.test(\"Server Url in OpenApi v3 metadata should include Tenant1\", () => {\r",
-													"    pm.expect(responseItem.servers[0].url).to.include('Tenant1');\r",
+													"    pm.expect(responseItem.servers[0].variables[\"ODS Selection\"].enum[0]).to.include('Tenant1');\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -311,7 +311,7 @@
 													"const responseItem = pm.response.json();\r",
 													"\r",
 													"pm.test(\"Server Url in OpenApi v3 metadata should include Tenant2\", () => {\r",
-													"    pm.expect(responseItem.servers[0].url).to.include('Tenant2');\r",
+													"    pm.expect(responseItem.servers[0].variables[\"ODS Selection\"].enum[1]).to.include('Tenant2');\r",
 													"});"
 												],
 												"type": "text/javascript"
