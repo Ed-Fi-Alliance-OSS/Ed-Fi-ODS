@@ -75,7 +75,7 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
                         _resources[path.Key] = new Resource
                         {
                             Name = GetResoucePath(path.Key, path.Value),
-                            BasePath = doc.Servers.First().Url,
+                            BasePath = ReplaceVariablesInServer(doc.Servers.First()),
                             Path = path.Value,
                             Schema = GetSchemaNameFromPath(path.Key),
                             Definition = doc.Components
@@ -167,6 +167,23 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
             return schemaNameParts[0] + (schemaNameParts.Length > 1
                        ? GetSchemaNameParts(schemaNameParts)
                        : string.Empty);
+        }
+
+        private static string ReplaceVariablesInServer(OpenApiServer server)
+        {
+            var variablesToReplace = server.Variables.Select(x => new
+            {
+                Name = x.Key,
+                DefaultValue = x.Value.Default.Replace("/", string.Empty)
+            });
+            var serverUrl = server.Url;
+
+            foreach (var variable in variablesToReplace)
+            {
+                serverUrl = serverUrl.Replace($"{{{variable.Name}}}", variable.DefaultValue);
+            }
+
+            return serverUrl;
         }
     }
 }
