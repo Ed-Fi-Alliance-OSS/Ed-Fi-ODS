@@ -113,7 +113,8 @@ namespace EdFi.LoadTools.Test.SmokeTests
                 f =>
                     f.GetMetadata(propInfo) == new OpenApiParameter
                                                {
-                                                   Required = true
+                                                   Required = true,
+                                                   Schema = new OpenApiSchema()
                                                });
 
             var builder = new StringPropertyBuilder(lookup);
@@ -328,7 +329,8 @@ namespace EdFi.LoadTools.Test.SmokeTests
                 f =>
                     f.GetMetadata(propInfo) == new OpenApiParameter
                                                {
-                                                   Required = true
+                                                   Required = true,
+                                                   Schema = new OpenApiSchema()
                                                });
 
             var builder = new SimplePropertyBuilder(lookup, Mock.Of<IDestructiveTestConfiguration>());
