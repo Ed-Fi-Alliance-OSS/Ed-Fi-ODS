@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using Swashbuckle.Swagger;
+using Microsoft.OpenApi.Models;
 
 namespace EdFi.LoadTools.ApiClient
 {
@@ -22,11 +22,11 @@ namespace EdFi.LoadTools.ApiClient
 
         public string Schema { get; set; }
 
-        public PathItem Path { get; set; }
+        public OpenApiPathItem Path { get; set; }
 
         public string BasePath { get; set; }
 
-        public Schema Definition { get; set; }
+        public OpenApiSchema Definition { get; set; }
     }
 
     public class Entity
@@ -35,6 +35,6 @@ namespace EdFi.LoadTools.ApiClient
 
         public string Schema { get; set; }
 
-        public Schema Definition { get; set; }
+        public OpenApiSchema Definition { get; set; }
     }
 }

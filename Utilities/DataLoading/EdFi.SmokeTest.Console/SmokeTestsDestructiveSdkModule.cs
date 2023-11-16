@@ -16,7 +16,7 @@ using EdFi.LoadTools.SmokeTest.CommonTests;
 using EdFi.LoadTools.SmokeTest.PropertyBuilders;
 using EdFi.LoadTools.SmokeTest.SdkTests;
 using EdFi.SmokeTest.Console.Application;
-using Swashbuckle.Swagger;
+using Microsoft.OpenApi.Models;
 using GetAllTest = EdFi.LoadTools.SmokeTest.SdkTests.GetAllTest;
 
 namespace EdFi.SmokeTest.Console
@@ -137,7 +137,7 @@ namespace EdFi.SmokeTest.Console
                 .SingleInstance();
 
             // Holds OpenAPI metadata
-            builder.RegisterInstance(new Dictionary<string, SwaggerDocument>())
+            builder.RegisterInstance(new Dictionary<string, OpenApiDocument>())
                 .SingleInstance();
 
             // Holds the OpenAPI Model Definitions

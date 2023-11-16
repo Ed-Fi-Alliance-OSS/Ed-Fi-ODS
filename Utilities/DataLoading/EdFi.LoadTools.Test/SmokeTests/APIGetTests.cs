@@ -4,22 +4,25 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest.ApiTests;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NUnit.Framework;
+using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi.Readers;
 using Moq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Swashbuckle.Swagger;
-using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test.SmokeTests
 {
@@ -34,24 +37,32 @@ namespace EdFi.LoadTools.Test.SmokeTests
         private const string PropertyName = "aProperty";
 
         private const string Swagger =
-            @"{ 
-            paths: {
-              ""TestNamespace/TestResource"": {
+            @"{
+            ""openapi"": ""3.0.1"",
+            ""info"": {},
+            ""paths"": {
+              ""/TestNamespace/TestResource"": {
                 ""get"": {
                   ""parameters"": [
                     {
                       ""name"": ""TestIdentifier"",
                       ""in"": ""query"",
                       ""required"": false,
-                      ""type"": ""string""
+                      ""schema"": {
+                        ""type"": ""string""
+                      }
                     }
                   ],
                   ""responses"": {
                     ""200"": {
-                      ""schema"": {
-                        ""type"": ""array"",
-                        ""items"": {
-                            ""$ref"": ""#/definitions/edFi_academicWeek""
+                      ""content"":{
+                        ""application/json"": {
+                          ""schema"": {
+                            ""type"": ""array"",
+                            ""items"": {
+                              ""$ref"": ""#/components/schemas/edFi_academicWeek""
+                            }
+                          }
                         }
                       }
                     }
@@ -73,7 +84,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         private readonly JArray _data = new JArray(Obj1, Obj2);
         private readonly IOAuthSessionToken _token = Mock.Of<IOAuthSessionToken>(t => t.SessionToken == "something");
 
-        private readonly SwaggerDocument Doc = JsonConvert.DeserializeObject<SwaggerDocument>(Swagger);
+        private OpenApiDocument Doc;
 
         private readonly IOAuthTokenHandler tokenHandler = Mock.Of<IOAuthTokenHandler>();
 
@@ -82,6 +93,11 @@ namespace EdFi.LoadTools.Test.SmokeTests
         [OneTimeSetUp]
         public async Task Setup()
         {
+            using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(Swagger)))
+            {
+                Doc = new OpenApiStreamReader().Read(ms, out var diag);
+            }
+
             var config = new ConfigurationBuilder()
                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
                 .AddJsonFile("appsettings.json", optional: true)
@@ -89,12 +105,12 @@ namespace EdFi.LoadTools.Test.SmokeTests
                 .Build();
 
             Address = config.GetSection("TestingWebServerAddress").Value;
-
+            Doc.Servers.Add(new OpenApiServer { Url = $"{Address}data/v3" });
             _resource = new Resource
             {
                 Name = ResourceName,
-                BasePath = "",
-                Path = Doc.paths.Values.First()
+                BasePath = Doc.Servers.First().Url,
+                Path = Doc.Paths.Values.First()
             };
 
             // Create and start up the host

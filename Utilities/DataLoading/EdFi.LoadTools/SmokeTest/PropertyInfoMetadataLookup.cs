@@ -4,15 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using EdFi.Common.Inflection;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Common;
-using EdFi.Common.Inflection;
-using Swashbuckle.Swagger;
+using Microsoft.OpenApi.Models;
 
 namespace EdFi.LoadTools.SmokeTest
 {
@@ -29,7 +28,7 @@ namespace EdFi.LoadTools.SmokeTest
             _schemaNames = schemaNames;
         }
 
-        public Parameter GetMetadata(PropertyInfo propInfo)
+        public OpenApiParameter GetMetadata(PropertyInfo propInfo)
         {
             string parentTypeName = Inflector.MakeInitialLowerCase(propInfo.DeclaringType?.Name);
 
@@ -38,7 +37,7 @@ namespace EdFi.LoadTools.SmokeTest
                 TypeNameHelper.CompareTypeNames(r.Name, parentTypeName, string.Empty, _schemaNames))
                 ?.Definition;
 
-            var property = resource?.properties.FirstOrDefault(x => x.Key.Equals(
+            var property = resource?.Properties.FirstOrDefault(x => x.Key.Equals(
                 Regex.Replace(propInfo.Name, @"_", string.Empty),
                 StringComparison.InvariantCultureIgnoreCase)).Value;
 
@@ -48,18 +47,22 @@ namespace EdFi.LoadTools.SmokeTest
                 resource = _entityDictionary.Values
                     .FirstOrDefault(r => r.Name.Equals(parentTypeName, StringComparison.InvariantCultureIgnoreCase))
                     ?.Definition;
-                property = resource?.properties.FirstOrDefault(x => x.Key.Equals(
+                property = resource?.Properties.FirstOrDefault(x => x.Key.Equals(
                     Regex.Replace(propInfo.Name, @"_", string.Empty),
                     StringComparison.InvariantCultureIgnoreCase)).Value;
 
             }
 
-            var required = resource?.required?.FirstOrDefault(
+            var required = resource?.Required?.FirstOrDefault(
                 p => p.Equals(
                     Regex.Replace(propInfo.Name, @"_", string.Empty),
                     StringComparison.InvariantCultureIgnoreCase));
 
-            return new Parameter { required = required != null, minimum = property?.minimum, maximum = property?.maximum, minLength = property?.minLength, maxLength = property?.maxLength };
+            return new OpenApiParameter
+            {
+                Required = required != null,
+                Schema = new OpenApiSchema { Minimum = property?.Minimum, Maximum = property?.Maximum, MinLength = property?.MinLength, MaxLength = property?.MaxLength }
+            };
         }
     }
 }

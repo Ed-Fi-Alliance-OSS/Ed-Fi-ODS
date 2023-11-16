@@ -11,8 +11,8 @@ using EdFi.LoadTools.SmokeTest;
 using EdFi.LoadTools.SmokeTest.ApiTests;
 using EdFi.LoadTools.SmokeTest.CommonTests;
 using EdFi.SmokeTest.Console.Application;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Linq;
-using Swashbuckle.Swagger;
 
 namespace EdFi.SmokeTest.Console
 {
@@ -56,7 +56,7 @@ namespace EdFi.SmokeTest.Console
             builder.RegisterInstance(new Dictionary<string, Resource>())
                 .SingleInstance();
 
-            builder.RegisterInstance(new Dictionary<string, SwaggerDocument>())
+            builder.RegisterInstance(new Dictionary<string, OpenApiDocument>())
                 .SingleInstance();
 
             builder.RegisterInstance(new Dictionary<string, Entity>())

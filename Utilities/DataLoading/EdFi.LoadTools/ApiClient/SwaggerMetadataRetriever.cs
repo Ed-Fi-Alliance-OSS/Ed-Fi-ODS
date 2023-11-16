@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using EdFi.LoadTools.Engine;
 using log4net;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using Swashbuckle.Swagger;
 
 namespace EdFi.LoadTools.ApiClient
 {
@@ -88,15 +88,15 @@ namespace EdFi.LoadTools.ApiClient
 
                 using (var writer = new StreamWriter(Filename))
                 {
-                    var metadataBlock = new BufferBlock<KeyValuePair<string, SwaggerDocument>>();
+                    var metadataBlock = new BufferBlock<KeyValuePair<string, OpenApiDocument>>();
 
                     var documentsBlock =
-                        new TransformManyBlock<KeyValuePair<string, SwaggerDocument>, JsonModelMetadata>(
+                        new TransformManyBlock<KeyValuePair<string, OpenApiDocument>, JsonModelMetadata>(
                             x =>
                             {
                                 var jsonModelMetadatas = new List<JsonModelMetadata>();
 
-                                foreach (var definition in x.Value.definitions)
+                                foreach (var definition in x.Value.Components.Schemas)
                                 {
                                     var schema = definition.Value;
 
@@ -125,15 +125,15 @@ namespace EdFi.LoadTools.ApiClient
                     // link blocks
                     metadataBlock.LinkTo(
                         documentsBlock, new DataflowLinkOptions
-                                        {
-                                            PropagateCompletion = true
-                                        });
+                        {
+                            PropagateCompletion = true
+                        });
 
                     documentsBlock.LinkTo(
                         outputBlock, new DataflowLinkOptions
-                                     {
-                                         PropagateCompletion = true
-                                     });
+                        {
+                            PropagateCompletion = true
+                        });
 
                     // prime the pipeline
                     var metadata = await _swaggerRetriever.LoadMetadata();
@@ -151,26 +151,34 @@ namespace EdFi.LoadTools.ApiClient
             }
         }
 
-        private IEnumerable<JsonModelMetadata> GetProperties(Schema schema, string category, string model,
+        private IEnumerable<JsonModelMetadata> GetProperties(OpenApiSchema schema, string category, string model,
                                                              string modelSchema)
         {
-            return schema.properties
+            return schema.Properties
                          .Select(
                               p => new JsonModelMetadata
-                                   {
-                                       Category = category, Resource = p.Value?.@ref, Model = model, Property = p.Key, Type = GetTypeName(p),
-                                       Format = p.Value?.format, IsArray = p.Value?.type == "array",
-                                       IsRequired = schema.required?.Any(x => x.Equals(p.Key)) ?? false, Description = p.Value?.description,
-                                       Schema = modelSchema
-                                   });
+                              {
+                                  Category = category,
+                                  Resource = p.Value?.Reference?.ReferenceV3,
+                                  Model = model,
+                                  Property = p.Key,
+                                  Type = GetTypeName(p),
+                                  Format = p.Value?.Format,
+                                  IsArray = p.Value?.Type == "array",
+                                  IsRequired = schema.Required?.Any(x => x.Equals(p.Key)) ?? false,
+                                  Description = p.Value?.Description,
+                                  Schema = modelSchema
+                              });
         }
 
-        private string GetPathForModel(SwaggerDocument swaggerDocument, string modelName)
+        private string GetPathForModel(OpenApiDocument swaggerDocument, string modelName)
         {
-            return swaggerDocument.paths.FirstOrDefault(
-                                       p => p.Value?.post?.parameters.FirstOrDefault()
-                                            ?.schema.@ref == $"#/definitions/{modelName}")
-                                  .Key;
+            return swaggerDocument.Paths
+                .Where(p => p.Value.Operations.Keys.Any(k => k == OperationType.Post))
+                .FirstOrDefault(
+                    p => p.Value.Operations[OperationType.Post].Parameters.FirstOrDefault()?.Schema.Reference.ReferenceV3 == $"#/definitions/{modelName}"
+                 )
+                .Key;
         }
 
         private string PathToSchema(string path)
@@ -180,19 +188,19 @@ namespace EdFi.LoadTools.ApiClient
                         .FirstOrDefault();
         }
 
-        private static string GetTypeName(KeyValuePair<string, Schema> parameterInfo)
+        private static string GetTypeName(KeyValuePair<string, OpenApiSchema> parameterInfo)
         {
             var referenceType = string.Empty;
             var parameter = parameterInfo.Value;
 
-            if (parameter?.type == "array")
+            if (parameter?.Type == "array")
             {
-                referenceType = parameter.items.@ref;
+                referenceType = parameter.Items.Reference.ReferenceV3;
             }
 
-            if (string.IsNullOrEmpty(parameter?.type) && !string.IsNullOrEmpty(parameter?.@ref))
+            if (string.IsNullOrEmpty(parameter?.Type) && !string.IsNullOrEmpty(parameter?.Reference.ReferenceV3))
             {
-                referenceType = parameter.@ref;
+                referenceType = parameter.Reference.ReferenceV3;
             }
 
             var parameterType = !string.IsNullOrEmpty(referenceType)
@@ -201,7 +209,7 @@ namespace EdFi.LoadTools.ApiClient
 
             return !string.IsNullOrEmpty(parameterType)
                 ? parameterType
-                : parameter?.type;
+                : parameter?.Type;
         }
     }
 }
