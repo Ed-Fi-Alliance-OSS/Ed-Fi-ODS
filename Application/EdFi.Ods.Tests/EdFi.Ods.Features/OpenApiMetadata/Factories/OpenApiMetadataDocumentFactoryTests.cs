@@ -13,10 +13,14 @@ using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
+using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
 using EdFi.TestFixture;
 using FakeItEasy;
 using Microsoft.Extensions.Configuration;
+using Microsoft.OpenApi;
+using Microsoft.OpenApi.Extensions;
+using Microsoft.OpenApi.Readers;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Test.Common;
@@ -26,6 +30,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
     [TestFixture]
     public class OpenApiMetadataDocumentFactoryTests
     {
+        protected static IOpenApiUpconversionProvider OpenApiV3UpconversionProvider = A.Fake<IOpenApiUpconversionProvider>();
+
         protected static IResourceModelProvider
             ResourceModelProvider = DomainModelDefinitionsProviderHelper.ResourceModelProvider;
 
@@ -88,6 +94,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             {
                 _openApiMetadataDocumentContext = DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext;
 
+                A.CallTo(() => OpenApiV3UpconversionProvider.GetUpconvertedOpenApiJson(A<string>._))
+                    .ReturnsLazily(x => (new OpenApiStringReader().Read(x.Arguments.Get<string>(0), out _))
+                        .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0));
+
                 var openApiMetadataResources = _openApiMetadataDocumentContext.ResourceModel.GetAllResources()
                     .Select(r => new OpenApiMetadataResource(r))
                     .ToList();
@@ -98,20 +108,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                     .Returns(openApiMetadataResources);
 
                 var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
-
                 _openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
-                    CreateApiSettings(), defaultPageSizeLimitProvider,
+                    CreateApiSettings(), defaultPageSizeLimitProvider, OpenApiV3UpconversionProvider,
                     new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
             }
 
             protected override void Act()
             {
                 _actualJson = _openApiMetadataDocumentFactory
-                    .Create(_stubbedOpenApiMetadataResourceStrategy, _openApiMetadataDocumentContext);
+                    .Create(_stubbedOpenApiMetadataResourceStrategy, _openApiMetadataDocumentContext, OpenApiSpecVersion.OpenApi2_0);
 
                 _openApiMetadataDoc = JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
                     _actualJson,
-                    new JsonSerializerSettings {MetadataPropertyHandling = MetadataPropertyHandling.Ignore});
+                    new JsonSerializerSettings { MetadataPropertyHandling = MetadataPropertyHandling.Ignore });
             }
 
             [Assert]
@@ -213,17 +222,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 _openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSizeLimitProvider,
+                    OpenApiV3UpconversionProvider,
                     new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
             }
 
             protected override void Act()
             {
                 _actualJson = _openApiMetadataDocumentFactory.Create(
-                    _stubbedOpenApiMetadataResourceStrategy, _openApiMetadataDocumentContext);
+                    _stubbedOpenApiMetadataResourceStrategy, _openApiMetadataDocumentContext,
+                    OpenApiSpecVersion.OpenApi2_0);
 
                 _openApiMetadataDoc = JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
                     _actualJson,
-                    new JsonSerializerSettings {MetadataPropertyHandling = MetadataPropertyHandling.Ignore});
+                    new JsonSerializerSettings { MetadataPropertyHandling = MetadataPropertyHandling.Ignore });
             }
 
             [Assert]

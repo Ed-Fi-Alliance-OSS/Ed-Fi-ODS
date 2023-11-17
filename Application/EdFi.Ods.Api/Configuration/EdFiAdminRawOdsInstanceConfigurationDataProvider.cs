@@ -21,6 +21,8 @@ public class EdFiAdminRawOdsInstanceConfigurationDataProvider : IEdFiAdminRawOds
 
     private const string GetOdsConfigurationByIdSql = "SELECT OdsInstanceId, ConnectionString, ContextKey, ContextValue, DerivativeType, ConnectionStringByDerivativeType FROM dbo.GetOdsInstanceConfigurationById(@OdsInstanceId);";
 
+    private const string GetDistinctOdsContextValuesSql = "SELECT ContextValue FROM dbo.GetOdsInstanceContextValues(@OdsContextKey);";
+
     public EdFiAdminRawOdsInstanceConfigurationDataProvider(
         IAdminDatabaseConnectionStringProvider adminDatabaseConnectionStringProvider,
         DbProviderFactory dbProviderFactory)
@@ -35,17 +37,43 @@ public class EdFiAdminRawOdsInstanceConfigurationDataProvider : IEdFiAdminRawOds
         await using var connection = CreateConnectionAsync();
 
         var rawDataRows = (await connection.QueryAsync<RawOdsInstanceConfigurationDataRow>(
-                GetOdsConfigurationByIdSql, 
+                GetOdsConfigurationByIdSql,
                 new { OdsInstanceId = odsInstanceId }))
             .ToArray();
 
         return rawDataRows;
-        
+
         DbConnection CreateConnectionAsync()
         {
             var newConnection = _dbProviderFactory.CreateConnection();
             newConnection.ConnectionString = _adminDatabaseConnectionStringProvider.GetConnectionString();
-            
+
+            return newConnection;
+        }
+    }
+
+    /// <summary>
+    /// Gets the ODS route context values present in the Admin database for a given <param name="odsContextKey"></param> ODS context key. The Admin database connection  is derived from the current context unless <paramref name="connectionStringOverride"/> is provided.
+    /// </summary>
+    /// <param name="odsContextKey">The ODS route context key.</param>
+    /// <param name="connectionStringOverride">Optional. An Admin database connection string.</param>
+    /// <returns>An array that contains the ODS route context values in the Admin database for the <paramref name="odsContextKey"/>.</returns>
+    public async Task<string[]> GetDistinctOdsInstanceContextValuesAsync(string odsContextKey, string connectionStringOverride = null)
+    {
+        await using var connection = CreateConnectionAsync();
+
+        var contextValues = (await connection.QueryAsync<string>(
+                GetDistinctOdsContextValuesSql,
+                new { OdsContextKey = odsContextKey }))
+            .ToArray();
+        
+        return contextValues;
+
+        DbConnection CreateConnectionAsync()
+        {
+            var newConnection = _dbProviderFactory.CreateConnection();
+            newConnection.ConnectionString = connectionStringOverride ?? _adminDatabaseConnectionStringProvider.GetConnectionString();
+
             return newConnection;
         }
     }

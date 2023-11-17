@@ -11,8 +11,10 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
+using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
 using log4net;
+using Microsoft.OpenApi;
 using Newtonsoft.Json;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Factories
@@ -23,23 +25,25 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private readonly ApiSettings _apiSettings;
         private readonly IDefaultPageSizeLimitProvider _defaultPageSizeLimitProvider;
         private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
+        private readonly IOpenApiUpconversionProvider _openApiUpconversionProvider;
 
-        public OpenApiMetadataDocumentFactory(ApiSettings apiSettings, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
+        public OpenApiMetadataDocumentFactory(ApiSettings apiSettings, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, IOpenApiUpconversionProvider openApiUpconversionProvider,
             ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider = null)
         {
             _apiSettings = apiSettings;
             _defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
             _trackedChangesIdentifierProjectionsProvider = trackedChangesIdentifierProjectionsProvider;
+            _openApiUpconversionProvider = openApiUpconversionProvider;
         }
 
-        public string Create(IOpenApiMetadataResourceStrategy resourceStrategy, OpenApiMetadataDocumentContext documentContext)
+        public string Create(IOpenApiMetadataResourceStrategy resourceStrategy, OpenApiMetadataDocumentContext documentContext, OpenApiSpecVersion openApiSpecVersion)
         {
             try
             {
                 var parametersFactory = new OpenApiMetadataParametersFactory(_defaultPageSizeLimitProvider);
 
                 var definitionsFactory =
-                    OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(documentContext, 
+                    OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(documentContext,
                         _trackedChangesIdentifierProjectionsProvider, _apiSettings);
 
                 var responsesFactory = new OpenApiMetadataResponsesFactory();
@@ -65,8 +69,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     },
                     host = "%HOST%",
                     basePath = "%BASE_PATH%",
-                    schemes = new string[]{ 
-                        "%SCHEME%" 
+                    schemes = new string[]{
+                        "%SCHEME%"
                     },
                     securityDefinitions =
                         new Dictionary<string, SecurityScheme>
@@ -98,10 +102,16 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     parameters = parametersFactory.Create(documentContext.IsCompositeContext),
                     responses = responsesFactory.Create()
                 };
-
-                return JsonConvert.SerializeObject(
+                var jsonString = JsonConvert.SerializeObject(
                     openApiMetadataDocument,
-                    new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore});
+                    new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+
+                if (openApiSpecVersion == OpenApiSpecVersion.OpenApi3_0)
+                {
+                    jsonString = _openApiUpconversionProvider.GetUpconvertedOpenApiJson(jsonString);
+                }
+
+                return jsonString;
             }
             catch (Exception ex)
             {

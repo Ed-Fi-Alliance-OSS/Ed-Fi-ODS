@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common;
-using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Configuration;
@@ -86,13 +85,13 @@ namespace EdFi.Ods.Api.Controllers
                         {
                             odsContextUriTemplatePath = odsContextUriTemplatePath.Replace(
                                 $"{{{odsContextRouteKey}}}",
-                                (string) odsContextRouteValue);
+                                (string)odsContextRouteValue);
                         }
                     }
 
                     rootUrl = $"{rootUrl}/{odsContextUriTemplatePath}";
                 }
-                
+
                 if (_apiSettings.IsFeatureEnabled(ApiFeature.AggregateDependencies.GetConfigKeyName()))
                 {
                     urlsByName["dependencies"] = $"{rootUrl}/metadata/data/v{ApiVersionConstants.Ods}/dependencies";

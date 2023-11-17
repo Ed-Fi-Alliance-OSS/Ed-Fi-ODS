@@ -4,17 +4,24 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
+using Microsoft.OpenApi;
 
 namespace EdFi.Ods.Api.Models
 {
     public class OpenApiContent
     {
-        private readonly Lazy<string> _metadata;
+        private readonly Dictionary<OpenApiSpecVersion, Lazy<string>> _metadataBySpecVersion;
 
-        public OpenApiContent(string section, string name, Lazy<string> metadata, string basePath,
+        public OpenApiContent(string section, string name, Lazy<string> metadata, Lazy<string> metadataV3, string basePath,
             string relativeSectionPath = null)
         {
-            _metadata = metadata;
+            _metadataBySpecVersion = new Dictionary<OpenApiSpecVersion, Lazy<string>>()
+            {
+                { OpenApiSpecVersion.OpenApi2_0, metadata },
+                { OpenApiSpecVersion.OpenApi3_0, metadataV3 }
+            };
+            
             Section = section;
             Name = name;
             BasePath = basePath;
@@ -23,9 +30,9 @@ namespace EdFi.Ods.Api.Models
 
         public string Name { get; }
 
-        public string Metadata
+        public string Metadata(OpenApiSpecVersion version)
         {
-            get => _metadata.Value;
+            return _metadataBySpecVersion[version].Value;
         }
 
         public string Section { get; }

@@ -4,9 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Linq;
 using System.Threading.Tasks;
-using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.ExceptionHandling;
@@ -70,7 +68,7 @@ namespace EdFi.Ods.Features.Controllers
             if (tokenInfoRequest == null || tokenInfoRequest.Token == null ||
                 !Guid.TryParse(tokenInfoRequest.Token, out Guid accessToken))
             {
-                return BadRequest(ErrorTranslator.GetErrorMessage("Invalid token", (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
+                return BadRequest(ErrorTranslator.GetErrorMessage("Invalid token", (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
             }
 
             var oAuthTokenClientDetails = await _apiClientDetailsProvider.GetApiClientDetailsForTokenAsync(accessToken.ToString("N"));

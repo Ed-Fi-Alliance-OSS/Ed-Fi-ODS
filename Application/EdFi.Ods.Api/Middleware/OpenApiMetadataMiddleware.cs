@@ -12,6 +12,7 @@ using EdFi.Ods.Api.Providers;
 using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
+using Microsoft.OpenApi;
 
 namespace EdFi.Ods.Api.Middleware
 {
@@ -34,7 +35,9 @@ namespace EdFi.Ods.Api.Middleware
                 return;
             }
 
-            if (!_metadataDocumentProvider.TryGetSwaggerDocument(context.Request, out string document))
+            context.Request.Query.TryGetValue("version", out var version);
+            
+            if (!_metadataDocumentProvider.TryGetSwaggerDocument(context.Request, out string document, version == "2" ? OpenApiSpecVersion.OpenApi2_0 : OpenApiSpecVersion.OpenApi3_0))
             {
                 await next(context);
                 return;
@@ -45,7 +48,6 @@ namespace EdFi.Ods.Api.Middleware
                 var etag = HashHelper.GetSha256Hash(document)
                     .ToHexString()
                     .DoubleQuoted();
-
                 if (context.Request.TryGetRequestHeader(HeaderConstants.IfNoneMatch, out string headerValue))
                 {
                     if (headerValue.EqualsIgnoreCase(etag))
@@ -61,7 +63,6 @@ namespace EdFi.Ods.Api.Middleware
                     context.Response.GetTypedHeaders().ETag = new EntityTagHeaderValue(etag);
                     context.Response.StatusCode = StatusCodes.Status200OK;
                     context.Response.ContentType = GetContentType();
-
                     await context.Response.WriteAsync(document);
                 }
             }

@@ -9,12 +9,12 @@ using EdFi.Common;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
+using Microsoft.OpenApi;
 using OpenApiMetadataSections = EdFi.Ods.Api.Constants.OpenApiMetadataSections;
 
 namespace EdFi.Ods.Features.OpenApiMetadata
@@ -51,7 +51,18 @@ namespace EdFi.Ods.Features.OpenApiMetadata
                                         RenderType = RenderType.GeneralizedExtensions,
                                         IsIncludedExtension = x
                                             => x.FullName.Schema.Equals(EdFiConventions.PhysicalSchemaName)
-                                    })),
+                                    }, OpenApiSpecVersion.OpenApi2_0)),
+                        new Lazy<string>(
+                            () =>
+                                _openApiMetadataDocumentFactory
+                                    .Create(
+                                        new SdkGenAllEdFiResourceStrategy(),
+                                        new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())
+                                        {
+                                            RenderType = RenderType.GeneralizedExtensions,
+                                            IsIncludedExtension = x
+                                                => x.FullName.Schema.Equals(EdFiConventions.PhysicalSchemaName)
+                                        }, OpenApiSpecVersion.OpenApi3_0)),
                     RouteConstants.DataManagementRoutePrefix)
             };
     }

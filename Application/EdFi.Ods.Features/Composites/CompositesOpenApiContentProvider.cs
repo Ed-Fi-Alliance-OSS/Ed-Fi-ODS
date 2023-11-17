@@ -10,14 +10,12 @@ using EdFi.Common;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
-using EdFi.Ods.Common;
-using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Metadata.Composites;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
-using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
+using Microsoft.OpenApi;
 
 namespace EdFi.Ods.Features.Composites
 {
@@ -26,7 +24,6 @@ namespace EdFi.Ods.Features.Composites
         private readonly ICompositesMetadataProvider _compositesMetadataProvider;
         private readonly IResourceModelProvider _resourceModelProvider;
         private readonly IOpenApiMetadataDocumentFactory _openApiMetadataDocumentFactory;
-
         public CompositesOpenApiContentProvider(ICompositesMetadataProvider compositesMetadataProvider,
             IResourceModelProvider resourceModelProvider, IOpenApiMetadataDocumentFactory openApiMetadataDocumentFactory)
         {
@@ -55,13 +52,14 @@ namespace EdFi.Ods.Features.Composites
                         OrganizationCode = x.OrganizationCode,
                         CategoryName = x.Name
                     })
-                .Select(x => new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()) {CompositeContext = x})
+                .Select(x => new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()) { CompositeContext = x })
                 .Select(
                     c =>
                         new OpenApiContent(
                             OpenApiMetadataSections.Composites,
                             c.CompositeContext.CategoryName,
-                            new Lazy<string>(() => _openApiMetadataDocumentFactory.Create(openApiStrategy, c)),
+                            new Lazy<string>(() => _openApiMetadataDocumentFactory.Create(openApiStrategy, c, OpenApiSpecVersion.OpenApi2_0)),
+                            new Lazy<string>(() => _openApiMetadataDocumentFactory.Create(openApiStrategy, c, OpenApiSpecVersion.OpenApi3_0)),
                             $"{OpenApiMetadataSections.Composites.ToLowerInvariant()}/v{CompositesConstants.FeatureVersion}",
                             $"{c.CompositeContext.OrganizationCode}/{c.CompositeContext.CategoryName}"));
         }
