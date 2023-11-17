@@ -108,7 +108,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
             {
                 foreach (KeyValuePair<string, TenantConfiguration> tenant in tenantMap)
                 {
-                    AddSecurityScheme(ref openApiDocument, routeContextKeys, tenant.Value);
+                    AddSecurityScheme(routeContextKeys, tenant.Value);
                 }
             }
             else
@@ -123,7 +123,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
                                 .GetDistinctOdsInstanceContextValuesAsync(routeContextKey).Result.First()));
                 }
 
-                AddSecurityScheme(ref openApiDocument, singleValidContextValueForEachKey);
+                AddSecurityScheme(singleValidContextValueForEachKey);
             }
 
             serverVariable.Default = serverVariable.Enum.FirstOrDefault() ?? "";
@@ -171,7 +171,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
                 : newEnumValues;
         }
 
-        void AddSecurityScheme(ref OpenApiDocument openApiDocument, List<string> validRouteContextKeyValues,
+        void AddSecurityScheme(List<string> validRouteContextKeyValues,
             TenantConfiguration tenant = null)
         {
             var routeContextValueSegment = "";
@@ -190,16 +190,14 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
                 ? ""
                 : $"{tenant.TenantIdentifier}/";
 
-            OpenApiSecurityScheme securityScheme = new OpenApiSecurityScheme();
-
-            securityScheme.Type = SecuritySchemeType.OAuth2;
-            securityScheme.Description = "Ed-Fi ODS/API OAuth 2.0 Client Credentials Grant Type authorization";
-
-            securityScheme.Flows = new OpenApiOAuthFlows()
-            {
-                ClientCredentials = new OpenApiOAuthFlow
+            OpenApiSecurityScheme securityScheme = new OpenApiSecurityScheme { Type = SecuritySchemeType.OAuth2,
+                Description = "Ed-Fi ODS/API OAuth 2.0 Client Credentials Grant Type authorization",
+                Flows = new OpenApiOAuthFlows()
                 {
-                    TokenUrl = new Uri($"{baseServerUrl}/{tenantSegment}{routeContextValueSegment}oauth/token")
+                    ClientCredentials = new OpenApiOAuthFlow
+                    {
+                        TokenUrl = new Uri($"{baseServerUrl}/{tenantSegment}{routeContextValueSegment}oauth/token")
+                    }
                 }
             };
 

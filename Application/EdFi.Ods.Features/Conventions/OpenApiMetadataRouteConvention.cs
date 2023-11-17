@@ -44,12 +44,14 @@ public class OpenApiMetadataRouteConvention : IApplicationModelConvention
             // If ODS Context Route is configured, remove the route constraints so the server variables element can be populated correctly
             if (!string.IsNullOrEmpty(_odsContextRouteTemplate))
             {
-                var routetemplateWithoutConstraints = new string(OdsContextRouteTemplateHelpers.GetOdsContextPathChars(_odsContextRouteTemplate).ToArray());
+                var routeTemplateWithoutConstraints = new string(OdsContextRouteTemplateHelpers.GetOdsContextPathChars(_odsContextRouteTemplate).ToArray());
 
-                var tenantOnlyRoutePrefix = new AttributeRouteModel { Template = "{tenantIdentifier}" };
-
-                selector.AttributeRouteModel.Template =
-                    selector.AttributeRouteModel.Template.Replace(_odsContextRouteTemplate, $"{routetemplateWithoutConstraints}");
+                if (selector.AttributeRouteModel != null)
+                {
+                    selector.AttributeRouteModel.Template =
+                        selector.AttributeRouteModel.Template?.Replace(
+                            _odsContextRouteTemplate, $"{routeTemplateWithoutConstraints}");
+                }
             }
 
             // If MultiTenant is enabled, we need to match the route exactly so the TenantConfiguration can be loaded correctly
@@ -59,7 +61,7 @@ public class OpenApiMetadataRouteConvention : IApplicationModelConvention
                 {
                     var prefixTemplate = new AttributeRouteModel
                     {
-                        Template = selector.AttributeRouteModel.Template.TrimSuffix("/metadata")
+                        Template = selector.AttributeRouteModel?.Template.TrimSuffix("/metadata")
                     };
 
                     var routeTemplate = new AttributeRouteModel
@@ -74,7 +76,7 @@ public class OpenApiMetadataRouteConvention : IApplicationModelConvention
                             routeTemplate)
                     };
 
-                    if (controller.Selectors.Any(x => x.AttributeRouteModel.Template == routeSelector.AttributeRouteModel.Template))
+                    if (controller.Selectors.Any(x => x.AttributeRouteModel?.Template == routeSelector.AttributeRouteModel?.Template))
                         continue;
 
                     controller.Selectors.Add(routeSelector);

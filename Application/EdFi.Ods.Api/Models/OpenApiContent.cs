@@ -11,7 +11,7 @@ namespace EdFi.Ods.Api.Models
 {
     public class OpenApiContent
     {
-        private Dictionary<OpenApiSpecVersion, Lazy<string>> _metadataBySpecVersion;
+        private readonly Dictionary<OpenApiSpecVersion, Lazy<string>> _metadataBySpecVersion;
 
         public OpenApiContent(string section, string name, Lazy<string> metadata, Lazy<string> metadataV3, string basePath,
             string relativeSectionPath = null)
