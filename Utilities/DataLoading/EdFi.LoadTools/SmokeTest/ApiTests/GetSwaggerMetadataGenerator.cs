@@ -9,11 +9,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using EdFi.Common.Inflection;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Common;
-using EdFi.Common.Inflection;
 using log4net;
-using Swashbuckle.Swagger;
+using Microsoft.OpenApi.Models;
 
 namespace EdFi.LoadTools.SmokeTest.ApiTests
 {
@@ -24,13 +24,13 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
 
         private readonly ISwaggerRetriever _retriever;
         private readonly List<string> _schemaNames;
-        private readonly Dictionary<string, SwaggerDocument> _swaggerDocuments;
+        private readonly Dictionary<string, OpenApiDocument> _swaggerDocuments;
 
         public GetSwaggerMetadataGenerator(
             ISwaggerRetriever retriever,
             Dictionary<string, Resource> resources,
             List<string> schemaNames,
-            Dictionary<string, SwaggerDocument> swaggerDocuments,
+            Dictionary<string, OpenApiDocument> swaggerDocuments,
             Dictionary<string, Entity> entities)
         {
             _retriever = retriever;
@@ -62,12 +62,12 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
                     var doc = metadata[key];
                     _swaggerDocuments[key] = doc;
 
-                    var uniqueSchemaNames = doc.paths.Keys
+                    var uniqueSchemaNames = doc.Paths.Keys
                         .Select(GetSchemaNameFromPath)
                         .Distinct()
                         .ToList();
 
-                    foreach (var path in doc.paths)
+                    foreach (var path in doc.Paths)
                     {
                         if (_resources.ContainsKey(path.Key))
                             continue;
@@ -75,18 +75,18 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
                         _resources[path.Key] = new Resource
                         {
                             Name = GetResoucePath(path.Key, path.Value),
-                            BasePath = doc.basePath,
+                            BasePath = ReplaceVariablesInServer(doc.Servers.First()),
                             Path = path.Value,
                             Schema = GetSchemaNameFromPath(path.Key),
-                            Definition = doc
-                                .definitions
+                            Definition = doc.Components
+                                .Schemas
                                 .FirstOrDefault(
                                     d => TypeNameHelper.CompareTypeNames(path.Key, d.Key, "_", uniqueSchemaNames))
                                 .Value
                         };
                     }
 
-                    foreach (var definition in doc.definitions)
+                    foreach (var definition in doc.Components.Schemas)
                     {
                         if (_entities.ContainsKey(definition.Key))
                         {
@@ -128,13 +128,13 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
             yield return this;
         }
 
-        private static string GetResoucePath(string path, PathItem pathItem)
+        private static string GetResoucePath(string path, OpenApiPathItem pathItem)
         {
             var resoucePath = path;
 
-            foreach (var parameter in pathItem.get.parameters)
+            foreach (var parameter in pathItem.Operations[OperationType.Get].Parameters)
             {
-                resoucePath = resoucePath.Replace($"{{{parameter.name}}}", string.Empty);
+                resoucePath = resoucePath.Replace($"{{{parameter.Name}}}", string.Empty);
             }
 
             return resoucePath.TrimEnd('/');
@@ -167,6 +167,23 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
             return schemaNameParts[0] + (schemaNameParts.Length > 1
                        ? GetSchemaNameParts(schemaNameParts)
                        : string.Empty);
+        }
+
+        private static string ReplaceVariablesInServer(OpenApiServer server)
+        {
+            var variablesToReplace = server.Variables.Select(x => new
+            {
+                Name = x.Key,
+                DefaultValue = x.Value.Default.Replace("/", string.Empty)
+            });
+            var serverUrl = server.Url;
+
+            foreach (var variable in variablesToReplace)
+            {
+                serverUrl = serverUrl.Replace($"{{{variable.Name}}}", variable.DefaultValue);
+            }
+
+            return serverUrl;
         }
     }
 }

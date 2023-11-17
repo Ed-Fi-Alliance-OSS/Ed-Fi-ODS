@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using EdFi.LoadTools.ApiClient;
-using Swashbuckle.Swagger;
+using Microsoft.OpenApi.Models;
 
 namespace EdFi.LoadTools.SmokeTest
 {
@@ -78,6 +78,6 @@ namespace EdFi.LoadTools.SmokeTest
 
     public interface IPropertyInfoMetadataLookup
     {
-        Parameter GetMetadata(PropertyInfo propInfo);
+        OpenApiParameter GetMetadata(PropertyInfo propInfo);
     }
 }

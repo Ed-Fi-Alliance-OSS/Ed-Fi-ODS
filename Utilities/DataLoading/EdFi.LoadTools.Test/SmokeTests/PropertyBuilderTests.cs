@@ -9,9 +9,9 @@ using System.Globalization;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest;
 using EdFi.LoadTools.SmokeTest.PropertyBuilders;
-using NUnit.Framework;
+using Microsoft.OpenApi.Models;
 using Moq;
-using Swashbuckle.Swagger;
+using NUnit.Framework;
 
 // ReSharper disable InconsistentNaming
 // ReSharper disable UnusedAutoPropertyAccessor.Local
@@ -59,9 +59,9 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
             var propInfoMetadataLookup =
                 Mock.Of<IPropertyInfoMetadataLookup>(
-                    x => x.GetMetadata(propInfo) == new Parameter
+                    x => x.GetMetadata(propInfo) == new OpenApiParameter
                                                     {
-                                                        required = true
+                                                        Required = true
                                                     });
 
             var builder = new ListPropertyBuilder(propInfoMetadataLookup);
@@ -111,9 +111,10 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
             var lookup = Mock.Of<IPropertyInfoMetadataLookup>(
                 f =>
-                    f.GetMetadata(propInfo) == new Parameter
+                    f.GetMetadata(propInfo) == new OpenApiParameter
                                                {
-                                                   required = true
+                                                   Required = true,
+                                                   Schema = new OpenApiSchema()
                                                });
 
             var builder = new StringPropertyBuilder(lookup);
@@ -135,9 +136,9 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
             var lookup = Mock.Of<IPropertyInfoMetadataLookup>(
                 f =>
-                    f.GetMetadata(propInfo) == new Parameter
+                    f.GetMetadata(propInfo) == new OpenApiParameter
                                                {
-                                                   required = true
+                                                   Required = true
                                                });
 
             var builder = new TimeStringPropertyBuilder(lookup);
@@ -176,9 +177,9 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
             var lookup = Mock.Of<IPropertyInfoMetadataLookup>(
                 f =>
-                    f.GetMetadata(propInfo) == new Parameter
+                    f.GetMetadata(propInfo) == new OpenApiParameter
                     {
-                        required = true
+                        Required = true
                     });
             var builder = new DateTimePropertyBuilder(lookup);
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
@@ -192,9 +193,9 @@ namespace EdFi.LoadTools.Test.SmokeTests
             var propInfo = typeof(Class1).GetProperty("dateTimeProperty1");
             var lookup = Mock.Of<IPropertyInfoMetadataLookup>(
                 f =>
-                    f.GetMetadata(propInfo) == new Parameter
+                    f.GetMetadata(propInfo) == new OpenApiParameter
                     {
-                        required = false
+                        Required = false
                     });
 
             var builder = new DateTimePropertyBuilder(lookup);
@@ -308,9 +309,9 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
             var lookup = Mock.Of<IPropertyInfoMetadataLookup>(
                 f =>
-                    f.GetMetadata(propInfo) == new Parameter
+                    f.GetMetadata(propInfo) == new OpenApiParameter
                                                {
-                                                   required = false
+                                                   Required = false
                                                });
 
             var builder = new SimplePropertyBuilder(lookup, Mock.Of<IDestructiveTestConfiguration>());
@@ -326,9 +327,10 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
             var lookup = Mock.Of<IPropertyInfoMetadataLookup>(
                 f =>
-                    f.GetMetadata(propInfo) == new Parameter
+                    f.GetMetadata(propInfo) == new OpenApiParameter
                                                {
-                                                   required = true
+                                                   Required = true,
+                                                   Schema = new OpenApiSchema()
                                                });
 
             var builder = new SimplePropertyBuilder(lookup, Mock.Of<IDestructiveTestConfiguration>());
@@ -344,9 +346,9 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
             var lookup = Mock.Of<IPropertyInfoMetadataLookup>(
                 f =>
-                    f.GetMetadata(propInfo) == new Parameter
+                    f.GetMetadata(propInfo) == new OpenApiParameter
                                                {
-                                                   required = false
+                                                   Required = false
                                                });
 
             var builder = new SimplePropertyBuilder(lookup, Mock.Of<IDestructiveTestConfiguration>());

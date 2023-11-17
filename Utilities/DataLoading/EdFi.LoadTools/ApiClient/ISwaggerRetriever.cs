@@ -5,12 +5,12 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Swashbuckle.Swagger;
+using Microsoft.OpenApi.Models;
 
 namespace EdFi.LoadTools.ApiClient
 {
     public interface ISwaggerRetriever
     {
-        Task<IDictionary<string, SwaggerDocument>> LoadMetadata();
+        Task<IDictionary<string, OpenApiDocument>> LoadMetadata();
     }
 }

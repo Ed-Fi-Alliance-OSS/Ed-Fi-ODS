@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Linq;
 
 namespace EdFi.LoadTools.SmokeTest.ApiTests
@@ -26,11 +27,11 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
         protected override bool ShouldPerformTest()
         {
             return !Operation
-                   .parameters
+                   .Parameters
                    .Any(
-                        p => "id".Equals(p.name, StringComparison.CurrentCultureIgnoreCase)
-                             && p.required == true
-                             && "path".Equals(p.@in, StringComparison.CurrentCultureIgnoreCase));
+                        p => "id".Equals(p.Name, StringComparison.CurrentCultureIgnoreCase)
+                             && p.Required == true
+                             && p.In == ParameterLocation.Path);
         }
     }
 }

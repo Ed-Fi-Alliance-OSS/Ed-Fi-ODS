@@ -9,8 +9,8 @@ using System.IO;
 using System.Linq;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Linq;
-using Swashbuckle.Swagger;
 
 namespace EdFi.LoadTools.SmokeTest.ApiTests
 {
@@ -30,7 +30,7 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
 
         protected override string OnGetPath(string path)
         {
-            var name = GetParameters().First().name;
+            var name = GetParameters().First().Name;
 
             var obj = GetResult()?[name];
 
@@ -42,9 +42,9 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
             return Path.Combine(path, obj.ToString());
         }
 
-        private IEnumerable<Parameter> GetParameters()
+        private IEnumerable<OpenApiParameter> GetParameters()
         {
-            return Operation.parameters.Where(p => p.name == "id" && p.required == true && p.@in == "path");
+            return Operation.Parameters.Where(p => p.Name == "id" && p.Required == true && p.In == ParameterLocation.Path);
         }
     }
 }

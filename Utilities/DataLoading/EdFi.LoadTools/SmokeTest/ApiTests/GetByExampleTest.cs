@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Linq;
 
 namespace EdFi.LoadTools.SmokeTest.ApiTests
@@ -24,11 +25,11 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
         protected override bool ShouldPerformTest()
         {
             return !Operation
-                   .parameters
+                   .Parameters
                    .Any(
-                        p => "id".Equals(p.name, StringComparison.CurrentCultureIgnoreCase) &&
-                             p.required == true &&
-                             "path".Equals(p.@in, StringComparison.CurrentCultureIgnoreCase));
+                        p => "id".Equals(p.Name, StringComparison.CurrentCultureIgnoreCase) &&
+                             p.Required == true &&
+                             p.In == ParameterLocation.Path);
         }
 
         protected override string OnGetPath(string path)
@@ -44,13 +45,13 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
 
             return path + "?" + string.Join(
                        "&",
-                       Operation.parameters.Where(x => x.@in == "query" && x.name != "id")
+                       Operation.Parameters.Where(x => x.In == ParameterLocation.Query && x.Name != "id")
                                 .Select(
-                                     x => jobj[x.name] == null
+                                     x => jobj[x.Name] == null
                                          ? null
-                                         : x.type == "date-time"
-                                             ? $"{x.name}={jobj[x.name]:yyyy-MM-dd}"
-                                             : $"{x.name}={Uri.EscapeDataString(jobj[x.name].ToString())}")
+                                         : x.Schema.Type == "date-time"
+                                             ? $"{x.Name}={jobj[x.Name]:yyyy-MM-dd}"
+                                             : $"{x.Name}={Uri.EscapeDataString(jobj[x.Name].ToString())}")
                                 .Where(x => !string.IsNullOrEmpty(x)));
         }
     }

@@ -3,12 +3,12 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using log4net;
 using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using log4net;
 
 namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 {
@@ -71,8 +71,8 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
         protected string BuildRandomString(PropertyInfo propertyInfo)
         {
             var parameter = _metadataLookup.GetMetadata(propertyInfo);
-            var length = Math.Max(parameter.minLength.HasValue ? parameter.minLength.Value: 0, _defaultStringLength);
-            length = Math.Min(parameter.maxLength.HasValue ? parameter.maxLength.Value : _defaultStringLength, length);
+            var length = Math.Max(parameter.Schema.MinLength.HasValue ? parameter.Schema.MinLength.Value: 0, _defaultStringLength);
+            length = Math.Min(parameter.Schema.MaxLength.HasValue ? parameter.Schema.MaxLength.Value : _defaultStringLength, length);
             return BuildRandomString(length);
         }
 
@@ -87,25 +87,25 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
         {
             var parameter = _metadataLookup.GetMetadata(propertyInfo);
 
-            return parameter.required.HasValue && parameter.required.Value;
+            return parameter.Required;
         }
 
         protected int BuildRandomNumber(PropertyInfo propertyInfo)
         {
             var parameter = _metadataLookup.GetMetadata(propertyInfo);
             
-            if (parameter.minimum.HasValue && parameter.maximum.HasValue)
+            if (parameter.Schema.Minimum.HasValue && parameter.Schema.Maximum.HasValue)
             {
-                return Random.Next((int)parameter.minimum.Value, (int)parameter.maximum.Value);
+                return Random.Next((int)parameter.Schema.Minimum.Value, (int)parameter.Schema.Maximum.Value);
             }
-            else if (parameter.minimum.HasValue)
+            else if (parameter.Schema.Minimum.HasValue)
             {
-                var minVal = (int)parameter.minimum.Value == 0 ? _counter++ : (int)parameter.minimum.Value;
+                var minVal = (int)parameter.Schema.Minimum.Value == 0 ? _counter++ : (int)parameter.Schema.Minimum.Value;
                 return minVal;
             }
-            else if(parameter.maximum.HasValue)
+            else if(parameter.Schema.Maximum.HasValue)
             {
-                return (int)parameter.maximum.Value;
+                return (int)parameter.Schema.Maximum.Value;
             }
             else
             {

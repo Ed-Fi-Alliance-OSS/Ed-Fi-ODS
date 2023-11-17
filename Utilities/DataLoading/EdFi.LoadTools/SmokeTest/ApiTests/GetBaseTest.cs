@@ -15,8 +15,8 @@ using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Common;
 using EdFi.LoadTools.Engine;
 using log4net;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Linq;
-using Swashbuckle.Swagger;
 
 namespace EdFi.LoadTools.SmokeTest.ApiTests
 {
@@ -47,7 +47,7 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
 
         protected ILog Log => LogManager.GetLogger(GetType().Name);
 
-        protected Operation Operation => Resource.Path.get;
+        protected OpenApiOperation Operation => Resource.Path.Operations[OperationType.Get];
 
         protected virtual bool NoDataAvailableForTheResource => GetResult() == null;
 
@@ -84,7 +84,7 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
                         {
                             var jsonString = await response.Content.ReadAsStringAsync();
 
-                            if (Resource.Path.get.responses["200"].schema.type == "array")
+                            if (Resource.Path.Operations[OperationType.Get].Responses["200"].Content[response.Content.Headers.ContentType.MediaType].Schema.Type == "array")
                             {
                                 results = JArray.Parse(jsonString);
                                 ResultsDictionary[Resource.Name] = results;
@@ -158,7 +158,7 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
 
             path = OnGetPath(path);
 
-            var uri = new Uri(new Uri(Configuration.Url), path);
+            var uri = new Uri(path);
             return uri;
         }
 

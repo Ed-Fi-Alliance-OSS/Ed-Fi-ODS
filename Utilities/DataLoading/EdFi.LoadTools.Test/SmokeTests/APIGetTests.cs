@@ -4,22 +4,24 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest.ApiTests;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using NUnit.Framework;
+using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi.Readers;
 using Moq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Swashbuckle.Swagger;
-using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test.SmokeTests
 {
@@ -34,24 +36,32 @@ namespace EdFi.LoadTools.Test.SmokeTests
         private const string PropertyName = "aProperty";
 
         private const string Swagger =
-            @"{ 
-            paths: {
-              ""TestNamespace/TestResource"": {
+            @"{
+            ""openapi"": ""3.0.1"",
+            ""info"": {},
+            ""paths"": {
+              ""/TestNamespace/TestResource"": {
                 ""get"": {
                   ""parameters"": [
                     {
                       ""name"": ""TestIdentifier"",
                       ""in"": ""query"",
                       ""required"": false,
-                      ""type"": ""string""
+                      ""schema"": {
+                        ""type"": ""string""
+                      }
                     }
                   ],
                   ""responses"": {
                     ""200"": {
-                      ""schema"": {
-                        ""type"": ""array"",
-                        ""items"": {
-                            ""$ref"": ""#/definitions/edFi_academicWeek""
+                      ""content"":{
+                        ""application/json"": {
+                          ""schema"": {
+                            ""type"": ""array"",
+                            ""items"": {
+                              ""$ref"": ""#/components/schemas/edFi_academicWeek""
+                            }
+                          }
                         }
                       }
                     }
@@ -71,17 +81,21 @@ namespace EdFi.LoadTools.Test.SmokeTests
             new JProperty("aProperty", "b"));
 
         private readonly JArray _data = new JArray(Obj1, Obj2);
-        private readonly IOAuthSessionToken _token = Mock.Of<IOAuthSessionToken>(t => t.SessionToken == "something");
 
-        private readonly SwaggerDocument Doc = JsonConvert.DeserializeObject<SwaggerDocument>(Swagger);
+        private OpenApiDocument _doc;
 
-        private readonly IOAuthTokenHandler tokenHandler = Mock.Of<IOAuthTokenHandler>();
+        private readonly IOAuthTokenHandler _tokenHandler = Mock.Of<IOAuthTokenHandler>();
 
         private Resource _resource;
 
         [OneTimeSetUp]
         public async Task Setup()
         {
+            using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(Swagger)))
+            {
+                _doc = new OpenApiStreamReader().Read(ms, out var diag);
+            }
+
             var config = new ConfigurationBuilder()
                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
                 .AddJsonFile("appsettings.json", optional: true)
@@ -89,12 +103,12 @@ namespace EdFi.LoadTools.Test.SmokeTests
                 .Build();
 
             Address = config.GetSection("TestingWebServerAddress").Value;
-
+            _doc.Servers.Add(new OpenApiServer { Url = $"{Address}data/v3" });
             _resource = new Resource
             {
                 Name = ResourceName,
-                BasePath = "",
-                Path = Doc.paths.Values.First()
+                BasePath = _doc.Servers.First().Url,
+                Path = _doc.Paths.Values.First()
             };
 
             // Create and start up the host
@@ -172,7 +186,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
             var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
 
-            var subject = new GetAllTest(_resource, dictionary, configuration, tokenHandler);
+            var subject = new GetAllTest(_resource, dictionary, configuration, _tokenHandler);
             var result = await subject.PerformTest();
 
             Assert.IsNotNull(dictionary[ResourceName]);
@@ -185,7 +199,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
             var dictionary = new Dictionary<string, JArray> { [ResourceName] = _data };
 
             var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
-            var subject = new GetAllSkipLimitTest(_resource, dictionary, configuration, tokenHandler);
+            var subject = new GetAllSkipLimitTest(_resource, dictionary, configuration, _tokenHandler);
             var result = await subject.PerformTest();
 
             Assert.IsTrue(result);
@@ -197,7 +211,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
             var dictionary = new Dictionary<string, JArray> { [ResourceName] = _data };
 
             var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
-            var subject = new GetByIdTest(_resource, dictionary, configuration, tokenHandler);
+            var subject = new GetByIdTest(_resource, dictionary, configuration, _tokenHandler);
             var result = await subject.PerformTest();
 
             Assert.IsTrue(result);
@@ -209,7 +223,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
             var dictionary = new Dictionary<string, JArray> { [ResourceName] = _data };
 
             var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
-            var subject = new GetByExampleTest(_resource, dictionary, configuration, tokenHandler);
+            var subject = new GetByExampleTest(_resource, dictionary, configuration, _tokenHandler);
             var result = await subject.PerformTest();
 
             Assert.IsTrue(result);

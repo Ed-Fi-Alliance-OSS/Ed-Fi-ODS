@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Linq;
 
 namespace EdFi.LoadTools.SmokeTest.ApiTests
@@ -23,7 +24,7 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
 
         protected override bool ShouldPerformTest()
         {
-            return !Operation.parameters.Any(p => p.name == "id" && p.required == true && p.@in == "path");
+            return !Operation.Parameters.Any(p => p.Name == "id" && p.Required == true && p.In.Value == ParameterLocation.Path);
         }
 
         protected override string OnGetPath(string path)
