@@ -15,7 +15,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Readers;
@@ -82,11 +81,10 @@ namespace EdFi.LoadTools.Test.SmokeTests
             new JProperty("aProperty", "b"));
 
         private readonly JArray _data = new JArray(Obj1, Obj2);
-        private readonly IOAuthSessionToken _token = Mock.Of<IOAuthSessionToken>(t => t.SessionToken == "something");
 
-        private OpenApiDocument Doc;
+        private OpenApiDocument _doc;
 
-        private readonly IOAuthTokenHandler tokenHandler = Mock.Of<IOAuthTokenHandler>();
+        private readonly IOAuthTokenHandler _tokenHandler = Mock.Of<IOAuthTokenHandler>();
 
         private Resource _resource;
 
@@ -95,7 +93,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(Swagger)))
             {
-                Doc = new OpenApiStreamReader().Read(ms, out var diag);
+                _doc = new OpenApiStreamReader().Read(ms, out var diag);
             }
 
             var config = new ConfigurationBuilder()
@@ -105,12 +103,12 @@ namespace EdFi.LoadTools.Test.SmokeTests
                 .Build();
 
             Address = config.GetSection("TestingWebServerAddress").Value;
-            Doc.Servers.Add(new OpenApiServer { Url = $"{Address}data/v3" });
+            _doc.Servers.Add(new OpenApiServer { Url = $"{Address}data/v3" });
             _resource = new Resource
             {
                 Name = ResourceName,
-                BasePath = Doc.Servers.First().Url,
-                Path = Doc.Paths.Values.First()
+                BasePath = _doc.Servers.First().Url,
+                Path = _doc.Paths.Values.First()
             };
 
             // Create and start up the host
@@ -188,7 +186,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
             var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
 
-            var subject = new GetAllTest(_resource, dictionary, configuration, tokenHandler);
+            var subject = new GetAllTest(_resource, dictionary, configuration, _tokenHandler);
             var result = await subject.PerformTest();
 
             Assert.IsNotNull(dictionary[ResourceName]);
@@ -201,7 +199,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
             var dictionary = new Dictionary<string, JArray> { [ResourceName] = _data };
 
             var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
-            var subject = new GetAllSkipLimitTest(_resource, dictionary, configuration, tokenHandler);
+            var subject = new GetAllSkipLimitTest(_resource, dictionary, configuration, _tokenHandler);
             var result = await subject.PerformTest();
 
             Assert.IsTrue(result);
@@ -213,7 +211,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
             var dictionary = new Dictionary<string, JArray> { [ResourceName] = _data };
 
             var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
-            var subject = new GetByIdTest(_resource, dictionary, configuration, tokenHandler);
+            var subject = new GetByIdTest(_resource, dictionary, configuration, _tokenHandler);
             var result = await subject.PerformTest();
 
             Assert.IsTrue(result);
@@ -225,7 +223,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
             var dictionary = new Dictionary<string, JArray> { [ResourceName] = _data };
 
             var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
-            var subject = new GetByExampleTest(_resource, dictionary, configuration, tokenHandler);
+            var subject = new GetByExampleTest(_resource, dictionary, configuration, _tokenHandler);
             var result = await subject.PerformTest();
 
             Assert.IsTrue(result);

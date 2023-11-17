@@ -137,7 +137,7 @@ namespace EdFi.LoadTools.ApiClient
             return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         }
 
-        private async Task<OpenApiDocument> LoadOpenApiDocument(string endpointUri)
+        private static async Task<OpenApiDocument> LoadOpenApiDocument(string endpointUri)
         {
             HttpClientHandler handler = new HttpClientHandler
             {
