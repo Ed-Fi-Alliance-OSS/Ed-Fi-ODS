@@ -174,10 +174,10 @@ namespace EdFi.LoadTools.ApiClient
         private string GetPathForModel(OpenApiDocument swaggerDocument, string modelName)
         {
             return swaggerDocument.Paths
-                .Where(p => p.Value.Operations.Keys.Any(k => k == OperationType.Post))
                 .FirstOrDefault(
-                    p => p.Value.Operations[OperationType.Post].RequestBody.Content.First().Value.Schema.Reference.Id == modelName
-                 )
+                    path => path.Value.Operations?.Any(
+                                operation => operation.Value.Tags?.Any(tag => modelName.Split('_').Last() == modelName) ?? false
+                                ) ?? false)
                 .Key;
         }
 
@@ -198,7 +198,7 @@ namespace EdFi.LoadTools.ApiClient
                 referenceType = parameter.Items.Reference.ReferenceV3;
             }
 
-            if ((string.IsNullOrEmpty(parameter?.Type) || parameter?.Type == "object") && !string.IsNullOrEmpty(parameter?.Reference.ReferenceV3))
+            if (string.IsNullOrEmpty(parameter?.Type) && !string.IsNullOrEmpty(parameter?.Reference.ReferenceV3))
             {
                 referenceType = parameter.Reference.ReferenceV3;
             }
