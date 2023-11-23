@@ -1,0 +1,9 @@
+{{#IsRequiredWithNonDefault}}
+        [RequiredWithNonDefault{{#ValidationReferenceName}}("{{ValidationReferenceName}}"){{/ValidationReferenceName}}]
+{{/IsRequiredWithNonDefault}}
+{{#IsString}}
+        [StringLength({{MaxLength}}, MinimumLength={{MinLength}}), NoDangerousText{{#NoWhitespace}}, NoWhitespace{{/NoWhitespace}}]
+{{/IsString}}
+{{#RangeAttribute}}
+        {{RangeAttribute}}
+{{/RangeAttribute}}

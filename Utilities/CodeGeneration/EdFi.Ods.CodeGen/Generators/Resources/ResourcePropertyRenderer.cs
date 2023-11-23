@@ -76,7 +76,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                     .Select(@ref => new
                                     {
                                         ReferencePropertyName = @ref.PropertyName,
-                                        ReferenceFieldName = @ref.PropertyName.ToCamelCase(),
+                                        ReferenceFieldName = @ref.JsonPropertyName,
                                         UnifiedKeyProperties = @ref.AbstractionProperties
                                             .Select((rp, i) => new { AbstractionProperty = rp, ReferenceTypePropertyName = @ref.ReferenceTypeProperties.ElementAt(i).PropertyName })
                                             .Where(rp => rp.AbstractionProperty.IsUnified())
@@ -108,7 +108,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             {
                 if (resourceClass.IsDescriptorEntity())
                 {
-                    props.Add(PropertyData.CreateDerivedProperty(property));
+                    props.Add(PropertyData.CreateDerivedProperty(property, PersonEntitySpecification));
                     continue;
                 }
 
@@ -122,10 +122,10 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     {
                         props.Add(
                             property.IsPersonOrUsi() && !templateContext.IsExtension
-                                ? PropertyData.CreateUsiPrimaryKey(property)
+                                ? PropertyData.CreateUsiPrimaryKey(property, PersonEntitySpecification)
                                 : property.HasAssociations() && !property.IsDirectDescriptorUsage
-                                    ? PropertyData.CreateReferencedProperty(property, resource: filteredResource)
-                                    : PropertyData.CreateStandardProperty(property));
+                                    ? PropertyData.CreateReferencedProperty(property, PersonEntitySpecification, resource: filteredResource)
+                                    : PropertyData.CreateStandardProperty(property, PersonEntitySpecification));
                     }
                 }
                 else
@@ -135,7 +135,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     {
                         if (property.IsPersonOrUsi())
                         {
-                            props.Add(PropertyData.CreateUsiPrimaryKey(property));
+                            props.Add(PropertyData.CreateUsiPrimaryKey(property, PersonEntitySpecification));
                             continue;
                         }
 
@@ -148,12 +148,12 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
                         props.Add(
                             property.HasAssociations() && !property.IsDirectDescriptorUsage
-                                ? PropertyData.CreateReferencedProperty(property)
-                                : PropertyData.CreateStandardProperty(property));
+                                ? PropertyData.CreateReferencedProperty(property, PersonEntitySpecification)
+                                : PropertyData.CreateStandardProperty(property, PersonEntitySpecification));
                     }
                     else
                     {
-                        props.Add(PropertyData.CreateStandardProperty(property));
+                        props.Add(PropertyData.CreateStandardProperty(property, PersonEntitySpecification));
                     }
                 }
             }
@@ -213,7 +213,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             return properties.Any()
                 ? properties.Select(
-                        y => new PropertyData(y)
+                        y => new PropertyData(y, PersonEntitySpecification)
                         {
                             IsFirstProperty = y == first,
                             IsLastProperty = y == last
@@ -246,7 +246,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     includedProperties.Select(
                         x =>
                         {
-                            var propertyData = PropertyData.CreateStandardProperty(x);
+                            var propertyData = PropertyData.CreateStandardProperty(x, PersonEntitySpecification);
 
                             propertyData[ResourceRenderer.MiscellaneousComment] = "// NOT in a reference, NOT a lookup column ";
                             return propertyData;
@@ -256,7 +256,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             {
                 propertiesToRender.AddRange(
                     includedProperties.Select(
-                        PropertyData.CreateStandardProperty));
+                        p => PropertyData.CreateStandardProperty(p, PersonEntitySpecification)));
             }
 
             return propertiesToRender.Any()
@@ -306,7 +306,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             return ids
                 .Select(
                     x =>
-                        new PropertyData(x.Source)
+                        new PropertyData(x.Source, PersonEntitySpecification)
                         {
                             IsFirstProperty = x.Source == first,
                             IsLastProperty = x.Source == last,
@@ -341,7 +341,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
         private PropertyData AssembleDerivedProperty(ResourceProperty property)
         {
-            var propertyData = PropertyData.CreateDerivedProperty(property);
+            var propertyData = PropertyData.CreateDerivedProperty(property, PersonEntitySpecification);
 
             if (property.EntityProperty.IsInheritedIdentifyingRenamed)
             {
@@ -360,6 +360,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
                 return PropertyData.CreateReferencedProperty(
                     baseProperty.ToResourceProperty(property.Parent),
+                    PersonEntitySpecification,
                     UniqueIdConventions.IsUniqueId(property.PropertyName)
                         ? string.Format(
                             "A unique alphanumeric code assigned to a {0}.",
@@ -417,14 +418,14 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     }
                     else if (property.IsDirectDescriptorUsage)
                     {
-                        yield return PropertyData.CreateStandardProperty(property);
+                        yield return PropertyData.CreateStandardProperty(property, PersonEntitySpecification);
                     }
                     else
                     {
                         yield return
                             property.HasAssociations()
-                                ? PropertyData.CreateReferencedProperty(property)
-                                : PropertyData.CreateStandardProperty(property);
+                                ? PropertyData.CreateReferencedProperty(property, PersonEntitySpecification)
+                                : PropertyData.CreateStandardProperty(property, PersonEntitySpecification);
                     }
                 }
                 else
@@ -432,15 +433,17 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     if (property.HasAssociations())
                     {
                         yield return property.IsDescriptorUsage
-                            ? PropertyData.CreateStandardProperty(property)
-                            : PropertyData.CreateReferencedProperty(property);
+                            ? PropertyData.CreateStandardProperty(property, PersonEntitySpecification)
+                            : PropertyData.CreateReferencedProperty(property, PersonEntitySpecification);
                     }
                     else
                     {
-                        yield return PropertyData.CreateStandardProperty(property);
+                        yield return PropertyData.CreateStandardProperty(property, PersonEntitySpecification);
                     }
                 }
             }
         }
+
+        public IPersonEntitySpecification PersonEntitySpecification { get; set; }
     }
 }

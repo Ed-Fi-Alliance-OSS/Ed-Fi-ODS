@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Extensions;
 using EdFi.Ods.CodeGen.Models;
@@ -23,7 +24,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
     {
         private readonly ResourceCollectionRenderer _resourceCollectionRenderer = new();
         private readonly ResourcePropertyRenderer _resourcePropertyRenderer = new();
-        
+
         public static IPersonEntitySpecification PersonEntitySpecification { get; private set; }
 
         protected override void Configure() { }
@@ -36,6 +37,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 new PersonEntitySpecification(
                     new PersonTypesProvider(
                         new SuppliedDomainModelProvider(domainModel)));
+
+            _resourcePropertyRenderer.PersonEntitySpecification = PersonEntitySpecification;
             
             var schemaNameMapProvider = TemplateContext.DomainModelProvider.GetDomainModel()
                 .SchemaNameMapProvider;
