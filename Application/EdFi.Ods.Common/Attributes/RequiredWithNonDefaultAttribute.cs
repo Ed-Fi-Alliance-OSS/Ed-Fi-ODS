@@ -16,10 +16,7 @@ namespace EdFi.Ods.Common.Attributes
     {
         private readonly string _referenceName;
 
-        public RequiredWithNonDefaultAttribute()
-        {
-
-        }
+        public RequiredWithNonDefaultAttribute() { }
 
         public RequiredWithNonDefaultAttribute(string referenceName)
         {
@@ -28,9 +25,7 @@ namespace EdFi.Ods.Common.Attributes
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            string s = value as string;
-
-            if (s != null)
+            if (value is string s)
             {
                 if (!string.IsNullOrEmpty(s))
                 {
@@ -47,16 +42,15 @@ namespace EdFi.Ods.Common.Attributes
                 // In case of decimal types, accept default values
                 return ValidationResult.Success;
             }
-            else if (value != null && !value.Equals(
-                         value.GetType()
-                              .GetDefaultValue()))
+            else if (value != null && !value.Equals(value.GetType().GetDefaultValue()))
             {
                 return ValidationResult.Success;
             }
 
             if (_referenceName != null)
             {
-                throw new EdFiSecurityConflictException($"Access to the resource item could not be authorized because the '{_referenceName}' was not found.");
+                throw new EdFiSecurityConflictException(
+                    $"Access to the resource item could not be authorized because the '{_referenceName}' was not found.");
             }
 
             return new ValidationResult($"{validationContext.DisplayName} is required.");
