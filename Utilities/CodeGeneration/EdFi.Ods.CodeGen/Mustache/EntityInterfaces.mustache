@@ -23,11 +23,10 @@ namespace {{EntitiesBaseNamespace}}
     {
         // Primary Key properties
     {{#ParentClassName}}
-        [NaturalKeyMember]
         {{ParentInterfaceName}} {{ParentClassName}} { get; set; }
     {{/ParentClassName}}
     {{#IdentifyingProperties}}
-        [NaturalKeyMember]{{#IsServerAssigned}}[AutoIncrement]{{/IsServerAssigned}}{{#IsUniqueId}}[UniqueId]{{/IsUniqueId}}
+        {{#IsServerAssigned}}[AutoIncrement]{{/IsServerAssigned}}{{#IsUniqueId}}[UniqueId]{{/IsUniqueId}}
         {{#IsLookup}}
         string {{LookupName}} { get; set; }
         {{/IsLookup}}

@@ -12,7 +12,6 @@ namespace EdFi.Ods.Tests.TestExtension.Models.Interfaces
     public interface IStaffLeaveExtension : ISynchronizable, IMappable
     {
         // Primary Key properties 
-        [NaturalKeyMember]
         IStaffLeave StaffLeave { get; set; }
 
         // Non-PK properties 
