@@ -57,7 +57,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi
 
         // NOT in a reference, NOT a lookup column
         [DataMember(Name = "staffUniqueId")]
-        [NaturalKeyMember]
         [UniqueId]
         public string StaffUniqueId { get; set; }
 
