@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
 using EdFi.Common.Extensions;
@@ -19,10 +20,12 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 {
     public class PropertyData
     {
+        private readonly IPersonEntitySpecification _personEntitySpecification;
         private readonly Dictionary<string, string> _context;
 
-        public PropertyData(ResourceProperty property)
+        public PropertyData(ResourceProperty property, IPersonEntitySpecification personEntitySpecification)
         {
+            _personEntitySpecification = personEntitySpecification;
             Property = property;
             IsReferencedProperty = false;
             IsFirstProperty = false;
@@ -148,6 +151,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     : null,
                 IsDateOnlyProperty = Property.PropertyType.DbType == DbType.Date,
                 IsTimeSpanProperty = Property.PropertyType.DbType == DbType.Time,
+                IsString = Property.PropertyType.IsString(),
+                MaxLength = Property.PropertyType.IsString() ? (int?) Property.PropertyType.MaxLength : null,
+                MinLength = Property.PropertyType.IsString() ? (int?) Property.PropertyType.MinLength : null,
                 ClassName = this[ResourceRenderer.ClassName]
                             ?? Property.EntityProperty.Entity
                                 .ResolvedEdFiEntityName(),
@@ -173,8 +179,24 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     : $"{propertyNamespacePrefix}I{Property.EntityProperty.Entity.ResolvedEdFiEntityName()}.",
                 IsNullable = Property.PropertyType.IsNullable,
                 PropertyIsUnifiedAndLocallyDefined = Property.IsUnified() && Property.IsLocallyDefined,
-                PropertyDefaultHasDomainMeaning = PropertyDefaultHasDomainMeaning          
+                PropertyDefaultHasDomainMeaning = PropertyDefaultHasDomainMeaning,
+                IsRequiredWithNonDefault = !Property.PropertyType.IsNullable
+                    && !Property.IsServerAssigned
+                    && !Property.CSharpDefaultHasDomainMeaning(),
+                NoWhiteSpace = Property.PropertyType.IsString()
+                    && (Property.IsIdentifying || IsUniqueIdPropertyOnPersonEntity(Property.EntityProperty.Entity, Property.EntityProperty)),
+                ValidationReferenceName = UniqueIdConventions.IsUSI(Property.PropertyName)
+                    ? _personEntitySpecification.GetUSIPersonType(Property.PropertyName)
+                    : null,
+                RangeAttribute = Property.EntityProperty.ToRangeAttributeCSharp(),
+                DisplayName = (propertyName == Property.Parent.Name) ? propertyName : null,
             };
+        }
+
+        private bool IsUniqueIdPropertyOnPersonEntity(Entity entity, EntityProperty p)
+        {
+            return UniqueIdConventions.IsUniqueId(p.PropertyName)
+                && entity.Name == _personEntitySpecification.GetUniqueIdPersonType(p.PropertyName);
         }
 
         public static object CreatePropertyDto(PropertyData propertyData)
@@ -222,9 +244,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             }
         }
 
-        public static PropertyData CreateStandardProperty(ResourceProperty property)
+        public static PropertyData CreateStandardProperty(ResourceProperty property, IPersonEntitySpecification personEntitySpecification)
         {
-            var data = new PropertyData(property);
+            var data = new PropertyData(property, personEntitySpecification);
             data[ResourceRenderer.RenderType] = ResourceRenderer.RenderStandard;
 
             data[ResourceRenderer.StringComparer] = property.IsDescriptorUsage
@@ -240,9 +262,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             return data;
         }
 
-        public static PropertyData CreateDerivedProperty(ResourceProperty property)
+        public static PropertyData CreateDerivedProperty(ResourceProperty property, IPersonEntitySpecification personEntitySpecification)
         {
-            var data = new PropertyData(property);
+            var data = new PropertyData(property, personEntitySpecification);
             data[ResourceRenderer.RenderType] = ResourceRenderer.RenderDerived;
 
             data[ResourceRenderer.StringComparer] = property.IsDescriptorUsage
@@ -262,11 +284,12 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
         public static PropertyData CreateReferencedProperty(
             ResourceProperty property,
+            IPersonEntitySpecification personEntitySpecification,
             string desc = null,
             string className = null,
             ResourceClassBase resource = null)
         {
-            var propertyData = new PropertyData(property);
+            var propertyData = new PropertyData(property, personEntitySpecification);
 
             var associations = resource == null || !resource.References.Any()
                 ? property.EntityProperty.IncomingAssociations
@@ -346,9 +369,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             return propertyData;
         }
 
-        public static PropertyData CreateUsiPrimaryKey(ResourceProperty property)
+        public static PropertyData CreateUsiPrimaryKey(ResourceProperty property, IPersonEntitySpecification personEntitySpecification)
         {
-            var data = new PropertyData(property);
+            var data = new PropertyData(property, personEntitySpecification);
             data[ResourceRenderer.RenderType] = ResourceRenderer.RenderUsi;
             data[ResourceRenderer.MiscellaneousComment] = "// NOT in a reference, NOT a lookup column ";
 

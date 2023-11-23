@@ -39,7 +39,7 @@ namespace {{ResourceClassesNamespace}}
     public class {{ReferenceName}}Reference : IResourceReference
     {
         {{#ReferenceIdentifiers}}
-        [DataMember(Name="{{JsonPropertyName}}")]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         {{^IsUniqueId}}
         public {{PropertyType}} {{PropertyName}} { get; set; }
         {{/IsUniqueId}}
@@ -228,7 +228,7 @@ namespace {{ResourceClassesNamespace}}
             }
         }
 
-        [DataMember(Name="{{JsonPropertyName}}")]
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}
         [FullyDefinedReference]{{#IsRequired}}[RequiredReference({{#IsIdentifying}}isIdentifying: true{{/IsIdentifying}}{{^IsIdentifying}}"{{SchemaName}}", "{{ResourceName}}"{{/IsIdentifying}})]{{/IsRequired}}
         public {{ReferenceTypeName}} {{PropertyName}}
         {
@@ -297,7 +297,8 @@ namespace {{ResourceClassesNamespace}}
         /// {{{Description}}}
         /// </summary>
         {{{Misc}}}
-        {{#IsUnique}}[UniqueId]{{/IsUnique}}[DataMember(Name="{{JsonPropertyName}}")]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+{{>Resources_PropertyValidations}}
+        {{#IsUnique}}[UniqueId]{{/IsUnique}}[DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{PropertyName}} 
         {
             get => _{{PropertyFieldName}};
@@ -323,7 +324,8 @@ namespace {{ResourceClassesNamespace}}
         /// {{{Description}}}
         /// </summary>
         {{Misc}}
-        {{#IsUnique}}[UniqueId]{{/IsUnique}}[DataMember(Name="{{JsonPropertyName}}")]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+{{>Resources_PropertyValidations}}
+        {{#IsUnique}}[UniqueId]{{/IsUnique}}[DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{CSharpSafePropertyName}} 
         { 
             get => _{{PropertyFieldName}};
@@ -340,7 +342,8 @@ namespace {{ResourceClassesNamespace}}
         /// {{{Description}}}
         /// </summary>
         {{Misc}}
-        {{#IsUnique}}[UniqueId]{{/IsUnique}}[DataMember(Name="{{JsonPropertyName}}")]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+{{>Resources_PropertyValidations}}
+        {{#IsUnique}}[UniqueId]{{/IsUnique}}[DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{CSharpSafePropertyName}} { get; set; }
         {{/PropertyDefaultHasDomainMeaning}}
         {{/Property}}
@@ -360,7 +363,8 @@ namespace {{ResourceClassesNamespace}}
         /// </summary>
         {{Misc}}
         {{#PropertyIsUnifiedAndLocallyDefined}}
-        [DataMember(Name="{{JsonPropertyName}}")]
+{{>Resources_PropertyValidations}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}
         public {{PropertyType}} {{PropertyName}}
         {{/PropertyIsUnifiedAndLocallyDefined}}
         {{^PropertyIsUnifiedAndLocallyDefined}}
@@ -447,7 +451,8 @@ namespace {{ResourceClassesNamespace}}
         /// {{{Description}}}
         /// </summary>
         {{{Misc}}}
-        [{{^JsonIgnore}}DataMember(Name="{{JsonPropertyName}}"){{/JsonIgnore}}{{#JsonIgnore}}JsonIgnore{{/JsonIgnore}}]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+{{>Resources_PropertyValidations}}
+        [{{^JsonIgnore}}DataMember(Name="{{JsonPropertyName}}"){{/JsonIgnore}}{{#JsonIgnore}}JsonIgnore{{/JsonIgnore}}]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{PropertyName}} { get; set; }
 
         {{PropertyType}} I{{DerivedName}}.{{DerivedName}}Id
@@ -711,7 +716,8 @@ namespace {{ResourceClassesNamespace}}
         /// {{{Description}}}
         /// </summary>
         {{{Misc}}}
-        [DataMember(Name="{{JsonPropertyName}}")]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+{{>Resources_PropertyValidations}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{PropertyName}} { get; set; }
         {{/Property}}
         {{/Standard}}
@@ -739,7 +745,8 @@ namespace {{ResourceClassesNamespace}}
         /// </summary>
         {{Misc}}
         {{#PropertyIsUnifiedAndLocallyDefined}}
-        [DataMember(Name="{{JsonPropertyName}}")]
+{{>Resources_PropertyValidations}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}
         public {{PropertyType}} {{PropertyName}}
         {{/PropertyIsUnifiedAndLocallyDefined}}
         {{^PropertyIsUnifiedAndLocallyDefined}}
@@ -809,6 +816,7 @@ namespace {{ResourceClassesNamespace}}
         /// </summary>
 
         {{Misc}}
+{{>Resources_PropertyValidations}}
         {{PropertyType}} {{NamespacePrefix}}I{{ParentName}}.{{PropertyName}}
         {
             get
@@ -854,7 +862,8 @@ namespace {{ResourceClassesNamespace}}
         /// {{{Description}}}
         /// </summary>
         {{Misc}}
-        [DataMember(Name="{{JsonPropertyName}}")]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+{{>Resources_PropertyValidations}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{CSharpSafePropertyName}} 
         { 
             get => _{{PropertyFieldName}};
@@ -871,7 +880,8 @@ namespace {{ResourceClassesNamespace}}
         /// {{{Description}}}
         /// </summary>
         {{Misc}}
-        [DataMember(Name="{{JsonPropertyName}}")]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+{{>Resources_PropertyValidations}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{CSharpSafePropertyName}} { get; set; }
         {{/PropertyDefaultHasDomainMeaning}}
         {{/Property}}
@@ -899,7 +909,7 @@ namespace {{ResourceClassesNamespace}}
         /// <summary>
         /// {{JsonPropertyName}}
         /// </summary>
-        [DataMember(Name = "{{JsonPropertyName}}")]
+        [DataMember(Name = "{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}
         public {{EmbeddedObjectType}} {{PropertyName}} { get; set; }
 
         {{EmbeddedObjectNamespacePrefix}}I{{EmbeddedObjectType}} {{NamespacePrefix}}I{{ParentName}}.{{PropertyName}}
@@ -918,7 +928,7 @@ namespace {{ResourceClassesNamespace}}
         /// <summary>
         /// {{JsonPropertyName}}
         /// </summary>
-        [DataMember(Name = "{{JsonPropertyName}}")]
+        [DataMember(Name = "{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}
         public {{EmbeddedObjectTypeNamespace}}{{EmbeddedObjectType}} {{PropertyName}} { get; set; }
 
         {{EmbeddedObjectInterfaceNamespacePrefix}}{{EmbeddedObjectInterfaceType}} {{BaseEntityNamespacePrefix}}I{{BaseEntityName}}.{{PropertyName}}
@@ -938,7 +948,7 @@ namespace {{ResourceClassesNamespace}}
         private ICollection<{{BaseEntity}}.{{ItemType}}> _{{PropertyFieldName}};
         private ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> _{{PropertyFieldName}}Covariant;
 
-        [DataMember(Name="{{JsonPropertyName}}"), NoDuplicateMembers]
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}[NoDuplicateMembers]
         public ICollection<{{BaseEntity}}.{{ItemType}}> {{Collection}}
         {
             get { return _{{PropertyFieldName}}; }
@@ -984,7 +994,7 @@ namespace {{ResourceClassesNamespace}}
         private ICollection<{{ItemType}}> _{{PropertyFieldName}};
         private ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> _{{PropertyFieldName}}Covariant;
 
-        [DataMember(Name="{{JsonPropertyName}}"), NoDuplicateMembers]
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}[NoDuplicateMembers]
         public ICollection<{{ItemType}}> {{Collection}}
         {
             get { return _{{PropertyFieldName}}; }
