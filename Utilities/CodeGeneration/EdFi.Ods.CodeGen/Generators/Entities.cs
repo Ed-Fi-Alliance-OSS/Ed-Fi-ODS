@@ -299,7 +299,8 @@ namespace EdFi.Ods.CodeGen.Generators
                                          p => new
                                               {
                                                   CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true), p.PropertyName,
-                                                  CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(entity.Name), Attributes =
+                                                  CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(entity.Name),
+                                                  Attributes =
                                                       string.Join(
                                                           ", ",
                                                           (!p.PropertyType.IsNullable && !p.CSharpDefaultHasDomainMeaning()
