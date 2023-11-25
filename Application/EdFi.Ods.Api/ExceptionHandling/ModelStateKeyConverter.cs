@@ -16,7 +16,14 @@ public class ModelStateKeyConverter
 {
     public virtual string GetJsonPath(Resource resource, string key)
     {
-        return string.Concat("$.", string.Join('.', GetJsonPathParts(resource, key)));
+        string jsonPath = string.Join('.', GetJsonPathParts(resource, key));
+        
+        if (key.StartsWith('$'))
+        {
+            return jsonPath;
+        }
+        
+        return string.Concat("$.", jsonPath);
     }
 
     private static IEnumerable<string> GetJsonPathParts(Resource resource, string key)
@@ -24,12 +31,22 @@ public class ModelStateKeyConverter
         ResourceClassBase currentResourceClass = resource;
         var pathParts = key.Split('.');
 
+        bool isExtension = false;
+        
         foreach (ReadOnlySpan<char> pathPart in pathParts)
         {
             // Look for indexer
             int indexerStart = pathPart.IndexOf('[');
 
-            if (indexerStart >= 0)
+            if (isExtension)
+            {
+                isExtension = false;
+                var pathPartAsString = pathPart.ToString();
+                yield return pathPartAsString;
+                
+                currentResourceClass = currentResourceClass.ExtensionByName[pathPartAsString].ObjectType;
+            }
+            else if (indexerStart >= 0)
             {
                 int indexerEnd = pathPart.IndexOf(']');
 
@@ -49,21 +66,31 @@ public class ModelStateKeyConverter
                     yield return pathPart.ToString();
                 }
             }
+            else if (pathPart.Equals("Extensions", StringComparison.Ordinal))
+            {
+                yield return "_ext";
+                isExtension = true;
+            }
             else if (currentResourceClass.MemberByName.TryGetValue(pathPart.ToString(), out var member))
             {
                 yield return member.JsonPropertyName;
 
-                if (member is EmbeddedObject embeddedObject)
+                switch (member)
                 {
-                    currentResourceClass = embeddedObject.ObjectType;
-                }
-                else if (member is Reference reference)
-                {
-                    currentResourceClass = reference.ReferencedResource;
-                }
-                else if (member is Extension extension)
-                {
-                    currentResourceClass = extension.ObjectType;
+                    case EmbeddedObject embeddedObject:
+                        currentResourceClass = embeddedObject.ObjectType;
+
+                        break;
+
+                    case Reference reference:
+                        currentResourceClass = reference.ReferencedResource;
+
+                        break;
+
+                    case Extension extension:
+                        currentResourceClass = extension.ObjectType;
+
+                        break;
                 }
             }
             else
