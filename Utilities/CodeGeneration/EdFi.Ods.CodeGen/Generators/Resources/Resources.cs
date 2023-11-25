@@ -326,8 +326,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 Identifiers = _resourcePropertyRenderer.AssemblePrimaryKeys(resourceData, resourceClass, TemplateContext),
                 NonIdentifiers = _resourcePropertyRenderer.AssembleProperties(resourceClass),
                 InheritedProperties = _resourcePropertyRenderer.AssembleInheritedProperties(resourceClass),
-                InheritedCollections =
-                    _resourceCollectionRenderer.InheritedCollections(resourceClass),
+                InheritedCollections = _resourceCollectionRenderer.InheritedCollections(resourceClass),
                 OnDeserialize = _resourceCollectionRenderer.OnDeserialize(resourceData, resourceClass, TemplateContext),
                 Guid =
                     resourceClass.IsAggregateRoot()

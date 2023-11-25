@@ -909,7 +909,8 @@ namespace {{ResourceClassesNamespace}}
         /// <summary>
         /// {{JsonPropertyName}}
         /// </summary>
-        [DataMember(Name = "{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}
+        {{#IsRequired}}[Required]{{/IsRequired}}
+        [DataMember(Name = "{{JsonPropertyName}}")]
         public {{EmbeddedObjectType}} {{PropertyName}} { get; set; }
 
         {{EmbeddedObjectNamespacePrefix}}I{{EmbeddedObjectType}} {{NamespacePrefix}}I{{ParentName}}.{{PropertyName}}
@@ -928,7 +929,8 @@ namespace {{ResourceClassesNamespace}}
         /// <summary>
         /// {{JsonPropertyName}}
         /// </summary>
-        [DataMember(Name = "{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}
+        {{#IsRequired}}[Required]{{/IsRequired}}
+        [DataMember(Name = "{{JsonPropertyName}}")]
         public {{EmbeddedObjectTypeNamespace}}{{EmbeddedObjectType}} {{PropertyName}} { get; set; }
 
         {{EmbeddedObjectInterfaceNamespacePrefix}}{{EmbeddedObjectInterfaceType}} {{BaseEntityNamespacePrefix}}I{{BaseEntityName}}.{{PropertyName}}
@@ -948,7 +950,8 @@ namespace {{ResourceClassesNamespace}}
         private ICollection<{{BaseEntity}}.{{ItemType}}> _{{PropertyFieldName}};
         private ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> _{{PropertyFieldName}}Covariant;
 
-        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}[NoDuplicateMembers]
+        [NoDuplicateMembers]{{#IsRequiredCollection}}[RequiredCollection]{{/IsRequiredCollection}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}
         public ICollection<{{BaseEntity}}.{{ItemType}}> {{Collection}}
         {
             get { return _{{PropertyFieldName}}; }
@@ -973,9 +976,8 @@ namespace {{ResourceClassesNamespace}}
         //                     Extensions
         // -------------------------------------------------------------
         {{#IsExtendable}}
-        [JsonProperty("_ext")]
-        [JsonConverter(typeof(ExtensionsConverter), "{{ResourceName}}", "{{EntityName}}")]
         [ValidateExtensions]
+        [JsonProperty("_ext")][JsonConverter(typeof(ExtensionsConverter), "{{ResourceName}}", "{{EntityName}}")]
         public System.Collections.IDictionary Extensions { get; set; }
         {{/IsExtendable}}
         {{^IsExtendable}}
@@ -994,7 +996,8 @@ namespace {{ResourceClassesNamespace}}
         private ICollection<{{ItemType}}> _{{PropertyFieldName}};
         private ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> _{{PropertyFieldName}}Covariant;
 
-        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}[NoDuplicateMembers]
+        [NoDuplicateMembers]{{#IsRequiredCollection}}[RequiredCollection]{{/IsRequiredCollection}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}
         public ICollection<{{ItemType}}> {{Collection}}
         {
             get { return _{{PropertyFieldName}}; }
