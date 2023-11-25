@@ -50,6 +50,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                     PropertyFieldName = x.ItemType.PluralName.ToCamelCase(),
                                     ParentName = x.ParentFullName.Name,
                                     ResourceName = resource.Name,
+                                    IsRequiredCollection = x.Association.IsRequiredCollection,
                                 })
                             .ToList()
                 }
@@ -73,7 +74,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         JsonPropertyName = c.JsonPropertyName,
                         PropertyFieldName = c.ItemType.PluralName.ToCamelCase(),
                         ParentName = c.ParentFullName.Name,
-                        BaseEntity = resourceClass.Name
+                        BaseEntity = resourceClass.Name,
+                        IsRequiredCollection = c.Association.IsRequiredCollection, 
                     })
                 .ToList();
         }
@@ -449,6 +451,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         EmbeddedObjectType = eo.PropertyName,
                         PropertyName = eo.PropertyName,
                         ParentName = resourceClass.Name,
+                        IsRequired = eo.Association.IsRequiredEmbeddedObject,
                     })
                 .ToList();
         }
@@ -473,6 +476,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         BaseEntityNamespacePrefix =
                             $"{Namespaces.Entities.Common.RelativeNamespace}.{resourceClass.Entity.BaseEntity.SchemaProperCaseName()}.",
                         BaseEntityName = resourceClass.Entity.BaseEntity.Name,
+                        IsRequired = eo.Association.IsRequiredEmbeddedObject,
                     })
                 .ToList();
         }
