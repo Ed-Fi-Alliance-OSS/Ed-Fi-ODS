@@ -22,7 +22,8 @@ namespace EdFi.Ods.Api.Attributes
             }
 
             return CrossSiteScriptingValidation.IsDangerousString(s, out int matchIndex)
-                ? new ValidationResult($"{validationContext.DisplayName} contains a potentially dangerous value.")
+                ? new ValidationResult($"{validationContext.DisplayName} contains a potentially dangerous value.", 
+                    new[] { validationContext.MemberName })
                 : ValidationResult.Success;
         }
     }

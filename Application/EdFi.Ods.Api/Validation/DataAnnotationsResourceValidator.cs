@@ -16,7 +16,7 @@ namespace EdFi.Ods.Api.Validation
         {
             var validationResults = new List<ValidationResult>();
 
-            Validator.TryValidateObject(entity, new ValidationContext(entity, null, null), validationResults, true);
+            Validator.TryValidateObject(entity, new ValidationContext(entity), validationResults, true);
 
             if (validationResults.Any())
             {
