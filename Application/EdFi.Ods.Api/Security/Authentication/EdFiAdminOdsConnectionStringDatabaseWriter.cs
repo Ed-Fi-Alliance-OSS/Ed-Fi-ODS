@@ -20,7 +20,7 @@ public class EdFiAdminOdsConnectionStringDatabaseWriter : IEdFiOdsConnectionStri
     private readonly DbProviderFactory _dbProviderFactory;
     
     private const string UpdateOdsConnectionStringByIdSql = "UPDATE dbo.OdsInstances SET ConnectionString = @ConnectionString WHERE OdsInstanceId = @OdsInstanceId";
-    private const string UpdateOdsDerivativeConnectionStringByIdSql = "UPDATE dbo.OdsInstanceDerivative SET ConnectionString = @ConnectionString WHERE OdsInstanceId = @OdsInstanceId AND DerivativeType = @DerivativeType";
+    private const string UpdateOdsDerivativeConnectionStringByIdSql = "UPDATE dbo.OdsInstanceDerivatives SET ConnectionString = @ConnectionString WHERE OdsInstance_OdsInstanceId = @OdsInstanceId AND DerivativeType = @DerivativeType";
 
     /// <inheritdoc cref="IEdFiOdsConnectionStringWriter.WriteConnectionStringAsync"/>
     public EdFiAdminOdsConnectionStringDatabaseWriter(IAdminDatabaseConnectionStringProvider adminDatabaseConnectionStringProvider,
