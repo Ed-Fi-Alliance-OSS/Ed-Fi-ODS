@@ -6,6 +6,7 @@
 using System.Linq;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Models.Resource;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace EdFi.Ods.Api.ExceptionHandling
@@ -20,13 +21,18 @@ namespace EdFi.Ods.Api.ExceptionHandling
         }
 
         // Attempts to translate the API error response to ASP.NET MVC error response format to maintain compatibility for the consumers. 
-        public RESTError GetErrorMessage(Resource resource, ModelStateDictionary modelState, string correlationId)
+        public EdFiProblemDetails GetErrorMessage(Resource resource, ModelStateDictionary modelState, string correlationId)
         {
             if (modelState.Keys.All(string.IsNullOrEmpty) && modelState.Values.Any())
             {
-                return new RESTError()
+                return new EdFiProblemDetails()
                 {
-                    Message = string.Join(",", modelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage))),
+                    Type = "uri:ed-fi:bad-request",
+                    Title = "Bad Request",
+                    Detail = "The request could not be processed. See 'errors' for details.",
+                    Errors = modelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)).ToArray(),
+                    Status = StatusCodes.Status400BadRequest,
+                    Instance = $"uri:correlation:{correlationId}",
                     CorrelationId = correlationId
                 };
             }
@@ -38,10 +44,14 @@ namespace EdFi.Ods.Api.ExceptionHandling
                     kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
                 );
 
-            return new RESTError()
+            return new EdFiProblemDetails()
             {
-                Message = "The request is invalid.",
+                Type = "uri:ed-fi:validation-failed",
+                Title = "Validation Failed",
+                Detail = "The request failed some validation rules. See 'validationErrors' for details.",
+                Status = StatusCodes.Status400BadRequest,
                 ValidationErrors = validationErrors,
+                Instance = $"uri:correlation:{correlationId}",
                 CorrelationId = correlationId
             };
         }

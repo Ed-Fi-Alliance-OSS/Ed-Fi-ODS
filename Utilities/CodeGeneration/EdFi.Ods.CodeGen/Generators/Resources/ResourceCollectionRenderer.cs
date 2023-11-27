@@ -23,10 +23,10 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         {
             if (resource.IsDescriptorEntity())
             {
-                return ResourceRenderer.DoRenderProperty;
+                return ResourceRenderer.DoNotRenderProperty;
             }
 
-            return resource.IsDerived && resource.Collections.Any()
+            return resource.IsDerived && resource.Collections.Where(c => c.IsInherited).Any()
                 ? new
                 {
                     Inherited =
