@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Models;
@@ -39,7 +40,7 @@ namespace {{ResourceClassesNamespace}}
     public class {{ReferenceName}}Reference : IResourceReference
     {
         {{#ReferenceIdentifiers}}
-        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         {{^IsUniqueId}}
         public {{PropertyType}} {{PropertyName}} { get; set; }
         {{/IsUniqueId}}
@@ -159,11 +160,15 @@ namespace {{ResourceClassesNamespace}}
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    {{#IsResourceExtensionClass}}[Display(Name="{{SchemaProperCaseName}}")]{{/IsResourceExtensionClass}}
     {{#HasRequiredMembersWithMeaningfulDefaultValues}}
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     {{/HasRequiredMembersWithMeaningfulDefaultValues}}
-    public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}} : {{NamespacePrefix}}I{{EntityName}}{{DerivedName}}{{#IsAggregateRoot}}, IHasETag, IDateVersionedEntity{{/IsAggregateRoot}}{{#HasRequiredMembersWithMeaningfulDefaultValues}}, IHasRequiredMembersWithMeaningfulDefaultValues{{/HasRequiredMembersWithMeaningfulDefaultValues}}{{#IsResourceExtensionClass}}, IChildEntity{{/IsResourceExtensionClass}}
+    public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}} : {{NamespacePrefix}}I{{EntityName}}{{DerivedName}}{{#IsAggregateRoot}}, IHasETag, IDateVersionedEntity{{/IsAggregateRoot}}{{#HasRequiredMembersWithMeaningfulDefaultValues}}, IHasRequiredMembersWithMeaningfulDefaultValues{{/HasRequiredMembersWithMeaningfulDefaultValues}}{{#IsResourceExtensionClass}}, IChildEntity{{/IsResourceExtensionClass}}{{#HasValidatableChildren}}, IValidatableObject{{/HasValidatableChildren}}
     {
+        // Fluent validator instance (threadsafe)
+        private static {{ClassName}}PutPostRequestValidator _validator = new {{ClassName}}PutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -190,6 +195,7 @@ namespace {{ResourceClassesNamespace}}
             {{/Inherited}}
         }
         {{/Constructor}}
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -228,7 +234,7 @@ namespace {{ResourceClassesNamespace}}
             }
         }
 
-        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}
         [FullyDefinedReference]{{#IsRequired}}[RequiredReference({{#IsIdentifying}}isIdentifying: true{{/IsIdentifying}}{{^IsIdentifying}}"{{SchemaName}}", "{{ResourceName}}"{{/IsIdentifying}})]{{/IsRequired}}
         public {{ReferenceTypeName}} {{PropertyName}}
         {
@@ -298,7 +304,7 @@ namespace {{ResourceClassesNamespace}}
         /// </summary>
         {{{Misc}}}
 {{>Resources_PropertyValidations}}
-        {{#IsUnique}}[UniqueId]{{/IsUnique}}[DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        {{#IsUnique}}[UniqueId]{{/IsUnique}}[DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{PropertyName}} 
         {
             get => _{{PropertyFieldName}};
@@ -325,7 +331,7 @@ namespace {{ResourceClassesNamespace}}
         /// </summary>
         {{Misc}}
 {{>Resources_PropertyValidations}}
-        {{#IsUnique}}[UniqueId]{{/IsUnique}}[DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        {{#IsUnique}}[UniqueId]{{/IsUnique}}[DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{CSharpSafePropertyName}} 
         { 
             get => _{{PropertyFieldName}};
@@ -343,7 +349,7 @@ namespace {{ResourceClassesNamespace}}
         /// </summary>
         {{Misc}}
 {{>Resources_PropertyValidations}}
-        {{#IsUnique}}[UniqueId]{{/IsUnique}}[DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        {{#IsUnique}}[UniqueId]{{/IsUnique}}[DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{CSharpSafePropertyName}} { get; set; }
         {{/PropertyDefaultHasDomainMeaning}}
         {{/Property}}
@@ -364,7 +370,7 @@ namespace {{ResourceClassesNamespace}}
         {{Misc}}
         {{#PropertyIsUnifiedAndLocallyDefined}}
 {{>Resources_PropertyValidations}}
-        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}
         public {{PropertyType}} {{PropertyName}}
         {{/PropertyIsUnifiedAndLocallyDefined}}
         {{^PropertyIsUnifiedAndLocallyDefined}}
@@ -452,7 +458,7 @@ namespace {{ResourceClassesNamespace}}
         /// </summary>
         {{{Misc}}}
 {{>Resources_PropertyValidations}}
-        [{{^JsonIgnore}}DataMember(Name="{{JsonPropertyName}}"){{/JsonIgnore}}{{#JsonIgnore}}JsonIgnore{{/JsonIgnore}}]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        [{{^JsonIgnore}}DataMember(Name="{{JsonPropertyName}}"){{/JsonIgnore}}{{#JsonIgnore}}JsonIgnore{{/JsonIgnore}}]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{PropertyName}} { get; set; }
 
         {{PropertyType}} I{{DerivedName}}.{{DerivedName}}Id
@@ -717,7 +723,7 @@ namespace {{ResourceClassesNamespace}}
         /// </summary>
         {{{Misc}}}
 {{>Resources_PropertyValidations}}
-        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{PropertyName}} { get; set; }
         {{/Property}}
         {{/Standard}}
@@ -746,7 +752,7 @@ namespace {{ResourceClassesNamespace}}
         {{Misc}}
         {{#PropertyIsUnifiedAndLocallyDefined}}
 {{>Resources_PropertyValidations}}
-        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}
         public {{PropertyType}} {{PropertyName}}
         {{/PropertyIsUnifiedAndLocallyDefined}}
         {{^PropertyIsUnifiedAndLocallyDefined}}
@@ -863,7 +869,7 @@ namespace {{ResourceClassesNamespace}}
         /// </summary>
         {{Misc}}
 {{>Resources_PropertyValidations}}
-        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{CSharpSafePropertyName}} 
         { 
             get => _{{PropertyFieldName}};
@@ -881,7 +887,7 @@ namespace {{ResourceClassesNamespace}}
         /// </summary>
         {{Misc}}
 {{>Resources_PropertyValidations}}
-        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{CSharpSafePropertyName}} { get; set; }
         {{/PropertyDefaultHasDomainMeaning}}
         {{/Property}}
@@ -951,7 +957,7 @@ namespace {{ResourceClassesNamespace}}
         private ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> _{{PropertyFieldName}}Covariant;
 
         [NoDuplicateMembers]{{#IsRequiredCollection}}[RequiredCollection]{{/IsRequiredCollection}}
-        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}
         public ICollection<{{BaseEntity}}.{{ItemType}}> {{Collection}}
         {
             get { return _{{PropertyFieldName}}; }
@@ -976,7 +982,6 @@ namespace {{ResourceClassesNamespace}}
         //                     Extensions
         // -------------------------------------------------------------
         {{#IsExtendable}}
-        [ValidateExtensions]
         [JsonProperty("_ext")][JsonConverter(typeof(ExtensionsConverter), "{{ResourceName}}", "{{EntityName}}")]
         public System.Collections.IDictionary Extensions { get; set; }
         {{/IsExtendable}}
@@ -997,7 +1002,7 @@ namespace {{ResourceClassesNamespace}}
         private ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> _{{PropertyFieldName}}Covariant;
 
         [NoDuplicateMembers]{{#IsRequiredCollection}}[RequiredCollection]{{/IsRequiredCollection}}
-        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[DisplayName("{{DisplayName}}")]{{/DisplayName}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}
         public ICollection<{{ItemType}}> {{Collection}}
         {
             get { return _{{PropertyFieldName}}; }
@@ -1119,6 +1124,127 @@ namespace {{ResourceClassesNamespace}}
             {{ParentName}} = (I{{ParentName}})value;
         }
         {{/IsResourceExtensionClass}}
+        {{#HasValidatableChildren}}
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                pathBuilder.Append(ValidationHelpers.JsonPathSeparator);
+                int dotLength = pathBuilder.Length;
+            {{^IsEdFiResource}} {{! ASP.NET validation does not validate through into extensions, so we are responsible }}
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+                {{#InheritedCollections}}
+                {{#Inherited}}
+                if ({{Collection}}.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof({{Collection}}));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext({{Collection}}, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                {{/Inherited}}
+                {{/InheritedCollections}}
+                {{#Collections}}
+                if ({{Collection}}.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof({{Collection}}));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext({{Collection}}, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                {{/Collections}}
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+                {{#InheritedNavigableOneToOnes}}
+                if ({{PropertyName}} != null)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof({{PropertyName}}));
+    
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext({{PropertyName}}, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                {{/InheritedNavigableOneToOnes}}
+                {{#NavigableOneToOnes}}
+                if ({{PropertyName}} != null)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof({{PropertyName}}));
+    
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext({{PropertyName}}, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                {{/NavigableOneToOnes}}
+            {{/IsEdFiResource}}
+            {{#IsExtendable}}
+
+                // ---------------------
+                //  Validate Extensions
+                // ---------------------
+                if (Extensions != null)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(Extensions));
+    
+                    foreach (var result in ValidationHelpers.ValidateExtensions(new ValidationContext(Extensions, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+            {{/IsExtendable}}
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
+        {{/HasValidatableChildren}}
     }
     {{/ShouldRenderClass}}
 
@@ -1133,6 +1259,11 @@ namespace {{ResourceClassesNamespace}}
     {
         {{#HasCollections}}
         private static readonly FullName _fullName_{{Schema}}_{{EntityName}} = new FullName("{{Schema}}", "{{EntityName}}");
+
+        // Declare collection item validators
+            {{#Collections}}
+        private {{Namespace}}{{ItemTypeName}}PutPostRequestValidator _{{PropertyFieldNamePrefix}}Validator = new ();
+            {{/Collections}}
 
         {{/HasCollections}}
         protected override bool PreValidate(FluentValidation.ValidationContext<{{EntityName}}> context, FluentValidation.Results.ValidationResult result)
@@ -1153,26 +1284,26 @@ namespace {{ResourceClassesNamespace}}
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<{{ExtensionNamespacePrefix}}{{EntityName}}MappingContract>(() => ({{ExtensionNamespacePrefix}}{{EntityName}}MappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_{{Schema}}_{{EntityName}}));
+            var mappingContract = ({{ExtensionNamespacePrefix}}{{EntityName}}MappingContract) GeneratedArtifactStaticDependencies.MappingContractProvider
+                .GetMappingContract(_fullName_{{Schema}}_{{EntityName}});
 
-            if (mappingContract.Value != null)
+            if (mappingContract != null)
             {
                 {{#Collections}}
-                if (mappingContract.Value.Is{{ItemTypeName}}Included != null)
+                if (mappingContract.Is{{ItemTypeName}}Included != null)
                 {
-                    var hasInvalid{{PropertyName}}Items = instance.{{PropertyName}}.Any(x => !mappingContract.Value.Is{{ItemTypeName}}Included(x));
+                    var hasInvalid{{PropertyName}}Items = instance.{{PropertyName}}.Any(x => !mappingContract.Is{{ItemTypeName}}Included(x));
         
                     if (hasInvalid{{PropertyName}}Items)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("{{ItemTypeName}}", $"A supplied '{{ItemTypeName}}' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("{{PropertyName}}", $"A supplied '{{ItemTypeName}}' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
                 {{/Collections}}
             }
+
             {{/HasCollections}}
             // -----------------------
             //  Validate unified keys
@@ -1213,20 +1344,20 @@ namespace {{ResourceClassesNamespace}}
                 {{/UnifiedProperties}}
             {{/KeyUnificationValidations}}
 
+            {{#HasCollection}}
             // Recursively invoke the child collection item validators
-            {{#Collections}}
-            var {{PropertyFieldNamePrefix}}Validator = new {{Namespace}}{{ItemTypeName}}PutPostRequestValidator();
+                {{#Collections}}
 
             foreach (var item in instance.{{PropertyName}})
             {
-                var validationResult = {{PropertyFieldNamePrefix}}Validator.Validate(item);
+                var validationResult = _{{PropertyFieldNamePrefix}}Validator.Validate(new FluentValidation.ValidationContext<{{ItemTypeName}}>(item, context.PropertyChain);
 
                 if (!validationResult.IsValid)
                     failures.AddRange(validationResult.Errors);
             }
+                {{/Collections}}
 
-            {{/Collections}}
-
+            {{/HasCollection}}
             if (failures.Any())
             {
                 foreach (var failure in failures)

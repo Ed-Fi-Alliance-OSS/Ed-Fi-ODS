@@ -304,7 +304,22 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     .GetSchemaMapByPhysicalName(contextualParent.FullName.Schema)
                     .ProperCaseName;
 
+            // Lists
             var collections = _resourceCollectionRenderer.Collections(resourceClass);
+            var inheritedNavigableOneToOnes = _resourceCollectionRenderer.InheritedNavigableOneToOnes(resourceClass);
+            var navigableOneToOnes = _resourceCollectionRenderer.NavigableOneToOnes(resourceClass);
+
+            // InheritedCollections instance, or null
+            var inheritedCollections = _resourceCollectionRenderer.InheritedCollections(resourceClass);
+
+            bool isExtendable = resourceClass.IsExtendable();
+
+            // Determine if we should generate an IValidatableObject
+            bool hasValidatableChildren = (collections as IList).Count > 0
+                || (inheritedNavigableOneToOnes as IList).Count > 0
+                || (navigableOneToOnes as IList).Count > 0
+                || inheritedCollections != null
+                || isExtendable;
 
             return new
             {
@@ -326,7 +341,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 Identifiers = _resourcePropertyRenderer.AssemblePrimaryKeys(resourceData, resourceClass, TemplateContext),
                 NonIdentifiers = _resourcePropertyRenderer.AssembleProperties(resourceClass),
                 InheritedProperties = _resourcePropertyRenderer.AssembleInheritedProperties(resourceClass),
-                InheritedCollections = _resourceCollectionRenderer.InheritedCollections(resourceClass),
+                InheritedCollections = inheritedCollections,
                 OnDeserialize = _resourceCollectionRenderer.OnDeserialize(resourceData, resourceClass, TemplateContext),
                 Guid =
                     resourceClass.IsAggregateRoot()
@@ -336,13 +351,14 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                             GuidConverterTypeName = "GuidConverter"
                         }
                         : ResourceRenderer.DoNotRenderProperty,
-                NavigableOneToOnes = _resourceCollectionRenderer.NavigableOneToOnes(resourceClass),
-                InheritedNavigableOneToOnes = _resourceCollectionRenderer.InheritedNavigableOneToOnes(resourceClass),
+                NavigableOneToOnes = navigableOneToOnes,
+                InheritedNavigableOneToOnes = inheritedNavigableOneToOnes,
                 Versioning = resourceClass.IsAggregateRoot()
                     ? ResourceRenderer.DoRenderProperty
                     : ResourceRenderer.DoNotRenderProperty,
                 References = _resourceCollectionRenderer.References(resourceData, resourceClass),
                 FQName = resourceClass.FullName,
+                SchemaProperCaseName = resourceClass.SchemaProperCaseName,
                 IsAbstract = resourceClass.IsAbstract(),
                 IsAggregateRoot = resourceClass.IsAggregateRoot(),
                 DerivedName = resourceClass.IsDerived
@@ -367,7 +383,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 FilteredDelegates = _resourceCollectionRenderer.FilteredDelegates(resourceClass),
                 ShouldRenderValidator = putPostRequestValidator != ResourceRenderer.DoNotRenderProperty,
                 Validator = putPostRequestValidator,
-                IsExtendable = resourceClass.IsExtendable(),
+                HasValidatableChildren = hasValidatableChildren,
+                IsExtendable = isExtendable,
                 IsResourceExtensionClass = resourceClass.IsResourceExtensionClass,
                 HasSupportedExtensions = resourceData.Resource.Extensions.Any(),
                 SupportedExtensions = resourceData.Resource.Extensions.OrderBy(f => f.PropertyName)
