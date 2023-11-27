@@ -153,7 +153,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 IsTimeSpanProperty = Property.PropertyType.DbType == DbType.Time,
                 IsString = Property.PropertyType.IsString(),
                 MaxLength = Property.PropertyType.IsString() ? (int?) Property.PropertyType.MaxLength : null,
-                MinLength = Property.PropertyType.IsString() ? (int?) Property.PropertyType.MinLength : null,
+                MinLength = (Property.PropertyType.IsString() && Property.PropertyType.MinLength > 0) 
+                    ? (int?) Property.PropertyType.MinLength 
+                    : null,
                 ClassName = this[ResourceRenderer.ClassName]
                             ?? Property.EntityProperty.Entity
                                 .ResolvedEdFiEntityName(),
