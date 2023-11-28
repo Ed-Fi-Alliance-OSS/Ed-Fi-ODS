@@ -25,7 +25,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Extensions
             {
                 var testClass = new ClassThatWillThrowValidationException { Value = "NewValueHere" };
 
-                var validators = new IEntityValidator[] { new DataAnnotationsEntityValidator() };
+                var validators = new IResourceValidator[] { new DataAnnotationsResourceValidator() };
                 var results = validators.ValidateObject(testClass);
 
                 results.IsValid().ShouldBe(false);
