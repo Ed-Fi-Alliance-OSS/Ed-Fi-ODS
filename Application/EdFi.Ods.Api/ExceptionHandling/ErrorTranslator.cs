@@ -3,6 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Models.Resource;
@@ -27,12 +29,12 @@ namespace EdFi.Ods.Api.ExceptionHandling
             {
                 return new EdFiProblemDetails()
                 {
-                    Type = "uri:ed-fi:bad-request",
+                    Type = "urn:ed-fi:general:bad-request",
                     Title = "Bad Request",
                     Detail = "The request could not be processed. See 'errors' for details.",
                     Errors = modelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)).ToArray(),
                     Status = StatusCodes.Status400BadRequest,
-                    Instance = $"uri:correlation:{correlationId}",
+                    Instance = $"urn:correlation:{correlationId}",
                     CorrelationId = correlationId
                 };
             }
@@ -46,12 +48,12 @@ namespace EdFi.Ods.Api.ExceptionHandling
 
             return new EdFiProblemDetails()
             {
-                Type = "uri:ed-fi:validation-failed",
+                Type = "urn:ed-fi:validation:validation-failed",
                 Title = "Validation Failed",
                 Detail = "The request failed some validation rules. See 'validationErrors' for details.",
                 Status = StatusCodes.Status400BadRequest,
                 ValidationErrors = validationErrors,
-                Instance = $"uri:correlation:{correlationId}",
+                Instance = $"urn:correlation:{correlationId}",
                 CorrelationId = correlationId
             };
         }
@@ -61,6 +63,34 @@ namespace EdFi.Ods.Api.ExceptionHandling
             return new RESTError()
             {
                 Message = message,
+                CorrelationId = correlationId
+            };
+        }
+
+        public EdFiProblemDetails GetErrorMessage(Resource resource, IEnumerable<ValidationResult> validationResults, string correlationId)
+        {
+            ModelStateDictionary modelState = new();
+
+            foreach (ValidationResult validationResult in validationResults)
+            {
+                modelState.AddModelError(validationResult.MemberNames.First(), validationResult.ErrorMessage);
+            }
+
+            var validationErrors = modelState
+                .Where(e => e.Value.ValidationState == ModelValidationState.Invalid)
+                .ToDictionary(
+                    kvp => _modelStateKeyConverter.GetJsonPath(resource, kvp.Key),
+                    kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                );
+
+            return new EdFiProblemDetails()
+            {
+                Type = "urn:ed-fi:validation:validation-failed",
+                Title = "Validation Failed",
+                Detail = "The request failed some validation rules. See 'validationErrors' for details.",
+                Status = StatusCodes.Status400BadRequest,
+                ValidationErrors = validationErrors,
+                Instance = $"urn:correlation:{correlationId}",
                 CorrelationId = correlationId
             };
         }
