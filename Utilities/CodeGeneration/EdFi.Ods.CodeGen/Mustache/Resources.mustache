@@ -1138,14 +1138,15 @@ namespace {{ResourceClassesNamespace}}
             try
             {
                 // Prepare builders for validating members
+            {{^IsAggregateRoot}}
                 pathBuilder.Append(ValidationHelpers.JsonPathSeparator);
+            {{/IsAggregateRoot}}
                 int dotLength = pathBuilder.Length;
-            {{^IsEdFiResource}} {{! ASP.NET validation does not validate through into extensions, so we are responsible }}
 
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                {{#InheritedCollections}}
+            {{#InheritedCollections}}
                 {{#Inherited}}
                 if ({{Collection}}.Any())
                 {
@@ -1160,8 +1161,8 @@ namespace {{ResourceClassesNamespace}}
                 }
 
                 {{/Inherited}}
-                {{/InheritedCollections}}
-                {{#Collections}}
+            {{/InheritedCollections}}
+            {{#Collections}}
                 if ({{Collection}}.Any())
                 {
                     // Reset path builder
@@ -1174,12 +1175,12 @@ namespace {{ResourceClassesNamespace}}
                     }
                 }
 
-                {{/Collections}}
+            {{/Collections}}
 
                 // ---------------------------
                 //  Validate embedded objects
                 // ---------------------------
-                {{#InheritedNavigableOneToOnes}}
+            {{#InheritedNavigableOneToOnes}}
                 if ({{PropertyName}} != null)
                 {
                     // Reset path builder
@@ -1192,8 +1193,8 @@ namespace {{ResourceClassesNamespace}}
                     }
                 }
 
-                {{/InheritedNavigableOneToOnes}}
-                {{#NavigableOneToOnes}}
+            {{/InheritedNavigableOneToOnes}}
+            {{#NavigableOneToOnes}}
                 if ({{PropertyName}} != null)
                 {
                     // Reset path builder
@@ -1206,8 +1207,7 @@ namespace {{ResourceClassesNamespace}}
                     }
                 }
 
-                {{/NavigableOneToOnes}}
-            {{/IsEdFiResource}}
+            {{/NavigableOneToOnes}}
             {{#IsExtendable}}
 
                 // ---------------------
