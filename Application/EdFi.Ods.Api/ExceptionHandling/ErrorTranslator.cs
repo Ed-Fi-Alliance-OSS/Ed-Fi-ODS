@@ -73,7 +73,7 @@ namespace EdFi.Ods.Api.ExceptionHandling
 
             foreach (ValidationResult validationResult in validationResults)
             {
-                modelState.AddModelError(validationResult.MemberNames.First(), validationResult.ErrorMessage);
+                modelState.AddModelError(validationResult.MemberNames.FirstOrDefault() ?? string.Empty, validationResult.ErrorMessage);
             }
 
             var validationErrors = modelState
