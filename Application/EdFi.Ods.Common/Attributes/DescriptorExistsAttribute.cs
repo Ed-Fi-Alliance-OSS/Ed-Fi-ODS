@@ -23,10 +23,12 @@ public sealed class DescriptorExistsAttribute : ValidationAttribute
         {
             return ValidationResult.Success;
         }
-        
+
         if (default == GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId(_descriptorName, value.ToString()))
         {
-            return new ValidationResult($"{_descriptorName} value '{value}' does not exist.");
+            return new ValidationResult(
+                $"{_descriptorName} value '{value}' does not exist.",
+                new[] { validationContext.MemberName });
         }
 
         return ValidationResult.Success;
