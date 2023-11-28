@@ -23,6 +23,7 @@ using EdFi.Ods.Api.InversionOfControl;
 using EdFi.Ods.Api.Jobs.Extensions;
 using EdFi.Ods.Api.MediaTypeFormatters;
 using EdFi.Ods.Api.Middleware;
+using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
@@ -34,7 +35,6 @@ using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Descriptors;
-using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Models;
@@ -49,11 +49,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace EdFi.Ods.Api.Startup
@@ -252,6 +252,9 @@ namespace EdFi.Ods.Api.Startup
         public void ConfigureContainer(ContainerBuilder builder)
         {
             _logger.Debug("Building Autofac container");
+
+            // Disable automatic validation during ASP.NET model binding for data management requests
+            builder.RegisterDecorator<DataManagementObjectModelValidatorDecorator, IObjectModelValidator>();
 
             // For pipelines we need a service locator. Note this is an anti-pattern
             builder.Register(c => new AutofacServiceLocator(new Lazy<ILifetimeScope>(() => Container)))

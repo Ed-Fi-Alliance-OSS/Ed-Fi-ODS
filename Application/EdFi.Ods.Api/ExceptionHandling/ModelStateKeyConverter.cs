@@ -17,12 +17,7 @@ public class ModelStateKeyConverter
     public virtual string GetJsonPath(Resource resource, string key)
     {
         string jsonPath = string.Join('.', GetJsonPathParts(resource, key));
-        
-        if (key.StartsWith('$'))
-        {
-            return jsonPath;
-        }
-        
+
         return string.Concat("$.", jsonPath);
     }
 
@@ -35,6 +30,14 @@ public class ModelStateKeyConverter
         
         foreach (ReadOnlySpan<char> pathPart in pathParts)
         {
+            if (resource == null)
+            {
+                // Return the text provided (should not happen)
+                yield return pathPart.ToString();
+
+                continue;
+            }
+
             // Look for indexer
             int indexerStart = pathPart.IndexOf('[');
 

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
+using EdFi.Ods.Common.Validation;
 using NHibernate;
 
 namespace EdFi.Ods.Api.Infrastructure.Pipelines
@@ -79,7 +80,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines
                     await step.ExecuteAsync(context, result, cancellationToken);
 
                     // If we have experienced an exception, quit processing steps now
-                    if (result.Exception != null)
+                    if (result.Exception != null || !result.ValidationResults.IsValid())
                     {
                         break;
                     }

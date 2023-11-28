@@ -5,7 +5,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel.DataAnnotations;
 using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,7 +27,9 @@ using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Profiles;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Utils.Profiles;
+using EdFi.Ods.Common.Validation;
 using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -60,6 +62,7 @@ namespace EdFi.Ods.Api.Controllers
 
         private readonly IRESTErrorProvider _restErrorProvider;
         private readonly IContextProvider<ProfileContentTypeContext> _profileContentTypeContextProvider;
+        private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
         private readonly ILogContextAccessor _logContextAccessor;
         private readonly int _defaultPageLimitSize;
         private readonly ReverseProxySettings _reverseProxySettings;
@@ -100,10 +103,12 @@ namespace EdFi.Ods.Api.Controllers
             IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
             ApiSettings apiSettings,
             IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
             ILogContextAccessor logContextAccessor)
         {
             _restErrorProvider = restErrorProvider;
             _profileContentTypeContextProvider = profileContentTypeContextProvider;
+            _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
             _logContextAccessor = logContextAccessor;
             _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
             _reverseProxySettings = apiSettings.GetReverseProxySettings();
@@ -288,6 +293,12 @@ namespace EdFi.Ods.Api.Controllers
                 return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
             }
 
+            // Check for validation errors
+            if (!result.ValidationResults.IsValid())
+            {
+                return ValidationFailedResult(result.ValidationResults);
+            }
+
             var resourceUri = new Uri(GetResourceUrl());
             Response.GetTypedHeaders().Location = resourceUri;
             Response.GetTypedHeaders().ETag = GetEtag(result.ETag);
@@ -343,6 +354,12 @@ namespace EdFi.Ods.Api.Controllers
                 return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
             }
 
+            // Check for validation errors
+            if (!result.ValidationResults.IsValid())
+            {
+                return ValidationFailedResult(result.ValidationResults);
+            }
+
             var resourceUri = new Uri($"{GetResourceUrl()}/{result.ResourceId.GetValueOrDefault():n}");
             Response.GetTypedHeaders().Location = resourceUri;
             Response.GetTypedHeaders().ETag = GetEtag(result.ETag);
@@ -355,6 +372,19 @@ namespace EdFi.Ods.Api.Controllers
             {
                 return Ok();
             }
+        }
+
+        // TODO: Either inject these, or just make this functionality available through static helpers
+        // ReSharper disable once StaticMemberInGenericType
+        private static readonly ErrorTranslator _errorTranslator = new(new ModelStateKeyConverter());
+
+        private IActionResult ValidationFailedResult(List<ValidationResult> validationResults)
+        {
+            return BadRequest(
+                _errorTranslator.GetErrorMessage(
+                    _dataManagementResourceContextProvider.Get().Resource,
+                    validationResults,
+                    (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
         }
 
         [HttpDelete("{id}")]
