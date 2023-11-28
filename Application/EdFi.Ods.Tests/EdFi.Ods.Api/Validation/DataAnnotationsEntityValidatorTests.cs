@@ -22,7 +22,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
     [TestFixture]
     public class DataAnnotationsEntityValidatorTests
     {
-        private readonly DataAnnotationsEntityValidator validator = new DataAnnotationsEntityValidator();
+        private readonly DataAnnotationsResourceValidator validator = new();
         private ICollection<ValidationResult> validationResults;
 
         private class DataAnnotatedProperty

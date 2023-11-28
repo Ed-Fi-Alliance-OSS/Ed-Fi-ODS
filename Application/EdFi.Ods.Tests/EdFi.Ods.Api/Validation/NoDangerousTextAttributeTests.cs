@@ -36,7 +36,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         {
             var testObject = new DangerousTextTestObject(string.Empty);
 
-            var validator = new DataAnnotationsEntityValidator();
+            var validator = new DataAnnotationsResourceValidator();
             _actualResults = validator.ValidateObject(testObject);
         }
 
@@ -58,7 +58,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         {
             var testObject = new DangerousTextTestObject("Hello World");
 
-            var validator = new DataAnnotationsEntityValidator();
+            var validator = new DataAnnotationsResourceValidator();
             _actualResults = validator.ValidateObject(testObject);
         }
 
@@ -80,7 +80,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         {
             var testObject = new DangerousTextTestObject("<Hello World>");
 
-            var validator = new DataAnnotationsEntityValidator();
+            var validator = new DataAnnotationsResourceValidator();
             _actualResults = validator.ValidateObject(testObject);
         }
 
@@ -107,7 +107,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         {
             var testObject = new DangerousTextTestObject("Moonshower"); // Includes 'onshow'
 
-            var validator = new DataAnnotationsEntityValidator();
+            var validator = new DataAnnotationsResourceValidator();
             _actualResults = validator.ValidateObject(testObject);
         }
 
@@ -132,7 +132,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 new DangerousTextTestObject(
                     @"\""}<script>var r=new XMLHttpRequest();</script>{, \""}<script>r.open('GET', document.location, false);r.send(null);</script>{, \""}<script>var h=r.getAllResponseHeaders().toLowerCase();</script>{, and \""}<script>alert(h);</script>{");
 
-            var validator = new DataAnnotationsEntityValidator();
+            var validator = new DataAnnotationsResourceValidator();
             _actualResults = validator.ValidateObject(testObject);
         }
 

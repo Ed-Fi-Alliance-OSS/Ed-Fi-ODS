@@ -29,7 +29,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Validation
 
             protected override void Act()
             {
-                _actualResults = (new DataAnnotationsEntityValidator().ValidateObject(new InvalidAttributeUseTestObject()));
+                _actualResults = (new DataAnnotationsResourceValidator().ValidateObject(new InvalidAttributeUseTestObject()));
             }
 
             [Assert]
@@ -64,7 +64,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Validation
 
             protected override void Act()
             {
-                _actualResults = new DataAnnotationsEntityValidator()
+                _actualResults = new DataAnnotationsResourceValidator()
                     .ValidateObject(
                         new TestObject
                         {
@@ -91,7 +91,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Validation
 
             protected override void Act()
             {
-                _actualResults = new DataAnnotationsEntityValidator()
+                _actualResults = new DataAnnotationsResourceValidator()
                     .ValidateObject(
                         new TestObject
                         {

@@ -40,7 +40,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 
                 testObject.TestCollection.Add(new CollectionTestObject());
 
-                var validator = new DataAnnotationsEntityValidator();
+                var validator = new DataAnnotationsResourceValidator();
                 _actualResults = validator.ValidateObject(testObject);
             }
 
@@ -69,7 +69,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 testObject.TestCollection.Add(new CollectionTestObject());
                 testObject.TestCollection.Add(new CollectionTestObject());
 
-                var validator = new DataAnnotationsEntityValidator();
+                var validator = new DataAnnotationsResourceValidator();
                 _actualResults = validator.ValidateObject(testObject);
             }
 
@@ -94,7 +94,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                     TestCollection = null
                 };
 
-                var validator = new DataAnnotationsEntityValidator();
+                var validator = new DataAnnotationsResourceValidator();
                 _actualResults = validator.ValidateObject(testObject);
             }
 
@@ -124,7 +124,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                     TestCollection = new List<CollectionTestObject>()
                 };
 
-                var validator = new DataAnnotationsEntityValidator();
+                var validator = new DataAnnotationsResourceValidator();
                 _actualResults = validator.ValidateObject(testObject);
             }
 
