@@ -19,7 +19,7 @@ namespace EdFi.Ods.Common.Validation
 
         public static bool IsValid(this IEnumerable<ValidationResult> validationResults)
         {
-            return !validationResults.Any(r => r != ValidationResult.Success);
+            return validationResults == null || validationResults.All(r => r == ValidationResult.Success);
         }
 
         public static string GetAllMessages(this IEnumerable<ValidationResult> validationResults, int indentLevel = 0)

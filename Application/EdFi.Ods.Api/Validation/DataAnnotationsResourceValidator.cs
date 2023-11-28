@@ -5,20 +5,17 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using EdFi.Ods.Common;
 
 namespace EdFi.Ods.Api.Validation
 {
     public class DataAnnotationsResourceValidator : ObjectValidatorBase, IResourceValidator
     {
-        public virtual ICollection<ValidationResult> ValidateObject(object entity)
+        public ICollection<ValidationResult> ValidateObject(object entity)
         {
             var validationResults = new List<ValidationResult>();
 
-            Validator.TryValidateObject(entity, new ValidationContext(entity), validationResults, true);
-
-            if (validationResults.Any())
+            if (!Validator.TryValidateObject(entity, new ValidationContext(entity), validationResults, validateAllProperties: true, validateEverything: true))
             {
                 SetInvalid();
             }

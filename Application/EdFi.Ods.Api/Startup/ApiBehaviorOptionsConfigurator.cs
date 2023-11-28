@@ -33,7 +33,7 @@ public class ApiBehaviorOptionsConfigurator : IConfigureOptions<ApiBehaviorOptio
         options.InvalidModelStateResponseFactory = actionContext => 
             new BadRequestObjectResult(
                 _errorTranslator.GetErrorMessage(
-                    _dataManagementResourceContextProvider.Get().Resource,
+                    _dataManagementResourceContextProvider.Get()?.Resource,
                     actionContext.ModelState, 
                 (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
     }
