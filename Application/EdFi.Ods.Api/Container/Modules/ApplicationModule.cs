@@ -267,16 +267,8 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<ISecureHasher>()
                 .SingleInstance();
 
-            builder.RegisterType<DataAnnotationsEntityValidator>()
-                .As<IEntityValidator>()
-                .SingleInstance();
-
             builder.RegisterType<DescriptorNamespaceValidator>()
                 .As<IValidator<IEdFiDescriptor>>()
-                .SingleInstance();
-
-            builder.RegisterType<FluentValidationPutPostRequestResourceValidator>()
-                .As<IResourceValidator>()
                 .SingleInstance();
 
             builder.RegisterType<DataAnnotationsResourceValidator>()
