@@ -132,7 +132,7 @@ public class DescriptorDetailsProvider : IDescriptorDetailsProvider
 
             if (pos < 0)
             {
-                throw new FormatException($"Unable to resolve value '{uri}' to an existing '{descriptorName}' resource.");
+                throw new FormatException($"{descriptorName} value '{uri}' is not a valid descriptor value.");
             }
 
             criteria.Add(Restrictions.Eq("Namespace", uri.Substring(0, pos)));
