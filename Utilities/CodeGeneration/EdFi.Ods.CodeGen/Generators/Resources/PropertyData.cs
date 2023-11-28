@@ -192,6 +192,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     : null,
                 RangeAttribute = Property.EntityProperty.ToRangeAttributeCSharp(),
                 DisplayName = (propertyName == Property.Parent.Name) ? propertyName : null,
+                IsDescriptorUsage = Property.EntityProperty.IsDescriptorUsage,
+                DescriptorName = Property.EntityProperty.DescriptorEntity?.Name,                
             };
         }
 
