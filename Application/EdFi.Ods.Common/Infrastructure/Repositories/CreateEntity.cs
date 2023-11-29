@@ -17,11 +17,11 @@ using NHibernate.Persister.Entity;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
 {
-    public class CreateEntity<TEntity> : ValidatingNHibernateRepositoryOperationBase, ICreateEntity<TEntity>
+    public class CreateEntity<TEntity> : NHibernateRepositoryOperationBase, ICreateEntity<TEntity>
         where TEntity : AggregateRootWithCompositeKey
     {
-        public CreateEntity(ISessionFactory sessionFactory, IEnumerable<IEntityValidator> validators)
-            : base(sessionFactory, validators) { }
+        public CreateEntity(ISessionFactory sessionFactory)
+            : base(sessionFactory) { }
 
         public async Task CreateAsync(TEntity entity, bool enforceOptimisticLock, CancellationToken cancellationToken)
         {
@@ -35,8 +35,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     var persister = metadata as IEntityPersister;
 
                     bool hasAssignableIdentifier = metadata.HasIdentifierProperty
-                        && persister != null
-                        && persister.IdentifierGenerator is Assigned;
+                        && persister is { IdentifierGenerator: Assigned };
 
                     // the belief is that pulling the metadata should already have the entity as a POCO
                     var identifierValue = metadata.GetIdentifier(entity);
@@ -81,8 +80,6 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                     // New GUID identifiers are assigned by the NHibernate IPreInsertEventListener implementation
                 }
-
-                ValidateEntity(entity);
 
                 // Save the incoming entity
                 using (var trans = Session.BeginTransaction())

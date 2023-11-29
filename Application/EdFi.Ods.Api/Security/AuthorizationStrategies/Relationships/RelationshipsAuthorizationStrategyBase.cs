@@ -181,11 +181,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             // Throw an exception if there are any missing dependencies
             if (_dependencyValidationResults.Any())
             {
-                string message = string.Format(
-                    "The following injected dependencies were not satisfied: {0}{1}",
-                    Environment.NewLine, _dependencyValidationResults.GetAllMessages(1));
-
-                throw new Exception(message);
+                string validationResultsText = string.Join(Environment.NewLine, _dependencyValidationResults.Select(vr => vr.ToString()));
+                throw new Exception($"The following injected dependencies were not satisfied:{Environment.NewLine}{validationResultsText}");
             }
         }
     }

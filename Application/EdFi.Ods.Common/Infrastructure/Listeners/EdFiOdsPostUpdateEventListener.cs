@@ -131,13 +131,17 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
 
             void ValidateEntity()
             {
-                var validationResults = _entityValidators.ValidateObject(@event.Entity);
+                // TODO: Re-implement
+                throw new NotImplementedException(
+                    "Not yet re-implemented after moving all validations from Entity to Resource model. This will need to validate new key values either using the Entity, or perhaps using the Resource representation with new key values after mapping it back to that representation.");
 
-                if (!validationResults.IsValid())
-                {
-                    throw new ValidationException(
-                        $"Validation of '{@event.Entity.GetType().Name}' failed.{Environment.NewLine}{string.Join(Environment.NewLine, validationResults.GetAllMessages(indentLevel: 1))}");
-                }
+                // var validationResults = _entityValidators.ValidateObject(@event.Entity);
+                //
+                // if (!validationResults.IsValid())
+                // {
+                //     throw new ValidationException(
+                //         $"Validation of '{@event.Entity.GetType().Name}' failed.{Environment.NewLine}{string.Join(Environment.NewLine, validationResults.GetAllMessages(indentLevel: 1))}");
+                // }
             }
         }
 

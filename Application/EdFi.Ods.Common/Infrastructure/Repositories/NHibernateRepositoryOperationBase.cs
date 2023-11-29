@@ -36,31 +36,4 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             get => SessionFactory.GetCurrentSession();
         }
     }
-
-    public abstract class ValidatingNHibernateRepositoryOperationBase : NHibernateRepositoryOperationBase
-    {
-        private readonly IEnumerable<IEntityValidator> _validators;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NHibernateRepositoryOperationBase"/> class using the specified NHibernate session factory.
-        /// </summary>
-        /// <param name="sessionFactory"></param>
-        /// <param name="validators"></param>
-        protected ValidatingNHibernateRepositoryOperationBase(ISessionFactory sessionFactory, IEnumerable<IEntityValidator> validators)
-            : base(sessionFactory)
-        {
-            _validators = validators;
-        }
-
-        protected void ValidateEntity<TEntity>(TEntity entity)
-        {
-            var validationResults = _validators.ValidateObject(entity);
-
-            if (!validationResults.IsValid())
-            {
-                throw new ValidationException(
-                    $"Validation of '{entity.GetType().Name}' failed.{Environment.NewLine}{string.Join(Environment.NewLine, validationResults.GetAllMessages(indentLevel: 1))}");
-            }
-        }
-    }
 }

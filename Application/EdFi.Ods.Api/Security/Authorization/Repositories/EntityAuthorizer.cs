@@ -201,11 +201,10 @@ public class EntityAuthorizer : IEntityAuthorizer
 
                 if (!validationResults.IsValid())
                 {
+                    string validationResultsText = string.Join(Environment.NewLine, validationResults.Select(vr => vr.ToString()));
+
                     throw new ValidationException(
-                        string.Format(
-                            "Validation of '{0}' failed.\n{1}",
-                            requestData.GetType().Name,
-                            string.Join("\n", validationResults.GetAllMessages(indentLevel: 1))));
+                        $"Validation of '{requestData.GetType().Name}' failed.{Environment.NewLine}{validationResultsText}");
                 }
             }
         }

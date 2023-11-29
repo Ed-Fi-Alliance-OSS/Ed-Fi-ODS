@@ -29,12 +29,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Repositories
         public class When_creating_entity_with_string_id : TestFixtureBase
         {
             private ISessionFactoryImplementor _sessionFactory;
-            private IEnumerable<IEntityValidator> _validators;
 
             protected override void Arrange()
             {
                 _sessionFactory = GetSessionFactoryStub();
-                _validators = Stub<IEnumerable<IEntityValidator>>();
                 var metadata = A.Fake<IClassMetadata>(x => x.Implements<IEntityPersister>());
 
                 A.CallTo(() => _sessionFactory.GetClassMetadata(typeof(EducationContent)))
@@ -60,9 +58,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Repositories
 
             protected override void Act()
             {
-                var createEntity = new CreateEntity<EducationContent>(
-                    _sessionFactory,
-                    _validators);
+                var createEntity = new CreateEntity<EducationContent>(_sessionFactory);
 
                 createEntity.CreateAsync(
                     new EducationContent { ContentIdentifier = null }, 
