@@ -24,7 +24,8 @@ public class FullyDefinedReferenceAttribute : ValidationAttribute
         {
             if (!reference.IsReferenceFullyDefined())
             {
-                return new ValidationResult($"{validationContext.MemberName} is missing the following properties: {string.Join(", ", reference.GetUndefinedProperties())}");
+                return new ValidationResult($"{validationContext.MemberName} is missing the following properties: {string.Join(", ", reference.GetUndefinedProperties())}",
+                    new[] { validationContext.MemberName });
             }
         }
 

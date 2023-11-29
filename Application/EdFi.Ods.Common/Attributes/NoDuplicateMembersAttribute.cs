@@ -31,7 +31,8 @@ public sealed class NoDuplicateMembersAttribute : ValidationAttribute
                 if (!enumerableHashSet.Add(item))
                 {
                     return new ValidationResult(
-                        $"The {Inflector.AddOrdinalSuffix(itemNumber.ToString())} item of the {validationContext.DisplayName} collection is a duplicate.");
+                        $"The {Inflector.AddOrdinalSuffix(itemNumber.ToString())} item of the {validationContext.DisplayName} collection is a duplicate.",
+                        new [] { validationContext.MemberName });
                 }
             }
 
