@@ -55,7 +55,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
         openApiDocument.SecurityRequirements.Clear();
 
         // Configure OpenAPI Servers array
-        var baseServerUrl = $"{_httpContextAccessor.HttpContext?.Request.Scheme(this._reverseProxySettings)}://{_httpContextAccessor.HttpContext?.Request.Host(this._reverseProxySettings)}:{_httpContextAccessor.HttpContext?.Request.Port(this._reverseProxySettings)}";
+        var baseServerUrl = $"{_httpContextAccessor.HttpContext?.Request.Scheme(this._reverseProxySettings)}://{_httpContextAccessor.HttpContext?.Request.Host(this._reverseProxySettings)}:{_httpContextAccessor.HttpContext?.Request.Port(this._reverseProxySettings)}{_httpContextAccessor.HttpContext?.Request.PathBase}";
         var serverUrl = "";
 
         if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()) || !string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
