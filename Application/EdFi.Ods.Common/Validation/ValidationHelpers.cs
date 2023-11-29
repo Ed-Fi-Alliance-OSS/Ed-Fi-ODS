@@ -22,6 +22,8 @@ public static class ValidationHelpers
     public const string RangeMessageFormat = "{0} must be between {1} and {2}.";
     public const string RangeMinOnlyMessageFormat = "{0} must be greater than or equal to {1}.";
     public const string RangeMaxOnlyMessageFormat = "{0} must be less than or equal to {2}.";
+
+    public const string RequiredObjectMessageFormat = "The {0} object is required.";
     
     private const string PathBuilderKey = "PathBuilder";
     
