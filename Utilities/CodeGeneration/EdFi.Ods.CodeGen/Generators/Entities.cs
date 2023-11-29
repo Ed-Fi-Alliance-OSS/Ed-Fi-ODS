@@ -300,32 +300,6 @@ namespace EdFi.Ods.CodeGen.Generators
                                               {
                                                   CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true), p.PropertyName,
                                                   CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(entity.Name),
-                                                  Attributes =
-                                                      string.Join(
-                                                          ", ",
-                                                          (!p.PropertyType.IsNullable && !p.CSharpDefaultHasDomainMeaning()
-                                                              ? new[]
-                                                                {
-                                                                    "RequiredWithNonDefault"
-                                                                }
-                                                              : Array.Empty<string>())
-                                                         .Concat(
-                                                              p.PropertyType.ToCSharp() == "string"
-                                                                  ? new[]
-                                                                    {
-                                                                        $"StringLength({p.PropertyType.MaxLength}, MinimumLength={p.PropertyType.MinLength})", 
-                                                                        "NoDangerousText"
-                                                                    }
-                                                                  : Array.Empty<string>())
-                                                         .Concat(
-                                                              IsUniqueIdPropertyOnPersonEntity(entity, p)
-                                                                  ? new[]
-                                                                    {
-                                                                        "NoWhitespace"
-                                                                    }
-                                                                  : Array.Empty<string>()
-                                                          )),
-                                                  RangeAttribute = p.ToRangeAttributeCSharp(),
                                                   IsStandardProperty =
                                                       !(p.IsDescriptorUsage
                                                         || UniqueIdConventions.IsUSI(p.PropertyName)
