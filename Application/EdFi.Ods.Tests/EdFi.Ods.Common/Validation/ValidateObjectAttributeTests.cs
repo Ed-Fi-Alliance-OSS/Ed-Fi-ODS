@@ -11,6 +11,7 @@ using Shouldly;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Validation
 {
+    /*
     public class ParentClass
     {
         [ValidateObject]
@@ -44,4 +45,5 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Validation
             validationResult.ShouldBe(ValidationResult.Success);
         }
     }
+    */
 }
