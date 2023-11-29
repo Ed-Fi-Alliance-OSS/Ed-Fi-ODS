@@ -19,11 +19,10 @@ namespace EdFi.Ods.Common.Validation
     /// </summary>
     public class FluentValidationObjectValidator : IObjectValidator, IExplicitObjectValidator
     {
-        private static readonly ICollection<ValidationResult> EmptyValidationResults = Array.Empty<ValidationResult>();
+        private static readonly ICollection<ValidationResult> _emptyValidationResults = Array.Empty<ValidationResult>();
         private readonly IValidator[] _validators;
 
-        private readonly ConcurrentDictionary<Type, IEnumerable<IValidator>> _validatorsByType
-            = new ConcurrentDictionary<Type, IEnumerable<IValidator>>();
+        private readonly ConcurrentDictionary<Type, IEnumerable<IValidator>> _validatorsByType = new();
 
         public FluentValidationObjectValidator(IValidator[] validators)
         {
@@ -61,7 +60,7 @@ namespace EdFi.Ods.Common.Validation
             // Don't do any processing if there are no FluentValidation validators
             if (_validators == null || _validators.Length == 0)
             {
-                return EmptyValidationResults;
+                return _emptyValidationResults;
             }
 
             var objectType = validationContext.InstanceToValidate.GetType();
@@ -79,9 +78,7 @@ namespace EdFi.Ods.Common.Validation
 
         private IEnumerable<IValidator> GetValidators(Type objectType)
         {
-            IEnumerable<IValidator> validators;
-
-            if (_validatorsByType.TryGetValue(objectType, out validators))
+            if (_validatorsByType.TryGetValue(objectType, out IEnumerable<IValidator> validators))
             {
                 return validators;
             }
