@@ -19,6 +19,10 @@ public static class ValidationHelpers
     public const string StringLengthWithMinimumMessageFormat = "{0} must between {2} and {1} characters in length.";
     public const string StringLengthMessageFormat = "{0} must be at most {1} characters in length.";
 
+    public const string RangeMessageFormat = "{0} must be between {1} and {2}.";
+    public const string RangeMinOnlyMessageFormat = "{0} must be greater than or equal to {1}.";
+    public const string RangeMaxOnlyMessageFormat = "{0} must be less than or equal to {2}.";
+    
     private const string PathBuilderKey = "PathBuilder";
     
     private static readonly List<string> _collectionIndexer = new();
