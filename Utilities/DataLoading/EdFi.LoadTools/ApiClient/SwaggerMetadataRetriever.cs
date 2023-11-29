@@ -198,7 +198,7 @@ namespace EdFi.LoadTools.ApiClient
                 referenceType = parameter.Items.Reference.ReferenceV3;
             }
 
-            if (string.IsNullOrEmpty(parameter?.Type) && !string.IsNullOrEmpty(parameter?.Reference.ReferenceV3))
+            if ((string.IsNullOrEmpty(parameter?.Type) || parameter?.Type == "object") && !string.IsNullOrEmpty(parameter?.Reference.ReferenceV3))
             {
                 referenceType = parameter.Reference.ReferenceV3;
             }
