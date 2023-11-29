@@ -19,7 +19,7 @@ namespace EdFi.Ods.Common.Attributes
                     || (stringValue.Length > 0 && char.IsWhiteSpace(stringValue, stringValue.Length - 1)))
                     ? ValidationResult.Success
                     : new ValidationResult(
-                        $"The {validationContext.MemberName} property is part of the identity of the resource and therefore its value cannot contain leading or trailing whitespace.",
+                        $"{validationContext.MemberName} cannot contain leading or trailing spaces.",
                         new[] { validationContext.MemberName });
         }
     }
