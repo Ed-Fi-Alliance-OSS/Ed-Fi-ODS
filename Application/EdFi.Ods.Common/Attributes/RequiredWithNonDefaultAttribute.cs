@@ -53,7 +53,8 @@ namespace EdFi.Ods.Common.Attributes
                     $"Access to the resource item could not be authorized because the '{_referenceName}' was not found.");
             }
 
-            return new ValidationResult($"{validationContext.DisplayName} is required.");
+            return new ValidationResult($"{validationContext.DisplayName} is required.",
+                new [] { validationContext.MemberName });
         }
     }
 }
