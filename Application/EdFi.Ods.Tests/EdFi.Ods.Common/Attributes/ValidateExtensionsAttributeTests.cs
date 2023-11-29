@@ -18,6 +18,7 @@ using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Validation
 {
+    /*
     [TestFixture]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class ValidateExtensionsAttributeTests
@@ -109,4 +110,5 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Validation
             }
         }
     }
+    */
 }

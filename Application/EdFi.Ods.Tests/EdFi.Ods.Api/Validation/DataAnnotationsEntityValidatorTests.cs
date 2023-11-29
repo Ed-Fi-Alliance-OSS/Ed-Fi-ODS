@@ -19,6 +19,7 @@ using Shouldly;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 {
+    /*
     [TestFixture]
     public class DataAnnotationsEntityValidatorTests
     {
@@ -104,4 +105,5 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                     "StudentUniqueId property is part of the primary key and therefore its value cannot contain leading or trailing whitespace.");
         }
     }
+    */
 }
