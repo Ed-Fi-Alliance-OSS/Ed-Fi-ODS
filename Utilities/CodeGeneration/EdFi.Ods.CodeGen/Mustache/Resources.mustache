@@ -915,7 +915,7 @@ namespace {{ResourceClassesNamespace}}
         /// <summary>
         /// {{JsonPropertyName}}
         /// </summary>
-        {{#IsRequired}}[Required]{{/IsRequired}}
+        {{#IsRequired}}[Required(ErrorMessage=ValidationHelpers.RequiredObjectMessageFormat)]{{/IsRequired}}
         [DataMember(Name = "{{JsonPropertyName}}")]
         public {{EmbeddedObjectType}} {{PropertyName}} { get; set; }
 
@@ -935,7 +935,7 @@ namespace {{ResourceClassesNamespace}}
         /// <summary>
         /// {{JsonPropertyName}}
         /// </summary>
-        {{#IsRequired}}[Required]{{/IsRequired}}
+        {{#IsRequired}}[Required(ErrorMessage=ValidationHelpers.RequiredObjectMessageFormat)]{{/IsRequired}}
         [DataMember(Name = "{{JsonPropertyName}}")]
         public {{EmbeddedObjectTypeNamespace}}{{EmbeddedObjectType}} {{PropertyName}} { get; set; }
 
