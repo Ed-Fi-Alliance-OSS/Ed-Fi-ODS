@@ -174,10 +174,10 @@ namespace EdFi.LoadTools.ApiClient
         private string GetPathForModel(OpenApiDocument swaggerDocument, string modelName)
         {
             return swaggerDocument.Paths
+                .Where(p => p.Value.Operations.Keys.Any(k => k == OperationType.Post))
                 .FirstOrDefault(
-                    path => path.Value.Operations?.Any(
-                                operation => operation.Value.Tags?.Any(tag => modelName.Split('_').Last() == modelName) ?? false
-                                ) ?? false)
+                    p => p.Value.Operations[OperationType.Post].RequestBody.Content.First().Value.Schema.Reference.Id == modelName
+                 )
                 .Key;
         }
 
