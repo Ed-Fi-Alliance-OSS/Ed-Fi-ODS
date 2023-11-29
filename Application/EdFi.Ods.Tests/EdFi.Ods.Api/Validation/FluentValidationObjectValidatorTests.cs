@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -115,7 +116,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Validation
             public void Should_only_generate_validation_errors_for_the_specific_ruleset()
             {
                 Assert.That(
-                    _actualValidationResults.GetAllMessages(),
+                    string.Join(Environment.NewLine, _actualValidationResults.Select(vr => vr.ToString())),
                     Does.Contain("between 1 and 3 characters")
                         .And.ContainsSubstring("between 1 and 5 characters")
                         .And.Not.ContainsSubstring("age is quite odd"));
@@ -187,7 +188,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Validation
             public void Should_only_generate_validation_errors_for_validators_of_the_object_type_being_validated()
             {
                 Assert.That(
-                    _actualValidationResults.GetAllMessages()
+                    string.Join(Environment.NewLine, _actualValidationResults.Select(vr => vr.ToString()))
                         .Trim(),
                     Is.EqualTo("It can only rain cats and dogs."));
             }

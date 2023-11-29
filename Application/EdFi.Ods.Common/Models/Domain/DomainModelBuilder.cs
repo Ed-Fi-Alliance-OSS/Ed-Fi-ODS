@@ -149,11 +149,9 @@ namespace EdFi.Ods.Common.Models.Domain
 
             if (validationResults.Any())
             {
-                throw new Exception(
-                    string.Format(
-                        "Domain model is invalid.{0}{1}",
-                        Environment.NewLine,
-                        string.Join("\t" + Environment.NewLine, validationResults.GetAllMessages())));
+                string validationResultsText = string.Join(Environment.NewLine, validationResults.Select(vr => vr.ToString()));
+                
+                throw new Exception($"Domain model is invalid:{Environment.NewLine}{validationResultsText}");
             }
         }
 
