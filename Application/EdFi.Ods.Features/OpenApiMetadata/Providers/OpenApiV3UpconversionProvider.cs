@@ -55,7 +55,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
         openApiDocument.SecurityRequirements.Clear();
 
         // Configure OpenAPI Servers array
-        var baseServerUrl = $"{_httpContextAccessor.HttpContext?.Request.Scheme(this._reverseProxySettings)}://{_httpContextAccessor.HttpContext?.Request.Host(this._reverseProxySettings)}:{_httpContextAccessor.HttpContext?.Request.Port(this._reverseProxySettings)}";
+        var baseServerUrl = $"{_httpContextAccessor.HttpContext?.Request.Scheme(this._reverseProxySettings)}://{_httpContextAccessor.HttpContext?.Request.Host(this._reverseProxySettings)}:{_httpContextAccessor.HttpContext?.Request.Port(this._reverseProxySettings)}{_httpContextAccessor.HttpContext?.Request.PathBase}";
         var serverUrl = "";
 
         if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()) || !string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
@@ -91,7 +91,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
 
                     serverVariable.Enum.AddRange(
                         GenerateContextValuePathCombinations(
-                            new List<string>() { $"{tenantMapEntry.Key}" }, odsRouteContextKeys.ToList(), connectionString));
+                            new List<string>() { $"{tenantMapEntry.Key}" }, odsRouteContextKeys.ToList(), connectionString).Select(x => x.TrimEnd('/')));
                 }
             }
             else
@@ -99,7 +99,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
                 serverVariable.Enum.AddRange(
                     GenerateContextValuePathCombinations(
                         new List<string>() { $"" }, odsRouteContextKeys,
-                        _adminDatabaseConnectionStringProvider.GetConnectionString()));
+                        _adminDatabaseConnectionStringProvider.GetConnectionString()).Select(x => x.TrimEnd('/')));
             }
 
             var routeContextKeys = _apiSettings.GetOdsContextRouteTemplateKeys().ToList();
