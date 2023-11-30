@@ -12,9 +12,6 @@ using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Utils.Extensions;
 using EdFi.Ods.Features.IdentityManagement;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
-using Microsoft.OpenApi;
-using Microsoft.OpenApi.Extensions;
-using Microsoft.OpenApi.Readers;
 
 namespace EdFi.Ods.Features.OpenApiMetadataContentProviders
 {
@@ -46,9 +43,9 @@ namespace EdFi.Ods.Features.OpenApiMetadataContentProviders
                         new Lazy<string>(
                             () => assembly.ReadResource(x)),
                         new Lazy<string>(
-                            () => new OpenApiStringReader()
-                                .Read(assembly.ReadResource(x), out _)
-                                .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0)),
+                            () => _openApiV3UpconversionProvider
+                                .GetUpconvertedOpenApiJson(
+                                    assembly.ReadResource(x))),
                         IdentityManagementConstants.IdentityRoutePrefix,
                         string.Empty));
         }
