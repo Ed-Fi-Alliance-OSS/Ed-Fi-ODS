@@ -31,8 +31,18 @@ namespace EdFi.Ods.Api.Helpers
         private static readonly ILog _logger = LogManager.GetLogger(typeof(AssemblyLoaderHelper));
         private const string AssemblyMetadataSearchString = "assemblyMetadata.json";
 
+        private static readonly Dictionary<bool, bool> _assembliesAlreadyLoadedByIncludeFrameworkOption = new();
+
         public static void LoadAssembliesFromExecutingFolder(bool includeFramework = false)
         {
+            if (_assembliesAlreadyLoadedByIncludeFrameworkOption.ContainsKey(includeFramework))
+            {
+                return;
+            }
+
+            // Mark as having already executed with this option
+            _assembliesAlreadyLoadedByIncludeFrameworkOption[includeFramework] = true;
+
             // Storage to ensure not loading the same assembly twice and optimize calls to GetAssemblies()
             IDictionary<string, bool> loadedByAssemblyName = new ConcurrentDictionary<string, bool>();
 

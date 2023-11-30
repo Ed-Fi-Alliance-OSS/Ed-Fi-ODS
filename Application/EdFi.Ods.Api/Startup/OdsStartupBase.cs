@@ -125,6 +125,8 @@ namespace EdFi.Ods.Api.Startup
                     return factory.GetUrlHelper(actionContext);
                 });
 
+            AssemblyLoaderHelper.LoadAssembliesFromExecutingFolder();
+
             var pluginInfos = LoadPlugins(pluginSettings);
 
             services.AddSingleton(pluginInfos);
