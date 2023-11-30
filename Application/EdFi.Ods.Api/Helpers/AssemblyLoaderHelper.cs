@@ -14,6 +14,8 @@ using System.Runtime.Loader;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Conventions;
+using EdFi.Ods.Api.Extensions;
+using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensibility;
 using EdFi.Ods.Common.Models.Validation;
 using EdFi.Ods.Common.Validation;
@@ -188,10 +190,9 @@ namespace EdFi.Ods.Api.Helpers
                     $" Please remove the conflicting plugins and retry");
             }
 
-            if(isDuplicate)
+            if (isDuplicate)
             {
                 throw new Exception("Found duplicate plugin extension schema name. Please see logs for more details.");
-
             }
 
             var assemblies = Directory.GetFiles(pluginFolder, "*.dll", SearchOption.AllDirectories);
@@ -228,7 +229,7 @@ namespace EdFi.Ods.Api.Helpers
                             }
                         }
                     }
-                    else if (IsProfileAssembly(assembly))
+                    else if (IsProfileAssembly(assembly) || IsCustomPluginAssembly(assembly))
                     {
                         yield return assembly.Location;
                     }
@@ -284,6 +285,12 @@ namespace EdFi.Ods.Api.Helpers
             // Determine Profiles assembly from presence of Profiles.xml embedded resource
             return assembly.GetManifestResourceNames()
                 .Any(n => n.EndsWithIgnoreCase("Profiles.xml"));
+        }
+
+        private static bool IsCustomPluginAssembly(Assembly assembly)
+        {
+            // Determine Profiles assembly from presence of Profiles.xml embedded resource
+            return assembly.GetTypes().Any(t => t.IsImplementationOf<IPlugin>() || t.IsImplementationOf<IPluginModule>());
         }
 
         private static bool TryReadAssemblyMetadata(Assembly assembly, out AssemblyMetadata assemblyMetadata)
