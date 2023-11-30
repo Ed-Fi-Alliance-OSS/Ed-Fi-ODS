@@ -91,7 +91,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
 
                     serverVariable.Enum.AddRange(
                         GenerateContextValuePathCombinations(
-                            new List<string>() { $"{tenantMapEntry.Key}" }, odsRouteContextKeys.ToList(), connectionString));
+                            new List<string>() { $"{tenantMapEntry.Key}" }, odsRouteContextKeys.ToList(), connectionString).Select(x => x.TrimEnd('/')));
                 }
             }
             else
@@ -99,7 +99,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
                 serverVariable.Enum.AddRange(
                     GenerateContextValuePathCombinations(
                         new List<string>() { $"" }, odsRouteContextKeys,
-                        _adminDatabaseConnectionStringProvider.GetConnectionString()));
+                        _adminDatabaseConnectionStringProvider.GetConnectionString()).Select(x => x.TrimEnd('/')));
             }
 
             var routeContextKeys = _apiSettings.GetOdsContextRouteTemplateKeys().ToList();
