@@ -302,7 +302,7 @@ namespace EdFi.Ods.Api.Helpers
 
         private static bool IsCustomPluginAssembly(Assembly assembly)
         {
-            // Determine Profiles assembly from presence of Profiles.xml embedded resource
+            // Determine custom plugin assembly from presence of either IPlugin or IPluginModule implementations
             return assembly.GetTypes().Any(t => t.IsImplementationOf<IPlugin>() || t.IsImplementationOf<IPluginModule>());
         }
 
