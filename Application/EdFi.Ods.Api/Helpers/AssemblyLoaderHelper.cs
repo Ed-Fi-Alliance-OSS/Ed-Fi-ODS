@@ -236,7 +236,7 @@ namespace EdFi.Ods.Api.Helpers
                     else
                     {
                         throw new Exception(
-                            $"Assembly metadata embedded resource '{AssemblyMetadataSearchString}' not found in non-profiles assembly '{Path.GetFileName(assembly.Location)}'.");
+                            $"No plugin artifacts were found in assembly '{Path.GetFileName(assembly.Location)}'. Expected an IPluginMarker implementation and assembly metadata embedded resource '{AssemblyMetadataSearchString}' (for Profiles or Extensions plugins), or implementations of IPlugin and/or IPlugModule (for custom application plugins).");
                     }
                 }
             }
@@ -271,7 +271,10 @@ namespace EdFi.Ods.Api.Helpers
             {
                 return assembly.GetTypes().Any(
                     t => t.GetInterfaces()
-                        .Any(i => i.AssemblyQualifiedName == typeof(IPluginMarker).AssemblyQualifiedName));
+                        .Any(i => 
+                            i.AssemblyQualifiedName == typeof(IPluginMarker).AssemblyQualifiedName
+                            || i.AssemblyQualifiedName == typeof(IPlugin).AssemblyQualifiedName
+                            || i.AssemblyQualifiedName == typeof(IPluginModule).AssemblyQualifiedName));
             }
         }
 
