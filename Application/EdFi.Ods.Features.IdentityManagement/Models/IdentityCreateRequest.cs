@@ -1,9 +1,8 @@
-﻿using System;
-using EdFi.Ods.Common.Expando;
+﻿using EdFi.Ods.Common.Expando;
 
 namespace EdFi.Ods.Features.IdentityManagement.Models
 {
-    public class IdentitySearchRequest : Expando
+    public class IdentityCreateRequest : Expando
     {
         public string LastSurname { get; set; }
 
