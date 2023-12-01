@@ -11,7 +11,6 @@ using Autofac.Core;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Extensions;
 using log4net;
 
 namespace EdFi.Ods.Api.Helpers

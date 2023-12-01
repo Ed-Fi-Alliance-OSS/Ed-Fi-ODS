@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Reflection;
-using EdFi.Ods.Common.Extensibility;
 
 namespace EdFi.Ods.Common
 {
