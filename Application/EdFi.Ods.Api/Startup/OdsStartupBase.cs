@@ -219,6 +219,28 @@ namespace EdFi.Ods.Api.Startup
 
             services.AddHealthCheck(Configuration, _apiSettings);
             services.AddScheduledJobs();
+
+            ConfigurePluginsServices();
+            
+            void ConfigurePluginsServices()
+            {
+                _logger.Debug("Configuring services in plugins:");
+                
+                foreach (var type in TypeHelper.GetPluginTypes())
+                {
+                    _logger.Debug($"Plugin {type.Name}");
+
+                    try
+                    {
+                        var plugin = (IPlugin) Activator.CreateInstance(type);
+                        plugin?.ConfigureServices(Configuration, services, _apiSettings);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Error($"Error configuring services using plugin '{type.Name}'.", ex);
+                    }
+                }
+            }
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -244,7 +266,7 @@ namespace EdFi.Ods.Api.Startup
             {
                 _logger.Debug("Installing modules:");
 
-                foreach (var type in TypeHelper.GetTypesWithModules())
+                foreach (var type in TypeHelper.GetModuleTypes())
                 {
                     _logger.Debug($"Module {type.Name}");
 

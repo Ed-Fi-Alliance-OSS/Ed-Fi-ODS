@@ -1,14 +1,9 @@
-﻿using System;
-using EdFi.Ods.Common.Expando;
+﻿using EdFi.Ods.Common.Expando;
 
 namespace EdFi.Ods.Features.IdentityManagement.Models
 {
-    public class IdentityResponse : Expando
+    public class IdentitySearchRequest : Expando
     {
-        public string UniqueId { get; set; }
-
-        public decimal Score { get; set; }
-
         public string LastSurname { get; set; }
 
         public string FirstName { get; set; }

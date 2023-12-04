@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace EdFi.Ods.Features.IdentityManagement.Models
+﻿namespace EdFi.Ods.Features.IdentityManagement.Models
 {
     /// <summary>
     /// Implement this interface if the supporting service supports asynchronous methods 

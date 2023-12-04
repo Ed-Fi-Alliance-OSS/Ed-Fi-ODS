@@ -14,6 +14,8 @@ using System.Runtime.Loader;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Conventions;
+using EdFi.Ods.Api.Extensions;
+using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensibility;
 using EdFi.Ods.Common.Models.Validation;
 using EdFi.Ods.Common.Validation;
@@ -29,8 +31,18 @@ namespace EdFi.Ods.Api.Helpers
         private static readonly ILog _logger = LogManager.GetLogger(typeof(AssemblyLoaderHelper));
         private const string AssemblyMetadataSearchString = "assemblyMetadata.json";
 
+        private static readonly Dictionary<bool, bool> _assembliesAlreadyLoadedByIncludeFrameworkOption = new();
+
         public static void LoadAssembliesFromExecutingFolder(bool includeFramework = false)
         {
+            if (_assembliesAlreadyLoadedByIncludeFrameworkOption.ContainsKey(includeFramework))
+            {
+                return;
+            }
+
+            // Mark as having already executed with this option
+            _assembliesAlreadyLoadedByIncludeFrameworkOption[includeFramework] = true;
+
             // Storage to ensure not loading the same assembly twice and optimize calls to GetAssemblies()
             IDictionary<string, bool> loadedByAssemblyName = new ConcurrentDictionary<string, bool>();
 
@@ -188,10 +200,9 @@ namespace EdFi.Ods.Api.Helpers
                     $" Please remove the conflicting plugins and retry");
             }
 
-            if(isDuplicate)
+            if (isDuplicate)
             {
                 throw new Exception("Found duplicate plugin extension schema name. Please see logs for more details.");
-
             }
 
             var assemblies = Directory.GetFiles(pluginFolder, "*.dll", SearchOption.AllDirectories);
@@ -228,14 +239,14 @@ namespace EdFi.Ods.Api.Helpers
                             }
                         }
                     }
-                    else if (IsProfileAssembly(assembly))
+                    else if (IsProfileAssembly(assembly) || IsCustomPluginAssembly(assembly))
                     {
                         yield return assembly.Location;
                     }
                     else
                     {
                         throw new Exception(
-                            $"Assembly metadata embedded resource '{AssemblyMetadataSearchString}' not found in non-profiles assembly '{Path.GetFileName(assembly.Location)}'.");
+                            $"No plugin artifacts were found in assembly '{Path.GetFileName(assembly.Location)}'. Expected an IPluginMarker implementation and assembly metadata embedded resource '{AssemblyMetadataSearchString}' (for Profiles or Extensions plugins), or implementations of IPlugin and/or IPlugModule (for custom application plugins).");
                     }
                 }
             }
@@ -270,7 +281,10 @@ namespace EdFi.Ods.Api.Helpers
             {
                 return assembly.GetTypes().Any(
                     t => t.GetInterfaces()
-                        .Any(i => i.AssemblyQualifiedName == typeof(IPluginMarker).AssemblyQualifiedName));
+                        .Any(i => 
+                            i.AssemblyQualifiedName == typeof(IPluginMarker).AssemblyQualifiedName
+                            || i.AssemblyQualifiedName == typeof(IPlugin).AssemblyQualifiedName
+                            || i.AssemblyQualifiedName == typeof(IPluginModule).AssemblyQualifiedName));
             }
         }
 
@@ -284,6 +298,12 @@ namespace EdFi.Ods.Api.Helpers
             // Determine Profiles assembly from presence of Profiles.xml embedded resource
             return assembly.GetManifestResourceNames()
                 .Any(n => n.EndsWithIgnoreCase("Profiles.xml"));
+        }
+
+        private static bool IsCustomPluginAssembly(Assembly assembly)
+        {
+            // Determine custom plugin assembly from presence of either IPlugin or IPluginModule implementations
+            return assembly.GetTypes().Any(t => t.IsImplementationOf<IPlugin>() || t.IsImplementationOf<IPluginModule>());
         }
 
         private static bool TryReadAssemblyMetadata(Assembly assembly, out AssemblyMetadata assemblyMetadata)

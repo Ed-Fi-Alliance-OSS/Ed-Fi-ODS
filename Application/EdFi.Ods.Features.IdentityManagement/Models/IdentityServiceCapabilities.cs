@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EdFi.Ods.Features.IdentityManagement.Models
+﻿namespace EdFi.Ods.Features.IdentityManagement.Models
 {
     [Flags]
     public enum IdentityServiceCapabilities

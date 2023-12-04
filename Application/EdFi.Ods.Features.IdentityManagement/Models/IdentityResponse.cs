@@ -1,10 +1,13 @@
-﻿using System;
-using EdFi.Ods.Common.Expando;
+﻿using EdFi.Ods.Common.Expando;
 
 namespace EdFi.Ods.Features.IdentityManagement.Models
 {
-    public class IdentityCreateRequest : Expando
+    public class IdentityResponse : Expando
     {
+        public string UniqueId { get; set; }
+
+        public decimal Score { get; set; }
+
         public string LastSurname { get; set; }
 
         public string FirstName { get; set; }

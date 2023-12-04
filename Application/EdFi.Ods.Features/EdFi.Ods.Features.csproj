@@ -32,5 +32,6 @@
   <ItemGroup>
     <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Features.IdentityManagement\EdFi.Ods.Features.IdentityManagement.csproj" />
   </ItemGroup>
 </Project>
