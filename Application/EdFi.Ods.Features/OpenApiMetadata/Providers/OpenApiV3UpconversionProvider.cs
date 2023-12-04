@@ -75,8 +75,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
 
         IDictionary<string, TenantConfiguration> tenantMap = _tenantConfigurationMapProvider?.GetMap() ?? new Dictionary<string, TenantConfiguration>();
         
-        OpenApiServerVariable serverVariable = new OpenApiServerVariable();
-        serverVariable.Description = "ODS Selection";
+        OpenApiServerVariable serverVariable = new OpenApiServerVariable { Description = "ODS Selection" };
         openApiDocument.Servers.Add(odsServer);
 
         var odsRouteContextKeys = _apiSettings.GetOdsContextRouteTemplateKeys().ToList();
@@ -136,7 +135,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
         }
         
         // Configure OpenAPI SecuritySchemes array
-        foreach (var securityScheme in openApiDocument.Components.SecuritySchemes)
+        foreach (KeyValuePair<string, OpenApiSecurityScheme> securityScheme in openApiDocument.Components.SecuritySchemes)
         {
             var securityRequirement = new OpenApiSecurityRequirement();
             securityScheme.Value.Reference = new OpenApiReference() { Id = securityScheme.Key, Type =  ReferenceType.SecurityScheme};
@@ -144,6 +143,24 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
             openApiDocument.SecurityRequirements.Add(securityRequirement);
         }
         
+        // Remove response content content-types to all responses for each path object on GET requests.
+        // This is necessary because the OpenAPI v2 spec does not support multiple content-types per response,
+        // and the process defaults to application/json for all non-200 responses.
+        foreach (var path in openApiDocument.Paths)
+        {
+            foreach (var operation in path.Value.Operations)
+            {
+                OpenApiResponses newResponses = new OpenApiResponses();
+
+                // Replace all responses except 500, 400, and 200 with responses without a content-type set
+                foreach (KeyValuePair<string, OpenApiResponse> response in operation.Value.Responses.Where(
+                             r => r.Key != "500" && r.Key != "200" && r.Key != "400"))
+                {
+                    response.Value.Content.Clear();
+                }
+            }
+        }
+
         return openApiDocument.SerializeAsJson(OpenApiSpecVersion.OpenApi3_0);
 
         // Recursively adds all combinations of valid route context values to the end of the strings in currentEnumValues
