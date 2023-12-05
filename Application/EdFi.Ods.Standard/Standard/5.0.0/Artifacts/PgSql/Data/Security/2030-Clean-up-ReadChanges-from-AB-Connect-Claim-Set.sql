@@ -21,12 +21,9 @@ DECLARE
     readchanges_action_id INTEGER;
     claim_id_stack INTEGER ARRAY;
 
-IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE table_name = 'ClaimSetResourceClaims')
-THEN
-
 BEGIN
 
-
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE table_name = 'claimsetresourceclaims') THEN
 
     SELECT actionid INTO create_action_id
     FROM dbo.actions WHERE ActionName = 'Create';
@@ -516,4 +513,5 @@ BEGIN
     COMMIT;
 
 END IF;
+
 END $$;
