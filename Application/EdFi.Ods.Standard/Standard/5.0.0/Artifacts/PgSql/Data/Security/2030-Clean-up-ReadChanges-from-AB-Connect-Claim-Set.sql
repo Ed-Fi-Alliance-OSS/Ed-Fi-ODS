@@ -20,6 +20,10 @@ DECLARE
     delete_action_id INTEGER;
     readchanges_action_id INTEGER;
     claim_id_stack INTEGER ARRAY;
+
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE table_name = 'ClaimSetResourceClaims')
+THEN
+
 BEGIN
 
 
@@ -510,4 +514,6 @@ BEGIN
     claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     COMMIT;
+
+END IF;
 END $$;
