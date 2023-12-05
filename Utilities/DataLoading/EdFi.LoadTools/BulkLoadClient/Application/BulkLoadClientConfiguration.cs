@@ -149,7 +149,7 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                 InterchangeOrderFolder = configuration.GetValue("Folders:Interchange", currentDirectory),
                 MaxSimultaneousRequests = configuration.GetValue("Concurrency:MaxSimultaneousApiRequests", 500),
                 ApiUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:ApiUrl")),
-                MetadataUrl = $"{ResolvedUrl(configuration.GetValue<string>("OdsApi:MetadataUrl"))}?version=2",
+                MetadataUrl = $"{ResolvedUrl(configuration.GetValue<string>("OdsApi:MetadataUrl"))}",
                 DependenciesUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:DependenciesUrl")),
                 OauthUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:OAuthUrl")),
                 XsdMetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:XsdMetadataUrl")),

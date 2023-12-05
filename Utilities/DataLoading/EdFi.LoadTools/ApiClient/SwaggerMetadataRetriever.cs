@@ -176,7 +176,7 @@ namespace EdFi.LoadTools.ApiClient
             return swaggerDocument.Paths
                 .Where(p => p.Value.Operations.Keys.Any(k => k == OperationType.Post))
                 .FirstOrDefault(
-                    p => p.Value.Operations[OperationType.Post].Parameters.FirstOrDefault()?.Schema.Reference.ReferenceV3 == $"#/definitions/{modelName}"
+                    p => p.Value.Operations[OperationType.Post].RequestBody.Content.First().Value.Schema.Reference.Id == modelName
                  )
                 .Key;
         }
@@ -198,7 +198,7 @@ namespace EdFi.LoadTools.ApiClient
                 referenceType = parameter.Items.Reference.ReferenceV3;
             }
 
-            if (string.IsNullOrEmpty(parameter?.Type) && !string.IsNullOrEmpty(parameter?.Reference.ReferenceV3))
+            if ((string.IsNullOrEmpty(parameter?.Type) || parameter?.Type == "object") && !string.IsNullOrEmpty(parameter?.Reference.ReferenceV3))
             {
                 referenceType = parameter.Reference.ReferenceV3;
             }
