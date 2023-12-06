@@ -227,9 +227,9 @@ BEGIN
 	CROSS JOIN dbo.Actions a
 	WHERE ResourceClaimId = resourceClaim_Id AND NOT EXISTS (
     SELECT 1
-    FROM dbo.ResourceClaimActionAuthorizationStrategies RCAAS
-    WHERE RCAAS.ResourceClaimActionId = RCA.ResourceClaimActionId
-    AND RCAAS.AuthorizationStrategyId = authorizationStrategy_Id);
+    FROM dbo.ResourceClaimActions RCA
+    WHERE RCA.ResourceClaimId = RC.ResourceClaimId
+    AND RCA.ActionId = a.ActionId);
 
 	--- 'NoFurtherAuthorizationRequired' AuthorizationStrategyName added for  sourceDimension resource
 
