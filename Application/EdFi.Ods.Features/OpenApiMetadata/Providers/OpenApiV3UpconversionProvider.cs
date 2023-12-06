@@ -152,9 +152,9 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
             {
                 OpenApiResponses newResponses = new OpenApiResponses();
 
-                // Replace all responses except 500, 400, and 200 with responses without a content-type set
+                // Replace all responses except 500, 400, 409, and 200 with new responses having no content-type set
                 foreach (KeyValuePair<string, OpenApiResponse> response in operation.Value.Responses.Where(
-                             r => r.Key != "500" && r.Key != "200" && r.Key != "400"))
+                             r => r.Key != "500" && r.Key != "200" && r.Key != "400" && r.Key != "409"))
                 {
                     response.Value.Content.Clear();
                 }
