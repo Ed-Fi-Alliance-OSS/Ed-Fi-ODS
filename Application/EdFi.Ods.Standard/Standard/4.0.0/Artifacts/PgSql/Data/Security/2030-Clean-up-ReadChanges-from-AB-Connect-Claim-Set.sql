@@ -22,6 +22,9 @@ DECLARE
     claim_id_stack INTEGER ARRAY;
 BEGIN
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE table_name = 'claimsetresourceclaims')
+THEN
+
     SELECT actionid INTO create_action_id
     FROM dbo.actions WHERE ActionName = 'Create';
 
@@ -507,4 +510,6 @@ BEGIN
     claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     COMMIT;
+
+END IF;
 END $$;
