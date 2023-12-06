@@ -15,9 +15,6 @@ WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/balanceSheetDimension'
 
 -- Create CRUD action claims for balanceSheetDimension
 
-IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaims RC CROSS JOIN dbo.Actions a WHERE ResourceClaimId = @resourceClaimId)
-BEGIN
-
 INSERT INTO dbo.ResourceClaimActions (
      ActionId
     ,ResourceClaimId
@@ -27,22 +24,26 @@ SELECT a.ActionId ,ResourceClaimId ,NULL
 FROM dbo.ResourceClaims RC
 CROSS JOIN dbo.Actions a
 WHERE ResourceClaimId = @resourceClaimId
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.ResourceClaimActions RCA
+    WHERE RCA.ResourceClaimId = RC.ResourceClaimId
+    AND RCA.ActionId = a.ActionId
+);
 
-END
-
-IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaimActionS RCA 
-                INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
-                INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
-                WHERE RCA.ResourceClaimId = @resourceClaimId)
-BEGIN
 
 INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
 SELECT RCA.ResourceClaimActionId,@authorizationStrategyId FROM dbo.ResourceClaimActionS RCA 
 INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
 INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
 WHERE RCA.ResourceClaimId = @resourceClaimId
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.ResourceClaimActionAuthorizationStrategies RCAA
+    WHERE RCAA.ResourceClaimActionId = RCA.ResourceClaimActionId
+    AND RCAA.AuthorizationStrategyId = @authorizationStrategyId
+);
 
-END
 
 SELECT @resourceClaimId = ResourceClaimId
 FROM ResourceClaims
@@ -50,9 +51,6 @@ WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/functionDimension'
 
 -- Create CRUD action claims for functionDimension
 
-IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaims RC CROSS JOIN dbo.Actions a WHERE ResourceClaimId = @resourceClaimId)
-BEGIN
-
 INSERT INTO dbo.ResourceClaimActions (
      ActionId
     ,ResourceClaimId
@@ -62,22 +60,26 @@ SELECT a.ActionId ,ResourceClaimId ,NULL
 FROM dbo.ResourceClaims RC
 CROSS JOIN dbo.Actions a
 WHERE ResourceClaimId = @resourceClaimId
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.ResourceClaimActions RCA
+    WHERE RCA.ResourceClaimId = RC.ResourceClaimId
+    AND RCA.ActionId = a.ActionId
+);
 
-END
 
-IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaimActionS RCA 
-                INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
-                INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
-                WHERE RCA.ResourceClaimId = @resourceClaimId)
-BEGIN
 
 INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
 SELECT RCA.ResourceClaimActionId,@authorizationStrategyId FROM dbo.ResourceClaimActionS RCA 
 INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
 INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
 WHERE RCA.ResourceClaimId = @resourceClaimId
-
-END
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.ResourceClaimActionAuthorizationStrategies RCAA
+    WHERE RCAA.ResourceClaimActionId = RCA.ResourceClaimActionId
+    AND RCAA.AuthorizationStrategyId = @authorizationStrategyId
+);
 
 SELECT @resourceClaimId = ResourceClaimId
 FROM ResourceClaims
@@ -85,8 +87,6 @@ WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/fundDimension'
 
 -- Create CRUD action claims for fundDimension
 
-IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaims RC CROSS JOIN dbo.Actions a WHERE ResourceClaimId = @resourceClaimId)
-BEGIN
 
 INSERT INTO dbo.ResourceClaimActions (
      ActionId
@@ -97,22 +97,24 @@ SELECT a.ActionId ,ResourceClaimId ,NULL
 FROM dbo.ResourceClaims RC
 CROSS JOIN dbo.Actions a
 WHERE ResourceClaimId = @resourceClaimId
-
-END
-
-IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaimActionS RCA 
-                INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
-                INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
-                WHERE RCA.ResourceClaimId = @resourceClaimId)
-BEGIN
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.ResourceClaimActions RCA
+    WHERE RCA.ResourceClaimId = RC.ResourceClaimId
+    AND RCA.ActionId = a.ActionId
+);
 
 INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
 SELECT RCA.ResourceClaimActionId,@authorizationStrategyId FROM dbo.ResourceClaimActionS RCA 
 INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
 INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
 WHERE RCA.ResourceClaimId = @resourceClaimId
-
-END
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.ResourceClaimActionAuthorizationStrategies RCAA
+    WHERE RCAA.ResourceClaimActionId = RCA.ResourceClaimActionId
+    AND RCAA.AuthorizationStrategyId = @authorizationStrategyId
+);
 
 SELECT @resourceClaimId = ResourceClaimId
 FROM ResourceClaims
@@ -120,9 +122,6 @@ WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/objectDimension'
 
 -- Create CRUD action claims for objectDimension
 
-IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaims RC CROSS JOIN dbo.Actions a WHERE ResourceClaimId = @resourceClaimId)
-BEGIN
-
 INSERT INTO dbo.ResourceClaimActions (
      ActionId
     ,ResourceClaimId
@@ -132,22 +131,25 @@ SELECT a.ActionId ,ResourceClaimId ,NULL
 FROM dbo.ResourceClaims RC
 CROSS JOIN dbo.Actions a
 WHERE ResourceClaimId = @resourceClaimId
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.ResourceClaimActions RCA
+    WHERE RCA.ResourceClaimId = RC.ResourceClaimId
+    AND RCA.ActionId = a.ActionId
+);
 
-END
-
-IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaimActionS RCA 
-                INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
-                INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
-                WHERE RCA.ResourceClaimId = @resourceClaimId)
-BEGIN
 
 INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
 SELECT RCA.ResourceClaimActionId,@authorizationStrategyId FROM dbo.ResourceClaimActionS RCA 
 INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
 INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
 WHERE RCA.ResourceClaimId = @resourceClaimId
-
-END
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.ResourceClaimActionAuthorizationStrategies RCAA
+    WHERE RCAA.ResourceClaimActionId = RCA.ResourceClaimActionId
+    AND RCAA.AuthorizationStrategyId = @authorizationStrategyId
+);
 
 
 SELECT @resourceClaimId = ResourceClaimId
@@ -155,8 +157,6 @@ FROM ResourceClaims
 WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/operationalUnitDimension'
 
 -- Create CRUD action claims for operationalUnitDimension
-IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaims RC CROSS JOIN dbo.Actions a WHERE ResourceClaimId = @resourceClaimId)
-BEGIN
 
 INSERT INTO dbo.ResourceClaimActions (
      ActionId
@@ -167,30 +167,30 @@ SELECT a.ActionId ,ResourceClaimId ,NULL
 FROM dbo.ResourceClaims RC
 CROSS JOIN dbo.Actions a
 WHERE ResourceClaimId = @resourceClaimId
-
-END
-
-IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaimActionS RCA 
-                INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
-                INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
-                WHERE RCA.ResourceClaimId = @resourceClaimId)
-BEGIN
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.ResourceClaimActions RCA
+    WHERE RCA.ResourceClaimId = RC.ResourceClaimId
+    AND RCA.ActionId = a.ActionId
+);
 
 INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
 SELECT RCA.ResourceClaimActionId,@authorizationStrategyId FROM dbo.ResourceClaimActionS RCA 
 INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
 INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
 WHERE RCA.ResourceClaimId = @resourceClaimId
-
-END
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.ResourceClaimActionAuthorizationStrategies RCAA
+    WHERE RCAA.ResourceClaimActionId = RCA.ResourceClaimActionId
+    AND RCAA.AuthorizationStrategyId = @authorizationStrategyId
+);
 
 SELECT @resourceClaimId = ResourceClaimId
 FROM ResourceClaims
 WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/programDimension'
 
 -- Create CRUD action claims for programDimension
-IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaims RC CROSS JOIN dbo.Actions a WHERE ResourceClaimId = @resourceClaimId)
-BEGIN
 
 INSERT INTO dbo.ResourceClaimActions (
      ActionId
@@ -201,30 +201,31 @@ SELECT a.ActionId ,ResourceClaimId ,NULL
 FROM dbo.ResourceClaims RC
 CROSS JOIN dbo.Actions a
 WHERE ResourceClaimId = @resourceClaimId
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.ResourceClaimActions RCA
+    WHERE RCA.ResourceClaimId = RC.ResourceClaimId
+    AND RCA.ActionId = a.ActionId
+);
 
-END
-
-IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaimActionS RCA 
-                INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
-                INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
-                WHERE RCA.ResourceClaimId = @resourceClaimId)
-BEGIN
 
 INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
 SELECT RCA.ResourceClaimActionId,@authorizationStrategyId FROM dbo.ResourceClaimActionS RCA 
 INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
 INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
 WHERE RCA.ResourceClaimId = @resourceClaimId
-
-END
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.ResourceClaimActionAuthorizationStrategies RCAA
+    WHERE RCAA.ResourceClaimActionId = RCA.ResourceClaimActionId
+    AND RCAA.AuthorizationStrategyId = @authorizationStrategyId
+);
 
 SELECT @resourceClaimId = ResourceClaimId
 FROM ResourceClaims
 WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/projectDimension'
 
 -- Create CRUD action claims for projectDimension
-IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaims RC CROSS JOIN dbo.Actions a WHERE ResourceClaimId = @resourceClaimId)
-BEGIN
 
 INSERT INTO dbo.ResourceClaimActions (
      ActionId
@@ -235,30 +236,31 @@ SELECT a.ActionId ,ResourceClaimId ,NULL
 FROM dbo.ResourceClaims RC
 CROSS JOIN dbo.Actions a
 WHERE ResourceClaimId = @resourceClaimId
-
-END
-
-IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaimActionS RCA 
-                INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
-                INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
-                WHERE RCA.ResourceClaimId = @resourceClaimId)
-BEGIN
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.ResourceClaimActions RCA
+    WHERE RCA.ResourceClaimId = RC.ResourceClaimId
+    AND RCA.ActionId = a.ActionId
+);
 
 INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
 SELECT RCA.ResourceClaimActionId,@authorizationStrategyId FROM dbo.ResourceClaimActionS RCA 
 INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
 INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
 WHERE RCA.ResourceClaimId = @resourceClaimId
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.ResourceClaimActionAuthorizationStrategies RCAA
+    WHERE RCAA.ResourceClaimActionId = RCA.ResourceClaimActionId
+    AND RCAA.AuthorizationStrategyId = @authorizationStrategyId
+);
 
-END
 
 SELECT @resourceClaimId = ResourceClaimId
 FROM ResourceClaims
 WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/sourceDimension'
 
 -- Create CRUD action claims for sourceDimension
-IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaims RC CROSS JOIN dbo.Actions a WHERE ResourceClaimId = @resourceClaimId)
-BEGIN
 
 INSERT INTO dbo.ResourceClaimActions (
      ActionId
@@ -269,22 +271,24 @@ SELECT a.ActionId ,ResourceClaimId ,NULL
 FROM dbo.ResourceClaims RC
 CROSS JOIN dbo.Actions a
 WHERE ResourceClaimId = @resourceClaimId
-
-END
-
-IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaimActionS RCA 
-                INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
-                INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
-                WHERE RCA.ResourceClaimId = @resourceClaimId)
-BEGIN
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.ResourceClaimActions RCA
+    WHERE RCA.ResourceClaimId = RC.ResourceClaimId
+    AND RCA.ActionId = a.ActionId
+);
 
 INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
 SELECT RCA.ResourceClaimActionId,@authorizationStrategyId FROM dbo.ResourceClaimActionS RCA 
 INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
 INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
 WHERE RCA.ResourceClaimId = @resourceClaimId
-
-END
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.ResourceClaimActionAuthorizationStrategies RCAA
+    WHERE RCAA.ResourceClaimActionId = RCA.ResourceClaimActionId
+    AND RCAA.AuthorizationStrategyId = @authorizationStrategyId
+);
 
 /* NamespaceBased */
 
@@ -295,8 +299,6 @@ FROM ResourceClaims
 WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/descriptorMapping'
 
 -- Create CRUD action claims for descriptorMapping
-IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaims RC CROSS JOIN dbo.Actions a WHERE ResourceClaimId = @resourceClaimId)
-BEGIN
 
 INSERT INTO dbo.ResourceClaimActions (
      ActionId
@@ -307,19 +309,22 @@ SELECT a.ActionId ,ResourceClaimId ,NULL
 FROM dbo.ResourceClaims RC
 CROSS JOIN dbo.Actions a
 WHERE ResourceClaimId = @resourceClaimId
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.ResourceClaimActions RCA
+    WHERE RCA.ResourceClaimId = RC.ResourceClaimId
+    AND RCA.ActionId = a.ActionId
+);
 
-END
-
-IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaimActionS RCA 
-                INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
-                INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
-                WHERE RCA.ResourceClaimId = @resourceClaimId)
-BEGIN
 
 INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
 SELECT RCA.ResourceClaimActionId,@authorizationStrategyId FROM dbo.ResourceClaimActionS RCA 
 INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
 INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
 WHERE RCA.ResourceClaimId = @resourceClaimId
-
-END
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.ResourceClaimActionAuthorizationStrategies RCAA
+    WHERE RCAA.ResourceClaimActionId = RCA.ResourceClaimActionId
+    AND RCAA.AuthorizationStrategyId = @authorizationStrategyId
+);
