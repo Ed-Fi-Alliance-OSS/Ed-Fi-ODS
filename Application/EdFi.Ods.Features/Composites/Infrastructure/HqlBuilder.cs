@@ -82,7 +82,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
         /// <param name="builderContext">The builder context.</param>
         public void ApplyRootResource(CompositeDefinitionProcessorContext processorContext, HqlBuilderContext builderContext)
         {
-            var resource = (Resource) processorContext.CurrentResourceClass;
+            var resource = (Resource)processorContext.CurrentResourceClass;
 
             builderContext.CurrentAlias = builderContext.AliasGenerator.GetNextAlias();
 
@@ -390,7 +390,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                         builderContext.CurrentAlias,
                         pk.PropertyName,
                         builderContext.Depth,
-                        (char) (processorContext.ChildIndex + 'a'));
+                        (char)(processorContext.ChildIndex + 'a'));
                 });
 
             // Add ORDER BY for the primary keys
@@ -709,11 +709,13 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
             var thisQuery = new CompositeQuery(
                 processorContext.MemberDisplayName,
-                builderContext.PropertyProjections.Select(
-                        x => x.DisplayName.ToCamelCase() ?? x.ResourceProperty.PropertyName.ToCamelCase())
-                    .ToArray(),
                 queryResults,
-                builderContext.IsSingleItemResult);
+                builderContext.IsSingleItemResult,
+                builderContext.PropertyProjections.Select(
+                        x => new KeyValuePair<string, PropertyType>(
+                            x.DisplayName.ToCamelCase() ?? x.ResourceProperty.PropertyName.ToCamelCase(),
+                            x.ResourceProperty.PropertyType))
+                    .ToDictionary(x => x.Key, x => x.Value));
 
             rootCompositeQuery = thisQuery;
             return true;
@@ -774,12 +776,15 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             var thisQuery = new CompositeQuery(
                 parentResult,
                 processorContext.MemberDisplayName.ToCamelCase(),
-                builderContext.PropertyProjections.Select(x => x.DisplayName.ToCamelCase() ?? x.ResourceProperty.PropertyName.ToCamelCase())
-                              .ToArray(),
                 query
                    .SetResultTransformer(Transformers.AliasToEntityMap)
                    .Future<object>(),
-                isSingleItemResult);
+                isSingleItemResult,
+                builderContext.PropertyProjections.Select(
+                        x => new KeyValuePair<string, PropertyType>(
+                            x.DisplayName.ToCamelCase() ?? x.ResourceProperty.PropertyName.ToCamelCase(),
+                            x.ResourceProperty.PropertyType))
+                    .ToDictionary(x => x.Key, x => x.Value));
 
             parentResult.ChildQueries.Add(thisQuery);
 
@@ -1040,7 +1045,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 if (parameterName.EndsWith("_Id"))
                 {
                     // Parameter is a GUID resource Id
-                    query.SetParameter(parameterName, new Guid((string) value));
+                    query.SetParameter(parameterName, new Guid((string)value));
                 }
                 else if (!(value is string) && value is IEnumerable)
                 {

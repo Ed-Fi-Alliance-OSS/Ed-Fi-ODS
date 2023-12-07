@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
@@ -31,19 +32,19 @@ using NHibernate.Context;
 
 namespace EdFi.Ods.Features.Composites.Infrastructure
 {
-        public class CompositeResourceResponseProvider : ICompositeResourceResponseProvider
+    public class CompositeResourceResponseProvider : ICompositeResourceResponseProvider
     {
         private readonly ICompositeDefinitionProcessor<HqlBuilderContext, CompositeQuery> _compositeDefinitionProcessor;
         private readonly IFieldsExpressionParser _fieldsExpressionParser;
 
         private readonly JsonSerializerSettings _jsonSerializerSettings
             = new JsonSerializerSettings
-              {
-                  Converters = new[]
+            {
+                Converters = new[]
                                {
                                    new GuidConverter()
                                }
-              };
+            };
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(CompositeResourceResponseProvider));
 
@@ -255,7 +256,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 var currentEnumerator = query.GetEnumerator(null);
 
                 (string usiKey, string personType)[] usiKeys = null;
-            
+
                 do
                 {
                     // Nothing to enumerate?
@@ -265,7 +266,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     }
 
                     // Get current row
-                    var currentRow = (Hashtable) currentEnumerator.Current;
+                    var currentRow = (Hashtable)currentEnumerator.Current;
 
                     if (currentRow == null)
                     {
@@ -283,7 +284,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                             uniqueIdLookupsByUsiContext.AddLookup(usiKey.personType, usi);
                         }
                     }
-                
+
                     // Recursively process child query results
                     foreach (var childQuery in query.ChildQueries)
                     {
@@ -335,7 +336,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 }
 
                 // Get current row
-                var currentRow = (Hashtable) currentEnumerator.Current;
+                var currentRow = (Hashtable)currentEnumerator.Current;
 
                 if (currentRow == null)
                 {
@@ -349,7 +350,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 }
 
                 // Convert the row to serializable form
-                var resultItem = GetItem(currentRow, query.DataFields, query.OrderedFieldNames, fieldSelections, nullValueHandling, uniqueIdLookupsByUsiContext);
+                var resultItem = GetItem(currentRow, query.DataFields, query.OrderedFieldNameWithTypes, fieldSelections, nullValueHandling, uniqueIdLookupsByUsiContext);
 
                 // Process the children
                 foreach (var childQuery in query.ChildQueries)
@@ -392,7 +393,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
         private IDictionary GetItem(
             Hashtable sourceRow,
             string[] keys,
-            string[] orderedFieldNames,
+            IDictionary<string, PropertyType> orderedFieldNamesWithTypes,
             IReadOnlyList<SelectedResourceMember> fieldSelections,
             NullValueHandling nullValueHandling,
             UniqueIdLookupsByUsiContext uniqueIdLookupsByUsiContext)
@@ -428,11 +429,11 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             // Retain order of properties
             // since pass through items are not in the resource and/or domain model, we need to add them as part of the return fields.
             // order fields are exclusively from the model, so we need to add the pass through items to end.
-            var keyValuePairs = orderedFieldNames
+            var keyValuePairs = orderedFieldNamesWithTypes.Keys
                                .Concat(keys.Where(x => x.EndsWith(CompositeDefinitionHelper.PassThroughMarker))
                                            .Select(x => x.TrimSuffix(CompositeDefinitionHelper.PassThroughMarker)))
                                .Join(
-                                    EnumerateKeyValuePairs(sourceRow, nullValueHandling, keysToProcess, descriptorNamespaceByKey, selectedKeys, uniqueIdLookupsByUsiContext),
+                                    EnumerateKeyValuePairs(sourceRow, nullValueHandling, keysToProcess, descriptorNamespaceByKey, selectedKeys, uniqueIdLookupsByUsiContext, orderedFieldNamesWithTypes),
                                     x => x,
                                     x => x.Key,
                                     (prop, kvp) => kvp,
@@ -453,7 +454,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             IEnumerable<string> keysToProcess,
             Dictionary<string, object> descriptorNamespaceByKey,
             HashSet<string> selectedKeys,
-            UniqueIdLookupsByUsiContext uniqueIdLookupsByUsiContext)
+            UniqueIdLookupsByUsiContext uniqueIdLookupsByUsiContext,
+            IDictionary<string, PropertyType> fieldNameTypes)
         {
             foreach (string key in keysToProcess)
             {
@@ -498,17 +500,26 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                                 && _personEntitySpecification.TryGetUSIPersonTypeAndRoleName(key, out string personType, out string roleName))
                             {
                                 // Resolve the UniqueId from the USI
-                                if (!uniqueIdLookupsByUsiContext.UniqueIdByUsiByPersonType.TryGetValue(personType, out var map) 
-                                        || !map.TryGetValue((int) sourceRow[key], out string uniqueId))
+                                if (!uniqueIdLookupsByUsiContext.UniqueIdByUsiByPersonType.TryGetValue(personType, out var map)
+                                        || !map.TryGetValue((int)sourceRow[key], out string uniqueId))
                                 {
                                     // This should never happen
-                                    throw new Exception($"Unable to resolve {personType}USI '{(int) sourceRow[key]}' to a UniqueId value.");
+                                    throw new Exception($"Unable to resolve {personType}USI '{(int)sourceRow[key]}' to a UniqueId value.");
                                 }
-                                
+
                                 string uniqueIdKey = (roleName + personType + CompositeDefinitionHelper.UniqueId).ToCamelCase();
 
                                 renamedKey = uniqueIdKey;
                                 value = uniqueId;
+                            }
+                            else if (fieldNameTypes.ContainsKey(key) && new[] { DbType.Date, DbType.Guid }.Contains(fieldNameTypes[key].DbType))
+                            {
+                                value = fieldNameTypes[key].DbType switch
+                                {
+                                    DbType.Guid => ((Guid)sourceRow[key]).ToString("N"),
+                                    DbType.Date => ((DateTime)sourceRow[key]).ToString("yyyy-MM-dd"),
+                                    _ => sourceRow[key]
+                                };
                             }
                             else
                             {
