@@ -340,7 +340,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 }
 
                 // Convert the row to serializable form
-                var resultItem = GetItem(currentRow, query.DataFields, query.OrderedFieldNameWithTypes, fieldSelections, nullValueHandling, uniqueIdLookupsByUsiContext);
+                var resultItem = GetItem(currentRow, query.DataFields, query.OrderedFieldNamesWithTypes, fieldSelections, nullValueHandling, uniqueIdLookupsByUsiContext);
 
                 // Process the children
                 foreach (var childQuery in query.ChildQueries)

@@ -66,7 +66,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Composites.Infrastructure
                         })
                 };
 
-                var query = new CompositeQuery(DisplayName, futureQuery, isSingleItemResult: true, orderedFieldNamesWithTypes);
+                var query = new CompositeQuery(DisplayName, orderedFieldNamesWithTypes, futureQuery, isSingleItemResult: true);
 
                 var parentRow = new Hashtable(
                     new Dictionary<string, string>
@@ -139,7 +139,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Composites.Infrastructure
                         })
                 };
 
-                var query = new CompositeQuery(DisplayName, futureQuery, isSingleItemResult: true, orderedFieldNamesWithTypes);
+                var query = new CompositeQuery(DisplayName, orderedFieldNamesWithTypes, futureQuery, isSingleItemResult: true);
 
                 var parentRow = new Hashtable(
                     new Dictionary<string, string>
@@ -232,8 +232,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Composites.Infrastructure
                         })
                 };
 
-                var query = new CompositeQuery(DisplayName, futureQuery, isSingleItemResult: true, orderedFieldNamesWithTypes);
-                var childQuery = new CompositeQuery(DisplayName, futureQuery, isSingleItemResult: true, orderedFieldNamesWithTypes);
+                var query = new CompositeQuery(DisplayName, orderedFieldNamesWithTypes, futureQuery, isSingleItemResult: true);
+                var childQuery = new CompositeQuery(DisplayName, orderedFieldNamesWithTypes, futureQuery, isSingleItemResult: true);
                 query.ChildQueries.Add(childQuery);
 
                 var parentRow = new Hashtable(

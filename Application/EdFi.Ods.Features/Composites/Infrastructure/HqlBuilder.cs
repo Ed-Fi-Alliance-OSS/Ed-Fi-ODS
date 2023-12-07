@@ -709,13 +709,13 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
             var thisQuery = new CompositeQuery(
                 processorContext.MemberDisplayName,
-                queryResults,
-                builderContext.IsSingleItemResult,
                 builderContext.PropertyProjections.Select(
                         x => new KeyValuePair<string, PropertyType>(
                             x.DisplayName.ToCamelCase() ?? x.ResourceProperty.PropertyName.ToCamelCase(),
                             x.ResourceProperty.PropertyType))
-                    .ToDictionary(x => x.Key, x => x.Value));
+                    .ToDictionary(x => x.Key, x => x.Value),
+                queryResults,
+                builderContext.IsSingleItemResult);
 
             rootCompositeQuery = thisQuery;
             return true;
@@ -776,15 +776,15 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             var thisQuery = new CompositeQuery(
                 parentResult,
                 processorContext.MemberDisplayName.ToCamelCase(),
-                query
-                   .SetResultTransformer(Transformers.AliasToEntityMap)
-                   .Future<object>(),
-                isSingleItemResult,
                 builderContext.PropertyProjections.Select(
                         x => new KeyValuePair<string, PropertyType>(
                             x.DisplayName.ToCamelCase() ?? x.ResourceProperty.PropertyName.ToCamelCase(),
                             x.ResourceProperty.PropertyType))
-                    .ToDictionary(x => x.Key, x => x.Value));
+                    .ToDictionary(x => x.Key, x => x.Value),
+                query
+                   .SetResultTransformer(Transformers.AliasToEntityMap)
+                   .Future<object>(),
+                isSingleItemResult);
 
             parentResult.ChildQueries.Add(thisQuery);
 
