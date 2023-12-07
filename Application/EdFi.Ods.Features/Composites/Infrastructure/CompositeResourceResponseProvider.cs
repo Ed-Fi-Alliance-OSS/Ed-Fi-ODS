@@ -13,7 +13,6 @@ using System.Text;
 using System.Xml.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Extensions;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Exceptions;
@@ -36,15 +35,6 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
     {
         private readonly ICompositeDefinitionProcessor<HqlBuilderContext, CompositeQuery> _compositeDefinitionProcessor;
         private readonly IFieldsExpressionParser _fieldsExpressionParser;
-
-        private readonly JsonSerializerSettings _jsonSerializerSettings
-            = new JsonSerializerSettings
-            {
-                Converters = new[]
-                               {
-                                   new GuidConverter()
-                               }
-            };
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(CompositeResourceResponseProvider));
 
@@ -455,7 +445,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             Dictionary<string, object> descriptorNamespaceByKey,
             HashSet<string> selectedKeys,
             UniqueIdLookupsByUsiContext uniqueIdLookupsByUsiContext,
-            IDictionary<string, PropertyType> fieldNameTypes)
+            IDictionary<string, PropertyType> orderedFieldNamesWithTypes)
         {
             foreach (string key in keysToProcess)
             {
@@ -512,9 +502,10 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                                 renamedKey = uniqueIdKey;
                                 value = uniqueId;
                             }
-                            else if (fieldNameTypes.ContainsKey(key) && new[] { DbType.Date, DbType.Guid }.Contains(fieldNameTypes[key].DbType))
+                            else if (orderedFieldNamesWithTypes.ContainsKey(key) &&
+                                     new[] { DbType.Date, DbType.Guid }.Contains(orderedFieldNamesWithTypes[key].DbType))
                             {
-                                value = fieldNameTypes[key].DbType switch
+                                value = orderedFieldNamesWithTypes[key].DbType switch
                                 {
                                     DbType.Guid => ((Guid)sourceRow[key]).ToString("N"),
                                     DbType.Date => ((DateTime)sourceRow[key]).ToString("yyyy-MM-dd"),
