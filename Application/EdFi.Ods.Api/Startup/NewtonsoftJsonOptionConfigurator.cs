@@ -52,7 +52,11 @@ public class NewtonsoftJsonOptionConfigurator : IConfigureOptions<MvcNewtonsoftJ
                 _profileResourceModelProvider,
                 _schemaNameMapProvider)
             {
-                NamingStrategy = new CamelCaseNamingStrategy()
+                NamingStrategy = new CamelCaseNamingStrategy
+                {
+                    ProcessDictionaryKeys = true,
+                    OverrideSpecifiedNames = true
+                }
             };
     }
 }
