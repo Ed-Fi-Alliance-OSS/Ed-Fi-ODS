@@ -5049,7 +5049,7 @@
 															"",
 															"pm.test(\"Should not include the extension metadata property\", () => {",
 															"  pm.expect(responseItem._ext).to.deep.equal({",
-															"    \"Sample\": {",
+															"    \"sample\": {",
 															"      \"petPreference\": {",
 															"        \"minimumWeight\": 20",
 															"      },",
@@ -5122,7 +5122,7 @@
 															"",
 															"pm.test(\"Should not include the extension metadata property\", () => {",
 															"  pm.expect(responseItem._ext).to.deep.equal({",
-															"    \"Sample\": {",
+															"    \"sample\": {",
 															"      \"petPreference\": {",
 															"        \"maximumWeight\": 35",
 															"      },",
@@ -5194,7 +5194,7 @@
 															"const responseItem = pm.response.json();",
 															"",
 															"pm.test(\"Should not include the extension metadata property\", () => {",
-															"  pm.expect(responseItem._ext).to.deep.equal({ \"Sample\": {} });",
+															"  pm.expect(responseItem._ext).to.deep.equal({ \"sample\": {} });",
 															"});"
 														],
 														"type": "text/javascript"
@@ -5262,7 +5262,7 @@
 															"",
 															"pm.test(\"Should not include the extension metadata property\", () => {",
 															"  pm.expect(responseItem._ext).to.deep.equal({",
-															"    \"Sample\": {",
+															"    \"sample\": {",
 															"      \"petPreference\": {",
 															"        \"minimumWeight\": 5",
 															"      },",
@@ -5335,7 +5335,7 @@
 															"",
 															"pm.test(\"Should not include the extension metadata property\", () => {",
 															"  pm.expect(responseItem._ext).to.deep.equal({",
-															"    \"Sample\": {",
+															"    \"sample\": {",
 															"      \"petPreference\": {",
 															"        \"maximumWeight\": 15",
 															"      },",
@@ -5407,7 +5407,7 @@
 															"const responseItem = pm.response.json();",
 															"",
 															"pm.test(\"Should not include the extension metadata property\", () => {",
-															"  pm.expect(responseItem._ext).to.deep.equal({ \"Sample\": {} });",
+															"  pm.expect(responseItem._ext).to.deep.equal({ \"sample\": {} });",
 															"});"
 														],
 														"type": "text/javascript"
@@ -5470,7 +5470,7 @@
 															"",
 															"pm.test(\"Should not include the extension metadata property\", () => {",
 															"  pm.expect(responseItem._ext).to.deep.equal({",
-															"    \"Sample\": {",
+															"    \"sample\": {",
 															"      \"favoriteBooks\": [",
 															"        {",
 															"          \"favoriteBookCategoryDescriptor\": \"uri://ed-fi.org/FavoriteBookCategoryDescriptor#Non-Fiction\",",
@@ -5546,7 +5546,7 @@
 															"",
 															"pm.test(\"Should not include the extension metadata property\", () => {",
 															"  pm.expect(responseItem._ext).to.deep.equal({",
-															"    \"Sample\": {",
+															"    \"sample\": {",
 															"      \"favoriteBooks\": [",
 															"        {",
 															"          \"favoriteBookCategoryDescriptor\": \"uri://ed-fi.org/FavoriteBookCategoryDescriptor#Non-Fiction\",",
@@ -5626,7 +5626,7 @@
 															"const responseItem = pm.response.json();\r",
 															"\r",
 															"pm.test(\"Should have multiple extensions present with no Profile supplied\", () => {\r",
-															"  pm.expect(responseItem._ext).to.have.all.keys([\"Sample\", \"TPDM\"]);\r",
+															"  pm.expect(responseItem._ext).to.have.all.keys([\"sample\", \"tpdm\"]);\r",
 															"});"
 														],
 														"type": "text/javascript"
@@ -5672,7 +5672,7 @@
 															"\r",
 															"pm.test(\"Should only have the included extension present\", () => {\r",
 															"  pm.expect(responseItem._ext).to.deep.equal({\r",
-															"    \"Sample\": {\r",
+															"    \"sample\": {\r",
 															"      \"isExemplary\": false,\r",
 															"      \"directlyOwnedBuses\": []\r",
 															"    }\r",
@@ -5728,7 +5728,7 @@
 															"const responseItem = pm.response.json();\r",
 															"\r",
 															"pm.test(\"Should not have the excluded extension present\", () => {\r",
-															"  pm.expect(responseItem._ext).to.contain.all.keys([\"TPDM\"]);\r",
+															"  pm.expect(responseItem._ext).to.contain.all.keys([\"tpdm\"]);\r",
 															"});"
 														],
 														"type": "text/javascript"
