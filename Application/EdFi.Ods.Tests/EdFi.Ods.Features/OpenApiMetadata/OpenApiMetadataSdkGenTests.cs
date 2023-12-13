@@ -526,13 +526,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                     .Select(e => e.Schema)
                     .Select(
                         l => _schemaNameMapProvider.GetSchemaMapByPhysicalName(l)
-                            .ProperCaseName);
+                            .ProperCaseName.ToCamelCase());
 
                 var expectedBridgeSchemaExtensionReferences = expectedExtensions
                     .Select(e => e.Schema)
                     .Select(
                         l => _schemaNameMapProvider.GetSchemaMapByPhysicalName(l)
-                            .ProperCaseName)
+                            .ProperCaseName.ToCamelCase())
                     .Select(p => $"#/definitions/{p.ToCamelCase()}_staffExtension");
 
                 var extendedEdFiResource = _actualDefinitions["staffExtensions"];
