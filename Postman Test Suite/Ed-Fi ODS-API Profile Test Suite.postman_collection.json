@@ -5049,7 +5049,7 @@
 															"",
 															"pm.test(\"Should not include the extension metadata property\", () => {",
 															"  pm.expect(responseItem._ext).to.deep.equal({",
-															"    \"Sample\": {",
+															"    \"sample\": {",
 															"      \"petPreference\": {",
 															"        \"minimumWeight\": 20",
 															"      },",
@@ -5122,7 +5122,7 @@
 															"",
 															"pm.test(\"Should not include the extension metadata property\", () => {",
 															"  pm.expect(responseItem._ext).to.deep.equal({",
-															"    \"Sample\": {",
+															"    \"sample\": {",
 															"      \"petPreference\": {",
 															"        \"maximumWeight\": 35",
 															"      },",
@@ -5194,7 +5194,7 @@
 															"const responseItem = pm.response.json();",
 															"",
 															"pm.test(\"Should not include the extension metadata property\", () => {",
-															"  pm.expect(responseItem._ext).to.deep.equal({ \"Sample\": {} });",
+															"  pm.expect(responseItem._ext).to.deep.equal({ \"sample\": {} });",
 															"});"
 														],
 														"type": "text/javascript"
@@ -5262,7 +5262,7 @@
 															"",
 															"pm.test(\"Should not include the extension metadata property\", () => {",
 															"  pm.expect(responseItem._ext).to.deep.equal({",
-															"    \"Sample\": {",
+															"    \"sample\": {",
 															"      \"petPreference\": {",
 															"        \"minimumWeight\": 5",
 															"      },",
@@ -5335,7 +5335,7 @@
 															"",
 															"pm.test(\"Should not include the extension metadata property\", () => {",
 															"  pm.expect(responseItem._ext).to.deep.equal({",
-															"    \"Sample\": {",
+															"    \"sample\": {",
 															"      \"petPreference\": {",
 															"        \"maximumWeight\": 15",
 															"      },",
@@ -5407,7 +5407,7 @@
 															"const responseItem = pm.response.json();",
 															"",
 															"pm.test(\"Should not include the extension metadata property\", () => {",
-															"  pm.expect(responseItem._ext).to.deep.equal({ \"Sample\": {} });",
+															"  pm.expect(responseItem._ext).to.deep.equal({ \"sample\": {} });",
 															"});"
 														],
 														"type": "text/javascript"
@@ -5470,7 +5470,7 @@
 															"",
 															"pm.test(\"Should not include the extension metadata property\", () => {",
 															"  pm.expect(responseItem._ext).to.deep.equal({",
-															"    \"Sample\": {",
+															"    \"sample\": {",
 															"      \"favoriteBooks\": [",
 															"        {",
 															"          \"favoriteBookCategoryDescriptor\": \"uri://ed-fi.org/FavoriteBookCategoryDescriptor#Non-Fiction\",",
@@ -5546,7 +5546,7 @@
 															"",
 															"pm.test(\"Should not include the extension metadata property\", () => {",
 															"  pm.expect(responseItem._ext).to.deep.equal({",
-															"    \"Sample\": {",
+															"    \"sample\": {",
 															"      \"favoriteBooks\": [",
 															"        {",
 															"          \"favoriteBookCategoryDescriptor\": \"uri://ed-fi.org/FavoriteBookCategoryDescriptor#Non-Fiction\",",
@@ -5626,7 +5626,7 @@
 															"const responseItem = pm.response.json();\r",
 															"\r",
 															"pm.test(\"Should have multiple extensions present with no Profile supplied\", () => {\r",
-															"  pm.expect(responseItem._ext).to.have.all.keys([\"Sample\", \"TPDM\"]);\r",
+															"  pm.expect(responseItem._ext).to.have.all.keys([\"sample\", \"tpdm\"]);\r",
 															"});"
 														],
 														"type": "text/javascript"
@@ -5672,7 +5672,7 @@
 															"\r",
 															"pm.test(\"Should only have the included extension present\", () => {\r",
 															"  pm.expect(responseItem._ext).to.deep.equal({\r",
-															"    \"Sample\": {\r",
+															"    \"sample\": {\r",
 															"      \"isExemplary\": false,\r",
 															"      \"directlyOwnedBuses\": []\r",
 															"    }\r",
@@ -5728,7 +5728,7 @@
 															"const responseItem = pm.response.json();\r",
 															"\r",
 															"pm.test(\"Should not have the excluded extension present\", () => {\r",
-															"  pm.expect(responseItem._ext).to.contain.all.keys([\"TPDM\"]);\r",
+															"  pm.expect(responseItem._ext).to.contain.all.keys([\"tpdm\"]);\r",
 															"});"
 														],
 														"type": "text/javascript"
@@ -5805,7 +5805,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"firstPetOwnedDate\": \"2000-01-01\",\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": false\r\n        }\r\n      ],\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 20,\r\n        \"maximumWeight\": 35\r\n      }\r\n    }\r\n  }\r\n}",
+													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"sample\": {\r\n      \"firstPetOwnedDate\": \"2000-01-01\",\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": false\r\n        }\r\n      ],\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 20,\r\n        \"maximumWeight\": 35\r\n      }\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -5865,7 +5865,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"maximumWeight\": 200,\r\n        \"minimumWeight\": 100\r\n      },\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": true\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"sample\": {\r\n      \"petPreference\": {\r\n        \"maximumWeight\": 200,\r\n        \"minimumWeight\": 100\r\n      },\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": true\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -5904,7 +5904,7 @@
 															"",
 															"pm.test(\"Should not have updated the extension data\", () => {",
 															"  pm.expect(responseItem._ext).to.deep.equal({",
-															"    \"Sample\": {",
+															"    \"sample\": {",
 															"      \"firstPetOwnedDate\": \"2000-01-01\",",
 															"      \"petPreference\": {",
 															"        \"maximumWeight\": 35,",
@@ -5987,7 +5987,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"firstPetOwnedDate\": \"2000-01-01\",\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": false\r\n        }\r\n      ],\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 20,\r\n        \"maximumWeight\": 35\r\n      }\r\n    }\r\n  }\r\n}",
+													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"sample\": {\r\n      \"firstPetOwnedDate\": \"2000-01-01\",\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": false\r\n        }\r\n      ],\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 20,\r\n        \"maximumWeight\": 35\r\n      }\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -6047,7 +6047,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"maximumWeight\": 135,\r\n        \"minimumWeight\": 120\r\n      },\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": true\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"sample\": {\r\n      \"petPreference\": {\r\n        \"maximumWeight\": 135,\r\n        \"minimumWeight\": 120\r\n      },\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": true\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -6086,7 +6086,7 @@
 															"",
 															"pm.test(\"Should not have updated the extension data\", () => {",
 															"  pm.expect(responseItem._ext).to.deep.equal({",
-															"    \"Sample\": {",
+															"    \"sample\": {",
 															"      \"firstPetOwnedDate\": \"2000-01-01\",",
 															"      \"petPreference\": {",
 															"        \"maximumWeight\": 35,",
@@ -6169,7 +6169,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"firstPetOwnedDate\": \"2000-01-01\",\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": false\r\n        }\r\n      ],\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 20,\r\n        \"maximumWeight\": 35\r\n      }\r\n    }\r\n  }\r\n}",
+													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"sample\": {\r\n      \"firstPetOwnedDate\": \"2000-01-01\",\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": false\r\n        }\r\n      ],\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 20,\r\n        \"maximumWeight\": 35\r\n      }\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -6229,7 +6229,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"firstPetOwnedDate\": \"2020-02-02\",\r\n      \"petPreference\": {\r\n        \"maximumWeight\": 200,\r\n        \"minimumWeight\": 100\r\n      },\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": true\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"sample\": {\r\n      \"firstPetOwnedDate\": \"2020-02-02\",\r\n      \"petPreference\": {\r\n        \"maximumWeight\": 200,\r\n        \"minimumWeight\": 100\r\n      },\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": true\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -6268,7 +6268,7 @@
 															"",
 															"pm.test(\"Should not have only updated the included extension elements\", () => {",
 															"  pm.expect(responseItem._ext).to.deep.equal({",
-															"    \"Sample\": {",
+															"    \"sample\": {",
 															"      \"firstPetOwnedDate\": \"2020-02-02\",",
 															"      \"petPreference\": {",
 															"        \"maximumWeight\": 35,",
@@ -6351,7 +6351,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"firstPetOwnedDate\": \"2000-01-01\",\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": false\r\n        }\r\n      ],\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 20,\r\n        \"maximumWeight\": 35\r\n      }\r\n    }\r\n  }\r\n}",
+													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"sample\": {\r\n      \"firstPetOwnedDate\": \"2000-01-01\",\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": false\r\n        }\r\n      ],\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 20,\r\n        \"maximumWeight\": 35\r\n      }\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -6411,7 +6411,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"firstPetOwnedDate\": \"2020-02-02\",\r\n      \"petPreference\": {\r\n        \"maximumWeight\": 200,\r\n        \"minimumWeight\": 100\r\n      },\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": true\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"sample\": {\r\n      \"firstPetOwnedDate\": \"2020-02-02\",\r\n      \"petPreference\": {\r\n        \"maximumWeight\": 200,\r\n        \"minimumWeight\": 100\r\n      },\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": true\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -6450,7 +6450,7 @@
 															"",
 															"pm.test(\"Should not have only updated the included extension elements\", () => {",
 															"  pm.expect(responseItem._ext).to.deep.equal({",
-															"    \"Sample\": {",
+															"    \"sample\": {",
 															"      \"firstPetOwnedDate\": \"2000-01-01\",",
 															"      \"pets\": [",
 															"        {",
@@ -6533,7 +6533,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"firstPetOwnedDate\": \"2000-01-01\",\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": false\r\n        }\r\n      ],\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 20,\r\n        \"maximumWeight\": 35\r\n      }\r\n    }\r\n  }\r\n}",
+													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"sample\": {\r\n      \"firstPetOwnedDate\": \"2000-01-01\",\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": false\r\n        }\r\n      ],\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 20,\r\n        \"maximumWeight\": 35\r\n      }\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -6593,7 +6593,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"firstPetOwnedDate\": \"2020-02-02\",\r\n      \"petPreference\": {\r\n        \"maximumWeight\": 200,\r\n        \"minimumWeight\": 100\r\n      },\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": true\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:staffUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"sample\": {\r\n      \"firstPetOwnedDate\": \"2020-02-02\",\r\n      \"petPreference\": {\r\n        \"maximumWeight\": 200,\r\n        \"minimumWeight\": 100\r\n      },\r\n      \"pets\": [\r\n        {\r\n          \"petName\": \"Rex\",\r\n          \"isFixed\": true\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -6632,7 +6632,7 @@
 															"",
 															"pm.test(\"Should not have only updated the included extension elements\", () => {",
 															"  pm.expect(responseItem._ext).to.deep.equal({",
-															"    \"Sample\": {",
+															"    \"sample\": {",
 															"      \"firstPetOwnedDate\": \"2000-01-01\",",
 															"      \"pets\": [",
 															"        {",
