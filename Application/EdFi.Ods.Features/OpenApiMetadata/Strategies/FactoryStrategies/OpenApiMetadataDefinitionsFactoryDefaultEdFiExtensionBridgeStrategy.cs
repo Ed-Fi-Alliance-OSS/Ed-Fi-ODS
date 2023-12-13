@@ -38,7 +38,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
                 properties = resourceClassBase.ExtensionByName
                     .Where(kvp => _documentContext.IsIncludedExtension(kvp.Value.ObjectType))
                     .ToDictionary(
-                        pair => pair.Key,
+                        pair => pair.Value.JsonPropertyName,
                         pair =>
                             new Schema
                             {
