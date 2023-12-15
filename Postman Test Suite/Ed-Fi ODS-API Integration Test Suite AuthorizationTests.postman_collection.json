@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f10b065d-408d-4dab-b8b0-7712923d69e1",
+		"_postman_id": "17588d9d-936f-4ddd-ad10-a65bda915841",
 		"name": "Ed-Fi ODS/API Integration Test Suite AuthorizationTests",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -2474,12 +2474,10 @@
 															"        pm.expect(pm.response.code).to.equal(201);\r",
 															"    });\r",
 															"    \r",
-															"\r",
 															"pm.environment.set('known:programevaluation:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
 															"\r",
 															"var requestJson = JSON.parse(request.data);\r",
 															"pm.environment.set('known:programEvaluationTitle', requestJson.programEvaluationTitle);\r",
-															"console.log(requestJson.programEvaluationTitle);\r",
 															"}"
 														],
 														"type": "text/javascript"
@@ -2619,7 +2617,6 @@
 															"\r",
 															"var requestJson = JSON.parse(request.data);\r",
 															"pm.environment.set('known:programEvaluationObjectiveTitle', requestJson.programEvaluationObjectiveTitle);\r",
-															"console.log(requestJson.programEvaluationObjectiveTitle);\r",
 															"\r",
 															"}"
 														],
@@ -2759,7 +2756,6 @@
 															"\r",
 															"var requestJson = JSON.parse(request.data);\r",
 															"pm.environment.set('known:programEvaluationElementTitle', requestJson.programEvaluationElementTitle);\r",
-															"console.log(requestJson.programEvaluationElementTitle);\r",
 															"\r",
 															"}"
 														],
@@ -2900,8 +2896,6 @@
 															"var requestJson = JSON.parse(request.data);\r",
 															"pm.environment.set('known:evaluationRubricRating', requestJson.evaluationRubricRating);\r",
 															"pm.environment.set('known:evaluationCriterionDescription', requestJson.evaluationCriterionDescription);\r",
-															"console.log(requestJson.evaluationRubricRating);\r",
-															"console.log(requestJson.evaluationCriterionDescription);\r",
 															"}"
 														],
 														"type": "text/javascript"
@@ -2951,9 +2945,7 @@
 															"    pm.test(\"Should return some items for verification\", () => {\r",
 															"        const responseItems = pm.response.json();\r",
 															"        pm.expect(responseItems.evaluationRubricRating).to.equal(pm.environment.get('known:evaluationRubricRating'));\r",
-															"        pm.expect(responseItems.evaluationCriterionDescription).to.equal(pm.environment.get('known:evaluationCriterionDescription'));        \r",
-															"        console.log(pm.environment.get('known:evaluationRubricRating'));\r",
-															"        console.log(pm.environment.get('known:evaluationCriterionDescription'));        \r",
+															"        pm.expect(responseItems.evaluationCriterionDescription).to.equal(pm.environment.get('known:evaluationCriterionDescription')); \r",
 															"    });\r",
 															"}"
 														],
@@ -2997,7 +2989,6 @@
 															"    pm.test(\"Status code is 204\", () => {\r",
 															"        pm.expect(pm.response.code).to.equal(204);\r",
 															"    });\r",
-															"\r",
 															"}"
 														],
 														"type": "text/javascript"
@@ -3035,7 +3026,6 @@
 															"    pm.test(\"Status code is 204\", () => {\r",
 															"        pm.expect(pm.response.code).to.equal(204);\r",
 															"    });\r",
-															"\r",
 															"}"
 														],
 														"type": "text/javascript"
@@ -3073,7 +3063,6 @@
 															"    pm.test(\"Status code is 204\", () => {\r",
 															"        pm.expect(pm.response.code).to.equal(204);\r",
 															"    });\r",
-															"\r",
 															"}"
 														],
 														"type": "text/javascript"
@@ -3111,7 +3100,6 @@
 															"    pm.test(\"Status code is 204\", () => {\r",
 															"        pm.expect(pm.response.code).to.equal(204);\r",
 															"    });\r",
-															"\r",
 															"}"
 														],
 														"type": "text/javascript"
