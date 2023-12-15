@@ -4,50 +4,15 @@
 		"name": "Ed-Fi ODS/API Integration Test Suite AuthorizationTests",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "7275232"
+		"_exporter_id": "26378282"
 	},
 	"item": [
 		{
 			"name": "Authorization Tests",
 			"item": [
 				{
-					"name": "Initialize Education Organization Ids",
+					"name": "Setup",
 					"item": [
-						{
-							"name": "Initialize Education Organization Ids",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.environment.set('known:localEducationAgencyId', 255901);\r",
-											"pm.environment.set('known:schoolId', 255901001);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									]
-								}
-							},
-							"response": []
-						},
 						{
 							"name": "Initialize postSecondaryInstitution data",
 							"event": [
@@ -2254,10 +2219,174 @@
 					"name": "ProgramRoleNamedTests",
 					"item": [
 						{
-							"name": "Get StandardVersion",
+							"name": "Setup",
 							"item": [
 								{
-									"name": "Get StandardVersion",
+									"name": "Initialize stateEducationAgency",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 or 201\", () => {",
+													"  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"stateEducationAgencyId\": \"{{known:stateEducationAgencyId}}\",\r\n  \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n  \"shortNameOfInstitution\": \"{{$randomColor}} {{$randomCompanySuffix}}\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#State Education Agency\"\r\n    }\r\n  ]\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/stateEducationAgencies",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"stateEducationAgencies"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize localEducationAgency",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 or 201\", () => {",
+													"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"localEducationAgencyId\": \"{{known:localEducationAgencyId1}}\",\r\n  \"stateEducationAgencyReference\": {\r\n    \"stateEducationAgencyId\": \"{{known:stateEducationAgencyId}}\"\r\n  },\r\n  \"localEducationAgencyCategoryDescriptor\": \"uri://ed-fi.org/LocalEducationAgencyCategoryDescriptor#Charter\",\r\n  \"nameOfInstitution\": \"{{$randomLastName}} ISD\",\r\n  \"shortNameOfInstitution\": \"{{$randomColor}} {{$randomCompanySuffix}}\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Local Education Agency\"\r\n    }\r\n  ]\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localEducationAgencies",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"localEducationAgencies"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize School",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200 or 201\", () => {",
+													"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+													"});",
+													"",
+													"pm.environment.set('known:school:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"schoolId\": \"{{known:schoolId1}}\",\r\n  \"nameOfInstitution\": \"{{$randomLastName}} ISD\",\r\n  \"shortNameOfInstitution\": \"{{$randomColor}} {{$randomCompanySuffix}}\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Adult Education\"\r\n    }\r\n  ],\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId1}}\"\r\n  },\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#Adult School\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Public School\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Critical Reading\",\r\n  \"webSite\": \"http://www.GBISD.edu/GBHS/\",\r\n  \"charterStatusDescriptor\": \"uri://ed-fi.org/CharterStatusDescriptor#Not a Charter School\",\r\n  \"titleIPartASchoolDesignationDescriptor\": \"uri://ed-fi.org/TitleIPartASchoolDesignationDescriptor#Not A Title I School\",\r\n  \"addresses\": [\r\n    {\r\n      \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Mailing\",\r\n      \"streetNumberName\": \"{{$randomStreetAddress}}\",\r\n      \"city\": \"{{$randomLocale}}\",\r\n      \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n      \"postalCode\": \"{{$randomInt}}\",\r\n      \"nameOfCounty\": \"{{$randomLastName}}\"\r\n    }\r\n  ]\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize StandardVersion",
 									"event": [
 										{
 											"listen": "test",
@@ -2286,183 +2415,1190 @@
 							]
 						},
 						{
-							"name": "GetAll_program_role_named_resources",
+							"name": "Authorized Client",
 							"item": [
 								{
-									"name": "GetAll_EvaluationRubricDimensions_Should_Return_200",
-									"event": [
+									"name": "ProgramEvaluation",
+									"item": [
 										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"// 4.0.0 does not include this resource\r",
-													"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
-													"    pm.test(\"Status code is 200\", () => {\r",
-													"        pm.expect(pm.response.code).to.equal(200);\r",
-													"    });\r",
-													"\r",
-													"    // TODO: ODS-6082\r",
-													"    if (false) {\r",
-													"        pm.test(\"Should return some rows\", () => {\r",
-													"            const responseItems = pm.response.json();\r",
-													"            pm.expect(responseItems.length).to.be.gte(0);\r",
-													"        });\r",
-													"    }\r",
-													"}"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/evaluationRubricDimensions",
-											"host": [
-												"{{ApiBaseUrl}}"
+											"name": "GetAll ProgramEvaluations",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 200\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(200);\r",
+															"    });\r",
+															"    \r",
+															"    pm.test(\"Should return some items for verification\", () => {\r",
+															"        const responseItems = pm.response.json();\r",
+															"        pm.expect(responseItems.length).to.be.gte(0);\r",
+															"    });\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
 											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"evaluationRubricDimensions"
-											]
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluations",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programEvaluations"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Post ProgramEvaluation",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 201\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(201);\r",
+															"    });\r",
+															"    \r",
+															"pm.environment.set('known:programevaluation:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+															"\r",
+															"var requestJson = JSON.parse(request.data);\r",
+															"pm.environment.set('known:programEvaluationTitle', requestJson.programEvaluationTitle);\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"programReference\": {\r\n      \"educationOrganizationId\": 255901,\r\n      \"programName\": \"21st CCLC\",\r\n      \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Support\"\r\n    },\r\n    \"programEvaluationPeriodDescriptor\": \"uri://ed-fi.org/ProgramEvaluationPeriodDescriptor#End of Year\",\r\n    \"programEvaluationTitle\": \"{{$randomCompanyName}}\",\r\n    \"programEvaluationTypeDescriptor\": \"uri://ed-fi.org/ProgramEvaluationTypeDescriptor#Teacher survey\"\r\n  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluations",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programEvaluations"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get ProgramEvaluation",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 200\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(200);\r",
+															"    });\r",
+															"    \r",
+															"  pm.test(\"Should return some items for verification\", () => {\r",
+															"        const responseItems = pm.response.json();\r",
+															"        pm.expect(responseItems.programEvaluationTitle).to.equal(pm.environment.get('known:programEvaluationTitle'));\r",
+															"    });\r",
+															"\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluations/{{known:programevaluation:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programEvaluations",
+														"{{known:programevaluation:id}}"
+													]
+												}
+											},
+											"response": []
 										}
-									},
-									"response": []
+									]
 								},
 								{
-									"name": "GetAll_ProgramEvaluations_Should_Return_200",
-									"event": [
+									"name": "ProgramEvaluationObjective",
+									"item": [
 										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"// 4.0.0 does not include this resource\r",
-													"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
-													"    pm.test(\"Status code is 200\", () => {\r",
-													"        pm.expect(pm.response.code).to.equal(200);\r",
-													"    });\r",
-													"    \r",
-													"    // TODO: ODS-6082\r",
-													"    if (false) {\r",
-													"        pm.test(\"Should return some rows\", () => {\r",
-													"            const responseItems = pm.response.json();\r",
-													"            pm.expect(responseItems.length).to.be.gte(0);\r",
-													"        });\r",
-													"    }\r",
-													"}"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluations",
-											"host": [
-												"{{ApiBaseUrl}}"
+											"name": "GetAll ProgramEvaluationObjectives",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 200\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(200);\r",
+															"    });\r",
+															"    \r",
+															"    pm.test(\"Should return some items for verification\", () => {\r",
+															"        const responseItems = pm.response.json();\r",
+															"        pm.expect(responseItems.length).to.be.gte(0);\r",
+															"    });\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
 											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"programEvaluations"
-											]
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluationObjectives",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programEvaluationObjectives"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Post ProgramEvaluationObjectives",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 201\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(201);\r",
+															"    });\r",
+															"    \r",
+															"pm.environment.set('known:programEvaluationObjective:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+															"\r",
+															"var requestJson = JSON.parse(request.data);\r",
+															"pm.environment.set('known:programEvaluationObjectiveTitle', requestJson.programEvaluationObjectiveTitle);\r",
+															"\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"programEvaluationReference\": {\r\n      \"programEducationOrganizationId\": 255901,\r\n      \"programEvaluationPeriodDescriptor\": \"uri://ed-fi.org/ProgramEvaluationPeriodDescriptor#End of Year\",\r\n      \"programEvaluationTitle\": \"{{known:programEvaluationTitle}}\",\r\n      \"programEvaluationTypeDescriptor\": \"uri://ed-fi.org/ProgramEvaluationTypeDescriptor#Teacher survey\",\r\n      \"programName\": \"21st CCLC\",\r\n      \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Support\"\r\n    },\r\n    \"programEvaluationObjectiveTitle\": \"{{$randomCompanyName}}\"\r\n  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluationObjectives",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programEvaluationObjectives"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get ProgramEvaluationObjectives",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 200\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(200);\r",
+															"    });\r",
+															"    \r",
+															"  pm.test(\"Should return some items for verification\", () => {\r",
+															"        const responseItems = pm.response.json();\r",
+															"        pm.expect(responseItems.programEvaluationObjectiveTitle).to.equal(pm.environment.get('known:programEvaluationObjectiveTitle'));\r",
+															"    });\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluationObjectives/{{known:programEvaluationObjective:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programEvaluationObjectives",
+														"{{known:programEvaluationObjective:id}}"
+													]
+												}
+											},
+											"response": []
 										}
-									},
-									"response": []
+									]
 								},
 								{
-									"name": "GetAll_ProgramEvaluationElements_Should_Return_200",
-									"event": [
+									"name": "ProgramEvaluationElement",
+									"item": [
 										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"// 4.0.0 does not include this resource\r",
-													"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
-													"    pm.test(\"Status code is 200\", () => {\r",
-													"        pm.expect(pm.response.code).to.equal(200);\r",
-													"    });\r",
-													"    \r",
-													"    // TODO: ODS-6082\r",
-													"    if (false) {\r",
-													"        pm.test(\"Should return some rows\", () => {\r",
-													"            const responseItems = pm.response.json();\r",
-													"            pm.expect(responseItems.length).to.be.gte(0);\r",
-													"        });\r",
-													"    }\r",
-													"}"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluationElements",
-											"host": [
-												"{{ApiBaseUrl}}"
+											"name": "GetAll ProgramEvaluationElements",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 200\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(200);\r",
+															"    });\r",
+															"    \r",
+															"    pm.test(\"Should return some items for verification\", () => {\r",
+															"        const responseItems = pm.response.json();\r",
+															"        pm.expect(responseItems.length).to.be.gte(0);\r",
+															"    });\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
 											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"programEvaluationElements"
-											]
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluationElements",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programEvaluationElements"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Post ProgramEvaluationElement",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 201\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(201);\r",
+															"    });\r",
+															"    \r",
+															"pm.environment.set('known:programEvaluationElement:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+															"\r",
+															"var requestJson = JSON.parse(request.data);\r",
+															"pm.environment.set('known:programEvaluationElementTitle', requestJson.programEvaluationElementTitle);\r",
+															"\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n   \r\n    \"programEvaluationObjectiveReference\": {\r\n      \"programEducationOrganizationId\": 255901,\r\n      \"programEvaluationObjectiveTitle\": \"{{known:programEvaluationObjectiveTitle}}\",\r\n      \"programEvaluationPeriodDescriptor\": \"uri://ed-fi.org/ProgramEvaluationPeriodDescriptor#End of Year\",\r\n      \"programEvaluationTitle\": \"{{known:programEvaluationTitle}}\",\r\n      \"programEvaluationTypeDescriptor\": \"uri://ed-fi.org/ProgramEvaluationTypeDescriptor#Teacher survey\",\r\n      \"programName\": \"21st CCLC\",\r\n      \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Support\"\r\n    },\r\n    \"programEvaluationReference\": {\r\n      \"programEducationOrganizationId\": 255901,\r\n      \"programEvaluationPeriodDescriptor\": \"uri://ed-fi.org/ProgramEvaluationPeriodDescriptor#End of Year\",\r\n      \"programEvaluationTitle\": \"{{known:programEvaluationTitle}}\",\r\n      \"programEvaluationTypeDescriptor\": \"uri://ed-fi.org/ProgramEvaluationTypeDescriptor#Teacher survey\",\r\n      \"programName\": \"21st CCLC\",\r\n      \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Support\"\r\n    },\r\n    \"programEvaluationElementTitle\": \"Question {{$randomInt}}\"\r\n  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluationElements",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programEvaluationElements"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get ProgramEvaluationElements",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 200\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(200);\r",
+															"    });\r",
+															"    \r",
+															"  pm.test(\"Should return some items for verification\", () => {\r",
+															"        const responseItems = pm.response.json();\r",
+															"        pm.expect(responseItems.programEvaluationElementTitle).to.equal(pm.environment.get('known:programEvaluationElementTitle'));\r",
+															"    });\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluationElements/{{known:programEvaluationElement:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programEvaluationElements",
+														"{{known:programEvaluationElement:id}}"
+													]
+												}
+											},
+											"response": []
 										}
-									},
-									"response": []
+									]
 								},
 								{
-									"name": "GetAll_ProgramEvaluationObjectives_Should_Return_200",
-									"event": [
+									"name": "EvaluationRubricDimension",
+									"item": [
 										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"// 4.0.0 does not include this resource\r",
-													"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
-													"    pm.test(\"Status code is 200\", () => {\r",
-													"        pm.expect(pm.response.code).to.equal(200);\r",
-													"    });\r",
-													"    \r",
-													"    // TODO: ODS-6082\r",
-													"    if (false) {\r",
-													"        pm.test(\"Should return some rows\", () => {\r",
-													"            const responseItems = pm.response.json();\r",
-													"            pm.expect(responseItems.length).to.be.gte(0);\r",
-													"        });\r",
-													"    }\r",
-													"}"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluationObjectives",
-											"host": [
-												"{{ApiBaseUrl}}"
+											"name": "GetAll EvaluationRubricDimensions",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 200\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(200);\r",
+															"    });\r",
+															"    \r",
+															"    pm.test(\"Should return some items for verification\", () => {\r",
+															"        const responseItems = pm.response.json();\r",
+															"        pm.expect(responseItems.length).to.be.gte(0);\r",
+															"    });\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
 											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"programEvaluationObjectives"
-											]
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/evaluationRubricDimensions",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"evaluationRubricDimensions"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Post EvaluationRubricDimension",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 201\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(201);\r",
+															"    });\r",
+															"\r",
+															"pm.environment.set('known:evaluationRubricDimension:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+															"\r",
+															"var requestJson = JSON.parse(request.data);\r",
+															"pm.environment.set('known:evaluationRubricRating', requestJson.evaluationRubricRating);\r",
+															"pm.environment.set('known:evaluationCriterionDescription', requestJson.evaluationCriterionDescription);\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": " {\r\n      \"programEvaluationElementReference\": {\r\n      \"programEducationOrganizationId\": 255901,\r\n      \"programEvaluationElementTitle\": \"{{known:programEvaluationElementTitle}}\",\r\n      \"programEvaluationPeriodDescriptor\": \"uri://ed-fi.org/ProgramEvaluationPeriodDescriptor#End of Year\",\r\n      \"programEvaluationTitle\": \"{{known:programEvaluationTitle}}\",\r\n      \"programEvaluationTypeDescriptor\": \"uri://ed-fi.org/ProgramEvaluationTypeDescriptor#Teacher survey\",\r\n      \"programName\":  \"21st CCLC\",\r\n      \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Support\"\r\n    },\r\n    \"evaluationRubricRating\": {{$randomInt}},\r\n    \"evaluationCriterionDescription\": \"{{$randomFullName}}\"\r\n  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/evaluationRubricDimensions",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"evaluationRubricDimensions"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get EvaluationRubricDimension",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 200\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(200);\r",
+															"    });\r",
+															"\r",
+															"    pm.test(\"Should return some items for verification\", () => {\r",
+															"        const responseItems = pm.response.json();\r",
+															"        pm.expect(responseItems.evaluationRubricRating).to.equal(pm.environment.get('known:evaluationRubricRating'));\r",
+															"        pm.expect(responseItems.evaluationCriterionDescription).to.equal(pm.environment.get('known:evaluationCriterionDescription')); \r",
+															"    });\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/evaluationRubricDimensions/{{known:evaluationRubricDimension:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"evaluationRubricDimensions",
+														"{{known:evaluationRubricDimension:id}}"
+													]
+												}
+											},
+											"response": []
 										}
-									},
-									"response": []
+									]
+								},
+								{
+									"name": "Delete ProgramRoleNamedResources",
+									"item": [
+										{
+											"name": "Delete EvaluationRubricDimension",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 204\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(204);\r",
+															"    });\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/evaluationRubricDimensions/{{known:evaluationRubricDimension:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"evaluationRubricDimensions",
+														"{{known:evaluationRubricDimension:id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete ProgramEvaluationElements",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 204\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(204);\r",
+															"    });\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluationElements/{{known:programEvaluationElement:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programEvaluationElements",
+														"{{known:programEvaluationElement:id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete ProgramEvaluationObjectives",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 204\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(204);\r",
+															"    });\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluationObjectives/{{known:programEvaluationObjective:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programEvaluationObjectives",
+														"{{known:programEvaluationObjective:id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete ProgramEvaluation",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 204\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(204);\r",
+															"    });\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluations/{{known:programevaluation:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programEvaluations",
+														"{{known:programevaluation:id}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Not Authorized Client",
+							"item": [
+								{
+									"name": "ProgramEvaluation",
+									"item": [
+										{
+											"name": "GetAll ProgramEvaluations",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 200\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(200);\r",
+															"    });\r",
+															"    \r",
+															"    pm.test(\"Response is empty\", function () {\r",
+															"      const responseData = pm.response.json();\r",
+															"      pm.expect(responseData).to.be.empty;\r",
+															"});\r",
+															"}\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255902}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluations",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programEvaluations"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Post ProgramEvaluation",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 403\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(403);\r",
+															"    });\r",
+															"\r",
+															"    const responseItem = pm.response.json();\r",
+															"    pm.test(`Error message of '${responseItem.message}' should match expected`, () => {\r",
+															"         pm.expect(responseItem.message).to.include(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255902) and the resource item's 'ProgramEducationOrganizationId' value.\")});\r",
+															"\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255902}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"programReference\": {\r\n      \"educationOrganizationId\": 255901,\r\n      \"programName\": \"21st CCLC\",\r\n      \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Support\"\r\n    },\r\n    \"programEvaluationPeriodDescriptor\": \"uri://ed-fi.org/ProgramEvaluationPeriodDescriptor#End of Year\",\r\n    \"programEvaluationTitle\": \"{{$randomCompanyName}}\",\r\n    \"programEvaluationTypeDescriptor\": \"uri://ed-fi.org/ProgramEvaluationTypeDescriptor#Teacher survey\"\r\n  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluations",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programEvaluations"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "ProgramEvaluationObjective",
+									"item": [
+										{
+											"name": "GetAll ProgramEvaluationObjectives",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 200\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(200);\r",
+															"    });\r",
+															"    \r",
+															"    pm.test(\"Response is empty\", function () {\r",
+															"      const responseData = pm.response.json();\r",
+															"      pm.expect(responseData).to.be.empty;\r",
+															"});\r",
+															"}\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255902}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluationObjectives",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programEvaluationObjectives"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Post ProgramEvaluationObjectives",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 403\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(403);\r",
+															"    });\r",
+															"\r",
+															"    const responseItem = pm.response.json();\r",
+															"    pm.test(`Error message of '${responseItem.message}' should match expected`, () => {\r",
+															"         pm.expect(responseItem.message).to.include(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255902) and the resource item's 'ProgramEducationOrganizationId' value.\")});\r",
+															"\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255902}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"programEvaluationReference\": {\r\n      \"programEducationOrganizationId\": 255901,\r\n      \"programEvaluationPeriodDescriptor\": \"uri://ed-fi.org/ProgramEvaluationPeriodDescriptor#End of Year\",\r\n      \"programEvaluationTitle\": \"{{known:programEvaluationTitle}}\",\r\n      \"programEvaluationTypeDescriptor\": \"uri://ed-fi.org/ProgramEvaluationTypeDescriptor#Teacher survey\",\r\n      \"programName\": \"21st CCLC\",\r\n      \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Support\"\r\n    },\r\n    \"programEvaluationObjectiveTitle\": \"{{$randomCompanyName}}\"\r\n  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluationObjectives",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programEvaluationObjectives"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "ProgramEvaluationElement",
+									"item": [
+										{
+											"name": "GetAll ProgramEvaluationElements",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 200\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(200);\r",
+															"    });\r",
+															"    \r",
+															"    pm.test(\"Response is empty\", function () {\r",
+															"      const responseData = pm.response.json();\r",
+															"      pm.expect(responseData).to.be.empty;\r",
+															"});\r",
+															"}\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255902}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluationElements",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programEvaluationElements"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Post ProgramEvaluationElement",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 403\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(403);\r",
+															"    });\r",
+															"\r",
+															"    const responseItem = pm.response.json();\r",
+															"    pm.test(`Error message of '${responseItem.message}' should match expected`, () => {\r",
+															"         pm.expect(responseItem.message).to.include(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255902) and the resource item's 'ProgramEducationOrganizationId' value.\")});\r",
+															"\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255902}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n   \r\n    \"programEvaluationObjectiveReference\": {\r\n      \"programEducationOrganizationId\": 255901,\r\n      \"programEvaluationObjectiveTitle\": \"{{known:programEvaluationObjectiveTitle}}\",\r\n      \"programEvaluationPeriodDescriptor\": \"uri://ed-fi.org/ProgramEvaluationPeriodDescriptor#End of Year\",\r\n      \"programEvaluationTitle\": \"{{known:programEvaluationTitle}}\",\r\n      \"programEvaluationTypeDescriptor\": \"uri://ed-fi.org/ProgramEvaluationTypeDescriptor#Teacher survey\",\r\n      \"programName\": \"21st CCLC\",\r\n      \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Support\"\r\n    },\r\n    \"programEvaluationReference\": {\r\n      \"programEducationOrganizationId\": 255901,\r\n      \"programEvaluationPeriodDescriptor\": \"uri://ed-fi.org/ProgramEvaluationPeriodDescriptor#End of Year\",\r\n      \"programEvaluationTitle\": \"{{known:programEvaluationTitle}}\",\r\n      \"programEvaluationTypeDescriptor\": \"uri://ed-fi.org/ProgramEvaluationTypeDescriptor#Teacher survey\",\r\n      \"programName\": \"21st CCLC\",\r\n      \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Support\"\r\n    },\r\n    \"programEvaluationElementTitle\": \"Question {{$randomInt}}\"\r\n  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programEvaluationElements",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programEvaluationElements"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "EvaluationRubricDimension",
+									"item": [
+										{
+											"name": "GetAll EvaluationRubricDimensions",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 200\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(200);\r",
+															"    });\r",
+															"    \r",
+															"    pm.test(\"Response is empty\", function () {\r",
+															"      const responseData = pm.response.json();\r",
+															"      pm.expect(responseData).to.be.empty;\r",
+															"});\r",
+															"}\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255902}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/evaluationRubricDimensions",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"evaluationRubricDimensions"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Post EvaluationRubricDimension",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"    pm.test(\"Status code is 403\", () => {\r",
+															"        pm.expect(pm.response.code).to.equal(403);\r",
+															"    });\r",
+															"\r",
+															"    const responseItem = pm.response.json();\r",
+															"    pm.test(`Error message of '${responseItem.message}' should match expected`, () => {\r",
+															"         pm.expect(responseItem.message).to.include(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255902) and the resource item's 'ProgramEducationOrganizationId' value.\")});\r",
+															"\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255902}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": " {\r\n      \"programEvaluationElementReference\": {\r\n      \"programEducationOrganizationId\": 255901,\r\n      \"programEvaluationElementTitle\": \"{{known:programEvaluationElementTitle}}\",\r\n      \"programEvaluationPeriodDescriptor\": \"uri://ed-fi.org/ProgramEvaluationPeriodDescriptor#End of Year\",\r\n      \"programEvaluationTitle\": \"{{known:programEvaluationTitle}}\",\r\n      \"programEvaluationTypeDescriptor\": \"uri://ed-fi.org/ProgramEvaluationTypeDescriptor#Teacher survey\",\r\n      \"programName\":  \"21st CCLC\",\r\n      \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Support\"\r\n    },\r\n    \"evaluationRubricRating\": {{$randomInt}},\r\n    \"evaluationCriterionDescription\": \"{{$randomFullName}}\"\r\n  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/evaluationRubricDimensions",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"evaluationRubricDimensions"
+													]
+												}
+											},
+											"response": []
+										}
+									]
 								}
 							]
 						},
@@ -11594,8 +12730,14 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
-					"CreateAccessToken(\"TokenExpiry\", \"AccessToken\", \"ApiKey_255901\", \"ApiSecret_255901\")",
+					"pm.environment.set('known:stateEducationAgencyId',32);",
+					"pm.environment.set('known:localEducationAgencyId1', 255902);",
+					"pm.environment.set('known:schoolId1',100001099);",
+					"pm.environment.set('known:localEducationAgencyId', 255901);",
+					"pm.environment.set('known:schoolId', 255901001);",
 					"",
+					"CreateAccessToken(\"TokenExpiry\", \"AccessToken\", \"ApiKey_255901\", \"ApiSecret_255901\")",
+					"CreateAccessToken(\"TokenExpiry_255902\", \"AccessToken_255902\", \"ApiKey_255902\", \"ApiSecret_255902\")",
 					"CreateAccessToken(\"TokenExpiry_255901001\", \"AccessToken_255901001\", \"ApiKey_255901001\", \"ApiSecret_255901001\")",
 					"",
 					"CreateAccessToken(\"TokenExpiry_255901044\", \"AccessToken_255901044\", \"ApiKey_255901044\", \"ApiSecret_255901044\")",
