@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models.Domain;
 
 namespace EdFi.Ods.Features.Composites.Infrastructure
 {
@@ -25,15 +26,15 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
         /// root composite query.
         /// </summary>
         /// <param name="displayName">The name to be used for the collection of data represented by the composite query.</param>
-        /// <param name="orderedFieldNames">The names of the fields in selection order.</param>
+        /// <param name="orderedFieldNamesWithTypes">The names of the fields in selection order, including the PropertyTypes for each field name.</param>
         /// <param name="futureQuery">The results of the query, exposed by NHibernate as a collection of <see cref="Hashtable"/> instances.</param>
         /// <param name="isSingleItemResult">Indicates that the results should be treated as a single result in the output.</param>
         public CompositeQuery(
             string displayName,
-            string[] orderedFieldNames,
+            IDictionary<string, PropertyType> orderedFieldNamesWithTypes,
             IEnumerable<object> futureQuery,
             bool isSingleItemResult)
-            : this(null, displayName, orderedFieldNames, futureQuery, isSingleItemResult) { }
+            : this(null, displayName, orderedFieldNamesWithTypes, futureQuery, isSingleItemResult) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CompositeQuery"/> class for a
@@ -41,18 +42,18 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
         /// </summary>
         /// <param name="parentCompositeQuery">The composite query that provides the data for the next level up in the composite resource.</param>
         /// <param name="displayName">The name to be used for the collection of data represented by the composite query.</param>
-        /// <param name="orderedFieldNames">The names of the fields in selection order.</param>
+        /// <param name="orderedFieldNamesWithTypes">The names of the fields in selection order, including the PropertyTypes for each field name.</param>
         /// <param name="futureQuery">The results of the query, exposed by NHibernate as a collection of <see cref="Hashtable"/> instances.</param>
         /// <param name="isSingleItemResult">Indicates that the results should be treated as a single result in the output.</param>
         public CompositeQuery(
             CompositeQuery parentCompositeQuery,
             string displayName,
-            string[] orderedFieldNames,
+            IDictionary<string, PropertyType> orderedFieldNamesWithTypes,
             IEnumerable<object> futureQuery,
             bool isSingleItemResult)
         {
             DisplayName = displayName;
-            OrderedFieldNames = orderedFieldNames;
+            OrderedFieldNamesWithTypes = orderedFieldNamesWithTypes;
             IsSingleItemResult = isSingleItemResult;
 
             _parentCompositeQuery = parentCompositeQuery;
@@ -84,7 +85,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
         public string DisplayName { get; }
 
-        public string[] OrderedFieldNames { get; set; }
+        public IDictionary<string, PropertyType> OrderedFieldNamesWithTypes { get; set; }
 
         public bool IsSingleItemResult { get; set; }
 
@@ -126,7 +127,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             // Load all data from the query into memory
             do
             {
-                rows.Add((Hashtable) enumerator.Current);
+                rows.Add((Hashtable)enumerator.Current);
             }
             while (enumerator.MoveNext());
 
