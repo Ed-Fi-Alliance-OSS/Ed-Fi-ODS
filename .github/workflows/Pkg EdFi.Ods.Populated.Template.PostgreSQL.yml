@@ -131,7 +131,7 @@ jobs:
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
         $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        Initialize-DevelopmentEnvironment  -NoDeploy -Engine PostgreSQL -NoRestore -StandardVersion ${{ matrix.StandardVersion }}
+        Initialize-DevelopmentEnvironment  -NoDeploy -Engine PostgreSQL -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion "1.1.0"
       shell: pwsh
     - name: Remove Plug-Ins
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -145,12 +145,12 @@ jobs:
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
         Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-populated-template.psm1"
-        Initialize-PopulatedTemplate -samplePath "./Ed-Fi-Standard/" -noExtensions -Engine PostgreSQL -standardVersion ${{ matrix.StandardVersion }}
+        Initialize-PopulatedTemplate -samplePath "./Ed-Fi-Standard/" -noExtensions -Engine PostgreSQL -StandardVersion ${{ matrix.StandardVersion }}  -ExtensionVersion "1.1.0"
       shell: pwsh
     - name: pack
       working-directory: ./Ed-Fi-ODS/
       run: |
-        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Populated.Template.PostgreSQL.Standard.${{ matrix.StandardVersion }}.nuspec" -PackageName "EdFi.Suite3.Ods.Populated.Template.PostgreSQL.Standard.${{ matrix.StandardVersion }}"
+        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Populated.Template.PostgreSQL.Standard.${{ matrix.StandardVersion }}.nuspec" -PackageName "EdFi.Suite3.Ods.Populated.Template.PostgreSQL.Standard.${{ matrix.StandardVersion }}" 
       shell: pwsh
     - name: Install-credential-handler
       working-directory: ./Ed-Fi-ODS/
@@ -161,7 +161,7 @@ jobs:
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-ODS/
       run: |
-        .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.Ods.Populated.Template.PostgreSQL.Standard.${{ matrix.StandardVersion }}"
+        .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.Ods.Populated.Template.PostgreSQL.Standard.${{ matrix.StandardVersion }}" 
       shell: pwsh
     - name: Upload EdFi.Ods.Populated.Template Artifacts
       if: success() || failure()

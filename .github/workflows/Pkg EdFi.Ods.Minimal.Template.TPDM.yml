@@ -106,7 +106,7 @@ jobs:
     - name: Set EdFi-Standard Reference
       working-directory: ./Ed-Fi-ODS/
       run: |
-        $standardTag = .\build.githubactions.ps1 StandardTag -standardVersion ${{ matrix.StandardVersion }} -ProjectFile "./Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
+        $standardTag = .\build.githubactions.ps1 StandardTag -standardVersion ${{ matrix.StandardVersion }}  -ProjectFile "./Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
         echo "EDFI_STANDARD_REFERENCE=$standardTag">> $env:GITHUB_ENV
         Write-host "Ed-Fi-Standard Tag is  $standardTag"
       shell: powershell
@@ -119,7 +119,7 @@ jobs:
     - name: Set EdFi-Tpdm Reference
       working-directory: ./Ed-Fi-ODS/
       run: |
-        $tpdmTag = .\build.githubactions.ps1 TpdmTag -standardVersion ${{ matrix.StandardVersion }} -ProjectFile "./Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
+        $tpdmTag = .\build.githubactions.ps1 TpdmTag  -standardVersion ${{ matrix.StandardVersion }} -ProjectFile "./Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
         echo "EDFI_TPDM_REFERENCE=$tpdmTag">> $env:GITHUB_ENV
         Write-host "EdFi-Tpdm Tag is  $tpdmTag"
       shell: powershell
@@ -158,7 +158,7 @@ jobs:
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}') 
         $PSVersionTable
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        Initialize-DevelopmentEnvironment -UsePlugins -NoDeploy -NoRestore -extensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }}
+        Initialize-DevelopmentEnvironment -UsePlugins -NoDeploy -NoRestore -ExtensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }}
       shell: powershell
     - name: Create Database Template (no extensions)
       working-directory: ./
@@ -166,7 +166,7 @@ jobs:
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')        
         Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-tpdm-minimal-template.psm1"
-        Initialize-TPDMMinimalTemplate -extensionVersion ${{ matrix.ExtensionVersion }} -standardVersion ${{ matrix.StandardVersion }}
+        Initialize-TPDMMinimalTemplate -ExtensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }}
       shell: powershell
     - name: pack
       working-directory: ./Ed-Fi-ODS/

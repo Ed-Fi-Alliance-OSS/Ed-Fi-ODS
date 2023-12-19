@@ -124,7 +124,7 @@ jobs:
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
         $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        Initialize-DevelopmentEnvironment  -NoDeploy -NoRestore -StandardVersion ${{ matrix.StandardVersion }}
+        Initialize-DevelopmentEnvironment  -NoDeploy -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion "1.1.0"
       shell: powershell
     - name: Remove Plug-Ins
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -138,12 +138,12 @@ jobs:
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
         Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-minimal-template.psm1"
-        Initialize-MinimalTemplate -samplePath './Ed-Fi-Standard/Descriptors' -noExtensions -standardVersion ${{ matrix.StandardVersion }}
+        Initialize-MinimalTemplate -samplePath './Ed-Fi-Standard/Descriptors' -noExtensions -StandardVersion ${{ matrix.StandardVersion }}  -ExtensionVersion "1.1.0"
       shell: powershell
     - name: pack
       working-directory: ./Ed-Fi-ODS/
       run: |
-        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Minimal.Template.Standard.${{ matrix.StandardVersion }}.nuspec" -PackageName  "EdFi.Suite3.Ods.Minimal.Template.Standard.${{ matrix.StandardVersion }}" 
+        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Minimal.Template.Standard.${{ matrix.StandardVersion }}.nuspec" -PackageName  "EdFi.Suite3.Ods.Minimal.Template.Standard.${{ matrix.StandardVersion }}"
       shell: powershell
     - name: Install-credential-handler
       working-directory: ./Ed-Fi-ODS-Implementation/
