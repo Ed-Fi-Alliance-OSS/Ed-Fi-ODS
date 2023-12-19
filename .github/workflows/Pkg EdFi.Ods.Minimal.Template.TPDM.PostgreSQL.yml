@@ -117,7 +117,7 @@ jobs:
     - name: Set EdFi-Standard Reference
       working-directory: ./Ed-Fi-ODS/
       run: |
-        $standardTag = .\build.githubactions.ps1 StandardTag -standardVersion ${{ matrix.StandardVersion }}  -ProjectFile "./Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
+        $standardTag = .\build.githubactions.ps1 StandardTag -standardVersion ${{ matrix.StandardVersion }} -ProjectFile "./Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
         echo "EDFI_STANDARD_REFERENCE=$standardTag">> $env:GITHUB_ENV
         Write-host "Ed-Fi-Standard Tag is  $standardTag"
       shell: pwsh
@@ -130,7 +130,7 @@ jobs:
     - name: Set EdFi-Tpdm Reference
       working-directory: ./Ed-Fi-ODS/
       run: |
-        $tpdmTag = .\build.githubactions.ps1 TpdmTag -standardVersion ${{ matrix.StandardVersion }}  -ProjectFile "./Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj" 
+        $tpdmTag = .\build.githubactions.ps1 TpdmTag -standardVersion ${{ matrix.StandardVersion }} -ProjectFile "./Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj" 
         echo "EDFI_TPDM_REFERENCE=$tpdmTag">> $env:GITHUB_ENV
         Write-host "EdFi-Tpdm Tag is  $tpdmTag"
       shell: pwsh

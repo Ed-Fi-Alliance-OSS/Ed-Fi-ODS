@@ -119,7 +119,7 @@ jobs:
     - name: Set EdFi-Tpdm Reference
       working-directory: ./Ed-Fi-ODS/
       run: |
-        $tpdmTag = .\build.githubactions.ps1 TpdmTag -standardVersion ${{ matrix.StandardVersion }} -ProjectFile "./Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj" 
+        $tpdmTag = .\build.githubactions.ps1 TpdmTag -standardVersion ${{ matrix.StandardVersion }} -ProjectFile "./Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
         echo "EDFI_TPDM_REFERENCE=$tpdmTag">> $env:GITHUB_ENV
         Write-host "EdFi-Tpdm Tag is  $tpdmTag"
       shell: powershell
@@ -171,7 +171,7 @@ jobs:
     - name: pack
       working-directory: ./Ed-Fi-ODS/
       run: |
-        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Populated.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}.nuspec" -PackageName  "EdFi.Suite3.Ods.Populated.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}" 
+        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Populated.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}.nuspec" -PackageName  "EdFi.Suite3.Ods.Populated.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}"
       shell: powershell
     - name: Install-credential-handler
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -209,7 +209,7 @@ jobs:
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-ODS/
       run: |
-        .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.Ods.Populated.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}" 
+        .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.Ods.Populated.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}"
       shell: powershell      
     - name: Upload EdFi.Ods.Populated.Template.TPDM.Core Artifacts
       if: success() || failure()
