@@ -60,11 +60,11 @@ param(
     [string]
     $Copyright = "Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors",
 
-    [string]
-    $StandardVersion,
+    [ValidateSet('4.0.0', '5.0.0')]
+    [string]  $StandardVersion,
 
-    [string]
-    $ExtensionVersion
+    [ValidateSet('1.0.0', '1.1.0')]
+    [string]  $ExtensionVersion
 )
 
 $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
