@@ -131,7 +131,7 @@ jobs:
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
         $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        Initialize-DevelopmentEnvironment  -NoDeploy -Engine PostgreSQL -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion "1.1.0"
+        Initialize-DevelopmentEnvironment  -NoDeploy -Engine PostgreSQL -NoRestore -StandardVersion ${{ matrix.StandardVersion }}
       shell: pwsh
     - name: Remove Plug-Ins
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -145,7 +145,7 @@ jobs:
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
         Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-minimal-template.psm1"
-        Initialize-MinimalTemplate -samplePath "./Ed-Fi-Standard/Descriptors" -noExtensions -Engine PostgreSQL -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion "1.1.0"
+        Initialize-MinimalTemplate -samplePath "./Ed-Fi-Standard/Descriptors" -noExtensions -Engine PostgreSQL -StandardVersion ${{ matrix.StandardVersion }}
       shell: pwsh
     - name: pack
       working-directory: ./Ed-Fi-ODS/
