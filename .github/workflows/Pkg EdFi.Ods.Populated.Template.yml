@@ -31,32 +31,52 @@ env:
 
 jobs:
 
-  FindStandardVersions:
+  FindStandardAndExtensionVersions:
      runs-on: ubuntu-latest
      outputs:
        StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
+       ExtensionVersions: ${{ steps.Set_ExtensionVersions.outputs.ExtensionVersions }}
      steps:
      - name: Checkout Ed-Fi-ODS
        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
        with:
            repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
-           path: Ed-Fi-ODS/   
+           path: Ed-Fi-ODS/
+     - name: Checkout Ed-Fi-Extensions
+       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+       with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
+          path: Ed-Fi-Extensions/
+     - name: Is pull request branch exists in Ed-Fi-Extensions
+       working-directory: ./Ed-Fi-ODS/
+       shell: pwsh
+       run: |
+         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"
      - name: Set StandardVersions
        id: Set_StandardVersions
        working-directory: ./Ed-Fi-ODS/
        run: |
          $output = .\build.githubactions.ps1 StandardVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
-         echo "StandardVersions=$output" >> $env:GITHUB_OUTPUT
+         Add-Content -Path $env:GITHUB_OUTPUT -Value "StandardVersions=$output"
          Write-host "StandardVersions is  $output"
+       shell: pwsh
+     - name: Set ExtensionVersions
+       id: Set_ExtensionVersions
+       working-directory: ./Ed-Fi-Extensions/
+       run: |
+         $output = .\build.githubactions.ps1 ExtensionVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj"
+         Add-Content -Path $env:GITHUB_OUTPUT -Value "ExtensionVersions=$output"
+         Write-host "ExtensionVersions is  $output"
        shell: pwsh
 
   build:
     if: ${{ always() }}
-    needs: FindStandardVersions
+    needs: FindStandardAndExtensionVersions
     runs-on: windows-latest
     strategy:
       matrix:
-        StandardVersion: ${{ fromJson(needs.FindStandardVersions.outputs.StandardVersions) }}
+        StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
+        ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
     name: build (Standard Version ${{ matrix.StandardVersion }})
     steps:
     - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
@@ -124,7 +144,7 @@ jobs:
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
         $PSVersionTable
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        Initialize-DevelopmentEnvironment  -NoDeploy  -NoRestore  -StandardVersion ${{ matrix.StandardVersion }}
+        Initialize-DevelopmentEnvironment  -NoDeploy  -NoRestore  -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
       shell: powershell
     - name: Remove Plug-Ins
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -138,7 +158,7 @@ jobs:
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
         Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-populated-template.psm1"
-        Initialize-PopulatedTemplate -samplePath './Ed-Fi-Standard/' -noExtensions -standardVersion ${{ matrix.StandardVersion }}
+        Initialize-PopulatedTemplate -samplePath './Ed-Fi-Standard/' -noExtensions -StandardVersion ${{ matrix.StandardVersion }}  -ExtensionVersion ${{ matrix.ExtensionVersion }}
       shell: powershell
     - name: pack
       working-directory: ./Ed-Fi-ODS/
