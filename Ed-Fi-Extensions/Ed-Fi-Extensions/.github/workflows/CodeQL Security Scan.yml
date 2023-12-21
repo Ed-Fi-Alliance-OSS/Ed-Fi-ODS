@@ -46,7 +46,7 @@ jobs:
       working-directory: ./Ed-Fi-ODS/
       run: |
         $output = .\build.githubactions.ps1 StandardVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
-        echo "StandardVersions=$output" >> $env:GITHUB_OUTPUT
+        Add-Content -Path $env:GITHUB_OUTPUT -Value "StandardVersions=$output"
         Write-host "StandardVersions is  $output"
       shell: pwsh
     - name: Set ExtensionVersions
@@ -54,7 +54,7 @@ jobs:
       working-directory: ./Ed-Fi-Extensions/
       run: |
         $output = .\build.githubactions.ps1 ExtensionVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj"
-        echo "ExtensionVersions=$output" >> $env:GITHUB_OUTPUT
+        Add-Content -Path $env:GITHUB_OUTPUT -Value "ExtensionVersions=$output"
         Write-host "ExtensionVersions is  $output"
       shell: pwsh
       
