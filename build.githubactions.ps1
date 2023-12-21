@@ -57,8 +57,9 @@ param(
     [string]
     $RelativeRepoPath,
 
-    [string]
-    $StandardVersion
+    [ValidateSet('4.0.0', '5.0.0')]
+    [string]  $StandardVersion
+
 )
 
 $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
