@@ -136,7 +136,7 @@ jobs:
             $ErrorActionPreference = 'Stop'
             $PSVersionTable
             . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-            Invoke-CodeGen -Engine PostgreSQL  -ExtensionPaths  $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/ -StandardVersion ${{ matrix.StandardVersion }}
+            Invoke-CodeGen -Engine PostgreSQL  -ExtensionPaths  $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/ -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
       - name: build
         shell: pwsh
         working-directory: ./Ed-Fi-Extensions/
