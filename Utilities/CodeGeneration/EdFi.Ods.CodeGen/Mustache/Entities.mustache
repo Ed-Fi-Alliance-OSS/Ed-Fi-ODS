@@ -226,7 +226,6 @@ namespace {{AggregateNamespace}}
         //                     One-to-one relationships
         // -------------------------------------------------------------
             {{#OneToOnes}}
-        {{! #IsRequired} }[Required]{{/IsRequired} }[ValidateObject]}}
         public virtual {{AggregateNamespacePrefix}}{{OtherClassName}} {{OtherClassName}}
         {
             get
@@ -332,7 +331,6 @@ namespace {{AggregateNamespace}}
         {{^ExtendableConcreteBase}}
         private IDictionary _extensions;
 
-        {{![ValidateExtensions]}}
         public{{#IsConcreteEntityBaseClass}} virtual{{/IsConcreteEntityBaseClass}} IDictionary Extensions
         {
             get => _extensions;
@@ -359,7 +357,6 @@ namespace {{AggregateNamespace}}
             }
         }
 
-        {{![ValidateAggregateExtensions(typeof({{ClassName} }))]}}
         public{{#IsConcreteEntityBaseClass}} virtual{{/IsConcreteEntityBaseClass}} IDictionary AggregateExtensions { get; set; }
         {{/ExtendableConcreteBase}}
         {{/IsExtendable}}
@@ -415,8 +412,6 @@ namespace {{AggregateNamespace}}
 
         private ICollection<{{AggregateNamespacePrefix}}{{ChildClassName}}{{#IsChildForConcreteBase}}ForBase{{/IsChildForConcreteBase}}> {{ChildCollectionFieldName}};
         private ICollection<{{ChildRelativeNamespace}}I{{ChildClassName}}> {{ChildCollectionFieldName}}Covariant;
-        {{!IsRequiredCollection } }[RequiredCollection]{{/IsRequiredCollection}}
-        {{![ValidateEnumerable]}}
         public virtual ICollection<{{AggregateNamespacePrefix}}{{ChildClassName}}{{#IsChildForConcreteBase}}ForBase{{/IsChildForConcreteBase}}> {{ChildCollectionPropertyName}}
         {
             get
@@ -463,7 +458,6 @@ namespace {{AggregateNamespace}}
 
         {{/NavigableChildren}}
         {{#RelocatedExtensionCollections}}
-        {{! #IsRequiredCollection} }[RequiredCollection]{{/IsRequiredCollection}}
         private ICollection<{{ChildRelativeNamespace}}I{{ChildClassName}}> {{ChildCollectionFieldName}};
         // Aggregate extension explicit implementation to redirect model abstraction to the persistent entity location
         ICollection<{{ChildRelativeNamespace}}I{{ChildClassName}}> I{{ClassName}}.{{ChildCollectionPropertyName}}
