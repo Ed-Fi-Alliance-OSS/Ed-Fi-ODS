@@ -17,7 +17,7 @@ namespace EdFi.Ods.Common.Attributes
             {
                 if(resource.GetUnassignedMemberNames().Any())
                 {
-                    return new ValidationResult("Required", resource.GetUnassignedMemberNames());
+                    return new ValidationResult("Value is required.", resource.GetUnassignedMemberNames());
                 }
             }
 
