@@ -22,7 +22,7 @@ namespace EdFi.Ods.Api.Attributes
             }
 
             return CrossSiteScriptingValidation.IsDangerousString(s, out int matchIndex)
-                ? new ValidationResult($"{validationContext.DisplayName} contains a value that could be dangerous for downstream systems using this data. Try to avoid the use of special symbols like '<' or '&' without surrounding spaces.", 
+                ? new ValidationResult($"{validationContext.DisplayName} contains a value that could be dangerous for downstream systems using this data. Try to avoid the use of special symbols like '<', '>' or '&' without surrounding spaces.", 
                     new[] { validationContext.MemberName })
                 : ValidationResult.Success;
         }
