@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using EdFi.LoadTools.ApiClient;
@@ -203,13 +202,6 @@ namespace EdFi.LoadTools.Engine
         int RemainingReferenceCount(string id);
 
         XElement VisitReference(string id);
-    }
-
-    public interface IXmlPairsFactory
-    {
-        IEnumerable<XmlReader> GetSources();
-
-        IEnumerable<XmlIoPair> GetIoPairs();
     }
 
     public interface IXsdConfiguration
