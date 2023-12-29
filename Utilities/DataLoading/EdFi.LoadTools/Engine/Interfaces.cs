@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Reflection;
-using System.Xml;
 using System.Xml.Linq;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine.Mapping;
