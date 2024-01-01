@@ -7,10 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Security.Authorization;
-using EdFi.Ods.Api.Security.Authorization.Repositories;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
-using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
@@ -114,11 +113,14 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 {
                     var subjectSubstring = filterContext.SubjectEndpointName.Substring(
                         0, filterContext.SubjectEndpointName.Length - 3);
-                    throw new EdFiSecurityException(
-                        $"Authorization denied. Either referenced '{subjectSubstring}' was not found or no relationships have been established between the caller's education organization id claims ({string.Join(", ", filterContext.ClaimParameterValues)}) and the referenced '{subjectSubstring}'.");
+
+                    throw new SecurityException(
+                        SecurityException.DefaultDetail,
+                        $"Either the referenced '{subjectSubstring}' was not found or no relationships have been established between the caller's education organization id claims ({string.Join(", ", filterContext.ClaimParameterValues)}) and the referenced '{subjectSubstring}'.");
                 }
-                
-                throw new EdFiSecurityException(
+
+                throw new SecurityException(
+                    SecurityException.DefaultDetail,
                     $"Access to the resource item could not be authorized because the '{filterContext.SubjectEndpointName}' of the resource is empty.");
             }
 

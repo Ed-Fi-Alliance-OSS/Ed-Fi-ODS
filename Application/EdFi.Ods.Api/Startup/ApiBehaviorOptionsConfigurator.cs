@@ -9,6 +9,7 @@ using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 
 namespace EdFi.Ods.Api.Startup;
@@ -30,11 +31,22 @@ public class ApiBehaviorOptionsConfigurator : IConfigureOptions<ApiBehaviorOptio
 
     public void Configure(ApiBehaviorOptions options)
     {
-        options.InvalidModelStateResponseFactory = actionContext => 
-            new BadRequestObjectResult(
-                _errorTranslator.GetErrorMessage(
+        options.InvalidModelStateResponseFactory = actionContext =>
+        {
+            if (actionContext.ModelState.ValidationState == ModelValidationState.Invalid)
+            {
+                var problemDetails = _errorTranslator.GetProblemDetails(
                     _dataManagementResourceContextProvider.Get()?.Resource,
-                    actionContext.ModelState, 
-                (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
+                    actionContext.ModelState);
+                
+                
+                problemDetails.CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
+                
+                return new BadRequestObjectResult(problemDetails);
+            }
+            
+            return null;
+            
+        };
     }
 }

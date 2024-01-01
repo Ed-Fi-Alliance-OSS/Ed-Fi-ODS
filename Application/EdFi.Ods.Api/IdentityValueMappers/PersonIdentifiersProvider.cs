@@ -10,17 +10,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Common;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Caching.Person;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Specifications;
 using NHibernate;
-using NHibernate.Criterion;
 using NHibernate.Transform;
 
 namespace EdFi.Ods.Api.IdentityValueMappers

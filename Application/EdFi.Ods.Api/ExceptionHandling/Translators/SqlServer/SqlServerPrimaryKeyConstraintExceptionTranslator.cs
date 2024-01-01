@@ -5,49 +5,45 @@
 
 using System;
 using System.Linq;
-using System.Net;
 using System.Text.RegularExpressions;
 using Microsoft.Data.SqlClient;
-using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security.Claims;
 using NHibernate.Exceptions;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 {
-    public class DuplicateNaturalKeyCreateExceptionTranslator : IExceptionTranslator
+    public class SqlServerPrimaryKeyConstraintExceptionTranslator : IProblemDetailsExceptionTranslator
     {
         private const string MessageFormat =
             "A natural key conflict occurred when attempting to create a new resource '{0}' with a duplicate key. The duplicated columns and values are [{1}] {2}.";
 
-        private static readonly Regex MatchPattern = new Regex(
+        private static readonly Regex _matchPattern = new(
             @"^Violation of PRIMARY KEY constraint '(?<IndexName>\w+)'\.\s+Cannot insert duplicate key in object '[a-z]+\.(?<TableName>\w+)'\.\s+The duplicate key value is (?<Values>\(.*\))\.\s+The statement has been terminated\.\s*$");
 
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
 
-        public DuplicateNaturalKeyCreateExceptionTranslator(IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+        public SqlServerPrimaryKeyConstraintExceptionTranslator(IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
         {
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
         }
 
-        public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
+        public bool TryTranslate(Exception ex, out IEdFiProblemDetails problemDetails)
         {
-            webServiceError = null;
-
             var exception = ex is GenericADOException
                 ? ex.InnerException
                 : ex;
 
             if (exception is SqlException)
             {
-                var match = MatchPattern.Match(exception.Message);
+                var match = _matchPattern.Match(exception.Message);
 
                 if (match.Success)
                 {
                     var resourceEntity = _dataManagementResourceContextProvider.Get().Resource.Entity;
 
-                    string values = match.Groups["Values"]
-                                         .Value;
+                    string values = match.Groups["Values"].Value;
 
                     string columnNames = resourceEntity.BaseEntity == null ? 
                         string.Join(", ", resourceEntity.Identifier.Properties.Select(x => x.PropertyName))
@@ -55,15 +51,12 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 
                     var message = string.Format(MessageFormat, resourceEntity.Name, columnNames, values);
 
-                    webServiceError = new RESTError
-                                      {
-                                          Code = (int) HttpStatusCode.Conflict, Type = HttpStatusCode.Conflict.ToString(), Message = message
-                                      };
-
+                    problemDetails = new ConflictException(message);
                     return true;
                 }
             }
 
+            problemDetails = null;
             return false;
         }
     }

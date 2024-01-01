@@ -8,27 +8,17 @@ using System.Runtime.Serialization;
 
 namespace EdFi.Ods.Common.Exceptions
 {
-    [Serializable]
-    public class DistributedCacheException : Exception
+    public class DistributedCacheException : InternalServerErrorException
     {
-        // For guidelines regarding the creation of new exception types, see
-        //    https://learn.microsoft.com/en-us/dotnet/standard/exceptions/best-practices-for-exceptions
-
-        public DistributedCacheException() { }
+        public DistributedCacheException() : base() { }
 
         public DistributedCacheException(string message)
-            : base(message) { }
+            : base(DefaultDetail, message) { }
 
         public DistributedCacheException(string message, Exception inner)
-            : base(message, inner) { }
-
-        protected DistributedCacheException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
+            : base(DefaultDetail, message, inner) { }
     }
 
-    [Serializable]
     public class SafeDistributedCacheException : DistributedCacheException
     {
         public override string StackTrace => "See log for details";

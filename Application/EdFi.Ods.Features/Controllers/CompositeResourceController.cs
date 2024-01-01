@@ -9,14 +9,13 @@ using System.Linq;
 using System.Xml.Linq;
 using EdFi.Common.Inflection;
 using EdFi.Ods.Api.Attributes;
-using EdFi.Ods.Api.ExceptionHandling;
-using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Metadata.Composites;
+using EdFi.Ods.Common.ProblemDetails;
 using EdFi.Ods.Features.Composites.Infrastructure;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
@@ -49,20 +48,20 @@ namespace EdFi.Ods.Features.Controllers
         private readonly ICompositesMetadataProvider _compositeMetadataProvider;
         private readonly ICompositeResourceResponseProvider _compositeResourceResponseProvider;
         private readonly ILog _logger = LogManager.GetLogger(typeof(CompositeResourceController));
-        private readonly IRESTErrorProvider _restErrorProvider;
+        private readonly IEdFiProblemDetailsProvider _problemDetailsProvider;
         private readonly ILogContextAccessor _logContextAccessor;
         private readonly bool _isEnabled;
 
         public CompositeResourceController(
             ICompositeResourceResponseProvider compositeResourceResponseProvider,
             ICompositesMetadataProvider compositeMetadataProvider,
-            IRESTErrorProvider restErrorProvider,
+            IEdFiProblemDetailsProvider problemDetailsProvider,
             ILogContextAccessor logContextAccessor,
             ApiSettings apiSettings)
         {
             _compositeResourceResponseProvider = compositeResourceResponseProvider;
             _compositeMetadataProvider = compositeMetadataProvider;
-            _restErrorProvider = restErrorProvider;
+            _problemDetailsProvider = problemDetailsProvider;
             _logContextAccessor = logContextAccessor;
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.Composites.GetConfigKeyName());
 
@@ -89,7 +88,7 @@ namespace EdFi.Ods.Features.Controllers
             }
 
             object json = null;
-            RESTError restError = null;
+            IEdFiProblemDetails problemDetails = null;
 
             try
             {
@@ -128,10 +127,14 @@ namespace EdFi.Ods.Features.Controllers
                     if (int.TryParse(limitAsObject.ToString(), out int limit)
                         && (limit <= 0 || limit > 100))
                     {
-                        return BadRequest(
-                            ErrorTranslator.GetErrorMessage(
-                                "Limit must be omitted or set to a value between 1 and 100.",
-                                (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
+                        problemDetails = new BadRequestParameterException(
+                            "The limit parameter was incorrect.",
+                            new[] { "Limit must be omitted or set to a value between 1 and 100." })
+                        {
+                            CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
+                        }.AsSerializableModel();
+                
+                        return BadRequest(problemDetails);
                     }
                 }
 
@@ -171,7 +174,9 @@ namespace EdFi.Ods.Features.Controllers
 
                     if (!Guid.TryParse(idAsObject.ToString(), out Guid id))
                     {
-                        throw new BadRequestException("The supplied resource identifier is invalid.");
+                        throw new BadRequestParameterException(
+                            "The supplied resource identifier is invalid.",
+                            new []{ "The identifier could not be processed as a GUID."});
                     }
 
                     specificationParameters.Add(
@@ -254,18 +259,13 @@ namespace EdFi.Ods.Features.Controllers
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                restError = _restErrorProvider.GetRestErrorFromException(ex);
+
+                problemDetails = _problemDetailsProvider.GetProblemDetails(ex);
             }
 
-            if (restError != null)
+            if (problemDetails != null)
             {
-                return string.IsNullOrWhiteSpace(restError.Message)
-                    ? (IActionResult)StatusCode(restError.Code ?? default)
-                    : StatusCode(
-                        restError.Code ?? default,
-                        ErrorTranslator.GetErrorMessage(
-                            restError.Message,
-                            (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
+                return StatusCode(problemDetails.Status, problemDetails);
             }
 
             return Ok(json);

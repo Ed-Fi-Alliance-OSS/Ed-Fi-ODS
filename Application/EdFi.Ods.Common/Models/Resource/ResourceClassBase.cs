@@ -269,7 +269,7 @@ namespace EdFi.Ods.Common.Models.Resource
         /// <summary>
         /// Gets the identifying properties of the resource that are introduced in the local context, including those in references, as necessary.
         /// </summary>
-        public IReadOnlyList<ResourceProperty> IdentifyingProperties => AllProperties
+        public virtual IReadOnlyList<ResourceProperty> IdentifyingProperties => AllProperties
                                                                        .Where(p => p.IsIdentifying && p.EntityProperty?.IsFromParent != true)
                                                                        .ToList();
 

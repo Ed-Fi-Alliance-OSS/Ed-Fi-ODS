@@ -4,25 +4,38 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace EdFi.Ods.Common.Exceptions
 {
-    [Serializable]
-    public class DatabaseConnectionException : Exception
+    public class DatabaseConnectionException : InternalServerErrorException
     {
- 
-        public DatabaseConnectionException() { }
+        // Fields containing override values for Problem Details
+        private const string TypePart = "database-connection";
+        private const string TitleText = "Database Connection Failed";
+        private const string DefaultDatabaseConnectionDetail = "There was a problem communicating with the database.";
 
         public DatabaseConnectionException(string message)
-            : base(message) { }
+            : base(DefaultDatabaseConnectionDetail, message) { }
 
         public DatabaseConnectionException(string message, Exception inner)
-            : base(message, inner) { }
+            : base(DefaultDatabaseConnectionDetail, message, inner) { }
 
-        protected DatabaseConnectionException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
+        // ---------------------------
+        //  Boilerplate for overrides
+        // ---------------------------
+        public override string Title { get => TitleText; }
+    
+        protected override IEnumerable<string> GetTypeParts()
+        {
+            foreach (var part in base.GetTypeParts())
+            {
+                yield return part;
+            }
+
+            yield return TypePart;
+        }
+        // ---------------------------
     }
 }

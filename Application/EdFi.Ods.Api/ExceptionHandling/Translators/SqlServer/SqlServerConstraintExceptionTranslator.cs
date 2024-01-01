@@ -4,17 +4,15 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Net;
 using System.Text.RegularExpressions;
 using Microsoft.Data.SqlClient;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Api.Models;
-using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Exceptions;
 using NHibernate.Exceptions;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 {
-    public class SqlServerConstraintExceptionTranslator : IExceptionTranslator
+    public class SqlServerConstraintExceptionTranslator : IProblemDetailsExceptionTranslator
     {
         /* Sample errors:
 
@@ -44,10 +42,8 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
             @"^The (?<StatementType>INSERT|UPDATE|DELETE) statement conflicted with the (?<ConstraintType>FOREIGN KEY|REFERENCE) constraint ""(?<ConstraintName>\w+)"".*?table ""[a-z]+\.(?<TableName>\w+)""(?:, column '(?<ColumnName>\w+)')?");
 
         // ^The (?<Statement>INSERT|UPDATE|DELETE) statement conflicted with the (?<ConstraintType>FOREIGN KEY|REFERENCE) constraint "(?<ConstraintName>\w+)".*?table "[a-z]+\.(?<TableName>\w+)".*?(?: column '(?<ColumnName>\w+)')?
-        public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
+        public bool TryTranslate(Exception ex, out IEdFiProblemDetails problemDetails)
         {
-            webServiceError = null;
-
             var exception = ex is GenericADOException
                 ? ex.InnerException
                 : ex;
@@ -60,18 +56,10 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                 if (match.Success)
                 {
                     string messageFormat = string.Empty;
-
-                    string statementType = match.Groups["StatementType"]
-                                                .Value;
-
-                    string constraintType = match.Groups["ConstraintType"]
-                                                 .Value;
-
-                    string tableName = match.Groups["TableName"]
-                                            .Value;
-
-                    string columnName = match.Groups["ColumnName"]
-                                             .Value;
+                    string statementType = match.Groups["StatementType"].Value;
+                    string constraintType = match.Groups["ConstraintType"].Value;
+                    string tableName = match.Groups["TableName"].Value;
+                    string columnName = match.Groups["ColumnName"].Value;
 
                     switch (statementType)
                     {
@@ -85,6 +73,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                             }
 
                             // No explicit support for UPDATE/REFERENCE constraint yet
+                            problemDetails = null;
                             return false;
 
                         case "DELETE":
@@ -107,20 +96,18 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                             }
 
                             // No explicit support for UPDATE/REFERENCE constraint yet
+                            problemDetails = null;
                             return false;
                     }
 
                     string message = string.Format(messageFormat, tableName.ToCamelCase(), columnName.ToCamelCase());
 
-                    webServiceError = new RESTError
-                                      {
-                                          Code = (int) HttpStatusCode.Conflict, Type = "Conflict", Message = message
-                                      };
-
+                    problemDetails = new ConflictException(message);
                     return true;
                 }
             }
 
+            problemDetails = null;
             return false;
         }
     }

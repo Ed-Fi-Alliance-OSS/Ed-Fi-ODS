@@ -6,9 +6,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using EdFi.Ods.Api.Models;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models.Resource;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace EdFi.Ods.Api.ExceptionHandling
@@ -17,28 +16,26 @@ namespace EdFi.Ods.Api.ExceptionHandling
     {
         private readonly ModelStateKeyConverter _modelStateKeyConverter;
 
+        private const string DetailForValidationErrors = "Data validation failed. See 'validationErrors' for details.";
+        private const string DetailForErrors = "The request could not be processed. See 'errors' for details.";
+
         public ErrorTranslator(ModelStateKeyConverter modelStateKeyConverter)
         {
             _modelStateKeyConverter = modelStateKeyConverter;
         }
 
         // Attempts to translate the API error response to ASP.NET MVC error response format to maintain compatibility for the consumers. 
-        public EdFiProblemDetails GetErrorMessage(Resource resource, ModelStateDictionary modelState, string correlationId)
+        public IEdFiProblemDetails GetProblemDetails(Resource resource, ModelStateDictionary modelState)
         {
+            // Process model binding failures
             if (modelState.Keys.All(string.IsNullOrEmpty) && modelState.Values.Any())
             {
-                return new EdFiProblemDetails()
-                {
-                    Type = "urn:ed-fi:general:bad-request",
-                    Title = "Bad Request",
-                    Detail = "The request could not be processed. See 'errors' for details.",
-                    Errors = modelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)).ToArray(),
-                    Status = StatusCodes.Status400BadRequest,
-                    Instance = $"urn:correlation:{correlationId}",
-                    CorrelationId = correlationId
-                };
+                string[] errors = modelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)).ToArray();
+
+                return new BadRequestException(DetailForErrors, errors);
             }
 
+            // Process data validation errors
             var validationErrors = modelState
                 .Where(e => e.Value.ValidationState == ModelValidationState.Invalid)
                 .ToDictionary(
@@ -46,36 +43,20 @@ namespace EdFi.Ods.Api.ExceptionHandling
                     kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
                 );
 
-            return new EdFiProblemDetails()
-            {
-                Type = "urn:ed-fi:validation:validation-failed",
-                Title = "Validation Failed",
-                Detail = "The request failed some validation rules. See 'validationErrors' for details.",
-                Status = StatusCodes.Status400BadRequest,
-                ValidationErrors = validationErrors,
-                Instance = $"urn:correlation:{correlationId}",
-                CorrelationId = correlationId
-            };
+            return new BadRequestDataException(DetailForValidationErrors, validationErrors).AsSerializableModel();
         }
 
-        public static RESTError GetErrorMessage(string message, string correlationId)
-        {
-            return new RESTError()
-            {
-                Message = message,
-                CorrelationId = correlationId
-            };
-        }
-
-        public EdFiProblemDetails GetErrorMessage(Resource resource, IEnumerable<ValidationResult> validationResults, string correlationId)
+        public IEdFiProblemDetails GetProblemDetails(Resource resource, IEnumerable<ValidationResult> validationResults)
         {
             ModelStateDictionary modelState = new();
 
+            // Process validation results into a model state dictionary (replicating what ASP.NET would do during model binding if we hadn't taken over that process)
             foreach (ValidationResult validationResult in validationResults)
             {
                 modelState.AddModelError(validationResult.MemberNames.FirstOrDefault() ?? string.Empty, validationResult.ErrorMessage);
             }
 
+            // Prepare the model state with appropriate JSON Paths
             var validationErrors = modelState
                 .Where(e => e.Value.ValidationState == ModelValidationState.Invalid)
                 .ToDictionary(
@@ -83,16 +64,7 @@ namespace EdFi.Ods.Api.ExceptionHandling
                     kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
                 );
 
-            return new EdFiProblemDetails()
-            {
-                Type = "urn:ed-fi:validation:validation-failed",
-                Title = "Validation Failed",
-                Detail = "The request failed some validation rules. See 'validationErrors' for details.",
-                Status = StatusCodes.Status400BadRequest,
-                ValidationErrors = validationErrors,
-                Instance = $"urn:correlation:{correlationId}",
-                CorrelationId = correlationId
-            };
+            return new BadRequestDataException(DetailForValidationErrors, validationErrors).AsSerializableModel();
         }
     }
 }

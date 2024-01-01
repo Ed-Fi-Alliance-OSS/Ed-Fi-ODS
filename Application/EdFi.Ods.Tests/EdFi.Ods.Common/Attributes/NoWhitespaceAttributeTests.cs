@@ -75,11 +75,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Validation
             {
                 AssertHelper.All(
                     () => Assert.That(_validationResults.Count, Is.EqualTo(1)),
-                    () => Assert.That(
-                        _validationResults.First()
-                            .ErrorMessage,
-                        Is.EqualTo(
-                            "PrimaryKeyProperty1 property is part of the primary key and therefore its value cannot contain leading or trailing whitespace.")));
+                    () => Assert.That(_validationResults.First().ErrorMessage,
+                        Is.EqualTo("PrimaryKeyProperty1 cannot contain leading or trailing spaces.")));
             }
         }
 
@@ -110,11 +107,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Validation
             {
                 AssertHelper.All(
                     () => Assert.That(_validationResults.Count, Is.EqualTo(1)),
-                    () => Assert.That(
-                        _validationResults.First()
-                            .ErrorMessage,
-                        Is.EqualTo(
-                            "PrimaryKeyProperty1 property is part of the primary key and therefore its value cannot contain leading or trailing whitespace.")));
+                    () => Assert.That(_validationResults.First().ErrorMessage,
+                        Is.EqualTo("PrimaryKeyProperty1 cannot contain leading or trailing spaces.")));
             }
         }
 

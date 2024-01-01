@@ -75,7 +75,7 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
                 {{/AllowPrimaryKeyUpdates}}
                 {{^AllowPrimaryKeyUpdates}}
                 // Disallow PK column updates on {{ModelName}}
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("{{ModelName}}");
                 {{/AllowPrimaryKeyUpdates}}
             }
 

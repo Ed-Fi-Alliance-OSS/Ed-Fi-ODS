@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Claims;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
@@ -206,7 +207,7 @@ public class AuthorizationBasisMetadataSelectorTests
         else
         {
             // Act & Assert
-            Should.Throw<EdFiSecurityException>(() => _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
+            Should.Throw<SecurityException>(() => _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
                     "AssignedClaimSet",
                     requestResourceClaimUris,
                     requestActionUri))

@@ -56,7 +56,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                     if (!persistedEntity.LastModifiedDate.Equals(lastModifiedDate))
                     {
-                        throw new ConcurrencyException("Resource was modified by another consumer.");
+                        throw new ConcurrencyException();
                     }
                 }
 

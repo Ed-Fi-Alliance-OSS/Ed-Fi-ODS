@@ -10,6 +10,7 @@ using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common.Attributes;
 using EdFi.TestFixture;
 using NUnit.Framework;
+using Shouldly;
 using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
@@ -101,12 +102,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             [Assert]
             public void Should_have_a_validation_error_regarding_a_required_collection()
             {
-                Assert.That(_actualResults, Has.Count.EqualTo(1));
-
-                var errorMessage = _actualResults.Single()
-                    .ErrorMessage;
-
-                Assert.That(errorMessage, Does.Contain("requires at least one object in the collection"));
+                _actualResults.Count.ShouldBe(1);
+                _actualResults.Single().ErrorMessage.ShouldBe("TestCollection must have at least one item.");
             }
         }
 
@@ -131,12 +128,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             [Assert]
             public void Should_have_a_validation_error_regarding_a_required_collection()
             {
-                Assert.That(_actualResults, Has.Count.EqualTo(1));
-
-                var errorMessage = _actualResults.Single()
-                    .ErrorMessage;
-
-                Assert.That(errorMessage, Does.Contain("requires at least one object in the collection"));
+                _actualResults.Count.ShouldBe(1);
+                _actualResults.Single().ErrorMessage.ShouldBe("TestCollection must have at least one item.");
             }
         }
     }

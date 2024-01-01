@@ -6,15 +6,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Api.Security.AuthorizationStrategies.NHibernateConfiguration;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Database.Querying;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Common.Specifications;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.SqlCommand;
@@ -85,7 +83,8 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         if (contextData == null)
         {
             return InstanceAuthorizationResult.Failed(
-                new NotSupportedException(
+                new SecurityConfigurationException(
+                    SecurityConfigurationException.DefaultDetail,
                     "No 'OwnershipTokenId' property could be found on the resource's underlying entity in order to perform authorization. Should a different authorization strategy be used?"));
         }
 
@@ -96,14 +95,16 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
             if (!hasOwnershipToken)
             {
                 return InstanceAuthorizationResult.Failed(
-                    new EdFiSecurityException(
+                    new SecurityException(
+                        $"{SecurityException.DefaultDetail} The resource is not owned by the caller.",
                         "Access to the resource item could not be authorized using any of the caller's ownership tokens."));
             }
         }
         else
         {
             return InstanceAuthorizationResult.Failed(
-                new EdFiSecurityException(
+                new SecurityException(
+                    $"{SecurityException.DefaultDetail} The resource is not owned by the caller.",
                     "Access to the resource item could not be authorized based on the caller's ownership token because the resource item has no owner."));
         }
 

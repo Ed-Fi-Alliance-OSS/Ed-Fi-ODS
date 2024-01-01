@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Common.ProblemDetails;
 using log4net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -12,23 +12,23 @@ namespace EdFi.Ods.Api.Filters
 {
     public class ExceptionHandlingFilter : IExceptionFilter
     {
+        private readonly IEdFiProblemDetailsProvider _problemDetailsProvider;
         private readonly ILog _logger = LogManager.GetLogger(typeof(ExceptionHandlingFilter));
-        private readonly IRESTErrorProvider _restErrorProvider;
 
-        public ExceptionHandlingFilter(IRESTErrorProvider restErrorProvider)
+        public ExceptionHandlingFilter(IEdFiProblemDetailsProvider problemDetailsProvider)
         {
-            _restErrorProvider = restErrorProvider;
+            _problemDetailsProvider = problemDetailsProvider;
         }
 
         public void OnException(ExceptionContext context)
         {
             _logger.Error($"Unhandled exception caught by {nameof(ExceptionHandlingFilter)}: {context.Exception}");
 
-            var restError = _restErrorProvider.GetRestErrorFromException(context.Exception);
+            var problemDetails = _problemDetailsProvider.GetProblemDetails(context.Exception);
 
-            context.Result = new ObjectResult(restError)
+            context.Result = new ObjectResult(problemDetails)
             {
-                StatusCode = restError.Code,
+                StatusCode = problemDetails.Status,
             };
         }
     }

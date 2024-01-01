@@ -5,8 +5,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
@@ -132,7 +134,7 @@ public class DescriptorDetailsProvider : IDescriptorDetailsProvider
 
             if (pos < 0)
             {
-                throw new FormatException($"{descriptorName} value '{uri}' is not a valid descriptor value.");
+                throw new ValidationException($"{descriptorName} value '{uri}' is not a valid descriptor value.");
             }
 
             criteria.Add(Restrictions.Eq("Namespace", uri.Substring(0, pos)));

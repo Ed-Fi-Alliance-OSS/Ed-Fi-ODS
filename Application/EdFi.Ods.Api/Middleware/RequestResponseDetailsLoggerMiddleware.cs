@@ -8,10 +8,10 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.ProblemDetails;
 using log4net;
 using log4net.Appender;
 using Microsoft.AspNetCore.Http;
@@ -21,17 +21,21 @@ namespace EdFi.Ods.Api.Middleware
     public class RequestResponseDetailsLoggerMiddleware : IMiddleware
     {
         private readonly ReverseProxySettings _reverseProxySettings;
-        private readonly IRESTErrorProvider _restErrorProvider;
+        private readonly IEdFiProblemDetailsProvider _problemDetailsProvider;
         private readonly IOdsDatabaseConnectionStringProvider _connectionStringProvider;
         private readonly DateTime _logRequestResponseContentUntil;
         private bool _logRequestResponseContent;
         private ILog _requestResponseDetailsLogger;
         private ILog _requestResponseContentLogger;
 
-        public RequestResponseDetailsLoggerMiddleware(ReverseProxySettings reverseProxySettings, int logRequestResponseContentForMinutes,IRESTErrorProvider restErrorProvider, IOdsDatabaseConnectionStringProvider connectionStringProvider)
+        public RequestResponseDetailsLoggerMiddleware(
+            ReverseProxySettings reverseProxySettings,
+            int logRequestResponseContentForMinutes,
+            IEdFiProblemDetailsProvider problemDetailsProvider,
+            IOdsDatabaseConnectionStringProvider connectionStringProvider)
         {
             _reverseProxySettings = reverseProxySettings;
-            _restErrorProvider = restErrorProvider;
+            _problemDetailsProvider = problemDetailsProvider;
             _connectionStringProvider = connectionStringProvider;
             _logRequestResponseContent = logRequestResponseContentForMinutes > 0 && RequestResponseContentDatabaseAppenderConfigured();
 
@@ -147,9 +151,9 @@ namespace EdFi.Ods.Api.Middleware
             if (!RequestResponseContentDatabaseAppenderConfigured())
                 return;
 
-            var restError = _restErrorProvider.GetRestErrorFromException(exception);
+            var problemDetails = _problemDetailsProvider.GetProblemDetails(exception);
 
-            RequestResponseContentLogger.Error(restError.Message, exception);
+            RequestResponseContentLogger.Error(problemDetails, exception);
         }
 
         private void LogRequestResponseDetailsInfo(HttpContext context)
@@ -167,9 +171,10 @@ namespace EdFi.Ods.Api.Middleware
             if (!RequestResponseDetailsFileAppenderExists())
                 return;
 
-            var restError = _restErrorProvider.GetRestErrorFromException(exception);
+            var problemDetails = _problemDetailsProvider.GetProblemDetails(exception);
+            string logMessage = string.Concat("Detail: ", problemDetails.Detail, ", Errors: ", string.Join(' ', problemDetails.Errors ?? Array.Empty<string>()));
 
-            RequestResponseDetailsLogger.Error(restError.Message, exception);
+            RequestResponseDetailsLogger.Error(logMessage, exception);
         }
 
         protected ILog RequestResponseDetailsLogger

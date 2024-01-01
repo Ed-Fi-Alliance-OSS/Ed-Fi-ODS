@@ -7,8 +7,6 @@ using Autofac;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using EdFi.Ods.Features.Conventions;
 using EdFi.Ods.Features.IdentityManagement;
 using EdFi.Ods.Features.IdentityManagement.Models;
 

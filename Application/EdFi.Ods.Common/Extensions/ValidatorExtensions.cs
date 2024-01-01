@@ -39,11 +39,6 @@ namespace EdFi.Ods.Common.Extensions
                         // Allow error translation to be performed for desired HTTP response status
                         throw;
                     }
-                    catch (EdFiSecurityConflictException)
-                    {
-                        // Allow error translation to be performed for desired HTTP response status
-                        throw;
-                    }
                     catch (Exception ex)
                     {
                         _logger.Error($"Validation exception [{ex.GetType()}]: {ex.StackTrace}", ex);

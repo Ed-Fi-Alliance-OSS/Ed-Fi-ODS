@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Security.Claims;
-using EdFi.Ods.Common.Security;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Security.DataAccess.Repositories;
@@ -104,7 +104,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
             
         if (!claimCheckResponse.Success)
         {
-            throw new EdFiSecurityException(claimCheckResponse.SecurityExceptionMessage);
+            throw new SecurityException(SecurityException.DefaultDetail, claimCheckResponse.SecurityExceptionMessage);
         }
 
         var relevantClaimSetClaims = claimCheckResponse.RelevantClaims;
@@ -257,8 +257,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
                 //     .Where(x => x.StartsWith(EdFiConventions.EdFiOdsResourceClaimBaseUri));
 
                 response.SecurityExceptionMessage =
-                    $@"Access to the resource could not be authorized. The API client has been assigned the '{claimSetName}' claim set.
-Assign a different claim set which includes one of the following claims to access this resource: {string.Join(", ", authorizingClaimNames)}";
+                    $@"The API client has been assigned the '{claimSetName}' claim set. Assign a different claim set which includes one of the following claims to access this resource: {string.Join(", ", authorizingClaimNames)}";
 
                 return response;
             }

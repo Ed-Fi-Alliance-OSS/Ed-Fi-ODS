@@ -5,23 +5,23 @@
 
 using System;
 using System.Linq;
-using System.Net;
 using System.Text.RegularExpressions;
 using Microsoft.Data.SqlClient;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
-using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Exceptions;
 using NHibernate.Exceptions;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 {
-    public class SqlServerUniqueIndexExceptionTranslator : IExceptionTranslator
+    public class SqlServerUniqueIndexExceptionTranslator : IProblemDetailsExceptionTranslator
     {
         private static readonly Regex _expression = new Regex(
             @"^Cannot insert duplicate key row in object '[a-z]+\.(?<TableName>\w+)' with unique index '(?<IndexName>\w+)'(?:\. The duplicate key value is (?<Values>\(.*\))\.)?|^Violation of UNIQUE KEY constraint '(?<IndexName>\w+)'. Cannot insert duplicate key in object '[a-z]+\.(?<TableName>\w+)'.");
-        private static readonly string singleMessageFormat = "The value {0} supplied for property '{1}' of entity '{2}' is not unique.";
-        private static readonly string multipleMessageFormat = "The values {0} supplied for properties '{1}' of entity '{2}' are not unique.";
+
+        private const string SingleMessageFormat = "The value {0} supplied for property '{1}' of entity '{2}' is not unique.";
+        private const string MultipleMessageFormat = "The values {0} supplied for properties '{1}' of entity '{2}' are not unique.";
+
         private readonly IDatabaseMetadataProvider _databaseMetadataProvider;
 
         public SqlServerUniqueIndexExceptionTranslator(IDatabaseMetadataProvider databaseMetadataProvider)
@@ -29,10 +29,8 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
             _databaseMetadataProvider = databaseMetadataProvider;
         }
 
-        public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
+        public bool TryTranslate(Exception ex, out IEdFiProblemDetails problemDetails)
         {
-            webServiceError = null;
-
             var exception = ex is GenericADOException
                 ? ex.InnerException
                 : ex;
@@ -43,11 +41,8 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 
                 if (match.Success)
                 {
-                    string indexName = match.Groups["IndexName"]
-                                            .Value;
-
-                    string values = match.Groups["Values"]
-                                         .Value;
+                    string indexName = match.Groups["IndexName"].Value;
+                    string values = match.Groups["Values"].Value;
 
                     if (string.IsNullOrWhiteSpace(values))
                     {
@@ -62,28 +57,25 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 
                     string columnNames = indexDetails == null
                         ? "unknown"
-                        : string.Join("', '", indexDetails.ColumnNames.Select<string, string>(x => x.ToCamelCase()));
+                        : string.Join("', '", indexDetails.ColumnNames.Select(x => x.ToCamelCase()));
 
                     string message;
 
                     if (indexDetails.ColumnNames.Count == 1)
                     {
-                        message = string.Format(singleMessageFormat, values, columnNames, tableName);
+                        message = string.Format(SingleMessageFormat, values, columnNames, tableName);
                     }
                     else
                     {
-                        message = string.Format(multipleMessageFormat, values, columnNames, tableName);
+                        message = string.Format(MultipleMessageFormat, values, columnNames, tableName);
                     }
 
-                    webServiceError = new RESTError
-                                      {
-                                          Code = (int) HttpStatusCode.Conflict, Type = "Conflict", Message = message
-                                      };
-
+                    problemDetails = new ConflictException(message);
                     return true;
                 }
             }
 
+            problemDetails = null;
             return false;
         }
     }

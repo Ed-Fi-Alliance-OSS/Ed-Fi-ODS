@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Utils.Profiles;
 
@@ -159,8 +160,7 @@ namespace EdFi.Ods.Common.Models.Resource
                     {
                         var profileNames = _profileResourceModels.Select(m => m.ProfileName);
 
-                        throw new ProfileContentTypeException(
-                            $"There is no {_usage} content type available to the caller for the '{fullName}' resource in the following profiles: '{string.Join("', '", profileNames)}'.");
+                        throw new ProfileMethodUsageException(_usage, $"There is no {_usage} content type available to the caller for the '{fullName}' resource in the following profiles: '{string.Join("', '", profileNames)}'.");
                     }
 
                     // Return all the profile-filtered versions of the resource

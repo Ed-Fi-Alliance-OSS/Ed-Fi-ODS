@@ -17,6 +17,7 @@ using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
@@ -255,7 +256,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                 A.CallTo(() =>
                         Given<IAuthorizationFilteringProvider>()
                             .GetAuthorizationFiltering(A<EdFiAuthorizationContext>.Ignored, A<AuthorizationBasisMetadata>.Ignored))
-                    .Throws(new EdFiSecurityException("Test exception"));
+                    .Throws(new SecurityException("Test exception"));
             }
 
             /// <summary>
@@ -287,7 +288,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
             [Assert]
             public void Should_throw_a_security_exception()
             {
-                ActualException.ShouldBeOfType<EdFiSecurityException>();
+                ActualException.ShouldBeOfType<SecurityException>();
             }
         }
 

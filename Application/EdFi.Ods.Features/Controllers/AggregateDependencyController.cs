@@ -9,10 +9,10 @@ using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Constants;
-using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Models.GraphML;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models.Graphs;
@@ -70,7 +70,13 @@ namespace EdFi.Ods.Features.Controllers
                 string message = e.Message.Replace($"{Environment.NewLine}    is used by ", " -> ")
                     .Replace(Environment.NewLine, " ");
 
-                return BadRequest(ErrorTranslator.GetErrorMessage(message, (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
+                return BadRequest(
+                    new BadRequestException(
+                        "There was a problem preparing the resource dependency information.",
+                        new[] { message })
+                    {
+                        CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
+                    }.AsSerializableModel());
             }
         }
 

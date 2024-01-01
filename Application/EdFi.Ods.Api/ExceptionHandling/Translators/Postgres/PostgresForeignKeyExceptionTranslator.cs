@@ -5,18 +5,17 @@
 
 using System;
 using System.Linq;
-using System.Net;
 using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security.Claims;
 using NHibernate.Exceptions;
 using Npgsql;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 {
-    public class PostgresForeignKeyExceptionTranslator : IExceptionTranslator
+    public class PostgresForeignKeyExceptionTranslator : IProblemDetailsExceptionTranslator
     {
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
         
@@ -30,16 +29,14 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
         {
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
         }
-        
-        public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
-        {
-            webServiceError = null;
 
-            var exception = ex is GenericADOException
+        public bool TryTranslate(Exception ex, out IEdFiProblemDetails problemDetails)
+        {
+            var exceptionToEvaluate = ex is GenericADOException
                 ? ex.InnerException
                 : ex;
 
-            if (exception is PostgresException postgresException)
+            if (exceptionToEvaluate is PostgresException postgresException)
             {
                 if (postgresException.SqlState == PostgresSqlStates.ForeignKeyViolation)
                 {
@@ -60,7 +57,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                             ? NoDetailsUpdateOrDeleteMessage
                             : NoDetailsInsertOrUpdateMessage;
 
-                        webServiceError = CreateError(noDetailsMessage);
+                        problemDetails = new ConflictException(noDetailsMessage);
 
                         return true;
                     }
@@ -69,25 +66,13 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                         ? string.Format(UpdateOrDeleteMessageFormat, association.ThisEntity.Name)
                         : string.Format(InsertOrUpdateMessageFormat, association.OtherEntity.Name);
 
-                    webServiceError = new RESTError
-                    {
-                        Code = (int) HttpStatusCode.Conflict,
-                        Type = "Conflict",
-                        Message = message
-                    };
-
+                    problemDetails = new ConflictException(message);
                     return true;
                 }
             }
 
+            problemDetails = null;
             return false;
-
-            RESTError CreateError(string message) => new RESTError
-            {
-                Code = (int)HttpStatusCode.Conflict,
-                Type = "Conflict",
-                Message = message
-            };
         }
     }
 }

@@ -3,34 +3,49 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
-using System.Runtime.Serialization;
+using System.Collections.Generic;
 using EdFi.Ods.Common.Utils.Profiles;
+using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Common.Exceptions;
 
-public class ProfileContentTypeUsageException : Exception
+public class ProfileContentTypeUsageException : EdFiProblemDetailsExceptionBase
 {
-    public ProfileContentTypeUsageException() { }
+    // Fields containing override values for Problem Details
+    public const string TypePart = "profile:invalid-content-type";
+    public const string TitleText = "Invalid Profile Usage";
+    private const int StatusValue = StatusCodes.Status400BadRequest;
 
-    public ProfileContentTypeUsageException(string message, string profileName, ContentTypeUsage contentTypeUsage)
-        : base(message)
+    public const string DefaultDetail = "Usage of the API Profiles feature was incorrect.";
+
+    public ProfileContentTypeUsageException(string detail, string error, string profileName, ContentTypeUsage contentTypeUsage)
+        : base(detail, error)
     {
         ProfileName = profileName;
         ContentTypeUsage = contentTypeUsage;
+        
+        ((IEdFiProblemDetails)this).Errors = new[] { error };
     }
-
-    public ProfileContentTypeUsageException(string message, string profileName, ContentTypeUsage contentTypeUsage, Exception innerException)
-        : base(message, innerException)
-    {
-        ProfileName = profileName;
-        ContentTypeUsage = contentTypeUsage;
-    }
-
-    protected ProfileContentTypeUsageException(SerializationInfo info, StreamingContext context)
-        : base(info, context) { }
 
     public string ProfileName { get; }
 
     public ContentTypeUsage ContentTypeUsage { get; }
+    
+    // ---------------------------
+    //  Boilerplate for overrides
+    // ---------------------------
+    public override string Title { get => TitleText; }
+
+    public override int Status { get => StatusValue; }
+    
+    protected override IEnumerable<string> GetTypeParts()
+    {
+        foreach (var part in base.GetTypeParts())
+        {
+            yield return part;
+        }
+
+        yield return TypePart;
+    }
+    // ---------------------------
 }

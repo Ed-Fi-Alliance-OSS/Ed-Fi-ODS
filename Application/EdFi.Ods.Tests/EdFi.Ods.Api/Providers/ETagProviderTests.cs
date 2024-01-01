@@ -8,6 +8,7 @@ using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Exceptions;
 using NUnit.Framework;
+using Shouldly;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api
 {
@@ -127,7 +128,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api
         public void When_GetDateTime_input_invalid__throw_()
         {
             const string etag = "-0080000000000058000"; //invalid DateTime test
-            Assert.Throws<BadRequestException>(() => _eTagProvider.GetDateTime(etag));
+            Assert.Throws<BadRequestParameterException>(() => _eTagProvider.GetDateTime(etag))
+                .ShouldSatisfyAllConditions(
+                    ex => ex.Detail.ShouldBe("An invalid value was provided for use in detecting changes applied by other users."),
+                    ex => (ex as IEdFiProblemDetails).Errors.ShouldContain("An invalid ETag value was provided that could not be processed back into a Date/Time value."));
         }
 
         [Test]
