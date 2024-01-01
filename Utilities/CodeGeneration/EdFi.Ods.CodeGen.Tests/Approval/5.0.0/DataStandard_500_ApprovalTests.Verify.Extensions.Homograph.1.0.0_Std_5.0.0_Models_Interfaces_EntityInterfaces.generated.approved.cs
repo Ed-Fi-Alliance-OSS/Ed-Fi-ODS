@@ -18,9 +18,9 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IContact : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string ContactFirstName { get; set; }
-        [NaturalKeyMember]
+        
         string ContactLastSurname { get; set; }
 
         // Non-PK properties
@@ -81,9 +81,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IContactAddress : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IContact Contact { get; set; }
-        [NaturalKeyMember]
+        
         string City { get; set; }
 
         // Non-PK properties
@@ -124,13 +123,12 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IContactStudentSchoolAssociation : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IContact Contact { get; set; }
-        [NaturalKeyMember]
+        
         string SchoolName { get; set; }
-        [NaturalKeyMember]
+        
         string StudentFirstName { get; set; }
-        [NaturalKeyMember]
+        
         string StudentLastSurname { get; set; }
 
         // Non-PK properties
@@ -173,9 +171,9 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IName : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string FirstName { get; set; }
-        [NaturalKeyMember]
+        
         string LastSurname { get; set; }
 
         // Non-PK properties
@@ -216,7 +214,7 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface ISchool : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string SchoolName { get; set; }
 
         // Non-PK properties
@@ -272,7 +270,6 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface ISchoolAddress : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ISchool School { get; set; }
 
         // Non-PK properties
@@ -319,7 +316,7 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface ISchoolYearType : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string SchoolYear { get; set; }
 
         // Non-PK properties
@@ -360,9 +357,9 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IStaff : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string StaffFirstName { get; set; }
-        [NaturalKeyMember]
+        
         string StaffLastSurname { get; set; }
 
         // Non-PK properties
@@ -423,9 +420,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IStaffAddress : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStaff Staff { get; set; }
-        [NaturalKeyMember]
+        
         string City { get; set; }
 
         // Non-PK properties
@@ -466,13 +462,12 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IStaffStudentSchoolAssociation : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStaff Staff { get; set; }
-        [NaturalKeyMember]
+        
         string SchoolName { get; set; }
-        [NaturalKeyMember]
+        
         string StudentFirstName { get; set; }
-        [NaturalKeyMember]
+        
         string StudentLastSurname { get; set; }
 
         // Non-PK properties
@@ -515,9 +510,9 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IStudent : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string StudentFirstName { get; set; }
-        [NaturalKeyMember]
+        
         string StudentLastSurname { get; set; }
 
         // Non-PK properties
@@ -575,9 +570,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IStudentAddress : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudent Student { get; set; }
-        [NaturalKeyMember]
+        
         string City { get; set; }
 
         // Non-PK properties
@@ -618,11 +612,11 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IStudentSchoolAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string SchoolName { get; set; }
-        [NaturalKeyMember]
+        
         string StudentFirstName { get; set; }
-        [NaturalKeyMember]
+        
         string StudentLastSurname { get; set; }
 
         // Non-PK properties

@@ -18,13 +18,13 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTransportation
     public interface IStudentTransportation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string AMBusNumber { get; set; }
-        [NaturalKeyMember]
+        
         string PMBusNumber { get; set; }
-        [NaturalKeyMember]
+        
         long SchoolId { get; set; }
-        [NaturalKeyMember]
+        
         string StudentUniqueId { get; set; }
 
         // Non-PK properties

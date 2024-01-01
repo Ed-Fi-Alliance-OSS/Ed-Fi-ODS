@@ -19,7 +19,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IAccreditationStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int AccreditationStatusDescriptorId { get; set; }
 
         // Non-PK properties
@@ -90,7 +90,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IAidTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int AidTypeDescriptorId { get; set; }
 
         // Non-PK properties
@@ -161,7 +161,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidate : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string CandidateIdentifier { get; set; }
 
         // Non-PK properties
@@ -432,17 +432,16 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateAddress : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidate Candidate { get; set; }
-        [NaturalKeyMember]
+        
         string AddressTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string City { get; set; }
-        [NaturalKeyMember]
+        
         string PostalCode { get; set; }
-        [NaturalKeyMember]
+        
         string StateAbbreviationDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string StreetNumberName { get; set; }
 
         // Non-PK properties
@@ -546,9 +545,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateAddressPeriod : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidateAddress CandidateAddress { get; set; }
-        [NaturalKeyMember]
+        
         DateTime BeginDate { get; set; }
 
         // Non-PK properties
@@ -595,9 +593,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateDisability : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidate Candidate { get; set; }
-        [NaturalKeyMember]
+        
         string DisabilityDescriptor { get; set; }
 
         // Non-PK properties
@@ -665,9 +662,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateDisabilityDesignation : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidateDisability CandidateDisability { get; set; }
-        [NaturalKeyMember]
+        
         string DisabilityDesignationDescriptor { get; set; }
 
         // Non-PK properties
@@ -708,15 +704,15 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateEducatorPreparationProgramAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         DateTime BeginDate { get; set; }
-        [NaturalKeyMember]
+        
         string CandidateIdentifier { get; set; }
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string ProgramName { get; set; }
-        [NaturalKeyMember]
+        
         string ProgramTypeDescriptor { get; set; }
 
         // Non-PK properties
@@ -797,11 +793,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateEducatorPreparationProgramAssociationCohortYear : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation { get; set; }
-        [NaturalKeyMember]
+        
         string CohortYearTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
 
         // Non-PK properties
@@ -849,9 +844,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateEducatorPreparationProgramAssociationDegreeSpecialization : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation { get; set; }
-        [NaturalKeyMember]
+        
         string MajorSpecialization { get; set; }
 
         // Non-PK properties
@@ -904,11 +898,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateElectronicMail : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidate Candidate { get; set; }
-        [NaturalKeyMember]
+        
         string ElectronicMailAddress { get; set; }
-        [NaturalKeyMember]
+        
         string ElectronicMailTypeDescriptor { get; set; }
 
         // Non-PK properties
@@ -961,9 +954,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateLanguage : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidate Candidate { get; set; }
-        [NaturalKeyMember]
+        
         string LanguageDescriptor { get; set; }
 
         // Non-PK properties
@@ -1013,9 +1005,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateLanguageUse : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidateLanguage CandidateLanguage { get; set; }
-        [NaturalKeyMember]
+        
         string LanguageUseDescriptor { get; set; }
 
         // Non-PK properties
@@ -1056,9 +1047,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateOtherName : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidate Candidate { get; set; }
-        [NaturalKeyMember]
+        
         string OtherNameTypeDescriptor { get; set; }
 
         // Non-PK properties
@@ -1129,11 +1119,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidatePersonalIdentificationDocument : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidate Candidate { get; set; }
-        [NaturalKeyMember]
+        
         string IdentificationDocumentUseDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string PersonalInformationVerificationDescriptor { get; set; }
 
         // Non-PK properties
@@ -1204,9 +1193,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateRace : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidate Candidate { get; set; }
-        [NaturalKeyMember]
+        
         string RaceDescriptor { get; set; }
 
         // Non-PK properties
@@ -1247,11 +1235,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateTelephone : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidate Candidate { get; set; }
-        [NaturalKeyMember]
+        
         string TelephoneNumber { get; set; }
-        [NaturalKeyMember]
+        
         string TelephoneNumberTypeDescriptor { get; set; }
 
         // Non-PK properties
@@ -1310,7 +1297,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICertificationRouteDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int CertificationRouteDescriptorId { get; set; }
 
         // Non-PK properties
@@ -1381,7 +1368,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICoteachingStyleObservedDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int CoteachingStyleObservedDescriptorId { get; set; }
 
         // Non-PK properties
@@ -1452,7 +1439,6 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICredentialExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.ICredential Credential { get; set; }
 
         // Non-PK properties
@@ -1552,7 +1538,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICredentialStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int CredentialStatusDescriptorId { get; set; }
 
         // Non-PK properties
@@ -1623,15 +1609,14 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICredentialStudentAcademicRecord : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICredentialExtension CredentialExtension { get; set; }
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string StudentUniqueId { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -1674,11 +1659,11 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEducatorPreparationProgram : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string ProgramName { get; set; }
-        [NaturalKeyMember]
+        
         string ProgramTypeDescriptor { get; set; }
 
         // Non-PK properties
@@ -1742,9 +1727,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEducatorPreparationProgramGradeLevel : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IEducatorPreparationProgram EducatorPreparationProgram { get; set; }
-        [NaturalKeyMember]
+        
         string GradeLevelDescriptor { get; set; }
 
         // Non-PK properties
@@ -1785,7 +1769,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEducatorRoleDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int EducatorRoleDescriptorId { get; set; }
 
         // Non-PK properties
@@ -1856,7 +1840,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEnglishLanguageExamDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int EnglishLanguageExamDescriptorId { get; set; }
 
         // Non-PK properties
@@ -1927,7 +1911,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEPPProgramPathwayDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int EPPProgramPathwayDescriptorId { get; set; }
 
         // Non-PK properties
@@ -1998,19 +1982,19 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationPeriodDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -2092,23 +2076,23 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationElement : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationElementTitle { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationObjectiveTitle { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationPeriodDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -2184,29 +2168,29 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationElementRating : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         DateTime EvaluationDate { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationElementTitle { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationObjectiveTitle { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationPeriodDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string PersonId { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string SourceSystemDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -2290,9 +2274,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationElementRatingLevel : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IEvaluationElement EvaluationElement { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationRatingLevelDescriptor { get; set; }
 
         // Non-PK properties
@@ -2345,7 +2328,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationElementRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int EvaluationElementRatingLevelDescriptorId { get; set; }
 
         // Non-PK properties
@@ -2416,11 +2399,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationElementRatingResult : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IEvaluationElementRating EvaluationElementRating { get; set; }
-        [NaturalKeyMember]
+        
         decimal Rating { get; set; }
-        [NaturalKeyMember]
+        
         string RatingResultTitle { get; set; }
 
         // Non-PK properties
@@ -2467,21 +2449,21 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationObjective : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationObjectiveTitle { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationPeriodDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -2563,27 +2545,27 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationObjectiveRating : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         DateTime EvaluationDate { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationObjectiveTitle { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationPeriodDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string PersonId { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string SourceSystemDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -2649,9 +2631,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationObjectiveRatingLevel : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IEvaluationObjective EvaluationObjective { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationRatingLevelDescriptor { get; set; }
 
         // Non-PK properties
@@ -2704,11 +2685,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationObjectiveRatingResult : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IEvaluationObjectiveRating EvaluationObjectiveRating { get; set; }
-        [NaturalKeyMember]
+        
         decimal Rating { get; set; }
-        [NaturalKeyMember]
+        
         string RatingResultTitle { get; set; }
 
         // Non-PK properties
@@ -2755,7 +2735,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationPeriodDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int EvaluationPeriodDescriptorId { get; set; }
 
         // Non-PK properties
@@ -2826,25 +2806,25 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationRating : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         DateTime EvaluationDate { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationPeriodDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string PersonId { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string SourceSystemDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -2945,9 +2925,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationRatingLevel : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IEvaluation Evaluation { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationRatingLevelDescriptor { get; set; }
 
         // Non-PK properties
@@ -3000,7 +2979,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int EvaluationRatingLevelDescriptorId { get; set; }
 
         // Non-PK properties
@@ -3071,11 +3050,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationRatingResult : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IEvaluationRating EvaluationRating { get; set; }
-        [NaturalKeyMember]
+        
         decimal Rating { get; set; }
-        [NaturalKeyMember]
+        
         string RatingResultTitle { get; set; }
 
         // Non-PK properties
@@ -3122,11 +3100,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationRatingReviewer : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IEvaluationRating EvaluationRating { get; set; }
-        [NaturalKeyMember]
+        
         string FirstName { get; set; }
-        [NaturalKeyMember]
+        
         string LastSurname { get; set; }
 
         // Non-PK properties
@@ -3188,7 +3165,6 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationRatingReviewerReceivedTraining : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IEvaluationRatingReviewer EvaluationRatingReviewer { get; set; }
 
         // Non-PK properties
@@ -3241,7 +3217,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationRatingStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int EvaluationRatingStatusDescriptorId { get; set; }
 
         // Non-PK properties
@@ -3312,7 +3288,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int EvaluationTypeDescriptorId { get; set; }
 
         // Non-PK properties
@@ -3383,11 +3359,11 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IFinancialAid : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string AidTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         DateTime BeginDate { get; set; }
-        [NaturalKeyMember]
+        
         string StudentUniqueId { get; set; }
 
         // Non-PK properties
@@ -3454,7 +3430,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IGenderDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int GenderDescriptorId { get; set; }
 
         // Non-PK properties
@@ -3525,7 +3501,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IObjectiveRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int ObjectiveRatingLevelDescriptorId { get; set; }
 
         // Non-PK properties
@@ -3596,17 +3572,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IPerformanceEvaluation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationPeriodDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -3680,9 +3656,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IPerformanceEvaluationGradeLevel : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IPerformanceEvaluation PerformanceEvaluation { get; set; }
-        [NaturalKeyMember]
+        
         string GradeLevelDescriptor { get; set; }
 
         // Non-PK properties
@@ -3723,21 +3698,21 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IPerformanceEvaluationRating : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationPeriodDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string PersonId { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string SourceSystemDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -3848,9 +3823,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IPerformanceEvaluationRatingLevel : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IPerformanceEvaluation PerformanceEvaluation { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationRatingLevelDescriptor { get; set; }
 
         // Non-PK properties
@@ -3903,7 +3877,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IPerformanceEvaluationRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int PerformanceEvaluationRatingLevelDescriptorId { get; set; }
 
         // Non-PK properties
@@ -3974,11 +3948,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IPerformanceEvaluationRatingResult : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IPerformanceEvaluationRating PerformanceEvaluationRating { get; set; }
-        [NaturalKeyMember]
+        
         decimal Rating { get; set; }
-        [NaturalKeyMember]
+        
         string RatingResultTitle { get; set; }
 
         // Non-PK properties
@@ -4025,11 +3998,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IPerformanceEvaluationRatingReviewer : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IPerformanceEvaluationRating PerformanceEvaluationRating { get; set; }
-        [NaturalKeyMember]
+        
         string FirstName { get; set; }
-        [NaturalKeyMember]
+        
         string LastSurname { get; set; }
 
         // Non-PK properties
@@ -4091,7 +4063,6 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IPerformanceEvaluationRatingReviewerReceivedTraining : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IPerformanceEvaluationRatingReviewer PerformanceEvaluationRatingReviewer { get; set; }
 
         // Non-PK properties
@@ -4144,7 +4115,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IPerformanceEvaluationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int PerformanceEvaluationTypeDescriptorId { get; set; }
 
         // Non-PK properties
@@ -4215,25 +4186,25 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IRubricDimension : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationElementTitle { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationObjectiveTitle { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationPeriodDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         int RubricRating { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -4294,7 +4265,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IRubricRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int RubricRatingLevelDescriptorId { get; set; }
 
         // Non-PK properties
@@ -4365,7 +4336,6 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ISchoolExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.ISchool School { get; set; }
 
         // Non-PK properties
@@ -4413,7 +4383,6 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ISurveyResponseExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.ISurveyResponse SurveyResponse { get; set; }
 
         // Non-PK properties
@@ -4468,15 +4437,15 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ISurveyResponsePersonTargetAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string Namespace { get; set; }
-        [NaturalKeyMember]
+        
         string PersonId { get; set; }
-        [NaturalKeyMember]
+        
         string SourceSystemDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string SurveyIdentifier { get; set; }
-        [NaturalKeyMember]
+        
         string SurveyResponseIdentifier { get; set; }
 
         // Non-PK properties
@@ -4521,17 +4490,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ISurveySectionResponsePersonTargetAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string Namespace { get; set; }
-        [NaturalKeyMember]
+        
         string PersonId { get; set; }
-        [NaturalKeyMember]
+        
         string SourceSystemDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string SurveyIdentifier { get; set; }
-        [NaturalKeyMember]
+        
         string SurveyResponseIdentifier { get; set; }
-        [NaturalKeyMember]
+        
         string SurveySectionTitle { get; set; }
 
         // Non-PK properties
