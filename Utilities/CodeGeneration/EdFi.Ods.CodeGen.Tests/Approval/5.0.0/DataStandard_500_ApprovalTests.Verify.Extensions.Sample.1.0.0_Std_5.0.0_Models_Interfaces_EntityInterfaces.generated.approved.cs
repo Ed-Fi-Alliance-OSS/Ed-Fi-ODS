@@ -19,7 +19,7 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IArtMediumDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int ArtMediumDescriptorId { get; set; }
 
         // Non-PK properties
@@ -90,7 +90,7 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IBus : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string BusId { get; set; }
 
         // Non-PK properties
@@ -131,9 +131,9 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IBusRoute : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string BusId { get; set; }
-        [NaturalKeyMember]
+        
         int BusRouteNumber { get; set; }
 
         // Non-PK properties
@@ -305,9 +305,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IBusRouteBusYear : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IBusRoute BusRoute { get; set; }
-        [NaturalKeyMember]
+        
         short BusYear { get; set; }
 
         // Non-PK properties
@@ -348,13 +347,12 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IBusRouteProgram : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IBusRoute BusRoute { get; set; }
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string ProgramName { get; set; }
-        [NaturalKeyMember]
+        
         string ProgramTypeDescriptor { get; set; }
 
         // Non-PK properties
@@ -397,9 +395,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IBusRouteServiceAreaPostalCode : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IBusRoute BusRoute { get; set; }
-        [NaturalKeyMember]
+        
         string ServiceAreaPostalCode { get; set; }
 
         // Non-PK properties
@@ -440,9 +437,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IBusRouteStartTime : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IBusRoute BusRoute { get; set; }
-        [NaturalKeyMember]
+        
         TimeSpan StartTime { get; set; }
 
         // Non-PK properties
@@ -483,11 +479,10 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IBusRouteTelephone : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IBusRoute BusRoute { get; set; }
-        [NaturalKeyMember]
+        
         string TelephoneNumber { get; set; }
-        [NaturalKeyMember]
+        
         string TelephoneNumberTypeDescriptor { get; set; }
 
         // Non-PK properties
@@ -546,7 +541,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IContactAddressExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.IContactAddress ContactAddress { get; set; }
 
         // Non-PK properties
@@ -617,9 +611,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IContactAddressSchoolDistrict : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IContactAddressExtension ContactAddressExtension { get; set; }
-        [NaturalKeyMember]
+        
         string SchoolDistrict { get; set; }
 
         // Non-PK properties
@@ -660,9 +653,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IContactAddressTerm : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IContactAddressExtension ContactAddressExtension { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -703,9 +695,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IContactAuthor : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IContactExtension ContactExtension { get; set; }
-        [NaturalKeyMember]
+        
         string Author { get; set; }
 
         // Non-PK properties
@@ -746,9 +737,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IContactCeilingHeight : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IContactExtension ContactExtension { get; set; }
-        [NaturalKeyMember]
+        
         decimal CeilingHeight { get; set; }
 
         // Non-PK properties
@@ -789,7 +779,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IContactCTEProgram : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IContactExtension ContactExtension { get; set; }
 
         // Non-PK properties
@@ -854,9 +843,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IContactEducationContent : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IContactExtension ContactExtension { get; set; }
-        [NaturalKeyMember]
+        
         string ContentIdentifier { get; set; }
 
         // Non-PK properties
@@ -899,7 +887,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IContactExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.IContact Contact { get; set; }
 
         // Non-PK properties
@@ -1065,9 +1052,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IContactFavoriteBookTitle : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IContactExtension ContactExtension { get; set; }
-        [NaturalKeyMember]
+        
         string FavoriteBookTitle { get; set; }
 
         // Non-PK properties
@@ -1108,19 +1094,18 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IContactStudentProgramAssociation : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IContactExtension ContactExtension { get; set; }
-        [NaturalKeyMember]
+        
         DateTime BeginDate { get; set; }
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         long ProgramEducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string ProgramName { get; set; }
-        [NaturalKeyMember]
+        
         string ProgramTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string StudentUniqueId { get; set; }
 
         // Non-PK properties
@@ -1162,7 +1147,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IContactTeacherConference : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IContactExtension ContactExtension { get; set; }
 
         // Non-PK properties
@@ -1221,7 +1205,7 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IFavoriteBookCategoryDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int FavoriteBookCategoryDescriptorId { get; set; }
 
         // Non-PK properties
@@ -1292,7 +1276,7 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IMembershipTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int MembershipTypeDescriptorId { get; set; }
 
         // Non-PK properties
@@ -1363,7 +1347,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface ISchoolCTEProgram : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ISchoolExtension SchoolExtension { get; set; }
 
         // Non-PK properties
@@ -1428,9 +1411,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface ISchoolDirectlyOwnedBus : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ISchoolExtension SchoolExtension { get; set; }
-        [NaturalKeyMember]
+        
         string DirectlyOwnedBusId { get; set; }
 
         // Non-PK properties
@@ -1473,7 +1455,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface ISchoolExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.ISchool School { get; set; }
 
         // Non-PK properties
@@ -1536,7 +1517,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStaffExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.IStaff Staff { get; set; }
 
         // Non-PK properties
@@ -1599,9 +1579,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStaffPet : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStaffExtension StaffExtension { get; set; }
-        [NaturalKeyMember]
+        
         string PetName { get; set; }
 
         // Non-PK properties
@@ -1648,7 +1627,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStaffPetPreference : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStaffExtension StaffExtension { get; set; }
 
         // Non-PK properties
@@ -1701,11 +1679,10 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentAquaticPet : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentExtension StudentExtension { get; set; }
-        [NaturalKeyMember]
+        
         int MimimumTankVolume { get; set; }
-        [NaturalKeyMember]
+        
         string PetName { get; set; }
 
         // Non-PK properties
@@ -1916,9 +1893,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentArtProgramAssociationArtMedium : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentArtProgramAssociation StudentArtProgramAssociation { get; set; }
-        [NaturalKeyMember]
+        
         string ArtMediumDescriptor { get; set; }
 
         // Non-PK properties
@@ -1959,9 +1935,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentArtProgramAssociationPortfolioYears : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentArtProgramAssociation StudentArtProgramAssociation { get; set; }
-        [NaturalKeyMember]
+        
         short PortfolioYears { get; set; }
 
         // Non-PK properties
@@ -2002,9 +1977,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentArtProgramAssociationService : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentArtProgramAssociation StudentArtProgramAssociation { get; set; }
-        [NaturalKeyMember]
+        
         string ServiceDescriptor { get; set; }
 
         // Non-PK properties
@@ -2063,9 +2037,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentArtProgramAssociationStyle : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentArtProgramAssociation StudentArtProgramAssociation { get; set; }
-        [NaturalKeyMember]
+        
         string Style { get; set; }
 
         // Non-PK properties
@@ -2106,9 +2079,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentContactAssociationDiscipline : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentContactAssociationExtension StudentContactAssociationExtension { get; set; }
-        [NaturalKeyMember]
+        
         string DisciplineDescriptor { get; set; }
 
         // Non-PK properties
@@ -2149,7 +2121,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentContactAssociationExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.IStudentContactAssociation StudentContactAssociation { get; set; }
 
         // Non-PK properties
@@ -2322,9 +2293,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentContactAssociationFavoriteBookTitle : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentContactAssociationExtension StudentContactAssociationExtension { get; set; }
-        [NaturalKeyMember]
+        
         string FavoriteBookTitle { get; set; }
 
         // Non-PK properties
@@ -2365,9 +2335,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentContactAssociationHoursPerWeek : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentContactAssociationExtension StudentContactAssociationExtension { get; set; }
-        [NaturalKeyMember]
+        
         decimal HoursPerWeek { get; set; }
 
         // Non-PK properties
@@ -2408,9 +2377,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentContactAssociationPagesRead : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentContactAssociationExtension StudentContactAssociationExtension { get; set; }
-        [NaturalKeyMember]
+        
         decimal PagesRead { get; set; }
 
         // Non-PK properties
@@ -2451,15 +2419,14 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentContactAssociationStaffEducationOrganizationEmploymentAssociation : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentContactAssociationExtension StudentContactAssociationExtension { get; set; }
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string EmploymentStatusDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         DateTime HireDate { get; set; }
-        [NaturalKeyMember]
+        
         string StaffUniqueId { get; set; }
 
         // Non-PK properties
@@ -2502,7 +2469,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentContactAssociationTelephone : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentContactAssociationExtension StudentContactAssociationExtension { get; set; }
 
         // Non-PK properties
@@ -2573,7 +2539,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentCTEProgramAssociationExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.IStudentCTEProgramAssociation StudentCTEProgramAssociation { get; set; }
 
         // Non-PK properties
@@ -2626,7 +2591,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentEducationOrganizationAssociationAddressExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.IStudentEducationOrganizationAssociationAddress StudentEducationOrganizationAssociationAddress { get; set; }
 
         // Non-PK properties
@@ -2697,9 +2661,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentEducationOrganizationAssociationAddressSchoolDistrict : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentEducationOrganizationAssociationAddressExtension StudentEducationOrganizationAssociationAddressExtension { get; set; }
-        [NaturalKeyMember]
+        
         string SchoolDistrict { get; set; }
 
         // Non-PK properties
@@ -2740,9 +2703,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentEducationOrganizationAssociationAddressTerm : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentEducationOrganizationAssociationAddressExtension StudentEducationOrganizationAssociationAddressExtension { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -2783,7 +2745,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentEducationOrganizationAssociationExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.IStudentEducationOrganizationAssociation StudentEducationOrganizationAssociation { get; set; }
 
         // Non-PK properties
@@ -2838,7 +2799,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentEducationOrganizationAssociationStudentCharacteristicExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.IStudentEducationOrganizationAssociationStudentCharacteristic StudentEducationOrganizationAssociationStudentCharacteristic { get; set; }
 
         // Non-PK properties
@@ -2888,9 +2848,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentEducationOrganizationAssociationStudentCharacteristicExtension StudentEducationOrganizationAssociationStudentCharacteristicExtension { get; set; }
-        [NaturalKeyMember]
+        
         DateTime BeginDate { get; set; }
 
         // Non-PK properties
@@ -2943,7 +2902,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.IStudent Student { get; set; }
 
         // Non-PK properties
@@ -3018,9 +2976,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentFavoriteBook : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentExtension StudentExtension { get; set; }
-        [NaturalKeyMember]
+        
         string FavoriteBookCategoryDescriptor { get; set; }
 
         // Non-PK properties
@@ -3076,9 +3033,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentFavoriteBookArtMedium : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentFavoriteBook StudentFavoriteBook { get; set; }
-        [NaturalKeyMember]
+        
         string ArtMediumDescriptor { get; set; }
 
         // Non-PK properties
@@ -3125,13 +3081,13 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentGraduationPlanAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string GraduationPlanTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         short GraduationSchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string StudentUniqueId { get; set; }
 
         // Non-PK properties
@@ -3302,9 +3258,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentGraduationPlanAssociationAcademicSubject : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentGraduationPlanAssociation StudentGraduationPlanAssociation { get; set; }
-        [NaturalKeyMember]
+        
         string AcademicSubjectDescriptor { get; set; }
 
         // Non-PK properties
@@ -3345,9 +3300,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentGraduationPlanAssociationCareerPathwayCode : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentGraduationPlanAssociation StudentGraduationPlanAssociation { get; set; }
-        [NaturalKeyMember]
+        
         int CareerPathwayCode { get; set; }
 
         // Non-PK properties
@@ -3388,7 +3342,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentGraduationPlanAssociationCTEProgram : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentGraduationPlanAssociation StudentGraduationPlanAssociation { get; set; }
 
         // Non-PK properties
@@ -3453,9 +3406,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentGraduationPlanAssociationDescription : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentGraduationPlanAssociation StudentGraduationPlanAssociation { get; set; }
-        [NaturalKeyMember]
+        
         string Description { get; set; }
 
         // Non-PK properties
@@ -3496,9 +3448,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentGraduationPlanAssociationDesignatedBy : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentGraduationPlanAssociation StudentGraduationPlanAssociation { get; set; }
-        [NaturalKeyMember]
+        
         string DesignatedBy { get; set; }
 
         // Non-PK properties
@@ -3539,9 +3490,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentGraduationPlanAssociationIndustryCredential : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentGraduationPlanAssociation StudentGraduationPlanAssociation { get; set; }
-        [NaturalKeyMember]
+        
         string IndustryCredential { get; set; }
 
         // Non-PK properties
@@ -3582,9 +3532,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentGraduationPlanAssociationStudentContactAssociation : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentGraduationPlanAssociation StudentGraduationPlanAssociation { get; set; }
-        [NaturalKeyMember]
+        
         string ContactUniqueId { get; set; }
 
         // Non-PK properties
@@ -3627,9 +3576,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentGraduationPlanAssociationYearsAttended : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentGraduationPlanAssociation StudentGraduationPlanAssociation { get; set; }
-        [NaturalKeyMember]
+        
         short YearsAttended { get; set; }
 
         // Non-PK properties
@@ -3670,9 +3618,8 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentPet : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentExtension StudentExtension { get; set; }
-        [NaturalKeyMember]
+        
         string PetName { get; set; }
 
         // Non-PK properties
@@ -3719,7 +3666,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentPetPreference : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentExtension StudentExtension { get; set; }
 
         // Non-PK properties
@@ -3772,7 +3718,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentSchoolAssociationExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.IStudentSchoolAssociation StudentSchoolAssociation { get; set; }
 
         // Non-PK properties
@@ -3819,7 +3764,6 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentSectionAssociationExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.IStudentSectionAssociation StudentSectionAssociation { get; set; }
 
         // Non-PK properties
@@ -3869,17 +3813,16 @@ namespace EdFi.Ods.Entities.Common.Sample
     public interface IStudentSectionAssociationRelatedGeneralStudentProgramAssociation : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudentSectionAssociationExtension StudentSectionAssociationExtension { get; set; }
-        [NaturalKeyMember]
+        
         DateTime RelatedBeginDate { get; set; }
-        [NaturalKeyMember]
+        
         long RelatedEducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         long RelatedProgramEducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string RelatedProgramName { get; set; }
-        [NaturalKeyMember]
+        
         string RelatedProgramTypeDescriptor { get; set; }
 
         // Non-PK properties
