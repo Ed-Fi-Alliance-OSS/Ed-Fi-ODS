@@ -5,7 +5,6 @@ using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Runtime.Serialization;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Attributes;
@@ -31,7 +30,7 @@ namespace EdFi.Ods.Entities.NHibernate.ArtMediumDescriptorAggregate.Sample
     /// <summary>
     /// A class which represents the sample.ArtMediumDescriptor table of the ArtMediumDescriptor aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ArtMediumDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.Sample.IArtMediumDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
@@ -286,7 +285,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
     /// <summary>
     /// A class which represents the sample.Bus table of the Bus aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class Bus : AggregateRootWithCompositeKey,
         Entities.Common.Sample.IBus, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -302,7 +301,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string BusId  { get; set; }
         // -------------------------------------------------------------
 
@@ -515,7 +514,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     /// <summary>
     /// A class which represents the sample.BusRoute table of the BusRoute aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class BusRoute : AggregateRootWithCompositeKey,
         Entities.Common.Sample.IBusRoute, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -536,9 +535,9 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string BusId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual int BusRouteNumber  { get; set; }
         // -------------------------------------------------------------
 
@@ -569,9 +568,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private DateTime? _beginDate;
         
-        [RequiredWithNonDefault, StringLength(15, MinimumLength=0), NoDangerousText]
         public virtual string BusRouteDirection  { get; set; }
-        [Range(1, 2147483647)]
         public virtual int? BusRouteDuration  { get; set; }
         public virtual bool? Daily  { get; set; }
         public virtual int? DisabilityDescriptorId 
@@ -609,13 +606,9 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             }
         }
         public virtual long? EducationOrganizationId  { get; set; }
-        [RequiredWithNonDefault, StringLength(30, MinimumLength=0), NoDangerousText]
         public virtual string ExpectedTransitTime  { get; set; }
-        [Range(typeof(decimal), "-999.99", "999.99")]
         public virtual decimal HoursPerWeek  { get; set; }
-        [Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807")]
         public virtual decimal OperatingCost  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
         public virtual decimal? OptimalCapacity  { get; set; }
         public virtual int? StaffClassificationDescriptorId 
         {
@@ -722,7 +715,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private DateTime? _startDate;
         
-        [Range(typeof(decimal), "-999.99", "999.99")]
         public virtual decimal? WeeklyMileage  { get; set; }
         // -------------------------------------------------------------
 
@@ -767,7 +759,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteBusYear> _busRouteBusYears;
         private ICollection<Entities.Common.Sample.IBusRouteBusYear> _busRouteBusYearsCovariant;
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteBusYear> BusRouteBusYears
         {
             get
@@ -815,7 +806,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteProgram> _busRoutePrograms;
         private ICollection<Entities.Common.Sample.IBusRouteProgram> _busRouteProgramsCovariant;
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteProgram> BusRoutePrograms
         {
             get
@@ -863,8 +853,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteServiceAreaPostalCode> _busRouteServiceAreaPostalCodes;
         private ICollection<Entities.Common.Sample.IBusRouteServiceAreaPostalCode> _busRouteServiceAreaPostalCodesCovariant;
-        [RequiredCollection]
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteServiceAreaPostalCode> BusRouteServiceAreaPostalCodes
         {
             get
@@ -912,8 +900,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteStartTime> _busRouteStartTimes;
         private ICollection<Entities.Common.Sample.IBusRouteStartTime> _busRouteStartTimesCovariant;
-        [RequiredCollection]
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteStartTime> BusRouteStartTimes
         {
             get
@@ -961,8 +947,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteTelephone> _busRouteTelephones;
         private ICollection<Entities.Common.Sample.IBusRouteTelephone> _busRouteTelephonesCovariant;
-        [RequiredCollection]
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteTelephone> BusRouteTelephones
         {
             get
@@ -1108,7 +1092,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     /// <summary>
     /// A class which represents the sample.BusRouteBusYear table of the BusRoute aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class BusRouteBusYear : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IBusRouteBusYear, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -1124,7 +1108,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual BusRoute BusRoute { get; set; }
 
         Entities.Common.Sample.IBusRoute IBusRouteBusYear.BusRoute
@@ -1133,7 +1117,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             set { BusRoute = (BusRoute) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual short BusYear  { get; set; }
         // -------------------------------------------------------------
 
@@ -1267,7 +1251,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     /// <summary>
     /// A class which represents the sample.BusRouteProgram table of the BusRoute aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class BusRouteProgram : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IBusRouteProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -1283,7 +1267,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual BusRoute BusRoute { get; set; }
 
         Entities.Common.Sample.IBusRoute IBusRouteProgram.BusRoute
@@ -1292,11 +1276,11 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             set { BusRoute = (BusRoute) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual long EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string ProgramName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual int ProgramTypeDescriptorId 
         {
             get
@@ -1486,7 +1470,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     /// <summary>
     /// A class which represents the sample.BusRouteServiceAreaPostalCode table of the BusRoute aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class BusRouteServiceAreaPostalCode : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IBusRouteServiceAreaPostalCode, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -1502,7 +1486,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual BusRoute BusRoute { get; set; }
 
         Entities.Common.Sample.IBusRoute IBusRouteServiceAreaPostalCode.BusRoute
@@ -1511,7 +1495,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             set { BusRoute = (BusRoute) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(17, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string ServiceAreaPostalCode  { get; set; }
         // -------------------------------------------------------------
 
@@ -1645,7 +1629,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     /// <summary>
     /// A class which represents the sample.BusRouteStartTime table of the BusRoute aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class BusRouteStartTime : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IBusRouteStartTime, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -1661,7 +1645,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual BusRoute BusRoute { get; set; }
 
         Entities.Common.Sample.IBusRoute IBusRouteStartTime.BusRoute
@@ -1670,7 +1654,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             set { BusRoute = (BusRoute) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual TimeSpan StartTime  { get; set; }
         // -------------------------------------------------------------
 
@@ -1804,7 +1788,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     /// <summary>
     /// A class which represents the sample.BusRouteTelephone table of the BusRoute aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class BusRouteTelephone : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IBusRouteTelephone, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -1820,7 +1804,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual BusRoute BusRoute { get; set; }
 
         Entities.Common.Sample.IBusRoute IBusRouteTelephone.BusRoute
@@ -1829,9 +1813,9 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             set { BusRoute = (BusRoute) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(24, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string TelephoneNumber  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual int TelephoneNumberTypeDescriptorId 
         {
             get
@@ -1877,7 +1861,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         public virtual bool? DoNotPublishIndicator  { get; set; }
-        [Range(1, 2147483647)]
         public virtual int? OrderOfPriority  { get; set; }
         public virtual bool? TextMessageCapabilityIndicator  { get; set; }
         // -------------------------------------------------------------
@@ -2009,7 +1992,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
     /// <summary>
     /// A class which represents the sample.ContactAddressSchoolDistrict table of the Contact aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ContactAddressSchoolDistrict : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IContactAddressSchoolDistrict, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -2025,7 +2008,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.ContactAddress ContactAddress { get; set; }
 
         Entities.Common.Sample.IContactAddressExtension IContactAddressSchoolDistrict.ContactAddressExtension
@@ -2034,7 +2017,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
             set { ContactAddress.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(250, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string SchoolDistrict  { get; set; }
         // -------------------------------------------------------------
 
@@ -2170,7 +2153,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
     /// <summary>
     /// A class which represents the sample.ContactAddressTerm table of the Contact aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ContactAddressTerm : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IContactAddressTerm, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -2186,7 +2169,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.ContactAddress ContactAddress { get; set; }
 
         Entities.Common.Sample.IContactAddressExtension IContactAddressTerm.ContactAddressExtension
@@ -2195,7 +2178,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
             set { ContactAddress.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual int TermDescriptorId 
         {
             get
@@ -2365,7 +2348,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
     /// <summary>
     /// A class which represents the sample.ContactAuthor table of the Contact aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ContactAuthor : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IContactAuthor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -2381,7 +2364,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.Contact Contact { get; set; }
 
         Entities.Common.Sample.IContactExtension IContactAuthor.ContactExtension
@@ -2390,7 +2373,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
             set { Contact.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(100, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string Author  { get; set; }
         // -------------------------------------------------------------
 
@@ -2524,7 +2507,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
     /// <summary>
     /// A class which represents the sample.ContactCeilingHeight table of the Contact aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ContactCeilingHeight : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IContactCeilingHeight, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -2540,7 +2523,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.Contact Contact { get; set; }
 
         Entities.Common.Sample.IContactExtension IContactCeilingHeight.ContactExtension
@@ -2549,7 +2532,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
             set { Contact.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature][Range(typeof(decimal), "-9999.9", "9999.9")]
+        [DomainSignature]
         public virtual decimal CeilingHeight  { get; set; }
         // -------------------------------------------------------------
 
@@ -2683,7 +2666,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
     /// <summary>
     /// A class which represents the sample.ContactCTEProgram table of the Contact aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ContactCTEProgram : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IContactCTEProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -2699,7 +2682,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.Contact Contact { get; set; }
 
         Entities.Common.Sample.IContactExtension IContactCTEProgram.ContactExtension
@@ -2718,7 +2701,6 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [RequiredWithNonDefault]
         public virtual int CareerPathwayDescriptorId 
         {
             get
@@ -2753,7 +2735,6 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
                 _careerPathwayDescriptorId = default(int);
             }
         }
-        [StringLength(120, MinimumLength=1), NoDangerousText]
         public virtual string CIPCode  { get; set; }
         public virtual bool? CTEProgramCompletionIndicator  { get; set; }
         public virtual bool? PrimaryCTEProgramIndicator  { get; set; }
@@ -2879,7 +2860,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
     /// <summary>
     /// A class which represents the sample.ContactEducationContent table of the Contact aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ContactEducationContent : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IContactEducationContent, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -2895,7 +2876,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.Contact Contact { get; set; }
 
         Entities.Common.Sample.IContactExtension IContactEducationContent.ContactExtension
@@ -2904,7 +2885,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
             set { Contact.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(225, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string ContentIdentifier  { get; set; }
         // -------------------------------------------------------------
 
@@ -3058,7 +3039,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
     /// <summary>
     /// A class which represents the sample.ContactFavoriteBookTitle table of the Contact aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ContactFavoriteBookTitle : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IContactFavoriteBookTitle, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -3074,7 +3055,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.Contact Contact { get; set; }
 
         Entities.Common.Sample.IContactExtension IContactFavoriteBookTitle.ContactExtension
@@ -3083,7 +3064,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
             set { Contact.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(100, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string FavoriteBookTitle  { get; set; }
         // -------------------------------------------------------------
 
@@ -3217,7 +3198,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
     /// <summary>
     /// A class which represents the sample.ContactStudentProgramAssociation table of the Contact aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ContactStudentProgramAssociation : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IContactStudentProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -3233,7 +3214,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.Contact Contact { get; set; }
 
         Entities.Common.Sample.IContactExtension IContactStudentProgramAssociation.ContactExtension
@@ -3242,7 +3223,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
             set { Contact.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual DateTime BeginDate 
         {
             get { return _beginDate; }
@@ -3252,13 +3233,13 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
 
         private DateTime _beginDate;
         
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual long EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual long ProgramEducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string ProgramName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual int ProgramTypeDescriptorId 
         {
             get
@@ -3293,8 +3274,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
                 _programTypeDescriptorId = default(int);
             }
         }
-        [Display(Name="StudentUniqueId")]
-        [DomainSignature, RequiredWithNonDefault("Student")]
+        [Display(Name="StudentUniqueId")][DomainSignature]
         public virtual int StudentUSI 
         {
             get
@@ -3492,7 +3472,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
     /// <summary>
     /// A class which represents the sample.ContactTeacherConference table of the Contact aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ContactTeacherConference : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IContactTeacherConference, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -3508,7 +3488,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.Contact Contact { get; set; }
 
         Entities.Common.Sample.IContactExtension IContactTeacherConference.ContactExtension
@@ -3527,11 +3507,8 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [RequiredWithNonDefault, StringLength(10, MinimumLength=0), NoDangerousText]
         public virtual string DayOfWeek  { get; set; }
-        [RequiredWithNonDefault]
         public virtual TimeSpan EndTime  { get; set; }
-        [RequiredWithNonDefault]
         public virtual TimeSpan StartTime  { get; set; }
         // -------------------------------------------------------------
 
@@ -3654,7 +3631,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
     /// <summary>
     /// A class which represents the sample.ContactExtension table of the Contact aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ContactExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IContactExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -3670,7 +3647,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.Contact Contact { get; set; }
 
         Entities.Common.EdFi.IContact IContactExtension.Contact
@@ -3689,10 +3666,8 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(30, MinimumLength=0), NoDangerousText]
         public virtual string AverageCarLineWait  { get; set; }
         public virtual short? BecameParent  { get; set; }
-        [Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807")]
         public virtual decimal? CoffeeSpend  { get; set; }
         public virtual int? CredentialFieldDescriptorId 
         {
@@ -3728,9 +3703,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
                 _credentialFieldDescriptorId = default(int?);
             }
         }
-        [Range(1, 2147483647)]
         public virtual int? Duration  { get; set; }
-        [Range(typeof(decimal), "0", "99999999999999.9999")]
         public virtual decimal? GPA  { get; set; }
         public virtual DateTime? GraduationDate 
         {
@@ -3754,7 +3727,6 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         public virtual bool IsSportsFan  { get; set; }
         public virtual int? LuckyNumber  { get; set; }
         public virtual TimeSpan? PreferredWakeUpTime  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
         public virtual decimal? RainCertainty  { get; set; }
         // -------------------------------------------------------------
 
@@ -3924,7 +3896,6 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
                 Contact.AggregateExtensions["Sample_ContactEducationContents"] = value;
             }
         }
-        [RequiredCollection]
         private ICollection<Entities.Common.Sample.IContactFavoriteBookTitle> _contactFavoriteBookTitles;
         // Aggregate extension explicit implementation to redirect model abstraction to the persistent entity location
         ICollection<Entities.Common.Sample.IContactFavoriteBookTitle> IContactExtension.ContactFavoriteBookTitles
@@ -4079,7 +4050,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
     /// <summary>
     /// A class which represents the sample.ContactAddressExtension table of the Contact aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ContactAddressExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IContactAddressExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -4095,7 +4066,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.ContactAddress ContactAddress { get; set; }
 
         Entities.Common.EdFi.IContactAddress IContactAddressExtension.ContactAddress
@@ -4114,7 +4085,6 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(255, MinimumLength=1), NoDangerousText]
         public virtual string Complex  { get; set; }
         public virtual bool OnBusRoute  { get; set; }
         // -------------------------------------------------------------
@@ -4137,7 +4107,6 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         //=============================================================
         //                          Collections
         // -------------------------------------------------------------
-        [RequiredCollection]
         private ICollection<Entities.Common.Sample.IContactAddressSchoolDistrict> _contactAddressSchoolDistricts;
         // Aggregate extension explicit implementation to redirect model abstraction to the persistent entity location
         ICollection<Entities.Common.Sample.IContactAddressSchoolDistrict> IContactAddressExtension.ContactAddressSchoolDistricts
@@ -4296,7 +4265,7 @@ namespace EdFi.Ods.Entities.NHibernate.FavoriteBookCategoryDescriptorAggregate.S
     /// <summary>
     /// A class which represents the sample.FavoriteBookCategoryDescriptor table of the FavoriteBookCategoryDescriptor aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class FavoriteBookCategoryDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.Sample.IFavoriteBookCategoryDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
@@ -4475,7 +4444,7 @@ namespace EdFi.Ods.Entities.NHibernate.MembershipTypeDescriptorAggregate.Sample
     /// <summary>
     /// A class which represents the sample.MembershipTypeDescriptor table of the MembershipTypeDescriptor aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class MembershipTypeDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.Sample.IMembershipTypeDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
@@ -4654,7 +4623,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
     /// <summary>
     /// A class which represents the sample.SchoolCTEProgram table of the School aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class SchoolCTEProgram : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.ISchoolCTEProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -4670,7 +4639,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.School School { get; set; }
 
         Entities.Common.Sample.ISchoolExtension ISchoolCTEProgram.SchoolExtension
@@ -4689,7 +4658,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [RequiredWithNonDefault]
         public virtual int CareerPathwayDescriptorId 
         {
             get
@@ -4724,7 +4692,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
                 _careerPathwayDescriptorId = default(int);
             }
         }
-        [StringLength(120, MinimumLength=1), NoDangerousText]
         public virtual string CIPCode  { get; set; }
         public virtual bool? CTEProgramCompletionIndicator  { get; set; }
         public virtual bool? PrimaryCTEProgramIndicator  { get; set; }
@@ -4850,7 +4817,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
     /// <summary>
     /// A class which represents the sample.SchoolDirectlyOwnedBus table of the School aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class SchoolDirectlyOwnedBus : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.ISchoolDirectlyOwnedBus, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -4866,7 +4833,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.School School { get; set; }
 
         Entities.Common.Sample.ISchoolExtension ISchoolDirectlyOwnedBus.SchoolExtension
@@ -4875,7 +4842,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
             set { School.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string DirectlyOwnedBusId  { get; set; }
         // -------------------------------------------------------------
 
@@ -5029,7 +4996,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
     /// <summary>
     /// A class which represents the sample.SchoolExtension table of the School aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class SchoolExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.ISchoolExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -5045,7 +5012,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.School School { get; set; }
 
         Entities.Common.EdFi.ISchool ISchoolExtension.School
@@ -5252,7 +5219,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
     /// <summary>
     /// A class which represents the sample.StaffPet table of the Staff aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StaffPet : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStaffPet, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -5268,7 +5235,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.Staff Staff { get; set; }
 
         Entities.Common.Sample.IStaffExtension IStaffPet.StaffExtension
@@ -5277,7 +5244,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
             set { Staff.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(20, MinimumLength=3), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string PetName  { get; set; }
         // -------------------------------------------------------------
 
@@ -5412,7 +5379,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
     /// <summary>
     /// A class which represents the sample.StaffPetPreference table of the Staff aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StaffPetPreference : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStaffPetPreference, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -5428,7 +5395,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.Staff Staff { get; set; }
 
         Entities.Common.Sample.IStaffExtension IStaffPetPreference.StaffExtension
@@ -5570,7 +5537,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
     /// <summary>
     /// A class which represents the sample.StaffExtension table of the Staff aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StaffExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStaffExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -5586,7 +5553,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.Staff Staff { get; set; }
 
         Entities.Common.EdFi.IStaff IStaffExtension.Staff
@@ -5811,7 +5778,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     /// <summary>
     /// A class which represents the sample.StudentAquaticPet table of the Student aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentAquaticPet : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentAquaticPet, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -5827,7 +5794,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.Student Student { get; set; }
 
         Entities.Common.Sample.IStudentExtension IStudentAquaticPet.StudentExtension
@@ -5838,7 +5805,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 
         [DomainSignature]
         public virtual int MimimumTankVolume  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(20, MinimumLength=3), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string PetName  { get; set; }
         // -------------------------------------------------------------
 
@@ -5974,7 +5941,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     /// <summary>
     /// A class which represents the sample.StudentFavoriteBook table of the Student aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentFavoriteBook : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentFavoriteBook, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -5991,7 +5958,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.Student Student { get; set; }
 
         Entities.Common.Sample.IStudentExtension IStudentFavoriteBook.StudentExtension
@@ -6000,7 +5967,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             set { Student.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual int FavoriteBookCategoryDescriptorId 
         {
             get
@@ -6045,7 +6012,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(200, MinimumLength=1), NoDangerousText]
         public virtual string BookTitle  { get; set; }
         // -------------------------------------------------------------
 
@@ -6070,7 +6036,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 
         private ICollection<Entities.NHibernate.StudentAggregate.Sample.StudentFavoriteBookArtMedium> _studentFavoriteBookArtMedia;
         private ICollection<Entities.Common.Sample.IStudentFavoriteBookArtMedium> _studentFavoriteBookArtMediaCovariant;
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentAggregate.Sample.StudentFavoriteBookArtMedium> StudentFavoriteBookArtMedia
         {
             get
@@ -6218,7 +6183,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     /// <summary>
     /// A class which represents the sample.StudentFavoriteBookArtMedium table of the Student aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentFavoriteBookArtMedium : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentFavoriteBookArtMedium, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -6234,7 +6199,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual StudentFavoriteBook StudentFavoriteBook { get; set; }
 
         Entities.Common.Sample.IStudentFavoriteBook IStudentFavoriteBookArtMedium.StudentFavoriteBook
@@ -6243,7 +6208,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             set { StudentFavoriteBook = (StudentFavoriteBook) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual int ArtMediumDescriptorId 
         {
             get
@@ -6288,7 +6253,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [Range(0, 100)]
         public virtual int? ArtPieces  { get; set; }
         // -------------------------------------------------------------
 
@@ -6414,7 +6378,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     /// <summary>
     /// A class which represents the sample.StudentPet table of the Student aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentPet : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentPet, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -6430,7 +6394,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.Student Student { get; set; }
 
         Entities.Common.Sample.IStudentExtension IStudentPet.StudentExtension
@@ -6439,7 +6403,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             set { Student.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(20, MinimumLength=3), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string PetName  { get; set; }
         // -------------------------------------------------------------
 
@@ -6574,7 +6538,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     /// <summary>
     /// A class which represents the sample.StudentPetPreference table of the Student aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentPetPreference : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentPetPreference, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -6590,7 +6554,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.Student Student { get; set; }
 
         Entities.Common.Sample.IStudentExtension IStudentPetPreference.StudentExtension
@@ -6905,7 +6869,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     /// <summary>
     /// A class which represents the sample.StudentArtProgramAssociation table of the StudentArtProgramAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociation : GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociation,
         Entities.Common.Sample.IStudentArtProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -6923,15 +6887,15 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public override DateTime BeginDate  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public override long EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public override long ProgramEducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public override string ProgramName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public override int ProgramTypeDescriptorId 
         {
             get
@@ -6966,8 +6930,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                 _programTypeDescriptorId = default(int);
             }
         }
-        [Display(Name="StudentUniqueId")]
-        [DomainSignature, RequiredWithNonDefault("Student")]
+        [Display(Name="StudentUniqueId")][DomainSignature]
         public override int StudentUSI 
         {
             get
@@ -7041,7 +7004,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [Range(0, 100)]
         public virtual int? ArtPieces  { get; set; }
         public virtual DateTime? ExhibitDate 
         {
@@ -7062,21 +7024,14 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         private DateTime? _exhibitDate;
         
-        [Range(typeof(decimal), "-999.99", "999.99")]
         public virtual decimal? HoursPerDay  { get; set; }
-        [StringLength(60, MinimumLength=1), NoDangerousText]
         public virtual string IdentificationCode  { get; set; }
         public virtual TimeSpan? KilnReservation  { get; set; }
-        [StringLength(30, MinimumLength=0), NoDangerousText]
         public virtual string KilnReservationLength  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
         public virtual decimal? MasteredMediums  { get; set; }
-        [Range(typeof(decimal), "0", "99999999999999.9999")]
         public virtual decimal? NumberOfDaysInAttendance  { get; set; }
-        [Range(0, 100)]
         public virtual int? PortfolioPieces  { get; set; }
         public virtual bool PrivateArtProgram  { get; set; }
-        [Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807")]
         public virtual decimal? ProgramFees  { get; set; }
         // -------------------------------------------------------------
 
@@ -7101,7 +7056,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         private ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationArtMedium> _studentArtProgramAssociationArtMedia;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationArtMedium> _studentArtProgramAssociationArtMediaCovariant;
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationArtMedium> StudentArtProgramAssociationArtMedia
         {
             get
@@ -7149,7 +7103,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         private ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationPortfolioYears> _studentArtProgramAssociationPortfolioYears;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears> _studentArtProgramAssociationPortfolioYearsCovariant;
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationPortfolioYears> StudentArtProgramAssociationPortfolioYears
         {
             get
@@ -7197,7 +7150,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         private ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationService> _studentArtProgramAssociationServices;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationService> _studentArtProgramAssociationServicesCovariant;
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationService> StudentArtProgramAssociationServices
         {
             get
@@ -7245,8 +7197,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         private ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationStyle> _studentArtProgramAssociationStyles;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationStyle> _studentArtProgramAssociationStylesCovariant;
-        [RequiredCollection]
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationStyle> StudentArtProgramAssociationStyles
         {
             get
@@ -7395,7 +7345,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     /// <summary>
     /// A class which represents the sample.StudentArtProgramAssociationArtMedium table of the StudentArtProgramAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationArtMedium : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentArtProgramAssociationArtMedium, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -7411,7 +7361,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual StudentArtProgramAssociation StudentArtProgramAssociation { get; set; }
 
         Entities.Common.Sample.IStudentArtProgramAssociation IStudentArtProgramAssociationArtMedium.StudentArtProgramAssociation
@@ -7420,7 +7370,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             set { StudentArtProgramAssociation = (StudentArtProgramAssociation) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual int ArtMediumDescriptorId 
         {
             get
@@ -7589,7 +7539,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     /// <summary>
     /// A class which represents the sample.StudentArtProgramAssociationPortfolioYears table of the StudentArtProgramAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationPortfolioYears : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -7605,7 +7555,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual StudentArtProgramAssociation StudentArtProgramAssociation { get; set; }
 
         Entities.Common.Sample.IStudentArtProgramAssociation IStudentArtProgramAssociationPortfolioYears.StudentArtProgramAssociation
@@ -7749,7 +7699,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     /// <summary>
     /// A class which represents the sample.StudentArtProgramAssociationService table of the StudentArtProgramAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationService : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentArtProgramAssociationService, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -7765,7 +7715,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual StudentArtProgramAssociation StudentArtProgramAssociation { get; set; }
 
         Entities.Common.Sample.IStudentArtProgramAssociation IStudentArtProgramAssociationService.StudentArtProgramAssociation
@@ -7774,7 +7724,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             set { StudentArtProgramAssociation = (StudentArtProgramAssociation) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual int ServiceDescriptorId 
         {
             get
@@ -7982,7 +7932,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     /// <summary>
     /// A class which represents the sample.StudentArtProgramAssociationStyle table of the StudentArtProgramAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationStyle : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentArtProgramAssociationStyle, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -7998,7 +7948,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual StudentArtProgramAssociation StudentArtProgramAssociation { get; set; }
 
         Entities.Common.Sample.IStudentArtProgramAssociation IStudentArtProgramAssociationStyle.StudentArtProgramAssociation
@@ -8007,7 +7957,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             set { StudentArtProgramAssociation = (StudentArtProgramAssociation) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string Style  { get; set; }
         // -------------------------------------------------------------
 
@@ -8147,7 +8097,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
     /// <summary>
     /// A class which represents the sample.StudentContactAssociationDiscipline table of the StudentContactAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentContactAssociationDiscipline : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentContactAssociationDiscipline, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -8163,7 +8113,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.StudentContactAssociation StudentContactAssociation { get; set; }
 
         Entities.Common.Sample.IStudentContactAssociationExtension IStudentContactAssociationDiscipline.StudentContactAssociationExtension
@@ -8172,7 +8122,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
             set { StudentContactAssociation.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual int DisciplineDescriptorId 
         {
             get
@@ -8340,7 +8290,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
     /// <summary>
     /// A class which represents the sample.StudentContactAssociationFavoriteBookTitle table of the StudentContactAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentContactAssociationFavoriteBookTitle : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentContactAssociationFavoriteBookTitle, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -8356,7 +8306,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.StudentContactAssociation StudentContactAssociation { get; set; }
 
         Entities.Common.Sample.IStudentContactAssociationExtension IStudentContactAssociationFavoriteBookTitle.StudentContactAssociationExtension
@@ -8365,7 +8315,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
             set { StudentContactAssociation.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(100, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string FavoriteBookTitle  { get; set; }
         // -------------------------------------------------------------
 
@@ -8499,7 +8449,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
     /// <summary>
     /// A class which represents the sample.StudentContactAssociationHoursPerWeek table of the StudentContactAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentContactAssociationHoursPerWeek : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentContactAssociationHoursPerWeek, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -8515,7 +8465,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.StudentContactAssociation StudentContactAssociation { get; set; }
 
         Entities.Common.Sample.IStudentContactAssociationExtension IStudentContactAssociationHoursPerWeek.StudentContactAssociationExtension
@@ -8524,7 +8474,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
             set { StudentContactAssociation.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature][Range(typeof(decimal), "-999.99", "999.99")]
+        [DomainSignature]
         public virtual decimal HoursPerWeek  { get; set; }
         // -------------------------------------------------------------
 
@@ -8658,7 +8608,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
     /// <summary>
     /// A class which represents the sample.StudentContactAssociationPagesRead table of the StudentContactAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentContactAssociationPagesRead : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentContactAssociationPagesRead, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -8674,7 +8624,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.StudentContactAssociation StudentContactAssociation { get; set; }
 
         Entities.Common.Sample.IStudentContactAssociationExtension IStudentContactAssociationPagesRead.StudentContactAssociationExtension
@@ -8683,7 +8633,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
             set { StudentContactAssociation.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature][Range(typeof(decimal), "-9999999999999999.99", "9999999999999999.99")]
+        [DomainSignature]
         public virtual decimal PagesRead  { get; set; }
         // -------------------------------------------------------------
 
@@ -8817,7 +8767,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
     /// <summary>
     /// A class which represents the sample.StudentContactAssociationStaffEducationOrganizationEmploymentAssociation table of the StudentContactAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentContactAssociationStaffEducationOrganizationEmploymentAssociation : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentContactAssociationStaffEducationOrganizationEmploymentAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -8833,7 +8783,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.StudentContactAssociation StudentContactAssociation { get; set; }
 
         Entities.Common.Sample.IStudentContactAssociationExtension IStudentContactAssociationStaffEducationOrganizationEmploymentAssociation.StudentContactAssociationExtension
@@ -8842,9 +8792,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
             set { StudentContactAssociation.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual long EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual int EmploymentStatusDescriptorId 
         {
             get
@@ -8879,7 +8829,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
                 _employmentStatusDescriptorId = default(int);
             }
         }
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual DateTime HireDate 
         {
             get { return _hireDate; }
@@ -8889,8 +8839,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
 
         private DateTime _hireDate;
         
-        [Display(Name="StaffUniqueId")]
-        [DomainSignature, RequiredWithNonDefault("Staff")]
+        [Display(Name="StaffUniqueId")][DomainSignature]
         public virtual int StaffUSI 
         {
             get
@@ -9095,7 +9044,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
     /// <summary>
     /// A class which represents the sample.StudentContactAssociationTelephone table of the StudentContactAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentContactAssociationTelephone : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentContactAssociationTelephone, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -9111,7 +9060,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.StudentContactAssociation StudentContactAssociation { get; set; }
 
         Entities.Common.Sample.IStudentContactAssociationExtension IStudentContactAssociationTelephone.StudentContactAssociationExtension
@@ -9131,11 +9080,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         public virtual bool? DoNotPublishIndicator  { get; set; }
-        [Range(1, 2147483647)]
         public virtual int? OrderOfPriority  { get; set; }
-        [RequiredWithNonDefault, StringLength(24, MinimumLength=1), NoDangerousText]
         public virtual string TelephoneNumber  { get; set; }
-        [RequiredWithNonDefault]
         public virtual int TelephoneNumberTypeDescriptorId 
         {
             get
@@ -9293,7 +9239,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
     /// <summary>
     /// A class which represents the sample.StudentContactAssociationExtension table of the StudentContactAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentContactAssociationExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentContactAssociationExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -9309,7 +9255,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.StudentContactAssociation StudentContactAssociation { get; set; }
 
         Entities.Common.EdFi.IStudentContactAssociation IStudentContactAssociationExtension.StudentContactAssociation
@@ -9329,19 +9275,14 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         public virtual bool BedtimeReader  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
         public virtual decimal? BedtimeReadingRate  { get; set; }
-        [Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807")]
         public virtual decimal? BookBudget  { get; set; }
         public virtual int? BooksBorrowed  { get; set; }
         public virtual long? EducationOrganizationId  { get; set; }
-        [StringLength(60, MinimumLength=1), NoDangerousText]
         public virtual string InterventionStudyIdentificationCode  { get; set; }
-        [Range(1, 2147483647)]
         public virtual int? LibraryDuration  { get; set; }
         public virtual TimeSpan? LibraryTime  { get; set; }
         public virtual short? LibraryVisits  { get; set; }
-        [StringLength(250, MinimumLength=1), NoDangerousText]
         public virtual string PriorContactRestrictions  { get; set; }
         public virtual DateTime? ReadGreenEggsAndHamDate 
         {
@@ -9362,7 +9303,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
 
         private DateTime? _readGreenEggsAndHamDate;
         
-        [StringLength(30, MinimumLength=0), NoDangerousText]
         public virtual string ReadingTimeSpent  { get; set; }
         public virtual short? StudentRead  { get; set; }
         // -------------------------------------------------------------
@@ -9466,7 +9406,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
                 StudentContactAssociation.AggregateExtensions["Sample_StudentContactAssociationDisciplines"] = value;
             }
         }
-        [RequiredCollection]
         private ICollection<Entities.Common.Sample.IStudentContactAssociationFavoriteBookTitle> _studentContactAssociationFavoriteBookTitles;
         // Aggregate extension explicit implementation to redirect model abstraction to the persistent entity location
         ICollection<Entities.Common.Sample.IStudentContactAssociationFavoriteBookTitle> IStudentContactAssociationExtension.StudentContactAssociationFavoriteBookTitles
@@ -9677,7 +9616,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.Sam
     /// <summary>
     /// A class which represents the sample.StudentCTEProgramAssociationExtension table of the StudentCTEProgramAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentCTEProgramAssociationExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentCTEProgramAssociationExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -9693,7 +9632,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.Sam
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.StudentCTEProgramAssociation StudentCTEProgramAssociation { get; set; }
 
         Entities.Common.EdFi.IStudentCTEProgramAssociation IStudentCTEProgramAssociationExtension.StudentCTEProgramAssociation
@@ -9857,7 +9796,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
     /// <summary>
     /// A class which represents the sample.StudentEducationOrganizationAssociationAddressSchoolDistrict table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationAddressSchoolDistrict : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -9873,7 +9812,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.StudentEducationOrganizationAssociationAddress StudentEducationOrganizationAssociationAddress { get; set; }
 
         Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension IStudentEducationOrganizationAssociationAddressSchoolDistrict.StudentEducationOrganizationAssociationAddressExtension
@@ -9882,7 +9821,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
             set { StudentEducationOrganizationAssociationAddress.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(250, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string SchoolDistrict  { get; set; }
         // -------------------------------------------------------------
 
@@ -10018,7 +9957,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
     /// <summary>
     /// A class which represents the sample.StudentEducationOrganizationAssociationAddressTerm table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationAddressTerm : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -10034,7 +9973,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.StudentEducationOrganizationAssociationAddress StudentEducationOrganizationAssociationAddress { get; set; }
 
         Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension IStudentEducationOrganizationAssociationAddressTerm.StudentEducationOrganizationAssociationAddressExtension
@@ -10043,7 +9982,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
             set { StudentEducationOrganizationAssociationAddress.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual int TermDescriptorId 
         {
             get
@@ -10213,7 +10152,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
     /// <summary>
     /// A class which represents the sample.StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -10229,7 +10168,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.StudentEducationOrganizationAssociationStudentCharacteristic StudentEducationOrganizationAssociationStudentCharacteristic { get; set; }
 
         Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicExtension IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed.StudentEducationOrganizationAssociationStudentCharacteristicExtension
@@ -10238,7 +10177,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
             set { StudentEducationOrganizationAssociationStudentCharacteristic.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual DateTime BeginDate 
         {
             get { return _beginDate; }
@@ -10401,7 +10340,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
     /// <summary>
     /// A class which represents the sample.StudentEducationOrganizationAssociationExtension table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -10417,7 +10356,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.StudentEducationOrganizationAssociation StudentEducationOrganizationAssociation { get; set; }
 
         Entities.Common.EdFi.IStudentEducationOrganizationAssociation IStudentEducationOrganizationAssociationExtension.StudentEducationOrganizationAssociation
@@ -10436,7 +10375,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(60, MinimumLength=1), NoDangerousText]
         public virtual string FavoriteProgramName  { get; set; }
         public virtual int? FavoriteProgramTypeDescriptorId 
         {
@@ -10614,7 +10552,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
     /// <summary>
     /// A class which represents the sample.StudentEducationOrganizationAssociationAddressExtension table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationAddressExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -10630,7 +10568,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.StudentEducationOrganizationAssociationAddress StudentEducationOrganizationAssociationAddress { get; set; }
 
         Entities.Common.EdFi.IStudentEducationOrganizationAssociationAddress IStudentEducationOrganizationAssociationAddressExtension.StudentEducationOrganizationAssociationAddress
@@ -10649,7 +10587,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(255, MinimumLength=1), NoDangerousText]
         public virtual string Complex  { get; set; }
         public virtual bool OnBusRoute  { get; set; }
         // -------------------------------------------------------------
@@ -10672,7 +10609,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         //=============================================================
         //                          Collections
         // -------------------------------------------------------------
-        [RequiredCollection]
         private ICollection<Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict> _studentEducationOrganizationAssociationAddressSchoolDistricts;
         // Aggregate extension explicit implementation to redirect model abstraction to the persistent entity location
         ICollection<Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict> IStudentEducationOrganizationAssociationAddressExtension.StudentEducationOrganizationAssociationAddressSchoolDistricts
@@ -10998,7 +10934,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     /// <summary>
     /// A class which represents the sample.StudentGraduationPlanAssociation table of the StudentGraduationPlanAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociation : AggregateRootWithCompositeKey,
         Entities.Common.Sample.IStudentGraduationPlanAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -11022,9 +10958,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual long EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual int GraduationPlanTypeDescriptorId 
         {
             get
@@ -11059,10 +10995,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 _graduationPlanTypeDescriptorId = default(int);
             }
         }
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual short GraduationSchoolYear  { get; set; }
-        [Display(Name="StudentUniqueId")]
-        [DomainSignature, RequiredWithNonDefault("Student")]
+        [Display(Name="StudentUniqueId")][DomainSignature]
         public virtual int StudentUSI 
         {
             get
@@ -11122,7 +11057,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         //                          Properties
         // -------------------------------------------------------------
         public virtual TimeSpan? CommencementTime  { get; set; }
-        [RequiredWithNonDefault]
         public virtual DateTime EffectiveDate 
         {
             get { return _effectiveDate; }
@@ -11132,14 +11066,10 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private DateTime _effectiveDate;
         
-        [Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807")]
         public virtual decimal? GraduationFee  { get; set; }
-        [StringLength(30, MinimumLength=0), NoDangerousText]
         public virtual string HighSchoolDuration  { get; set; }
-        [Range(typeof(decimal), "-999.99", "999.99")]
         public virtual decimal HoursPerWeek  { get; set; }
         public virtual bool? IsActivePlan  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
         public virtual decimal? RequiredAttendance  { get; set; }
         public virtual int? StaffUSI 
         {
@@ -11193,14 +11123,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 _staffUniqueId = value;
             }
         }
-        [Range(typeof(decimal), "-99999999999999.9999", "99999999999999.9999")]
         public virtual decimal TargetGPA  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
-        [ValidateObject]
         public virtual Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgram StudentGraduationPlanAssociationCTEProgram
         {
             get
@@ -11337,8 +11265,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationAcademicSubject> _studentGraduationPlanAssociationAcademicSubjects;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject> _studentGraduationPlanAssociationAcademicSubjectsCovariant;
-        [RequiredCollection]
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationAcademicSubject> StudentGraduationPlanAssociationAcademicSubjects
         {
             get
@@ -11386,7 +11312,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCareerPathwayCode> _studentGraduationPlanAssociationCareerPathwayCodes;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode> _studentGraduationPlanAssociationCareerPathwayCodesCovariant;
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCareerPathwayCode> StudentGraduationPlanAssociationCareerPathwayCodes
         {
             get
@@ -11434,7 +11359,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationDescription> _studentGraduationPlanAssociationDescriptions;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationDescription> _studentGraduationPlanAssociationDescriptionsCovariant;
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationDescription> StudentGraduationPlanAssociationDescriptions
         {
             get
@@ -11482,8 +11406,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationDesignatedBy> _studentGraduationPlanAssociationDesignatedBies;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy> _studentGraduationPlanAssociationDesignatedBiesCovariant;
-        [RequiredCollection]
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationDesignatedBy> StudentGraduationPlanAssociationDesignatedBies
         {
             get
@@ -11531,7 +11453,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationIndustryCredential> _studentGraduationPlanAssociationIndustryCredentials;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential> _studentGraduationPlanAssociationIndustryCredentialsCovariant;
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationIndustryCredential> StudentGraduationPlanAssociationIndustryCredentials
         {
             get
@@ -11579,7 +11500,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationStudentContactAssociation> _studentGraduationPlanAssociationStudentContactAssociations;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationStudentContactAssociation> _studentGraduationPlanAssociationStudentContactAssociationsCovariant;
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationStudentContactAssociation> StudentGraduationPlanAssociationStudentContactAssociations
         {
             get
@@ -11627,8 +11547,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationYearsAttended> _studentGraduationPlanAssociationYearsAttendeds;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended> _studentGraduationPlanAssociationYearsAttendedsCovariant;
-        [RequiredCollection]
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationYearsAttended> StudentGraduationPlanAssociationYearsAttendeds
         {
             get
@@ -11775,7 +11693,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     /// <summary>
     /// A class which represents the sample.StudentGraduationPlanAssociationAcademicSubject table of the StudentGraduationPlanAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationAcademicSubject : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -11791,7 +11709,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual StudentGraduationPlanAssociation StudentGraduationPlanAssociation { get; set; }
 
         Entities.Common.Sample.IStudentGraduationPlanAssociation IStudentGraduationPlanAssociationAcademicSubject.StudentGraduationPlanAssociation
@@ -11800,7 +11718,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             set { StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual int AcademicSubjectDescriptorId 
         {
             get
@@ -11969,7 +11887,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     /// <summary>
     /// A class which represents the sample.StudentGraduationPlanAssociationCareerPathwayCode table of the StudentGraduationPlanAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationCareerPathwayCode : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -11985,7 +11903,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual StudentGraduationPlanAssociation StudentGraduationPlanAssociation { get; set; }
 
         Entities.Common.Sample.IStudentGraduationPlanAssociation IStudentGraduationPlanAssociationCareerPathwayCode.StudentGraduationPlanAssociation
@@ -12129,7 +12047,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     /// <summary>
     /// A class which represents the sample.StudentGraduationPlanAssociationCTEProgram table of the StudentGraduationPlanAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationCTEProgram : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -12145,7 +12063,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual StudentGraduationPlanAssociation StudentGraduationPlanAssociation { get; set; }
 
         Entities.Common.Sample.IStudentGraduationPlanAssociation IStudentGraduationPlanAssociationCTEProgram.StudentGraduationPlanAssociation
@@ -12164,7 +12082,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [RequiredWithNonDefault]
         public virtual int CareerPathwayDescriptorId 
         {
             get
@@ -12199,7 +12116,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 _careerPathwayDescriptorId = default(int);
             }
         }
-        [StringLength(120, MinimumLength=1), NoDangerousText]
         public virtual string CIPCode  { get; set; }
         public virtual bool? CTEProgramCompletionIndicator  { get; set; }
         public virtual bool? PrimaryCTEProgramIndicator  { get; set; }
@@ -12326,7 +12242,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     /// <summary>
     /// A class which represents the sample.StudentGraduationPlanAssociationDescription table of the StudentGraduationPlanAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationDescription : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentGraduationPlanAssociationDescription, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -12342,7 +12258,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual StudentGraduationPlanAssociation StudentGraduationPlanAssociation { get; set; }
 
         Entities.Common.Sample.IStudentGraduationPlanAssociation IStudentGraduationPlanAssociationDescription.StudentGraduationPlanAssociation
@@ -12351,7 +12267,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             set { StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(1024, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string Description  { get; set; }
         // -------------------------------------------------------------
 
@@ -12486,7 +12402,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     /// <summary>
     /// A class which represents the sample.StudentGraduationPlanAssociationDesignatedBy table of the StudentGraduationPlanAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationDesignatedBy : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -12502,7 +12418,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual StudentGraduationPlanAssociation StudentGraduationPlanAssociation { get; set; }
 
         Entities.Common.Sample.IStudentGraduationPlanAssociation IStudentGraduationPlanAssociationDesignatedBy.StudentGraduationPlanAssociation
@@ -12511,7 +12427,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             set { StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string DesignatedBy  { get; set; }
         // -------------------------------------------------------------
 
@@ -12646,7 +12562,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     /// <summary>
     /// A class which represents the sample.StudentGraduationPlanAssociationIndustryCredential table of the StudentGraduationPlanAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationIndustryCredential : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -12662,7 +12578,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual StudentGraduationPlanAssociation StudentGraduationPlanAssociation { get; set; }
 
         Entities.Common.Sample.IStudentGraduationPlanAssociation IStudentGraduationPlanAssociationIndustryCredential.StudentGraduationPlanAssociation
@@ -12671,7 +12587,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             set { StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(100, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string IndustryCredential  { get; set; }
         // -------------------------------------------------------------
 
@@ -12806,7 +12722,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     /// <summary>
     /// A class which represents the sample.StudentGraduationPlanAssociationStudentContactAssociation table of the StudentGraduationPlanAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationStudentContactAssociation : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentGraduationPlanAssociationStudentContactAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -12822,7 +12738,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual StudentGraduationPlanAssociation StudentGraduationPlanAssociation { get; set; }
 
         Entities.Common.Sample.IStudentGraduationPlanAssociation IStudentGraduationPlanAssociationStudentContactAssociation.StudentGraduationPlanAssociation
@@ -12831,8 +12747,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             set { StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value; }
         }
 
-        [Display(Name="ContactUniqueId")]
-        [DomainSignature, RequiredWithNonDefault("Contact")]
+        [Display(Name="ContactUniqueId")][DomainSignature]
         public virtual int ContactUSI 
         {
             get
@@ -13034,7 +12949,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     /// <summary>
     /// A class which represents the sample.StudentGraduationPlanAssociationYearsAttended table of the StudentGraduationPlanAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationYearsAttended : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -13050,7 +12965,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual StudentGraduationPlanAssociation StudentGraduationPlanAssociation { get; set; }
 
         Entities.Common.Sample.IStudentGraduationPlanAssociation IStudentGraduationPlanAssociationYearsAttended.StudentGraduationPlanAssociation
@@ -13199,7 +13114,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
     /// <summary>
     /// A class which represents the sample.StudentSchoolAssociationExtension table of the StudentSchoolAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentSchoolAssociationExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentSchoolAssociationExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -13215,7 +13130,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.StudentSchoolAssociation StudentSchoolAssociation { get; set; }
 
         Entities.Common.EdFi.IStudentSchoolAssociation IStudentSchoolAssociationExtension.StudentSchoolAssociation
@@ -13395,7 +13310,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
     /// <summary>
     /// A class which represents the sample.StudentSectionAssociationRelatedGeneralStudentProgramAssociation table of the StudentSectionAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("sample")]
+    [Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentSectionAssociationRelatedGeneralStudentProgramAssociation : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -13411,7 +13326,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.StudentSectionAssociation StudentSectionAssociation { get; set; }
 
         Entities.Common.Sample.IStudentSectionAssociationExtension IStudentSectionAssociationRelatedGeneralStudentProgramAssociation.StudentSectionAssociationExtension
@@ -13420,7 +13335,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
             set { StudentSectionAssociation.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual DateTime RelatedBeginDate 
         {
             get { return _relatedBeginDate; }
@@ -13430,13 +13345,13 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
 
         private DateTime _relatedBeginDate;
         
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual long RelatedEducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual long RelatedProgramEducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string RelatedProgramName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual int RelatedProgramTypeDescriptorId 
         {
             get
