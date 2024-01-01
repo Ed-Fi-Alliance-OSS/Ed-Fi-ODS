@@ -36,7 +36,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AbsenceEventCategoryDescriptorAggrega
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AbsenceEventCategoryDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AbsenceEventCategoryDescriptor");
             }
 
 
@@ -188,7 +188,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AcademicHonorCategoryDescriptorAggreg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AcademicHonorCategoryDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AcademicHonorCategoryDescriptor");
             }
 
 
@@ -340,7 +340,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AcademicSubjectDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AcademicSubjectDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AcademicSubjectDescriptor");
             }
 
 
@@ -494,7 +494,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AcademicWeekAggregate
                 || (!keyStringComparer.Equals(target.WeekIdentifier, source.WeekIdentifier)))
             {
                 // Disallow PK column updates on AcademicWeek
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AcademicWeek");
             }
 
 
@@ -618,7 +618,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AccommodationDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AccommodationDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AccommodationDescriptor");
             }
 
 
@@ -773,7 +773,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AccountabilityRatingAggregate
                 || (target.SchoolYear != source.SchoolYear))
             {
                 // Disallow PK column updates on AccountabilityRating
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AccountabilityRating");
             }
 
 
@@ -910,7 +910,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AccountTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AccountTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AccountTypeDescriptor");
             }
 
 
@@ -1062,7 +1062,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AchievementCategoryDescriptorAggregat
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AchievementCategoryDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AchievementCategoryDescriptor");
             }
 
 
@@ -1214,7 +1214,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AdditionalCreditTypeDescriptorAggrega
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AdditionalCreditTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AdditionalCreditTypeDescriptor");
             }
 
 
@@ -1366,7 +1366,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AddressTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AddressTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AddressTypeDescriptor");
             }
 
 
@@ -1518,7 +1518,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AdministrationEnvironmentDescriptorAg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AdministrationEnvironmentDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AdministrationEnvironmentDescriptor");
             }
 
 
@@ -1670,7 +1670,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AdministrativeFundingControlDescripto
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AdministrativeFundingControlDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AdministrativeFundingControlDescriptor");
             }
 
 
@@ -1822,7 +1822,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AncestryEthnicOriginDescriptorAggrega
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AncestryEthnicOriginDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AncestryEthnicOriginDescriptor");
             }
 
 
@@ -1976,7 +1976,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentAggregate
                 || (!keyStringComparer.Equals(target.Namespace, source.Namespace)))
             {
                 // Disallow PK column updates on Assessment
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("Assessment");
             }
 
 
@@ -3477,7 +3477,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentCategoryDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AssessmentCategoryDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AssessmentCategoryDescriptor");
             }
 
 
@@ -3629,7 +3629,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentIdentificationSystemDescrip
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AssessmentIdentificationSystemDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AssessmentIdentificationSystemDescriptor");
             }
 
 
@@ -3784,7 +3784,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentItemAggregate
                 || (!keyStringComparer.Equals(target.Namespace, source.Namespace)))
             {
                 // Disallow PK column updates on AssessmentItem
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AssessmentItem");
             }
 
 
@@ -4141,7 +4141,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentItemCategoryDescriptorAggre
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AssessmentItemCategoryDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AssessmentItemCategoryDescriptor");
             }
 
 
@@ -4293,7 +4293,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentItemResultDescriptorAggrega
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AssessmentItemResultDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AssessmentItemResultDescriptor");
             }
 
 
@@ -4445,7 +4445,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentPeriodDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AssessmentPeriodDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AssessmentPeriodDescriptor");
             }
 
 
@@ -4597,7 +4597,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentReportingMethodDescriptorAg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AssessmentReportingMethodDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AssessmentReportingMethodDescriptor");
             }
 
 
@@ -4752,7 +4752,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentScoreRangeLearningStandardA
                 || (!keyStringComparer.Equals(target.ScoreRangeId, source.ScoreRangeId)))
             {
                 // Disallow PK column updates on AssessmentScoreRangeLearningStandard
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AssessmentScoreRangeLearningStandard");
             }
 
 
@@ -4984,7 +4984,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssignmentLateStatusDescriptorAggrega
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AssignmentLateStatusDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AssignmentLateStatusDescriptor");
             }
 
 
@@ -5136,7 +5136,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AttemptStatusDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AttemptStatusDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AttemptStatusDescriptor");
             }
 
 
@@ -5288,7 +5288,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AttendanceEventCategoryDescriptorAggr
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AttendanceEventCategoryDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AttendanceEventCategoryDescriptor");
             }
 
 
@@ -5442,7 +5442,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.BalanceSheetDimensionAggregate
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on BalanceSheetDimension
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("BalanceSheetDimension");
             }
 
 
@@ -5627,7 +5627,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.BarrierToInternetAccessInResidenceDes
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on BarrierToInternetAccessInResidenceDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("BarrierToInternetAccessInResidenceDescriptor");
             }
 
 
@@ -5779,7 +5779,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.BehaviorDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on BehaviorDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("BehaviorDescriptor");
             }
 
 
@@ -5933,7 +5933,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.BellScheduleAggregate
                 || (target.SchoolId != source.SchoolId))
             {
                 // Disallow PK column updates on BellSchedule
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("BellSchedule");
             }
 
 
@@ -6338,7 +6338,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CalendarAggregate
                 || (target.SchoolYear != source.SchoolYear))
             {
                 // Disallow PK column updates on Calendar
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("Calendar");
             }
 
 
@@ -6535,7 +6535,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CalendarDateAggregate
                 || (target.SchoolYear != source.SchoolYear))
             {
                 // Disallow PK column updates on CalendarDate
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CalendarDate");
             }
 
 
@@ -6719,7 +6719,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CalendarEventDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CalendarEventDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CalendarEventDescriptor");
             }
 
 
@@ -6871,7 +6871,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CalendarTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CalendarTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CalendarTypeDescriptor");
             }
 
 
@@ -7023,7 +7023,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CareerPathwayDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CareerPathwayDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CareerPathwayDescriptor");
             }
 
 
@@ -7175,7 +7175,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CharterApprovalAgencyTypeDescriptorAg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CharterApprovalAgencyTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CharterApprovalAgencyTypeDescriptor");
             }
 
 
@@ -7327,7 +7327,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CharterStatusDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CharterStatusDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CharterStatusDescriptor");
             }
 
 
@@ -7482,7 +7482,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ChartOfAccountAggregate
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on ChartOfAccount
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ChartOfAccount");
             }
 
 
@@ -7791,7 +7791,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CitizenshipStatusDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CitizenshipStatusDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CitizenshipStatusDescriptor");
             }
 
 
@@ -8157,7 +8157,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ClassroomPositionDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ClassroomPositionDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ClassroomPositionDescriptor");
             }
 
 
@@ -8311,7 +8311,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CohortAggregate
                 || (target.EducationOrganizationId != source.EducationOrganizationId))
             {
                 // Disallow PK column updates on Cohort
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("Cohort");
             }
 
 
@@ -8542,7 +8542,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CohortScopeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CohortScopeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CohortScopeDescriptor");
             }
 
 
@@ -8694,7 +8694,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CohortTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CohortTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CohortTypeDescriptor");
             }
 
 
@@ -8846,7 +8846,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CohortYearTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CohortYearTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CohortYearTypeDescriptor");
             }
 
 
@@ -8997,7 +8997,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CommunityOrganizationAggregate
                  (target.CommunityOrganizationId != source.CommunityOrganizationId))
             {
                 // Disallow PK column updates on CommunityOrganization
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CommunityOrganization");
             }
 
 
@@ -9216,7 +9216,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CommunityProviderAggregate
                  (target.CommunityProviderId != source.CommunityProviderId))
             {
                 // Disallow PK column updates on CommunityProvider
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CommunityProvider");
             }
 
 
@@ -9505,7 +9505,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CommunityProviderLicenseAggregate
                 || (!keyStringComparer.Equals(target.LicensingOrganization, source.LicensingOrganization)))
             {
                 // Disallow PK column updates on CommunityProviderLicense
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CommunityProviderLicense");
             }
 
 
@@ -9680,7 +9680,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CompetencyLevelDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CompetencyLevelDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CompetencyLevelDescriptor");
             }
 
 
@@ -9835,7 +9835,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CompetencyObjectiveAggregate
                 || !string.Equals(target.ObjectiveGradeLevelDescriptor, source.ObjectiveGradeLevelDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CompetencyObjective
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CompetencyObjective");
             }
 
 
@@ -9960,7 +9960,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ContactAggregate
                  (target.ContactUniqueId != source.ContactUniqueId))
             {
                 // Disallow PK column updates on Contact
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("Contact");
             }
 
 
@@ -11334,7 +11334,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ContactTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ContactTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ContactTypeDescriptor");
             }
 
 
@@ -11486,7 +11486,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ContentClassDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ContentClassDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ContentClassDescriptor");
             }
 
 
@@ -11638,7 +11638,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ContinuationOfServicesReasonDescripto
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ContinuationOfServicesReasonDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ContinuationOfServicesReasonDescriptor");
             }
 
 
@@ -11790,7 +11790,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CostRateDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CostRateDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CostRateDescriptor");
             }
 
 
@@ -11942,7 +11942,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CountryDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CountryDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CountryDescriptor");
             }
 
 
@@ -12096,7 +12096,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseAggregate
                 || (target.EducationOrganizationId != source.EducationOrganizationId))
             {
                 // Disallow PK column updates on Course
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("Course");
             }
 
 
@@ -12910,7 +12910,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseAttemptResultDescriptorAggregat
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CourseAttemptResultDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CourseAttemptResultDescriptor");
             }
 
 
@@ -13062,7 +13062,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseDefinedByDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CourseDefinedByDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CourseDefinedByDescriptor");
             }
 
 
@@ -13214,7 +13214,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseGPAApplicabilityDescriptorAggre
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CourseGPAApplicabilityDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CourseGPAApplicabilityDescriptor");
             }
 
 
@@ -13366,7 +13366,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseIdentificationSystemDescriptorA
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CourseIdentificationSystemDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CourseIdentificationSystemDescriptor");
             }
 
 
@@ -13518,7 +13518,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseLevelCharacteristicDescriptorAg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CourseLevelCharacteristicDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CourseLevelCharacteristicDescriptor");
             }
 
 
@@ -13674,7 +13674,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseOfferingAggregate
                 || (!keyStringComparer.Equals(target.SessionName, source.SessionName)))
             {
                 // Disallow PK column updates on CourseOffering
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CourseOffering");
             }
 
 
@@ -14075,7 +14075,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseRepeatCodeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CourseRepeatCodeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CourseRepeatCodeDescriptor");
             }
 
 
@@ -14234,7 +14234,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CourseTranscriptAggregate
                 || !string.Equals(target.TermDescriptor, source.TermDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CourseTranscript
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CourseTranscript");
             }
 
 
@@ -15229,7 +15229,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CredentialAggregate
                 || !string.Equals(target.StateOfIssueStateAbbreviationDescriptor, source.StateOfIssueStateAbbreviationDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on Credential
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("Credential");
             }
 
 
@@ -15658,7 +15658,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CredentialFieldDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CredentialFieldDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CredentialFieldDescriptor");
             }
 
 
@@ -15810,7 +15810,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CredentialTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CredentialTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CredentialTypeDescriptor");
             }
 
 
@@ -15962,7 +15962,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CreditCategoryDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CreditCategoryDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CreditCategoryDescriptor");
             }
 
 
@@ -16114,7 +16114,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CreditTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CreditTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CreditTypeDescriptor");
             }
 
 
@@ -16266,7 +16266,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CTEProgramServiceDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CTEProgramServiceDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CTEProgramServiceDescriptor");
             }
 
 
@@ -16418,7 +16418,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CurriculumUsedDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CurriculumUsedDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CurriculumUsedDescriptor");
             }
 
 
@@ -16570,7 +16570,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DeliveryMethodDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on DeliveryMethodDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("DeliveryMethodDescriptor");
             }
 
 
@@ -16726,7 +16726,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DescriptorMappingAggregate
                 || (!keyStringComparer.Equals(target.Value, source.Value)))
             {
                 // Disallow PK column updates on DescriptorMapping
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("DescriptorMapping");
             }
 
 
@@ -16903,7 +16903,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DiagnosisDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on DiagnosisDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("DiagnosisDescriptor");
             }
 
 
@@ -17055,7 +17055,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DiplomaLevelDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on DiplomaLevelDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("DiplomaLevelDescriptor");
             }
 
 
@@ -17207,7 +17207,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DiplomaTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on DiplomaTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("DiplomaTypeDescriptor");
             }
 
 
@@ -17359,7 +17359,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisabilityDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on DisabilityDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("DisabilityDescriptor");
             }
 
 
@@ -17511,7 +17511,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisabilityDesignationDescriptorAggreg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on DisabilityDesignationDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("DisabilityDesignationDescriptor");
             }
 
 
@@ -17663,7 +17663,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisabilityDeterminationSourceTypeDesc
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on DisabilityDeterminationSourceTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("DisabilityDeterminationSourceTypeDescriptor");
             }
 
 
@@ -17818,7 +17818,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisciplineActionAggregate
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on DisciplineAction
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("DisciplineAction");
             }
 
 
@@ -18263,7 +18263,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisciplineActionLengthDifferenceReaso
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on DisciplineActionLengthDifferenceReasonDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("DisciplineActionLengthDifferenceReasonDescriptor");
             }
 
 
@@ -18415,7 +18415,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisciplineDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on DisciplineDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("DisciplineDescriptor");
             }
 
 
@@ -18569,7 +18569,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisciplineIncidentAggregate
                 || (target.SchoolId != source.SchoolId))
             {
                 // Disallow PK column updates on DisciplineIncident
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("DisciplineIncident");
             }
 
 
@@ -19026,7 +19026,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.DisciplineIncidentParticipationCodeDe
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on DisciplineIncidentParticipationCodeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("DisciplineIncidentParticipationCodeDescriptor");
             }
 
 
@@ -19178,7 +19178,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationalEnvironmentDescriptorAggre
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EducationalEnvironmentDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EducationalEnvironmentDescriptor");
             }
 
 
@@ -19331,7 +19331,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationContentAggregate
                  (!keyStringComparer.Equals(target.ContentIdentifier, source.ContentIdentifier)))
             {
                 // Disallow PK column updates on EducationContent
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EducationContent");
             }
 
 
@@ -21064,7 +21064,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAssociationTypeD
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EducationOrganizationAssociationTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EducationOrganizationAssociationTypeDescriptor");
             }
 
 
@@ -21216,7 +21216,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationCategoryDescript
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EducationOrganizationCategoryDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EducationOrganizationCategoryDescriptor");
             }
 
 
@@ -21368,7 +21368,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationIdentificationSy
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EducationOrganizationIdentificationSystemDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EducationOrganizationIdentificationSystemDescriptor");
             }
 
 
@@ -21523,7 +21523,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationInterventionPres
                 || (!keyStringComparer.Equals(target.InterventionPrescriptionIdentificationCode, source.InterventionPrescriptionIdentificationCode)))
             {
                 // Disallow PK column updates on EducationOrganizationInterventionPrescriptionAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EducationOrganizationInterventionPrescriptionAssociation");
             }
 
 
@@ -21640,7 +21640,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationNetworkAggregate
                  (target.EducationOrganizationNetworkId != source.EducationOrganizationNetworkId))
             {
                 // Disallow PK column updates on EducationOrganizationNetwork
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EducationOrganizationNetwork");
             }
 
 
@@ -21870,7 +21870,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationNetworkAssociati
                 || (target.MemberEducationOrganizationId != source.MemberEducationOrganizationId))
             {
                 // Disallow PK column updates on EducationOrganizationNetworkAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EducationOrganizationNetworkAssociation");
             }
 
 
@@ -21986,7 +21986,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationPeerAssociationA
                 || (target.PeerEducationOrganizationId != source.PeerEducationOrganizationId))
             {
                 // Disallow PK column updates on EducationOrganizationPeerAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EducationOrganizationPeerAssociation");
             }
 
 
@@ -22083,7 +22083,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationPlanDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EducationPlanDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EducationPlanDescriptor");
             }
 
 
@@ -22234,7 +22234,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationServiceCenterAggregate
                  (target.EducationServiceCenterId != source.EducationServiceCenterId))
             {
                 // Disallow PK column updates on EducationServiceCenter
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EducationServiceCenter");
             }
 
 
@@ -22470,7 +22470,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ElectronicMailTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ElectronicMailTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ElectronicMailTypeDescriptor");
             }
 
 
@@ -22622,7 +22622,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EligibilityDelayReasonDescriptorAggre
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EligibilityDelayReasonDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EligibilityDelayReasonDescriptor");
             }
 
 
@@ -22774,7 +22774,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EligibilityEvaluationTypeDescriptorAg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EligibilityEvaluationTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EligibilityEvaluationTypeDescriptor");
             }
 
 
@@ -22926,7 +22926,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EmploymentStatusDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EmploymentStatusDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EmploymentStatusDescriptor");
             }
 
 
@@ -23078,7 +23078,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EnrollmentTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EnrollmentTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EnrollmentTypeDescriptor");
             }
 
 
@@ -23230,7 +23230,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EntryGradeLevelReasonDescriptorAggreg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EntryGradeLevelReasonDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EntryGradeLevelReasonDescriptor");
             }
 
 
@@ -23382,7 +23382,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EntryTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EntryTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EntryTypeDescriptor");
             }
 
 
@@ -23534,7 +23534,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EvaluationDelayReasonDescriptorAggreg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EvaluationDelayReasonDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EvaluationDelayReasonDescriptor");
             }
 
 
@@ -23694,7 +23694,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EvaluationRubricDimensionAggregate
                 || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EvaluationRubricDimension
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EvaluationRubricDimension");
             }
 
 
@@ -23825,7 +23825,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EventCircumstanceDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EventCircumstanceDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EventCircumstanceDescriptor");
             }
 
 
@@ -23977,7 +23977,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ExitWithdrawTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ExitWithdrawTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ExitWithdrawTypeDescriptor");
             }
 
 
@@ -24130,7 +24130,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.FeederSchoolAssociationAggregate
                 || (target.SchoolId != source.SchoolId))
             {
                 // Disallow PK column updates on FeederSchoolAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("FeederSchoolAssociation");
             }
 
 
@@ -24246,7 +24246,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.FinancialCollectionDescriptorAggregat
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on FinancialCollectionDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("FinancialCollectionDescriptor");
             }
 
 
@@ -24400,7 +24400,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.FunctionDimensionAggregate
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on FunctionDimension
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("FunctionDimension");
             }
 
 
@@ -24587,7 +24587,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.FundDimensionAggregate
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on FundDimension
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("FundDimension");
             }
 
 
@@ -24778,7 +24778,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GeneralStudentProgramAssociationAggre
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on GeneralStudentProgramAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("GeneralStudentProgramAssociation");
             }
 
 
@@ -25833,7 +25833,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradebookEntryTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on GradebookEntryTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("GradebookEntryTypeDescriptor");
             }
 
 
@@ -25985,7 +25985,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradeLevelDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on GradeLevelDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("GradeLevelDescriptor");
             }
 
 
@@ -26137,7 +26137,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradePointAverageTypeDescriptorAggreg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on GradePointAverageTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("GradePointAverageTypeDescriptor");
             }
 
 
@@ -26289,7 +26289,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradeTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on GradeTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("GradeTypeDescriptor");
             }
 
 
@@ -26445,7 +26445,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradingPeriodAggregate
                 || (target.SchoolYear != source.SchoolYear))
             {
                 // Disallow PK column updates on GradingPeriod
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("GradingPeriod");
             }
 
 
@@ -26582,7 +26582,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradingPeriodDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on GradingPeriodDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("GradingPeriodDescriptor");
             }
 
 
@@ -26735,7 +26735,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GraduationPlanAggregate
                 || (target.GraduationSchoolYear != source.GraduationSchoolYear))
             {
                 // Disallow PK column updates on GraduationPlan
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("GraduationPlan");
             }
 
 
@@ -27721,7 +27721,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GraduationPlanTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on GraduationPlanTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("GraduationPlanTypeDescriptor");
             }
 
 
@@ -27873,7 +27873,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GunFreeSchoolsActReportingStatusDescr
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on GunFreeSchoolsActReportingStatusDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("GunFreeSchoolsActReportingStatusDescriptor");
             }
 
 
@@ -28025,7 +28025,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.HomelessPrimaryNighttimeResidenceDesc
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on HomelessPrimaryNighttimeResidenceDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("HomelessPrimaryNighttimeResidenceDescriptor");
             }
 
 
@@ -28177,7 +28177,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.HomelessProgramServiceDescriptorAggre
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on HomelessProgramServiceDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("HomelessProgramServiceDescriptor");
             }
 
 
@@ -28329,7 +28329,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IDEAPartDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on IDEAPartDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("IDEAPartDescriptor");
             }
 
 
@@ -28481,7 +28481,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IdentificationDocumentUseDescriptorAg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on IdentificationDocumentUseDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("IdentificationDocumentUseDescriptor");
             }
 
 
@@ -28633,7 +28633,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IncidentLocationDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on IncidentLocationDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("IncidentLocationDescriptor");
             }
 
 
@@ -28785,7 +28785,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IndicatorDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on IndicatorDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("IndicatorDescriptor");
             }
 
 
@@ -28937,7 +28937,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IndicatorGroupDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on IndicatorGroupDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("IndicatorGroupDescriptor");
             }
 
 
@@ -29089,7 +29089,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IndicatorLevelDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on IndicatorLevelDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("IndicatorLevelDescriptor");
             }
 
 
@@ -29241,7 +29241,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InstitutionTelephoneNumberTypeDescrip
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on InstitutionTelephoneNumberTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("InstitutionTelephoneNumberTypeDescriptor");
             }
 
 
@@ -29393,7 +29393,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InteractivityStyleDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on InteractivityStyleDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("InteractivityStyleDescriptor");
             }
 
 
@@ -29545,7 +29545,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InternetAccessDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on InternetAccessDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("InternetAccessDescriptor");
             }
 
 
@@ -29697,7 +29697,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InternetAccessTypeInResidenceDescript
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on InternetAccessTypeInResidenceDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("InternetAccessTypeInResidenceDescriptor");
             }
 
 
@@ -29849,7 +29849,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InternetPerformanceInResidenceDescrip
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on InternetPerformanceInResidenceDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("InternetPerformanceInResidenceDescriptor");
             }
 
 
@@ -30003,7 +30003,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionAggregate
                 || (!keyStringComparer.Equals(target.InterventionIdentificationCode, source.InterventionIdentificationCode)))
             {
                 // Disallow PK column updates on Intervention
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("Intervention");
             }
 
 
@@ -31061,7 +31061,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionClassDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on InterventionClassDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("InterventionClassDescriptor");
             }
 
 
@@ -31213,7 +31213,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionEffectivenessRatingDescri
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on InterventionEffectivenessRatingDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("InterventionEffectivenessRatingDescriptor");
             }
 
 
@@ -31367,7 +31367,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionPrescriptionAggregate
                 || (!keyStringComparer.Equals(target.InterventionPrescriptionIdentificationCode, source.InterventionPrescriptionIdentificationCode)))
             {
                 // Disallow PK column updates on InterventionPrescription
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("InterventionPrescription");
             }
 
 
@@ -32130,7 +32130,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.InterventionStudyAggregate
                 || (!keyStringComparer.Equals(target.InterventionStudyIdentificationCode, source.InterventionStudyIdentificationCode)))
             {
                 // Disallow PK column updates on InterventionStudy
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("InterventionStudy");
             }
 
 
@@ -33002,7 +33002,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LanguageDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on LanguageDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LanguageDescriptor");
             }
 
 
@@ -33154,7 +33154,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LanguageInstructionProgramServiceDesc
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on LanguageInstructionProgramServiceDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LanguageInstructionProgramServiceDescriptor");
             }
 
 
@@ -33306,7 +33306,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LanguageUseDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on LanguageUseDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LanguageUseDescriptor");
             }
 
 
@@ -33459,7 +33459,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningStandardAggregate
                  (!keyStringComparer.Equals(target.LearningStandardId, source.LearningStandardId)))
             {
                 // Disallow PK column updates on LearningStandard
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LearningStandard");
             }
 
 
@@ -34210,7 +34210,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningStandardCategoryDescriptorAgg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on LearningStandardCategoryDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LearningStandardCategoryDescriptor");
             }
 
 
@@ -34365,7 +34365,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningStandardEquivalenceAssociatio
                 || (!keyStringComparer.Equals(target.TargetLearningStandardId, source.TargetLearningStandardId)))
             {
                 // Disallow PK column updates on LearningStandardEquivalenceAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LearningStandardEquivalenceAssociation");
             }
 
 
@@ -34493,7 +34493,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningStandardEquivalenceStrengthDe
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on LearningStandardEquivalenceStrengthDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LearningStandardEquivalenceStrengthDescriptor");
             }
 
 
@@ -34645,7 +34645,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningStandardScopeDescriptorAggreg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on LearningStandardScopeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LearningStandardScopeDescriptor");
             }
 
 
@@ -34797,7 +34797,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LevelOfEducationDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on LevelOfEducationDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LevelOfEducationDescriptor");
             }
 
 
@@ -34949,7 +34949,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LicenseStatusDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on LicenseStatusDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LicenseStatusDescriptor");
             }
 
 
@@ -35101,7 +35101,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LicenseTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on LicenseTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LicenseTypeDescriptor");
             }
 
 
@@ -35253,7 +35253,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LimitedEnglishProficiencyDescriptorAg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on LimitedEnglishProficiencyDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LimitedEnglishProficiencyDescriptor");
             }
 
 
@@ -35408,7 +35408,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalAccountAggregate
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on LocalAccount
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LocalAccount");
             }
 
 
@@ -35637,7 +35637,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalActualAggregate
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on LocalActual
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LocalActual");
             }
 
 
@@ -35758,7 +35758,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalBudgetAggregate
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on LocalBudget
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LocalBudget");
             }
 
 
@@ -35880,7 +35880,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalContractedStaffAggregate
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
                 // Disallow PK column updates on LocalContractedStaff
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LocalContractedStaff");
             }
 
 
@@ -36000,7 +36000,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocaleDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on LocaleDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LocaleDescriptor");
             }
 
 
@@ -36151,7 +36151,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalEducationAgencyAggregate
                  (target.LocalEducationAgencyId != source.LocalEducationAgencyId))
             {
                 // Disallow PK column updates on LocalEducationAgency
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LocalEducationAgency");
             }
 
 
@@ -36709,7 +36709,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalEducationAgencyCategoryDescripto
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on LocalEducationAgencyCategoryDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LocalEducationAgencyCategoryDescriptor");
             }
 
 
@@ -36865,7 +36865,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalEncumbranceAggregate
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on LocalEncumbrance
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LocalEncumbrance");
             }
 
 
@@ -36987,7 +36987,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalPayrollAggregate
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
                 // Disallow PK column updates on LocalPayroll
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("LocalPayroll");
             }
 
 
@@ -37243,7 +37243,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.MagnetSpecialProgramEmphasisSchoolDes
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on MagnetSpecialProgramEmphasisSchoolDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("MagnetSpecialProgramEmphasisSchoolDescriptor");
             }
 
 
@@ -37395,7 +37395,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.MediumOfInstructionDescriptorAggregat
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on MediumOfInstructionDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("MediumOfInstructionDescriptor");
             }
 
 
@@ -37547,7 +37547,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.MethodCreditEarnedDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on MethodCreditEarnedDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("MethodCreditEarnedDescriptor");
             }
 
 
@@ -37699,7 +37699,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.MigrantEducationProgramServiceDescrip
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on MigrantEducationProgramServiceDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("MigrantEducationProgramServiceDescriptor");
             }
 
 
@@ -37851,7 +37851,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ModelEntityDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ModelEntityDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ModelEntityDescriptor");
             }
 
 
@@ -38003,7 +38003,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.MonitoredDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on MonitoredDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("MonitoredDescriptor");
             }
 
 
@@ -38155,7 +38155,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.NeglectedOrDelinquentProgramDescripto
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on NeglectedOrDelinquentProgramDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("NeglectedOrDelinquentProgramDescriptor");
             }
 
 
@@ -38307,7 +38307,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.NeglectedOrDelinquentProgramServiceDe
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on NeglectedOrDelinquentProgramServiceDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("NeglectedOrDelinquentProgramServiceDescriptor");
             }
 
 
@@ -38459,7 +38459,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.NetworkPurposeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on NetworkPurposeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("NetworkPurposeDescriptor");
             }
 
 
@@ -38613,7 +38613,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ObjectDimensionAggregate
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on ObjectDimension
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ObjectDimension");
             }
 
 
@@ -38801,7 +38801,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ObjectiveAssessmentAggregate
                 || (!keyStringComparer.Equals(target.Namespace, source.Namespace)))
             {
                 // Disallow PK column updates on ObjectiveAssessment
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ObjectiveAssessment");
             }
 
 
@@ -39394,7 +39394,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.OpenStaffPositionAggregate
                 || (!keyStringComparer.Equals(target.RequisitionNumber, source.RequisitionNumber)))
             {
                 // Disallow PK column updates on OpenStaffPosition
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("OpenStaffPosition");
             }
 
 
@@ -39733,7 +39733,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.OperationalStatusDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on OperationalStatusDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("OperationalStatusDescriptor");
             }
 
 
@@ -39887,7 +39887,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.OperationalUnitDimensionAggregate
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on OperationalUnitDimension
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("OperationalUnitDimension");
             }
 
 
@@ -40071,7 +40071,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.OrganizationDepartmentAggregate
                  (target.OrganizationDepartmentId != source.OrganizationDepartmentId))
             {
                 // Disallow PK column updates on OrganizationDepartment
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("OrganizationDepartment");
             }
 
 
@@ -40318,7 +40318,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.OtherNameTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on OtherNameTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("OtherNameTypeDescriptor");
             }
 
 
@@ -40470,7 +40470,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ParticipationDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ParticipationDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ParticipationDescriptor");
             }
 
 
@@ -40622,7 +40622,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ParticipationStatusDescriptorAggregat
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ParticipationStatusDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ParticipationStatusDescriptor");
             }
 
 
@@ -40774,7 +40774,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PerformanceBaseConversionDescriptorAg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on PerformanceBaseConversionDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("PerformanceBaseConversionDescriptor");
             }
 
 
@@ -40926,7 +40926,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PerformanceLevelDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on PerformanceLevelDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("PerformanceLevelDescriptor");
             }
 
 
@@ -41080,7 +41080,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PersonAggregate
                 || !string.Equals(target.SourceSystemDescriptor, source.SourceSystemDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on Person
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("Person");
             }
 
 
@@ -41168,7 +41168,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PersonalInformationVerificationDescri
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on PersonalInformationVerificationDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("PersonalInformationVerificationDescriptor");
             }
 
 
@@ -41320,7 +41320,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PlatformTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on PlatformTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("PlatformTypeDescriptor");
             }
 
 
@@ -41472,7 +41472,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PopulationServedDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on PopulationServedDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("PopulationServedDescriptor");
             }
 
 
@@ -41624,7 +41624,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PostingResultDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on PostingResultDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("PostingResultDescriptor");
             }
 
 
@@ -41777,7 +41777,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PostSecondaryEventAggregate
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on PostSecondaryEvent
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("PostSecondaryEvent");
             }
 
 
@@ -41884,7 +41884,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PostSecondaryEventCategoryDescriptorA
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on PostSecondaryEventCategoryDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("PostSecondaryEventCategoryDescriptor");
             }
 
 
@@ -42035,7 +42035,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PostSecondaryInstitutionAggregate
                  (target.PostSecondaryInstitutionId != source.PostSecondaryInstitutionId))
             {
                 // Disallow PK column updates on PostSecondaryInstitution
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("PostSecondaryInstitution");
             }
 
 
@@ -42362,7 +42362,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PostSecondaryInstitutionLevelDescript
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on PostSecondaryInstitutionLevelDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("PostSecondaryInstitutionLevelDescriptor");
             }
 
 
@@ -42514,7 +42514,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PrimaryLearningDeviceAccessDescriptor
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on PrimaryLearningDeviceAccessDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("PrimaryLearningDeviceAccessDescriptor");
             }
 
 
@@ -42666,7 +42666,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PrimaryLearningDeviceAwayFromSchoolDe
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on PrimaryLearningDeviceAwayFromSchoolDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("PrimaryLearningDeviceAwayFromSchoolDescriptor");
             }
 
 
@@ -42818,7 +42818,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PrimaryLearningDeviceProviderDescript
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on PrimaryLearningDeviceProviderDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("PrimaryLearningDeviceProviderDescriptor");
             }
 
 
@@ -42970,7 +42970,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProficiencyDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ProficiencyDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ProficiencyDescriptor");
             }
 
 
@@ -43125,7 +43125,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramAggregate
                 || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on Program
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("Program");
             }
 
 
@@ -43499,7 +43499,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramAssignmentDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ProgramAssignmentDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ProgramAssignmentDescriptor");
             }
 
 
@@ -43651,7 +43651,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramCharacteristicDescriptorAggreg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ProgramCharacteristicDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ProgramCharacteristicDescriptor");
             }
 
 
@@ -43805,7 +43805,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramDimensionAggregate
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on ProgramDimension
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ProgramDimension");
             }
 
 
@@ -43996,7 +43996,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramEvaluationAggregate
                 || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ProgramEvaluation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ProgramEvaluation");
             }
 
 
@@ -44239,7 +44239,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramEvaluationElementAggregate
                 || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ProgramEvaluationElement
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ProgramEvaluationElement");
             }
 
 
@@ -44505,7 +44505,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramEvaluationObjectiveAggregate
                 || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ProgramEvaluationObjective
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ProgramEvaluationObjective");
             }
 
 
@@ -44752,7 +44752,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramEvaluationPeriodDescriptorAggr
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ProgramEvaluationPeriodDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ProgramEvaluationPeriodDescriptor");
             }
 
 
@@ -44904,7 +44904,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramEvaluationTypeDescriptorAggreg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ProgramEvaluationTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ProgramEvaluationTypeDescriptor");
             }
 
 
@@ -45056,7 +45056,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramSponsorDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ProgramSponsorDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ProgramSponsorDescriptor");
             }
 
 
@@ -45208,7 +45208,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgramTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ProgramTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ProgramTypeDescriptor");
             }
 
 
@@ -45360,7 +45360,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgressDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ProgressDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ProgressDescriptor");
             }
 
 
@@ -45512,7 +45512,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProgressLevelDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ProgressLevelDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ProgressLevelDescriptor");
             }
 
 
@@ -45666,7 +45666,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProjectDimensionAggregate
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on ProjectDimension
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ProjectDimension");
             }
 
 
@@ -45851,7 +45851,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProviderCategoryDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ProviderCategoryDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ProviderCategoryDescriptor");
             }
 
 
@@ -46003,7 +46003,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProviderProfitabilityDescriptorAggreg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ProviderProfitabilityDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ProviderProfitabilityDescriptor");
             }
 
 
@@ -46155,7 +46155,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ProviderStatusDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ProviderStatusDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ProviderStatusDescriptor");
             }
 
 
@@ -46307,7 +46307,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PublicationStatusDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on PublicationStatusDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("PublicationStatusDescriptor");
             }
 
 
@@ -46459,7 +46459,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.QuestionFormDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on QuestionFormDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("QuestionFormDescriptor");
             }
 
 
@@ -46611,7 +46611,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RaceDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on RaceDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("RaceDescriptor");
             }
 
 
@@ -46763,7 +46763,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RatingLevelDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on RatingLevelDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("RatingLevelDescriptor");
             }
 
 
@@ -46915,7 +46915,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ReasonExitedDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ReasonExitedDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ReasonExitedDescriptor");
             }
 
 
@@ -47067,7 +47067,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ReasonNotTestedDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ReasonNotTestedDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ReasonNotTestedDescriptor");
             }
 
 
@@ -47219,7 +47219,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RecognitionTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on RecognitionTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("RecognitionTypeDescriptor");
             }
 
 
@@ -47371,7 +47371,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RelationDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on RelationDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("RelationDescriptor");
             }
 
 
@@ -47523,7 +47523,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RepeatIdentifierDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on RepeatIdentifierDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("RepeatIdentifierDescriptor");
             }
 
 
@@ -47681,7 +47681,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ReportCardAggregate
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on ReportCard
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ReportCard");
             }
 
 
@@ -48127,7 +48127,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ReporterDescriptionDescriptorAggregat
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ReporterDescriptionDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ReporterDescriptionDescriptor");
             }
 
 
@@ -48279,7 +48279,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ReportingTagDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ReportingTagDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ReportingTagDescriptor");
             }
 
 
@@ -48431,7 +48431,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ResidencyStatusDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ResidencyStatusDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ResidencyStatusDescriptor");
             }
 
 
@@ -48583,7 +48583,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ResponseIndicatorDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ResponseIndicatorDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ResponseIndicatorDescriptor");
             }
 
 
@@ -48735,7 +48735,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ResponsibilityDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ResponsibilityDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ResponsibilityDescriptor");
             }
 
 
@@ -48890,7 +48890,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RestraintEventAggregate
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on RestraintEvent
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("RestraintEvent");
             }
 
 
@@ -49190,7 +49190,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RestraintEventReasonDescriptorAggrega
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on RestraintEventReasonDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("RestraintEventReasonDescriptor");
             }
 
 
@@ -49342,7 +49342,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ResultDatatypeTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ResultDatatypeTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ResultDatatypeTypeDescriptor");
             }
 
 
@@ -49494,7 +49494,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RetestIndicatorDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on RetestIndicatorDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("RetestIndicatorDescriptor");
             }
 
 
@@ -49645,7 +49645,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SchoolAggregate
                  (target.SchoolId != source.SchoolId))
             {
                 // Disallow PK column updates on School
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("School");
             }
 
 
@@ -50136,7 +50136,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SchoolCategoryDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SchoolCategoryDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SchoolCategoryDescriptor");
             }
 
 
@@ -50288,7 +50288,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SchoolChoiceBasisDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SchoolChoiceBasisDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SchoolChoiceBasisDescriptor");
             }
 
 
@@ -50440,7 +50440,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SchoolChoiceImplementStatusDescriptor
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SchoolChoiceImplementStatusDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SchoolChoiceImplementStatusDescriptor");
             }
 
 
@@ -50592,7 +50592,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SchoolFoodServiceProgramServiceDescri
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SchoolFoodServiceProgramServiceDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SchoolFoodServiceProgramServiceDescriptor");
             }
 
 
@@ -50744,7 +50744,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SchoolTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SchoolTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SchoolTypeDescriptor");
             }
 
 
@@ -50895,7 +50895,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SchoolYearTypeAggregate
                  (target.SchoolYear != source.SchoolYear))
             {
                 // Disallow PK column updates on SchoolYearType
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SchoolYearType");
             }
 
 
@@ -51728,7 +51728,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SectionAttendanceTakenEventAggregate
                 || (!keyStringComparer.Equals(target.SessionName, source.SessionName)))
             {
                 // Disallow PK column updates on SectionAttendanceTakenEvent
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SectionAttendanceTakenEvent");
             }
 
 
@@ -51852,7 +51852,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SectionCharacteristicDescriptorAggreg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SectionCharacteristicDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SectionCharacteristicDescriptor");
             }
 
 
@@ -52004,7 +52004,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SectionTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SectionTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SectionTypeDescriptor");
             }
 
 
@@ -52156,7 +52156,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SeparationDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SeparationDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SeparationDescriptor");
             }
 
 
@@ -52308,7 +52308,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SeparationReasonDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SeparationReasonDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SeparationReasonDescriptor");
             }
 
 
@@ -52460,7 +52460,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ServiceDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ServiceDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ServiceDescriptor");
             }
 
 
@@ -52964,7 +52964,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SexDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SexDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SexDescriptor");
             }
 
 
@@ -53118,7 +53118,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SourceDimensionAggregate
                 || (target.FiscalYear != source.FiscalYear))
             {
                 // Disallow PK column updates on SourceDimension
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SourceDimension");
             }
 
 
@@ -53303,7 +53303,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SourceSystemDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SourceSystemDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SourceSystemDescriptor");
             }
 
 
@@ -53455,7 +53455,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SpecialEducationExitReasonDescriptorA
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SpecialEducationExitReasonDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SpecialEducationExitReasonDescriptor");
             }
 
 
@@ -53607,7 +53607,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SpecialEducationProgramServiceDescrip
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SpecialEducationProgramServiceDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SpecialEducationProgramServiceDescriptor");
             }
 
 
@@ -53759,7 +53759,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SpecialEducationSettingDescriptorAggr
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SpecialEducationSettingDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SpecialEducationSettingDescriptor");
             }
 
 
@@ -53910,7 +53910,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
                  (target.StaffUniqueId != source.StaffUniqueId))
             {
                 // Disallow PK column updates on Staff
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("Staff");
             }
 
 
@@ -56240,7 +56240,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAbsenceEventAggregate
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
                 // Disallow PK column updates on StaffAbsenceEvent
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StaffAbsenceEvent");
             }
 
 
@@ -56356,7 +56356,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffClassificationDescriptorAggregat
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on StaffClassificationDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StaffClassificationDescriptor");
             }
 
 
@@ -56512,7 +56512,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffCohortAssociationAggregate
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
                 // Disallow PK column updates on StaffCohortAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StaffCohortAssociation");
             }
 
 
@@ -56634,7 +56634,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffDisciplineIncidentAssociationAgg
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
                 // Disallow PK column updates on StaffDisciplineIncidentAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StaffDisciplineIncidentAssociation");
             }
 
 
@@ -56821,7 +56821,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffEducationOrganizationAssignmentA
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
                 // Disallow PK column updates on StaffEducationOrganizationAssignmentAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StaffEducationOrganizationAssignmentAssociation");
             }
 
 
@@ -57017,7 +57017,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffEducationOrganizationContactAsso
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
                 // Disallow PK column updates on StaffEducationOrganizationContactAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StaffEducationOrganizationContactAssociation");
             }
 
 
@@ -57613,7 +57613,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffEducationOrganizationEmploymentA
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
                 // Disallow PK column updates on StaffEducationOrganizationEmploymentAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StaffEducationOrganizationEmploymentAssociation");
             }
 
 
@@ -57814,7 +57814,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffIdentificationSystemDescriptorAg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on StaffIdentificationSystemDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StaffIdentificationSystemDescriptor");
             }
 
 
@@ -57967,7 +57967,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffLeaveAggregate
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
                 // Disallow PK column updates on StaffLeave
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StaffLeave");
             }
 
 
@@ -58093,7 +58093,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffLeaveEventCategoryDescriptorAggr
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on StaffLeaveEventCategoryDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StaffLeaveEventCategoryDescriptor");
             }
 
 
@@ -58250,7 +58250,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffProgramAssociationAggregate
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
                 // Disallow PK column updates on StaffProgramAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StaffProgramAssociation");
             }
 
 
@@ -58371,7 +58371,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffSchoolAssociationAggregate
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
                 // Disallow PK column updates on StaffSchoolAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StaffSchoolAssociation");
             }
 
 
@@ -58672,7 +58672,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffSectionAssociationAggregate
                 || (target.StaffUniqueId != source.StaffUniqueId))
             {
                 // Disallow PK column updates on StaffSectionAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StaffSectionAssociation");
             }
 
 
@@ -58824,7 +58824,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StateAbbreviationDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on StateAbbreviationDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StateAbbreviationDescriptor");
             }
 
 
@@ -58975,7 +58975,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StateEducationAgencyAggregate
                  (target.StateEducationAgencyId != source.StateEducationAgencyId))
             {
                 // Disallow PK column updates on StateEducationAgency
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StateEducationAgency");
             }
 
 
@@ -59394,7 +59394,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAggregate
                  (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on Student
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("Student");
             }
 
 
@@ -60190,7 +60190,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAcademicRecordAggregate
                 || !string.Equals(target.TermDescriptor, source.TermDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on StudentAcademicRecord
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentAcademicRecord");
             }
 
 
@@ -61422,7 +61422,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentAssessment
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentAssessment");
             }
 
 
@@ -62615,7 +62615,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentEducationOrganizatio
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentAssessmentEducationOrganizationAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentAssessmentEducationOrganizationAssociation");
             }
 
 
@@ -62727,7 +62727,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCharacteristicDescriptorAggreg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on StudentCharacteristicDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentCharacteristicDescriptor");
             }
 
 
@@ -62883,7 +62883,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCohortAssociationAggregate
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentCohortAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentCohortAssociation");
             }
 
 
@@ -63098,7 +63098,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCompetencyObjectiveAggregate
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentCompetencyObjective
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentCompetencyObjective");
             }
 
 
@@ -63420,7 +63420,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentContactAssociationAggregate
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentContactAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentContactAssociation");
             }
 
 
@@ -63593,7 +63593,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCTEProgramAssociationAggregate
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentCTEProgramAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentCTEProgramAssociation");
             }
 
 
@@ -63910,7 +63910,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentDisciplineIncidentBehaviorAsso
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentDisciplineIncidentBehaviorAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentDisciplineIncidentBehaviorAssociation");
             }
 
 
@@ -64109,7 +64109,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentDisciplineIncidentNonOffenderA
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentDisciplineIncidentNonOffenderAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentDisciplineIncidentNonOffenderAssociation");
             }
 
 
@@ -64294,7 +64294,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentEducationOrganizationAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentEducationOrganizationAssociation");
             }
 
 
@@ -66463,7 +66463,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationResponsib
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentEducationOrganizationResponsibilityAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentEducationOrganizationResponsibilityAssociation");
             }
 
 
@@ -66575,7 +66575,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentGradebookEntryAggregate
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentGradebookEntry
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentGradebookEntry");
             }
 
 
@@ -66769,7 +66769,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentHomelessProgramAssociationAggr
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentHomelessProgramAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentHomelessProgramAssociation");
             }
 
 
@@ -67072,7 +67072,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentIdentificationSystemDescriptor
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on StudentIdentificationSystemDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentIdentificationSystemDescriptor");
             }
 
 
@@ -67227,7 +67227,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentInterventionAssociationAggrega
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentInterventionAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentInterventionAssociation");
             }
 
 
@@ -67481,7 +67481,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentInterventionAttendanceEventAgg
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentInterventionAttendanceEvent
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentInterventionAttendanceEvent");
             }
 
 
@@ -67627,7 +67627,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentLanguageInstructionProgramAsso
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentLanguageInstructionProgramAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentLanguageInstructionProgramAssociation");
             }
 
 
@@ -68059,7 +68059,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentMigrantEducationProgramAssocia
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentMigrantEducationProgramAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentMigrantEducationProgramAssociation");
             }
 
 
@@ -68428,7 +68428,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentNeglectedOrDelinquentProgramAs
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentNeglectedOrDelinquentProgramAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentNeglectedOrDelinquentProgramAssociation");
             }
 
 
@@ -68731,7 +68731,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentParticipationCodeDescriptorAgg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on StudentParticipationCodeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentParticipationCodeDescriptor");
             }
 
 
@@ -68889,7 +68889,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentProgramAssociationAggregate
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentProgramAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentProgramAssociation");
             }
 
 
@@ -69169,7 +69169,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentProgramAttendanceEventAggregat
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentProgramAttendanceEvent
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentProgramAttendanceEvent");
             }
 
 
@@ -69321,7 +69321,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentProgramEvaluationAggregate
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentProgramEvaluation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentProgramEvaluation");
             }
 
 
@@ -70351,7 +70351,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSchoolAttendanceEventAggregate
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentSchoolAttendanceEvent
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentSchoolAttendanceEvent");
             }
 
 
@@ -70519,7 +70519,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSchoolFoodServiceProgramAssoci
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentSchoolFoodServiceProgramAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentSchoolFoodServiceProgramAssociation");
             }
 
 
@@ -71105,7 +71105,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSectionAttendanceEventAggregat
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentSectionAttendanceEvent
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentSectionAttendanceEvent");
             }
 
 
@@ -71368,7 +71368,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSpecialEducationProgramAssocia
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentSpecialEducationProgramAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentSpecialEducationProgramAssociation");
             }
 
 
@@ -72188,7 +72188,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSpecialEducationProgramEligibi
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentSpecialEducationProgramEligibilityAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentSpecialEducationProgramEligibilityAssociation");
             }
 
 
@@ -72446,7 +72446,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentTitleIPartAProgramAssociationA
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentTitleIPartAProgramAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentTitleIPartAProgramAssociation");
             }
 
 
@@ -72729,7 +72729,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SubmissionStatusDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SubmissionStatusDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SubmissionStatusDescriptor");
             }
 
 
@@ -72881,7 +72881,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SupporterMilitaryConnectionDescriptor
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SupporterMilitaryConnectionDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SupporterMilitaryConnectionDescriptor");
             }
 
 
@@ -73035,7 +73035,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyAggregate
                 || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier)))
             {
                 // Disallow PK column updates on Survey
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("Survey");
             }
 
 
@@ -73203,7 +73203,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyCategoryDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SurveyCategoryDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SurveyCategoryDescriptor");
             }
 
 
@@ -73359,7 +73359,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyCourseAssociationAggregate
                 || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier)))
             {
                 // Disallow PK column updates on SurveyCourseAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SurveyCourseAssociation");
             }
 
 
@@ -73458,7 +73458,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyLevelDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SurveyLevelDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SurveyLevelDescriptor");
             }
 
 
@@ -73615,7 +73615,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyProgramAssociationAggregate
                 || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier)))
             {
                 // Disallow PK column updates on SurveyProgramAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SurveyProgramAssociation");
             }
 
 
@@ -73718,7 +73718,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyQuestionAggregate
                 || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier)))
             {
                 // Disallow PK column updates on SurveyQuestion
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SurveyQuestion");
             }
 
 
@@ -74064,7 +74064,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyQuestionResponseAggregate
                 || (!keyStringComparer.Equals(target.SurveyResponseIdentifier, source.SurveyResponseIdentifier)))
             {
                 // Disallow PK column updates on SurveyQuestionResponse
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SurveyQuestionResponse");
             }
 
 
@@ -74430,7 +74430,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyResponseAggregate
                 || (!keyStringComparer.Equals(target.SurveyResponseIdentifier, source.SurveyResponseIdentifier)))
             {
                 // Disallow PK column updates on SurveyResponse
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SurveyResponse");
             }
 
 
@@ -74703,7 +74703,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyResponseEducationOrganizationTa
                 || (!keyStringComparer.Equals(target.SurveyResponseIdentifier, source.SurveyResponseIdentifier)))
             {
                 // Disallow PK column updates on SurveyResponseEducationOrganizationTargetAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SurveyResponseEducationOrganizationTargetAssociation");
             }
 
 
@@ -74806,7 +74806,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveyResponseStaffTargetAssociationA
                 || (!keyStringComparer.Equals(target.SurveyResponseIdentifier, source.SurveyResponseIdentifier)))
             {
                 // Disallow PK column updates on SurveyResponseStaffTargetAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SurveyResponseStaffTargetAssociation");
             }
 
 
@@ -74908,7 +74908,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveySectionAggregate
                 || (!keyStringComparer.Equals(target.SurveySectionTitle, source.SurveySectionTitle)))
             {
                 // Disallow PK column updates on SurveySection
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SurveySection");
             }
 
 
@@ -75011,7 +75011,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveySectionAssociationAggregate
                 || (!keyStringComparer.Equals(target.SurveyIdentifier, source.SurveyIdentifier)))
             {
                 // Disallow PK column updates on SurveySectionAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SurveySectionAssociation");
             }
 
 
@@ -75117,7 +75117,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveySectionResponseAggregate
                 || (!keyStringComparer.Equals(target.SurveySectionTitle, source.SurveySectionTitle)))
             {
                 // Disallow PK column updates on SurveySectionResponse
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SurveySectionResponse");
             }
 
 
@@ -75231,7 +75231,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveySectionResponseEducationOrganiz
                 || (!keyStringComparer.Equals(target.SurveySectionTitle, source.SurveySectionTitle)))
             {
                 // Disallow PK column updates on SurveySectionResponseEducationOrganizationTargetAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SurveySectionResponseEducationOrganizationTargetAssociation");
             }
 
 
@@ -75336,7 +75336,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SurveySectionResponseStaffTargetAssoc
                 || (!keyStringComparer.Equals(target.SurveySectionTitle, source.SurveySectionTitle)))
             {
                 // Disallow PK column updates on SurveySectionResponseStaffTargetAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SurveySectionResponseStaffTargetAssociation");
             }
 
 
@@ -75436,7 +75436,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.TeachingCredentialBasisDescriptorAggr
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on TeachingCredentialBasisDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("TeachingCredentialBasisDescriptor");
             }
 
 
@@ -75588,7 +75588,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.TeachingCredentialDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on TeachingCredentialDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("TeachingCredentialDescriptor");
             }
 
 
@@ -75740,7 +75740,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.TechnicalSkillsAssessmentDescriptorAg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on TechnicalSkillsAssessmentDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("TechnicalSkillsAssessmentDescriptor");
             }
 
 
@@ -75892,7 +75892,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.TelephoneNumberTypeDescriptorAggregat
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on TelephoneNumberTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("TelephoneNumberTypeDescriptor");
             }
 
 
@@ -76044,7 +76044,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.TermDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on TermDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("TermDescriptor");
             }
 
 
@@ -76196,7 +76196,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.TitleIPartAParticipantDescriptorAggre
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on TitleIPartAParticipantDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("TitleIPartAParticipantDescriptor");
             }
 
 
@@ -76348,7 +76348,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.TitleIPartAProgramServiceDescriptorAg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on TitleIPartAProgramServiceDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("TitleIPartAProgramServiceDescriptor");
             }
 
 
@@ -76500,7 +76500,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.TitleIPartASchoolDesignationDescripto
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on TitleIPartASchoolDesignationDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("TitleIPartASchoolDesignationDescriptor");
             }
 
 
@@ -76652,7 +76652,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.TribalAffiliationDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on TribalAffiliationDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("TribalAffiliationDescriptor");
             }
 
 
@@ -76804,7 +76804,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.VisaDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on VisaDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("VisaDescriptor");
             }
 
 
@@ -76956,7 +76956,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.WeaponDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on WeaponDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("WeaponDescriptor");
             }
 
 

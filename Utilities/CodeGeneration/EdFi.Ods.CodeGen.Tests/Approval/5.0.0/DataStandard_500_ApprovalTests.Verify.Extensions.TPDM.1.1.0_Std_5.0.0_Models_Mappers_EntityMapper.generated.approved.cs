@@ -36,7 +36,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AccreditationStatusDescriptorAggregat
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AccreditationStatusDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AccreditationStatusDescriptor");
             }
 
 
@@ -188,7 +188,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AidTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on AidTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("AidTypeDescriptor");
             }
 
 
@@ -341,7 +341,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                  (!keyStringComparer.Equals(target.CandidateIdentifier, source.CandidateIdentifier)))
             {
                 // Disallow PK column updates on Candidate
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("Candidate");
             }
 
 
@@ -1896,7 +1896,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
                 || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CandidateEducatorPreparationProgramAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CandidateEducatorPreparationProgramAssociation");
             }
 
 
@@ -2225,7 +2225,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CertificationRouteDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CertificationRouteDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CertificationRouteDescriptor");
             }
 
 
@@ -2377,7 +2377,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CoteachingStyleObservedDescriptorAggr
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CoteachingStyleObservedDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CoteachingStyleObservedDescriptor");
             }
 
 
@@ -2782,7 +2782,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialStatusDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on CredentialStatusDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("CredentialStatusDescriptor");
             }
 
 
@@ -2937,7 +2937,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
                 || !string.Equals(target.ProgramTypeDescriptor, source.ProgramTypeDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EducatorPreparationProgram
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EducatorPreparationProgram");
             }
 
 
@@ -3132,7 +3132,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorRoleDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EducatorRoleDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EducatorRoleDescriptor");
             }
 
 
@@ -3284,7 +3284,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EnglishLanguageExamDescriptorAggregat
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EnglishLanguageExamDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EnglishLanguageExamDescriptor");
             }
 
 
@@ -3436,7 +3436,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EPPProgramPathwayDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EPPProgramPathwayDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EPPProgramPathwayDescriptor");
             }
 
 
@@ -3595,7 +3595,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
                 || !string.Equals(target.TermDescriptor, source.TermDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on Evaluation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("Evaluation");
             }
 
 
@@ -3853,7 +3853,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
                 || !string.Equals(target.TermDescriptor, source.TermDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EvaluationElement
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EvaluationElement");
             }
 
 
@@ -4106,7 +4106,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
                 || !string.Equals(target.TermDescriptor, source.TermDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EvaluationElementRating
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EvaluationElementRating");
             }
 
 
@@ -4353,7 +4353,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingLevelDescripto
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EvaluationElementRatingLevelDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EvaluationElementRatingLevelDescriptor");
             }
 
 
@@ -4513,7 +4513,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
                 || !string.Equals(target.TermDescriptor, source.TermDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EvaluationObjective
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EvaluationObjective");
             }
 
 
@@ -4774,7 +4774,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
                 || !string.Equals(target.TermDescriptor, source.TermDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EvaluationObjectiveRating
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EvaluationObjectiveRating");
             }
 
 
@@ -4990,7 +4990,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationPeriodDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EvaluationPeriodDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EvaluationPeriodDescriptor");
             }
 
 
@@ -5152,7 +5152,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
                 || !string.Equals(target.TermDescriptor, source.TermDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EvaluationRating
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EvaluationRating");
             }
 
 
@@ -5657,7 +5657,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingLevelDescriptorAggreg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EvaluationRatingLevelDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EvaluationRatingLevelDescriptor");
             }
 
 
@@ -5809,7 +5809,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingStatusDescriptorAggre
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EvaluationRatingStatusDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EvaluationRatingStatusDescriptor");
             }
 
 
@@ -5961,7 +5961,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationTypeDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on EvaluationTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("EvaluationTypeDescriptor");
             }
 
 
@@ -6114,7 +6114,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.FinancialAidAggregate
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on FinancialAid
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("FinancialAid");
             }
 
 
@@ -6246,7 +6246,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.GenderDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on GenderDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("GenderDescriptor");
             }
 
 
@@ -6398,7 +6398,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.ObjectiveRatingLevelDescriptorAggrega
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on ObjectiveRatingLevelDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("ObjectiveRatingLevelDescriptor");
             }
 
 
@@ -6556,7 +6556,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
                 || !string.Equals(target.TermDescriptor, source.TermDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on PerformanceEvaluation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("PerformanceEvaluation");
             }
 
 
@@ -6866,7 +6866,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
                 || !string.Equals(target.TermDescriptor, source.TermDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on PerformanceEvaluationRating
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("PerformanceEvaluationRating");
             }
 
 
@@ -7387,7 +7387,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingLevelDescr
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on PerformanceEvaluationRatingLevelDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("PerformanceEvaluationRatingLevelDescriptor");
             }
 
 
@@ -7539,7 +7539,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationTypeDescriptorAg
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on PerformanceEvaluationTypeDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("PerformanceEvaluationTypeDescriptor");
             }
 
 
@@ -7701,7 +7701,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricDimensionAggregate
                 || !string.Equals(target.TermDescriptor, source.TermDescriptor, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on RubricDimension
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("RubricDimension");
             }
 
 
@@ -7830,7 +7830,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricRatingLevelDescriptorAggregate
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on RubricRatingLevelDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("RubricRatingLevelDescriptor");
             }
 
 
@@ -8170,7 +8170,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponsePersonTargetAssociation
                 || (!keyStringComparer.Equals(target.SurveyResponseIdentifier, source.SurveyResponseIdentifier)))
             {
                 // Disallow PK column updates on SurveyResponsePersonTargetAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SurveyResponsePersonTargetAssociation");
             }
 
 
@@ -8272,7 +8272,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveySectionResponsePersonTargetAsso
                 || (!keyStringComparer.Equals(target.SurveySectionTitle, source.SurveySectionTitle)))
             {
                 // Disallow PK column updates on SurveySectionResponsePersonTargetAssociation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SurveySectionResponsePersonTargetAssociation");
             }
 
 
