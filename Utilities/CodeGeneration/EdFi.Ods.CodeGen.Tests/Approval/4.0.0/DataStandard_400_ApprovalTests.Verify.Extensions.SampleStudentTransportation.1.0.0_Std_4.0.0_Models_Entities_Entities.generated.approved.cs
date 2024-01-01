@@ -5,7 +5,6 @@ using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Runtime.Serialization;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Attributes;
@@ -112,7 +111,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
     /// <summary>
     /// A class which represents the samplestudenttransportation.StudentTransportation table of the StudentTransportation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("samplestudenttransportation")]
+    [Schema("samplestudenttransportation")]
     [ExcludeFromCodeCoverage]
     public class StudentTransportation : AggregateRootWithCompositeKey,
         Entities.Common.SampleStudentTransportation.IStudentTransportation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -128,14 +127,13 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(6, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string AMBusNumber  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(6, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string PMBusNumber  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature]
         public virtual int SchoolId  { get; set; }
-        [Display(Name="StudentUniqueId")]
-        [DomainSignature, RequiredWithNonDefault("Student")]
+        [Display(Name="StudentUniqueId")][DomainSignature]
         public virtual int StudentUSI 
         {
             get
@@ -194,7 +192,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [Range(typeof(decimal), "-999.99", "999.99")]
         public virtual decimal EstimatedMilesFromSchool  { get; set; }
         // -------------------------------------------------------------
 

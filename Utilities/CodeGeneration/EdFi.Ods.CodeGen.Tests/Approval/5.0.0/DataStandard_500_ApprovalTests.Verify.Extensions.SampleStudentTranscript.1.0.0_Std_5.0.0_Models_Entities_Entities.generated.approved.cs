@@ -5,7 +5,6 @@ using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Runtime.Serialization;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Attributes;
@@ -31,7 +30,7 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionControlDescriptorAggregate.Sam
     /// <summary>
     /// A class which represents the samplestudenttranscript.InstitutionControlDescriptor table of the InstitutionControlDescriptor aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("samplestudenttranscript")]
+    [Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
     public class InstitutionControlDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
@@ -210,7 +209,7 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionLevelDescriptorAggregate.Sampl
     /// <summary>
     /// A class which represents the samplestudenttranscript.InstitutionLevelDescriptor table of the InstitutionLevelDescriptor aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("samplestudenttranscript")]
+    [Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
     public class InstitutionLevelDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
@@ -465,7 +464,7 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
     /// <summary>
     /// A class which represents the samplestudenttranscript.PostSecondaryOrganization table of the PostSecondaryOrganization aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("samplestudenttranscript")]
+    [Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
     public class PostSecondaryOrganization : AggregateRootWithCompositeKey,
         Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -481,7 +480,7 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string NameOfInstitution  { get; set; }
         // -------------------------------------------------------------
 
@@ -494,7 +493,6 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
         //                          Properties
         // -------------------------------------------------------------
         public virtual bool AcceptanceIndicator  { get; set; }
-        [RequiredWithNonDefault]
         public virtual int InstitutionControlDescriptorId 
         {
             get
@@ -529,7 +527,6 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
                 _institutionControlDescriptorId = default(int);
             }
         }
-        [RequiredWithNonDefault]
         public virtual int InstitutionLevelDescriptorId 
         {
             get
@@ -689,7 +686,7 @@ namespace EdFi.Ods.Entities.NHibernate.SpecialEducationGraduationStatusDescripto
     /// <summary>
     /// A class which represents the samplestudenttranscript.SpecialEducationGraduationStatusDescriptor table of the SpecialEducationGraduationStatusDescriptor aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("samplestudenttranscript")]
+    [Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
     public class SpecialEducationGraduationStatusDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
@@ -868,7 +865,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
     /// <summary>
     /// A class which represents the samplestudenttranscript.StudentAcademicRecordExtension table of the StudentAcademicRecord aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("samplestudenttranscript")]
+    [Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
     public class StudentAcademicRecordExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.SampleStudentTranscript.IStudentAcademicRecordExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -884,7 +881,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.StudentAcademicRecord StudentAcademicRecord { get; set; }
 
         Entities.Common.EdFi.IStudentAcademicRecord IStudentAcademicRecordExtension.StudentAcademicRecord
@@ -903,7 +900,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(75, MinimumLength=1), NoDangerousText]
         public virtual string NameOfInstitution  { get; set; }
         public virtual int? SubmissionCertificationDescriptorId 
         {
@@ -1081,7 +1077,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
     /// <summary>
     /// A class which represents the samplestudenttranscript.StudentAcademicRecordClassRankingExtension table of the StudentAcademicRecord aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("samplestudenttranscript")]
+    [Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
     public class StudentAcademicRecordClassRankingExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.SampleStudentTranscript.IStudentAcademicRecordClassRankingExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -1097,7 +1093,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual EdFi.StudentAcademicRecordClassRanking StudentAcademicRecordClassRanking { get; set; }
 
         Entities.Common.EdFi.IStudentAcademicRecordClassRanking IStudentAcademicRecordClassRankingExtension.StudentAcademicRecordClassRanking
@@ -1116,7 +1112,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [RequiredWithNonDefault]
         public virtual int SpecialEducationGraduationStatusDescriptorId 
         {
             get
@@ -1278,7 +1273,7 @@ namespace EdFi.Ods.Entities.NHibernate.SubmissionCertificationDescriptorAggregat
     /// <summary>
     /// A class which represents the samplestudenttranscript.SubmissionCertificationDescriptor table of the SubmissionCertificationDescriptor aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("samplestudenttranscript")]
+    [Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
     public class SubmissionCertificationDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor

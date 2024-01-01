@@ -5,7 +5,6 @@ using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Runtime.Serialization;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Attributes;
@@ -108,7 +107,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
     /// <summary>
     /// A class which represents the homograph.Contact table of the Contact aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("homograph")]
+    [Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class Contact : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.IContact, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -126,9 +125,9 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string ContactFirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string ContactLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -183,8 +182,6 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
 
         private ICollection<Entities.NHibernate.ContactAggregate.Homograph.ContactAddress> _contactAddresses;
         private ICollection<Entities.Common.Homograph.IContactAddress> _contactAddressesCovariant;
-        [RequiredCollection]
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.ContactAggregate.Homograph.ContactAddress> ContactAddresses
         {
             get
@@ -232,8 +229,6 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
 
         private ICollection<Entities.NHibernate.ContactAggregate.Homograph.ContactStudentSchoolAssociation> _contactStudentSchoolAssociations;
         private ICollection<Entities.Common.Homograph.IContactStudentSchoolAssociation> _contactStudentSchoolAssociationsCovariant;
-        [RequiredCollection]
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.ContactAggregate.Homograph.ContactStudentSchoolAssociation> ContactStudentSchoolAssociations
         {
             get
@@ -377,7 +372,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
     /// <summary>
     /// A class which represents the homograph.ContactAddress table of the Contact aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("homograph")]
+    [Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class ContactAddress : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IContactAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -393,7 +388,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual Contact Contact { get; set; }
 
         Entities.Common.Homograph.IContact IContactAddress.Contact
@@ -402,7 +397,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
             set { Contact = (Contact) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(30, MinimumLength=2), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string City  { get; set; }
         // -------------------------------------------------------------
 
@@ -536,7 +531,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
     /// <summary>
     /// A class which represents the homograph.ContactStudentSchoolAssociation table of the Contact aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("homograph")]
+    [Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class ContactStudentSchoolAssociation : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IContactStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -552,7 +547,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual Contact Contact { get; set; }
 
         Entities.Common.Homograph.IContact IContactStudentSchoolAssociation.Contact
@@ -561,11 +556,11 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
             set { Contact = (Contact) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(100, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string SchoolName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string StudentFirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string StudentLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -804,7 +799,7 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
     /// <summary>
     /// A class which represents the homograph.Name table of the Name aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("homograph")]
+    [Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class Name : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.IName, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -820,9 +815,9 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string FirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string LastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -1034,7 +1029,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
     /// <summary>
     /// A class which represents the homograph.School table of the School aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("homograph")]
+    [Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class School : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.ISchool, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -1051,7 +1046,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(100, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string SchoolName  { get; set; }
         // -------------------------------------------------------------
 
@@ -1063,14 +1058,12 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(20, MinimumLength=0), NoDangerousText]
         public virtual string SchoolYear  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
-        [ValidateObject]
         public virtual Entities.NHibernate.SchoolAggregate.Homograph.SchoolAddress SchoolAddress
         {
             get
@@ -1262,7 +1255,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
     /// <summary>
     /// A class which represents the homograph.SchoolAddress table of the School aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("homograph")]
+    [Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class SchoolAddress : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.ISchoolAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -1278,7 +1271,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual School School { get; set; }
 
         Entities.Common.Homograph.ISchool ISchoolAddress.School
@@ -1297,7 +1290,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [RequiredWithNonDefault, StringLength(30, MinimumLength=2), NoDangerousText]
         public virtual string City  { get; set; }
         // -------------------------------------------------------------
 
@@ -1501,7 +1493,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
     /// <summary>
     /// A class which represents the homograph.SchoolYearType table of the SchoolYearType aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("homograph")]
+    [Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class SchoolYearType : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.ISchoolYearType, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -1517,7 +1509,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(20, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string SchoolYear  { get; set; }
         // -------------------------------------------------------------
 
@@ -1730,7 +1722,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     /// <summary>
     /// A class which represents the homograph.Staff table of the Staff aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("homograph")]
+    [Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class Staff : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.IStaff, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -1748,9 +1740,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string StaffFirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string StaffLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -1805,7 +1797,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
         private ICollection<Entities.NHibernate.StaffAggregate.Homograph.StaffAddress> _staffAddresses;
         private ICollection<Entities.Common.Homograph.IStaffAddress> _staffAddressesCovariant;
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StaffAggregate.Homograph.StaffAddress> StaffAddresses
         {
             get
@@ -1853,7 +1844,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
         private ICollection<Entities.NHibernate.StaffAggregate.Homograph.StaffStudentSchoolAssociation> _staffStudentSchoolAssociations;
         private ICollection<Entities.Common.Homograph.IStaffStudentSchoolAssociation> _staffStudentSchoolAssociationsCovariant;
-        [ValidateEnumerable]
         public virtual ICollection<Entities.NHibernate.StaffAggregate.Homograph.StaffStudentSchoolAssociation> StaffStudentSchoolAssociations
         {
             get
@@ -1997,7 +1987,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     /// <summary>
     /// A class which represents the homograph.StaffAddress table of the Staff aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("homograph")]
+    [Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class StaffAddress : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IStaffAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -2013,7 +2003,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual Staff Staff { get; set; }
 
         Entities.Common.Homograph.IStaff IStaffAddress.Staff
@@ -2022,7 +2012,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
             set { Staff = (Staff) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(30, MinimumLength=2), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string City  { get; set; }
         // -------------------------------------------------------------
 
@@ -2156,7 +2146,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     /// <summary>
     /// A class which represents the homograph.StaffStudentSchoolAssociation table of the Staff aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("homograph")]
+    [Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class StaffStudentSchoolAssociation : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IStaffStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -2172,7 +2162,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual Staff Staff { get; set; }
 
         Entities.Common.Homograph.IStaff IStaffStudentSchoolAssociation.Staff
@@ -2181,11 +2171,11 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
             set { Staff = (Staff) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(100, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string SchoolName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string StudentFirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string StudentLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -2424,7 +2414,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
     /// <summary>
     /// A class which represents the homograph.Student table of the Student aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("homograph")]
+    [Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class Student : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.IStudent, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -2441,9 +2431,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string StudentFirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string StudentLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -2455,14 +2445,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [RequiredWithNonDefault, StringLength(20, MinimumLength=0), NoDangerousText]
         public virtual string SchoolYear  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
-        [Required][ValidateObject]
         public virtual Entities.NHibernate.StudentAggregate.Homograph.StudentAddress StudentAddress
         {
             get
@@ -2675,7 +2663,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
     /// <summary>
     /// A class which represents the homograph.StudentAddress table of the Student aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("homograph")]
+    [Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class StudentAddress : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IStudentAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -2691,7 +2679,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual Student Student { get; set; }
 
         Entities.Common.Homograph.IStudent IStudentAddress.Student
@@ -2700,7 +2688,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
             set { Student = (Student) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(30, MinimumLength=2), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string City  { get; set; }
         // -------------------------------------------------------------
 
@@ -2919,7 +2907,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
     /// <summary>
     /// A class which represents the homograph.StudentSchoolAssociation table of the StudentSchoolAssociation aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("homograph")]
+    [Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class StudentSchoolAssociation : AggregateRootWithCompositeKey, IHasCascadableKeyValues,
         Entities.Common.Homograph.IStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
@@ -2935,11 +2923,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(100, MinimumLength=0), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string SchoolName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string StudentFirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=1), NoDangerousText, NoWhitespace]
+        [DomainSignature]
         public virtual string StudentLastSurname  { get; set; }
         // -------------------------------------------------------------
 
