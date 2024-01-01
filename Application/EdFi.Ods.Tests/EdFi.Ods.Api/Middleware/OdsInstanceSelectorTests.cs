@@ -56,7 +56,7 @@ namespace EdFi.Ods.Api.Middleware.Tests
             A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(apiClientContext);
 
             // Act + Assert
-            Assert.ThrowsAsync<ApiSecurityConfigurationException>(() => _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary));
+            Assert.ThrowsAsync<SecurityConfigurationException>(() => _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary));
         }
 
         [Test]

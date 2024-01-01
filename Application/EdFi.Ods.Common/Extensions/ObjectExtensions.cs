@@ -47,7 +47,11 @@ namespace EdFi.Ods.Common.Extensions
                         // c.f. https://referencesource.microsoft.com/#System/compmod/system/componentmodel/ReflectPropertyDescriptor.cs,3b48df1474c54332
                         if (ex is TargetInvocationException && ex.InnerException is ArgumentException)
                         {
-                            throw new BadRequestException(ex.Message, ex.InnerException);
+                            // While this method has general utility, this specific failure scenario has to do with descriptor values provided
+                            // as query string parameters as filter criteria, and thus represent a data validation error.
+                            throw new BadRequestDataException(
+                                $"Unable to obtain the value for '{descriptor.Name}'.",
+                                new []{ ex.Message });
                         }
 
                         throw;

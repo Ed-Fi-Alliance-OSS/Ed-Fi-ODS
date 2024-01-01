@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Security.DataAccess.Models;
@@ -35,7 +36,9 @@ namespace EdFi.Ods.Api.Security.Claims
 
             if (apiClientContext == null || apiClientContext == ApiClientContext.Empty)
             {
-                throw new EdFiSecurityException("No API key information was available for authorization.");
+                throw new SecurityException(
+                    SecurityException.DefaultTechnicalProblemDetail,
+                    "No API key information was available for authorization.");
             }
 
             return GetClaimsIdentity(apiClientContext.ClaimSetName);

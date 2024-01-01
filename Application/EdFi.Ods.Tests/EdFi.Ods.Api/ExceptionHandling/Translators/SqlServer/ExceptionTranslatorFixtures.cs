@@ -22,7 +22,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
     public class When_an_insert_conflicts_with_a_foreign_key_constraint_with_a_single_column : TestFixtureBase
     {
         private Exception _suppliedInsertException;
-        private RESTError _actualError;
+        private IEdFiProblemDetails _actualError;
 
         protected override void Arrange()
         {
@@ -35,14 +35,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         protected override void Act()
         {
             var translator = new SqlServerConstraintExceptionTranslator();
-            translator.TryTranslateMessage(_suppliedInsertException, out _actualError);
+            translator.TryTranslate(_suppliedInsertException, out _actualError);
         }
 
         [Test]
         public virtual void Should_respond_with_a_409_Conflict()
         {
-            Assert.That(_actualError.Code, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo("Conflict"));
+            Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")));
         }
 
         [Test]
@@ -50,14 +50,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             Should_translate_the_message_to_indicate_that_a_related_resource_does_not_have_the_value_specified_in_the_current_request_but_does_not_provide_column_level_details()
         {
             Assert.That(
-                _actualError.Message, Is.EqualTo("The value supplied for the related 'addressType' resource does not exist."));
+                _actualError.Detail, Is.EqualTo("The value supplied for the related 'addressType' resource does not exist."));
         }
     }
 
     public class When_an_update_conflicts_with_a_foreign_key_constraint_with_a_single_column : TestFixtureBase
     {
         private Exception _suppliedUpdateException;
-        private RESTError _actualError;
+        private IEdFiProblemDetails _actualError;
 
         protected override void Arrange()
         {
@@ -69,14 +69,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         protected override void Act()
         {
             var translator = new SqlServerConstraintExceptionTranslator();
-            translator.TryTranslateMessage(_suppliedUpdateException, out _actualError);
+            translator.TryTranslate(_suppliedUpdateException, out _actualError);
         }
 
         [Test]
         public virtual void Should_respond_with_a_409_Conflict()
         {
-            Assert.That(_actualError.Code, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo("Conflict"));
+            Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")));
         }
 
         [Test]
@@ -84,7 +84,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             Should_translate_the_message_to_indicate_that_a_related_resource_does_not_have_the_value_specified_in_the_current_request_but_does_not_provide_column_details()
         {
             Assert.That(
-                _actualError.Message,
+                _actualError.Detail,
                 Is.EqualTo("The value supplied for the related 'limitedEnglishProficiencyType' resource does not exist."));
         }
     }
@@ -92,7 +92,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
     public class When_a_delete_conflicts_with_a_reference_constraint_with_multiple_columns : TestFixtureBase
     {
         private Exception _suppliedUpdateException;
-        private RESTError _actualError;
+        private IEdFiProblemDetails _actualError;
 
         protected override void Arrange()
         {
@@ -104,14 +104,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         protected override void Act()
         {
             var translator = new SqlServerConstraintExceptionTranslator();
-            translator.TryTranslateMessage(_suppliedUpdateException, out _actualError);
+            translator.TryTranslate(_suppliedUpdateException, out _actualError);
         }
 
         [Test]
         public virtual void Should_respond_with_a_409_Conflict()
         {
-            Assert.That(_actualError.Code, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo("Conflict"));
+            Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")));
         }
 
         [Test]
@@ -119,7 +119,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             Should_translate_the_message_to_indicate_that_a_related_resource_does_not_have_the_value_specified_in_the_current_request_but_does_not_provide_column_details()
         {
             Assert.That(
-                _actualError.Message,
+                _actualError.Detail,
                 Is.EqualTo(
                     "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of the 'disciplineAction' entity."));
         }
@@ -128,7 +128,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
     public class When_a_delete_conflicts_with_a_reference_constraint_with_a_single_column : TestFixtureBase
     {
         private Exception _suppliedUpdateException;
-        private RESTError _actualError;
+        private IEdFiProblemDetails _actualError;
 
         protected override void Arrange()
         {
@@ -140,14 +140,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         protected override void Act()
         {
             var translator = new SqlServerConstraintExceptionTranslator();
-            translator.TryTranslateMessage(_suppliedUpdateException, out _actualError);
+            translator.TryTranslate(_suppliedUpdateException, out _actualError);
         }
 
         [Test]
         public virtual void Should_respond_with_a_409_Conflict()
         {
-            Assert.That(_actualError.Code, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo("Conflict"));
+            Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")));
         }
 
         [Test]
@@ -155,7 +155,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             Should_translate_the_message_to_indicate_that_a_related_resource_does_not_have_the_value_specified_in_the_current_request_and_provide_column_details()
         {
             Assert.That(
-                _actualError.Message,
+                _actualError.Detail,
                 Is.EqualTo(
                     "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of the 'courseAttemptResultTypeId' value of the 'courseTranscript' entity."));
         }
@@ -166,7 +166,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         private Exception _suppliedUpdateException;
         private IDatabaseMetadataProvider _suppliedMetadataProvider;
 
-        private RESTError _actualError;
+        private IEdFiProblemDetails _actualError;
 
         protected override void Arrange()
         {
@@ -189,21 +189,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         protected override void Act()
         {
             var translator = new SqlServerUniqueIndexExceptionTranslator(_suppliedMetadataProvider);
-            translator.TryTranslateMessage(_suppliedUpdateException, out _actualError);
+            translator.TryTranslate(_suppliedUpdateException, out _actualError);
         }
 
         [Test]
         public virtual void Should_respond_with_a_409_Conflict()
         {
-            Assert.That(_actualError.Code, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo("Conflict"));
+            Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")));
         }
 
         [Test]
         public virtual void Should_translate_message_to_indicate_which_single_property_on_which_entity_was_not_unique()
         {
             Assert.That(
-                _actualError.Message,
+                _actualError.Detail,
                 Is.EqualTo("The value unknown supplied for property 'column1' of entity 'someTableName' is not unique."));
         }
     }
@@ -212,7 +212,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
     {
         private Exception _suppliedUpdateException;
         private IDatabaseMetadataProvider _suppliedMetadataProvider;
-        private RESTError _actualError;
+        private IEdFiProblemDetails _actualError;
 
         protected override void Arrange()
         {
@@ -239,21 +239,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         protected override void Act()
         {
             var translator = new SqlServerUniqueIndexExceptionTranslator(_suppliedMetadataProvider);
-            translator.TryTranslateMessage(_suppliedUpdateException, out _actualError);
+            translator.TryTranslate(_suppliedUpdateException, out _actualError);
         }
 
         [Test]
         public virtual void Should_respond_with_a_409_Conflict()
         {
-            Assert.That(_actualError.Code, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo("Conflict"));
+            Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")));
         }
 
         [Test]
         public virtual void Should_translate_message_to_indicate_which_properties_on_which_entity_were_not_unique()
         {
             Assert.That(
-                _actualError.Message,
+                _actualError.Detail,
                 Is.EqualTo(
                     "The values unknown supplied for properties 'column1', 'column2' of entity 'someTableName' are not unique."));
         }
@@ -264,7 +264,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         private Exception _suppliedUpdateException;
         private IDatabaseMetadataProvider _suppliedMetadataProvider;
 
-        private RESTError _actualError;
+        private IEdFiProblemDetails _actualError;
 
         protected override void Arrange()
         {
@@ -287,21 +287,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         protected override void Act()
         {
             var translator = new SqlServerUniqueIndexExceptionTranslator(_suppliedMetadataProvider);
-            translator.TryTranslateMessage(_suppliedUpdateException, out _actualError);
+            translator.TryTranslate(_suppliedUpdateException, out _actualError);
         }
 
         [Test]
         public virtual void Should_respond_with_a_409_Conflict()
         {
-            Assert.That(_actualError.Code, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo("Conflict"));
+            Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")));
         }
 
         [Test]
         public virtual void Should_translate_message_to_indicate_which_single_property_on_which_entity_was_not_unique()
         {
             Assert.That(
-                _actualError.Message,
+                _actualError.Detail,
                 Is.EqualTo("The value (69) supplied for property 'column1' of entity 'someTableName' is not unique."));
         }
     }
@@ -310,7 +310,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
     public class When_an_ArgumentException_is_thrown : TestFixtureBase
     {
         private Exception _suppliedException;
-        private RESTError _actualError;
+        private IEdFiProblemDetails _actualError;
         private bool _result;
 
         protected override void Arrange()
@@ -320,8 +320,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
         protected override void Act()
         {
-            var translator = new TypeBasedBadRequestExceptionTranslator();
-            _result = translator.TryTranslateMessage(_suppliedException, out _actualError);
+            var translator = new ValidationExceptionTranslator();
+            _result = translator.TryTranslate(_suppliedException, out _actualError);
         }
 
         [Test]
@@ -329,39 +329,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             Assert.That(_result, Is.False);
             Assert.That(_actualError, Is.Null);
-        }
-    }
-
-    [TestFixture]
-    public class When_an_BadRequestException_is_thrown : TestFixtureBase
-    {
-        private Exception _suppliedException;
-        private RESTError _actualError;
-        private bool _result;
-
-        protected override void Arrange()
-        {
-            _suppliedException = new BadRequestException("Some error message");
-        }
-
-        protected override void Act()
-        {
-            var translator = new TypeBasedBadRequestExceptionTranslator();
-            _result = translator.TryTranslateMessage(_suppliedException, out _actualError);
-        }
-
-        [Test]
-        public virtual void Should_provide_a_message_that_is_a_straight_passthrough_of_the_exception_message()
-        {
-            Assert.That(_result, Is.True);
-            Assert.That(_actualError.Message, Is.EqualTo("Some error message"));
-        }
-
-        [Test]
-        public virtual void Should_respond_with_a_400_BadRequest()
-        {
-            Assert.That(_actualError.Code, Is.EqualTo((int) HttpStatusCode.BadRequest));
-            Assert.That(_actualError.Type, Is.EqualTo("Bad Request"));
         }
     }
 }

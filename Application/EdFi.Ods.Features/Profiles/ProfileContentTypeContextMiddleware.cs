@@ -4,12 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Models;
+using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Common.Profiles;
@@ -18,7 +18,6 @@ using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
-using Newtonsoft.Json;
 
 namespace EdFi.Ods.Api.Middleware;
 
@@ -42,18 +41,14 @@ public class ProfileContentTypeContextMiddleware
     private const int UsageFacet = 2;
     private readonly RequestDelegate _next;
     private readonly IProfileMetadataProvider _profileMetadataProvider;
-    private static JsonSerializerSettings _jsonSerializerSettings;
+
+    private readonly ILog _logger = LogManager.GetLogger(typeof(ProfileContentTypeContextMiddleware));
 
     public ProfileContentTypeContextMiddleware(RequestDelegate next, IProfileMetadataProvider profileMetadataProvider, ILogContextAccessor logContextAccessor)
     {
         _next = next;
         _profileMetadataProvider = profileMetadataProvider;
         _logContextAccessor = logContextAccessor;
-    }
-
-    static ProfileContentTypeContextMiddleware()
-    {
-        _jsonSerializerSettings = new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore };
     }
 
     public async Task InvokeAsync(
@@ -108,7 +103,7 @@ public class ProfileContentTypeContextMiddleware
 
         await _next(context);
 
-        async Task<(bool ignored, ProfileContentTypeContext profileContentTypeContext)> TryProcessProfileContentTypeAsync(
+        async Task<(bool continueInvocation, ProfileContentTypeContext profileContentTypeContext)> TryProcessProfileContentTypeAsync(
             string headerName,
             string contentType,
             HttpResponse response,
@@ -185,23 +180,19 @@ public class ProfileContentTypeContextMiddleware
             return (true, null);
         }
 
-        async Task WriteResponse(HttpResponse httpResponse, int statusCode, string headerName, string messageFormat)
+        Task WriteResponse(HttpResponse response, int statusCode, string headerName, string logMessageFormat)
         {
-            httpResponse.StatusCode = statusCode;
-            httpResponse.ContentType = "application/json";
+            string correlationId = (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
+            string errorMessage = string.Format(logMessageFormat, headerName);
 
-            await using (var sw = new StreamWriter(httpResponse.Body))
-            {
-                string json = JsonConvert.SerializeObject(
-                    new RESTError()
-                    {
-                        Message = string.Format(messageFormat, headerName),
-                        CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
-                    }, Formatting.Indented, _jsonSerializerSettings);
-                
-                httpResponse.Headers.ContentLength = json.Length;
-                await sw.WriteAsync(json);
-            }
+            _logger.Error(errorMessage);
+
+            return response.WriteProblemDetailsAsync(
+                statusCode,
+                ProfileContentTypeUsageException.TitleText,
+                ProfileContentTypeUsageException.DefaultDetail,
+                correlationId,
+                EdFiProblemDetailsExceptionBase.BaseTypePrefix, ProfileContentTypeUsageException.TypePart);
         }
 
         bool TryGetContentTypeUsage(StringSegment profileContentTypeFacet, out ContentTypeUsage contentTypeUsage)

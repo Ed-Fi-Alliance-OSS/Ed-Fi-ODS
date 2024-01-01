@@ -5,17 +5,16 @@
 
 using System;
 using System.Linq;
-using System.Net;
 using System.Text.RegularExpressions;
-using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security.Claims;
 using NHibernate.Exceptions;
 using Npgsql;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 {
-    public class PostgresDuplicatedKeyExceptionTranslator : IExceptionTranslator
+    public class PostgresDuplicateKeyExceptionTranslator : IProblemDetailsExceptionTranslator
     {
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
 
@@ -29,21 +28,19 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
         private const string PrimaryKeyNameSuffix = "_pk";
 
-        public PostgresDuplicatedKeyExceptionTranslator(
+        public PostgresDuplicateKeyExceptionTranslator(
             IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
         {
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
         }
 
-        public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
+        public bool TryTranslate(Exception ex, out IEdFiProblemDetails problemDetails)
         {
-            webServiceError = null;
-
-            var exception = ex is GenericADOException
+            var exceptionToEvaluate = ex is GenericADOException
                 ? ex.InnerException
                 : ex;
 
-            if (exception is PostgresException postgresException)
+            if (exceptionToEvaluate is PostgresException postgresException)
             {
                 var match = _expression.Match(postgresException.Message);
 
@@ -54,12 +51,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                     string message = GetMessageUsingRequestContext(constraintName)
                         ?? GetMessageUsingPostgresException();
 
-                    webServiceError = new RESTError
-                        {
-                            Code = (int) HttpStatusCode.Conflict,
-                            Type = "Conflict",
-                            Message = message
-                        };
+                    problemDetails = new ConflictException(message);
 
                     return true;
                 }
@@ -81,7 +73,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                                 (pkPropertyNames.Length > 1)
                                     ? CompositeKeyMessageFormat
                                     : SimpleKeyMessageFormat,
-                                string.Join(", ", pkPropertyNames),
+                                string.Join("', '", pkPropertyNames),
                                 resourceClass.Name);
                         }
                     }
@@ -113,6 +105,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 }
             }
 
+            problemDetails = null;
             return false;
         }
     }

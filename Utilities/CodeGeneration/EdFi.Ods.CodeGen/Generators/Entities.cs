@@ -249,31 +249,22 @@ namespace EdFi.Ods.CodeGen.Generators
                                                 .Select(
                                                      p => new
                                                           {
-                                                              entity.IsAbstract, DisplayName =
-                                                                  !entity.IsAbstract && UniqueIdConventions.IsUSI(p.PropertyName)
+                                                              IsAbstract = entity.IsAbstract,
+                                                              DisplayName = !entity.IsAbstract
+                                                                  && UniqueIdConventions.IsUSI(p.PropertyName)
                                                                       ? p.PropertyName.ConvertToUniqueId()
                                                                       : _notRendered,
                                                               NeedsOverride = entity.IsDerived && !p.IsInheritedIdentifyingRenamed,
                                                               CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true),
                                                               CSharpBaseType = p.PropertyType.ToCSharp(),
                                                               CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(entity.Name),
-                                                              IsRequiredWithNonDefault = !p.PropertyType.IsNullable
-                                                                                         && !p.IsServerAssigned
-                                                                                         && !p.CSharpDefaultHasDomainMeaning(),
-                                                              ValidationReferenceName = UniqueIdConventions.IsUSI(p.PropertyName)
-                                                                  ? _personEntitySpecification.GetUSIPersonType(p.PropertyName)
-                                                                  : _notRendered,
-                                                              IsDateTime = IsDateTimeProperty(p), IsString = p.PropertyType.ToCSharp() == "string",
-                                                              NoWhitespaceEnforced = p.PropertyType.ToCSharp() == "string", p.PropertyType.MaxLength,
-                                                              p.PropertyType.MinLength,
                                                               IsStandardProperty = !(p.IsDescriptorUsage
-                                                                                     || UniqueIdConventions.IsUSI(p.PropertyName)
-                                                                                     || IsUniqueIdPropertyOnPersonEntity(entity, p)
-                                                                                     || IsNonDerivedDateProperty(entity, p)
-                                                                                     || IsDateTimeProperty(p)
-                                                                                     || IsDelegatedToBaseProperty(entity, p)),
+                                                                  || UniqueIdConventions.IsUSI(p.PropertyName)
+                                                                  || IsUniqueIdPropertyOnPersonEntity(entity, p)
+                                                                  || IsNonDerivedDateProperty(entity, p)
+                                                                  || IsDateTimeProperty(p)
+                                                                  || IsDelegatedToBaseProperty(entity, p)),
                                                               PropertyAccessors = GetPropertyAccessors(entity, p),
-                                                              RangeAttribute = p.ToRangeAttributeCSharp()
                                                           })
                                      },
                         InheritedProperties = entity.IsDerived

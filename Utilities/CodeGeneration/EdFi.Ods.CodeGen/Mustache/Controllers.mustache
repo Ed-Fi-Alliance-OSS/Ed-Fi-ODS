@@ -11,6 +11,7 @@ using EdFi.Ods.Common.Infrastructure;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models.Requests;
 using EdFi.Ods.Common.Models.Queries;
+using EdFi.Ods.Common.ProblemDetails;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
@@ -40,8 +41,8 @@ namespace {{ControllersNamespace}}
         {{DeleteRequest}},
         {{GetByExampleRequest}}>
     {
-        public {{ControllerClass}}(IPipelineFactory pipelineFactory, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
-            : base(pipelineFactory, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        public {{ControllerClass}}(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
         {
         }
 

@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Security.Claims;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Security.DataAccess.Models;
@@ -41,7 +42,7 @@ public class ClaimsIdentityProviderTests
         A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(null);
 
         // Act & Assert
-        Should.Throw<EdFiSecurityException>(() => _identityProvider.GetClaimsIdentity())
+        Should.Throw<SecurityException>(() => _identityProvider.GetClaimsIdentity())
             .Message.ShouldBe("No API key information was available for authorization.");
     }
 
@@ -52,7 +53,7 @@ public class ClaimsIdentityProviderTests
         A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(ApiClientContext.Empty);
 
         // Act & Assert
-        Should.Throw<EdFiSecurityException>(() => _identityProvider.GetClaimsIdentity())
+        Should.Throw<SecurityException>(() => _identityProvider.GetClaimsIdentity())
             .Message.ShouldBe("No API key information was available for authorization.");
     }
 

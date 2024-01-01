@@ -13,7 +13,6 @@ using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.SqlServer;
-using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying.Dialects;

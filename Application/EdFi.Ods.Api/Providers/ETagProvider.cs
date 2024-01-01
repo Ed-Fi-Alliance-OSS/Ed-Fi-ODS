@@ -85,7 +85,10 @@ namespace EdFi.Ods.Api.Providers
                 }
                 catch (Exception ex)
                 {
-                    throw new BadRequestException("Invalid ETag value.", ex);
+                    throw new BadRequestParameterException(
+                        "An invalid value was provided for use in detecting changes applied by other users.",
+                        new[] { "An invalid ETag value was provided that could not be processed back into a Date/Time value." },
+                        ex);
                 }
             }
 

@@ -14,14 +14,7 @@ namespace EdFi.Ods.Common.Attributes
     /// </summary>
     public class RequiredWithNonDefaultAttribute : ValidationAttribute
     {
-        private readonly string _referenceName;
-
         public RequiredWithNonDefaultAttribute() { }
-
-        public RequiredWithNonDefaultAttribute(string referenceName)
-        {
-            _referenceName = referenceName;
-        }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
@@ -46,13 +39,6 @@ namespace EdFi.Ods.Common.Attributes
             {
                 return ValidationResult.Success;
             }
-
-            if (_referenceName != null)
-            {
-                throw new EdFiSecurityConflictException(
-                    $"Access to the resource item could not be authorized because the '{_referenceName}' was not found.");
-            }
-
             return new ValidationResult($"{validationContext.DisplayName} is required.",
                 new [] { validationContext.MemberName });
         }

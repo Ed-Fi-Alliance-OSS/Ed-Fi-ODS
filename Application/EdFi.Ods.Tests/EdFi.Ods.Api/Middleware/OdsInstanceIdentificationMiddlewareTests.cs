@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Logging;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
 using NUnit.Framework;
@@ -20,13 +21,15 @@ namespace EdFi.Ods.Api.Middleware.Tests
         private IContextProvider<OdsInstanceConfiguration> _contextProvider;
         private IOdsInstanceSelector _instanceSelector;
         private OdsInstanceIdentificationMiddleware _middleware;
+        private ILogContextAccessor _logContextAccessor;
 
         [SetUp]
         public void SetUp()
         {
             _contextProvider = A.Fake<IContextProvider<OdsInstanceConfiguration>>();
             _instanceSelector = A.Fake<IOdsInstanceSelector>();
-            _middleware = new OdsInstanceIdentificationMiddleware(_contextProvider, _instanceSelector);
+            _logContextAccessor = A.Fake<ILogContextAccessor>();
+            _middleware = new OdsInstanceIdentificationMiddleware(_contextProvider, _instanceSelector, _logContextAccessor);
         }
 
         [Test]

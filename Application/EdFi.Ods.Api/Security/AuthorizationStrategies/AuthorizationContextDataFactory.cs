@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 using EdFi.Ods.Common.Attributes;
-using EdFi.Ods.Common.Security;
+using EdFi.Ods.Common.Exceptions;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies
 {
@@ -65,7 +65,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies
         /// <param name="propertyNameMappings">Explicit property name mappings.</param>
         /// <param name="getContextDataPropertyMappings">A function that given a source property, returns the target property name to which is should be assigned.</param>
         /// <returns>The dynamically created method/delegate.</returns>
-        /// <exception cref="EdFiSecurityException">Occurs when the supplied mapping function creates multiple mappings to the same target property.</exception>
+        /// <exception cref="SecurityException">Occurs when the supplied mapping function creates multiple mappings to the same target property.</exception>
         private static ExtractDelegate CreateDynamicExtractorMethod(
             string methodName,
             Type sourceType,
@@ -209,8 +209,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies
 
                 if (multipleMappingsToTargetProperty.Any())
                 {
-                    throw new EdFiSecurityException(
-                        $"More than one source property was mapped to the same target property '{multipleMappingsToTargetProperty.First().Key}'.");
+                    throw new ArgumentException(
+                        $"More than one source property was mapped to the same target property '{multipleMappingsToTargetProperty.First().Key}'.",
+                        nameof(propertyNameMappings));
                 }
             }
 

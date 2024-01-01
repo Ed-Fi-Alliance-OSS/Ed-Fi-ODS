@@ -7,9 +7,9 @@ using System;
 using System.Threading.Tasks;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Attributes;
-using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Features.TokenInfo;
@@ -68,7 +68,13 @@ namespace EdFi.Ods.Features.Controllers
             if (tokenInfoRequest == null || tokenInfoRequest.Token == null ||
                 !Guid.TryParse(tokenInfoRequest.Token, out Guid accessToken))
             {
-                return BadRequest(ErrorTranslator.GetErrorMessage("Invalid token", (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
+                return BadRequest(
+                    new BadRequestException(
+                        "An invalid token was provided",
+                        new[] { "The token was not present, or was not processable as a GUID value." })
+                    {
+                        CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
+                    }.AsSerializableModel());
             }
 
             var oAuthTokenClientDetails = await _apiClientDetailsProvider.GetApiClientDetailsForTokenAsync(accessToken.ToString("N"));

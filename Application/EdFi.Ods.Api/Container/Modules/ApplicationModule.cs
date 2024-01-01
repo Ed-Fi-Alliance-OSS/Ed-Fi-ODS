@@ -43,6 +43,7 @@ using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions.Transformers;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.ProblemDetails;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Specifications;
@@ -186,14 +187,14 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IETagProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<RESTErrorProvider>()
-                .As<IRESTErrorProvider>()
+            builder.RegisterType<EdFiProblemDetailsProvider>()
+                .As<IEdFiProblemDetailsProvider>()
                 .SingleInstance();
 
             // All exception translators
             builder.RegisterAssemblyTypes(ThisAssembly)
-                .Where(t => typeof(IExceptionTranslator).IsAssignableFrom(t))
-                .As<IExceptionTranslator>()
+                .Where(t => typeof(IProblemDetailsExceptionTranslator).IsAssignableFrom(t))
+                .As<IProblemDetailsExceptionTranslator>()
                 .AsSelf()
                 .SingleInstance();
 

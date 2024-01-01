@@ -26,6 +26,7 @@ using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
 using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models.Queries;
+using EdFi.Ods.Common.ProblemDetails;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Utils.Profiles;
@@ -60,7 +61,7 @@ namespace EdFi.Ods.Api.Controllers
         private const string GetAllRequest = "GetAllRequest";
         private const string GetByIdRequest = "GetByIdRequest";
 
-        private readonly IRESTErrorProvider _restErrorProvider;
+        private readonly IEdFiProblemDetailsProvider _problemDetailsProvider;
         private readonly IContextProvider<ProfileContentTypeContext> _profileContentTypeContextProvider;
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
         private readonly ILogContextAccessor _logContextAccessor;
@@ -99,14 +100,14 @@ namespace EdFi.Ods.Api.Controllers
 
         protected DataManagementControllerBase(
             IPipelineFactory pipelineFactory,
-            IRESTErrorProvider restErrorProvider,
+            IEdFiProblemDetailsProvider problemDetailsProvider,
             IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
             ApiSettings apiSettings,
             IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
             IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
             ILogContextAccessor logContextAccessor)
         {
-            _restErrorProvider = restErrorProvider;
+            _problemDetailsProvider = problemDetailsProvider;
             _profileContentTypeContextProvider = profileContentTypeContextProvider;
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
             _logContextAccessor = logContextAccessor;
@@ -143,22 +144,32 @@ namespace EdFi.Ods.Api.Controllers
             Exception exception,
             bool enforceOptimisticLock = false)
         {
-            var restError = _restErrorProvider.GetRestErrorFromException(exception);
-            HttpContext.Items.Add("Exception", exception);
+            string correlationId = (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
 
-            if (exception is ConcurrencyException && enforceOptimisticLock)
+            // Handle Problem Details exceptions directly
+            if (exception is EdFiProblemDetailsExceptionBase problemDetailsException)
             {
-                // See RFC 5789 - Conflicting modification (with "If-Match" header)
-                restError.Code = StatusCodes.Status412PreconditionFailed;
-                restError.Message = "Resource was modified by another consumer.";
-                restError.CorrelationId = (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
+                problemDetailsException.CorrelationId = correlationId;
+                
+                // Set the correlationId and return
+                return StatusCode(problemDetailsException.Status, problemDetailsException.AsSerializableModel()); 
             }
 
-            return string.IsNullOrWhiteSpace(restError.Message)
-                ? (IActionResult)StatusCode(restError.Code ?? default)
-                : StatusCode(
-                    restError.Code ?? default,
-                    ErrorTranslator.GetErrorMessage(restError.Message, (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
+            HttpContext.Items.Add("Exception", exception);
+
+            // Process translations to Problem Details
+            var problemDetails = _problemDetailsProvider.GetProblemDetails(exception);
+            return StatusCode(problemDetails.Status, problemDetails);
+
+            // Process translation to RESTError (TO BE REMOVED)
+            // var restError = _restErrorProvider.GetRestErrorFromException(exception);
+            // HttpContext.Items.Add("Exception", exception);
+            //
+            // return string.IsNullOrWhiteSpace(restError.Message)
+            //     ? StatusCode(restError.Code ?? default)
+            //     : StatusCode(
+            //         restError.Code ?? default,
+            //         ErrorTranslator.GetErrorMessage(restError.Message, correlationId));
         }
 
         protected abstract void MapAll(TGetByExampleRequest request, TEntityInterface specification);
@@ -188,10 +199,14 @@ namespace EdFi.Ods.Api.Controllers
             if (urlQueryParametersRequest.Limit != null &&
                 (urlQueryParametersRequest.Limit < 0 || urlQueryParametersRequest.Limit > _defaultPageLimitSize))
             {
-                return BadRequest(
-                    ErrorTranslator.GetErrorMessage(
-                        $"Limit must be omitted or set to a value between 0 and {_defaultPageLimitSize}.",
-                        (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
+                var problemDetails = new BadRequestParameterException(
+                    "The limit parameter was incorrect.",
+                    new[] { $"Limit must be omitted or set to a value between 0 and {_defaultPageLimitSize}." })
+                {
+                    CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
+                }.AsSerializableModel();
+
+                return BadRequest(problemDetails);
             }
 
             var internalRequestAsResource = new TResourceModel();
@@ -326,12 +341,16 @@ namespace EdFi.Ods.Api.Controllers
             var validationState = new ValidationState();
 
             // Make sure Id is not already set (no client-assigned Ids)
-            if (request.Id != default(Guid))
+            if (request.Id != default)
             {
-                return BadRequest(
-                    ErrorTranslator.GetErrorMessage(
-                        "Resource identifiers cannot be assigned by the client.",
-                        (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
+                var problemDetails = new BadRequestDataException(
+                    "The request data was constructed incorrectly.",
+                    new[] { "Resource identifiers cannot be assigned by the client. The 'id' property should not be included in the request body." })
+                {
+                    CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
+                }.AsSerializableModel();
+
+                return BadRequest(problemDetails);
             }
 
             // Read the If-Match header and populate the resource DTO with an etag value.
@@ -366,7 +385,7 @@ namespace EdFi.Ods.Api.Controllers
 
             if (result.ResourceWasCreated)
             {
-                return (IActionResult)Created(resourceUri, null);
+                return Created(resourceUri, null);
             }
             else
             {
@@ -380,11 +399,13 @@ namespace EdFi.Ods.Api.Controllers
 
         private IActionResult ValidationFailedResult(List<ValidationResult> validationResults)
         {
-            return BadRequest(
-                _errorTranslator.GetErrorMessage(
-                    _dataManagementResourceContextProvider.Get().Resource,
-                    validationResults,
-                    (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
+            var problemDetails = _errorTranslator.GetProblemDetails(
+                _dataManagementResourceContextProvider.Get().Resource,
+                validationResults);
+
+            problemDetails.CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
+
+            return BadRequest(problemDetails);
         }
 
         [HttpDelete("{id}")]

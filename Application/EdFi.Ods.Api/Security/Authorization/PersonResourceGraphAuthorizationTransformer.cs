@@ -5,16 +5,21 @@
 
 using System.Linq;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Graphs;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
+using log4net;
 using QuickGraph;
 
 namespace EdFi.Ods.Api.Security.Authorization
 {
     public class PersonResourceLoadGraphTransformer : IResourceLoadGraphTransformer
     {
+        private const string TransformationErrorText = "Dependency graph transformation for security considerations failed. See log for more details.";
+        private readonly ILog _logger = LogManager.GetLogger(typeof(PersonResourceLoadGraphTransformer));
+        
         public void Transform(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
         {
             ApplyStudentTransformation(resourceGraph);
@@ -22,7 +27,7 @@ namespace EdFi.Ods.Api.Security.Authorization
             ApplyContactTransformation(resourceGraph);
         }
 
-        private static void ApplyStaffTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
+        private void ApplyStaffTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
         {
             var resources = resourceGraph.Vertices.ToList();
             
@@ -44,9 +49,14 @@ namespace EdFi.Ods.Api.Security.Authorization
 
             if (staffEdOrgEmployAssoc == null && staffEdOrgAssignAssoc == null)
             {
-                throw new EdFiSecurityException(
-                    "Unable to transform resource load graph since StaffEducationOrganizationAssignmentAssociation and" +
-                    " StaffEducationOrganizationEmploymentAssociation were not found in the graph.");
+                var message = "Unable to transform resource load graph since StaffEducationOrganizationAssignmentAssociation and StaffEducationOrganizationEmploymentAssociation were not found in the graph.";
+
+                _logger.Error(message);
+
+                throw new SecurityException(
+                    detail: SecurityException.DefaultTechnicalProblemDetail,
+                    error: TransformationErrorText,
+                    message: message);
             }
 
             // Get direct staff dependencies
@@ -80,8 +90,12 @@ namespace EdFi.Ods.Api.Security.Authorization
 
             if (studentSchoolAssociationResource == null)
             {
-                throw new EdFiSecurityException(
-                    "Unable to transform resource load graph as StudentSchoolAssociation was not found in the graph.");
+                var message = "Unable to transform resource load graph as StudentSchoolAssociation was not found in the graph.";
+
+                throw new SecurityException(
+                    detail: SecurityException.DefaultTechnicalProblemDetail,
+                    error: TransformationErrorText,
+                    message: message);
             }
 
             // Get direct student dependencies
@@ -98,7 +112,7 @@ namespace EdFi.Ods.Api.Security.Authorization
             }
         }
 
-        private static void ApplyContactTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
+        private void ApplyContactTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
         {
             var resources = resourceGraph.Vertices.ToList();
 
@@ -116,8 +130,7 @@ namespace EdFi.Ods.Api.Security.Authorization
             {
                 "Contact" => "StudentContactAssociation",
                 "Parent" => "StudentParentAssociation",
-                _ => throw new EdFiSecurityException(
-                    $"Unable to transform resource load graph as a student association for {contactResource.FullName} is not defined.")
+                _ => LogAndThrowException()
             };
 
             var studentContactAssociationResource = resources.FirstOrDefault(
@@ -125,8 +138,13 @@ namespace EdFi.Ods.Api.Security.Authorization
             
             if (studentContactAssociationResource == null)
             {
-                throw new EdFiSecurityException(
-                    $"Unable to transform resource load graph as {contactStudentAssociationName} was not found in the graph.");
+                string message = $"Unable to transform resource load graph as {contactStudentAssociationName} was not found in the graph.";
+                _logger.Error(message);
+
+                throw new SecurityException(
+                    detail: SecurityException.DefaultTechnicalProblemDetail,
+                    error: TransformationErrorText,
+                    message: message);
             }
 
             // Get direct contact dependencies
@@ -140,6 +158,17 @@ namespace EdFi.Ods.Api.Security.Authorization
                 // Re-point the edge to the primary relationships
                 resourceGraph.RemoveEdge(directContactDependency);
                 resourceGraph.AddEdge(new AssociationViewEdge(studentContactAssociationResource, directContactDependency.Target, directContactDependency.AssociationView));
+            }
+
+            string LogAndThrowException()
+            {
+                string message = $"Unable to transform resource load graph as a student association for {contactResource.FullName} is not defined.";
+                _logger.Error(message);
+
+                throw new SecurityException(
+                    detail: SecurityException.DefaultTechnicalProblemDetail,
+                    error: TransformationErrorText,
+                    message: message);
             }
         }
     }

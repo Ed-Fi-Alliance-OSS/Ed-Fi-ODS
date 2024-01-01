@@ -4,9 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Logging;
 using log4net;
 using Microsoft.AspNetCore.Http;
 
@@ -20,15 +23,18 @@ public class OdsInstanceIdentificationMiddleware : IMiddleware
 {
     private readonly IContextProvider<OdsInstanceConfiguration> _odsInstanceConfigurationContextProvider;
     private readonly IOdsInstanceSelector _odsInstanceSelector;
+    private readonly ILogContextAccessor _logContextAccessor;
 
     private readonly ILog _logger = LogManager.GetLogger(typeof(OdsInstanceIdentificationMiddleware));
 
     public OdsInstanceIdentificationMiddleware(
         IContextProvider<OdsInstanceConfiguration> odsInstanceConfigurationContextProvider,
-        IOdsInstanceSelector odsInstanceSelector)
+        IOdsInstanceSelector odsInstanceSelector,
+        ILogContextAccessor logContextAccessor)
     {
         _odsInstanceConfigurationContextProvider = odsInstanceConfigurationContextProvider;
         _odsInstanceSelector = odsInstanceSelector;
+        _logContextAccessor = logContextAccessor;
     }
     
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
@@ -49,10 +55,14 @@ public class OdsInstanceIdentificationMiddleware : IMiddleware
 
             await next.Invoke(context);
         }
-        catch (NotFoundException)
+        catch (NotFoundException ex)
         {
-            context.Response.StatusCode = StatusCodes.Status404NotFound;
-            context.Response.ContentType = "application/json";
+            _logger.Error(ex.Message);
+
+            string correlationId = (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
+            ex.CorrelationId = correlationId;
+
+            await context.Response.WriteProblemDetailsAsync(ex);
         }
     }
 }

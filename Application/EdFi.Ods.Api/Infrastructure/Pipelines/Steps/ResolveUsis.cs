@@ -5,7 +5,6 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Infrastructure.Pipelines;

@@ -114,7 +114,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     // Handle Single item requests
                     if (query.IsSingleItemResult && result == null)
                     {
-                        throw new NotFoundException("The specified resource could not be found.");
+                        throw new NotFoundException(NotFoundException.DefaultItemDetail);
                     }
                 }
                 else
@@ -122,7 +122,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     // Return an appropriate response for an empty result
                     if (IsSingleItemRequest(compositeDefinition, resourceModel, queryStringParameters))
                     {
-                        throw new NotFoundException("The specified resource could not be found.");
+                        throw new NotFoundException(NotFoundException.DefaultItemDetail);
                     }
 
                     result = new List<IDictionary>();

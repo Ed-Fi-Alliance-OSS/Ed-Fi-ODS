@@ -10,9 +10,16 @@ namespace EdFi.Ods.Common.Models;
 
 public class FeatureDisabledProfileResourceModelProvider : IProfileResourceModelProvider
 {
+    private readonly string _featureName;
+
+    public FeatureDisabledProfileResourceModelProvider(string featureName)
+    {
+        _featureName = featureName;
+    }
+
     public ProfileResourceModel GetProfileResourceModel(string profileName)
     {
         // Force a bad request if a profile claim exists and profiles are disabled.
-        throw new BadRequestException($"Profiles feature is not enabled.");
+        throw new FeatureDisabledException(_featureName);
     }
 }

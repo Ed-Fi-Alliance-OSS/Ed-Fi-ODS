@@ -27,9 +27,8 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
             _validators = validators;
         }
 
-        private void Execute(TContext context, TResult result)
+        public Task ExecuteAsync(TContext context, TResult result, CancellationToken cancellationToken)
         {
-            // NOTE this step will always run synchronously therefore we are not moving it to the async method
             var validationResults = _validators.ValidateObject(context.Resource);
 
             if (!validationResults.IsValid())
@@ -37,11 +36,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
                 result.ValidationResults ??= new List<ValidationResult>();
                 result.ValidationResults.AddRange(validationResults);
             }
-        }
-
-        public Task ExecuteAsync(TContext context, TResult result, CancellationToken cancellationToken)
-        {
-            Execute(context, result);
+            
             return Task.CompletedTask;
         }
     }

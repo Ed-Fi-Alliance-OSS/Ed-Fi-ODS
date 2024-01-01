@@ -10,6 +10,7 @@ using System.Linq;
 using EdFi.Ods.Api.ExceptionHandling.Translators.Postgres;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Definitions.Transformers;
@@ -29,7 +30,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     [TestFixture]
-    public class PostgresDuplicatedKeyExceptionTranslatorTests
+    public class PostgresDuplicateKeyExceptionTranslatorTests
     {
         private const string GenericSqlExceptionMessage = "Generic Sql exception message.";
 
@@ -37,7 +38,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool result;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
             private IContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
@@ -48,8 +49,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicatedKeyExceptionTranslator(_contextProvider);
-                result = translator.TryTranslateMessage(exception, out actualError);
+                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider);
+                result = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
@@ -70,7 +71,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
             private IContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
@@ -81,8 +82,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicatedKeyExceptionTranslator(_contextProvider);
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider);
+                wasHandled = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
@@ -103,7 +104,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
             private IContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
@@ -123,8 +124,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicatedKeyExceptionTranslator(_contextProvider);
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider);
+                wasHandled = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
@@ -144,7 +145,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
             private IContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
@@ -166,8 +167,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicatedKeyExceptionTranslator(_contextProvider);
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider);
+                wasHandled = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
@@ -181,9 +182,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             {
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
-                    () => actualError.Code.ShouldBe(409),
-                    () => actualError.Type.ShouldBe("Conflict"),
-                    () => actualError.Message.ShouldBe("The value supplied for property 'Property1' of entity 'Something' is not unique.") 
+                    () => actualError.Status.ShouldBe(409),
+                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")),
+                    () => actualError.Detail.ShouldBe("The value supplied for property 'Property1' of entity 'Something' is not unique.") 
                 );
             }
         }
@@ -192,7 +193,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
             private IContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
@@ -214,8 +215,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicatedKeyExceptionTranslator(_contextProvider);
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider);
+                wasHandled = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
@@ -229,9 +230,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             {
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
-                    () => actualError.Code.ShouldBe(409),
-                    () => actualError.Type.ShouldBe("Conflict"),
-                    () => actualError.Message.ShouldBe("The values supplied for properties 'Property1, Property2' of entity 'Something' are not unique.") 
+                    () => actualError.Status.ShouldBe(409),
+                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")),
+                    () => actualError.Detail.ShouldBe("The values supplied for properties 'Property1', 'Property2' of entity 'Something' are not unique.") 
                 );
             }
         }
@@ -240,7 +241,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
             private IContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
@@ -260,8 +261,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicatedKeyExceptionTranslator(_contextProvider);
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider);
+                wasHandled = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
@@ -275,9 +276,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             {
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
-                    () => actualError.Code.ShouldBe(409),
-                    () => actualError.Type.ShouldBe("Conflict"),
-                    () => actualError.Message.ShouldBe("The value(s) supplied for the resource are not unique.")
+                    () => actualError.Status.ShouldBe(409),
+                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")),
+                    () => actualError.Detail.ShouldBe("The value(s) supplied for the resource are not unique.")
                 );
             }
         }
@@ -286,7 +287,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
             private IContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
@@ -310,8 +311,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicatedKeyExceptionTranslator(_contextProvider);
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider);
+                wasHandled = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
@@ -325,9 +326,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             {
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
-                    () => actualError.Code.ShouldBe(409),
-                    () => actualError.Type.ShouldBe("Conflict"),
-                    () => actualError.Message.ShouldBe("The values supplied for properties 'property1, property2, property3' of entity 'something' are not unique.")
+                    () => actualError.Status.ShouldBe(409),
+                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")),
+                    () => actualError.Detail.ShouldBe("The values supplied for properties 'property1, property2, property3' of entity 'something' are not unique.")
                 );
             }
         }

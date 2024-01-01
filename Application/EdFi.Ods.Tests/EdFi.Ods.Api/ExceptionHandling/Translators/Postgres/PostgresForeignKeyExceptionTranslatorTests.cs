@@ -8,6 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Api.ExceptionHandling.Translators.Postgres;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Tests._Builders;
@@ -29,7 +30,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
         {
             private Exception exception;
             private bool result;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
 
             protected override void Arrange()
             {
@@ -41,7 +42,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 var translator =
                     new PostgresForeignKeyExceptionTranslator(Stub<IContextProvider<DataManagementResourceContext>>());
                 
-                result = translator.TryTranslateMessage(exception, out actualError);
+                result = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
@@ -62,7 +63,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
 
             protected override void Arrange()
             {
@@ -74,7 +75,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 var translator =
                     new PostgresForeignKeyExceptionTranslator(Stub<IContextProvider<DataManagementResourceContext>>());
 
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                wasHandled = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
@@ -94,7 +95,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
         {
             private Exception _exception;
             private bool _wasHandled;
-            private RESTError _actualError;
+            private IEdFiProblemDetails _actualError;
             private ContextProvider<DataManagementResourceContext> _contextProvider;
 
             /*
@@ -133,7 +134,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
             protected override void Act()
             {
                 var translator = new PostgresForeignKeyExceptionTranslator(_contextProvider);
-                _wasHandled = translator.TryTranslateMessage(_exception, out _actualError);
+                _wasHandled = translator.TryTranslate(_exception, out _actualError);
             }
 
             [Test]
@@ -147,9 +148,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
             {
                 AssertHelper.All(
                     () => _actualError.ShouldNotBeNull(),
-                    () => _actualError.Code.ShouldBe(409),
-                    () => _actualError.Type.ShouldBe("Conflict"),
-                    () => _actualError.Message.ShouldBe("The value supplied for the related 'School' resource does not exist.")
+                    () => _actualError.Status.ShouldBe(409),
+                    () => _actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")),
+                    () => _actualError.Detail.ShouldBe("The value supplied for the related 'School' resource does not exist.")
                 );
             }
         }
@@ -158,7 +159,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
         {
             private Exception _exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
             private ContextProvider<DataManagementResourceContext> _contextProvider;
 
             /*
@@ -198,7 +199,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
             protected override void Act()
             {
                 var translator = new PostgresForeignKeyExceptionTranslator(_contextProvider);
-                wasHandled = translator.TryTranslateMessage(_exception, out actualError);
+                wasHandled = translator.TryTranslate(_exception, out actualError);
             }
 
             [Test]
@@ -212,9 +213,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
             {
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
-                    () => actualError.Code.ShouldBe(409),
-                    () => actualError.Type.ShouldBe("Conflict"),
-                    () => actualError.Message.ShouldBe("The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of the 'StudentSchoolAssociation' entity.") 
+                    () => actualError.Status.ShouldBe(409),
+                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")),
+                    () => actualError.Detail.ShouldBe("The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of the 'StudentSchoolAssociation' entity.") 
                 );
             }
         }
@@ -223,7 +224,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
         {
             private Exception _exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
             private ContextProvider<DataManagementResourceContext> _contextProvider;
 
             /*
@@ -263,7 +264,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
             protected override void Act()
             {
                 var translator = new PostgresForeignKeyExceptionTranslator(_contextProvider);
-                wasHandled = translator.TryTranslateMessage(_exception, out actualError);
+                wasHandled = translator.TryTranslate(_exception, out actualError);
             }
 
             [Test]
@@ -277,9 +278,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
             {
                 actualError.ShouldSatisfyAllConditions(
                     e => e.ShouldNotBeNull(),
-                    e => e.Code.ShouldBe(409),
-                    e => e.Type.ShouldBe("Conflict"),
-                    e => e.Message.ShouldBe(
+                    e => e.Status.ShouldBe(409),
+                    e => e.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")),
+                    e => e.Detail.ShouldBe(
                         "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of another entity."));
             }
         }

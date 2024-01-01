@@ -7,6 +7,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Api.ExceptionHandling.Translators;
 using EdFi.Ods.Api.Models;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Tests._Builders;
 using EdFi.TestFixture;
 using NHibernate;
@@ -16,7 +17,7 @@ using Shouldly;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 {
-    public class DuplicateNaturalKeyUpdateExceptionTranslatorTests
+    public class StaleObjectStateExceptionTranslatorTests
     {
         [TestFixture]
         [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -32,9 +33,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Act()
             {
-                var translator = new DuplicateNaturalKeyUpdateExceptionTranslator();
-                RESTError actualError;
-                result = translator.TryTranslateMessage(exception, out actualError);
+                var translator = new StaleObjectStateExceptionTranslator();
+                IEdFiProblemDetails actualError;
+                result = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
@@ -50,7 +51,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
 
             protected override void Arrange()
             {
@@ -59,8 +60,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Act()
             {
-                var translator = new DuplicateNaturalKeyUpdateExceptionTranslator();
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                var translator = new StaleObjectStateExceptionTranslator();
+                wasHandled = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
@@ -76,7 +77,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
 
             protected override void Arrange()
             {
@@ -88,8 +89,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Act()
             {
-                var translator = new DuplicateNaturalKeyUpdateExceptionTranslator();
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                var translator = new StaleObjectStateExceptionTranslator();
+                wasHandled = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
@@ -104,7 +105,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool result;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
 
             protected override void Arrange()
             {
@@ -113,8 +114,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Act()
             {
-                var translator = new DuplicateNaturalKeyUpdateExceptionTranslator();
-                result = translator.TryTranslateMessage(exception, out actualError);
+                var translator = new StaleObjectStateExceptionTranslator();
+                result = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
@@ -126,20 +127,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             [Test]
             public void Should_set_a_reasonable_message()
             {
-                actualError.Message.ShouldBe(
+                actualError.Detail.ShouldBe(
                     "A natural key conflict occurred when attempting to update a new resource with a duplicate key.");
             }
 
             [Test]
             public void Should_set_the_exception_type_to_conflict()
             {
-                actualError.Type.ShouldBe("Conflict");
+                actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict"));
             }
 
             [Test]
             public void Should_translate_the_exception_to_a_409_error()
             {
-                actualError.Code.ShouldBe(409);
+                actualError.Status.ShouldBe(409);
             }
         }
 
@@ -148,7 +149,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool result;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
 
             protected override void Arrange()
             {
@@ -161,8 +162,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Act()
             {
-                var translator = new DuplicateNaturalKeyUpdateExceptionTranslator();
-                result = translator.TryTranslateMessage(exception, out actualError);
+                var translator = new StaleObjectStateExceptionTranslator();
+                result = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]

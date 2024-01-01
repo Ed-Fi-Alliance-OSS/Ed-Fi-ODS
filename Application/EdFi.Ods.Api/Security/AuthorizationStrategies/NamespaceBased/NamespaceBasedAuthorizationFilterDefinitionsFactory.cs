@@ -10,9 +10,9 @@ using EdFi.Common.Extensions;
 using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using NHibernate;
@@ -116,7 +116,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
             if (string.IsNullOrWhiteSpace(contextData.Namespace))
             {
                 return InstanceAuthorizationResult.Failed(
-                    new EdFiSecurityException(
+                    new SecurityException(
                         "Access to the resource item could not be authorized because the Namespace of the resource is empty."));
             }
 
@@ -127,11 +127,11 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
                 string claimNamespacePrefixesText = string.Join("', '", claimNamespacePrefixes);
 
                 return InstanceAuthorizationResult.Failed(
-                    new EdFiSecurityException(
+                    new SecurityException(
                         $"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims: '{claimNamespacePrefixesText}'."));
             }
         }
-        catch (EdFiSecurityException ex)
+        catch (SecurityException ex)
         {
             return InstanceAuthorizationResult.Failed(ex);
         }
@@ -183,7 +183,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         else
         {
             // This should never happen
-            throw new EdFiSecurityException("No namespaces found in claims.");
+            throw new SecurityException("No namespaces found in claims.");
         }
     }
 }

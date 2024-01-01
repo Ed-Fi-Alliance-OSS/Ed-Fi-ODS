@@ -6,10 +6,10 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Profiles;
@@ -155,13 +155,14 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
                 ? $"Based on profile assignments, one of the following profile-specific content types is required when requesting this resource: '{string.Join("', '", assignedProfilesForRequest.OrderBy(a => a).Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'"
                 : $"Based on profile assignments, one of the following profile-specific content types is required when updating this resource: '{string.Join("', '", assignedProfilesForRequest.OrderBy(a => a).Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'";
 
-            var error = new RESTError()
+            var problemDetails = new SecurityException(
+                SecurityException.DefaultDetail,
+                errorMessage)
             {
-                Message = errorMessage,
                 CorrelationId = (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
-            };
+            }.AsSerializableModel();
 
-            context.Result = new ObjectResult(error) { StatusCode = StatusCodes.Status403Forbidden };
+            context.Result = new ObjectResult(problemDetails) { StatusCode = StatusCodes.Status403Forbidden };
         }
     }
 }

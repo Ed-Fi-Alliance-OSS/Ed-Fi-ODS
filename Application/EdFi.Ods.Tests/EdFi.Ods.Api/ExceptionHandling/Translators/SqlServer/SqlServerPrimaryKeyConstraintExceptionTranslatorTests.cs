@@ -7,6 +7,7 @@ using System;
 using EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Tests._Builders;
@@ -18,7 +19,7 @@ using Shouldly;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 {
-    public class DuplicateNaturalKeyCreateExceptionTranslatorTests
+    public class SqlServerPrimaryKeyConstraintExceptionTranslatorTests
     {
         [TestFixture]
         public class When_a_regular_exception_is_thrown : TestFixtureBase
@@ -33,9 +34,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 
             protected override void Act()
             {
-                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(Stub<IContextProvider<DataManagementResourceContext>>());
-                RESTError actualError;
-                result = translator.TryTranslateMessage(exception, out actualError);
+                var translator = new SqlServerPrimaryKeyConstraintExceptionTranslator(Stub<IContextProvider<DataManagementResourceContext>>());
+                IEdFiProblemDetails actualError;
+                result = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
@@ -51,7 +52,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
 
             protected override void Arrange()
             {
@@ -60,8 +61,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 
             protected override void Act()
             {
-                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(Stub<IContextProvider<DataManagementResourceContext>>());
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                var translator = new SqlServerPrimaryKeyConstraintExceptionTranslator(Stub<IContextProvider<DataManagementResourceContext>>());
+                wasHandled = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
@@ -77,7 +78,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
 
             protected override void Arrange()
             {
@@ -89,8 +90,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 
             protected override void Act()
             {
-                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(Stub<IContextProvider<DataManagementResourceContext>>());
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                var translator = new SqlServerPrimaryKeyConstraintExceptionTranslator(Stub<IContextProvider<DataManagementResourceContext>>());
+                wasHandled = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
@@ -105,7 +106,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
         {
             private Exception exception;
             private bool result;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
             private ContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
@@ -124,8 +125,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 
             protected override void Act()
             {
-                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(_contextProvider);
-                result = translator.TryTranslateMessage(exception, out actualError);
+                var translator = new SqlServerPrimaryKeyConstraintExceptionTranslator(_contextProvider);
+                result = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
@@ -137,20 +138,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
             [Test]
             public void Should_set_a_reasonable_message()
             {
-                actualError.Message.ShouldBe(
+                actualError.Detail.ShouldBe(
                     "A natural key conflict occurred when attempting to create a new resource 'StudentProgramAssociation' with a duplicate key. The duplicated columns and values are [BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI] (2021-08-30, 255901, 255901, Career and Technical Education, 1921, 1).");
             }
 
             [Test]
             public void Should_set_the_exception_type_to_conflict()
             {
-                actualError.Type.ShouldBe("Conflict");
+                actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict"));
             }
 
             [Test]
             public void Should_translate_the_exception_to_a_409_error()
             {
-                actualError.Code.ShouldBe(409);
+                actualError.Status.ShouldBe(409);
             }
         }
 
@@ -159,7 +160,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
         {
             private Exception exception;
             private bool result;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
             private ContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
@@ -178,8 +179,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 
             protected override void Act()
             {
-                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(_contextProvider);
-                result = translator.TryTranslateMessage(exception, out actualError);
+                var translator = new SqlServerPrimaryKeyConstraintExceptionTranslator(_contextProvider);
+                result = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
@@ -191,20 +192,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
             [Test]
             public void Should_set_a_reasonable_message()
             {
-                actualError.Message.ShouldBe(
+                actualError.Detail.ShouldBe(
                     "A natural key conflict occurred when attempting to create a new resource 'Session' with a duplicate key. The duplicated columns and values are [SchoolId, SchoolYear, SessionName] (900007, 9, 2014).");
             }
 
             [Test]
             public void Should_set_the_exception_type_to_conflict()
             {
-                actualError.Type.ShouldBe("Conflict");
+                actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict"));
             }
 
             [Test]
             public void Should_translate_the_exception_to_a_409_error()
             {
-                actualError.Code.ShouldBe(409);
+                actualError.Status.ShouldBe(409);
             }
         }
 
@@ -214,7 +215,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
         {
             private Exception exception;
             private bool result;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
             private ContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
@@ -233,8 +234,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 
             protected override void Act()
             {
-                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(_contextProvider);
-                result = translator.TryTranslateMessage(exception, out actualError);
+                var translator = new SqlServerPrimaryKeyConstraintExceptionTranslator(_contextProvider);
+                result = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
@@ -249,7 +250,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
         {
             private Exception exception;
             private bool result;
-            private RESTError actualError;
+            private IEdFiProblemDetails actualError;
 
             protected override void Arrange()
             {
@@ -262,8 +263,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 
             protected override void Act()
             {
-                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(Stub<IContextProvider<DataManagementResourceContext>>());
-                result = translator.TryTranslateMessage(exception, out actualError);
+                var translator = new SqlServerPrimaryKeyConstraintExceptionTranslator(Stub<IContextProvider<DataManagementResourceContext>>());
+                result = translator.TryTranslate(exception, out actualError);
             }
 
             [Test]
