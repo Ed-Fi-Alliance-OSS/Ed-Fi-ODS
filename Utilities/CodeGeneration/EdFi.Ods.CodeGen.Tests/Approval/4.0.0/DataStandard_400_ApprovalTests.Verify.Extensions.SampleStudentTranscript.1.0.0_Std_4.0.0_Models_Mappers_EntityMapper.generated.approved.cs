@@ -36,7 +36,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.InstitutionControl
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on InstitutionControlDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("InstitutionControlDescriptor");
             }
 
 
@@ -188,7 +188,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.InstitutionLevelDe
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on InstitutionLevelDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("InstitutionLevelDescriptor");
             }
 
 
@@ -341,7 +341,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.PostSecondaryOrgan
                  (!keyStringComparer.Equals(target.NameOfInstitution, source.NameOfInstitution)))
             {
                 // Disallow PK column updates on PostSecondaryOrganization
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("PostSecondaryOrganization");
             }
 
 
@@ -454,7 +454,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.SpecialEducationGr
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SpecialEducationGraduationStatusDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SpecialEducationGraduationStatusDescriptor");
             }
 
 
@@ -778,7 +778,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.SubmissionCertific
                 || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
             {
                 // Disallow PK column updates on SubmissionCertificationDescriptor
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SubmissionCertificationDescriptor");
             }
 
 
