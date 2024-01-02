@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Models;
@@ -31,8 +32,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class ArtMediumDescriptor : Entities.Common.Sample.IArtMediumDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        // Fluent validator instance (threadsafe)
+        private static ArtMediumDescriptorPutPostRequestValidator _validator = new ArtMediumDescriptorPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -42,6 +47,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -69,7 +75,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore, NaturalKeyMember]
+        [JsonIgnore]
         public int ArtMediumDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -133,6 +139,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
         /// A code or abbreviation that is used to refer to the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
         public string CodeValue { get; set; }
 
@@ -140,6 +148,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
         /// The description of the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [StringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
         public string Description { get; set; }
 
@@ -161,6 +170,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
         /// A globally unique namespace that identifies this descriptor set. Author is strongly encouraged to use the Universal Resource Identifier (http, ftp, file, etc.) for the source of the descriptor definition. Best practice is for this source to be the descriptor file itself, so that it can be machine-readable and be fetched in real-time, if necessary.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
 
@@ -168,6 +179,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
@@ -268,8 +281,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -297,7 +308,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
     [ExcludeFromCodeCoverage]
     public class BusReference : IResourceReference
     {
-        [DataMember(Name="busId"), NaturalKeyMember]
+        [DataMember(Name="busId")]
         public string BusId { get; set; }
 
         /// <summary>
@@ -384,8 +395,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class Bus : Entities.Common.Sample.IBus, IHasETag, IDateVersionedEntity
     {
+        // Fluent validator instance (threadsafe)
+        private static BusPutPostRequestValidator _validator = new BusPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -395,6 +410,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -422,7 +438,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
         /// The unique identifier for the bus.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="busId"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(60, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="busId")]
         public string BusId { get; set; }
         // -------------------------------------------------------------
 
@@ -573,8 +591,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -602,10 +618,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     [ExcludeFromCodeCoverage]
     public class BusRouteReference : IResourceReference
     {
-        [DataMember(Name="busId"), NaturalKeyMember]
+        [DataMember(Name="busId")]
         public string BusId { get; set; }
 
-        [DataMember(Name="busRouteNumber"), NaturalKeyMember]
+        [DataMember(Name="busRouteNumber")]
         public int BusRouteNumber { get; set; }
 
         /// <summary>
@@ -697,9 +713,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
-    public class BusRoute : Entities.Common.Sample.IBusRoute, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues
+    public class BusRoute : Entities.Common.Sample.IBusRoute, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues, IValidatableObject
     {
+        // Fluent validator instance (threadsafe)
+        private static BusRoutePutPostRequestValidator _validator = new BusRoutePutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -717,6 +737,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
             BusRouteStartTimes = new List<BusRouteStartTime>();
             BusRouteTelephones = new List<BusRouteTelephone>();
         }
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -778,14 +799,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The unique identifier for the bus assigned to the bus route.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="busId"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(60, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="busId")]
         public string BusId { get; set; }
 
         /// <summary>
         /// A unique identifier for the bus route.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="busRouteNumber"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [DataMember(Name="busRouteNumber")]
         public int BusRouteNumber { get; set; }
         // -------------------------------------------------------------
 
@@ -884,6 +908,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The direction of the bus route.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(15, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="busRouteDirection")]
         public string BusRouteDirection { get; set; }
 
@@ -891,6 +917,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The number of minutes per week in which the bus route is operational.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(1, 2147483647, ErrorMessage=ValidationHelpers.RangeMinOnlyMessageFormat)]
         [DataMember(Name="busRouteDuration")]
         public int? BusRouteDuration { get; set; }
 
@@ -905,7 +932,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The disability served by the bus route, if applicable.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="disabilityDescriptor")]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="disabilityDescriptor")][DescriptorExists("DisabilityDescriptor")]
         public string DisabilityDescriptor { get; set; }
 
         /// <summary>
@@ -939,6 +967,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The approximate amount of time, in minutes, for the bus route operation each day.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(30, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="expectedTransitTime")]
         public string ExpectedTransitTime { get; set; }
         
@@ -949,6 +979,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The number of hours per week in which the bus route is operational.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(typeof(decimal), "-999.99", "999.99", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="hoursPerWeek")]
         public decimal HoursPerWeek 
         { 
@@ -968,6 +999,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The approximate annual cost for the bus route.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="operatingCost")]
         public decimal OperatingCost 
         { 
@@ -984,6 +1016,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The percentage of seats filled under optimal conditions.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(typeof(decimal), "-9.9999", "9.9999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="optimalCapacity")]
         public decimal? OptimalCapacity { get; set; }
 
@@ -992,6 +1025,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// </summary>
 
         // IS in a reference (BusRoute.StaffClassificationDescriptorId), IS a lookup column 
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         string Entities.Common.Sample.IBusRoute.StaffClassificationDescriptor
         {
             get
@@ -1049,6 +1083,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The approximate weekly mileage for the bus route.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(typeof(decimal), "-999.99", "999.99", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="weeklyMileage")]
         public decimal? WeeklyMileage { get; set; }
         // -------------------------------------------------------------
@@ -1096,7 +1131,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         private ICollection<BusRouteBusYear> _busRouteBusYears;
         private ICollection<Entities.Common.Sample.IBusRouteBusYear> _busRouteBusYearsCovariant;
 
-        [DataMember(Name="busYears"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="busYears")]
         public ICollection<BusRouteBusYear> BusRouteBusYears
         {
             get { return _busRouteBusYears; }
@@ -1125,7 +1161,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         private ICollection<BusRouteProgram> _busRoutePrograms;
         private ICollection<Entities.Common.Sample.IBusRouteProgram> _busRouteProgramsCovariant;
 
-        [DataMember(Name="programs"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="programs")]
         public ICollection<BusRouteProgram> BusRoutePrograms
         {
             get { return _busRoutePrograms; }
@@ -1154,7 +1191,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         private ICollection<BusRouteServiceAreaPostalCode> _busRouteServiceAreaPostalCodes;
         private ICollection<Entities.Common.Sample.IBusRouteServiceAreaPostalCode> _busRouteServiceAreaPostalCodesCovariant;
 
-        [DataMember(Name="serviceAreaPostalCodes"), NoDuplicateMembers]
+        [NoDuplicateMembers][RequiredCollection]
+        [DataMember(Name="serviceAreaPostalCodes")]
         public ICollection<BusRouteServiceAreaPostalCode> BusRouteServiceAreaPostalCodes
         {
             get { return _busRouteServiceAreaPostalCodes; }
@@ -1183,7 +1221,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         private ICollection<BusRouteStartTime> _busRouteStartTimes;
         private ICollection<Entities.Common.Sample.IBusRouteStartTime> _busRouteStartTimesCovariant;
 
-        [DataMember(Name="startTimes"), NoDuplicateMembers]
+        [NoDuplicateMembers][RequiredCollection]
+        [DataMember(Name="startTimes")]
         public ICollection<BusRouteStartTime> BusRouteStartTimes
         {
             get { return _busRouteStartTimes; }
@@ -1212,7 +1251,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         private ICollection<BusRouteTelephone> _busRouteTelephones;
         private ICollection<Entities.Common.Sample.IBusRouteTelephone> _busRouteTelephonesCovariant;
 
-        [DataMember(Name="telephones"), NoDuplicateMembers]
+        [NoDuplicateMembers][RequiredCollection]
+        [DataMember(Name="telephones")]
         public ICollection<BusRouteTelephone> BusRouteTelephones
         {
             get { return _busRouteTelephones; }
@@ -1320,6 +1360,107 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
 
 
         // -----------------------------------------------------------------
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+                if (BusRouteBusYears.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(BusRouteBusYears));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(BusRouteBusYears, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (BusRoutePrograms.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(BusRoutePrograms));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(BusRoutePrograms, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (BusRouteServiceAreaPostalCodes.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(BusRouteServiceAreaPostalCodes));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(BusRouteServiceAreaPostalCodes, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (BusRouteStartTimes.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(BusRouteStartTimes));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(BusRouteStartTimes, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (BusRouteTelephones.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(BusRouteTelephones));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(BusRouteTelephones, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
     }
 
     // =================================================================
@@ -1330,6 +1471,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     public class BusRoutePutPostRequestValidator : FluentValidation.AbstractValidator<BusRoute>
     {
         private static readonly FullName _fullName_sample_BusRoute = new FullName("sample", "BusRoute");
+
+        // Declare collection item validators
+        private BusRouteBusYearPutPostRequestValidator _busRouteBusYearsValidator = new ();
+        private BusRouteProgramPutPostRequestValidator _busRouteProgramsValidator = new ();
+        private BusRouteServiceAreaPostalCodePutPostRequestValidator _busRouteServiceAreaPostalCodesValidator = new ();
+        private BusRouteStartTimePutPostRequestValidator _busRouteStartTimesValidator = new ();
+        private BusRouteTelephonePutPostRequestValidator _busRouteTelephonesValidator = new ();
 
         protected override bool PreValidate(FluentValidation.ValidationContext<BusRoute> context, FluentValidation.Results.ValidationResult result)
         {
@@ -1348,123 +1496,71 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.BusRouteMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.BusRouteMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_sample_BusRoute));
+            var mappingContract = (global::EdFi.Ods.Entities.Common.Sample.BusRouteMappingContract) GeneratedArtifactStaticDependencies.MappingContractProvider
+                .GetMappingContract(_fullName_sample_BusRoute);
 
-            if (mappingContract.Value != null)
+            if (mappingContract != null)
             {
-                if (mappingContract.Value.IsBusRouteBusYearIncluded != null)
+                if (mappingContract.IsBusRouteBusYearIncluded != null)
                 {
-                    var hasInvalidBusRouteBusYearsItems = instance.BusRouteBusYears.Any(x => !mappingContract.Value.IsBusRouteBusYearIncluded(x));
+                    var hasInvalidBusRouteBusYearsItems = instance.BusRouteBusYears.Any(x => !mappingContract.IsBusRouteBusYearIncluded(x));
         
                     if (hasInvalidBusRouteBusYearsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("BusRouteBusYear", $"A supplied 'BusRouteBusYear' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("BusRouteBusYears", $"A supplied 'BusRouteBusYear' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsBusRouteProgramIncluded != null)
+                if (mappingContract.IsBusRouteProgramIncluded != null)
                 {
-                    var hasInvalidBusRouteProgramsItems = instance.BusRoutePrograms.Any(x => !mappingContract.Value.IsBusRouteProgramIncluded(x));
+                    var hasInvalidBusRouteProgramsItems = instance.BusRoutePrograms.Any(x => !mappingContract.IsBusRouteProgramIncluded(x));
         
                     if (hasInvalidBusRouteProgramsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("BusRouteProgram", $"A supplied 'BusRouteProgram' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("BusRoutePrograms", $"A supplied 'BusRouteProgram' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsBusRouteServiceAreaPostalCodeIncluded != null)
+                if (mappingContract.IsBusRouteServiceAreaPostalCodeIncluded != null)
                 {
-                    var hasInvalidBusRouteServiceAreaPostalCodesItems = instance.BusRouteServiceAreaPostalCodes.Any(x => !mappingContract.Value.IsBusRouteServiceAreaPostalCodeIncluded(x));
+                    var hasInvalidBusRouteServiceAreaPostalCodesItems = instance.BusRouteServiceAreaPostalCodes.Any(x => !mappingContract.IsBusRouteServiceAreaPostalCodeIncluded(x));
         
                     if (hasInvalidBusRouteServiceAreaPostalCodesItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("BusRouteServiceAreaPostalCode", $"A supplied 'BusRouteServiceAreaPostalCode' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("BusRouteServiceAreaPostalCodes", $"A supplied 'BusRouteServiceAreaPostalCode' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsBusRouteStartTimeIncluded != null)
+                if (mappingContract.IsBusRouteStartTimeIncluded != null)
                 {
-                    var hasInvalidBusRouteStartTimesItems = instance.BusRouteStartTimes.Any(x => !mappingContract.Value.IsBusRouteStartTimeIncluded(x));
+                    var hasInvalidBusRouteStartTimesItems = instance.BusRouteStartTimes.Any(x => !mappingContract.IsBusRouteStartTimeIncluded(x));
         
                     if (hasInvalidBusRouteStartTimesItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("BusRouteStartTime", $"A supplied 'BusRouteStartTime' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("BusRouteStartTimes", $"A supplied 'BusRouteStartTime' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsBusRouteTelephoneIncluded != null)
+                if (mappingContract.IsBusRouteTelephoneIncluded != null)
                 {
-                    var hasInvalidBusRouteTelephonesItems = instance.BusRouteTelephones.Any(x => !mappingContract.Value.IsBusRouteTelephoneIncluded(x));
+                    var hasInvalidBusRouteTelephonesItems = instance.BusRouteTelephones.Any(x => !mappingContract.IsBusRouteTelephoneIncluded(x));
         
                     if (hasInvalidBusRouteTelephonesItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("BusRouteTelephone", $"A supplied 'BusRouteTelephone' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("BusRouteTelephones", $"A supplied 'BusRouteTelephone' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
             }
+
             // -----------------------
             //  Validate unified keys
             // -----------------------
-
-            // Recursively invoke the child collection item validators
-            var busRouteBusYearsValidator = new BusRouteBusYearPutPostRequestValidator();
-
-            foreach (var item in instance.BusRouteBusYears)
-            {
-                var validationResult = busRouteBusYearsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var busRouteProgramsValidator = new BusRouteProgramPutPostRequestValidator();
-
-            foreach (var item in instance.BusRoutePrograms)
-            {
-                var validationResult = busRouteProgramsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var busRouteServiceAreaPostalCodesValidator = new BusRouteServiceAreaPostalCodePutPostRequestValidator();
-
-            foreach (var item in instance.BusRouteServiceAreaPostalCodes)
-            {
-                var validationResult = busRouteServiceAreaPostalCodesValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var busRouteStartTimesValidator = new BusRouteStartTimePutPostRequestValidator();
-
-            foreach (var item in instance.BusRouteStartTimes)
-            {
-                var validationResult = busRouteStartTimesValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var busRouteTelephonesValidator = new BusRouteTelephonePutPostRequestValidator();
-
-            foreach (var item in instance.BusRouteTelephones)
-            {
-                var validationResult = busRouteTelephonesValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
 
             if (failures.Any())
             {
@@ -1486,8 +1582,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class BusRouteBusYear : Entities.Common.Sample.IBusRouteBusYear
     {
+        // Fluent validator instance (threadsafe)
+        private static BusRouteBusYearPutPostRequestValidator _validator = new BusRouteBusYearPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -1497,6 +1597,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -1535,7 +1636,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The years in which the bus route has been in active.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="busYear"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [DataMember(Name="busYear")]
         public short BusYear { get; set; }
         // -------------------------------------------------------------
 
@@ -1686,8 +1788,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -1708,8 +1808,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class BusRouteProgram : Entities.Common.Sample.IBusRouteProgram
     {
+        // Fluent validator instance (threadsafe)
+        private static BusRouteProgramPutPostRequestValidator _validator = new BusRouteProgramPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -1719,6 +1823,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -1744,7 +1849,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
             }
         }
 
-        [DataMember(Name="programReference")][NaturalKeyMember]
+        [DataMember(Name="programReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Program.EdFi.ProgramReference ProgramReference
         {
@@ -2036,8 +2141,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -2058,8 +2161,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class BusRouteServiceAreaPostalCode : Entities.Common.Sample.IBusRouteServiceAreaPostalCode
     {
+        // Fluent validator instance (threadsafe)
+        private static BusRouteServiceAreaPostalCodePutPostRequestValidator _validator = new BusRouteServiceAreaPostalCodePutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -2069,6 +2176,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -2107,7 +2215,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The postal codes served by the bus route.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="serviceAreaPostalCode"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(17, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="serviceAreaPostalCode")]
         public string ServiceAreaPostalCode { get; set; }
         // -------------------------------------------------------------
 
@@ -2258,8 +2368,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -2280,8 +2388,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class BusRouteStartTime : Entities.Common.Sample.IBusRouteStartTime
     {
+        // Fluent validator instance (threadsafe)
+        private static BusRouteStartTimePutPostRequestValidator _validator = new BusRouteStartTimePutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -2291,6 +2403,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -2329,7 +2442,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The time the bus route begins.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="startTime"), NaturalKeyMember][JsonConverter(typeof(UtcTimeConverter))]
+        [RequiredWithNonDefault]
+        [DataMember(Name="startTime")][JsonConverter(typeof(UtcTimeConverter))]
         public TimeSpan StartTime { get; set; }
         // -------------------------------------------------------------
 
@@ -2480,8 +2594,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -2502,8 +2614,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class BusRouteTelephone : Entities.Common.Sample.IBusRouteTelephone
     {
+        // Fluent validator instance (threadsafe)
+        private static BusRouteTelephonePutPostRequestValidator _validator = new BusRouteTelephonePutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -2513,6 +2629,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -2551,14 +2668,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The telephone number including the area code, and extension, if applicable.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="telephoneNumber"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(24, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="telephoneNumber")]
         public string TelephoneNumber { get; set; }
 
         /// <summary>
         /// The type of communication number listed for an individual or organization.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="telephoneNumberTypeDescriptor"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="telephoneNumberTypeDescriptor")][DescriptorExists("TelephoneNumberTypeDescriptor")]
         public string TelephoneNumberTypeDescriptor { get; set; }
         // -------------------------------------------------------------
 
@@ -2644,6 +2765,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The order of priority assigned to telephone numbers to define which number to attempt first, second, etc.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(1, 2147483647, ErrorMessage=ValidationHelpers.RangeMinOnlyMessageFormat)]
         [DataMember(Name="orderOfPriority")]
         public int? OrderOfPriority { get; set; }
 
@@ -2739,8 +2861,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -2766,8 +2886,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class FavoriteBookCategoryDescriptor : Entities.Common.Sample.IFavoriteBookCategoryDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        // Fluent validator instance (threadsafe)
+        private static FavoriteBookCategoryDescriptorPutPostRequestValidator _validator = new FavoriteBookCategoryDescriptorPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -2777,6 +2901,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -2804,7 +2929,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore, NaturalKeyMember]
+        [JsonIgnore]
         public int FavoriteBookCategoryDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -2868,6 +2993,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
         /// A code or abbreviation that is used to refer to the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
         public string CodeValue { get; set; }
 
@@ -2875,6 +3002,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
         /// The description of the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [StringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
         public string Description { get; set; }
 
@@ -2896,6 +3024,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
         /// A globally unique namespace that identifies this descriptor set. Author is strongly encouraged to use the Universal Resource Identifier (http, ftp, file, etc.) for the source of the descriptor definition. Best practice is for this source to be the descriptor file itself, so that it can be machine-readable and be fetched in real-time, if necessary.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
 
@@ -2903,6 +3033,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
@@ -3003,8 +3135,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -3030,8 +3160,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class MembershipTypeDescriptor : Entities.Common.Sample.IMembershipTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        // Fluent validator instance (threadsafe)
+        private static MembershipTypeDescriptorPutPostRequestValidator _validator = new MembershipTypeDescriptorPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -3041,6 +3175,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -3068,7 +3203,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore, NaturalKeyMember]
+        [JsonIgnore]
         public int MembershipTypeDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -3132,6 +3267,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
         /// A code or abbreviation that is used to refer to the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
         public string CodeValue { get; set; }
 
@@ -3139,6 +3276,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
         /// The description of the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [StringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
         public string Description { get; set; }
 
@@ -3160,6 +3298,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
         /// A globally unique namespace that identifies this descriptor set. Author is strongly encouraged to use the Universal Resource Identifier (http, ftp, file, etc.) for the source of the descriptor definition. Best practice is for this source to be the descriptor file itself, so that it can be machine-readable and be fetched in real-time, if necessary.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
 
@@ -3167,6 +3307,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
@@ -3267,8 +3409,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -3294,9 +3434,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    [Display(Name="Sample")]
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
-    public class ParentAddressExtension : Entities.Common.Sample.IParentAddressExtension, IHasRequiredMembersWithMeaningfulDefaultValues, IChildEntity
+    public class ParentAddressExtension : Entities.Common.Sample.IParentAddressExtension, IHasRequiredMembersWithMeaningfulDefaultValues, IChildEntity, IValidatableObject
     {
+        // Fluent validator instance (threadsafe)
+        private static ParentAddressExtensionPutPostRequestValidator _validator = new ParentAddressExtensionPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -3311,6 +3455,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             ParentAddressSchoolDistricts = new List<ParentAddressSchoolDistrict>();
             ParentAddressTerms = new List<ParentAddressTerm>();
         }
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -3403,6 +3548,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// The apartment or housing complex name.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [StringLength(255, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="complex")]
         public string Complex { get; set; }
         
@@ -3465,7 +3611,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         private ICollection<ParentAddressSchoolDistrict> _parentAddressSchoolDistricts;
         private ICollection<Entities.Common.Sample.IParentAddressSchoolDistrict> _parentAddressSchoolDistrictsCovariant;
 
-        [DataMember(Name="schoolDistricts"), NoDuplicateMembers]
+        [NoDuplicateMembers][RequiredCollection]
+        [DataMember(Name="schoolDistricts")]
         public ICollection<ParentAddressSchoolDistrict> ParentAddressSchoolDistricts
         {
             get { return _parentAddressSchoolDistricts; }
@@ -3494,7 +3641,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         private ICollection<ParentAddressTerm> _parentAddressTerms;
         private ICollection<Entities.Common.Sample.IParentAddressTerm> _parentAddressTermsCovariant;
 
-        [DataMember(Name="terms"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="terms")]
         public ICollection<ParentAddressTerm> ParentAddressTerms
         {
             get { return _parentAddressTerms; }
@@ -3571,6 +3719,72 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         {
             ParentAddress = (IParentAddress)value;
         }
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                pathBuilder.Append(ValidationHelpers.JsonPathSeparator);
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+                if (ParentAddressSchoolDistricts.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(ParentAddressSchoolDistricts));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentAddressSchoolDistricts, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (ParentAddressTerms.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(ParentAddressTerms));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentAddressTerms, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
     }
 
     // =================================================================
@@ -3581,6 +3795,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     public class ParentAddressExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<ParentAddressExtension>
     {
         private static readonly FullName _fullName_sample_ParentAddressExtension = new FullName("sample", "ParentAddressExtension");
+
+        // Declare collection item validators
+        private ParentAddressSchoolDistrictPutPostRequestValidator _parentAddressSchoolDistrictsValidator = new ();
+        private ParentAddressTermPutPostRequestValidator _parentAddressTermsValidator = new ();
 
         protected override bool PreValidate(FluentValidation.ValidationContext<ParentAddressExtension> context, FluentValidation.Results.ValidationResult result)
         {
@@ -3599,60 +3817,38 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.ParentAddressExtensionMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.ParentAddressExtensionMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_sample_ParentAddressExtension));
+            var mappingContract = (global::EdFi.Ods.Entities.Common.Sample.ParentAddressExtensionMappingContract) GeneratedArtifactStaticDependencies.MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentAddressExtension);
 
-            if (mappingContract.Value != null)
+            if (mappingContract != null)
             {
-                if (mappingContract.Value.IsParentAddressSchoolDistrictIncluded != null)
+                if (mappingContract.IsParentAddressSchoolDistrictIncluded != null)
                 {
-                    var hasInvalidParentAddressSchoolDistrictsItems = instance.ParentAddressSchoolDistricts.Any(x => !mappingContract.Value.IsParentAddressSchoolDistrictIncluded(x));
+                    var hasInvalidParentAddressSchoolDistrictsItems = instance.ParentAddressSchoolDistricts.Any(x => !mappingContract.IsParentAddressSchoolDistrictIncluded(x));
         
                     if (hasInvalidParentAddressSchoolDistrictsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("ParentAddressSchoolDistrict", $"A supplied 'ParentAddressSchoolDistrict' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("ParentAddressSchoolDistricts", $"A supplied 'ParentAddressSchoolDistrict' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsParentAddressTermIncluded != null)
+                if (mappingContract.IsParentAddressTermIncluded != null)
                 {
-                    var hasInvalidParentAddressTermsItems = instance.ParentAddressTerms.Any(x => !mappingContract.Value.IsParentAddressTermIncluded(x));
+                    var hasInvalidParentAddressTermsItems = instance.ParentAddressTerms.Any(x => !mappingContract.IsParentAddressTermIncluded(x));
         
                     if (hasInvalidParentAddressTermsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("ParentAddressTerm", $"A supplied 'ParentAddressTerm' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("ParentAddressTerms", $"A supplied 'ParentAddressTerm' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
             }
+
             // -----------------------
             //  Validate unified keys
             // -----------------------
-
-            // Recursively invoke the child collection item validators
-            var parentAddressSchoolDistrictsValidator = new ParentAddressSchoolDistrictPutPostRequestValidator();
-
-            foreach (var item in instance.ParentAddressSchoolDistricts)
-            {
-                var validationResult = parentAddressSchoolDistrictsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var parentAddressTermsValidator = new ParentAddressTermPutPostRequestValidator();
-
-            foreach (var item in instance.ParentAddressTerms)
-            {
-                var validationResult = parentAddressTermsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
 
             if (failures.Any())
             {
@@ -3674,8 +3870,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class ParentAddressSchoolDistrict : Entities.Common.Sample.IParentAddressSchoolDistrict
     {
+        // Fluent validator instance (threadsafe)
+        private static ParentAddressSchoolDistrictPutPostRequestValidator _validator = new ParentAddressSchoolDistrictPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -3685,6 +3885,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -3723,7 +3924,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// The school district in which the address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="schoolDistrict"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(250, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="schoolDistrict")]
         public string SchoolDistrict { get; set; }
         // -------------------------------------------------------------
 
@@ -3874,8 +4077,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -3896,8 +4097,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class ParentAddressTerm : Entities.Common.Sample.IParentAddressTerm
     {
+        // Fluent validator instance (threadsafe)
+        private static ParentAddressTermPutPostRequestValidator _validator = new ParentAddressTermPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -3907,6 +4112,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -3945,7 +4151,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// Terms applicable to this address.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="termDescriptor"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="termDescriptor")][DescriptorExists("TermDescriptor")]
         public string TermDescriptor { get; set; }
         // -------------------------------------------------------------
 
@@ -4096,8 +4304,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -4118,8 +4324,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class ParentAuthor : Entities.Common.Sample.IParentAuthor
     {
+        // Fluent validator instance (threadsafe)
+        private static ParentAuthorPutPostRequestValidator _validator = new ParentAuthorPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -4129,6 +4339,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -4167,7 +4378,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// The parent's favorite authors.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="author"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(100, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="author")]
         public string Author { get; set; }
         // -------------------------------------------------------------
 
@@ -4318,8 +4531,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -4340,9 +4551,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class ParentCeilingHeight : Entities.Common.Sample.IParentCeilingHeight, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        // Fluent validator instance (threadsafe)
+        private static ParentCeilingHeightPutPostRequestValidator _validator = new ParentCeilingHeightPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -4352,6 +4567,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -4393,7 +4609,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// The height of the ceiling in the rooms of the parent's home.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="ceilingHeight"), NaturalKeyMember]
+        [Range(typeof(decimal), "-9999.9", "9999.9", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
+        [DataMember(Name="ceilingHeight")]
         public decimal CeilingHeight 
         { 
             get => _ceilingHeight;
@@ -4561,8 +4778,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -4583,8 +4798,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class ParentCTEProgram : Entities.Common.Sample.IParentCTEProgram
     {
+        // Fluent validator instance (threadsafe)
+        private static ParentCTEProgramPutPostRequestValidator _validator = new ParentCTEProgramPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -4594,6 +4813,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -4686,13 +4906,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// A sequence of courses within an area of interest that is a student's educational road map to a chosen career.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="careerPathwayDescriptor")]
+        [RequiredWithNonDefault]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="careerPathwayDescriptor")][DescriptorExists("CareerPathwayDescriptor")]
         public string CareerPathwayDescriptor { get; set; }
 
         /// <summary>
         /// Number and description of the CIP code associated with the student's CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [StringLength(120, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="cipCode")]
         public string CIPCode { get; set; }
 
@@ -4795,8 +5018,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -4817,8 +5038,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class ParentEducationContent : Entities.Common.Sample.IParentEducationContent
     {
+        // Fluent validator instance (threadsafe)
+        private static ParentEducationContentPutPostRequestValidator _validator = new ParentEducationContentPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -4828,6 +5053,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -4853,7 +5079,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             }
         }
 
-        [DataMember(Name="educationContentReference")][NaturalKeyMember]
+        [DataMember(Name="educationContentReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EducationContent.EdFi.EducationContentReference EducationContentReference
         {
@@ -5082,8 +5308,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -5104,9 +5328,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    [Display(Name="Sample")]
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
-    public class ParentExtension : Entities.Common.Sample.IParentExtension, IHasRequiredMembersWithMeaningfulDefaultValues, IChildEntity
+    public class ParentExtension : Entities.Common.Sample.IParentExtension, IHasRequiredMembersWithMeaningfulDefaultValues, IChildEntity, IValidatableObject
     {
+        // Fluent validator instance (threadsafe)
+        private static ParentExtensionPutPostRequestValidator _validator = new ParentExtensionPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -5124,6 +5352,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             ParentFavoriteBookTitles = new List<ParentFavoriteBookTitle>();
             ParentStudentProgramAssociations = new List<ParentStudentProgramAssociation>();
         }
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -5216,6 +5445,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// The time spent per day waiting in the car line.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [StringLength(30, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="averageCarLineWait")]
         public string AverageCarLineWait { get; set; }
 
@@ -5230,6 +5460,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// How much the parent spends on coffee in a week.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="coffeeSpend")]
         public decimal? CoffeeSpend { get; set; }
 
@@ -5237,13 +5468,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// The field in which the parent holds a credential.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="credentialFieldDescriptor")]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="credentialFieldDescriptor")][DescriptorExists("CredentialFieldDescriptor")]
         public string CredentialFieldDescriptor { get; set; }
 
         /// <summary>
         /// The amount of time the parent spends reading to his/her children at bedtime.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(1, 2147483647, ErrorMessage=ValidationHelpers.RangeMinOnlyMessageFormat)]
         [DataMember(Name="duration")]
         public int? Duration { get; set; }
 
@@ -5251,6 +5484,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// The parent's high school GPA.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(typeof(decimal), "0", "99999999999999.9999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="gpa")]
         public decimal? GPA { get; set; }
 
@@ -5298,6 +5532,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// The percent likelihood that it will rain when the parent volunteers to chaperone a field trip.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(typeof(decimal), "-9.9999", "9.9999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="rainCertainty")]
         public decimal? RainCertainty { get; set; }
         // -------------------------------------------------------------
@@ -5316,6 +5551,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// <summary>
         /// cteProgram
         /// </summary>
+        
         [DataMember(Name = "cteProgram")]
         public ParentCTEProgram ParentCTEProgram { get; set; }
 
@@ -5328,6 +5564,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// <summary>
         /// teacherConference
         /// </summary>
+        [Required(ErrorMessage=ValidationHelpers.RequiredObjectMessageFormat)]
         [DataMember(Name = "teacherConference")]
         public ParentTeacherConference ParentTeacherConference { get; set; }
 
@@ -5365,7 +5602,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         private ICollection<ParentAuthor> _parentAuthors;
         private ICollection<Entities.Common.Sample.IParentAuthor> _parentAuthorsCovariant;
 
-        [DataMember(Name="authors"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="authors")]
         public ICollection<ParentAuthor> ParentAuthors
         {
             get { return _parentAuthors; }
@@ -5394,7 +5632,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         private ICollection<ParentCeilingHeight> _parentCeilingHeights;
         private ICollection<Entities.Common.Sample.IParentCeilingHeight> _parentCeilingHeightsCovariant;
 
-        [DataMember(Name="ceilingHeights"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="ceilingHeights")]
         public ICollection<ParentCeilingHeight> ParentCeilingHeights
         {
             get { return _parentCeilingHeights; }
@@ -5423,7 +5662,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         private ICollection<ParentEducationContent> _parentEducationContents;
         private ICollection<Entities.Common.Sample.IParentEducationContent> _parentEducationContentsCovariant;
 
-        [DataMember(Name="educationContents"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="educationContents")]
         public ICollection<ParentEducationContent> ParentEducationContents
         {
             get { return _parentEducationContents; }
@@ -5452,7 +5692,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         private ICollection<ParentFavoriteBookTitle> _parentFavoriteBookTitles;
         private ICollection<Entities.Common.Sample.IParentFavoriteBookTitle> _parentFavoriteBookTitlesCovariant;
 
-        [DataMember(Name="favoriteBookTitles"), NoDuplicateMembers]
+        [NoDuplicateMembers][RequiredCollection]
+        [DataMember(Name="favoriteBookTitles")]
         public ICollection<ParentFavoriteBookTitle> ParentFavoriteBookTitles
         {
             get { return _parentFavoriteBookTitles; }
@@ -5481,7 +5722,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         private ICollection<ParentStudentProgramAssociation> _parentStudentProgramAssociations;
         private ICollection<Entities.Common.Sample.IParentStudentProgramAssociation> _parentStudentProgramAssociationsCovariant;
 
-        [DataMember(Name="studentProgramAssociations"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="studentProgramAssociations")]
         public ICollection<ParentStudentProgramAssociation> ParentStudentProgramAssociations
         {
             get { return _parentStudentProgramAssociations; }
@@ -5573,6 +5815,132 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         {
             Parent = (IParent)value;
         }
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                pathBuilder.Append(ValidationHelpers.JsonPathSeparator);
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+                if (ParentAuthors.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(ParentAuthors));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentAuthors, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (ParentCeilingHeights.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(ParentCeilingHeights));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentCeilingHeights, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (ParentEducationContents.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(ParentEducationContents));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentEducationContents, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (ParentFavoriteBookTitles.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(ParentFavoriteBookTitles));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentFavoriteBookTitles, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (ParentStudentProgramAssociations.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(ParentStudentProgramAssociations));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentStudentProgramAssociations, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+                if (ParentCTEProgram != null)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(ParentCTEProgram));
+    
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(ParentCTEProgram, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (ParentTeacherConference != null)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(ParentTeacherConference));
+    
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(ParentTeacherConference, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
     }
 
     // =================================================================
@@ -5583,6 +5951,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     public class ParentExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<ParentExtension>
     {
         private static readonly FullName _fullName_sample_ParentExtension = new FullName("sample", "ParentExtension");
+
+        // Declare collection item validators
+        private ParentAuthorPutPostRequestValidator _parentAuthorsValidator = new ();
+        private ParentCeilingHeightPutPostRequestValidator _parentCeilingHeightsValidator = new ();
+        private ParentEducationContentPutPostRequestValidator _parentEducationContentsValidator = new ();
+        private ParentFavoriteBookTitlePutPostRequestValidator _parentFavoriteBookTitlesValidator = new ();
+        private ParentStudentProgramAssociationPutPostRequestValidator _parentStudentProgramAssociationsValidator = new ();
 
         protected override bool PreValidate(FluentValidation.ValidationContext<ParentExtension> context, FluentValidation.Results.ValidationResult result)
         {
@@ -5601,123 +5976,71 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.ParentExtensionMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.ParentExtensionMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_sample_ParentExtension));
+            var mappingContract = (global::EdFi.Ods.Entities.Common.Sample.ParentExtensionMappingContract) GeneratedArtifactStaticDependencies.MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentExtension);
 
-            if (mappingContract.Value != null)
+            if (mappingContract != null)
             {
-                if (mappingContract.Value.IsParentAuthorIncluded != null)
+                if (mappingContract.IsParentAuthorIncluded != null)
                 {
-                    var hasInvalidParentAuthorsItems = instance.ParentAuthors.Any(x => !mappingContract.Value.IsParentAuthorIncluded(x));
+                    var hasInvalidParentAuthorsItems = instance.ParentAuthors.Any(x => !mappingContract.IsParentAuthorIncluded(x));
         
                     if (hasInvalidParentAuthorsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("ParentAuthor", $"A supplied 'ParentAuthor' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("ParentAuthors", $"A supplied 'ParentAuthor' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsParentCeilingHeightIncluded != null)
+                if (mappingContract.IsParentCeilingHeightIncluded != null)
                 {
-                    var hasInvalidParentCeilingHeightsItems = instance.ParentCeilingHeights.Any(x => !mappingContract.Value.IsParentCeilingHeightIncluded(x));
+                    var hasInvalidParentCeilingHeightsItems = instance.ParentCeilingHeights.Any(x => !mappingContract.IsParentCeilingHeightIncluded(x));
         
                     if (hasInvalidParentCeilingHeightsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("ParentCeilingHeight", $"A supplied 'ParentCeilingHeight' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("ParentCeilingHeights", $"A supplied 'ParentCeilingHeight' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsParentEducationContentIncluded != null)
+                if (mappingContract.IsParentEducationContentIncluded != null)
                 {
-                    var hasInvalidParentEducationContentsItems = instance.ParentEducationContents.Any(x => !mappingContract.Value.IsParentEducationContentIncluded(x));
+                    var hasInvalidParentEducationContentsItems = instance.ParentEducationContents.Any(x => !mappingContract.IsParentEducationContentIncluded(x));
         
                     if (hasInvalidParentEducationContentsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("ParentEducationContent", $"A supplied 'ParentEducationContent' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("ParentEducationContents", $"A supplied 'ParentEducationContent' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsParentFavoriteBookTitleIncluded != null)
+                if (mappingContract.IsParentFavoriteBookTitleIncluded != null)
                 {
-                    var hasInvalidParentFavoriteBookTitlesItems = instance.ParentFavoriteBookTitles.Any(x => !mappingContract.Value.IsParentFavoriteBookTitleIncluded(x));
+                    var hasInvalidParentFavoriteBookTitlesItems = instance.ParentFavoriteBookTitles.Any(x => !mappingContract.IsParentFavoriteBookTitleIncluded(x));
         
                     if (hasInvalidParentFavoriteBookTitlesItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("ParentFavoriteBookTitle", $"A supplied 'ParentFavoriteBookTitle' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("ParentFavoriteBookTitles", $"A supplied 'ParentFavoriteBookTitle' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsParentStudentProgramAssociationIncluded != null)
+                if (mappingContract.IsParentStudentProgramAssociationIncluded != null)
                 {
-                    var hasInvalidParentStudentProgramAssociationsItems = instance.ParentStudentProgramAssociations.Any(x => !mappingContract.Value.IsParentStudentProgramAssociationIncluded(x));
+                    var hasInvalidParentStudentProgramAssociationsItems = instance.ParentStudentProgramAssociations.Any(x => !mappingContract.IsParentStudentProgramAssociationIncluded(x));
         
                     if (hasInvalidParentStudentProgramAssociationsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("ParentStudentProgramAssociation", $"A supplied 'ParentStudentProgramAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("ParentStudentProgramAssociations", $"A supplied 'ParentStudentProgramAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
             }
+
             // -----------------------
             //  Validate unified keys
             // -----------------------
-
-            // Recursively invoke the child collection item validators
-            var parentAuthorsValidator = new ParentAuthorPutPostRequestValidator();
-
-            foreach (var item in instance.ParentAuthors)
-            {
-                var validationResult = parentAuthorsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var parentCeilingHeightsValidator = new ParentCeilingHeightPutPostRequestValidator();
-
-            foreach (var item in instance.ParentCeilingHeights)
-            {
-                var validationResult = parentCeilingHeightsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var parentEducationContentsValidator = new ParentEducationContentPutPostRequestValidator();
-
-            foreach (var item in instance.ParentEducationContents)
-            {
-                var validationResult = parentEducationContentsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var parentFavoriteBookTitlesValidator = new ParentFavoriteBookTitlePutPostRequestValidator();
-
-            foreach (var item in instance.ParentFavoriteBookTitles)
-            {
-                var validationResult = parentFavoriteBookTitlesValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var parentStudentProgramAssociationsValidator = new ParentStudentProgramAssociationPutPostRequestValidator();
-
-            foreach (var item in instance.ParentStudentProgramAssociations)
-            {
-                var validationResult = parentStudentProgramAssociationsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
 
             if (failures.Any())
             {
@@ -5739,8 +6062,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class ParentFavoriteBookTitle : Entities.Common.Sample.IParentFavoriteBookTitle
     {
+        // Fluent validator instance (threadsafe)
+        private static ParentFavoriteBookTitlePutPostRequestValidator _validator = new ParentFavoriteBookTitlePutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -5750,6 +6077,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -5788,7 +6116,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// The title of the parent's favorite book.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="favoriteBookTitle"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(100, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="favoriteBookTitle")]
         public string FavoriteBookTitle { get; set; }
         // -------------------------------------------------------------
 
@@ -5939,8 +6269,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -5961,8 +6289,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class ParentStudentProgramAssociation : Entities.Common.Sample.IParentStudentProgramAssociation
     {
+        // Fluent validator instance (threadsafe)
+        private static ParentStudentProgramAssociationPutPostRequestValidator _validator = new ParentStudentProgramAssociationPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -5972,6 +6304,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -5997,7 +6330,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             }
         }
 
-        [DataMember(Name="studentProgramAssociationReference")][NaturalKeyMember]
+        [DataMember(Name="studentProgramAssociationReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public StudentProgramAssociation.EdFi.StudentProgramAssociationReference StudentProgramAssociationReference
         {
@@ -6382,8 +6715,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -6404,8 +6735,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class ParentTeacherConference : Entities.Common.Sample.IParentTeacherConference
     {
+        // Fluent validator instance (threadsafe)
+        private static ParentTeacherConferencePutPostRequestValidator _validator = new ParentTeacherConferencePutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -6415,6 +6750,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -6507,6 +6843,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// The day of the week the parent prefers to meet for parent-teacher conferences.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(10, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="dayOfWeek")]
         public string DayOfWeek { get; set; }
 
@@ -6514,6 +6852,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// The end time the parent prefers to meet for parent-teacher conferences.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
         [DataMember(Name="endTime")][JsonConverter(typeof(UtcTimeConverter))]
         public TimeSpan EndTime { get; set; }
 
@@ -6521,6 +6860,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// The start time the parent prefers to meet for parent-teacher conferences.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
         [DataMember(Name="startTime")][JsonConverter(typeof(UtcTimeConverter))]
         public TimeSpan StartTime { get; set; }
         // -------------------------------------------------------------
@@ -6609,8 +6949,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -6636,8 +6974,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class SchoolCTEProgram : Entities.Common.Sample.ISchoolCTEProgram
     {
+        // Fluent validator instance (threadsafe)
+        private static SchoolCTEProgramPutPostRequestValidator _validator = new SchoolCTEProgramPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -6647,6 +6989,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -6739,13 +7082,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         /// A sequence of courses within an area of interest that is a student's educational road map to a chosen career.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="careerPathwayDescriptor")]
+        [RequiredWithNonDefault]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="careerPathwayDescriptor")][DescriptorExists("CareerPathwayDescriptor")]
         public string CareerPathwayDescriptor { get; set; }
 
         /// <summary>
         /// Number and description of the CIP code associated with the student's CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [StringLength(120, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="cipCode")]
         public string CIPCode { get; set; }
 
@@ -6848,8 +7194,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -6870,8 +7214,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class SchoolDirectlyOwnedBus : Entities.Common.Sample.ISchoolDirectlyOwnedBus
     {
+        // Fluent validator instance (threadsafe)
+        private static SchoolDirectlyOwnedBusPutPostRequestValidator _validator = new SchoolDirectlyOwnedBusPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -6881,6 +7229,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -6906,7 +7255,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
             }
         }
 
-        [DataMember(Name="directlyOwnedBusReference")][NaturalKeyMember]
+        [DataMember(Name="directlyOwnedBusReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Bus.Sample.BusReference DirectlyOwnedBusReference
         {
@@ -7135,8 +7484,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -7157,8 +7504,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SchoolExtension : Entities.Common.Sample.ISchoolExtension, IChildEntity
+    [Display(Name="Sample")]
+    public class SchoolExtension : Entities.Common.Sample.ISchoolExtension, IChildEntity, IValidatableObject
     {
+        // Fluent validator instance (threadsafe)
+        private static SchoolExtensionPutPostRequestValidator _validator = new SchoolExtensionPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -7172,6 +7523,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         {
             SchoolDirectlyOwnedBuses = new List<SchoolDirectlyOwnedBus>();
         }
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -7274,6 +7626,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         /// <summary>
         /// cteProgram
         /// </summary>
+        
         [DataMember(Name = "cteProgram")]
         public SchoolCTEProgram SchoolCTEProgram { get; set; }
 
@@ -7311,7 +7664,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         private ICollection<SchoolDirectlyOwnedBus> _schoolDirectlyOwnedBuses;
         private ICollection<Entities.Common.Sample.ISchoolDirectlyOwnedBus> _schoolDirectlyOwnedBusesCovariant;
 
-        [DataMember(Name="directlyOwnedBuses"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="directlyOwnedBuses")]
         public ICollection<SchoolDirectlyOwnedBus> SchoolDirectlyOwnedBuses
         {
             get { return _schoolDirectlyOwnedBuses; }
@@ -7383,6 +7737,72 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         {
             School = (ISchool)value;
         }
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                pathBuilder.Append(ValidationHelpers.JsonPathSeparator);
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+                if (SchoolDirectlyOwnedBuses.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(SchoolDirectlyOwnedBuses));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(SchoolDirectlyOwnedBuses, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+                if (SchoolCTEProgram != null)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(SchoolCTEProgram));
+    
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(SchoolCTEProgram, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
     }
 
     // =================================================================
@@ -7393,6 +7813,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
     public class SchoolExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<SchoolExtension>
     {
         private static readonly FullName _fullName_sample_SchoolExtension = new FullName("sample", "SchoolExtension");
+
+        // Declare collection item validators
+        private SchoolDirectlyOwnedBusPutPostRequestValidator _schoolDirectlyOwnedBusesValidator = new ();
 
         protected override bool PreValidate(FluentValidation.ValidationContext<SchoolExtension> context, FluentValidation.Results.ValidationResult result)
         {
@@ -7411,39 +7834,27 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.SchoolExtensionMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.SchoolExtensionMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_sample_SchoolExtension));
+            var mappingContract = (global::EdFi.Ods.Entities.Common.Sample.SchoolExtensionMappingContract) GeneratedArtifactStaticDependencies.MappingContractProvider
+                .GetMappingContract(_fullName_sample_SchoolExtension);
 
-            if (mappingContract.Value != null)
+            if (mappingContract != null)
             {
-                if (mappingContract.Value.IsSchoolDirectlyOwnedBusIncluded != null)
+                if (mappingContract.IsSchoolDirectlyOwnedBusIncluded != null)
                 {
-                    var hasInvalidSchoolDirectlyOwnedBusesItems = instance.SchoolDirectlyOwnedBuses.Any(x => !mappingContract.Value.IsSchoolDirectlyOwnedBusIncluded(x));
+                    var hasInvalidSchoolDirectlyOwnedBusesItems = instance.SchoolDirectlyOwnedBuses.Any(x => !mappingContract.IsSchoolDirectlyOwnedBusIncluded(x));
         
                     if (hasInvalidSchoolDirectlyOwnedBusesItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("SchoolDirectlyOwnedBus", $"A supplied 'SchoolDirectlyOwnedBus' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("SchoolDirectlyOwnedBuses", $"A supplied 'SchoolDirectlyOwnedBus' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
             }
+
             // -----------------------
             //  Validate unified keys
             // -----------------------
-
-            // Recursively invoke the child collection item validators
-            var schoolDirectlyOwnedBusesValidator = new SchoolDirectlyOwnedBusPutPostRequestValidator();
-
-            foreach (var item in instance.SchoolDirectlyOwnedBuses)
-            {
-                var validationResult = schoolDirectlyOwnedBusesValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
 
             if (failures.Any())
             {
@@ -7470,8 +7881,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StaffExtension : Entities.Common.Sample.IStaffExtension, IChildEntity
+    [Display(Name="Sample")]
+    public class StaffExtension : Entities.Common.Sample.IStaffExtension, IChildEntity, IValidatableObject
     {
+        // Fluent validator instance (threadsafe)
+        private static StaffExtensionPutPostRequestValidator _validator = new StaffExtensionPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -7485,6 +7900,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         {
             StaffPets = new List<StaffPet>();
         }
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -7587,6 +8003,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         /// <summary>
         /// petPreference
         /// </summary>
+        
         [DataMember(Name = "petPreference")]
         public StaffPetPreference StaffPetPreference { get; set; }
 
@@ -7624,7 +8041,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         private ICollection<StaffPet> _staffPets;
         private ICollection<Entities.Common.Sample.IStaffPet> _staffPetsCovariant;
 
-        [DataMember(Name="pets"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="pets")]
         public ICollection<StaffPet> StaffPets
         {
             get { return _staffPets; }
@@ -7696,6 +8114,72 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         {
             Staff = (IStaff)value;
         }
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                pathBuilder.Append(ValidationHelpers.JsonPathSeparator);
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+                if (StaffPets.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StaffPets));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StaffPets, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+                if (StaffPetPreference != null)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StaffPetPreference));
+    
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(StaffPetPreference, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
     }
 
     // =================================================================
@@ -7706,6 +8190,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
     public class StaffExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<StaffExtension>
     {
         private static readonly FullName _fullName_sample_StaffExtension = new FullName("sample", "StaffExtension");
+
+        // Declare collection item validators
+        private StaffPetPutPostRequestValidator _staffPetsValidator = new ();
 
         protected override bool PreValidate(FluentValidation.ValidationContext<StaffExtension> context, FluentValidation.Results.ValidationResult result)
         {
@@ -7724,39 +8211,27 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.StaffExtensionMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.StaffExtensionMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_sample_StaffExtension));
+            var mappingContract = (global::EdFi.Ods.Entities.Common.Sample.StaffExtensionMappingContract) GeneratedArtifactStaticDependencies.MappingContractProvider
+                .GetMappingContract(_fullName_sample_StaffExtension);
 
-            if (mappingContract.Value != null)
+            if (mappingContract != null)
             {
-                if (mappingContract.Value.IsStaffPetIncluded != null)
+                if (mappingContract.IsStaffPetIncluded != null)
                 {
-                    var hasInvalidStaffPetsItems = instance.StaffPets.Any(x => !mappingContract.Value.IsStaffPetIncluded(x));
+                    var hasInvalidStaffPetsItems = instance.StaffPets.Any(x => !mappingContract.IsStaffPetIncluded(x));
         
                     if (hasInvalidStaffPetsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StaffPet", $"A supplied 'StaffPet' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StaffPets", $"A supplied 'StaffPet' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
             }
+
             // -----------------------
             //  Validate unified keys
             // -----------------------
-
-            // Recursively invoke the child collection item validators
-            var staffPetsValidator = new StaffPetPutPostRequestValidator();
-
-            foreach (var item in instance.StaffPets)
-            {
-                var validationResult = staffPetsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
 
             if (failures.Any())
             {
@@ -7778,8 +8253,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StaffPet : Entities.Common.Sample.IStaffPet
     {
+        // Fluent validator instance (threadsafe)
+        private static StaffPetPutPostRequestValidator _validator = new StaffPetPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -7789,6 +8268,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -7827,7 +8307,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         /// The pet's name.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="petName"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(20, MinimumLength=3, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="petName")]
         public string PetName { get; set; }
         // -------------------------------------------------------------
 
@@ -7985,8 +8467,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -8007,9 +8487,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StaffPetPreference : Entities.Common.Sample.IStaffPetPreference, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        // Fluent validator instance (threadsafe)
+        private static StaffPetPreferencePutPostRequestValidator _validator = new StaffPetPreferencePutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -8019,6 +8503,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -8242,8 +8727,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -8269,9 +8752,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentAquaticPet : Entities.Common.Sample.IStudentAquaticPet, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentAquaticPetPutPostRequestValidator _validator = new StudentAquaticPetPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -8281,6 +8768,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -8322,7 +8810,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// The minimum tank volume this aquatic pet requires.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="mimimumTankVolume"), NaturalKeyMember]
+        [DataMember(Name="mimimumTankVolume")]
         public int MimimumTankVolume 
         { 
             get => _mimimumTankVolume;
@@ -8338,7 +8826,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// The pet's name.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="petName"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(20, MinimumLength=3, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="petName")]
         public string PetName { get; set; }
         // -------------------------------------------------------------
 
@@ -8513,8 +9003,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -8535,8 +9023,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentExtension : Entities.Common.Sample.IStudentExtension, IChildEntity
+    [Display(Name="Sample")]
+    public class StudentExtension : Entities.Common.Sample.IStudentExtension, IChildEntity, IValidatableObject
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentExtensionPutPostRequestValidator _validator = new StudentExtensionPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -8552,6 +9044,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             StudentFavoriteBooks = new List<StudentFavoriteBook>();
             StudentPets = new List<StudentPet>();
         }
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -8647,6 +9140,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// <summary>
         /// petPreference
         /// </summary>
+        
         [DataMember(Name = "petPreference")]
         public StudentPetPreference StudentPetPreference { get; set; }
 
@@ -8684,7 +9178,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         private ICollection<StudentAquaticPet> _studentAquaticPets;
         private ICollection<Entities.Common.Sample.IStudentAquaticPet> _studentAquaticPetsCovariant;
 
-        [DataMember(Name="aquaticPets"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="aquaticPets")]
         public ICollection<StudentAquaticPet> StudentAquaticPets
         {
             get { return _studentAquaticPets; }
@@ -8713,7 +9208,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         private ICollection<StudentFavoriteBook> _studentFavoriteBooks;
         private ICollection<Entities.Common.Sample.IStudentFavoriteBook> _studentFavoriteBooksCovariant;
 
-        [DataMember(Name="favoriteBooks"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="favoriteBooks")]
         public ICollection<StudentFavoriteBook> StudentFavoriteBooks
         {
             get { return _studentFavoriteBooks; }
@@ -8742,7 +9238,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         private ICollection<StudentPet> _studentPets;
         private ICollection<Entities.Common.Sample.IStudentPet> _studentPetsCovariant;
 
-        [DataMember(Name="pets"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="pets")]
         public ICollection<StudentPet> StudentPets
         {
             get { return _studentPets; }
@@ -8824,6 +9321,96 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         {
             Student = (IStudent)value;
         }
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                pathBuilder.Append(ValidationHelpers.JsonPathSeparator);
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+                if (StudentAquaticPets.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentAquaticPets));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentAquaticPets, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StudentFavoriteBooks.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentFavoriteBooks));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentFavoriteBooks, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StudentPets.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentPets));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentPets, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+                if (StudentPetPreference != null)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentPetPreference));
+    
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(StudentPetPreference, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
     }
 
     // =================================================================
@@ -8834,6 +9421,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     public class StudentExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<StudentExtension>
     {
         private static readonly FullName _fullName_sample_StudentExtension = new FullName("sample", "StudentExtension");
+
+        // Declare collection item validators
+        private StudentAquaticPetPutPostRequestValidator _studentAquaticPetsValidator = new ();
+        private StudentFavoriteBookPutPostRequestValidator _studentFavoriteBooksValidator = new ();
+        private StudentPetPutPostRequestValidator _studentPetsValidator = new ();
 
         protected override bool PreValidate(FluentValidation.ValidationContext<StudentExtension> context, FluentValidation.Results.ValidationResult result)
         {
@@ -8852,81 +9444,49 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.StudentExtensionMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.StudentExtensionMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_sample_StudentExtension));
+            var mappingContract = (global::EdFi.Ods.Entities.Common.Sample.StudentExtensionMappingContract) GeneratedArtifactStaticDependencies.MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentExtension);
 
-            if (mappingContract.Value != null)
+            if (mappingContract != null)
             {
-                if (mappingContract.Value.IsStudentAquaticPetIncluded != null)
+                if (mappingContract.IsStudentAquaticPetIncluded != null)
                 {
-                    var hasInvalidStudentAquaticPetsItems = instance.StudentAquaticPets.Any(x => !mappingContract.Value.IsStudentAquaticPetIncluded(x));
+                    var hasInvalidStudentAquaticPetsItems = instance.StudentAquaticPets.Any(x => !mappingContract.IsStudentAquaticPetIncluded(x));
         
                     if (hasInvalidStudentAquaticPetsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentAquaticPet", $"A supplied 'StudentAquaticPet' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentAquaticPets", $"A supplied 'StudentAquaticPet' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsStudentFavoriteBookIncluded != null)
+                if (mappingContract.IsStudentFavoriteBookIncluded != null)
                 {
-                    var hasInvalidStudentFavoriteBooksItems = instance.StudentFavoriteBooks.Any(x => !mappingContract.Value.IsStudentFavoriteBookIncluded(x));
+                    var hasInvalidStudentFavoriteBooksItems = instance.StudentFavoriteBooks.Any(x => !mappingContract.IsStudentFavoriteBookIncluded(x));
         
                     if (hasInvalidStudentFavoriteBooksItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentFavoriteBook", $"A supplied 'StudentFavoriteBook' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentFavoriteBooks", $"A supplied 'StudentFavoriteBook' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsStudentPetIncluded != null)
+                if (mappingContract.IsStudentPetIncluded != null)
                 {
-                    var hasInvalidStudentPetsItems = instance.StudentPets.Any(x => !mappingContract.Value.IsStudentPetIncluded(x));
+                    var hasInvalidStudentPetsItems = instance.StudentPets.Any(x => !mappingContract.IsStudentPetIncluded(x));
         
                     if (hasInvalidStudentPetsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentPet", $"A supplied 'StudentPet' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentPets", $"A supplied 'StudentPet' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
             }
+
             // -----------------------
             //  Validate unified keys
             // -----------------------
-
-            // Recursively invoke the child collection item validators
-            var studentAquaticPetsValidator = new StudentAquaticPetPutPostRequestValidator();
-
-            foreach (var item in instance.StudentAquaticPets)
-            {
-                var validationResult = studentAquaticPetsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var studentFavoriteBooksValidator = new StudentFavoriteBookPutPostRequestValidator();
-
-            foreach (var item in instance.StudentFavoriteBooks)
-            {
-                var validationResult = studentFavoriteBooksValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var studentPetsValidator = new StudentPetPutPostRequestValidator();
-
-            foreach (var item in instance.StudentPets)
-            {
-                var validationResult = studentPetsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
 
             if (failures.Any())
             {
@@ -8948,8 +9508,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentFavoriteBook : Entities.Common.Sample.IStudentFavoriteBook
+    
+    public class StudentFavoriteBook : Entities.Common.Sample.IStudentFavoriteBook, IValidatableObject
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentFavoriteBookPutPostRequestValidator _validator = new StudentFavoriteBookPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -8963,6 +9527,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         {
             StudentFavoriteBookArtMedia = new List<StudentFavoriteBookArtMedium>();
         }
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -9001,7 +9566,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// This is documentation.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="favoriteBookCategoryDescriptor"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="favoriteBookCategoryDescriptor")][DescriptorExists("FavoriteBookCategoryDescriptor")]
         public string FavoriteBookCategoryDescriptor { get; set; }
         // -------------------------------------------------------------
 
@@ -9071,6 +9638,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// This is documentation.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [StringLength(200, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="bookTitle")]
         public string BookTitle { get; set; }
         // -------------------------------------------------------------
@@ -9106,7 +9674,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         private ICollection<StudentFavoriteBookArtMedium> _studentFavoriteBookArtMedia;
         private ICollection<Entities.Common.Sample.IStudentFavoriteBookArtMedium> _studentFavoriteBookArtMediaCovariant;
 
-        [DataMember(Name="artMedia"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="artMedia")]
         public ICollection<StudentFavoriteBookArtMedium> StudentFavoriteBookArtMedia
         {
             get { return _studentFavoriteBookArtMedia; }
@@ -9173,6 +9742,60 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         //                    Resource Reference Data
         // -----------------------------------------------------------------
         // -----------------------------------------------------------------
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                pathBuilder.Append(ValidationHelpers.JsonPathSeparator);
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+                if (StudentFavoriteBookArtMedia.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentFavoriteBookArtMedia));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentFavoriteBookArtMedia, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
     }
 
     // =================================================================
@@ -9183,6 +9806,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     public class StudentFavoriteBookPutPostRequestValidator : FluentValidation.AbstractValidator<StudentFavoriteBook>
     {
         private static readonly FullName _fullName_sample_StudentFavoriteBook = new FullName("sample", "StudentFavoriteBook");
+
+        // Declare collection item validators
+        private StudentFavoriteBookArtMediumPutPostRequestValidator _studentFavoriteBookArtMediaValidator = new ();
 
         protected override bool PreValidate(FluentValidation.ValidationContext<StudentFavoriteBook> context, FluentValidation.Results.ValidationResult result)
         {
@@ -9201,39 +9827,27 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.StudentFavoriteBookMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.StudentFavoriteBookMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_sample_StudentFavoriteBook));
+            var mappingContract = (global::EdFi.Ods.Entities.Common.Sample.StudentFavoriteBookMappingContract) GeneratedArtifactStaticDependencies.MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentFavoriteBook);
 
-            if (mappingContract.Value != null)
+            if (mappingContract != null)
             {
-                if (mappingContract.Value.IsStudentFavoriteBookArtMediumIncluded != null)
+                if (mappingContract.IsStudentFavoriteBookArtMediumIncluded != null)
                 {
-                    var hasInvalidStudentFavoriteBookArtMediaItems = instance.StudentFavoriteBookArtMedia.Any(x => !mappingContract.Value.IsStudentFavoriteBookArtMediumIncluded(x));
+                    var hasInvalidStudentFavoriteBookArtMediaItems = instance.StudentFavoriteBookArtMedia.Any(x => !mappingContract.IsStudentFavoriteBookArtMediumIncluded(x));
         
                     if (hasInvalidStudentFavoriteBookArtMediaItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentFavoriteBookArtMedium", $"A supplied 'StudentFavoriteBookArtMedium' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentFavoriteBookArtMedia", $"A supplied 'StudentFavoriteBookArtMedium' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
             }
+
             // -----------------------
             //  Validate unified keys
             // -----------------------
-
-            // Recursively invoke the child collection item validators
-            var studentFavoriteBookArtMediaValidator = new StudentFavoriteBookArtMediumPutPostRequestValidator();
-
-            foreach (var item in instance.StudentFavoriteBookArtMedia)
-            {
-                var validationResult = studentFavoriteBookArtMediaValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
 
             if (failures.Any())
             {
@@ -9255,8 +9869,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StudentFavoriteBookArtMedium : Entities.Common.Sample.IStudentFavoriteBookArtMedium
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentFavoriteBookArtMediumPutPostRequestValidator _validator = new StudentFavoriteBookArtMediumPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -9266,6 +9884,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -9304,7 +9923,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// This is documentation.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="artMediumDescriptor"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="artMediumDescriptor")][DescriptorExists("ArtMediumDescriptor")]
         public string ArtMediumDescriptor { get; set; }
         // -------------------------------------------------------------
 
@@ -9374,6 +9995,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// This is documentation.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(0, 100, ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="artPieces")]
         public int? ArtPieces { get; set; }
         // -------------------------------------------------------------
@@ -9462,8 +10084,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -9484,8 +10104,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StudentPet : Entities.Common.Sample.IStudentPet
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentPetPutPostRequestValidator _validator = new StudentPetPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -9495,6 +10119,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -9533,7 +10158,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// The pet's name.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="petName"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(20, MinimumLength=3, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="petName")]
         public string PetName { get; set; }
         // -------------------------------------------------------------
 
@@ -9691,8 +10318,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -9713,9 +10338,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentPetPreference : Entities.Common.Sample.IStudentPetPreference, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentPetPreferencePutPostRequestValidator _validator = new StudentPetPreferencePutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -9725,6 +10354,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -9948,8 +10578,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -9977,22 +10605,22 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationReference : IResourceReference
     {
-        [DataMember(Name="beginDate"), NaturalKeyMember][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [DataMember(Name="beginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
         public DateTime BeginDate { get; set; }
 
-        [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
+        [DataMember(Name="educationOrganizationId")]
         public int EducationOrganizationId { get; set; }
 
-        [DataMember(Name="programEducationOrganizationId"), NaturalKeyMember]
+        [DataMember(Name="programEducationOrganizationId")]
         public int ProgramEducationOrganizationId { get; set; }
 
-        [DataMember(Name="programName"), NaturalKeyMember]
+        [DataMember(Name="programName")]
         public string ProgramName { get; set; }
 
-        [DataMember(Name="programTypeDescriptor"), NaturalKeyMember]
+        [DataMember(Name="programTypeDescriptor")][DescriptorExists("ProgramTypeDescriptor")]
         public string ProgramTypeDescriptor { get; set; }
 
-        [DataMember(Name="studentUniqueId"), NaturalKeyMember]
+        [DataMember(Name="studentUniqueId")]
         public string StudentUniqueId 
         {
             get => _studentUniqueId;
@@ -10088,9 +10716,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
-    public class StudentArtProgramAssociation : Entities.Common.Sample.IStudentArtProgramAssociation, Entities.Common.EdFi.IGeneralStudentProgramAssociation, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues
+    public class StudentArtProgramAssociation : Entities.Common.Sample.IStudentArtProgramAssociation, Entities.Common.EdFi.IGeneralStudentProgramAssociation, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues, IValidatableObject
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentArtProgramAssociationPutPostRequestValidator _validator = new StudentArtProgramAssociationPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -10110,6 +10742,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
             // Inherited lists
             GeneralStudentProgramAssociationProgramParticipationStatuses = new List<GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationProgramParticipationStatus>();
         }
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -10142,7 +10775,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
             }
         }
 
-        [DataMember(Name="educationOrganizationReference")][NaturalKeyMember]
+        [DataMember(Name="educationOrganizationReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EducationOrganization.EdFi.EducationOrganizationReference EducationOrganizationReference
         {
@@ -10175,7 +10808,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
             }
         }
 
-        [DataMember(Name="programReference")][NaturalKeyMember]
+        [DataMember(Name="programReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Program.EdFi.ProgramReference ProgramReference
         {
@@ -10208,7 +10841,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
             }
         }
 
-        [DataMember(Name="studentReference")][NaturalKeyMember]
+        [DataMember(Name="studentReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Student.EdFi.StudentReference StudentReference
         {
@@ -10237,7 +10870,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="beginDate"), NaturalKeyMember][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [RequiredWithNonDefault]
+        [DataMember(Name="beginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
         public DateTime BeginDate { get; set; }
 
         /// <summary>
@@ -10465,7 +11099,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// The reason the student left the program within a school or district.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="reasonExitedDescriptor")]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="reasonExitedDescriptor")][DescriptorExists("ReasonExitedDescriptor")]
         public string ReasonExitedDescriptor { get; set; }
 
         /// <summary>
@@ -10484,6 +11119,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// The total number of art pieces completed by the student during the program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(0, 100, ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="artPieces")]
         public int? ArtPieces { get; set; }
 
@@ -10498,6 +11134,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// The number of hours a student spends in the program each school day.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(typeof(decimal), "-999.99", "999.99", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="hoursPerDay")]
         public decimal? HoursPerDay { get; set; }
 
@@ -10505,6 +11142,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// A unique identification code used to identify the student's artwork produced in the program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [StringLength(60, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="identificationCode")]
         public string IdentificationCode { get; set; }
 
@@ -10519,6 +11157,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// The number of clock minutes dedicated to the student's kiln reservation.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [StringLength(30, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="kilnReservationLength")]
         public string KilnReservationLength { get; set; }
 
@@ -10526,6 +11165,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// Percentage of the mediums taught in the program which the student mastered.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(typeof(decimal), "-9.9999", "9.9999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="masteredMediums")]
         public decimal? MasteredMediums { get; set; }
 
@@ -10533,6 +11173,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// Number of days the student is in attendance at the program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(typeof(decimal), "0", "99999999999999.9999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="numberOfDaysInAttendance")]
         public decimal? NumberOfDaysInAttendance { get; set; }
 
@@ -10540,6 +11181,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// The total number of pieces in the student's portfolio.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(0, 100, ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="portfolioPieces")]
         public int? PortfolioPieces { get; set; }
         
@@ -10566,6 +11208,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// Required program fees to purchase materials for the student.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="programFees")]
         public decimal? ProgramFees { get; set; }
         // -------------------------------------------------------------
@@ -10589,6 +11232,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// <summary>
         /// participationStatus
         /// </summary>
+        
         [DataMember(Name = "participationStatus")]
         public Api.Common.Models.Resources.GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationParticipationStatus GeneralStudentProgramAssociationParticipationStatus { get; set; }
 
@@ -10606,7 +11250,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         private ICollection<GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationProgramParticipationStatus> _generalStudentProgramAssociationProgramParticipationStatuses;
         private ICollection<Entities.Common.EdFi.IGeneralStudentProgramAssociationProgramParticipationStatus> _generalStudentProgramAssociationProgramParticipationStatusesCovariant;
 
-        [DataMember(Name="programParticipationStatuses"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="programParticipationStatuses")]
         public ICollection<GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationProgramParticipationStatus> GeneralStudentProgramAssociationProgramParticipationStatuses
         {
             get { return _generalStudentProgramAssociationProgramParticipationStatuses; }
@@ -10641,7 +11286,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         private ICollection<StudentArtProgramAssociationArtMedium> _studentArtProgramAssociationArtMedia;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationArtMedium> _studentArtProgramAssociationArtMediaCovariant;
 
-        [DataMember(Name="artMedia"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="artMedia")]
         public ICollection<StudentArtProgramAssociationArtMedium> StudentArtProgramAssociationArtMedia
         {
             get { return _studentArtProgramAssociationArtMedia; }
@@ -10670,7 +11316,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         private ICollection<StudentArtProgramAssociationPortfolioYears> _studentArtProgramAssociationPortfolioYears;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears> _studentArtProgramAssociationPortfolioYearsCovariant;
 
-        [DataMember(Name="portfolioYears"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="portfolioYears")]
         public ICollection<StudentArtProgramAssociationPortfolioYears> StudentArtProgramAssociationPortfolioYears
         {
             get { return _studentArtProgramAssociationPortfolioYears; }
@@ -10699,7 +11346,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         private ICollection<StudentArtProgramAssociationService> _studentArtProgramAssociationServices;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationService> _studentArtProgramAssociationServicesCovariant;
 
-        [DataMember(Name="services"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="services")]
         public ICollection<StudentArtProgramAssociationService> StudentArtProgramAssociationServices
         {
             get { return _studentArtProgramAssociationServices; }
@@ -10728,7 +11376,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         private ICollection<StudentArtProgramAssociationStyle> _studentArtProgramAssociationStyles;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationStyle> _studentArtProgramAssociationStylesCovariant;
 
-        [DataMember(Name="styles"), NoDuplicateMembers]
+        [NoDuplicateMembers][RequiredCollection]
+        [DataMember(Name="styles")]
         public ICollection<StudentArtProgramAssociationStyle> StudentArtProgramAssociationStyles
         {
             get { return _studentArtProgramAssociationStyles; }
@@ -10864,6 +11513,119 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
 
 
         // -----------------------------------------------------------------
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+                if (GeneralStudentProgramAssociationProgramParticipationStatuses.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(GeneralStudentProgramAssociationProgramParticipationStatuses));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(GeneralStudentProgramAssociationProgramParticipationStatuses, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StudentArtProgramAssociationArtMedia.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentArtProgramAssociationArtMedia));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentArtProgramAssociationArtMedia, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StudentArtProgramAssociationPortfolioYears.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentArtProgramAssociationPortfolioYears));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentArtProgramAssociationPortfolioYears, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StudentArtProgramAssociationServices.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentArtProgramAssociationServices));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentArtProgramAssociationServices, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StudentArtProgramAssociationStyles.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentArtProgramAssociationStyles));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentArtProgramAssociationStyles, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+                if (GeneralStudentProgramAssociationParticipationStatus != null)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(GeneralStudentProgramAssociationParticipationStatus));
+    
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(GeneralStudentProgramAssociationParticipationStatus, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
     }
 
     // =================================================================
@@ -10874,6 +11636,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     public class StudentArtProgramAssociationPutPostRequestValidator : FluentValidation.AbstractValidator<StudentArtProgramAssociation>
     {
         private static readonly FullName _fullName_sample_StudentArtProgramAssociation = new FullName("sample", "StudentArtProgramAssociation");
+
+        // Declare collection item validators
+        private StudentArtProgramAssociationArtMediumPutPostRequestValidator _studentArtProgramAssociationArtMediaValidator = new ();
+        private StudentArtProgramAssociationPortfolioYearsPutPostRequestValidator _studentArtProgramAssociationPortfolioYearsValidator = new ();
+        private StudentArtProgramAssociationServicePutPostRequestValidator _studentArtProgramAssociationServicesValidator = new ();
+        private StudentArtProgramAssociationStylePutPostRequestValidator _studentArtProgramAssociationStylesValidator = new ();
+        private GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationProgramParticipationStatusPutPostRequestValidator _generalStudentProgramAssociationProgramParticipationStatusesValidator = new ();
 
         protected override bool PreValidate(FluentValidation.ValidationContext<StudentArtProgramAssociation> context, FluentValidation.Results.ValidationResult result)
         {
@@ -10892,26 +11661,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.StudentArtProgramAssociationMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.StudentArtProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_sample_StudentArtProgramAssociation));
+            var mappingContract = (global::EdFi.Ods.Entities.Common.Sample.StudentArtProgramAssociationMappingContract) GeneratedArtifactStaticDependencies.MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentArtProgramAssociation);
 
-            if (mappingContract.Value != null)
+            if (mappingContract != null)
             {
-                if (mappingContract.Value.IsStudentArtProgramAssociationArtMediumIncluded != null)
+                if (mappingContract.IsStudentArtProgramAssociationArtMediumIncluded != null)
                 {
-                    var hasInvalidStudentArtProgramAssociationArtMediaItems = instance.StudentArtProgramAssociationArtMedia.Any(x => !mappingContract.Value.IsStudentArtProgramAssociationArtMediumIncluded(x));
+                    var hasInvalidStudentArtProgramAssociationArtMediaItems = instance.StudentArtProgramAssociationArtMedia.Any(x => !mappingContract.IsStudentArtProgramAssociationArtMediumIncluded(x));
         
                     if (hasInvalidStudentArtProgramAssociationArtMediaItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentArtProgramAssociationArtMedium", $"A supplied 'StudentArtProgramAssociationArtMedium' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentArtProgramAssociationArtMedia", $"A supplied 'StudentArtProgramAssociationArtMedium' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsStudentArtProgramAssociationPortfolioYearsIncluded != null)
+                if (mappingContract.IsStudentArtProgramAssociationPortfolioYearsIncluded != null)
                 {
-                    var hasInvalidStudentArtProgramAssociationPortfolioYearsItems = instance.StudentArtProgramAssociationPortfolioYears.Any(x => !mappingContract.Value.IsStudentArtProgramAssociationPortfolioYearsIncluded(x));
+                    var hasInvalidStudentArtProgramAssociationPortfolioYearsItems = instance.StudentArtProgramAssociationPortfolioYears.Any(x => !mappingContract.IsStudentArtProgramAssociationPortfolioYearsIncluded(x));
         
                     if (hasInvalidStudentArtProgramAssociationPortfolioYearsItems)
                     {
@@ -10920,95 +11688,44 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
                     }
                 }
 
-                if (mappingContract.Value.IsStudentArtProgramAssociationServiceIncluded != null)
+                if (mappingContract.IsStudentArtProgramAssociationServiceIncluded != null)
                 {
-                    var hasInvalidStudentArtProgramAssociationServicesItems = instance.StudentArtProgramAssociationServices.Any(x => !mappingContract.Value.IsStudentArtProgramAssociationServiceIncluded(x));
+                    var hasInvalidStudentArtProgramAssociationServicesItems = instance.StudentArtProgramAssociationServices.Any(x => !mappingContract.IsStudentArtProgramAssociationServiceIncluded(x));
         
                     if (hasInvalidStudentArtProgramAssociationServicesItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentArtProgramAssociationService", $"A supplied 'StudentArtProgramAssociationService' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentArtProgramAssociationServices", $"A supplied 'StudentArtProgramAssociationService' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsStudentArtProgramAssociationStyleIncluded != null)
+                if (mappingContract.IsStudentArtProgramAssociationStyleIncluded != null)
                 {
-                    var hasInvalidStudentArtProgramAssociationStylesItems = instance.StudentArtProgramAssociationStyles.Any(x => !mappingContract.Value.IsStudentArtProgramAssociationStyleIncluded(x));
+                    var hasInvalidStudentArtProgramAssociationStylesItems = instance.StudentArtProgramAssociationStyles.Any(x => !mappingContract.IsStudentArtProgramAssociationStyleIncluded(x));
         
                     if (hasInvalidStudentArtProgramAssociationStylesItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentArtProgramAssociationStyle", $"A supplied 'StudentArtProgramAssociationStyle' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentArtProgramAssociationStyles", $"A supplied 'StudentArtProgramAssociationStyle' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded != null)
+                if (mappingContract.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded != null)
                 {
-                    var hasInvalidGeneralStudentProgramAssociationProgramParticipationStatusesItems = instance.GeneralStudentProgramAssociationProgramParticipationStatuses.Any(x => !mappingContract.Value.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded(x));
+                    var hasInvalidGeneralStudentProgramAssociationProgramParticipationStatusesItems = instance.GeneralStudentProgramAssociationProgramParticipationStatuses.Any(x => !mappingContract.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded(x));
         
                     if (hasInvalidGeneralStudentProgramAssociationProgramParticipationStatusesItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("GeneralStudentProgramAssociationProgramParticipationStatus", $"A supplied 'GeneralStudentProgramAssociationProgramParticipationStatus' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("GeneralStudentProgramAssociationProgramParticipationStatuses", $"A supplied 'GeneralStudentProgramAssociationProgramParticipationStatus' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
             }
+
             // -----------------------
             //  Validate unified keys
             // -----------------------
-
-            // Recursively invoke the child collection item validators
-            var studentArtProgramAssociationArtMediaValidator = new StudentArtProgramAssociationArtMediumPutPostRequestValidator();
-
-            foreach (var item in instance.StudentArtProgramAssociationArtMedia)
-            {
-                var validationResult = studentArtProgramAssociationArtMediaValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var studentArtProgramAssociationPortfolioYearsValidator = new StudentArtProgramAssociationPortfolioYearsPutPostRequestValidator();
-
-            foreach (var item in instance.StudentArtProgramAssociationPortfolioYears)
-            {
-                var validationResult = studentArtProgramAssociationPortfolioYearsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var studentArtProgramAssociationServicesValidator = new StudentArtProgramAssociationServicePutPostRequestValidator();
-
-            foreach (var item in instance.StudentArtProgramAssociationServices)
-            {
-                var validationResult = studentArtProgramAssociationServicesValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var studentArtProgramAssociationStylesValidator = new StudentArtProgramAssociationStylePutPostRequestValidator();
-
-            foreach (var item in instance.StudentArtProgramAssociationStyles)
-            {
-                var validationResult = studentArtProgramAssociationStylesValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var generalStudentProgramAssociationProgramParticipationStatusesValidator = new GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationProgramParticipationStatusPutPostRequestValidator();
-
-            foreach (var item in instance.GeneralStudentProgramAssociationProgramParticipationStatuses)
-            {
-                var validationResult = generalStudentProgramAssociationProgramParticipationStatusesValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
 
             if (failures.Any())
             {
@@ -11030,8 +11747,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StudentArtProgramAssociationArtMedium : Entities.Common.Sample.IStudentArtProgramAssociationArtMedium
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentArtProgramAssociationArtMediumPutPostRequestValidator _validator = new StudentArtProgramAssociationArtMediumPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -11041,6 +11762,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -11079,7 +11801,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// The art mediums used in the program (i.e., paint, pencils, clay, etc.).
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="artMediumDescriptor"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="artMediumDescriptor")][DescriptorExists("ArtMediumDescriptor")]
         public string ArtMediumDescriptor { get; set; }
         // -------------------------------------------------------------
 
@@ -11230,8 +11954,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -11252,9 +11974,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentArtProgramAssociationPortfolioYears : Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentArtProgramAssociationPortfolioYearsPutPostRequestValidator _validator = new StudentArtProgramAssociationPortfolioYearsPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -11264,6 +11990,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -11305,7 +12032,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// The of year(s) of work included in the student's portfolio.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="portfolioYears"), NaturalKeyMember]
+        [DataMember(Name="portfolioYears")]
         public short PortfolioYears 
         { 
             get => _portfolioYears;
@@ -11473,8 +12200,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -11495,8 +12220,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StudentArtProgramAssociationService : Entities.Common.Sample.IStudentArtProgramAssociationService
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentArtProgramAssociationServicePutPostRequestValidator _validator = new StudentArtProgramAssociationServicePutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -11506,6 +12235,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -11544,7 +12274,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// Indicates the service being provided to the student by the program.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="serviceDescriptor"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="serviceDescriptor")][DescriptorExists("ServiceDescriptor")]
         public string ServiceDescriptor { get; set; }
         // -------------------------------------------------------------
 
@@ -11716,8 +12448,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -11738,8 +12468,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StudentArtProgramAssociationStyle : Entities.Common.Sample.IStudentArtProgramAssociationStyle
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentArtProgramAssociationStylePutPostRequestValidator _validator = new StudentArtProgramAssociationStylePutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -11749,6 +12483,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -11787,7 +12522,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// The art style(s) exhibited by the student in the program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="style"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="style")]
         public string Style { get; set; }
         // -------------------------------------------------------------
 
@@ -11938,8 +12675,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -11965,8 +12700,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    [Display(Name="Sample")]
     public class StudentCTEProgramAssociationExtension : Entities.Common.Sample.IStudentCTEProgramAssociationExtension, IChildEntity
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentCTEProgramAssociationExtensionPutPostRequestValidator _validator = new StudentCTEProgramAssociationExtensionPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -11976,6 +12715,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -12168,8 +12908,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -12195,9 +12933,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    [Display(Name="Sample")]
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
-    public class StudentEducationOrganizationAssociationAddressExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension, IHasRequiredMembersWithMeaningfulDefaultValues, IChildEntity
+    public class StudentEducationOrganizationAssociationAddressExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension, IHasRequiredMembersWithMeaningfulDefaultValues, IChildEntity, IValidatableObject
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentEducationOrganizationAssociationAddressExtensionPutPostRequestValidator _validator = new StudentEducationOrganizationAssociationAddressExtensionPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -12212,6 +12954,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             StudentEducationOrganizationAssociationAddressSchoolDistricts = new List<StudentEducationOrganizationAssociationAddressSchoolDistrict>();
             StudentEducationOrganizationAssociationAddressTerms = new List<StudentEducationOrganizationAssociationAddressTerm>();
         }
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -12304,6 +13047,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// The apartment or housing complex name.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [StringLength(255, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="complex")]
         public string Complex { get; set; }
         
@@ -12366,7 +13110,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         private ICollection<StudentEducationOrganizationAssociationAddressSchoolDistrict> _studentEducationOrganizationAssociationAddressSchoolDistricts;
         private ICollection<Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict> _studentEducationOrganizationAssociationAddressSchoolDistrictsCovariant;
 
-        [DataMember(Name="schoolDistricts"), NoDuplicateMembers]
+        [NoDuplicateMembers][RequiredCollection]
+        [DataMember(Name="schoolDistricts")]
         public ICollection<StudentEducationOrganizationAssociationAddressSchoolDistrict> StudentEducationOrganizationAssociationAddressSchoolDistricts
         {
             get { return _studentEducationOrganizationAssociationAddressSchoolDistricts; }
@@ -12395,7 +13140,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         private ICollection<StudentEducationOrganizationAssociationAddressTerm> _studentEducationOrganizationAssociationAddressTerms;
         private ICollection<Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm> _studentEducationOrganizationAssociationAddressTermsCovariant;
 
-        [DataMember(Name="terms"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="terms")]
         public ICollection<StudentEducationOrganizationAssociationAddressTerm> StudentEducationOrganizationAssociationAddressTerms
         {
             get { return _studentEducationOrganizationAssociationAddressTerms; }
@@ -12472,6 +13218,72 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         {
             StudentEducationOrganizationAssociationAddress = (IStudentEducationOrganizationAssociationAddress)value;
         }
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                pathBuilder.Append(ValidationHelpers.JsonPathSeparator);
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+                if (StudentEducationOrganizationAssociationAddressSchoolDistricts.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentEducationOrganizationAssociationAddressSchoolDistricts));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentEducationOrganizationAssociationAddressSchoolDistricts, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StudentEducationOrganizationAssociationAddressTerms.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentEducationOrganizationAssociationAddressTerms));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentEducationOrganizationAssociationAddressTerms, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
     }
 
     // =================================================================
@@ -12482,6 +13294,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     public class StudentEducationOrganizationAssociationAddressExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<StudentEducationOrganizationAssociationAddressExtension>
     {
         private static readonly FullName _fullName_sample_StudentEducationOrganizationAssociationAddressExtension = new FullName("sample", "StudentEducationOrganizationAssociationAddressExtension");
+
+        // Declare collection item validators
+        private StudentEducationOrganizationAssociationAddressSchoolDistrictPutPostRequestValidator _studentEducationOrganizationAssociationAddressSchoolDistrictsValidator = new ();
+        private StudentEducationOrganizationAssociationAddressTermPutPostRequestValidator _studentEducationOrganizationAssociationAddressTermsValidator = new ();
 
         protected override bool PreValidate(FluentValidation.ValidationContext<StudentEducationOrganizationAssociationAddressExtension> context, FluentValidation.Results.ValidationResult result)
         {
@@ -12500,60 +13316,38 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.StudentEducationOrganizationAssociationAddressExtensionMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.StudentEducationOrganizationAssociationAddressExtensionMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationAddressExtension));
+            var mappingContract = (global::EdFi.Ods.Entities.Common.Sample.StudentEducationOrganizationAssociationAddressExtensionMappingContract) GeneratedArtifactStaticDependencies.MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationAddressExtension);
 
-            if (mappingContract.Value != null)
+            if (mappingContract != null)
             {
-                if (mappingContract.Value.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded != null)
+                if (mappingContract.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded != null)
                 {
-                    var hasInvalidStudentEducationOrganizationAssociationAddressSchoolDistrictsItems = instance.StudentEducationOrganizationAssociationAddressSchoolDistricts.Any(x => !mappingContract.Value.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded(x));
+                    var hasInvalidStudentEducationOrganizationAssociationAddressSchoolDistrictsItems = instance.StudentEducationOrganizationAssociationAddressSchoolDistricts.Any(x => !mappingContract.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded(x));
         
                     if (hasInvalidStudentEducationOrganizationAssociationAddressSchoolDistrictsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentEducationOrganizationAssociationAddressSchoolDistrict", $"A supplied 'StudentEducationOrganizationAssociationAddressSchoolDistrict' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentEducationOrganizationAssociationAddressSchoolDistricts", $"A supplied 'StudentEducationOrganizationAssociationAddressSchoolDistrict' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsStudentEducationOrganizationAssociationAddressTermIncluded != null)
+                if (mappingContract.IsStudentEducationOrganizationAssociationAddressTermIncluded != null)
                 {
-                    var hasInvalidStudentEducationOrganizationAssociationAddressTermsItems = instance.StudentEducationOrganizationAssociationAddressTerms.Any(x => !mappingContract.Value.IsStudentEducationOrganizationAssociationAddressTermIncluded(x));
+                    var hasInvalidStudentEducationOrganizationAssociationAddressTermsItems = instance.StudentEducationOrganizationAssociationAddressTerms.Any(x => !mappingContract.IsStudentEducationOrganizationAssociationAddressTermIncluded(x));
         
                     if (hasInvalidStudentEducationOrganizationAssociationAddressTermsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentEducationOrganizationAssociationAddressTerm", $"A supplied 'StudentEducationOrganizationAssociationAddressTerm' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentEducationOrganizationAssociationAddressTerms", $"A supplied 'StudentEducationOrganizationAssociationAddressTerm' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
             }
+
             // -----------------------
             //  Validate unified keys
             // -----------------------
-
-            // Recursively invoke the child collection item validators
-            var studentEducationOrganizationAssociationAddressSchoolDistrictsValidator = new StudentEducationOrganizationAssociationAddressSchoolDistrictPutPostRequestValidator();
-
-            foreach (var item in instance.StudentEducationOrganizationAssociationAddressSchoolDistricts)
-            {
-                var validationResult = studentEducationOrganizationAssociationAddressSchoolDistrictsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var studentEducationOrganizationAssociationAddressTermsValidator = new StudentEducationOrganizationAssociationAddressTermPutPostRequestValidator();
-
-            foreach (var item in instance.StudentEducationOrganizationAssociationAddressTerms)
-            {
-                var validationResult = studentEducationOrganizationAssociationAddressTermsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
 
             if (failures.Any())
             {
@@ -12575,8 +13369,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StudentEducationOrganizationAssociationAddressSchoolDistrict : Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentEducationOrganizationAssociationAddressSchoolDistrictPutPostRequestValidator _validator = new StudentEducationOrganizationAssociationAddressSchoolDistrictPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -12586,6 +13384,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -12624,7 +13423,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// The school district in which the address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="schoolDistrict"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(250, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="schoolDistrict")]
         public string SchoolDistrict { get; set; }
         // -------------------------------------------------------------
 
@@ -12775,8 +13576,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -12797,8 +13596,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StudentEducationOrganizationAssociationAddressTerm : Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentEducationOrganizationAssociationAddressTermPutPostRequestValidator _validator = new StudentEducationOrganizationAssociationAddressTermPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -12808,6 +13611,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -12846,7 +13650,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// Terms applicable to this address.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="termDescriptor"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="termDescriptor")][DescriptorExists("TermDescriptor")]
         public string TermDescriptor { get; set; }
         // -------------------------------------------------------------
 
@@ -12997,8 +13803,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -13019,8 +13823,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    [Display(Name="Sample")]
     public class StudentEducationOrganizationAssociationExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension, IChildEntity
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentEducationOrganizationAssociationExtensionPutPostRequestValidator _validator = new StudentEducationOrganizationAssociationExtensionPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -13030,6 +13838,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -13190,6 +13999,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// </summary>
 
         // IS in a reference (StudentEducationOrganizationAssociation.FavoriteProgramTypeDescriptorId), IS a lookup column 
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         string Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension.FavoriteProgramTypeDescriptor
         {
             get
@@ -13340,8 +14150,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
 
             }
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -13362,8 +14170,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationStudentCharacteristicExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicExtension, IChildEntity
+    [Display(Name="Sample")]
+    public class StudentEducationOrganizationAssociationStudentCharacteristicExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicExtension, IChildEntity, IValidatableObject
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentEducationOrganizationAssociationStudentCharacteristicExtensionPutPostRequestValidator _validator = new StudentEducationOrganizationAssociationStudentCharacteristicExtensionPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -13377,6 +14189,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         {
             StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds = new List<StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed>();
         }
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -13497,7 +14310,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         private ICollection<StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed> _studentEducationOrganizationAssociationStudentCharacteristicStudentNeeds;
         private ICollection<Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed> _studentEducationOrganizationAssociationStudentCharacteristicStudentNeedsCovariant;
 
-        [DataMember(Name="studentNeeds"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="studentNeeds")]
         public ICollection<StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed> StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds
         {
             get { return _studentEducationOrganizationAssociationStudentCharacteristicStudentNeeds; }
@@ -13569,6 +14383,60 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         {
             StudentEducationOrganizationAssociationStudentCharacteristic = (IStudentEducationOrganizationAssociationStudentCharacteristic)value;
         }
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                pathBuilder.Append(ValidationHelpers.JsonPathSeparator);
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+                if (StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
     }
 
     // =================================================================
@@ -13579,6 +14447,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     public class StudentEducationOrganizationAssociationStudentCharacteristicExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<StudentEducationOrganizationAssociationStudentCharacteristicExtension>
     {
         private static readonly FullName _fullName_sample_StudentEducationOrganizationAssociationStudentCharacteristicExtension = new FullName("sample", "StudentEducationOrganizationAssociationStudentCharacteristicExtension");
+
+        // Declare collection item validators
+        private StudentEducationOrganizationAssociationStudentCharacteristicStudentNeedPutPostRequestValidator _studentEducationOrganizationAssociationStudentCharacteristicStudentNeedsValidator = new ();
 
         protected override bool PreValidate(FluentValidation.ValidationContext<StudentEducationOrganizationAssociationStudentCharacteristicExtension> context, FluentValidation.Results.ValidationResult result)
         {
@@ -13597,39 +14468,27 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.StudentEducationOrganizationAssociationStudentCharacteristicExtensionMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.StudentEducationOrganizationAssociationStudentCharacteristicExtensionMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationStudentCharacteristicExtension));
+            var mappingContract = (global::EdFi.Ods.Entities.Common.Sample.StudentEducationOrganizationAssociationStudentCharacteristicExtensionMappingContract) GeneratedArtifactStaticDependencies.MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationStudentCharacteristicExtension);
 
-            if (mappingContract.Value != null)
+            if (mappingContract != null)
             {
-                if (mappingContract.Value.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded != null)
+                if (mappingContract.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded != null)
                 {
-                    var hasInvalidStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsItems = instance.StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds.Any(x => !mappingContract.Value.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded(x));
+                    var hasInvalidStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsItems = instance.StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds.Any(x => !mappingContract.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded(x));
         
                     if (hasInvalidStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed", $"A supplied 'StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds", $"A supplied 'StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
             }
+
             // -----------------------
             //  Validate unified keys
             // -----------------------
-
-            // Recursively invoke the child collection item validators
-            var studentEducationOrganizationAssociationStudentCharacteristicStudentNeedsValidator = new StudentEducationOrganizationAssociationStudentCharacteristicStudentNeedPutPostRequestValidator();
-
-            foreach (var item in instance.StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds)
-            {
-                var validationResult = studentEducationOrganizationAssociationStudentCharacteristicStudentNeedsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
 
             if (failures.Any())
             {
@@ -13651,8 +14510,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed : Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentEducationOrganizationAssociationStudentCharacteristicStudentNeedPutPostRequestValidator _validator = new StudentEducationOrganizationAssociationStudentCharacteristicStudentNeedPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -13662,6 +14525,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -13700,7 +14564,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// The month, day, and year for the start of the period.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="beginDate"), NaturalKeyMember][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [RequiredWithNonDefault]
+        [DataMember(Name="beginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
         public DateTime BeginDate { get; set; }
         // -------------------------------------------------------------
 
@@ -13865,8 +14730,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -13894,16 +14757,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationReference : IResourceReference
     {
-        [DataMember(Name="educationOrganizationId"), NaturalKeyMember]
+        [DataMember(Name="educationOrganizationId")]
         public int EducationOrganizationId { get; set; }
 
-        [DataMember(Name="graduationPlanTypeDescriptor"), NaturalKeyMember]
+        [DataMember(Name="graduationPlanTypeDescriptor")][DescriptorExists("GraduationPlanTypeDescriptor")]
         public string GraduationPlanTypeDescriptor { get; set; }
 
-        [DataMember(Name="graduationSchoolYear"), NaturalKeyMember]
+        [DataMember(Name="graduationSchoolYear")]
         public short GraduationSchoolYear { get; set; }
 
-        [DataMember(Name="studentUniqueId"), NaturalKeyMember]
+        [DataMember(Name="studentUniqueId")]
         public string StudentUniqueId 
         {
             get => _studentUniqueId;
@@ -14014,9 +14877,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
-    public class StudentGraduationPlanAssociation : Entities.Common.Sample.IStudentGraduationPlanAssociation, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues
+    public class StudentGraduationPlanAssociation : Entities.Common.Sample.IStudentGraduationPlanAssociation, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues, IValidatableObject
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentGraduationPlanAssociationPutPostRequestValidator _validator = new StudentGraduationPlanAssociationPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -14036,6 +14903,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             StudentGraduationPlanAssociationStudentParentAssociations = new List<StudentGraduationPlanAssociationStudentParentAssociation>();
             StudentGraduationPlanAssociationYearsAttendeds = new List<StudentGraduationPlanAssociationYearsAttended>();
         }
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -14068,7 +14936,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             }
         }
 
-        [DataMember(Name="graduationPlanReference")][NaturalKeyMember]
+        [DataMember(Name="graduationPlanReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public GraduationPlan.EdFi.GraduationPlanReference GraduationPlanReference
         {
@@ -14134,7 +15002,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             }
         }
 
-        [DataMember(Name="studentReference")][NaturalKeyMember]
+        [DataMember(Name="studentReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Student.EdFi.StudentReference StudentReference
         {
@@ -14347,6 +15215,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// The date the plan went into effect.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
         [DataMember(Name="effectiveDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
         public DateTime EffectiveDate { get; set; }
 
@@ -14354,6 +15223,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// Any fees the student must resolve prior to graduation, such as library fines and overdue lunch accounts.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="graduationFee")]
         public decimal? GraduationFee { get; set; }
 
@@ -14361,6 +15231,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// The number of years remaining prior to graduation as of when the plan became effective.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [StringLength(30, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="highSchoolDuration")]
         public string HighSchoolDuration { get; set; }
         
@@ -14371,6 +15242,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// The number of hours per week the student will attend to graduate.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(typeof(decimal), "-999.99", "999.99", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="hoursPerWeek")]
         public decimal HoursPerWeek 
         { 
@@ -14394,6 +15266,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// The percentage of time the student must attend to graduate, relative to a full-time student.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(typeof(decimal), "-9.9999", "9.9999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="requiredAttendance")]
         public decimal? RequiredAttendance { get; set; }
 
@@ -14432,6 +15305,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// The GPA the student is working toward.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(typeof(decimal), "-99999999999999.9999", "99999999999999.9999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="targetGPA")]
         public decimal TargetGPA 
         { 
@@ -14463,6 +15337,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// <summary>
         /// cteProgram
         /// </summary>
+        
         [DataMember(Name = "cteProgram")]
         public StudentGraduationPlanAssociationCTEProgram StudentGraduationPlanAssociationCTEProgram { get; set; }
 
@@ -14500,7 +15375,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         private ICollection<StudentGraduationPlanAssociationAcademicSubject> _studentGraduationPlanAssociationAcademicSubjects;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject> _studentGraduationPlanAssociationAcademicSubjectsCovariant;
 
-        [DataMember(Name="academicSubjects"), NoDuplicateMembers]
+        [NoDuplicateMembers][RequiredCollection]
+        [DataMember(Name="academicSubjects")]
         public ICollection<StudentGraduationPlanAssociationAcademicSubject> StudentGraduationPlanAssociationAcademicSubjects
         {
             get { return _studentGraduationPlanAssociationAcademicSubjects; }
@@ -14529,7 +15405,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         private ICollection<StudentGraduationPlanAssociationCareerPathwayCode> _studentGraduationPlanAssociationCareerPathwayCodes;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode> _studentGraduationPlanAssociationCareerPathwayCodesCovariant;
 
-        [DataMember(Name="careerPathwayCodes"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="careerPathwayCodes")]
         public ICollection<StudentGraduationPlanAssociationCareerPathwayCode> StudentGraduationPlanAssociationCareerPathwayCodes
         {
             get { return _studentGraduationPlanAssociationCareerPathwayCodes; }
@@ -14558,7 +15435,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         private ICollection<StudentGraduationPlanAssociationDescription> _studentGraduationPlanAssociationDescriptions;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationDescription> _studentGraduationPlanAssociationDescriptionsCovariant;
 
-        [DataMember(Name="descriptions"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="descriptions")]
         public ICollection<StudentGraduationPlanAssociationDescription> StudentGraduationPlanAssociationDescriptions
         {
             get { return _studentGraduationPlanAssociationDescriptions; }
@@ -14587,7 +15465,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         private ICollection<StudentGraduationPlanAssociationDesignatedBy> _studentGraduationPlanAssociationDesignatedBies;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy> _studentGraduationPlanAssociationDesignatedBiesCovariant;
 
-        [DataMember(Name="designatedBies"), NoDuplicateMembers]
+        [NoDuplicateMembers][RequiredCollection]
+        [DataMember(Name="designatedBies")]
         public ICollection<StudentGraduationPlanAssociationDesignatedBy> StudentGraduationPlanAssociationDesignatedBies
         {
             get { return _studentGraduationPlanAssociationDesignatedBies; }
@@ -14616,7 +15495,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         private ICollection<StudentGraduationPlanAssociationIndustryCredential> _studentGraduationPlanAssociationIndustryCredentials;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential> _studentGraduationPlanAssociationIndustryCredentialsCovariant;
 
-        [DataMember(Name="industryCredentials"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="industryCredentials")]
         public ICollection<StudentGraduationPlanAssociationIndustryCredential> StudentGraduationPlanAssociationIndustryCredentials
         {
             get { return _studentGraduationPlanAssociationIndustryCredentials; }
@@ -14645,7 +15525,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         private ICollection<StudentGraduationPlanAssociationStudentParentAssociation> _studentGraduationPlanAssociationStudentParentAssociations;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation> _studentGraduationPlanAssociationStudentParentAssociationsCovariant;
 
-        [DataMember(Name="studentParentAssociations"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="studentParentAssociations")]
         public ICollection<StudentGraduationPlanAssociationStudentParentAssociation> StudentGraduationPlanAssociationStudentParentAssociations
         {
             get { return _studentGraduationPlanAssociationStudentParentAssociations; }
@@ -14674,7 +15555,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         private ICollection<StudentGraduationPlanAssociationYearsAttended> _studentGraduationPlanAssociationYearsAttendeds;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended> _studentGraduationPlanAssociationYearsAttendedsCovariant;
 
-        [DataMember(Name="yearsAttendeds"), NoDuplicateMembers]
+        [NoDuplicateMembers][RequiredCollection]
+        [DataMember(Name="yearsAttendeds")]
         public ICollection<StudentGraduationPlanAssociationYearsAttended> StudentGraduationPlanAssociationYearsAttendeds
         {
             get { return _studentGraduationPlanAssociationYearsAttendeds; }
@@ -14820,6 +15702,143 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
 
         // -----------------------------------------------------------------
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+                if (StudentGraduationPlanAssociationAcademicSubjects.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentGraduationPlanAssociationAcademicSubjects));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationAcademicSubjects, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StudentGraduationPlanAssociationCareerPathwayCodes.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentGraduationPlanAssociationCareerPathwayCodes));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationCareerPathwayCodes, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StudentGraduationPlanAssociationDescriptions.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentGraduationPlanAssociationDescriptions));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationDescriptions, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StudentGraduationPlanAssociationDesignatedBies.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentGraduationPlanAssociationDesignatedBies));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationDesignatedBies, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StudentGraduationPlanAssociationIndustryCredentials.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentGraduationPlanAssociationIndustryCredentials));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationIndustryCredentials, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StudentGraduationPlanAssociationStudentParentAssociations.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentGraduationPlanAssociationStudentParentAssociations));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationStudentParentAssociations, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StudentGraduationPlanAssociationYearsAttendeds.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentGraduationPlanAssociationYearsAttendeds));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationYearsAttendeds, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+                if (StudentGraduationPlanAssociationCTEProgram != null)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentGraduationPlanAssociationCTEProgram));
+    
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(StudentGraduationPlanAssociationCTEProgram, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
     }
 
     // =================================================================
@@ -14830,6 +15849,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     public class StudentGraduationPlanAssociationPutPostRequestValidator : FluentValidation.AbstractValidator<StudentGraduationPlanAssociation>
     {
         private static readonly FullName _fullName_sample_StudentGraduationPlanAssociation = new FullName("sample", "StudentGraduationPlanAssociation");
+
+        // Declare collection item validators
+        private StudentGraduationPlanAssociationAcademicSubjectPutPostRequestValidator _studentGraduationPlanAssociationAcademicSubjectsValidator = new ();
+        private StudentGraduationPlanAssociationCareerPathwayCodePutPostRequestValidator _studentGraduationPlanAssociationCareerPathwayCodesValidator = new ();
+        private StudentGraduationPlanAssociationDescriptionPutPostRequestValidator _studentGraduationPlanAssociationDescriptionsValidator = new ();
+        private StudentGraduationPlanAssociationDesignatedByPutPostRequestValidator _studentGraduationPlanAssociationDesignatedBiesValidator = new ();
+        private StudentGraduationPlanAssociationIndustryCredentialPutPostRequestValidator _studentGraduationPlanAssociationIndustryCredentialsValidator = new ();
+        private StudentGraduationPlanAssociationStudentParentAssociationPutPostRequestValidator _studentGraduationPlanAssociationStudentParentAssociationsValidator = new ();
+        private StudentGraduationPlanAssociationYearsAttendedPutPostRequestValidator _studentGraduationPlanAssociationYearsAttendedsValidator = new ();
 
         protected override bool PreValidate(FluentValidation.ValidationContext<StudentGraduationPlanAssociation> context, FluentValidation.Results.ValidationResult result)
         {
@@ -14848,165 +15876,93 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.StudentGraduationPlanAssociationMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.StudentGraduationPlanAssociationMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociation));
+            var mappingContract = (global::EdFi.Ods.Entities.Common.Sample.StudentGraduationPlanAssociationMappingContract) GeneratedArtifactStaticDependencies.MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociation);
 
-            if (mappingContract.Value != null)
+            if (mappingContract != null)
             {
-                if (mappingContract.Value.IsStudentGraduationPlanAssociationAcademicSubjectIncluded != null)
+                if (mappingContract.IsStudentGraduationPlanAssociationAcademicSubjectIncluded != null)
                 {
-                    var hasInvalidStudentGraduationPlanAssociationAcademicSubjectsItems = instance.StudentGraduationPlanAssociationAcademicSubjects.Any(x => !mappingContract.Value.IsStudentGraduationPlanAssociationAcademicSubjectIncluded(x));
+                    var hasInvalidStudentGraduationPlanAssociationAcademicSubjectsItems = instance.StudentGraduationPlanAssociationAcademicSubjects.Any(x => !mappingContract.IsStudentGraduationPlanAssociationAcademicSubjectIncluded(x));
         
                     if (hasInvalidStudentGraduationPlanAssociationAcademicSubjectsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationAcademicSubject", $"A supplied 'StudentGraduationPlanAssociationAcademicSubject' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationAcademicSubjects", $"A supplied 'StudentGraduationPlanAssociationAcademicSubject' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded != null)
+                if (mappingContract.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded != null)
                 {
-                    var hasInvalidStudentGraduationPlanAssociationCareerPathwayCodesItems = instance.StudentGraduationPlanAssociationCareerPathwayCodes.Any(x => !mappingContract.Value.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded(x));
+                    var hasInvalidStudentGraduationPlanAssociationCareerPathwayCodesItems = instance.StudentGraduationPlanAssociationCareerPathwayCodes.Any(x => !mappingContract.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded(x));
         
                     if (hasInvalidStudentGraduationPlanAssociationCareerPathwayCodesItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationCareerPathwayCode", $"A supplied 'StudentGraduationPlanAssociationCareerPathwayCode' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationCareerPathwayCodes", $"A supplied 'StudentGraduationPlanAssociationCareerPathwayCode' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsStudentGraduationPlanAssociationDescriptionIncluded != null)
+                if (mappingContract.IsStudentGraduationPlanAssociationDescriptionIncluded != null)
                 {
-                    var hasInvalidStudentGraduationPlanAssociationDescriptionsItems = instance.StudentGraduationPlanAssociationDescriptions.Any(x => !mappingContract.Value.IsStudentGraduationPlanAssociationDescriptionIncluded(x));
+                    var hasInvalidStudentGraduationPlanAssociationDescriptionsItems = instance.StudentGraduationPlanAssociationDescriptions.Any(x => !mappingContract.IsStudentGraduationPlanAssociationDescriptionIncluded(x));
         
                     if (hasInvalidStudentGraduationPlanAssociationDescriptionsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationDescription", $"A supplied 'StudentGraduationPlanAssociationDescription' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationDescriptions", $"A supplied 'StudentGraduationPlanAssociationDescription' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsStudentGraduationPlanAssociationDesignatedByIncluded != null)
+                if (mappingContract.IsStudentGraduationPlanAssociationDesignatedByIncluded != null)
                 {
-                    var hasInvalidStudentGraduationPlanAssociationDesignatedBiesItems = instance.StudentGraduationPlanAssociationDesignatedBies.Any(x => !mappingContract.Value.IsStudentGraduationPlanAssociationDesignatedByIncluded(x));
+                    var hasInvalidStudentGraduationPlanAssociationDesignatedBiesItems = instance.StudentGraduationPlanAssociationDesignatedBies.Any(x => !mappingContract.IsStudentGraduationPlanAssociationDesignatedByIncluded(x));
         
                     if (hasInvalidStudentGraduationPlanAssociationDesignatedBiesItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationDesignatedBy", $"A supplied 'StudentGraduationPlanAssociationDesignatedBy' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationDesignatedBies", $"A supplied 'StudentGraduationPlanAssociationDesignatedBy' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsStudentGraduationPlanAssociationIndustryCredentialIncluded != null)
+                if (mappingContract.IsStudentGraduationPlanAssociationIndustryCredentialIncluded != null)
                 {
-                    var hasInvalidStudentGraduationPlanAssociationIndustryCredentialsItems = instance.StudentGraduationPlanAssociationIndustryCredentials.Any(x => !mappingContract.Value.IsStudentGraduationPlanAssociationIndustryCredentialIncluded(x));
+                    var hasInvalidStudentGraduationPlanAssociationIndustryCredentialsItems = instance.StudentGraduationPlanAssociationIndustryCredentials.Any(x => !mappingContract.IsStudentGraduationPlanAssociationIndustryCredentialIncluded(x));
         
                     if (hasInvalidStudentGraduationPlanAssociationIndustryCredentialsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationIndustryCredential", $"A supplied 'StudentGraduationPlanAssociationIndustryCredential' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationIndustryCredentials", $"A supplied 'StudentGraduationPlanAssociationIndustryCredential' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsStudentGraduationPlanAssociationStudentParentAssociationIncluded != null)
+                if (mappingContract.IsStudentGraduationPlanAssociationStudentParentAssociationIncluded != null)
                 {
-                    var hasInvalidStudentGraduationPlanAssociationStudentParentAssociationsItems = instance.StudentGraduationPlanAssociationStudentParentAssociations.Any(x => !mappingContract.Value.IsStudentGraduationPlanAssociationStudentParentAssociationIncluded(x));
+                    var hasInvalidStudentGraduationPlanAssociationStudentParentAssociationsItems = instance.StudentGraduationPlanAssociationStudentParentAssociations.Any(x => !mappingContract.IsStudentGraduationPlanAssociationStudentParentAssociationIncluded(x));
         
                     if (hasInvalidStudentGraduationPlanAssociationStudentParentAssociationsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationStudentParentAssociation", $"A supplied 'StudentGraduationPlanAssociationStudentParentAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationStudentParentAssociations", $"A supplied 'StudentGraduationPlanAssociationStudentParentAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsStudentGraduationPlanAssociationYearsAttendedIncluded != null)
+                if (mappingContract.IsStudentGraduationPlanAssociationYearsAttendedIncluded != null)
                 {
-                    var hasInvalidStudentGraduationPlanAssociationYearsAttendedsItems = instance.StudentGraduationPlanAssociationYearsAttendeds.Any(x => !mappingContract.Value.IsStudentGraduationPlanAssociationYearsAttendedIncluded(x));
+                    var hasInvalidStudentGraduationPlanAssociationYearsAttendedsItems = instance.StudentGraduationPlanAssociationYearsAttendeds.Any(x => !mappingContract.IsStudentGraduationPlanAssociationYearsAttendedIncluded(x));
         
                     if (hasInvalidStudentGraduationPlanAssociationYearsAttendedsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationYearsAttended", $"A supplied 'StudentGraduationPlanAssociationYearsAttended' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationYearsAttendeds", $"A supplied 'StudentGraduationPlanAssociationYearsAttended' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
             }
+
             // -----------------------
             //  Validate unified keys
             // -----------------------
-
-            // Recursively invoke the child collection item validators
-            var studentGraduationPlanAssociationAcademicSubjectsValidator = new StudentGraduationPlanAssociationAcademicSubjectPutPostRequestValidator();
-
-            foreach (var item in instance.StudentGraduationPlanAssociationAcademicSubjects)
-            {
-                var validationResult = studentGraduationPlanAssociationAcademicSubjectsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var studentGraduationPlanAssociationCareerPathwayCodesValidator = new StudentGraduationPlanAssociationCareerPathwayCodePutPostRequestValidator();
-
-            foreach (var item in instance.StudentGraduationPlanAssociationCareerPathwayCodes)
-            {
-                var validationResult = studentGraduationPlanAssociationCareerPathwayCodesValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var studentGraduationPlanAssociationDescriptionsValidator = new StudentGraduationPlanAssociationDescriptionPutPostRequestValidator();
-
-            foreach (var item in instance.StudentGraduationPlanAssociationDescriptions)
-            {
-                var validationResult = studentGraduationPlanAssociationDescriptionsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var studentGraduationPlanAssociationDesignatedBiesValidator = new StudentGraduationPlanAssociationDesignatedByPutPostRequestValidator();
-
-            foreach (var item in instance.StudentGraduationPlanAssociationDesignatedBies)
-            {
-                var validationResult = studentGraduationPlanAssociationDesignatedBiesValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var studentGraduationPlanAssociationIndustryCredentialsValidator = new StudentGraduationPlanAssociationIndustryCredentialPutPostRequestValidator();
-
-            foreach (var item in instance.StudentGraduationPlanAssociationIndustryCredentials)
-            {
-                var validationResult = studentGraduationPlanAssociationIndustryCredentialsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var studentGraduationPlanAssociationStudentParentAssociationsValidator = new StudentGraduationPlanAssociationStudentParentAssociationPutPostRequestValidator();
-
-            foreach (var item in instance.StudentGraduationPlanAssociationStudentParentAssociations)
-            {
-                var validationResult = studentGraduationPlanAssociationStudentParentAssociationsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var studentGraduationPlanAssociationYearsAttendedsValidator = new StudentGraduationPlanAssociationYearsAttendedPutPostRequestValidator();
-
-            foreach (var item in instance.StudentGraduationPlanAssociationYearsAttendeds)
-            {
-                var validationResult = studentGraduationPlanAssociationYearsAttendedsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
 
             if (failures.Any())
             {
@@ -15028,8 +15984,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StudentGraduationPlanAssociationAcademicSubject : Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentGraduationPlanAssociationAcademicSubjectPutPostRequestValidator _validator = new StudentGraduationPlanAssociationAcademicSubjectPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -15039,6 +15999,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -15077,7 +16038,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// The student's favorite academic subjects.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="academicSubjectDescriptor"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="academicSubjectDescriptor")][DescriptorExists("AcademicSubjectDescriptor")]
         public string AcademicSubjectDescriptor { get; set; }
         // -------------------------------------------------------------
 
@@ -15228,8 +16191,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -15250,9 +16211,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentGraduationPlanAssociationCareerPathwayCode : Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentGraduationPlanAssociationCareerPathwayCodePutPostRequestValidator _validator = new StudentGraduationPlanAssociationCareerPathwayCodePutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -15262,6 +16227,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -15303,7 +16269,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// The code representing the student's intended career pathway after graduation.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="careerPathwayCode"), NaturalKeyMember]
+        [DataMember(Name="careerPathwayCode")]
         public int CareerPathwayCode 
         { 
             get => _careerPathwayCode;
@@ -15471,8 +16437,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -15493,8 +16457,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StudentGraduationPlanAssociationCTEProgram : Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentGraduationPlanAssociationCTEProgramPutPostRequestValidator _validator = new StudentGraduationPlanAssociationCTEProgramPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -15504,6 +16472,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -15596,13 +16565,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// A sequence of courses within an area of interest that is a student's educational road map to a chosen career.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="careerPathwayDescriptor")]
+        [RequiredWithNonDefault]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="careerPathwayDescriptor")][DescriptorExists("CareerPathwayDescriptor")]
         public string CareerPathwayDescriptor { get; set; }
 
         /// <summary>
         /// Number and description of the CIP code associated with the student's CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [StringLength(120, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="cipCode")]
         public string CIPCode { get; set; }
 
@@ -15705,8 +16677,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -15727,8 +16697,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StudentGraduationPlanAssociationDescription : Entities.Common.Sample.IStudentGraduationPlanAssociationDescription
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentGraduationPlanAssociationDescriptionPutPostRequestValidator _validator = new StudentGraduationPlanAssociationDescriptionPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -15738,6 +16712,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -15776,7 +16751,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// A description of the graduation plan.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="description"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(1024, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="description")]
         public string Description { get; set; }
         // -------------------------------------------------------------
 
@@ -15927,8 +16904,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -15949,8 +16924,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StudentGraduationPlanAssociationDesignatedBy : Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentGraduationPlanAssociationDesignatedByPutPostRequestValidator _validator = new StudentGraduationPlanAssociationDesignatedByPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -15960,6 +16939,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -15998,7 +16978,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// The entity governing this graduation plan.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="designatedBy"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(60, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="designatedBy")]
         public string DesignatedBy { get; set; }
         // -------------------------------------------------------------
 
@@ -16149,8 +17131,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -16171,8 +17151,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StudentGraduationPlanAssociationIndustryCredential : Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentGraduationPlanAssociationIndustryCredentialPutPostRequestValidator _validator = new StudentGraduationPlanAssociationIndustryCredentialPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -16182,6 +17166,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -16220,7 +17205,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// Industry-recognized credentials the student will have earned at graduation.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="industryCredential"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(100, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="industryCredential")]
         public string IndustryCredential { get; set; }
         // -------------------------------------------------------------
 
@@ -16371,8 +17358,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -16393,8 +17378,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StudentGraduationPlanAssociationStudentParentAssociation : Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentGraduationPlanAssociationStudentParentAssociationPutPostRequestValidator _validator = new StudentGraduationPlanAssociationStudentParentAssociationPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -16404,6 +17393,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -16429,7 +17419,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             }
         }
 
-        [DataMember(Name="studentParentAssociationReference")][NaturalKeyMember]
+        [DataMember(Name="studentParentAssociationReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public StudentParentAssociation.EdFi.StudentParentAssociationReference StudentParentAssociationReference
         {
@@ -16693,8 +17683,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
             }
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -16715,9 +17703,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentGraduationPlanAssociationYearsAttended : Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentGraduationPlanAssociationYearsAttendedPutPostRequestValidator _validator = new StudentGraduationPlanAssociationYearsAttendedPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -16727,6 +17719,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -16768,7 +17761,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// The number of years the student will have attended high school by the time of graduation.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="yearsAttended"), NaturalKeyMember]
+        [DataMember(Name="yearsAttended")]
         public short YearsAttended 
         { 
             get => _yearsAttended;
@@ -16936,8 +17929,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -16963,8 +17954,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StudentParentAssociationDiscipline : Entities.Common.Sample.IStudentParentAssociationDiscipline
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentParentAssociationDisciplinePutPostRequestValidator _validator = new StudentParentAssociationDisciplinePutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -16974,6 +17969,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -17012,7 +18008,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// The type of action used to discipline the student preferred by the parent.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="disciplineDescriptor"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="disciplineDescriptor")][DescriptorExists("DisciplineDescriptor")]
         public string DisciplineDescriptor { get; set; }
         // -------------------------------------------------------------
 
@@ -17163,8 +18161,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -17185,9 +18181,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    [Display(Name="Sample")]
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
-    public class StudentParentAssociationExtension : Entities.Common.Sample.IStudentParentAssociationExtension, IHasRequiredMembersWithMeaningfulDefaultValues, IChildEntity
+    public class StudentParentAssociationExtension : Entities.Common.Sample.IStudentParentAssociationExtension, IHasRequiredMembersWithMeaningfulDefaultValues, IChildEntity, IValidatableObject
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentParentAssociationExtensionPutPostRequestValidator _validator = new StudentParentAssociationExtensionPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -17205,6 +18205,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             StudentParentAssociationPagesReads = new List<StudentParentAssociationPagesRead>();
             StudentParentAssociationStaffEducationOrganizationEmploymentAssociations = new List<StudentParentAssociationStaffEducationOrganizationEmploymentAssociation>();
         }
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -17350,6 +18351,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// The average number of pages the parent reads with the student each day.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(typeof(decimal), "-9.9999", "9.9999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="bedtimeReadingRate")]
         public decimal? BedtimeReadingRate { get; set; }
 
@@ -17357,6 +18359,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// The parent's estimated monthly budget dedicated to books for the student.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="bookBudget")]
         public decimal? BookBudget { get; set; }
 
@@ -17425,6 +18428,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// The actual or estimated number of clock minutes for a given library visit.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(1, 2147483647, ErrorMessage=ValidationHelpers.RangeMinOnlyMessageFormat)]
         [DataMember(Name="libraryDuration")]
         public int? LibraryDuration { get; set; }
 
@@ -17446,6 +18450,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// Previous restrictions for student and/or teacher contact with the individual (e.g., the student may not be picked up by the individual).
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [StringLength(250, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="priorContactRestrictions")]
         public string PriorContactRestrictions { get; set; }
 
@@ -17460,6 +18465,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// The amount of time the parent spends reading to the student each day.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [StringLength(30, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="readingTimeSpent")]
         public string ReadingTimeSpent { get; set; }
 
@@ -17485,6 +18491,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// <summary>
         /// telephone
         /// </summary>
+        
         [DataMember(Name = "telephone")]
         public StudentParentAssociationTelephone StudentParentAssociationTelephone { get; set; }
 
@@ -17522,7 +18529,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         private ICollection<StudentParentAssociationDiscipline> _studentParentAssociationDisciplines;
         private ICollection<Entities.Common.Sample.IStudentParentAssociationDiscipline> _studentParentAssociationDisciplinesCovariant;
 
-        [DataMember(Name="disciplines"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="disciplines")]
         public ICollection<StudentParentAssociationDiscipline> StudentParentAssociationDisciplines
         {
             get { return _studentParentAssociationDisciplines; }
@@ -17551,7 +18559,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         private ICollection<StudentParentAssociationFavoriteBookTitle> _studentParentAssociationFavoriteBookTitles;
         private ICollection<Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle> _studentParentAssociationFavoriteBookTitlesCovariant;
 
-        [DataMember(Name="favoriteBookTitles"), NoDuplicateMembers]
+        [NoDuplicateMembers][RequiredCollection]
+        [DataMember(Name="favoriteBookTitles")]
         public ICollection<StudentParentAssociationFavoriteBookTitle> StudentParentAssociationFavoriteBookTitles
         {
             get { return _studentParentAssociationFavoriteBookTitles; }
@@ -17580,7 +18589,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         private ICollection<StudentParentAssociationHoursPerWeek> _studentParentAssociationHoursPerWeeks;
         private ICollection<Entities.Common.Sample.IStudentParentAssociationHoursPerWeek> _studentParentAssociationHoursPerWeeksCovariant;
 
-        [DataMember(Name="hoursPerWeeks"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="hoursPerWeeks")]
         public ICollection<StudentParentAssociationHoursPerWeek> StudentParentAssociationHoursPerWeeks
         {
             get { return _studentParentAssociationHoursPerWeeks; }
@@ -17609,7 +18619,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         private ICollection<StudentParentAssociationPagesRead> _studentParentAssociationPagesReads;
         private ICollection<Entities.Common.Sample.IStudentParentAssociationPagesRead> _studentParentAssociationPagesReadsCovariant;
 
-        [DataMember(Name="pagesReads"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="pagesReads")]
         public ICollection<StudentParentAssociationPagesRead> StudentParentAssociationPagesReads
         {
             get { return _studentParentAssociationPagesReads; }
@@ -17638,7 +18649,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         private ICollection<StudentParentAssociationStaffEducationOrganizationEmploymentAssociation> _studentParentAssociationStaffEducationOrganizationEmploymentAssociations;
         private ICollection<Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation> _studentParentAssociationStaffEducationOrganizationEmploymentAssociationsCovariant;
 
-        [DataMember(Name="staffEducationOrganizationEmploymentAssociations"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="staffEducationOrganizationEmploymentAssociations")]
         public ICollection<StudentParentAssociationStaffEducationOrganizationEmploymentAssociation> StudentParentAssociationStaffEducationOrganizationEmploymentAssociations
         {
             get { return _studentParentAssociationStaffEducationOrganizationEmploymentAssociations; }
@@ -17744,6 +18756,120 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         {
             StudentParentAssociation = (IStudentParentAssociation)value;
         }
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                pathBuilder.Append(ValidationHelpers.JsonPathSeparator);
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+                if (StudentParentAssociationDisciplines.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentParentAssociationDisciplines));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentParentAssociationDisciplines, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StudentParentAssociationFavoriteBookTitles.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentParentAssociationFavoriteBookTitles));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentParentAssociationFavoriteBookTitles, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StudentParentAssociationHoursPerWeeks.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentParentAssociationHoursPerWeeks));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentParentAssociationHoursPerWeeks, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StudentParentAssociationPagesReads.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentParentAssociationPagesReads));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentParentAssociationPagesReads, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StudentParentAssociationStaffEducationOrganizationEmploymentAssociations.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentParentAssociationStaffEducationOrganizationEmploymentAssociations));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentParentAssociationStaffEducationOrganizationEmploymentAssociations, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+                if (StudentParentAssociationTelephone != null)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentParentAssociationTelephone));
+    
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(StudentParentAssociationTelephone, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
     }
 
     // =================================================================
@@ -17754,6 +18880,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     public class StudentParentAssociationExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<StudentParentAssociationExtension>
     {
         private static readonly FullName _fullName_sample_StudentParentAssociationExtension = new FullName("sample", "StudentParentAssociationExtension");
+
+        // Declare collection item validators
+        private StudentParentAssociationDisciplinePutPostRequestValidator _studentParentAssociationDisciplinesValidator = new ();
+        private StudentParentAssociationFavoriteBookTitlePutPostRequestValidator _studentParentAssociationFavoriteBookTitlesValidator = new ();
+        private StudentParentAssociationHoursPerWeekPutPostRequestValidator _studentParentAssociationHoursPerWeeksValidator = new ();
+        private StudentParentAssociationPagesReadPutPostRequestValidator _studentParentAssociationPagesReadsValidator = new ();
+        private StudentParentAssociationStaffEducationOrganizationEmploymentAssociationPutPostRequestValidator _studentParentAssociationStaffEducationOrganizationEmploymentAssociationsValidator = new ();
 
         protected override bool PreValidate(FluentValidation.ValidationContext<StudentParentAssociationExtension> context, FluentValidation.Results.ValidationResult result)
         {
@@ -17772,123 +18905,71 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.StudentParentAssociationExtensionMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.StudentParentAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_sample_StudentParentAssociationExtension));
+            var mappingContract = (global::EdFi.Ods.Entities.Common.Sample.StudentParentAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies.MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentParentAssociationExtension);
 
-            if (mappingContract.Value != null)
+            if (mappingContract != null)
             {
-                if (mappingContract.Value.IsStudentParentAssociationDisciplineIncluded != null)
+                if (mappingContract.IsStudentParentAssociationDisciplineIncluded != null)
                 {
-                    var hasInvalidStudentParentAssociationDisciplinesItems = instance.StudentParentAssociationDisciplines.Any(x => !mappingContract.Value.IsStudentParentAssociationDisciplineIncluded(x));
+                    var hasInvalidStudentParentAssociationDisciplinesItems = instance.StudentParentAssociationDisciplines.Any(x => !mappingContract.IsStudentParentAssociationDisciplineIncluded(x));
         
                     if (hasInvalidStudentParentAssociationDisciplinesItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentParentAssociationDiscipline", $"A supplied 'StudentParentAssociationDiscipline' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentParentAssociationDisciplines", $"A supplied 'StudentParentAssociationDiscipline' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsStudentParentAssociationFavoriteBookTitleIncluded != null)
+                if (mappingContract.IsStudentParentAssociationFavoriteBookTitleIncluded != null)
                 {
-                    var hasInvalidStudentParentAssociationFavoriteBookTitlesItems = instance.StudentParentAssociationFavoriteBookTitles.Any(x => !mappingContract.Value.IsStudentParentAssociationFavoriteBookTitleIncluded(x));
+                    var hasInvalidStudentParentAssociationFavoriteBookTitlesItems = instance.StudentParentAssociationFavoriteBookTitles.Any(x => !mappingContract.IsStudentParentAssociationFavoriteBookTitleIncluded(x));
         
                     if (hasInvalidStudentParentAssociationFavoriteBookTitlesItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentParentAssociationFavoriteBookTitle", $"A supplied 'StudentParentAssociationFavoriteBookTitle' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentParentAssociationFavoriteBookTitles", $"A supplied 'StudentParentAssociationFavoriteBookTitle' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsStudentParentAssociationHoursPerWeekIncluded != null)
+                if (mappingContract.IsStudentParentAssociationHoursPerWeekIncluded != null)
                 {
-                    var hasInvalidStudentParentAssociationHoursPerWeeksItems = instance.StudentParentAssociationHoursPerWeeks.Any(x => !mappingContract.Value.IsStudentParentAssociationHoursPerWeekIncluded(x));
+                    var hasInvalidStudentParentAssociationHoursPerWeeksItems = instance.StudentParentAssociationHoursPerWeeks.Any(x => !mappingContract.IsStudentParentAssociationHoursPerWeekIncluded(x));
         
                     if (hasInvalidStudentParentAssociationHoursPerWeeksItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentParentAssociationHoursPerWeek", $"A supplied 'StudentParentAssociationHoursPerWeek' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentParentAssociationHoursPerWeeks", $"A supplied 'StudentParentAssociationHoursPerWeek' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsStudentParentAssociationPagesReadIncluded != null)
+                if (mappingContract.IsStudentParentAssociationPagesReadIncluded != null)
                 {
-                    var hasInvalidStudentParentAssociationPagesReadsItems = instance.StudentParentAssociationPagesReads.Any(x => !mappingContract.Value.IsStudentParentAssociationPagesReadIncluded(x));
+                    var hasInvalidStudentParentAssociationPagesReadsItems = instance.StudentParentAssociationPagesReads.Any(x => !mappingContract.IsStudentParentAssociationPagesReadIncluded(x));
         
                     if (hasInvalidStudentParentAssociationPagesReadsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentParentAssociationPagesRead", $"A supplied 'StudentParentAssociationPagesRead' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentParentAssociationPagesReads", $"A supplied 'StudentParentAssociationPagesRead' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded != null)
+                if (mappingContract.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded != null)
                 {
-                    var hasInvalidStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsItems = instance.StudentParentAssociationStaffEducationOrganizationEmploymentAssociations.Any(x => !mappingContract.Value.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded(x));
+                    var hasInvalidStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsItems = instance.StudentParentAssociationStaffEducationOrganizationEmploymentAssociations.Any(x => !mappingContract.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded(x));
         
                     if (hasInvalidStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentParentAssociationStaffEducationOrganizationEmploymentAssociation", $"A supplied 'StudentParentAssociationStaffEducationOrganizationEmploymentAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentParentAssociationStaffEducationOrganizationEmploymentAssociations", $"A supplied 'StudentParentAssociationStaffEducationOrganizationEmploymentAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
             }
+
             // -----------------------
             //  Validate unified keys
             // -----------------------
-
-            // Recursively invoke the child collection item validators
-            var studentParentAssociationDisciplinesValidator = new StudentParentAssociationDisciplinePutPostRequestValidator();
-
-            foreach (var item in instance.StudentParentAssociationDisciplines)
-            {
-                var validationResult = studentParentAssociationDisciplinesValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var studentParentAssociationFavoriteBookTitlesValidator = new StudentParentAssociationFavoriteBookTitlePutPostRequestValidator();
-
-            foreach (var item in instance.StudentParentAssociationFavoriteBookTitles)
-            {
-                var validationResult = studentParentAssociationFavoriteBookTitlesValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var studentParentAssociationHoursPerWeeksValidator = new StudentParentAssociationHoursPerWeekPutPostRequestValidator();
-
-            foreach (var item in instance.StudentParentAssociationHoursPerWeeks)
-            {
-                var validationResult = studentParentAssociationHoursPerWeeksValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var studentParentAssociationPagesReadsValidator = new StudentParentAssociationPagesReadPutPostRequestValidator();
-
-            foreach (var item in instance.StudentParentAssociationPagesReads)
-            {
-                var validationResult = studentParentAssociationPagesReadsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var studentParentAssociationStaffEducationOrganizationEmploymentAssociationsValidator = new StudentParentAssociationStaffEducationOrganizationEmploymentAssociationPutPostRequestValidator();
-
-            foreach (var item in instance.StudentParentAssociationStaffEducationOrganizationEmploymentAssociations)
-            {
-                var validationResult = studentParentAssociationStaffEducationOrganizationEmploymentAssociationsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
 
             if (failures.Any())
             {
@@ -17910,8 +18991,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StudentParentAssociationFavoriteBookTitle : Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentParentAssociationFavoriteBookTitlePutPostRequestValidator _validator = new StudentParentAssociationFavoriteBookTitlePutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -17921,6 +19006,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -17959,7 +19045,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// The title of the student's favorite book.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="favoriteBookTitle"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(100, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="favoriteBookTitle")]
         public string FavoriteBookTitle { get; set; }
         // -------------------------------------------------------------
 
@@ -18110,8 +19198,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -18132,9 +19218,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentParentAssociationHoursPerWeek : Entities.Common.Sample.IStudentParentAssociationHoursPerWeek, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentParentAssociationHoursPerWeekPutPostRequestValidator _validator = new StudentParentAssociationHoursPerWeekPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -18144,6 +19234,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -18185,7 +19276,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// Total number of hours per week a student and parent dedicates to reading.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="hoursPerWeek"), NaturalKeyMember]
+        [Range(typeof(decimal), "-999.99", "999.99", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
+        [DataMember(Name="hoursPerWeek")]
         public decimal HoursPerWeek 
         { 
             get => _hoursPerWeek;
@@ -18353,8 +19445,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -18375,9 +19465,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentParentAssociationPagesRead : Entities.Common.Sample.IStudentParentAssociationPagesRead, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentParentAssociationPagesReadPutPostRequestValidator _validator = new StudentParentAssociationPagesReadPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -18387,6 +19481,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -18428,7 +19523,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// Total number of pages the parent has read the student.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="pagesRead"), NaturalKeyMember]
+        [Range(typeof(decimal), "-9999999999999999.99", "9999999999999999.99", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
+        [DataMember(Name="pagesRead")]
         public decimal PagesRead 
         { 
             get => _pagesRead;
@@ -18596,8 +19692,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -18618,8 +19712,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StudentParentAssociationStaffEducationOrganizationEmploymentAssociation : Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentParentAssociationStaffEducationOrganizationEmploymentAssociationPutPostRequestValidator _validator = new StudentParentAssociationStaffEducationOrganizationEmploymentAssociationPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -18629,6 +19727,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -18654,7 +19753,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             }
         }
 
-        [DataMember(Name="staffEducationOrganizationEmploymentAssociationReference")][NaturalKeyMember]
+        [DataMember(Name="staffEducationOrganizationEmploymentAssociationReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public StaffEducationOrganizationEmploymentAssociation.EdFi.StaffEducationOrganizationEmploymentAssociationReference StaffEducationOrganizationEmploymentAssociationReference
         {
@@ -18980,8 +20079,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -19002,8 +20099,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StudentParentAssociationTelephone : Entities.Common.Sample.IStudentParentAssociationTelephone
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentParentAssociationTelephonePutPostRequestValidator _validator = new StudentParentAssociationTelephonePutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -19013,6 +20114,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -19112,6 +20214,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// The order of priority assigned to telephone numbers to define which number to attempt first, second, etc.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(1, 2147483647, ErrorMessage=ValidationHelpers.RangeMinOnlyMessageFormat)]
         [DataMember(Name="orderOfPriority")]
         public int? OrderOfPriority { get; set; }
 
@@ -19119,6 +20222,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// The telephone number including the area code, and extension, if applicable.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(24, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="telephoneNumber")]
         public string TelephoneNumber { get; set; }
 
@@ -19126,7 +20231,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// The type of communication number listed for an individual or organization.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="telephoneNumberTypeDescriptor")]
+        [RequiredWithNonDefault]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="telephoneNumberTypeDescriptor")][DescriptorExists("TelephoneNumberTypeDescriptor")]
         public string TelephoneNumberTypeDescriptor { get; set; }
 
         /// <summary>
@@ -19221,8 +20328,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -19248,8 +20353,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    [Display(Name="Sample")]
     public class StudentSchoolAssociationExtension : Entities.Common.Sample.IStudentSchoolAssociationExtension, IChildEntity
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentSchoolAssociationExtensionPutPostRequestValidator _validator = new StudentSchoolAssociationExtensionPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -19259,6 +20368,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.Ext
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -19351,7 +20461,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.Ext
         /// Membership Type identifies whether a school has primary responsibility for managing a specific student's curriculum or not.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="membershipTypeDescriptor")]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="membershipTypeDescriptor")][DescriptorExists("MembershipTypeDescriptor")]
         public string MembershipTypeDescriptor { get; set; }
         // -------------------------------------------------------------
 
@@ -19444,8 +20555,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.Ext
             //  Validate unified keys
             // -----------------------
 
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -19471,8 +20580,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentSectionAssociationExtension : Entities.Common.Sample.IStudentSectionAssociationExtension, IChildEntity
+    [Display(Name="Sample")]
+    public class StudentSectionAssociationExtension : Entities.Common.Sample.IStudentSectionAssociationExtension, IChildEntity, IValidatableObject
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentSectionAssociationExtensionPutPostRequestValidator _validator = new StudentSectionAssociationExtensionPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -19486,6 +20599,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         {
             StudentSectionAssociationRelatedGeneralStudentProgramAssociations = new List<StudentSectionAssociationRelatedGeneralStudentProgramAssociation>();
         }
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -19606,7 +20720,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         private ICollection<StudentSectionAssociationRelatedGeneralStudentProgramAssociation> _studentSectionAssociationRelatedGeneralStudentProgramAssociations;
         private ICollection<Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation> _studentSectionAssociationRelatedGeneralStudentProgramAssociationsCovariant;
 
-        [DataMember(Name="relatedGeneralStudentProgramAssociations"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="relatedGeneralStudentProgramAssociations")]
         public ICollection<StudentSectionAssociationRelatedGeneralStudentProgramAssociation> StudentSectionAssociationRelatedGeneralStudentProgramAssociations
         {
             get { return _studentSectionAssociationRelatedGeneralStudentProgramAssociations; }
@@ -19678,6 +20793,60 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         {
             StudentSectionAssociation = (IStudentSectionAssociation)value;
         }
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                pathBuilder.Append(ValidationHelpers.JsonPathSeparator);
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+                if (StudentSectionAssociationRelatedGeneralStudentProgramAssociations.Any())
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append(nameof(StudentSectionAssociationRelatedGeneralStudentProgramAssociations));
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentSectionAssociationRelatedGeneralStudentProgramAssociations, validationContext.Items)))
+                    {
+                        yield return result;
+                    }
+                }
+
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
     }
 
     // =================================================================
@@ -19688,6 +20857,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
     public class StudentSectionAssociationExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<StudentSectionAssociationExtension>
     {
         private static readonly FullName _fullName_sample_StudentSectionAssociationExtension = new FullName("sample", "StudentSectionAssociationExtension");
+
+        // Declare collection item validators
+        private StudentSectionAssociationRelatedGeneralStudentProgramAssociationPutPostRequestValidator _studentSectionAssociationRelatedGeneralStudentProgramAssociationsValidator = new ();
 
         protected override bool PreValidate(FluentValidation.ValidationContext<StudentSectionAssociationExtension> context, FluentValidation.Results.ValidationResult result)
         {
@@ -19706,39 +20878,27 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.StudentSectionAssociationExtensionMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.StudentSectionAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_sample_StudentSectionAssociationExtension));
+            var mappingContract = (global::EdFi.Ods.Entities.Common.Sample.StudentSectionAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies.MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentSectionAssociationExtension);
 
-            if (mappingContract.Value != null)
+            if (mappingContract != null)
             {
-                if (mappingContract.Value.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded != null)
+                if (mappingContract.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded != null)
                 {
-                    var hasInvalidStudentSectionAssociationRelatedGeneralStudentProgramAssociationsItems = instance.StudentSectionAssociationRelatedGeneralStudentProgramAssociations.Any(x => !mappingContract.Value.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded(x));
+                    var hasInvalidStudentSectionAssociationRelatedGeneralStudentProgramAssociationsItems = instance.StudentSectionAssociationRelatedGeneralStudentProgramAssociations.Any(x => !mappingContract.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded(x));
         
                     if (hasInvalidStudentSectionAssociationRelatedGeneralStudentProgramAssociationsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StudentSectionAssociationRelatedGeneralStudentProgramAssociation", $"A supplied 'StudentSectionAssociationRelatedGeneralStudentProgramAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StudentSectionAssociationRelatedGeneralStudentProgramAssociations", $"A supplied 'StudentSectionAssociationRelatedGeneralStudentProgramAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
             }
+
             // -----------------------
             //  Validate unified keys
             // -----------------------
-
-            // Recursively invoke the child collection item validators
-            var studentSectionAssociationRelatedGeneralStudentProgramAssociationsValidator = new StudentSectionAssociationRelatedGeneralStudentProgramAssociationPutPostRequestValidator();
-
-            foreach (var item in instance.StudentSectionAssociationRelatedGeneralStudentProgramAssociations)
-            {
-                var validationResult = studentSectionAssociationRelatedGeneralStudentProgramAssociationsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
 
             if (failures.Any())
             {
@@ -19760,8 +20920,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    
     public class StudentSectionAssociationRelatedGeneralStudentProgramAssociation : Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation
     {
+        // Fluent validator instance (threadsafe)
+        private static StudentSectionAssociationRelatedGeneralStudentProgramAssociationPutPostRequestValidator _validator = new StudentSectionAssociationRelatedGeneralStudentProgramAssociationPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -19771,6 +20935,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -19796,7 +20961,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
             }
         }
 
-        [DataMember(Name="relatedGeneralStudentProgramAssociationReference")][NaturalKeyMember]
+        [DataMember(Name="relatedGeneralStudentProgramAssociationReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationReference RelatedGeneralStudentProgramAssociationReference
         {
@@ -20187,8 +21352,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
                 }
 
             }
-
-            // Recursively invoke the child collection item validators
 
             if (failures.Any())
             {
