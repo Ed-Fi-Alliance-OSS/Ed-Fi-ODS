@@ -63,6 +63,9 @@ param(
 )
 
 $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
+if ($newRevision -lt 1) {
+    $newRevision = 1
+}
 $version = "$InformationalVersion.$newRevision"
 $packageOutput = "$PSScriptRoot/NugetPackages"
 $packagePath = "$packageOutput/$PackageName.$version.nupkg"
