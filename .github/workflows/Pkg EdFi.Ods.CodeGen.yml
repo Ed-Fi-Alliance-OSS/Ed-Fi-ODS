@@ -87,6 +87,11 @@ jobs:
     - name: build
       working-directory: ./Ed-Fi-ODS/
       run: |
+        $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
+        if ($newRevision -lt 1) {
+            echo "BUILD_INCREMENTER=1" >> $GITHUB_ENV
+            #$env:GITHUB_ENV:StandardVersions = $output
+        }
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln"
       shell: pwsh
     - name: Run Unit tests for  codegen Project 
@@ -102,12 +107,20 @@ jobs:
         $reportName = $reports + "EdFi.Ods.CodeGen.sln.xml"
         & dotnet test $solution --configuration ${{ env.CONFIGURATION }} --filter TestCategory!=LocalOnly --logger "trx;LogFileName=$reportName"
       shell: pwsh
+    - name: Exit success if AZURE_ARTIFACT_NUGET_KEY is missing in forked repository
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY == '' }}
+      run: |
+            echo "Skipping Publish"           
+    - name: Wait 20s for Azure Artifacts caching
+      run: sleep 20
     - name: pack codegen
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen/EdFi.Ods.CodeGen.csproj" -PackageName "EdFi.Suite3.Ods.CodeGen"
       shell: pwsh
     - name: Install-credential-handler
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 InstallCredentialHandler
