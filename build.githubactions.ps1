@@ -63,6 +63,9 @@ param(
 )
 
 $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
+
+Write-Host "newRevision $newRevision" -ForegroundColor Cyan
+
 if ($newRevision -lt 1) {
     $newRevision = 1
 }
@@ -70,6 +73,7 @@ $version = "$InformationalVersion.$newRevision"
 $packageOutput = "$PSScriptRoot/NugetPackages"
 $packagePath = "$packageOutput/$PackageName.$version.nupkg"
 
+Write-Host "Building Version $version" -ForegroundColor Cyan
 if ([string]::IsNullOrWhiteSpace($Solution)){
     $Solution =$ProjectFile
 }
