@@ -88,6 +88,7 @@ jobs:
       working-directory: ./Ed-Fi-ODS/
       run: |
         $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
+        Write-Host "newRevision $newRevision" -ForegroundColor Cyan
         if ($newRevision -lt 1) {
             echo "BUILD_INCREMENTER=1" >> $GITHUB_ENV
             #$env:GITHUB_ENV:StandardVersions = $output
