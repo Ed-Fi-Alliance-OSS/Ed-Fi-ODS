@@ -10,16 +10,11 @@ namespace EdFi.Ods.Common.Models;
 
 public class FeatureDisabledProfileResourceModelProvider : IProfileResourceModelProvider
 {
-    private readonly string _featureName;
-
-    public FeatureDisabledProfileResourceModelProvider(string featureName)
-    {
-        _featureName = featureName;
-    }
+    private const string ProfilesFeatureName = "Profiles";
 
     public ProfileResourceModel GetProfileResourceModel(string profileName)
     {
         // Force a bad request if a profile claim exists and profiles are disabled.
-        throw new FeatureDisabledException(_featureName);
+        throw new FeatureDisabledException(ProfilesFeatureName);
     }
 }
