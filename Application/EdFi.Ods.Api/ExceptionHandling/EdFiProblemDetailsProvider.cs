@@ -29,26 +29,32 @@ public class EdFiProblemDetailsProvider : IEdFiProblemDetailsProvider
     /// <inheritdoc cref="IEdFiProblemDetailsProvider.GetProblemDetails" />
     public IEdFiProblemDetails GetProblemDetails(Exception exception)
     {
+        string correlationId = (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
+
+        // Handle Problem Details exceptions directly
+        if (exception is EdFiProblemDetailsExceptionBase problemDetailsException)
+        {
+            // Set the correlationId and return as serializable
+            problemDetailsException.CorrelationId = correlationId;
+            return problemDetailsException.AsSerializableModel(); 
+        }
+
         // Try to translate the exception explicitly
         foreach (var translator in _translators)
         {
             if (translator.TryTranslate(exception, out IEdFiProblemDetails problemDetails))
             {
-                // Assign the correlation error (if it exists)
-                problemDetails.CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
-
+                // Set the correlationId and return as serializable
+                problemDetails.CorrelationId = correlationId;
                 return problemDetails.AsSerializableModel();
             }
         }
 
+        // This is an unhandled exception
         _logger.Error(exception);
 
-        // Default exception message is to just return all the messages in the exception stack as an Internal Server Error
-        var response = new InternalServerErrorException
-        {
-            CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
-        };
-
-        return response.AsSerializableModel();
+        // Just return all the messages in the exception stack as an Internal Server Error, with correlationId set
+        return new InternalServerErrorException { CorrelationId = correlationId }
+            .AsSerializableModel();
     }
 }
