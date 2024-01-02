@@ -140,36 +140,13 @@ namespace EdFi.Ods.Api.Controllers
             }
         }
 
-        private IActionResult CreateActionResultFromException(
-            Exception exception,
-            bool enforceOptimisticLock = false)
+        private IActionResult CreateActionResultFromException(Exception exception)
         {
-            string correlationId = (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
-
-            // Handle Problem Details exceptions directly
-            if (exception is EdFiProblemDetailsExceptionBase problemDetailsException)
-            {
-                problemDetailsException.CorrelationId = correlationId;
-                
-                // Set the correlationId and return
-                return StatusCode(problemDetailsException.Status, problemDetailsException.AsSerializableModel()); 
-            }
-
             HttpContext.Items.Add("Exception", exception);
 
             // Process translations to Problem Details
             var problemDetails = _problemDetailsProvider.GetProblemDetails(exception);
             return StatusCode(problemDetails.Status, problemDetails);
-
-            // Process translation to RESTError (TO BE REMOVED)
-            // var restError = _restErrorProvider.GetRestErrorFromException(exception);
-            // HttpContext.Items.Add("Exception", exception);
-            //
-            // return string.IsNullOrWhiteSpace(restError.Message)
-            //     ? StatusCode(restError.Code ?? default)
-            //     : StatusCode(
-            //         restError.Code ?? default,
-            //         ErrorTranslator.GetErrorMessage(restError.Message, correlationId));
         }
 
         protected abstract void MapAll(TGetByExampleRequest request, TEntityInterface specification);
@@ -305,7 +282,7 @@ namespace EdFi.Ods.Api.Controllers
             if (result.Exception != null)
             {
                 Logger.Error("Put", result.Exception);
-                return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
+                return CreateActionResultFromException(result.Exception);
             }
 
             // Check for validation errors
@@ -370,7 +347,7 @@ namespace EdFi.Ods.Api.Controllers
             if (result.Exception != null)
             {
                 Logger.Error("Post", result.Exception);
-                return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
+                return CreateActionResultFromException(result.Exception);
             }
 
             // Check for validation errors
@@ -429,7 +406,7 @@ namespace EdFi.Ods.Api.Controllers
             if (result.Exception != null)
             {
                 Logger.Error("Delete", result.Exception);
-                return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
+                return CreateActionResultFromException(result.Exception);
             }
 
             //Return 204 (according to RFC 2616, if the delete action has been enacted but the response does not include an entity, the return code should be 204).

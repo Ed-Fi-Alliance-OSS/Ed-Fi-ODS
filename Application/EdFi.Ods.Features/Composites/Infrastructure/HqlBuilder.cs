@@ -962,7 +962,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     $"Filter value for '{targetProperty.JsonPropertyName}' is not a valid value for the type of data expected.",
                     new[]
                     {
-                        $"Invalid query string parameter value for '{targetProperty.PropertyName}' could not be processed to target type '{targetType.Name}': {ex.Message}"
+                        $"Invalid query string parameter value for '{targetProperty.PropertyName}' could not be processed to target type '{targetType.Name}'.",
+                        ex.Message
                     });
             }
         }

@@ -260,6 +260,9 @@ namespace EdFi.Ods.Features.Controllers
             {
                 _logger.Error(ex);
 
+                HttpContext.Items.Add("Exception", ex);
+
+                // Process translations to Problem Details
                 problemDetails = _problemDetailsProvider.GetProblemDetails(ex);
             }
 
