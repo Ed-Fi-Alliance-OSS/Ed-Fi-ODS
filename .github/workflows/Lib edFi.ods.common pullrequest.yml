@@ -4,6 +4,10 @@ on:
   pull_request:
     branches: [main, 'ODS-*']
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 env:
   INFORMATIONAL_VERSION: "7.2"
   CONFIGURATION: "Release"
