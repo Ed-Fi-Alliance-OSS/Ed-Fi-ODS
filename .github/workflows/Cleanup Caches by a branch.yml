@@ -8,11 +8,7 @@ on:
   pull_request:
     branches: [main, 'ODS-*']
     types: [ closed ]
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
-
+  
 env:
   GH_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
