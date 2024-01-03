@@ -36,8 +36,8 @@ namespace EdFi.Ods.Api.Security.Claims
 
             if (apiClientContext == null || apiClientContext == ApiClientContext.Empty)
             {
-                throw new SecurityException(
-                    SecurityException.DefaultTechnicalProblemDetail,
+                throw new SecurityAuthorizationException(
+                    SecurityAuthorizationException.DefaultTechnicalProblemDetail,
                     "No API key information was available for authorization.");
             }
 

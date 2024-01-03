@@ -100,7 +100,7 @@ namespace EdFi.Ods.Features.Composites
                     authorizationContext,
                     authorizationBasisMetadata);
             }
-            catch (SecurityException ex)
+            catch (SecurityAuthorizationException ex)
             {
                 // If this is the base resource, rethrow the exception to achieve a 401 response
                 if (processorContext.IsBaseResource())

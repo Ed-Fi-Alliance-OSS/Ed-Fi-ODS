@@ -95,16 +95,16 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
             if (!hasOwnershipToken)
             {
                 return InstanceAuthorizationResult.Failed(
-                    new SecurityException(
-                        $"{SecurityException.DefaultDetail} The resource is not owned by the caller.",
+                    new SecurityAuthorizationException(
+                        $"{SecurityAuthorizationException.DefaultDetail} The resource is not owned by the caller.",
                         "Access to the resource item could not be authorized using any of the caller's ownership tokens."));
             }
         }
         else
         {
             return InstanceAuthorizationResult.Failed(
-                new SecurityException(
-                    $"{SecurityException.DefaultDetail} The resource is not owned by the caller.",
+                new SecurityAuthorizationException(
+                    $"{SecurityAuthorizationException.DefaultDetail} The resource is not owned by the caller.",
                     "Access to the resource item could not be authorized based on the caller's ownership token because the resource item has no owner."));
         }
 

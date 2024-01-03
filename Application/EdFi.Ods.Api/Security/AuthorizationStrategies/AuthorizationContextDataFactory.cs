@@ -65,7 +65,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies
         /// <param name="propertyNameMappings">Explicit property name mappings.</param>
         /// <param name="getContextDataPropertyMappings">A function that given a source property, returns the target property name to which is should be assigned.</param>
         /// <returns>The dynamically created method/delegate.</returns>
-        /// <exception cref="SecurityException">Occurs when the supplied mapping function creates multiple mappings to the same target property.</exception>
+        /// <exception cref="SecurityAuthorizationException">Occurs when the supplied mapping function creates multiple mappings to the same target property.</exception>
         private static ExtractDelegate CreateDynamicExtractorMethod(
             string methodName,
             Type sourceType,

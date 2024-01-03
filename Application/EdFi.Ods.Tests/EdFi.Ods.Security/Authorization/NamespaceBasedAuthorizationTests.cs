@@ -63,7 +63,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                     new AuthorizationFilterContext());
             
                 //Assert
-                result.Exception.ShouldBeExceptionType<SecurityException>();
+                result.Exception.ShouldBeExceptionType<SecurityAuthorizationException>();
                 result.Exception.Message.ShouldBe("Access to the resource item could not be authorized because the Namespace of the resource is empty.");
             }
 
@@ -101,7 +101,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                     new AuthorizationFilterContext());
 
                 //Assert
-                result.Exception.ShouldBeExceptionType<SecurityException>();
+                result.Exception.ShouldBeExceptionType<SecurityAuthorizationException>();
                 result.Exception.Message.ShouldBe("Access to the resource item could not be authorized based on the caller's NamespacePrefix claims: 'uri://ed-fi.org/', 'uri://ed-fi-2.org/'.");
             }
         }
@@ -128,7 +128,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 };
 
                 //Act
-                var exception = Assert.Throws<SecurityException>(
+                var exception = Assert.Throws<SecurityAuthorizationException>(
                     () => strategy.GetAuthorizationStrategyFiltering(
                         Array.Empty<EdFiResourceClaim>(),
                         new EdFiAuthorizationContext(
@@ -279,7 +279,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 //Act
 
-                var exception = Assert.Throws<SecurityException>(
+                var exception = Assert.Throws<SecurityAuthorizationException>(
                     () => strategy.GetAuthorizationStrategyFiltering(
                         Array.Empty<EdFiResourceClaim>(),
                         new EdFiAuthorizationContext(

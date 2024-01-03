@@ -155,8 +155,8 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
                 ? $"Based on profile assignments, one of the following profile-specific content types is required when requesting this resource: '{string.Join("', '", assignedProfilesForRequest.OrderBy(a => a).Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'"
                 : $"Based on profile assignments, one of the following profile-specific content types is required when updating this resource: '{string.Join("', '", assignedProfilesForRequest.OrderBy(a => a).Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'";
 
-            var problemDetails = new SecurityException(
-                SecurityException.DefaultDetail,
+            var problemDetails = new SecurityAuthorizationException(
+                SecurityAuthorizationException.DefaultDetail,
                 errorMessage)
             {
                 CorrelationId = (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey)

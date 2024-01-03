@@ -53,8 +53,8 @@ namespace EdFi.Ods.Api.Security.Authorization
 
                 _logger.Error(message);
 
-                throw new SecurityException(
-                    detail: SecurityException.DefaultTechnicalProblemDetail,
+                throw new SecurityAuthorizationException(
+                    detail: SecurityAuthorizationException.DefaultTechnicalProblemDetail,
                     error: TransformationErrorText,
                     message: message);
             }
@@ -92,8 +92,8 @@ namespace EdFi.Ods.Api.Security.Authorization
             {
                 var message = "Unable to transform resource load graph as StudentSchoolAssociation was not found in the graph.";
 
-                throw new SecurityException(
-                    detail: SecurityException.DefaultTechnicalProblemDetail,
+                throw new SecurityAuthorizationException(
+                    detail: SecurityAuthorizationException.DefaultTechnicalProblemDetail,
                     error: TransformationErrorText,
                     message: message);
             }
@@ -141,8 +141,8 @@ namespace EdFi.Ods.Api.Security.Authorization
                 string message = $"Unable to transform resource load graph as {contactStudentAssociationName} was not found in the graph.";
                 _logger.Error(message);
 
-                throw new SecurityException(
-                    detail: SecurityException.DefaultTechnicalProblemDetail,
+                throw new SecurityAuthorizationException(
+                    detail: SecurityAuthorizationException.DefaultTechnicalProblemDetail,
                     error: TransformationErrorText,
                     message: message);
             }
@@ -165,8 +165,8 @@ namespace EdFi.Ods.Api.Security.Authorization
                 string message = $"Unable to transform resource load graph as a student association for {contactResource.FullName} is not defined.";
                 _logger.Error(message);
 
-                throw new SecurityException(
-                    detail: SecurityException.DefaultTechnicalProblemDetail,
+                throw new SecurityAuthorizationException(
+                    detail: SecurityAuthorizationException.DefaultTechnicalProblemDetail,
                     error: TransformationErrorText,
                     message: message);
             }

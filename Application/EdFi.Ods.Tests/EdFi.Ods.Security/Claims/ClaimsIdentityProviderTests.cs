@@ -42,7 +42,7 @@ public class ClaimsIdentityProviderTests
         A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(null);
 
         // Act & Assert
-        Should.Throw<SecurityException>(() => _identityProvider.GetClaimsIdentity())
+        Should.Throw<SecurityAuthorizationException>(() => _identityProvider.GetClaimsIdentity())
             .Message.ShouldBe("No API key information was available for authorization.");
     }
 
@@ -53,7 +53,7 @@ public class ClaimsIdentityProviderTests
         A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(ApiClientContext.Empty);
 
         // Act & Assert
-        Should.Throw<SecurityException>(() => _identityProvider.GetClaimsIdentity())
+        Should.Throw<SecurityAuthorizationException>(() => _identityProvider.GetClaimsIdentity())
             .Message.ShouldBe("No API key information was available for authorization.");
     }
 

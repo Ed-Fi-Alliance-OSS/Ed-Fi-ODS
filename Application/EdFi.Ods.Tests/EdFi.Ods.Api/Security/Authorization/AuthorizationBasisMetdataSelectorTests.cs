@@ -207,7 +207,7 @@ public class AuthorizationBasisMetadataSelectorTests
         else
         {
             // Act & Assert
-            Should.Throw<SecurityException>(() => _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
+            Should.Throw<SecurityAuthorizationException>(() => _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
                     "AssignedClaimSet",
                     requestResourceClaimUris,
                     requestActionUri))
