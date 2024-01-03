@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using EdFi.Common.Extensions;
 
 namespace EdFi.Ods.Common.Validation;
 
@@ -117,15 +118,21 @@ public static class ValidationHelpers
             foreach (DictionaryEntry entry in dictionary)
             {
                 pathBuilder.Append(JsonPathSeparator);
-                pathBuilder.Append(entry.Key);
+                pathBuilder.Append(((string) entry.Key).ToCamelCase());
 
                 var context = new ValidationContext(entry.Value, validationContext.Items);
                 var itemResults = new List<ValidationResult>();
-                Validator.TryValidateObject(entry.Value, context, itemResults, validateAllProperties: true);
 
-                if (itemResults.Any())
+                if (!Validator.TryValidateObject(entry.Value, context, itemResults, validateAllProperties: true))
                 {
-                    foreach (var result in itemResults) yield return result;
+                    string pathPrefix = pathBuilder.ToString();
+
+                    foreach (var result in itemResults)
+                    {
+                        string memberName = result.MemberNames.FirstOrDefault();
+
+                        yield return new ValidationResult(result.ErrorMessage, new [] { $"{pathPrefix}.{memberName}"});
+                    }
                 }
 
                 pathBuilder.Length = originalLength;
