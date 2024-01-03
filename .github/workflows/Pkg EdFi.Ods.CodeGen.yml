@@ -90,7 +90,8 @@ jobs:
         [int]$newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
         Write-Host "newRevision $newRevision" -ForegroundColor Cyan
         if ($newRevision -lt 1 -or $newRevision -lt 0) {
-            echo "BUILD_INCREMENTER=1" >> $GITHUB_ENV
+           
+            echo "BUILD_INCREMENTER=1">> $env:GITHUB_ENV
             #$env:GITHUB_ENV:StandardVersions = $output
             Write-Host "semalai"
         }
