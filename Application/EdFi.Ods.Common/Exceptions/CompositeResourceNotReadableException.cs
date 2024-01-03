@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Common.Exceptions;
 
@@ -14,6 +15,8 @@ public class CompositeResourceNotReadableException : SecurityAuthorizationExcept
     // Fields containing override values for Problem Details
     private const string TypePart = "composite:not-readable";
     private const string TitleText = "Composite Resource Not Readable";
+
+    private const int StatusValue = StatusCodes.Status405MethodNotAllowed; // TODO: ODS-6143 - Remove this line
 
     private new const string DefaultDetail = "The resource cannot be read due to a data policy.";
     private const string ErrorMessageFormat = "The composite's root resource '{0}' is not readable because the API client has been assigned a Profile covering that resource which only supports writes.";
@@ -40,6 +43,8 @@ public class CompositeResourceNotReadableException : SecurityAuthorizationExcept
     //  Boilerplate for overrides
     // ---------------------------
     public override string Title { get => TitleText; }
+
+    public override int Status { get => StatusValue; }  // TODO: ODS-6143 - Remove this override
 
     protected override IEnumerable<string> GetTypeParts()
     {
