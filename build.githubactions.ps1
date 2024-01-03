@@ -66,8 +66,9 @@ $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
 
 Write-Host "newRevision $newRevision" -ForegroundColor Cyan
 
-if ($newRevision -lt 1) {
+if ($newRevision -lt 1 -or $newRevision -lt 0) {
     $newRevision = 1
+    Write-Host "semalai newRevision is $newRevision "
 }
 $version = "$InformationalVersion.$newRevision"
 $packageOutput = "$PSScriptRoot/NugetPackages"
