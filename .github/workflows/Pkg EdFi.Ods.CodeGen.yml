@@ -72,6 +72,11 @@ jobs:
       shell: pwsh
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"
+    - name: Is pull request branch exists in Ed-Fi-ODS
+      working-directory: ./Ed-Fi-ODS/
+      shell: pwsh
+      run: |
+        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
     - name: Cache Nuget packages   
       uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
       with:
