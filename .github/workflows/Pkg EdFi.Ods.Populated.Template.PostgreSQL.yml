@@ -106,6 +106,14 @@ jobs:
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/configuration.packages.json') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
+    - name: update BUILD_INCREMENTER 
+      run: |      
+            $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
+            if ($newRevision -lt 0) {
+                $newRevision = 1
+                echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
+            }
+      shell: pwsh
     - name: Restore NuGet packages
       working-directory: ./Ed-Fi-ODS/
       run: |
@@ -140,6 +148,7 @@ jobs:
         .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Populated.Template.PostgreSQL.Standard.${{ matrix.StandardVersion }}.nuspec" -PackageName "EdFi.Suite3.Ods.Populated.Template.PostgreSQL.Standard.${{ matrix.StandardVersion }}"
       shell: pwsh
     - name: Install-credential-handler
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 InstallCredentialHandler

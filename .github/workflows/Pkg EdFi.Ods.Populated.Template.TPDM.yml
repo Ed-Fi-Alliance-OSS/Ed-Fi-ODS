@@ -101,6 +101,14 @@ jobs:
       shell: powershell
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
+    - name: update BUILD_INCREMENTER 
+      run: |      
+            $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
+            if ($newRevision -lt 0) {
+                $newRevision = 1
+                echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
+            }
+      shell: pwsh
     - name: Install sql-server-2019 & sqlpackage
       shell: powershell
       run: |
@@ -141,6 +149,7 @@ jobs:
         .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Populated.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}.nuspec" -PackageName  "EdFi.Suite3.Ods.Populated.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}"
       shell: powershell
     - name: Install-credential-handler
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
          Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/utility/cross-platform.psm1"
