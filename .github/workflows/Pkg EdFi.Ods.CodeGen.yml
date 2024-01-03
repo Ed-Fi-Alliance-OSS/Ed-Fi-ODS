@@ -92,9 +92,9 @@ jobs:
 
         if ($newRevision -lt 1 -or $newRevision -lt 0) {
             $newRevision =1
-            echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
-            #$env:GITHUB_ENV:StandardVersions = $output
-            Write-Host "semalai"
+            echo "BUILD_INCREMENTER=$newRevision" >> $Env:GITHUB_ENV
+            
+            Write-Host "semalai BUILD_INCREMENTER is ${{env.BUILD_INCREMENTER}} "
         }
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln"
       shell: pwsh
