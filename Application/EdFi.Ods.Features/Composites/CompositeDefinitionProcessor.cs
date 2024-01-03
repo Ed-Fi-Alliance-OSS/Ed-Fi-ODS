@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
@@ -47,27 +48,37 @@ namespace EdFi.Ods.Features.Composites
             var resourceLogicalName = currentElt.AttributeValue(CompositeDefinitionHelper.LogicalSchema) ??
                                       EdFiConventions.LogicalName;
 
-            var resourcePhysicalName = resourceModel.SchemaNameMapProvider
+            var resourceSchemaPhysicalName = resourceModel.SchemaNameMapProvider
                 .GetSchemaMapByLogicalName(resourceLogicalName)
                 .PhysicalName;
 
+            var resourceFullName = new FullName(
+                resourceSchemaPhysicalName,
+                currentElt.AttributeValue(CompositeDefinitionHelper.Name));
+
             // Composites does not support extensions
-            var currentModel =
-                resourceModel.GetResourceByFullName(
-                    new FullName(resourcePhysicalName, currentElt.AttributeValue(CompositeDefinitionHelper.Name)));
+            try
+            {
+                var currentModel = resourceModel.GetResourceByFullName(resourceFullName);
 
-            var processorContext = new CompositeDefinitionProcessorContext(
-                compositeDefinition,
-                resourceModel,
-                currentElt,
-                currentModel,
-                null,
-                null,
-                null,
-                0,
-                null);
+                var processorContext = new CompositeDefinitionProcessorContext(
+                    compositeDefinition,
+                    resourceModel,
+                    currentElt,
+                    currentModel,
+                    null,
+                    null,
+                    null,
+                    0,
+                    null);
 
-            return ProcessDefinition(default(TBuildResult), builderContext, processorContext);
+                return ProcessDefinition(default(TBuildResult), builderContext, processorContext);
+            }
+            catch (ProfileMethodUsageException ex)
+            {
+                // This exception indicates that a resource used by the composite's root resource is not readable due to the Profile(s) assigned to the client
+                throw new CompositeResourceNotReadableException(resourceFullName.Name, ex);
+            }
         }
 
         public void UseCompositeValidation()
