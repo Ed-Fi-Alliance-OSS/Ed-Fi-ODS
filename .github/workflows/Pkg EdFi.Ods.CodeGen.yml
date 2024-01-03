@@ -77,6 +77,16 @@ jobs:
       shell: pwsh
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
+    - name: Check if repository is a fork
+      shell: pwsh
+      run: |
+        if ($env:GITHUB_EVENT_NAME -eq "pull_request" -and $env:GITHUB_ACTOR -ne $env:GITHUB_REPOSITORY_OWNER) {
+          Write-Output "This repository is a fork."
+          # Perform actions specific for forked repositories
+        } else {
+          Write-Output "This repository is not a fork or is the original repository."
+          # Perform actions for the original repository
+        }
     - name: Cache Nuget packages   
       uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
       with:
