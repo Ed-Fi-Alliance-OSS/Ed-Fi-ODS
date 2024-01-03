@@ -19,11 +19,11 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
     {
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
         
-        private const string InsertOrUpdateMessageFormat = "The value supplied for the related '{0}' resource does not exist.";
-        private const string UpdateOrDeleteMessageFormat = "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of the '{0}' entity.";
+        private const string InsertOrUpdateMessageFormat = "The referenced '{0}' resource does not exist.";
+        private const string UpdateOrDeleteMessageFormat = "The operation cannot be performed because the resource is a dependency of the '{0}' resource.";
 
-        private const string NoDetailsUpdateOrDeleteMessage = "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of another entity.";
-        private const string NoDetailsInsertOrUpdateMessage = "The value supplied for a related resource does not exist.";
+        private const string NoDetailsInsertOrUpdateMessage = "A referenced resource does not exist.";
+        private const string NoDetailsUpdateOrDeleteMessage = "The operation cannot be performed because the resource is a dependency of another resource.";
 
         public PostgresForeignKeyExceptionTranslator(IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
         {
@@ -67,6 +67,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                         : string.Format(InsertOrUpdateMessageFormat, association.OtherEntity.Name);
 
                     problemDetails = new ConflictException(message);
+
                     return true;
                 }
             }
