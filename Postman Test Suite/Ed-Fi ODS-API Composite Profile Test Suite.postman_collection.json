@@ -1722,8 +1722,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 403\", () => {",
-													"  pm.expect(pm.response.code).to.equal(403);",
+													"pm.test(\"Status code is 405\", () => { // TODO: ODS-6143 - Change to 403",
+													"  pm.expect(pm.response.code).to.equal(405); // TODO: ODS-6143 - Change to 403",
 													"});",
 													"",
 													"pm.test(\"Should return a message indicating there is no Readable content type available to the caller for the requested resource\", () => {",

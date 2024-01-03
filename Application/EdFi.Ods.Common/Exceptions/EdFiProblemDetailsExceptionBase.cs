@@ -32,7 +32,7 @@ namespace EdFi.Ods.Common.Exceptions;
   │  └────────────────────────────────┘
   │    △
   │    │  ┌───────────────────────────────────────┐
-  │    └──┤ CompositeResourceNotReadableException |
+  │    └──┤ CompositeResourceNotReadableException | 405 Method Not Allowed (TODO: ODS-6143 - Change back to 403.)
   │       └───────────────────────────────────────┘
   │  ┌───────────────────┐
   ├──┤ NotFoundException | 404 Not Found
