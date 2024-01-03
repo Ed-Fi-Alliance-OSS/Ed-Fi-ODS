@@ -32,7 +32,6 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Checkout Ed-Fi-ODS
-      if: ${{ env.EDFI_ODS_IMP_TOKEN != '' }}
       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
@@ -43,7 +42,6 @@ jobs:
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."        
     - name: Checkout Ed-Fi-ODS-Implementation
-      if: ${{ env.EDFI_ODS_IMP_TOKEN != '' }}
       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
