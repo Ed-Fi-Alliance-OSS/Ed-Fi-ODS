@@ -30,6 +30,10 @@ namespace EdFi.Ods.Common.Exceptions;
   │  ┌────────────────────────────────┐
   ├──┤ SecurityAuthorizationException | 403 Forbidden
   │  └────────────────────────────────┘
+  │    △
+  │    │  ┌───────────────────────────────────────┐
+  │    └──┤ CompositeResourceNotReadableException |
+  │       └───────────────────────────────────────┘
   │  ┌───────────────────┐
   ├──┤ NotFoundException | 404 Not Found
   │  └───────────────────┘
