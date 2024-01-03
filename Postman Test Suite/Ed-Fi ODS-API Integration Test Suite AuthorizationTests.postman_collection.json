@@ -7715,7 +7715,11 @@
 													"const responseItem = pm.response.json();\r",
 													"\r",
 													"pm.test(\"Should indicate that the API client does not have the relationships to perform the operation\", () => {\r",
-													"    pm.expect(responseItem.message).equal(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and one or more of the following properties of the resource item: 'ResponsibilitySchoolId', 'StudentUniqueId'.\");\r",
+													"  const problemDetails = pm.response.json();\r",
+													"\r",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
+													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+)\\) and one or more of the following properties of the resource item: 'ResponsibilitySchoolId', 'StudentUniqueId'./);\r",
 													"});\r",
 													""
 												],
@@ -7768,7 +7772,7 @@
 									"response": []
 								},
 								{
-									"name": "Update DisciplineAction length (using 001 client) Copy",
+									"name": "Update DisciplineAction length (using 001 client)",
 									"event": [
 										{
 											"listen": "test",
@@ -7781,7 +7785,11 @@
 													"const responseItem = pm.response.json();\r",
 													"\r",
 													"pm.test(\"Should indicate that the API client does not have the relationships to perform the operation\", () => {\r",
-													"    pm.expect(responseItem.message).equal(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and one or more of the following properties of the resource item: 'ResponsibilitySchoolId', 'StudentUniqueId'.\");\r",
+													"  const problemDetails = pm.response.json();\r",
+													"\r",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
+													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+)\\) and one or more of the following properties of the resource item: 'ResponsibilitySchoolId', 'StudentUniqueId'./);\r",
 													"});\r",
 													""
 												],
@@ -8743,7 +8751,11 @@
 															"});\r",
 															"\r",
 															"pm.test(\"Should indicate the API client doesn't have access to the supplied namespace\", () => {\r",
-															"  pm.expect(pm.response.json().message).contains(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims\");\r",
+															"  const problemDetails = pm.response.json();\r",
+															"\r",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
+															"  pm.expect(problemDetails.errors[0]).to.match(/^Access to the resource item could not be authorized based on the caller's NamespacePrefix claims:/);\r",
 															"});\r",
 															""
 														],
@@ -8766,7 +8778,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"gradebookEntryIdentifier\": \"NS-with-prefix-test\",\r\n  \"Namespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Test\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
+													"raw": "{\r\n  \"gradebookEntryIdentifier\": \"NS-with-prefix-test\",\r\n  \"Namespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Test\",\r\n  \"sourceSectionIdentifier\": \"{{$randomBankAccount}}\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -9215,9 +9227,12 @@
 																	"});\r",
 																	"\r",
 																	"pm.test(\"Error message indicates the API client doesn't have namespace permissions\", () => {\r",
-																	"  pm.expect(pm.response.json().message).contains(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims\");\r",
-																	"})\r",
-																	""
+																	"  const problemDetails = pm.response.json();\r",
+																	"\r",
+																	"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
+																	"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
+																	"  pm.expect(problemDetails.errors[0]).to.match(/^Access to the resource item could not be authorized based on the caller's NamespacePrefix claims:/);\r",
+																	"});"
 																],
 																"type": "text/javascript"
 															}
@@ -9602,13 +9617,17 @@
 															"script": {
 																"exec": [
 																	"pm.test(\"Response is 403 or 404\", () => {\r",
-																	"    pm.expect(pm.response.code).to.be.oneOf([403, 404]) \r",
-																	" });\r",
+																	"  pm.expect(pm.response.code).to.be.oneOf([403, 404])\r",
+																	"});\r",
 																	"\r",
 																	"if (pm.response.code === 403) {\r",
-																	"    pm.test(\"Error message indicates the API client doesn't have namespace permissions\", () => {\r",
-																	"    pm.expect(pm.response.json().message).contains(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims\");\r",
-																	"    })\r",
+																	"  pm.test(\"Error message indicates the API client doesn't have namespace permissions\", () => {\r",
+																	"    const problemDetails = pm.response.json();\r",
+																	"\r",
+																	"    pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
+																	"    pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
+																	"    pm.expect(problemDetails.errors[0]).to.match(/^Access to the resource item could not be authorized based on the caller's NamespacePrefix claims:/);\r",
+																	"  })\r",
 																	"}"
 																],
 																"type": "text/javascript"
@@ -12524,9 +12543,13 @@
 													"const response = pm.response.json();\r",
 													"\r",
 													"pm.test(\"Message should indicate that no relationships have been established between the caller and the SchoolId\", () => {\r",
-													"  pm.expect(response.message).to.contain(\"No relationships have been established\");\r",
-													"  pm.expect(response.message).to.contain(\"and the resource item's 'SchoolId' value\");\r",
-													"})"
+													"  const problemDetails = pm.response.json();\r",
+													"\r",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
+													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+)\\) and the resource item's 'SchoolId' value./);\r",
+													"});\r",
+													""
 												],
 												"type": "text/javascript"
 											}
