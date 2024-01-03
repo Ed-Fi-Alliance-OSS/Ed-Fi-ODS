@@ -116,7 +116,8 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
             if (string.IsNullOrWhiteSpace(contextData.Namespace))
             {
                 return InstanceAuthorizationResult.Failed(
-                    new SecurityException(
+                    new SecurityAuthorizationException(
+                        SecurityAuthorizationException.DefaultDetail,
                         "Access to the resource item could not be authorized because the Namespace of the resource is empty."));
             }
 
@@ -127,11 +128,12 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
                 string claimNamespacePrefixesText = string.Join("', '", claimNamespacePrefixes);
 
                 return InstanceAuthorizationResult.Failed(
-                    new SecurityException(
+                    new SecurityAuthorizationException(
+                        SecurityAuthorizationException.DefaultDetail,
                         $"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims: '{claimNamespacePrefixesText}'."));
             }
         }
-        catch (SecurityException ex)
+        catch (SecurityAuthorizationException ex)
         {
             return InstanceAuthorizationResult.Failed(ex);
         }
@@ -183,7 +185,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         else
         {
             // This should never happen
-            throw new SecurityException("No namespaces found in claims.");
+            throw new SecurityAuthorizationException(SecurityAuthorizationException.DefaultTechnicalProblemDetail, "No namespaces found in claims.");
         }
     }
 }

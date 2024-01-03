@@ -114,13 +114,13 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     var subjectSubstring = filterContext.SubjectEndpointName.Substring(
                         0, filterContext.SubjectEndpointName.Length - 3);
 
-                    throw new SecurityException(
-                        SecurityException.DefaultDetail,
+                    throw new SecurityAuthorizationException(
+                        SecurityAuthorizationException.DefaultDetail,
                         $"Either the referenced '{subjectSubstring}' was not found or no relationships have been established between the caller's education organization id claims ({string.Join(", ", filterContext.ClaimParameterValues)}) and the referenced '{subjectSubstring}'.");
                 }
 
-                throw new SecurityException(
-                    SecurityException.DefaultDetail,
+                throw new SecurityAuthorizationException(
+                    SecurityAuthorizationException.DefaultDetail,
                     $"Access to the resource item could not be authorized because the '{filterContext.SubjectEndpointName}' of the resource is empty.");
             }
 

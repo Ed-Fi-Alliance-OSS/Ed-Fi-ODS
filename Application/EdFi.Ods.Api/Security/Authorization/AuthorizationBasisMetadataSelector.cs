@@ -104,7 +104,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
             
         if (!claimCheckResponse.Success)
         {
-            throw new SecurityException(SecurityException.DefaultDetail, claimCheckResponse.SecurityExceptionMessage);
+            throw new SecurityAuthorizationException(SecurityAuthorizationException.DefaultDetail, claimCheckResponse.SecurityExceptionMessage);
         }
 
         var relevantClaimSetClaims = claimCheckResponse.RelevantClaims;

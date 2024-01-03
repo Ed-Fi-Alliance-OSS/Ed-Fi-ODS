@@ -19,7 +19,7 @@ public static class NamespaceBasedAuthorizationHelpers
 
         if (!namespacePrefixes.Any() || namespacePrefixes.All(string.IsNullOrEmpty))
         {
-            throw new SecurityException($"Access to the resource could not be authorized because the caller did not have any NamespacePrefix claims ('{EdFiOdsApiClaimTypes.NamespacePrefix}') or the claim values were all empty.");
+            throw new SecurityAuthorizationException(SecurityAuthorizationException.DefaultDetail, $"Access to the resource could not be authorized because the caller did not have any NamespacePrefix claims ('{EdFiOdsApiClaimTypes.NamespacePrefix}') or the claim values were all empty.");
         }
 
         return namespacePrefixes;

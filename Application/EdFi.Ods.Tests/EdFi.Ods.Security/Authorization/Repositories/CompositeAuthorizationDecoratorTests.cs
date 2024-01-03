@@ -256,7 +256,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                 A.CallTo(() =>
                         Given<IAuthorizationFilteringProvider>()
                             .GetAuthorizationFiltering(A<EdFiAuthorizationContext>.Ignored, A<AuthorizationBasisMetadata>.Ignored))
-                    .Throws(new SecurityException("Test exception"));
+                    .Throws(new SecurityAuthorizationException(SecurityAuthorizationException.DefaultDetail,"Test exception"));
             }
 
             /// <summary>
@@ -288,7 +288,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
             [Assert]
             public void Should_throw_a_security_exception()
             {
-                ActualException.ShouldBeOfType<SecurityException>();
+                ActualException.ShouldBeOfType<SecurityAuthorizationException>();
             }
         }
 

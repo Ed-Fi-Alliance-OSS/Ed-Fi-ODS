@@ -300,7 +300,7 @@ public class EntityAuthorizer : IEntityAuthorizer
 
         if (result == 0)
         {
-            throw new SecurityException(SecurityException.DefaultDetail, GetAuthorizationFailureMessage());
+            throw new SecurityAuthorizationException(SecurityAuthorizationException.DefaultDetail, GetAuthorizationFailureMessage());
         }
 
         // Save the SQL and parameters for this query execution into the current context (if context is present but uninitialized)
