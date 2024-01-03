@@ -162,7 +162,7 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
                 CorrelationId = (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
             }.AsSerializableModel();
 
-            context.Result = new ObjectResult(problemDetails) { StatusCode = StatusCodes.Status403Forbidden };
+            context.Result = new ObjectResult(problemDetails) { StatusCode = problemDetails.Status };
         }
     }
 }
