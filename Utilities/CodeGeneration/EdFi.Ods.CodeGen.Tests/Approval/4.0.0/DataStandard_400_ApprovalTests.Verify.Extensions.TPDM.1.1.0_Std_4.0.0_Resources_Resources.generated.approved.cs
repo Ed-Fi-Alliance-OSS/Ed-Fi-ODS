@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common;
@@ -277,10 +278,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -550,10 +547,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -1679,10 +1672,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -2175,10 +2164,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -2407,10 +2392,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -2784,10 +2765,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -3010,10 +2987,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -3269,10 +3242,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -3623,10 +3592,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -3849,10 +3814,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -4118,10 +4079,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -4403,10 +4360,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -4629,10 +4582,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -4896,10 +4845,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -5670,10 +5615,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -5979,10 +5920,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -6220,10 +6157,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -6495,10 +6428,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -6768,10 +6697,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -7259,10 +7184,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -7646,10 +7567,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -7919,10 +7836,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -8486,10 +8399,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -8712,10 +8621,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -8987,10 +8892,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -9261,10 +9162,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -9534,10 +9431,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -10294,10 +10187,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -10536,10 +10425,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -11370,10 +11255,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -11612,10 +11493,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -12592,6 +12469,269 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
                 // ---------------------------
                 //  Validate embedded objects
                 // ---------------------------
+
+                // -----------------------
+                //  Validate unified keys
+                // -----------------------
+                pathBuilder.Length = dotLength;
+                string pathPrefix = null;
+
+                var sourcesForEducationOrganizationId = GetEducationOrganizationIdSources().ToArray();
+
+                if (!sourcesForEducationOrganizationId.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForEducationOrganizationId.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForEducationOrganizationId.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'educationOrganizationId' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForEducationOrganizationId.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, int value)> GetEducationOrganizationIdSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationElementReference = this.EvaluationElementReference?.EducationOrganizationId;
+    
+                    if (valueFromEvaluationElementReference != null)
+                    {
+                        yield return ("evaluationElementReference.educationOrganizationId", this.EvaluationElementReference.EducationOrganizationId);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromEvaluationObjectiveRatingReference = this.EvaluationObjectiveRatingReference?.EducationOrganizationId;
+    
+                    if (valueFromEvaluationObjectiveRatingReference != null)
+                    {
+                        yield return ("evaluationObjectiveRatingReference.educationOrganizationId", this.EvaluationObjectiveRatingReference.EducationOrganizationId);
+                    }
+    
+                }
+                var sourcesForEvaluationObjectiveTitle = GetEvaluationObjectiveTitleSources().ToArray();
+
+                if (!sourcesForEvaluationObjectiveTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForEvaluationObjectiveTitle.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForEvaluationObjectiveTitle.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'evaluationObjectiveTitle' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForEvaluationObjectiveTitle.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, string value)> GetEvaluationObjectiveTitleSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationElementReference = this.EvaluationElementReference?.EvaluationObjectiveTitle;
+    
+                    if (valueFromEvaluationElementReference != null)
+                    {
+                        yield return ("evaluationElementReference.evaluationObjectiveTitle", this.EvaluationElementReference.EvaluationObjectiveTitle);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromEvaluationObjectiveRatingReference = this.EvaluationObjectiveRatingReference?.EvaluationObjectiveTitle;
+    
+                    if (valueFromEvaluationObjectiveRatingReference != null)
+                    {
+                        yield return ("evaluationObjectiveRatingReference.evaluationObjectiveTitle", this.EvaluationObjectiveRatingReference.EvaluationObjectiveTitle);
+                    }
+    
+                }
+                var sourcesForEvaluationPeriodDescriptor = GetEvaluationPeriodDescriptorSources().ToArray();
+
+                if (!sourcesForEvaluationPeriodDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForEvaluationPeriodDescriptor.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForEvaluationPeriodDescriptor.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'evaluationPeriodDescriptor' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForEvaluationPeriodDescriptor.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, string value)> GetEvaluationPeriodDescriptorSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationElementReference = this.EvaluationElementReference?.EvaluationPeriodDescriptor;
+    
+                    if (valueFromEvaluationElementReference != null)
+                    {
+                        yield return ("evaluationElementReference.evaluationPeriodDescriptor", this.EvaluationElementReference.EvaluationPeriodDescriptor);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromEvaluationObjectiveRatingReference = this.EvaluationObjectiveRatingReference?.EvaluationPeriodDescriptor;
+    
+                    if (valueFromEvaluationObjectiveRatingReference != null)
+                    {
+                        yield return ("evaluationObjectiveRatingReference.evaluationPeriodDescriptor", this.EvaluationObjectiveRatingReference.EvaluationPeriodDescriptor);
+                    }
+    
+                }
+                var sourcesForEvaluationTitle = GetEvaluationTitleSources().ToArray();
+
+                if (!sourcesForEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForEvaluationTitle.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForEvaluationTitle.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'evaluationTitle' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForEvaluationTitle.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, string value)> GetEvaluationTitleSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationElementReference = this.EvaluationElementReference?.EvaluationTitle;
+    
+                    if (valueFromEvaluationElementReference != null)
+                    {
+                        yield return ("evaluationElementReference.evaluationTitle", this.EvaluationElementReference.EvaluationTitle);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromEvaluationObjectiveRatingReference = this.EvaluationObjectiveRatingReference?.EvaluationTitle;
+    
+                    if (valueFromEvaluationObjectiveRatingReference != null)
+                    {
+                        yield return ("evaluationObjectiveRatingReference.evaluationTitle", this.EvaluationObjectiveRatingReference.EvaluationTitle);
+                    }
+    
+                }
+                var sourcesForPerformanceEvaluationTitle = GetPerformanceEvaluationTitleSources().ToArray();
+
+                if (!sourcesForPerformanceEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForPerformanceEvaluationTitle.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForPerformanceEvaluationTitle.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'performanceEvaluationTitle' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForPerformanceEvaluationTitle.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, string value)> GetPerformanceEvaluationTitleSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationElementReference = this.EvaluationElementReference?.PerformanceEvaluationTitle;
+    
+                    if (valueFromEvaluationElementReference != null)
+                    {
+                        yield return ("evaluationElementReference.performanceEvaluationTitle", this.EvaluationElementReference.PerformanceEvaluationTitle);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromEvaluationObjectiveRatingReference = this.EvaluationObjectiveRatingReference?.PerformanceEvaluationTitle;
+    
+                    if (valueFromEvaluationObjectiveRatingReference != null)
+                    {
+                        yield return ("evaluationObjectiveRatingReference.performanceEvaluationTitle", this.EvaluationObjectiveRatingReference.PerformanceEvaluationTitle);
+                    }
+    
+                }
+                var sourcesForPerformanceEvaluationTypeDescriptor = GetPerformanceEvaluationTypeDescriptorSources().ToArray();
+
+                if (!sourcesForPerformanceEvaluationTypeDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForPerformanceEvaluationTypeDescriptor.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForPerformanceEvaluationTypeDescriptor.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'performanceEvaluationTypeDescriptor' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForPerformanceEvaluationTypeDescriptor.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, string value)> GetPerformanceEvaluationTypeDescriptorSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationElementReference = this.EvaluationElementReference?.PerformanceEvaluationTypeDescriptor;
+    
+                    if (valueFromEvaluationElementReference != null)
+                    {
+                        yield return ("evaluationElementReference.performanceEvaluationTypeDescriptor", this.EvaluationElementReference.PerformanceEvaluationTypeDescriptor);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromEvaluationObjectiveRatingReference = this.EvaluationObjectiveRatingReference?.PerformanceEvaluationTypeDescriptor;
+    
+                    if (valueFromEvaluationObjectiveRatingReference != null)
+                    {
+                        yield return ("evaluationObjectiveRatingReference.performanceEvaluationTypeDescriptor", this.EvaluationObjectiveRatingReference.PerformanceEvaluationTypeDescriptor);
+                    }
+    
+                }
+                var sourcesForSchoolYear = GetSchoolYearSources().ToArray();
+
+                if (!sourcesForSchoolYear.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForSchoolYear.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForSchoolYear.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'schoolYear' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForSchoolYear.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, short value)> GetSchoolYearSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationElementReference = this.EvaluationElementReference?.SchoolYear;
+    
+                    if (valueFromEvaluationElementReference != null)
+                    {
+                        yield return ("evaluationElementReference.schoolYear", this.EvaluationElementReference.SchoolYear);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromEvaluationObjectiveRatingReference = this.EvaluationObjectiveRatingReference?.SchoolYear;
+    
+                    if (valueFromEvaluationObjectiveRatingReference != null)
+                    {
+                        yield return ("evaluationObjectiveRatingReference.schoolYear", this.EvaluationObjectiveRatingReference.SchoolYear);
+                    }
+    
+                }
+                var sourcesForTermDescriptor = GetTermDescriptorSources().ToArray();
+
+                if (!sourcesForTermDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForTermDescriptor.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForTermDescriptor.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'termDescriptor' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForTermDescriptor.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, string value)> GetTermDescriptorSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationElementReference = this.EvaluationElementReference?.TermDescriptor;
+    
+                    if (valueFromEvaluationElementReference != null)
+                    {
+                        yield return ("evaluationElementReference.termDescriptor", this.EvaluationElementReference.TermDescriptor);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromEvaluationObjectiveRatingReference = this.EvaluationObjectiveRatingReference?.TermDescriptor;
+    
+                    if (valueFromEvaluationObjectiveRatingReference != null)
+                    {
+                        yield return ("evaluationObjectiveRatingReference.termDescriptor", this.EvaluationObjectiveRatingReference.TermDescriptor);
+                    }
+    
+                }
             
                 // Execute the resource's fluent validator
                 var fluentValidationResult = _validator.Validate(this);
@@ -12656,226 +12796,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
                         failures.Add(new ValidationFailure("EvaluationElementRatingResults", $"A supplied 'EvaluationElementRatingResult' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
-                }
-
-            }
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-            var sourcesForEducationOrganizationId = GetEducationOrganizationIdSources();
-
-            if (!sourcesForEducationOrganizationId.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
-            {
-                failures.Add(new ValidationFailure("EducationOrganizationId",
-                    $"Supplied values for unified key property 'educationOrganizationId' on 'EvaluationElementRating' are not consistent: {string.Join(", ", sourcesForEducationOrganizationId.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, int>> GetEducationOrganizationIdSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationElementReference = instance.EvaluationElementReference?.EducationOrganizationId;
-
-                if (valueFromEvaluationElementReference != null)
-                {
-                    yield return Tuple.Create("evaluationElementReference.educationOrganizationId", instance.EvaluationElementReference.EducationOrganizationId);
-                }
-
-                // Obtain value from other references
-                var valueFromEvaluationObjectiveRatingReference = instance.EvaluationObjectiveRatingReference?.EducationOrganizationId;
-
-                if (valueFromEvaluationObjectiveRatingReference != null)
-                {
-                    yield return Tuple.Create("evaluationObjectiveRatingReference.educationOrganizationId", instance.EvaluationObjectiveRatingReference.EducationOrganizationId);
-                }
-
-            }
-            var sourcesForEvaluationObjectiveTitle = GetEvaluationObjectiveTitleSources();
-
-            if (!sourcesForEvaluationObjectiveTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
-            {
-                failures.Add(new ValidationFailure("EvaluationObjectiveTitle",
-                    $"Supplied values for unified key property 'evaluationObjectiveTitle' on 'EvaluationElementRating' are not consistent: {string.Join(", ", sourcesForEvaluationObjectiveTitle.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, string>> GetEvaluationObjectiveTitleSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationElementReference = instance.EvaluationElementReference?.EvaluationObjectiveTitle;
-
-                if (valueFromEvaluationElementReference != null)
-                {
-                    yield return Tuple.Create("evaluationElementReference.evaluationObjectiveTitle", instance.EvaluationElementReference.EvaluationObjectiveTitle);
-                }
-
-                // Obtain value from other references
-                var valueFromEvaluationObjectiveRatingReference = instance.EvaluationObjectiveRatingReference?.EvaluationObjectiveTitle;
-
-                if (valueFromEvaluationObjectiveRatingReference != null)
-                {
-                    yield return Tuple.Create("evaluationObjectiveRatingReference.evaluationObjectiveTitle", instance.EvaluationObjectiveRatingReference.EvaluationObjectiveTitle);
-                }
-
-            }
-            var sourcesForEvaluationPeriodDescriptor = GetEvaluationPeriodDescriptorSources();
-
-            if (!sourcesForEvaluationPeriodDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
-            {
-                failures.Add(new ValidationFailure("EvaluationPeriodDescriptor",
-                    $"Supplied values for unified key property 'evaluationPeriodDescriptor' on 'EvaluationElementRating' are not consistent: {string.Join(", ", sourcesForEvaluationPeriodDescriptor.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, string>> GetEvaluationPeriodDescriptorSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationElementReference = instance.EvaluationElementReference?.EvaluationPeriodDescriptor;
-
-                if (valueFromEvaluationElementReference != null)
-                {
-                    yield return Tuple.Create("evaluationElementReference.evaluationPeriodDescriptor", instance.EvaluationElementReference.EvaluationPeriodDescriptor);
-                }
-
-                // Obtain value from other references
-                var valueFromEvaluationObjectiveRatingReference = instance.EvaluationObjectiveRatingReference?.EvaluationPeriodDescriptor;
-
-                if (valueFromEvaluationObjectiveRatingReference != null)
-                {
-                    yield return Tuple.Create("evaluationObjectiveRatingReference.evaluationPeriodDescriptor", instance.EvaluationObjectiveRatingReference.EvaluationPeriodDescriptor);
-                }
-
-            }
-            var sourcesForEvaluationTitle = GetEvaluationTitleSources();
-
-            if (!sourcesForEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
-            {
-                failures.Add(new ValidationFailure("EvaluationTitle",
-                    $"Supplied values for unified key property 'evaluationTitle' on 'EvaluationElementRating' are not consistent: {string.Join(", ", sourcesForEvaluationTitle.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, string>> GetEvaluationTitleSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationElementReference = instance.EvaluationElementReference?.EvaluationTitle;
-
-                if (valueFromEvaluationElementReference != null)
-                {
-                    yield return Tuple.Create("evaluationElementReference.evaluationTitle", instance.EvaluationElementReference.EvaluationTitle);
-                }
-
-                // Obtain value from other references
-                var valueFromEvaluationObjectiveRatingReference = instance.EvaluationObjectiveRatingReference?.EvaluationTitle;
-
-                if (valueFromEvaluationObjectiveRatingReference != null)
-                {
-                    yield return Tuple.Create("evaluationObjectiveRatingReference.evaluationTitle", instance.EvaluationObjectiveRatingReference.EvaluationTitle);
-                }
-
-            }
-            var sourcesForPerformanceEvaluationTitle = GetPerformanceEvaluationTitleSources();
-
-            if (!sourcesForPerformanceEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
-            {
-                failures.Add(new ValidationFailure("PerformanceEvaluationTitle",
-                    $"Supplied values for unified key property 'performanceEvaluationTitle' on 'EvaluationElementRating' are not consistent: {string.Join(", ", sourcesForPerformanceEvaluationTitle.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, string>> GetPerformanceEvaluationTitleSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationElementReference = instance.EvaluationElementReference?.PerformanceEvaluationTitle;
-
-                if (valueFromEvaluationElementReference != null)
-                {
-                    yield return Tuple.Create("evaluationElementReference.performanceEvaluationTitle", instance.EvaluationElementReference.PerformanceEvaluationTitle);
-                }
-
-                // Obtain value from other references
-                var valueFromEvaluationObjectiveRatingReference = instance.EvaluationObjectiveRatingReference?.PerformanceEvaluationTitle;
-
-                if (valueFromEvaluationObjectiveRatingReference != null)
-                {
-                    yield return Tuple.Create("evaluationObjectiveRatingReference.performanceEvaluationTitle", instance.EvaluationObjectiveRatingReference.PerformanceEvaluationTitle);
-                }
-
-            }
-            var sourcesForPerformanceEvaluationTypeDescriptor = GetPerformanceEvaluationTypeDescriptorSources();
-
-            if (!sourcesForPerformanceEvaluationTypeDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
-            {
-                failures.Add(new ValidationFailure("PerformanceEvaluationTypeDescriptor",
-                    $"Supplied values for unified key property 'performanceEvaluationTypeDescriptor' on 'EvaluationElementRating' are not consistent: {string.Join(", ", sourcesForPerformanceEvaluationTypeDescriptor.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, string>> GetPerformanceEvaluationTypeDescriptorSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationElementReference = instance.EvaluationElementReference?.PerformanceEvaluationTypeDescriptor;
-
-                if (valueFromEvaluationElementReference != null)
-                {
-                    yield return Tuple.Create("evaluationElementReference.performanceEvaluationTypeDescriptor", instance.EvaluationElementReference.PerformanceEvaluationTypeDescriptor);
-                }
-
-                // Obtain value from other references
-                var valueFromEvaluationObjectiveRatingReference = instance.EvaluationObjectiveRatingReference?.PerformanceEvaluationTypeDescriptor;
-
-                if (valueFromEvaluationObjectiveRatingReference != null)
-                {
-                    yield return Tuple.Create("evaluationObjectiveRatingReference.performanceEvaluationTypeDescriptor", instance.EvaluationObjectiveRatingReference.PerformanceEvaluationTypeDescriptor);
-                }
-
-            }
-            var sourcesForSchoolYear = GetSchoolYearSources();
-
-            if (!sourcesForSchoolYear.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
-            {
-                failures.Add(new ValidationFailure("SchoolYear",
-                    $"Supplied values for unified key property 'schoolYear' on 'EvaluationElementRating' are not consistent: {string.Join(", ", sourcesForSchoolYear.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, short>> GetSchoolYearSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationElementReference = instance.EvaluationElementReference?.SchoolYear;
-
-                if (valueFromEvaluationElementReference != null)
-                {
-                    yield return Tuple.Create("evaluationElementReference.schoolYear", instance.EvaluationElementReference.SchoolYear);
-                }
-
-                // Obtain value from other references
-                var valueFromEvaluationObjectiveRatingReference = instance.EvaluationObjectiveRatingReference?.SchoolYear;
-
-                if (valueFromEvaluationObjectiveRatingReference != null)
-                {
-                    yield return Tuple.Create("evaluationObjectiveRatingReference.schoolYear", instance.EvaluationObjectiveRatingReference.SchoolYear);
-                }
-
-            }
-            var sourcesForTermDescriptor = GetTermDescriptorSources();
-
-            if (!sourcesForTermDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
-            {
-                failures.Add(new ValidationFailure("TermDescriptor",
-                    $"Supplied values for unified key property 'termDescriptor' on 'EvaluationElementRating' are not consistent: {string.Join(", ", sourcesForTermDescriptor.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, string>> GetTermDescriptorSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationElementReference = instance.EvaluationElementReference?.TermDescriptor;
-
-                if (valueFromEvaluationElementReference != null)
-                {
-                    yield return Tuple.Create("evaluationElementReference.termDescriptor", instance.EvaluationElementReference.TermDescriptor);
-                }
-
-                // Obtain value from other references
-                var valueFromEvaluationObjectiveRatingReference = instance.EvaluationObjectiveRatingReference?.TermDescriptor;
-
-                if (valueFromEvaluationObjectiveRatingReference != null)
-                {
-                    yield return Tuple.Create("evaluationObjectiveRatingReference.termDescriptor", instance.EvaluationObjectiveRatingReference.TermDescriptor);
                 }
 
             }
@@ -13150,10 +13070,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -13423,10 +13339,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -14224,10 +14136,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -14466,10 +14374,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -15377,6 +15281,237 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
                 // ---------------------------
                 //  Validate embedded objects
                 // ---------------------------
+
+                // -----------------------
+                //  Validate unified keys
+                // -----------------------
+                pathBuilder.Length = dotLength;
+                string pathPrefix = null;
+
+                var sourcesForEducationOrganizationId = GetEducationOrganizationIdSources().ToArray();
+
+                if (!sourcesForEducationOrganizationId.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForEducationOrganizationId.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForEducationOrganizationId.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'educationOrganizationId' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForEducationOrganizationId.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, int value)> GetEducationOrganizationIdSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationObjectiveReference = this.EvaluationObjectiveReference?.EducationOrganizationId;
+    
+                    if (valueFromEvaluationObjectiveReference != null)
+                    {
+                        yield return ("evaluationObjectiveReference.educationOrganizationId", this.EvaluationObjectiveReference.EducationOrganizationId);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromEvaluationRatingReference = this.EvaluationRatingReference?.EducationOrganizationId;
+    
+                    if (valueFromEvaluationRatingReference != null)
+                    {
+                        yield return ("evaluationRatingReference.educationOrganizationId", this.EvaluationRatingReference.EducationOrganizationId);
+                    }
+    
+                }
+                var sourcesForEvaluationPeriodDescriptor = GetEvaluationPeriodDescriptorSources().ToArray();
+
+                if (!sourcesForEvaluationPeriodDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForEvaluationPeriodDescriptor.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForEvaluationPeriodDescriptor.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'evaluationPeriodDescriptor' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForEvaluationPeriodDescriptor.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, string value)> GetEvaluationPeriodDescriptorSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationObjectiveReference = this.EvaluationObjectiveReference?.EvaluationPeriodDescriptor;
+    
+                    if (valueFromEvaluationObjectiveReference != null)
+                    {
+                        yield return ("evaluationObjectiveReference.evaluationPeriodDescriptor", this.EvaluationObjectiveReference.EvaluationPeriodDescriptor);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromEvaluationRatingReference = this.EvaluationRatingReference?.EvaluationPeriodDescriptor;
+    
+                    if (valueFromEvaluationRatingReference != null)
+                    {
+                        yield return ("evaluationRatingReference.evaluationPeriodDescriptor", this.EvaluationRatingReference.EvaluationPeriodDescriptor);
+                    }
+    
+                }
+                var sourcesForEvaluationTitle = GetEvaluationTitleSources().ToArray();
+
+                if (!sourcesForEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForEvaluationTitle.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForEvaluationTitle.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'evaluationTitle' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForEvaluationTitle.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, string value)> GetEvaluationTitleSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationObjectiveReference = this.EvaluationObjectiveReference?.EvaluationTitle;
+    
+                    if (valueFromEvaluationObjectiveReference != null)
+                    {
+                        yield return ("evaluationObjectiveReference.evaluationTitle", this.EvaluationObjectiveReference.EvaluationTitle);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromEvaluationRatingReference = this.EvaluationRatingReference?.EvaluationTitle;
+    
+                    if (valueFromEvaluationRatingReference != null)
+                    {
+                        yield return ("evaluationRatingReference.evaluationTitle", this.EvaluationRatingReference.EvaluationTitle);
+                    }
+    
+                }
+                var sourcesForPerformanceEvaluationTitle = GetPerformanceEvaluationTitleSources().ToArray();
+
+                if (!sourcesForPerformanceEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForPerformanceEvaluationTitle.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForPerformanceEvaluationTitle.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'performanceEvaluationTitle' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForPerformanceEvaluationTitle.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, string value)> GetPerformanceEvaluationTitleSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationObjectiveReference = this.EvaluationObjectiveReference?.PerformanceEvaluationTitle;
+    
+                    if (valueFromEvaluationObjectiveReference != null)
+                    {
+                        yield return ("evaluationObjectiveReference.performanceEvaluationTitle", this.EvaluationObjectiveReference.PerformanceEvaluationTitle);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromEvaluationRatingReference = this.EvaluationRatingReference?.PerformanceEvaluationTitle;
+    
+                    if (valueFromEvaluationRatingReference != null)
+                    {
+                        yield return ("evaluationRatingReference.performanceEvaluationTitle", this.EvaluationRatingReference.PerformanceEvaluationTitle);
+                    }
+    
+                }
+                var sourcesForPerformanceEvaluationTypeDescriptor = GetPerformanceEvaluationTypeDescriptorSources().ToArray();
+
+                if (!sourcesForPerformanceEvaluationTypeDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForPerformanceEvaluationTypeDescriptor.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForPerformanceEvaluationTypeDescriptor.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'performanceEvaluationTypeDescriptor' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForPerformanceEvaluationTypeDescriptor.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, string value)> GetPerformanceEvaluationTypeDescriptorSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationObjectiveReference = this.EvaluationObjectiveReference?.PerformanceEvaluationTypeDescriptor;
+    
+                    if (valueFromEvaluationObjectiveReference != null)
+                    {
+                        yield return ("evaluationObjectiveReference.performanceEvaluationTypeDescriptor", this.EvaluationObjectiveReference.PerformanceEvaluationTypeDescriptor);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromEvaluationRatingReference = this.EvaluationRatingReference?.PerformanceEvaluationTypeDescriptor;
+    
+                    if (valueFromEvaluationRatingReference != null)
+                    {
+                        yield return ("evaluationRatingReference.performanceEvaluationTypeDescriptor", this.EvaluationRatingReference.PerformanceEvaluationTypeDescriptor);
+                    }
+    
+                }
+                var sourcesForSchoolYear = GetSchoolYearSources().ToArray();
+
+                if (!sourcesForSchoolYear.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForSchoolYear.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForSchoolYear.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'schoolYear' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForSchoolYear.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, short value)> GetSchoolYearSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationObjectiveReference = this.EvaluationObjectiveReference?.SchoolYear;
+    
+                    if (valueFromEvaluationObjectiveReference != null)
+                    {
+                        yield return ("evaluationObjectiveReference.schoolYear", this.EvaluationObjectiveReference.SchoolYear);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromEvaluationRatingReference = this.EvaluationRatingReference?.SchoolYear;
+    
+                    if (valueFromEvaluationRatingReference != null)
+                    {
+                        yield return ("evaluationRatingReference.schoolYear", this.EvaluationRatingReference.SchoolYear);
+                    }
+    
+                }
+                var sourcesForTermDescriptor = GetTermDescriptorSources().ToArray();
+
+                if (!sourcesForTermDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForTermDescriptor.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForTermDescriptor.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'termDescriptor' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForTermDescriptor.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, string value)> GetTermDescriptorSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationObjectiveReference = this.EvaluationObjectiveReference?.TermDescriptor;
+    
+                    if (valueFromEvaluationObjectiveReference != null)
+                    {
+                        yield return ("evaluationObjectiveReference.termDescriptor", this.EvaluationObjectiveReference.TermDescriptor);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromEvaluationRatingReference = this.EvaluationRatingReference?.TermDescriptor;
+    
+                    if (valueFromEvaluationRatingReference != null)
+                    {
+                        yield return ("evaluationRatingReference.termDescriptor", this.EvaluationRatingReference.TermDescriptor);
+                    }
+    
+                }
             
                 // Execute the resource's fluent validator
                 var fluentValidationResult = _validator.Validate(this);
@@ -15441,199 +15576,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
                         failures.Add(new ValidationFailure("EvaluationObjectiveRatingResults", $"A supplied 'EvaluationObjectiveRatingResult' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
-                }
-
-            }
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-            var sourcesForEducationOrganizationId = GetEducationOrganizationIdSources();
-
-            if (!sourcesForEducationOrganizationId.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
-            {
-                failures.Add(new ValidationFailure("EducationOrganizationId",
-                    $"Supplied values for unified key property 'educationOrganizationId' on 'EvaluationObjectiveRating' are not consistent: {string.Join(", ", sourcesForEducationOrganizationId.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, int>> GetEducationOrganizationIdSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationObjectiveReference = instance.EvaluationObjectiveReference?.EducationOrganizationId;
-
-                if (valueFromEvaluationObjectiveReference != null)
-                {
-                    yield return Tuple.Create("evaluationObjectiveReference.educationOrganizationId", instance.EvaluationObjectiveReference.EducationOrganizationId);
-                }
-
-                // Obtain value from other references
-                var valueFromEvaluationRatingReference = instance.EvaluationRatingReference?.EducationOrganizationId;
-
-                if (valueFromEvaluationRatingReference != null)
-                {
-                    yield return Tuple.Create("evaluationRatingReference.educationOrganizationId", instance.EvaluationRatingReference.EducationOrganizationId);
-                }
-
-            }
-            var sourcesForEvaluationPeriodDescriptor = GetEvaluationPeriodDescriptorSources();
-
-            if (!sourcesForEvaluationPeriodDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
-            {
-                failures.Add(new ValidationFailure("EvaluationPeriodDescriptor",
-                    $"Supplied values for unified key property 'evaluationPeriodDescriptor' on 'EvaluationObjectiveRating' are not consistent: {string.Join(", ", sourcesForEvaluationPeriodDescriptor.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, string>> GetEvaluationPeriodDescriptorSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationObjectiveReference = instance.EvaluationObjectiveReference?.EvaluationPeriodDescriptor;
-
-                if (valueFromEvaluationObjectiveReference != null)
-                {
-                    yield return Tuple.Create("evaluationObjectiveReference.evaluationPeriodDescriptor", instance.EvaluationObjectiveReference.EvaluationPeriodDescriptor);
-                }
-
-                // Obtain value from other references
-                var valueFromEvaluationRatingReference = instance.EvaluationRatingReference?.EvaluationPeriodDescriptor;
-
-                if (valueFromEvaluationRatingReference != null)
-                {
-                    yield return Tuple.Create("evaluationRatingReference.evaluationPeriodDescriptor", instance.EvaluationRatingReference.EvaluationPeriodDescriptor);
-                }
-
-            }
-            var sourcesForEvaluationTitle = GetEvaluationTitleSources();
-
-            if (!sourcesForEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
-            {
-                failures.Add(new ValidationFailure("EvaluationTitle",
-                    $"Supplied values for unified key property 'evaluationTitle' on 'EvaluationObjectiveRating' are not consistent: {string.Join(", ", sourcesForEvaluationTitle.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, string>> GetEvaluationTitleSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationObjectiveReference = instance.EvaluationObjectiveReference?.EvaluationTitle;
-
-                if (valueFromEvaluationObjectiveReference != null)
-                {
-                    yield return Tuple.Create("evaluationObjectiveReference.evaluationTitle", instance.EvaluationObjectiveReference.EvaluationTitle);
-                }
-
-                // Obtain value from other references
-                var valueFromEvaluationRatingReference = instance.EvaluationRatingReference?.EvaluationTitle;
-
-                if (valueFromEvaluationRatingReference != null)
-                {
-                    yield return Tuple.Create("evaluationRatingReference.evaluationTitle", instance.EvaluationRatingReference.EvaluationTitle);
-                }
-
-            }
-            var sourcesForPerformanceEvaluationTitle = GetPerformanceEvaluationTitleSources();
-
-            if (!sourcesForPerformanceEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
-            {
-                failures.Add(new ValidationFailure("PerformanceEvaluationTitle",
-                    $"Supplied values for unified key property 'performanceEvaluationTitle' on 'EvaluationObjectiveRating' are not consistent: {string.Join(", ", sourcesForPerformanceEvaluationTitle.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, string>> GetPerformanceEvaluationTitleSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationObjectiveReference = instance.EvaluationObjectiveReference?.PerformanceEvaluationTitle;
-
-                if (valueFromEvaluationObjectiveReference != null)
-                {
-                    yield return Tuple.Create("evaluationObjectiveReference.performanceEvaluationTitle", instance.EvaluationObjectiveReference.PerformanceEvaluationTitle);
-                }
-
-                // Obtain value from other references
-                var valueFromEvaluationRatingReference = instance.EvaluationRatingReference?.PerformanceEvaluationTitle;
-
-                if (valueFromEvaluationRatingReference != null)
-                {
-                    yield return Tuple.Create("evaluationRatingReference.performanceEvaluationTitle", instance.EvaluationRatingReference.PerformanceEvaluationTitle);
-                }
-
-            }
-            var sourcesForPerformanceEvaluationTypeDescriptor = GetPerformanceEvaluationTypeDescriptorSources();
-
-            if (!sourcesForPerformanceEvaluationTypeDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
-            {
-                failures.Add(new ValidationFailure("PerformanceEvaluationTypeDescriptor",
-                    $"Supplied values for unified key property 'performanceEvaluationTypeDescriptor' on 'EvaluationObjectiveRating' are not consistent: {string.Join(", ", sourcesForPerformanceEvaluationTypeDescriptor.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, string>> GetPerformanceEvaluationTypeDescriptorSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationObjectiveReference = instance.EvaluationObjectiveReference?.PerformanceEvaluationTypeDescriptor;
-
-                if (valueFromEvaluationObjectiveReference != null)
-                {
-                    yield return Tuple.Create("evaluationObjectiveReference.performanceEvaluationTypeDescriptor", instance.EvaluationObjectiveReference.PerformanceEvaluationTypeDescriptor);
-                }
-
-                // Obtain value from other references
-                var valueFromEvaluationRatingReference = instance.EvaluationRatingReference?.PerformanceEvaluationTypeDescriptor;
-
-                if (valueFromEvaluationRatingReference != null)
-                {
-                    yield return Tuple.Create("evaluationRatingReference.performanceEvaluationTypeDescriptor", instance.EvaluationRatingReference.PerformanceEvaluationTypeDescriptor);
-                }
-
-            }
-            var sourcesForSchoolYear = GetSchoolYearSources();
-
-            if (!sourcesForSchoolYear.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
-            {
-                failures.Add(new ValidationFailure("SchoolYear",
-                    $"Supplied values for unified key property 'schoolYear' on 'EvaluationObjectiveRating' are not consistent: {string.Join(", ", sourcesForSchoolYear.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, short>> GetSchoolYearSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationObjectiveReference = instance.EvaluationObjectiveReference?.SchoolYear;
-
-                if (valueFromEvaluationObjectiveReference != null)
-                {
-                    yield return Tuple.Create("evaluationObjectiveReference.schoolYear", instance.EvaluationObjectiveReference.SchoolYear);
-                }
-
-                // Obtain value from other references
-                var valueFromEvaluationRatingReference = instance.EvaluationRatingReference?.SchoolYear;
-
-                if (valueFromEvaluationRatingReference != null)
-                {
-                    yield return Tuple.Create("evaluationRatingReference.schoolYear", instance.EvaluationRatingReference.SchoolYear);
-                }
-
-            }
-            var sourcesForTermDescriptor = GetTermDescriptorSources();
-
-            if (!sourcesForTermDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
-            {
-                failures.Add(new ValidationFailure("TermDescriptor",
-                    $"Supplied values for unified key property 'termDescriptor' on 'EvaluationObjectiveRating' are not consistent: {string.Join(", ", sourcesForTermDescriptor.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, string>> GetTermDescriptorSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationObjectiveReference = instance.EvaluationObjectiveReference?.TermDescriptor;
-
-                if (valueFromEvaluationObjectiveReference != null)
-                {
-                    yield return Tuple.Create("evaluationObjectiveReference.termDescriptor", instance.EvaluationObjectiveReference.TermDescriptor);
-                }
-
-                // Obtain value from other references
-                var valueFromEvaluationRatingReference = instance.EvaluationRatingReference?.TermDescriptor;
-
-                if (valueFromEvaluationRatingReference != null)
-                {
-                    yield return Tuple.Create("evaluationRatingReference.termDescriptor", instance.EvaluationRatingReference.TermDescriptor);
                 }
 
             }
@@ -15908,10 +15850,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -16181,10 +16119,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -17238,6 +17172,213 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
                 // ---------------------------
                 //  Validate embedded objects
                 // ---------------------------
+
+                // -----------------------
+                //  Validate unified keys
+                // -----------------------
+                pathBuilder.Length = dotLength;
+                string pathPrefix = null;
+
+                var sourcesForEducationOrganizationId = GetEducationOrganizationIdSources().ToArray();
+
+                if (!sourcesForEducationOrganizationId.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForEducationOrganizationId.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForEducationOrganizationId.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'educationOrganizationId' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForEducationOrganizationId.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, int value)> GetEducationOrganizationIdSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationReference = this.EvaluationReference?.EducationOrganizationId;
+    
+                    if (valueFromEvaluationReference != null)
+                    {
+                        yield return ("evaluationReference.educationOrganizationId", this.EvaluationReference.EducationOrganizationId);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromPerformanceEvaluationRatingReference = this.PerformanceEvaluationRatingReference?.EducationOrganizationId;
+    
+                    if (valueFromPerformanceEvaluationRatingReference != null)
+                    {
+                        yield return ("performanceEvaluationRatingReference.educationOrganizationId", this.PerformanceEvaluationRatingReference.EducationOrganizationId);
+                    }
+    
+                }
+                var sourcesForEvaluationPeriodDescriptor = GetEvaluationPeriodDescriptorSources().ToArray();
+
+                if (!sourcesForEvaluationPeriodDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForEvaluationPeriodDescriptor.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForEvaluationPeriodDescriptor.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'evaluationPeriodDescriptor' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForEvaluationPeriodDescriptor.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, string value)> GetEvaluationPeriodDescriptorSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationReference = this.EvaluationReference?.EvaluationPeriodDescriptor;
+    
+                    if (valueFromEvaluationReference != null)
+                    {
+                        yield return ("evaluationReference.evaluationPeriodDescriptor", this.EvaluationReference.EvaluationPeriodDescriptor);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromPerformanceEvaluationRatingReference = this.PerformanceEvaluationRatingReference?.EvaluationPeriodDescriptor;
+    
+                    if (valueFromPerformanceEvaluationRatingReference != null)
+                    {
+                        yield return ("performanceEvaluationRatingReference.evaluationPeriodDescriptor", this.PerformanceEvaluationRatingReference.EvaluationPeriodDescriptor);
+                    }
+    
+                }
+                var sourcesForPerformanceEvaluationTitle = GetPerformanceEvaluationTitleSources().ToArray();
+
+                if (!sourcesForPerformanceEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForPerformanceEvaluationTitle.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForPerformanceEvaluationTitle.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'performanceEvaluationTitle' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForPerformanceEvaluationTitle.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, string value)> GetPerformanceEvaluationTitleSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationReference = this.EvaluationReference?.PerformanceEvaluationTitle;
+    
+                    if (valueFromEvaluationReference != null)
+                    {
+                        yield return ("evaluationReference.performanceEvaluationTitle", this.EvaluationReference.PerformanceEvaluationTitle);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromPerformanceEvaluationRatingReference = this.PerformanceEvaluationRatingReference?.PerformanceEvaluationTitle;
+    
+                    if (valueFromPerformanceEvaluationRatingReference != null)
+                    {
+                        yield return ("performanceEvaluationRatingReference.performanceEvaluationTitle", this.PerformanceEvaluationRatingReference.PerformanceEvaluationTitle);
+                    }
+    
+                }
+                var sourcesForPerformanceEvaluationTypeDescriptor = GetPerformanceEvaluationTypeDescriptorSources().ToArray();
+
+                if (!sourcesForPerformanceEvaluationTypeDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForPerformanceEvaluationTypeDescriptor.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForPerformanceEvaluationTypeDescriptor.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'performanceEvaluationTypeDescriptor' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForPerformanceEvaluationTypeDescriptor.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, string value)> GetPerformanceEvaluationTypeDescriptorSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationReference = this.EvaluationReference?.PerformanceEvaluationTypeDescriptor;
+    
+                    if (valueFromEvaluationReference != null)
+                    {
+                        yield return ("evaluationReference.performanceEvaluationTypeDescriptor", this.EvaluationReference.PerformanceEvaluationTypeDescriptor);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromPerformanceEvaluationRatingReference = this.PerformanceEvaluationRatingReference?.PerformanceEvaluationTypeDescriptor;
+    
+                    if (valueFromPerformanceEvaluationRatingReference != null)
+                    {
+                        yield return ("performanceEvaluationRatingReference.performanceEvaluationTypeDescriptor", this.PerformanceEvaluationRatingReference.PerformanceEvaluationTypeDescriptor);
+                    }
+    
+                }
+                var sourcesForSchoolYear = GetSchoolYearSources().ToArray();
+
+                if (!sourcesForSchoolYear.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForSchoolYear.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForSchoolYear.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'schoolYear' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForSchoolYear.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, short value)> GetSchoolYearSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationReference = this.EvaluationReference?.SchoolYear;
+    
+                    if (valueFromEvaluationReference != null)
+                    {
+                        yield return ("evaluationReference.schoolYear", this.EvaluationReference.SchoolYear);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromPerformanceEvaluationRatingReference = this.PerformanceEvaluationRatingReference?.SchoolYear;
+    
+                    if (valueFromPerformanceEvaluationRatingReference != null)
+                    {
+                        yield return ("performanceEvaluationRatingReference.schoolYear", this.PerformanceEvaluationRatingReference.SchoolYear);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromSectionReference = this.SectionReference?.SchoolYear;
+    
+                    if (valueFromSectionReference != null)
+                    {
+                        yield return ("sectionReference.schoolYear", this.SectionReference.SchoolYear);
+                    }
+    
+                }
+                var sourcesForTermDescriptor = GetTermDescriptorSources().ToArray();
+
+                if (!sourcesForTermDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
+                {
+                    pathPrefix ??= pathBuilder.ToString();
+
+                    string values = string.Join("', '", sourcesForTermDescriptor.Select(src => src.value.ToString().TrimAt(50, true)));
+                    string parentContextNote = sourcesForTermDescriptor.Any(src => src.path == null) ? " (including those higher up in the resource's data)" : null;
+
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult($"All values supplied for 'termDescriptor' must match. Review all references{parentContextNote} and align the following conflicting values: '{values}'",
+                        sourcesForTermDescriptor.Where(src => src.path != null).Select(src => $"{pathPrefix}{src.path}").ToArray());
+                }
+    
+                IEnumerable<(string path, string value)> GetTermDescriptorSources()
+                {
+                    // Obtain value from other references
+                    var valueFromEvaluationReference = this.EvaluationReference?.TermDescriptor;
+    
+                    if (valueFromEvaluationReference != null)
+                    {
+                        yield return ("evaluationReference.termDescriptor", this.EvaluationReference.TermDescriptor);
+                    }
+    
+                    // Obtain value from other references
+                    var valueFromPerformanceEvaluationRatingReference = this.PerformanceEvaluationRatingReference?.TermDescriptor;
+    
+                    if (valueFromPerformanceEvaluationRatingReference != null)
+                    {
+                        yield return ("performanceEvaluationRatingReference.termDescriptor", this.PerformanceEvaluationRatingReference.TermDescriptor);
+                    }
+    
+                }
             
                 // Execute the resource's fluent validator
                 var fluentValidationResult = _validator.Validate(this);
@@ -17314,180 +17455,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
                         failures.Add(new ValidationFailure("EvaluationRatingReviewers", $"A supplied 'EvaluationRatingReviewer' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
-                }
-
-            }
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-            var sourcesForEducationOrganizationId = GetEducationOrganizationIdSources();
-
-            if (!sourcesForEducationOrganizationId.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
-            {
-                failures.Add(new ValidationFailure("EducationOrganizationId",
-                    $"Supplied values for unified key property 'educationOrganizationId' on 'EvaluationRating' are not consistent: {string.Join(", ", sourcesForEducationOrganizationId.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, int>> GetEducationOrganizationIdSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationReference = instance.EvaluationReference?.EducationOrganizationId;
-
-                if (valueFromEvaluationReference != null)
-                {
-                    yield return Tuple.Create("evaluationReference.educationOrganizationId", instance.EvaluationReference.EducationOrganizationId);
-                }
-
-                // Obtain value from other references
-                var valueFromPerformanceEvaluationRatingReference = instance.PerformanceEvaluationRatingReference?.EducationOrganizationId;
-
-                if (valueFromPerformanceEvaluationRatingReference != null)
-                {
-                    yield return Tuple.Create("performanceEvaluationRatingReference.educationOrganizationId", instance.PerformanceEvaluationRatingReference.EducationOrganizationId);
-                }
-
-            }
-            var sourcesForEvaluationPeriodDescriptor = GetEvaluationPeriodDescriptorSources();
-
-            if (!sourcesForEvaluationPeriodDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
-            {
-                failures.Add(new ValidationFailure("EvaluationPeriodDescriptor",
-                    $"Supplied values for unified key property 'evaluationPeriodDescriptor' on 'EvaluationRating' are not consistent: {string.Join(", ", sourcesForEvaluationPeriodDescriptor.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, string>> GetEvaluationPeriodDescriptorSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationReference = instance.EvaluationReference?.EvaluationPeriodDescriptor;
-
-                if (valueFromEvaluationReference != null)
-                {
-                    yield return Tuple.Create("evaluationReference.evaluationPeriodDescriptor", instance.EvaluationReference.EvaluationPeriodDescriptor);
-                }
-
-                // Obtain value from other references
-                var valueFromPerformanceEvaluationRatingReference = instance.PerformanceEvaluationRatingReference?.EvaluationPeriodDescriptor;
-
-                if (valueFromPerformanceEvaluationRatingReference != null)
-                {
-                    yield return Tuple.Create("performanceEvaluationRatingReference.evaluationPeriodDescriptor", instance.PerformanceEvaluationRatingReference.EvaluationPeriodDescriptor);
-                }
-
-            }
-            var sourcesForPerformanceEvaluationTitle = GetPerformanceEvaluationTitleSources();
-
-            if (!sourcesForPerformanceEvaluationTitle.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
-            {
-                failures.Add(new ValidationFailure("PerformanceEvaluationTitle",
-                    $"Supplied values for unified key property 'performanceEvaluationTitle' on 'EvaluationRating' are not consistent: {string.Join(", ", sourcesForPerformanceEvaluationTitle.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, string>> GetPerformanceEvaluationTitleSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationReference = instance.EvaluationReference?.PerformanceEvaluationTitle;
-
-                if (valueFromEvaluationReference != null)
-                {
-                    yield return Tuple.Create("evaluationReference.performanceEvaluationTitle", instance.EvaluationReference.PerformanceEvaluationTitle);
-                }
-
-                // Obtain value from other references
-                var valueFromPerformanceEvaluationRatingReference = instance.PerformanceEvaluationRatingReference?.PerformanceEvaluationTitle;
-
-                if (valueFromPerformanceEvaluationRatingReference != null)
-                {
-                    yield return Tuple.Create("performanceEvaluationRatingReference.performanceEvaluationTitle", instance.PerformanceEvaluationRatingReference.PerformanceEvaluationTitle);
-                }
-
-            }
-            var sourcesForPerformanceEvaluationTypeDescriptor = GetPerformanceEvaluationTypeDescriptorSources();
-
-            if (!sourcesForPerformanceEvaluationTypeDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
-            {
-                failures.Add(new ValidationFailure("PerformanceEvaluationTypeDescriptor",
-                    $"Supplied values for unified key property 'performanceEvaluationTypeDescriptor' on 'EvaluationRating' are not consistent: {string.Join(", ", sourcesForPerformanceEvaluationTypeDescriptor.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, string>> GetPerformanceEvaluationTypeDescriptorSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationReference = instance.EvaluationReference?.PerformanceEvaluationTypeDescriptor;
-
-                if (valueFromEvaluationReference != null)
-                {
-                    yield return Tuple.Create("evaluationReference.performanceEvaluationTypeDescriptor", instance.EvaluationReference.PerformanceEvaluationTypeDescriptor);
-                }
-
-                // Obtain value from other references
-                var valueFromPerformanceEvaluationRatingReference = instance.PerformanceEvaluationRatingReference?.PerformanceEvaluationTypeDescriptor;
-
-                if (valueFromPerformanceEvaluationRatingReference != null)
-                {
-                    yield return Tuple.Create("performanceEvaluationRatingReference.performanceEvaluationTypeDescriptor", instance.PerformanceEvaluationRatingReference.PerformanceEvaluationTypeDescriptor);
-                }
-
-            }
-            var sourcesForSchoolYear = GetSchoolYearSources();
-
-            if (!sourcesForSchoolYear.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
-            {
-                failures.Add(new ValidationFailure("SchoolYear",
-                    $"Supplied values for unified key property 'schoolYear' on 'EvaluationRating' are not consistent: {string.Join(", ", sourcesForSchoolYear.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, short>> GetSchoolYearSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationReference = instance.EvaluationReference?.SchoolYear;
-
-                if (valueFromEvaluationReference != null)
-                {
-                    yield return Tuple.Create("evaluationReference.schoolYear", instance.EvaluationReference.SchoolYear);
-                }
-
-                // Obtain value from other references
-                var valueFromPerformanceEvaluationRatingReference = instance.PerformanceEvaluationRatingReference?.SchoolYear;
-
-                if (valueFromPerformanceEvaluationRatingReference != null)
-                {
-                    yield return Tuple.Create("performanceEvaluationRatingReference.schoolYear", instance.PerformanceEvaluationRatingReference.SchoolYear);
-                }
-
-                // Obtain value from other references
-                var valueFromSectionReference = instance.SectionReference?.SchoolYear;
-
-                if (valueFromSectionReference != null)
-                {
-                    yield return Tuple.Create("sectionReference.schoolYear", instance.SectionReference.SchoolYear);
-                }
-
-            }
-            var sourcesForTermDescriptor = GetTermDescriptorSources();
-
-            if (!sourcesForTermDescriptor.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
-            {
-                failures.Add(new ValidationFailure("TermDescriptor",
-                    $"Supplied values for unified key property 'termDescriptor' on 'EvaluationRating' are not consistent: {string.Join(", ", sourcesForTermDescriptor.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, string>> GetTermDescriptorSources()
-            {
-                // Obtain value from other references
-                var valueFromEvaluationReference = instance.EvaluationReference?.TermDescriptor;
-
-                if (valueFromEvaluationReference != null)
-                {
-                    yield return Tuple.Create("evaluationReference.termDescriptor", instance.EvaluationReference.TermDescriptor);
-                }
-
-                // Obtain value from other references
-                var valueFromPerformanceEvaluationRatingReference = instance.PerformanceEvaluationRatingReference?.TermDescriptor;
-
-                if (valueFromPerformanceEvaluationRatingReference != null)
-                {
-                    yield return Tuple.Create("performanceEvaluationRatingReference.termDescriptor", instance.PerformanceEvaluationRatingReference.TermDescriptor);
                 }
 
             }
@@ -17761,10 +17728,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -18173,10 +18136,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -18395,10 +18354,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -18670,10 +18625,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -18944,10 +18895,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -19217,10 +19164,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -19682,10 +19625,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -19956,10 +19895,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -20229,10 +20164,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -20989,10 +20920,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -21215,10 +21142,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -21458,10 +21381,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -22400,10 +22319,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -22673,10 +22588,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -23085,10 +22996,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -23307,10 +23214,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -23582,10 +23485,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -23855,10 +23754,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -24617,10 +24512,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -24890,10 +24781,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -25177,10 +25064,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -25495,10 +25378,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.TP
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -26076,10 +25955,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -26698,10 +26573,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
