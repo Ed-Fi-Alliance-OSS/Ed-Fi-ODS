@@ -381,6 +381,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     ? resourceClass.Entity.BaseEntity?.Name
                     : ResourceRenderer.DoNotRenderProperty,
                 FilteredDelegates = _resourceCollectionRenderer.FilteredDelegates(resourceClass),
+                KeyUnificationValidations = GetKeyUnificationValidations(resourceClass),
                 ShouldRenderValidator = putPostRequestValidator != ResourceRenderer.DoNotRenderProperty,
                 Validator = putPostRequestValidator,
                 HasValidatableChildren = hasValidatableChildren,
@@ -400,6 +401,71 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             };
         }
 
+        private static ResourceCollectionRenderer.KeyUnificationValidation GetKeyUnificationValidations(ResourceClassBase resourceClass)
+        {
+            var resourceChildItem = resourceClass as ResourceChildItem;
+            
+            return new ResourceCollectionRenderer.KeyUnificationValidation
+            {
+                ResourceClassName = resourceClass.Name,
+                ParentResourceClassName = resourceChildItem?.Parent.Name,
+                HasUnifiedProperties = resourceClass.AllProperties.Any(rp => rp.IsUnified()),
+                UnifiedProperties = resourceClass.AllProperties.Where(rp => rp.IsUnified())
+                    .Select(
+                        rp => new ResourceCollectionRenderer.UnifiedProperty
+                        {
+                            UnifiedPropertyName = rp.PropertyName,
+                            UnifiedJsonPropertyName = rp.JsonPropertyName,
+                            UnifiedCSharpPropertyType = rp.PropertyType.ToCSharp(),
+                            UnifiedPropertyIsFromParent = rp.EntityProperty.IncomingAssociations.Any(a => a.IsNavigable),
+                            UnifiedPropertyIsString = rp.PropertyType.IsString(),
+                            UnifiedPropertyIsLocallyDefined = rp.IsLocallyDefined,
+                            UnifiedPropertyParentPath = resourceChildItem is
+                            {
+                                IsResourceExtension: true,
+                                IsResourceExtensionClass: false,
+                            }
+                                ? string.Join(
+                                    string.Empty,
+                                    resourceChildItem.GetLineage()
+                                        .TakeWhile(l => !l.IsResourceExtension)
+                                        .Select(l => "." + l.Name))
+                                : null,
+                            References = rp.EntityProperty.IncomingAssociations
+                                .Where(a => !a.IsNavigable && rp.Parent.ReferenceByName.ContainsKey(a.Name + "Reference"))
+                                .Select(
+                                    a => new
+                                    {
+                                        Reference = rp.Parent.ReferenceByName[a.Name + "Reference"],
+                                        OtherEntityPropertyName = a.PropertyMappings
+                                            .Where(pm => pm.ThisProperty.Equals(rp.EntityProperty))
+                                            .Select(pm => pm.OtherProperty.PropertyName)
+                                            .Single(),
+                                    })
+                                .Select(
+                                    x => new
+                                    {
+                                        Reference = x.Reference,
+                                        ReferenceProperty = (x.Reference.ReferenceTypeProperties.SingleOrDefault(
+                                                rtp => rtp.EntityProperty.PropertyName == x.OtherEntityPropertyName)
+
+                                            // Deal with the special case of the re-pointing of the identifying property from USI to UniqueId in Person entities
+                                            ?? x.Reference.ReferenceTypeProperties.Single(
+                                                rtp => rtp.EntityProperty.PropertyName
+                                                    == UniqueIdConventions.GetUniqueIdPropertyName(x.OtherEntityPropertyName)))
+                                    })
+                                .Select(
+                                    x => new ResourceCollectionRenderer.UnifiedReferenceProperty
+                                    {
+                                        ReferenceName = x.Reference.PropertyName,
+                                        ReferenceJsonName = x.Reference.JsonPropertyName,
+                                        ReferencePropertyName = x.ReferenceProperty.PropertyName,
+                                        ReferenceJsonPropertyName = x.ReferenceProperty.JsonPropertyName
+                                    })
+                        })
+            };
+        }
+        
         private static IEnumerable<object> CreateResourceReferences(ResourceClassBase resourceClass)
         {
             if (resourceClass.Entity == null)

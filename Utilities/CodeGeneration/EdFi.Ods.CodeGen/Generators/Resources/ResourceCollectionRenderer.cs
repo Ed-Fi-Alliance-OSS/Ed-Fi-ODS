@@ -167,6 +167,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             public string ParentResourceClassName { get; set; }
 
+            public bool HasUnifiedProperties { get; set; }
+
             public IEnumerable<UnifiedProperty> UnifiedProperties { get; set; }
         }
 
@@ -217,58 +219,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                     resource.Entity.BaseEntity.SchemaProperCaseName())
                                 : ResourceRenderer.DoNotRenderProperty
                         }),
-                KeyUnificationValidations = new KeyUnificationValidation
-                {
-                    ResourceClassName = resource.Name,
-                    ParentResourceClassName = resourceChildItem?.Parent.Name,
-                    UnifiedProperties = resource.AllProperties
-                        .Where(rp => rp.IsUnified())
-                        .Select(rp => new UnifiedProperty
-                        {
-                            UnifiedPropertyName = rp.PropertyName,
-                            UnifiedJsonPropertyName = rp.JsonPropertyName,
-                            UnifiedCSharpPropertyType = rp.PropertyType.ToCSharp(),
-                            UnifiedPropertyIsFromParent = rp.EntityProperty.IncomingAssociations
-                                .Any(a => a.IsNavigable),
-                            UnifiedPropertyIsString = rp.PropertyType.IsString(),
-                            UnifiedPropertyIsLocallyDefined = rp.IsLocallyDefined,
-                            UnifiedPropertyParentPath = resourceChildItem is
-                                {
-                                    IsResourceExtension: true,
-                                    IsResourceExtensionClass: false, 
-                                }    
-                                ? string.Join(
-                                    string.Empty,
-                                    resourceChildItem.GetLineage().TakeWhile(l => !l.IsResourceExtension)
-                                        .Select(l => "." + l.Name))
-                                : null,
-                            References = rp.EntityProperty.IncomingAssociations
-                                .Where(a => !a.IsNavigable && rp.Parent.ReferenceByName.ContainsKey(a.Name + "Reference"))
-                                .Select(a => new
-                                {
-                                    Reference = rp.Parent.ReferenceByName[a.Name + "Reference"],
-                                    OtherEntityPropertyName = a.PropertyMappings.Where(pm => pm.ThisProperty.Equals(rp.EntityProperty)).Select(pm => pm.OtherProperty.PropertyName).Single(),
-                                })
-                                .Select(x => new
-                                {
-                                    Reference = x.Reference,
-                                    ReferenceProperty =
-                                        (x.Reference.ReferenceTypeProperties
-                                                .SingleOrDefault(rtp => rtp.EntityProperty.PropertyName == x.OtherEntityPropertyName)
-                                            // Deal with the special case of the re-pointing of the identifying property from USI to UniqueId in Person entities
-                                            ?? x.Reference.ReferenceTypeProperties
-                                                .Single(rtp => rtp.EntityProperty.PropertyName ==
-                                                    UniqueIdConventions.GetUniqueIdPropertyName(x.OtherEntityPropertyName)))
-                                })
-                                .Select(x => new UnifiedReferenceProperty
-                                {
-                                    ReferenceName = x.Reference.PropertyName,
-                                    ReferenceJsonName = x.Reference.JsonPropertyName,
-                                    ReferencePropertyName = x.ReferenceProperty.PropertyName,
-                                    ReferenceJsonPropertyName = x.ReferenceProperty.JsonPropertyName
-                                })
-                        })
-                }
             };
         }
 
