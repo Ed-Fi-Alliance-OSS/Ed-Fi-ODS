@@ -7,12 +7,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Reflection;
-using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine.Mapping;
-using EdFi.LoadTools.Engine.XmlLookupPipeline;
 
 namespace EdFi.LoadTools.Engine
 {
@@ -204,18 +201,6 @@ namespace EdFi.LoadTools.Engine
         int RemainingReferenceCount(string id);
 
         XElement VisitReference(string id);
-    }
-
-    public interface ILookupPipelineStep
-    {
-        Task<bool> Process(XmlLookupWorkItem item);
-    }
-
-    public interface IXmlPairsFactory
-    {
-        IEnumerable<XmlReader> GetSources();
-
-        IEnumerable<XmlIoPair> GetIoPairs();
     }
 
     public interface IXsdConfiguration
