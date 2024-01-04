@@ -50,7 +50,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             Should_translate_the_message_to_indicate_that_a_related_resource_does_not_have_the_value_specified_in_the_current_request_but_does_not_provide_column_level_details()
         {
             Assert.That(
-                _actualError.Detail, Is.EqualTo("The value supplied for the related 'addressType' resource does not exist."));
+                _actualError.Detail, Is.EqualTo("The referenced 'AddressType' resource does not exist."));
         }
     }
 
@@ -85,7 +85,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             Assert.That(
                 _actualError.Detail,
-                Is.EqualTo("The value supplied for the related 'limitedEnglishProficiencyType' resource does not exist."));
+                Is.EqualTo("The referenced 'LimitedEnglishProficiencyType' resource does not exist."));
         }
     }
 
@@ -121,7 +121,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             Assert.That(
                 _actualError.Detail,
                 Is.EqualTo(
-                    "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of the 'disciplineAction' entity."));
+                    "The operation cannot be performed because the resource is a dependency of the 'DisciplineAction' resource."));
         }
     }
 
@@ -157,7 +157,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             Assert.That(
                 _actualError.Detail,
                 Is.EqualTo(
-                    "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of the 'courseAttemptResultTypeId' value of the 'courseTranscript' entity."));
+                    "The operation cannot be performed because the resource is a dependency of the 'CourseTranscript' resource."));
         }
     }
 
