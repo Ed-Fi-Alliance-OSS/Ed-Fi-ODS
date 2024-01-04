@@ -134,7 +134,7 @@ public class DescriptorDetailsProvider : IDescriptorDetailsProvider
 
             if (pos < 0)
             {
-                throw new ValidationException($"{descriptorName} value '{uri}' is not a valid descriptor value.");
+                throw new ValidationException($"{descriptorName} value '{uri}' is not a valid value for use as a descriptor (a '#' is expected to delineate the namespace and code value portions).");
             }
 
             criteria.Add(Restrictions.Eq("Namespace", uri.Substring(0, pos)));

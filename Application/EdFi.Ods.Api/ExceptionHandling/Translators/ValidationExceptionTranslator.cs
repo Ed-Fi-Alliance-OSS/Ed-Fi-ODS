@@ -5,6 +5,7 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using EdFi.Ods.Common.Exceptions;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators
@@ -17,7 +18,29 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
             {
                 var validationResult = validationException.ValidationResult;
 
-                problemDetails = new BadRequestDataException("Data validation failed.", new[] { validationResult.ErrorMessage });
+                if (validationResult?.MemberNames.Any() == true)
+                {
+                    problemDetails =
+                        new BadRequestDataException("Data validation failed. See 'validationErrors' for details.", validationResult
+                            .MemberNames.Select(
+                                n => new
+                                {
+                                    MemberName = n,
+                                    ErrorMessage = validationResult.ErrorMessage
+                                })
+                            .GroupBy(x => x.MemberName, x => x.ErrorMessage)
+                            .ToDictionary(g => g.Key, g => g.ToArray()))
+                            .AsSerializableModel();
+
+                }
+                else
+                {
+                    problemDetails = new BadRequestDataException(
+                        "Data validation failed. See 'errors' for details.",
+                        new[] { validationException.Message })
+                        .AsSerializableModel();
+                }
+
                 return true;
             }
 

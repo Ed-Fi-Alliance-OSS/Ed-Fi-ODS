@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.ComponentModel.DataAnnotations;
+using EdFi.Ods.Common.Validation;
 
 namespace EdFi.Ods.Common.Attributes;
 
@@ -24,8 +25,10 @@ public class FullyDefinedReferenceAttribute : ValidationAttribute
         {
             if (!reference.IsReferenceFullyDefined())
             {
+                var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+                
                 return new ValidationResult($"{validationContext.MemberName} is missing the following properties: {string.Join(", ", reference.GetUndefinedProperties())}",
-                    new[] { validationContext.MemberName });
+                    new[] { pathBuilder.Length > 0 ? $"{pathBuilder}.{validationContext.MemberName}" : validationContext.MemberName });
             }
         }
 

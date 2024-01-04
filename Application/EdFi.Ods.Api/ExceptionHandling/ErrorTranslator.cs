@@ -32,7 +32,7 @@ namespace EdFi.Ods.Api.ExceptionHandling
             {
                 string[] errors = modelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)).ToArray();
 
-                return new BadRequestException(DetailForErrors, errors);
+                return new BadRequestException(DetailForErrors, errors).AsSerializableModel();
             }
 
             // Process data validation errors
@@ -53,7 +53,10 @@ namespace EdFi.Ods.Api.ExceptionHandling
             // Process validation results into a model state dictionary (replicating what ASP.NET would do during model binding if we hadn't taken over that process)
             foreach (ValidationResult validationResult in validationResults)
             {
-                modelState.AddModelError(validationResult.MemberNames.FirstOrDefault() ?? string.Empty, validationResult.ErrorMessage);
+                foreach (string memberName in validationResult.MemberNames)
+                {
+                    modelState.AddModelError(memberName, validationResult.ErrorMessage);
+                }
             }
 
             // Prepare the model state with appropriate JSON Paths
