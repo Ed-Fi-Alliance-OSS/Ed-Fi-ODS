@@ -259,6 +259,13 @@ namespace EdFi.Ods.Api.Controllers
         [Produces(MediaTypeNames.Application.Json)]
         public virtual async Task<IActionResult> Put([FromBody] TPutRequest request, Guid id)
         {
+            if (request == null)
+            {
+                var problemDetailsException = new BadRequestException("A non-empty request body is required.");
+
+                return CreateActionResultFromException(problemDetailsException);
+            }
+
             // Manual binding of Id to main request model
             request.Id = id;
 

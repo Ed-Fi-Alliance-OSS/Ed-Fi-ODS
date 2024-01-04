@@ -89,13 +89,11 @@ public static class ValidationHelpers
             
             if (!Validator.TryValidateObject(item, context, itemResults, true))
             {
-                string pathPrefix = pathBuilder.ToString();
-
                 foreach (var itemResult in itemResults)
                 {
                     string memberName = itemResult.MemberNames.FirstOrDefault();
 
-                    yield return new ValidationResult(itemResult.ErrorMessage, new[] { $"{pathPrefix}.{memberName}" });
+                    yield return new ValidationResult(itemResult.ErrorMessage, new[] { memberName });
                 }
                 
                 itemResults.Clear();
