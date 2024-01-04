@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common;
@@ -546,10 +547,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {

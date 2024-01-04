@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common;
@@ -276,10 +277,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -586,10 +583,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -1558,10 +1551,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -1783,10 +1772,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -2137,10 +2122,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -2364,10 +2345,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -2589,10 +2566,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -2856,10 +2829,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -3131,10 +3100,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -3404,10 +3369,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -3846,10 +3807,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -4072,10 +4029,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -4300,10 +4253,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -4526,10 +4475,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -4774,10 +4719,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -5013,10 +4954,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -5303,10 +5240,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -6038,10 +5971,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -6264,10 +6193,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -6711,10 +6636,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -6944,10 +6865,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -7189,10 +7106,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -7479,10 +7392,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -7851,10 +7760,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
                 }
 
             }
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -8229,10 +8134,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -8462,10 +8363,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -8722,10 +8619,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -8998,10 +8891,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -9484,10 +9373,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -9845,10 +9730,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -10080,10 +9961,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -10313,10 +10190,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -10573,10 +10446,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -11723,10 +11592,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -11949,10 +11814,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -12195,10 +12056,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -12444,10 +12301,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -12670,10 +12523,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -12903,10 +12752,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -13345,10 +13190,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -13572,10 +13413,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -13798,10 +13635,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -14123,32 +13956,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-            var sourcesForEducationOrganizationId = GetEducationOrganizationIdSources();
-
-            if (!sourcesForEducationOrganizationId.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual())
-            {
-                failures.Add(new ValidationFailure("EducationOrganizationId",
-                    $"Supplied values for unified key property 'educationOrganizationId' on 'StudentEducationOrganizationAssociationExtension' are not consistent: {string.Join(", ", sourcesForEducationOrganizationId.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, int>> GetEducationOrganizationIdSources()
-            {
-                // Obtain value from the parent
-                yield return Tuple.Create("educationOrganizationId (from parent context)", (instance as Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension).StudentEducationOrganizationAssociation.EducationOrganizationId);
-
-                // Obtain value from other references
-                var valueFromFavoriteProgramReference = instance.FavoriteProgramReference?.EducationOrganizationId;
-
-                if (valueFromFavoriteProgramReference != null)
-                {
-                    yield return Tuple.Create("favoriteProgramReference.educationOrganizationId", instance.FavoriteProgramReference.EducationOrganizationId);
-                }
-
-            }
 
             if (failures.Any())
             {
@@ -14486,10 +14293,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -14725,10 +14528,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -15960,10 +15759,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -16186,10 +15981,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -16433,10 +16224,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -16673,10 +16460,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -16899,10 +16682,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -17127,10 +16906,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -17353,10 +17128,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -17657,32 +17428,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-            var sourcesForStudentUniqueId = GetStudentUniqueIdSources();
-
-            if (!sourcesForStudentUniqueId.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
-            {
-                failures.Add(new ValidationFailure("StudentUniqueId",
-                    $"Supplied values for unified key property 'studentUniqueId' on 'StudentGraduationPlanAssociationStudentParentAssociation' are not consistent: {string.Join(", ", sourcesForStudentUniqueId.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, string>> GetStudentUniqueIdSources()
-            {
-                // Obtain value from the parent
-                yield return Tuple.Create("studentUniqueId (from parent context)", (instance as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation).StudentGraduationPlanAssociation.StudentUniqueId);
-
-                // Obtain value from other references
-                var valueFromStudentParentAssociationReference = instance.StudentParentAssociationReference?.StudentUniqueId;
-
-                if (valueFromStudentParentAssociationReference != null)
-                {
-                    yield return Tuple.Create("studentParentAssociationReference.studentUniqueId", instance.StudentParentAssociationReference.StudentUniqueId);
-                }
-
-            }
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -17925,10 +17670,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -18156,10 +17897,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -18967,10 +18704,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -19193,10 +18926,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -19441,10 +19170,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -19687,10 +19412,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -20075,10 +19796,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -20324,10 +20041,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -20550,10 +20263,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.Ext
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -20895,10 +20604,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
                 }
 
             }
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -21326,32 +21031,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-            var sourcesForStudentUniqueId = GetStudentUniqueIdSources();
-
-            if (!sourcesForStudentUniqueId.Select(t => t.Item2).Where(v => !v.IsDefaultValue()).AllEqual(GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer))
-            {
-                failures.Add(new ValidationFailure("StudentUniqueId",
-                    $"Supplied values for unified key property 'studentUniqueId' on 'StudentSectionAssociationRelatedGeneralStudentProgramAssociation' are not consistent: {string.Join(", ", sourcesForStudentUniqueId.Select(x => $"{x.Item1} = {x.Item2}"))}"));
-            }
-
-            IEnumerable<Tuple<string, string>> GetStudentUniqueIdSources()
-            {
-                // Obtain value from the parent
-                yield return Tuple.Create("studentUniqueId (from parent context)", (instance as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).StudentSectionAssociationExtension.StudentSectionAssociation.StudentUniqueId);
-
-                // Obtain value from other references
-                var valueFromRelatedGeneralStudentProgramAssociationReference = instance.RelatedGeneralStudentProgramAssociationReference?.StudentUniqueId;
-
-                if (valueFromRelatedGeneralStudentProgramAssociationReference != null)
-                {
-                    yield return Tuple.Create("relatedGeneralStudentProgramAssociationReference.studentUniqueId", instance.RelatedGeneralStudentProgramAssociationReference.StudentUniqueId);
-                }
-
-            }
 
             if (failures.Any())
             {

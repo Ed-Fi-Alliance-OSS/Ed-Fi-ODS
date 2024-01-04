@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common;
@@ -602,10 +603,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -828,10 +825,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -1185,10 +1178,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -1520,10 +1509,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -1972,10 +1957,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -2189,10 +2170,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -2499,10 +2476,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -3099,10 +3072,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
 
             }
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -3325,10 +3294,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -3681,10 +3646,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -4236,10 +4197,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -4462,10 +4419,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
@@ -4964,10 +4917,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
 
             if (failures.Any())
             {
