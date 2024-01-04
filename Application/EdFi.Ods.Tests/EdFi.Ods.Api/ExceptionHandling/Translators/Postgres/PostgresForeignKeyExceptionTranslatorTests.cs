@@ -150,7 +150,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                     () => _actualError.ShouldNotBeNull(),
                     () => _actualError.Status.ShouldBe(409),
                     () => _actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")),
-                    () => _actualError.Detail.ShouldBe("The value supplied for the related 'School' resource does not exist.")
+                    () => _actualError.Detail.ShouldBe("The referenced 'School' resource does not exist.")
                 );
             }
         }
@@ -215,7 +215,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                     () => actualError.ShouldNotBeNull(),
                     () => actualError.Status.ShouldBe(409),
                     () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")),
-                    () => actualError.Detail.ShouldBe("The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of the 'StudentSchoolAssociation' entity.") 
+                    () => actualError.Detail.ShouldBe("The operation cannot be performed because the resource is a dependency of the 'StudentSchoolAssociation' resource.") 
                 );
             }
         }
@@ -281,7 +281,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                     e => e.Status.ShouldBe(409),
                     e => e.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")),
                     e => e.Detail.ShouldBe(
-                        "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of another entity."));
+                        "The operation cannot be performed because the resource is a dependency of another resource."));
             }
         }
     }
