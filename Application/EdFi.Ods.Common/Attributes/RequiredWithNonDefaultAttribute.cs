@@ -6,6 +6,7 @@
 using System.ComponentModel.DataAnnotations;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
+using EdFi.Ods.Common.Validation;
 
 namespace EdFi.Ods.Common.Attributes
 {
@@ -39,8 +40,9 @@ namespace EdFi.Ods.Common.Attributes
             {
                 return ValidationResult.Success;
             }
+
             return new ValidationResult($"{validationContext.DisplayName} is required.",
-                new [] { validationContext.MemberName });
+                new [] { validationContext.MemberNamePath() });
         }
     }
 }

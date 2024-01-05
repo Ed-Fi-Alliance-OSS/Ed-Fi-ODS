@@ -87,13 +87,22 @@ public static class ValidationHelpers
             var context = new ValidationContext(item, validationContext.Items);
             itemResults ??= new List<ValidationResult>();
             
-            if (!Validator.TryValidateObject(item, context, itemResults, true))
+            if (!Validator.TryValidateObject(item, context, itemResults, validateAllProperties: true, validateEverything: true))
             {
+                string pathPrefix = pathBuilder.ToString();
+
                 foreach (var itemResult in itemResults)
                 {
                     string memberName = itemResult.MemberNames.FirstOrDefault();
 
-                    yield return new ValidationResult(itemResult.ErrorMessage, new[] { memberName });
+                    if (memberName?.StartsWith(pathPrefix) == false)
+                    {
+                        yield return new ValidationResult(itemResult.ErrorMessage, new[] { $"{pathPrefix}.{memberName}" });
+                    }
+                    else
+                    {
+                        yield return new ValidationResult(itemResult.ErrorMessage, new[] { memberName });
+                    }
                 }
                 
                 itemResults.Clear();
@@ -121,7 +130,7 @@ public static class ValidationHelpers
                 var context = new ValidationContext(entry.Value, validationContext.Items);
                 var itemResults = new List<ValidationResult>();
 
-                if (!Validator.TryValidateObject(entry.Value, context, itemResults, validateAllProperties: true))
+                if (!Validator.TryValidateObject(entry.Value, context, itemResults, validateAllProperties: true, validateEverything: true))
                 {
                     string pathPrefix = pathBuilder.ToString();
 
@@ -129,7 +138,14 @@ public static class ValidationHelpers
                     {
                         string memberName = result.MemberNames.FirstOrDefault();
 
-                        yield return new ValidationResult(result.ErrorMessage, new [] { $"{pathPrefix}.{memberName}"});
+                        if (memberName?.StartsWith(pathPrefix) == false)
+                        {
+                            yield return new ValidationResult(result.ErrorMessage, new[] { $"{pathPrefix}.{memberName}" });
+                        }
+                        else
+                        {
+                            yield return new ValidationResult(result.ErrorMessage, new[] { memberName });
+                        }
                     }
                 }
 
@@ -143,9 +159,25 @@ public static class ValidationHelpers
         var context = new ValidationContext(validationContext.ObjectInstance, validationContext.Items);
         var itemResults = new List<ValidationResult>();
 
-        if (!Validator.TryValidateObject(validationContext.ObjectInstance, context, itemResults, true))
+        if (!Validator.TryValidateObject(validationContext.ObjectInstance, context, itemResults, validateAllProperties: true, validateEverything: true))
         {
-            foreach (var result in itemResults) yield return result;
+            var pathBuilder = GetPathBuilder(validationContext);
+
+            string pathPrefix = pathBuilder.ToString();
+
+            foreach (var result in itemResults)
+            {
+                string memberName = result.MemberNames.FirstOrDefault();
+
+                if (memberName?.StartsWith(pathPrefix) == false)
+                {
+                    yield return new ValidationResult(result.ErrorMessage, new[] { $"{pathPrefix}.{memberName}" });
+                }
+                else
+                {
+                    yield return result; //new ValidationResult(result.ErrorMessage, new[] { memberName });
+                }
+            }
         }
     }
 }

@@ -3,9 +3,10 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.ComponentModel.DataAnnotations;
 using EdFi.Ods.Common.Dependencies;
+using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Validation;
 
 namespace EdFi.Ods.Common.Attributes;
 
@@ -31,12 +32,12 @@ public sealed class DescriptorExistsAttribute : ValidationAttribute
             {
                 return new ValidationResult(
                     $"{_descriptorName} value '{value}' does not exist.",
-                    new[] { validationContext.MemberName });
+                    new[] { validationContext.MemberNamePath() });
             }
         }
         catch (ValidationException ex)
         {
-            return new ValidationResult(ex.Message, new[] { validationContext.MemberName });
+            return new ValidationResult(ex.Message, new[] { validationContext.MemberNamePath() });
         }
 
         return ValidationResult.Success;

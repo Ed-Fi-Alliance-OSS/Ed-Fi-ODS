@@ -14,7 +14,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
-namespace EdFi.Ods.Api.Validation
+namespace EdFi.Ods.Common.Validation
 // namespace System.ComponentModel.DataAnnotations
 {
     /// <summary>
