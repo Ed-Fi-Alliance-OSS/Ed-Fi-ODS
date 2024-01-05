@@ -17,7 +17,7 @@ public static class ValidationHelpers
 {
     public const string JsonPathSeparator = ".";
 
-    public const string StringLengthWithMinimumMessageFormat = "{0} must between {2} and {1} characters in length.";
+    public const string StringLengthWithMinimumMessageFormat = "{0} must be between {2} and {1} characters in length.";
     public const string StringLengthMessageFormat = "{0} must be at most {1} characters in length.";
 
     public const string RangeMessageFormat = "{0} must be between {1} and {2}.";

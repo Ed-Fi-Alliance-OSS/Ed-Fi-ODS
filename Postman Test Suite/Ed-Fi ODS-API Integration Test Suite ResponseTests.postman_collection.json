@@ -3478,7 +3478,7 @@
 															"  pm.expect(problemDetails.validationErrors).to.deep.equal({",
 															"    \"$.lastSurname\": [",
 															"      \"LastSurname is required.\",",
-															"      \"LastSurname must between 1 and 75 characters in length.\"",
+															"      \"LastSurname must be between 1 and 75 characters in length.\"",
 															"    ]",
 															"  });",
 															"});",
