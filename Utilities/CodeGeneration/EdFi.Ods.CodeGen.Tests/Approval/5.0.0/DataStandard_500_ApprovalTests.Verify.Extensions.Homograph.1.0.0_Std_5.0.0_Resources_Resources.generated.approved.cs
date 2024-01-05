@@ -130,7 +130,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class Contact : Entities.Common.Homograph.IContact, IHasETag, IDateVersionedEntity, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -623,7 +622,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class ContactAddress : Entities.Common.Homograph.IContactAddress
     {
         // Fluent validator instance (threadsafe)
@@ -846,7 +844,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class ContactStudentSchoolAssociation : Entities.Common.Homograph.IContactStudentSchoolAssociation
     {
         // Fluent validator instance (threadsafe)
@@ -1300,7 +1297,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class Name : Entities.Common.Homograph.IName, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -1624,7 +1620,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class School : Entities.Common.Homograph.ISchool, IHasETag, IDateVersionedEntity, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -1977,7 +1972,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class SchoolAddress : Entities.Common.Homograph.ISchoolAddress
     {
         // Fluent validator instance (threadsafe)
@@ -2285,7 +2279,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class SchoolYearType : Entities.Common.Homograph.ISchoolYearType, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -2599,7 +2592,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class Staff : Entities.Common.Homograph.IStaff, IHasETag, IDateVersionedEntity, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -3092,7 +3084,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StaffAddress : Entities.Common.Homograph.IStaffAddress
     {
         // Fluent validator instance (threadsafe)
@@ -3315,7 +3306,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StaffStudentSchoolAssociation : Entities.Common.Homograph.IStaffStudentSchoolAssociation
     {
         // Fluent validator instance (threadsafe)
@@ -3769,7 +3759,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class Student : Entities.Common.Homograph.IStudent, IHasETag, IDateVersionedEntity, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -4217,7 +4206,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentAddress : Entities.Common.Homograph.IStudentAddress
     {
         // Fluent validator instance (threadsafe)
@@ -4550,7 +4538,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentSchoolAssociation : Entities.Common.Homograph.IStudentSchoolAssociation, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
