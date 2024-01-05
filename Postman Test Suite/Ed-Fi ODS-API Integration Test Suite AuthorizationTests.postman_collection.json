@@ -3318,10 +3318,14 @@
 													"listen": "test",
 													"script": {
 														"exec": [
-															"pm.test(\"Status code is 403\", function () {\r",
-															"  pm.response.to.have.status(403);\r",
-															"});\r",
-															"pm.environment.set('known:orgDeptId:001', ''); // Set a default value for known:orgDeptId:001"
+															"// 4.0.0 does not include this resource\r",
+															"if (pm.environment.get(\"known:standardVersion\")[0] != \"4.0.0\") {\r",
+															"  pm.test(\"Status code is 403\", () => {\r",
+															"    pm.response.to.have.status(403);\r",
+															"  });\r",
+															"\r",
+															"  pm.environment.set('known:orgDeptId:001', ''); // Set a default value for known:orgDeptId:001\r",
+															"}"
 														],
 														"type": "text/javascript"
 													}
