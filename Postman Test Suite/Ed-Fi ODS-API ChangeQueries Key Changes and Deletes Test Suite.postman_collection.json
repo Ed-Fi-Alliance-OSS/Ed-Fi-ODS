@@ -10295,7 +10295,7 @@
 													"  const problemDetails = pm.response.json();\r",
 													"\r",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
-													"  pm.expect(problemDetails.detail).to.equal(\"Identifying (key) values for the 'Student' resource cannot be changed. Delete and recreate the resource item instead.\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Identifying values for the Student resource cannot be changed. Delete and recreate the resource item instead.\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -10363,7 +10363,7 @@
 													"\r",
 													"    let parentOrContactProperName = pm.environment.get(\"ParentOrContactProperName\");\r",
 													"  \r",
-													"    pm.expect(problemDetails.detail).to.equal(`Identifying (key) values for the '${parentOrContactProperName}' resource cannot be changed. Delete and recreate the resource item instead.`);\r",
+													"    pm.expect(problemDetails.detail).to.equal(`Identifying values for the ${parentOrContactProperName} resource cannot be changed. Delete and recreate the resource item instead.`);\r",
 													"  });\r",
 													"}\r",
 													""
