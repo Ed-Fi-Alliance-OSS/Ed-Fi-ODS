@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using EdFi.Ods.Common;
+using Validator = EdFi.Ods.Common.Validation.Validator;
 
 namespace EdFi.Ods.Api.Validation
 {

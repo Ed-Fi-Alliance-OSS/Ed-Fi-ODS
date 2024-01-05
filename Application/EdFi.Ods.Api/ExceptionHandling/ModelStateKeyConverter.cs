@@ -16,6 +16,11 @@ public class ModelStateKeyConverter
 {
     public virtual string GetJsonPath(Resource resource, string key)
     {
+        if (string.IsNullOrEmpty(key))
+        {
+            return "$";
+        }
+
         string jsonPath = string.Join('.', GetJsonPathParts(resource, key));
 
         return string.Concat("$.", jsonPath);

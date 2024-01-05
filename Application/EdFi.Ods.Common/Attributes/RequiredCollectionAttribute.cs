@@ -6,6 +6,8 @@
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Validation;
 
 namespace EdFi.Ods.Common.Attributes
 {
@@ -19,7 +21,7 @@ namespace EdFi.Ods.Common.Attributes
             {
                 return new ValidationResult(
                     $"{validationContext.DisplayName} must have at least one item.",
-                    new[] { validationContext.MemberName });
+                    new[] { validationContext.MemberNamePath() });
             }
 
             return ValidationResult.Success;

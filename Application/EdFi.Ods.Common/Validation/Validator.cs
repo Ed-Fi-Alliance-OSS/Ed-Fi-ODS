@@ -12,7 +12,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace EdFi.Ods.Api.Validation
+namespace EdFi.Ods.Common.Validation
 // namespace System.ComponentModel.DataAnnotations
 {
     /// <summary>

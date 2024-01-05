@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,6 +27,7 @@ using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
 using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models.Queries;
+using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.ProblemDetails;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
@@ -34,6 +36,7 @@ using EdFi.Ods.Common.Validation;
 using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Net.Http.Headers;
 using Polly;
 using Polly.Retry;
@@ -261,9 +264,7 @@ namespace EdFi.Ods.Api.Controllers
         {
             if (request == null)
             {
-                var problemDetailsException = new BadRequestException("A non-empty request body is required.");
-
-                return CreateActionResultFromException(problemDetailsException);
+                return GetActionResultForNullRequest(_dataManagementResourceContextProvider.Get().Resource);
             }
 
             // Manual binding of Id to main request model
@@ -313,6 +314,12 @@ namespace EdFi.Ods.Api.Controllers
             }
         }
 
+        private IActionResult GetActionResultForNullRequest(Resource resource)
+        {
+            var problemDetails = _errorTranslator.GetProblemDetails(resource, ModelState);
+            return StatusCode(problemDetails.Status, problemDetails);
+        }
+
         [HttpPost]
         [ServiceFilter(typeof(EnforceAssignedProfileUsageFilter), IsReusable = true)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -322,6 +329,11 @@ namespace EdFi.Ods.Api.Controllers
         [Produces(MediaTypeNames.Application.Json)]
         public virtual async Task<IActionResult> Post([FromBody] TPostRequest request)
         {
+            if (request == null)
+            {
+                return GetActionResultForNullRequest(_dataManagementResourceContextProvider.Get().Resource);
+            }
+
             var validationState = new ValidationState();
 
             // Make sure Id is not already set (no client-assigned Ids)
@@ -377,11 +389,10 @@ namespace EdFi.Ods.Api.Controllers
             }
         }
 
-        // TODO: Either inject these, or just make this functionality available through static helpers
         // ReSharper disable once StaticMemberInGenericType
         private static readonly ErrorTranslator _errorTranslator = new(new ModelStateKeyConverter());
 
-        private IActionResult ValidationFailedResult(List<ValidationResult> validationResults)
+        private IActionResult ValidationFailedResult(IEnumerable<ValidationResult> validationResults)
         {
             var problemDetails = _errorTranslator.GetProblemDetails(
                 _dataManagementResourceContextProvider.Get().Resource,

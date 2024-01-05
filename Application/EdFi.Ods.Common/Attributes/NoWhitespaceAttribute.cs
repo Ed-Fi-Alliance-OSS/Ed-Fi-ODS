@@ -4,6 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.ComponentModel.DataAnnotations;
+using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Validation;
 
 namespace EdFi.Ods.Common.Attributes
 {
@@ -14,13 +16,16 @@ namespace EdFi.Ods.Common.Attributes
             string stringValue = value as string;
 
             // Validate property value does not contain any leading or trailing whitespace
-            return stringValue == null
+            if (stringValue == null
                 || !((stringValue.Length > 0 && char.IsWhiteSpace(stringValue, 0))
-                    || (stringValue.Length > 0 && char.IsWhiteSpace(stringValue, stringValue.Length - 1)))
-                    ? ValidationResult.Success
-                    : new ValidationResult(
-                        $"{validationContext.MemberName} cannot contain leading or trailing spaces.",
-                        new[] { validationContext.MemberName });
+                    || (stringValue.Length > 0 && char.IsWhiteSpace(stringValue, stringValue.Length - 1))))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new ValidationResult(
+                $"{validationContext.MemberName} cannot contain leading or trailing spaces.",
+                new[] { validationContext.MemberNamePath() });
         }
     }
 }
