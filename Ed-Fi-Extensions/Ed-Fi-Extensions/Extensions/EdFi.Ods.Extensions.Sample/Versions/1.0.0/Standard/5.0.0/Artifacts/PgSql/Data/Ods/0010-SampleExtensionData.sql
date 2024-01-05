@@ -494,7 +494,7 @@ INSERT INTO sample.BusRouteStartTime
     (BusId
     , BusRouteNumber
     , StartTime)
-VALUES ('602', 102, '13:01:01.1234567');
+VALUES ('602', 102, '13:01:01');
 
 INSERT INTO sample.BusRouteTelephone
     (BusId
