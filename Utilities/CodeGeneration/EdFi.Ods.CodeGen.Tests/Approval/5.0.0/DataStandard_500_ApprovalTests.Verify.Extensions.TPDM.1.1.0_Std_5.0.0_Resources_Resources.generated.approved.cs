@@ -33,7 +33,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class AccreditationStatusDescriptor : Entities.Common.TPDM.IAccreditationStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -303,7 +302,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class AidTypeDescriptor : Entities.Common.TPDM.IAidTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -662,7 +660,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class Candidate : Entities.Common.TPDM.ICandidate, IHasETag, IDateVersionedEntity, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -1708,7 +1705,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class CandidateAddress : Entities.Common.TPDM.ICandidateAddress, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -2200,7 +2196,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class CandidateAddressPeriod : Entities.Common.TPDM.ICandidateAddressPeriod
     {
         // Fluent validator instance (threadsafe)
@@ -2429,7 +2424,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class CandidateDisability : Entities.Common.TPDM.ICandidateDisability, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -2801,7 +2795,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class CandidateDisabilityDesignation : Entities.Common.TPDM.ICandidateDisabilityDesignation
     {
         // Fluent validator instance (threadsafe)
@@ -3024,7 +3017,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class CandidateElectronicMail : Entities.Common.TPDM.ICandidateElectronicMail
     {
         // Fluent validator instance (threadsafe)
@@ -3279,7 +3271,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class CandidateLanguage : Entities.Common.TPDM.ICandidateLanguage, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -3628,7 +3619,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class CandidateLanguageUse : Entities.Common.TPDM.ICandidateLanguageUse
     {
         // Fluent validator instance (threadsafe)
@@ -3851,7 +3841,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class CandidateOtherName : Entities.Common.TPDM.ICandidateOtherName
     {
         // Fluent validator instance (threadsafe)
@@ -4116,7 +4105,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class CandidatePersonalIdentificationDocument : Entities.Common.TPDM.ICandidatePersonalIdentificationDocument
     {
         // Fluent validator instance (threadsafe)
@@ -4396,7 +4384,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class CandidateRace : Entities.Common.TPDM.ICandidateRace
     {
         // Fluent validator instance (threadsafe)
@@ -4619,7 +4606,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class CandidateTelephone : Entities.Common.TPDM.ICandidateTelephone
     {
         // Fluent validator instance (threadsafe)
@@ -5008,7 +4994,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class CandidateEducatorPreparationProgramAssociation : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation, IHasETag, IDateVersionedEntity, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -5651,7 +5636,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class CandidateEducatorPreparationProgramAssociationCohortYear : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear
     {
         // Fluent validator instance (threadsafe)
@@ -5956,7 +5940,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class CandidateEducatorPreparationProgramAssociationDegreeSpecialization : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization
     {
         // Fluent validator instance (threadsafe)
@@ -6199,7 +6182,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class CertificationRouteDescriptor : Entities.Common.TPDM.ICertificationRouteDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -6469,7 +6451,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class CoteachingStyleObservedDescriptor : Entities.Common.TPDM.ICoteachingStyleObservedDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -7220,7 +7201,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class CredentialStudentAcademicRecord : Entities.Common.TPDM.ICredentialStudentAcademicRecord
     {
         // Fluent validator instance (threadsafe)
@@ -7608,7 +7588,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class CredentialStatusDescriptor : Entities.Common.TPDM.ICredentialStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -7983,7 +7962,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EducatorPreparationProgram : Entities.Common.TPDM.IEducatorPreparationProgram, IHasETag, IDateVersionedEntity, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -8435,7 +8413,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EducatorPreparationProgramGradeLevel : Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel
     {
         // Fluent validator instance (threadsafe)
@@ -8663,7 +8640,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EducatorRoleDescriptor : Entities.Common.TPDM.IEducatorRoleDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -8933,7 +8909,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EnglishLanguageExamDescriptor : Entities.Common.TPDM.IEnglishLanguageExamDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -9203,7 +9178,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EPPProgramPathwayDescriptor : Entities.Common.TPDM.IEPPProgramPathwayDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -9610,7 +9584,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class Evaluation : Entities.Common.TPDM.IEvaluation, IHasETag, IDateVersionedEntity, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -10223,7 +10196,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EvaluationRatingLevel : Entities.Common.TPDM.IEvaluationRatingLevel
     {
         // Fluent validator instance (threadsafe)
@@ -10620,7 +10592,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EvaluationElement : Entities.Common.TPDM.IEvaluationElement, IHasETag, IDateVersionedEntity, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -11291,7 +11262,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EvaluationElementRatingLevel : Entities.Common.TPDM.IEvaluationElementRatingLevel
     {
         // Fluent validator instance (threadsafe)
@@ -11712,7 +11682,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EvaluationElementRating : Entities.Common.TPDM.IEvaluationElementRating, IHasETag, IDateVersionedEntity, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -12836,7 +12805,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class EvaluationElementRatingResult : Entities.Common.TPDM.IEvaluationElementRatingResult, IHasRequiredMembersWithMeaningfulDefaultValues
     {
@@ -13111,7 +13079,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EvaluationElementRatingLevelDescriptor : Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -13526,7 +13493,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EvaluationObjective : Entities.Common.TPDM.IEvaluationObjective, IHasETag, IDateVersionedEntity, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -14172,7 +14138,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EvaluationObjectiveRatingLevel : Entities.Common.TPDM.IEvaluationObjectiveRatingLevel
     {
         // Fluent validator instance (threadsafe)
@@ -14585,7 +14550,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EvaluationObjectiveRating : Entities.Common.TPDM.IEvaluationObjectiveRating, IHasETag, IDateVersionedEntity, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -15616,7 +15580,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class EvaluationObjectiveRatingResult : Entities.Common.TPDM.IEvaluationObjectiveRatingResult, IHasRequiredMembersWithMeaningfulDefaultValues
     {
@@ -15891,7 +15854,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EvaluationPeriodDescriptor : Entities.Common.TPDM.IEvaluationPeriodDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -16322,7 +16284,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EvaluationRating : Entities.Common.TPDM.IEvaluationRating, IHasETag, IDateVersionedEntity, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -17495,7 +17456,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class EvaluationRatingResult : Entities.Common.TPDM.IEvaluationRatingResult, IHasRequiredMembersWithMeaningfulDefaultValues
     {
@@ -17765,7 +17725,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EvaluationRatingReviewer : Entities.Common.TPDM.IEvaluationRatingReviewer, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -18172,7 +18131,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EvaluationRatingReviewerReceivedTraining : Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining
     {
         // Fluent validator instance (threadsafe)
@@ -18396,7 +18354,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EvaluationRatingLevelDescriptor : Entities.Common.TPDM.IEvaluationRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -18666,7 +18623,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EvaluationRatingStatusDescriptor : Entities.Common.TPDM.IEvaluationRatingStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -18936,7 +18892,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class EvaluationTypeDescriptor : Entities.Common.TPDM.IEvaluationTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -19320,7 +19275,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class FinancialAid : Entities.Common.TPDM.IFinancialAid, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -19666,7 +19620,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class GenderDescriptor : Entities.Common.TPDM.IGenderDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -19936,7 +19889,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class ObjectiveRatingLevelDescriptor : Entities.Common.TPDM.IObjectiveRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -20335,7 +20287,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class PerformanceEvaluation : Entities.Common.TPDM.IPerformanceEvaluation, IHasETag, IDateVersionedEntity, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -20956,7 +20907,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class PerformanceEvaluationGradeLevel : Entities.Common.TPDM.IPerformanceEvaluationGradeLevel
     {
         // Fluent validator instance (threadsafe)
@@ -21179,7 +21129,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class PerformanceEvaluationRatingLevel : Entities.Common.TPDM.IPerformanceEvaluationRatingLevel
     {
         // Fluent validator instance (threadsafe)
@@ -21568,7 +21517,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class PerformanceEvaluationRating : Entities.Common.TPDM.IPerformanceEvaluationRating, IHasETag, IDateVersionedEntity, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -22355,7 +22303,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class PerformanceEvaluationRatingResult : Entities.Common.TPDM.IPerformanceEvaluationRatingResult, IHasRequiredMembersWithMeaningfulDefaultValues
     {
@@ -22625,7 +22572,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class PerformanceEvaluationRatingReviewer : Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -23032,7 +22978,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class PerformanceEvaluationRatingReviewerReceivedTraining : Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining
     {
         // Fluent validator instance (threadsafe)
@@ -23256,7 +23201,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class PerformanceEvaluationRatingLevelDescriptor : Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -23526,7 +23470,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class PerformanceEvaluationTypeDescriptor : Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -23957,7 +23900,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class RubricDimension : Entities.Common.TPDM.IRubricDimension, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues
     {
@@ -24553,7 +24495,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class RubricRatingLevelDescriptor : Entities.Common.TPDM.IRubricRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -25541,7 +25482,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class SurveyResponsePersonTargetAssociation : Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -26126,7 +26066,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class SurveySectionResponsePersonTargetAssociation : Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)

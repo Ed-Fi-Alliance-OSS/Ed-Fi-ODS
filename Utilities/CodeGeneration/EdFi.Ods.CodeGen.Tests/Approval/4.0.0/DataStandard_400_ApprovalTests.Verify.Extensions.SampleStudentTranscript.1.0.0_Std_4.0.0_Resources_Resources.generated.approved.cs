@@ -33,7 +33,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class InstitutionControlDescriptor : Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -303,7 +302,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class InstitutionLevelDescriptor : Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -662,7 +660,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class PostSecondaryOrganization : Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues
     {
@@ -925,7 +922,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class SpecialEducationGraduationStatusDescriptor : Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -1712,7 +1708,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class SubmissionCertificationDescriptor : Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)

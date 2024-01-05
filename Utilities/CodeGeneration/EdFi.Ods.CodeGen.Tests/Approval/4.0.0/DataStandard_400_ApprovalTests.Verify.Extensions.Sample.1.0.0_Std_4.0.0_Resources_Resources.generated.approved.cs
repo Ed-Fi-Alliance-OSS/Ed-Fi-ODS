@@ -33,7 +33,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class ArtMediumDescriptor : Entities.Common.Sample.IArtMediumDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -392,7 +391,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class Bus : Entities.Common.Sample.IBus, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -706,7 +704,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class BusRoute : Entities.Common.Sample.IBusRoute, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues, IValidatableObject
     {
@@ -1571,7 +1568,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class BusRouteBusYear : Entities.Common.Sample.IBusRouteBusYear
     {
         // Fluent validator instance (threadsafe)
@@ -1793,7 +1789,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class BusRouteProgram : Entities.Common.Sample.IBusRouteProgram
     {
         // Fluent validator instance (threadsafe)
@@ -2142,7 +2137,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class BusRouteServiceAreaPostalCode : Entities.Common.Sample.IBusRouteServiceAreaPostalCode
     {
         // Fluent validator instance (threadsafe)
@@ -2365,7 +2359,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class BusRouteStartTime : Entities.Common.Sample.IBusRouteStartTime
     {
         // Fluent validator instance (threadsafe)
@@ -2587,7 +2580,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class BusRouteTelephone : Entities.Common.Sample.IBusRouteTelephone
     {
         // Fluent validator instance (threadsafe)
@@ -2855,7 +2847,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class FavoriteBookCategoryDescriptor : Entities.Common.Sample.IFavoriteBookCategoryDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -3125,7 +3116,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class MembershipTypeDescriptor : Entities.Common.Sample.IMembershipTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
         // Fluent validator instance (threadsafe)
@@ -3827,7 +3817,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class ParentAddressSchoolDistrict : Entities.Common.Sample.IParentAddressSchoolDistrict
     {
         // Fluent validator instance (threadsafe)
@@ -4050,7 +4039,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class ParentAddressTerm : Entities.Common.Sample.IParentAddressTerm
     {
         // Fluent validator instance (threadsafe)
@@ -4273,7 +4261,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class ParentAuthor : Entities.Common.Sample.IParentAuthor
     {
         // Fluent validator instance (threadsafe)
@@ -4496,7 +4483,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class ParentCeilingHeight : Entities.Common.Sample.IParentCeilingHeight, IHasRequiredMembersWithMeaningfulDefaultValues
     {
@@ -4739,7 +4725,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class ParentCTEProgram : Entities.Common.Sample.IParentCTEProgram
     {
         // Fluent validator instance (threadsafe)
@@ -4975,7 +4960,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class ParentEducationContent : Entities.Common.Sample.IParentEducationContent
     {
         // Fluent validator instance (threadsafe)
@@ -5991,7 +5975,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class ParentFavoriteBookTitle : Entities.Common.Sample.IParentFavoriteBookTitle
     {
         // Fluent validator instance (threadsafe)
@@ -6214,7 +6197,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class ParentStudentProgramAssociation : Entities.Common.Sample.IParentStudentProgramAssociation
     {
         // Fluent validator instance (threadsafe)
@@ -6656,7 +6638,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class ParentTeacherConference : Entities.Common.Sample.IParentTeacherConference
     {
         // Fluent validator instance (threadsafe)
@@ -6891,7 +6872,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class SchoolCTEProgram : Entities.Common.Sample.ISchoolCTEProgram
     {
         // Fluent validator instance (threadsafe)
@@ -7127,7 +7107,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class SchoolDirectlyOwnedBus : Entities.Common.Sample.ISchoolDirectlyOwnedBus
     {
         // Fluent validator instance (threadsafe)
@@ -8154,7 +8133,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StaffPet : Entities.Common.Sample.IStaffPet
     {
         // Fluent validator instance (threadsafe)
@@ -8384,7 +8362,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StaffPetPreference : Entities.Common.Sample.IStaffPetPreference, IHasRequiredMembersWithMeaningfulDefaultValues
     {
@@ -8645,7 +8622,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentAquaticPet : Entities.Common.Sample.IStudentAquaticPet, IHasRequiredMembersWithMeaningfulDefaultValues
     {
@@ -9393,7 +9369,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentFavoriteBook : Entities.Common.Sample.IStudentFavoriteBook, IValidatableObject
     {
         // Fluent validator instance (threadsafe)
@@ -9750,7 +9725,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentFavoriteBookArtMedium : Entities.Common.Sample.IStudentFavoriteBookArtMedium
     {
         // Fluent validator instance (threadsafe)
@@ -9981,7 +9955,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentPet : Entities.Common.Sample.IStudentPet
     {
         // Fluent validator instance (threadsafe)
@@ -10211,7 +10184,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentPetPreference : Entities.Common.Sample.IStudentPetPreference, IHasRequiredMembersWithMeaningfulDefaultValues
     {
@@ -10585,7 +10557,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentArtProgramAssociation : Entities.Common.Sample.IStudentArtProgramAssociation, Entities.Common.EdFi.IGeneralStudentProgramAssociation, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues, IValidatableObject
     {
@@ -11612,7 +11583,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentArtProgramAssociationArtMedium : Entities.Common.Sample.IStudentArtProgramAssociationArtMedium
     {
         // Fluent validator instance (threadsafe)
@@ -11835,7 +11805,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentArtProgramAssociationPortfolioYears : Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears, IHasRequiredMembersWithMeaningfulDefaultValues
     {
@@ -12077,7 +12046,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentArtProgramAssociationService : Entities.Common.Sample.IStudentArtProgramAssociationService
     {
         // Fluent validator instance (threadsafe)
@@ -12321,7 +12289,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentArtProgramAssociationStyle : Entities.Common.Sample.IStudentArtProgramAssociationStyle
     {
         // Fluent validator instance (threadsafe)
@@ -13210,7 +13177,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentEducationOrganizationAssociationAddressSchoolDistrict : Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict
     {
         // Fluent validator instance (threadsafe)
@@ -13433,7 +13399,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentEducationOrganizationAssociationAddressTerm : Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm
     {
         // Fluent validator instance (threadsafe)
@@ -14313,7 +14278,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed : Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed
     {
         // Fluent validator instance (threadsafe)
@@ -14676,7 +14640,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentGraduationPlanAssociation : Entities.Common.Sample.IStudentGraduationPlanAssociation, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues, IValidatableObject
     {
@@ -15779,7 +15742,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentGraduationPlanAssociationAcademicSubject : Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject
     {
         // Fluent validator instance (threadsafe)
@@ -16002,7 +15964,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentGraduationPlanAssociationCareerPathwayCode : Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode, IHasRequiredMembersWithMeaningfulDefaultValues
     {
@@ -16244,7 +16205,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentGraduationPlanAssociationCTEProgram : Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram
     {
         // Fluent validator instance (threadsafe)
@@ -16480,7 +16440,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentGraduationPlanAssociationDescription : Entities.Common.Sample.IStudentGraduationPlanAssociationDescription
     {
         // Fluent validator instance (threadsafe)
@@ -16703,7 +16662,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentGraduationPlanAssociationDesignatedBy : Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy
     {
         // Fluent validator instance (threadsafe)
@@ -16926,7 +16884,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentGraduationPlanAssociationIndustryCredential : Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential
     {
         // Fluent validator instance (threadsafe)
@@ -17149,7 +17106,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentGraduationPlanAssociationStudentParentAssociation : Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation
     {
         // Fluent validator instance (threadsafe)
@@ -17448,7 +17404,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentGraduationPlanAssociationYearsAttended : Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended, IHasRequiredMembersWithMeaningfulDefaultValues
     {
@@ -17695,7 +17650,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentParentAssociationDiscipline : Entities.Common.Sample.IStudentParentAssociationDiscipline
     {
         // Fluent validator instance (threadsafe)
@@ -18724,7 +18678,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentParentAssociationFavoriteBookTitle : Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle
     {
         // Fluent validator instance (threadsafe)
@@ -18947,7 +18900,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentParentAssociationHoursPerWeek : Entities.Common.Sample.IStudentParentAssociationHoursPerWeek, IHasRequiredMembersWithMeaningfulDefaultValues
     {
@@ -19190,7 +19142,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentParentAssociationPagesRead : Entities.Common.Sample.IStudentParentAssociationPagesRead, IHasRequiredMembersWithMeaningfulDefaultValues
     {
@@ -19433,7 +19384,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentParentAssociationStaffEducationOrganizationEmploymentAssociation : Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation
     {
         // Fluent validator instance (threadsafe)
@@ -19816,7 +19766,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentParentAssociationTelephone : Entities.Common.Sample.IStudentParentAssociationTelephone
     {
         // Fluent validator instance (threadsafe)
@@ -20625,7 +20574,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     public class StudentSectionAssociationRelatedGeneralStudentProgramAssociation : Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation
     {
         // Fluent validator instance (threadsafe)

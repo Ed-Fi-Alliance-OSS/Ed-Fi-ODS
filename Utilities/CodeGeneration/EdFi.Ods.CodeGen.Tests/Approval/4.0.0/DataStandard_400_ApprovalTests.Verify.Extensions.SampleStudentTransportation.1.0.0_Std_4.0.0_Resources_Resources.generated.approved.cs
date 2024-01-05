@@ -154,7 +154,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentTransportation : Entities.Common.SampleStudentTransportation.IStudentTransportation, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues
     {
