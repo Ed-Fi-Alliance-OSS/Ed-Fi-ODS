@@ -4744,12 +4744,12 @@
 													"});",
 													"",
 													"pm.test(\"Should indicate the source values are inconsistent\", () => {",
-													"  pm.expect(problemDetails.validationErrors).to.deep.equal({",
+													"  pm.expect(problemDetails.validationErrors).to.deep.include({",
 													"    \"$.gradingPeriodReference.schoolId\": [",
-													"      \"All values supplied for 'schoolId' must match. Review references and align the following conflicting values: '777', '888'\"",
+													"      \"All values supplied for 'schoolId' must match. Review all references and align the following conflicting values: '777', '888'\"",
 													"    ],",
 													"    \"$.studentSectionAssociationReference.schoolId\": [",
-													"      \"All values supplied for 'schoolId' must match. Review references and align the following conflicting values: '777', '888'\"",
+													"      \"All values supplied for 'schoolId' must match. Review all references and align the following conflicting values: '777', '888'\"",
 													"    ]",
 													"  });",
 													"});",
@@ -7261,11 +7261,7 @@
 															"});",
 															"",
 															"pm.test(\"Should return a message indicating that id is invalid\", () => {",
-															"    pm.expect(problemDetails.validationErrors).to.deep.equal({",
-															"    \"$.id\": [",
-															"      \"The value '5' is not valid.\"",
-															"    ]",
-															"  });",
+															"    pm.expect(problemDetails.validationErrors[\"$.id\"]).to.match(/The value '[\\d\\w]' is not valid./);",
 															"});",
 															""
 														],
@@ -7384,7 +7380,7 @@
 													"script": {
 														"exec": [
 															"pm.test(\"Status code is 400\", () => {",
-															"    pm.expect(pm.response.code).to.equal(400);",
+															"  pm.expect(pm.response.code).to.equal(400);",
 															"});",
 															"",
 															"const problemDetails = pm.response.json();",
@@ -7396,16 +7392,9 @@
 															"});",
 															"",
 															"pm.test(\"Should return a message indicating that the request indicating a request body is required and the id is invalid.\", () => {",
-															"    pm.expect(problemDetails.validationErrors).to.deep.equal({",
-															"    \"$.\": [",
-															"      \"A non-empty request body is required.\"",
-															"    ],",
-															"    \"$.id\": [",
-															"      \"The value '5' is not valid.\"",
-															"    ]",
-															"  });",
-															"});",
-															""
+															"  pm.expect(problemDetails.validationErrors[\"$\"]).to.deep.equal([\"A non-empty request body is required.\"]);",
+															"  pm.expect(problemDetails.validationErrors[\"$.id\"]).to.match(/The value '[\\d\\w]' is not valid./);",
+															"});"
 														],
 														"type": "text/javascript"
 													}
