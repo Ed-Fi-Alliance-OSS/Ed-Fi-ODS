@@ -873,7 +873,7 @@
 											"// Log the body in report output using an expectation if the response is unexpected",
 											"if (pm.response.code != 403) {",
 											"  pm.test(\"Log the body\", () => {",
-											"    pm.expect(pm.response.json()).to.equal(\"Something else\");",
+											"    pm.expect(JSON.stringify(pm.response.json())).to.equal(\"Something else\");",
 											"  });",
 											"}",
 											"",
@@ -914,7 +914,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "  {\r\n    \"educationOrganizationReference\": {\r\n     \"educationOrganizationId\": \"{{known:schoolId2}}\"\r\n    },\r\n    \"programReference\": {\r\n      \"educationOrganizationId\": \"{{known:schoolId2}}\",\r\n       \"programName\":\"{{known:programName}}\",\r\n      \"programTypeDescriptor\":\"{{known:programTypeDescriptor}}\"\r\n    },\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"{{known:secondstudentUniqueId}}\"\r\n    },\r\n    \"beginDate\": \"2010-08-30\",\r\n    \"endDate\": \"2010-12-17\",\r\n    \"sexDescriptor\": \"uri://ed-fi.org/SexDescriptor#Male\",\r\n    \"reasonExitedDescriptor\": \"uri://ed-fi.org/ReasonExitedDescriptor#Moved out of state\"\r\n  }\r\n"
+									"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"{{known:schoolId2}}\"\r\n  },\r\n  \"programReference\": {\r\n    \"educationOrganizationId\": \"{{known:schoolId2}}\",\r\n    \"programName\": \"{{known:programName}}\",\r\n    \"programTypeDescriptor\": \"{{known:programTypeDescriptor}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:secondstudentUniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2010-08-30\",\r\n  \"endDate\": \"2010-12-17\",\r\n  \"reasonExitedDescriptor\": \"uri://ed-fi.org/ReasonExitedDescriptor#Moved out of state\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations",
