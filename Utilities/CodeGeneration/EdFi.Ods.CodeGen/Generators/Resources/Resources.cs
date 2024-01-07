@@ -359,6 +359,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 References = _resourceCollectionRenderer.References(resourceData, resourceClass),
                 FQName = resourceClass.FullName,
                 SchemaProperCaseName = resourceClass.SchemaProperCaseName,
+                SchemaName = resourceClass.Entity?.Schema,
                 IsAbstract = resourceClass.IsAbstract(),
                 IsAggregateRoot = resourceClass.IsAggregateRoot(),
                 DerivedName = resourceClass.IsDerived

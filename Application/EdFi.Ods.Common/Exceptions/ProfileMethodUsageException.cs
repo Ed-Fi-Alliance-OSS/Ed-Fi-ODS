@@ -18,10 +18,10 @@ namespace EdFi.Ods.Common.Exceptions
 
         private const string DefaultDetailFormat = "Usage of the API Profiles feature was incorrect. An attempt was made to access a resource that is not {0} using the profile.";
 
-        public ProfileMethodUsageException(ContentTypeUsage usage, string message)
-            : base(string.Format(DefaultDetailFormat, usage.ToString().ToLower()), message)
+        public ProfileMethodUsageException(ContentTypeUsage usage, string error)
+            : base(string.Format(DefaultDetailFormat, usage.ToString().ToLower()), error)
         {
-            ((IEdFiProblemDetails)this).Errors = new[] { message };
+            ((IEdFiProblemDetails)this).Errors = new[] { error };
         }
 
         // ---------------------------

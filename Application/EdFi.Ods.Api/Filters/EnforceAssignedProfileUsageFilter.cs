@@ -151,9 +151,10 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
 
         void SetForbiddenResponse()
         {
-            string errorMessage = relevantContentTypeUsage == ContentTypeUsage.Readable
-                ? $"Based on profile assignments, one of the following profile-specific content types is required when requesting this resource: '{string.Join("', '", assignedProfilesForRequest.OrderBy(a => a).Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'"
-                : $"Based on profile assignments, one of the following profile-specific content types is required when updating this resource: '{string.Join("', '", assignedProfilesForRequest.OrderBy(a => a).Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'";
+            bool hasSingleProfile = assignedProfilesForRequest.Length == 1;
+
+            string errorMessage =
+                $"Based on profile assignments, {(hasSingleProfile ? null : "one of ")}the following profile-specific content type{(hasSingleProfile ? null : "s")} is required when {(relevantContentTypeUsage == ContentTypeUsage.Readable ? "requesting" : "updating")} this resource: '{string.Join("', '", assignedProfilesForRequest.OrderBy(a => a).Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'";
 
             var problemDetails = new SecurityAuthorizationException(
                 SecurityAuthorizationException.DefaultDetail,

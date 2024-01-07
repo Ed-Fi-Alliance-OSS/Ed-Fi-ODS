@@ -10,14 +10,14 @@ namespace EdFi.Ods.Common.Descriptors;
 public class DescriptorMaps
 {
     public DescriptorMaps(
-        ConcurrentDictionary<string, int> descriptorIdByUri,
-        ConcurrentDictionary<int, string> uriByDescriptorId)
+        ConcurrentDictionary<string, (string descriptorName, int descriptorId)> descriptorIdByUri,
+        ConcurrentDictionary<int, (string descriptorName, string uri)> uriByDescriptorId)
     {
         DescriptorIdByUri = descriptorIdByUri;
         UriByDescriptorId = uriByDescriptorId;
     }
 
-    public ConcurrentDictionary<string, int> DescriptorIdByUri { get; }
+    public ConcurrentDictionary<string, (string descriptorName, int descriptorId)> DescriptorIdByUri { get; }
 
-    public ConcurrentDictionary<int, string> UriByDescriptorId { get; }
+    public ConcurrentDictionary<int, (string descriptorName, string uri)> UriByDescriptorId { get; }
 }

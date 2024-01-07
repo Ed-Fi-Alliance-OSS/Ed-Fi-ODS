@@ -169,6 +169,8 @@ namespace {{ResourceClassesNamespace}}
     {{/HasRequiredMembersWithMeaningfulDefaultValues}}
     public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}} : {{NamespacePrefix}}I{{EntityName}}{{DerivedName}}{{#IsAggregateRoot}}, IHasETag, IDateVersionedEntity{{/IsAggregateRoot}}{{#HasRequiredMembersWithMeaningfulDefaultValues}}, IHasRequiredMembersWithMeaningfulDefaultValues{{/HasRequiredMembersWithMeaningfulDefaultValues}}{{#IsResourceExtensionClass}}, IChildEntity{{/IsResourceExtensionClass}}{{#HasValidatableChildren}}, IValidatableObject{{/HasValidatableChildren}}
     {
+        private static FullName _fullName = new FullName("{{SchemaName}}", "{{EntityName}}");
+
         // Fluent validator instance (threadsafe)
         private static {{ClassName}}PutPostRequestValidator _validator = new {{ClassName}}PutPostRequestValidator();
         
@@ -1134,6 +1136,9 @@ namespace {{ResourceClassesNamespace}}
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -1151,13 +1156,13 @@ namespace {{ResourceClassesNamespace}}
                 // ----------------------
             {{#InheritedCollections}}
                 {{#Inherited}}
-                if ({{Collection}}.Any())
+                if ({{Collection}}.Any() && mappingContract?.IsMemberSupported("{{Collection}}") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof({{Collection}}));
+                    pathBuilder.Append("{{Collection}}");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext({{Collection}}, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext({{Collection}}, validationContext, validationContext.Items.ForCollection("{{Collection}}"))))
                     {
                         yield return result;
                     }
@@ -1166,13 +1171,13 @@ namespace {{ResourceClassesNamespace}}
                 {{/Inherited}}
             {{/InheritedCollections}}
             {{#Collections}}
-                if ({{Collection}}.Any())
+                if ({{Collection}}.Any() && mappingContract?.IsMemberSupported("{{Collection}}") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof({{Collection}}));
+                    pathBuilder.Append("{{Collection}}");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext({{Collection}}, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext({{Collection}}, validationContext, validationContext.Items.ForCollection("{{Collection}}"))))
                     {
                         yield return result;
                     }
@@ -1188,9 +1193,9 @@ namespace {{ResourceClassesNamespace}}
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof({{PropertyName}}));
-    
-                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext({{PropertyName}}, validationContext.Items)))
+                    pathBuilder.Append("{{PropertyName}}");
+
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext({{PropertyName}}, validationContext, validationContext.Items.ForEmbeddedObject("{{PropertyName}}"))))
                     {
                         yield return result;
                     }
@@ -1198,13 +1203,13 @@ namespace {{ResourceClassesNamespace}}
 
             {{/InheritedNavigableOneToOnes}}
             {{#NavigableOneToOnes}}
-                if ({{PropertyName}} != null)
+                if ({{PropertyName}} != null && mappingContract?.IsMemberSupported("{{PropertyName}}") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof({{PropertyName}}));
-    
-                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext({{PropertyName}}, validationContext.Items)))
+                    pathBuilder.Append("{{PropertyName}}");
+
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext({{PropertyName}}, validationContext, validationContext.Items.ForEmbeddedObject("{{PropertyName}}"))))
                     {
                         yield return result;
                     }

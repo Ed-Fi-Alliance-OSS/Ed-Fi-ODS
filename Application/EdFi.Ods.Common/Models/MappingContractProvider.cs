@@ -16,6 +16,7 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Utils.Profiles;
+using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Common.Models;
 
@@ -63,8 +64,8 @@ public class MappingContractProvider : IMappingContractProvider
         if (!dataManagementResourceContext.Resource.Name.EqualsIgnoreCase(profileContentTypeContext.ResourceName))
         {
             throw new ProfileContentTypeUsageException(
-                ProfileContentTypeUsageException.DefaultDetail + " The profile resource identified by the request does not match the targeted resource.",
-                $"The resource in the profile-based content type ('{profileContentTypeContext.ResourceName}') does not match the resource targeted by the request ('{dataManagementResourceContext.Resource.Name}').",
+                ProfileContentTypeUsageException.DefaultDetail,
+                $"The resource specified by the profile-based content type ('{profileContentTypeContext.ResourceName}') does not match the requested resource ('{dataManagementResourceContext.Resource.Name}').",
                 profileContentTypeContext.ProfileName, profileContentTypeContext.ContentTypeUsage);
         }
 
@@ -105,8 +106,8 @@ public class MappingContractProvider : IMappingContractProvider
                 if (!profileResourceModel.ResourceByName.TryGetValue(key.ProfileResourceName, out var contentTypes))
                 {
                     throw new ProfileContentTypeUsageException(
-                        ProfileContentTypeUsageException.DefaultDetail + " The profile used by the request does not contain the targeted resource.",
-                        $"The '{key.ProfileResourceName.Name}' resource is not accessible through the '{key.ProfileName}' profile specified by the content type.", 
+                        ProfileContentTypeUsageException.DefaultDetail + " The resource is not contained by the profile used by (or applied to) the request.",
+                        $"Resource '{key.ProfileResourceName.Name}' is not accessible through the '{key.ProfileName}' profile specified by the content type.", 
                         key.ProfileName, key.ContentTypeUsage);
                 }
 
@@ -117,10 +118,9 @@ public class MappingContractProvider : IMappingContractProvider
 
                 if (profileResource == null)
                 {
-                    throw new ProfileContentTypeUsageException(
-                        ProfileContentTypeUsageException.DefaultDetail + $" The targeted resource is not {key.ContentTypeUsage.ToString().ToLower()} using the profile.",
-                        $"Resource class '{key.ResourceClassName}' is not {key.ContentTypeUsage.ToString().ToLower()} using API profile '{key.ProfileName}'.",
-                        key.ProfileName, key.ContentTypeUsage);
+                    throw new ProfileMethodUsageException(
+                        key.ContentTypeUsage,
+                        $"Resource class '{key.ResourceClassName.Name}' is not {key.ContentTypeUsage.ToString().ToLower()} using API profile '{key.ProfileName}'.");
                 }
 
                 var profileResourceClass =
@@ -185,7 +185,8 @@ public class MappingContractProvider : IMappingContractProvider
 
                                 return profileResourceClass.AllPropertyByName.ContainsKey(memberName) ||
                                        profileResourceClass.EmbeddedObjectByName.ContainsKey(memberName) ||
-                                       profileResourceClass.CollectionByName.ContainsKey(memberName);
+                                       profileResourceClass.CollectionByName.ContainsKey(memberName) ||
+                                       profileResourceClass.ReferenceByName.ContainsKey(memberName);
                             }
 
                             if (parameterInfo.Name.EndsWith("Included"))

@@ -119,6 +119,13 @@ namespace {{EntitiesBaseNamespace}}
                     return Is{{PropertyName}}Supported;
         {{/ItemTypeName}}
     {{/MappingContractMembers}}
+    {{#IdentifyingProperties}}
+        {{^IsUniqueId}}
+                case "{{PropertyName}}":
+                    // Identifying properties are always supported
+                    return true;
+        {{/IsUniqueId}}
+    {{/IdentifyingProperties}}
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }

@@ -26,8 +26,6 @@ public static class ValidationHelpers
 
     public const string RequiredObjectMessageFormat = "{0} is required.";
     
-    private const string PathBuilderKey = "PathBuilder";
-    
     private static readonly List<string> _collectionIndexer = new();
 
     public static StringBuilder GetPathBuilder(ValidationContext validationContext)
@@ -36,14 +34,14 @@ public static class ValidationHelpers
 
         StringBuilder pathBuilder;
 
-        if (contextItems.TryGetValue(PathBuilderKey, out object pathBuilderAsObject))
+        if (contextItems.TryGetValue(ValidationContextKeys.PathBuilder, out object pathBuilderAsObject))
         {
             pathBuilder = (StringBuilder) pathBuilderAsObject;
         }
         else
         {
             pathBuilder = new StringBuilder();
-            contextItems.Add(PathBuilderKey, pathBuilder);
+            contextItems.Add(ValidationContextKeys.PathBuilder, pathBuilder);
         }
 
         return pathBuilder;
@@ -84,9 +82,9 @@ public static class ValidationHelpers
         {
             pathBuilder.Append(GetIndexerText(i));
 
-            var context = new ValidationContext(item, validationContext.Items);
+            var context = new ValidationContext(item, validationContext, validationContext.Items);
             itemResults ??= new List<ValidationResult>();
-            
+
             if (!Validator.TryValidateObject(item, context, itemResults, validateAllProperties: true, validateEverything: true))
             {
                 string pathPrefix = pathBuilder.ToString();
@@ -127,7 +125,7 @@ public static class ValidationHelpers
                 pathBuilder.Append(JsonPathSeparator);
                 pathBuilder.Append(((string) entry.Key).ToCamelCase());
 
-                var context = new ValidationContext(entry.Value, validationContext.Items);
+                var context = new ValidationContext(entry.Value, validationContext, validationContext.Items);
                 var itemResults = new List<ValidationResult>();
 
                 if (!Validator.TryValidateObject(entry.Value, context, itemResults, validateAllProperties: true, validateEverything: true))
@@ -156,7 +154,7 @@ public static class ValidationHelpers
 
     public static IEnumerable<ValidationResult> ValidateEmbeddedObject(ValidationContext validationContext)
     {
-        var context = new ValidationContext(validationContext.ObjectInstance, validationContext.Items);
+        var context = new ValidationContext(validationContext.ObjectInstance, validationContext, validationContext.Items);
         var itemResults = new List<ValidationResult>();
 
         if (!Validator.TryValidateObject(validationContext.ObjectInstance, context, itemResults, validateAllProperties: true, validateEverything: true))

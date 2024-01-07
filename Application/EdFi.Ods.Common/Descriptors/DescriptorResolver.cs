@@ -27,15 +27,15 @@ public class DescriptorResolver : IDescriptorResolver
         
         var descriptorMaps = _descriptorMapsProvider.GetMaps();
 
-        if (!descriptorMaps.DescriptorIdByUri.TryGetValue(uri, out int descriptorId))
+        if (!descriptorMaps.DescriptorIdByUri.TryGetValue(uri, out var descriptorBrief))
         {
             var descriptorDetails = _descriptorDetailsProvider.GetDescriptorDetails(descriptorName, uri);
 
             if (descriptorDetails != null)
             {
                 // Add the details to the existing descriptor maps
-                descriptorMaps.DescriptorIdByUri.TryAdd(descriptorDetails.Uri, descriptorDetails.DescriptorId);
-                descriptorMaps.UriByDescriptorId.TryAdd(descriptorDetails.DescriptorId, descriptorDetails.Uri);
+                descriptorMaps.DescriptorIdByUri.TryAdd(descriptorDetails.Uri, (descriptorName, descriptorDetails.DescriptorId));
+                descriptorMaps.UriByDescriptorId.TryAdd(descriptorDetails.DescriptorId, (descriptorName, descriptorDetails.Uri));
 
                 return descriptorDetails.DescriptorId;
             }
@@ -43,7 +43,13 @@ public class DescriptorResolver : IDescriptorResolver
             return default;
         }
 
-        return descriptorId;
+        if (descriptorBrief.descriptorName != descriptorName)
+        {
+            // This is a descriptor uri for a different descriptor type
+            return default;
+        }
+
+        return descriptorBrief.descriptorId;
     }
 
     public string GetUri(string descriptorName, int descriptorId)
@@ -55,15 +61,15 @@ public class DescriptorResolver : IDescriptorResolver
         
         var descriptorMaps = _descriptorMapsProvider.GetMaps();
 
-        if (!descriptorMaps.UriByDescriptorId.TryGetValue(descriptorId, out string uri))
+        if (!descriptorMaps.UriByDescriptorId.TryGetValue(descriptorId, out var descriptorBrief))
         {
             var descriptorDetails = _descriptorDetailsProvider.GetDescriptorDetails(descriptorName, descriptorId);
 
             if (descriptorDetails != null)
             {
                 // Add the details to the existing descriptor maps
-                descriptorMaps.DescriptorIdByUri.TryAdd(descriptorDetails.Uri, descriptorDetails.DescriptorId);
-                descriptorMaps.UriByDescriptorId.TryAdd(descriptorDetails.DescriptorId, descriptorDetails.Uri);
+                descriptorMaps.DescriptorIdByUri.TryAdd(descriptorDetails.Uri, (descriptorName, descriptorDetails.DescriptorId));
+                descriptorMaps.UriByDescriptorId.TryAdd(descriptorDetails.DescriptorId, (descriptorName, descriptorDetails.Uri));
 
                 return descriptorDetails.Uri;
             }
@@ -71,6 +77,12 @@ public class DescriptorResolver : IDescriptorResolver
             return default;
         }
 
-        return uri;
+        if (descriptorBrief.descriptorName != descriptorName)
+        {
+            // This is a descriptor id for a different descriptor type
+            return default;
+        }
+
+        return descriptorBrief.uri;
     }
 }
