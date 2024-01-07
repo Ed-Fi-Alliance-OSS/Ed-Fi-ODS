@@ -8,7 +8,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common.Attributes;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.TestFixture;
+using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using Test.Common;
@@ -41,7 +46,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 
                 testObject.TestCollection.Add(new CollectionTestObject());
 
-                var validator = new DataAnnotationsResourceValidator();
+                var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+                var mappingContractProvider = A.Fake<IMappingContractProvider>();
+
+                var validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
                 _actualResults = validator.ValidateObject(testObject);
             }
 
@@ -70,7 +78,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 testObject.TestCollection.Add(new CollectionTestObject());
                 testObject.TestCollection.Add(new CollectionTestObject());
 
-                var validator = new DataAnnotationsResourceValidator();
+                var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+                var mappingContractProvider = A.Fake<IMappingContractProvider>();
+
+                var validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
                 _actualResults = validator.ValidateObject(testObject);
             }
 
@@ -95,7 +106,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                     TestCollection = null
                 };
 
-                var validator = new DataAnnotationsResourceValidator();
+                var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+                var mappingContractProvider = A.Fake<IMappingContractProvider>();
+                A.CallTo(() => mappingContractProvider.GetMappingContract(A<FullName>.Ignored)).Returns(null);
+
+                var validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
                 _actualResults = validator.ValidateObject(testObject);
             }
 
@@ -121,7 +136,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                     TestCollection = new List<CollectionTestObject>()
                 };
 
-                var validator = new DataAnnotationsResourceValidator();
+                var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+                var mappingContractProvider = A.Fake<IMappingContractProvider>();
+                A.CallTo(() => mappingContractProvider.GetMappingContract(A<FullName>.Ignored)).Returns(null);
+
+                var validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
                 _actualResults = validator.ValidateObject(testObject);
             }
 

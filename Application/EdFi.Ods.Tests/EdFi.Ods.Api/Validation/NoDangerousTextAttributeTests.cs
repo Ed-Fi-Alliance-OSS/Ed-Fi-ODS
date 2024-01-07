@@ -8,7 +8,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Validation;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.TestFixture;
+using FakeItEasy;
 using KellermanSoftware.CompareNetObjects;
 using NUnit.Framework;
 using Shouldly;
@@ -38,7 +43,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         {
             var testObject = new DangerousTextTestObject(string.Empty);
 
-            var validator = new DataAnnotationsResourceValidator();
+            var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+            var mappingContractProvider = A.Fake<IMappingContractProvider>();
+            
+            var validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
             _actualResults = validator.ValidateObject(testObject);
         }
 
@@ -60,7 +68,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         {
             var testObject = new DangerousTextTestObject("Hello World");
 
-            var validator = new DataAnnotationsResourceValidator();
+            var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+            var mappingContractProvider = A.Fake<IMappingContractProvider>();
+
+            var validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
             _actualResults = validator.ValidateObject(testObject);
         }
 
@@ -82,7 +93,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         {
             var testObject = new DangerousTextTestObject("<Hello World>");
 
-            var validator = new DataAnnotationsResourceValidator();
+            var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+            var mappingContractProvider = A.Fake<IMappingContractProvider>();
+            A.CallTo(() => mappingContractProvider.GetMappingContract(A<FullName>.Ignored)).Returns(null);
+
+            var validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
             _actualResults = validator.ValidateObject(testObject);
         }
 
@@ -105,7 +120,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         {
             var testObject = new DangerousTextTestObject("Moonshower"); // Includes 'onshow'
 
-            var validator = new DataAnnotationsResourceValidator();
+            var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+            var mappingContractProvider = A.Fake<IMappingContractProvider>();
+
+            var validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
             _actualResults = validator.ValidateObject(testObject);
         }
 
@@ -130,7 +148,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 new DangerousTextTestObject(
                     @"\""}<script>var r=new XMLHttpRequest();</script>{, \""}<script>r.open('GET', document.location, false);r.send(null);</script>{, \""}<script>var h=r.getAllResponseHeaders().toLowerCase();</script>{, and \""}<script>alert(h);</script>{");
 
-            var validator = new DataAnnotationsResourceValidator();
+            var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+            var mappingContractProvider = A.Fake<IMappingContractProvider>();
+            A.CallTo(() => mappingContractProvider.GetMappingContract(A<FullName>.Ignored)).Returns(null);
+
+            var validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
             _actualResults = validator.ValidateObject(testObject);
         }
 

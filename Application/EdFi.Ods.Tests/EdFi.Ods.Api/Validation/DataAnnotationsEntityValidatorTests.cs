@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Entities.Common.EdFi;
 using FakeItEasy;
 using NUnit.Framework;
@@ -26,8 +27,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
     [TestFixture]
     public class DataAnnotationsEntityValidatorTests
     {
-        private readonly DataAnnotationsResourceValidator validator = new();
-        private ICollection<ValidationResult> validationResults;
+        private DataAnnotationsResourceValidator _validator;
+        private ICollection<ValidationResult> _validationResults;
 
         private class DataAnnotatedProperty : IValidatableObject
         {
@@ -44,14 +45,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             }
         }
 
+        [OneTimeSetUp]
+        public void Setup()
+        {
+            var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+            var mappingContractProvider = A.Fake<IMappingContractProvider>();
+            A.CallTo(() => mappingContractProvider.GetMappingContract(A<FullName>.Ignored)).Returns(null);
+
+            _validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
+        }
+        
         [Test]
         public void When_validating_object_with_data_annotation_should_validate_and_raise_error()
         {
             var objectToValidate = new DataAnnotatedProperty();
 
-            validationResults = validator.ValidateObject(objectToValidate);
+            _validationResults = _validator.ValidateObject(objectToValidate);
 
-            validationResults.Count.ShouldBe(1);
+            _validationResults.Count.ShouldBe(1);
             objectToValidate.ValidateInvoked.ShouldBeTrue();
         }
 
@@ -66,13 +77,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             
             GeneratedArtifactStaticDependencies.Resolvers.Set(() => mappingContractProvider);
 
-            validationResults = validator.ValidateObject(
+            _validationResults = _validator.ValidateObject(
                 new Student
                 {
                     StudentUniqueId = "12345 "
                 });
 
-            validationResults.Select(r => r.ErrorMessage)
+            _validationResults.Select(r => r.ErrorMessage)
                 .ShouldContain(
                     "StudentUniqueId cannot contain leading or trailing spaces.");
         }

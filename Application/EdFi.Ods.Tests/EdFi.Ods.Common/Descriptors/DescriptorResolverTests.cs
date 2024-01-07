@@ -53,14 +53,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Descriptors
             var suppliedCodeValue = "code-value";
             var suppliedUrl = DescriptorHelper.GetUri(suppliedNamespace, suppliedCodeValue);
 
-            var descriptorIdByUri = new ConcurrentDictionary<string, int>
+            var descriptorIdByUri = new ConcurrentDictionary<string, (string descriptorName, int descriptorId)>
             {
-                [suppliedUrl] = 1
+                [suppliedUrl] = ("AbcDescriptor", 1)
             };
 
-            var uriByDescriptorId = new ConcurrentDictionary<int, string>
+            var uriByDescriptorId = new ConcurrentDictionary<int, (string descriptorName, string uri)>
             {
-                [1] = suppliedUrl
+                [1] = ("AbcDescriptor", suppliedUrl)
             };
 
             var descriptorMaps = new DescriptorMaps(descriptorIdByUri, uriByDescriptorId);
@@ -97,21 +97,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Descriptors
             var suppliedCodeValue = "code-value";
             var suppliedUrl = DescriptorHelper.GetUri(suppliedNamespace, suppliedCodeValue);
 
-            var descriptorIdByUri = new ConcurrentDictionary<string, int>
+            var descriptorIdByUri = new ConcurrentDictionary<string, (string descriptorName, int descriptorId)>
             {
-                [suppliedUrl] = 1
+                [suppliedUrl] = ("AbcDescriptor", 1)
             };
 
-            var uriByDescriptorId = new ConcurrentDictionary<int, string>
+            var uriByDescriptorId = new ConcurrentDictionary<int, (string descriptorName, string uri)>
             {
-                [1] = suppliedUrl
+                [1] = ("AbcDescriptor", suppliedUrl)
             };
 
             var descriptorMaps = new DescriptorMaps(descriptorIdByUri, uriByDescriptorId);
             A.CallTo(() => _descriptorMapsProvider.GetMaps()).Returns(descriptorMaps);
 
             // Act
-            var result = _resolver.GetDescriptorId("TestDescriptor", suppliedUrl);
+            var result = _resolver.GetDescriptorId("AbcDescriptor", suppliedUrl);
 
             // Assert
             result.ShouldSatisfyAllConditions(
@@ -132,14 +132,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Descriptors
             var suppliedCodeValue = "code-value";
             var suppliedUrl = DescriptorHelper.GetUri(suppliedNamespace, suppliedCodeValue);
 
-            var descriptorIdByUri = new ConcurrentDictionary<string, int>
+            var descriptorIdByUri = new ConcurrentDictionary<string, (string descriptorName, int descriptorId)>
             {
-                [suppliedUrl] = 1
+                [suppliedUrl] = ("AbcDescriptor", 1)
             };
 
-            var uriByDescriptorId = new ConcurrentDictionary<int, string>
+            var uriByDescriptorId = new ConcurrentDictionary<int, (string descriptorName, string uri)>
             {
-                [1] = suppliedUrl
+                [1] = ("AbcDescriptor", suppliedUrl)
             };
 
             var descriptorMaps = new DescriptorMaps(descriptorIdByUri, uriByDescriptorId);
@@ -180,14 +180,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Descriptors
             var suppliedCodeValue = "code-value";
             var suppliedUrl = DescriptorHelper.GetUri(suppliedNamespace, suppliedCodeValue);
 
-            var descriptorIdByUri = new ConcurrentDictionary<string, int>
+            var descriptorIdByUri = new ConcurrentDictionary<string, (string descriptorName, int descriptorId)>
             {
-                [suppliedUrl] = 1
+                [suppliedUrl] = ("AbcDescriptor", 1)
             };
 
-            var uriByDescriptorId = new ConcurrentDictionary<int, string>
+            var uriByDescriptorId = new ConcurrentDictionary<int, (string descriptorName, string uri)>
             {
-                [1] = suppliedUrl
+                [1] = ("AbcDescriptor", suppliedUrl)
             };
 
             var descriptorMaps = new DescriptorMaps(descriptorIdByUri, uriByDescriptorId);
@@ -223,21 +223,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Descriptors
             var suppliedCodeValue = "code-value";
             var suppliedUrl = DescriptorHelper.GetUri(suppliedNamespace, suppliedCodeValue);
 
-            var descriptorIdByUri = new ConcurrentDictionary<string, int>
+            var descriptorIdByUri = new ConcurrentDictionary<string, (string descriptorName, int descriptorId)>
             {
-                [suppliedUrl] = 1
+                [suppliedUrl] = ("AbcDescriptor", 1)
             };
 
-            var uriByDescriptorId = new ConcurrentDictionary<int, string>
+            var uriByDescriptorId = new ConcurrentDictionary<int, (string descriptorName, string uri)>
             {
-                [1] = suppliedUrl
+                [1] = ("AbcDescriptor", suppliedUrl)
             };
 
             var descriptorMaps = new DescriptorMaps(descriptorIdByUri, uriByDescriptorId);
             A.CallTo(() => _descriptorMapsProvider.GetMaps()).Returns(descriptorMaps);
 
             // Act
-            var result = _resolver.GetUri("TestDescriptor", 1);
+            var result = _resolver.GetUri("AbcDescriptor", 1);
 
             // Assert
             result.ShouldSatisfyAllConditions(
@@ -258,14 +258,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Descriptors
             var suppliedCodeValue = "valid-uri";
             var suppliedUrl = DescriptorHelper.GetUri(suppliedNamespace, suppliedCodeValue);
 
-            var descriptorIdByUri = new ConcurrentDictionary<string, int>
+            var descriptorIdByUri = new ConcurrentDictionary<string, (string descriptorName, int descriptorId)>
             {
-                [suppliedUrl] = 1
+                [suppliedUrl] = ("AbcDescriptor", 1)
             };
 
-            var uriByDescriptorId = new ConcurrentDictionary<int, string>
+            var uriByDescriptorId = new ConcurrentDictionary<int, (string descriptorName, string uri)>
             {
-                [1] = suppliedUrl
+                [1] = ("AbcDescriptor", suppliedUrl)
             };
 
             var descriptorMaps = new DescriptorMaps(descriptorIdByUri, uriByDescriptorId);
