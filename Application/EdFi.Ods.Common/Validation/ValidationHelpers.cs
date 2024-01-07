@@ -10,6 +10,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models;
 
 namespace EdFi.Ods.Common.Validation;
 
@@ -112,7 +114,7 @@ public static class ValidationHelpers
         }
     }
 
-    public static IEnumerable<ValidationResult> ValidateExtensions(ValidationContext validationContext)
+    public static IEnumerable<ValidationResult> ValidateExtensions(ValidationContext validationContext, IMappingContract mappingContract)
     {
         var pathBuilder = GetPathBuilder(validationContext);
 
@@ -120,12 +122,32 @@ public static class ValidationHelpers
 
         if (validationContext.ObjectInstance is IDictionary dictionary)
         {
+            var extensionsMappingContract = mappingContract as IExtensionsMappingContract;
+
             foreach (DictionaryEntry entry in dictionary)
             {
+                string extensionName = entry.Key as string;
+                
+                // Skip processing any extensions that aren't supported by the profile, if applicable
+                if (!(extensionsMappingContract?.IsExtensionSupported(extensionName) ?? true))
+                {
+                    continue;
+                }
+
+                // If the object is null, throw an exception (this should never happen)
+                if (entry.Value == null)
+                {
+                    throw new NullReferenceException($"The '{extensionName}' extension entry had no object instance to be validated.");
+                }
+
                 pathBuilder.Append(JsonPathSeparator);
                 pathBuilder.Append(((string) entry.Key).ToCamelCase());
 
-                var context = new ValidationContext(entry.Value, validationContext, validationContext.Items);
+                var context = new ValidationContext(
+                    entry.Value,
+                    validationContext,
+                    validationContext.Items.ForExtension(extensionName));
+
                 var itemResults = new List<ValidationResult>();
 
                 if (!Validator.TryValidateObject(entry.Value, context, itemResults, validateAllProperties: true, validateEverything: true))
