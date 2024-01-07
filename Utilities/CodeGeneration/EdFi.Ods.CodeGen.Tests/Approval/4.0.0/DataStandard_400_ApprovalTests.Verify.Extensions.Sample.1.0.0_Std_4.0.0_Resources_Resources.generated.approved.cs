@@ -35,6 +35,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
     [ExcludeFromCodeCoverage]
     public class ArtMediumDescriptor : Entities.Common.Sample.IArtMediumDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("sample", "ArtMediumDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static ArtMediumDescriptorPutPostRequestValidator _validator = new ArtMediumDescriptorPutPostRequestValidator();
         
@@ -393,6 +395,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
     [ExcludeFromCodeCoverage]
     public class Bus : Entities.Common.Sample.IBus, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("sample", "Bus");
+
         // Fluent validator instance (threadsafe)
         private static BusPutPostRequestValidator _validator = new BusPutPostRequestValidator();
         
@@ -707,6 +711,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class BusRoute : Entities.Common.Sample.IBusRoute, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues, IValidatableObject
     {
+        private static FullName _fullName = new FullName("sample", "BusRoute");
+
         // Fluent validator instance (threadsafe)
         private static BusRoutePutPostRequestValidator _validator = new BusRoutePutPostRequestValidator();
         
@@ -1356,6 +1362,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -1368,61 +1377,61 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (BusRouteBusYears.Any())
+                if (BusRouteBusYears.Any() && mappingContract?.IsMemberSupported("BusRouteBusYears") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(BusRouteBusYears));
+                    pathBuilder.Append("BusRouteBusYears");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(BusRouteBusYears, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(BusRouteBusYears, validationContext, validationContext.Items.ForCollection("BusRouteBusYears"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (BusRoutePrograms.Any())
+                if (BusRoutePrograms.Any() && mappingContract?.IsMemberSupported("BusRoutePrograms") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(BusRoutePrograms));
+                    pathBuilder.Append("BusRoutePrograms");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(BusRoutePrograms, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(BusRoutePrograms, validationContext, validationContext.Items.ForCollection("BusRoutePrograms"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (BusRouteServiceAreaPostalCodes.Any())
+                if (BusRouteServiceAreaPostalCodes.Any() && mappingContract?.IsMemberSupported("BusRouteServiceAreaPostalCodes") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(BusRouteServiceAreaPostalCodes));
+                    pathBuilder.Append("BusRouteServiceAreaPostalCodes");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(BusRouteServiceAreaPostalCodes, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(BusRouteServiceAreaPostalCodes, validationContext, validationContext.Items.ForCollection("BusRouteServiceAreaPostalCodes"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (BusRouteStartTimes.Any())
+                if (BusRouteStartTimes.Any() && mappingContract?.IsMemberSupported("BusRouteStartTimes") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(BusRouteStartTimes));
+                    pathBuilder.Append("BusRouteStartTimes");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(BusRouteStartTimes, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(BusRouteStartTimes, validationContext, validationContext.Items.ForCollection("BusRouteStartTimes"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (BusRouteTelephones.Any())
+                if (BusRouteTelephones.Any() && mappingContract?.IsMemberSupported("BusRouteTelephones") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(BusRouteTelephones));
+                    pathBuilder.Append("BusRouteTelephones");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(BusRouteTelephones, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(BusRouteTelephones, validationContext, validationContext.Items.ForCollection("BusRouteTelephones"))))
                     {
                         yield return result;
                     }
@@ -1570,6 +1579,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     [ExcludeFromCodeCoverage]
     public class BusRouteBusYear : Entities.Common.Sample.IBusRouteBusYear
     {
+        private static FullName _fullName = new FullName("sample", "BusRouteBusYear");
+
         // Fluent validator instance (threadsafe)
         private static BusRouteBusYearPutPostRequestValidator _validator = new BusRouteBusYearPutPostRequestValidator();
         
@@ -1791,6 +1802,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     [ExcludeFromCodeCoverage]
     public class BusRouteProgram : Entities.Common.Sample.IBusRouteProgram
     {
+        private static FullName _fullName = new FullName("sample", "BusRouteProgram");
+
         // Fluent validator instance (threadsafe)
         private static BusRouteProgramPutPostRequestValidator _validator = new BusRouteProgramPutPostRequestValidator();
         
@@ -2139,6 +2152,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     [ExcludeFromCodeCoverage]
     public class BusRouteServiceAreaPostalCode : Entities.Common.Sample.IBusRouteServiceAreaPostalCode
     {
+        private static FullName _fullName = new FullName("sample", "BusRouteServiceAreaPostalCode");
+
         // Fluent validator instance (threadsafe)
         private static BusRouteServiceAreaPostalCodePutPostRequestValidator _validator = new BusRouteServiceAreaPostalCodePutPostRequestValidator();
         
@@ -2361,6 +2376,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     [ExcludeFromCodeCoverage]
     public class BusRouteStartTime : Entities.Common.Sample.IBusRouteStartTime
     {
+        private static FullName _fullName = new FullName("sample", "BusRouteStartTime");
+
         // Fluent validator instance (threadsafe)
         private static BusRouteStartTimePutPostRequestValidator _validator = new BusRouteStartTimePutPostRequestValidator();
         
@@ -2582,6 +2599,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     [ExcludeFromCodeCoverage]
     public class BusRouteTelephone : Entities.Common.Sample.IBusRouteTelephone
     {
+        private static FullName _fullName = new FullName("sample", "BusRouteTelephone");
+
         // Fluent validator instance (threadsafe)
         private static BusRouteTelephonePutPostRequestValidator _validator = new BusRouteTelephonePutPostRequestValidator();
         
@@ -2849,6 +2868,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
     [ExcludeFromCodeCoverage]
     public class FavoriteBookCategoryDescriptor : Entities.Common.Sample.IFavoriteBookCategoryDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("sample", "FavoriteBookCategoryDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static FavoriteBookCategoryDescriptorPutPostRequestValidator _validator = new FavoriteBookCategoryDescriptorPutPostRequestValidator();
         
@@ -3118,6 +3139,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
     [ExcludeFromCodeCoverage]
     public class MembershipTypeDescriptor : Entities.Common.Sample.IMembershipTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("sample", "MembershipTypeDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static MembershipTypeDescriptorPutPostRequestValidator _validator = new MembershipTypeDescriptorPutPostRequestValidator();
         
@@ -3389,6 +3412,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class ParentAddressExtension : Entities.Common.Sample.IParentAddressExtension, IHasRequiredMembersWithMeaningfulDefaultValues, IChildEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("sample", "ParentAddressExtension");
+
         // Fluent validator instance (threadsafe)
         private static ParentAddressExtensionPutPostRequestValidator _validator = new ParentAddressExtensionPutPostRequestValidator();
         
@@ -3676,6 +3701,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -3689,25 +3717,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (ParentAddressSchoolDistricts.Any())
+                if (ParentAddressSchoolDistricts.Any() && mappingContract?.IsMemberSupported("ParentAddressSchoolDistricts") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(ParentAddressSchoolDistricts));
+                    pathBuilder.Append("ParentAddressSchoolDistricts");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentAddressSchoolDistricts, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentAddressSchoolDistricts, validationContext, validationContext.Items.ForCollection("ParentAddressSchoolDistricts"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (ParentAddressTerms.Any())
+                if (ParentAddressTerms.Any() && mappingContract?.IsMemberSupported("ParentAddressTerms") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(ParentAddressTerms));
+                    pathBuilder.Append("ParentAddressTerms");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentAddressTerms, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentAddressTerms, validationContext, validationContext.Items.ForCollection("ParentAddressTerms"))))
                     {
                         yield return result;
                     }
@@ -3819,6 +3847,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class ParentAddressSchoolDistrict : Entities.Common.Sample.IParentAddressSchoolDistrict
     {
+        private static FullName _fullName = new FullName("sample", "ParentAddressSchoolDistrict");
+
         // Fluent validator instance (threadsafe)
         private static ParentAddressSchoolDistrictPutPostRequestValidator _validator = new ParentAddressSchoolDistrictPutPostRequestValidator();
         
@@ -4041,6 +4071,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class ParentAddressTerm : Entities.Common.Sample.IParentAddressTerm
     {
+        private static FullName _fullName = new FullName("sample", "ParentAddressTerm");
+
         // Fluent validator instance (threadsafe)
         private static ParentAddressTermPutPostRequestValidator _validator = new ParentAddressTermPutPostRequestValidator();
         
@@ -4263,6 +4295,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class ParentAuthor : Entities.Common.Sample.IParentAuthor
     {
+        private static FullName _fullName = new FullName("sample", "ParentAuthor");
+
         // Fluent validator instance (threadsafe)
         private static ParentAuthorPutPostRequestValidator _validator = new ParentAuthorPutPostRequestValidator();
         
@@ -4486,6 +4520,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class ParentCeilingHeight : Entities.Common.Sample.IParentCeilingHeight, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        private static FullName _fullName = new FullName("sample", "ParentCeilingHeight");
+
         // Fluent validator instance (threadsafe)
         private static ParentCeilingHeightPutPostRequestValidator _validator = new ParentCeilingHeightPutPostRequestValidator();
         
@@ -4727,6 +4763,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class ParentCTEProgram : Entities.Common.Sample.IParentCTEProgram
     {
+        private static FullName _fullName = new FullName("sample", "ParentCTEProgram");
+
         // Fluent validator instance (threadsafe)
         private static ParentCTEProgramPutPostRequestValidator _validator = new ParentCTEProgramPutPostRequestValidator();
         
@@ -4962,6 +5000,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class ParentEducationContent : Entities.Common.Sample.IParentEducationContent
     {
+        private static FullName _fullName = new FullName("sample", "ParentEducationContent");
+
         // Fluent validator instance (threadsafe)
         private static ParentEducationContentPutPostRequestValidator _validator = new ParentEducationContentPutPostRequestValidator();
         
@@ -5249,6 +5289,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class ParentExtension : Entities.Common.Sample.IParentExtension, IHasRequiredMembersWithMeaningfulDefaultValues, IChildEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("sample", "ParentExtension");
+
         // Fluent validator instance (threadsafe)
         private static ParentExtensionPutPostRequestValidator _validator = new ParentExtensionPutPostRequestValidator();
         
@@ -5738,6 +5780,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -5751,61 +5796,61 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (ParentAuthors.Any())
+                if (ParentAuthors.Any() && mappingContract?.IsMemberSupported("ParentAuthors") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(ParentAuthors));
+                    pathBuilder.Append("ParentAuthors");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentAuthors, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentAuthors, validationContext, validationContext.Items.ForCollection("ParentAuthors"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (ParentCeilingHeights.Any())
+                if (ParentCeilingHeights.Any() && mappingContract?.IsMemberSupported("ParentCeilingHeights") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(ParentCeilingHeights));
+                    pathBuilder.Append("ParentCeilingHeights");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentCeilingHeights, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentCeilingHeights, validationContext, validationContext.Items.ForCollection("ParentCeilingHeights"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (ParentEducationContents.Any())
+                if (ParentEducationContents.Any() && mappingContract?.IsMemberSupported("ParentEducationContents") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(ParentEducationContents));
+                    pathBuilder.Append("ParentEducationContents");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentEducationContents, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentEducationContents, validationContext, validationContext.Items.ForCollection("ParentEducationContents"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (ParentFavoriteBookTitles.Any())
+                if (ParentFavoriteBookTitles.Any() && mappingContract?.IsMemberSupported("ParentFavoriteBookTitles") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(ParentFavoriteBookTitles));
+                    pathBuilder.Append("ParentFavoriteBookTitles");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentFavoriteBookTitles, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentFavoriteBookTitles, validationContext, validationContext.Items.ForCollection("ParentFavoriteBookTitles"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (ParentStudentProgramAssociations.Any())
+                if (ParentStudentProgramAssociations.Any() && mappingContract?.IsMemberSupported("ParentStudentProgramAssociations") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(ParentStudentProgramAssociations));
+                    pathBuilder.Append("ParentStudentProgramAssociations");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentStudentProgramAssociations, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ParentStudentProgramAssociations, validationContext, validationContext.Items.ForCollection("ParentStudentProgramAssociations"))))
                     {
                         yield return result;
                     }
@@ -5815,25 +5860,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
                 // ---------------------------
                 //  Validate embedded objects
                 // ---------------------------
-                if (ParentCTEProgram != null)
+                if (ParentCTEProgram != null && mappingContract?.IsMemberSupported("ParentCTEProgram") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(ParentCTEProgram));
-    
-                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(ParentCTEProgram, validationContext.Items)))
+                    pathBuilder.Append("ParentCTEProgram");
+
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(ParentCTEProgram, validationContext, validationContext.Items.ForEmbeddedObject("ParentCTEProgram"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (ParentTeacherConference != null)
+                if (ParentTeacherConference != null && mappingContract?.IsMemberSupported("ParentTeacherConference") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(ParentTeacherConference));
-    
-                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(ParentTeacherConference, validationContext.Items)))
+                    pathBuilder.Append("ParentTeacherConference");
+
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(ParentTeacherConference, validationContext, validationContext.Items.ForEmbeddedObject("ParentTeacherConference"))))
                     {
                         yield return result;
                     }
@@ -5977,6 +6022,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class ParentFavoriteBookTitle : Entities.Common.Sample.IParentFavoriteBookTitle
     {
+        private static FullName _fullName = new FullName("sample", "ParentFavoriteBookTitle");
+
         // Fluent validator instance (threadsafe)
         private static ParentFavoriteBookTitlePutPostRequestValidator _validator = new ParentFavoriteBookTitlePutPostRequestValidator();
         
@@ -6199,6 +6246,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class ParentStudentProgramAssociation : Entities.Common.Sample.IParentStudentProgramAssociation
     {
+        private static FullName _fullName = new FullName("sample", "ParentStudentProgramAssociation");
+
         // Fluent validator instance (threadsafe)
         private static ParentStudentProgramAssociationPutPostRequestValidator _validator = new ParentStudentProgramAssociationPutPostRequestValidator();
         
@@ -6640,6 +6689,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class ParentTeacherConference : Entities.Common.Sample.IParentTeacherConference
     {
+        private static FullName _fullName = new FullName("sample", "ParentTeacherConference");
+
         // Fluent validator instance (threadsafe)
         private static ParentTeacherConferencePutPostRequestValidator _validator = new ParentTeacherConferencePutPostRequestValidator();
         
@@ -6874,6 +6925,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class SchoolCTEProgram : Entities.Common.Sample.ISchoolCTEProgram
     {
+        private static FullName _fullName = new FullName("sample", "SchoolCTEProgram");
+
         // Fluent validator instance (threadsafe)
         private static SchoolCTEProgramPutPostRequestValidator _validator = new SchoolCTEProgramPutPostRequestValidator();
         
@@ -7109,6 +7162,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class SchoolDirectlyOwnedBus : Entities.Common.Sample.ISchoolDirectlyOwnedBus
     {
+        private static FullName _fullName = new FullName("sample", "SchoolDirectlyOwnedBus");
+
         // Fluent validator instance (threadsafe)
         private static SchoolDirectlyOwnedBusPutPostRequestValidator _validator = new SchoolDirectlyOwnedBusPutPostRequestValidator();
         
@@ -7395,6 +7450,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
     [Display(Name="Sample")]
     public class SchoolExtension : Entities.Common.Sample.ISchoolExtension, IChildEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("sample", "SchoolExtension");
+
         // Fluent validator instance (threadsafe)
         private static SchoolExtensionPutPostRequestValidator _validator = new SchoolExtensionPutPostRequestValidator();
         
@@ -7631,6 +7688,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -7644,13 +7704,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (SchoolDirectlyOwnedBuses.Any())
+                if (SchoolDirectlyOwnedBuses.Any() && mappingContract?.IsMemberSupported("SchoolDirectlyOwnedBuses") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(SchoolDirectlyOwnedBuses));
+                    pathBuilder.Append("SchoolDirectlyOwnedBuses");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(SchoolDirectlyOwnedBuses, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(SchoolDirectlyOwnedBuses, validationContext, validationContext.Items.ForCollection("SchoolDirectlyOwnedBuses"))))
                     {
                         yield return result;
                     }
@@ -7660,13 +7720,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
                 // ---------------------------
                 //  Validate embedded objects
                 // ---------------------------
-                if (SchoolCTEProgram != null)
+                if (SchoolCTEProgram != null && mappingContract?.IsMemberSupported("SchoolCTEProgram") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(SchoolCTEProgram));
-    
-                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(SchoolCTEProgram, validationContext.Items)))
+                    pathBuilder.Append("SchoolCTEProgram");
+
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(SchoolCTEProgram, validationContext, validationContext.Items.ForEmbeddedObject("SchoolCTEProgram"))))
                     {
                         yield return result;
                     }
@@ -7768,6 +7828,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
     [Display(Name="Sample")]
     public class StaffExtension : Entities.Common.Sample.IStaffExtension, IChildEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("sample", "StaffExtension");
+
         // Fluent validator instance (threadsafe)
         private static StaffExtensionPutPostRequestValidator _validator = new StaffExtensionPutPostRequestValidator();
         
@@ -8004,6 +8066,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -8017,13 +8082,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (StaffPets.Any())
+                if (StaffPets.Any() && mappingContract?.IsMemberSupported("StaffPets") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StaffPets));
+                    pathBuilder.Append("StaffPets");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StaffPets, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StaffPets, validationContext, validationContext.Items.ForCollection("StaffPets"))))
                     {
                         yield return result;
                     }
@@ -8033,13 +8098,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
                 // ---------------------------
                 //  Validate embedded objects
                 // ---------------------------
-                if (StaffPetPreference != null)
+                if (StaffPetPreference != null && mappingContract?.IsMemberSupported("StaffPetPreference") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StaffPetPreference));
-    
-                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(StaffPetPreference, validationContext.Items)))
+                    pathBuilder.Append("StaffPetPreference");
+
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(StaffPetPreference, validationContext, validationContext.Items.ForEmbeddedObject("StaffPetPreference"))))
                     {
                         yield return result;
                     }
@@ -8135,6 +8200,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class StaffPet : Entities.Common.Sample.IStaffPet
     {
+        private static FullName _fullName = new FullName("sample", "StaffPet");
+
         // Fluent validator instance (threadsafe)
         private static StaffPetPutPostRequestValidator _validator = new StaffPetPutPostRequestValidator();
         
@@ -8365,6 +8432,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StaffPetPreference : Entities.Common.Sample.IStaffPetPreference, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        private static FullName _fullName = new FullName("sample", "StaffPetPreference");
+
         // Fluent validator instance (threadsafe)
         private static StaffPetPreferencePutPostRequestValidator _validator = new StaffPetPreferencePutPostRequestValidator();
         
@@ -8625,6 +8694,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentAquaticPet : Entities.Common.Sample.IStudentAquaticPet, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        private static FullName _fullName = new FullName("sample", "StudentAquaticPet");
+
         // Fluent validator instance (threadsafe)
         private static StudentAquaticPetPutPostRequestValidator _validator = new StudentAquaticPetPutPostRequestValidator();
         
@@ -8891,6 +8962,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     [Display(Name="Sample")]
     public class StudentExtension : Entities.Common.Sample.IStudentExtension, IChildEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("sample", "StudentExtension");
+
         // Fluent validator instance (threadsafe)
         private static StudentExtensionPutPostRequestValidator _validator = new StudentExtensionPutPostRequestValidator();
         
@@ -9192,6 +9265,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -9205,37 +9281,37 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (StudentAquaticPets.Any())
+                if (StudentAquaticPets.Any() && mappingContract?.IsMemberSupported("StudentAquaticPets") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentAquaticPets));
+                    pathBuilder.Append("StudentAquaticPets");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentAquaticPets, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentAquaticPets, validationContext, validationContext.Items.ForCollection("StudentAquaticPets"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (StudentFavoriteBooks.Any())
+                if (StudentFavoriteBooks.Any() && mappingContract?.IsMemberSupported("StudentFavoriteBooks") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentFavoriteBooks));
+                    pathBuilder.Append("StudentFavoriteBooks");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentFavoriteBooks, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentFavoriteBooks, validationContext, validationContext.Items.ForCollection("StudentFavoriteBooks"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (StudentPets.Any())
+                if (StudentPets.Any() && mappingContract?.IsMemberSupported("StudentPets") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentPets));
+                    pathBuilder.Append("StudentPets");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentPets, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentPets, validationContext, validationContext.Items.ForCollection("StudentPets"))))
                     {
                         yield return result;
                     }
@@ -9245,13 +9321,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
                 // ---------------------------
                 //  Validate embedded objects
                 // ---------------------------
-                if (StudentPetPreference != null)
+                if (StudentPetPreference != null && mappingContract?.IsMemberSupported("StudentPetPreference") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentPetPreference));
-    
-                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(StudentPetPreference, validationContext.Items)))
+                    pathBuilder.Append("StudentPetPreference");
+
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(StudentPetPreference, validationContext, validationContext.Items.ForEmbeddedObject("StudentPetPreference"))))
                     {
                         yield return result;
                     }
@@ -9371,6 +9447,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class StudentFavoriteBook : Entities.Common.Sample.IStudentFavoriteBook, IValidatableObject
     {
+        private static FullName _fullName = new FullName("sample", "StudentFavoriteBook");
+
         // Fluent validator instance (threadsafe)
         private static StudentFavoriteBookPutPostRequestValidator _validator = new StudentFavoriteBookPutPostRequestValidator();
         
@@ -9608,6 +9686,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -9621,13 +9702,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (StudentFavoriteBookArtMedia.Any())
+                if (StudentFavoriteBookArtMedia.Any() && mappingContract?.IsMemberSupported("StudentFavoriteBookArtMedia") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentFavoriteBookArtMedia));
+                    pathBuilder.Append("StudentFavoriteBookArtMedia");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentFavoriteBookArtMedia, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentFavoriteBookArtMedia, validationContext, validationContext.Items.ForCollection("StudentFavoriteBookArtMedia"))))
                     {
                         yield return result;
                     }
@@ -9727,6 +9808,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class StudentFavoriteBookArtMedium : Entities.Common.Sample.IStudentFavoriteBookArtMedium
     {
+        private static FullName _fullName = new FullName("sample", "StudentFavoriteBookArtMedium");
+
         // Fluent validator instance (threadsafe)
         private static StudentFavoriteBookArtMediumPutPostRequestValidator _validator = new StudentFavoriteBookArtMediumPutPostRequestValidator();
         
@@ -9957,6 +10040,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class StudentPet : Entities.Common.Sample.IStudentPet
     {
+        private static FullName _fullName = new FullName("sample", "StudentPet");
+
         // Fluent validator instance (threadsafe)
         private static StudentPetPutPostRequestValidator _validator = new StudentPetPutPostRequestValidator();
         
@@ -10187,6 +10272,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentPetPreference : Entities.Common.Sample.IStudentPetPreference, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        private static FullName _fullName = new FullName("sample", "StudentPetPreference");
+
         // Fluent validator instance (threadsafe)
         private static StudentPetPreferencePutPostRequestValidator _validator = new StudentPetPreferencePutPostRequestValidator();
         
@@ -10560,6 +10647,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentArtProgramAssociation : Entities.Common.Sample.IStudentArtProgramAssociation, Entities.Common.EdFi.IGeneralStudentProgramAssociation, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues, IValidatableObject
     {
+        private static FullName _fullName = new FullName("sample", "StudentArtProgramAssociation");
+
         // Fluent validator instance (threadsafe)
         private static StudentArtProgramAssociationPutPostRequestValidator _validator = new StudentArtProgramAssociationPutPostRequestValidator();
         
@@ -11359,6 +11448,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -11371,61 +11463,61 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (GeneralStudentProgramAssociationProgramParticipationStatuses.Any())
+                if (GeneralStudentProgramAssociationProgramParticipationStatuses.Any() && mappingContract?.IsMemberSupported("GeneralStudentProgramAssociationProgramParticipationStatuses") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(GeneralStudentProgramAssociationProgramParticipationStatuses));
+                    pathBuilder.Append("GeneralStudentProgramAssociationProgramParticipationStatuses");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(GeneralStudentProgramAssociationProgramParticipationStatuses, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(GeneralStudentProgramAssociationProgramParticipationStatuses, validationContext, validationContext.Items.ForCollection("GeneralStudentProgramAssociationProgramParticipationStatuses"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (StudentArtProgramAssociationArtMedia.Any())
+                if (StudentArtProgramAssociationArtMedia.Any() && mappingContract?.IsMemberSupported("StudentArtProgramAssociationArtMedia") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentArtProgramAssociationArtMedia));
+                    pathBuilder.Append("StudentArtProgramAssociationArtMedia");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentArtProgramAssociationArtMedia, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentArtProgramAssociationArtMedia, validationContext, validationContext.Items.ForCollection("StudentArtProgramAssociationArtMedia"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (StudentArtProgramAssociationPortfolioYears.Any())
+                if (StudentArtProgramAssociationPortfolioYears.Any() && mappingContract?.IsMemberSupported("StudentArtProgramAssociationPortfolioYears") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentArtProgramAssociationPortfolioYears));
+                    pathBuilder.Append("StudentArtProgramAssociationPortfolioYears");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentArtProgramAssociationPortfolioYears, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentArtProgramAssociationPortfolioYears, validationContext, validationContext.Items.ForCollection("StudentArtProgramAssociationPortfolioYears"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (StudentArtProgramAssociationServices.Any())
+                if (StudentArtProgramAssociationServices.Any() && mappingContract?.IsMemberSupported("StudentArtProgramAssociationServices") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentArtProgramAssociationServices));
+                    pathBuilder.Append("StudentArtProgramAssociationServices");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentArtProgramAssociationServices, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentArtProgramAssociationServices, validationContext, validationContext.Items.ForCollection("StudentArtProgramAssociationServices"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (StudentArtProgramAssociationStyles.Any())
+                if (StudentArtProgramAssociationStyles.Any() && mappingContract?.IsMemberSupported("StudentArtProgramAssociationStyles") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentArtProgramAssociationStyles));
+                    pathBuilder.Append("StudentArtProgramAssociationStyles");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentArtProgramAssociationStyles, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentArtProgramAssociationStyles, validationContext, validationContext.Items.ForCollection("StudentArtProgramAssociationStyles"))))
                     {
                         yield return result;
                     }
@@ -11439,9 +11531,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(GeneralStudentProgramAssociationParticipationStatus));
-    
-                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(GeneralStudentProgramAssociationParticipationStatus, validationContext.Items)))
+                    pathBuilder.Append("GeneralStudentProgramAssociationParticipationStatus");
+
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(GeneralStudentProgramAssociationParticipationStatus, validationContext, validationContext.Items.ForEmbeddedObject("GeneralStudentProgramAssociationParticipationStatus"))))
                     {
                         yield return result;
                     }
@@ -11585,6 +11677,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationArtMedium : Entities.Common.Sample.IStudentArtProgramAssociationArtMedium
     {
+        private static FullName _fullName = new FullName("sample", "StudentArtProgramAssociationArtMedium");
+
         // Fluent validator instance (threadsafe)
         private static StudentArtProgramAssociationArtMediumPutPostRequestValidator _validator = new StudentArtProgramAssociationArtMediumPutPostRequestValidator();
         
@@ -11808,6 +11902,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentArtProgramAssociationPortfolioYears : Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        private static FullName _fullName = new FullName("sample", "StudentArtProgramAssociationPortfolioYears");
+
         // Fluent validator instance (threadsafe)
         private static StudentArtProgramAssociationPortfolioYearsPutPostRequestValidator _validator = new StudentArtProgramAssociationPortfolioYearsPutPostRequestValidator();
         
@@ -12048,6 +12144,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationService : Entities.Common.Sample.IStudentArtProgramAssociationService
     {
+        private static FullName _fullName = new FullName("sample", "StudentArtProgramAssociationService");
+
         // Fluent validator instance (threadsafe)
         private static StudentArtProgramAssociationServicePutPostRequestValidator _validator = new StudentArtProgramAssociationServicePutPostRequestValidator();
         
@@ -12291,6 +12389,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationStyle : Entities.Common.Sample.IStudentArtProgramAssociationStyle
     {
+        private static FullName _fullName = new FullName("sample", "StudentArtProgramAssociationStyle");
+
         // Fluent validator instance (threadsafe)
         private static StudentArtProgramAssociationStylePutPostRequestValidator _validator = new StudentArtProgramAssociationStylePutPostRequestValidator();
         
@@ -12519,6 +12619,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi
     [Display(Name="Sample")]
     public class StudentCTEProgramAssociationExtension : Entities.Common.Sample.IStudentCTEProgramAssociationExtension, IChildEntity
     {
+        private static FullName _fullName = new FullName("sample", "StudentCTEProgramAssociationExtension");
+
         // Fluent validator instance (threadsafe)
         private static StudentCTEProgramAssociationExtensionPutPostRequestValidator _validator = new StudentCTEProgramAssociationExtensionPutPostRequestValidator();
         
@@ -12749,6 +12851,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentEducationOrganizationAssociationAddressExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension, IHasRequiredMembersWithMeaningfulDefaultValues, IChildEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("sample", "StudentEducationOrganizationAssociationAddressExtension");
+
         // Fluent validator instance (threadsafe)
         private static StudentEducationOrganizationAssociationAddressExtensionPutPostRequestValidator _validator = new StudentEducationOrganizationAssociationAddressExtensionPutPostRequestValidator();
         
@@ -13036,6 +13140,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -13049,25 +13156,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (StudentEducationOrganizationAssociationAddressSchoolDistricts.Any())
+                if (StudentEducationOrganizationAssociationAddressSchoolDistricts.Any() && mappingContract?.IsMemberSupported("StudentEducationOrganizationAssociationAddressSchoolDistricts") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentEducationOrganizationAssociationAddressSchoolDistricts));
+                    pathBuilder.Append("StudentEducationOrganizationAssociationAddressSchoolDistricts");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentEducationOrganizationAssociationAddressSchoolDistricts, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentEducationOrganizationAssociationAddressSchoolDistricts, validationContext, validationContext.Items.ForCollection("StudentEducationOrganizationAssociationAddressSchoolDistricts"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (StudentEducationOrganizationAssociationAddressTerms.Any())
+                if (StudentEducationOrganizationAssociationAddressTerms.Any() && mappingContract?.IsMemberSupported("StudentEducationOrganizationAssociationAddressTerms") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentEducationOrganizationAssociationAddressTerms));
+                    pathBuilder.Append("StudentEducationOrganizationAssociationAddressTerms");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentEducationOrganizationAssociationAddressTerms, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentEducationOrganizationAssociationAddressTerms, validationContext, validationContext.Items.ForCollection("StudentEducationOrganizationAssociationAddressTerms"))))
                     {
                         yield return result;
                     }
@@ -13179,6 +13286,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationAddressSchoolDistrict : Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict
     {
+        private static FullName _fullName = new FullName("sample", "StudentEducationOrganizationAssociationAddressSchoolDistrict");
+
         // Fluent validator instance (threadsafe)
         private static StudentEducationOrganizationAssociationAddressSchoolDistrictPutPostRequestValidator _validator = new StudentEducationOrganizationAssociationAddressSchoolDistrictPutPostRequestValidator();
         
@@ -13401,6 +13510,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationAddressTerm : Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm
     {
+        private static FullName _fullName = new FullName("sample", "StudentEducationOrganizationAssociationAddressTerm");
+
         // Fluent validator instance (threadsafe)
         private static StudentEducationOrganizationAssociationAddressTermPutPostRequestValidator _validator = new StudentEducationOrganizationAssociationAddressTermPutPostRequestValidator();
         
@@ -13624,6 +13735,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     [Display(Name="Sample")]
     public class StudentEducationOrganizationAssociationExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension, IChildEntity
     {
+        private static FullName _fullName = new FullName("sample", "StudentEducationOrganizationAssociationExtension");
+
         // Fluent validator instance (threadsafe)
         private static StudentEducationOrganizationAssociationExtensionPutPostRequestValidator _validator = new StudentEducationOrganizationAssociationExtensionPutPostRequestValidator();
         
@@ -13945,6 +14058,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     [Display(Name="Sample")]
     public class StudentEducationOrganizationAssociationStudentCharacteristicExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicExtension, IChildEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("sample", "StudentEducationOrganizationAssociationStudentCharacteristicExtension");
+
         // Fluent validator instance (threadsafe)
         private static StudentEducationOrganizationAssociationStudentCharacteristicExtensionPutPostRequestValidator _validator = new StudentEducationOrganizationAssociationStudentCharacteristicExtensionPutPostRequestValidator();
         
@@ -14161,6 +14276,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -14174,13 +14292,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds.Any())
+                if (StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds.Any() && mappingContract?.IsMemberSupported("StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds));
+                    pathBuilder.Append("StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds, validationContext, validationContext.Items.ForCollection("StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds"))))
                     {
                         yield return result;
                     }
@@ -14280,6 +14398,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed : Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed
     {
+        private static FullName _fullName = new FullName("sample", "StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed");
+
         // Fluent validator instance (threadsafe)
         private static StudentEducationOrganizationAssociationStudentCharacteristicStudentNeedPutPostRequestValidator _validator = new StudentEducationOrganizationAssociationStudentCharacteristicStudentNeedPutPostRequestValidator();
         
@@ -14643,6 +14763,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentGraduationPlanAssociation : Entities.Common.Sample.IStudentGraduationPlanAssociation, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues, IValidatableObject
     {
+        private static FullName _fullName = new FullName("sample", "StudentGraduationPlanAssociation");
+
         // Fluent validator instance (threadsafe)
         private static StudentGraduationPlanAssociationPutPostRequestValidator _validator = new StudentGraduationPlanAssociationPutPostRequestValidator();
         
@@ -15470,6 +15592,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -15482,85 +15607,85 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (StudentGraduationPlanAssociationAcademicSubjects.Any())
+                if (StudentGraduationPlanAssociationAcademicSubjects.Any() && mappingContract?.IsMemberSupported("StudentGraduationPlanAssociationAcademicSubjects") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentGraduationPlanAssociationAcademicSubjects));
+                    pathBuilder.Append("StudentGraduationPlanAssociationAcademicSubjects");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationAcademicSubjects, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationAcademicSubjects, validationContext, validationContext.Items.ForCollection("StudentGraduationPlanAssociationAcademicSubjects"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (StudentGraduationPlanAssociationCareerPathwayCodes.Any())
+                if (StudentGraduationPlanAssociationCareerPathwayCodes.Any() && mappingContract?.IsMemberSupported("StudentGraduationPlanAssociationCareerPathwayCodes") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentGraduationPlanAssociationCareerPathwayCodes));
+                    pathBuilder.Append("StudentGraduationPlanAssociationCareerPathwayCodes");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationCareerPathwayCodes, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationCareerPathwayCodes, validationContext, validationContext.Items.ForCollection("StudentGraduationPlanAssociationCareerPathwayCodes"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (StudentGraduationPlanAssociationDescriptions.Any())
+                if (StudentGraduationPlanAssociationDescriptions.Any() && mappingContract?.IsMemberSupported("StudentGraduationPlanAssociationDescriptions") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentGraduationPlanAssociationDescriptions));
+                    pathBuilder.Append("StudentGraduationPlanAssociationDescriptions");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationDescriptions, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationDescriptions, validationContext, validationContext.Items.ForCollection("StudentGraduationPlanAssociationDescriptions"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (StudentGraduationPlanAssociationDesignatedBies.Any())
+                if (StudentGraduationPlanAssociationDesignatedBies.Any() && mappingContract?.IsMemberSupported("StudentGraduationPlanAssociationDesignatedBies") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentGraduationPlanAssociationDesignatedBies));
+                    pathBuilder.Append("StudentGraduationPlanAssociationDesignatedBies");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationDesignatedBies, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationDesignatedBies, validationContext, validationContext.Items.ForCollection("StudentGraduationPlanAssociationDesignatedBies"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (StudentGraduationPlanAssociationIndustryCredentials.Any())
+                if (StudentGraduationPlanAssociationIndustryCredentials.Any() && mappingContract?.IsMemberSupported("StudentGraduationPlanAssociationIndustryCredentials") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentGraduationPlanAssociationIndustryCredentials));
+                    pathBuilder.Append("StudentGraduationPlanAssociationIndustryCredentials");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationIndustryCredentials, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationIndustryCredentials, validationContext, validationContext.Items.ForCollection("StudentGraduationPlanAssociationIndustryCredentials"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (StudentGraduationPlanAssociationStudentParentAssociations.Any())
+                if (StudentGraduationPlanAssociationStudentParentAssociations.Any() && mappingContract?.IsMemberSupported("StudentGraduationPlanAssociationStudentParentAssociations") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentGraduationPlanAssociationStudentParentAssociations));
+                    pathBuilder.Append("StudentGraduationPlanAssociationStudentParentAssociations");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationStudentParentAssociations, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationStudentParentAssociations, validationContext, validationContext.Items.ForCollection("StudentGraduationPlanAssociationStudentParentAssociations"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (StudentGraduationPlanAssociationYearsAttendeds.Any())
+                if (StudentGraduationPlanAssociationYearsAttendeds.Any() && mappingContract?.IsMemberSupported("StudentGraduationPlanAssociationYearsAttendeds") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentGraduationPlanAssociationYearsAttendeds));
+                    pathBuilder.Append("StudentGraduationPlanAssociationYearsAttendeds");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationYearsAttendeds, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentGraduationPlanAssociationYearsAttendeds, validationContext, validationContext.Items.ForCollection("StudentGraduationPlanAssociationYearsAttendeds"))))
                     {
                         yield return result;
                     }
@@ -15570,13 +15695,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
                 // ---------------------------
                 //  Validate embedded objects
                 // ---------------------------
-                if (StudentGraduationPlanAssociationCTEProgram != null)
+                if (StudentGraduationPlanAssociationCTEProgram != null && mappingContract?.IsMemberSupported("StudentGraduationPlanAssociationCTEProgram") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentGraduationPlanAssociationCTEProgram));
-    
-                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(StudentGraduationPlanAssociationCTEProgram, validationContext.Items)))
+                    pathBuilder.Append("StudentGraduationPlanAssociationCTEProgram");
+
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(StudentGraduationPlanAssociationCTEProgram, validationContext, validationContext.Items.ForEmbeddedObject("StudentGraduationPlanAssociationCTEProgram"))))
                     {
                         yield return result;
                     }
@@ -15744,6 +15869,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationAcademicSubject : Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject
     {
+        private static FullName _fullName = new FullName("sample", "StudentGraduationPlanAssociationAcademicSubject");
+
         // Fluent validator instance (threadsafe)
         private static StudentGraduationPlanAssociationAcademicSubjectPutPostRequestValidator _validator = new StudentGraduationPlanAssociationAcademicSubjectPutPostRequestValidator();
         
@@ -15967,6 +16094,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentGraduationPlanAssociationCareerPathwayCode : Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        private static FullName _fullName = new FullName("sample", "StudentGraduationPlanAssociationCareerPathwayCode");
+
         // Fluent validator instance (threadsafe)
         private static StudentGraduationPlanAssociationCareerPathwayCodePutPostRequestValidator _validator = new StudentGraduationPlanAssociationCareerPathwayCodePutPostRequestValidator();
         
@@ -16207,6 +16336,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationCTEProgram : Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram
     {
+        private static FullName _fullName = new FullName("sample", "StudentGraduationPlanAssociationCTEProgram");
+
         // Fluent validator instance (threadsafe)
         private static StudentGraduationPlanAssociationCTEProgramPutPostRequestValidator _validator = new StudentGraduationPlanAssociationCTEProgramPutPostRequestValidator();
         
@@ -16442,6 +16573,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationDescription : Entities.Common.Sample.IStudentGraduationPlanAssociationDescription
     {
+        private static FullName _fullName = new FullName("sample", "StudentGraduationPlanAssociationDescription");
+
         // Fluent validator instance (threadsafe)
         private static StudentGraduationPlanAssociationDescriptionPutPostRequestValidator _validator = new StudentGraduationPlanAssociationDescriptionPutPostRequestValidator();
         
@@ -16664,6 +16797,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationDesignatedBy : Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy
     {
+        private static FullName _fullName = new FullName("sample", "StudentGraduationPlanAssociationDesignatedBy");
+
         // Fluent validator instance (threadsafe)
         private static StudentGraduationPlanAssociationDesignatedByPutPostRequestValidator _validator = new StudentGraduationPlanAssociationDesignatedByPutPostRequestValidator();
         
@@ -16886,6 +17021,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationIndustryCredential : Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential
     {
+        private static FullName _fullName = new FullName("sample", "StudentGraduationPlanAssociationIndustryCredential");
+
         // Fluent validator instance (threadsafe)
         private static StudentGraduationPlanAssociationIndustryCredentialPutPostRequestValidator _validator = new StudentGraduationPlanAssociationIndustryCredentialPutPostRequestValidator();
         
@@ -17108,6 +17245,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationStudentParentAssociation : Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation
     {
+        private static FullName _fullName = new FullName("sample", "StudentGraduationPlanAssociationStudentParentAssociation");
+
         // Fluent validator instance (threadsafe)
         private static StudentGraduationPlanAssociationStudentParentAssociationPutPostRequestValidator _validator = new StudentGraduationPlanAssociationStudentParentAssociationPutPostRequestValidator();
         
@@ -17407,6 +17546,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentGraduationPlanAssociationYearsAttended : Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        private static FullName _fullName = new FullName("sample", "StudentGraduationPlanAssociationYearsAttended");
+
         // Fluent validator instance (threadsafe)
         private static StudentGraduationPlanAssociationYearsAttendedPutPostRequestValidator _validator = new StudentGraduationPlanAssociationYearsAttendedPutPostRequestValidator();
         
@@ -17652,6 +17793,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationDiscipline : Entities.Common.Sample.IStudentParentAssociationDiscipline
     {
+        private static FullName _fullName = new FullName("sample", "StudentParentAssociationDiscipline");
+
         // Fluent validator instance (threadsafe)
         private static StudentParentAssociationDisciplinePutPostRequestValidator _validator = new StudentParentAssociationDisciplinePutPostRequestValidator();
         
@@ -17876,6 +18019,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentParentAssociationExtension : Entities.Common.Sample.IStudentParentAssociationExtension, IHasRequiredMembersWithMeaningfulDefaultValues, IChildEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("sample", "StudentParentAssociationExtension");
+
         // Fluent validator instance (threadsafe)
         private static StudentParentAssociationExtensionPutPostRequestValidator _validator = new StudentParentAssociationExtensionPutPostRequestValidator();
         
@@ -18453,6 +18598,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -18466,61 +18614,61 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (StudentParentAssociationDisciplines.Any())
+                if (StudentParentAssociationDisciplines.Any() && mappingContract?.IsMemberSupported("StudentParentAssociationDisciplines") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentParentAssociationDisciplines));
+                    pathBuilder.Append("StudentParentAssociationDisciplines");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentParentAssociationDisciplines, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentParentAssociationDisciplines, validationContext, validationContext.Items.ForCollection("StudentParentAssociationDisciplines"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (StudentParentAssociationFavoriteBookTitles.Any())
+                if (StudentParentAssociationFavoriteBookTitles.Any() && mappingContract?.IsMemberSupported("StudentParentAssociationFavoriteBookTitles") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentParentAssociationFavoriteBookTitles));
+                    pathBuilder.Append("StudentParentAssociationFavoriteBookTitles");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentParentAssociationFavoriteBookTitles, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentParentAssociationFavoriteBookTitles, validationContext, validationContext.Items.ForCollection("StudentParentAssociationFavoriteBookTitles"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (StudentParentAssociationHoursPerWeeks.Any())
+                if (StudentParentAssociationHoursPerWeeks.Any() && mappingContract?.IsMemberSupported("StudentParentAssociationHoursPerWeeks") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentParentAssociationHoursPerWeeks));
+                    pathBuilder.Append("StudentParentAssociationHoursPerWeeks");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentParentAssociationHoursPerWeeks, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentParentAssociationHoursPerWeeks, validationContext, validationContext.Items.ForCollection("StudentParentAssociationHoursPerWeeks"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (StudentParentAssociationPagesReads.Any())
+                if (StudentParentAssociationPagesReads.Any() && mappingContract?.IsMemberSupported("StudentParentAssociationPagesReads") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentParentAssociationPagesReads));
+                    pathBuilder.Append("StudentParentAssociationPagesReads");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentParentAssociationPagesReads, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentParentAssociationPagesReads, validationContext, validationContext.Items.ForCollection("StudentParentAssociationPagesReads"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (StudentParentAssociationStaffEducationOrganizationEmploymentAssociations.Any())
+                if (StudentParentAssociationStaffEducationOrganizationEmploymentAssociations.Any() && mappingContract?.IsMemberSupported("StudentParentAssociationStaffEducationOrganizationEmploymentAssociations") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentParentAssociationStaffEducationOrganizationEmploymentAssociations));
+                    pathBuilder.Append("StudentParentAssociationStaffEducationOrganizationEmploymentAssociations");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentParentAssociationStaffEducationOrganizationEmploymentAssociations, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentParentAssociationStaffEducationOrganizationEmploymentAssociations, validationContext, validationContext.Items.ForCollection("StudentParentAssociationStaffEducationOrganizationEmploymentAssociations"))))
                     {
                         yield return result;
                     }
@@ -18530,13 +18678,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
                 // ---------------------------
                 //  Validate embedded objects
                 // ---------------------------
-                if (StudentParentAssociationTelephone != null)
+                if (StudentParentAssociationTelephone != null && mappingContract?.IsMemberSupported("StudentParentAssociationTelephone") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentParentAssociationTelephone));
-    
-                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(StudentParentAssociationTelephone, validationContext.Items)))
+                    pathBuilder.Append("StudentParentAssociationTelephone");
+
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(StudentParentAssociationTelephone, validationContext, validationContext.Items.ForEmbeddedObject("StudentParentAssociationTelephone"))))
                     {
                         yield return result;
                     }
@@ -18680,6 +18828,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationFavoriteBookTitle : Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle
     {
+        private static FullName _fullName = new FullName("sample", "StudentParentAssociationFavoriteBookTitle");
+
         // Fluent validator instance (threadsafe)
         private static StudentParentAssociationFavoriteBookTitlePutPostRequestValidator _validator = new StudentParentAssociationFavoriteBookTitlePutPostRequestValidator();
         
@@ -18903,6 +19053,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentParentAssociationHoursPerWeek : Entities.Common.Sample.IStudentParentAssociationHoursPerWeek, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        private static FullName _fullName = new FullName("sample", "StudentParentAssociationHoursPerWeek");
+
         // Fluent validator instance (threadsafe)
         private static StudentParentAssociationHoursPerWeekPutPostRequestValidator _validator = new StudentParentAssociationHoursPerWeekPutPostRequestValidator();
         
@@ -19145,6 +19297,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentParentAssociationPagesRead : Entities.Common.Sample.IStudentParentAssociationPagesRead, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        private static FullName _fullName = new FullName("sample", "StudentParentAssociationPagesRead");
+
         // Fluent validator instance (threadsafe)
         private static StudentParentAssociationPagesReadPutPostRequestValidator _validator = new StudentParentAssociationPagesReadPutPostRequestValidator();
         
@@ -19386,6 +19540,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationStaffEducationOrganizationEmploymentAssociation : Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation
     {
+        private static FullName _fullName = new FullName("sample", "StudentParentAssociationStaffEducationOrganizationEmploymentAssociation");
+
         // Fluent validator instance (threadsafe)
         private static StudentParentAssociationStaffEducationOrganizationEmploymentAssociationPutPostRequestValidator _validator = new StudentParentAssociationStaffEducationOrganizationEmploymentAssociationPutPostRequestValidator();
         
@@ -19768,6 +19924,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationTelephone : Entities.Common.Sample.IStudentParentAssociationTelephone
     {
+        private static FullName _fullName = new FullName("sample", "StudentParentAssociationTelephone");
+
         // Fluent validator instance (threadsafe)
         private static StudentParentAssociationTelephonePutPostRequestValidator _validator = new StudentParentAssociationTelephonePutPostRequestValidator();
         
@@ -20018,6 +20176,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.Ext
     [Display(Name="Sample")]
     public class StudentSchoolAssociationExtension : Entities.Common.Sample.IStudentSchoolAssociationExtension, IChildEntity
     {
+        private static FullName _fullName = new FullName("sample", "StudentSchoolAssociationExtension");
+
         // Fluent validator instance (threadsafe)
         private static StudentSchoolAssociationExtensionPutPostRequestValidator _validator = new StudentSchoolAssociationExtensionPutPostRequestValidator();
         
@@ -20241,6 +20401,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
     [Display(Name="Sample")]
     public class StudentSectionAssociationExtension : Entities.Common.Sample.IStudentSectionAssociationExtension, IChildEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("sample", "StudentSectionAssociationExtension");
+
         // Fluent validator instance (threadsafe)
         private static StudentSectionAssociationExtensionPutPostRequestValidator _validator = new StudentSectionAssociationExtensionPutPostRequestValidator();
         
@@ -20457,6 +20619,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -20470,13 +20635,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (StudentSectionAssociationRelatedGeneralStudentProgramAssociations.Any())
+                if (StudentSectionAssociationRelatedGeneralStudentProgramAssociations.Any() && mappingContract?.IsMemberSupported("StudentSectionAssociationRelatedGeneralStudentProgramAssociations") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentSectionAssociationRelatedGeneralStudentProgramAssociations));
+                    pathBuilder.Append("StudentSectionAssociationRelatedGeneralStudentProgramAssociations");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentSectionAssociationRelatedGeneralStudentProgramAssociations, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentSectionAssociationRelatedGeneralStudentProgramAssociations, validationContext, validationContext.Items.ForCollection("StudentSectionAssociationRelatedGeneralStudentProgramAssociations"))))
                     {
                         yield return result;
                     }
@@ -20576,6 +20741,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
     [ExcludeFromCodeCoverage]
     public class StudentSectionAssociationRelatedGeneralStudentProgramAssociation : Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation
     {
+        private static FullName _fullName = new FullName("sample", "StudentSectionAssociationRelatedGeneralStudentProgramAssociation");
+
         // Fluent validator instance (threadsafe)
         private static StudentSectionAssociationRelatedGeneralStudentProgramAssociationPutPostRequestValidator _validator = new StudentSectionAssociationRelatedGeneralStudentProgramAssociationPutPostRequestValidator();
         

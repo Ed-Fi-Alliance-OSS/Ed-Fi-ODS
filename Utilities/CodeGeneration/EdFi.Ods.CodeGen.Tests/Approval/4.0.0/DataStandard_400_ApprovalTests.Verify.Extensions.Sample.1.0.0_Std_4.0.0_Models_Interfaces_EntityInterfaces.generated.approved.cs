@@ -77,6 +77,9 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "ArtMediumDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -118,6 +121,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "BusId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -189,6 +195,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isOperatingCostSupported,
             bool isOptimalCapacitySupported,
             bool isStaffClassificationDescriptorSupported,
+            bool isStaffEducationOrganizationAssignmentAssociationReferenceSupported,
             bool isStaffUniqueIdSupported,
             bool isStartDateSupported,
             bool isWeeklyMileageSupported,
@@ -215,6 +222,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsOperatingCostSupported = isOperatingCostSupported;
             IsOptimalCapacitySupported = isOptimalCapacitySupported;
             IsStaffClassificationDescriptorSupported = isStaffClassificationDescriptorSupported;
+            IsStaffEducationOrganizationAssignmentAssociationReferenceSupported = isStaffEducationOrganizationAssignmentAssociationReferenceSupported;
             IsStaffUniqueIdSupported = isStaffUniqueIdSupported;
             IsStartDateSupported = isStartDateSupported;
             IsWeeklyMileageSupported = isWeeklyMileageSupported;
@@ -241,6 +249,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsOperatingCostSupported { get; }
         public bool IsOptimalCapacitySupported { get; }
         public bool IsStaffClassificationDescriptorSupported { get; }
+        public bool IsStaffEducationOrganizationAssignmentAssociationReferenceSupported { get; }
         public bool IsStaffUniqueIdSupported { get; }
         public bool IsStartDateSupported { get; }
         public bool IsWeeklyMileageSupported { get; }
@@ -286,12 +295,20 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsOptimalCapacitySupported;
                 case "StaffClassificationDescriptor":
                     return IsStaffClassificationDescriptorSupported;
+                case "StaffEducationOrganizationAssignmentAssociationReference":
+                    return IsStaffEducationOrganizationAssignmentAssociationReferenceSupported;
                 case "StaffUniqueId":
                     return IsStaffUniqueIdSupported;
                 case "StartDate":
                     return IsStartDateSupported;
                 case "WeeklyMileage":
                     return IsWeeklyMileageSupported;
+                case "BusId":
+                    // Identifying properties are always supported
+                    return true;
+                case "BusRouteNumber":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -334,6 +351,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "BusYear":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -373,15 +393,29 @@ namespace EdFi.Ods.Entities.Common.Sample
     public class BusRouteProgramMappingContract : IMappingContract
     {
         public BusRouteProgramMappingContract(
+            bool isProgramReferenceSupported
             )
         {
+            IsProgramReferenceSupported = isProgramReferenceSupported;
         }
 
+        public bool IsProgramReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "ProgramReference":
+                    return IsProgramReferenceSupported;
+                case "EducationOrganizationId":
+                    // Identifying properties are always supported
+                    return true;
+                case "ProgramName":
+                    // Identifying properties are always supported
+                    return true;
+                case "ProgramTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -424,6 +458,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "ServiceAreaPostalCode":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -466,6 +503,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "StartTime":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -528,6 +568,12 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsOrderOfPrioritySupported;
                 case "TextMessageCapabilityIndicator":
                     return IsTextMessageCapabilityIndicatorSupported;
+                case "TelephoneNumber":
+                    // Identifying properties are always supported
+                    return true;
+                case "TelephoneNumberTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -599,6 +645,9 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "FavoriteBookCategoryDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -670,6 +719,9 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "MembershipTypeDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -782,6 +834,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "SchoolDistrict":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -824,6 +879,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "TermDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -866,6 +924,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "Author":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -908,6 +969,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "CeilingHeight":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1007,15 +1071,23 @@ namespace EdFi.Ods.Entities.Common.Sample
     public class ParentEducationContentMappingContract : IMappingContract
     {
         public ParentEducationContentMappingContract(
+            bool isEducationContentReferenceSupported
             )
         {
+            IsEducationContentReferenceSupported = isEducationContentReferenceSupported;
         }
 
+        public bool IsEducationContentReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "EducationContentReference":
+                    return IsEducationContentReferenceSupported;
+                case "ContentIdentifier":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1223,6 +1295,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "FavoriteBookTitle":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1267,15 +1342,38 @@ namespace EdFi.Ods.Entities.Common.Sample
     public class ParentStudentProgramAssociationMappingContract : IMappingContract
     {
         public ParentStudentProgramAssociationMappingContract(
+            bool isStudentProgramAssociationReferenceSupported
             )
         {
+            IsStudentProgramAssociationReferenceSupported = isStudentProgramAssociationReferenceSupported;
         }
 
+        public bool IsStudentProgramAssociationReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "StudentProgramAssociationReference":
+                    return IsStudentProgramAssociationReferenceSupported;
+                case "BeginDate":
+                    // Identifying properties are always supported
+                    return true;
+                case "EducationOrganizationId":
+                    // Identifying properties are always supported
+                    return true;
+                case "ProgramEducationOrganizationId":
+                    // Identifying properties are always supported
+                    return true;
+                case "ProgramName":
+                    // Identifying properties are always supported
+                    return true;
+                case "ProgramTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "StudentUniqueId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1433,15 +1531,23 @@ namespace EdFi.Ods.Entities.Common.Sample
     public class SchoolDirectlyOwnedBusMappingContract : IMappingContract
     {
         public SchoolDirectlyOwnedBusMappingContract(
+            bool isDirectlyOwnedBusReferenceSupported
             )
         {
+            IsDirectlyOwnedBusReferenceSupported = isDirectlyOwnedBusReferenceSupported;
         }
 
+        public bool IsDirectlyOwnedBusReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "DirectlyOwnedBusReference":
+                    return IsDirectlyOwnedBusReferenceSupported;
+                case "DirectlyOwnedBusId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1614,6 +1720,9 @@ namespace EdFi.Ods.Entities.Common.Sample
             {
                 case "IsFixed":
                     return IsIsFixedSupported;
+                case "PetName":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1716,6 +1825,12 @@ namespace EdFi.Ods.Entities.Common.Sample
             {
                 case "IsFixed":
                     return IsIsFixedSupported;
+                case "MimimumTankVolume":
+                    // Identifying properties are always supported
+                    return true;
+                case "PetName":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1762,6 +1877,7 @@ namespace EdFi.Ods.Entities.Common.Sample
     {
         public StudentArtProgramAssociationMappingContract(
             bool isArtPiecesSupported,
+            bool isEducationOrganizationReferenceSupported,
             bool isEndDateSupported,
             bool isExhibitDateSupported,
             bool isGeneralStudentProgramAssociationParticipationStatusSupported,
@@ -1775,12 +1891,14 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isPortfolioPiecesSupported,
             bool isPrivateArtProgramSupported,
             bool isProgramFeesSupported,
+            bool isProgramReferenceSupported,
             bool isReasonExitedDescriptorSupported,
             bool isServedOutsideOfRegularSessionSupported,
             bool isStudentArtProgramAssociationArtMediaSupported,
             bool isStudentArtProgramAssociationPortfolioYearsSupported,
             bool isStudentArtProgramAssociationServicesSupported,
             bool isStudentArtProgramAssociationStylesSupported,
+            bool isStudentReferenceSupported,
             Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> isGeneralStudentProgramAssociationProgramParticipationStatusIncluded,
             Func<IStudentArtProgramAssociationArtMedium, bool> isStudentArtProgramAssociationArtMediumIncluded,
             Func<IStudentArtProgramAssociationPortfolioYears, bool> isStudentArtProgramAssociationPortfolioYearsIncluded,
@@ -1789,6 +1907,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             )
         {
             IsArtPiecesSupported = isArtPiecesSupported;
+            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
             IsEndDateSupported = isEndDateSupported;
             IsExhibitDateSupported = isExhibitDateSupported;
             IsGeneralStudentProgramAssociationParticipationStatusSupported = isGeneralStudentProgramAssociationParticipationStatusSupported;
@@ -1802,12 +1921,14 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsPortfolioPiecesSupported = isPortfolioPiecesSupported;
             IsPrivateArtProgramSupported = isPrivateArtProgramSupported;
             IsProgramFeesSupported = isProgramFeesSupported;
+            IsProgramReferenceSupported = isProgramReferenceSupported;
             IsReasonExitedDescriptorSupported = isReasonExitedDescriptorSupported;
             IsServedOutsideOfRegularSessionSupported = isServedOutsideOfRegularSessionSupported;
             IsStudentArtProgramAssociationArtMediaSupported = isStudentArtProgramAssociationArtMediaSupported;
             IsStudentArtProgramAssociationPortfolioYearsSupported = isStudentArtProgramAssociationPortfolioYearsSupported;
             IsStudentArtProgramAssociationServicesSupported = isStudentArtProgramAssociationServicesSupported;
             IsStudentArtProgramAssociationStylesSupported = isStudentArtProgramAssociationStylesSupported;
+            IsStudentReferenceSupported = isStudentReferenceSupported;
             IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = isGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
             IsStudentArtProgramAssociationArtMediumIncluded = isStudentArtProgramAssociationArtMediumIncluded;
             IsStudentArtProgramAssociationPortfolioYearsIncluded = isStudentArtProgramAssociationPortfolioYearsIncluded;
@@ -1816,6 +1937,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         }
 
         public bool IsArtPiecesSupported { get; }
+        public bool IsEducationOrganizationReferenceSupported { get; }
         public bool IsEndDateSupported { get; }
         public bool IsExhibitDateSupported { get; }
         public bool IsGeneralStudentProgramAssociationParticipationStatusSupported { get; }
@@ -1829,12 +1951,14 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsPortfolioPiecesSupported { get; }
         public bool IsPrivateArtProgramSupported { get; }
         public bool IsProgramFeesSupported { get; }
+        public bool IsProgramReferenceSupported { get; }
         public bool IsReasonExitedDescriptorSupported { get; }
         public bool IsServedOutsideOfRegularSessionSupported { get; }
         public bool IsStudentArtProgramAssociationArtMediaSupported { get; }
         public bool IsStudentArtProgramAssociationPortfolioYearsSupported { get; }
         public bool IsStudentArtProgramAssociationServicesSupported { get; }
         public bool IsStudentArtProgramAssociationStylesSupported { get; }
+        public bool IsStudentReferenceSupported { get; }
         public Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; }
         public Func<IStudentArtProgramAssociationArtMedium, bool> IsStudentArtProgramAssociationArtMediumIncluded { get; }
         public Func<IStudentArtProgramAssociationPortfolioYears, bool> IsStudentArtProgramAssociationPortfolioYearsIncluded { get; }
@@ -1847,6 +1971,8 @@ namespace EdFi.Ods.Entities.Common.Sample
             {
                 case "ArtPieces":
                     return IsArtPiecesSupported;
+                case "EducationOrganizationReference":
+                    return IsEducationOrganizationReferenceSupported;
                 case "EndDate":
                     return IsEndDateSupported;
                 case "ExhibitDate":
@@ -1873,6 +1999,8 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsPrivateArtProgramSupported;
                 case "ProgramFees":
                     return IsProgramFeesSupported;
+                case "ProgramReference":
+                    return IsProgramReferenceSupported;
                 case "ReasonExitedDescriptor":
                     return IsReasonExitedDescriptorSupported;
                 case "ServedOutsideOfRegularSession":
@@ -1885,6 +2013,8 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsStudentArtProgramAssociationServicesSupported;
                 case "StudentArtProgramAssociationStyles":
                     return IsStudentArtProgramAssociationStylesSupported;
+                case "StudentReference":
+                    return IsStudentReferenceSupported;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1927,6 +2057,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "ArtMediumDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1969,6 +2102,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "PortfolioYears":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2029,6 +2165,9 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsServiceBeginDateSupported;
                 case "ServiceEndDate":
                     return IsServiceEndDateSupported;
+                case "ServiceDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2071,6 +2210,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "Style":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2235,6 +2377,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "SchoolDistrict":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2277,6 +2422,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "TermDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2313,14 +2461,17 @@ namespace EdFi.Ods.Entities.Common.Sample
     {
         public StudentEducationOrganizationAssociationExtensionMappingContract(
             bool isFavoriteProgramNameSupported,
+            bool isFavoriteProgramReferenceSupported,
             bool isFavoriteProgramTypeDescriptorSupported
             )
         {
             IsFavoriteProgramNameSupported = isFavoriteProgramNameSupported;
+            IsFavoriteProgramReferenceSupported = isFavoriteProgramReferenceSupported;
             IsFavoriteProgramTypeDescriptorSupported = isFavoriteProgramTypeDescriptorSupported;
         }
 
         public bool IsFavoriteProgramNameSupported { get; }
+        public bool IsFavoriteProgramReferenceSupported { get; }
         public bool IsFavoriteProgramTypeDescriptorSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -2329,6 +2480,8 @@ namespace EdFi.Ods.Entities.Common.Sample
             {
                 case "FavoriteProgramName":
                     return IsFavoriteProgramNameSupported;
+                case "FavoriteProgramReference":
+                    return IsFavoriteProgramReferenceSupported;
                 case "FavoriteProgramTypeDescriptor":
                     return IsFavoriteProgramTypeDescriptorSupported;
                 default:
@@ -2434,6 +2587,9 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsEndDateSupported;
                 case "PrimaryStudentNeedIndicator":
                     return IsPrimaryStudentNeedIndicatorSupported;
+                case "BeginDate":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2565,6 +2721,9 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsBookTitleSupported;
                 case "StudentFavoriteBookArtMedia":
                     return IsStudentFavoriteBookArtMediaSupported;
+                case "FavoriteBookCategoryDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2613,6 +2772,9 @@ namespace EdFi.Ods.Entities.Common.Sample
             {
                 case "ArtPieces":
                     return IsArtPiecesSupported;
+                case "ArtMediumDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2678,10 +2840,12 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isCommencementTimeSupported,
             bool isEffectiveDateSupported,
             bool isGraduationFeeSupported,
+            bool isGraduationPlanReferenceSupported,
             bool isHighSchoolDurationSupported,
             bool isHoursPerWeekSupported,
             bool isIsActivePlanSupported,
             bool isRequiredAttendanceSupported,
+            bool isStaffReferenceSupported,
             bool isStaffUniqueIdSupported,
             bool isStudentGraduationPlanAssociationAcademicSubjectsSupported,
             bool isStudentGraduationPlanAssociationCareerPathwayCodesSupported,
@@ -2691,6 +2855,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isStudentGraduationPlanAssociationIndustryCredentialsSupported,
             bool isStudentGraduationPlanAssociationStudentParentAssociationsSupported,
             bool isStudentGraduationPlanAssociationYearsAttendedsSupported,
+            bool isStudentReferenceSupported,
             bool isTargetGPASupported,
             Func<IStudentGraduationPlanAssociationAcademicSubject, bool> isStudentGraduationPlanAssociationAcademicSubjectIncluded,
             Func<IStudentGraduationPlanAssociationCareerPathwayCode, bool> isStudentGraduationPlanAssociationCareerPathwayCodeIncluded,
@@ -2704,10 +2869,12 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsCommencementTimeSupported = isCommencementTimeSupported;
             IsEffectiveDateSupported = isEffectiveDateSupported;
             IsGraduationFeeSupported = isGraduationFeeSupported;
+            IsGraduationPlanReferenceSupported = isGraduationPlanReferenceSupported;
             IsHighSchoolDurationSupported = isHighSchoolDurationSupported;
             IsHoursPerWeekSupported = isHoursPerWeekSupported;
             IsIsActivePlanSupported = isIsActivePlanSupported;
             IsRequiredAttendanceSupported = isRequiredAttendanceSupported;
+            IsStaffReferenceSupported = isStaffReferenceSupported;
             IsStaffUniqueIdSupported = isStaffUniqueIdSupported;
             IsStudentGraduationPlanAssociationAcademicSubjectsSupported = isStudentGraduationPlanAssociationAcademicSubjectsSupported;
             IsStudentGraduationPlanAssociationCareerPathwayCodesSupported = isStudentGraduationPlanAssociationCareerPathwayCodesSupported;
@@ -2717,6 +2884,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsStudentGraduationPlanAssociationIndustryCredentialsSupported = isStudentGraduationPlanAssociationIndustryCredentialsSupported;
             IsStudentGraduationPlanAssociationStudentParentAssociationsSupported = isStudentGraduationPlanAssociationStudentParentAssociationsSupported;
             IsStudentGraduationPlanAssociationYearsAttendedsSupported = isStudentGraduationPlanAssociationYearsAttendedsSupported;
+            IsStudentReferenceSupported = isStudentReferenceSupported;
             IsTargetGPASupported = isTargetGPASupported;
             IsStudentGraduationPlanAssociationAcademicSubjectIncluded = isStudentGraduationPlanAssociationAcademicSubjectIncluded;
             IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded = isStudentGraduationPlanAssociationCareerPathwayCodeIncluded;
@@ -2730,10 +2898,12 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsCommencementTimeSupported { get; }
         public bool IsEffectiveDateSupported { get; }
         public bool IsGraduationFeeSupported { get; }
+        public bool IsGraduationPlanReferenceSupported { get; }
         public bool IsHighSchoolDurationSupported { get; }
         public bool IsHoursPerWeekSupported { get; }
         public bool IsIsActivePlanSupported { get; }
         public bool IsRequiredAttendanceSupported { get; }
+        public bool IsStaffReferenceSupported { get; }
         public bool IsStaffUniqueIdSupported { get; }
         public bool IsStudentGraduationPlanAssociationAcademicSubjectsSupported { get; }
         public bool IsStudentGraduationPlanAssociationCareerPathwayCodesSupported { get; }
@@ -2743,6 +2913,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsStudentGraduationPlanAssociationIndustryCredentialsSupported { get; }
         public bool IsStudentGraduationPlanAssociationStudentParentAssociationsSupported { get; }
         public bool IsStudentGraduationPlanAssociationYearsAttendedsSupported { get; }
+        public bool IsStudentReferenceSupported { get; }
         public bool IsTargetGPASupported { get; }
         public Func<IStudentGraduationPlanAssociationAcademicSubject, bool> IsStudentGraduationPlanAssociationAcademicSubjectIncluded { get; }
         public Func<IStudentGraduationPlanAssociationCareerPathwayCode, bool> IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded { get; }
@@ -2762,6 +2933,8 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsEffectiveDateSupported;
                 case "GraduationFee":
                     return IsGraduationFeeSupported;
+                case "GraduationPlanReference":
+                    return IsGraduationPlanReferenceSupported;
                 case "HighSchoolDuration":
                     return IsHighSchoolDurationSupported;
                 case "HoursPerWeek":
@@ -2770,6 +2943,8 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsIsActivePlanSupported;
                 case "RequiredAttendance":
                     return IsRequiredAttendanceSupported;
+                case "StaffReference":
+                    return IsStaffReferenceSupported;
                 case "StaffUniqueId":
                     return IsStaffUniqueIdSupported;
                 case "StudentGraduationPlanAssociationAcademicSubjects":
@@ -2788,8 +2963,22 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsStudentGraduationPlanAssociationStudentParentAssociationsSupported;
                 case "StudentGraduationPlanAssociationYearsAttendeds":
                     return IsStudentGraduationPlanAssociationYearsAttendedsSupported;
+                case "StudentReference":
+                    return IsStudentReferenceSupported;
                 case "TargetGPA":
                     return IsTargetGPASupported;
+                case "EducationOrganizationId":
+                    // Identifying properties are always supported
+                    return true;
+                case "GraduationPlanTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "GraduationSchoolYear":
+                    // Identifying properties are always supported
+                    return true;
+                case "StudentUniqueId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2832,6 +3021,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "AcademicSubjectDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2874,6 +3066,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "CareerPathwayCode":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2980,6 +3175,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "Description":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3022,6 +3220,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "DesignatedBy":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3064,6 +3265,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "IndustryCredential":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3099,15 +3303,23 @@ namespace EdFi.Ods.Entities.Common.Sample
     public class StudentGraduationPlanAssociationStudentParentAssociationMappingContract : IMappingContract
     {
         public StudentGraduationPlanAssociationStudentParentAssociationMappingContract(
+            bool isStudentParentAssociationReferenceSupported
             )
         {
+            IsStudentParentAssociationReferenceSupported = isStudentParentAssociationReferenceSupported;
         }
 
+        public bool IsStudentParentAssociationReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "StudentParentAssociationReference":
+                    return IsStudentParentAssociationReferenceSupported;
+                case "ParentUniqueId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3150,6 +3362,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "YearsAttended":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3192,6 +3407,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "DisciplineDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3251,6 +3469,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isBooksBorrowedSupported,
             bool isEducationOrganizationIdSupported,
             bool isInterventionStudyIdentificationCodeSupported,
+            bool isInterventionStudyReferenceSupported,
             bool isLibraryDurationSupported,
             bool isLibraryTimeSupported,
             bool isLibraryVisitsSupported,
@@ -3277,6 +3496,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsBooksBorrowedSupported = isBooksBorrowedSupported;
             IsEducationOrganizationIdSupported = isEducationOrganizationIdSupported;
             IsInterventionStudyIdentificationCodeSupported = isInterventionStudyIdentificationCodeSupported;
+            IsInterventionStudyReferenceSupported = isInterventionStudyReferenceSupported;
             IsLibraryDurationSupported = isLibraryDurationSupported;
             IsLibraryTimeSupported = isLibraryTimeSupported;
             IsLibraryVisitsSupported = isLibraryVisitsSupported;
@@ -3303,6 +3523,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsBooksBorrowedSupported { get; }
         public bool IsEducationOrganizationIdSupported { get; }
         public bool IsInterventionStudyIdentificationCodeSupported { get; }
+        public bool IsInterventionStudyReferenceSupported { get; }
         public bool IsLibraryDurationSupported { get; }
         public bool IsLibraryTimeSupported { get; }
         public bool IsLibraryVisitsSupported { get; }
@@ -3338,6 +3559,8 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsEducationOrganizationIdSupported;
                 case "InterventionStudyIdentificationCode":
                     return IsInterventionStudyIdentificationCodeSupported;
+                case "InterventionStudyReference":
+                    return IsInterventionStudyReferenceSupported;
                 case "LibraryDuration":
                     return IsLibraryDurationSupported;
                 case "LibraryTime":
@@ -3406,6 +3629,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "FavoriteBookTitle":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3448,6 +3674,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "HoursPerWeek":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3490,6 +3719,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "PagesRead":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3531,15 +3763,32 @@ namespace EdFi.Ods.Entities.Common.Sample
     public class StudentParentAssociationStaffEducationOrganizationEmploymentAssociationMappingContract : IMappingContract
     {
         public StudentParentAssociationStaffEducationOrganizationEmploymentAssociationMappingContract(
+            bool isStaffEducationOrganizationEmploymentAssociationReferenceSupported
             )
         {
+            IsStaffEducationOrganizationEmploymentAssociationReferenceSupported = isStaffEducationOrganizationEmploymentAssociationReferenceSupported;
         }
 
+        public bool IsStaffEducationOrganizationEmploymentAssociationReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "StaffEducationOrganizationEmploymentAssociationReference":
+                    return IsStaffEducationOrganizationEmploymentAssociationReferenceSupported;
+                case "EducationOrganizationId":
+                    // Identifying properties are always supported
+                    return true;
+                case "EmploymentStatusDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "HireDate":
+                    // Identifying properties are always supported
+                    return true;
+                case "StaffUniqueId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3658,6 +3907,9 @@ namespace EdFi.Ods.Entities.Common.Sample
             {
                 case "IsFixed":
                     return IsIsFixedSupported;
+                case "PetName":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3848,15 +4100,35 @@ namespace EdFi.Ods.Entities.Common.Sample
     public class StudentSectionAssociationRelatedGeneralStudentProgramAssociationMappingContract : IMappingContract
     {
         public StudentSectionAssociationRelatedGeneralStudentProgramAssociationMappingContract(
+            bool isRelatedGeneralStudentProgramAssociationReferenceSupported
             )
         {
+            IsRelatedGeneralStudentProgramAssociationReferenceSupported = isRelatedGeneralStudentProgramAssociationReferenceSupported;
         }
 
+        public bool IsRelatedGeneralStudentProgramAssociationReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "RelatedGeneralStudentProgramAssociationReference":
+                    return IsRelatedGeneralStudentProgramAssociationReferenceSupported;
+                case "RelatedBeginDate":
+                    // Identifying properties are always supported
+                    return true;
+                case "RelatedEducationOrganizationId":
+                    // Identifying properties are always supported
+                    return true;
+                case "RelatedProgramEducationOrganizationId":
+                    // Identifying properties are always supported
+                    return true;
+                case "RelatedProgramName":
+                    // Identifying properties are always supported
+                    return true;
+                case "RelatedProgramTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
