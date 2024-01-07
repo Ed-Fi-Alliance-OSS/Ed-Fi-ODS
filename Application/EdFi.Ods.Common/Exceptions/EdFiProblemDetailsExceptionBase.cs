@@ -100,6 +100,9 @@ public abstract class EdFiProblemDetailsExceptionBase : Exception, IEdFiProblemD
         Detail = detail;
     }
 
+    /// <inheritdoc cref="IEdFiProblemDetails.Detail" />
+    public string Detail { get; }
+
     /// <inheritdoc cref="IEdFiProblemDetails.Type" />
     public string Type
     {
@@ -112,14 +115,6 @@ public abstract class EdFiProblemDetailsExceptionBase : Exception, IEdFiProblemD
     /// <inheritdoc cref="IEdFiProblemDetails.Status" />
     public abstract int Status { get; }
 
-    /// <inheritdoc cref="IEdFiProblemDetails.Detail" />
-    public string Detail { get; }
-
-    protected virtual IEnumerable<string> GetTypeParts()
-    {
-        yield return BaseTypePrefix;
-    }
-
     /// <inheritdoc cref="IEdFiProblemDetails.CorrelationId" />
     public string CorrelationId { get; set; }
 
@@ -128,4 +123,9 @@ public abstract class EdFiProblemDetailsExceptionBase : Exception, IEdFiProblemD
 
     /// <inheritdoc cref="IEdFiProblemDetails.Errors" />
     string[] IEdFiProblemDetails.Errors { get; set; }
+
+    protected virtual IEnumerable<string> GetTypeParts()
+    {
+        yield return BaseTypePrefix;
+    }
 }

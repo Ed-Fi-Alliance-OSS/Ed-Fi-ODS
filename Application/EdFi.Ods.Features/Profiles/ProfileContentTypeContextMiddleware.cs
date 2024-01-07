@@ -148,7 +148,7 @@ public class ProfileContentTypeContextMiddleware
                         response,
                         StatusCodes.Status400BadRequest,
                         headerName,
-                        "A profile-based content type that is readable cannot be used with PUT or POST requests.");
+                        $"A profile-based content type that is readable cannot be used with {request.Method.ToUpper()} requests.");
 
                     return (false, null);
                 }
@@ -191,8 +191,9 @@ public class ProfileContentTypeContextMiddleware
                 statusCode,
                 ProfileContentTypeUsageException.TitleText,
                 ProfileContentTypeUsageException.DefaultDetail,
+                new[] {errorMessage },
                 correlationId,
-                EdFiProblemDetailsExceptionBase.BaseTypePrefix, ProfileContentTypeUsageException.TypePart);
+                ProfileContentTypeUsageException.TypePart);
         }
 
         bool TryGetContentTypeUsage(StringSegment profileContentTypeFacet, out ContentTypeUsage contentTypeUsage)

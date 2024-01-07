@@ -11,6 +11,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Common.Validation
 // namespace System.ComponentModel.DataAnnotations
@@ -527,13 +531,42 @@ namespace EdFi.Ods.Common.Validation
         private static List<KeyValuePair<ValidationContext, object?>> GetPropertyValues(object instance,
             ValidationContext validationContext)
         {
+            // ==========================
+            // NOTE: Customization BEGIN
+            // --------------------------
+            var mappingContractProvider = validationContext.GetService(typeof(IMappingContractProvider)) as IMappingContractProvider;
+            IMappingContract? mappingContract = null;
+
+            if (mappingContractProvider != null
+                && validationContext.Items.TryGetValue(ValidationContextKeys.ResourceClass, out var resourceClassAsObject))
+            {
+                var resourceClass = (ResourceClassBase) resourceClassAsObject!;
+                mappingContract = mappingContractProvider?.GetMappingContract(resourceClass.FullName);
+            }
+            // --------------------------
+            // NOTE: Customization END
+            // ==========================
+
             var properties = TypeDescriptor.GetProperties(instance.GetType());
             var items = new List<KeyValuePair<ValidationContext, object?>>(properties.Count);
             foreach (PropertyDescriptor property in properties)
             {
+                // ==========================
+                // NOTE: Customization BEGIN
+                // --------------------------
+                // If property is not included in mapping contract, don't include it in the list of properties to be validated
+                if (!(new[] {"Id", "Extensions", "ETag", "LastModifiedDate"}).Contains(property.Name) && mappingContract?.IsMemberSupported(property.Name) == false)
+                {
+                    continue;
+                }
+                // --------------------------
+                // NOTE: Customization END
+                // ==========================
+                
                 var context = CreateValidationContext(instance, validationContext);
                 context.MemberName = property.Name;
-                // TODO: .NET 8 --> context.MemberType = property.PropertyType;
+                // NOTE: Customization - code was pulled from .NET 8 release branch
+                // TODO: For .NET 8 upgrade --> context.MemberType = property.PropertyType;
 
                 if (_store.GetPropertyValidationAttributes(context).Any())
                 {

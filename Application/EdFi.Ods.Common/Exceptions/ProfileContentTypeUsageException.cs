@@ -18,6 +18,8 @@ public class ProfileContentTypeUsageException : EdFiProblemDetailsExceptionBase
 
     public const string DefaultDetail = "Usage of the API Profiles feature was incorrect.";
 
+    private int? _statusOverride;
+
     public ProfileContentTypeUsageException(string detail, string error, string profileName, ContentTypeUsage contentTypeUsage)
         : base(detail, error)
     {
@@ -25,6 +27,11 @@ public class ProfileContentTypeUsageException : EdFiProblemDetailsExceptionBase
         ContentTypeUsage = contentTypeUsage;
         
         ((IEdFiProblemDetails)this).Errors = new[] { error };
+    }
+    public ProfileContentTypeUsageException(int status, string detail, string error, string profileName, ContentTypeUsage contentTypeUsage)
+        : this(detail,  error, profileName,  contentTypeUsage)
+    {
+        _statusOverride = status;
     }
 
     public string ProfileName { get; }
@@ -36,7 +43,7 @@ public class ProfileContentTypeUsageException : EdFiProblemDetailsExceptionBase
     // ---------------------------
     public override string Title { get => TitleText; }
 
-    public override int Status { get => StatusValue; }
+    public override int Status { get => _statusOverride ?? StatusValue; }
     
     protected override IEnumerable<string> GetTypeParts()
     {

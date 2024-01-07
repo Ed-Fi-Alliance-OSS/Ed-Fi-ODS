@@ -11,12 +11,18 @@ namespace EdFi.Ods.Common.Exceptions;
 public interface IEdFiProblemDetails
 {
     /// <summary>
+    /// A human-readable explanation specific to this occurrence of the problem.
+    /// </summary>
+    [JsonPropertyName("detail")]
+    string Detail { get; }
+
+    /// <summary>
     /// A URI reference [RFC3986] that identifies the problem type. This specification encourages that, when
     /// dereferenced, it provide human-readable documentation for the problem type
     /// (e.g., using HTML [W3C.REC-html5-20141028]).  When this member is not present, its value is assumed to be
     /// "about:blank".
     /// </summary>
-    [JsonPropertyName("typeX")]
+    [JsonPropertyName("type")]
     string Type { get; }
 
     /// <summary>
@@ -32,12 +38,6 @@ public interface IEdFiProblemDetails
     /// </summary>
     [JsonPropertyName("status")]
     int Status { get; }
-
-    /// <summary>
-    /// A human-readable explanation specific to this occurrence of the problem.
-    /// </summary>
-    [JsonPropertyName("detailX")]
-    string Detail { get; }
 
     // For possible future support.
     // /// <summary>

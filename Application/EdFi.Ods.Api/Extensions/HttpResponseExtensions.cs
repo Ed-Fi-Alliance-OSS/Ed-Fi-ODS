@@ -36,6 +36,7 @@ public static class HttpResponseExtensions
         int status,
         string title,
         string detail,
+        string[] errors,
         string correlationId,
         params string[] typeUrnPartsFromBase)
     {
@@ -46,12 +47,31 @@ public static class HttpResponseExtensions
             JsonSerializer.Serialize(
                 new EdFiProblemDetails()
                 {
+                    Detail = detail,
                     Type = string.Join(':', _baseParts.Concat(typeUrnPartsFromBase)),
                     Title = title,
-                    Detail = detail,
                     Status = status,
                     CorrelationId = correlationId,
+                    Errors = errors,
                 }.AsSerializableModel(),
                 _serializerOptions));
+    }
+
+    public static Task WriteProblemDetailsAsync(
+        this HttpResponse response,
+        int status,
+        string title,
+        string detail,
+        string correlationId,
+        params string[] typeUrnPartsFromBase)
+    {
+        return WriteProblemDetailsAsync(
+            response,
+            status,
+            title,
+            detail,
+            null,
+            correlationId,
+            typeUrnPartsFromBase);
     }
 }

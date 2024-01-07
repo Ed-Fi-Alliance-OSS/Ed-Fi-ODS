@@ -34,6 +34,11 @@ namespace EdFi.Ods.Common.Extensions
                         _logger.Error($"Validation exception [{ex.GetType()}]: {ex.StackTrace}", ex);
                         result.Add(new ValidationResult(ex.InnerException.Message));
                     }
+                    catch (ProfileMethodUsageException)
+                    {
+                        // Allow error translation to be performed for desired HTTP response status
+                        throw;
+                    }
                     catch (ProfileContentTypeUsageException)
                     {
                         // Allow error translation to be performed for desired HTTP response status

@@ -58,12 +58,21 @@ public class DescriptorDetailsProvider : IDescriptorDetailsProvider
             {
                 var queries = GetQueries(session).ToList();
 
-                var results = queries.SelectMany(x => x.ToList()).ToList();
+                var results = queries
+                    .SelectMany(x => x.detailQuery
+                        .Select(d =>
+                        {
+                            // Assign the descriptor name to the details
+                            d.DescriptorName = x.descriptorName;
+                            return d;
+                        })
+                        .ToList())
+                    .ToList();
 
                 return results;
             }
 
-            IEnumerable<IEnumerable<DescriptorDetails>> GetQueries(ISession session)
+            IEnumerable<(string descriptorName, IEnumerable<DescriptorDetails> detailQuery)> GetQueries(ISession session)
             {
                 foreach (string descriptorName in _descriptorTypeNameByEntityName.Value.Keys)
                 {
@@ -71,7 +80,7 @@ public class DescriptorDetailsProvider : IDescriptorDetailsProvider
                         GetDescriptorCriteria(descriptorName, session)
                         .Future<DescriptorDetails>();
 
-                    yield return query;
+                    yield return (descriptorName, query);
                 }
             }
         }

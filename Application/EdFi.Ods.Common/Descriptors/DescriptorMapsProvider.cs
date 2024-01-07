@@ -27,20 +27,20 @@ public class DescriptorMapsProvider : IDescriptorMapsProvider
         var allDescriptors = _descriptorDetailsProvider.GetAllDescriptorDetails();
 
         // Create dictionary, allowing for 10% growth of known entries before resizing
-        var descriptorIdByUri = new ConcurrentDictionary<string, int>(
+        var descriptorIdByUri = new ConcurrentDictionary<string, (string descriptorName, int descriptorId)>(
             Environment.ProcessorCount,
             (int)(allDescriptors.Count * 1.1),
             StringComparer.OrdinalIgnoreCase);
 
         // Create dictionary, allowing for 10% growth of known entries before resizing
-        var uriByDescriptorId = new ConcurrentDictionary<int, string>(
+        var uriByDescriptorId = new ConcurrentDictionary<int, (string descriptorName, string uri)>(
             Environment.ProcessorCount,
             (int)(allDescriptors.Count * 1.1));
 
         foreach (var descriptorDetails in allDescriptors)
         {
-            descriptorIdByUri.TryAdd(descriptorDetails.Uri, descriptorDetails.DescriptorId);
-            uriByDescriptorId.TryAdd(descriptorDetails.DescriptorId, descriptorDetails.Uri);
+            descriptorIdByUri.TryAdd(descriptorDetails.Uri, (descriptorDetails.DescriptorName, descriptorDetails.DescriptorId));
+            uriByDescriptorId.TryAdd(descriptorDetails.DescriptorId, (descriptorDetails.DescriptorName, descriptorDetails.Uri));
         }
 
         return new DescriptorMaps(descriptorIdByUri, uriByDescriptorId);
