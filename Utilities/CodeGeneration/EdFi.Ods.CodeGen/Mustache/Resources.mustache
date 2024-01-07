@@ -1227,7 +1227,7 @@ namespace {{ResourceClassesNamespace}}
                     pathBuilder.Length = dotLength;
                     pathBuilder.Append(nameof(Extensions));
     
-                    foreach (var result in ValidationHelpers.ValidateExtensions(new ValidationContext(Extensions, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateExtensions(validationContext, mappingContract))
                     {
                         yield return result;
                     }
