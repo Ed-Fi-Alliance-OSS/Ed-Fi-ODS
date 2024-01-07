@@ -38,23 +38,23 @@ public class DescriptorMapsProviderTests
         maps.DescriptorIdByUri.Count.ShouldBe(2);
         maps.UriByDescriptorId.Count.ShouldBe(2);
 
-        maps.DescriptorIdByUri["http://ed-fi.org/TestDescriptor#1"].ShouldBe(1);
-        maps.DescriptorIdByUri["http://ed-fi.org/TestDescriptor#2"].ShouldBe(2);
+        maps.DescriptorIdByUri["http://ed-fi.org/TestDescriptor#1"].ShouldBe(("AbcDescriptor", 1));
+        maps.DescriptorIdByUri["http://ed-fi.org/TestDescriptor#2"].ShouldBe(("AbcDescriptor", 2));
 
         // Ensure case-insensitive matching on descriptor values
         maps.DescriptorIdByUri.ContainsKey("HTTP://ED-FI.ORG/TESTDESCRIPTOR#1").ShouldBe(true);
         maps.DescriptorIdByUri.ContainsKey("HTTP://ED-FI.ORG/TESTDESCRIPTOR#2").ShouldBe(true);
         
-        maps.UriByDescriptorId[1].ShouldBe("http://ed-fi.org/TestDescriptor#1");
-        maps.UriByDescriptorId[2].ShouldBe("http://ed-fi.org/TestDescriptor#2");
+        maps.UriByDescriptorId[1].ShouldBe(("AbcDescriptor", "http://ed-fi.org/TestDescriptor#1"));
+        maps.UriByDescriptorId[2].ShouldBe(("AbcDescriptor", "http://ed-fi.org/TestDescriptor#2"));
     }
 
     private static List<DescriptorDetails> GetSampleDescriptorDetails()
     {
         return new List<DescriptorDetails>
         {
-            new() { DescriptorId = 1, Namespace = "http://ed-fi.org/TestDescriptor", CodeValue = "1" },
-            new() { DescriptorId = 2, Namespace = "http://ed-fi.org/TestDescriptor", CodeValue = "2" },
+            new() { DescriptorId = 1, DescriptorName = "AbcDescriptor", Namespace = "http://ed-fi.org/TestDescriptor", CodeValue = "1" },
+            new() { DescriptorId = 2, DescriptorName = "AbcDescriptor", Namespace = "http://ed-fi.org/TestDescriptor", CodeValue = "2" },
         };
     }
 }

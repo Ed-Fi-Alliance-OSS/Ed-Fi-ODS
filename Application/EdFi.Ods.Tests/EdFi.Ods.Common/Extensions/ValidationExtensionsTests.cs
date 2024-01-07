@@ -8,8 +8,14 @@ using System.Linq;
 using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Attributes;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Validation;
+using FakeItEasy;
+using NHibernate.Engine;
 using NUnit.Framework;
 using Shouldly;
 
@@ -25,7 +31,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Extensions
             {
                 var testClass = new ClassThatWillThrowValidationException { Value = "NewValueHere" };
 
-                var validators = new IResourceValidator[] { new DataAnnotationsResourceValidator() };
+                var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+                var mappingContractProvider = A.Fake<IMappingContractProvider>();
+                A.CallTo(() => mappingContractProvider.GetMappingContract(A<FullName>.Ignored)).Returns(null);
+
+                var validators = new IResourceValidator[]
+                {
+                    new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider)
+                };
+                
                 var results = validators.ValidateObject(testClass);
 
                 results.IsValid().ShouldBe(false);
