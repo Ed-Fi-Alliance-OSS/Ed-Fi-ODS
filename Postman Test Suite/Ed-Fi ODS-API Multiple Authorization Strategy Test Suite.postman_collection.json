@@ -1592,11 +1592,22 @@
 													"  pm.expect(pm.response.code).to.equal(403);",
 													"});",
 													"",
-													"const message = pm.response.json().message;",
+													"const problemDetails = pm.response.json();",
 													"",
-													"pm.test(`Message of '${message}' should indicate that the caller doesn't own the resource item`, () => {",
-													"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
-													"});"
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");",
+													"});",
+													"",
+													"pm.test(\"Should NOT return an error indicating that that the caller doesn't have the necessary namespace prefix.\", () => {",
+													"    pm.expect(problemDetails.errors).to.not.match(/^Access to the resource item could not be authorized based on the caller's NamespacePrefix claims: '(.*)'\\.$/);",
+													"});",
+													"",
+													"pm.test(`Should return the error indicating the ownership token doesn't match`, () => {",
+													"  pm.expect(problemDetails.errors).to.match(/^Access to the resource item could not be authorized using any of the caller's ownership tokens.$/);",
+													"});",
+													""
 												],
 												"type": "text/javascript"
 											}
