@@ -44,18 +44,21 @@ namespace EdFi.Ods.Entities.Common.Homograph
     {
         public ContactMappingContract(
             bool isContactAddressesSupported,
+            bool isContactNameReferenceSupported,
             bool isContactStudentSchoolAssociationsSupported,
             Func<IContactAddress, bool> isContactAddressIncluded,
             Func<IContactStudentSchoolAssociation, bool> isContactStudentSchoolAssociationIncluded
             )
         {
             IsContactAddressesSupported = isContactAddressesSupported;
+            IsContactNameReferenceSupported = isContactNameReferenceSupported;
             IsContactStudentSchoolAssociationsSupported = isContactStudentSchoolAssociationsSupported;
             IsContactAddressIncluded = isContactAddressIncluded;
             IsContactStudentSchoolAssociationIncluded = isContactStudentSchoolAssociationIncluded;
         }
 
         public bool IsContactAddressesSupported { get; }
+        public bool IsContactNameReferenceSupported { get; }
         public bool IsContactStudentSchoolAssociationsSupported { get; }
         public Func<IContactAddress, bool> IsContactAddressIncluded { get; }
         public Func<IContactStudentSchoolAssociation, bool> IsContactStudentSchoolAssociationIncluded { get; }
@@ -66,8 +69,16 @@ namespace EdFi.Ods.Entities.Common.Homograph
             {
                 case "ContactAddresses":
                     return IsContactAddressesSupported;
+                case "ContactNameReference":
+                    return IsContactNameReferenceSupported;
                 case "ContactStudentSchoolAssociations":
                     return IsContactStudentSchoolAssociationsSupported;
+                case "ContactFirstName":
+                    // Identifying properties are always supported
+                    return true;
+                case "ContactLastSurname":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -110,6 +121,9 @@ namespace EdFi.Ods.Entities.Common.Homograph
         {
             switch (memberName)
             {
+                case "City":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -149,15 +163,29 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public class ContactStudentSchoolAssociationMappingContract : IMappingContract
     {
         public ContactStudentSchoolAssociationMappingContract(
+            bool isStudentSchoolAssociationReferenceSupported
             )
         {
+            IsStudentSchoolAssociationReferenceSupported = isStudentSchoolAssociationReferenceSupported;
         }
 
+        public bool IsStudentSchoolAssociationReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "StudentSchoolAssociationReference":
+                    return IsStudentSchoolAssociationReferenceSupported;
+                case "SchoolName":
+                    // Identifying properties are always supported
+                    return true;
+                case "StudentFirstName":
+                    // Identifying properties are always supported
+                    return true;
+                case "StudentLastSurname":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -201,6 +229,12 @@ namespace EdFi.Ods.Entities.Common.Homograph
         {
             switch (memberName)
             {
+                case "FirstName":
+                    // Identifying properties are always supported
+                    return true;
+                case "LastSurname":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -239,15 +273,18 @@ namespace EdFi.Ods.Entities.Common.Homograph
     {
         public SchoolMappingContract(
             bool isSchoolAddressSupported,
-            bool isSchoolYearSupported
+            bool isSchoolYearSupported,
+            bool isSchoolYearTypeReferenceSupported
             )
         {
             IsSchoolAddressSupported = isSchoolAddressSupported;
             IsSchoolYearSupported = isSchoolYearSupported;
+            IsSchoolYearTypeReferenceSupported = isSchoolYearTypeReferenceSupported;
         }
 
         public bool IsSchoolAddressSupported { get; }
         public bool IsSchoolYearSupported { get; }
+        public bool IsSchoolYearTypeReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -257,6 +294,11 @@ namespace EdFi.Ods.Entities.Common.Homograph
                     return IsSchoolAddressSupported;
                 case "SchoolYear":
                     return IsSchoolYearSupported;
+                case "SchoolYearTypeReference":
+                    return IsSchoolYearTypeReferenceSupported;
+                case "SchoolName":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -344,6 +386,9 @@ namespace EdFi.Ods.Entities.Common.Homograph
         {
             switch (memberName)
             {
+                case "SchoolYear":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -383,18 +428,21 @@ namespace EdFi.Ods.Entities.Common.Homograph
     {
         public StaffMappingContract(
             bool isStaffAddressesSupported,
+            bool isStaffNameReferenceSupported,
             bool isStaffStudentSchoolAssociationsSupported,
             Func<IStaffAddress, bool> isStaffAddressIncluded,
             Func<IStaffStudentSchoolAssociation, bool> isStaffStudentSchoolAssociationIncluded
             )
         {
             IsStaffAddressesSupported = isStaffAddressesSupported;
+            IsStaffNameReferenceSupported = isStaffNameReferenceSupported;
             IsStaffStudentSchoolAssociationsSupported = isStaffStudentSchoolAssociationsSupported;
             IsStaffAddressIncluded = isStaffAddressIncluded;
             IsStaffStudentSchoolAssociationIncluded = isStaffStudentSchoolAssociationIncluded;
         }
 
         public bool IsStaffAddressesSupported { get; }
+        public bool IsStaffNameReferenceSupported { get; }
         public bool IsStaffStudentSchoolAssociationsSupported { get; }
         public Func<IStaffAddress, bool> IsStaffAddressIncluded { get; }
         public Func<IStaffStudentSchoolAssociation, bool> IsStaffStudentSchoolAssociationIncluded { get; }
@@ -405,8 +453,16 @@ namespace EdFi.Ods.Entities.Common.Homograph
             {
                 case "StaffAddresses":
                     return IsStaffAddressesSupported;
+                case "StaffNameReference":
+                    return IsStaffNameReferenceSupported;
                 case "StaffStudentSchoolAssociations":
                     return IsStaffStudentSchoolAssociationsSupported;
+                case "StaffFirstName":
+                    // Identifying properties are always supported
+                    return true;
+                case "StaffLastSurname":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -449,6 +505,9 @@ namespace EdFi.Ods.Entities.Common.Homograph
         {
             switch (memberName)
             {
+                case "City":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -488,15 +547,29 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public class StaffStudentSchoolAssociationMappingContract : IMappingContract
     {
         public StaffStudentSchoolAssociationMappingContract(
+            bool isStudentSchoolAssociationReferenceSupported
             )
         {
+            IsStudentSchoolAssociationReferenceSupported = isStudentSchoolAssociationReferenceSupported;
         }
 
+        public bool IsStudentSchoolAssociationReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "StudentSchoolAssociationReference":
+                    return IsStudentSchoolAssociationReferenceSupported;
+                case "SchoolName":
+                    // Identifying properties are always supported
+                    return true;
+                case "StudentFirstName":
+                    // Identifying properties are always supported
+                    return true;
+                case "StudentLastSurname":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -539,15 +612,21 @@ namespace EdFi.Ods.Entities.Common.Homograph
     {
         public StudentMappingContract(
             bool isSchoolYearSupported,
-            bool isStudentAddressSupported
+            bool isSchoolYearTypeReferenceSupported,
+            bool isStudentAddressSupported,
+            bool isStudentNameReferenceSupported
             )
         {
             IsSchoolYearSupported = isSchoolYearSupported;
+            IsSchoolYearTypeReferenceSupported = isSchoolYearTypeReferenceSupported;
             IsStudentAddressSupported = isStudentAddressSupported;
+            IsStudentNameReferenceSupported = isStudentNameReferenceSupported;
         }
 
         public bool IsSchoolYearSupported { get; }
+        public bool IsSchoolYearTypeReferenceSupported { get; }
         public bool IsStudentAddressSupported { get; }
+        public bool IsStudentNameReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -555,8 +634,18 @@ namespace EdFi.Ods.Entities.Common.Homograph
             {
                 case "SchoolYear":
                     return IsSchoolYearSupported;
+                case "SchoolYearTypeReference":
+                    return IsSchoolYearTypeReferenceSupported;
                 case "StudentAddress":
                     return IsStudentAddressSupported;
+                case "StudentNameReference":
+                    return IsStudentNameReferenceSupported;
+                case "StudentFirstName":
+                    // Identifying properties are always supported
+                    return true;
+                case "StudentLastSurname":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -599,6 +688,9 @@ namespace EdFi.Ods.Entities.Common.Homograph
         {
             switch (memberName)
             {
+                case "City":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -639,15 +731,34 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public class StudentSchoolAssociationMappingContract : IMappingContract
     {
         public StudentSchoolAssociationMappingContract(
+            bool isSchoolReferenceSupported,
+            bool isStudentReferenceSupported
             )
         {
+            IsSchoolReferenceSupported = isSchoolReferenceSupported;
+            IsStudentReferenceSupported = isStudentReferenceSupported;
         }
 
+        public bool IsSchoolReferenceSupported { get; }
+        public bool IsStudentReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "SchoolReference":
+                    return IsSchoolReferenceSupported;
+                case "StudentReference":
+                    return IsStudentReferenceSupported;
+                case "SchoolName":
+                    // Identifying properties are always supported
+                    return true;
+                case "StudentFirstName":
+                    // Identifying properties are always supported
+                    return true;
+                case "StudentLastSurname":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }

@@ -47,13 +47,19 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTransportation
     public class StudentTransportationMappingContract : IMappingContract
     {
         public StudentTransportationMappingContract(
-            bool isEstimatedMilesFromSchoolSupported
+            bool isEstimatedMilesFromSchoolSupported,
+            bool isSchoolReferenceSupported,
+            bool isStudentReferenceSupported
             )
         {
             IsEstimatedMilesFromSchoolSupported = isEstimatedMilesFromSchoolSupported;
+            IsSchoolReferenceSupported = isSchoolReferenceSupported;
+            IsStudentReferenceSupported = isStudentReferenceSupported;
         }
 
         public bool IsEstimatedMilesFromSchoolSupported { get; }
+        public bool IsSchoolReferenceSupported { get; }
+        public bool IsStudentReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -61,6 +67,22 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTransportation
             {
                 case "EstimatedMilesFromSchool":
                     return IsEstimatedMilesFromSchoolSupported;
+                case "SchoolReference":
+                    return IsSchoolReferenceSupported;
+                case "StudentReference":
+                    return IsStudentReferenceSupported;
+                case "AMBusNumber":
+                    // Identifying properties are always supported
+                    return true;
+                case "PMBusNumber":
+                    // Identifying properties are always supported
+                    return true;
+                case "SchoolId":
+                    // Identifying properties are always supported
+                    return true;
+                case "StudentUniqueId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }

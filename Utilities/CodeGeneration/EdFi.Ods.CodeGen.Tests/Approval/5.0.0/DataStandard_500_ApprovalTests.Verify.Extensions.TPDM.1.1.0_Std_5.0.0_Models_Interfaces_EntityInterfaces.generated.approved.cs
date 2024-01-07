@@ -77,6 +77,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "AccreditationStatusDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -148,6 +151,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "AidTypeDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -246,6 +252,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isMultipleBirthStatusSupported,
             bool isPersonalTitlePrefixSupported,
             bool isPersonIdSupported,
+            bool isPersonReferenceSupported,
             bool isPreferredFirstNameSupported,
             bool isPreferredLastSurnameSupported,
             bool isSexDescriptorSupported,
@@ -290,6 +297,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsMultipleBirthStatusSupported = isMultipleBirthStatusSupported;
             IsPersonalTitlePrefixSupported = isPersonalTitlePrefixSupported;
             IsPersonIdSupported = isPersonIdSupported;
+            IsPersonReferenceSupported = isPersonReferenceSupported;
             IsPreferredFirstNameSupported = isPreferredFirstNameSupported;
             IsPreferredLastSurnameSupported = isPreferredLastSurnameSupported;
             IsSexDescriptorSupported = isSexDescriptorSupported;
@@ -334,6 +342,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsMultipleBirthStatusSupported { get; }
         public bool IsPersonalTitlePrefixSupported { get; }
         public bool IsPersonIdSupported { get; }
+        public bool IsPersonReferenceSupported { get; }
         public bool IsPreferredFirstNameSupported { get; }
         public bool IsPreferredLastSurnameSupported { get; }
         public bool IsSexDescriptorSupported { get; }
@@ -411,6 +420,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsPersonalTitlePrefixSupported;
                 case "PersonId":
                     return IsPersonIdSupported;
+                case "PersonReference":
+                    return IsPersonReferenceSupported;
                 case "PreferredFirstName":
                     return IsPreferredFirstNameSupported;
                 case "PreferredLastSurname":
@@ -419,6 +430,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsSexDescriptorSupported;
                 case "SourceSystemDescriptor":
                     return IsSourceSystemDescriptorSupported;
+                case "CandidateIdentifier":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -532,6 +546,21 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsLongitudeSupported;
                 case "NameOfCounty":
                     return IsNameOfCountySupported;
+                case "AddressTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "City":
+                    // Identifying properties are always supported
+                    return true;
+                case "PostalCode":
+                    // Identifying properties are always supported
+                    return true;
+                case "StateAbbreviationDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "StreetNumberName":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -580,6 +609,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "EndDate":
                     return IsEndDateSupported;
+                case "BeginDate":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -649,6 +681,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsDisabilityDiagnosisSupported;
                 case "OrderOfDisability":
                     return IsOrderOfDisabilitySupported;
+                case "DisabilityDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -691,6 +726,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
         {
             switch (memberName)
             {
+                case "DisabilityDesignationDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -742,6 +780,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public CandidateEducatorPreparationProgramAssociationMappingContract(
             bool isCandidateEducatorPreparationProgramAssociationCohortYearsSupported,
             bool isCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported,
+            bool isCandidateReferenceSupported,
+            bool isEducatorPreparationProgramReferenceSupported,
             bool isEndDateSupported,
             bool isEPPProgramPathwayDescriptorSupported,
             bool isReasonExitedDescriptorSupported,
@@ -751,6 +791,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
         {
             IsCandidateEducatorPreparationProgramAssociationCohortYearsSupported = isCandidateEducatorPreparationProgramAssociationCohortYearsSupported;
             IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported = isCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported;
+            IsCandidateReferenceSupported = isCandidateReferenceSupported;
+            IsEducatorPreparationProgramReferenceSupported = isEducatorPreparationProgramReferenceSupported;
             IsEndDateSupported = isEndDateSupported;
             IsEPPProgramPathwayDescriptorSupported = isEPPProgramPathwayDescriptorSupported;
             IsReasonExitedDescriptorSupported = isReasonExitedDescriptorSupported;
@@ -760,6 +802,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
 
         public bool IsCandidateEducatorPreparationProgramAssociationCohortYearsSupported { get; }
         public bool IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported { get; }
+        public bool IsCandidateReferenceSupported { get; }
+        public bool IsEducatorPreparationProgramReferenceSupported { get; }
         public bool IsEndDateSupported { get; }
         public bool IsEPPProgramPathwayDescriptorSupported { get; }
         public bool IsReasonExitedDescriptorSupported { get; }
@@ -774,12 +818,31 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsCandidateEducatorPreparationProgramAssociationCohortYearsSupported;
                 case "CandidateEducatorPreparationProgramAssociationDegreeSpecializations":
                     return IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported;
+                case "CandidateReference":
+                    return IsCandidateReferenceSupported;
+                case "EducatorPreparationProgramReference":
+                    return IsEducatorPreparationProgramReferenceSupported;
                 case "EndDate":
                     return IsEndDateSupported;
                 case "EPPProgramPathwayDescriptor":
                     return IsEPPProgramPathwayDescriptorSupported;
                 case "ReasonExitedDescriptor":
                     return IsReasonExitedDescriptorSupported;
+                case "BeginDate":
+                    // Identifying properties are always supported
+                    return true;
+                case "CandidateIdentifier":
+                    // Identifying properties are always supported
+                    return true;
+                case "EducationOrganizationId":
+                    // Identifying properties are always supported
+                    return true;
+                case "ProgramName":
+                    // Identifying properties are always supported
+                    return true;
+                case "ProgramTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -817,20 +880,31 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public class CandidateEducatorPreparationProgramAssociationCohortYearMappingContract : IMappingContract
     {
         public CandidateEducatorPreparationProgramAssociationCohortYearMappingContract(
+            bool isSchoolYearTypeReferenceSupported,
             bool isTermDescriptorSupported
             )
         {
+            IsSchoolYearTypeReferenceSupported = isSchoolYearTypeReferenceSupported;
             IsTermDescriptorSupported = isTermDescriptorSupported;
         }
 
+        public bool IsSchoolYearTypeReferenceSupported { get; }
         public bool IsTermDescriptorSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "SchoolYearTypeReference":
+                    return IsSchoolYearTypeReferenceSupported;
                 case "TermDescriptor":
                     return IsTermDescriptorSupported;
+                case "CohortYearTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "SchoolYear":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -885,6 +959,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsEndDateSupported;
                 case "MinorSpecialization":
                     return IsMinorSpecializationSupported;
+                case "MajorSpecialization":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -941,6 +1018,12 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsDoNotPublishIndicatorSupported;
                 case "PrimaryEmailAddressIndicator":
                     return IsPrimaryEmailAddressIndicatorSupported;
+                case "ElectronicMailAddress":
+                    // Identifying properties are always supported
+                    return true;
+                case "ElectronicMailTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -992,6 +1075,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "CandidateLanguageUses":
                     return IsCandidateLanguageUsesSupported;
+                case "LanguageDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1034,6 +1120,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
         {
             switch (memberName)
             {
+                case "LanguageUseDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1106,6 +1195,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsMiddleNameSupported;
                 case "PersonalTitlePrefix":
                     return IsPersonalTitlePrefixSupported;
+                case "OtherNameTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1180,6 +1272,12 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsIssuerDocumentIdentificationCodeSupported;
                 case "IssuerName":
                     return IsIssuerNameSupported;
+                case "IdentificationDocumentUseDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "PersonalInformationVerificationDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1222,6 +1320,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
         {
             switch (memberName)
             {
+                case "RaceDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1284,6 +1385,12 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsOrderOfPrioritySupported;
                 case "TextMessageCapabilityIndicator":
                     return IsTextMessageCapabilityIndicatorSupported;
+                case "TelephoneNumber":
+                    // Identifying properties are always supported
+                    return true;
+                case "TelephoneNumberTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1355,6 +1462,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "CertificationRouteDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1426,6 +1536,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "CoteachingStyleObservedDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1476,6 +1589,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isCredentialStudentAcademicRecordsSupported,
             bool isEducatorRoleDescriptorSupported,
             bool isPersonIdSupported,
+            bool isPersonReferenceSupported,
             bool isSourceSystemDescriptorSupported,
             Func<ICredentialStudentAcademicRecord, bool> isCredentialStudentAcademicRecordIncluded
             )
@@ -1488,6 +1602,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsCredentialStudentAcademicRecordsSupported = isCredentialStudentAcademicRecordsSupported;
             IsEducatorRoleDescriptorSupported = isEducatorRoleDescriptorSupported;
             IsPersonIdSupported = isPersonIdSupported;
+            IsPersonReferenceSupported = isPersonReferenceSupported;
             IsSourceSystemDescriptorSupported = isSourceSystemDescriptorSupported;
             IsCredentialStudentAcademicRecordIncluded = isCredentialStudentAcademicRecordIncluded;
         }
@@ -1500,6 +1615,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsCredentialStudentAcademicRecordsSupported { get; }
         public bool IsEducatorRoleDescriptorSupported { get; }
         public bool IsPersonIdSupported { get; }
+        public bool IsPersonReferenceSupported { get; }
         public bool IsSourceSystemDescriptorSupported { get; }
         public Func<ICredentialStudentAcademicRecord, bool> IsCredentialStudentAcademicRecordIncluded { get; }
 
@@ -1523,6 +1639,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsEducatorRoleDescriptorSupported;
                 case "PersonId":
                     return IsPersonIdSupported;
+                case "PersonReference":
+                    return IsPersonReferenceSupported;
                 case "SourceSystemDescriptor":
                     return IsSourceSystemDescriptorSupported;
                 default:
@@ -1596,6 +1714,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "CredentialStatusDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1637,15 +1758,32 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public class CredentialStudentAcademicRecordMappingContract : IMappingContract
     {
         public CredentialStudentAcademicRecordMappingContract(
+            bool isStudentAcademicRecordReferenceSupported
             )
         {
+            IsStudentAcademicRecordReferenceSupported = isStudentAcademicRecordReferenceSupported;
         }
 
+        public bool IsStudentAcademicRecordReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "StudentAcademicRecordReference":
+                    return IsStudentAcademicRecordReferenceSupported;
+                case "EducationOrganizationId":
+                    // Identifying properties are always supported
+                    return true;
+                case "SchoolYear":
+                    // Identifying properties are always supported
+                    return true;
+                case "StudentUniqueId":
+                    // Identifying properties are always supported
+                    return true;
+                case "TermDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1688,18 +1826,21 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         public EducatorPreparationProgramMappingContract(
             bool isAccreditationStatusDescriptorSupported,
+            bool isEducationOrganizationReferenceSupported,
             bool isEducatorPreparationProgramGradeLevelsSupported,
             bool isProgramIdSupported,
             Func<IEducatorPreparationProgramGradeLevel, bool> isEducatorPreparationProgramGradeLevelIncluded
             )
         {
             IsAccreditationStatusDescriptorSupported = isAccreditationStatusDescriptorSupported;
+            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
             IsEducatorPreparationProgramGradeLevelsSupported = isEducatorPreparationProgramGradeLevelsSupported;
             IsProgramIdSupported = isProgramIdSupported;
             IsEducatorPreparationProgramGradeLevelIncluded = isEducatorPreparationProgramGradeLevelIncluded;
         }
 
         public bool IsAccreditationStatusDescriptorSupported { get; }
+        public bool IsEducationOrganizationReferenceSupported { get; }
         public bool IsEducatorPreparationProgramGradeLevelsSupported { get; }
         public bool IsProgramIdSupported { get; }
         public Func<IEducatorPreparationProgramGradeLevel, bool> IsEducatorPreparationProgramGradeLevelIncluded { get; }
@@ -1710,10 +1851,21 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "AccreditationStatusDescriptor":
                     return IsAccreditationStatusDescriptorSupported;
+                case "EducationOrganizationReference":
+                    return IsEducationOrganizationReferenceSupported;
                 case "EducatorPreparationProgramGradeLevels":
                     return IsEducatorPreparationProgramGradeLevelsSupported;
                 case "ProgramId":
                     return IsProgramIdSupported;
+                case "EducationOrganizationId":
+                    // Identifying properties are always supported
+                    return true;
+                case "ProgramName":
+                    // Identifying properties are always supported
+                    return true;
+                case "ProgramTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1756,6 +1908,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
         {
             switch (memberName)
             {
+                case "GradeLevelDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1827,6 +1982,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "EducatorRoleDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1898,6 +2056,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "EnglishLanguageExamDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1969,6 +2130,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "EPPProgramPathwayDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2027,6 +2191,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isInterRaterReliabilityScoreSupported,
             bool isMaxRatingSupported,
             bool isMinRatingSupported,
+            bool isPerformanceEvaluationReferenceSupported,
             Func<IEvaluationRatingLevel, bool> isEvaluationRatingLevelIncluded
             )
         {
@@ -2036,6 +2201,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsInterRaterReliabilityScoreSupported = isInterRaterReliabilityScoreSupported;
             IsMaxRatingSupported = isMaxRatingSupported;
             IsMinRatingSupported = isMinRatingSupported;
+            IsPerformanceEvaluationReferenceSupported = isPerformanceEvaluationReferenceSupported;
             IsEvaluationRatingLevelIncluded = isEvaluationRatingLevelIncluded;
         }
 
@@ -2045,6 +2211,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsInterRaterReliabilityScoreSupported { get; }
         public bool IsMaxRatingSupported { get; }
         public bool IsMinRatingSupported { get; }
+        public bool IsPerformanceEvaluationReferenceSupported { get; }
         public Func<IEvaluationRatingLevel, bool> IsEvaluationRatingLevelIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -2063,6 +2230,29 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsMaxRatingSupported;
                 case "MinRating":
                     return IsMinRatingSupported;
+                case "PerformanceEvaluationReference":
+                    return IsPerformanceEvaluationReferenceSupported;
+                case "EducationOrganizationId":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationPeriodDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "PerformanceEvaluationTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "PerformanceEvaluationTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "SchoolYear":
+                    // Identifying properties are always supported
+                    return true;
+                case "TermDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2119,6 +2309,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         public EvaluationElementMappingContract(
             bool isEvaluationElementRatingLevelsSupported,
+            bool isEvaluationObjectiveReferenceSupported,
             bool isEvaluationTypeDescriptorSupported,
             bool isMaxRatingSupported,
             bool isMinRatingSupported,
@@ -2127,6 +2318,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             )
         {
             IsEvaluationElementRatingLevelsSupported = isEvaluationElementRatingLevelsSupported;
+            IsEvaluationObjectiveReferenceSupported = isEvaluationObjectiveReferenceSupported;
             IsEvaluationTypeDescriptorSupported = isEvaluationTypeDescriptorSupported;
             IsMaxRatingSupported = isMaxRatingSupported;
             IsMinRatingSupported = isMinRatingSupported;
@@ -2135,6 +2327,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         }
 
         public bool IsEvaluationElementRatingLevelsSupported { get; }
+        public bool IsEvaluationObjectiveReferenceSupported { get; }
         public bool IsEvaluationTypeDescriptorSupported { get; }
         public bool IsMaxRatingSupported { get; }
         public bool IsMinRatingSupported { get; }
@@ -2147,6 +2340,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "EvaluationElementRatingLevels":
                     return IsEvaluationElementRatingLevelsSupported;
+                case "EvaluationObjectiveReference":
+                    return IsEvaluationObjectiveReferenceSupported;
                 case "EvaluationTypeDescriptor":
                     return IsEvaluationTypeDescriptorSupported;
                 case "MaxRating":
@@ -2155,6 +2350,33 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsMinRatingSupported;
                 case "SortOrder":
                     return IsSortOrderSupported;
+                case "EducationOrganizationId":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationElementTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationObjectiveTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationPeriodDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "PerformanceEvaluationTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "PerformanceEvaluationTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "SchoolYear":
+                    // Identifying properties are always supported
+                    return true;
+                case "TermDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2224,6 +2446,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isCommentsSupported,
             bool isEvaluationElementRatingLevelDescriptorSupported,
             bool isEvaluationElementRatingResultsSupported,
+            bool isEvaluationElementReferenceSupported,
+            bool isEvaluationObjectiveRatingReferenceSupported,
             bool isFeedbackSupported,
             Func<IEvaluationElementRatingResult, bool> isEvaluationElementRatingResultIncluded
             )
@@ -2233,6 +2457,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsCommentsSupported = isCommentsSupported;
             IsEvaluationElementRatingLevelDescriptorSupported = isEvaluationElementRatingLevelDescriptorSupported;
             IsEvaluationElementRatingResultsSupported = isEvaluationElementRatingResultsSupported;
+            IsEvaluationElementReferenceSupported = isEvaluationElementReferenceSupported;
+            IsEvaluationObjectiveRatingReferenceSupported = isEvaluationObjectiveRatingReferenceSupported;
             IsFeedbackSupported = isFeedbackSupported;
             IsEvaluationElementRatingResultIncluded = isEvaluationElementRatingResultIncluded;
         }
@@ -2242,6 +2468,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsCommentsSupported { get; }
         public bool IsEvaluationElementRatingLevelDescriptorSupported { get; }
         public bool IsEvaluationElementRatingResultsSupported { get; }
+        public bool IsEvaluationElementReferenceSupported { get; }
+        public bool IsEvaluationObjectiveRatingReferenceSupported { get; }
         public bool IsFeedbackSupported { get; }
         public Func<IEvaluationElementRatingResult, bool> IsEvaluationElementRatingResultIncluded { get; }
 
@@ -2259,8 +2487,48 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsEvaluationElementRatingLevelDescriptorSupported;
                 case "EvaluationElementRatingResults":
                     return IsEvaluationElementRatingResultsSupported;
+                case "EvaluationElementReference":
+                    return IsEvaluationElementReferenceSupported;
+                case "EvaluationObjectiveRatingReference":
+                    return IsEvaluationObjectiveRatingReferenceSupported;
                 case "Feedback":
                     return IsFeedbackSupported;
+                case "EducationOrganizationId":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationDate":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationElementTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationObjectiveTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationPeriodDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "PerformanceEvaluationTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "PerformanceEvaluationTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "PersonId":
+                    // Identifying properties are always supported
+                    return true;
+                case "SchoolYear":
+                    // Identifying properties are always supported
+                    return true;
+                case "SourceSystemDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "TermDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2315,6 +2583,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsMaxRatingSupported;
                 case "MinRating":
                     return IsMinRatingSupported;
+                case "EvaluationRatingLevelDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2386,6 +2657,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "EvaluationElementRatingLevelDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2436,6 +2710,12 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "ResultDatatypeTypeDescriptor":
                     return IsResultDatatypeTypeDescriptorSupported;
+                case "Rating":
+                    // Identifying properties are always supported
+                    return true;
+                case "RatingResultTitle":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2492,6 +2772,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public EvaluationObjectiveMappingContract(
             bool isEvaluationObjectiveDescriptionSupported,
             bool isEvaluationObjectiveRatingLevelsSupported,
+            bool isEvaluationReferenceSupported,
             bool isEvaluationTypeDescriptorSupported,
             bool isMaxRatingSupported,
             bool isMinRatingSupported,
@@ -2501,6 +2782,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         {
             IsEvaluationObjectiveDescriptionSupported = isEvaluationObjectiveDescriptionSupported;
             IsEvaluationObjectiveRatingLevelsSupported = isEvaluationObjectiveRatingLevelsSupported;
+            IsEvaluationReferenceSupported = isEvaluationReferenceSupported;
             IsEvaluationTypeDescriptorSupported = isEvaluationTypeDescriptorSupported;
             IsMaxRatingSupported = isMaxRatingSupported;
             IsMinRatingSupported = isMinRatingSupported;
@@ -2510,6 +2792,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
 
         public bool IsEvaluationObjectiveDescriptionSupported { get; }
         public bool IsEvaluationObjectiveRatingLevelsSupported { get; }
+        public bool IsEvaluationReferenceSupported { get; }
         public bool IsEvaluationTypeDescriptorSupported { get; }
         public bool IsMaxRatingSupported { get; }
         public bool IsMinRatingSupported { get; }
@@ -2524,6 +2807,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsEvaluationObjectiveDescriptionSupported;
                 case "EvaluationObjectiveRatingLevels":
                     return IsEvaluationObjectiveRatingLevelsSupported;
+                case "EvaluationReference":
+                    return IsEvaluationReferenceSupported;
                 case "EvaluationTypeDescriptor":
                     return IsEvaluationTypeDescriptorSupported;
                 case "MaxRating":
@@ -2532,6 +2817,30 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsMinRatingSupported;
                 case "SortOrder":
                     return IsSortOrderSupported;
+                case "EducationOrganizationId":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationObjectiveTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationPeriodDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "PerformanceEvaluationTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "PerformanceEvaluationTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "SchoolYear":
+                    // Identifying properties are always supported
+                    return true;
+                case "TermDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2593,18 +2902,24 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public EvaluationObjectiveRatingMappingContract(
             bool isCommentsSupported,
             bool isEvaluationObjectiveRatingResultsSupported,
+            bool isEvaluationObjectiveReferenceSupported,
+            bool isEvaluationRatingReferenceSupported,
             bool isObjectiveRatingLevelDescriptorSupported,
             Func<IEvaluationObjectiveRatingResult, bool> isEvaluationObjectiveRatingResultIncluded
             )
         {
             IsCommentsSupported = isCommentsSupported;
             IsEvaluationObjectiveRatingResultsSupported = isEvaluationObjectiveRatingResultsSupported;
+            IsEvaluationObjectiveReferenceSupported = isEvaluationObjectiveReferenceSupported;
+            IsEvaluationRatingReferenceSupported = isEvaluationRatingReferenceSupported;
             IsObjectiveRatingLevelDescriptorSupported = isObjectiveRatingLevelDescriptorSupported;
             IsEvaluationObjectiveRatingResultIncluded = isEvaluationObjectiveRatingResultIncluded;
         }
 
         public bool IsCommentsSupported { get; }
         public bool IsEvaluationObjectiveRatingResultsSupported { get; }
+        public bool IsEvaluationObjectiveReferenceSupported { get; }
+        public bool IsEvaluationRatingReferenceSupported { get; }
         public bool IsObjectiveRatingLevelDescriptorSupported { get; }
         public Func<IEvaluationObjectiveRatingResult, bool> IsEvaluationObjectiveRatingResultIncluded { get; }
 
@@ -2616,8 +2931,45 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsCommentsSupported;
                 case "EvaluationObjectiveRatingResults":
                     return IsEvaluationObjectiveRatingResultsSupported;
+                case "EvaluationObjectiveReference":
+                    return IsEvaluationObjectiveReferenceSupported;
+                case "EvaluationRatingReference":
+                    return IsEvaluationRatingReferenceSupported;
                 case "ObjectiveRatingLevelDescriptor":
                     return IsObjectiveRatingLevelDescriptorSupported;
+                case "EducationOrganizationId":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationDate":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationObjectiveTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationPeriodDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "PerformanceEvaluationTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "PerformanceEvaluationTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "PersonId":
+                    // Identifying properties are always supported
+                    return true;
+                case "SchoolYear":
+                    // Identifying properties are always supported
+                    return true;
+                case "SourceSystemDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "TermDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2672,6 +3024,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsMaxRatingSupported;
                 case "MinRating":
                     return IsMinRatingSupported;
+                case "EvaluationRatingLevelDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2722,6 +3077,12 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "ResultDatatypeTypeDescriptor":
                     return IsResultDatatypeTypeDescriptorSupported;
+                case "Rating":
+                    // Identifying properties are always supported
+                    return true;
+                case "RatingResultTitle":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2793,6 +3154,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "EvaluationPeriodDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2861,9 +3225,12 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isEvaluationRatingResultsSupported,
             bool isEvaluationRatingReviewersSupported,
             bool isEvaluationRatingStatusDescriptorSupported,
+            bool isEvaluationReferenceSupported,
             bool isLocalCourseCodeSupported,
+            bool isPerformanceEvaluationRatingReferenceSupported,
             bool isSchoolIdSupported,
             bool isSectionIdentifierSupported,
+            bool isSectionReferenceSupported,
             bool isSessionNameSupported,
             Func<IEvaluationRatingResult, bool> isEvaluationRatingResultIncluded,
             Func<IEvaluationRatingReviewer, bool> isEvaluationRatingReviewerIncluded
@@ -2873,9 +3240,12 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsEvaluationRatingResultsSupported = isEvaluationRatingResultsSupported;
             IsEvaluationRatingReviewersSupported = isEvaluationRatingReviewersSupported;
             IsEvaluationRatingStatusDescriptorSupported = isEvaluationRatingStatusDescriptorSupported;
+            IsEvaluationReferenceSupported = isEvaluationReferenceSupported;
             IsLocalCourseCodeSupported = isLocalCourseCodeSupported;
+            IsPerformanceEvaluationRatingReferenceSupported = isPerformanceEvaluationRatingReferenceSupported;
             IsSchoolIdSupported = isSchoolIdSupported;
             IsSectionIdentifierSupported = isSectionIdentifierSupported;
+            IsSectionReferenceSupported = isSectionReferenceSupported;
             IsSessionNameSupported = isSessionNameSupported;
             IsEvaluationRatingResultIncluded = isEvaluationRatingResultIncluded;
             IsEvaluationRatingReviewerIncluded = isEvaluationRatingReviewerIncluded;
@@ -2885,9 +3255,12 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsEvaluationRatingResultsSupported { get; }
         public bool IsEvaluationRatingReviewersSupported { get; }
         public bool IsEvaluationRatingStatusDescriptorSupported { get; }
+        public bool IsEvaluationReferenceSupported { get; }
         public bool IsLocalCourseCodeSupported { get; }
+        public bool IsPerformanceEvaluationRatingReferenceSupported { get; }
         public bool IsSchoolIdSupported { get; }
         public bool IsSectionIdentifierSupported { get; }
+        public bool IsSectionReferenceSupported { get; }
         public bool IsSessionNameSupported { get; }
         public Func<IEvaluationRatingResult, bool> IsEvaluationRatingResultIncluded { get; }
         public Func<IEvaluationRatingReviewer, bool> IsEvaluationRatingReviewerIncluded { get; }
@@ -2904,14 +3277,50 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsEvaluationRatingReviewersSupported;
                 case "EvaluationRatingStatusDescriptor":
                     return IsEvaluationRatingStatusDescriptorSupported;
+                case "EvaluationReference":
+                    return IsEvaluationReferenceSupported;
                 case "LocalCourseCode":
                     return IsLocalCourseCodeSupported;
+                case "PerformanceEvaluationRatingReference":
+                    return IsPerformanceEvaluationRatingReferenceSupported;
                 case "SchoolId":
                     return IsSchoolIdSupported;
                 case "SectionIdentifier":
                     return IsSectionIdentifierSupported;
+                case "SectionReference":
+                    return IsSectionReferenceSupported;
                 case "SessionName":
                     return IsSessionNameSupported;
+                case "EducationOrganizationId":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationDate":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationPeriodDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "PerformanceEvaluationTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "PerformanceEvaluationTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "PersonId":
+                    // Identifying properties are always supported
+                    return true;
+                case "SchoolYear":
+                    // Identifying properties are always supported
+                    return true;
+                case "SourceSystemDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "TermDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2966,6 +3375,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsMaxRatingSupported;
                 case "MinRating":
                     return IsMinRatingSupported;
+                case "EvaluationRatingLevelDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3037,6 +3449,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "EvaluationRatingLevelDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3087,6 +3502,12 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "ResultDatatypeTypeDescriptor":
                     return IsResultDatatypeTypeDescriptorSupported;
+                case "Rating":
+                    // Identifying properties are always supported
+                    return true;
+                case "RatingResultTitle":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3130,16 +3551,19 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public EvaluationRatingReviewerMappingContract(
             bool isEvaluationRatingReviewerReceivedTrainingSupported,
             bool isReviewerPersonIdSupported,
+            bool isReviewerPersonReferenceSupported,
             bool isReviewerSourceSystemDescriptorSupported
             )
         {
             IsEvaluationRatingReviewerReceivedTrainingSupported = isEvaluationRatingReviewerReceivedTrainingSupported;
             IsReviewerPersonIdSupported = isReviewerPersonIdSupported;
+            IsReviewerPersonReferenceSupported = isReviewerPersonReferenceSupported;
             IsReviewerSourceSystemDescriptorSupported = isReviewerSourceSystemDescriptorSupported;
         }
 
         public bool IsEvaluationRatingReviewerReceivedTrainingSupported { get; }
         public bool IsReviewerPersonIdSupported { get; }
+        public bool IsReviewerPersonReferenceSupported { get; }
         public bool IsReviewerSourceSystemDescriptorSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -3150,8 +3574,16 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsEvaluationRatingReviewerReceivedTrainingSupported;
                 case "ReviewerPersonId":
                     return IsReviewerPersonIdSupported;
+                case "ReviewerPersonReference":
+                    return IsReviewerPersonReferenceSupported;
                 case "ReviewerSourceSystemDescriptor":
                     return IsReviewerSourceSystemDescriptorSupported;
+                case "FirstName":
+                    // Identifying properties are always supported
+                    return true;
+                case "LastSurname":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3275,6 +3707,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "EvaluationRatingStatusDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3346,6 +3781,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "EvaluationTypeDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3391,19 +3829,22 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isAidAmountSupported,
             bool isAidConditionDescriptionSupported,
             bool isEndDateSupported,
-            bool isPellGrantRecipientSupported
+            bool isPellGrantRecipientSupported,
+            bool isStudentReferenceSupported
             )
         {
             IsAidAmountSupported = isAidAmountSupported;
             IsAidConditionDescriptionSupported = isAidConditionDescriptionSupported;
             IsEndDateSupported = isEndDateSupported;
             IsPellGrantRecipientSupported = isPellGrantRecipientSupported;
+            IsStudentReferenceSupported = isStudentReferenceSupported;
         }
 
         public bool IsAidAmountSupported { get; }
         public bool IsAidConditionDescriptionSupported { get; }
         public bool IsEndDateSupported { get; }
         public bool IsPellGrantRecipientSupported { get; }
+        public bool IsStudentReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -3417,6 +3858,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsEndDateSupported;
                 case "PellGrantRecipient":
                     return IsPellGrantRecipientSupported;
+                case "StudentReference":
+                    return IsStudentReferenceSupported;
+                case "AidTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "BeginDate":
+                    // Identifying properties are always supported
+                    return true;
+                case "StudentUniqueId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3488,6 +3940,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "GenderDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3559,6 +4014,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "ObjectiveRatingLevelDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3609,25 +4067,31 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         public PerformanceEvaluationMappingContract(
             bool isAcademicSubjectDescriptorSupported,
+            bool isEducationOrganizationReferenceSupported,
             bool isPerformanceEvaluationDescriptionSupported,
             bool isPerformanceEvaluationGradeLevelsSupported,
             bool isPerformanceEvaluationRatingLevelsSupported,
+            bool isSchoolYearTypeReferenceSupported,
             Func<IPerformanceEvaluationGradeLevel, bool> isPerformanceEvaluationGradeLevelIncluded,
             Func<IPerformanceEvaluationRatingLevel, bool> isPerformanceEvaluationRatingLevelIncluded
             )
         {
             IsAcademicSubjectDescriptorSupported = isAcademicSubjectDescriptorSupported;
+            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
             IsPerformanceEvaluationDescriptionSupported = isPerformanceEvaluationDescriptionSupported;
             IsPerformanceEvaluationGradeLevelsSupported = isPerformanceEvaluationGradeLevelsSupported;
             IsPerformanceEvaluationRatingLevelsSupported = isPerformanceEvaluationRatingLevelsSupported;
+            IsSchoolYearTypeReferenceSupported = isSchoolYearTypeReferenceSupported;
             IsPerformanceEvaluationGradeLevelIncluded = isPerformanceEvaluationGradeLevelIncluded;
             IsPerformanceEvaluationRatingLevelIncluded = isPerformanceEvaluationRatingLevelIncluded;
         }
 
         public bool IsAcademicSubjectDescriptorSupported { get; }
+        public bool IsEducationOrganizationReferenceSupported { get; }
         public bool IsPerformanceEvaluationDescriptionSupported { get; }
         public bool IsPerformanceEvaluationGradeLevelsSupported { get; }
         public bool IsPerformanceEvaluationRatingLevelsSupported { get; }
+        public bool IsSchoolYearTypeReferenceSupported { get; }
         public Func<IPerformanceEvaluationGradeLevel, bool> IsPerformanceEvaluationGradeLevelIncluded { get; }
         public Func<IPerformanceEvaluationRatingLevel, bool> IsPerformanceEvaluationRatingLevelIncluded { get; }
 
@@ -3637,12 +4101,34 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "AcademicSubjectDescriptor":
                     return IsAcademicSubjectDescriptorSupported;
+                case "EducationOrganizationReference":
+                    return IsEducationOrganizationReferenceSupported;
                 case "PerformanceEvaluationDescription":
                     return IsPerformanceEvaluationDescriptionSupported;
                 case "PerformanceEvaluationGradeLevels":
                     return IsPerformanceEvaluationGradeLevelsSupported;
                 case "PerformanceEvaluationRatingLevels":
                     return IsPerformanceEvaluationRatingLevelsSupported;
+                case "SchoolYearTypeReference":
+                    return IsSchoolYearTypeReferenceSupported;
+                case "EducationOrganizationId":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationPeriodDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "PerformanceEvaluationTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "PerformanceEvaluationTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "SchoolYear":
+                    // Identifying properties are always supported
+                    return true;
+                case "TermDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3685,6 +4171,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
         {
             switch (memberName)
             {
+                case "GradeLevelDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3754,6 +4243,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isPerformanceEvaluationRatingLevelDescriptorSupported,
             bool isPerformanceEvaluationRatingResultsSupported,
             bool isPerformanceEvaluationRatingReviewersSupported,
+            bool isPerformanceEvaluationReferenceSupported,
+            bool isPersonReferenceSupported,
             bool isScheduleDateSupported,
             Func<IPerformanceEvaluationRatingResult, bool> isPerformanceEvaluationRatingResultIncluded,
             Func<IPerformanceEvaluationRatingReviewer, bool> isPerformanceEvaluationRatingReviewerIncluded
@@ -3768,6 +4259,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsPerformanceEvaluationRatingLevelDescriptorSupported = isPerformanceEvaluationRatingLevelDescriptorSupported;
             IsPerformanceEvaluationRatingResultsSupported = isPerformanceEvaluationRatingResultsSupported;
             IsPerformanceEvaluationRatingReviewersSupported = isPerformanceEvaluationRatingReviewersSupported;
+            IsPerformanceEvaluationReferenceSupported = isPerformanceEvaluationReferenceSupported;
+            IsPersonReferenceSupported = isPersonReferenceSupported;
             IsScheduleDateSupported = isScheduleDateSupported;
             IsPerformanceEvaluationRatingResultIncluded = isPerformanceEvaluationRatingResultIncluded;
             IsPerformanceEvaluationRatingReviewerIncluded = isPerformanceEvaluationRatingReviewerIncluded;
@@ -3782,6 +4275,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsPerformanceEvaluationRatingLevelDescriptorSupported { get; }
         public bool IsPerformanceEvaluationRatingResultsSupported { get; }
         public bool IsPerformanceEvaluationRatingReviewersSupported { get; }
+        public bool IsPerformanceEvaluationReferenceSupported { get; }
+        public bool IsPersonReferenceSupported { get; }
         public bool IsScheduleDateSupported { get; }
         public Func<IPerformanceEvaluationRatingResult, bool> IsPerformanceEvaluationRatingResultIncluded { get; }
         public Func<IPerformanceEvaluationRatingReviewer, bool> IsPerformanceEvaluationRatingReviewerIncluded { get; }
@@ -3808,8 +4303,36 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsPerformanceEvaluationRatingResultsSupported;
                 case "PerformanceEvaluationRatingReviewers":
                     return IsPerformanceEvaluationRatingReviewersSupported;
+                case "PerformanceEvaluationReference":
+                    return IsPerformanceEvaluationReferenceSupported;
+                case "PersonReference":
+                    return IsPersonReferenceSupported;
                 case "ScheduleDate":
                     return IsScheduleDateSupported;
+                case "EducationOrganizationId":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationPeriodDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "PerformanceEvaluationTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "PerformanceEvaluationTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "PersonId":
+                    // Identifying properties are always supported
+                    return true;
+                case "SchoolYear":
+                    // Identifying properties are always supported
+                    return true;
+                case "SourceSystemDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "TermDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3864,6 +4387,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsMaxRatingSupported;
                 case "MinRating":
                     return IsMinRatingSupported;
+                case "EvaluationRatingLevelDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3935,6 +4461,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "PerformanceEvaluationRatingLevelDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3985,6 +4514,12 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "ResultDatatypeTypeDescriptor":
                     return IsResultDatatypeTypeDescriptorSupported;
+                case "Rating":
+                    // Identifying properties are always supported
+                    return true;
+                case "RatingResultTitle":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -4028,16 +4563,19 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public PerformanceEvaluationRatingReviewerMappingContract(
             bool isPerformanceEvaluationRatingReviewerReceivedTrainingSupported,
             bool isReviewerPersonIdSupported,
+            bool isReviewerPersonReferenceSupported,
             bool isReviewerSourceSystemDescriptorSupported
             )
         {
             IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported = isPerformanceEvaluationRatingReviewerReceivedTrainingSupported;
             IsReviewerPersonIdSupported = isReviewerPersonIdSupported;
+            IsReviewerPersonReferenceSupported = isReviewerPersonReferenceSupported;
             IsReviewerSourceSystemDescriptorSupported = isReviewerSourceSystemDescriptorSupported;
         }
 
         public bool IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported { get; }
         public bool IsReviewerPersonIdSupported { get; }
+        public bool IsReviewerPersonReferenceSupported { get; }
         public bool IsReviewerSourceSystemDescriptorSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -4048,8 +4586,16 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported;
                 case "ReviewerPersonId":
                     return IsReviewerPersonIdSupported;
+                case "ReviewerPersonReference":
+                    return IsReviewerPersonReferenceSupported;
                 case "ReviewerSourceSystemDescriptor":
                     return IsReviewerSourceSystemDescriptorSupported;
+                case "FirstName":
+                    // Identifying properties are always supported
+                    return true;
+                case "LastSurname":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -4173,6 +4719,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "PerformanceEvaluationTypeDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -4230,16 +4779,19 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public RubricDimensionMappingContract(
             bool isCriterionDescriptionSupported,
             bool isDimensionOrderSupported,
+            bool isEvaluationElementReferenceSupported,
             bool isRubricRatingLevelDescriptorSupported
             )
         {
             IsCriterionDescriptionSupported = isCriterionDescriptionSupported;
             IsDimensionOrderSupported = isDimensionOrderSupported;
+            IsEvaluationElementReferenceSupported = isEvaluationElementReferenceSupported;
             IsRubricRatingLevelDescriptorSupported = isRubricRatingLevelDescriptorSupported;
         }
 
         public bool IsCriterionDescriptionSupported { get; }
         public bool IsDimensionOrderSupported { get; }
+        public bool IsEvaluationElementReferenceSupported { get; }
         public bool IsRubricRatingLevelDescriptorSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -4250,8 +4802,40 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsCriterionDescriptionSupported;
                 case "DimensionOrder":
                     return IsDimensionOrderSupported;
+                case "EvaluationElementReference":
+                    return IsEvaluationElementReferenceSupported;
                 case "RubricRatingLevelDescriptor":
                     return IsRubricRatingLevelDescriptorSupported;
+                case "EducationOrganizationId":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationElementTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationObjectiveTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationPeriodDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "EvaluationTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "PerformanceEvaluationTitle":
+                    // Identifying properties are always supported
+                    return true;
+                case "PerformanceEvaluationTypeDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "RubricRating":
+                    // Identifying properties are always supported
+                    return true;
+                case "SchoolYear":
+                    // Identifying properties are always supported
+                    return true;
+                case "TermDescriptor":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -4323,6 +4907,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "RubricRatingLevelDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -4356,13 +4943,16 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public class SchoolExtensionMappingContract : IMappingContract
     {
         public SchoolExtensionMappingContract(
-            bool isPostSecondaryInstitutionIdSupported
+            bool isPostSecondaryInstitutionIdSupported,
+            bool isPostSecondaryInstitutionReferenceSupported
             )
         {
             IsPostSecondaryInstitutionIdSupported = isPostSecondaryInstitutionIdSupported;
+            IsPostSecondaryInstitutionReferenceSupported = isPostSecondaryInstitutionReferenceSupported;
         }
 
         public bool IsPostSecondaryInstitutionIdSupported { get; }
+        public bool IsPostSecondaryInstitutionReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -4370,6 +4960,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "PostSecondaryInstitutionId":
                     return IsPostSecondaryInstitutionIdSupported;
+                case "PostSecondaryInstitutionReference":
+                    return IsPostSecondaryInstitutionReferenceSupported;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -4406,14 +4998,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         public SurveyResponseExtensionMappingContract(
             bool isPersonIdSupported,
+            bool isPersonReferenceSupported,
             bool isSourceSystemDescriptorSupported
             )
         {
             IsPersonIdSupported = isPersonIdSupported;
+            IsPersonReferenceSupported = isPersonReferenceSupported;
             IsSourceSystemDescriptorSupported = isSourceSystemDescriptorSupported;
         }
 
         public bool IsPersonIdSupported { get; }
+        public bool IsPersonReferenceSupported { get; }
         public bool IsSourceSystemDescriptorSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -4422,6 +5017,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "PersonId":
                     return IsPersonIdSupported;
+                case "PersonReference":
+                    return IsPersonReferenceSupported;
                 case "SourceSystemDescriptor":
                     return IsSourceSystemDescriptorSupported;
                 default:
@@ -4468,15 +5065,40 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public class SurveyResponsePersonTargetAssociationMappingContract : IMappingContract
     {
         public SurveyResponsePersonTargetAssociationMappingContract(
+            bool isPersonReferenceSupported,
+            bool isSurveyResponseReferenceSupported
             )
         {
+            IsPersonReferenceSupported = isPersonReferenceSupported;
+            IsSurveyResponseReferenceSupported = isSurveyResponseReferenceSupported;
         }
 
+        public bool IsPersonReferenceSupported { get; }
+        public bool IsSurveyResponseReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "PersonReference":
+                    return IsPersonReferenceSupported;
+                case "SurveyResponseReference":
+                    return IsSurveyResponseReferenceSupported;
+                case "Namespace":
+                    // Identifying properties are always supported
+                    return true;
+                case "PersonId":
+                    // Identifying properties are always supported
+                    return true;
+                case "SourceSystemDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "SurveyIdentifier":
+                    // Identifying properties are always supported
+                    return true;
+                case "SurveyResponseIdentifier":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -4523,15 +5145,43 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public class SurveySectionResponsePersonTargetAssociationMappingContract : IMappingContract
     {
         public SurveySectionResponsePersonTargetAssociationMappingContract(
+            bool isPersonReferenceSupported,
+            bool isSurveySectionResponseReferenceSupported
             )
         {
+            IsPersonReferenceSupported = isPersonReferenceSupported;
+            IsSurveySectionResponseReferenceSupported = isSurveySectionResponseReferenceSupported;
         }
 
+        public bool IsPersonReferenceSupported { get; }
+        public bool IsSurveySectionResponseReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "PersonReference":
+                    return IsPersonReferenceSupported;
+                case "SurveySectionResponseReference":
+                    return IsSurveySectionResponseReferenceSupported;
+                case "Namespace":
+                    // Identifying properties are always supported
+                    return true;
+                case "PersonId":
+                    // Identifying properties are always supported
+                    return true;
+                case "SourceSystemDescriptor":
+                    // Identifying properties are always supported
+                    return true;
+                case "SurveyIdentifier":
+                    // Identifying properties are always supported
+                    return true;
+                case "SurveyResponseIdentifier":
+                    // Identifying properties are always supported
+                    return true;
+                case "SurveySectionTitle":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }

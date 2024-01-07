@@ -77,6 +77,9 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "InstitutionControlDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -148,6 +151,9 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "InstitutionLevelDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -207,6 +213,9 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                     return IsInstitutionControlDescriptorSupported;
                 case "InstitutionLevelDescriptor":
                     return IsInstitutionLevelDescriptorSupported;
+                case "NameOfInstitution":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -278,6 +287,9 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "SpecialEducationGraduationStatusDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -360,14 +372,17 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
     {
         public StudentAcademicRecordExtensionMappingContract(
             bool isNameOfInstitutionSupported,
+            bool isPostSecondaryOrganizationReferenceSupported,
             bool isSubmissionCertificationDescriptorSupported
             )
         {
             IsNameOfInstitutionSupported = isNameOfInstitutionSupported;
+            IsPostSecondaryOrganizationReferenceSupported = isPostSecondaryOrganizationReferenceSupported;
             IsSubmissionCertificationDescriptorSupported = isSubmissionCertificationDescriptorSupported;
         }
 
         public bool IsNameOfInstitutionSupported { get; }
+        public bool IsPostSecondaryOrganizationReferenceSupported { get; }
         public bool IsSubmissionCertificationDescriptorSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -376,6 +391,8 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
             {
                 case "NameOfInstitution":
                     return IsNameOfInstitutionSupported;
+                case "PostSecondaryOrganizationReference":
+                    return IsPostSecondaryOrganizationReferenceSupported;
                 case "SubmissionCertificationDescriptor":
                     return IsSubmissionCertificationDescriptorSupported;
                 default:
@@ -449,6 +466,9 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                case "SubmissionCertificationDescriptorId":
+                    // Identifying properties are always supported
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }

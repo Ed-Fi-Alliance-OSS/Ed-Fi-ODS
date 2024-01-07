@@ -157,6 +157,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentTransportation : Entities.Common.SampleStudentTransportation.IStudentTransportation, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        private static FullName _fullName = new FullName("samplestudenttransportation", "StudentTransportation");
+
         // Fluent validator instance (threadsafe)
         private static StudentTransportationPutPostRequestValidator _validator = new StudentTransportationPutPostRequestValidator();
         

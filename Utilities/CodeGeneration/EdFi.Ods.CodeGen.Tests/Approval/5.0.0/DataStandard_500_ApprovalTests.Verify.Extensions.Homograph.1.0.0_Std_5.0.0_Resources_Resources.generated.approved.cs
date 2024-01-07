@@ -132,6 +132,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
     [ExcludeFromCodeCoverage]
     public class Contact : Entities.Common.Homograph.IContact, IHasETag, IDateVersionedEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("homograph", "Contact");
+
         // Fluent validator instance (threadsafe)
         private static ContactPutPostRequestValidator _validator = new ContactPutPostRequestValidator();
         
@@ -482,6 +484,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -494,25 +499,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (ContactAddresses.Any())
+                if (ContactAddresses.Any() && mappingContract?.IsMemberSupported("ContactAddresses") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(ContactAddresses));
+                    pathBuilder.Append("ContactAddresses");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ContactAddresses, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ContactAddresses, validationContext, validationContext.Items.ForCollection("ContactAddresses"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (ContactStudentSchoolAssociations.Any())
+                if (ContactStudentSchoolAssociations.Any() && mappingContract?.IsMemberSupported("ContactStudentSchoolAssociations") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(ContactStudentSchoolAssociations));
+                    pathBuilder.Append("ContactStudentSchoolAssociations");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ContactStudentSchoolAssociations, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ContactStudentSchoolAssociations, validationContext, validationContext.Items.ForCollection("ContactStudentSchoolAssociations"))))
                     {
                         yield return result;
                     }
@@ -624,6 +629,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
     [ExcludeFromCodeCoverage]
     public class ContactAddress : Entities.Common.Homograph.IContactAddress
     {
+        private static FullName _fullName = new FullName("homograph", "ContactAddress");
+
         // Fluent validator instance (threadsafe)
         private static ContactAddressPutPostRequestValidator _validator = new ContactAddressPutPostRequestValidator();
         
@@ -846,6 +853,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
     [ExcludeFromCodeCoverage]
     public class ContactStudentSchoolAssociation : Entities.Common.Homograph.IContactStudentSchoolAssociation
     {
+        private static FullName _fullName = new FullName("homograph", "ContactStudentSchoolAssociation");
+
         // Fluent validator instance (threadsafe)
         private static ContactStudentSchoolAssociationPutPostRequestValidator _validator = new ContactStudentSchoolAssociationPutPostRequestValidator();
         
@@ -1299,6 +1308,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
     [ExcludeFromCodeCoverage]
     public class Name : Entities.Common.Homograph.IName, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("homograph", "Name");
+
         // Fluent validator instance (threadsafe)
         private static NamePutPostRequestValidator _validator = new NamePutPostRequestValidator();
         
@@ -1622,6 +1633,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
     [ExcludeFromCodeCoverage]
     public class School : Entities.Common.Homograph.ISchool, IHasETag, IDateVersionedEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("homograph", "School");
+
         // Fluent validator instance (threadsafe)
         private static SchoolPutPostRequestValidator _validator = new SchoolPutPostRequestValidator();
         
@@ -1883,6 +1896,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -1899,13 +1915,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
                 // ---------------------------
                 //  Validate embedded objects
                 // ---------------------------
-                if (SchoolAddress != null)
+                if (SchoolAddress != null && mappingContract?.IsMemberSupported("SchoolAddress") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(SchoolAddress));
-    
-                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(SchoolAddress, validationContext.Items)))
+                    pathBuilder.Append("SchoolAddress");
+
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(SchoolAddress, validationContext, validationContext.Items.ForEmbeddedObject("SchoolAddress"))))
                     {
                         yield return result;
                     }
@@ -1974,6 +1990,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
     [ExcludeFromCodeCoverage]
     public class SchoolAddress : Entities.Common.Homograph.ISchoolAddress
     {
+        private static FullName _fullName = new FullName("homograph", "SchoolAddress");
+
         // Fluent validator instance (threadsafe)
         private static SchoolAddressPutPostRequestValidator _validator = new SchoolAddressPutPostRequestValidator();
         
@@ -2281,6 +2299,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
     [ExcludeFromCodeCoverage]
     public class SchoolYearType : Entities.Common.Homograph.ISchoolYearType, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("homograph", "SchoolYearType");
+
         // Fluent validator instance (threadsafe)
         private static SchoolYearTypePutPostRequestValidator _validator = new SchoolYearTypePutPostRequestValidator();
         
@@ -2594,6 +2614,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     [ExcludeFromCodeCoverage]
     public class Staff : Entities.Common.Homograph.IStaff, IHasETag, IDateVersionedEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("homograph", "Staff");
+
         // Fluent validator instance (threadsafe)
         private static StaffPutPostRequestValidator _validator = new StaffPutPostRequestValidator();
         
@@ -2944,6 +2966,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -2956,25 +2981,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (StaffAddresses.Any())
+                if (StaffAddresses.Any() && mappingContract?.IsMemberSupported("StaffAddresses") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StaffAddresses));
+                    pathBuilder.Append("StaffAddresses");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StaffAddresses, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StaffAddresses, validationContext, validationContext.Items.ForCollection("StaffAddresses"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (StaffStudentSchoolAssociations.Any())
+                if (StaffStudentSchoolAssociations.Any() && mappingContract?.IsMemberSupported("StaffStudentSchoolAssociations") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StaffStudentSchoolAssociations));
+                    pathBuilder.Append("StaffStudentSchoolAssociations");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StaffStudentSchoolAssociations, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StaffStudentSchoolAssociations, validationContext, validationContext.Items.ForCollection("StaffStudentSchoolAssociations"))))
                     {
                         yield return result;
                     }
@@ -3086,6 +3111,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     [ExcludeFromCodeCoverage]
     public class StaffAddress : Entities.Common.Homograph.IStaffAddress
     {
+        private static FullName _fullName = new FullName("homograph", "StaffAddress");
+
         // Fluent validator instance (threadsafe)
         private static StaffAddressPutPostRequestValidator _validator = new StaffAddressPutPostRequestValidator();
         
@@ -3308,6 +3335,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     [ExcludeFromCodeCoverage]
     public class StaffStudentSchoolAssociation : Entities.Common.Homograph.IStaffStudentSchoolAssociation
     {
+        private static FullName _fullName = new FullName("homograph", "StaffStudentSchoolAssociation");
+
         // Fluent validator instance (threadsafe)
         private static StaffStudentSchoolAssociationPutPostRequestValidator _validator = new StaffStudentSchoolAssociationPutPostRequestValidator();
         
@@ -3761,6 +3790,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
     [ExcludeFromCodeCoverage]
     public class Student : Entities.Common.Homograph.IStudent, IHasETag, IDateVersionedEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("homograph", "Student");
+
         // Fluent validator instance (threadsafe)
         private static StudentPutPostRequestValidator _validator = new StudentPutPostRequestValidator();
         
@@ -4117,6 +4148,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -4133,13 +4167,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
                 // ---------------------------
                 //  Validate embedded objects
                 // ---------------------------
-                if (StudentAddress != null)
+                if (StudentAddress != null && mappingContract?.IsMemberSupported("StudentAddress") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(StudentAddress));
-    
-                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(StudentAddress, validationContext.Items)))
+                    pathBuilder.Append("StudentAddress");
+
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(StudentAddress, validationContext, validationContext.Items.ForEmbeddedObject("StudentAddress"))))
                     {
                         yield return result;
                     }
@@ -4208,6 +4242,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
     [ExcludeFromCodeCoverage]
     public class StudentAddress : Entities.Common.Homograph.IStudentAddress
     {
+        private static FullName _fullName = new FullName("homograph", "StudentAddress");
+
         // Fluent validator instance (threadsafe)
         private static StudentAddressPutPostRequestValidator _validator = new StudentAddressPutPostRequestValidator();
         
@@ -4540,6 +4576,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
     [ExcludeFromCodeCoverage]
     public class StudentSchoolAssociation : Entities.Common.Homograph.IStudentSchoolAssociation, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("homograph", "StudentSchoolAssociation");
+
         // Fluent validator instance (threadsafe)
         private static StudentSchoolAssociationPutPostRequestValidator _validator = new StudentSchoolAssociationPutPostRequestValidator();
         

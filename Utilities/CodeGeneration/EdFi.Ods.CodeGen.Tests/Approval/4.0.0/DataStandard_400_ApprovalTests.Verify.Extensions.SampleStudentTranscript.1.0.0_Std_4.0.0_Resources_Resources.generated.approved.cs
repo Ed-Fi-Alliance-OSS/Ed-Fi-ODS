@@ -35,6 +35,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
     [ExcludeFromCodeCoverage]
     public class InstitutionControlDescriptor : Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("samplestudenttranscript", "InstitutionControlDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static InstitutionControlDescriptorPutPostRequestValidator _validator = new InstitutionControlDescriptorPutPostRequestValidator();
         
@@ -304,6 +306,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
     [ExcludeFromCodeCoverage]
     public class InstitutionLevelDescriptor : Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("samplestudenttranscript", "InstitutionLevelDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static InstitutionLevelDescriptorPutPostRequestValidator _validator = new InstitutionLevelDescriptorPutPostRequestValidator();
         
@@ -663,6 +667,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class PostSecondaryOrganization : Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        private static FullName _fullName = new FullName("samplestudenttranscript", "PostSecondaryOrganization");
+
         // Fluent validator instance (threadsafe)
         private static PostSecondaryOrganizationPutPostRequestValidator _validator = new PostSecondaryOrganizationPutPostRequestValidator();
         
@@ -924,6 +930,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
     [ExcludeFromCodeCoverage]
     public class SpecialEducationGraduationStatusDescriptor : Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("samplestudenttranscript", "SpecialEducationGraduationStatusDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static SpecialEducationGraduationStatusDescriptorPutPostRequestValidator _validator = new SpecialEducationGraduationStatusDescriptorPutPostRequestValidator();
         
@@ -1194,6 +1202,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
     [Display(Name="SampleStudentTranscript")]
     public class StudentAcademicRecordClassRankingExtension : Entities.Common.SampleStudentTranscript.IStudentAcademicRecordClassRankingExtension, IChildEntity
     {
+        private static FullName _fullName = new FullName("samplestudenttranscript", "StudentAcademicRecordClassRankingExtension");
+
         // Fluent validator instance (threadsafe)
         private static StudentAcademicRecordClassRankingExtensionPutPostRequestValidator _validator = new StudentAcademicRecordClassRankingExtensionPutPostRequestValidator();
         
@@ -1413,6 +1423,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
     [Display(Name="SampleStudentTranscript")]
     public class StudentAcademicRecordExtension : Entities.Common.SampleStudentTranscript.IStudentAcademicRecordExtension, IChildEntity
     {
+        private static FullName _fullName = new FullName("samplestudenttranscript", "StudentAcademicRecordExtension");
+
         // Fluent validator instance (threadsafe)
         private static StudentAcademicRecordExtensionPutPostRequestValidator _validator = new StudentAcademicRecordExtensionPutPostRequestValidator();
         
@@ -1710,6 +1722,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
     [ExcludeFromCodeCoverage]
     public class SubmissionCertificationDescriptor : Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("samplestudenttranscript", "SubmissionCertificationDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static SubmissionCertificationDescriptorPutPostRequestValidator _validator = new SubmissionCertificationDescriptorPutPostRequestValidator();
         

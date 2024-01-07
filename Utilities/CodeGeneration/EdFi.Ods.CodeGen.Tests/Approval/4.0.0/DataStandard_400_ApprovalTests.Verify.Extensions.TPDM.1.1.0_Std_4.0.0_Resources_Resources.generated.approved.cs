@@ -35,6 +35,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
     [ExcludeFromCodeCoverage]
     public class AccreditationStatusDescriptor : Entities.Common.TPDM.IAccreditationStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "AccreditationStatusDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static AccreditationStatusDescriptorPutPostRequestValidator _validator = new AccreditationStatusDescriptorPutPostRequestValidator();
         
@@ -304,6 +306,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
     [ExcludeFromCodeCoverage]
     public class AidTypeDescriptor : Entities.Common.TPDM.IAidTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "AidTypeDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static AidTypeDescriptorPutPostRequestValidator _validator = new AidTypeDescriptorPutPostRequestValidator();
         
@@ -662,6 +666,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     [ExcludeFromCodeCoverage]
     public class Candidate : Entities.Common.TPDM.ICandidate, IHasETag, IDateVersionedEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("tpdm", "Candidate");
+
         // Fluent validator instance (threadsafe)
         private static CandidatePutPostRequestValidator _validator = new CandidatePutPostRequestValidator();
         
@@ -1405,6 +1411,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -1417,97 +1426,97 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (CandidateAddresses.Any())
+                if (CandidateAddresses.Any() && mappingContract?.IsMemberSupported("CandidateAddresses") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(CandidateAddresses));
+                    pathBuilder.Append("CandidateAddresses");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateAddresses, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateAddresses, validationContext, validationContext.Items.ForCollection("CandidateAddresses"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (CandidateDisabilities.Any())
+                if (CandidateDisabilities.Any() && mappingContract?.IsMemberSupported("CandidateDisabilities") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(CandidateDisabilities));
+                    pathBuilder.Append("CandidateDisabilities");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateDisabilities, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateDisabilities, validationContext, validationContext.Items.ForCollection("CandidateDisabilities"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (CandidateElectronicMails.Any())
+                if (CandidateElectronicMails.Any() && mappingContract?.IsMemberSupported("CandidateElectronicMails") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(CandidateElectronicMails));
+                    pathBuilder.Append("CandidateElectronicMails");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateElectronicMails, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateElectronicMails, validationContext, validationContext.Items.ForCollection("CandidateElectronicMails"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (CandidateLanguages.Any())
+                if (CandidateLanguages.Any() && mappingContract?.IsMemberSupported("CandidateLanguages") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(CandidateLanguages));
+                    pathBuilder.Append("CandidateLanguages");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateLanguages, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateLanguages, validationContext, validationContext.Items.ForCollection("CandidateLanguages"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (CandidateOtherNames.Any())
+                if (CandidateOtherNames.Any() && mappingContract?.IsMemberSupported("CandidateOtherNames") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(CandidateOtherNames));
+                    pathBuilder.Append("CandidateOtherNames");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateOtherNames, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateOtherNames, validationContext, validationContext.Items.ForCollection("CandidateOtherNames"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (CandidatePersonalIdentificationDocuments.Any())
+                if (CandidatePersonalIdentificationDocuments.Any() && mappingContract?.IsMemberSupported("CandidatePersonalIdentificationDocuments") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(CandidatePersonalIdentificationDocuments));
+                    pathBuilder.Append("CandidatePersonalIdentificationDocuments");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidatePersonalIdentificationDocuments, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidatePersonalIdentificationDocuments, validationContext, validationContext.Items.ForCollection("CandidatePersonalIdentificationDocuments"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (CandidateRaces.Any())
+                if (CandidateRaces.Any() && mappingContract?.IsMemberSupported("CandidateRaces") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(CandidateRaces));
+                    pathBuilder.Append("CandidateRaces");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateRaces, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateRaces, validationContext, validationContext.Items.ForCollection("CandidateRaces"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (CandidateTelephones.Any())
+                if (CandidateTelephones.Any() && mappingContract?.IsMemberSupported("CandidateTelephones") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(CandidateTelephones));
+                    pathBuilder.Append("CandidateTelephones");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateTelephones, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateTelephones, validationContext, validationContext.Items.ForCollection("CandidateTelephones"))))
                     {
                         yield return result;
                     }
@@ -1691,6 +1700,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     [ExcludeFromCodeCoverage]
     public class CandidateAddress : Entities.Common.TPDM.ICandidateAddress, IValidatableObject
     {
+        private static FullName _fullName = new FullName("tpdm", "CandidateAddress");
+
         // Fluent validator instance (threadsafe)
         private static CandidateAddressPutPostRequestValidator _validator = new CandidateAddressPutPostRequestValidator();
         
@@ -2063,6 +2074,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -2076,13 +2090,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (CandidateAddressPeriods.Any())
+                if (CandidateAddressPeriods.Any() && mappingContract?.IsMemberSupported("CandidateAddressPeriods") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(CandidateAddressPeriods));
+                    pathBuilder.Append("CandidateAddressPeriods");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateAddressPeriods, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateAddressPeriods, validationContext, validationContext.Items.ForCollection("CandidateAddressPeriods"))))
                     {
                         yield return result;
                     }
@@ -2182,6 +2196,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     [ExcludeFromCodeCoverage]
     public class CandidateAddressPeriod : Entities.Common.TPDM.ICandidateAddressPeriod
     {
+        private static FullName _fullName = new FullName("tpdm", "CandidateAddressPeriod");
+
         // Fluent validator instance (threadsafe)
         private static CandidateAddressPeriodPutPostRequestValidator _validator = new CandidateAddressPeriodPutPostRequestValidator();
         
@@ -2410,6 +2426,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     [ExcludeFromCodeCoverage]
     public class CandidateDisability : Entities.Common.TPDM.ICandidateDisability, IValidatableObject
     {
+        private static FullName _fullName = new FullName("tpdm", "CandidateDisability");
+
         // Fluent validator instance (threadsafe)
         private static CandidateDisabilityPutPostRequestValidator _validator = new CandidateDisabilityPutPostRequestValidator();
         
@@ -2662,6 +2680,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -2675,13 +2696,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (CandidateDisabilityDesignations.Any())
+                if (CandidateDisabilityDesignations.Any() && mappingContract?.IsMemberSupported("CandidateDisabilityDesignations") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(CandidateDisabilityDesignations));
+                    pathBuilder.Append("CandidateDisabilityDesignations");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateDisabilityDesignations, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateDisabilityDesignations, validationContext, validationContext.Items.ForCollection("CandidateDisabilityDesignations"))))
                     {
                         yield return result;
                     }
@@ -2781,6 +2802,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     [ExcludeFromCodeCoverage]
     public class CandidateDisabilityDesignation : Entities.Common.TPDM.ICandidateDisabilityDesignation
     {
+        private static FullName _fullName = new FullName("tpdm", "CandidateDisabilityDesignation");
+
         // Fluent validator instance (threadsafe)
         private static CandidateDisabilityDesignationPutPostRequestValidator _validator = new CandidateDisabilityDesignationPutPostRequestValidator();
         
@@ -3003,6 +3026,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     [ExcludeFromCodeCoverage]
     public class CandidateElectronicMail : Entities.Common.TPDM.ICandidateElectronicMail
     {
+        private static FullName _fullName = new FullName("tpdm", "CandidateElectronicMail");
+
         // Fluent validator instance (threadsafe)
         private static CandidateElectronicMailPutPostRequestValidator _validator = new CandidateElectronicMailPutPostRequestValidator();
         
@@ -3257,6 +3282,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     [ExcludeFromCodeCoverage]
     public class CandidateLanguage : Entities.Common.TPDM.ICandidateLanguage, IValidatableObject
     {
+        private static FullName _fullName = new FullName("tpdm", "CandidateLanguage");
+
         // Fluent validator instance (threadsafe)
         private static CandidateLanguagePutPostRequestValidator _validator = new CandidateLanguagePutPostRequestValidator();
         
@@ -3486,6 +3513,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -3499,13 +3529,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (CandidateLanguageUses.Any())
+                if (CandidateLanguageUses.Any() && mappingContract?.IsMemberSupported("CandidateLanguageUses") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(CandidateLanguageUses));
+                    pathBuilder.Append("CandidateLanguageUses");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateLanguageUses, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateLanguageUses, validationContext, validationContext.Items.ForCollection("CandidateLanguageUses"))))
                     {
                         yield return result;
                     }
@@ -3605,6 +3635,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     [ExcludeFromCodeCoverage]
     public class CandidateLanguageUse : Entities.Common.TPDM.ICandidateLanguageUse
     {
+        private static FullName _fullName = new FullName("tpdm", "CandidateLanguageUse");
+
         // Fluent validator instance (threadsafe)
         private static CandidateLanguageUsePutPostRequestValidator _validator = new CandidateLanguageUsePutPostRequestValidator();
         
@@ -3827,6 +3859,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     [ExcludeFromCodeCoverage]
     public class CandidateOtherName : Entities.Common.TPDM.ICandidateOtherName
     {
+        private static FullName _fullName = new FullName("tpdm", "CandidateOtherName");
+
         // Fluent validator instance (threadsafe)
         private static CandidateOtherNamePutPostRequestValidator _validator = new CandidateOtherNamePutPostRequestValidator();
         
@@ -4091,6 +4125,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     [ExcludeFromCodeCoverage]
     public class CandidatePersonalIdentificationDocument : Entities.Common.TPDM.ICandidatePersonalIdentificationDocument
     {
+        private static FullName _fullName = new FullName("tpdm", "CandidatePersonalIdentificationDocument");
+
         // Fluent validator instance (threadsafe)
         private static CandidatePersonalIdentificationDocumentPutPostRequestValidator _validator = new CandidatePersonalIdentificationDocumentPutPostRequestValidator();
         
@@ -4370,6 +4406,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     [ExcludeFromCodeCoverage]
     public class CandidateRace : Entities.Common.TPDM.ICandidateRace
     {
+        private static FullName _fullName = new FullName("tpdm", "CandidateRace");
+
         // Fluent validator instance (threadsafe)
         private static CandidateRacePutPostRequestValidator _validator = new CandidateRacePutPostRequestValidator();
         
@@ -4592,6 +4630,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     [ExcludeFromCodeCoverage]
     public class CandidateTelephone : Entities.Common.TPDM.ICandidateTelephone
     {
+        private static FullName _fullName = new FullName("tpdm", "CandidateTelephone");
+
         // Fluent validator instance (threadsafe)
         private static CandidateTelephonePutPostRequestValidator _validator = new CandidateTelephonePutPostRequestValidator();
         
@@ -4980,6 +5020,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     [ExcludeFromCodeCoverage]
     public class CandidateEducatorPreparationProgramAssociation : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation, IHasETag, IDateVersionedEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("tpdm", "CandidateEducatorPreparationProgramAssociation");
+
         // Fluent validator instance (threadsafe)
         private static CandidateEducatorPreparationProgramAssociationPutPostRequestValidator _validator = new CandidateEducatorPreparationProgramAssociationPutPostRequestValidator();
         
@@ -5480,6 +5522,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -5492,25 +5537,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (CandidateEducatorPreparationProgramAssociationCohortYears.Any())
+                if (CandidateEducatorPreparationProgramAssociationCohortYears.Any() && mappingContract?.IsMemberSupported("CandidateEducatorPreparationProgramAssociationCohortYears") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(CandidateEducatorPreparationProgramAssociationCohortYears));
+                    pathBuilder.Append("CandidateEducatorPreparationProgramAssociationCohortYears");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateEducatorPreparationProgramAssociationCohortYears, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateEducatorPreparationProgramAssociationCohortYears, validationContext, validationContext.Items.ForCollection("CandidateEducatorPreparationProgramAssociationCohortYears"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (CandidateEducatorPreparationProgramAssociationDegreeSpecializations.Any())
+                if (CandidateEducatorPreparationProgramAssociationDegreeSpecializations.Any() && mappingContract?.IsMemberSupported("CandidateEducatorPreparationProgramAssociationDegreeSpecializations") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(CandidateEducatorPreparationProgramAssociationDegreeSpecializations));
+                    pathBuilder.Append("CandidateEducatorPreparationProgramAssociationDegreeSpecializations");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateEducatorPreparationProgramAssociationDegreeSpecializations, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CandidateEducatorPreparationProgramAssociationDegreeSpecializations, validationContext, validationContext.Items.ForCollection("CandidateEducatorPreparationProgramAssociationDegreeSpecializations"))))
                     {
                         yield return result;
                     }
@@ -5622,6 +5667,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     [ExcludeFromCodeCoverage]
     public class CandidateEducatorPreparationProgramAssociationCohortYear : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear
     {
+        private static FullName _fullName = new FullName("tpdm", "CandidateEducatorPreparationProgramAssociationCohortYear");
+
         // Fluent validator instance (threadsafe)
         private static CandidateEducatorPreparationProgramAssociationCohortYearPutPostRequestValidator _validator = new CandidateEducatorPreparationProgramAssociationCohortYearPutPostRequestValidator();
         
@@ -5926,6 +5973,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     [ExcludeFromCodeCoverage]
     public class CandidateEducatorPreparationProgramAssociationDegreeSpecialization : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization
     {
+        private static FullName _fullName = new FullName("tpdm", "CandidateEducatorPreparationProgramAssociationDegreeSpecialization");
+
         // Fluent validator instance (threadsafe)
         private static CandidateEducatorPreparationProgramAssociationDegreeSpecializationPutPostRequestValidator _validator = new CandidateEducatorPreparationProgramAssociationDegreeSpecializationPutPostRequestValidator();
         
@@ -6168,6 +6217,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
     [ExcludeFromCodeCoverage]
     public class CertificationRouteDescriptor : Entities.Common.TPDM.ICertificationRouteDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "CertificationRouteDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static CertificationRouteDescriptorPutPostRequestValidator _validator = new CertificationRouteDescriptorPutPostRequestValidator();
         
@@ -6437,6 +6488,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
     [ExcludeFromCodeCoverage]
     public class CoteachingStyleObservedDescriptor : Entities.Common.TPDM.ICoteachingStyleObservedDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "CoteachingStyleObservedDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static CoteachingStyleObservedDescriptorPutPostRequestValidator _validator = new CoteachingStyleObservedDescriptorPutPostRequestValidator();
         
@@ -6707,6 +6760,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
     [Display(Name="TPDM")]
     public class CredentialExtension : Entities.Common.TPDM.ICredentialExtension, IChildEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("tpdm", "CredentialExtension");
+
         // Fluent validator instance (threadsafe)
         private static CredentialExtensionPutPostRequestValidator _validator = new CredentialExtensionPutPostRequestValidator();
         
@@ -7068,6 +7123,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -7081,13 +7139,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (CredentialStudentAcademicRecords.Any())
+                if (CredentialStudentAcademicRecords.Any() && mappingContract?.IsMemberSupported("CredentialStudentAcademicRecords") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(CredentialStudentAcademicRecords));
+                    pathBuilder.Append("CredentialStudentAcademicRecords");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CredentialStudentAcademicRecords, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(CredentialStudentAcademicRecords, validationContext, validationContext.Items.ForCollection("CredentialStudentAcademicRecords"))))
                     {
                         yield return result;
                     }
@@ -7187,6 +7245,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
     [ExcludeFromCodeCoverage]
     public class CredentialStudentAcademicRecord : Entities.Common.TPDM.ICredentialStudentAcademicRecord
     {
+        private static FullName _fullName = new FullName("tpdm", "CredentialStudentAcademicRecord");
+
         // Fluent validator instance (threadsafe)
         private static CredentialStudentAcademicRecordPutPostRequestValidator _validator = new CredentialStudentAcademicRecordPutPostRequestValidator();
         
@@ -7574,6 +7634,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
     [ExcludeFromCodeCoverage]
     public class CredentialStatusDescriptor : Entities.Common.TPDM.ICredentialStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "CredentialStatusDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static CredentialStatusDescriptorPutPostRequestValidator _validator = new CredentialStatusDescriptorPutPostRequestValidator();
         
@@ -7948,6 +8010,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
     [ExcludeFromCodeCoverage]
     public class EducatorPreparationProgram : Entities.Common.TPDM.IEducatorPreparationProgram, IHasETag, IDateVersionedEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("tpdm", "EducatorPreparationProgram");
+
         // Fluent validator instance (threadsafe)
         private static EducatorPreparationProgramPutPostRequestValidator _validator = new EducatorPreparationProgramPutPostRequestValidator();
         
@@ -8281,6 +8345,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -8293,13 +8360,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (EducatorPreparationProgramGradeLevels.Any())
+                if (EducatorPreparationProgramGradeLevels.Any() && mappingContract?.IsMemberSupported("EducatorPreparationProgramGradeLevels") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(EducatorPreparationProgramGradeLevels));
+                    pathBuilder.Append("EducatorPreparationProgramGradeLevels");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(EducatorPreparationProgramGradeLevels, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(EducatorPreparationProgramGradeLevels, validationContext, validationContext.Items.ForCollection("EducatorPreparationProgramGradeLevels"))))
                     {
                         yield return result;
                     }
@@ -8399,6 +8466,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
     [ExcludeFromCodeCoverage]
     public class EducatorPreparationProgramGradeLevel : Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel
     {
+        private static FullName _fullName = new FullName("tpdm", "EducatorPreparationProgramGradeLevel");
+
         // Fluent validator instance (threadsafe)
         private static EducatorPreparationProgramGradeLevelPutPostRequestValidator _validator = new EducatorPreparationProgramGradeLevelPutPostRequestValidator();
         
@@ -8626,6 +8695,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
     [ExcludeFromCodeCoverage]
     public class EducatorRoleDescriptor : Entities.Common.TPDM.IEducatorRoleDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "EducatorRoleDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static EducatorRoleDescriptorPutPostRequestValidator _validator = new EducatorRoleDescriptorPutPostRequestValidator();
         
@@ -8895,6 +8966,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
     [ExcludeFromCodeCoverage]
     public class EnglishLanguageExamDescriptor : Entities.Common.TPDM.IEnglishLanguageExamDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "EnglishLanguageExamDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static EnglishLanguageExamDescriptorPutPostRequestValidator _validator = new EnglishLanguageExamDescriptorPutPostRequestValidator();
         
@@ -9164,6 +9237,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
     [ExcludeFromCodeCoverage]
     public class EPPProgramPathwayDescriptor : Entities.Common.TPDM.IEPPProgramPathwayDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "EPPProgramPathwayDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static EPPProgramPathwayDescriptorPutPostRequestValidator _validator = new EPPProgramPathwayDescriptorPutPostRequestValidator();
         
@@ -9570,6 +9645,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
     [ExcludeFromCodeCoverage]
     public class Evaluation : Entities.Common.TPDM.IEvaluation, IHasETag, IDateVersionedEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("tpdm", "Evaluation");
+
         // Fluent validator instance (threadsafe)
         private static EvaluationPutPostRequestValidator _validator = new EvaluationPutPostRequestValidator();
         
@@ -10064,6 +10141,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -10076,13 +10156,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (EvaluationRatingLevels.Any())
+                if (EvaluationRatingLevels.Any() && mappingContract?.IsMemberSupported("EvaluationRatingLevels") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(EvaluationRatingLevels));
+                    pathBuilder.Append("EvaluationRatingLevels");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(EvaluationRatingLevels, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(EvaluationRatingLevels, validationContext, validationContext.Items.ForCollection("EvaluationRatingLevels"))))
                     {
                         yield return result;
                     }
@@ -10182,6 +10262,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingLevel : Entities.Common.TPDM.IEvaluationRatingLevel
     {
+        private static FullName _fullName = new FullName("tpdm", "EvaluationRatingLevel");
+
         // Fluent validator instance (threadsafe)
         private static EvaluationRatingLevelPutPostRequestValidator _validator = new EvaluationRatingLevelPutPostRequestValidator();
         
@@ -10578,6 +10660,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
     [ExcludeFromCodeCoverage]
     public class EvaluationElement : Entities.Common.TPDM.IEvaluationElement, IHasETag, IDateVersionedEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("tpdm", "EvaluationElement");
+
         // Fluent validator instance (threadsafe)
         private static EvaluationElementPutPostRequestValidator _validator = new EvaluationElementPutPostRequestValidator();
         
@@ -11130,6 +11214,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -11142,13 +11229,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (EvaluationElementRatingLevels.Any())
+                if (EvaluationElementRatingLevels.Any() && mappingContract?.IsMemberSupported("EvaluationElementRatingLevels") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(EvaluationElementRatingLevels));
+                    pathBuilder.Append("EvaluationElementRatingLevels");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(EvaluationElementRatingLevels, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(EvaluationElementRatingLevels, validationContext, validationContext.Items.ForCollection("EvaluationElementRatingLevels"))))
                     {
                         yield return result;
                     }
@@ -11248,6 +11335,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
     [ExcludeFromCodeCoverage]
     public class EvaluationElementRatingLevel : Entities.Common.TPDM.IEvaluationElementRatingLevel
     {
+        private static FullName _fullName = new FullName("tpdm", "EvaluationElementRatingLevel");
+
         // Fluent validator instance (threadsafe)
         private static EvaluationElementRatingLevelPutPostRequestValidator _validator = new EvaluationElementRatingLevelPutPostRequestValidator();
         
@@ -11668,6 +11757,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
     [ExcludeFromCodeCoverage]
     public class EvaluationElementRating : Entities.Common.TPDM.IEvaluationElementRating, IHasETag, IDateVersionedEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("tpdm", "EvaluationElementRating");
+
         // Fluent validator instance (threadsafe)
         private static EvaluationElementRatingPutPostRequestValidator _validator = new EvaluationElementRatingPutPostRequestValidator();
         
@@ -12410,6 +12501,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -12422,13 +12516,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (EvaluationElementRatingResults.Any())
+                if (EvaluationElementRatingResults.Any() && mappingContract?.IsMemberSupported("EvaluationElementRatingResults") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(EvaluationElementRatingResults));
+                    pathBuilder.Append("EvaluationElementRatingResults");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(EvaluationElementRatingResults, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(EvaluationElementRatingResults, validationContext, validationContext.Items.ForCollection("EvaluationElementRatingResults"))))
                     {
                         yield return result;
                     }
@@ -12792,6 +12886,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class EvaluationElementRatingResult : Entities.Common.TPDM.IEvaluationElementRatingResult, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        private static FullName _fullName = new FullName("tpdm", "EvaluationElementRatingResult");
+
         // Fluent validator instance (threadsafe)
         private static EvaluationElementRatingResultPutPostRequestValidator _validator = new EvaluationElementRatingResultPutPostRequestValidator();
         
@@ -13065,6 +13161,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
     [ExcludeFromCodeCoverage]
     public class EvaluationElementRatingLevelDescriptor : Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "EvaluationElementRatingLevelDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static EvaluationElementRatingLevelDescriptorPutPostRequestValidator _validator = new EvaluationElementRatingLevelDescriptorPutPostRequestValidator();
         
@@ -13479,6 +13577,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
     [ExcludeFromCodeCoverage]
     public class EvaluationObjective : Entities.Common.TPDM.IEvaluationObjective, IHasETag, IDateVersionedEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("tpdm", "EvaluationObjective");
+
         // Fluent validator instance (threadsafe)
         private static EvaluationObjectivePutPostRequestValidator _validator = new EvaluationObjectivePutPostRequestValidator();
         
@@ -14006,6 +14106,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -14018,13 +14121,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (EvaluationObjectiveRatingLevels.Any())
+                if (EvaluationObjectiveRatingLevels.Any() && mappingContract?.IsMemberSupported("EvaluationObjectiveRatingLevels") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(EvaluationObjectiveRatingLevels));
+                    pathBuilder.Append("EvaluationObjectiveRatingLevels");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(EvaluationObjectiveRatingLevels, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(EvaluationObjectiveRatingLevels, validationContext, validationContext.Items.ForCollection("EvaluationObjectiveRatingLevels"))))
                     {
                         yield return result;
                     }
@@ -14124,6 +14227,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
     [ExcludeFromCodeCoverage]
     public class EvaluationObjectiveRatingLevel : Entities.Common.TPDM.IEvaluationObjectiveRatingLevel
     {
+        private static FullName _fullName = new FullName("tpdm", "EvaluationObjectiveRatingLevel");
+
         // Fluent validator instance (threadsafe)
         private static EvaluationObjectiveRatingLevelPutPostRequestValidator _validator = new EvaluationObjectiveRatingLevelPutPostRequestValidator();
         
@@ -14536,6 +14641,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
     [ExcludeFromCodeCoverage]
     public class EvaluationObjectiveRating : Entities.Common.TPDM.IEvaluationObjectiveRating, IHasETag, IDateVersionedEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("tpdm", "EvaluationObjectiveRating");
+
         // Fluent validator instance (threadsafe)
         private static EvaluationObjectiveRatingPutPostRequestValidator _validator = new EvaluationObjectiveRatingPutPostRequestValidator();
         
@@ -15217,6 +15324,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -15229,13 +15339,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (EvaluationObjectiveRatingResults.Any())
+                if (EvaluationObjectiveRatingResults.Any() && mappingContract?.IsMemberSupported("EvaluationObjectiveRatingResults") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(EvaluationObjectiveRatingResults));
+                    pathBuilder.Append("EvaluationObjectiveRatingResults");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(EvaluationObjectiveRatingResults, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(EvaluationObjectiveRatingResults, validationContext, validationContext.Items.ForCollection("EvaluationObjectiveRatingResults"))))
                     {
                         yield return result;
                     }
@@ -15567,6 +15677,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class EvaluationObjectiveRatingResult : Entities.Common.TPDM.IEvaluationObjectiveRatingResult, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        private static FullName _fullName = new FullName("tpdm", "EvaluationObjectiveRatingResult");
+
         // Fluent validator instance (threadsafe)
         private static EvaluationObjectiveRatingResultPutPostRequestValidator _validator = new EvaluationObjectiveRatingResultPutPostRequestValidator();
         
@@ -15840,6 +15952,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
     [ExcludeFromCodeCoverage]
     public class EvaluationPeriodDescriptor : Entities.Common.TPDM.IEvaluationPeriodDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "EvaluationPeriodDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static EvaluationPeriodDescriptorPutPostRequestValidator _validator = new EvaluationPeriodDescriptorPutPostRequestValidator();
         
@@ -16270,6 +16384,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     [ExcludeFromCodeCoverage]
     public class EvaluationRating : Entities.Common.TPDM.IEvaluationRating, IHasETag, IDateVersionedEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("tpdm", "EvaluationRating");
+
         // Fluent validator instance (threadsafe)
         private static EvaluationRatingPutPostRequestValidator _validator = new EvaluationRatingPutPostRequestValidator();
         
@@ -17093,6 +17209,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -17105,25 +17224,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (EvaluationRatingResults.Any())
+                if (EvaluationRatingResults.Any() && mappingContract?.IsMemberSupported("EvaluationRatingResults") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(EvaluationRatingResults));
+                    pathBuilder.Append("EvaluationRatingResults");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(EvaluationRatingResults, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(EvaluationRatingResults, validationContext, validationContext.Items.ForCollection("EvaluationRatingResults"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (EvaluationRatingReviewers.Any())
+                if (EvaluationRatingReviewers.Any() && mappingContract?.IsMemberSupported("EvaluationRatingReviewers") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(EvaluationRatingReviewers));
+                    pathBuilder.Append("EvaluationRatingReviewers");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(EvaluationRatingReviewers, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(EvaluationRatingReviewers, validationContext, validationContext.Items.ForCollection("EvaluationRatingReviewers"))))
                     {
                         yield return result;
                     }
@@ -17443,6 +17562,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class EvaluationRatingResult : Entities.Common.TPDM.IEvaluationRatingResult, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        private static FullName _fullName = new FullName("tpdm", "EvaluationRatingResult");
+
         // Fluent validator instance (threadsafe)
         private static EvaluationRatingResultPutPostRequestValidator _validator = new EvaluationRatingResultPutPostRequestValidator();
         
@@ -17711,6 +17832,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingReviewer : Entities.Common.TPDM.IEvaluationRatingReviewer, IValidatableObject
     {
+        private static FullName _fullName = new FullName("tpdm", "EvaluationRatingReviewer");
+
         // Fluent validator instance (threadsafe)
         private static EvaluationRatingReviewerPutPostRequestValidator _validator = new EvaluationRatingReviewerPutPostRequestValidator();
         
@@ -18025,6 +18148,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -18042,13 +18168,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
                 // ---------------------------
                 //  Validate embedded objects
                 // ---------------------------
-                if (EvaluationRatingReviewerReceivedTraining != null)
+                if (EvaluationRatingReviewerReceivedTraining != null && mappingContract?.IsMemberSupported("EvaluationRatingReviewerReceivedTraining") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(EvaluationRatingReviewerReceivedTraining));
-    
-                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(EvaluationRatingReviewerReceivedTraining, validationContext.Items)))
+                    pathBuilder.Append("EvaluationRatingReviewerReceivedTraining");
+
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(EvaluationRatingReviewerReceivedTraining, validationContext, validationContext.Items.ForEmbeddedObject("EvaluationRatingReviewerReceivedTraining"))))
                     {
                         yield return result;
                     }
@@ -18117,6 +18243,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingReviewerReceivedTraining : Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining
     {
+        private static FullName _fullName = new FullName("tpdm", "EvaluationRatingReviewerReceivedTraining");
+
         // Fluent validator instance (threadsafe)
         private static EvaluationRatingReviewerReceivedTrainingPutPostRequestValidator _validator = new EvaluationRatingReviewerReceivedTrainingPutPostRequestValidator();
         
@@ -18340,6 +18468,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingLevelDescriptor : Entities.Common.TPDM.IEvaluationRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "EvaluationRatingLevelDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static EvaluationRatingLevelDescriptorPutPostRequestValidator _validator = new EvaluationRatingLevelDescriptorPutPostRequestValidator();
         
@@ -18609,6 +18739,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingStatusDescriptor : Entities.Common.TPDM.IEvaluationRatingStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "EvaluationRatingStatusDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static EvaluationRatingStatusDescriptorPutPostRequestValidator _validator = new EvaluationRatingStatusDescriptorPutPostRequestValidator();
         
@@ -18878,6 +19010,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
     [ExcludeFromCodeCoverage]
     public class EvaluationTypeDescriptor : Entities.Common.TPDM.IEvaluationTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "EvaluationTypeDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static EvaluationTypeDescriptorPutPostRequestValidator _validator = new EvaluationTypeDescriptorPutPostRequestValidator();
         
@@ -19261,6 +19395,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
     [ExcludeFromCodeCoverage]
     public class FinancialAid : Entities.Common.TPDM.IFinancialAid, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "FinancialAid");
+
         // Fluent validator instance (threadsafe)
         private static FinancialAidPutPostRequestValidator _validator = new FinancialAidPutPostRequestValidator();
         
@@ -19606,6 +19742,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
     [ExcludeFromCodeCoverage]
     public class GenderDescriptor : Entities.Common.TPDM.IGenderDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "GenderDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static GenderDescriptorPutPostRequestValidator _validator = new GenderDescriptorPutPostRequestValidator();
         
@@ -19875,6 +20013,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
     [ExcludeFromCodeCoverage]
     public class ObjectiveRatingLevelDescriptor : Entities.Common.TPDM.IObjectiveRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "ObjectiveRatingLevelDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static ObjectiveRatingLevelDescriptorPutPostRequestValidator _validator = new ObjectiveRatingLevelDescriptorPutPostRequestValidator();
         
@@ -20273,6 +20413,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluation : Entities.Common.TPDM.IPerformanceEvaluation, IHasETag, IDateVersionedEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("tpdm", "PerformanceEvaluation");
+
         // Fluent validator instance (threadsafe)
         private static PerformanceEvaluationPutPostRequestValidator _validator = new PerformanceEvaluationPutPostRequestValidator();
         
@@ -20751,6 +20893,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -20763,25 +20908,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (PerformanceEvaluationGradeLevels.Any())
+                if (PerformanceEvaluationGradeLevels.Any() && mappingContract?.IsMemberSupported("PerformanceEvaluationGradeLevels") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(PerformanceEvaluationGradeLevels));
+                    pathBuilder.Append("PerformanceEvaluationGradeLevels");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(PerformanceEvaluationGradeLevels, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(PerformanceEvaluationGradeLevels, validationContext, validationContext.Items.ForCollection("PerformanceEvaluationGradeLevels"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (PerformanceEvaluationRatingLevels.Any())
+                if (PerformanceEvaluationRatingLevels.Any() && mappingContract?.IsMemberSupported("PerformanceEvaluationRatingLevels") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(PerformanceEvaluationRatingLevels));
+                    pathBuilder.Append("PerformanceEvaluationRatingLevels");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(PerformanceEvaluationRatingLevels, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(PerformanceEvaluationRatingLevels, validationContext, validationContext.Items.ForCollection("PerformanceEvaluationRatingLevels"))))
                     {
                         yield return result;
                     }
@@ -20893,6 +21038,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationGradeLevel : Entities.Common.TPDM.IPerformanceEvaluationGradeLevel
     {
+        private static FullName _fullName = new FullName("tpdm", "PerformanceEvaluationGradeLevel");
+
         // Fluent validator instance (threadsafe)
         private static PerformanceEvaluationGradeLevelPutPostRequestValidator _validator = new PerformanceEvaluationGradeLevelPutPostRequestValidator();
         
@@ -21115,6 +21262,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationRatingLevel : Entities.Common.TPDM.IPerformanceEvaluationRatingLevel
     {
+        private static FullName _fullName = new FullName("tpdm", "PerformanceEvaluationRatingLevel");
+
         // Fluent validator instance (threadsafe)
         private static PerformanceEvaluationRatingLevelPutPostRequestValidator _validator = new PerformanceEvaluationRatingLevelPutPostRequestValidator();
         
@@ -21503,6 +21652,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationRating : Entities.Common.TPDM.IPerformanceEvaluationRating, IHasETag, IDateVersionedEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("tpdm", "PerformanceEvaluationRating");
+
         // Fluent validator instance (threadsafe)
         private static PerformanceEvaluationRatingPutPostRequestValidator _validator = new PerformanceEvaluationRatingPutPostRequestValidator();
         
@@ -22147,6 +22298,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -22159,25 +22313,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
                 // ----------------------
                 //  Validate collections
                 // ----------------------
-                if (PerformanceEvaluationRatingResults.Any())
+                if (PerformanceEvaluationRatingResults.Any() && mappingContract?.IsMemberSupported("PerformanceEvaluationRatingResults") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(PerformanceEvaluationRatingResults));
+                    pathBuilder.Append("PerformanceEvaluationRatingResults");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(PerformanceEvaluationRatingResults, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(PerformanceEvaluationRatingResults, validationContext, validationContext.Items.ForCollection("PerformanceEvaluationRatingResults"))))
                     {
                         yield return result;
                     }
                 }
 
-                if (PerformanceEvaluationRatingReviewers.Any())
+                if (PerformanceEvaluationRatingReviewers.Any() && mappingContract?.IsMemberSupported("PerformanceEvaluationRatingReviewers") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(PerformanceEvaluationRatingReviewers));
+                    pathBuilder.Append("PerformanceEvaluationRatingReviewers");
     
-                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(PerformanceEvaluationRatingReviewers, validationContext.Items)))
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(PerformanceEvaluationRatingReviewers, validationContext, validationContext.Items.ForCollection("PerformanceEvaluationRatingReviewers"))))
                     {
                         yield return result;
                     }
@@ -22290,6 +22444,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class PerformanceEvaluationRatingResult : Entities.Common.TPDM.IPerformanceEvaluationRatingResult, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        private static FullName _fullName = new FullName("tpdm", "PerformanceEvaluationRatingResult");
+
         // Fluent validator instance (threadsafe)
         private static PerformanceEvaluationRatingResultPutPostRequestValidator _validator = new PerformanceEvaluationRatingResultPutPostRequestValidator();
         
@@ -22558,6 +22714,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationRatingReviewer : Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer, IValidatableObject
     {
+        private static FullName _fullName = new FullName("tpdm", "PerformanceEvaluationRatingReviewer");
+
         // Fluent validator instance (threadsafe)
         private static PerformanceEvaluationRatingReviewerPutPostRequestValidator _validator = new PerformanceEvaluationRatingReviewerPutPostRequestValidator();
         
@@ -22872,6 +23030,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         // ----------------------------------
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
             var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
             
             int originalLength = pathBuilder.Length;
@@ -22889,13 +23050,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
                 // ---------------------------
                 //  Validate embedded objects
                 // ---------------------------
-                if (PerformanceEvaluationRatingReviewerReceivedTraining != null)
+                if (PerformanceEvaluationRatingReviewerReceivedTraining != null && mappingContract?.IsMemberSupported("PerformanceEvaluationRatingReviewerReceivedTraining") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append(nameof(PerformanceEvaluationRatingReviewerReceivedTraining));
-    
-                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(PerformanceEvaluationRatingReviewerReceivedTraining, validationContext.Items)))
+                    pathBuilder.Append("PerformanceEvaluationRatingReviewerReceivedTraining");
+
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(PerformanceEvaluationRatingReviewerReceivedTraining, validationContext, validationContext.Items.ForEmbeddedObject("PerformanceEvaluationRatingReviewerReceivedTraining"))))
                     {
                         yield return result;
                     }
@@ -22964,6 +23125,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationRatingReviewerReceivedTraining : Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining
     {
+        private static FullName _fullName = new FullName("tpdm", "PerformanceEvaluationRatingReviewerReceivedTraining");
+
         // Fluent validator instance (threadsafe)
         private static PerformanceEvaluationRatingReviewerReceivedTrainingPutPostRequestValidator _validator = new PerformanceEvaluationRatingReviewerReceivedTrainingPutPostRequestValidator();
         
@@ -23187,6 +23350,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationRatingLevelDescriptor : Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "PerformanceEvaluationRatingLevelDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static PerformanceEvaluationRatingLevelDescriptorPutPostRequestValidator _validator = new PerformanceEvaluationRatingLevelDescriptorPutPostRequestValidator();
         
@@ -23456,6 +23621,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationTypeDescriptor : Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "PerformanceEvaluationTypeDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static PerformanceEvaluationTypeDescriptorPutPostRequestValidator _validator = new PerformanceEvaluationTypeDescriptorPutPostRequestValidator();
         
@@ -23887,6 +24054,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class RubricDimension : Entities.Common.TPDM.IRubricDimension, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        private static FullName _fullName = new FullName("tpdm", "RubricDimension");
+
         // Fluent validator instance (threadsafe)
         private static RubricDimensionPutPostRequestValidator _validator = new RubricDimensionPutPostRequestValidator();
         
@@ -24481,6 +24650,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
     [ExcludeFromCodeCoverage]
     public class RubricRatingLevelDescriptor : Entities.Common.TPDM.IRubricRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "RubricRatingLevelDescriptor");
+
         // Fluent validator instance (threadsafe)
         private static RubricRatingLevelDescriptorPutPostRequestValidator _validator = new RubricRatingLevelDescriptorPutPostRequestValidator();
         
@@ -24751,6 +24922,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
     [Display(Name="TPDM")]
     public class SchoolExtension : Entities.Common.TPDM.ISchoolExtension, IChildEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "SchoolExtension");
+
         // Fluent validator instance (threadsafe)
         private static SchoolExtensionPutPostRequestValidator _validator = new SchoolExtensionPutPostRequestValidator();
         
@@ -25034,6 +25207,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.TP
     [Display(Name="TPDM")]
     public class SurveyResponseExtension : Entities.Common.TPDM.ISurveyResponseExtension, IChildEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "SurveyResponseExtension");
+
         // Fluent validator instance (threadsafe)
         private static SurveyResponseExtensionPutPostRequestValidator _validator = new SurveyResponseExtensionPutPostRequestValidator();
         
@@ -25468,6 +25643,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
     [ExcludeFromCodeCoverage]
     public class SurveyResponsePersonTargetAssociation : Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "SurveyResponsePersonTargetAssociation");
+
         // Fluent validator instance (threadsafe)
         private static SurveyResponsePersonTargetAssociationPutPostRequestValidator _validator = new SurveyResponsePersonTargetAssociationPutPostRequestValidator();
         
@@ -26052,6 +26229,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
     [ExcludeFromCodeCoverage]
     public class SurveySectionResponsePersonTargetAssociation : Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("tpdm", "SurveySectionResponsePersonTargetAssociation");
+
         // Fluent validator instance (threadsafe)
         private static SurveySectionResponsePersonTargetAssociationPutPostRequestValidator _validator = new SurveySectionResponsePersonTargetAssociationPutPostRequestValidator();
         
