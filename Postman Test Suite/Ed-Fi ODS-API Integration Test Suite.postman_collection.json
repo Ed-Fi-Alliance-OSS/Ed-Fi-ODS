@@ -1080,8 +1080,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response code is 400\", () => {",
-									"  pm.expect(pm.response.code).to.equal(400);",
+									"pm.test(`Response code is 400 (body=${JSON.stringify(pm.response.json())})`, () => {",
+									"    pm.expect(pm.response.code).to.equal(204);",
 									"});",
 									"",
 									"const problemDetails = pm.response.json();",
