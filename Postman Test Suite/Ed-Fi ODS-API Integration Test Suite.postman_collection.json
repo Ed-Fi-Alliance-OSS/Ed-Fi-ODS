@@ -1058,7 +1058,7 @@
 									"",
 									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
-									"pm.environment.set(\"known:weekIdentifier\",__.random(70).toString());",
+									"pm.environment.set(\"known:weekIdentifier\", \"ABCDE\" + __.random(70).toString());",
 									"",
 									"const moment = require('moment');",
 									"const beginDate= moment(new Date()).format(\"YYYY-MM-DD\");",
@@ -1093,7 +1093,7 @@
 									"});",
 									"",
 									"pm.test(\"Should indicate problem converting empty string to SchoolId value\", function () {",
-									"  pm.expect(problemDetails.validationErrors[\"$.schoolReference.schoolId\"]).to.match(/^Error converting value/);",
+									"  pm.expect(problemDetails.validationErrors[\"$.schoolReference\"]).to.contain(\"SchoolReference is missing the following properties: SchoolId\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1112,7 +1112,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "\r\n{\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"\"\r\n  },\r\n \"beginDate\":\"{{known:beginDate}}\",\r\n  \"endDate\":\"{{known:endDate}}\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\"\r\n}"
+							"raw": "{\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"\"\r\n  },\r\n \"beginDate\":\"{{known:beginDate}}\",\r\n  \"endDate\":\"{{known:endDate}}\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\"\r\n}"
 						},
 						"url": {
 							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks",
