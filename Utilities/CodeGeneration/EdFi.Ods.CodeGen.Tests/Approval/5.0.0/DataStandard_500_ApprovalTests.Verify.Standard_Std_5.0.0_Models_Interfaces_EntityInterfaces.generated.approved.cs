@@ -76,8 +76,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AbsenceEventCategoryDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -150,8 +150,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AcademicHonorCategoryDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -224,8 +224,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AcademicSubjectDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -296,11 +296,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSchoolReferenceSupported;
                 case "TotalInstructionalDays":
                     return IsTotalInstructionalDaysSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "WeekIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -379,8 +378,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AccommodationDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -466,14 +465,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsRatingProgramSupported;
                 case "SchoolYearTypeReference":
                     return IsSchoolYearTypeReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "RatingTitle":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -552,8 +549,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AccountTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -626,8 +623,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AchievementCategoryDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -700,8 +697,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AdditionalCreditTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -774,8 +771,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AddressTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -848,8 +845,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AdministrationEnvironmentDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -922,8 +919,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AdministrativeFundingControlDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -996,8 +993,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AncestryEthnicOriginDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -1208,11 +1205,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNomenclatureSupported;
                 case "RevisionDate":
                     return IsRevisionDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -1264,8 +1260,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AcademicSubjectDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -1317,8 +1313,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -1397,8 +1393,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentCategoryDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -1512,6 +1508,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsURISupported;
                 case "Version":
                     return IsVersionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1562,8 +1559,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Author":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -1627,8 +1624,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsAssigningOrganizationIdentificationCodeSupported;
                 case "IdentificationCode":
                     return IsIdentificationCodeSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentIdentificationSystemDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -1707,8 +1704,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentIdentificationSystemDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -1818,14 +1815,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsMaxRawScoreSupported;
                 case "Nomenclature":
                     return IsNomenclatureSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "IdentificationCode":
-                    // Identifying properties are always supported
                     return true;
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -1904,8 +1899,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentItemCategoryDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -1958,8 +1953,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "LearningStandardReference":
                     return IsLearningStandardReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LearningStandardId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -2023,8 +2018,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCorrectResponseSupported;
                 case "ResponseDescription":
                     return IsResponseDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ResponseValue":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -2103,8 +2098,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentItemResultDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -2150,8 +2145,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LanguageDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -2229,11 +2224,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsPerformanceLevelIndicatorNameSupported;
                 case "ResultDatatypeTypeDescriptor":
                     return IsResultDatatypeTypeDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentReportingMethodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "PerformanceLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -2297,8 +2291,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsBeginDateSupported;
                 case "EndDate":
                     return IsEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentPeriodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -2377,8 +2371,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentPeriodDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -2424,8 +2418,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PlatformTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -2488,14 +2482,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "ProgramReference":
                     return IsProgramReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramName":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -2574,8 +2566,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentReportingMethodDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -2639,8 +2631,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsMinimumScoreSupported;
                 case "ResultDatatypeTypeDescriptor":
                     return IsResultDatatypeTypeDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentReportingMethodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -2742,14 +2734,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsMinimumScoreSupported;
                 case "ObjectiveAssessmentReference":
                     return IsObjectiveAssessmentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 case "ScoreRangeId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -2808,8 +2798,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "LearningStandardReference":
                     return IsLearningStandardReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LearningStandardId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -2876,20 +2866,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "SectionReference":
                     return IsSectionReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LocalCourseCode":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 case "SectionIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SessionName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -2968,8 +2954,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssignmentLateStatusDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -3042,8 +3028,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AttemptStatusDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -3116,8 +3102,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AttendanceEventCategoryDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -3179,11 +3165,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsBalanceSheetDimensionReportingTagsSupported;
                 case "CodeName":
                     return IsCodeNameSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Code":
-                    // Identifying properties are always supported
                     return true;
                 case "FiscalYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -3235,8 +3220,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ReportingTagDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -3315,8 +3300,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BarrierToInternetAccessInResidenceDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -3389,8 +3374,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BehaviorDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -3494,11 +3479,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStartTimeSupported;
                 case "TotalInstructionalTime":
                     return IsTotalInstructionalTimeSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BellScheduleName":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -3557,8 +3541,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "ClassPeriodReference":
                     return IsClassPeriodReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ClassPeriodName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -3610,8 +3594,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Date":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -3663,8 +3647,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -3746,14 +3730,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSchoolReferenceSupported;
                 case "SchoolYearTypeReference":
                     return IsSchoolYearTypeReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CalendarCode":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -3826,17 +3808,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCalendarDateCalendarEventsSupported;
                 case "CalendarReference":
                     return IsCalendarReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CalendarCode":
-                    // Identifying properties are always supported
                     return true;
                 case "Date":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -3888,8 +3867,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CalendarEventDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -3968,8 +3947,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CalendarEventDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -4015,8 +3994,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -4095,8 +4074,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CalendarTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -4169,8 +4148,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CareerPathwayDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -4243,8 +4222,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CharterApprovalAgencyTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -4317,8 +4296,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CharterStatusDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -4499,14 +4478,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSourceCodeSupported;
                 case "SourceDimensionReference":
                     return IsSourceDimensionReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AccountIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "FiscalYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -4564,8 +4541,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "TagValue":
                     return IsTagValueSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ReportingTagDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -4644,8 +4621,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CitizenshipStatusDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -4713,11 +4690,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsOfficialAttendancePeriodSupported;
                 case "SchoolReference":
                     return IsSchoolReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ClassPeriodName":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -4771,11 +4747,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EndTime":
-                    // Identifying properties are always supported
                     return true;
                 case "StartTime":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -4854,8 +4829,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ClassroomPositionDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -4942,11 +4917,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCohortTypeDescriptorSupported;
                 case "EducationOrganizationReference":
                     return IsEducationOrganizationReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CohortIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -5009,14 +4983,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "ProgramReference":
                     return IsProgramReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProgramEducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramName":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -5095,8 +5067,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CohortScopeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -5169,8 +5141,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CohortTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -5243,8 +5215,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CohortYearTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -5357,8 +5329,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsShortNameOfInstitutionSupported;
                 case "WebSite":
                     return IsWebSiteSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CommunityOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -5519,8 +5491,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsShortNameOfInstitutionSupported;
                 case "WebSite":
                     return IsWebSiteSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CommunityProviderId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -5629,14 +5601,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsOldestAgeAuthorizedToServeSupported;
                 case "YoungestAgeAuthorizedToServe":
                     return IsYoungestAgeAuthorizedToServeSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CommunityProviderId":
-                    // Identifying properties are always supported
                     return true;
                 case "LicenseIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "LicensingOrganization":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -5715,8 +5685,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CompetencyLevelDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -5790,14 +5760,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationReferenceSupported;
                 case "SuccessCriteria":
                     return IsSuccessCriteriaSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "Objective":
-                    // Identifying properties are always supported
                     return true;
                 case "ObjectiveGradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -6007,6 +5975,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSexDescriptorSupported;
                 case "SourceSystemDescriptor":
                     return IsSourceSystemDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -6128,20 +6097,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsLongitudeSupported;
                 case "NameOfCounty":
                     return IsNameOfCountySupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AddressTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "City":
-                    // Identifying properties are always supported
                     return true;
                 case "PostalCode":
-                    // Identifying properties are always supported
                     return true;
                 case "StateAbbreviationDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "StreetNumberName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -6199,8 +6164,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "EndDate":
                     return IsEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -6266,11 +6231,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsDoNotPublishIndicatorSupported;
                 case "PrimaryEmailAddressIndicator":
                     return IsPrimaryEmailAddressIndicatorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ElectronicMailAddress":
-                    // Identifying properties are always supported
                     return true;
                 case "ElectronicMailTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -6376,8 +6340,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsLatitudeSupported;
                 case "Longitude":
                     return IsLongitudeSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AddressTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -6438,8 +6402,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "ContactLanguageUses":
                     return IsContactLanguageUsesSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LanguageDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -6491,8 +6455,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LanguageUseDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -6574,8 +6538,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsMiddleNameSupported;
                 case "PersonalTitlePrefix":
                     return IsPersonalTitlePrefixSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "OtherNameTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -6659,11 +6623,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsIssuerDocumentIdentificationCodeSupported;
                 case "IssuerName":
                     return IsIssuerNameSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IdentificationDocumentUseDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "PersonalInformationVerificationDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -6735,11 +6698,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsOrderOfPrioritySupported;
                 case "TextMessageCapabilityIndicator":
                     return IsTextMessageCapabilityIndicatorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "TelephoneNumber":
-                    // Identifying properties are always supported
                     return true;
                 case "TelephoneNumberTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -6818,8 +6780,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ContactTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -6892,8 +6854,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ContentClassDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -6966,8 +6928,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ContinuationOfServicesReasonDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -7040,8 +7002,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CostRateDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -7114,8 +7076,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CountryDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -7319,11 +7281,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNumberOfPartsSupported;
                 case "TimeRequiredForCompletion":
                     return IsTimeRequiredForCompletionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CourseCode":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -7375,8 +7336,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AcademicSubjectDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -7455,8 +7416,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CourseAttemptResultDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -7502,8 +7463,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CompetencyLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -7582,8 +7543,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CourseDefinedByDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -7656,8 +7617,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CourseGPAApplicabilityDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -7721,8 +7682,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCourseCatalogURLSupported;
                 case "IdentificationCode":
                     return IsIdentificationCodeSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CourseIdentificationSystemDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -7801,8 +7762,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CourseIdentificationSystemDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -7855,8 +7816,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "LearningStandardReference":
                     return IsLearningStandardReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LearningStandardId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -7908,8 +7869,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CourseLevelCharacteristicDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -7988,8 +7949,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CourseLevelCharacteristicDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -8035,8 +7996,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -8164,17 +8125,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSchoolReferenceSupported;
                 case "SessionReference":
                     return IsSessionReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LocalCourseCode":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 case "SessionName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -8226,8 +8184,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CourseLevelCharacteristicDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -8279,8 +8237,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CurriculumUsedDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -8332,8 +8290,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -8412,8 +8370,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CourseRepeatCodeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -8669,26 +8627,20 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentAcademicRecordReferenceSupported;
                 case "WhenTakenGradeLevelDescriptor":
                     return IsWhenTakenGradeLevelDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CourseAttemptResultDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "CourseCode":
-                    // Identifying properties are always supported
                     return true;
                 case "CourseEducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 case "TermDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -8740,8 +8692,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AcademicSubjectDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -8811,8 +8763,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCourseCatalogURLSupported;
                 case "IdentificationCode":
                     return IsIdentificationCodeSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CourseIdentificationSystemDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -8873,11 +8825,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "CourseProgramReference":
                     return IsCourseProgramReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CourseProgramName":
-                    // Identifying properties are always supported
                     return true;
                 case "CourseProgramTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -8929,8 +8880,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CreditCategoryDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -8988,8 +8939,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "Credits":
                     return IsCreditsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AdditionalCreditTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -9065,8 +9016,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsMethodCreditEarnedDescriptorSupported;
                 case "NumericGradeEarned":
                     return IsNumericGradeEarnedSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AwardDate":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -9131,17 +9082,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "SectionReference":
                     return IsSectionReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LocalCourseCode":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "SectionIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SessionName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -9269,11 +9217,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsTeachingCredentialBasisDescriptorSupported;
                 case "TeachingCredentialDescriptor":
                     return IsTeachingCredentialDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CredentialIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "StateOfIssueStateAbbreviationDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -9325,8 +9272,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AcademicSubjectDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -9378,8 +9325,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CredentialEndorsement":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -9458,8 +9405,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CredentialFieldDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -9505,8 +9452,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -9585,8 +9532,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CredentialTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -9659,8 +9606,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CreditCategoryDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -9733,8 +9680,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CreditTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -9807,8 +9754,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CTEProgramServiceDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -9881,8 +9828,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CurriculumUsedDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -9955,8 +9902,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DeliveryMethodDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -10035,8 +9982,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -10096,17 +10043,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "DescriptorMappingModelEntities":
                     return IsDescriptorMappingModelEntitiesSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "MappedNamespace":
-                    // Identifying properties are always supported
                     return true;
                 case "MappedValue":
-                    // Identifying properties are always supported
                     return true;
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 case "Value":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -10158,8 +10102,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ModelEntityDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -10238,8 +10182,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DiagnosisDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -10312,8 +10256,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DiplomaLevelDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -10386,8 +10330,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DiplomaTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -10460,8 +10404,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisabilityDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -10534,8 +10478,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisabilityDesignationDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -10608,8 +10552,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisabilityDeterminationSourceTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -10746,14 +10690,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsResponsibilitySchoolReferenceSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisciplineActionIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "DisciplineDate":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -10805,8 +10747,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisciplineDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -10885,8 +10827,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisciplineActionLengthDifferenceReasonDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -10939,8 +10881,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "StaffReference":
                     return IsStaffReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "StaffUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -11003,14 +10945,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "StudentDisciplineIncidentBehaviorAssociationReference":
                     return IsStudentDisciplineIncidentBehaviorAssociationReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BehaviorDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "IncidentIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -11089,8 +11029,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisciplineDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -11224,11 +11164,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsReporterNameSupported;
                 case "SchoolReference":
                     return IsSchoolReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IncidentIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -11286,8 +11225,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "BehaviorDetailedDescription":
                     return IsBehaviorDetailedDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BehaviorDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -11343,14 +11282,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisciplineIncidentParticipationCodeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "FirstName":
-                    // Identifying properties are always supported
                     return true;
                 case "LastSurname":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -11429,8 +11366,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisciplineIncidentParticipationCodeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -11476,8 +11413,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "WeaponDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -11556,8 +11493,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationalEnvironmentDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -11768,8 +11705,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsUseRightsURLSupported;
                 case "Version":
                     return IsVersionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ContentIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -11821,8 +11758,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -11874,8 +11811,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SexDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -11927,8 +11864,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Author":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -11987,8 +11924,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "DerivativeSourceEducationContentReference":
                     return IsDerivativeSourceEducationContentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DerivativeSourceContentIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -12040,8 +11977,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DerivativeSourceLearningResourceMetadataURI":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -12093,8 +12030,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DerivativeSourceURI":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -12146,8 +12083,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LanguageDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -12274,8 +12211,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsShortNameOfInstitutionSupported;
                 case "WebSite":
                     return IsWebSiteSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -12392,20 +12329,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsLongitudeSupported;
                 case "NameOfCounty":
                     return IsNameOfCountySupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AddressTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "City":
-                    // Identifying properties are always supported
                     return true;
                 case "PostalCode":
-                    // Identifying properties are always supported
                     return true;
                 case "StateAbbreviationDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "StreetNumberName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -12463,8 +12396,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "EndDate":
                     return IsEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -12543,8 +12476,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationAssociationTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -12590,8 +12523,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationCategoryDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -12670,8 +12603,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationCategoryDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -12723,8 +12656,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "IdentificationCode":
                     return IsIdentificationCodeSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationIdentificationSystemDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -12803,8 +12736,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationIdentificationSystemDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -12883,8 +12816,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsIndicatorLevelDescriptorSupported;
                 case "IndicatorValue":
                     return IsIndicatorValueSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IndicatorDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -12942,8 +12875,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "EndDate":
                     return IsEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -13001,8 +12934,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "TelephoneNumber":
                     return IsTelephoneNumberSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "InstitutionTelephoneNumberTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -13108,8 +13041,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsLatitudeSupported;
                 case "Longitude":
                     return IsLongitudeSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AddressTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -13190,14 +13123,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEndDateSupported;
                 case "InterventionPrescriptionReference":
                     return IsInterventionPrescriptionReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "InterventionPrescriptionEducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "InterventionPrescriptionIdentificationCode":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -13322,8 +13253,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsShortNameOfInstitutionSupported;
                 case "WebSite":
                     return IsWebSiteSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationNetworkId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -13401,11 +13332,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEndDateSupported;
                 case "MemberEducationOrganizationReference":
                     return IsMemberEducationOrganizationReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationNetworkId":
-                    // Identifying properties are always supported
                     return true;
                 case "MemberEducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -13472,11 +13402,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationReferenceSupported;
                 case "PeerEducationOrganizationReference":
                     return IsPeerEducationOrganizationReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "PeerEducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -13555,8 +13484,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationPlanDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -13681,8 +13610,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStateEducationAgencyReferenceSupported;
                 case "WebSite":
                     return IsWebSiteSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationServiceCenterId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -13761,8 +13690,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ElectronicMailTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -13835,8 +13764,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EligibilityDelayReasonDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -13909,8 +13838,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EligibilityEvaluationTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -13983,8 +13912,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EmploymentStatusDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -14057,8 +13986,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EnrollmentTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -14131,8 +14060,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EntryGradeLevelReasonDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -14205,8 +14134,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EntryTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -14279,8 +14208,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EvaluationDelayReasonDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -14364,29 +14293,22 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsProgramEvaluationElementReferenceSupported;
                 case "RubricDimensionSortOrder":
                     return IsRubricDimensionSortOrderSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EvaluationRubricRating":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEvaluationElementTitle":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEvaluationPeriodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEvaluationTitle":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEvaluationTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramName":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -14465,8 +14387,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EventCircumstanceDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -14539,8 +14461,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ExitWithdrawTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -14613,14 +14535,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsFeederSchoolReferenceSupported;
                 case "SchoolReference":
                     return IsSchoolReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 case "FeederSchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -14699,8 +14619,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "FinancialCollectionDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -14762,11 +14682,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCodeNameSupported;
                 case "FunctionDimensionReportingTags":
                     return IsFunctionDimensionReportingTagsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Code":
-                    // Identifying properties are always supported
                     return true;
                 case "FiscalYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -14818,8 +14737,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ReportingTagDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -14887,11 +14806,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCodeNameSupported;
                 case "FundDimensionReportingTags":
                     return IsFundDimensionReportingTagsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Code":
-                    // Identifying properties are always supported
                     return true;
                 case "FiscalYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -14943,8 +14861,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ReportingTagDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -15051,23 +14969,18 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsServedOutsideOfRegularSessionSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramName":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -15127,11 +15040,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsDesignatedBySupported;
                 case "StatusEndDate":
                     return IsStatusEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ParticipationStatusDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "StatusBeginDate":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -15267,38 +15179,28 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsPerformanceBaseConversionDescriptorSupported;
                 case "StudentSectionAssociationReference":
                     return IsStudentSectionAssociationReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 case "GradeTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "GradingPeriodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "GradingPeriodName":
-                    // Identifying properties are always supported
                     return true;
                 case "GradingPeriodSchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 case "LocalCourseCode":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 case "SectionIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SessionName":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -15464,11 +15366,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSourceSectionIdentifierSupported;
                 case "Title":
                     return IsTitleSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradebookEntryIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -15527,8 +15428,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "LearningStandardReference":
                     return IsLearningStandardReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LearningStandardId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -15607,8 +15508,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradebookEntryTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -15685,8 +15586,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNumericGradeEarnedSupported;
                 case "PerformanceBaseConversionDescriptor":
                     return IsPerformanceBaseConversionDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LearningStandardId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -15765,8 +15666,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradeLevelDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -15839,8 +15740,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradePointAverageTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -15913,8 +15814,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradeTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -16001,17 +15902,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSchoolYearTypeReferenceSupported;
                 case "TotalInstructionalDays":
                     return IsTotalInstructionalDaysSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradingPeriodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "GradingPeriodName":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -16090,8 +15988,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradingPeriodDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -16213,14 +16111,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsTotalRequiredCreditsSupported;
                 case "TotalRequiredCreditTypeDescriptor":
                     return IsTotalRequiredCreditTypeDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "GraduationPlanTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "GraduationSchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -16305,8 +16201,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsGraduationPlanCreditsByCourseCoursesSupported;
                 case "WhenTakenGradeLevelDescriptor":
                     return IsWhenTakenGradeLevelDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CourseSetName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -16367,11 +16263,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "CourseReference":
                     return IsCourseReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CourseCode":
-                    // Identifying properties are always supported
                     return true;
                 case "CourseEducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -16441,8 +16336,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCreditsSupported;
                 case "CreditTypeDescriptor":
                     return IsCreditTypeDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CreditCategoryDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -16512,8 +16407,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCreditsSupported;
                 case "CreditTypeDescriptor":
                     return IsCreditTypeDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AcademicSubjectDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -16590,11 +16485,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsGraduationPlanRequiredAssessmentPerformanceLevelSupported;
                 case "GraduationPlanRequiredAssessmentScores":
                     return IsGraduationPlanRequiredAssessmentScoresSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -16680,6 +16574,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsPerformanceLevelIndicatorNameSupported;
                 case "ResultDatatypeTypeDescriptor":
                     return IsResultDatatypeTypeDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -16748,8 +16643,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsMinimumScoreSupported;
                 case "ResultDatatypeTypeDescriptor":
                     return IsResultDatatypeTypeDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentReportingMethodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -16828,8 +16723,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GraduationPlanTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -16902,8 +16797,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GunFreeSchoolsActReportingStatusDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -16976,8 +16871,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "HomelessPrimaryNighttimeResidenceDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -17050,8 +16945,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "HomelessProgramServiceDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -17124,8 +17019,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IDEAPartDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -17198,8 +17093,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IdentificationDocumentUseDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -17272,8 +17167,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IncidentLocationDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -17346,8 +17241,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IndicatorDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -17420,8 +17315,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IndicatorGroupDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -17494,8 +17389,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IndicatorLevelDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -17568,8 +17463,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "InstitutionTelephoneNumberTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -17642,8 +17537,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "InteractivityStyleDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -17716,8 +17611,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "InternetAccessDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -17790,8 +17685,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "InternetAccessTypeInResidenceDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -17864,8 +17759,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "InternetPerformanceInResidenceDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -18051,11 +17946,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsMinDosageSupported;
                 case "Namespace":
                     return IsNamespaceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "InterventionIdentificationCode":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -18107,8 +18001,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -18160,8 +18054,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SexDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -18240,8 +18134,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "InterventionClassDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -18287,8 +18181,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DiagnosisDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -18347,8 +18241,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "EducationContentReference":
                     return IsEducationContentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ContentIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -18427,8 +18321,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "InterventionEffectivenessRatingDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -18483,11 +18377,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "InterventionPrescriptionReference":
                     return IsInterventionPrescriptionReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "InterventionPrescriptionEducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "InterventionPrescriptionIdentificationCode":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -18539,8 +18432,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LearningResourceMetadataURI":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -18594,11 +18487,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EndTime":
-                    // Identifying properties are always supported
                     return true;
                 case "StartTime":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -18650,8 +18542,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PopulationServedDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -18804,11 +18696,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsMinDosageSupported;
                 case "Namespace":
                     return IsNamespaceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "InterventionPrescriptionIdentificationCode":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -18860,8 +18751,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -18913,8 +18804,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SexDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -18966,8 +18857,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DiagnosisDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -19026,8 +18917,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "EducationContentReference":
                     return IsEducationContentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ContentIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -19079,8 +18970,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LearningResourceMetadataURI":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -19132,8 +19023,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PopulationServedDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -19185,8 +19076,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "URI":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -19245,8 +19136,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "StaffReference":
                     return IsStaffReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "StaffUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -19415,11 +19306,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsInterventionStudyURIsSupported;
                 case "Participants":
                     return IsParticipantsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "InterventionStudyIdentificationCode":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -19471,8 +19361,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -19524,8 +19414,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SexDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -19584,8 +19474,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "EducationContentReference":
                     return IsEducationContentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ContentIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -19653,14 +19543,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsImprovementIndexSupported;
                 case "InterventionEffectivenessRatingDescriptor":
                     return IsInterventionEffectivenessRatingDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DiagnosisDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "GradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "PopulationServedDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -19712,8 +19600,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LearningResourceMetadataURI":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -19765,8 +19653,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PopulationServedDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -19818,8 +19706,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "StateAbbreviationDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -19871,8 +19759,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "URI":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -19924,8 +19812,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "URI":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -20004,8 +19892,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LanguageDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -20078,8 +19966,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LanguageInstructionProgramServiceDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -20152,8 +20040,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LanguageUseDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -20293,8 +20181,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSuccessCriteriaSupported;
                 case "URI":
                     return IsURISupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LearningStandardId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -20346,8 +20234,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AcademicSubjectDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -20426,8 +20314,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LearningStandardCategoryDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -20541,6 +20429,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsURISupported;
                 case "Version":
                     return IsVersionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -20591,8 +20480,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Author":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -20679,14 +20568,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSourceLearningStandardReferenceSupported;
                 case "TargetLearningStandardReference":
                     return IsTargetLearningStandardReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 case "SourceLearningStandardId":
-                    // Identifying properties are always supported
                     return true;
                 case "TargetLearningStandardId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -20765,8 +20652,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LearningStandardEquivalenceStrengthDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -20812,8 +20699,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -20867,11 +20754,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ContentStandardName":
-                    // Identifying properties are always supported
                     return true;
                 case "IdentificationCode":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -20950,8 +20836,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LearningStandardScopeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -21024,8 +20910,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LevelOfEducationDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -21098,8 +20984,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LicenseStatusDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -21172,8 +21058,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LicenseTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -21246,8 +21132,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LimitedEnglishProficiencyDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -21337,14 +21223,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationReferenceSupported;
                 case "LocalAccountReportingTags":
                     return IsLocalAccountReportingTagsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AccountIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "FiscalYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -21402,8 +21286,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "TagValue":
                     return IsTagValueSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ReportingTagDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -21479,17 +21363,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsFinancialCollectionDescriptorSupported;
                 case "LocalAccountReference":
                     return IsLocalAccountReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AccountIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "AsOfDate":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "FiscalYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -21565,17 +21446,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsFinancialCollectionDescriptorSupported;
                 case "LocalAccountReference":
                     return IsLocalAccountReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AccountIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "AsOfDate":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "FiscalYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -21660,20 +21538,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsLocalAccountReferenceSupported;
                 case "StaffReference":
                     return IsStaffReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AccountIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "AsOfDate":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "FiscalYear":
-                    // Identifying properties are always supported
                     return true;
                 case "StaffUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -21752,8 +21626,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LocaleDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -21932,8 +21806,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStateEducationAgencyReferenceSupported;
                 case "WebSite":
                     return IsWebSiteSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LocalEducationAgencyId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -22003,8 +21877,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSchoolChoiceImplementStatusDescriptorSupported;
                 case "SchoolYearTypeReference":
                     return IsSchoolYearTypeReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -22083,8 +21957,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LocalEducationAgencyCategoryDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -22178,8 +22052,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSupplementalEducationalServicesFundsSpentSupported;
                 case "SupplementalEducationalServicesPerPupilExpenditure":
                     return IsSupplementalEducationalServicesPerPupilExpenditureSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "FiscalYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -22255,17 +22129,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsFinancialCollectionDescriptorSupported;
                 case "LocalAccountReference":
                     return IsLocalAccountReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AccountIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "AsOfDate":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "FiscalYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -22350,20 +22221,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsLocalAccountReferenceSupported;
                 case "StaffReference":
                     return IsStaffReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AccountIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "AsOfDate":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "FiscalYear":
-                    // Identifying properties are always supported
                     return true;
                 case "StaffUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -22434,11 +22301,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsOptimalNumberOfSeatsSupported;
                 case "SchoolReference":
                     return IsSchoolReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ClassroomIdentificationCode":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -22517,8 +22383,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "MagnetSpecialProgramEmphasisSchoolDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -22591,8 +22457,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "MediumOfInstructionDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -22665,8 +22531,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "MethodCreditEarnedDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -22739,8 +22605,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "MigrantEducationProgramServiceDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -22813,8 +22679,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ModelEntityDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -22887,8 +22753,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "MonitoredDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -22961,8 +22827,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "NeglectedOrDelinquentProgramDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -23035,8 +22901,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "NeglectedOrDelinquentProgramServiceDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -23109,8 +22975,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "NetworkPurposeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -23172,11 +23038,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCodeNameSupported;
                 case "ObjectDimensionReportingTags":
                     return IsObjectDimensionReportingTagsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Code":
-                    // Identifying properties are always supported
                     return true;
                 case "FiscalYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -23228,8 +23093,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ReportingTagDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -23370,14 +23235,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsParentObjectiveAssessmentReferenceSupported;
                 case "PercentOfAssessment":
                     return IsPercentOfAssessmentSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "IdentificationCode":
-                    // Identifying properties are always supported
                     return true;
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -23436,8 +23299,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "AssessmentItemReference":
                     return IsAssessmentItemReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentItemIdentificationCode":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -23496,8 +23359,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "LearningStandardReference":
                     return IsLearningStandardReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LearningStandardId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -23575,11 +23438,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsPerformanceLevelIndicatorNameSupported;
                 case "ResultDatatypeTypeDescriptor":
                     return IsResultDatatypeTypeDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentReportingMethodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "PerformanceLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -23649,8 +23511,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsMinimumScoreSupported;
                 case "ResultDatatypeTypeDescriptor":
                     return IsResultDatatypeTypeDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentReportingMethodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -23770,11 +23632,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsProgramAssignmentDescriptorSupported;
                 case "StaffClassificationDescriptor":
                     return IsStaffClassificationDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "RequisitionNumber":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -23826,8 +23687,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AcademicSubjectDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -23879,8 +23740,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -23959,8 +23820,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "OperationalStatusDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -24022,11 +23883,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCodeNameSupported;
                 case "OperationalUnitDimensionReportingTags":
                     return IsOperationalUnitDimensionReportingTagsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Code":
-                    // Identifying properties are always supported
                     return true;
                 case "FiscalYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -24078,8 +23938,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ReportingTagDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -24217,8 +24077,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsShortNameOfInstitutionSupported;
                 case "WebSite":
                     return IsWebSiteSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "OrganizationDepartmentId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -24297,8 +24157,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "OtherNameTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -24371,8 +24231,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ParticipationDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -24445,8 +24305,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ParticipationStatusDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -24519,8 +24379,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PerformanceBaseConversionDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -24593,8 +24453,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PerformanceLevelDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -24641,11 +24501,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PersonId":
-                    // Identifying properties are always supported
                     return true;
                 case "SourceSystemDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -24724,8 +24583,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PersonalInformationVerificationDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -24798,8 +24657,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PlatformTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -24872,8 +24731,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PopulationServedDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -24946,8 +24805,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PostingResultDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -25015,14 +24874,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsPostSecondaryInstitutionReferenceSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EventDate":
-                    // Identifying properties are always supported
                     return true;
                 case "PostSecondaryEventCategoryDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -25101,8 +24958,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PostSecondaryEventCategoryDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -25236,8 +25093,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsShortNameOfInstitutionSupported;
                 case "WebSite":
                     return IsWebSiteSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PostSecondaryInstitutionId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -25316,8 +25173,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PostSecondaryInstitutionLevelDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -25363,8 +25220,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "MediumOfInstructionDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -25443,8 +25300,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PrimaryLearningDeviceAccessDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -25517,8 +25374,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PrimaryLearningDeviceAwayFromSchoolDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -25591,8 +25448,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PrimaryLearningDeviceProviderDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -25665,8 +25522,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProficiencyDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -25755,14 +25612,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsProgramLearningStandardsSupported;
                 case "ProgramSponsors":
                     return IsProgramSponsorsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramName":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -25841,8 +25696,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProgramAssignmentDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -25888,8 +25743,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProgramCharacteristicDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -25968,8 +25823,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProgramCharacteristicDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -26031,11 +25886,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCodeNameSupported;
                 case "ProgramDimensionReportingTags":
                     return IsProgramDimensionReportingTagsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Code":
-                    // Identifying properties are always supported
                     return true;
                 case "FiscalYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -26087,8 +25941,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ReportingTagDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -26183,23 +26037,18 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsProgramEvaluationLevelsSupported;
                 case "ProgramReference":
                     return IsProgramReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProgramEducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEvaluationPeriodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEvaluationTitle":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEvaluationTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramName":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -26315,26 +26164,20 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsProgramEvaluationObjectiveTitleSupported;
                 case "ProgramEvaluationReference":
                     return IsProgramEvaluationReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProgramEducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEvaluationElementTitle":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEvaluationPeriodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEvaluationTitle":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEvaluationTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramName":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -26398,8 +26241,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsMaxNumericRatingSupported;
                 case "MinNumericRating":
                     return IsMinNumericRatingSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "RatingLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -26463,8 +26306,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsMaxNumericRatingSupported;
                 case "MinNumericRating":
                     return IsMinNumericRatingSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "RatingLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -26567,26 +26410,20 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsProgramEvaluationObjectiveProgramEvaluationLevelsSupported;
                 case "ProgramEvaluationReference":
                     return IsProgramEvaluationReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProgramEducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEvaluationObjectiveTitle":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEvaluationPeriodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEvaluationTitle":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEvaluationTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramName":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -26650,8 +26487,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsMaxNumericRatingSupported;
                 case "MinNumericRating":
                     return IsMinNumericRatingSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "RatingLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -26730,8 +26567,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProgramEvaluationPeriodDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -26804,8 +26641,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProgramEvaluationTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -26858,8 +26695,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "LearningStandardReference":
                     return IsLearningStandardReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LearningStandardId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -26911,8 +26748,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProgramSponsorDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -26991,8 +26828,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProgramSponsorDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -27065,8 +26902,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProgramTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -27139,8 +26976,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProgressDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -27213,8 +27050,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProgressLevelDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -27276,11 +27113,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCodeNameSupported;
                 case "ProjectDimensionReportingTags":
                     return IsProjectDimensionReportingTagsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Code":
-                    // Identifying properties are always supported
                     return true;
                 case "FiscalYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -27332,8 +27168,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ReportingTagDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -27412,8 +27248,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProviderCategoryDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -27486,8 +27322,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProviderProfitabilityDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -27560,8 +27396,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProviderStatusDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -27634,8 +27470,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PublicationStatusDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -27708,8 +27544,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "QuestionFormDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -27782,8 +27618,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "RaceDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -27856,8 +27692,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "RatingLevelDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -27930,8 +27766,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ReasonExitedDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -28004,8 +27840,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ReasonNotTestedDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -28078,8 +27914,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "RecognitionTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -28152,8 +27988,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "RelationDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -28226,8 +28062,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "RepeatIdentifierDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -28348,23 +28184,18 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsReportCardStudentCompetencyObjectivesSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "GradingPeriodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "GradingPeriodName":
-                    // Identifying properties are always supported
                     return true;
                 case "GradingPeriodSchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "GradingPeriodSchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -28435,26 +28266,20 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "GradeReference":
                     return IsGradeReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 case "GradeTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "LocalCourseCode":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 case "SectionIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SessionName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -28524,8 +28349,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsIsCumulativeSupported;
                 case "MaxGradePointAverageValue":
                     return IsMaxGradePointAverageValueSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradePointAverageTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -28588,14 +28413,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "StudentCompetencyObjectiveReference":
                     return IsStudentCompetencyObjectiveReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Objective":
-                    // Identifying properties are always supported
                     return true;
                 case "ObjectiveEducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ObjectiveGradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -28674,8 +28497,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ReporterDescriptionDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -28748,8 +28571,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ReportingTagDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -28822,8 +28645,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ResidencyStatusDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -28896,8 +28719,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ResponseIndicatorDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -28970,8 +28793,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ResponsibilityDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -29063,14 +28886,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSchoolReferenceSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "RestraintEventIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -29133,14 +28954,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "ProgramReference":
                     return IsProgramReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramName":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -29192,8 +29011,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "RestraintEventReasonDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -29272,8 +29091,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "RestraintEventReasonDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -29346,8 +29165,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ResultDatatypeTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -29420,8 +29239,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "RetestIndicatorDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -29618,8 +29437,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsTitleIPartASchoolDesignationDescriptorSupported;
                 case "WebSite":
                     return IsWebSiteSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -29671,8 +29490,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SchoolCategoryDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -29751,8 +29570,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SchoolCategoryDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -29825,8 +29644,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SchoolChoiceBasisDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -29899,8 +29718,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SchoolChoiceImplementStatusDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -29973,8 +29792,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SchoolFoodServiceProgramServiceDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -30020,8 +29839,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -30100,8 +29919,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SchoolTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -30158,8 +29977,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCurrentSchoolYearSupported;
                 case "SchoolYearDescription":
                     return IsSchoolYearDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -30361,20 +30180,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSectionTypeDescriptorSupported;
                 case "SequenceOfCourse":
                     return IsSequenceOfCourseSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LocalCourseCode":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 case "SectionIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SessionName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -30470,26 +30285,20 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStaffReferenceSupported;
                 case "StaffUniqueId":
                     return IsStaffUniqueIdSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CalendarCode":
-                    // Identifying properties are always supported
                     return true;
                 case "Date":
-                    // Identifying properties are always supported
                     return true;
                 case "LocalCourseCode":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 case "SectionIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SessionName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -30541,8 +30350,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SectionCharacteristicDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -30621,8 +30430,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SectionCharacteristicDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -30675,8 +30484,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "ClassPeriodReference":
                     return IsClassPeriodReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ClassPeriodName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -30728,8 +30537,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CourseLevelCharacteristicDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -30781,8 +30590,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -30845,14 +30654,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "ProgramReference":
                     return IsProgramReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramName":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -30931,8 +30738,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SectionTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -31005,8 +30812,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SeparationDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -31079,8 +30886,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SeparationReasonDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -31153,8 +30960,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ServiceDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -31257,14 +31064,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsTermDescriptorSupported;
                 case "TotalInstructionalDays":
                     return IsTotalInstructionalDaysSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 case "SessionName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -31323,8 +31128,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "AcademicWeekReference":
                     return IsAcademicWeekReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "WeekIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -31385,11 +31190,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "GradingPeriodReference":
                     return IsGradingPeriodReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradingPeriodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "GradingPeriodName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -31468,8 +31272,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SexDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -31531,11 +31335,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCodeNameSupported;
                 case "SourceDimensionReportingTags":
                     return IsSourceDimensionReportingTagsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Code":
-                    // Identifying properties are always supported
                     return true;
                 case "FiscalYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -31587,8 +31390,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ReportingTagDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -31667,8 +31470,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SourceSystemDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -31741,8 +31544,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SpecialEducationExitReasonDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -31815,8 +31618,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SpecialEducationProgramServiceDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -31889,8 +31692,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SpecialEducationSettingDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -32202,6 +32005,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsYearsOfPriorProfessionalExperienceSupported;
                 case "YearsOfPriorTeachingExperience":
                     return IsYearsOfPriorTeachingExperienceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -32274,14 +32078,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsHoursAbsentSupported;
                 case "StaffReference":
                     return IsStaffReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AbsenceEventCategoryDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "EventDate":
-                    // Identifying properties are always supported
                     return true;
                 case "StaffUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -32404,20 +32206,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNameOfCountySupported;
                 case "StaffAddressPeriods":
                     return IsStaffAddressPeriodsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AddressTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "City":
-                    // Identifying properties are always supported
                     return true;
                 case "PostalCode":
-                    // Identifying properties are always supported
                     return true;
                 case "StateAbbreviationDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "StreetNumberName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -32475,8 +32273,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "EndDate":
                     return IsEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -32528,8 +32326,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AncestryEthnicOriginDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -32608,8 +32406,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "StaffClassificationDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -32686,17 +32484,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStaffReferenceSupported;
                 case "StudentRecordAccess":
                     return IsStudentRecordAccessSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 case "CohortIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "StaffUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -32757,11 +32552,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "CredentialReference":
                     return IsCredentialReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CredentialIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "StateOfIssueStateAbbreviationDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -32839,14 +32633,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStaffDisciplineIncidentAssociationDisciplineIncidentParticipationCodesSupported;
                 case "StaffReference":
                     return IsStaffReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IncidentIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "StaffUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -32898,8 +32690,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisciplineIncidentParticipationCodeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -33038,17 +32830,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStaffReferenceSupported;
                 case "StateOfIssueStateAbbreviationDescriptor":
                     return IsStateOfIssueStateAbbreviationDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "StaffClassificationDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "StaffUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -33145,14 +32934,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStaffEducationOrganizationContactAssociationTelephonesSupported;
                 case "StaffReference":
                     return IsStaffReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ContactTitle":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "StaffUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -33295,6 +33082,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStateAbbreviationDescriptorSupported;
                 case "StreetNumberName":
                     return IsStreetNumberNameSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -33351,8 +33139,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "EndDate":
                     return IsEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -33424,11 +33212,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsOrderOfPrioritySupported;
                 case "TextMessageCapabilityIndicator":
                     return IsTextMessageCapabilityIndicatorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "TelephoneNumber":
-                    // Identifying properties are always supported
                     return true;
                 case "TelephoneNumberTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -33566,17 +33353,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStaffReferenceSupported;
                 case "StateOfIssueStateAbbreviationDescriptor":
                     return IsStateOfIssueStateAbbreviationDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "EmploymentStatusDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "HireDate":
-                    // Identifying properties are always supported
                     return true;
                 case "StaffUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -33642,11 +33426,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsDoNotPublishIndicatorSupported;
                 case "PrimaryEmailAddressIndicator":
                     return IsPrimaryEmailAddressIndicatorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ElectronicMailAddress":
-                    // Identifying properties are always supported
                     return true;
                 case "ElectronicMailTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -33710,8 +33493,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsAssigningOrganizationIdentificationCodeSupported;
                 case "IdentificationCode":
                     return IsIdentificationCodeSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "StaffIdentificationSystemDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -33795,11 +33578,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsIssuerDocumentIdentificationCodeSupported;
                 case "IssuerName":
                     return IsIssuerNameSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IdentificationDocumentUseDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "PersonalInformationVerificationDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -33878,8 +33660,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "StaffIdentificationSystemDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -33979,8 +33761,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsLatitudeSupported;
                 case "Longitude":
                     return IsLongitudeSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AddressTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -34041,8 +33823,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "StaffLanguageUses":
                     return IsStaffLanguageUsesSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LanguageDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -34094,8 +33876,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LanguageUseDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -34175,14 +33957,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStaffReferenceSupported;
                 case "SubstituteAssigned":
                     return IsSubstituteAssignedSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 case "StaffLeaveEventCategoryDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "StaffUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -34261,8 +34041,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "StaffLeaveEventCategoryDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -34338,8 +34118,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsMiddleNameSupported;
                 case "PersonalTitlePrefix":
                     return IsPersonalTitlePrefixSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "OtherNameTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -34423,11 +34203,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsIssuerDocumentIdentificationCodeSupported;
                 case "IssuerName":
                     return IsIssuerNameSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IdentificationDocumentUseDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "PersonalInformationVerificationDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -34512,20 +34291,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStaffReferenceSupported;
                 case "StudentRecordAccess":
                     return IsStudentRecordAccessSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramName":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "StaffUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -34577,8 +34352,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "RaceDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -34702,8 +34477,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsRecognitionAwardExpiresDateSupported;
                 case "RecognitionDescription":
                     return IsRecognitionDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "RecognitionTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -34814,14 +34589,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStaffSchoolAssociationAcademicSubjectsSupported;
                 case "StaffSchoolAssociationGradeLevels":
                     return IsStaffSchoolAssociationGradeLevelsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProgramAssignmentDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "StaffUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -34873,8 +34646,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AcademicSubjectDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -34926,8 +34699,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -35034,26 +34807,20 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStaffReferenceSupported;
                 case "TeacherStudentDataLinkExclusion":
                     return IsTeacherStudentDataLinkExclusionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 case "LocalCourseCode":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 case "SectionIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SessionName":
-                    // Identifying properties are always supported
                     return true;
                 case "StaffUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -35125,11 +34892,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsOrderOfPrioritySupported;
                 case "TextMessageCapabilityIndicator":
                     return IsTextMessageCapabilityIndicatorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "TelephoneNumber":
-                    // Identifying properties are always supported
                     return true;
                 case "TelephoneNumberTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -35181,8 +34947,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "TribalAffiliationDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -35234,8 +35000,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "VisaDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -35314,8 +35080,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "StateAbbreviationDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -35446,8 +35212,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStateEducationAgencyFederalFundsSupported;
                 case "WebSite":
                     return IsWebSiteSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "StateEducationAgencyId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -35511,8 +35277,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCTEGraduationRateInclusionSupported;
                 case "SchoolYearTypeReference":
                     return IsSchoolYearTypeReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -35570,8 +35336,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "FederalProgramsFundingAllocation":
                     return IsFederalProgramsFundingAllocationSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "FiscalYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -35784,6 +35550,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentUniqueIdSupported;
                 case "StudentVisas":
                     return IsStudentVisasSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -35989,17 +35756,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentAcademicRecordReportCardsSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 case "TermDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -36119,11 +35883,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsIssuerNameSupported;
                 case "IssuerOriginURL":
                     return IsIssuerOriginURLSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AcademicHonorCategoryDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "HonorDescription":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -36197,6 +35960,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsPercentageRankingSupported;
                 case "TotalNumberInClass":
                     return IsTotalNumberInClassSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -36327,11 +36091,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsIssuerNameSupported;
                 case "IssuerOriginURL":
                     return IsIssuerOriginURLSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DiplomaAwardDate":
-                    // Identifying properties are always supported
                     return true;
                 case "DiplomaTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -36401,8 +36164,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsIsCumulativeSupported;
                 case "MaxGradePointAverageValue":
                     return IsMaxGradePointAverageValueSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradePointAverageTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -36526,8 +36289,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsRecognitionAwardExpiresDateSupported;
                 case "RecognitionDescription":
                     return IsRecognitionDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "RecognitionTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -36592,17 +36355,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "ReportCardReference":
                     return IsReportCardReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradingPeriodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "GradingPeriodName":
-                    // Identifying properties are always supported
                     return true;
                 case "GradingPeriodSchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "GradingPeriodSchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -36827,17 +36587,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentReferenceSupported;
                 case "WhenAssessedGradeLevelDescriptor":
                     return IsWhenAssessedGradeLevelDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentAssessmentIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -36889,8 +36646,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AccommodationDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -36977,23 +36734,18 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSchoolYearTypeReferenceSupported;
                 case "StudentAssessmentReference":
                     return IsStudentAssessmentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationAssociationTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentAssessmentIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -37094,8 +36846,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsResponseIndicatorDescriptorSupported;
                 case "TimeAssessed":
                     return IsTimeAssessedSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IdentificationCode":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -37155,11 +36907,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "PerformanceLevelIndicatorName":
                     return IsPerformanceLevelIndicatorNameSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentReportingMethodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "PerformanceLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -37227,6 +36978,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsBeginDateSupported;
                 case "EndDate":
                     return IsEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -37289,8 +37041,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsResultSupported;
                 case "ResultDatatypeTypeDescriptor":
                     return IsResultDatatypeTypeDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentReportingMethodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -37385,8 +37137,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentAssessmentStudentObjectiveAssessmentPerformanceLevelsSupported;
                 case "StudentAssessmentStudentObjectiveAssessmentScoreResults":
                     return IsStudentAssessmentStudentObjectiveAssessmentScoreResultsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IdentificationCode":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -37446,11 +37198,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "PerformanceLevelIndicatorName":
                     return IsPerformanceLevelIndicatorNameSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentReportingMethodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "PerformanceLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -37514,8 +37265,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsResultSupported;
                 case "ResultDatatypeTypeDescriptor":
                     return IsResultDatatypeTypeDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssessmentReportingMethodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -37594,8 +37345,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "StudentCharacteristicDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -37675,17 +37426,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentCohortAssociationSectionsSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 case "CohortIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -37752,20 +37500,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "SectionReference":
                     return IsSectionReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LocalCourseCode":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 case "SectionIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SessionName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -37881,29 +37625,22 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentCompetencyObjectiveStudentSectionAssociationsSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradingPeriodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "GradingPeriodName":
-                    // Identifying properties are always supported
                     return true;
                 case "GradingPeriodSchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "GradingPeriodSchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 case "Objective":
-                    // Identifying properties are always supported
                     return true;
                 case "ObjectiveEducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ObjectiveGradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -37970,20 +37707,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "GeneralStudentProgramAssociationReference":
                     return IsGeneralStudentProgramAssociationReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramName":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -38052,23 +37785,18 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "StudentSectionAssociationReference":
                     return IsStudentSectionAssociationReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 case "LocalCourseCode":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 case "SectionIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SessionName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -38177,11 +37905,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsRelationDescriptorSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ContactUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -38295,6 +38022,19 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentReferenceSupported;
                 case "TechnicalSkillsAssessmentDescriptor":
                     return IsTechnicalSkillsAssessmentDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "BeginDate":
+                    return true;
+                case "EducationOrganizationId":
+                    return true;
+                case "ProgramEducationOrganizationId":
+                    return true;
+                case "ProgramName":
+                    return true;
+                case "ProgramTypeDescriptor":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -38369,8 +38109,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsServiceBeginDateSupported;
                 case "ServiceEndDate":
                     return IsServiceEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CTEProgramServiceDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -38456,17 +38196,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodesSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BehaviorDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "IncidentIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -38518,8 +38255,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisciplineIncidentParticipationCodeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -38597,14 +38334,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCodesSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IncidentIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -38656,8 +38391,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisciplineIncidentParticipationCodeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -38925,11 +38660,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentReferenceSupported;
                 case "SupporterMilitaryConnectionDescriptor":
                     return IsSupporterMilitaryConnectionDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -39052,20 +38786,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNameOfCountySupported;
                 case "StudentEducationOrganizationAssociationAddressPeriods":
                     return IsStudentEducationOrganizationAssociationAddressPeriodsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AddressTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "City":
-                    // Identifying properties are always supported
                     return true;
                 case "PostalCode":
-                    // Identifying properties are always supported
                     return true;
                 case "StateAbbreviationDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "StreetNumberName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -39123,8 +38853,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "EndDate":
                     return IsEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -39176,8 +38906,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AncestryEthnicOriginDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -39243,11 +38973,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSchoolYearTypeReferenceSupported;
                 case "TermDescriptor":
                     return IsTermDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CohortYearTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -39326,8 +39055,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsOrderOfDisabilitySupported;
                 case "StudentEducationOrganizationAssociationDisabilityDesignations":
                     return IsStudentEducationOrganizationAssociationDisabilityDesignationsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisabilityDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -39379,8 +39108,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisabilityDesignationDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -39446,11 +39175,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsDoNotPublishIndicatorSupported;
                 case "PrimaryEmailAddressIndicator":
                     return IsPrimaryEmailAddressIndicatorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ElectronicMailAddress":
-                    // Identifying properties are always supported
                     return true;
                 case "ElectronicMailTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -39556,8 +39284,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsLatitudeSupported;
                 case "Longitude":
                     return IsLongitudeSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AddressTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -39618,8 +39346,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "StudentEducationOrganizationAssociationLanguageUses":
                     return IsStudentEducationOrganizationAssociationLanguageUsesSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LanguageDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -39671,8 +39399,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LanguageUseDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -39724,8 +39452,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "RaceDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -39792,8 +39520,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsDesignatedBySupported;
                 case "StudentEducationOrganizationAssociationStudentCharacteristicPeriods":
                     return IsStudentEducationOrganizationAssociationStudentCharacteristicPeriodsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "StudentCharacteristicDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -39851,8 +39579,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "EndDate":
                     return IsEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -39912,11 +39640,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "IdentificationCode":
                     return IsIdentificationCodeSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AssigningOrganizationIdentificationCode":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentIdentificationSystemDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -39995,8 +39722,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsIndicatorGroupSupported;
                 case "StudentEducationOrganizationAssociationStudentIndicatorPeriods":
                     return IsStudentEducationOrganizationAssociationStudentIndicatorPeriodsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IndicatorName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -40054,8 +39781,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "EndDate":
                     return IsEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -40127,11 +39854,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsOrderOfPrioritySupported;
                 case "TextMessageCapabilityIndicator":
                     return IsTextMessageCapabilityIndicatorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "TelephoneNumber":
-                    // Identifying properties are always supported
                     return true;
                 case "TelephoneNumberTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -40183,8 +39909,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "TribalAffiliationDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -40261,17 +39987,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEndDateSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ResponsibilityDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -40394,14 +40117,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSubmissionStatusDescriptorSupported;
                 case "TimeFulfilled":
                     return IsTimeFulfilledSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradebookEntryIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -40515,6 +40236,19 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentHomelessProgramAssociationHomelessProgramServicesSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "BeginDate":
+                    return true;
+                case "EducationOrganizationId":
+                    return true;
+                case "ProgramEducationOrganizationId":
+                    return true;
+                case "ProgramName":
+                    return true;
+                case "ProgramTypeDescriptor":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -40583,8 +40317,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsServiceBeginDateSupported;
                 case "ServiceEndDate":
                     return IsServiceEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "HomelessProgramServiceDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -40668,11 +40402,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsIssuerDocumentIdentificationCodeSupported;
                 case "IssuerName":
                     return IsIssuerNameSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IdentificationDocumentUseDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "PersonalInformationVerificationDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -40751,8 +40484,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "StudentIdentificationSystemDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -40855,14 +40588,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentInterventionAssociationInterventionEffectivenessesSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "InterventionIdentificationCode":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -40930,14 +40661,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsImprovementIndexSupported;
                 case "InterventionEffectivenessRatingDescriptor":
                     return IsInterventionEffectivenessRatingDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DiagnosisDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "GradeLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "PopulationServedDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -41034,20 +40763,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsInterventionReferenceSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AttendanceEventCategoryDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "EventDate":
-                    // Identifying properties are always supported
                     return true;
                 case "InterventionIdentificationCode":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -41164,6 +40889,19 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentLanguageInstructionProgramAssociationLanguageInstructionProgramServicesSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "BeginDate":
+                    return true;
+                case "EducationOrganizationId":
+                    return true;
+                case "ProgramEducationOrganizationId":
+                    return true;
+                case "ProgramName":
+                    return true;
+                case "ProgramTypeDescriptor":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -41244,8 +40982,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsProgressDescriptorSupported;
                 case "SchoolYearTypeReference":
                     return IsSchoolYearTypeReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -41315,8 +41053,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsServiceBeginDateSupported;
                 case "ServiceEndDate":
                     return IsServiceEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LanguageInstructionProgramServiceDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -41466,6 +41204,19 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsUSInitialSchoolEntrySupported;
                 case "USMostRecentEntry":
                     return IsUSMostRecentEntrySupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "BeginDate":
+                    return true;
+                case "EducationOrganizationId":
+                    return true;
+                case "ProgramEducationOrganizationId":
+                    return true;
+                case "ProgramName":
+                    return true;
+                case "ProgramTypeDescriptor":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -41534,8 +41285,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsServiceBeginDateSupported;
                 case "ServiceEndDate":
                     return IsServiceEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "MigrantEducationProgramServiceDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -41649,6 +41400,19 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramServicesSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "BeginDate":
+                    return true;
+                case "EducationOrganizationId":
+                    return true;
+                case "ProgramEducationOrganizationId":
+                    return true;
+                case "ProgramName":
+                    return true;
+                case "ProgramTypeDescriptor":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -41717,8 +41481,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsServiceBeginDateSupported;
                 case "ServiceEndDate":
                     return IsServiceEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "NeglectedOrDelinquentProgramServiceDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -41800,8 +41564,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsMiddleNameSupported;
                 case "PersonalTitlePrefix":
                     return IsPersonalTitlePrefixSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "OtherNameTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -41880,8 +41644,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "StudentParticipationCodeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -41959,11 +41723,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsIssuerDocumentIdentificationCodeSupported;
                 case "IssuerName":
                     return IsIssuerNameSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IdentificationDocumentUseDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "PersonalInformationVerificationDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -42059,6 +41822,19 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentProgramAssociationServicesSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "BeginDate":
+                    return true;
+                case "EducationOrganizationId":
+                    return true;
+                case "ProgramEducationOrganizationId":
+                    return true;
+                case "ProgramName":
+                    return true;
+                case "ProgramTypeDescriptor":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -42127,8 +41903,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsServiceBeginDateSupported;
                 case "ServiceEndDate":
                     return IsServiceEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ServiceDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -42236,26 +42012,20 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsProgramReferenceSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AttendanceEventCategoryDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "EventDate":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramName":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -42411,29 +42181,22 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSummaryEvaluationNumericRatingSupported;
                 case "SummaryEvaluationRatingLevelDescriptor":
                     return IsSummaryEvaluationRatingLevelDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EvaluationDate":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEvaluationPeriodDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEvaluationTitle":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramEvaluationTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramName":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -42485,8 +42248,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ExternalEvaluator":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -42557,8 +42320,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEvaluationElementRatingLevelDescriptorSupported;
                 case "ProgramEvaluationElementReference":
                     return IsProgramEvaluationElementReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProgramEvaluationElementTitle":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -42629,8 +42392,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEvaluationObjectiveRatingLevelDescriptorSupported;
                 case "ProgramEvaluationObjectiveReference":
                     return IsProgramEvaluationObjectiveReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ProgramEvaluationObjectiveTitle":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -42886,14 +42649,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentSchoolAssociationEducationPlansSupported;
                 case "TermCompletionIndicator":
                     return IsTermCompletionIndicatorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EntryDate":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -42956,14 +42717,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "AlternativeGraduationPlanReference":
                     return IsAlternativeGraduationPlanReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AlternativeEducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "AlternativeGraduationPlanTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "AlternativeGraduationSchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -43015,8 +42774,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationPlanDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -43133,23 +42892,18 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSessionReferenceSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AttendanceEventCategoryDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "EventDate":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 case "SessionName":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -43251,6 +43005,19 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentReferenceSupported;
                 case "StudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramServices":
                     return IsStudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramServicesSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "BeginDate":
+                    return true;
+                case "EducationOrganizationId":
+                    return true;
+                case "ProgramEducationOrganizationId":
+                    return true;
+                case "ProgramName":
+                    return true;
+                case "ProgramTypeDescriptor":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -43319,8 +43086,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsServiceBeginDateSupported;
                 case "ServiceEndDate":
                     return IsServiceEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SchoolFoodServiceProgramServiceDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -43436,26 +43203,20 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentSectionAssociationProgramsSupported;
                 case "TeacherStudentDataLinkExclusion":
                     return IsTeacherStudentDataLinkExclusionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BeginDate":
-                    // Identifying properties are always supported
                     return true;
                 case "LocalCourseCode":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 case "SectionIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SessionName":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -43518,14 +43279,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "ProgramReference":
                     return IsProgramReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramName":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -43649,29 +43408,22 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentReferenceSupported;
                 case "StudentSectionAttendanceEventClassPeriods":
                     return IsStudentSectionAttendanceEventClassPeriodsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AttendanceEventCategoryDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "EventDate":
-                    // Identifying properties are always supported
                     return true;
                 case "LocalCourseCode":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 case "SectionIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SessionName":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -43730,8 +43482,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "ClassPeriodReference":
                     return IsClassPeriodReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ClassPeriodName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -43923,6 +43675,19 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentSpecialEducationProgramAssociationServiceProvidersSupported;
                 case "StudentSpecialEducationProgramAssociationSpecialEducationProgramServices":
                     return IsStudentSpecialEducationProgramAssociationSpecialEducationProgramServicesSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "BeginDate":
+                    return true;
+                case "EducationOrganizationId":
+                    return true;
+                case "ProgramEducationOrganizationId":
+                    return true;
+                case "ProgramName":
+                    return true;
+                case "ProgramTypeDescriptor":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -44000,8 +43765,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsOrderOfDisabilitySupported;
                 case "StudentSpecialEducationProgramAssociationDisabilityDesignations":
                     return IsStudentSpecialEducationProgramAssociationDisabilityDesignationsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisabilityDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -44053,8 +43818,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisabilityDesignationDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -44119,8 +43884,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsPrimaryProviderSupported;
                 case "StaffReference":
                     return IsStaffReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "StaffUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -44199,8 +43964,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsServiceEndDateSupported;
                 case "StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceProviders":
                     return IsStudentSpecialEducationProgramAssociationSpecialEducationProgramServiceProvidersSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SpecialEducationProgramServiceDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -44265,8 +44030,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsPrimaryProviderSupported;
                 case "StaffReference":
                     return IsStaffReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "StaffUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -44436,20 +44201,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsTransitionConferenceDateSupported;
                 case "TransitionNotificationDate":
                     return IsTransitionNotificationDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ConsentToEvaluationReceivedDate":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramName":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -44551,6 +44312,19 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentTitleIPartAProgramAssociationTitleIPartAProgramServicesSupported;
                 case "TitleIPartAParticipantDescriptor":
                     return IsTitleIPartAParticipantDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "BeginDate":
+                    return true;
+                case "EducationOrganizationId":
+                    return true;
+                case "ProgramEducationOrganizationId":
+                    return true;
+                case "ProgramName":
+                    return true;
+                case "ProgramTypeDescriptor":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -44619,8 +44393,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsServiceBeginDateSupported;
                 case "ServiceEndDate":
                     return IsServiceEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "TitleIPartAProgramServiceDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -44672,8 +44446,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "VisaDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -44752,8 +44526,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SubmissionStatusDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -44826,8 +44600,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SupporterMilitaryConnectionDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -44936,11 +44710,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSurveyCategoryDescriptorSupported;
                 case "SurveyTitle":
                     return IsSurveyTitleSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -45019,8 +44792,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SurveyCategoryDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -45085,17 +44858,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsCourseReferenceSupported;
                 case "SurveyReference":
                     return IsSurveyReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CourseCode":
-                    // Identifying properties are always supported
                     return true;
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -45174,8 +44944,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SurveyLevelDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -45242,20 +45012,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsProgramReferenceSupported;
                 case "SurveyReference":
                     return IsSurveyReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramName":
-                    // Identifying properties are always supported
                     return true;
                 case "ProgramTypeDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -45360,14 +45126,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSurveySectionReferenceSupported;
                 case "SurveySectionTitle":
                     return IsSurveySectionTitleSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 case "QuestionCode":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -45431,8 +45195,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsMaxRawScoreSupported;
                 case "MinRawScore":
                     return IsMinRawScoreSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "MatrixElement":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -45533,17 +45297,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSurveyQuestionResponseValuesSupported;
                 case "SurveyResponseReference":
                     return IsSurveyResponseReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 case "QuestionCode":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyResponseIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -45607,8 +45368,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNumericValueSupported;
                 case "TextValue":
                     return IsTextValueSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SortOrder":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -45690,8 +45451,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNumericResponseSupported;
                 case "TextResponse":
                     return IsTextResponseSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "MatrixElement":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -45755,8 +45516,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNumericResponseSupported;
                 case "TextResponse":
                     return IsTextResponseSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SurveyQuestionResponseValueIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -45896,14 +45657,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSurveyReferenceSupported;
                 case "SurveyResponseSurveyLevels":
                     return IsSurveyResponseSurveyLevelsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyResponseIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -45974,17 +45733,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationReferenceSupported;
                 case "SurveyResponseReference":
                     return IsSurveyResponseReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyResponseIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -46055,17 +45811,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStaffReferenceSupported;
                 case "SurveyResponseReference":
                     return IsSurveyResponseReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 case "StaffUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyResponseIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -46117,8 +45870,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SurveyLevelDescriptor":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -46180,14 +45933,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "SurveyReference":
                     return IsSurveyReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveySectionTitle":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -46264,26 +46015,20 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSectionReferenceSupported;
                 case "SurveyReference":
                     return IsSurveyReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "LocalCourseCode":
-                    // Identifying properties are always supported
                     return true;
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 case "SectionIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SessionName":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -46360,17 +46105,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsSurveyResponseReferenceSupported;
                 case "SurveySectionReference":
                     return IsSurveySectionReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyResponseIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveySectionTitle":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -46443,20 +46185,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsEducationOrganizationReferenceSupported;
                 case "SurveySectionResponseReference":
                     return IsSurveySectionResponseReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "EducationOrganizationId":
-                    // Identifying properties are always supported
                     return true;
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyResponseIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveySectionTitle":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -46529,20 +46267,16 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStaffReferenceSupported;
                 case "SurveySectionResponseReference":
                     return IsSurveySectionResponseReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Namespace":
-                    // Identifying properties are always supported
                     return true;
                 case "StaffUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveyResponseIdentifier":
-                    // Identifying properties are always supported
                     return true;
                 case "SurveySectionTitle":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -46621,8 +46355,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "TeachingCredentialBasisDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -46695,8 +46429,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "TeachingCredentialDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -46769,8 +46503,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "TechnicalSkillsAssessmentDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -46843,8 +46577,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "TelephoneNumberTypeDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -46917,8 +46651,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "TermDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -46991,8 +46725,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "TitleIPartAParticipantDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -47065,8 +46799,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "TitleIPartAProgramServiceDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -47139,8 +46873,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "TitleIPartASchoolDesignationDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -47213,8 +46947,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "TribalAffiliationDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -47287,8 +47021,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "VisaDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -47361,8 +47095,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "WeaponDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");

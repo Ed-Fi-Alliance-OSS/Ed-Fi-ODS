@@ -71,17 +71,14 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTransportation
                     return IsSchoolReferenceSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "AMBusNumber":
-                    // Identifying properties are always supported
                     return true;
                 case "PMBusNumber":
-                    // Identifying properties are always supported
                     return true;
                 case "SchoolId":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentUniqueId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");

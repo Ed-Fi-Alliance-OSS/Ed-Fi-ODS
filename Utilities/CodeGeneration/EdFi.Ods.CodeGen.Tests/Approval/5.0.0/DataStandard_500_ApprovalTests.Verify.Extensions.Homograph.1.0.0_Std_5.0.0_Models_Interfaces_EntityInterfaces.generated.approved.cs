@@ -73,11 +73,10 @@ namespace EdFi.Ods.Entities.Common.Homograph
                     return IsContactNameReferenceSupported;
                 case "ContactStudentSchoolAssociations":
                     return IsContactStudentSchoolAssociationsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ContactFirstName":
-                    // Identifying properties are always supported
                     return true;
                 case "ContactLastSurname":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -121,8 +120,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "City":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -177,14 +176,12 @@ namespace EdFi.Ods.Entities.Common.Homograph
             {
                 case "StudentSchoolAssociationReference":
                     return IsStudentSchoolAssociationReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SchoolName":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentFirstName":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentLastSurname":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -229,11 +226,10 @@ namespace EdFi.Ods.Entities.Common.Homograph
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "FirstName":
-                    // Identifying properties are always supported
                     return true;
                 case "LastSurname":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -296,8 +292,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
                     return IsSchoolYearSupported;
                 case "SchoolYearTypeReference":
                     return IsSchoolYearTypeReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SchoolName":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -345,6 +341,7 @@ namespace EdFi.Ods.Entities.Common.Homograph
             {
                 case "City":
                     return IsCitySupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -386,8 +383,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SchoolYear":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -457,11 +454,10 @@ namespace EdFi.Ods.Entities.Common.Homograph
                     return IsStaffNameReferenceSupported;
                 case "StaffStudentSchoolAssociations":
                     return IsStaffStudentSchoolAssociationsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "StaffFirstName":
-                    // Identifying properties are always supported
                     return true;
                 case "StaffLastSurname":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -505,8 +501,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "City":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -561,14 +557,12 @@ namespace EdFi.Ods.Entities.Common.Homograph
             {
                 case "StudentSchoolAssociationReference":
                     return IsStudentSchoolAssociationReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SchoolName":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentFirstName":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentLastSurname":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -640,11 +634,10 @@ namespace EdFi.Ods.Entities.Common.Homograph
                     return IsStudentAddressSupported;
                 case "StudentNameReference":
                     return IsStudentNameReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "StudentFirstName":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentLastSurname":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -688,8 +681,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "City":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -750,14 +743,12 @@ namespace EdFi.Ods.Entities.Common.Homograph
                     return IsSchoolReferenceSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SchoolName":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentFirstName":
-                    // Identifying properties are always supported
                     return true;
                 case "StudentLastSurname":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");

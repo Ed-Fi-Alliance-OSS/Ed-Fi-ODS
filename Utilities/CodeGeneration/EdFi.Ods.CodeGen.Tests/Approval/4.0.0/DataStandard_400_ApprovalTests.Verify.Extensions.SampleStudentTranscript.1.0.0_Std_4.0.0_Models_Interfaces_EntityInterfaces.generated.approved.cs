@@ -77,8 +77,8 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "InstitutionControlDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -151,8 +151,8 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "InstitutionLevelDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -213,8 +213,8 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                     return IsInstitutionControlDescriptorSupported;
                 case "InstitutionLevelDescriptor":
                     return IsInstitutionLevelDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "NameOfInstitution":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -287,8 +287,8 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SpecialEducationGraduationStatusDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -336,6 +336,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
             {
                 case "SpecialEducationGraduationStatusDescriptor":
                     return IsSpecialEducationGraduationStatusDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -395,6 +396,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                     return IsPostSecondaryOrganizationReferenceSupported;
                 case "SubmissionCertificationDescriptor":
                     return IsSubmissionCertificationDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -466,8 +468,8 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SubmissionCertificationDescriptorId":
-                    // Identifying properties are always supported
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
