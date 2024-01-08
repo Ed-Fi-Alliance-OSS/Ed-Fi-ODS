@@ -114,17 +114,17 @@ public static class ValidationHelpers
         }
     }
 
-    public static IEnumerable<ValidationResult> ValidateExtensions(ValidationContext validationContext, IMappingContract mappingContract)
+    public static IEnumerable<ValidationResult> ValidateExtensions(ValidationContext parentValidationContext, IMappingContract mappingContract)
     {
-        var pathBuilder = GetPathBuilder(validationContext);
+        var pathBuilder = GetPathBuilder(parentValidationContext);
 
         int originalLength = pathBuilder.Length;
 
-        if (validationContext.ObjectInstance is IDictionary dictionary)
+        if (parentValidationContext.ObjectInstance is IHasExtensions parentWithExtensions)
         {
             var extensionsMappingContract = mappingContract as IExtensionsMappingContract;
 
-            foreach (DictionaryEntry entry in dictionary)
+            foreach (DictionaryEntry entry in parentWithExtensions.Extensions)
             {
                 string extensionName = entry.Key as string;
                 
@@ -141,12 +141,12 @@ public static class ValidationHelpers
                 }
 
                 pathBuilder.Append(JsonPathSeparator);
-                pathBuilder.Append(((string) entry.Key).ToCamelCase());
+                pathBuilder.Append(extensionName.ToCamelCase());
 
                 var context = new ValidationContext(
                     entry.Value,
-                    validationContext,
-                    validationContext.Items.ForExtension(extensionName));
+                    parentValidationContext,
+                    parentValidationContext.Items.ForExtension(extensionName));
 
                 var itemResults = new List<ValidationResult>();
 
