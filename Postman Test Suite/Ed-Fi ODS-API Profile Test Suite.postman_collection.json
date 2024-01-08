@@ -2269,6 +2269,431 @@
 			]
 		},
 		{
+			"name": "Use of misconfigured profiles",
+			"item": [
+				{
+					"name": "Setup",
+					"item": [
+						{
+							"name": "Create School",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set('supplied:school:schoolId', pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}\"));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"    pm.test(\"Status code is 201\", () => {",
+											"        pm.expect(pm.response.code).to.equal(201);",
+											"    });",
+											"    ",
+											"    pm.environment.set('known:school:id',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"charterApprovalSchoolYearTypeReference\": {\r\n        \"schoolYear\": \"2001\"\r\n    },\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": {{supplied:school:schoolId}},\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Read Requests",
+					"item": [
+						{
+							"name": "Get Misconfigured Resource",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 424\", () => {",
+											"  pm.expect(pm.response.code).to.equal(424);",
+											"});",
+											"",
+											"const problemDetails = pm.response.json();",
+											"",
+											"pm.test(\"Should return a problem details result\", () => {",
+											"  pm.expect(pm.response.code).equal(problemDetails.status);",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+											"});",
+											"",
+											"pm.test(\"Should return error message the profile specified by the content type is configured but invalid.\", () => {",
+											"  pm.expect(problemDetails.errors).to.contain(\"The profile specified by the content type in the 'Accept' header is configured but invalid.\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/vnd.ed-fi.school.test-profile-with-unexisting-resource.readable+json",
+										"description": "non-existing"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:school:id}}"
+									]
+								},
+								"description": "Scenario: The caller attempts to read a resource using a non-existing profile\r\n    Given the caller is using the \"Non-Existing\" profile\r\n    When a GET (by id) request is submitted to schools with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should contain a 406 Not Acceptable failure indicating that \"the profile specified by the content type is not supported by this host\"\r\n"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Misconfigured Property",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 424\", () => {",
+											"  pm.expect(pm.response.code).to.equal(424);",
+											"});",
+											"",
+											"const problemDetails = pm.response.json();",
+											"",
+											"pm.test(\"Should return a problem details result\", () => {",
+											"  pm.expect(pm.response.code).equal(problemDetails.status);",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+											"});",
+											"",
+											"pm.test(\"Should return error message the profile specified by the content type is configured but invalid.\", () => {",
+											"  pm.expect(problemDetails.errors).to.contain(\"The profile specified by the content type in the 'Accept' header is configured but invalid.\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/vnd.ed-fi.school.test-profile-with-unexisting-property.readable+json",
+										"description": "non-existing"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:school:id}}"
+									]
+								},
+								"description": "Scenario: The caller attempts to read a resource using a non-existing profile\r\n    Given the caller is using the \"Non-Existing\" profile\r\n    When a GET (by id) request is submitted to schools with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should contain a 406 Not Acceptable failure indicating that \"the profile specified by the content type is not supported by this host\"\r\n"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Write Requests",
+					"item": [
+						{
+							"name": "Update Misconfigured Resource",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 424\", () => {",
+											"  pm.expect(pm.response.code).to.equal(424);",
+											"});",
+											"",
+											"const problemDetails = pm.response.json();",
+											"",
+											"pm.test(\"Should return a problem details result\", () => {",
+											"  pm.expect(pm.response.code).equal(problemDetails.status);",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+											"});",
+											"",
+											"pm.test(\"Should return error message the profile specified by the content type is configured but invalid.\", () => {",
+											"  pm.expect(problemDetails.errors).to.contain(\"The profile specified by the content type in the 'Content-Type' header is configured but invalid.\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/vnd.ed-fi.school.test-profile-with-unexisting-resource.writable+json",
+										"description": "non-existing"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools"
+									]
+								},
+								"description": "Scenario: The caller attempts to update a resource using a non-existing profile\r\n    Given the caller is using the \"Non-Existing\" profile\r\n    When a POST request with a resource is submitted to schools with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 415 Unsupported Media Type failure indicating that \"the profile specified by the content type is not supported by this host\""
+							},
+							"response": []
+						},
+						{
+							"name": "Update Misconfigured Property",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 424\", () => {",
+											"  pm.expect(pm.response.code).to.equal(424);",
+											"});",
+											"",
+											"const problemDetails = pm.response.json();",
+											"",
+											"pm.test(\"Should return a problem details result\", () => {",
+											"  pm.expect(pm.response.code).equal(problemDetails.status);",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+											"});",
+											"",
+											"pm.test(\"Should return error message the profile specified by the content type is configured but invalid.\", () => {",
+											"  pm.expect(problemDetails.errors).to.contain(\"The profile specified by the content type in the 'Content-Type' header is configured but invalid.\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/vnd.ed-fi.school.test-profile-with-unexisting-property.writable+json",
+										"description": "non-existing"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nameOfInstitutions\": \"{{$randomCompanyName}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools"
+									]
+								},
+								"description": "Scenario: The caller attempts to update a resource using a non-existing profile\r\n    Given the caller is using the \"Non-Existing\" profile\r\n    When a POST request with a resource is submitted to schools with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 415 Unsupported Media Type failure indicating that \"the profile specified by the content type is not supported by this host\""
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Teardown",
+					"item": [
+						{
+							"name": "Delete School",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"    pm.test(\"Status code is 204\", () => {",
+											"        pm.expect(pm.response.code).to.equal(204);",
+											"    });",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:school:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Clean up Environment Variables",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+											"_.chain(_.keys(pm.environment.toObject()))\r",
+											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+											"  .each(k => pm.environment.unset(k)).value();"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "Response content types",
 			"item": [
 				{
