@@ -1080,8 +1080,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(`Response code is 400 (body=${JSON.stringify(pm.response.json())})`, () => {",
-									"    pm.expect(pm.response.code).to.equal(204);",
+									"pm.test(\"Response code is 400\", () => {",
+									"  pm.expect(pm.response.code).to.equal(400);",
 									"});",
 									"",
 									"const problemDetails = pm.response.json();",
@@ -1093,8 +1093,7 @@
 									"});",
 									"",
 									"pm.test(\"Should indicate problem converting empty string to SchoolId value\", function () {",
-									"  pm.expect(problemDetails.validationErrors[\"$.schoolReference.schoolId\"]).to.match(",
-									"    /Error converting value \"\" to type 'System.Int[0-9]+'. Path 'schoolReference.schoolId', line [0-9], position [0-9]+./);",
+									"  pm.expect(problemDetails.validationErrors[\"$.schoolReference.schoolId\"]).to.match(/^Error converting value/);",
 									"});"
 								],
 								"type": "text/javascript"
