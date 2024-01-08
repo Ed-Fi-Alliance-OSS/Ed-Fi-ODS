@@ -52,7 +52,7 @@ namespace EdFi.Ods.Common.Extensions
                     catch (Exception ex)
                     {
                         _logger.Error($"Validation exception [{ex.GetType()}]: {ex.StackTrace}", ex);
-                        result.Add(new ValidationResult(ex.Message));
+                        throw;
                     }
                 }
             }
