@@ -2513,6 +2513,7 @@
 											"const item = items[0];",
 											"",
 											"pm.environment.set('known:assessment:id', item.id);",
+											"pm.environment.set('known:assessment:assessmentIdentifier', item.assessmentIdentifier);",
 											"pm.environment.set('known:assessment:contentStandard:title', item.contentStandard.title);",
 											""
 										],
@@ -2731,7 +2732,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"assessmentIdentifier\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"4th Grade Reading 1st Six Weeks 2012-2013\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"assessmentIdentifier\": \"{{known:assessment:assessmentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"4th Grade Reading 1st Six Weeks 2012-2013\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2846,7 +2847,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"assessmentIdentifier\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"3rd Grade Reading 1st Six Weeks 2012-2013\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"assessmentIdentifier\": \"{{known:assessment:assessmentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"3rd Grade Reading 1st Six Weeks 2012-2013\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2945,47 +2946,10 @@
 					]
 				},
 				{
-					"name": "Teardown",
-					"item": [
-						{
-							"name": "Clean up Environment Variables",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
-											"_.chain(_.keys(pm.environment.toObject()))\r",
-											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
-											"  .each(k => pm.environment.unset(k)).value();\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
 					"name": "Data Validation",
 					"item": [
 						{
-							"name": "Multiple invalid",
+							"name": "Multiple invalid members",
 							"item": [
 								{
 									"name": "Update (no Profile applied)",
@@ -3006,26 +2970,24 @@
 													"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
 													"});",
 													"",
-													"pm.test(\"Should return several validation error messages because all properties are included.\", () => {",
-													"  pm.expect(problemDetails.validationErrors).to.deep.include({",
-													"    \"$.maxRawScore\": [",
-													"      \"MaxRawScore must be between -9999999999.99999 and 9999999999.99999.\"",
-													"    ]",
-													"  });",
-													"",
-													"  pm.expect(problemDetails.validationErrors).to.deep.include({",
-													"    \"$.assessmentTitle\": [",
-													"      \"AssessmentTitle must be between 1 and 255 characters in length.\"",
-													"    ]",
-													"  });",
-													"",
-													"  pm.expect(problemDetails.validationErrors).to.deep.include({",
-													"    \"$.assessmentCategoryDescriptor\": [",
-													"      \"AssessmentCategoryDescriptor value 'uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts' does not exist.\"",
-													"    ]",
-													"  });",
+													"pm.test(\"Should include a validation error for maxRawScore being out-of-range.\", () => {",
+													"  pm.expect(problemDetails.validationErrors[\"$.maxRawScore\"])",
+													"    .to.contain(\"MaxRawScore must be between -9999999999.99999 and 9999999999.99999.\");",
 													"});",
-													""
+													"",
+													"pm.test(\"Should include a validation error for assessmentTitle's excessive length.\", () => {",
+													"  pm.expect(problemDetails.validationErrors[\"$.assessmentTitle\"])",
+													"    .to.contain(\"AssessmentTitle must be between 1 and 255 characters in length.\");",
+													"});",
+													"",
+													"pm.test(\"Should include a validation error for assessmentCategoryDescriptor's non-existing value.\", () => {",
+													"  pm.expect(problemDetails.validationErrors[\"$.assessmentCategoryDescriptor\"])",
+													"    .to.contain(\"AssessmentCategoryDescriptor value 'uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts' does not exist.\");",
+													"});",
+													"",
+													"pm.test(`Response: ${JSON.stringify(problemDetails)}`, () => {",
+													"  pm.expect(true).to.equal(true);",
+													"});"
 												],
 												"type": "text/javascript"
 											}
@@ -3047,7 +3009,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"assessmentIdentifier\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{supplied:string:256}}\",\r\n  \"maxRawScore\": 10000000000.00000,\r\n  \"assessmentCategoryDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"assessmentIdentifier\": \"{{known:assessment:assessmentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{supplied:string:256}}\",\r\n  \"maxRawScore\": 10000000000.00000,\r\n  \"assessmentCategoryDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3097,7 +3059,10 @@
 													"    ]",
 													"  });",
 													"});",
-													""
+													"",
+													"pm.test(`Response: ${JSON.stringify(problemDetails)}`, () => {",
+													"  pm.expect(true).to.equal(true);",
+													"});"
 												],
 												"type": "text/javascript"
 											}
@@ -3125,7 +3090,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"assessmentIdentifier\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{supplied:string:256}}\",\r\n  \"maxRawScore\": 10000000000.00000,\r\n  \"assessmentCategoryDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"assessmentIdentifier\": \"{{known:assessment:assessmentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{supplied:string:256}}\",\r\n  \"maxRawScore\": 10000000000.00000,\r\n  \"assessmentCategoryDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3188,7 +3153,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"assessmentIdentifier\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{supplied:string:256}}\",\r\n  \"maxRawScore\": 10000000000.00000,\r\n  \"assessmentCategoryDescriptor\": \"uri://ed-fi.org/AssessmentCategoryDescriptor#Class quiz\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"assessmentIdentifier\": \"{{known:assessment:assessmentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{supplied:string:256}}\",\r\n  \"maxRawScore\": 10000000000.00000,\r\n  \"assessmentCategoryDescriptor\": \"uri://ed-fi.org/AssessmentCategoryDescriptor#Class quiz\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3213,6 +3178,43 @@
 									"response": []
 								}
 							]
+						}
+					]
+				},
+				{
+					"name": "Teardown",
+					"item": [
+						{
+							"name": "Clean up Environment Variables",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+											"_.chain(_.keys(pm.environment.toObject()))\r",
+											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+											"  .each(k => pm.environment.unset(k)).value();\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				}
@@ -10085,7 +10087,7 @@
 							"response": []
 						},
 						{
-							"name": "The Write content type includes all properties of a  derived association",
+							"name": "The Write content type includes all properties of a derived association",
 							"event": [
 								{
 									"listen": "test",
