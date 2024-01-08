@@ -914,7 +914,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"{{known:schoolId2}}\"\r\n  },\r\n  \"programReference\": {\r\n    \"educationOrganizationId\": \"{{known:schoolId2}}\",\r\n    \"programName\": \"{{known:programName}}\",\r\n    \"programTypeDescriptor\": \"{{known:programTypeDescriptor}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:secondstudentUniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2010-08-30\",\r\n  \"endDate\": \"2010-12-17\",\r\n  \"reasonExitedDescriptor\": \"uri://ed-fi.org/ReasonExitedDescriptor#Moved out of state\"\r\n}"
+									"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"{{known:schoolId2}}\"\r\n  },\r\n  \"programReference\": {\r\n    \"educationOrganizationId\": \"{{known:schoolId2}}\",\r\n    \"programName\": \"{{supplied:{{scenarioId}}:programName}}\",\r\n    \"programTypeDescriptor\": \"{{supplied:{{scenarioId}}:programTypeDescriptor}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:secondstudentUniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2010-08-30\",\r\n  \"endDate\": \"2010-12-17\",\r\n  \"reasonExitedDescriptor\": \"uri://ed-fi.org/ReasonExitedDescriptor#Moved out of state\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations",

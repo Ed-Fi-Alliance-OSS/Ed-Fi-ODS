@@ -1597,7 +1597,7 @@
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource is not owned by the caller.\");",
 													"});",
 													"",
 													"pm.test(\"Should NOT return an error indicating that that the caller doesn't have the necessary namespace prefix.\", () => {",
