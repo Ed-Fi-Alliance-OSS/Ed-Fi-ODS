@@ -63,22 +63,17 @@ namespace EdFi.Ods.CodeGen.Generators
                             ImplementedInterfaces = GetImplementedInterfaceString(r),
                             ParentInterfaceName = GetParentInterfaceName(r),
                             ParentClassName = GetParentClassName(r),
+                            InheritedIdentifyingProperties = r
+                                .IdentifyingProperties
+                                // Include names of inherited, non-renamed, identifying properties
+                                .Where(IsInheritedNonRenamedIdentifyingProperty)
+                                .Select(p => new { p.PropertyName }),
                             IdentifyingProperties = r
                                 .IdentifyingProperties
 
                                 // Exclude inherited identifying properties where the property has not been renamed
-                                .Where(
-                                    p => !(
-                                        p.EntityProperty
-                                            ?.IsInheritedIdentifying ==
-                                        true
-                                        && !p
-                                            .EntityProperty
-                                            ?.IsInheritedIdentifyingRenamed ==
-                                        true))
-                                .OrderBy(
-                                    p => p
-                                        .PropertyName)
+                                .Where(p => !IsInheritedNonRenamedIdentifyingProperty(p))
+                                .OrderBy(p => p.PropertyName)
                                 .Select(
                                     p => new
                                     {
@@ -179,6 +174,15 @@ namespace EdFi.Ods.CodeGen.Generators
 
             return entityInterfacesModel;
         }
+
+        private static bool IsInheritedNonRenamedIdentifyingProperty(ResourceProperty p) => (
+            p.EntityProperty
+                ?.IsInheritedIdentifying ==
+            true
+            && !p
+                .EntityProperty
+                ?.IsInheritedIdentifyingRenamed ==
+            true);
 
         private static string GetParentClassName(ResourceClassBase resourceClass)
         {
