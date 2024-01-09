@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        StandardVersion: ${{ fromJson(needs.FindStandardVersions.outputs.StandardVersions) }}
+        StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
     name: build (Standard ${{ matrix.StandardVersion }})         
     steps:
     - name: Checkout Ed-Fi-ODS
