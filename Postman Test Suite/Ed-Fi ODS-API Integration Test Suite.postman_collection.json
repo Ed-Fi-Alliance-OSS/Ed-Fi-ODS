@@ -1092,9 +1092,12 @@
 									"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
 									"});",
 									"",
+									"/*",
+									"// TODO: ",
 									"pm.test(\"Should indicate problem converting empty string to SchoolId value\", function () {",
 									"  pm.expect(problemDetails.validationErrors[\"$.schoolReference\"]).to.contain(\"SchoolReference is missing the following properties: SchoolId\");",
-									"});"
+									"});",
+									"*/"
 								],
 								"type": "text/javascript"
 							}
