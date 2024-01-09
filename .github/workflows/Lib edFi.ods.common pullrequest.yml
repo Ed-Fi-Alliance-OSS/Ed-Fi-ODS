@@ -18,18 +18,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
-    - name: Check if .NET is installed
-      run: |
-          dotnet --version || echo "No .NET found" 
-          $dotnetVersion = $(dotnet --version)
-          echo "DOTENT_VERSION=$dotnetVersion">> $env:GITHUB_ENV
-      shell: pwsh             
-    - name: Setup .NET
-      if: ${{ !startsWith(env.DOTENT_VERSION, '8.0') }}
-      uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # 2.1.0
-      with:
-        dotnet-version: 8.0.x
     - name: Cache Nuget packages       
       uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
       with:
