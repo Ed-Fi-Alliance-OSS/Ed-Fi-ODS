@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using EdFi.Ods.Common.Exceptions;
-using EdFi.Ods.Common.Security;
 using log4net;
 
 namespace EdFi.Ods.Common.Extensions

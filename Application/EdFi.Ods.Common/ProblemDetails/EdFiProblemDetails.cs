@@ -8,6 +8,10 @@ using EdFi.Ods.Common.Exceptions;
 
 namespace EdFi.Ods.Common.ProblemDetails;
 
+/// <summary>
+/// Provides a serializable representation of the problem details model
+/// that is independent of the custom exception-based type hierarchy. 
+/// </summary>
 public class EdFiProblemDetails : IEdFiProblemDetails
 {
     /// <inheritdoc cref="IEdFiProblemDetails.Detail" />

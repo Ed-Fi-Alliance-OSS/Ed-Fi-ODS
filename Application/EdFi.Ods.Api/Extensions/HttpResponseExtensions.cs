@@ -56,22 +56,4 @@ public static class HttpResponseExtensions
                 }.AsSerializableModel(),
                 _serializerOptions));
     }
-
-    public static Task WriteProblemDetailsAsync(
-        this HttpResponse response,
-        int status,
-        string title,
-        string detail,
-        string correlationId,
-        params string[] typeUrnPartsFromBase)
-    {
-        return WriteProblemDetailsAsync(
-            response,
-            status,
-            title,
-            detail,
-            null,
-            correlationId,
-            typeUrnPartsFromBase);
-    }
 }
