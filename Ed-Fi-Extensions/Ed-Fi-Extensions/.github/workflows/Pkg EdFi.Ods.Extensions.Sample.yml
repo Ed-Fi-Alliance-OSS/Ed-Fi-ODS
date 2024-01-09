@@ -118,7 +118,15 @@ jobs:
       working-directory: ./Ed-Fi-Extensions/
       shell: pwsh
       run: |
-        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"    
+        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
+    - name: update BUILD_INCREMENTER 
+      run: |      
+            $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
+            if ($newRevision -lt 0) {
+                $newRevision = 1
+                echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
+            }
+      shell: pwsh        
     - name: Cache Nuget packages       
       uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
       with:
@@ -153,6 +161,7 @@ jobs:
         .\build.githubactions.ps1 MaximumPathLengthLimitation -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -PackageName "EdFi.Suite3.Ods.Extensions.Sample.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}"
       shell: pwsh 
     - name: Install-credential-handler
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-Extensions/
       run: |
         .\build.githubactions.ps1 InstallCredentialHandler
