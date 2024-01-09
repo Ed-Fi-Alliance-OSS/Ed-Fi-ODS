@@ -9,8 +9,6 @@ namespace EdFi.Ods.Common.Descriptors;
 
 public class DescriptorDetails : IEquatable<DescriptorDetails>
 {
-    public DescriptorDetails() { }
-
     public int DescriptorId { get; set; }
 
     public string DescriptorName { get; set; }

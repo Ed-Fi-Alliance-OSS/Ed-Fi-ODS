@@ -185,8 +185,6 @@ public class ProfileContentTypeContextMiddleware
             string correlationId = (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
             string errorMessage = string.Format(logMessageFormat, headerName);
 
-            _logger.Error(errorMessage);
-
             return response.WriteProblemDetailsAsync(
                 statusCode,
                 ProfileContentTypeUsageException.TitleText,

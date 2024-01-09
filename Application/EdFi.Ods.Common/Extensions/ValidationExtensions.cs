@@ -13,6 +13,12 @@ namespace EdFi.Ods.Common.Extensions;
 
 public static class ValidationExtensions
 {
+    /// <summary>
+    /// Prepends the path from the "path builder" in the validation context's items to validation context's MemberName
+    /// property to produce the full path in the object graph to the member. 
+    /// </summary>
+    /// <param name="validationContext"></param>
+    /// <returns>The full path to the member.</returns>
     public static string MemberNamePath(this ValidationContext validationContext)
     {
         var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
@@ -25,6 +31,13 @@ public static class ValidationExtensions
         return $"{pathBuilder}.{validationContext.MemberName}";
     }
 
+    /// <summary>
+    /// Creates a new dictionary of items from the one provided for the parent's <see cref="ValidationContext" /> with the
+    /// collection's associated resource class model applied. 
+    /// </summary>
+    /// <param name="items">The items from the parent context, containing the parent's resource class.</param>
+    /// <param name="collectionPropertyName">The name of the collection property for obtaining the associated resource class.</param>
+    /// <returns>The new items to be used for a new <see cref="ValidationContext" />.</returns>
     public static IDictionary<object, object> ForCollection(
         this IDictionary<object, object> items,
         string collectionPropertyName)
@@ -37,8 +50,8 @@ public static class ValidationExtensions
                 {
                     // Create a new dictionary for each validation context
                     return new Dictionary<object, object>(items
-                            .Where(kvp => (kvp.Key as string) != ValidationContextKeys.ResourceClass)
-                            .Prepend(new KeyValuePair<object, object>(ValidationContextKeys.ResourceClass, collection.ItemType)));
+                        .Where(kvp => (kvp.Key as string) != ValidationContextKeys.ResourceClass)
+                        .Prepend(new KeyValuePair<object, object>(ValidationContextKeys.ResourceClass, collection.ItemType)));
 
                     // Alternative approach: reuse same Items for every validation, but then reset to containing resource class after each collection/embedded object validation tree completes
                     // items[ValidationContextKeys.ResourceClass] = collection.ItemType;
@@ -49,6 +62,13 @@ public static class ValidationExtensions
         return items;
     }
 
+    /// <summary>
+    /// Creates a new dictionary of items from the one provided for the parent's <see cref="ValidationContext" /> with the
+    /// embedded object's associated resource class model applied. 
+    /// </summary>
+    /// <param name="items">The items from the parent context, containing the parent's resource class.</param>
+    /// <param name="embeddedObjectPropertyName">The name of the embedded object property for obtaining the associated resource class.</param>
+    /// <returns>The new items to be used for a new <see cref="ValidationContext" />.</returns>
     public static IDictionary<object, object> ForEmbeddedObject(
         this IDictionary<object, object> items,
         string embeddedObjectPropertyName)
@@ -61,8 +81,8 @@ public static class ValidationExtensions
                 {
                     // Create a new dictionary for each validation context
                     return new Dictionary<object, object>(items
-                            .Where(kvp => (kvp.Key as string) != ValidationContextKeys.ResourceClass)
-                            .Prepend(new KeyValuePair<object, object>(ValidationContextKeys.ResourceClass, embeddedObject.ObjectType)));
+                        .Where(kvp => (kvp.Key as string) != ValidationContextKeys.ResourceClass)
+                        .Prepend(new KeyValuePair<object, object>(ValidationContextKeys.ResourceClass, embeddedObject.ObjectType)));
 
                     // Alternative approach: reuse same Items for every validation, but then reset to containing resource class after each collection/embedded object validation tree completes
                     // items[ValidationContextKeys.ResourceClass] = embeddedObject.ObjectType;
@@ -73,6 +93,13 @@ public static class ValidationExtensions
         return items;
     }
 
+    /// <summary>
+    /// Creates a new dictionary of items from the one provided for the parent's <see cref="ValidationContext" /> with the
+    /// extension's associated resource class model applied. 
+    /// </summary>
+    /// <param name="items">The items from the parent context, containing the parent's resource class.</param>
+    /// <param name="extensionPropertyName">The name of the extension for obtaining the extension's associated resource class.</param>
+    /// <returns>The new items to be used for a new <see cref="ValidationContext" />.</returns>
     public static IDictionary<object, object> ForExtension(
         this IDictionary<object, object> items,
         string extensionPropertyName)
@@ -85,8 +112,8 @@ public static class ValidationExtensions
                 {
                     // Create a new dictionary for each validation context
                     return new Dictionary<object, object>(items
-                            .Where(kvp => (kvp.Key as string) != ValidationContextKeys.ResourceClass)
-                            .Prepend(new KeyValuePair<object, object>(ValidationContextKeys.ResourceClass, extension.ObjectType)));
+                        .Where(kvp => (kvp.Key as string) != ValidationContextKeys.ResourceClass)
+                        .Prepend(new KeyValuePair<object, object>(ValidationContextKeys.ResourceClass, extension.ObjectType)));
 
                     // Alternative approach: reuse same Items for every validation, but then reset to containing resource class after each collection/embedded object validation tree completes
                     // items[ValidationContextKeys.ResourceClass] = extension.ObjectType;

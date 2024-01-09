@@ -67,13 +67,6 @@ namespace EdFi.Ods.Common.Exceptions
             }
         }
         
-        // TODO: Review usage. Is this for logged detail only?
-        // public string ApiKey { get; }
-        //
-        // public string Resource { get; }
-        //
-        // public string Action { get; }
-        
         // ---------------------------
         //  Boilerplate for overrides
         // ---------------------------

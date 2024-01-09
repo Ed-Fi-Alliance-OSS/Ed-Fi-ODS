@@ -5,7 +5,6 @@
 
 using System;
 using System.Buffers;
-using System.Text;
 using EdFi.Common.Utils.Extensions;
 
 namespace EdFi.Ods.Common.Extensions;
@@ -36,15 +35,5 @@ public static class StringExtensions
         {
             ArrayPool<byte>.Shared.Return(buffer);
         }
-    }
-    
-    public static string ApplyPrefixFrom(this string memberName, StringBuilder pathBuilder)
-    {
-        if (pathBuilder.Length == 0)
-        {
-            return memberName;
-        }
-
-        return $"{pathBuilder}.{memberName}";
     }
 }

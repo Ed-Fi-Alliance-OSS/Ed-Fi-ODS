@@ -39,14 +39,12 @@ public class ApiBehaviorOptionsConfigurator : IConfigureOptions<ApiBehaviorOptio
                     _dataManagementResourceContextProvider.Get()?.Resource,
                     actionContext.ModelState);
                 
-                
                 problemDetails.CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
                 
                 return new BadRequestObjectResult(problemDetails);
             }
             
             return null;
-            
         };
     }
 }
