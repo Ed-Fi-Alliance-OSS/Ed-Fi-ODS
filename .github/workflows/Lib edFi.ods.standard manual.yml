@@ -21,31 +21,17 @@ env:
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
 
 jobs:
-  FindStandardVersions:
-    runs-on: ubuntu-latest    
-    outputs:
-      StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
-    steps:
-    - name: Checkout Ed-Fi-ODS
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
-      with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
-          path: Ed-Fi-ODS/   
-    - name: Set StandardVersions
-      id: Set_StandardVersions
-      working-directory: ./Ed-Fi-ODS/
-      run: |
-        $output = .\build.githubactions.ps1 StandardVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj" | Out-String
-        Add-Content -Path $env:GITHUB_OUTPUT -Value "StandardVersions=$output"
-        Write-host "StandardVersions is  $output"
-      shell: pwsh
+  FindStandardAndExtensionVersions:
+    uses: ./.github/workflows/Find Standard and Extension Versions.yml
+    with:
+      calling_branch: ${{ github.head_ref || github.ref_name }}
   build:
     if: ${{ always() }}
-    needs: FindStandardVersions
+    needs: FindStandardAndExtensionVersions
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        StandardVersion: ${{ fromJson(needs.FindStandardVersions.outputs.StandardVersions) }}
+        StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
     name: build (Standard ${{ matrix.StandardVersion }})        
     steps:
     - name: Check for Azure token

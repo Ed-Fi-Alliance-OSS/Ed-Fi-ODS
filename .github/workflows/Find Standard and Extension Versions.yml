@@ -1,0 +1,67 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: Find Standard and Extension Versions
+
+on:
+  workflow_call:
+    inputs:
+      calling_branch:
+        required: true
+        type: string
+    outputs:
+      StandardVersions:
+        description: "Standard Versions"
+        value: ${{ jobs.FindStandardAndExtensionVersions.outputs.StandardVersions }}
+      ExtensionVersions:
+        description: "Extension Versions"
+        value: ${{ jobs.FindStandardAndExtensionVersions.outputs.ExtensionVersions }}
+
+env:
+  REF_NAME: ${{ inputs.calling_branch }}
+
+jobs:
+  FindStandardAndExtensionVersions:
+     runs-on: ubuntu-latest
+     outputs:
+       StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
+       ExtensionVersions: ${{ steps.Set_ExtensionVersions.outputs.ExtensionVersions }}
+     steps:
+     - name: Checkout Ed-Fi-ODS
+       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+       with:
+           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+           path: Ed-Fi-ODS/
+     - name: Checkout calling branch if exists in Ed-Fi-ODS
+       working-directory: ./Ed-Fi-ODS/
+       shell: pwsh
+       run: |
+         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
+     - name: Checkout Ed-Fi-Extensions
+       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+       with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
+          path: Ed-Fi-Extensions/
+     - name: Checkout calling branch if in Ed-Fi-Extensions
+       working-directory: ./Ed-Fi-ODS/
+       shell: pwsh
+       run: |
+         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"
+     - name: Set StandardVersions
+       id: Set_StandardVersions
+       working-directory: ./Ed-Fi-ODS/
+       run: |
+         $output = .\build.githubactions.ps1 StandardVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
+         Add-Content -Path $env:GITHUB_OUTPUT -Value "StandardVersions=$output"
+         Write-host "StandardVersions is  $output"
+       shell: pwsh
+     - name: Set ExtensionVersions
+       id: Set_ExtensionVersions
+       working-directory: ./Ed-Fi-Extensions/
+       run: |
+         $output = .\build.githubactions.ps1 ExtensionVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj"
+         Add-Content -Path $env:GITHUB_OUTPUT -Value "ExtensionVersions=$output"
+         Write-host "ExtensionVersions is  $output"
+       shell: pwsh
