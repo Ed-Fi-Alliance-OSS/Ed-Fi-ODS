@@ -117,7 +117,6 @@ jobs:
       shell: pwsh
     - name: Install-credential-handler
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
-      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 InstallCredentialHandler
