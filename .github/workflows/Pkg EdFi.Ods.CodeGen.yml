@@ -83,7 +83,15 @@ jobs:
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 restore -Solution "Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln"
-      shell: pwsh        
+      shell: pwsh       
+    - name: update BUILD_INCREMENTER 
+      run: |      
+            $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
+            if ($newRevision -lt 0) {
+                $newRevision = 1
+                echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
+            }
+      shell: pwsh
     - name: build
       working-directory: ./Ed-Fi-ODS/
       run: |
@@ -108,6 +116,7 @@ jobs:
         .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen/EdFi.Ods.CodeGen.csproj" -PackageName "EdFi.Suite3.Ods.CodeGen"
       shell: pwsh
     - name: Install-credential-handler
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 InstallCredentialHandler

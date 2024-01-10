@@ -45,6 +45,14 @@ jobs:
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/configuration.packages.json') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
+    - name: update BUILD_INCREMENTER 
+      run: |      
+            $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
+            if ($newRevision -lt 0) {
+                $newRevision = 1
+                echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
+            }
+      shell: pwsh
     - name: Restore NuGet packages
       run: |
         .\build.githubactions.ps1 restore -Solution "Application/EdFi.Security.DataAccess/EdFi.Security.DataAccess.sln"
@@ -62,6 +70,7 @@ jobs:
         .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Security.DataAccess/EdFi.Security.DataAccess.sln" -ProjectFile "Application/EdFi.Security.DataAccess/EdFi.Security.DataAccess.csproj" -PackageName  "EdFi.Suite3.Security.DataAccess"
       shell: pwsh
     - name: Install-credential-handler
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       run: |
         .\build.githubactions.ps1 InstallCredentialHandler
       shell: pwsh

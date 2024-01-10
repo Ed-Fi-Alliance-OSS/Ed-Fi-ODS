@@ -36,7 +36,6 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
-          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
     - name: Is pull request branch exists in Ed-Fi-ODS
       working-directory: ./Ed-Fi-ODS/
       shell: pwsh
@@ -47,7 +46,6 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
-          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS/
       shell: pwsh

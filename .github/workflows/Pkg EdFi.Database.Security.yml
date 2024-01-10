@@ -74,6 +74,14 @@ jobs:
       shell: powershell
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
+    - name: update BUILD_INCREMENTER 
+      run: |      
+            $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
+            if ($newRevision -lt 0) {
+                $newRevision = 1
+                echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
+            }
+      shell: pwsh
     - name: Install sql-server-2019, sqlpackage, and postgres13
       shell: powershell
       run: |
@@ -108,6 +116,7 @@ jobs:
         nuget pack $SecurityBACPACNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright © $(date +'%Y') Ed-Fi Alliance, LLC and Contributors" -NoPackageAnalysis -NoDefaultExcludes
         nuget pack $SecurityPostgreSQLNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright © $(date +'%Y') Ed-Fi Alliance, LLC and Contributors" -NoPackageAnalysis -NoDefaultExcludes
     - name: Install-credential-handler
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
       shell: powershell
     - name: Publish Nuget package

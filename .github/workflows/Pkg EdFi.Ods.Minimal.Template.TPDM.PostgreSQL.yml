@@ -112,6 +112,14 @@ jobs:
       shell: pwsh
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
+    - name: update BUILD_INCREMENTER 
+      run: |      
+            $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
+            if ($newRevision -lt 0) {
+                $newRevision = 1
+                echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
+            }
+      shell: pwsh
     - name: Cache Nuget packages
       uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
       with:
@@ -147,6 +155,7 @@ jobs:
         .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Minimal.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.PostgreSQL.Standard.${{ matrix.StandardVersion }}.nuspec" -PackageName "EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.${{ matrix.ExtensionVersion }}.PostgreSQL.Standard.${{ matrix.StandardVersion }}"
       shell: pwsh
     - name: Install-credential-handler
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 InstallCredentialHandler
