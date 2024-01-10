@@ -25,6 +25,13 @@ namespace EdFi.Ods.Common.Models.Resource
             _containedItemTypeByName = LazyInitializeContainedItemTypeByName();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Resource"/> class whose surface area is constrained by
+        /// a profile (as determined by the supplied <paramref name="filterContext"/>).
+        /// </summary>
+        /// <param name="resourceModel"></param>
+        /// <param name="entity"></param>
+        /// <param name="filterContext"></param>
         internal Resource(IResourceModel resourceModel, Entity entity, FilterContext filterContext)
             : base(resourceModel, entity, filterContext)
         {

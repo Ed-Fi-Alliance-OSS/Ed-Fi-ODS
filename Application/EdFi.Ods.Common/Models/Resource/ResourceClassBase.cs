@@ -60,6 +60,13 @@ namespace EdFi.Ods.Common.Models.Resource
         protected internal ResourceClassBase(IResourceModel resourceModel, Entity entity)
             : this(resourceModel, entity, null) { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Resource"/> class whose surface area is constrained by
+        /// a profile (as determined by the supplied <paramref name="filterContext"/>).
+        /// </summary>
+        /// <param name="resourceModel"></param>
+        /// <param name="entity"></param>
+        /// <param name="filterContext"></param>
         protected internal ResourceClassBase(IResourceModel resourceModel, Entity entity, FilterContext filterContext)
             : this(
                 resourceModel,

@@ -45,7 +45,8 @@ namespace EdFi.Ods.Common.Models.Resource
             var definitionMemberNames = definition.Elements()
                 .Where(e => _profileDefinitionMemberElementNames.Contains(e.Name.ToString()))
                 .Select(e => e.AttributeValue("name"))
-                .Where(n => !string.IsNullOrEmpty(n));
+                .Where(n => !string.IsNullOrEmpty(n))
+                .ToArray();
 
             var definitionExtensionNames = definition.Elements("Extension")
                 .Select(e => e.AttributeValue("name"))
@@ -61,7 +62,7 @@ namespace EdFi.Ods.Common.Models.Resource
                     break;
 
                 case "IncludeOnly":
-                    var invalidInclusions = definitionMemberNames.Where(
+                    var nonExistingIncludedMembers = definitionMemberNames.Where(
                             n => !resourceClass.CollectionByName.ContainsKey(n)
                                 && !resourceClass.PropertyByName.ContainsKey(n)
                                 && !resourceClass.ReferenceByName.ContainsKey(n)
@@ -69,28 +70,28 @@ namespace EdFi.Ods.Common.Models.Resource
                         .OrderBy(n => n)
                         .ToArray();
 
-                    if (invalidInclusions.Any())
+                    if (nonExistingIncludedMembers.Any())
                     {
                         string profileName = GetProfileName();
 
                         string message =
-                            $"Profile '{profileName}' definition for the {ReadOrWrite()} content type for resource '{resourceClass.ResourceRoot.FullName}' attempted to include {Inflector.Inflect("member", invalidInclusions.Length)} '{string.Join("', '", invalidInclusions)}' of '{resourceClass.FullName}', but {Inflector.Inflect(string.Empty, invalidInclusions.Length, "it doesn't", "they don't")} exist. The following members are available: '{GetAllMemberNamesCsv(resourceClass)}'.";
+                            $"Profile '{profileName}' definition for the {ReadOrWrite()} content type for resource '{resourceClass.ResourceRoot.FullName}' attempted to include {Inflector.Inflect("member", nonExistingIncludedMembers.Length)} '{string.Join("', '", nonExistingIncludedMembers)}' of '{resourceClass.FullName}', but {Inflector.Inflect(string.Empty, nonExistingIncludedMembers.Length, "it doesn't", "they don't")} exist. The following members are available: '{GetAllMemberNamesCsv(resourceClass)}'.";
 
                         _profileValidationReporter.ReportValidationFailure(
                             ProfileValidationSeverity.Error,
                             profileName,
                             resourceClass.ResourceRoot.FullName,
                             resourceClass.FullName,
-                            invalidInclusions,
+                            nonExistingIncludedMembers,
                             message);
                     }
 
                     var finalInclusions = definitionMemberNames
-                        .Except(invalidInclusions)
+                        .Except(nonExistingIncludedMembers)
                         .Concat(identifyingReferenceNames)
                         .Concat(identifyingPropertyNames)
                         .ToArray();
-                    
+
                     memberFilter = new IncludeOnlyMemberFilter(
                         finalInclusions.ToArray(),
                         definitionExtensionNames.ToArray());
@@ -106,10 +107,10 @@ namespace EdFi.Ods.Common.Models.Resource
                     if (invalidIdentifyingExclusions.Any())
                     {
                         string profileName = GetProfileName();
-                        
+
                         string message =
                             $"Profile '{profileName}' definition for the {ReadOrWrite()} content type for resource '{resourceClass.ResourceRoot.FullName}' attempted to exclude identifying {Inflector.Inflect("member", invalidIdentifyingExclusions.Length)} '{string.Join("', '", invalidIdentifyingExclusions)}' of '{resourceClass.FullName}', but identifying members cannot be excluded. The following members are identifying and cannot be excluded: '{GetAllMemberNamesCsv(identifyingPropertyNames.Concat(identifyingReferenceNames))}'.";
-                        
+
                         _profileValidationReporter.ReportValidationFailure(
                             ProfileValidationSeverity.Warning,
                             profileName,
@@ -119,7 +120,7 @@ namespace EdFi.Ods.Common.Models.Resource
                             message);
                     }
                     
-                    var missingExclusions = definitionMemberNames
+                    var nonExistingExcludedMembers = definitionMemberNames
                         .Except(invalidIdentifyingExclusions)
                         .Where(
                             n => !resourceClass.CollectionByName.ContainsKey(n)
@@ -128,25 +129,25 @@ namespace EdFi.Ods.Common.Models.Resource
                                 && !resourceClass.EmbeddedObjectByName.ContainsKey(n))
                         .ToArray();
 
-                    if (missingExclusions.Any())
+                    if (nonExistingExcludedMembers.Any())
                     {
                         string profileName = GetProfileName();
 
                         string message =
-                            $"Profile '{profileName}' definition for the {ReadOrWrite()} content type for resource '{resourceClass.ResourceRoot.FullName}' attempted to exclude {Inflector.Inflect("member", missingExclusions.Length)} '{string.Join("', '", missingExclusions)}' of '{resourceClass.FullName}', but {Inflector.Inflect(string.Empty, missingExclusions.Length, "it doesn't", "they don't")} exist. The following members are available: '{GetAllMemberNamesCsv(resourceClass)}'.";
+                            $"Profile '{profileName}' definition for the {ReadOrWrite()} content type for resource '{resourceClass.ResourceRoot.FullName}' attempted to exclude {Inflector.Inflect("member", nonExistingExcludedMembers.Length)} '{string.Join("', '", nonExistingExcludedMembers)}' of '{resourceClass.FullName}', but {Inflector.Inflect(string.Empty, nonExistingExcludedMembers.Length, "it doesn't", "they don't")} exist. The following members are available: '{GetAllMemberNamesCsv(resourceClass)}'.";
 
                         _profileValidationReporter.ReportValidationFailure(
                             ProfileValidationSeverity.Warning,
                             profileName,
                             resourceClass.ResourceRoot.FullName,
                             resourceClass.FullName,
-                            missingExclusions,
+                            nonExistingExcludedMembers,
                             message);
                     }
 
                     string[] finalExclusions = definitionMemberNames
                         .Except(invalidIdentifyingExclusions) // Don't let identifying members be excluded.
-                        .Except(missingExclusions) // Don't let identifying members be excluded.
+                        .Except(nonExistingExcludedMembers) // Don't let non-existing members be excluded.
                         .ToArray();
 
                     memberFilter = new ExcludeOnlyMemberFilter(finalExclusions.ToArray(), definitionExtensionNames.ToArray());
