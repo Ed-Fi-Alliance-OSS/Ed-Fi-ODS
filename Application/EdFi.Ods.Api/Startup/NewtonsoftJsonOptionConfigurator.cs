@@ -9,6 +9,7 @@ using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
+using EdFi.Ods.Common.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -45,6 +46,7 @@ public class NewtonsoftJsonOptionConfigurator : IConfigureOptions<MvcNewtonsoftJ
         options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
         options.SerializerSettings.DateParseHandling = DateParseHandling.None;
         options.SerializerSettings.Formatting = Formatting.Indented;
+        options.SerializerSettings.Converters = new JsonConverter[] { new Int64Converter() };
         options.SerializerSettings.ContractResolver 
             = new ProfilesAwareContractResolver(
                 _profileContentTypeContextProvider, 
