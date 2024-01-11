@@ -40,7 +40,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             {
                 SourceList = GetSourceList();
                 TargetList = GetTargetList();
-                IsModified = SourceList.SynchronizeCollectionTo(TargetList, OnChildAddedCallback, IncludeItemFunction);
+                IsModified = SourceList.SynchronizeCollectionTo(TargetList, OnChildAddedCallback, itemCreatable: true, IncludeItemFunction);
             }
 
             protected abstract List<SynchronizableTestObject> GetSourceList();
