@@ -1193,6 +1193,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isMaxRawScoreSupported,
             bool isNomenclatureSupported,
             bool isRevisionDateSupported,
+            bool isAssessmentContentStandardCreatable,
             bool isAssessmentAcademicSubjectsItemCreatable,
             Func<IAssessmentAcademicSubject, bool> isAssessmentAcademicSubjectIncluded,
             bool isAssessmentAssessedGradeLevelsItemCreatable,
@@ -1238,6 +1239,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsMaxRawScoreSupported = isMaxRawScoreSupported;
             IsNomenclatureSupported = isNomenclatureSupported;
             IsRevisionDateSupported = isRevisionDateSupported;
+            IsAssessmentContentStandardCreatable = isAssessmentContentStandardCreatable;
             IsAssessmentAcademicSubjectsItemCreatable = isAssessmentAcademicSubjectsItemCreatable;
             IsAssessmentAcademicSubjectIncluded = isAssessmentAcademicSubjectIncluded;
             IsAssessmentAssessedGradeLevelsItemCreatable = isAssessmentAssessedGradeLevelsItemCreatable;
@@ -1283,6 +1285,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsMaxRawScoreSupported { get; }
         public bool IsNomenclatureSupported { get; }
         public bool IsRevisionDateSupported { get; }
+        public bool IsAssessmentContentStandardCreatable { get; }
         public bool IsAssessmentAcademicSubjectsItemCreatable { get; }
         public Func<IAssessmentAcademicSubject, bool> IsAssessmentAcademicSubjectIncluded { get; }
         public bool IsAssessmentAssessedGradeLevelsItemCreatable { get; }
@@ -1366,6 +1369,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "AssessmentContentStandard":
+                    return IsAssessmentContentStandardCreatable;
                 case "AssessmentAcademicSubjects":
                     return IsAssessmentAcademicSubjectsItemCreatable;
                 case "AssessmentAssessedGradeLevels":
@@ -18839,6 +18844,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isAssessmentReferenceSupported,
             bool isGraduationPlanRequiredAssessmentPerformanceLevelSupported,
             bool isGraduationPlanRequiredAssessmentScoresSupported,
+            bool isGraduationPlanRequiredAssessmentPerformanceLevelCreatable,
             bool isGraduationPlanRequiredAssessmentScoresItemCreatable,
             Func<IGraduationPlanRequiredAssessmentScore, bool> isGraduationPlanRequiredAssessmentScoreIncluded,
             IReadOnlyList<string> supportedExtensions
@@ -18847,6 +18853,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsAssessmentReferenceSupported = isAssessmentReferenceSupported;
             IsGraduationPlanRequiredAssessmentPerformanceLevelSupported = isGraduationPlanRequiredAssessmentPerformanceLevelSupported;
             IsGraduationPlanRequiredAssessmentScoresSupported = isGraduationPlanRequiredAssessmentScoresSupported;
+            IsGraduationPlanRequiredAssessmentPerformanceLevelCreatable = isGraduationPlanRequiredAssessmentPerformanceLevelCreatable;
             IsGraduationPlanRequiredAssessmentScoresItemCreatable = isGraduationPlanRequiredAssessmentScoresItemCreatable;
             IsGraduationPlanRequiredAssessmentScoreIncluded = isGraduationPlanRequiredAssessmentScoreIncluded;
             SupportedExtensions = supportedExtensions;
@@ -18855,6 +18862,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsAssessmentReferenceSupported { get; }
         public bool IsGraduationPlanRequiredAssessmentPerformanceLevelSupported { get; }
         public bool IsGraduationPlanRequiredAssessmentScoresSupported { get; }
+        public bool IsGraduationPlanRequiredAssessmentPerformanceLevelCreatable { get; }
         public bool IsGraduationPlanRequiredAssessmentScoresItemCreatable { get; }
         public Func<IGraduationPlanRequiredAssessmentScore, bool> IsGraduationPlanRequiredAssessmentScoreIncluded { get; }
 
@@ -18882,6 +18890,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "GraduationPlanRequiredAssessmentPerformanceLevel":
+                    return IsGraduationPlanRequiredAssessmentPerformanceLevelCreatable;
                 case "GraduationPlanRequiredAssessmentScores":
                     return IsGraduationPlanRequiredAssessmentScoresItemCreatable;
                 default:
@@ -23074,6 +23084,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isParentLearningStandardReferenceSupported,
             bool isSuccessCriteriaSupported,
             bool isURISupported,
+            bool isLearningStandardContentStandardCreatable,
             bool isLearningStandardAcademicSubjectsItemCreatable,
             Func<ILearningStandardAcademicSubject, bool> isLearningStandardAcademicSubjectIncluded,
             bool isLearningStandardGradeLevelsItemCreatable,
@@ -23097,6 +23108,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsParentLearningStandardReferenceSupported = isParentLearningStandardReferenceSupported;
             IsSuccessCriteriaSupported = isSuccessCriteriaSupported;
             IsURISupported = isURISupported;
+            IsLearningStandardContentStandardCreatable = isLearningStandardContentStandardCreatable;
             IsLearningStandardAcademicSubjectsItemCreatable = isLearningStandardAcademicSubjectsItemCreatable;
             IsLearningStandardAcademicSubjectIncluded = isLearningStandardAcademicSubjectIncluded;
             IsLearningStandardGradeLevelsItemCreatable = isLearningStandardGradeLevelsItemCreatable;
@@ -23120,6 +23132,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsParentLearningStandardReferenceSupported { get; }
         public bool IsSuccessCriteriaSupported { get; }
         public bool IsURISupported { get; }
+        public bool IsLearningStandardContentStandardCreatable { get; }
         public bool IsLearningStandardAcademicSubjectsItemCreatable { get; }
         public Func<ILearningStandardAcademicSubject, bool> IsLearningStandardAcademicSubjectIncluded { get; }
         public bool IsLearningStandardGradeLevelsItemCreatable { get; }
@@ -23171,6 +23184,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "LearningStandardContentStandard":
+                    return IsLearningStandardContentStandardCreatable;
                 case "LearningStandardAcademicSubjects":
                     return IsLearningStandardAcademicSubjectsItemCreatable;
                 case "LearningStandardGradeLevels":
@@ -37705,6 +37720,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isStaffEducationOrganizationContactAssociationAddressSupported,
             bool isStaffEducationOrganizationContactAssociationTelephonesSupported,
             bool isStaffReferenceSupported,
+            bool isStaffEducationOrganizationContactAssociationAddressCreatable,
             bool isStaffEducationOrganizationContactAssociationTelephonesItemCreatable,
             Func<IStaffEducationOrganizationContactAssociationTelephone, bool> isStaffEducationOrganizationContactAssociationTelephoneIncluded,
             IReadOnlyList<string> supportedExtensions
@@ -37716,6 +37732,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsStaffEducationOrganizationContactAssociationAddressSupported = isStaffEducationOrganizationContactAssociationAddressSupported;
             IsStaffEducationOrganizationContactAssociationTelephonesSupported = isStaffEducationOrganizationContactAssociationTelephonesSupported;
             IsStaffReferenceSupported = isStaffReferenceSupported;
+            IsStaffEducationOrganizationContactAssociationAddressCreatable = isStaffEducationOrganizationContactAssociationAddressCreatable;
             IsStaffEducationOrganizationContactAssociationTelephonesItemCreatable = isStaffEducationOrganizationContactAssociationTelephonesItemCreatable;
             IsStaffEducationOrganizationContactAssociationTelephoneIncluded = isStaffEducationOrganizationContactAssociationTelephoneIncluded;
             SupportedExtensions = supportedExtensions;
@@ -37727,6 +37744,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsStaffEducationOrganizationContactAssociationAddressSupported { get; }
         public bool IsStaffEducationOrganizationContactAssociationTelephonesSupported { get; }
         public bool IsStaffReferenceSupported { get; }
+        public bool IsStaffEducationOrganizationContactAssociationAddressCreatable { get; }
         public bool IsStaffEducationOrganizationContactAssociationTelephonesItemCreatable { get; }
         public Func<IStaffEducationOrganizationContactAssociationTelephone, bool> IsStaffEducationOrganizationContactAssociationTelephoneIncluded { get; }
 
@@ -37762,6 +37780,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "StaffEducationOrganizationContactAssociationAddress":
+                    return IsStaffEducationOrganizationContactAssociationAddressCreatable;
                 case "StaffEducationOrganizationContactAssociationTelephones":
                     return IsStaffEducationOrganizationContactAssociationTelephonesItemCreatable;
                 default:
@@ -40815,6 +40835,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isStudentAcademicRecordRecognitionsSupported,
             bool isStudentAcademicRecordReportCardsSupported,
             bool isStudentReferenceSupported,
+            bool isStudentAcademicRecordClassRankingCreatable,
             bool isStudentAcademicRecordAcademicHonorsItemCreatable,
             Func<IStudentAcademicRecordAcademicHonor, bool> isStudentAcademicRecordAcademicHonorIncluded,
             bool isStudentAcademicRecordDiplomasItemCreatable,
@@ -40850,6 +40871,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsStudentAcademicRecordRecognitionsSupported = isStudentAcademicRecordRecognitionsSupported;
             IsStudentAcademicRecordReportCardsSupported = isStudentAcademicRecordReportCardsSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
+            IsStudentAcademicRecordClassRankingCreatable = isStudentAcademicRecordClassRankingCreatable;
             IsStudentAcademicRecordAcademicHonorsItemCreatable = isStudentAcademicRecordAcademicHonorsItemCreatable;
             IsStudentAcademicRecordAcademicHonorIncluded = isStudentAcademicRecordAcademicHonorIncluded;
             IsStudentAcademicRecordDiplomasItemCreatable = isStudentAcademicRecordDiplomasItemCreatable;
@@ -40885,6 +40907,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsStudentAcademicRecordRecognitionsSupported { get; }
         public bool IsStudentAcademicRecordReportCardsSupported { get; }
         public bool IsStudentReferenceSupported { get; }
+        public bool IsStudentAcademicRecordClassRankingCreatable { get; }
         public bool IsStudentAcademicRecordAcademicHonorsItemCreatable { get; }
         public Func<IStudentAcademicRecordAcademicHonor, bool> IsStudentAcademicRecordAcademicHonorIncluded { get; }
         public bool IsStudentAcademicRecordDiplomasItemCreatable { get; }
@@ -40962,6 +40985,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "StudentAcademicRecordClassRanking":
+                    return IsStudentAcademicRecordClassRankingCreatable;
                 case "StudentAcademicRecordAcademicHonors":
                     return IsStudentAcademicRecordAcademicHonorsItemCreatable;
                 case "StudentAcademicRecordDiplomas":
@@ -41722,6 +41747,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isStudentAssessmentStudentObjectiveAssessmentsSupported,
             bool isStudentReferenceSupported,
             bool isWhenAssessedGradeLevelDescriptorSupported,
+            bool isStudentAssessmentPeriodCreatable,
             bool isStudentAssessmentAccommodationsItemCreatable,
             Func<IStudentAssessmentAccommodation, bool> isStudentAssessmentAccommodationIncluded,
             bool isStudentAssessmentItemsItemCreatable,
@@ -41760,6 +41786,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsStudentAssessmentStudentObjectiveAssessmentsSupported = isStudentAssessmentStudentObjectiveAssessmentsSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
             IsWhenAssessedGradeLevelDescriptorSupported = isWhenAssessedGradeLevelDescriptorSupported;
+            IsStudentAssessmentPeriodCreatable = isStudentAssessmentPeriodCreatable;
             IsStudentAssessmentAccommodationsItemCreatable = isStudentAssessmentAccommodationsItemCreatable;
             IsStudentAssessmentAccommodationIncluded = isStudentAssessmentAccommodationIncluded;
             IsStudentAssessmentItemsItemCreatable = isStudentAssessmentItemsItemCreatable;
@@ -41798,6 +41825,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsStudentAssessmentStudentObjectiveAssessmentsSupported { get; }
         public bool IsStudentReferenceSupported { get; }
         public bool IsWhenAssessedGradeLevelDescriptorSupported { get; }
+        public bool IsStudentAssessmentPeriodCreatable { get; }
         public bool IsStudentAssessmentAccommodationsItemCreatable { get; }
         public Func<IStudentAssessmentAccommodation, bool> IsStudentAssessmentAccommodationIncluded { get; }
         public bool IsStudentAssessmentItemsItemCreatable { get; }
@@ -41881,6 +41909,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "StudentAssessmentPeriod":
+                    return IsStudentAssessmentPeriodCreatable;
                 case "StudentAssessmentAccommodations":
                     return IsStudentAssessmentAccommodationsItemCreatable;
                 case "StudentAssessmentItems":

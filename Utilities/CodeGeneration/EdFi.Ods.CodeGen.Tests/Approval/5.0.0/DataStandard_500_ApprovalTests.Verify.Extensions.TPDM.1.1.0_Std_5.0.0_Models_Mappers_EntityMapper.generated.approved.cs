@@ -5473,6 +5473,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
                     if (target.EvaluationRatingReviewerReceivedTraining == null)
                     {
                         var itemType = target.GetType().GetProperty("EvaluationRatingReviewerReceivedTraining").PropertyType;
+            
+                        if (!(mappingContract?.IsEvaluationRatingReviewerReceivedTrainingCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.EvaluationRatingReviewerReceivedTraining = (IEvaluationRatingReviewerReceivedTraining) newItem;
                     }
@@ -5534,6 +5542,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsEvaluationRatingReviewerReceivedTrainingCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object targetEvaluationRatingReviewerReceivedTraining = Activator.CreateInstance(itemType);
                         (targetEvaluationRatingReviewerReceivedTraining as IChildEntity)?.SetParent(target);
                         source.EvaluationRatingReviewerReceivedTraining.Map(targetEvaluationRatingReviewerReceivedTraining);
@@ -7207,6 +7223,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
                     if (target.PerformanceEvaluationRatingReviewerReceivedTraining == null)
                     {
                         var itemType = target.GetType().GetProperty("PerformanceEvaluationRatingReviewerReceivedTraining").PropertyType;
+            
+                        if (!(mappingContract?.IsPerformanceEvaluationRatingReviewerReceivedTrainingCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.PerformanceEvaluationRatingReviewerReceivedTraining = (IPerformanceEvaluationRatingReviewerReceivedTraining) newItem;
                     }
@@ -7268,6 +7292,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsPerformanceEvaluationRatingReviewerReceivedTrainingCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object targetPerformanceEvaluationRatingReviewerReceivedTraining = Activator.CreateInstance(itemType);
                         (targetPerformanceEvaluationRatingReviewerReceivedTraining as IChildEntity)?.SetParent(target);
                         source.PerformanceEvaluationRatingReviewerReceivedTraining.Map(targetPerformanceEvaluationRatingReviewerReceivedTraining);

@@ -1627,6 +1627,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.ContactAggregate
                     if (target.ContactCTEProgram == null)
                     {
                         var itemType = target.GetType().GetProperty("ContactCTEProgram").PropertyType;
+            
+                        if (!(mappingContract?.IsContactCTEProgramCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.ContactCTEProgram = (IContactCTEProgram) newItem;
                     }
@@ -1650,6 +1658,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.ContactAggregate
                     if (target.ContactTeacherConference == null)
                     {
                         var itemType = target.GetType().GetProperty("ContactTeacherConference").PropertyType;
+            
+                        if (!(mappingContract?.IsContactTeacherConferenceCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.ContactTeacherConference = (IContactTeacherConference) newItem;
                     }
@@ -1809,6 +1825,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.ContactAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsContactCTEProgramCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object targetContactCTEProgram = Activator.CreateInstance(itemType);
                         (targetContactCTEProgram as IChildEntity)?.SetParent(target.Contact);
                         source.ContactCTEProgram.Map(targetContactCTEProgram);
@@ -1832,6 +1856,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.ContactAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsContactTeacherConferenceCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object targetContactTeacherConference = Activator.CreateInstance(itemType);
                         (targetContactTeacherConference as IChildEntity)?.SetParent(target.Contact);
                         source.ContactTeacherConference.Map(targetContactTeacherConference);
@@ -2660,6 +2692,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                     if (target.SchoolCTEProgram == null)
                     {
                         var itemType = target.GetType().GetProperty("SchoolCTEProgram").PropertyType;
+            
+                        if (!(mappingContract?.IsSchoolCTEProgramCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.SchoolCTEProgram = (ISchoolCTEProgram) newItem;
                     }
@@ -2725,6 +2765,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsSchoolCTEProgramCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object targetSchoolCTEProgram = Activator.CreateInstance(itemType);
                         (targetSchoolCTEProgram as IChildEntity)?.SetParent(target.School);
                         source.SchoolCTEProgram.Map(targetSchoolCTEProgram);
@@ -2813,6 +2861,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
                     if (target.StaffPetPreference == null)
                     {
                         var itemType = target.GetType().GetProperty("StaffPetPreference").PropertyType;
+            
+                        if (!(mappingContract?.IsStaffPetPreferenceCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.StaffPetPreference = (IStaffPetPreference) newItem;
                     }
@@ -2878,6 +2934,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsStaffPetPreferenceCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object targetStaffPetPreference = Activator.CreateInstance(itemType);
                         (targetStaffPetPreference as IChildEntity)?.SetParent(target.Staff);
                         source.StaffPetPreference.Map(targetStaffPetPreference);
@@ -3197,6 +3261,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                     if (target.StudentPetPreference == null)
                     {
                         var itemType = target.GetType().GetProperty("StudentPetPreference").PropertyType;
+            
+                        if (!(mappingContract?.IsStudentPetPreferenceCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.StudentPetPreference = (IStudentPetPreference) newItem;
                     }
@@ -3291,6 +3363,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsStudentPetPreferenceCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object targetStudentPetPreference = Activator.CreateInstance(itemType);
                         (targetStudentPetPreference as IChildEntity)?.SetParent(target.Student);
                         source.StudentPetPreference.Map(targetStudentPetPreference);
@@ -4505,6 +4585,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentContactAssociationAggregate
                     if (target.StudentContactAssociationTelephone == null)
                     {
                         var itemType = target.GetType().GetProperty("StudentContactAssociationTelephone").PropertyType;
+            
+                        if (!(mappingContract?.IsStudentContactAssociationTelephoneCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.StudentContactAssociationTelephone = (IStudentContactAssociationTelephone) newItem;
                     }
@@ -4677,6 +4765,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentContactAssociationAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsStudentContactAssociationTelephoneCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object targetStudentContactAssociationTelephone = Activator.CreateInstance(itemType);
                         (targetStudentContactAssociationTelephone as IChildEntity)?.SetParent(target.StudentContactAssociation);
                         source.StudentContactAssociationTelephone.Map(targetStudentContactAssociationTelephone);
@@ -5859,6 +5955,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                     if (target.StudentGraduationPlanAssociationCTEProgram == null)
                     {
                         var itemType = target.GetType().GetProperty("StudentGraduationPlanAssociationCTEProgram").PropertyType;
+            
+                        if (!(mappingContract?.IsStudentGraduationPlanAssociationCTEProgramCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.StudentGraduationPlanAssociationCTEProgram = (IStudentGraduationPlanAssociationCTEProgram) newItem;
                     }
@@ -6041,6 +6145,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsStudentGraduationPlanAssociationCTEProgramCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object targetStudentGraduationPlanAssociationCTEProgram = Activator.CreateInstance(itemType);
                         (targetStudentGraduationPlanAssociationCTEProgram as IChildEntity)?.SetParent(target);
                         source.StudentGraduationPlanAssociationCTEProgram.Map(targetStudentGraduationPlanAssociationCTEProgram);

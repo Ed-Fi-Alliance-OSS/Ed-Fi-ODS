@@ -425,6 +425,14 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
                     if (target.SchoolAddress == null)
                     {
                         var itemType = target.GetType().GetProperty("SchoolAddress").PropertyType;
+            
+                        if (!(mappingContract?.IsSchoolAddressCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.SchoolAddress = (ISchoolAddress) newItem;
                     }
@@ -485,6 +493,14 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsSchoolAddressCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object targetSchoolAddress = Activator.CreateInstance(itemType);
                         (targetSchoolAddress as IChildEntity)?.SetParent(target);
                         source.SchoolAddress.Map(targetSchoolAddress);
@@ -1008,6 +1024,14 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
                     if (target.StudentAddress == null)
                     {
                         var itemType = target.GetType().GetProperty("StudentAddress").PropertyType;
+            
+                        if (!(mappingContract?.IsStudentAddressCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.StudentAddress = (IStudentAddress) newItem;
                     }
@@ -1071,6 +1095,14 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsStudentAddressCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object targetStudentAddress = Activator.CreateInstance(itemType);
                         (targetStudentAddress as IChildEntity)?.SetParent(target);
                         source.StudentAddress.Map(targetStudentAddress);

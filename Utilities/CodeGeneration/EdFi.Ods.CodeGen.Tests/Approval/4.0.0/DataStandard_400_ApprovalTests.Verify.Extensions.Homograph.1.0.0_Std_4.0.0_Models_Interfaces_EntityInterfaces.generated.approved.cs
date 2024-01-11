@@ -316,17 +316,20 @@ namespace EdFi.Ods.Entities.Common.Homograph
         public SchoolMappingContract(
             bool isSchoolAddressSupported,
             bool isSchoolYearSupported,
-            bool isSchoolYearTypeReferenceSupported
+            bool isSchoolYearTypeReferenceSupported,
+            bool isSchoolAddressCreatable
             )
         {
             IsSchoolAddressSupported = isSchoolAddressSupported;
             IsSchoolYearSupported = isSchoolYearSupported;
             IsSchoolYearTypeReferenceSupported = isSchoolYearTypeReferenceSupported;
+            IsSchoolAddressCreatable = isSchoolAddressCreatable;
         }
 
         public bool IsSchoolAddressSupported { get; }
         public bool IsSchoolYearSupported { get; }
         public bool IsSchoolYearTypeReferenceSupported { get; }
+        public bool IsSchoolAddressCreatable { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -350,6 +353,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
         {
             switch (memberName)
             {
+                case "SchoolAddress":
+                    return IsSchoolAddressCreatable;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -718,19 +723,22 @@ namespace EdFi.Ods.Entities.Common.Homograph
             bool isSchoolYearSupported,
             bool isSchoolYearTypeReferenceSupported,
             bool isStudentAddressSupported,
-            bool isStudentNameReferenceSupported
+            bool isStudentNameReferenceSupported,
+            bool isStudentAddressCreatable
             )
         {
             IsSchoolYearSupported = isSchoolYearSupported;
             IsSchoolYearTypeReferenceSupported = isSchoolYearTypeReferenceSupported;
             IsStudentAddressSupported = isStudentAddressSupported;
             IsStudentNameReferenceSupported = isStudentNameReferenceSupported;
+            IsStudentAddressCreatable = isStudentAddressCreatable;
         }
 
         public bool IsSchoolYearSupported { get; }
         public bool IsSchoolYearTypeReferenceSupported { get; }
         public bool IsStudentAddressSupported { get; }
         public bool IsStudentNameReferenceSupported { get; }
+        public bool IsStudentAddressCreatable { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -758,6 +766,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
         {
             switch (memberName)
             {
+                case "StudentAddress":
+                    return IsStudentAddressCreatable;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }

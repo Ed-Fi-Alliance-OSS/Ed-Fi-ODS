@@ -1931,6 +1931,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                     if (target.ParentCTEProgram == null)
                     {
                         var itemType = target.GetType().GetProperty("ParentCTEProgram").PropertyType;
+            
+                        if (!(mappingContract?.IsParentCTEProgramCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.ParentCTEProgram = (IParentCTEProgram) newItem;
                     }
@@ -1954,6 +1962,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                     if (target.ParentTeacherConference == null)
                     {
                         var itemType = target.GetType().GetProperty("ParentTeacherConference").PropertyType;
+            
+                        if (!(mappingContract?.IsParentTeacherConferenceCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.ParentTeacherConference = (IParentTeacherConference) newItem;
                     }
@@ -2113,6 +2129,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsParentCTEProgramCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object targetParentCTEProgram = Activator.CreateInstance(itemType);
                         (targetParentCTEProgram as IChildEntity)?.SetParent(target.Parent);
                         source.ParentCTEProgram.Map(targetParentCTEProgram);
@@ -2136,6 +2160,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsParentTeacherConferenceCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object targetParentTeacherConference = Activator.CreateInstance(itemType);
                         (targetParentTeacherConference as IChildEntity)?.SetParent(target.Parent);
                         source.ParentTeacherConference.Map(targetParentTeacherConference);
@@ -2660,6 +2692,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                     if (target.SchoolCTEProgram == null)
                     {
                         var itemType = target.GetType().GetProperty("SchoolCTEProgram").PropertyType;
+            
+                        if (!(mappingContract?.IsSchoolCTEProgramCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.SchoolCTEProgram = (ISchoolCTEProgram) newItem;
                     }
@@ -2725,6 +2765,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsSchoolCTEProgramCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object targetSchoolCTEProgram = Activator.CreateInstance(itemType);
                         (targetSchoolCTEProgram as IChildEntity)?.SetParent(target.School);
                         source.SchoolCTEProgram.Map(targetSchoolCTEProgram);
@@ -2813,6 +2861,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
                     if (target.StaffPetPreference == null)
                     {
                         var itemType = target.GetType().GetProperty("StaffPetPreference").PropertyType;
+            
+                        if (!(mappingContract?.IsStaffPetPreferenceCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.StaffPetPreference = (IStaffPetPreference) newItem;
                     }
@@ -2878,6 +2934,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsStaffPetPreferenceCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object targetStaffPetPreference = Activator.CreateInstance(itemType);
                         (targetStaffPetPreference as IChildEntity)?.SetParent(target.Staff);
                         source.StaffPetPreference.Map(targetStaffPetPreference);
@@ -3197,6 +3261,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                     if (target.StudentPetPreference == null)
                     {
                         var itemType = target.GetType().GetProperty("StudentPetPreference").PropertyType;
+            
+                        if (!(mappingContract?.IsStudentPetPreferenceCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.StudentPetPreference = (IStudentPetPreference) newItem;
                     }
@@ -3291,6 +3363,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsStudentPetPreferenceCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object targetStudentPetPreference = Activator.CreateInstance(itemType);
                         (targetStudentPetPreference as IChildEntity)?.SetParent(target.Student);
                         source.StudentPetPreference.Map(targetStudentPetPreference);
@@ -3829,6 +3909,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                     if (target.GeneralStudentProgramAssociationParticipationStatus == null)
                     {
                         var itemType = target.GetType().GetProperty("GeneralStudentProgramAssociationParticipationStatus").PropertyType;
+            
+                        if (!(mappingContract?.IsGeneralStudentProgramAssociationParticipationStatusCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.GeneralStudentProgramAssociationParticipationStatus = (IGeneralStudentProgramAssociationParticipationStatus) newItem;
                     }
@@ -4003,6 +4091,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsGeneralStudentProgramAssociationParticipationStatusCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object targetGeneralStudentProgramAssociationParticipationStatus = Activator.CreateInstance(itemType);
                         (targetGeneralStudentProgramAssociationParticipationStatus as IChildEntity)?.SetParent(target);
                         source.GeneralStudentProgramAssociationParticipationStatus.Map(targetGeneralStudentProgramAssociationParticipationStatus);
@@ -5092,6 +5188,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                     if (target.StudentGraduationPlanAssociationCTEProgram == null)
                     {
                         var itemType = target.GetType().GetProperty("StudentGraduationPlanAssociationCTEProgram").PropertyType;
+            
+                        if (!(mappingContract?.IsStudentGraduationPlanAssociationCTEProgramCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.StudentGraduationPlanAssociationCTEProgram = (IStudentGraduationPlanAssociationCTEProgram) newItem;
                     }
@@ -5274,6 +5378,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsStudentGraduationPlanAssociationCTEProgramCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object targetStudentGraduationPlanAssociationCTEProgram = Activator.CreateInstance(itemType);
                         (targetStudentGraduationPlanAssociationCTEProgram as IChildEntity)?.SetParent(target);
                         source.StudentGraduationPlanAssociationCTEProgram.Map(targetStudentGraduationPlanAssociationCTEProgram);
@@ -6116,6 +6228,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                     if (target.StudentParentAssociationTelephone == null)
                     {
                         var itemType = target.GetType().GetProperty("StudentParentAssociationTelephone").PropertyType;
+            
+                        if (!(mappingContract?.IsStudentParentAssociationTelephoneCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.StudentParentAssociationTelephone = (IStudentParentAssociationTelephone) newItem;
                     }
@@ -6288,6 +6408,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsStudentParentAssociationTelephoneCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object targetStudentParentAssociationTelephone = Activator.CreateInstance(itemType);
                         (targetStudentParentAssociationTelephone as IChildEntity)?.SetParent(target.StudentParentAssociation);
                         source.StudentParentAssociationTelephone.Map(targetStudentParentAssociationTelephone);

@@ -3958,19 +3958,22 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isEvaluationRatingReviewerReceivedTrainingSupported,
             bool isReviewerPersonIdSupported,
             bool isReviewerPersonReferenceSupported,
-            bool isReviewerSourceSystemDescriptorSupported
+            bool isReviewerSourceSystemDescriptorSupported,
+            bool isEvaluationRatingReviewerReceivedTrainingCreatable
             )
         {
             IsEvaluationRatingReviewerReceivedTrainingSupported = isEvaluationRatingReviewerReceivedTrainingSupported;
             IsReviewerPersonIdSupported = isReviewerPersonIdSupported;
             IsReviewerPersonReferenceSupported = isReviewerPersonReferenceSupported;
             IsReviewerSourceSystemDescriptorSupported = isReviewerSourceSystemDescriptorSupported;
+            IsEvaluationRatingReviewerReceivedTrainingCreatable = isEvaluationRatingReviewerReceivedTrainingCreatable;
         }
 
         public bool IsEvaluationRatingReviewerReceivedTrainingSupported { get; }
         public bool IsReviewerPersonIdSupported { get; }
         public bool IsReviewerPersonReferenceSupported { get; }
         public bool IsReviewerSourceSystemDescriptorSupported { get; }
+        public bool IsEvaluationRatingReviewerReceivedTrainingCreatable { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -3998,6 +4001,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
         {
             switch (memberName)
             {
+                case "EvaluationRatingReviewerReceivedTraining":
+                    return IsEvaluationRatingReviewerReceivedTrainingCreatable;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -5092,19 +5097,22 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isPerformanceEvaluationRatingReviewerReceivedTrainingSupported,
             bool isReviewerPersonIdSupported,
             bool isReviewerPersonReferenceSupported,
-            bool isReviewerSourceSystemDescriptorSupported
+            bool isReviewerSourceSystemDescriptorSupported,
+            bool isPerformanceEvaluationRatingReviewerReceivedTrainingCreatable
             )
         {
             IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported = isPerformanceEvaluationRatingReviewerReceivedTrainingSupported;
             IsReviewerPersonIdSupported = isReviewerPersonIdSupported;
             IsReviewerPersonReferenceSupported = isReviewerPersonReferenceSupported;
             IsReviewerSourceSystemDescriptorSupported = isReviewerSourceSystemDescriptorSupported;
+            IsPerformanceEvaluationRatingReviewerReceivedTrainingCreatable = isPerformanceEvaluationRatingReviewerReceivedTrainingCreatable;
         }
 
         public bool IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported { get; }
         public bool IsReviewerPersonIdSupported { get; }
         public bool IsReviewerPersonReferenceSupported { get; }
         public bool IsReviewerSourceSystemDescriptorSupported { get; }
+        public bool IsPerformanceEvaluationRatingReviewerReceivedTrainingCreatable { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -5132,6 +5140,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
         {
             switch (memberName)
             {
+                case "PerformanceEvaluationRatingReviewerReceivedTraining":
+                    return IsPerformanceEvaluationRatingReviewerReceivedTrainingCreatable;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }

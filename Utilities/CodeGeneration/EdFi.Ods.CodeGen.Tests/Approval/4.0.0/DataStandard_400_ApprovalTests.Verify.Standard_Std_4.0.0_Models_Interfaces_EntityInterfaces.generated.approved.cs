@@ -1193,6 +1193,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isMaxRawScoreSupported,
             bool isNomenclatureSupported,
             bool isRevisionDateSupported,
+            bool isAssessmentContentStandardCreatable,
             bool isAssessmentAcademicSubjectsItemCreatable,
             Func<IAssessmentAcademicSubject, bool> isAssessmentAcademicSubjectIncluded,
             bool isAssessmentAssessedGradeLevelsItemCreatable,
@@ -1238,6 +1239,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsMaxRawScoreSupported = isMaxRawScoreSupported;
             IsNomenclatureSupported = isNomenclatureSupported;
             IsRevisionDateSupported = isRevisionDateSupported;
+            IsAssessmentContentStandardCreatable = isAssessmentContentStandardCreatable;
             IsAssessmentAcademicSubjectsItemCreatable = isAssessmentAcademicSubjectsItemCreatable;
             IsAssessmentAcademicSubjectIncluded = isAssessmentAcademicSubjectIncluded;
             IsAssessmentAssessedGradeLevelsItemCreatable = isAssessmentAssessedGradeLevelsItemCreatable;
@@ -1283,6 +1285,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsMaxRawScoreSupported { get; }
         public bool IsNomenclatureSupported { get; }
         public bool IsRevisionDateSupported { get; }
+        public bool IsAssessmentContentStandardCreatable { get; }
         public bool IsAssessmentAcademicSubjectsItemCreatable { get; }
         public Func<IAssessmentAcademicSubject, bool> IsAssessmentAcademicSubjectIncluded { get; }
         public bool IsAssessmentAssessedGradeLevelsItemCreatable { get; }
@@ -1366,6 +1369,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "AssessmentContentStandard":
+                    return IsAssessmentContentStandardCreatable;
                 case "AssessmentAcademicSubjects":
                     return IsAssessmentAcademicSubjectsItemCreatable;
                 case "AssessmentAssessedGradeLevels":
@@ -15536,6 +15541,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isReasonExitedDescriptorSupported,
             bool isServedOutsideOfRegularSessionSupported,
             bool isStudentReferenceSupported,
+            bool isGeneralStudentProgramAssociationParticipationStatusCreatable,
             bool isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable,
             Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> isGeneralStudentProgramAssociationProgramParticipationStatusIncluded
             )
@@ -15548,6 +15554,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsReasonExitedDescriptorSupported = isReasonExitedDescriptorSupported;
             IsServedOutsideOfRegularSessionSupported = isServedOutsideOfRegularSessionSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
+            IsGeneralStudentProgramAssociationParticipationStatusCreatable = isGeneralStudentProgramAssociationParticipationStatusCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable = isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = isGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
         }
@@ -15560,6 +15567,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsReasonExitedDescriptorSupported { get; }
         public bool IsServedOutsideOfRegularSessionSupported { get; }
         public bool IsStudentReferenceSupported { get; }
+        public bool IsGeneralStudentProgramAssociationParticipationStatusCreatable { get; }
         public bool IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable { get; }
         public Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; }
 
@@ -15605,6 +15613,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "GeneralStudentProgramAssociationParticipationStatus":
+                    return IsGeneralStudentProgramAssociationParticipationStatusCreatable;
                 case "GeneralStudentProgramAssociationProgramParticipationStatuses":
                     return IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
                 default:
@@ -17333,6 +17343,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isAssessmentReferenceSupported,
             bool isGraduationPlanRequiredAssessmentPerformanceLevelSupported,
             bool isGraduationPlanRequiredAssessmentScoresSupported,
+            bool isGraduationPlanRequiredAssessmentPerformanceLevelCreatable,
             bool isGraduationPlanRequiredAssessmentScoresItemCreatable,
             Func<IGraduationPlanRequiredAssessmentScore, bool> isGraduationPlanRequiredAssessmentScoreIncluded,
             IReadOnlyList<string> supportedExtensions
@@ -17341,6 +17352,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsAssessmentReferenceSupported = isAssessmentReferenceSupported;
             IsGraduationPlanRequiredAssessmentPerformanceLevelSupported = isGraduationPlanRequiredAssessmentPerformanceLevelSupported;
             IsGraduationPlanRequiredAssessmentScoresSupported = isGraduationPlanRequiredAssessmentScoresSupported;
+            IsGraduationPlanRequiredAssessmentPerformanceLevelCreatable = isGraduationPlanRequiredAssessmentPerformanceLevelCreatable;
             IsGraduationPlanRequiredAssessmentScoresItemCreatable = isGraduationPlanRequiredAssessmentScoresItemCreatable;
             IsGraduationPlanRequiredAssessmentScoreIncluded = isGraduationPlanRequiredAssessmentScoreIncluded;
             SupportedExtensions = supportedExtensions;
@@ -17349,6 +17361,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsAssessmentReferenceSupported { get; }
         public bool IsGraduationPlanRequiredAssessmentPerformanceLevelSupported { get; }
         public bool IsGraduationPlanRequiredAssessmentScoresSupported { get; }
+        public bool IsGraduationPlanRequiredAssessmentPerformanceLevelCreatable { get; }
         public bool IsGraduationPlanRequiredAssessmentScoresItemCreatable { get; }
         public Func<IGraduationPlanRequiredAssessmentScore, bool> IsGraduationPlanRequiredAssessmentScoreIncluded { get; }
 
@@ -17376,6 +17389,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "GraduationPlanRequiredAssessmentPerformanceLevel":
+                    return IsGraduationPlanRequiredAssessmentPerformanceLevelCreatable;
                 case "GraduationPlanRequiredAssessmentScores":
                     return IsGraduationPlanRequiredAssessmentScoresItemCreatable;
                 default:
@@ -21481,6 +21496,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isParentLearningObjectiveReferenceSupported,
             bool isParentNamespaceSupported,
             bool isSuccessCriteriaSupported,
+            bool isLearningObjectiveContentStandardCreatable,
             bool isLearningObjectiveAcademicSubjectsItemCreatable,
             Func<ILearningObjectiveAcademicSubject, bool> isLearningObjectiveAcademicSubjectIncluded,
             bool isLearningObjectiveGradeLevelsItemCreatable,
@@ -21501,6 +21517,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsParentLearningObjectiveReferenceSupported = isParentLearningObjectiveReferenceSupported;
             IsParentNamespaceSupported = isParentNamespaceSupported;
             IsSuccessCriteriaSupported = isSuccessCriteriaSupported;
+            IsLearningObjectiveContentStandardCreatable = isLearningObjectiveContentStandardCreatable;
             IsLearningObjectiveAcademicSubjectsItemCreatable = isLearningObjectiveAcademicSubjectsItemCreatable;
             IsLearningObjectiveAcademicSubjectIncluded = isLearningObjectiveAcademicSubjectIncluded;
             IsLearningObjectiveGradeLevelsItemCreatable = isLearningObjectiveGradeLevelsItemCreatable;
@@ -21521,6 +21538,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsParentLearningObjectiveReferenceSupported { get; }
         public bool IsParentNamespaceSupported { get; }
         public bool IsSuccessCriteriaSupported { get; }
+        public bool IsLearningObjectiveContentStandardCreatable { get; }
         public bool IsLearningObjectiveAcademicSubjectsItemCreatable { get; }
         public Func<ILearningObjectiveAcademicSubject, bool> IsLearningObjectiveAcademicSubjectIncluded { get; }
         public bool IsLearningObjectiveGradeLevelsItemCreatable { get; }
@@ -21568,6 +21586,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "LearningObjectiveContentStandard":
+                    return IsLearningObjectiveContentStandardCreatable;
                 case "LearningObjectiveAcademicSubjects":
                     return IsLearningObjectiveAcademicSubjectsItemCreatable;
                 case "LearningObjectiveGradeLevels":
@@ -22032,6 +22052,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isParentLearningStandardReferenceSupported,
             bool isSuccessCriteriaSupported,
             bool isURISupported,
+            bool isLearningStandardContentStandardCreatable,
             bool isLearningStandardAcademicSubjectsItemCreatable,
             Func<ILearningStandardAcademicSubject, bool> isLearningStandardAcademicSubjectIncluded,
             bool isLearningStandardGradeLevelsItemCreatable,
@@ -22058,6 +22079,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsParentLearningStandardReferenceSupported = isParentLearningStandardReferenceSupported;
             IsSuccessCriteriaSupported = isSuccessCriteriaSupported;
             IsURISupported = isURISupported;
+            IsLearningStandardContentStandardCreatable = isLearningStandardContentStandardCreatable;
             IsLearningStandardAcademicSubjectsItemCreatable = isLearningStandardAcademicSubjectsItemCreatable;
             IsLearningStandardAcademicSubjectIncluded = isLearningStandardAcademicSubjectIncluded;
             IsLearningStandardGradeLevelsItemCreatable = isLearningStandardGradeLevelsItemCreatable;
@@ -22084,6 +22106,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsParentLearningStandardReferenceSupported { get; }
         public bool IsSuccessCriteriaSupported { get; }
         public bool IsURISupported { get; }
+        public bool IsLearningStandardContentStandardCreatable { get; }
         public bool IsLearningStandardAcademicSubjectsItemCreatable { get; }
         public Func<ILearningStandardAcademicSubject, bool> IsLearningStandardAcademicSubjectIncluded { get; }
         public bool IsLearningStandardGradeLevelsItemCreatable { get; }
@@ -22139,6 +22162,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "LearningStandardContentStandard":
+                    return IsLearningStandardContentStandardCreatable;
                 case "LearningStandardAcademicSubjects":
                     return IsLearningStandardAcademicSubjectsItemCreatable;
                 case "LearningStandardGradeLevels":
@@ -37011,6 +37036,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isStaffEducationOrganizationContactAssociationAddressSupported,
             bool isStaffEducationOrganizationContactAssociationTelephonesSupported,
             bool isStaffReferenceSupported,
+            bool isStaffEducationOrganizationContactAssociationAddressCreatable,
             bool isStaffEducationOrganizationContactAssociationTelephonesItemCreatable,
             Func<IStaffEducationOrganizationContactAssociationTelephone, bool> isStaffEducationOrganizationContactAssociationTelephoneIncluded,
             IReadOnlyList<string> supportedExtensions
@@ -37022,6 +37048,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsStaffEducationOrganizationContactAssociationAddressSupported = isStaffEducationOrganizationContactAssociationAddressSupported;
             IsStaffEducationOrganizationContactAssociationTelephonesSupported = isStaffEducationOrganizationContactAssociationTelephonesSupported;
             IsStaffReferenceSupported = isStaffReferenceSupported;
+            IsStaffEducationOrganizationContactAssociationAddressCreatable = isStaffEducationOrganizationContactAssociationAddressCreatable;
             IsStaffEducationOrganizationContactAssociationTelephonesItemCreatable = isStaffEducationOrganizationContactAssociationTelephonesItemCreatable;
             IsStaffEducationOrganizationContactAssociationTelephoneIncluded = isStaffEducationOrganizationContactAssociationTelephoneIncluded;
             SupportedExtensions = supportedExtensions;
@@ -37033,6 +37060,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsStaffEducationOrganizationContactAssociationAddressSupported { get; }
         public bool IsStaffEducationOrganizationContactAssociationTelephonesSupported { get; }
         public bool IsStaffReferenceSupported { get; }
+        public bool IsStaffEducationOrganizationContactAssociationAddressCreatable { get; }
         public bool IsStaffEducationOrganizationContactAssociationTelephonesItemCreatable { get; }
         public Func<IStaffEducationOrganizationContactAssociationTelephone, bool> IsStaffEducationOrganizationContactAssociationTelephoneIncluded { get; }
 
@@ -37068,6 +37096,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "StaffEducationOrganizationContactAssociationAddress":
+                    return IsStaffEducationOrganizationContactAssociationAddressCreatable;
                 case "StaffEducationOrganizationContactAssociationTelephones":
                     return IsStaffEducationOrganizationContactAssociationTelephonesItemCreatable;
                 default:
@@ -40115,6 +40145,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isStudentAcademicRecordRecognitionsSupported,
             bool isStudentAcademicRecordReportCardsSupported,
             bool isStudentReferenceSupported,
+            bool isStudentAcademicRecordClassRankingCreatable,
             bool isStudentAcademicRecordAcademicHonorsItemCreatable,
             Func<IStudentAcademicRecordAcademicHonor, bool> isStudentAcademicRecordAcademicHonorIncluded,
             bool isStudentAcademicRecordDiplomasItemCreatable,
@@ -40155,6 +40186,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsStudentAcademicRecordRecognitionsSupported = isStudentAcademicRecordRecognitionsSupported;
             IsStudentAcademicRecordReportCardsSupported = isStudentAcademicRecordReportCardsSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
+            IsStudentAcademicRecordClassRankingCreatable = isStudentAcademicRecordClassRankingCreatable;
             IsStudentAcademicRecordAcademicHonorsItemCreatable = isStudentAcademicRecordAcademicHonorsItemCreatable;
             IsStudentAcademicRecordAcademicHonorIncluded = isStudentAcademicRecordAcademicHonorIncluded;
             IsStudentAcademicRecordDiplomasItemCreatable = isStudentAcademicRecordDiplomasItemCreatable;
@@ -40195,6 +40227,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsStudentAcademicRecordRecognitionsSupported { get; }
         public bool IsStudentAcademicRecordReportCardsSupported { get; }
         public bool IsStudentReferenceSupported { get; }
+        public bool IsStudentAcademicRecordClassRankingCreatable { get; }
         public bool IsStudentAcademicRecordAcademicHonorsItemCreatable { get; }
         public Func<IStudentAcademicRecordAcademicHonor, bool> IsStudentAcademicRecordAcademicHonorIncluded { get; }
         public bool IsStudentAcademicRecordDiplomasItemCreatable { get; }
@@ -40282,6 +40315,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "StudentAcademicRecordClassRanking":
+                    return IsStudentAcademicRecordClassRankingCreatable;
                 case "StudentAcademicRecordAcademicHonors":
                     return IsStudentAcademicRecordAcademicHonorsItemCreatable;
                 case "StudentAcademicRecordDiplomas":
@@ -41042,6 +41077,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isStudentAssessmentStudentObjectiveAssessmentsSupported,
             bool isStudentReferenceSupported,
             bool isWhenAssessedGradeLevelDescriptorSupported,
+            bool isStudentAssessmentPeriodCreatable,
             bool isStudentAssessmentAccommodationsItemCreatable,
             Func<IStudentAssessmentAccommodation, bool> isStudentAssessmentAccommodationIncluded,
             bool isStudentAssessmentItemsItemCreatable,
@@ -41080,6 +41116,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsStudentAssessmentStudentObjectiveAssessmentsSupported = isStudentAssessmentStudentObjectiveAssessmentsSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
             IsWhenAssessedGradeLevelDescriptorSupported = isWhenAssessedGradeLevelDescriptorSupported;
+            IsStudentAssessmentPeriodCreatable = isStudentAssessmentPeriodCreatable;
             IsStudentAssessmentAccommodationsItemCreatable = isStudentAssessmentAccommodationsItemCreatable;
             IsStudentAssessmentAccommodationIncluded = isStudentAssessmentAccommodationIncluded;
             IsStudentAssessmentItemsItemCreatable = isStudentAssessmentItemsItemCreatable;
@@ -41118,6 +41155,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsStudentAssessmentStudentObjectiveAssessmentsSupported { get; }
         public bool IsStudentReferenceSupported { get; }
         public bool IsWhenAssessedGradeLevelDescriptorSupported { get; }
+        public bool IsStudentAssessmentPeriodCreatable { get; }
         public bool IsStudentAssessmentAccommodationsItemCreatable { get; }
         public Func<IStudentAssessmentAccommodation, bool> IsStudentAssessmentAccommodationIncluded { get; }
         public bool IsStudentAssessmentItemsItemCreatable { get; }
@@ -41201,6 +41239,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "StudentAssessmentPeriod":
+                    return IsStudentAssessmentPeriodCreatable;
                 case "StudentAssessmentAccommodations":
                     return IsStudentAssessmentAccommodationsItemCreatable;
                 case "StudentAssessmentItems":
@@ -42629,6 +42669,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isStudentCTEProgramAssociationServicesSupported,
             bool isStudentReferenceSupported,
             bool isTechnicalSkillsAssessmentDescriptorSupported,
+            bool isGeneralStudentProgramAssociationParticipationStatusCreatable,
             bool isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable,
             Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> isGeneralStudentProgramAssociationProgramParticipationStatusIncluded,
             bool isStudentCTEProgramAssociationCTEProgramsItemCreatable,
@@ -42654,6 +42695,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsStudentCTEProgramAssociationServicesSupported = isStudentCTEProgramAssociationServicesSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
             IsTechnicalSkillsAssessmentDescriptorSupported = isTechnicalSkillsAssessmentDescriptorSupported;
+            IsGeneralStudentProgramAssociationParticipationStatusCreatable = isGeneralStudentProgramAssociationParticipationStatusCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable = isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = isGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
             IsStudentCTEProgramAssociationCTEProgramsItemCreatable = isStudentCTEProgramAssociationCTEProgramsItemCreatable;
@@ -42679,6 +42721,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsStudentCTEProgramAssociationServicesSupported { get; }
         public bool IsStudentReferenceSupported { get; }
         public bool IsTechnicalSkillsAssessmentDescriptorSupported { get; }
+        public bool IsGeneralStudentProgramAssociationParticipationStatusCreatable { get; }
         public bool IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable { get; }
         public Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; }
         public bool IsStudentCTEProgramAssociationCTEProgramsItemCreatable { get; }
@@ -42742,6 +42785,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "GeneralStudentProgramAssociationParticipationStatus":
+                    return IsGeneralStudentProgramAssociationParticipationStatusCreatable;
                 case "GeneralStudentProgramAssociationProgramParticipationStatuses":
                     return IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
                 case "StudentCTEProgramAssociationCTEPrograms":
@@ -45720,6 +45765,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isServedOutsideOfRegularSessionSupported,
             bool isStudentHomelessProgramAssociationHomelessProgramServicesSupported,
             bool isStudentReferenceSupported,
+            bool isGeneralStudentProgramAssociationParticipationStatusCreatable,
             bool isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable,
             Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> isGeneralStudentProgramAssociationProgramParticipationStatusIncluded,
             bool isStudentHomelessProgramAssociationHomelessProgramServicesItemCreatable,
@@ -45739,6 +45785,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsServedOutsideOfRegularSessionSupported = isServedOutsideOfRegularSessionSupported;
             IsStudentHomelessProgramAssociationHomelessProgramServicesSupported = isStudentHomelessProgramAssociationHomelessProgramServicesSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
+            IsGeneralStudentProgramAssociationParticipationStatusCreatable = isGeneralStudentProgramAssociationParticipationStatusCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable = isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = isGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
             IsStudentHomelessProgramAssociationHomelessProgramServicesItemCreatable = isStudentHomelessProgramAssociationHomelessProgramServicesItemCreatable;
@@ -45758,6 +45805,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsServedOutsideOfRegularSessionSupported { get; }
         public bool IsStudentHomelessProgramAssociationHomelessProgramServicesSupported { get; }
         public bool IsStudentReferenceSupported { get; }
+        public bool IsGeneralStudentProgramAssociationParticipationStatusCreatable { get; }
         public bool IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable { get; }
         public Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; }
         public bool IsStudentHomelessProgramAssociationHomelessProgramServicesItemCreatable { get; }
@@ -45813,6 +45861,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "GeneralStudentProgramAssociationParticipationStatus":
+                    return IsGeneralStudentProgramAssociationParticipationStatusCreatable;
                 case "GeneralStudentProgramAssociationProgramParticipationStatuses":
                     return IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
                 case "StudentHomelessProgramAssociationHomelessProgramServices":
@@ -46453,6 +46503,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isStudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessmentsSupported,
             bool isStudentLanguageInstructionProgramAssociationLanguageInstructionProgramServicesSupported,
             bool isStudentReferenceSupported,
+            bool isGeneralStudentProgramAssociationParticipationStatusCreatable,
             bool isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable,
             Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> isGeneralStudentProgramAssociationProgramParticipationStatusIncluded,
             bool isStudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessmentsItemCreatable,
@@ -46474,6 +46525,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsStudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessmentsSupported = isStudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessmentsSupported;
             IsStudentLanguageInstructionProgramAssociationLanguageInstructionProgramServicesSupported = isStudentLanguageInstructionProgramAssociationLanguageInstructionProgramServicesSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
+            IsGeneralStudentProgramAssociationParticipationStatusCreatable = isGeneralStudentProgramAssociationParticipationStatusCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable = isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = isGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
             IsStudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessmentsItemCreatable = isStudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessmentsItemCreatable;
@@ -46495,6 +46547,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsStudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessmentsSupported { get; }
         public bool IsStudentLanguageInstructionProgramAssociationLanguageInstructionProgramServicesSupported { get; }
         public bool IsStudentReferenceSupported { get; }
+        public bool IsGeneralStudentProgramAssociationParticipationStatusCreatable { get; }
         public bool IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable { get; }
         public Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; }
         public bool IsStudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessmentsItemCreatable { get; }
@@ -46552,6 +46605,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "GeneralStudentProgramAssociationParticipationStatus":
+                    return IsGeneralStudentProgramAssociationParticipationStatusCreatable;
                 case "GeneralStudentProgramAssociationProgramParticipationStatuses":
                     return IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
                 case "StudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessments":
@@ -47114,6 +47169,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isUSInitialEntrySupported,
             bool isUSInitialSchoolEntrySupported,
             bool isUSMostRecentEntrySupported,
+            bool isGeneralStudentProgramAssociationParticipationStatusCreatable,
             bool isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable,
             Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> isGeneralStudentProgramAssociationProgramParticipationStatusIncluded,
             bool isStudentMigrantEducationProgramAssociationMigrantEducationProgramServicesItemCreatable,
@@ -47139,6 +47195,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsUSInitialEntrySupported = isUSInitialEntrySupported;
             IsUSInitialSchoolEntrySupported = isUSInitialSchoolEntrySupported;
             IsUSMostRecentEntrySupported = isUSMostRecentEntrySupported;
+            IsGeneralStudentProgramAssociationParticipationStatusCreatable = isGeneralStudentProgramAssociationParticipationStatusCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable = isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = isGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
             IsStudentMigrantEducationProgramAssociationMigrantEducationProgramServicesItemCreatable = isStudentMigrantEducationProgramAssociationMigrantEducationProgramServicesItemCreatable;
@@ -47164,6 +47221,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsUSInitialEntrySupported { get; }
         public bool IsUSInitialSchoolEntrySupported { get; }
         public bool IsUSMostRecentEntrySupported { get; }
+        public bool IsGeneralStudentProgramAssociationParticipationStatusCreatable { get; }
         public bool IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable { get; }
         public Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; }
         public bool IsStudentMigrantEducationProgramAssociationMigrantEducationProgramServicesItemCreatable { get; }
@@ -47231,6 +47289,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "GeneralStudentProgramAssociationParticipationStatus":
+                    return IsGeneralStudentProgramAssociationParticipationStatusCreatable;
                 case "GeneralStudentProgramAssociationProgramParticipationStatuses":
                     return IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
                 case "StudentMigrantEducationProgramAssociationMigrantEducationProgramServices":
@@ -47367,6 +47427,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isServedOutsideOfRegularSessionSupported,
             bool isStudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramServicesSupported,
             bool isStudentReferenceSupported,
+            bool isGeneralStudentProgramAssociationParticipationStatusCreatable,
             bool isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable,
             Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> isGeneralStudentProgramAssociationProgramParticipationStatusIncluded,
             bool isStudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramServicesItemCreatable,
@@ -47386,6 +47447,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsServedOutsideOfRegularSessionSupported = isServedOutsideOfRegularSessionSupported;
             IsStudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramServicesSupported = isStudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramServicesSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
+            IsGeneralStudentProgramAssociationParticipationStatusCreatable = isGeneralStudentProgramAssociationParticipationStatusCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable = isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = isGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
             IsStudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramServicesItemCreatable = isStudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramServicesItemCreatable;
@@ -47405,6 +47467,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsServedOutsideOfRegularSessionSupported { get; }
         public bool IsStudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramServicesSupported { get; }
         public bool IsStudentReferenceSupported { get; }
+        public bool IsGeneralStudentProgramAssociationParticipationStatusCreatable { get; }
         public bool IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable { get; }
         public Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; }
         public bool IsStudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramServicesItemCreatable { get; }
@@ -47460,6 +47523,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "GeneralStudentProgramAssociationParticipationStatus":
+                    return IsGeneralStudentProgramAssociationParticipationStatusCreatable;
                 case "GeneralStudentProgramAssociationProgramParticipationStatuses":
                     return IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
                 case "StudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramServices":
@@ -47982,6 +48047,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isServedOutsideOfRegularSessionSupported,
             bool isStudentProgramAssociationServicesSupported,
             bool isStudentReferenceSupported,
+            bool isGeneralStudentProgramAssociationParticipationStatusCreatable,
             bool isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable,
             Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> isGeneralStudentProgramAssociationProgramParticipationStatusIncluded,
             bool isStudentProgramAssociationServicesItemCreatable,
@@ -47998,6 +48064,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsServedOutsideOfRegularSessionSupported = isServedOutsideOfRegularSessionSupported;
             IsStudentProgramAssociationServicesSupported = isStudentProgramAssociationServicesSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
+            IsGeneralStudentProgramAssociationParticipationStatusCreatable = isGeneralStudentProgramAssociationParticipationStatusCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable = isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = isGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
             IsStudentProgramAssociationServicesItemCreatable = isStudentProgramAssociationServicesItemCreatable;
@@ -48014,6 +48081,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsServedOutsideOfRegularSessionSupported { get; }
         public bool IsStudentProgramAssociationServicesSupported { get; }
         public bool IsStudentReferenceSupported { get; }
+        public bool IsGeneralStudentProgramAssociationParticipationStatusCreatable { get; }
         public bool IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable { get; }
         public Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; }
         public bool IsStudentProgramAssociationServicesItemCreatable { get; }
@@ -48063,6 +48131,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "GeneralStudentProgramAssociationParticipationStatus":
+                    return IsGeneralStudentProgramAssociationParticipationStatusCreatable;
                 case "GeneralStudentProgramAssociationProgramParticipationStatuses":
                     return IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
                 case "StudentProgramAssociationServices":
@@ -48845,6 +48915,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isServedOutsideOfRegularSessionSupported,
             bool isStudentReferenceSupported,
             bool isStudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramServicesSupported,
+            bool isGeneralStudentProgramAssociationParticipationStatusCreatable,
             bool isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable,
             Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> isGeneralStudentProgramAssociationProgramParticipationStatusIncluded,
             bool isStudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramServicesItemCreatable,
@@ -48862,6 +48933,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsServedOutsideOfRegularSessionSupported = isServedOutsideOfRegularSessionSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
             IsStudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramServicesSupported = isStudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramServicesSupported;
+            IsGeneralStudentProgramAssociationParticipationStatusCreatable = isGeneralStudentProgramAssociationParticipationStatusCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable = isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = isGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
             IsStudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramServicesItemCreatable = isStudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramServicesItemCreatable;
@@ -48879,6 +48951,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsServedOutsideOfRegularSessionSupported { get; }
         public bool IsStudentReferenceSupported { get; }
         public bool IsStudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramServicesSupported { get; }
+        public bool IsGeneralStudentProgramAssociationParticipationStatusCreatable { get; }
         public bool IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable { get; }
         public Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; }
         public bool IsStudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramServicesItemCreatable { get; }
@@ -48930,6 +49003,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "GeneralStudentProgramAssociationParticipationStatus":
+                    return IsGeneralStudentProgramAssociationParticipationStatusCreatable;
                 case "GeneralStudentProgramAssociationProgramParticipationStatuses":
                     return IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
                 case "StudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramServices":
@@ -49435,6 +49510,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isStudentSpecialEducationProgramAssociationDisabilitiesSupported,
             bool isStudentSpecialEducationProgramAssociationServiceProvidersSupported,
             bool isStudentSpecialEducationProgramAssociationSpecialEducationProgramServicesSupported,
+            bool isGeneralStudentProgramAssociationParticipationStatusCreatable,
             bool isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable,
             Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> isGeneralStudentProgramAssociationProgramParticipationStatusIncluded,
             bool isStudentSpecialEducationProgramAssociationDisabilitiesItemCreatable,
@@ -49467,6 +49543,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsStudentSpecialEducationProgramAssociationDisabilitiesSupported = isStudentSpecialEducationProgramAssociationDisabilitiesSupported;
             IsStudentSpecialEducationProgramAssociationServiceProvidersSupported = isStudentSpecialEducationProgramAssociationServiceProvidersSupported;
             IsStudentSpecialEducationProgramAssociationSpecialEducationProgramServicesSupported = isStudentSpecialEducationProgramAssociationSpecialEducationProgramServicesSupported;
+            IsGeneralStudentProgramAssociationParticipationStatusCreatable = isGeneralStudentProgramAssociationParticipationStatusCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable = isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = isGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
             IsStudentSpecialEducationProgramAssociationDisabilitiesItemCreatable = isStudentSpecialEducationProgramAssociationDisabilitiesItemCreatable;
@@ -49499,6 +49576,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsStudentSpecialEducationProgramAssociationDisabilitiesSupported { get; }
         public bool IsStudentSpecialEducationProgramAssociationServiceProvidersSupported { get; }
         public bool IsStudentSpecialEducationProgramAssociationSpecialEducationProgramServicesSupported { get; }
+        public bool IsGeneralStudentProgramAssociationParticipationStatusCreatable { get; }
         public bool IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable { get; }
         public Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; }
         public bool IsStudentSpecialEducationProgramAssociationDisabilitiesItemCreatable { get; }
@@ -49576,6 +49654,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "GeneralStudentProgramAssociationParticipationStatus":
+                    return IsGeneralStudentProgramAssociationParticipationStatusCreatable;
                 case "GeneralStudentProgramAssociationProgramParticipationStatuses":
                     return IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
                 case "StudentSpecialEducationProgramAssociationDisabilities":
@@ -50034,6 +50114,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isStudentTitleIPartAProgramAssociationServicesSupported,
             bool isStudentTitleIPartAProgramAssociationTitleIPartAProgramServicesSupported,
             bool isTitleIPartAParticipantDescriptorSupported,
+            bool isGeneralStudentProgramAssociationParticipationStatusCreatable,
             bool isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable,
             Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> isGeneralStudentProgramAssociationProgramParticipationStatusIncluded,
             bool isStudentTitleIPartAProgramAssociationServicesItemCreatable,
@@ -50054,6 +50135,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsStudentTitleIPartAProgramAssociationServicesSupported = isStudentTitleIPartAProgramAssociationServicesSupported;
             IsStudentTitleIPartAProgramAssociationTitleIPartAProgramServicesSupported = isStudentTitleIPartAProgramAssociationTitleIPartAProgramServicesSupported;
             IsTitleIPartAParticipantDescriptorSupported = isTitleIPartAParticipantDescriptorSupported;
+            IsGeneralStudentProgramAssociationParticipationStatusCreatable = isGeneralStudentProgramAssociationParticipationStatusCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable = isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = isGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
             IsStudentTitleIPartAProgramAssociationServicesItemCreatable = isStudentTitleIPartAProgramAssociationServicesItemCreatable;
@@ -50074,6 +50156,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsStudentTitleIPartAProgramAssociationServicesSupported { get; }
         public bool IsStudentTitleIPartAProgramAssociationTitleIPartAProgramServicesSupported { get; }
         public bool IsTitleIPartAParticipantDescriptorSupported { get; }
+        public bool IsGeneralStudentProgramAssociationParticipationStatusCreatable { get; }
         public bool IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable { get; }
         public Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; }
         public bool IsStudentTitleIPartAProgramAssociationServicesItemCreatable { get; }
@@ -50129,6 +50212,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "GeneralStudentProgramAssociationParticipationStatus":
+                    return IsGeneralStudentProgramAssociationParticipationStatusCreatable;
                 case "GeneralStudentProgramAssociationProgramParticipationStatuses":
                     return IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
                 case "StudentTitleIPartAProgramAssociationServices":

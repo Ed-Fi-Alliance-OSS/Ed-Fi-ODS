@@ -1343,6 +1343,8 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isParentTeacherConferenceSupported,
             bool isPreferredWakeUpTimeSupported,
             bool isRainCertaintySupported,
+            bool isParentCTEProgramCreatable,
+            bool isParentTeacherConferenceCreatable,
             bool isParentAuthorsItemCreatable,
             Func<IParentAuthor, bool> isParentAuthorIncluded,
             bool isParentCeilingHeightsItemCreatable,
@@ -1373,6 +1375,8 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsParentTeacherConferenceSupported = isParentTeacherConferenceSupported;
             IsPreferredWakeUpTimeSupported = isPreferredWakeUpTimeSupported;
             IsRainCertaintySupported = isRainCertaintySupported;
+            IsParentCTEProgramCreatable = isParentCTEProgramCreatable;
+            IsParentTeacherConferenceCreatable = isParentTeacherConferenceCreatable;
             IsParentAuthorsItemCreatable = isParentAuthorsItemCreatable;
             IsParentAuthorIncluded = isParentAuthorIncluded;
             IsParentCeilingHeightsItemCreatable = isParentCeilingHeightsItemCreatable;
@@ -1403,6 +1407,8 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsParentTeacherConferenceSupported { get; }
         public bool IsPreferredWakeUpTimeSupported { get; }
         public bool IsRainCertaintySupported { get; }
+        public bool IsParentCTEProgramCreatable { get; }
+        public bool IsParentTeacherConferenceCreatable { get; }
         public bool IsParentAuthorsItemCreatable { get; }
         public Func<IParentAuthor, bool> IsParentAuthorIncluded { get; }
         public bool IsParentCeilingHeightsItemCreatable { get; }
@@ -1464,6 +1470,10 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "ParentCTEProgram":
+                    return IsParentCTEProgramCreatable;
+                case "ParentTeacherConference":
+                    return IsParentTeacherConferenceCreatable;
                 case "ParentAuthors":
                     return IsParentAuthorsItemCreatable;
                 case "ParentCeilingHeights":
@@ -1849,6 +1859,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isIsExemplarySupported,
             bool isSchoolCTEProgramSupported,
             bool isSchoolDirectlyOwnedBusesSupported,
+            bool isSchoolCTEProgramCreatable,
             bool isSchoolDirectlyOwnedBusesItemCreatable,
             Func<ISchoolDirectlyOwnedBus, bool> isSchoolDirectlyOwnedBusIncluded
             )
@@ -1856,6 +1867,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsIsExemplarySupported = isIsExemplarySupported;
             IsSchoolCTEProgramSupported = isSchoolCTEProgramSupported;
             IsSchoolDirectlyOwnedBusesSupported = isSchoolDirectlyOwnedBusesSupported;
+            IsSchoolCTEProgramCreatable = isSchoolCTEProgramCreatable;
             IsSchoolDirectlyOwnedBusesItemCreatable = isSchoolDirectlyOwnedBusesItemCreatable;
             IsSchoolDirectlyOwnedBusIncluded = isSchoolDirectlyOwnedBusIncluded;
         }
@@ -1863,6 +1875,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsIsExemplarySupported { get; }
         public bool IsSchoolCTEProgramSupported { get; }
         public bool IsSchoolDirectlyOwnedBusesSupported { get; }
+        public bool IsSchoolCTEProgramCreatable { get; }
         public bool IsSchoolDirectlyOwnedBusesItemCreatable { get; }
         public Func<ISchoolDirectlyOwnedBus, bool> IsSchoolDirectlyOwnedBusIncluded { get; }
 
@@ -1886,6 +1899,8 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "SchoolCTEProgram":
+                    return IsSchoolCTEProgramCreatable;
                 case "SchoolDirectlyOwnedBuses":
                     return IsSchoolDirectlyOwnedBusesItemCreatable;
                 default:
@@ -1926,6 +1941,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isFirstPetOwnedDateSupported,
             bool isStaffPetPreferenceSupported,
             bool isStaffPetsSupported,
+            bool isStaffPetPreferenceCreatable,
             bool isStaffPetsItemCreatable,
             Func<IStaffPet, bool> isStaffPetIncluded
             )
@@ -1933,6 +1949,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsFirstPetOwnedDateSupported = isFirstPetOwnedDateSupported;
             IsStaffPetPreferenceSupported = isStaffPetPreferenceSupported;
             IsStaffPetsSupported = isStaffPetsSupported;
+            IsStaffPetPreferenceCreatable = isStaffPetPreferenceCreatable;
             IsStaffPetsItemCreatable = isStaffPetsItemCreatable;
             IsStaffPetIncluded = isStaffPetIncluded;
         }
@@ -1940,6 +1957,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsFirstPetOwnedDateSupported { get; }
         public bool IsStaffPetPreferenceSupported { get; }
         public bool IsStaffPetsSupported { get; }
+        public bool IsStaffPetPreferenceCreatable { get; }
         public bool IsStaffPetsItemCreatable { get; }
         public Func<IStaffPet, bool> IsStaffPetIncluded { get; }
 
@@ -1963,6 +1981,8 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "StaffPetPreference":
+                    return IsStaffPetPreferenceCreatable;
                 case "StaffPets":
                     return IsStaffPetsItemCreatable;
                 default:
@@ -2219,6 +2239,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isStudentArtProgramAssociationServicesSupported,
             bool isStudentArtProgramAssociationStylesSupported,
             bool isStudentReferenceSupported,
+            bool isGeneralStudentProgramAssociationParticipationStatusCreatable,
             bool isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable,
             Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> isGeneralStudentProgramAssociationProgramParticipationStatusIncluded,
             bool isStudentArtProgramAssociationArtMediaItemCreatable,
@@ -2254,6 +2275,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsStudentArtProgramAssociationServicesSupported = isStudentArtProgramAssociationServicesSupported;
             IsStudentArtProgramAssociationStylesSupported = isStudentArtProgramAssociationStylesSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
+            IsGeneralStudentProgramAssociationParticipationStatusCreatable = isGeneralStudentProgramAssociationParticipationStatusCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable = isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = isGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
             IsStudentArtProgramAssociationArtMediaItemCreatable = isStudentArtProgramAssociationArtMediaItemCreatable;
@@ -2289,6 +2311,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsStudentArtProgramAssociationServicesSupported { get; }
         public bool IsStudentArtProgramAssociationStylesSupported { get; }
         public bool IsStudentReferenceSupported { get; }
+        public bool IsGeneralStudentProgramAssociationParticipationStatusCreatable { get; }
         public bool IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable { get; }
         public Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; }
         public bool IsStudentArtProgramAssociationArtMediaItemCreatable { get; }
@@ -2372,6 +2395,8 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "GeneralStudentProgramAssociationParticipationStatus":
+                    return IsGeneralStudentProgramAssociationParticipationStatusCreatable;
                 case "GeneralStudentProgramAssociationProgramParticipationStatuses":
                     return IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
                 case "StudentArtProgramAssociationArtMedia":
@@ -3115,6 +3140,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isStudentFavoriteBooksSupported,
             bool isStudentPetPreferenceSupported,
             bool isStudentPetsSupported,
+            bool isStudentPetPreferenceCreatable,
             bool isStudentAquaticPetsItemCreatable,
             Func<IStudentAquaticPet, bool> isStudentAquaticPetIncluded,
             bool isStudentFavoriteBooksItemCreatable,
@@ -3127,6 +3153,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsStudentFavoriteBooksSupported = isStudentFavoriteBooksSupported;
             IsStudentPetPreferenceSupported = isStudentPetPreferenceSupported;
             IsStudentPetsSupported = isStudentPetsSupported;
+            IsStudentPetPreferenceCreatable = isStudentPetPreferenceCreatable;
             IsStudentAquaticPetsItemCreatable = isStudentAquaticPetsItemCreatable;
             IsStudentAquaticPetIncluded = isStudentAquaticPetIncluded;
             IsStudentFavoriteBooksItemCreatable = isStudentFavoriteBooksItemCreatable;
@@ -3139,6 +3166,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsStudentFavoriteBooksSupported { get; }
         public bool IsStudentPetPreferenceSupported { get; }
         public bool IsStudentPetsSupported { get; }
+        public bool IsStudentPetPreferenceCreatable { get; }
         public bool IsStudentAquaticPetsItemCreatable { get; }
         public Func<IStudentAquaticPet, bool> IsStudentAquaticPetIncluded { get; }
         public bool IsStudentFavoriteBooksItemCreatable { get; }
@@ -3168,6 +3196,8 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "StudentPetPreference":
+                    return IsStudentPetPreferenceCreatable;
                 case "StudentAquaticPets":
                     return IsStudentAquaticPetsItemCreatable;
                 case "StudentFavoriteBooks":
@@ -3390,6 +3420,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isStudentGraduationPlanAssociationYearsAttendedsSupported,
             bool isStudentReferenceSupported,
             bool isTargetGPASupported,
+            bool isStudentGraduationPlanAssociationCTEProgramCreatable,
             bool isStudentGraduationPlanAssociationAcademicSubjectsItemCreatable,
             Func<IStudentGraduationPlanAssociationAcademicSubject, bool> isStudentGraduationPlanAssociationAcademicSubjectIncluded,
             bool isStudentGraduationPlanAssociationCareerPathwayCodesItemCreatable,
@@ -3426,6 +3457,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsStudentGraduationPlanAssociationYearsAttendedsSupported = isStudentGraduationPlanAssociationYearsAttendedsSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
             IsTargetGPASupported = isTargetGPASupported;
+            IsStudentGraduationPlanAssociationCTEProgramCreatable = isStudentGraduationPlanAssociationCTEProgramCreatable;
             IsStudentGraduationPlanAssociationAcademicSubjectsItemCreatable = isStudentGraduationPlanAssociationAcademicSubjectsItemCreatable;
             IsStudentGraduationPlanAssociationAcademicSubjectIncluded = isStudentGraduationPlanAssociationAcademicSubjectIncluded;
             IsStudentGraduationPlanAssociationCareerPathwayCodesItemCreatable = isStudentGraduationPlanAssociationCareerPathwayCodesItemCreatable;
@@ -3462,6 +3494,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsStudentGraduationPlanAssociationYearsAttendedsSupported { get; }
         public bool IsStudentReferenceSupported { get; }
         public bool IsTargetGPASupported { get; }
+        public bool IsStudentGraduationPlanAssociationCTEProgramCreatable { get; }
         public bool IsStudentGraduationPlanAssociationAcademicSubjectsItemCreatable { get; }
         public Func<IStudentGraduationPlanAssociationAcademicSubject, bool> IsStudentGraduationPlanAssociationAcademicSubjectIncluded { get; }
         public bool IsStudentGraduationPlanAssociationCareerPathwayCodesItemCreatable { get; }
@@ -3539,6 +3572,8 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "StudentGraduationPlanAssociationCTEProgram":
+                    return IsStudentGraduationPlanAssociationCTEProgramCreatable;
                 case "StudentGraduationPlanAssociationAcademicSubjects":
                     return IsStudentGraduationPlanAssociationAcademicSubjectsItemCreatable;
                 case "StudentGraduationPlanAssociationCareerPathwayCodes":
@@ -4139,6 +4174,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported,
             bool isStudentParentAssociationTelephoneSupported,
             bool isStudentReadSupported,
+            bool isStudentParentAssociationTelephoneCreatable,
             bool isStudentParentAssociationDisciplinesItemCreatable,
             Func<IStudentParentAssociationDiscipline, bool> isStudentParentAssociationDisciplineIncluded,
             bool isStudentParentAssociationFavoriteBookTitlesItemCreatable,
@@ -4171,6 +4207,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported = isStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported;
             IsStudentParentAssociationTelephoneSupported = isStudentParentAssociationTelephoneSupported;
             IsStudentReadSupported = isStudentReadSupported;
+            IsStudentParentAssociationTelephoneCreatable = isStudentParentAssociationTelephoneCreatable;
             IsStudentParentAssociationDisciplinesItemCreatable = isStudentParentAssociationDisciplinesItemCreatable;
             IsStudentParentAssociationDisciplineIncluded = isStudentParentAssociationDisciplineIncluded;
             IsStudentParentAssociationFavoriteBookTitlesItemCreatable = isStudentParentAssociationFavoriteBookTitlesItemCreatable;
@@ -4203,6 +4240,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported { get; }
         public bool IsStudentParentAssociationTelephoneSupported { get; }
         public bool IsStudentReadSupported { get; }
+        public bool IsStudentParentAssociationTelephoneCreatable { get; }
         public bool IsStudentParentAssociationDisciplinesItemCreatable { get; }
         public Func<IStudentParentAssociationDiscipline, bool> IsStudentParentAssociationDisciplineIncluded { get; }
         public bool IsStudentParentAssociationFavoriteBookTitlesItemCreatable { get; }
@@ -4268,6 +4306,8 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "StudentParentAssociationTelephone":
+                    return IsStudentParentAssociationTelephoneCreatable;
                 case "StudentParentAssociationDisciplines":
                     return IsStudentParentAssociationDisciplinesItemCreatable;
                 case "StudentParentAssociationFavoriteBookTitles":
