@@ -544,6 +544,17 @@
     </Resource>
   </Profile>
 
+  <Profile name="Assessment-Writable-Includes-Non-Creatable-Embedded-Object">
+    <Resource name="Assessment">
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="AssessmentTitle" />
+        <Object name="AssessmentContentStandard" memberSelection="ExcludeOnly">
+          <Property name="Title" /> <!-- The only required property -->
+        </Object>
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
   <Profile name="Assessment-Writable-Excludes-Embedded-Object">
     <Resource name="Assessment">
       <WriteContentType memberSelection="IncludeOnly">
