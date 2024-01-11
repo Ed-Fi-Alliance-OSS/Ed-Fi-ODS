@@ -127,6 +127,14 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
                     if (target.{{PropertyName}} == null)
                     {
                         var itemType = target.GetType().GetProperty("{{PropertyName}}").PropertyType;
+            
+                        if (!(mappingContract?.Is{{PropertyName}}Creatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.{{PropertyName}} = (I{{OtherClassName}}) newItem;
                     }
@@ -275,6 +283,14 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.Is{{PropertyName}}Creatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         object target{{OtherClassName}} = Activator.CreateInstance(itemType);
                         (target{{OtherClassName}} as IChildEntity)?.SetParent(target{{#IsEntityExtension}}.{{ModelParentName}}{{/IsEntityExtension}});
                         source.{{PropertyName}}.Map(target{{OtherClassName}});

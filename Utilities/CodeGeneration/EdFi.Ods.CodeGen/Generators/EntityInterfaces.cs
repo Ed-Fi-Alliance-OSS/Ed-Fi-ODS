@@ -295,6 +295,16 @@ namespace EdFi.Ods.CodeGen.Generators
                 {
                     PropertyName = pn,
                     ItemTypeName = null as string,
+                    IsCollection = false,
+                });
+
+            var embeddedObjects = resourceClass.EmbeddedObjects
+                .OrderBy(c => c.ObjectType.Name)
+                .Select(c => new
+                {
+                    PropertyName = c.PropertyName,
+                    ItemTypeName = c.ObjectType.Name,
+                    IsCollection = false,
                 });
 
             var collections = resourceClass.Collections
@@ -302,10 +312,12 @@ namespace EdFi.Ods.CodeGen.Generators
                 .Select(c => new
                 {
                     PropertyName = c.PropertyName,
-                    ItemTypeName = c.ItemType.Name
+                    ItemTypeName = c.ItemType.Name,
+                    IsCollection = true,
                 });
 
             var members = properties
+                .Concat(embeddedObjects)
                 .Concat(collections)
                 .ToList();
         
@@ -315,6 +327,7 @@ namespace EdFi.Ods.CodeGen.Generators
                     {
                         PropertyName = x.PropertyName,
                         ItemTypeName = x.ItemTypeName,
+                        IsCollection = x.IsCollection,
                         IsLast = x == members.Last() && !resourceClass.IsExtendable()
                     });
         }

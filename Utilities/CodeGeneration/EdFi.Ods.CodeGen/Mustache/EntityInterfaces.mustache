@@ -79,8 +79,13 @@ namespace {{EntitiesBaseNamespace}}
             bool is{{PropertyName}}Supported{{^IsLast}},{{/IsLast}}
        {{/ItemTypeName}}
        {{#ItemTypeName}}
+            {{#IsCollection}}
             bool is{{PropertyName}}ItemCreatable,
             Func<I{{ItemTypeName}}, bool> is{{ItemTypeName}}Included{{^IsLast}},{{/IsLast}}
+            {{/IsCollection}}
+            {{^IsCollection}}
+            bool is{{PropertyName}}Creatable{{^IsLast}},{{/IsLast}}
+            {{/IsCollection}}
        {{/ItemTypeName}}
     {{/MappingContractMembers}}
     {{#IsExtendable}}
@@ -93,8 +98,13 @@ namespace {{EntitiesBaseNamespace}}
             Is{{PropertyName}}Supported = is{{PropertyName}}Supported;
         {{/ItemTypeName}}
         {{#ItemTypeName}}
+            {{#IsCollection}}
             Is{{PropertyName}}ItemCreatable = is{{PropertyName}}ItemCreatable;
             Is{{ItemTypeName}}Included = is{{ItemTypeName}}Included;
+            {{/IsCollection}}
+            {{^IsCollection}}
+            Is{{PropertyName}}Creatable = is{{PropertyName}}Creatable;
+            {{/IsCollection}}
         {{/ItemTypeName}}
     {{/MappingContractMembers}}
     {{#IsExtendable}}
@@ -107,8 +117,13 @@ namespace {{EntitiesBaseNamespace}}
         public bool Is{{PropertyName}}Supported { get; }
         {{/ItemTypeName}}
         {{#ItemTypeName}}
+            {{#IsCollection}}
         public bool Is{{PropertyName}}ItemCreatable { get; }
         public Func<I{{ItemTypeName}}, bool> Is{{ItemTypeName}}Included { get; }
+            {{/IsCollection}}
+            {{^IsCollection}}
+        public bool Is{{PropertyName}}Creatable { get; }
+            {{/IsCollection}}
         {{/ItemTypeName}}
     {{/MappingContractMembers}}
 
@@ -144,8 +159,14 @@ namespace {{EntitiesBaseNamespace}}
             {
     {{#MappingContractMembers}}
         {{#ItemTypeName}}
+            {{#IsCollection}}
                 case "{{PropertyName}}":
                     return Is{{PropertyName}}ItemCreatable;
+            {{/IsCollection}}
+            {{^IsCollection}}
+                case "{{PropertyName}}":
+                    return Is{{PropertyName}}Creatable;
+            {{/IsCollection}}
         {{/ItemTypeName}}
     {{/MappingContractMembers}}
                 default:
