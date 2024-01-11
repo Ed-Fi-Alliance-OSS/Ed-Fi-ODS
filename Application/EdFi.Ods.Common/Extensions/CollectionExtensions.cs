@@ -75,8 +75,7 @@ namespace EdFi.Ods.Common.Extensions
                 {
                     string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
 
-                    throw new DataPolicyException("The resource cannot be saved because a data policy has been applied to the request that prevents it.", 
-                        new [] { $"The Profile definition for '{profileName}' excludes (or does not include) one or more required data elements needed to create a child item of type '{itemsToAdd.First().GetType().Name}' in the resource." });
+                    throw new DataPolicyException(profileName, itemsToAdd.First().GetType().Name);
                 }
                 
                 foreach (var item in itemsToAdd)
@@ -119,8 +118,7 @@ namespace EdFi.Ods.Common.Extensions
                 {
                     string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
 
-                    throw new DataPolicyException("The resource cannot be saved because a data policy has been applied to the request that prevents it.", 
-                        new [] { $"The Profile definition for '{profileName}' excludes (or does not include) one or more required data elements needed to create a child item of type '{itemType.Name}' in the resource." });
+                    throw new DataPolicyException(profileName, itemType.Name);
                 }
 
                 var targetItem = (TTarget) Activator.CreateInstance(itemType);

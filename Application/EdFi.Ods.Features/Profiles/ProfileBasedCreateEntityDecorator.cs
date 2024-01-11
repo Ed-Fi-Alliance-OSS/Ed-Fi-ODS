@@ -71,8 +71,7 @@ public class ProfileBasedCreateEntityDecorator<TEntity> : ICreateEntity<TEntity>
         {
             if (!contentTypes.CanCreateResourceClass(resource.FullName))
             {
-                throw new DataPolicyException("The resource cannot be created because a data policy has been applied to the request that prevents it.", 
-                    new [] { $"The Profile definition for '{profileContentTypeContext.ProfileName}' excludes (or does not include) one or more required data elements needed to create the resource." });
+                throw new DataPolicyException(profileContentTypeContext.ProfileName);
             }
         }
     }
