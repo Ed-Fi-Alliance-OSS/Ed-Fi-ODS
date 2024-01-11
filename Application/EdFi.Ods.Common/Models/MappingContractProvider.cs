@@ -208,6 +208,28 @@ public class MappingContractProvider : IMappingContractProvider
                                 return null;
                             }
 
+                            if (parameterInfo.Name.EndsWith("ItemCreatable"))
+                            {
+                                string memberName = parameterInfo.Name.Substring(
+                                    2,
+                                    parameterInfo.Name.Length - "ItemCreatable".Length - 2);
+
+                                if (key.ContentTypeUsage == ContentTypeUsage.Readable)
+                                {
+                                    // Use of the readable content type implies outbound mapping is in play, which should always be supported
+                                    return true;
+                                }
+
+                                string collectionName = CompositeTermInflector.MakePlural(memberName);
+
+                                if (profileResourceClass.CollectionByName.TryGetValue(collectionName, out var collection))
+                                {
+                                    return contentTypes.CanCreateResourceClass(collection.ItemType.FullName);
+                                }
+
+                                return false;
+                            }
+
                             throw new Exception(
                                 $"Constructor argument '{parameterInfo.Name}' of '{mappingContractType.FullName}' did not conform to expected naming convention of isXxxxSupported or isXxxxIncluded.");
                         })

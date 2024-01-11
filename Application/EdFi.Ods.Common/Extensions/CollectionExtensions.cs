@@ -7,18 +7,20 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Ods.Common.Dependencies;
+using EdFi.Ods.Common.Exceptions;
 
 namespace EdFi.Ods.Common.Extensions
 {
     public static class CollectionExtensions
     {
-        private static readonly ConcurrentDictionary<Type, Type> _itemTypeByUnderlyingListType =
-            new ConcurrentDictionary<Type, Type>();
+        private static readonly ConcurrentDictionary<Type, Type> _itemTypeByUnderlyingListType = new();
 
         public static bool SynchronizeCollectionTo<T>(
             this ICollection<T> sourceList,
             ICollection<T> targetList,
             Action<T> onChildAdded,
+            bool itemCreatable,
             Func<T, bool> includeItem = null)
             where T : ISynchronizable //<T>
         {
@@ -67,13 +69,24 @@ namespace EdFi.Ods.Common.Extensions
                 .Except(targetList.Where(i => includeItem == null || includeItem(i)))
                 .ToList();
 
-            foreach (var item in itemsToAdd)
+            if (itemsToAdd.Any())
             {
-                targetList.Add(item);
+                if (!itemCreatable)
+                {
+                    string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
 
-                onChildAdded?.Invoke(item);
+                    throw new DataPolicyException("The resource cannot be saved because a data policy has been applied to the request that prevents it.", 
+                        new [] { $"The Profile definition for '{profileName}' excludes (or does not include) one or more required data elements needed to create a child item of type '{itemsToAdd.First().GetType().Name}' in the resource." });
+                }
+                
+                foreach (var item in itemsToAdd)
+                {
+                    targetList.Add(item);
 
-                isModified = true;
+                    onChildAdded?.Invoke(item);
+
+                    isModified = true;
+                }
             }
 
             return isModified;
@@ -82,6 +95,7 @@ namespace EdFi.Ods.Common.Extensions
         public static void MapCollectionTo<TSource, TTarget>(
             this ICollection<TSource> sourceList,
             ICollection<TTarget> targetList,
+            bool itemCreatable = true,
             object parent = null,
             Func<TSource, bool> isItemIncluded = null)
             where TSource : IMappable
@@ -101,6 +115,14 @@ namespace EdFi.Ods.Common.Extensions
 
             foreach (var sourceItem in sourceList.Where(i => isItemIncluded == null || isItemIncluded(i)))
             {
+                if (!itemCreatable)
+                {
+                    string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                    throw new DataPolicyException("The resource cannot be saved because a data policy has been applied to the request that prevents it.", 
+                        new [] { $"The Profile definition for '{profileName}' excludes (or does not include) one or more required data elements needed to create a child item of type '{itemType.Name}' in the resource." });
+                }
+
                 var targetItem = (TTarget) Activator.CreateInstance(itemType);
 
                 if (parent != null)

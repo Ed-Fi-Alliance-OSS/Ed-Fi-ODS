@@ -27,6 +27,34 @@
     </Resource>
   </Profile>
 
+  <Profile name="Test-Profile-Resource-Child-Collection-Item-Not-Writable">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="NameOfInstitution" />                               <!-- Inherited property -->
+        <Property name="OperationalStatusDescriptor" />                     <!-- Inherited Descriptor property -->
+        <Property name="CharterApprovalSchoolYearTypeReference" />          <!-- Property -->
+        <Property name="SchoolTypeDescriptor" />                            <!-- Descriptor property -->
+        <Property name="AdministrativeFundingControlDescriptor" />          <!-- Descriptor property -->
+        <Collection name="EducationOrganizationAddresses" memberSelection="IncludeAll" /> <!-- Inherited Collection -->
+        <Collection name="SchoolCategories" memberSelection="IncludeAll" /> <!-- Collection -->
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="NameOfInstitution" />                          <!-- Inherited property -->
+        <Property name="ShortNameOfInstitution" />                          <!-- Inherited property -->
+        <Property name="OperationalStatusDescriptor" />                     <!-- Inherited Descriptor property -->
+        <Property name="WebSite" />                                         <!-- Property -->
+        <Property name="CharterStatusDescriptor" />                         <!-- Descriptor property -->
+        <Property name="AdministrativeFundingControlDescriptor" />          <!-- Descriptor property -->
+        <Collection name="EducationOrganizationCategories" memberSelection="IncludeAll" /> <!-- Inherited Collection -->
+        <Collection name="EducationOrganizationInternationalAddresses" memberSelection="ExcludeOnly"> <!-- Inherited Collection -->
+          <Property name="AddressLine1" />
+        </Collection>
+        
+        <Collection name="SchoolGradeLevels" memberSelection="IncludeAll" /> <!-- Collection -->
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
   <Profile name="Test-Profile-Resource-ExcludeOnly">
     <Resource name="School">
       <ReadContentType memberSelection="ExcludeOnly">

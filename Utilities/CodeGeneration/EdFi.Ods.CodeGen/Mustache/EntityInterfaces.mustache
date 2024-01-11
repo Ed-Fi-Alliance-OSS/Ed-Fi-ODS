@@ -79,6 +79,7 @@ namespace {{EntitiesBaseNamespace}}
             bool is{{PropertyName}}Supported{{^IsLast}},{{/IsLast}}
        {{/ItemTypeName}}
        {{#ItemTypeName}}
+            bool is{{PropertyName}}ItemCreatable,
             Func<I{{ItemTypeName}}, bool> is{{ItemTypeName}}Included{{^IsLast}},{{/IsLast}}
        {{/ItemTypeName}}
     {{/MappingContractMembers}}
@@ -92,6 +93,7 @@ namespace {{EntitiesBaseNamespace}}
             Is{{PropertyName}}Supported = is{{PropertyName}}Supported;
         {{/ItemTypeName}}
         {{#ItemTypeName}}
+            Is{{PropertyName}}ItemCreatable = is{{PropertyName}}ItemCreatable;
             Is{{ItemTypeName}}Included = is{{ItemTypeName}}Included;
         {{/ItemTypeName}}
     {{/MappingContractMembers}}
@@ -105,6 +107,7 @@ namespace {{EntitiesBaseNamespace}}
         public bool Is{{PropertyName}}Supported { get; }
         {{/ItemTypeName}}
         {{#ItemTypeName}}
+        public bool Is{{PropertyName}}ItemCreatable { get; }
         public Func<I{{ItemTypeName}}, bool> Is{{ItemTypeName}}Included { get; }
         {{/ItemTypeName}}
     {{/MappingContractMembers}}
@@ -130,6 +133,21 @@ namespace {{EntitiesBaseNamespace}}
                     return true;
         {{/IsUniqueId}}
     {{/IdentifyingProperties}}
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+    {{#MappingContractMembers}}
+        {{#ItemTypeName}}
+                case "{{PropertyName}}":
+                    return Is{{PropertyName}}ItemCreatable;
+        {{/ItemTypeName}}
+    {{/MappingContractMembers}}
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }

@@ -22,8 +22,11 @@ namespace EdFi.Ods.Common.Exceptions;
   │    │  └─────────────────────────┘
   │    │    △
   │    │    │  ┌────────────────────────────────┐
-  │    │    └──┤ KeyChangeNotSupportedException |
-  │    │       └────────────────────────────────┘
+  │    │    ├──┤ KeyChangeNotSupportedException |
+  │    │    │  └────────────────────────────────┘
+  │    │    │  ┌─────────────────────┐
+  │    │    └──┤ DataPolicyException |
+  │    │       └─────────────────────┘
   │    │  ┌──────────────────────────────┐
   │    └──┤ BadRequestParameterException |
   │       └──────────────────────────────┘
