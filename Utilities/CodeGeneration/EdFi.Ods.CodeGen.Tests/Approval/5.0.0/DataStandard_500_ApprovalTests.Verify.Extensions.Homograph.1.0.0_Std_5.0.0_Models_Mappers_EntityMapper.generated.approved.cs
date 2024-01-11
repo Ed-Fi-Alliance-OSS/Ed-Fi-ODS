@@ -55,6 +55,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ContactAggregate
                             {
                                 child.Contact = target;
                             },
+                        itemCreatable: mappingContract?.IsContactAddressesItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsContactAddressIncluded?.Invoke(item) ?? true);
             }
 
@@ -67,6 +68,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ContactAggregate
                             {
                                 child.Contact = target;
                             },
+                        itemCreatable: mappingContract?.IsContactStudentSchoolAssociationsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsContactStudentSchoolAssociationIncluded?.Invoke(item) ?? true);
             }
 
@@ -108,12 +110,12 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ContactAggregate
 
             if (mappingContract?.IsContactAddressesSupported != false)
             {
-                source.ContactAddresses.MapCollectionTo(target.ContactAddresses, target, mappingContract?.IsContactAddressIncluded);
+                source.ContactAddresses.MapCollectionTo(target.ContactAddresses, mappingContract?.IsContactAddressesItemCreatable ?? true, target, mappingContract?.IsContactAddressIncluded);
             }
 
             if (mappingContract?.IsContactStudentSchoolAssociationsSupported != false)
             {
-                source.ContactStudentSchoolAssociations.MapCollectionTo(target.ContactStudentSchoolAssociations, target, mappingContract?.IsContactStudentSchoolAssociationIncluded);
+                source.ContactStudentSchoolAssociations.MapCollectionTo(target.ContactStudentSchoolAssociations, mappingContract?.IsContactStudentSchoolAssociationsItemCreatable ?? true, target, mappingContract?.IsContactStudentSchoolAssociationIncluded);
             }
 
 
@@ -721,6 +723,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
                             {
                                 child.Staff = target;
                             },
+                        itemCreatable: mappingContract?.IsStaffAddressesItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStaffAddressIncluded?.Invoke(item) ?? true);
             }
 
@@ -733,6 +736,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
                             {
                                 child.Staff = target;
                             },
+                        itemCreatable: mappingContract?.IsStaffStudentSchoolAssociationsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStaffStudentSchoolAssociationIncluded?.Invoke(item) ?? true);
             }
 
@@ -774,12 +778,12 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
 
             if (mappingContract?.IsStaffAddressesSupported != false)
             {
-                source.StaffAddresses.MapCollectionTo(target.StaffAddresses, target, mappingContract?.IsStaffAddressIncluded);
+                source.StaffAddresses.MapCollectionTo(target.StaffAddresses, mappingContract?.IsStaffAddressesItemCreatable ?? true, target, mappingContract?.IsStaffAddressIncluded);
             }
 
             if (mappingContract?.IsStaffStudentSchoolAssociationsSupported != false)
             {
-                source.StaffStudentSchoolAssociations.MapCollectionTo(target.StaffStudentSchoolAssociations, target, mappingContract?.IsStaffStudentSchoolAssociationIncluded);
+                source.StaffStudentSchoolAssociations.MapCollectionTo(target.StaffStudentSchoolAssociations, mappingContract?.IsStaffStudentSchoolAssociationsItemCreatable ?? true, target, mappingContract?.IsStaffStudentSchoolAssociationIncluded);
             }
 
 

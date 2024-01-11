@@ -85,6 +85,15 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -159,6 +168,15 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -216,6 +234,15 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "NameOfInstitution":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -295,6 +322,15 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -337,6 +373,15 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                 case "SpecialEducationGraduationStatusDescriptor":
                     return IsSpecialEducationGraduationStatusDescriptorSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -397,6 +442,15 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                 case "SubmissionCertificationDescriptor":
                     return IsSubmissionCertificationDescriptorSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -471,6 +525,15 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "SubmissionCertificationDescriptorId":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }

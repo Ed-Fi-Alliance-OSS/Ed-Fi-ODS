@@ -85,6 +85,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -124,6 +133,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BusId":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -199,10 +217,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isStaffUniqueIdSupported,
             bool isStartDateSupported,
             bool isWeeklyMileageSupported,
+            bool isBusRouteBusYearsItemCreatable,
             Func<IBusRouteBusYear, bool> isBusRouteBusYearIncluded,
+            bool isBusRouteProgramsItemCreatable,
             Func<IBusRouteProgram, bool> isBusRouteProgramIncluded,
+            bool isBusRouteServiceAreaPostalCodesItemCreatable,
             Func<IBusRouteServiceAreaPostalCode, bool> isBusRouteServiceAreaPostalCodeIncluded,
+            bool isBusRouteStartTimesItemCreatable,
             Func<IBusRouteStartTime, bool> isBusRouteStartTimeIncluded,
+            bool isBusRouteTelephonesItemCreatable,
             Func<IBusRouteTelephone, bool> isBusRouteTelephoneIncluded
             )
         {
@@ -226,10 +249,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsStaffUniqueIdSupported = isStaffUniqueIdSupported;
             IsStartDateSupported = isStartDateSupported;
             IsWeeklyMileageSupported = isWeeklyMileageSupported;
+            IsBusRouteBusYearsItemCreatable = isBusRouteBusYearsItemCreatable;
             IsBusRouteBusYearIncluded = isBusRouteBusYearIncluded;
+            IsBusRouteProgramsItemCreatable = isBusRouteProgramsItemCreatable;
             IsBusRouteProgramIncluded = isBusRouteProgramIncluded;
+            IsBusRouteServiceAreaPostalCodesItemCreatable = isBusRouteServiceAreaPostalCodesItemCreatable;
             IsBusRouteServiceAreaPostalCodeIncluded = isBusRouteServiceAreaPostalCodeIncluded;
+            IsBusRouteStartTimesItemCreatable = isBusRouteStartTimesItemCreatable;
             IsBusRouteStartTimeIncluded = isBusRouteStartTimeIncluded;
+            IsBusRouteTelephonesItemCreatable = isBusRouteTelephonesItemCreatable;
             IsBusRouteTelephoneIncluded = isBusRouteTelephoneIncluded;
         }
 
@@ -253,10 +281,15 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsStaffUniqueIdSupported { get; }
         public bool IsStartDateSupported { get; }
         public bool IsWeeklyMileageSupported { get; }
+        public bool IsBusRouteBusYearsItemCreatable { get; }
         public Func<IBusRouteBusYear, bool> IsBusRouteBusYearIncluded { get; }
+        public bool IsBusRouteProgramsItemCreatable { get; }
         public Func<IBusRouteProgram, bool> IsBusRouteProgramIncluded { get; }
+        public bool IsBusRouteServiceAreaPostalCodesItemCreatable { get; }
         public Func<IBusRouteServiceAreaPostalCode, bool> IsBusRouteServiceAreaPostalCodeIncluded { get; }
+        public bool IsBusRouteStartTimesItemCreatable { get; }
         public Func<IBusRouteStartTime, bool> IsBusRouteStartTimeIncluded { get; }
+        public bool IsBusRouteTelephonesItemCreatable { get; }
         public Func<IBusRouteTelephone, bool> IsBusRouteTelephoneIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -313,6 +346,25 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "BusRouteBusYears":
+                    return IsBusRouteBusYearsItemCreatable;
+                case "BusRoutePrograms":
+                    return IsBusRouteProgramsItemCreatable;
+                case "BusRouteServiceAreaPostalCodes":
+                    return IsBusRouteServiceAreaPostalCodesItemCreatable;
+                case "BusRouteStartTimes":
+                    return IsBusRouteStartTimesItemCreatable;
+                case "BusRouteTelephones":
+                    return IsBusRouteTelephonesItemCreatable;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -353,6 +405,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "BusYear":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -418,6 +479,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -463,6 +533,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -503,6 +582,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "StartTime":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -570,6 +658,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return true;
                 case "TelephoneNumberTypeDescriptor":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -649,6 +746,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -723,6 +829,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -757,7 +872,9 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isOnBusRouteSupported,
             bool isParentAddressSchoolDistrictsSupported,
             bool isParentAddressTermsSupported,
+            bool isParentAddressSchoolDistrictsItemCreatable,
             Func<IParentAddressSchoolDistrict, bool> isParentAddressSchoolDistrictIncluded,
+            bool isParentAddressTermsItemCreatable,
             Func<IParentAddressTerm, bool> isParentAddressTermIncluded
             )
         {
@@ -765,7 +882,9 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsOnBusRouteSupported = isOnBusRouteSupported;
             IsParentAddressSchoolDistrictsSupported = isParentAddressSchoolDistrictsSupported;
             IsParentAddressTermsSupported = isParentAddressTermsSupported;
+            IsParentAddressSchoolDistrictsItemCreatable = isParentAddressSchoolDistrictsItemCreatable;
             IsParentAddressSchoolDistrictIncluded = isParentAddressSchoolDistrictIncluded;
+            IsParentAddressTermsItemCreatable = isParentAddressTermsItemCreatable;
             IsParentAddressTermIncluded = isParentAddressTermIncluded;
         }
 
@@ -773,7 +892,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsOnBusRouteSupported { get; }
         public bool IsParentAddressSchoolDistrictsSupported { get; }
         public bool IsParentAddressTermsSupported { get; }
+        public bool IsParentAddressSchoolDistrictsItemCreatable { get; }
         public Func<IParentAddressSchoolDistrict, bool> IsParentAddressSchoolDistrictIncluded { get; }
+        public bool IsParentAddressTermsItemCreatable { get; }
         public Func<IParentAddressTerm, bool> IsParentAddressTermIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -789,6 +910,19 @@ namespace EdFi.Ods.Entities.Common.Sample
                 case "ParentAddressTerms":
                     return IsParentAddressTermsSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "ParentAddressSchoolDistricts":
+                    return IsParentAddressSchoolDistrictsItemCreatable;
+                case "ParentAddressTerms":
+                    return IsParentAddressTermsItemCreatable;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -839,6 +973,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -879,6 +1022,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "TermDescriptor":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -929,6 +1081,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -969,6 +1130,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CeilingHeight":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1039,6 +1209,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -1086,6 +1265,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ContentIdentifier":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1155,10 +1343,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isParentTeacherConferenceSupported,
             bool isPreferredWakeUpTimeSupported,
             bool isRainCertaintySupported,
+            bool isParentAuthorsItemCreatable,
             Func<IParentAuthor, bool> isParentAuthorIncluded,
+            bool isParentCeilingHeightsItemCreatable,
             Func<IParentCeilingHeight, bool> isParentCeilingHeightIncluded,
+            bool isParentEducationContentsItemCreatable,
             Func<IParentEducationContent, bool> isParentEducationContentIncluded,
+            bool isParentFavoriteBookTitlesItemCreatable,
             Func<IParentFavoriteBookTitle, bool> isParentFavoriteBookTitleIncluded,
+            bool isParentStudentProgramAssociationsItemCreatable,
             Func<IParentStudentProgramAssociation, bool> isParentStudentProgramAssociationIncluded
             )
         {
@@ -1180,10 +1373,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsParentTeacherConferenceSupported = isParentTeacherConferenceSupported;
             IsPreferredWakeUpTimeSupported = isPreferredWakeUpTimeSupported;
             IsRainCertaintySupported = isRainCertaintySupported;
+            IsParentAuthorsItemCreatable = isParentAuthorsItemCreatable;
             IsParentAuthorIncluded = isParentAuthorIncluded;
+            IsParentCeilingHeightsItemCreatable = isParentCeilingHeightsItemCreatable;
             IsParentCeilingHeightIncluded = isParentCeilingHeightIncluded;
+            IsParentEducationContentsItemCreatable = isParentEducationContentsItemCreatable;
             IsParentEducationContentIncluded = isParentEducationContentIncluded;
+            IsParentFavoriteBookTitlesItemCreatable = isParentFavoriteBookTitlesItemCreatable;
             IsParentFavoriteBookTitleIncluded = isParentFavoriteBookTitleIncluded;
+            IsParentStudentProgramAssociationsItemCreatable = isParentStudentProgramAssociationsItemCreatable;
             IsParentStudentProgramAssociationIncluded = isParentStudentProgramAssociationIncluded;
         }
 
@@ -1205,10 +1403,15 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsParentTeacherConferenceSupported { get; }
         public bool IsPreferredWakeUpTimeSupported { get; }
         public bool IsRainCertaintySupported { get; }
+        public bool IsParentAuthorsItemCreatable { get; }
         public Func<IParentAuthor, bool> IsParentAuthorIncluded { get; }
+        public bool IsParentCeilingHeightsItemCreatable { get; }
         public Func<IParentCeilingHeight, bool> IsParentCeilingHeightIncluded { get; }
+        public bool IsParentEducationContentsItemCreatable { get; }
         public Func<IParentEducationContent, bool> IsParentEducationContentIncluded { get; }
+        public bool IsParentFavoriteBookTitlesItemCreatable { get; }
         public Func<IParentFavoriteBookTitle, bool> IsParentFavoriteBookTitleIncluded { get; }
+        public bool IsParentStudentProgramAssociationsItemCreatable { get; }
         public Func<IParentStudentProgramAssociation, bool> IsParentStudentProgramAssociationIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -1257,6 +1460,25 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "ParentAuthors":
+                    return IsParentAuthorsItemCreatable;
+                case "ParentCeilingHeights":
+                    return IsParentCeilingHeightsItemCreatable;
+                case "ParentEducationContents":
+                    return IsParentEducationContentsItemCreatable;
+                case "ParentFavoriteBookTitles":
+                    return IsParentFavoriteBookTitlesItemCreatable;
+                case "ParentStudentProgramAssociations":
+                    return IsParentStudentProgramAssociationsItemCreatable;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -1297,6 +1519,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "FavoriteBookTitle":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1373,6 +1604,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -1427,6 +1667,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 case "StartTime":
                     return IsStartTimeSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1497,6 +1746,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -1549,6 +1807,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -1582,18 +1849,21 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isIsExemplarySupported,
             bool isSchoolCTEProgramSupported,
             bool isSchoolDirectlyOwnedBusesSupported,
+            bool isSchoolDirectlyOwnedBusesItemCreatable,
             Func<ISchoolDirectlyOwnedBus, bool> isSchoolDirectlyOwnedBusIncluded
             )
         {
             IsIsExemplarySupported = isIsExemplarySupported;
             IsSchoolCTEProgramSupported = isSchoolCTEProgramSupported;
             IsSchoolDirectlyOwnedBusesSupported = isSchoolDirectlyOwnedBusesSupported;
+            IsSchoolDirectlyOwnedBusesItemCreatable = isSchoolDirectlyOwnedBusesItemCreatable;
             IsSchoolDirectlyOwnedBusIncluded = isSchoolDirectlyOwnedBusIncluded;
         }
 
         public bool IsIsExemplarySupported { get; }
         public bool IsSchoolCTEProgramSupported { get; }
         public bool IsSchoolDirectlyOwnedBusesSupported { get; }
+        public bool IsSchoolDirectlyOwnedBusesItemCreatable { get; }
         public Func<ISchoolDirectlyOwnedBus, bool> IsSchoolDirectlyOwnedBusIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -1607,6 +1877,17 @@ namespace EdFi.Ods.Entities.Common.Sample
                 case "SchoolDirectlyOwnedBuses":
                     return IsSchoolDirectlyOwnedBusesSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "SchoolDirectlyOwnedBuses":
+                    return IsSchoolDirectlyOwnedBusesItemCreatable;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1645,18 +1926,21 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isFirstPetOwnedDateSupported,
             bool isStaffPetPreferenceSupported,
             bool isStaffPetsSupported,
+            bool isStaffPetsItemCreatable,
             Func<IStaffPet, bool> isStaffPetIncluded
             )
         {
             IsFirstPetOwnedDateSupported = isFirstPetOwnedDateSupported;
             IsStaffPetPreferenceSupported = isStaffPetPreferenceSupported;
             IsStaffPetsSupported = isStaffPetsSupported;
+            IsStaffPetsItemCreatable = isStaffPetsItemCreatable;
             IsStaffPetIncluded = isStaffPetIncluded;
         }
 
         public bool IsFirstPetOwnedDateSupported { get; }
         public bool IsStaffPetPreferenceSupported { get; }
         public bool IsStaffPetsSupported { get; }
+        public bool IsStaffPetsItemCreatable { get; }
         public Func<IStaffPet, bool> IsStaffPetIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -1670,6 +1954,17 @@ namespace EdFi.Ods.Entities.Common.Sample
                 case "StaffPets":
                     return IsStaffPetsSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StaffPets":
+                    return IsStaffPetsItemCreatable;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1721,6 +2016,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PetName":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1779,6 +2083,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -1829,6 +2142,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return true;
                 case "PetName":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1897,10 +2219,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isStudentArtProgramAssociationServicesSupported,
             bool isStudentArtProgramAssociationStylesSupported,
             bool isStudentReferenceSupported,
+            bool isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable,
             Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> isGeneralStudentProgramAssociationProgramParticipationStatusIncluded,
+            bool isStudentArtProgramAssociationArtMediaItemCreatable,
             Func<IStudentArtProgramAssociationArtMedium, bool> isStudentArtProgramAssociationArtMediumIncluded,
+            bool isStudentArtProgramAssociationPortfolioYearsItemCreatable,
             Func<IStudentArtProgramAssociationPortfolioYears, bool> isStudentArtProgramAssociationPortfolioYearsIncluded,
+            bool isStudentArtProgramAssociationServicesItemCreatable,
             Func<IStudentArtProgramAssociationService, bool> isStudentArtProgramAssociationServiceIncluded,
+            bool isStudentArtProgramAssociationStylesItemCreatable,
             Func<IStudentArtProgramAssociationStyle, bool> isStudentArtProgramAssociationStyleIncluded
             )
         {
@@ -1927,10 +2254,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsStudentArtProgramAssociationServicesSupported = isStudentArtProgramAssociationServicesSupported;
             IsStudentArtProgramAssociationStylesSupported = isStudentArtProgramAssociationStylesSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
+            IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable = isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = isGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
+            IsStudentArtProgramAssociationArtMediaItemCreatable = isStudentArtProgramAssociationArtMediaItemCreatable;
             IsStudentArtProgramAssociationArtMediumIncluded = isStudentArtProgramAssociationArtMediumIncluded;
+            IsStudentArtProgramAssociationPortfolioYearsItemCreatable = isStudentArtProgramAssociationPortfolioYearsItemCreatable;
             IsStudentArtProgramAssociationPortfolioYearsIncluded = isStudentArtProgramAssociationPortfolioYearsIncluded;
+            IsStudentArtProgramAssociationServicesItemCreatable = isStudentArtProgramAssociationServicesItemCreatable;
             IsStudentArtProgramAssociationServiceIncluded = isStudentArtProgramAssociationServiceIncluded;
+            IsStudentArtProgramAssociationStylesItemCreatable = isStudentArtProgramAssociationStylesItemCreatable;
             IsStudentArtProgramAssociationStyleIncluded = isStudentArtProgramAssociationStyleIncluded;
         }
 
@@ -1957,10 +2289,15 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsStudentArtProgramAssociationServicesSupported { get; }
         public bool IsStudentArtProgramAssociationStylesSupported { get; }
         public bool IsStudentReferenceSupported { get; }
+        public bool IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable { get; }
         public Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; }
+        public bool IsStudentArtProgramAssociationArtMediaItemCreatable { get; }
         public Func<IStudentArtProgramAssociationArtMedium, bool> IsStudentArtProgramAssociationArtMediumIncluded { get; }
+        public bool IsStudentArtProgramAssociationPortfolioYearsItemCreatable { get; }
         public Func<IStudentArtProgramAssociationPortfolioYears, bool> IsStudentArtProgramAssociationPortfolioYearsIncluded { get; }
+        public bool IsStudentArtProgramAssociationServicesItemCreatable { get; }
         public Func<IStudentArtProgramAssociationService, bool> IsStudentArtProgramAssociationServiceIncluded { get; }
+        public bool IsStudentArtProgramAssociationStylesItemCreatable { get; }
         public Func<IStudentArtProgramAssociationStyle, bool> IsStudentArtProgramAssociationStyleIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -2031,6 +2368,25 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "GeneralStudentProgramAssociationProgramParticipationStatuses":
+                    return IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
+                case "StudentArtProgramAssociationArtMedia":
+                    return IsStudentArtProgramAssociationArtMediaItemCreatable;
+                case "StudentArtProgramAssociationPortfolioYears":
+                    return IsStudentArtProgramAssociationPortfolioYearsItemCreatable;
+                case "StudentArtProgramAssociationServices":
+                    return IsStudentArtProgramAssociationServicesItemCreatable;
+                case "StudentArtProgramAssociationStyles":
+                    return IsStudentArtProgramAssociationStylesItemCreatable;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -2076,6 +2432,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -2116,6 +2481,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PortfolioYears":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2184,6 +2558,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -2224,6 +2607,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Style":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2282,6 +2674,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -2316,7 +2717,9 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isOnBusRouteSupported,
             bool isStudentEducationOrganizationAssociationAddressSchoolDistrictsSupported,
             bool isStudentEducationOrganizationAssociationAddressTermsSupported,
+            bool isStudentEducationOrganizationAssociationAddressSchoolDistrictsItemCreatable,
             Func<IStudentEducationOrganizationAssociationAddressSchoolDistrict, bool> isStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded,
+            bool isStudentEducationOrganizationAssociationAddressTermsItemCreatable,
             Func<IStudentEducationOrganizationAssociationAddressTerm, bool> isStudentEducationOrganizationAssociationAddressTermIncluded
             )
         {
@@ -2324,7 +2727,9 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsOnBusRouteSupported = isOnBusRouteSupported;
             IsStudentEducationOrganizationAssociationAddressSchoolDistrictsSupported = isStudentEducationOrganizationAssociationAddressSchoolDistrictsSupported;
             IsStudentEducationOrganizationAssociationAddressTermsSupported = isStudentEducationOrganizationAssociationAddressTermsSupported;
+            IsStudentEducationOrganizationAssociationAddressSchoolDistrictsItemCreatable = isStudentEducationOrganizationAssociationAddressSchoolDistrictsItemCreatable;
             IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded = isStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded;
+            IsStudentEducationOrganizationAssociationAddressTermsItemCreatable = isStudentEducationOrganizationAssociationAddressTermsItemCreatable;
             IsStudentEducationOrganizationAssociationAddressTermIncluded = isStudentEducationOrganizationAssociationAddressTermIncluded;
         }
 
@@ -2332,7 +2737,9 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsOnBusRouteSupported { get; }
         public bool IsStudentEducationOrganizationAssociationAddressSchoolDistrictsSupported { get; }
         public bool IsStudentEducationOrganizationAssociationAddressTermsSupported { get; }
+        public bool IsStudentEducationOrganizationAssociationAddressSchoolDistrictsItemCreatable { get; }
         public Func<IStudentEducationOrganizationAssociationAddressSchoolDistrict, bool> IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded { get; }
+        public bool IsStudentEducationOrganizationAssociationAddressTermsItemCreatable { get; }
         public Func<IStudentEducationOrganizationAssociationAddressTerm, bool> IsStudentEducationOrganizationAssociationAddressTermIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -2348,6 +2755,19 @@ namespace EdFi.Ods.Entities.Common.Sample
                 case "StudentEducationOrganizationAssociationAddressTerms":
                     return IsStudentEducationOrganizationAssociationAddressTermsSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentEducationOrganizationAssociationAddressSchoolDistricts":
+                    return IsStudentEducationOrganizationAssociationAddressSchoolDistrictsItemCreatable;
+                case "StudentEducationOrganizationAssociationAddressTerms":
+                    return IsStudentEducationOrganizationAssociationAddressTermsItemCreatable;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2398,6 +2818,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -2438,6 +2867,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "TermDescriptor":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2503,6 +2941,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -2531,14 +2978,17 @@ namespace EdFi.Ods.Entities.Common.Sample
     {
         public StudentEducationOrganizationAssociationStudentCharacteristicExtensionMappingContract(
             bool isStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsSupported,
+            bool isStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsItemCreatable,
             Func<IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed, bool> isStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded
             )
         {
             IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsSupported = isStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsSupported;
+            IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsItemCreatable = isStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsItemCreatable;
             IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded = isStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded;
         }
 
         public bool IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsSupported { get; }
+        public bool IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsItemCreatable { get; }
         public Func<IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed, bool> IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -2548,6 +2998,17 @@ namespace EdFi.Ods.Entities.Common.Sample
                 case "StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds":
                     return IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds":
+                    return IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsItemCreatable;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2610,6 +3071,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -2645,8 +3115,11 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isStudentFavoriteBooksSupported,
             bool isStudentPetPreferenceSupported,
             bool isStudentPetsSupported,
+            bool isStudentAquaticPetsItemCreatable,
             Func<IStudentAquaticPet, bool> isStudentAquaticPetIncluded,
+            bool isStudentFavoriteBooksItemCreatable,
             Func<IStudentFavoriteBook, bool> isStudentFavoriteBookIncluded,
+            bool isStudentPetsItemCreatable,
             Func<IStudentPet, bool> isStudentPetIncluded
             )
         {
@@ -2654,8 +3127,11 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsStudentFavoriteBooksSupported = isStudentFavoriteBooksSupported;
             IsStudentPetPreferenceSupported = isStudentPetPreferenceSupported;
             IsStudentPetsSupported = isStudentPetsSupported;
+            IsStudentAquaticPetsItemCreatable = isStudentAquaticPetsItemCreatable;
             IsStudentAquaticPetIncluded = isStudentAquaticPetIncluded;
+            IsStudentFavoriteBooksItemCreatable = isStudentFavoriteBooksItemCreatable;
             IsStudentFavoriteBookIncluded = isStudentFavoriteBookIncluded;
+            IsStudentPetsItemCreatable = isStudentPetsItemCreatable;
             IsStudentPetIncluded = isStudentPetIncluded;
         }
 
@@ -2663,8 +3139,11 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsStudentFavoriteBooksSupported { get; }
         public bool IsStudentPetPreferenceSupported { get; }
         public bool IsStudentPetsSupported { get; }
+        public bool IsStudentAquaticPetsItemCreatable { get; }
         public Func<IStudentAquaticPet, bool> IsStudentAquaticPetIncluded { get; }
+        public bool IsStudentFavoriteBooksItemCreatable { get; }
         public Func<IStudentFavoriteBook, bool> IsStudentFavoriteBookIncluded { get; }
+        public bool IsStudentPetsItemCreatable { get; }
         public Func<IStudentPet, bool> IsStudentPetIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -2680,6 +3159,21 @@ namespace EdFi.Ods.Entities.Common.Sample
                 case "StudentPets":
                     return IsStudentPetsSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentAquaticPets":
+                    return IsStudentAquaticPetsItemCreatable;
+                case "StudentFavoriteBooks":
+                    return IsStudentFavoriteBooksItemCreatable;
+                case "StudentPets":
+                    return IsStudentPetsItemCreatable;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2717,16 +3211,19 @@ namespace EdFi.Ods.Entities.Common.Sample
         public StudentFavoriteBookMappingContract(
             bool isBookTitleSupported,
             bool isStudentFavoriteBookArtMediaSupported,
+            bool isStudentFavoriteBookArtMediaItemCreatable,
             Func<IStudentFavoriteBookArtMedium, bool> isStudentFavoriteBookArtMediumIncluded
             )
         {
             IsBookTitleSupported = isBookTitleSupported;
             IsStudentFavoriteBookArtMediaSupported = isStudentFavoriteBookArtMediaSupported;
+            IsStudentFavoriteBookArtMediaItemCreatable = isStudentFavoriteBookArtMediaItemCreatable;
             IsStudentFavoriteBookArtMediumIncluded = isStudentFavoriteBookArtMediumIncluded;
         }
 
         public bool IsBookTitleSupported { get; }
         public bool IsStudentFavoriteBookArtMediaSupported { get; }
+        public bool IsStudentFavoriteBookArtMediaItemCreatable { get; }
         public Func<IStudentFavoriteBookArtMedium, bool> IsStudentFavoriteBookArtMediumIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -2740,6 +3237,17 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "FavoriteBookCategoryDescriptor":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentFavoriteBookArtMedia":
+                    return IsStudentFavoriteBookArtMediaItemCreatable;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2791,6 +3299,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "ArtMediumDescriptor":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2873,12 +3390,19 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isStudentGraduationPlanAssociationYearsAttendedsSupported,
             bool isStudentReferenceSupported,
             bool isTargetGPASupported,
+            bool isStudentGraduationPlanAssociationAcademicSubjectsItemCreatable,
             Func<IStudentGraduationPlanAssociationAcademicSubject, bool> isStudentGraduationPlanAssociationAcademicSubjectIncluded,
+            bool isStudentGraduationPlanAssociationCareerPathwayCodesItemCreatable,
             Func<IStudentGraduationPlanAssociationCareerPathwayCode, bool> isStudentGraduationPlanAssociationCareerPathwayCodeIncluded,
+            bool isStudentGraduationPlanAssociationDescriptionsItemCreatable,
             Func<IStudentGraduationPlanAssociationDescription, bool> isStudentGraduationPlanAssociationDescriptionIncluded,
+            bool isStudentGraduationPlanAssociationDesignatedBiesItemCreatable,
             Func<IStudentGraduationPlanAssociationDesignatedBy, bool> isStudentGraduationPlanAssociationDesignatedByIncluded,
+            bool isStudentGraduationPlanAssociationIndustryCredentialsItemCreatable,
             Func<IStudentGraduationPlanAssociationIndustryCredential, bool> isStudentGraduationPlanAssociationIndustryCredentialIncluded,
+            bool isStudentGraduationPlanAssociationStudentParentAssociationsItemCreatable,
             Func<IStudentGraduationPlanAssociationStudentParentAssociation, bool> isStudentGraduationPlanAssociationStudentParentAssociationIncluded,
+            bool isStudentGraduationPlanAssociationYearsAttendedsItemCreatable,
             Func<IStudentGraduationPlanAssociationYearsAttended, bool> isStudentGraduationPlanAssociationYearsAttendedIncluded
             )
         {
@@ -2902,12 +3426,19 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsStudentGraduationPlanAssociationYearsAttendedsSupported = isStudentGraduationPlanAssociationYearsAttendedsSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
             IsTargetGPASupported = isTargetGPASupported;
+            IsStudentGraduationPlanAssociationAcademicSubjectsItemCreatable = isStudentGraduationPlanAssociationAcademicSubjectsItemCreatable;
             IsStudentGraduationPlanAssociationAcademicSubjectIncluded = isStudentGraduationPlanAssociationAcademicSubjectIncluded;
+            IsStudentGraduationPlanAssociationCareerPathwayCodesItemCreatable = isStudentGraduationPlanAssociationCareerPathwayCodesItemCreatable;
             IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded = isStudentGraduationPlanAssociationCareerPathwayCodeIncluded;
+            IsStudentGraduationPlanAssociationDescriptionsItemCreatable = isStudentGraduationPlanAssociationDescriptionsItemCreatable;
             IsStudentGraduationPlanAssociationDescriptionIncluded = isStudentGraduationPlanAssociationDescriptionIncluded;
+            IsStudentGraduationPlanAssociationDesignatedBiesItemCreatable = isStudentGraduationPlanAssociationDesignatedBiesItemCreatable;
             IsStudentGraduationPlanAssociationDesignatedByIncluded = isStudentGraduationPlanAssociationDesignatedByIncluded;
+            IsStudentGraduationPlanAssociationIndustryCredentialsItemCreatable = isStudentGraduationPlanAssociationIndustryCredentialsItemCreatable;
             IsStudentGraduationPlanAssociationIndustryCredentialIncluded = isStudentGraduationPlanAssociationIndustryCredentialIncluded;
+            IsStudentGraduationPlanAssociationStudentParentAssociationsItemCreatable = isStudentGraduationPlanAssociationStudentParentAssociationsItemCreatable;
             IsStudentGraduationPlanAssociationStudentParentAssociationIncluded = isStudentGraduationPlanAssociationStudentParentAssociationIncluded;
+            IsStudentGraduationPlanAssociationYearsAttendedsItemCreatable = isStudentGraduationPlanAssociationYearsAttendedsItemCreatable;
             IsStudentGraduationPlanAssociationYearsAttendedIncluded = isStudentGraduationPlanAssociationYearsAttendedIncluded;
         }
 
@@ -2931,12 +3462,19 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsStudentGraduationPlanAssociationYearsAttendedsSupported { get; }
         public bool IsStudentReferenceSupported { get; }
         public bool IsTargetGPASupported { get; }
+        public bool IsStudentGraduationPlanAssociationAcademicSubjectsItemCreatable { get; }
         public Func<IStudentGraduationPlanAssociationAcademicSubject, bool> IsStudentGraduationPlanAssociationAcademicSubjectIncluded { get; }
+        public bool IsStudentGraduationPlanAssociationCareerPathwayCodesItemCreatable { get; }
         public Func<IStudentGraduationPlanAssociationCareerPathwayCode, bool> IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded { get; }
+        public bool IsStudentGraduationPlanAssociationDescriptionsItemCreatable { get; }
         public Func<IStudentGraduationPlanAssociationDescription, bool> IsStudentGraduationPlanAssociationDescriptionIncluded { get; }
+        public bool IsStudentGraduationPlanAssociationDesignatedBiesItemCreatable { get; }
         public Func<IStudentGraduationPlanAssociationDesignatedBy, bool> IsStudentGraduationPlanAssociationDesignatedByIncluded { get; }
+        public bool IsStudentGraduationPlanAssociationIndustryCredentialsItemCreatable { get; }
         public Func<IStudentGraduationPlanAssociationIndustryCredential, bool> IsStudentGraduationPlanAssociationIndustryCredentialIncluded { get; }
+        public bool IsStudentGraduationPlanAssociationStudentParentAssociationsItemCreatable { get; }
         public Func<IStudentGraduationPlanAssociationStudentParentAssociation, bool> IsStudentGraduationPlanAssociationStudentParentAssociationIncluded { get; }
+        public bool IsStudentGraduationPlanAssociationYearsAttendedsItemCreatable { get; }
         public Func<IStudentGraduationPlanAssociationYearsAttended, bool> IsStudentGraduationPlanAssociationYearsAttendedIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -2997,6 +3535,29 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentGraduationPlanAssociationAcademicSubjects":
+                    return IsStudentGraduationPlanAssociationAcademicSubjectsItemCreatable;
+                case "StudentGraduationPlanAssociationCareerPathwayCodes":
+                    return IsStudentGraduationPlanAssociationCareerPathwayCodesItemCreatable;
+                case "StudentGraduationPlanAssociationDescriptions":
+                    return IsStudentGraduationPlanAssociationDescriptionsItemCreatable;
+                case "StudentGraduationPlanAssociationDesignatedBies":
+                    return IsStudentGraduationPlanAssociationDesignatedBiesItemCreatable;
+                case "StudentGraduationPlanAssociationIndustryCredentials":
+                    return IsStudentGraduationPlanAssociationIndustryCredentialsItemCreatable;
+                case "StudentGraduationPlanAssociationStudentParentAssociations":
+                    return IsStudentGraduationPlanAssociationStudentParentAssociationsItemCreatable;
+                case "StudentGraduationPlanAssociationYearsAttendeds":
+                    return IsStudentGraduationPlanAssociationYearsAttendedsItemCreatable;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -3042,6 +3603,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -3082,6 +3652,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "CareerPathwayCode":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3152,6 +3731,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -3192,6 +3780,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "Description":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3242,6 +3839,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -3282,6 +3888,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "IndustryCredential":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3339,6 +3954,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -3384,6 +4008,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -3424,6 +4057,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisciplineDescriptor":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3497,10 +4139,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported,
             bool isStudentParentAssociationTelephoneSupported,
             bool isStudentReadSupported,
+            bool isStudentParentAssociationDisciplinesItemCreatable,
             Func<IStudentParentAssociationDiscipline, bool> isStudentParentAssociationDisciplineIncluded,
+            bool isStudentParentAssociationFavoriteBookTitlesItemCreatable,
             Func<IStudentParentAssociationFavoriteBookTitle, bool> isStudentParentAssociationFavoriteBookTitleIncluded,
+            bool isStudentParentAssociationHoursPerWeeksItemCreatable,
             Func<IStudentParentAssociationHoursPerWeek, bool> isStudentParentAssociationHoursPerWeekIncluded,
+            bool isStudentParentAssociationPagesReadsItemCreatable,
             Func<IStudentParentAssociationPagesRead, bool> isStudentParentAssociationPagesReadIncluded,
+            bool isStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsItemCreatable,
             Func<IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation, bool> isStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded
             )
         {
@@ -3524,10 +4171,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported = isStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported;
             IsStudentParentAssociationTelephoneSupported = isStudentParentAssociationTelephoneSupported;
             IsStudentReadSupported = isStudentReadSupported;
+            IsStudentParentAssociationDisciplinesItemCreatable = isStudentParentAssociationDisciplinesItemCreatable;
             IsStudentParentAssociationDisciplineIncluded = isStudentParentAssociationDisciplineIncluded;
+            IsStudentParentAssociationFavoriteBookTitlesItemCreatable = isStudentParentAssociationFavoriteBookTitlesItemCreatable;
             IsStudentParentAssociationFavoriteBookTitleIncluded = isStudentParentAssociationFavoriteBookTitleIncluded;
+            IsStudentParentAssociationHoursPerWeeksItemCreatable = isStudentParentAssociationHoursPerWeeksItemCreatable;
             IsStudentParentAssociationHoursPerWeekIncluded = isStudentParentAssociationHoursPerWeekIncluded;
+            IsStudentParentAssociationPagesReadsItemCreatable = isStudentParentAssociationPagesReadsItemCreatable;
             IsStudentParentAssociationPagesReadIncluded = isStudentParentAssociationPagesReadIncluded;
+            IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsItemCreatable = isStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsItemCreatable;
             IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded = isStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded;
         }
 
@@ -3551,10 +4203,15 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported { get; }
         public bool IsStudentParentAssociationTelephoneSupported { get; }
         public bool IsStudentReadSupported { get; }
+        public bool IsStudentParentAssociationDisciplinesItemCreatable { get; }
         public Func<IStudentParentAssociationDiscipline, bool> IsStudentParentAssociationDisciplineIncluded { get; }
+        public bool IsStudentParentAssociationFavoriteBookTitlesItemCreatable { get; }
         public Func<IStudentParentAssociationFavoriteBookTitle, bool> IsStudentParentAssociationFavoriteBookTitleIncluded { get; }
+        public bool IsStudentParentAssociationHoursPerWeeksItemCreatable { get; }
         public Func<IStudentParentAssociationHoursPerWeek, bool> IsStudentParentAssociationHoursPerWeekIncluded { get; }
+        public bool IsStudentParentAssociationPagesReadsItemCreatable { get; }
         public Func<IStudentParentAssociationPagesRead, bool> IsStudentParentAssociationPagesReadIncluded { get; }
+        public bool IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsItemCreatable { get; }
         public Func<IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation, bool> IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -3607,6 +4264,25 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentParentAssociationDisciplines":
+                    return IsStudentParentAssociationDisciplinesItemCreatable;
+                case "StudentParentAssociationFavoriteBookTitles":
+                    return IsStudentParentAssociationFavoriteBookTitlesItemCreatable;
+                case "StudentParentAssociationHoursPerWeeks":
+                    return IsStudentParentAssociationHoursPerWeeksItemCreatable;
+                case "StudentParentAssociationPagesReads":
+                    return IsStudentParentAssociationPagesReadsItemCreatable;
+                case "StudentParentAssociationStaffEducationOrganizationEmploymentAssociations":
+                    return IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsItemCreatable;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -3647,6 +4323,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "FavoriteBookTitle":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3697,6 +4382,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -3737,6 +4431,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PagesRead":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3801,6 +4504,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return true;
                 case "StaffUniqueId":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3877,6 +4589,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -3923,6 +4644,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "PetName":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3981,6 +4711,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -4028,6 +4767,15 @@ namespace EdFi.Ods.Entities.Common.Sample
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -4056,14 +4804,17 @@ namespace EdFi.Ods.Entities.Common.Sample
     {
         public StudentSectionAssociationExtensionMappingContract(
             bool isStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported,
+            bool isStudentSectionAssociationRelatedGeneralStudentProgramAssociationsItemCreatable,
             Func<IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, bool> isStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded
             )
         {
             IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported = isStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported;
+            IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsItemCreatable = isStudentSectionAssociationRelatedGeneralStudentProgramAssociationsItemCreatable;
             IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded = isStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded;
         }
 
         public bool IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported { get; }
+        public bool IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsItemCreatable { get; }
         public Func<IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, bool> IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -4073,6 +4824,17 @@ namespace EdFi.Ods.Entities.Common.Sample
                 case "StudentSectionAssociationRelatedGeneralStudentProgramAssociations":
                     return IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentSectionAssociationRelatedGeneralStudentProgramAssociations":
+                    return IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsItemCreatable;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -4141,6 +4903,15 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return true;
                 case "RelatedProgramTypeDescriptor":
                     return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
