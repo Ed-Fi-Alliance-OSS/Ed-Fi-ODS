@@ -11,6 +11,10 @@ on:
       calling_branch:
         required: true
         type: string
+      extension_path:
+        required: false
+        default: 'Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj'
+        type: string
     outputs:
       StandardVersions:
         description: "Standard Versions"
@@ -21,6 +25,7 @@ on:
 
 env:
   REF_NAME: ${{ inputs.calling_branch }}
+  EXTENSION_PATH: ${{ inputs.extension_path }}
 
 jobs:
   FindStandardAndExtensionVersions:
@@ -61,7 +66,8 @@ jobs:
        id: Set_ExtensionVersions
        working-directory: ./Ed-Fi-Extensions/
        run: |
-         $output = .\build.githubactions.ps1 ExtensionVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj"
+         $projectFile = Join-Path -Path "$env:GITHUB_WORKSPACE" -ChildPath "$env:EXTENSION_PATH"
+         $output = .\build.githubactions.ps1 ExtensionVersions -ProjectFile "$projectFile"
          Add-Content -Path $env:GITHUB_OUTPUT -Value "ExtensionVersions=$output"
          Write-host "ExtensionVersions is  $output"
        shell: pwsh
