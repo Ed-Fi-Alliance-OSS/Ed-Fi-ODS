@@ -41,13 +41,13 @@ namespace EdFi.Ods.CodeGen.Generators
             string json = JsonConvert.SerializeObject(
                 views,
                 Formatting.Indented,
-                new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore,  });
+                new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
 
             // Stubble produces all line endings in the processing of the mustache templates as LF (even on Windows),
             // and appends a blank line at the end of the file as well (so removing the extra CRLF from our DatabaseViews
             // template won't help). We need the line endings in the JSON to be LFs rather than CRLFs (as produced by
             // JSON.NET) to prevent issues around committing files with mixed-mode line endings.
-            return new {Views = json.ReplaceLineEndings("\n")};
+            return new { Views = json.ReplaceLineEndings("\n") };
         }
     }
 }
