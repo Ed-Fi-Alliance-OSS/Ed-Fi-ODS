@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 
 namespace EdFi.Ods.Common.Serialization;
