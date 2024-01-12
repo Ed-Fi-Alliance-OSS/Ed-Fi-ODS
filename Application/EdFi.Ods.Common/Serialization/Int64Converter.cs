@@ -100,19 +100,10 @@ public class Int64Converter : JsonConverter
         return typeof(Int64) == objectType;
     }
 
+    // Code based on Int64 handling in the ParseReadNumber method of JsonTextReader.cs in https://github.com/JamesNK/Newtonsoft.Json/
     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
     {
-        serializer.Serialize(writer, BigIntegerParse(value.ToString(), CultureInfo.InvariantCulture));
-    }
-
-    //  This implementation is based on the code for handling 64-bit integers in the Newtonsoft.Json core library. 
-    //  Keeping this call in a separate method allows the execution of ParseNumber in the cases where some versions
-    //  of Mono are missing the BigInteger.Parse method. 
-    //  See https://github.com/JamesNK/Newtonsoft.Json/blob/master/Src/Newtonsoft.Json/JsonTextReader.cs#L2256
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private static object BigIntegerParse(string number, CultureInfo culture)
-    {
-        return System.Numerics.BigInteger.Parse(number, culture);
+        serializer.Serialize(writer, System.Numerics.BigInteger.Parse(value.ToString(), CultureInfo.InvariantCulture));
     }
 
 }
