@@ -9199,7 +9199,7 @@
 									"response": []
 								},
 								{
-									"name": "Failure When Creating School With an Invalid SchoolId",
+									"name": "Creating School With an Invalid SchoolId Fails",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -9215,11 +9215,13 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"    pm.test(\"Status code is 400\", () => {",
-													"        pm.expect(pm.response.code).to.equal(400);",
-													"    });",
-													"    ",
-													"    pm.environment.set('known:school:id',pm.response.headers.one('Location').value.split(\"/\").pop());"
+													"pm.test(\"Status code is 400\", () => {",
+													"    pm.expect(pm.response.code).to.equal(400);",
+													"});",
+													"console.log(pm.response.json());",
+													"pm.test(\"The validationErrors response should include a validation message indicating an invalid Int64 value was provided for SchoolId\", () => {",
+													"    pm.expect(pm.response.json().validationErrors['$.schoolId'][0]).to.contain(\"not a valid System.Int64\");",
+													"});"
 												],
 												"type": "text/javascript"
 											}
