@@ -162,7 +162,7 @@ public class ProfileContentTypeContextMiddleware
                 {
                     await WriteResponse(
                         response,
-                        StatusCodes.Status424FailedDependency,
+                        StatusCodes.Status406NotAcceptable,
                         headerName,
                         MisconfiguredProfileFormat);
 

@@ -2339,8 +2339,8 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 424\", () => {",
-											"  pm.expect(pm.response.code).to.equal(424);",
+											"pm.test(\"Status code is 406\", () => {",
+											"  pm.expect(pm.response.code).to.equal(406);",
 											"});",
 											"",
 											"const problemDetails = pm.response.json();",
@@ -2392,7 +2392,7 @@
 										"{{known:school:id}}"
 									]
 								},
-								"description": "Scenario: The caller attempts to read a resource using a non-existing profile\r\n    Given the caller is using the \"Non-Existing\" profile\r\n    When a GET (by id) request is submitted to schools with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should contain a 406 Not Acceptable failure indicating that \"the profile specified by the content type is not supported by this host\"\r\n"
+								"description": "Scenario: The caller attempts to read a resource using a profile confgured with an unexisting resource.\r\n    Given the caller is using the misconfigured profile\r\n    When a GET (by id) request is submitted to schools with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should contain a 406 Not Acceptable failure indicating that \"The profile specified by the content type in the 'Accept' header is configured but invalid\""
 							},
 							"response": []
 						},
@@ -2403,8 +2403,8 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 424\", () => {",
-											"  pm.expect(pm.response.code).to.equal(424);",
+											"pm.test(\"Status code is 406\", () => {",
+											"  pm.expect(pm.response.code).to.equal(406);",
 											"});",
 											"",
 											"const problemDetails = pm.response.json();",
@@ -2456,7 +2456,7 @@
 										"{{known:school:id}}"
 									]
 								},
-								"description": "Scenario: The caller attempts to read a resource using a non-existing profile\r\n    Given the caller is using the \"Non-Existing\" profile\r\n    When a GET (by id) request is submitted to schools with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should contain a 406 Not Acceptable failure indicating that \"the profile specified by the content type is not supported by this host\"\r\n"
+								"description": "Scenario: The caller attempts to read a resource using a profile confgured with an unexisting property.\r\n    Given the caller is using the misconfigured profile\r\n    When a GET (by id) request is submitted to schools with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should contain a 406 Not Acceptable failure indicating that \"The profile specified by the content type in the 'Accept' header is configured but invalid\""
 							},
 							"response": []
 						}
@@ -2472,8 +2472,8 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 424\", () => {",
-											"  pm.expect(pm.response.code).to.equal(424);",
+											"pm.test(\"Status code is 406\", () => {",
+											"  pm.expect(pm.response.code).to.equal(406);",
 											"});",
 											"",
 											"const problemDetails = pm.response.json();",
@@ -2533,7 +2533,7 @@
 										"schools"
 									]
 								},
-								"description": "Scenario: The caller attempts to update a resource using a non-existing profile\r\n    Given the caller is using the \"Non-Existing\" profile\r\n    When a POST request with a resource is submitted to schools with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 415 Unsupported Media Type failure indicating that \"the profile specified by the content type is not supported by this host\""
+								"description": "Scenario: The caller attempts to update a resource using a profile confgured with an unexisting resource.\r\n    Given the caller is using the misconfigured profile\r\n    When a POST request with a resource is submitted to schools with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 406 Not Acceptable failure indicating that \"The profile specified by the content type in the 'Content-Type' header is configured but invalid\""
 							},
 							"response": []
 						},
@@ -2544,8 +2544,8 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 424\", () => {",
-											"  pm.expect(pm.response.code).to.equal(424);",
+											"pm.test(\"Status code is 406\", () => {",
+											"  pm.expect(pm.response.code).to.equal(406);",
 											"});",
 											"",
 											"const problemDetails = pm.response.json();",
@@ -2605,7 +2605,7 @@
 										"schools"
 									]
 								},
-								"description": "Scenario: The caller attempts to update a resource using a non-existing profile\r\n    Given the caller is using the \"Non-Existing\" profile\r\n    When a POST request with a resource is submitted to schools with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 415 Unsupported Media Type failure indicating that \"the profile specified by the content type is not supported by this host\""
+								"description": "Scenario: The caller attempts to update a resource using a profile confgured with an unexisting property.\r\n    Given the caller is using the misconfigured profile\r\n    When a POST request with a resource is submitted to schools with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 406 Not Acceptable failure indicating that \"The profile specified by the content type in the 'Content-Type' header is configured but invalid\""
 							},
 							"response": []
 						}
